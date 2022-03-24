@@ -1,0 +1,11 @@
+{
+  "name": "@ft-frontend-saksbehandling/types",
+  "version": "1.0.0",
+  "module": "index.jsx",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@ft-frontend-saksbehandling/kodeverk": "1.0.0",
+    "@ft-frontend-saksbehandling/types-avklar-aksjonspunkter": "1.0.0"
+  }
+}

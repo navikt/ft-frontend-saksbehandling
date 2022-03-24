@@ -1,0 +1,15 @@
+/.idea
+/.nyc_output/
+/jest_cache/
+.env
+/coverage/
+*.iml
+*.log*
+/node_modules
+dist
+lerna-debug.log
+.vscode
+.yarnrc
+ssh.exe.stackdump
+.DS_Store
+.eslintcache

@@ -1,0 +1,15 @@
+{
+  "name": "@ft-frontend-saksbehandling/utils",
+  "version": "1.0.0",
+  "module": "index.jsx",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@ft-frontend-saksbehandling/kodeverk": "1.0.0",
+    "@ft-frontend-saksbehandling/types": "1.0.0",
+    "dayjs": "1.11.0",
+    "moment": "2.29.1",
+    "react-intl": "5.24.7"
+  },
+  "devDependencies": {}
+}
