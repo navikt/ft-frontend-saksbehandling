@@ -1,0 +1,28 @@
+name: Valider pull request
+on: [pull_request]
+jobs:
+  valid-pull-request:
+    name: Valider pull request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hente kode
+        uses: actions/checkout@v2.4.0
+
+      - name: Sette opp Node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 17.x
+          registry-url: https://npm.pkg.github.com/
+          scope: '@navikt'
+          cache: 'yarn'
+
+      - name: Installere dependencies
+        run: yarn install --ignore-optional --no-progress --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Typescript and linting
+        run: yarn less:lint && yarn lint && yarn ts-check
+
+      - name: Run test and coverage
+        run: yarn test:coverage

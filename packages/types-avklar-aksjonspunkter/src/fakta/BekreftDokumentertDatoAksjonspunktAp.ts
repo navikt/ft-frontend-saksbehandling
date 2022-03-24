@@ -1,0 +1,10 @@
+import AksjonspunktKode from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+
+import AksjonspunktTilBekreftelse from '../AksjonspunktTilBekreftelse';
+
+type BekreftDokumentertDatoAksjonspunktAp = {
+  omsorgsovertakelseDato: string;
+  fodselsdatoer: Record<number, string>;
+} & AksjonspunktTilBekreftelse<AksjonspunktKode.ADOPSJONSDOKUMENTAJON>;
+
+export default BekreftDokumentertDatoAksjonspunktAp;
