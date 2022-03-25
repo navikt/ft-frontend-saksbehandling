@@ -14,13 +14,11 @@ import {
 import {
   InputField,
   RadioGroupField, RadioOption, TextAreaField,
-} from '@ft-frontend-saksbehandling/form';
+} from '@ft-frontend-saksbehandling/form-redux-legacy';
 
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+import { aktivitetStatus, isAksjonspunktOpen, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
@@ -31,7 +29,7 @@ const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
 export const varigEndringRadioname = 'erVarigEndretNaering';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
-const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE } = aksjonspunktCodes;
+const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE } = AksjonspunktCode;
 
 type OwnProps = {
     endretTekst?: React.ReactNode;

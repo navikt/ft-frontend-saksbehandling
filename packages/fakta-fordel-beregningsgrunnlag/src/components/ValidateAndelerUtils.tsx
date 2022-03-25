@@ -1,11 +1,11 @@
 import { IntlShape } from 'react-intl';
 
-import beregningsgrunnlagAndeltyper from '@ft-frontend-saksbehandling/kodeverk/src/beregningsgrunnlagAndeltyper';
-import AktivitetStatus, { aktivitetstatusTilAndeltypeMap } from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import {
+  beregningsgrunnlagAndeltyper, aktivitetStatus as AktivitetStatus, aktivitetstatusTilAndeltypeMap, KodeverkType,
+} from '@ft-frontend-saksbehandling/kodeverk';
 import {
   dateIsAfter, formatCurrencyNoKr, removeSpacesFromNumber, required,
 } from '@ft-frontend-saksbehandling/utils';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
 import { ArbeidsgiverOpplysningerPerId } from '@ft-frontend-saksbehandling/types';
 
 import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';

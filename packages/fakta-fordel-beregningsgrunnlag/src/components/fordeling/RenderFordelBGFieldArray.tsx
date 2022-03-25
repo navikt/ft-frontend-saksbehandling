@@ -7,28 +7,25 @@ import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { Image } from '@navikt/fp-react-components';
 
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import {
+  aktivitetStatus, behandlingType as bt, beregningsgrunnlagAndeltyper, KodeverkType, inntektskategorier, isSelvstendigNæringsdrivende,
+} from '@ft-frontend-saksbehandling/kodeverk';
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, getKodeverknavnFn,
 } from '@ft-frontend-saksbehandling/utils';
 import {
   Table, TableColumn, TableRow,
-} from '@ft-frontend-saksbehandling/shared-components';
-import bt from '@ft-frontend-saksbehandling/kodeverk/src/behandlingType';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
-  DecimalField, InputField, NavFieldGroup, PeriodpickerField, SelectField,
-} from '@ft-frontend-saksbehandling/form';
-import beregningsgrunnlagAndeltyper from '@ft-frontend-saksbehandling/kodeverk/src/beregningsgrunnlagAndeltyper';
-import inntektskategorier, { isSelvstendigNæringsdrivende } from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import addCircleIcon from '@ft-frontend-saksbehandling/assets/images/add-circle.svg';
+  DecimalField, InputField, NavFieldGroup, PeriodpickerField, SelectField, LabelType,
+} from '@ft-frontend-saksbehandling/form-redux-legacy';
 
 import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn, AlleKodeverk,
 } from '@ft-frontend-saksbehandling/types';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import LabelType from '@ft-frontend-saksbehandling/form/src/LabelType';
 import finnUnikeArbeidsforhold from '../FinnUnikeArbeidsforhold';
+import addCircleIcon from '../../images/add-circle.svg';
 import {
   validateAndeler, validateSumFastsattBelop, validateTotalRefusjonPrArbeidsforhold, validateUlikeAndeler,
   validateSumRefusjon, validateSumFastsattForUgraderteAktiviteter,
@@ -542,7 +539,7 @@ const mapStateToPropsFactory = (initialState: any, initialOwnProps: OwnProps) =>
     getKodeverknavn,
     arbeidsforholdList: finnUnikeArbeidsforhold(ownProps),
     harKunYtelse: initialOwnProps.beregningsgrunnlag.aktivitetStatus
-      .some((status) => status === aktivitetStatuser.KUN_YTELSE),
+      .some((status) => status === aktivitetStatus.KUN_YTELSE),
   });
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
 

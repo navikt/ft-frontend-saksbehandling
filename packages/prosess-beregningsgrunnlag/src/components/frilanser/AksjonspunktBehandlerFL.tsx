@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import { InputField } from '@ft-frontend-saksbehandling/form';
+import { InputField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import {
   formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required,
 } from '@ft-frontend-saksbehandling/utils';

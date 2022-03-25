@@ -10,11 +10,10 @@ import { FlexColumn, FlexRow } from '@navikt/fp-react-components';
 import {
   getKodeverknavnFn, dateFormat, formatCurrencyNoKr,
 } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { KodeverkType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import {
   VerticalSpacer, AvsnittSkiller,
-} from '@ft-frontend-saksbehandling/shared-components';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 
 import {
   AlleKodeverk,

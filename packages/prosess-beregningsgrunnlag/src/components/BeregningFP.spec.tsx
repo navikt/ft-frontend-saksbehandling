@@ -2,8 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { FormattedMessage } from 'react-intl';
 import { shallow } from 'enzyme/build';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
+import { aktivitetStatus, vilkarUtfallType } from '@ft-frontend-saksbehandling/kodeverk';
 import {
   Aksjonspunkt,
   AlleKodeverk,

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
 import { removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
 
 import {
@@ -34,7 +34,7 @@ export const TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING = 'begrunnDekningsgradEn
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.find(
   (ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS

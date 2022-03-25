@@ -11,7 +11,7 @@ import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 import {
   VerticalSpacer,
   Table, TableColumn, TableRow,
-} from '@ft-frontend-saksbehandling/shared-components';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 
 interface OwnProps {
   periode: BeregningsgrunnlagPeriodeProp;

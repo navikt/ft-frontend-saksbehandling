@@ -2,10 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
-import { InputField, PeriodpickerField, SelectField } from '@ft-frontend-saksbehandling/form';
+import { InputField, PeriodpickerField, SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { parseCurrencyInput } from '@ft-frontend-saksbehandling/utils';
-import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/shared-components';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
 import { FieldArrayFieldsProps } from 'redux-form';
 import { AlleKodeverk, KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
 import styles from './inntektFieldArray.less';
@@ -149,7 +149,7 @@ export const AndelRowImpl:FunctionComponent<OwnProps & WrappedComponentProps> = 
 };
 
 export const getInntektskategorierAlfabetiskSortert = createSelector(
-  [(ownProps: OwnProps) => ownProps.alleKodeverk[kodeverkTyper.INNTEKTSKATEGORI]],
+  [(ownProps: OwnProps) => ownProps.alleKodeverk[KodeverkType.INNTEKTSKATEGORI]],
   (kodeverkListe) => kodeverkListe.slice().sort((a, b) => a.navn.localeCompare(b.navn)),
 );
 

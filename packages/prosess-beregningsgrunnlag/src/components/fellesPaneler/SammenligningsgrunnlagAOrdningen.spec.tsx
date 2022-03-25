@@ -5,7 +5,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 
-import inntektAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/inntektAktivitetType';
+import { inntektAktivitetType } from '@ft-frontend-saksbehandling/kodeverk';
 import messages from '../../../i18n/nb_NO.json';
 import { SammenligningsgrunnlagAOrdningenImpl } from './SammenligningsgrunnlagAOrdningen';
 

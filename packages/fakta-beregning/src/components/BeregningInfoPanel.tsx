@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import { AksjonspunktCode, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 
 import { ArbeidsgiverOpplysningerPerId, AlleKodeverk } from '@ft-frontend-saksbehandling/types';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
@@ -19,7 +19,7 @@ const {
   VURDER_FAKTA_FOR_ATFL_SN,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 type OwnProps = {
   intl: IntlShape

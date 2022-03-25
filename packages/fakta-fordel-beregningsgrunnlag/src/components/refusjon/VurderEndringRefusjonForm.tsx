@@ -3,10 +3,8 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Undertittel } from 'nav-frontend-typografi';
-import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-import { FaktaBegrunnelseTextField, FaktaSubmitButton } from '@ft-frontend-saksbehandling/fakta-felles';
+import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { AksjonspunktCode, isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk';
 import { RefusjonTilVurderingAndel, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId } from '@ft-frontend-saksbehandling/types';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import VurderRefusjonBeregningsgrunnlagAP
@@ -14,13 +12,15 @@ import VurderRefusjonBeregningsgrunnlagAP
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import VurderRefusjonValues from '../../types/VurderRefusjonTsType';
+import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
+import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
 
 const BEGRUNNELSE_FIELD = 'VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE';
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const {
   VURDER_REFUSJON_BERGRUNN,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const finnAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]) : Aksjonspunkt | undefined => (aksjonspunkter
   ? aksjonspunkter.find((ap) => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined);

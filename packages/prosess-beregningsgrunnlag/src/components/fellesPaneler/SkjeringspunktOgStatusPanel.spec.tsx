@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { DateLabel } from '@ft-frontend-saksbehandling/shared-components';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
+import { DateLabel } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
 import { SkjeringspunktOgStatusPanelImpl } from './SkjeringspunktOgStatusPanel';
 

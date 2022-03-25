@@ -2,10 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
 import { Aksjonspunkt, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { RadioOption, RadioGroupField } from '@ft-frontend-saksbehandling/form';
-import dekningsgrad from '@ft-frontend-saksbehandling/kodeverk/src/dekningsgrad';
-import aksjonspunktStatus from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+import { dekningsgrad, AksjonspunktCode, aksjonspunktStatus } from '@ft-frontend-saksbehandling/kodeverk';
+import { RadioOption, RadioGroupField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { DekningsgradAksjonspunktPanelImpl } from './DekningsgradAksjonspunktPanel';
 import messages from '../../../i18n/nb_NO.json';
 
@@ -27,7 +25,7 @@ describe('<DekningsgradAksjonspunktPanel>', () => {
 
   it('Skal teste buildInitialValues når aksjonspunkt ikke er løst før', () => {
     const ap = {
-      definisjon: aksjonspunktCodes.VURDER_DEKNINGSGRAD,
+      definisjon: AksjonspunktCode.VURDER_DEKNINGSGRAD,
       status: aksjonspunktStatus.OPPRETTET,
     } as Aksjonspunkt;
     const bg = {
@@ -39,7 +37,7 @@ describe('<DekningsgradAksjonspunktPanel>', () => {
 
   it('Skal teste buildInitialValues når aksjonspunkt er løst', () => {
     const ap = {
-      definisjon: aksjonspunktCodes.VURDER_DEKNINGSGRAD,
+      definisjon: AksjonspunktCode.VURDER_DEKNINGSGRAD,
       status: aksjonspunktStatus.UTFORT,
       begrunnelse: 'Testing testing',
     } as Aksjonspunkt;
@@ -58,7 +56,7 @@ describe('<DekningsgradAksjonspunktPanel>', () => {
     };
     const transformedValues = DekningsgradAksjonspunktPanelImpl.transformValues(values);
     expect(transformedValues.begrunnelse).toBe('Dette er en test');
-    expect(transformedValues.kode).toBe(aksjonspunktCodes.VURDER_DEKNINGSGRAD);
+    expect(transformedValues.kode).toBe(AksjonspunktCode.VURDER_DEKNINGSGRAD);
     expect(transformedValues.dekningsgrad).toBe(80);
   });
 });

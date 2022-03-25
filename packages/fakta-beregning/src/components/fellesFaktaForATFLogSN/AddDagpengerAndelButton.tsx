@@ -5,12 +5,10 @@ import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { Image } from '@navikt/fp-react-components';
 
-import addCircleIcon from '@ft-frontend-saksbehandling/assets/images/add-circle.svg';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
+import { KodeverkType, aktivitetStatus, inntektskategorier } from '@ft-frontend-saksbehandling/kodeverk';
 import { FieldArrayFieldsProps } from 'redux-form';
 import { KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
+import addCircleIcon from '../../images/add-circle.svg';
 import styles from './addAndelButton.less';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
@@ -70,7 +68,7 @@ export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedCo
 const AddDagpengerAndelButton = injectIntl(AddDagpengerAndelButtonImpl);
 
 export const mapStateToProps = (state, ownProps) => {
-  const aktivitetStatuser = ownProps.alleKodeverk[kodeverkTyper.AKTIVITET_STATUS];
+  const aktivitetStatuser = ownProps.alleKodeverk[KodeverkType.AKTIVITET_STATUS];
   return {
     aktivitetStatuser,
   };

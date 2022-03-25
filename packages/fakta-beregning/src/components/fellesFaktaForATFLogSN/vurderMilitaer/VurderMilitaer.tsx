@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { required } from '@ft-frontend-saksbehandling/utils';
 import { FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
 import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';

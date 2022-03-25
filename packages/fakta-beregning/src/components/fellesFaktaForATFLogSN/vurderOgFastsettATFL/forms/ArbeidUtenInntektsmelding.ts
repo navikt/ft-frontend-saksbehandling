@@ -1,5 +1,5 @@
 import { removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
 import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
 import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './AvsluttetArbeidsforhold';

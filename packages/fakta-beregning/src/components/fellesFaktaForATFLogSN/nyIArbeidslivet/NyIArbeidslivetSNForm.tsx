@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { required } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
 

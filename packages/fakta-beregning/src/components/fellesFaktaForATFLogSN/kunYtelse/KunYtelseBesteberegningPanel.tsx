@@ -6,9 +6,9 @@ import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@ft-frontend-saksbehandling/konstanter';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { required } from '@ft-frontend-saksbehandling/utils';
-import { ArrowBox } from '@ft-frontend-saksbehandling/shared-components';
+import { ArrowBox } from '@ft-frontend-saksbehandling/ui-komponenter';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
 import { AlleKodeverk, KunYtelse } from '@ft-frontend-saksbehandling/types';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';

@@ -1,0 +1,18 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "command": {
+    "publish": {
+      "registry": "https://npm.pkg.github.com"
+    },
+    "bootstrap": {
+      "npmClientArgs": [
+        "--no-package-lock",
+        "--legacy-peer-deps"
+      ]
+    }
+  },
+  "packages": [
+    "packages/*"
+  ]
+}

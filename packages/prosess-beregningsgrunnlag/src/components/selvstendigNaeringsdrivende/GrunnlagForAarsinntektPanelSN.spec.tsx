@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Undertekst } from 'nav-frontend-typografi';
 
 import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 
 import { GrunnlagForAarsinntektPanelSN } from './GrunnlagForAarsinntektPanelSN';

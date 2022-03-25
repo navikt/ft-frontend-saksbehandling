@@ -5,7 +5,7 @@ import {
   ArbeidsgiverOpplysningerPerId, StandardFaktaPanelProps, Beregningsgrunnlag,
 } from '@ft-frontend-saksbehandling/types';
 import { createIntl } from '@ft-frontend-saksbehandling/utils';
-import { ReduxWrapper } from '@ft-frontend-saksbehandling/form';
+import { ReduxWrapper } from '@ft-frontend-saksbehandling/form-redux-legacy';
 
 import FordelBeregningsgrunnlagAP
   from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';

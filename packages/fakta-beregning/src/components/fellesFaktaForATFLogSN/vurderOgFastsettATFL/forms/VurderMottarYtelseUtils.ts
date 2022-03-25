@@ -1,4 +1,4 @@
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, VurderMottarYtelse } from '@ft-frontend-saksbehandling/types';
 import { AndelMottarYtelseMap } from '../../../../typer/AndelMottarYtelseMap';
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';

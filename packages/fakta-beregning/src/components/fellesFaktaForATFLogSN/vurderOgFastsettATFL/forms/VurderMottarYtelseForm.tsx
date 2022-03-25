@@ -2,17 +2,15 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { getKodeverknavnFn, removeSpacesFromNumber, required } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { KodeverkType, faktaOmBeregningTilfelle, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   ArbeidstakerUtenIMAndel, BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse,
 } from '@ft-frontend-saksbehandling/types';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
 import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
 import {
   andelsnrMottarYtelseMap,

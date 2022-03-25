@@ -1,5 +1,5 @@
 import moment from 'moment';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus as aktivitetStatuser } from '@ft-frontend-saksbehandling/kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@ft-frontend-saksbehandling/types';
 import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
 

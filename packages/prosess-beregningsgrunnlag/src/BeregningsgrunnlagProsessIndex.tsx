@@ -3,7 +3,7 @@ import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@ft-frontend-saksbehandling/utils';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@ft-frontend-saksbehandling/types';
-import { ReduxWrapper } from '@ft-frontend-saksbehandling/form';
+import { ReduxWrapper } from '@ft-frontend-saksbehandling/form-redux-legacy';
 
 import BeregningFP from './components/BeregningFP';
 import messages from '../i18n/nb_NO.json';

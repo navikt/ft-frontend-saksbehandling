@@ -9,7 +9,7 @@ import {
   AlleKodeverk,
 } from '@ft-frontend-saksbehandling/types';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
 
 import { FordelBeregningsgrunnlagPerioderTransformedValues }
   from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';

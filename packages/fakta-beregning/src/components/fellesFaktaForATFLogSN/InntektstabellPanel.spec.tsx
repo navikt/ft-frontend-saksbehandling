@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { OverstyringKnapp } from '@ft-frontend-saksbehandling/shared-components';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import { OverstyringKnapp } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
 
 import { InntektstabellPanelImpl } from './InntektstabellPanel';
 
 const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 describe('<InntektstabellPanel>', () => {
   it('skal vise checkbox for overstyring', () => {

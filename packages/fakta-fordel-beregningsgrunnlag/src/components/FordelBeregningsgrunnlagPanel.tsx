@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
 
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
 import { ArbeidsgiverOpplysningerPerId, AlleKodeverk } from '@ft-frontend-saksbehandling/types';
@@ -16,7 +16,7 @@ import FordelingForm from './FordelingForm';
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
   VURDER_REFUSJON_BERGRUNN,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const harFordelInfo = (bg: Beregningsgrunnlag): boolean => (bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false);
 

@@ -3,10 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { KodeverkType, AksjonspunktCode, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, getKodeverknavnFn } from '@ft-frontend-saksbehandling/utils';
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import {
@@ -18,7 +17,7 @@ import { createVisningsnavnForAktivitetFordeling } from './util/visningsnavnHelp
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const textCase = {
   GRADERING: 'GRADERING',

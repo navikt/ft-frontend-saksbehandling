@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus, faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
 import LonnsendringForm, { lonnsendringField } from './LonnsendringForm';
 

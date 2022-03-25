@@ -10,10 +10,8 @@ import { FlexColumn, FlexContainer, FlexRow } from '@navikt/fp-react-components'
 
 import {
   VerticalSpacer, OverstyringKnapp,
-} from '@ft-frontend-saksbehandling/shared-components';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
+import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
 
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import styles from './InntektstabellPanel.less';
@@ -24,7 +22,7 @@ export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringR
 const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   AVKLAR_AKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 type OwnProps = {
     children: React.ReactNode | React.ReactNode[];

@@ -2,8 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
 
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
@@ -19,7 +18,7 @@ const FORM_NAME = 'BeregningForm';
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const finnSnAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined => aksjonspunkter && aksjonspunkter.find(
   (ap) => ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE

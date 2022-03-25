@@ -1,5 +1,5 @@
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus as aktivitetStatuser } from '@ft-frontend-saksbehandling/kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@ft-frontend-saksbehandling/types';
 import {
   mapToBelop,

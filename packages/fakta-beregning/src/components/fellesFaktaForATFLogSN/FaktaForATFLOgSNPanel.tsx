@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { faktaOmBeregningTilfelle, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
 import { createSelector, createStructuredSelector } from 'reselect';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, KortvarigAndel,
 } from '@ft-frontend-saksbehandling/types';
@@ -40,7 +39,7 @@ import {
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const getFaktaOmBeregning = createSelector(
   [(ownProps: OwnProps) => ownProps.beregningsgrunnlag],

@@ -1,4 +1,4 @@
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
+import { inntektskategorier } from '@ft-frontend-saksbehandling/kodeverk';
 import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
 
 import KunYtelsePanel, { brukersAndelFieldArrayName } from './KunYtelsePanel';

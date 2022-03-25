@@ -1,11 +1,9 @@
 import React from 'react';
 
 import { shallowWithIntl, getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import opptjeningAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/opptjeningAktivitetType';
+import { AksjonspunktCode, KodeverkType, opptjeningAktivitetType } from '@ft-frontend-saksbehandling/kodeverk';
 import { reduxFormPropsMock } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@ft-frontend-saksbehandling/shared-components';
+import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { FaktaOmBeregning, AlleKodeverk, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
 
 import sinon from 'sinon';
@@ -25,10 +23,10 @@ const intlMock = getIntlMock(messages);
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const alleKodeverk = {
-  [kodeverkTyper.OPPTJENING_AKTIVITET_TYPE]: [{
+  [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [{
     kode: opptjeningAktivitetType.ARBEID,
     kodeverk: 'test',
     navn: 'Arbeid',

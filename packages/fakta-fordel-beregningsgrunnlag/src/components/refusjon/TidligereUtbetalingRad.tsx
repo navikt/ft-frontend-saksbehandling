@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/shared-components';
+import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { dateFormat, TIDENES_ENDE } from '@ft-frontend-saksbehandling/utils';
 import { Column, Row } from 'nav-frontend-grid';
 

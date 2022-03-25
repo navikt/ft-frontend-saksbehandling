@@ -1,4 +1,4 @@
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
 import { AndelFieldIdentifikator, InntektTransformed } from '../../../../typer/FieldValues';
 

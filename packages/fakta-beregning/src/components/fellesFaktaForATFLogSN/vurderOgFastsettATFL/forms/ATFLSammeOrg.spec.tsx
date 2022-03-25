@@ -2,9 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
+import { inntektskategorier, aktivitetStatus, faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import { FaktaOmBeregning, BeregningsgrunnlagArbeidsforhold, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
 import { ATFLSammeOrgTekst, transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
 

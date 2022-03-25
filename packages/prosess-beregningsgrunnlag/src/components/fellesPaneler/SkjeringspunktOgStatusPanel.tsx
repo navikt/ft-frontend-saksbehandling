@@ -7,8 +7,8 @@ import { EtikettInfo } from 'nav-frontend-etiketter';
 import { getKodeverknavnFn } from '@ft-frontend-saksbehandling/utils';
 import {
   DateLabel, VerticalSpacer, AvsnittSkiller,
-} from '@ft-frontend-saksbehandling/shared-components';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
+import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
 import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
 
 import styles from './skjeringspunktOgStatusPanel.less';

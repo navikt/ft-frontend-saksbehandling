@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { NavFieldGroup } from '@ft-frontend-saksbehandling/form';
+import { NavFieldGroup } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import {
   isArrayEmpty, removeSpacesFromNumber, required,
 } from '@ft-frontend-saksbehandling/utils';
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import { Table, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import {
+  inntektskategorier, KodeverkType, aktivitetStatus, faktaOmBeregningTilfelle,
+} from '@ft-frontend-saksbehandling/kodeverk';
+import { Table, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import {
   AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId,
@@ -315,7 +314,7 @@ InntektFieldArray.buildInitialValues = (andeler: AndelForFaktaOmBeregning[],
 
 export const mapStateToProps = (state, ownProps) => {
   const isBeregningFormDirty = isFormDirty(state);
-  const aktivitetStatuser = ownProps.alleKodeverk[kodeverkTyper.AKTIVITET_STATUS];
+  const aktivitetStatuser = ownProps.alleKodeverk[KodeverkType.AKTIVITET_STATUS];
   // @ts-ignore
   const skalHaBesteberegning = skalHaBesteberegningSelector(state) === true;
   const skalHaMilitær = getFormValuesForBeregning(state)[vurderMilitaerField];

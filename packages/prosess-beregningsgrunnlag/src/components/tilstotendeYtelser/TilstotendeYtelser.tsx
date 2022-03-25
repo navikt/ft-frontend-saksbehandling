@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 
 import { Column, Row } from 'nav-frontend-grid';
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
+import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus, { isStatusDagpengerOrAAP } from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus, isStatusDagpengerOrAAP } from '@ft-frontend-saksbehandling/kodeverk';
 import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';

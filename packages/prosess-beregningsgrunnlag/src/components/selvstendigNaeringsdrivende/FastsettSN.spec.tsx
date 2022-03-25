@@ -1,7 +1,6 @@
 import React from 'react';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import { AksjonspunktCode, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
 
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
@@ -30,7 +29,7 @@ const lagAndel = (status: string, fastsattBelop?: number): BeregningsgrunnlagAnd
 describe('<FastsettSN>', () => {
   it('Skal teste at det rendres riktig antall rader', () => {
     const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(
-      aksjonspunktCodes.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
+      AksjonspunktCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
       'Ok.',
     ) as Aksjonspunkt];
     const wrapper = shallowWithIntl(<FastsettSNImpl
@@ -47,7 +46,7 @@ describe('<FastsettSN>', () => {
   });
   it('Skal teste at buildInitialValues bygges korrekt når tidligere fastsatt', () => {
     const andeler = [lagAndel(aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, 300000), lagAndel(aktivitetStatus.ARBEIDSTAKER, 250000)];
-    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
       'Ok.') as Aksjonspunkt];
 
     const actualValues = FastsettSNImpl.buildInitialValuesNyIArbeidslivet(andeler, aksjonspunkter);
@@ -62,7 +61,7 @@ describe('<FastsettSN>', () => {
 
   it('Skal teste at buildInitialValues bygges korrekt når ikke tidligere fastsatt', () => {
     const andeler = [lagAndel(aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE), lagAndel(aktivitetStatus.ARBEIDSTAKER, 250000)];
-    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(aksjonspunktCodes.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)];
+    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(AksjonspunktCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)];
 
     const actualValues = FastsettSNImpl.buildInitialValuesNyIArbeidslivet(andeler, aksjonspunkter);
 
@@ -76,7 +75,7 @@ describe('<FastsettSN>', () => {
 
   it('Skal teste at buildInitialValues bygges korrekt når ikke tidligere fastsatt på sn ny i arbliv', () => {
     const andeler = [lagAndel(aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE), lagAndel(aktivitetStatus.ARBEIDSTAKER, 250000)];
-    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)];
+    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)];
 
     const actualValues = FastsettSNImpl.buildInitialValuesNyIArbeidslivet(andeler, aksjonspunkter);
     const expectedValues = {
@@ -89,7 +88,7 @@ describe('<FastsettSN>', () => {
 
   it('Skal teste at buildInitialValues bygges korrekt når ikke tidligere fastsatt på sn ny i arbliv - OK', () => {
     const andeler = [lagAndel(aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, 500000), lagAndel(aktivitetStatus.ARBEIDSTAKER, 250000)];
-    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, 'Ok!!!')];
+    const aksjonspunkter = [mockAksjonspunktMedKodeOgStatus(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, 'Ok!!!')];
 
     const actualValues = FastsettSNImpl.buildInitialValuesNyIArbeidslivet(andeler, aksjonspunkter);
 

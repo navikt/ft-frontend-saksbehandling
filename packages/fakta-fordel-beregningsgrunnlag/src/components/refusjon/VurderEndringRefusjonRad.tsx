@@ -11,7 +11,7 @@ import {
   formatCurrencyNoKr,
 } from '@ft-frontend-saksbehandling/utils';
 import { Column, Row } from 'nav-frontend-grid';
-import { DatepickerField, InputField } from '@ft-frontend-saksbehandling/form';
+import { DatepickerField, InputField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { FormattedMessage } from 'react-intl';
 
 import { Normaltekst } from 'nav-frontend-typografi';

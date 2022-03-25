@@ -1,11 +1,10 @@
 import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { AksjonspunktCode, faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
 
 const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 describe('<VurderBesteberegning>', () => {
   it('skal ikkje validere om man ikkje har tilfelle', () => {

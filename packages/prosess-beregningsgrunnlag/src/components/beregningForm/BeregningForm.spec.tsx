@@ -3,11 +3,10 @@ import sinon from 'sinon';
 import { shallow } from 'enzyme/build';
 
 import { reduxFormPropsMock } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import {
+  vilkarUtfallType, vilkarType, aktivitetStatus, AksjonspunktCode,
+} from '@ft-frontend-saksbehandling/kodeverk';
 
-import vilkarType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarType';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
 import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
 import {
   AlleKodeverk,
@@ -24,33 +23,33 @@ import BeregningsresultatTable from '../beregningsresultatPanel/Beregningsresult
 import messages from '../../../i18n/nb_NO.json';
 
 const apVurderDekningsgrad = {
-  definisjon: aksjonspunktCodes.VURDER_DEKNINGSGRAD,
+  definisjon: AksjonspunktCode.VURDER_DEKNINGSGRAD,
   status: 'OPPR',
   kanLoses: true,
   erAktivt: true,
 };
 const apFastsettBgATFL = {
-  definisjon: aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  definisjon: AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   status: 'UTFO',
   kanLoses: false,
   erAktivt: false,
 };
 
 const apVurderVarigEndretEllerNyoppstartetSN = {
-  definisjon: aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  definisjon: AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   status: 'OPPR',
   kanLoses: true,
   erAktivt: true,
 };
 
 const apFastsettBgSnNyIArbeidslivet = {
-  definisjon: aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+  definisjon: AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   status: 'OPPR',
   kanLoses: true,
   erAktivt: true,
 };
 const apFastsettBgTidsbegrensetArbeidsforhold = {
-  definisjon: aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  definisjon: AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   status: 'OPPR',
   kanLoses: true,
   erAktivt: true,

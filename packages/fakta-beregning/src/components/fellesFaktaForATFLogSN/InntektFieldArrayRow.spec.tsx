@@ -1,14 +1,12 @@
 import React from 'react';
 import { shallowWithIntl, getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
 import { MockFieldsWithContent } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/shared-components';
+import {
+  faktaOmBeregningTilfelle, aktivitetStatus as aktivitetStatuser, AksjonspunktCode, inntektskategorier, KodeverkType,
+} from '@ft-frontend-saksbehandling/kodeverk';
+import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
-import { InputField, PeriodpickerField, SelectField } from '@ft-frontend-saksbehandling/form';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { InputField, PeriodpickerField, SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
 import { AndelRowImpl, mapStateToProps } from './InntektFieldArrayRow';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
@@ -18,7 +16,7 @@ const intlMock = getIntlMock(messages);
 
 const aksjonspunkter = [
   {
-    definisjon: aksjonspunktCodes.VURDER_FAKTA_FOR_ATFL_SN,
+    definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
     status: 'OPPR',
   },
 ];
@@ -32,7 +30,7 @@ jest.mock('redux-form', () => {
 });
 
 const alleKodeverk = {
-  [kodeverkTyper.INNTEKTSKATEGORI]: [{
+  [KodeverkType.INNTEKTSKATEGORI]: [{
     kode: inntektskategorier.ARBEIDSTAKER,
     navn: 'Arbeidstaker',
     kodeverk: 'test',

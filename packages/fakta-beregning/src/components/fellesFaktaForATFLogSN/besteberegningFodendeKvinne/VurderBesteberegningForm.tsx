@@ -2,13 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import AktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import { AksjonspunktCode, aktivitetStatus, faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@ft-frontend-saksbehandling/konstanter';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { required } from '@ft-frontend-saksbehandling/utils';
 import { Aksjonspunkt, FaktaOmBeregning, VurderBesteberegning } from '@ft-frontend-saksbehandling/types';
 import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
@@ -22,7 +20,7 @@ export const besteberegningField = 'vurderbesteberegningField';
 
 const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 type OwnProps = {
     readOnly: boolean;
@@ -137,7 +135,7 @@ VurderBesteberegningPanelImpl.transformValues = (values: FaktaOmBeregningAksjons
       },
     }));
   const nyDagpengeAndel = inntektPrAndel
-    .find((a) => a.nyAndel && a.aktivitetStatus === AktivitetStatus.DAGPENGER);
+    .find((a) => a.nyAndel && a.aktivitetStatus === aktivitetStatus.DAGPENGER);
   return {
     besteberegningAndeler: {
       besteberegningAndelListe: transformedValues,

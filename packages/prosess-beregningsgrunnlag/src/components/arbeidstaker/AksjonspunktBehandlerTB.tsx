@@ -8,12 +8,14 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import {
   dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
 } from '@ft-frontend-saksbehandling/utils';
-import { InputField } from '@ft-frontend-saksbehandling/form';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+import { InputField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import {
+  aktivitetStatus,
+  KodeverkType,
+  AksjonspunktCode,
+  periodeAarsak,
+  isAksjonspunktOpen,
+} from '@ft-frontend-saksbehandling/kodeverk';
 
 import {
   Aksjonspunkt,
@@ -41,7 +43,7 @@ const formPrefix = 'inntektField';
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const finnAksjonspunktForFastsettBgTidsbegrensetAT = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => gjeldendeAksjonspunkter
   && (gjeldendeAksjonspunkter.find((ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD

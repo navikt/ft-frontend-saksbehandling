@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { FlexRow } from '@navikt/fp-react-components';
 
 import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 
 import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
 import AvviksopplysningerSN from './AvvikopplysningerSN';

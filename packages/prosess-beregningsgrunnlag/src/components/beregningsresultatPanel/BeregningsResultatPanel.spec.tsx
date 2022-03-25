@@ -2,7 +2,7 @@ import React from 'react';
 import Panel from 'nav-frontend-paneler';
 
 import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
+import { vilkarUtfallType } from '@ft-frontend-saksbehandling/kodeverk';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 
 import Vilkar from '@ft-frontend-saksbehandling/types/src/vilkarTsType';

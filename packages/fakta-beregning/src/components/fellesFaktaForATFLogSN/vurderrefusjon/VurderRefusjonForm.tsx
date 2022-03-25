@@ -1,9 +1,9 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { required } from '@ft-frontend-saksbehandling/utils';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   FaktaOmBeregning,

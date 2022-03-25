@@ -16,7 +16,7 @@ import {
   AlleKodeverk,
 } from '@ft-frontend-saksbehandling/types';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
 import RenderFordelBGFieldArray, { RenderFordelBGFieldArrayImpl } from './RenderFordelBGFieldArray';
 import {
   settAndelIArbeid, setGenerellAndelsinfo, setArbeidsforholdInitialValues, settFastsattBelop, finnFastsattPrAar,

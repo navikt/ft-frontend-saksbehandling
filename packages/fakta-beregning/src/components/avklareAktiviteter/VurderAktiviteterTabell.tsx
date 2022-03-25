@@ -5,17 +5,16 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
 import moment from 'moment';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import { RadioGroupField, RadioOption, DatepickerField } from '@ft-frontend-saksbehandling/form';
+import { KodeverkType, opptjeningAktivitetTyper } from '@ft-frontend-saksbehandling/kodeverk';
+import { RadioGroupField, RadioOption, DatepickerField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import {
   required, getKodeverknavnFn, DDMMYYYY_DATE_FORMAT, hasValidDate,
 } from '@ft-frontend-saksbehandling/utils';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import opptjeningAktivitetTyper from '@ft-frontend-saksbehandling/kodeverk/src/opptjeningAktivitetType';
 
 import {
   Table, TableRow, TableColumn, PeriodLabel, DateLabel, EditedIcon,
-} from '@ft-frontend-saksbehandling/shared-components';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, BeregningAktivitet, AlleKodeverk,
 } from '@ft-frontend-saksbehandling/types';

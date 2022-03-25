@@ -1,5 +1,5 @@
 import React from 'react';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,

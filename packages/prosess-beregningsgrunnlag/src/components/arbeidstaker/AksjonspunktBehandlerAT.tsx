@@ -2,12 +2,11 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { InputField } from '@ft-frontend-saksbehandling/form';
+import { InputField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import {
   getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber, required,
 } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { KodeverkType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 
 import {
   AlleKodeverk,

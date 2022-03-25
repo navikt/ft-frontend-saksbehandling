@@ -1,4 +1,4 @@
-import OpplysningAdresseType from '@ft-frontend-saksbehandling/kodeverk/src/opplysningAdresseType';
+import { OpplysningAdresseType } from '@ft-frontend-saksbehandling/kodeverk';
 
 import getAddresses from './getAddresses';
 

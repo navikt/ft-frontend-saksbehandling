@@ -4,8 +4,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { Column } from 'nav-frontend-grid';
 import { FlexRow } from '@navikt/fp-react-components';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import sammenligningType from '@ft-frontend-saksbehandling/kodeverk/src/sammenligningType';
+import { sammenligningType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
 import AvvikopplysningerATFLSN from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';

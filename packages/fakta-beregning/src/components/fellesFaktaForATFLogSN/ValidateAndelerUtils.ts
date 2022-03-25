@@ -1,5 +1,4 @@
-import beregningsgrunnlagAndeltyper from '@ft-frontend-saksbehandling/kodeverk/src/beregningsgrunnlagAndeltyper';
-import { aktivitetstatusTilAndeltypeMap } from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { beregningsgrunnlagAndeltyper, aktivitetstatusTilAndeltypeMap } from '@ft-frontend-saksbehandling/kodeverk';
 import { IntlShape } from 'react-intl';
 import { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue from '../../typer/FieldValues';

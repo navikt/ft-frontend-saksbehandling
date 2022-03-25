@@ -1,13 +1,10 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import vilkarType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarType';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
-import sammenligningType from '@ft-frontend-saksbehandling/kodeverk/src/sammenligningType';
+import {
+  AksjonspunktCode, vilkarType, vilkarUtfallType, periodeAarsak, faktaOmBeregningTilfelle,
+} from '@ft-frontend-saksbehandling/kodeverk';
 
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
 import Behandling from '@ft-frontend-saksbehandling/types/src/behandlingTsType';
 
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
@@ -15,7 +12,6 @@ import {
   Vilkar, BeregningsgrunnlagPeriodeProp, SammenligningsgrunlagProp, BeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold,
 } from '@ft-frontend-saksbehandling/types';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import inntektAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/inntektAktivitetType';
 import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
 
 import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';

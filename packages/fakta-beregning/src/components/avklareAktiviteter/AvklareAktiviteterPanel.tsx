@@ -11,12 +11,10 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Knapp } from 'nav-frontend-knapper';
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/fp-react-components';
 
-import { FaktaBegrunnelseTextField, FaktaSubmitButton } from '@ft-frontend-saksbehandling/fakta-felles';
 import {
   AksjonspunktHelpTextTemp, VerticalSpacer, OverstyringKnapp,
-} from '@ft-frontend-saksbehandling/shared-components';
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
+import { AksjonspunktCode, isAksjonspunktOpen, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, AvklarBeregningAktiviteterMap, AlleKodeverk,
@@ -26,6 +24,8 @@ import BeregningAktivitetAP, { AvklarBeregningsaktiviteterAP, OverstyrBeregnings
 import { formNameAvklarAktiviteter, getFormInitialValuesForAvklarAktiviteter, getFormValuesForAvklarAktiviteter } from '../BeregningFormUtils';
 import { erOverstyringAvBeregningsgrunnlag } from '../fellesFaktaForATFLogSN/BgFaktaUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
+import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
+import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
 
 import styles from './avklareAktiviteterPanel.less';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
@@ -33,7 +33,7 @@ import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 
@@ -244,6 +244,7 @@ export class AvklareAktiviteterPanelImpl extends Component<OwnProps & InjectedFo
     if (skalSkjuleKomponent(aksjonspunkter, kanOverstyre, erOverstyrt)) {
       return null;
     }
+    // @ts-ignore Fiks
     const avklarAktiviteter = getAvklarAktiviteter(this.props);
     const overskriftOgKnapp = (
       <FlexContainer>
@@ -409,8 +410,8 @@ const skalKunneOverstyre = (erOverstyrer: boolean,
 
 const getIsAksjonspunktClosed = createSelector([(ownProps: OwnProps) => ownProps.aksjonspunkter],
   (alleAp): boolean => {
-    const relevantOpenAps = alleAp.filter((ap) => ap.definisjon === aksjonspunktCodes.AVKLAR_AKTIVITETER
-    || ap.definisjon === aksjonspunktCodes.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
+    const relevantOpenAps = alleAp.filter((ap) => ap.definisjon === AksjonspunktCode.AVKLAR_AKTIVITETER
+    || ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
       .filter((ap) => isAksjonspunktOpen(ap.status));
     return relevantOpenAps.length === 0;
   });

@@ -3,9 +3,8 @@ import moment from 'moment';
 import { IntlShape } from 'react-intl';
 
 import { removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { BorderBox, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
+import { aktivitetStatus as aktivitetStatuser, periodeAarsak, KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
+import { BorderBox, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagPeriodeProp,
@@ -13,7 +12,6 @@ import {
   AlleKodeverk,
 } from '@ft-frontend-saksbehandling/types';
 import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
 import {
   FordelBeregningsgrunnlagPerioderTransformedValues,
   FordelBeregningsgrunnlagAndelTransformedValues,

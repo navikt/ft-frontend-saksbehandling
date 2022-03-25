@@ -2,11 +2,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
+import {
+  aktivitetStatus,
+  periodeAarsak,
+  AksjonspunktCode,
+  aksjonspunktStatus,
+} from '@ft-frontend-saksbehandling/kodeverk';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import aksjonspunktStatus from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
 import { AlleKodeverk, BeregningsgrunnlagPeriodeProp } from '@ft-frontend-saksbehandling/types';
 import {
   AksjonspunktBehandlerTidsbegrensetImpl as UnwrappedForm, createInputFieldKey, createTableData, getIsAksjonspunktClosed,
@@ -305,13 +307,13 @@ describe('<AksjonspunktBehandlerTB>', () => {
     const korrektApLukket = [{
       kanLoses: false,
       erAktivt: true,
-      definisjon: aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+      definisjon: AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
       status: aksjonspunktStatus.UTFORT,
     }];
     const korrektApApent = [{
       kanLoses: true,
       erAktivt: true,
-      definisjon: aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+      definisjon: AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
       status: aksjonspunktStatus.OPPRETTET,
     }];
     const selectorDataLukket = getIsAksjonspunktClosed.resultFunc(korrektApLukket);

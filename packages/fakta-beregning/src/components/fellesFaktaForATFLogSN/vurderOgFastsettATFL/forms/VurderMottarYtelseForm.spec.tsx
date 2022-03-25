@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
 
 import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { RadioGroupField } from '@ft-frontend-saksbehandling/form';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { RadioGroupField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 
 import {
   AlleKodeverk,

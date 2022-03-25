@@ -9,18 +9,17 @@ import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { Image } from '@navikt/fp-react-components';
 
-import { InputField, NavFieldGroup, SelectField } from '@ft-frontend-saksbehandling/form';
+import { InputField, NavFieldGroup, SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
 } from '@ft-frontend-saksbehandling/utils';
-import addCircleIcon from '@ft-frontend-saksbehandling/assets/images/add-circle.svg';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { KodeverkType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import {
   Table, TableColumn, TableRow, VerticalSpacer,
-} from '@ft-frontend-saksbehandling/shared-components';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 import { AlleKodeverk, KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
 
+import addCircleIcon from '../../../images/add-circle.svg';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { isBeregningFormDirty as isFormDirty } from '../../BeregningFormUtils';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';

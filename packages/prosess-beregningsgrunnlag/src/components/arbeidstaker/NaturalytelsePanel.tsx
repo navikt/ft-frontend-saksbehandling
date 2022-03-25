@@ -6,7 +6,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import {
   dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE,
 } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
+import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,

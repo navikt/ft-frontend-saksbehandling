@@ -13,7 +13,6 @@
 		"sourceMap": true,
 		"jsx": "react",
 		"typeRoots": ["./node_modules/@types", "./@types"],
-		"baseUrl": "packages/",
 		"skipLibCheck": true,
 	},
 	"include": [

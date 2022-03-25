@@ -4,8 +4,8 @@ import {
   Element, Normaltekst, Undertekst,
 } from 'nav-frontend-typografi';
 
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 
 import { Column, Row } from 'nav-frontend-grid';

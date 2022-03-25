@@ -1,7 +1,6 @@
-import vilkarType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarType';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import arbeidType from '@ft-frontend-saksbehandling/kodeverk/src/arbeidType';
-import avslagsarsakCodes from '@ft-frontend-saksbehandling/kodeverk/src/avslagsarsakCodes';
+import {
+  KodeverkType, avslagsarsakCodes, arbeidType, vilkarType,
+} from '@ft-frontend-saksbehandling/kodeverk';
 import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
 
 import { getKodeverknavnFn, getKodeverknavnFraKode } from './kodeverkUtils';

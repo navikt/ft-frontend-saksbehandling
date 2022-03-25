@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
 import {
   AndelForFaktaOmBeregning,

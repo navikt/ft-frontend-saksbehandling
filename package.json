@@ -28,11 +28,9 @@
     "remove-node-modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
     "lint:config": "node -e 'console.dir(require(\"./.eslintrc.js\"))'",
     "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 9002",
-    "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook"
+    "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook",
+    "bootstrap": "lerna bootstrap -- --legacy-peer-deps --no-package-lock"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "@babel/runtime": "^7.17.7",
     "@formatjs/intl-datetimeformat": "^5.0.0",
@@ -95,6 +93,7 @@
     "body-parser": "^1.19.2",
     "cache-loader": "^4.1.0",
     "circular-dependency-plugin": "^5.2.2",
+    "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "enzyme": "^3.11.0",

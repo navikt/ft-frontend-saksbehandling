@@ -9,7 +9,7 @@ import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl'
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@ft-frontend-saksbehandling/utils';
 import {
   VerticalSpacer, AvsnittSkiller, ReactECharts,
-} from '@ft-frontend-saksbehandling/shared-components';
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 import moment from 'moment';
 
 import {
@@ -17,7 +17,7 @@ import {
   InntektsgrunnlagInntekt,
   InntektsgrunnlagMåned,
 } from '@ft-frontend-saksbehandling/types';
-import inntektAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/inntektAktivitetType';
+import { inntektAktivitetType } from '@ft-frontend-saksbehandling/kodeverk';
 import styles from './sammenligningsgrunnlagAOrdningen.less';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import Lesmerpanel from '../redesign/LesmerPanel';

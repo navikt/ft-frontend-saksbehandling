@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/shared-components';
+import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
 import { getKanRedigereInntekt } from './BgFaktaUtils';
 

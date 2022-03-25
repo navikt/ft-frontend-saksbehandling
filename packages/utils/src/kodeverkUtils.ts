@@ -1,5 +1,5 @@
 import { AlleKodeverk, AlleKodeverkTilbakekreving } from '@ft-frontend-saksbehandling/types';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
 
 export const getKodeverknavnFraKode = (
   alleKodeverk: AlleKodeverk | AlleKodeverkTilbakekreving,

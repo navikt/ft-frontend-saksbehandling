@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import { DDMMYYYY_DATE_FORMAT, required } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagArbeidsforhold,

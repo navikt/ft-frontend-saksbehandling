@@ -1,7 +1,9 @@
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import organisasjonstyper from '@ft-frontend-saksbehandling/kodeverk/src/organisasjonstype';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import {
+  aktivitetStatus as aktivitetStatuser,
+  organisasjonstype as organisasjonstyper,
+  faktaOmBeregningTilfelle,
+  KodeverkType,
+} from '@ft-frontend-saksbehandling/kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag,
@@ -43,7 +45,7 @@ const arbeidstakerAndel1 = {
 };
 
 const alleKodeverk = {
-  [kodeverkTyper.AKTIVITET_STATUS]: [{
+  [KodeverkType.AKTIVITET_STATUS]: [{
     kode: aktivitetStatuser.ARBEIDSAVKLARINGSPENGER,
     kodeverk: 'AKTIVITET_STATUS',
     navn: 'Arbeidsavklaringspenger',

@@ -10,19 +10,16 @@ import {
   dateFormat,
   hasValidText, maxLength, minLength, required,
 } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import { ProsessStegSubmitButton } from '@ft-frontend-saksbehandling/prosess-felles';
-import { TextAreaField } from '@ft-frontend-saksbehandling/form';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { TextAreaField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@ft-frontend-saksbehandling/kodeverk';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@ft-frontend-saksbehandling/types';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
 import styles from './aksjonspunktBehandler.less';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
@@ -32,6 +29,7 @@ import AksjonspunktBehandlerSN from '../selvstendigNaeringsdrivende/Aksjonspunkt
 import ArbeidstakerFrilansValues from '../../types/ATFLAksjonspunktTsType';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import DekningsgradAksjonspunktPanel from './DekningsgradAksjonspunktPanel';
+import ProsessStegSubmitButton from '../../legacy/ProsessStegSubmitButton';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -50,10 +48,10 @@ const finnATFLVurderingLabel = (gjeldendeAksjonspunkter: Aksjonspunkt[]): ReactE
   return <FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />;
 };
 const finnGjeldeneAksjonsPunkt = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => {
-  const eksklusiveAksjonspunkter = [aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-    aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-    aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-    aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE] as string[];
+  const eksklusiveAksjonspunkter = [AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+    AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+    AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+    AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE] as string[];
   return aksjonspunkter.find((ap) => eksklusiveAksjonspunkter.includes(ap.definisjon));
 };
 
@@ -244,11 +242,11 @@ export const AksjonspunktBehandlerImpl: FunctionComponent<OwnProps & WrappedComp
       </div>
     );
   }
-  const atflAPKoder = [aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-    aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD] as string[];
+  const atflAPKoder = [AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+    AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD] as string[];
 
   const harATFLAP = aksjonspunkter.some((ap) => atflAPKoder.includes(ap.definisjon));
-  const harDekningsgradAP = aksjonspunkter.some((ap) => ap.definisjon === aksjonspunktCodes.VURDER_DEKNINGSGRAD);
+  const harDekningsgradAP = aksjonspunkter.some((ap) => ap.definisjon === AksjonspunktCode.VURDER_DEKNINGSGRAD);
   return (
     <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
       <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>

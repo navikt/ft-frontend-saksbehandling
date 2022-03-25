@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FlexRow } from '@navikt/fp-react-components';
 import { Column } from 'nav-frontend-grid';
-import sammenligningType from '@ft-frontend-saksbehandling/kodeverk/src/sammenligningType';
+import { sammenligningType } from '@ft-frontend-saksbehandling/kodeverk';
 import { SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
 import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';

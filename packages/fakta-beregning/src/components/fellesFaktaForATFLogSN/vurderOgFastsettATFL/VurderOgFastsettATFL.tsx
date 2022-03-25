@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { FieldArray } from 'redux-form';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { faktaOmBeregningTilfelle, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { createSelector } from 'reselect';
 import {
   ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse,

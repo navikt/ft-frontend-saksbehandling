@@ -1,7 +1,5 @@
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
+import { periodeAarsak, aktivitetStatus, vilkarUtfallType } from '@ft-frontend-saksbehandling/kodeverk';
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
 import { createBeregningTableData } from './BeregningsresultatTable';
 
 const vilkaarBG = {

@@ -13,11 +13,10 @@ import {
 } from '@ft-frontend-saksbehandling/utils';
 import {
   InputField, TextAreaField,
-} from '@ft-frontend-saksbehandling/form';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+} from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { aktivitetStatus, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
@@ -33,7 +32,7 @@ export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 type OwnProps = {
     endretTekst?: React.ReactNode;

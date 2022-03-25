@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { AlleKodeverk, BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktBehandlerAT from './AksjonspunktBehandlerAT';

@@ -4,10 +4,10 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
 import { FlexContainer } from '@navikt/fp-react-components';
 
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
+import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,

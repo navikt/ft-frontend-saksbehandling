@@ -1,10 +1,10 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import {
+  inntektskategorier, AksjonspunktCode, periodeAarsak,
+} from '@ft-frontend-saksbehandling/kodeverk';
 import FordelBeregningsgrunnlagFaktaIndex from '@ft-frontend-saksbehandling/fakta-fordel-beregningsgrunnlag';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
 import {
   Behandling, Beregningsgrunnlag, FaktaOmFordeling, ArbeidsforholdTilFordeling, BeregningsgrunnlagPeriodeProp, BeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode, FordelBeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold,
@@ -37,7 +37,7 @@ const merknaderFraBeslutter = {
 };
 
 const fordelAP = ([{
-  definisjon: aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG,
+  definisjon: AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
   status: 'OPPR',
   erAktivt: true,
   kanLoses: true,
@@ -208,7 +208,7 @@ export const arbeidOgGradertNæringUtenBeregningsgrunnlag = () => (
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+      [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
@@ -226,7 +226,7 @@ export const tilkommetArbeidMedFlyttingAvNaturalytelse = () => (
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+      [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
@@ -260,7 +260,7 @@ export const aapOgRefusjon = () => {
       behandling={behandling}
       alleKodeverk={alleKodeverk as any}
       alleMerknaderFraBeslutter={{
-        [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+        [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -295,7 +295,7 @@ export const kanEndreRefusjonskrav = () => {
       behandling={behandling}
       alleKodeverk={alleKodeverk as any}
       alleMerknaderFraBeslutter={{
-        [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+        [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -349,7 +349,7 @@ export const skalSlåSammenNaturalytelseperioder = () => {
       behandling={behandling}
       alleKodeverk={alleKodeverk as any}
       alleMerknaderFraBeslutter={{
-        [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+        [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -368,7 +368,7 @@ export const viseVurderTilkommetRefusjonskrav = () => (
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
+      [AksjonspunktCode.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
@@ -386,7 +386,7 @@ export const skalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
+      [AksjonspunktCode.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}

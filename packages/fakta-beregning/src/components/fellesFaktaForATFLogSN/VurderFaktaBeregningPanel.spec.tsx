@@ -1,5 +1,4 @@
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import aksjonspunktStatus from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+import { aksjonspunktStatus, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
 import { Aksjonspunkt } from '@ft-frontend-saksbehandling/types';
 import {
   BEGRUNNELSE_FAKTA_TILFELLER_NAME,
@@ -10,7 +9,7 @@ import {
 const {
   AVKLAR_AKTIVITETER,
   VURDER_FAKTA_FOR_ATFL_SN,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const avklarAktiviteterAp = {
   id: 1,

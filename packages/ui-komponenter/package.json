@@ -1,0 +1,93 @@
+{
+  "name": "@ft-frontend-saksbehandling/ui-komponenter",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+      "dist",
+      "index.js",
+      "package.json"
+  ],
+  "scripts": {
+    "build-webpack": "cross-env NODE_OPTIONS='--openssl-legacy-provider' webpack --config webpack.config.js",
+    "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
+    "build": "yarn build-webpack & yarn build-ts-declarations",
+    "clean": "rm -rf ./dist ./node_modules",
+    "test": "jest --passWithNoTests",
+    "ts-check": "tsc --pretty"
+  },
+  "dependencies": {
+    "@ft-frontend-saksbehandling/utils": "1.0.0",
+    "@navikt/fp-react-components": "1.0.12",
+    "classnames": "2.3.1",
+    "echarts": "5.3.1",
+    "moment": "2.29.1",
+    "nav-frontend-core": "6.0.1",
+    "nav-frontend-grid": "2.0.1",
+    "nav-frontend-grid-style": "1.0.2",
+    "nav-frontend-knapper": "3.1.2",
+    "nav-frontend-knapper-style": "2.1.1",
+    "nav-frontend-modal": "2.0.1",
+    "nav-frontend-modal-style": "2.0.1",
+    "nav-frontend-paneler": "3.0.1",
+    "nav-frontend-paneler-style": "2.0.1",
+    "nav-frontend-skjema": "4.0.5",
+    "nav-frontend-skjema-style": "3.0.2",
+    "nav-frontend-spinner": "3.0.1",
+    "nav-frontend-spinner-style": "1.0.2",
+    "nav-frontend-typografi": "4.0.1",
+    "nav-frontend-typografi-style": "2.0.1",
+    "react": "17.0.2",
+    "react-day-picker": "7.4.10",
+    "react-intl": "5.24.7",
+    "react-modal": "3.14.4"
+  },
+  "peerDependencies": {
+    "@ft-frontend-saksbehandling/utils": "1.0.0",
+    "@navikt/fp-react-components": "1.0.12",
+    "classnames": "2.3.1",
+    "echarts": "5.3.1",
+    "moment": "2.29.1",
+    "nav-frontend-core": "6.0.1",
+    "nav-frontend-grid": "2.0.1",
+    "nav-frontend-grid-style": "1.0.2",
+    "nav-frontend-knapper": "3.1.2",
+    "nav-frontend-knapper-style": "2.1.1",
+    "nav-frontend-modal": "2.0.1",
+    "nav-frontend-modal-style": "2.0.1",
+    "nav-frontend-paneler": "3.0.1",
+    "nav-frontend-paneler-style": "2.0.1",
+    "nav-frontend-skjema": "4.0.5",
+    "nav-frontend-skjema-style": "3.0.2",
+    "nav-frontend-spinner": "3.0.1",
+    "nav-frontend-spinner-style": "1.0.2",
+    "nav-frontend-typografi": "4.0.1",
+    "nav-frontend-typografi-style": "2.0.1",
+    "react": "17.0.2",
+    "react-day-picker": "7.4.10",
+    "react-intl": "5.24.7",
+    "react-modal": "3.14.4"
+  },
+  "devDependencies": {
+    "@ft-frontend-saksbehandling/utils-test": "1.0.0",
+    "@storybook/addon-actions": "6.4.19",
+    "@storybook/testing-react": "1.2.3",
+    "@testing-library/react": "12.1.4",
+    "@testing-library/user-event": "13.5.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "sinon": "13.0.1",
+    "typescript": "4.6.2",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+  }
+}
