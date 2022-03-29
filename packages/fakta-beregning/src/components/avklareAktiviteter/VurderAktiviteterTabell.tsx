@@ -5,7 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
 import moment from 'moment';
-import { KodeverkType, opptjeningAktivitetTyper } from '@ft-frontend-saksbehandling/kodeverk';
+import { KodeverkType, opptjeningAktivitetType as opptjeningAktivitetTyper } from '@ft-frontend-saksbehandling/kodeverk';
 import { RadioGroupField, RadioOption, DatepickerField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import {
   required, getKodeverknavnFn, DDMMYYYY_DATE_FORMAT, hasValidDate,

@@ -1,10 +1,10 @@
 import React, {
   FunctionComponent, useEffect, useCallback, useState,
 } from 'react';
-import { Image } from '@navikt/fp-react-components';
 
 import { createIntl } from '@ft-frontend-saksbehandling/utils';
 
+import Image from './Image';
 import keyImage from './images/key-1-rotert.svg';
 import keyUtgraetImage from './images/key-1-rotert-utgraet.svg';
 

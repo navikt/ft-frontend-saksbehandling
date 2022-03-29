@@ -12,7 +12,7 @@ const intl = createIntl({
 });
 
 export default {
-  title: 'sharedComponents/DateTimeLabel',
+  title: 'ui-komponenter/DateTimeLabel',
   component: DateTimeLabel,
 };
 

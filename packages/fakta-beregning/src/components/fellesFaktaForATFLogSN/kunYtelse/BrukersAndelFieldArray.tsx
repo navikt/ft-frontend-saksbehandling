@@ -7,7 +7,6 @@ import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import { createSelector } from 'reselect';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { Image } from '@navikt/fp-react-components';
 
 import { InputField, NavFieldGroup, SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
 import {
@@ -15,7 +14,7 @@ import {
 } from '@ft-frontend-saksbehandling/utils';
 import { KodeverkType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import {
-  Table, TableColumn, TableRow, VerticalSpacer,
+  Table, TableColumn, TableRow, VerticalSpacer, Image,
 } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { AlleKodeverk, KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
 

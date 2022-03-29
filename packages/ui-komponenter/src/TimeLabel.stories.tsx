@@ -2,12 +2,12 @@ import React from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@ft-frontend-saksbehandling/utils';
-import { TimeLabel } from '@ft-frontend-saksbehandling/ui-komponenter';
+import TimeLabel from './TimeLabel';
 
 const intl = createIntl({});
 
 export default {
-  title: 'sharedComponents/TimeLabel',
+  title: 'ui-komponenter/TimeLabel',
   component: TimeLabel,
 };
 

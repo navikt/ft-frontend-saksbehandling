@@ -2,7 +2,6 @@ import React, {
   FunctionComponent, ReactNode,
 } from 'react';
 import classnames from 'classnames/bind';
-import { Image } from '@navikt/fp-react-components';
 
 import { createIntl } from '@ft-frontend-saksbehandling/utils';
 
@@ -10,6 +9,7 @@ import pilOppIkonUrl from '../images/pil_opp.svg';
 import pilNedIkonUrl from '../images/pil_ned.svg';
 import TableColumn from './TableColumn';
 import TableRow from './TableRow';
+import Image from '../Image';
 
 import messages from '../../i18n/nb_NO.json';
 import FloatRight from '../FloatRight';

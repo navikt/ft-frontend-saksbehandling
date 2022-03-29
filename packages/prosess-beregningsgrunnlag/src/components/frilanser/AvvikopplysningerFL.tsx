@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { FlexRow } from '@navikt/fp-react-components';
 import { Column } from 'nav-frontend-grid';
 import { sammenligningType } from '@ft-frontend-saksbehandling/kodeverk';
+import { FlexRow } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
 import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';

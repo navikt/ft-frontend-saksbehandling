@@ -7,7 +7,7 @@ import PeriodLabel from './PeriodLabel';
 const intl = createIntl({});
 
 export default {
-  title: 'sharedComponents/PeriodLabel',
+  title: 'ui-komponenter/PeriodLabel',
   component: PeriodLabel,
 };
 

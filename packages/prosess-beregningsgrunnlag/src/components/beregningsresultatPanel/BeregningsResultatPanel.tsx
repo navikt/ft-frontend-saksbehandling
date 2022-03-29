@@ -1,14 +1,13 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { Image } from '@navikt/fp-react-components';
 
 import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 import {
   FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
 } from 'react-intl';
 import { vilkarUtfallType } from '@ft-frontend-saksbehandling/kodeverk';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { Image, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 
 import Panel from 'nav-frontend-paneler';
 import Vilkar from '@ft-frontend-saksbehandling/types/src/vilkarTsType';

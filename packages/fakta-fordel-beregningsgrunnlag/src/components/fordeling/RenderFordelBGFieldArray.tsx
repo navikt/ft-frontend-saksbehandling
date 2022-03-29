@@ -5,7 +5,6 @@ import {
 } from 'react-intl';
 import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { Image } from '@navikt/fp-react-components';
 
 import {
   aktivitetStatus, behandlingType as bt, beregningsgrunnlagAndeltyper, KodeverkType, inntektskategorier, isSelvstendigNæringsdrivende,
@@ -14,7 +13,7 @@ import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, getKodeverknavnFn,
 } from '@ft-frontend-saksbehandling/utils';
 import {
-  Table, TableColumn, TableRow,
+  Table, TableColumn, TableRow, Image,
 } from '@ft-frontend-saksbehandling/ui-komponenter';
 import {
   DecimalField, InputField, NavFieldGroup, PeriodpickerField, SelectField, LabelType,

@@ -3,7 +3,7 @@ import React from 'react';
 import AksjonspunktBox from './AksjonspunktBox';
 
 export default {
-  title: 'sharedComponents/AksjonspunktBox',
+  title: 'ui-komponenter/AksjonspunktBox',
   component: AksjonspunktBox,
 };
 

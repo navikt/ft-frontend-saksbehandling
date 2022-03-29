@@ -10,6 +10,6 @@ export { default as TextAreaField } from './src/TextAreaField';
 export { default as PeriodpickerField } from './src/PeriodpickerField';
 export { default as ReduxWrapper } from './src/ReduxWrapper';
 export { default as PeriodFieldArray } from './src/PeriodFieldArray';
-export { default as LabelType } from './src/LabelType';
+export type { default as LabelType } from './src/LabelType';
 
 export { default as hasBehandlingFormErrorsOfType } from './src/hasBehandlingFormErrorsOfType';

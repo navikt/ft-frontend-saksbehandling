@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import {
-  FlexColumn, FlexContainer, FlexRow,
-} from '@navikt/fp-react-components';
 
 import { range } from '@ft-frontend-saksbehandling/utils';
-import { EditedIcon } from '@ft-frontend-saksbehandling/ui-komponenter';
+import {
+  EditedIcon, FlexColumn, FlexContainer, FlexRow,
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 
 import styles from './optionGrid.less';
 

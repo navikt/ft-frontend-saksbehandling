@@ -5,14 +5,13 @@ import {
   Element, Normaltekst, Undertekst,
 } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { FlexColumn, FlexRow } from '@navikt/fp-react-components';
 
 import {
   getKodeverknavnFn, dateFormat, formatCurrencyNoKr,
 } from '@ft-frontend-saksbehandling/utils';
 import { KodeverkType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import {
-  VerticalSpacer, AvsnittSkiller,
+  VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
 } from '@ft-frontend-saksbehandling/ui-komponenter';
 
 import {

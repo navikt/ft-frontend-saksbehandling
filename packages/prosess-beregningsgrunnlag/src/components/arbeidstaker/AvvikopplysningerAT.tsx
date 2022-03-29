@@ -1,10 +1,10 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import { FlexRow } from '@navikt/fp-react-components';
 
 import { Column } from 'nav-frontend-grid';
 import { sammenligningType } from '@ft-frontend-saksbehandling/kodeverk';
+import { FlexRow } from '@ft-frontend-saksbehandling/ui-komponenter';
 
 import { SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';

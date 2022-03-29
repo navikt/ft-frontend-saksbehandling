@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { Image } from '@navikt/fp-react-components';
 
 import { KodeverkType, aktivitetStatus, inntektskategorier } from '@ft-frontend-saksbehandling/kodeverk';
+import { Image } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { FieldArrayFieldsProps } from 'redux-form';
 import { KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
 import addCircleIcon from '../../images/add-circle.svg';

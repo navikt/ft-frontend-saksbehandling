@@ -2,9 +2,11 @@ import React, { FunctionComponent } from 'react';
 import Modal from 'nav-frontend-modal';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/fp-react-components';
 
 import { createIntl } from '@ft-frontend-saksbehandling/utils';
+import FlexColumn from './flexGrid/FlexColumn';
+import FlexContainer from './flexGrid/FlexContainer';
+import FlexRow from './flexGrid/FlexRow';
 
 import VerticalSpacer from './VerticalSpacer';
 

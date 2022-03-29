@@ -5,8 +5,9 @@ import {
 import {
   FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
 } from 'react-intl';
-import { FlexColumn, FlexRow } from '@navikt/fp-react-components';
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
+import {
+  VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
+} from '@ft-frontend-saksbehandling/ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';

@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 
-import { Image } from '@navikt/fp-react-components';
-
+import Image from './Image';
 import endretFelt from './images/endret_felt.svg';
 import styles from './editedIcon.less';
 

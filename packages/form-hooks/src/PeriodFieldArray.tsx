@@ -2,9 +2,8 @@ import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { Image } from '@navikt/fp-react-components';
 
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { VerticalSpacer, Image } from '@ft-frontend-saksbehandling/ui-komponenter';
 import addCircleIcon from './images/add-circle.svg';
 
 import SkjemaGruppeMedFeilviser from './SkjemaGruppeMedFeilviser';

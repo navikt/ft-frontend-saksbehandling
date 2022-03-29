@@ -2,10 +2,9 @@ import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import React, { FunctionComponent, ReactNode } from 'react';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { Image } from '@navikt/fp-react-components';
 
 import { createIntl } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { VerticalSpacer, Image } from '@ft-frontend-saksbehandling/ui-komponenter';
 
 import NavFieldGroup from './NavFieldGroup';
 import addCircleIcon from './images/add-circle.svg';

@@ -3,7 +3,7 @@ import React from 'react';
 import Periodpicker from './Periodpicker';
 
 export default {
-  title: 'sharedComponents/Periodpicker',
+  title: 'ui-komponenter/Periodpicker',
   component: Periodpicker,
 };
 

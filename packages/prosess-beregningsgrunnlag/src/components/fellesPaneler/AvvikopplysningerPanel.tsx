@@ -2,9 +2,8 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import Panel from 'nav-frontend-paneler';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import { FlexContainer } from '@navikt/fp-react-components';
 
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { FlexContainer, VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';

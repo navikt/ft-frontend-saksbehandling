@@ -1,4 +1,4 @@
-import { faktaOmBeregningTilfelle, organisasjonstyper } from '@ft-frontend-saksbehandling/kodeverk';
+import { faktaOmBeregningTilfelle, organisasjonstype as organisasjonstyper } from '@ft-frontend-saksbehandling/kodeverk';
 import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 

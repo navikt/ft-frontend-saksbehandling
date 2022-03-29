@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const PACKAGES_DIR = path.resolve(__dirname, '../packages');
+const STORYBOOK_DIR = path.resolve(__dirname, '../.storybook');
 const IMAGE_DIR = path.join(PACKAGES_DIR, 'assets/images');
 const CORE_DIR = path.resolve(__dirname, '../node_modules');
 const CSS_DIR = path.join(PACKAGES_DIR, 'assets/styles');
@@ -97,7 +98,7 @@ module.exports = {
             },
           },
         }],
-      include: [CSS_DIR, CORE_DIR],
+      include: [CSS_DIR, STORYBOOK_DIR, CORE_DIR],
     }, {
       test: /\.(svg)$/,
       issuer: /\.less?$/,
@@ -105,7 +106,7 @@ module.exports = {
       generator: {
         filename: '[name]_[contenthash].[ext]',
       },
-      include: [IMAGE_DIR],
+      include: [PACKAGES_DIR],
     }, {
       test: /\.(svg)$/,
       issuer: /\.(tsx)?$/,
@@ -118,7 +119,7 @@ module.exports = {
           name: '[name]_[contenthash].[ext]',
         },
       }],
-      include: [IMAGE_DIR],
+      include: [PACKAGES_DIR],
       type: 'javascript/auto',
     },{
       test: /\.(svg)$/,
