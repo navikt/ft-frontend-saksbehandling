@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
-import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+import { FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
+import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 
 export const transformValuesForATFLISammeOrg = (inntektVerdier: InntektTransformed[],

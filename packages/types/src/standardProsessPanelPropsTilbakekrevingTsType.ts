@@ -1,4 +1,4 @@
-import { ProsessAksjonspunkt } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter';
+import { ProsessAksjonspunkt } from '@navikt/ft-types-aksjonspunkter';
 
 import Aksjonspunkt from './aksjonspunktTsType';
 import Behandling from './behandlingTsType';

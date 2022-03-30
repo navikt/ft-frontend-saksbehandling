@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { Aksjonspunkt, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
-import { dekningsgrad, AksjonspunktCode, aksjonspunktStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { RadioOption, RadioGroupField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { getIntlMock } from '@navikt/ft-utils-test';
+import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
+import { dekningsgrad, AksjonspunktCode, aksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { RadioOption, RadioGroupField } from '@navikt/ft-form-redux-legacy';
 import { DekningsgradAksjonspunktPanelImpl } from './DekningsgradAksjonspunktPanel';
 import messages from '../../../i18n/nb_NO.json';
 

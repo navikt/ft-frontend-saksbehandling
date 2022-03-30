@@ -1,12 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   Beregningsgrunnlag, BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
-} from '@ft-frontend-saksbehandling/types';
-import { AksjonspunktCode, aktivitetStatus, isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk';
+  Aksjonspunkt,
+} from '@navikt/ft-types';
+import { AksjonspunktCode, aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
 
 const {

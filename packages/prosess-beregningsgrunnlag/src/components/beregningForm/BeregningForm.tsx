@@ -2,13 +2,12 @@ import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { InjectedFormProps, reduxForm } from 'redux-form';
-
 import { createSelector } from 'reselect';
-import { faktaOmBeregningTilfelle, AksjonspunktCode, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { AvsnittSkiller, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
-
 import { Undertittel } from 'nav-frontend-typografi';
+
+import { faktaOmBeregningTilfelle, AksjonspunktCode, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AvsnittSkiller, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   Aksjonspunkt,
   AlleKodeverk,
@@ -20,7 +19,8 @@ import {
   SammenligningsgrunlagProp,
   Vilkar,
   YtelseGrunnlag,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
+
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
 import AvviksopplysningerPanel from '../fellesPaneler/AvvikopplysningerPanel';
 import SkjeringspunktOgStatusPanel from '../fellesPaneler/SkjeringspunktOgStatusPanel';

@@ -3,8 +3,8 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { createIntl } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer, Image } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { createIntl } from '@navikt/ft-utils';
+import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
 import NavFieldGroup from './NavFieldGroup';
 import addCircleIcon from './images/add-circle.svg';

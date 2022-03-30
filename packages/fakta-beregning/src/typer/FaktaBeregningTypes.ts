@@ -4,7 +4,7 @@ import {
   KortvarigAndel,
   KunYtelse, RefusjonskravSomKommerForSentListe, VurderBesteberegning,
   VurderMottarYtelse,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import AndelFieldValue from './FieldValues';
 
 export type TidsbegrensetandelValues = {

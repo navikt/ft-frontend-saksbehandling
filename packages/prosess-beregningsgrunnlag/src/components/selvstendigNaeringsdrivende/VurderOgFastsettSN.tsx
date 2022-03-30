@@ -2,10 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
-import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
+import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
 
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
 import VurderVarigEndretEllerNyoppstartetSN, { VurderVarigEndretEllerNyoppstartetSNImpl } from './VurderVarigEndretEllerNyoppstartetSN';
 import FastsettSN, { FastsettSNImpl } from './FastsettSN';
 import VurderVarigEndretTransformed, {

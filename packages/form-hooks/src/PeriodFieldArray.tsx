@@ -3,7 +3,7 @@ import { FieldArrayMethodProps } from 'react-hook-form';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { VerticalSpacer, Image } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 import addCircleIcon from './images/add-circle.svg';
 
 import SkjemaGruppeMedFeilviser from './SkjemaGruppeMedFeilviser';

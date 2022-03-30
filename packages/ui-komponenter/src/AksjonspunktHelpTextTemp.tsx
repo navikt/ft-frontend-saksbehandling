@@ -1,7 +1,7 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { isObject, createIntl } from '@ft-frontend-saksbehandling/utils';
+import { isObject, createIntl } from '@navikt/ft-utils';
 
 import AksjonspunktHelpTextHTML from './AksjonspunktHelpTextHTML';
 

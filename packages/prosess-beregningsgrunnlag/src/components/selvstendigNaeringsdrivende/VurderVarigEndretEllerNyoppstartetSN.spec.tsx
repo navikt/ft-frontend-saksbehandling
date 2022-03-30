@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { aktivitetStatus, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { aktivitetStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
 import messages from '../../../i18n/nb_NO.json';
 import {
   VurderVarigEndretEllerNyoppstartetSNImpl as UnwrappedForm,

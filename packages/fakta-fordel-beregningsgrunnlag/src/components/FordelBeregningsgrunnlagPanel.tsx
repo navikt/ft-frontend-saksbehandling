@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
 
-import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { ArbeidsgiverOpplysningerPerId, AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import {
+  Aksjonspunkt, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId, AlleKodeverk,
+} from '@navikt/ft-types';
+import { VurderRefusjonBeregningsgrunnlagAP, FordelBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
 
-import FordelBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';
-import VurderRefusjonBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/VurderRefusjonBeregningsgrunnlagAP';
 import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
 import FordelingForm from './FordelingForm';
 

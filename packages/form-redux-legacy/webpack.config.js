@@ -12,7 +12,7 @@ module.exports = {
     publicPath: '',
     filename: 'index.js',
     library: {
-      name: '@ft-frontend-saksbehandling/form-redux-legacy',
+      name: '@navikt/ft-form-redux-legacy',
       type: 'umd',
     },
   },
@@ -33,10 +33,18 @@ module.exports = {
           },
         }, {
           loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            modules: {
+              localIdentName: '[name]_[local]_[contenthash:base64:5]',
+            },
+          },
         }, {
           loader: 'less-loader',
           options: {
             lessOptions: {
+              modules: true,
+              localIdentName: '[name]_[local]_[contenthash:base64:5]',
               modifyVars: {
                 nodeModulesPath: '~',
                 coreModulePath: '~',

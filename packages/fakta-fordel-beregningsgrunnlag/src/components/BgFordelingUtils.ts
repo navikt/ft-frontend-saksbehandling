@@ -1,9 +1,9 @@
-import { inntektskategorier, aktivitetStatus, KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
+import { inntektskategorier, aktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId,
   FordelBeregningsgrunnlagAndel,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from './util/visningsnavnHelper';
 import {
   FordelBeregningsgrunnlagAndelValues,

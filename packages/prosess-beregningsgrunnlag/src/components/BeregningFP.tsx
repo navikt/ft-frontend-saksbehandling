@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertittel } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   vilkarType,
   AksjonspunktCode,
@@ -15,11 +15,10 @@ import {
   isStatusMilitaer,
   isStatusSNOrKombinasjon,
   isStatusTilstotendeYtelse,
-} from '@ft-frontend-saksbehandling/kodeverk';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId } from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import Vilkar from '@ft-frontend-saksbehandling/types/src/vilkarTsType';
+} from '@navikt/ft-kodeverk';
+import {
+  Vilkar, Beregningsgrunnlag, AlleKodeverk, ArbeidsgiverOpplysningerPerId, Aksjonspunkt,
+} from '@navikt/ft-types';
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
 import BeregningForm from './beregningForm/BeregningForm';
 import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';

@@ -5,8 +5,8 @@ import {
   AvklarBeregningAktiviteter,
   BeregningAktivitet,
   AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import { BeregningAktiviteterTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningAktivitetAP';
+} from '@navikt/ft-types';
+import { BeregningAktiviteterTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import VurderAktiviteterTabell, { lagAktivitetFieldId } from './VurderAktiviteterTabell';
 import AvklarAktiviteterValues, { AktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 

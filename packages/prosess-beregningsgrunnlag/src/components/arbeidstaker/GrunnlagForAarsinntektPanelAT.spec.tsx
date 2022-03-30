@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { FlexRow } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { dateFormat, formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { AlleKodeverk, BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { FlexRow } from '@navikt/ft-ui-komponenter';
+import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { AlleKodeverk, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import messages from '../../../i18n/nb_NO.json';

@@ -1,9 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
-import { FlexRow } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { SammenligningsgrunlagProp } from '@navikt/ft-types';
+import { FlexRow } from '@navikt/ft-ui-komponenter';
+
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AvviksopplysningerAT from './AvvikopplysningerAT';
 import messages from '../../../i18n/nb_NO.json';

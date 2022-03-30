@@ -3,12 +3,12 @@ import {
   organisasjonstype as organisasjonstyper,
   faktaOmBeregningTilfelle,
   KodeverkType,
-} from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag,
   BeregningsgrunnlagArbeidsforhold,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import {

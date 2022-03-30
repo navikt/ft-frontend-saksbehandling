@@ -1,5 +1,5 @@
-import { aksjonspunktStatus, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
-import { Aksjonspunkt } from '@ft-frontend-saksbehandling/types';
+import { aksjonspunktStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt } from '@navikt/ft-types';
 import {
   BEGRUNNELSE_FAKTA_TILFELLER_NAME,
   harIkkeEndringerIAvklarMedFlereAksjonspunkter,

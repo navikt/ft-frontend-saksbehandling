@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 
-import { BeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold } from '@ft-frontend-saksbehandling/types';
 import GrunnlagForAarsinntektPanelFL from './GrunnlagForAarsinntektPanelFL';
 import messages from '../../../i18n/nb_NO.json';
 

@@ -1,11 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { dateFormat, TIDENES_ENDE } from '@ft-frontend-saksbehandling/utils';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@ft-frontend-saksbehandling/types';
+import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
+
 import styles from './tidligereUtbetalinger.less';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 

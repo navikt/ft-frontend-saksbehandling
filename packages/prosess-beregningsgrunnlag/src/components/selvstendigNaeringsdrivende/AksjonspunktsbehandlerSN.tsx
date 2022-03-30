@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt } from '@navikt/ft-types';
 import VurderOgFastsettSN from './VurderOgFastsettSN';
 
 const {

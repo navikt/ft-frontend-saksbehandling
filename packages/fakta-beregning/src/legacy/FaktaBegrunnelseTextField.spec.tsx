@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { TextAreaField } from '@ft-frontend-saksbehandling/form-redux-legacy';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { TextAreaField } from '@navikt/ft-form-redux-legacy';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 
 import messages from '../../i18n/nb_NO.json';
 import FaktaBegrunnelseTextField from './FaktaBegrunnelseTextField';

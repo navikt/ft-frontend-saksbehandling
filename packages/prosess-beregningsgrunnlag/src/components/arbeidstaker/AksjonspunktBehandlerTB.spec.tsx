@@ -1,15 +1,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 import {
   aktivitetStatus,
   periodeAarsak,
   AksjonspunktCode,
   aksjonspunktStatus,
-} from '@ft-frontend-saksbehandling/kodeverk';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { AlleKodeverk, BeregningsgrunnlagPeriodeProp } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { AlleKodeverk, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import {
   AksjonspunktBehandlerTidsbegrensetImpl as UnwrappedForm, createInputFieldKey, createTableData, getIsAksjonspunktClosed,
 } from './AksjonspunktBehandlerTB';

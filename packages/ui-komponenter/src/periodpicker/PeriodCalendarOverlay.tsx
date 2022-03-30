@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DayPicker, { AfterModifier, BeforeModifier, Modifier } from 'react-day-picker';
 import moment from 'moment';
 
-import { getRelatedTargetIE11, isIE11, createIntl } from '@ft-frontend-saksbehandling/utils';
+import { getRelatedTargetIE11, isIE11, createIntl } from '@navikt/ft-utils';
 
 import messages from '../../i18n/nb_NO.json';
 

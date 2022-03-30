@@ -7,16 +7,15 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 
 import {
   dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
-} from '@ft-frontend-saksbehandling/utils';
-import { InputField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+} from '@navikt/ft-utils';
+import { InputField } from '@navikt/ft-form-redux-legacy';
 import {
   aktivitetStatus,
   KodeverkType,
   AksjonspunktCode,
   periodeAarsak,
   isAksjonspunktOpen,
-} from '@ft-frontend-saksbehandling/kodeverk';
-
+} from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
   AlleKodeverk,
@@ -24,10 +23,9 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
-} from '@ft-frontend-saksbehandling/types';
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
+} from '@navikt/ft-types';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import {
   TidsbegrenseArbeidsforholdInntektMap,
@@ -36,6 +34,8 @@ import {
   TidsbegrenseArbeidsforholdValues,
   TidsbegrensetArbeidsforholdPeriodeTransformedValues,
 } from '../../types/ATFLAksjonspunktTsType';
+
+import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 
 const formPrefix = 'inntektField';
 

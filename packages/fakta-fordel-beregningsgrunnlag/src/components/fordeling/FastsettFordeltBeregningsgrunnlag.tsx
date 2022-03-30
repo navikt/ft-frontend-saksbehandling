@@ -7,14 +7,12 @@ import {
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagPeriode,
   AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
+  Beregningsgrunnlag,
+} from '@navikt/ft-types';
+import { KodeverkType } from '@navikt/ft-kodeverk';
+import { FordelBeregningsgrunnlagPerioderTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 
-import { FordelBeregningsgrunnlagPerioderTransformedValues }
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
-
 import FordelBeregningsgrunnlagMedAksjonspunktValues, { FordelBeregningsgrunnlagValues } from '../../types/FordelingTsType';
 
 type OwnProps = {

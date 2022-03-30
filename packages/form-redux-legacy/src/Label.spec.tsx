@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { getIntlMock } from '@navikt/ft-utils-test/src/intl-enzyme-test-helper';
 import { Undertekst } from 'nav-frontend-typografi';
 
 import { Label } from './Label';

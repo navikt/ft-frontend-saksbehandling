@@ -1,13 +1,15 @@
 import React from 'react';
-import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { metaMock, MockFieldsWithContent } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import { shallowWithIntl, getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-
-import { SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
-import { TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AlleKodeverk, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
 import { Element } from 'nav-frontend-typografi';
-import { beregningsgrunnlagAndeltyper } from '@ft-frontend-saksbehandling/kodeverk';
+
+import { isRequiredMessage } from '@navikt/ft-utils';
+import {
+  shallowWithIntl, getIntlMock, metaMock, MockFieldsWithContent,
+} from '@navikt/ft-utils-test';
+import { SelectField } from '@navikt/ft-form-redux-legacy';
+import { TableRow } from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
+import { beregningsgrunnlagAndeltyper } from '@navikt/ft-kodeverk';
+
 import { skalIkkjeVereHoegereEnnRefusjonFraInntektsmelding } from '../ValidateAndelerUtils';
 import { lagBelopKolonne, RenderFordelBGFieldArrayImpl } from './RenderFordelBGFieldArray';
 import messages from '../../../i18n/nb_NO.json';

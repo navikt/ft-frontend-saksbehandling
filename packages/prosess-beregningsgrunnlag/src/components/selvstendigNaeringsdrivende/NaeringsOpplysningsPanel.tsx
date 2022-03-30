@@ -7,11 +7,11 @@ import {
 } from 'react-intl';
 import {
   VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
+} from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { dateFormat, formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import Lesmerpanel from '../redesign/LesmerPanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './naeringsOpplysningsPanel.less';

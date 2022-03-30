@@ -1,12 +1,13 @@
 import React from 'react';
-import { shallowWithIntl, getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { MockFieldsWithContent } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
+
+import { MockFieldsWithContent, shallowWithIntl, getIntlMock } from '@navikt/ft-utils-test';
 import {
   faktaOmBeregningTilfelle, aktivitetStatus as aktivitetStatuser, AksjonspunktCode, inntektskategorier, KodeverkType,
-} from '@ft-frontend-saksbehandling/kodeverk';
-import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
-import { InputField, PeriodpickerField, SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+} from '@navikt/ft-kodeverk';
+import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk } from '@navikt/ft-types';
+import { InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-redux-legacy';
+
 import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
 import { AndelRowImpl, mapStateToProps } from './InntektFieldArrayRow';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';

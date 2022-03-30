@@ -2,10 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import {
   decodeHtmlEntity, hasValidText, maxLength, minLength, required, createIntl,
-} from '@ft-frontend-saksbehandling/utils';
-import { TextAreaField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+} from '@navikt/ft-utils';
+import { TextAreaField } from '@navikt/ft-form-redux-legacy';
+import { Aksjonspunkt } from '@navikt/ft-types';
 
-import { Aksjonspunkt } from '@ft-frontend-saksbehandling/types';
 import styles from './faktaBegrunnelseTextField.less';
 import messages from '../../i18n/nb_NO.json';
 

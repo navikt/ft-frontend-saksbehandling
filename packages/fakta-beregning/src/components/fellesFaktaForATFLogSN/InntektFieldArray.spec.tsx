@@ -4,13 +4,14 @@ import {
   aktivitetStatus as aktivitetStatuser,
   AksjonspunktCode,
   KodeverkType,
-} from '@ft-frontend-saksbehandling/kodeverk';
-import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { metaMock, MockFieldsWithContent } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import { Table } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AlleKodeverk, FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+} from '@navikt/ft-kodeverk';
+import { isRequiredMessage } from '@navikt/ft-utils';
+import {
+  getIntlMock, shallowWithIntl, metaMock, MockFieldsWithContent,
+} from '@navikt/ft-utils-test';
+import { Table } from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk, FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
+
 import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { AndelRow } from './InntektFieldArrayRow';

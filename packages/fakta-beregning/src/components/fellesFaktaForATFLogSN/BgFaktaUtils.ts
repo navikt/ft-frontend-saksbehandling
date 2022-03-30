@@ -6,8 +6,8 @@ import {
   faktaOmBeregningTilfelle,
   AksjonspunktCode,
   KodeverkType,
-} from '@ft-frontend-saksbehandling/kodeverk';
-import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { createSelector } from 'reselect';
 import {
   AndelForFaktaOmBeregning,
@@ -16,7 +16,7 @@ import {
   Beregningsgrunnlag,
   ATFLSammeOrgAndel,
   AlleKodeverk, Aksjonspunkt,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';

@@ -2,7 +2,7 @@ import React, {
   FunctionComponent, useEffect, useCallback, useState,
 } from 'react';
 
-import { createIntl } from '@ft-frontend-saksbehandling/utils';
+import { createIntl } from '@navikt/ft-utils';
 
 import Image from './Image';
 import keyImage from './images/key-1-rotert.svg';

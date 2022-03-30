@@ -3,10 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {

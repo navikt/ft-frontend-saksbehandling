@@ -11,7 +11,7 @@ module.exports = {
     publicPath: '',
     filename: 'index.js',
     library: {
-      name: '@ft-frontend-saksbehandling/utils',
+      name: '@navikt/ft-utils',
       type: 'umd',
     },
   },

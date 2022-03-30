@@ -1,15 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
-import { injectIntl, WrappedComponentProps } from 'react-intl';
-import { InputField, PeriodpickerField, SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
-import { parseCurrencyInput } from '@ft-frontend-saksbehandling/utils';
-import { TableColumn, TableRow } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
 import { FieldArrayFieldsProps } from 'redux-form';
-import { AlleKodeverk, KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
-import styles from './inntektFieldArray.less';
+import { injectIntl, WrappedComponentProps } from 'react-intl';
+
+import { InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-redux-legacy';
+import { parseCurrencyInput } from '@navikt/ft-utils';
+import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { KodeverkType } from '@navikt/ft-kodeverk';
+import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
+
 import { getKanRedigereInntekt, getSkalRedigereInntektskategori } from './BgFaktaUtils';
+
+import styles from './inntektFieldArray.less';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
   const headerCodes = [];

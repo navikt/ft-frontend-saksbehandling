@@ -3,12 +3,13 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { FormattedMessage } from 'react-intl';
 
-import { KodeverkType, opptjeningAktivitetType } from '@ft-frontend-saksbehandling/kodeverk';
-import { RadioGroupField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { RadioGroupField } from '@navikt/ft-form-redux-legacy';
 import {
   Table, TableRow, TableColumn, EditedIcon,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk } from '@navikt/ft-types';
+
 import { VurderAktiviteterTabell, lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
 
 const aktivitet1 = {

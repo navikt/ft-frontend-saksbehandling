@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { shallowWithIntl, getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { AksjonspunktCode, KodeverkType, opptjeningAktivitetType } from '@ft-frontend-saksbehandling/kodeverk';
-import { reduxFormPropsMock } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { FaktaOmBeregning, AlleKodeverk, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { shallowWithIntl, getIntlMock, reduxFormPropsMock } from '@navikt/ft-utils-test';
+import { AksjonspunktCode, KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+import { FaktaOmBeregning, AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import sinon from 'sinon';
 import messages from '../../../i18n/nb_NO.json';

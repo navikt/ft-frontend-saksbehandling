@@ -3,13 +3,12 @@ import { action } from '@storybook/addon-actions';
 
 import {
   inntektskategorier, AksjonspunktCode, periodeAarsak,
-} from '@ft-frontend-saksbehandling/kodeverk';
-import FordelBeregningsgrunnlagFaktaIndex from '@ft-frontend-saksbehandling/fakta-fordel-beregningsgrunnlag';
+} from '@navikt/ft-kodeverk';
 import {
   Behandling, Beregningsgrunnlag, FaktaOmFordeling, ArbeidsforholdTilFordeling, BeregningsgrunnlagPeriodeProp, BeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode, FordelBeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold,
-} from '@ft-frontend-saksbehandling/types';
-import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
+} from '@navikt/ft-types';
+import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
 import { beregningsgrunnlag as bgMedNaturalytelse, aksjonspunkt as apMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import { beregningsgrunnlag as bgArbeidOgGradertNæring, aksjonspunkt as apArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
@@ -18,6 +17,7 @@ import {
   bgMedDelvisRefusjon as vurderDelvisRefBG,
   aksjonspunkt as vurderRefusjonAP,
 } from '../testdata/VurderRefusjon';
+import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaIndex';
 
 type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 

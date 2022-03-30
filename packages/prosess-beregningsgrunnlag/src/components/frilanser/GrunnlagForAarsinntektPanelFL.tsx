@@ -2,10 +2,12 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { DateLabel, VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { dateFormat, formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+
+import { DateLabel, VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {

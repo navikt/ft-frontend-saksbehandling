@@ -1,9 +1,8 @@
 import React from 'react';
 import sinon from 'sinon';
 
-import Behandling from '@ft-frontend-saksbehandling/types/src/behandlingTsType';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { AlleKodeverk, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { Behandling, AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';
 import messages from '../i18n/nb_NO.json';

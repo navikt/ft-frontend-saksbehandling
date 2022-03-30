@@ -5,27 +5,29 @@ import { FormattedMessage, IntlShape } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Element } from 'nav-frontend-typografi';
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
+
 import {
   DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT,
   formatCurrencyNoKr,
-} from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp, FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
   AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
+  Beregningsgrunnlag,
+} from '@navikt/ft-types';
+import { KodeverkType } from '@navikt/ft-kodeverk';
+
 import RenderFordelBGFieldArray, { RenderFordelBGFieldArrayImpl } from './RenderFordelBGFieldArray';
 import {
   settAndelIArbeid, setGenerellAndelsinfo, setArbeidsforholdInitialValues, settFastsattBelop, finnFastsattPrAar,
 } from '../BgFordelingUtils';
-
-import styles from './fordelBeregningsgrunnlagPeriodePanel.less';
 import {
   FordelBeregningsgrunnlagAndelValues, PeriodeTsType,
 } from '../../types/FordelingTsType';
+
+import styles from './fordelBeregningsgrunnlagPeriodePanel.less';
 
 const classNames = classnames.bind(styles);
 

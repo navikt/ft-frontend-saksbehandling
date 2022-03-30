@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
 import {
@@ -10,17 +11,14 @@ import {
   parseCurrencyInput,
   formatCurrencyNoKr,
   removeSpacesFromNumber,
-} from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-utils';
 import {
   InputField,
   RadioGroupField, RadioOption, TextAreaField,
-} from '@ft-frontend-saksbehandling/form-redux-legacy';
-
-import { aktivitetStatus, isAksjonspunktOpen, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+} from '@navikt/ft-form-redux-legacy';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { aktivitetStatus, isAksjonspunktOpen, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import VurderVarigEndretTransformed, { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 

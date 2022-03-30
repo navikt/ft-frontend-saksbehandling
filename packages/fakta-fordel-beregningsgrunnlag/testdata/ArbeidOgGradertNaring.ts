@@ -1,4 +1,4 @@
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FordelBeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = {
   skjaeringstidspunktBeregning: '2019-03-05',

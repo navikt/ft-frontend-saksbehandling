@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
 
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { DateLabel } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { DateLabel } from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk } from '@navikt/ft-types';
 import { SkjeringspunktOgStatusPanelImpl } from './SkjeringspunktOgStatusPanel';
 
 const skjeringstidspunktDato = '2017-12-12';

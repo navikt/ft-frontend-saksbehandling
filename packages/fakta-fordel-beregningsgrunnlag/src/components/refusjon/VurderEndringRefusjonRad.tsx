@@ -1,4 +1,10 @@
 import React, { FunctionComponent } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { formValueSelector } from 'redux-form';
+import { Normaltekst } from 'nav-frontend-typografi';
+import { Column, Row } from 'nav-frontend-grid';
+
 import {
   dateFormat,
   hasValidDate,
@@ -9,19 +15,14 @@ import {
   maxValueFormatted,
   removeSpacesFromNumber,
   formatCurrencyNoKr,
-} from '@ft-frontend-saksbehandling/utils';
-import { Column, Row } from 'nav-frontend-grid';
-import { DatepickerField, InputField } from '@ft-frontend-saksbehandling/form-redux-legacy';
-import { FormattedMessage } from 'react-intl';
+} from '@navikt/ft-utils';
+import { DatepickerField, InputField } from '@navikt/ft-form-redux-legacy';
+import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
+import { VurderRefusjonAndelTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 
-import { Normaltekst } from 'nav-frontend-typografi';
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@ft-frontend-saksbehandling/types';
-import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
-import { VurderRefusjonAndelTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/VurderRefusjonBeregningsgrunnlagAP';
-import styles from './vurderEndringRefusjonRad.less';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 import VurderRefusjonValues from '../../types/VurderRefusjonTsType';
+import styles from './vurderEndringRefusjonRad.less';
 
 const FIELD_KEY_REFUSJONSTART = 'REFUSJON_ENDRING_DATO';
 const FIELD_KEY_DELVIS_REF = 'DELVIS_REFUSJON_FØR_START_BELØP';

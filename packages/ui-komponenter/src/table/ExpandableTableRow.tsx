@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import classnames from 'classnames/bind';
 
-import { createIntl } from '@ft-frontend-saksbehandling/utils';
+import { createIntl } from '@navikt/ft-utils';
 
 import pilOppIkonUrl from '../images/pil_opp.svg';
 import pilNedIkonUrl from '../images/pil_ned.svg';

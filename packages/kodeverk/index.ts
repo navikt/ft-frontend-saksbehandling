@@ -30,3 +30,4 @@ export { default as fagsakYtelseType } from './src/fagsakYtelseType';
 export { default as sammenligningType } from './src/sammenligningType';
 export { default as organisasjonstype } from './src/organisasjonstype';
 export { default as inntektskategorier, isSelvstendigNæringsdrivende } from './src/inntektskategorier';
+export { default as AksjonspunktCodeTilbakekreving } from './src/aksjonspunktCodesTilbakekreving';

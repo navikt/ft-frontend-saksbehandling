@@ -12,7 +12,7 @@ module.exports = {
     publicPath: '',
     filename: 'index.js',
     library: {
-      name: '@ft-frontend-saksbehandling/utils-test',
+      name: '@navikt/ft-utils-test',
       type: 'umd',
     },
   },

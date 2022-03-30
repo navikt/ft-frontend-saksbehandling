@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { Image } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { metaMock, MockFields } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
+import { shallowWithIntl } from '@navikt/ft-utils-test/src/intl-enzyme-test-helper';
+import { Image } from '@navikt/ft-ui-komponenter';
+import { metaMock, MockFields } from '@navikt/ft-utils-test/src/redux-form-test-helper';
 import PeriodFieldArray from './PeriodFieldArray';
 import messages from '../i18n/nb_NO.json';
 

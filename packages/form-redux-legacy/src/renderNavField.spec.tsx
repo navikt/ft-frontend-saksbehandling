@@ -2,7 +2,7 @@ import React from 'react';
 import { WrappedFieldMetaProps } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import { inputMock, metaMock } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
+import { inputMock, metaMock } from '@navikt/ft-utils-test/src/redux-form-test-helper';
 
 import renderNavField from './renderNavField';
 

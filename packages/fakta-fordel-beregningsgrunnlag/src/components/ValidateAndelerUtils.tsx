@@ -2,11 +2,11 @@ import { IntlShape } from 'react-intl';
 
 import {
   beregningsgrunnlagAndeltyper, aktivitetStatus as AktivitetStatus, aktivitetstatusTilAndeltypeMap, KodeverkType,
-} from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-kodeverk';
 import {
   dateIsAfter, formatCurrencyNoKr, removeSpacesFromNumber, required,
-} from '@ft-frontend-saksbehandling/utils';
-import { ArbeidsgiverOpplysningerPerId } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
 import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';
 import { createVisningsnavnForAktivitetFordeling } from './util/visningsnavnHelper';

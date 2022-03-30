@@ -1,17 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { FieldArray } from 'redux-form';
-import { faktaOmBeregningTilfelle, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
+import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
 import { createSelector } from 'reselect';
 import {
-  ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse,
-} from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
+  ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse, Aksjonspunkt, Beregningsgrunnlag,
+} from '@navikt/ft-types';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
-} from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+} from '@navikt/ft-types-aksjonspunkter';
 import { IntlShape } from 'react-intl';
 import LonnsendringForm, { lonnsendringField }
   from './forms/LonnsendringForm';

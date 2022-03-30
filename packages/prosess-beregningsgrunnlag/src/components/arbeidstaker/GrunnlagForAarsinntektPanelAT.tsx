@@ -8,19 +8,19 @@ import { Column, Row } from 'nav-frontend-grid';
 
 import {
   getKodeverknavnFn, dateFormat, formatCurrencyNoKr,
-} from '@ft-frontend-saksbehandling/utils';
-import { KodeverkType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-utils';
+import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
-
+} from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
+
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import NaturalytelsePanel from './NaturalytelsePanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';

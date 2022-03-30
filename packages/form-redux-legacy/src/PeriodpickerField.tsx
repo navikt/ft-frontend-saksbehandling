@@ -5,8 +5,8 @@ import {
 import moment from 'moment';
 import {
   ACCEPTED_DATE_INPUT_FORMATS, DDMMYYYY_DATE_FORMAT, haystack, ISO_DATE_FORMAT,
-} from '@ft-frontend-saksbehandling/utils';
-import { Periodpicker } from '@ft-frontend-saksbehandling/ui-komponenter';
+} from '@navikt/ft-utils';
+import { Periodpicker } from '@navikt/ft-ui-komponenter';
 import ReadOnlyField from './ReadOnlyField';
 import Label from './Label';
 import LabelType from './LabelType';

@@ -12,14 +12,13 @@ import { Knapp } from 'nav-frontend-knapper';
 
 import {
   AksjonspunktHelpTextTemp, VerticalSpacer, OverstyringKnapp, FlexColumn, FlexContainer, FlexRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AksjonspunktCode, isAksjonspunktOpen, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+} from '@navikt/ft-ui-komponenter';
+import { AksjonspunktCode, isAksjonspunktOpen, hasAksjonspunkt } from '@navikt/ft-kodeverk';
 import {
-  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, AvklarBeregningAktiviteterMap, AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import BeregningAktivitetAP, { AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP }
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningAktivitetAP';
+  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, AvklarBeregningAktiviteterMap, AlleKodeverk, Aksjonspunkt,
+} from '@navikt/ft-types';
+import { BeregningAktivitetAP, AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP } from '@navikt/ft-types-aksjonspunkter';
+
 import { formNameAvklarAktiviteter, getFormInitialValuesForAvklarAktiviteter, getFormValuesForAvklarAktiviteter } from '../BeregningFormUtils';
 import { erOverstyringAvBeregningsgrunnlag } from '../fellesFaktaForATFLogSN/BgFaktaUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
@@ -390,6 +389,7 @@ export const transformValues = (values: AvklarAktiviteterValues): BeregningAktiv
   if (skalKunneLoseAksjonspunkt(skalOverstyre, aksjonspunkter)) {
     const vurderAktiviteterTransformed = VurderAktiviteterPanel.transformValues(values, avklarAktiviteter.aktiviteterTomDatoMapping, skalOverstyre);
     const beg = values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME];
+    // @ts-ignore
     return {
       kode: skalOverstyre ? OVERSTYRING_AV_BEREGNINGSAKTIVITETER : AVKLAR_AKTIVITETER,
       begrunnelse: beg === undefined ? null : beg,

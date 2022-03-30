@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedDate } from 'react-intl';
 
-import { createIntl } from '@ft-frontend-saksbehandling/utils';
+import { createIntl } from '@navikt/ft-utils';
 
 import messages from '../i18n/nb_NO.json';
 

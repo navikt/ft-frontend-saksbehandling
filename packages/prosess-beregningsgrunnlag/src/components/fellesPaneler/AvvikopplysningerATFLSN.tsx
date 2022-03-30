@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { VerticalSpacer, FlexColumn, FlexRow } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './avvikopplysningerPanel.less';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';

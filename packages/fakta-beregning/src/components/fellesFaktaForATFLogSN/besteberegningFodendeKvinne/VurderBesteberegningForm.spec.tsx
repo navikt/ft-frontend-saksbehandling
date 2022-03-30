@@ -1,5 +1,5 @@
-import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { AksjonspunktCode, faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
+import { isRequiredMessage } from '@navikt/ft-utils';
+import { AksjonspunktCode, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
 
 const {

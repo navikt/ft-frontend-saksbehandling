@@ -2,17 +2,16 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme/build';
 
-import { reduxFormPropsMock } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
+import { shallowWithIntl, reduxFormPropsMock } from '@navikt/ft-utils-test';
 import {
   vilkarUtfallType, vilkarType, aktivitetStatus, AksjonspunktCode,
-} from '@ft-frontend-saksbehandling/kodeverk';
-
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+} from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag as BeregningsgrunnlagProp, BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
+
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import { BeregningFormImpl, transformValues, buildInitialValues } from './BeregningForm';
 import AvviksopplysningerPanel from '../fellesPaneler/AvvikopplysningerPanel';

@@ -2,17 +2,13 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import {
-  AksjonspunktCode, vilkarType, vilkarUtfallType, periodeAarsak, faktaOmBeregningTilfelle,
-} from '@ft-frontend-saksbehandling/kodeverk';
-
-import Behandling from '@ft-frontend-saksbehandling/types/src/behandlingTsType';
-
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
+  AksjonspunktCode, vilkarType, vilkarUtfallType, periodeAarsak, faktaOmBeregningTilfelle, sammenligningType, inntektAktivitetType,
+} from '@navikt/ft-kodeverk';
 import {
-  Vilkar, BeregningsgrunnlagPeriodeProp, SammenligningsgrunlagProp, BeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold,
-} from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
+  Beregningsgrunnlag, Behandling, Aksjonspunkt, Vilkar, BeregningsgrunnlagPeriodeProp,
+  SammenligningsgrunlagProp, BeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold,
+} from '@navikt/ft-types';
+import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
 import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';
 
@@ -263,8 +259,8 @@ export const justerDekningsgradAP = () => {
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 465000, 35.48, -165000)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.skjaeringstidspunktBeregning = '2021-01-01';
-  const apAvvik = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
-  const apDekning = lagAPMedKode(aksjonspunktCodes.VURDER_DEKNINGSGRAD);
+  const apAvvik = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const apDekning = lagAPMedKode(AksjonspunktCode.VURDER_DEKNINGSGRAD);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -354,7 +350,7 @@ export const arbeidstakerMedAvvik = () => {
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 465000, 35.48, -165000)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.skjaeringstidspunktBeregning = '2021-01-01';
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling as Behandling}
@@ -389,7 +385,7 @@ export const arbeidstakerFrilansMedAvvikMedGradering = () => {
   ];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.andelerMedGraderingUtenBG = andeler;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -480,7 +476,7 @@ export const selvstendigNæringsdrivende = () => {
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 474257, 26.21243, -177059)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
 
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -539,7 +535,7 @@ export const tidsbegrensetArbeidsforholdMedAvvik = () => {
   const sammenligningsgrunnlagPrStatus = [
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 474257, 26.2, 77059)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -572,7 +568,7 @@ export const arbeidstakerFrilanserOgSelvstendigNæringsdrivende = () => {
   const sammenligningsgrunnlagPrStatus = [
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 474257, 26.2, 77059)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -739,7 +735,7 @@ export const graderingPåBeregningsgrunnlagUtenPenger = () => {
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 474257, 26.2, -77059)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.andelerMedGraderingUtenBG = andeler;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -850,7 +846,7 @@ export const arbeidstakerOgFrilansOgSelvstendigNæringsdrivendeMedAksjonspunktBe
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 474257, 26.2, -77059)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 80;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -1044,7 +1040,7 @@ export const arbeidstakerMedAksjonspunktSide5 = () => {
     lagSammenligningsGrunnlag(sammenligningType.AT, 169647, 105.4, 178929),
   ];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -1075,7 +1071,7 @@ export const arbeidstakerMedAksjonspunktBehandletSide6 = () => {
   ];
   perioder[0].redusertPrAar = 441053;
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
   ap.begrunnelse = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     + ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
   ap.status = 'UTFO';
@@ -1135,7 +1131,7 @@ export const tidsbegrensetArbeidsforholdMedAksjonspunktkSide7 = () => {
   const sammenligningsgrunnlagPrStatus = [
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 404257, 36.4, 147059)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -1208,7 +1204,7 @@ export const tidsbegrensetArbeidsforholdMedAksjonspunktBehandletSide7 = () => {
   const sammenligningsgrunnlagPrStatus = [
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 404257, 36.4, 147059)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD);
   ap.begrunnelse = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     + ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
   ap.status = 'UTFO';
@@ -1269,7 +1265,7 @@ export const FrilansMedAksjonspunktSide9 = () => {
     lagSammenligningsGrunnlag(sammenligningType.FL, 504257, 33.1, 167000),
   ];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -1300,7 +1296,7 @@ export const arbeidstakerFrilansMedAksjonspunktSide10 = () => {
   ];
 
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -1332,7 +1328,7 @@ export const arbeidstakerFrilansMedAksjonspunktBehandletSide11 = () => {
     lagSammenligningsGrunnlag(sammenligningType.FL, 159000, 274.8135, 437000),
   ];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
   ap.begrunnelse = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     + ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
   ap.status = 'UTFO';
@@ -1519,7 +1515,7 @@ export const SelvstendigNæringsdrivendeMedVarigEndringMedAksjonspunktSide14 = (
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 100;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -1575,7 +1571,7 @@ export const SelvstendigNæringsdrivendeMedVarigEndringMedAksjonspunktUtførtSid
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 100;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   ap.begrunnelse = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     + ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
   ap.status = 'UTFO';
@@ -1633,7 +1629,7 @@ export const SelvstendigNæringsdrivendeNyoppstartetMedAksjonspunktSide16 = () =
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 350000, 50.1, -113871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 100;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
 
   return (
     <BeregningsgrunnlagProsessIndex
@@ -1690,7 +1686,7 @@ export const SelvstendigNæringsdrivendeNyINæringslivetMedAksjonspunktSide17 = 
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 300000, 50.1, -113871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 100;
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET);
 
   return (
     <BeregningsgrunnlagProsessIndex
@@ -1855,7 +1851,7 @@ export const arbeidstakerOgSelvstendigNæringsdrivendeMedAPVarigEndringSide20 = 
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   delete bg.dekningsgrad;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -1913,7 +1909,7 @@ export const arbeidstakerOgSelvstendigNæringsdrivendeMedVarigEndringApBehandlet
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 80;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   ap.begrunnelse = 'Endring eller nyoppstartet begrunnelse';
   ap.status = 'UTFO';
   return (
@@ -1973,7 +1969,7 @@ export const arbeidstakerOgSelvstendigNæringsdrivendeAtStorreEnnSNSide22 = () =
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 80;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   ap.begrunnelse = 'Endring eller nyoppstartet begrunnelse';
   ap.status = 'UTFO';
   return (
@@ -2030,7 +2026,7 @@ export const arbeidstakerFrilansOgSelvstendigNæringsdrivendeMedApOgVarigEndring
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   delete bg.dekningsgrad;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   return (
     <BeregningsgrunnlagProsessIndex
       behandling={behandling}
@@ -2093,7 +2089,7 @@ export const arbeidstakerFrilansOgSelvstendigNæringsdrivendeMedApOgVarigEndring
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 80;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   ap.begrunnelse = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     + ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
   ap.status = 'UTFO';
@@ -2159,7 +2155,7 @@ export const arbeidstakerFrilansOgSelvstendigNæringsdrivendeMedAPVarigEndringSn
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 900000, 29.9, -268871)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 80;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   ap.begrunnelse = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     + ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
   ap.status = 'UTFO';
@@ -2218,7 +2214,7 @@ export const arbeidstakerOgAAPMedAksjonspunktSide27 = () => {
   const sammenligningsgrunnlagPrStatus = [
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 313536, 65.8, -206304)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
 
   return (
     <BeregningsgrunnlagProsessIndex
@@ -2260,7 +2256,7 @@ export const arbeidstakerOgAAPMedAksjonspunktOppfyltSide27 = () => {
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 313536, 65.8, -206304)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 100;
-  const ap = lagAPMedKode(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
+  const ap = lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS);
   ap.begrunnelse = 'Endring  begrunnelse';
   ap.status = 'UTFO';
   return (
@@ -2458,7 +2454,7 @@ export const frilansDagpengerOgSelvstendigNæringsdrivendeMedAksjonspunktSide31 
     lagSammenligningsGrunnlag(sammenligningType.ATFLSN, 57000, 1007.2, -574129)];
   const bg = lagBG(perioder, statuser, sammenligningsgrunnlagPrStatus);
   bg.dekningsgrad = 100;
-  const ap = lagAPMedKode(aksjonspunktCodes.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
+  const ap = lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
 
   return (
     <BeregningsgrunnlagProsessIndex

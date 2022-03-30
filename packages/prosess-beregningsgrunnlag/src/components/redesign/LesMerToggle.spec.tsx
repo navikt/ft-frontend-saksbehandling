@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { mountWithIntl } from '@navikt/ft-utils-test';
 import LesMerToggle from './LesMerToggle';
 import messages from '../../../i18n/nb_NO.json';
 

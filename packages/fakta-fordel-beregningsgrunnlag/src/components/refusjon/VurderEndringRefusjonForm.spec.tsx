@@ -1,4 +1,4 @@
-import { Beregningsgrunnlag, RefusjonTilVurderingAndel } from '@ft-frontend-saksbehandling/types';
+import { Beregningsgrunnlag, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { transformValues } from './VurderEndringRefusjonForm';
 import { lagNøkkelDelvisRefusjon, lagNøkkelRefusjonsstart } from './VurderEndringRefusjonRad';
 

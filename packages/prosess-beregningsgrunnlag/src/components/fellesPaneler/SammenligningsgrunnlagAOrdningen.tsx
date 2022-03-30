@@ -5,18 +5,18 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 
 import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
-import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@ft-frontend-saksbehandling/utils';
+import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   VerticalSpacer, AvsnittSkiller, ReactECharts, FlexColumn, FlexRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
+} from '@navikt/ft-ui-komponenter';
 import moment from 'moment';
 
 import {
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
   InntektsgrunnlagMåned,
-} from '@ft-frontend-saksbehandling/types';
-import { inntektAktivitetType } from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-types';
+import { inntektAktivitetType } from '@navikt/ft-kodeverk';
 import styles from './sammenligningsgrunnlagAOrdningen.less';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import Lesmerpanel from '../redesign/LesmerPanel';

@@ -4,14 +4,14 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
   Månedsgrunnlag,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import { Normaltekst, Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import {
   VerticalSpacer,
   Table, TableColumn, TableRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
+} from '@navikt/ft-ui-komponenter';
 
 interface OwnProps {
   periode: BeregningsgrunnlagPeriodeProp;

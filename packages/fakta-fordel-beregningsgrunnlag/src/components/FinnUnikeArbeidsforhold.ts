@@ -1,10 +1,13 @@
 import { createSelector } from 'reselect';
-import Beregningsgrunnlag, {
+import {
+  FordelBeregningsgrunnlagAndel,
+  FordelBeregningsgrunnlagPeriode,
+  Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
-} from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { FordelBeregningsgrunnlagAndel, FordelBeregningsgrunnlagPeriode } from '@ft-frontend-saksbehandling/types';
-import BeregningsgrunnlagArbeidsforhold from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagArbeidsforholdTsType';
+  BeregningsgrunnlagArbeidsforhold,
+} from '@navikt/ft-types';
+
 import { BGFordelArbeidsforhold } from '../types/FordelingTsType';
 
 const arbeidsforholdEksistererIListen = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold, arbeidsgiverList: BGFordelArbeidsforhold[]): boolean => {

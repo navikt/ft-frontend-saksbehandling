@@ -9,12 +9,13 @@ import { Element } from 'nav-frontend-typografi';
 
 import {
   VerticalSpacer, OverstyringKnapp, FlexColumn, FlexContainer, FlexRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
-import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt } from '@navikt/ft-types';
 
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import styles from './InntektstabellPanel.less';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
+
+import styles from './InntektstabellPanel.less';
 
 export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringRapportertInntekt';
 

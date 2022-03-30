@@ -2,7 +2,7 @@ import React from 'react';
 import { RawIntlProvider } from 'react-intl';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
-import { createIntl } from '@ft-frontend-saksbehandling/utils';
+import { createIntl } from '@navikt/ft-utils';
 import DateLabel from './DateLabel';
 
 const intl = createIntl({

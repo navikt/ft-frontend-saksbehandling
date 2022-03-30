@@ -8,15 +8,15 @@ import { createSelector } from 'reselect';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { InputField, NavFieldGroup, SelectField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { InputField, NavFieldGroup, SelectField } from '@navikt/ft-form-redux-legacy';
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
-} from '@ft-frontend-saksbehandling/utils';
-import { KodeverkType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-utils';
+import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   Table, TableColumn, TableRow, VerticalSpacer, Image,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AlleKodeverk, KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
 
 import addCircleIcon from '../../../images/add-circle.svg';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';

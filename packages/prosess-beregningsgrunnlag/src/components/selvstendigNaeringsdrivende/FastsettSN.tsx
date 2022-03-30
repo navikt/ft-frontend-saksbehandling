@@ -10,15 +10,14 @@ import {
   removeSpacesFromNumber,
   required,
   formatCurrencyNoKr,
-} from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-utils';
 import {
   InputField, TextAreaField,
-} from '@ft-frontend-saksbehandling/form-redux-legacy';
-import { aktivitetStatus, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-form-redux-legacy';
+import { aktivitetStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import {
   NyIArbeidslivetruttoNæringTransformed,

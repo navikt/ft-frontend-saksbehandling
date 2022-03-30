@@ -4,12 +4,12 @@ import {
   Element, Normaltekst, Undertekst,
 } from 'nav-frontend-typografi';
 
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
+import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Column, Row } from 'nav-frontend-grid';
-import { BeregningsgrunnlagAndel, PgiVerdier } from '@ft-frontend-saksbehandling/types';
+import { BeregningsgrunnlagAndel, PgiVerdier } from '@navikt/ft-types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 const createHeaderRow = (): React.ReactNode => (

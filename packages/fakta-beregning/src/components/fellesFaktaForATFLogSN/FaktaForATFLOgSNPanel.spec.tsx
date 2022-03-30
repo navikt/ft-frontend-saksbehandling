@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import { faktaOmBeregningTilfelle, aktivitetStatus, AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
+import { faktaOmBeregningTilfelle, aktivitetStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag,
@@ -9,7 +9,7 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import {
   FaktaForATFLOgSNPanelImpl, transformValues, transformValuesFaktaForATFLOgSN,
 } from './FaktaForATFLOgSNPanel';

@@ -11,7 +11,7 @@ module.exports = {
     publicPath: '',
     filename: 'index.js',
     library: {
-      name: '@ft-frontend-saksbehandling/konstanter',
+      name: '@navikt/ft-konstanter',
       type: 'umd',
     },
   },

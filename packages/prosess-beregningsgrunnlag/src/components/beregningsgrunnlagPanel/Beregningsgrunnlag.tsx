@@ -1,14 +1,16 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 
-import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
-import { removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
-
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagPeriodeProp,
-  BeregningsgrunnlagAndel, Inntektsgrunnlag, AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+  BeregningsgrunnlagAndel,
+  Inntektsgrunnlag,
+  AlleKodeverk,
+  Aksjonspunkt,
+} from '@navikt/ft-types';
+
 import YtelserFraInfotrygd from '../tilstotendeYtelser/YtelserFraInfotrygd';
 import GrunnlagForAarsinntektPanelSN from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';
 import TilstotendeYtelser from '../tilstotendeYtelser/TilstotendeYtelser';

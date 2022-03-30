@@ -9,18 +9,18 @@ import {
 import {
   dateFormat,
   hasValidText, maxLength, minLength, required,
-} from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { TextAreaField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+} from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { TextAreaField } from '@navikt/ft-form-redux-legacy';
 
-import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@ft-frontend-saksbehandling/kodeverk';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel,
+  ArbeidsgiverOpplysningerPerId,
+  BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
-} from '@ft-frontend-saksbehandling/types';
-import styles from './aksjonspunktBehandler.less';
+  Aksjonspunkt,
+} from '@navikt/ft-types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
@@ -30,6 +30,8 @@ import ArbeidstakerFrilansValues from '../../types/ATFLAksjonspunktTsType';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import DekningsgradAksjonspunktPanel from './DekningsgradAksjonspunktPanel';
 import ProsessStegSubmitButton from '../../legacy/ProsessStegSubmitButton';
+
+import styles from './aksjonspunktBehandler.less';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

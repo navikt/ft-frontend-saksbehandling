@@ -4,8 +4,8 @@ import { isDirty as reduxIsDirty, isSubmitting as reduxIsSubmitting } from 'redu
 import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
 
-import { createIntl, ariaCheck, isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { hasBehandlingFormErrorsOfType } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { createIntl, ariaCheck, isRequiredMessage } from '@navikt/ft-utils';
+import { hasBehandlingFormErrorsOfType } from '@navikt/ft-form-redux-legacy';
 
 import messages from '../../i18n/nb_NO.json';
 

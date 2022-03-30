@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
 
-import { AksjonspunktCode, isAksjonspunktOpen, dekningsgrad } from '@ft-frontend-saksbehandling/kodeverk';
+import { AksjonspunktCode, isAksjonspunktOpen, dekningsgrad } from '@navikt/ft-kodeverk';
 
-import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { RadioGroupField, RadioOption, TextAreaField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
+import { RadioGroupField, RadioOption, TextAreaField } from '@navikt/ft-form-redux-legacy';
 import {
   hasValidText, maxLength, minLength, required,
-} from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-utils';
 import { Column, Row } from 'nav-frontend-grid';
 import DekningsgradTransformedValues, {
   DekningsgradValues,

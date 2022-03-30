@@ -1,5 +1,5 @@
-import { inntektskategorier } from '@ft-frontend-saksbehandling/kodeverk';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { inntektskategorier } from '@navikt/ft-kodeverk';
+import { AlleKodeverk } from '@navikt/ft-types';
 
 import KunYtelsePanel, { brukersAndelFieldArrayName } from './KunYtelsePanel';
 import { besteberegningField } from './KunYtelseBesteberegningPanel';

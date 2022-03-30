@@ -1,4 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
+import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import { connect } from 'react-redux';
 import {
   FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
@@ -8,21 +9,20 @@ import { Column, Row } from 'nav-frontend-grid';
 
 import {
   aktivitetStatus, behandlingType as bt, beregningsgrunnlagAndeltyper, KodeverkType, inntektskategorier, isSelvstendigNæringsdrivende,
-} from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-kodeverk';
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, getKodeverknavnFn,
-} from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-utils';
 import {
   Table, TableColumn, TableRow, Image,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
+} from '@navikt/ft-ui-komponenter';
 import {
   DecimalField, InputField, NavFieldGroup, PeriodpickerField, SelectField, LabelType,
-} from '@ft-frontend-saksbehandling/form-redux-legacy';
-
-import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
+} from '@navikt/ft-form-redux-legacy';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn, AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
+
 import finnUnikeArbeidsforhold from '../FinnUnikeArbeidsforhold';
 import addCircleIcon from '../../images/add-circle.svg';
 import {

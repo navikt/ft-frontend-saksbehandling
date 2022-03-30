@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { EditedIcon } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import Label from './Label';
 import ReadOnlyField from './ReadOnlyField';

@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,15 +18,15 @@
     "ts-check": "tsc --pretty"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "1.0.0-beta.0",
-    "@navikt/ft-types": "1.0.0-beta.0",
+    "@navikt/ft-kodeverk": "1.0.0-beta.1",
+    "@navikt/ft-types": "1.0.0-beta.1",
     "dayjs": "1.11.0",
     "moment": "2.29.1",
     "react-intl": "5.24.7"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "1.0.0-beta.0",
-    "@navikt/ft-types": "1.0.0-beta.0",
+    "@navikt/ft-kodeverk": "1.0.0-beta.1",
+    "@navikt/ft-types": "1.0.0-beta.1",
     "dayjs": "1.11.0",
     "moment": "2.29.1",
     "react-intl": "5.24.7"

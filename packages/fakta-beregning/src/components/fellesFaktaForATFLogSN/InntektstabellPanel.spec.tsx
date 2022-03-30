@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { OverstyringKnapp } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
+import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
 
 import { InntektstabellPanelImpl } from './InntektstabellPanel';
 

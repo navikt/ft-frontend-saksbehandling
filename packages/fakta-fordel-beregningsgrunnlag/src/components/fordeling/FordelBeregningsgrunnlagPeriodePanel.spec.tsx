@@ -1,6 +1,6 @@
 import moment from 'moment';
-import { aktivitetStatus as aktivitetStatuser } from '@ft-frontend-saksbehandling/kodeverk';
-import { BeregningsgrunnlagArbeidsforhold } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
 
 const stpBeregning = '2018-01-01';

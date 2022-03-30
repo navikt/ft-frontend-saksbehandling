@@ -1,10 +1,10 @@
 import React from 'react';
 import sinon from 'sinon';
 
-import { AksjonspunktCode, aksjonspunktStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { AksjonspunktCode, aksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
+
 import BeregningInfoPanel from './BeregningInfoPanel';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanel';

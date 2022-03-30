@@ -4,11 +4,11 @@ import { action } from '@storybook/addon-actions';
 import {
   aktivitetStatus as aktivitetStatuser, inntektskategorier, opptjeningAktivitetType,
   AksjonspunktCode, aksjonspunktStatus, faktaOmBeregningTilfelle,
-} from '@ft-frontend-saksbehandling/kodeverk';
+} from '@navikt/ft-kodeverk';
 import {
   Behandling, Beregningsgrunnlag, BeregningAktivitet, FaktaOmBeregning, AndelForFaktaOmBeregning, FaktaOmBeregningAndel,
-} from '@ft-frontend-saksbehandling/types';
-import { alleKodeverk as alleKodeverkMock } from '@ft-frontend-saksbehandling/storybook-utils';
+} from '@navikt/ft-types';
+import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import {

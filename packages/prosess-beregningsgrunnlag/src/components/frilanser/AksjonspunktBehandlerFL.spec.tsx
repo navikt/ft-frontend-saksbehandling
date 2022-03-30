@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 import AksjonspunktBehandlerFL from './AksjonspunktBehandlerFL';
 import messages from '../../../i18n/nb_NO.json';
 

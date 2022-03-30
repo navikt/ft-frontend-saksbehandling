@@ -1,6 +1,6 @@
 import React from 'react';
-import { RefusjonTilVurderingAndel } from '@ft-frontend-saksbehandling/types';
 import { shallow } from 'enzyme';
+import { RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { VurderEndringRefusjonRadImpl } from './VurderEndringRefusjonRad';
 
 const lagAndel = (skalKunneFastsetteDelvisRefusjon: boolean, agOrgnr: string, arbId?: string, dato?: string) => ({

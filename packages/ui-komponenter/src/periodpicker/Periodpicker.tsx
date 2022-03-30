@@ -2,7 +2,7 @@ import React, { ReactNode, Component } from 'react';
 import moment from 'moment';
 import { Input } from 'nav-frontend-skjema';
 import { DateUtils, Modifier } from 'react-day-picker';
-import { DDMMYYYY_DATE_FORMAT, haystack } from '@ft-frontend-saksbehandling/utils';
+import { DDMMYYYY_DATE_FORMAT, haystack } from '@navikt/ft-utils';
 import CalendarToggleButton from './CalendarToggleButton';
 import PeriodCalendarOverlay from './PeriodCalendarOverlay';
 

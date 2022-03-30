@@ -3,6 +3,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nodeExternals = require('webpack-node-externals');
 
+const SRC_DIR = path.resolve(__dirname, './src');
+const NODE_MODULES_DIR = path.resolve(__dirname, './node_modules');
+
 module.exports = {
   mode: 'production',
   devtool: 'source-map',
@@ -12,7 +15,7 @@ module.exports = {
     publicPath: '',
     filename: 'index.js',
     library: {
-      name: '@ft-frontend-saksbehandling/prosess-beregningsgrunnlag',
+      name: '@navikt/ft-prosess-beregningsgrunnlag',
       type: 'umd',
     },
   },
@@ -29,7 +32,37 @@ module.exports = {
         {
           loader: MiniCssExtractPlugin.loader,
           options: {
-            publicPath: '',
+            publicPath: './',
+          },
+        }, {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            modules: {
+              localIdentName: '[name]_[local]_[contenthash:base64:5]',
+            },
+          },
+        }, {
+          loader: 'less-loader',
+          options: {
+            lessOptions: {
+              modules: true,
+              localIdentName: '[name]_[local]_[contenthash:base64:5]',
+              modifyVars: {
+                nodeModulesPath: '~',
+                coreModulePath: '~',
+              },
+            },
+          },
+        }],
+      include: [SRC_DIR],
+    }, {
+      test: /\.(less)?$/,
+      use: [
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            publicPath: './',
           },
         }, {
           loader: 'css-loader',
@@ -44,6 +77,7 @@ module.exports = {
             },
           },
         }],
+      include: [NODE_MODULES_DIR],
     }, {
       test: /\.(svg)$/,
       type: 'asset/resource',

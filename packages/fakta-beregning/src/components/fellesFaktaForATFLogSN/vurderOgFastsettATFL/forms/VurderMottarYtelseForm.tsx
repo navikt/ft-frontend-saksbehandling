@@ -2,16 +2,15 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
-import { getKodeverknavnFn, removeSpacesFromNumber, required } from '@ft-frontend-saksbehandling/utils';
-import { KodeverkType, faktaOmBeregningTilfelle, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { getKodeverknavnFn, removeSpacesFromNumber, required } from '@navikt/ft-utils';
+import { KodeverkType, faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  ArbeidsgiverOpplysningerPerId,
+  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag,
   ArbeidstakerUtenIMAndel, BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse,
-} from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+} from '@navikt/ft-types';
+import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,

@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@ft-frontend-saksbehandling/kodeverk';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@navikt/ft-kodeverk';
+import { AlleKodeverk } from '@navikt/ft-types';
 
 import Beregningsgrunnlag from './Beregningsgrunnlag';
 import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';

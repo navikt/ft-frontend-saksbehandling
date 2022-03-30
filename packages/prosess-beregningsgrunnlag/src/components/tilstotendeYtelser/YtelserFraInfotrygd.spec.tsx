@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 
 import YtelserFraInfotrygd from './YtelserFraInfotrygd';
 import messages from '../../../i18n/nb_NO.json';

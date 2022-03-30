@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AksjonspunktCode } from '@ft-frontend-saksbehandling/kodeverk';
-import { AksjonspunktHelpTextHTML } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { Beregningsgrunnlag, SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
+import { Beregningsgrunnlag, SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { FormattedMessage } from 'react-intl';
 import AksjonspunktTittel from './AksjonspunktTittel';
 

@@ -3,12 +3,14 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Undertittel } from 'nav-frontend-typografi';
-import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { AksjonspunktCode, isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk';
-import { RefusjonTilVurderingAndel, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId } from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import VurderRefusjonBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/VurderRefusjonBeregningsgrunnlagAP';
+
+import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktCode, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import {
+  Aksjonspunkt, RefusjonTilVurderingAndel, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId,
+} from '@navikt/ft-types';
+import { VurderRefusjonBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
+
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import VurderRefusjonValues from '../../types/VurderRefusjonTsType';

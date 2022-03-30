@@ -1,7 +1,7 @@
 # utils
 
 ```
-yarn add @ft-frontend-saksbehandling/utils
+yarn add @navikt/ft-utils
 ```
 
 ### createVisningsnavnForAktivitet

@@ -12,7 +12,7 @@ module.exports = {
     publicPath: '',
     filename: 'index.js',
     library: {
-      name: '@ft-frontend-saksbehandling/ui-komponenter',
+      name: '@navikt/ft-ui-komponenter',
       type: 'umd',
     },
   },

@@ -1,7 +1,7 @@
 import {
   KodeverkType, avslagsarsakCodes, arbeidType, vilkarType,
-} from '@ft-frontend-saksbehandling/kodeverk';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-kodeverk';
+import { AlleKodeverk } from '@navikt/ft-types';
 
 import { getKodeverknavnFn, getKodeverknavnFraKode } from './kodeverkUtils';
 

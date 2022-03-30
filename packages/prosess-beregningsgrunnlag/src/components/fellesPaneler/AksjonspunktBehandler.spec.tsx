@@ -1,10 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { aktivitetStatus, KodeverkType, periodeAarsak } from '@ft-frontend-saksbehandling/kodeverk';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { aktivitetStatus, KodeverkType, periodeAarsak } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt, AlleKodeverk } from '@navikt/ft-types';
 
 import messages from '../../../i18n/nb_NO.json';
 import { AksjonspunktBehandlerImpl as UnwrappedForm } from './AksjonspunktBehandler';

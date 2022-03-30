@@ -3,7 +3,7 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 
 import {
   EditedIcon, FlexColumn, FlexContainer, FlexRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
+} from '@navikt/ft-ui-komponenter';
 
 import Label from './Label';
 import LabelType from './LabelType';

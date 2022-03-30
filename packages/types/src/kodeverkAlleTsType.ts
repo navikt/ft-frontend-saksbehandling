@@ -1,5 +1,4 @@
-import VilkarType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarType';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { KodeverkType, vilkarType as VilkarType } from '@navikt/ft-kodeverk';
 
 import KodeverkMedNavn from './kodeverkMedNavnTsType';
 

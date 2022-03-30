@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { required } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/ui-komponenter';
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
+import { required } from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import Beregningsgrunnlag from '@navikt/ft-types/src/beregningsgrunnlagTsType';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
 
 /**

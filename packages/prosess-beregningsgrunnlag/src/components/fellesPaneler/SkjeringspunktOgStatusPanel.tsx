@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { EtikettInfo } from 'nav-frontend-etiketter';
-import { getKodeverknavnFn } from '@ft-frontend-saksbehandling/utils';
+import { getKodeverknavnFn } from '@navikt/ft-utils';
 import {
   DateLabel, VerticalSpacer, AvsnittSkiller, FlexColumn, FlexContainer, FlexRow,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
-import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-ui-komponenter';
+import { KodeverkType } from '@navikt/ft-kodeverk';
+import { AlleKodeverk } from '@navikt/ft-types';
 
 import styles from './skjeringspunktOgStatusPanel.less';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';

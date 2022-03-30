@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 
 import { MilitaerPanel as UnwrappedForm } from './MilitaerPanel';
 import messages from '../../../i18n/nb_NO.json';

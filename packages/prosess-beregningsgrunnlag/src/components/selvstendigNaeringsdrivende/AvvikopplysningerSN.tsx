@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Column } from 'nav-frontend-grid';
 
-import { sammenligningType, aktivitetStatus } from '@ft-frontend-saksbehandling/kodeverk';
-import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
-import { FlexRow } from '@ft-frontend-saksbehandling/ui-komponenter';
+import { sammenligningType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
+import { FlexRow } from '@navikt/ft-ui-komponenter';
 import AvvikopplysningerATFLSN from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 

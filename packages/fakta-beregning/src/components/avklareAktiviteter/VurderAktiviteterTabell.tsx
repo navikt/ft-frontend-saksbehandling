@@ -3,26 +3,27 @@ import { change as reduxChange } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { FormattedMessage } from 'react-intl';
-
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import moment from 'moment';
-import { KodeverkType, opptjeningAktivitetType as opptjeningAktivitetTyper } from '@ft-frontend-saksbehandling/kodeverk';
-import { RadioGroupField, RadioOption, DatepickerField } from '@ft-frontend-saksbehandling/form-redux-legacy';
+
+import { KodeverkType, opptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { RadioGroupField, RadioOption, DatepickerField } from '@navikt/ft-form-redux-legacy';
 import {
   required, getKodeverknavnFn, DDMMYYYY_DATE_FORMAT, hasValidDate,
-} from '@ft-frontend-saksbehandling/utils';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+} from '@navikt/ft-utils';
 
 import {
   Table, TableRow, TableColumn, PeriodLabel, DateLabel, EditedIcon,
-} from '@ft-frontend-saksbehandling/ui-komponenter';
+} from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, BeregningAktivitet, AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import { BeregningAktivitetTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningAktivitetAP';
+} from '@navikt/ft-types';
+import { BeregningAktivitetTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
+import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 
 import styles from './vurderAktiviteterTabell.less';
-import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på

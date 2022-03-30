@@ -1,4 +1,4 @@
-import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
+import { KodeverkType } from '@navikt/ft-kodeverk';
 
 const behandlingFormName = 'behandling_1000051_v1';
 

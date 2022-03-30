@@ -1,7 +1,7 @@
-import { removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
-import { faktaOmBeregningTilfelle } from '@ft-frontend-saksbehandling/kodeverk';
-import { Beregningsgrunnlag, FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
-import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './AvsluttetArbeidsforhold';
 import { harFieldKunstigArbeidsforhold } from './KunstigArbeidsforhold';
 import { harFieldLønnsendring } from './LonnsendringForm';

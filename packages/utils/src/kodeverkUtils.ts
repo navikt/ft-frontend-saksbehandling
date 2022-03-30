@@ -1,5 +1,5 @@
-import { AlleKodeverk, AlleKodeverkTilbakekreving } from '@ft-frontend-saksbehandling/types';
-import { KodeverkType } from '@ft-frontend-saksbehandling/kodeverk';
+import { AlleKodeverk, AlleKodeverkTilbakekreving } from '@navikt/ft-types';
+import { KodeverkType } from '@navikt/ft-kodeverk';
 
 export const getKodeverknavnFraKode = (
   alleKodeverk: AlleKodeverk | AlleKodeverkTilbakekreving,
