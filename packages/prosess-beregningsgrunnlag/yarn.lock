@@ -222,6 +222,37 @@
     intl-messageformat "9.11.4"
     tslib "^2.1.0"
 
+"@navikt/ft-kodeverk@1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ft-kodeverk/1.0.0-beta.1/6901af597ab9fec176ebf3800a5a4acf46389f17a2dc3aec56ddaf6182516ae1#d49a77f6598578bbbe84a96cc7e28744b260ab33"
+  integrity sha512-kEgp3Szdudw2BsyXs7CCS7YXMYb/W/ZCG/Ynmm+YmHrvQJHKHrX7bcz29WK5hMbAyY0FFUH5nmfW+d6K9BsGzw==
+
+"@navikt/ft-types-aksjonspunkter@1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ft-types-aksjonspunkter/1.0.0-beta.1/4e85f1fa7554269365e60cec076e90c4f599ae3ef36512d491da02a44704ec38#7cca4dd2e3255b27413b7e38d8fb9b9393201229"
+  integrity sha512-wse5w/pvNVQGCfEGQTYhZVm92umw7hWWX/GMuPuLd1VMVN4t3pAa7ILoNKCpaNqWZXSrCsxatzTn4ZWFApNSag==
+  dependencies:
+    "@navikt/ft-kodeverk" "1.0.0-beta.1"
+
+"@navikt/ft-types@1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ft-types/1.0.0-beta.1/0b0ce8e88ea300e41a941474c79b02456b3ac96f23247305a5e8d7d38681a40c#3613fea431d4ac5256db398fcd02ddb1cdc218cc"
+  integrity sha512-O6khtutTa7wlGBBC4riRtiEKScXIUl+iwuS57Jt4FAMBv5AdoxZouRAqcbjZtUCY5MsBevw3knaUG5RgfyaCcg==
+  dependencies:
+    "@navikt/ft-kodeverk" "1.0.0-beta.1"
+    "@navikt/ft-types-aksjonspunkter" "1.0.0-beta.1"
+
+"@navikt/ft-utils@1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ft-utils/1.0.0-beta.1/813ea1f8833c8a79ebcb290afa8c527090d34dd9abc04f47a84496fd8b261a7c#3955fd34e0402ee28452dac446de01879f0e94ce"
+  integrity sha512-N5XI83Z35c0fAw2PSDoOZuasAWZHyIM4hVTfHCk2i/s6OT7u3MvW+P0EvQTRZKvHRmyAykpCKsvSSC7v6esfOw==
+  dependencies:
+    "@navikt/ft-kodeverk" "1.0.0-beta.1"
+    "@navikt/ft-types" "1.0.0-beta.1"
+    dayjs "1.11.0"
+    moment "2.29.1"
+    react-intl "5.24.7"
+
 "@popperjs/core@^2.5.4", "@popperjs/core@^2.6.0":
   version "2.11.4"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.4.tgz#d8c7b8db9226d2d7664553a0741ad7d0397ee503"
@@ -1036,6 +1067,11 @@ csstype@^3.0.2:
   version "3.0.11"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.11.tgz#d66700c5eacfac1940deb4e3ee5642792d85cd33"
   integrity sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==
+
+dayjs@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.0.tgz#009bf7ef2e2ea2d5db2e6583d2d39a4b5061e805"
+  integrity sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==
 
 deep-object-diff@^1.1.0:
   version "1.1.7"

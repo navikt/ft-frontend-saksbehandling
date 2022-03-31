@@ -31,13 +31,19 @@ const config = {
       impliedStrict: true,
     },
   },
+
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
-      webpack: {
-        config: resolve(__dirname, '../webpack/webpack.common.js'),
+      typescript: {
+        alwaysTryTypes: true,
+        project: 'packages/*/tsconfig.json',
       },
     },
   },
+
   rules: {
     'import/extensions': [
       'error',

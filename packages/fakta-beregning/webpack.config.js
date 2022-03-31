@@ -15,7 +15,7 @@ module.exports = {
     publicPath: '',
     filename: 'index.js',
     library: {
-      name: '@ft-frontend-saksbehandling/fakta-beregning',
+      name: '@navikt/ft-fakta-beregning',
       type: 'umd',
     },
   },

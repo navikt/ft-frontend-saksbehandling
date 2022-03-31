@@ -15,7 +15,6 @@
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack & yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
-    "test": "jest --passWithNoTests",
     "ts-check": "tsc --pretty"
   },
   "dependencies": {
@@ -39,6 +38,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
+    "@types/redux-form": "8.3.3",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "typescript": "4.6.2",

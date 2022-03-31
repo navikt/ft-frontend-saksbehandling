@@ -1,21 +1,21 @@
 {
   "name": "@navikt/ft-types",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
-    "build": " yarn build-ts-declarations",
+    "build": "yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
     "ts-check": "tsc --pretty"
   },
   "dependencies": {
     "@navikt/ft-kodeverk": "1.0.0-beta.1",
-    "@navikt/ft-types-aksjonspunkter": "1.0.0-beta.3"
+    "@navikt/ft-types-aksjonspunkter": "1.0.0-beta.4"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "1.0.0-beta.1",
-    "@navikt/ft-types-aksjonspunkter": "1.0.0-beta.3"
+    "@navikt/ft-types-aksjonspunkter": "1.0.0-beta.4"
   },
   "devDependencies": {
     "typescript": "4.6.2"

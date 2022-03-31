@@ -77,6 +77,26 @@
     intl-messageformat "9.11.4"
     tslib "^2.1.0"
 
+"@navikt/ft-kodeverk@1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ft-kodeverk/1.0.0-beta.1/6901af597ab9fec176ebf3800a5a4acf46389f17a2dc3aec56ddaf6182516ae1#d49a77f6598578bbbe84a96cc7e28744b260ab33"
+  integrity sha512-kEgp3Szdudw2BsyXs7CCS7YXMYb/W/ZCG/Ynmm+YmHrvQJHKHrX7bcz29WK5hMbAyY0FFUH5nmfW+d6K9BsGzw==
+
+"@navikt/ft-types-aksjonspunkter@1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ft-types-aksjonspunkter/1.0.0-beta.1/4e85f1fa7554269365e60cec076e90c4f599ae3ef36512d491da02a44704ec38#7cca4dd2e3255b27413b7e38d8fb9b9393201229"
+  integrity sha512-wse5w/pvNVQGCfEGQTYhZVm92umw7hWWX/GMuPuLd1VMVN4t3pAa7ILoNKCpaNqWZXSrCsxatzTn4ZWFApNSag==
+  dependencies:
+    "@navikt/ft-kodeverk" "1.0.0-beta.1"
+
+"@navikt/ft-types@1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ft-types/1.0.0-beta.1/0b0ce8e88ea300e41a941474c79b02456b3ac96f23247305a5e8d7d38681a40c#3613fea431d4ac5256db398fcd02ddb1cdc218cc"
+  integrity sha512-O6khtutTa7wlGBBC4riRtiEKScXIUl+iwuS57Jt4FAMBv5AdoxZouRAqcbjZtUCY5MsBevw3knaUG5RgfyaCcg==
+  dependencies:
+    "@navikt/ft-kodeverk" "1.0.0-beta.1"
+    "@navikt/ft-types-aksjonspunkter" "1.0.0-beta.1"
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.3.tgz#125b88504b61e3c8bc6f870882003253005c3224"
