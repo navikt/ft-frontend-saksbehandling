@@ -2,17 +2,16 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import Panel from 'nav-frontend-paneler';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import { FlexContainer } from '@navikt/fp-react-components';
 
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
+import { FlexContainer, VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AvviksopplysningerSN from '../selvstendigNaeringsdrivende/AvvikopplysningerSN';
 import AvviksopplysningerAT from '../arbeidstaker/AvvikopplysningerAT';

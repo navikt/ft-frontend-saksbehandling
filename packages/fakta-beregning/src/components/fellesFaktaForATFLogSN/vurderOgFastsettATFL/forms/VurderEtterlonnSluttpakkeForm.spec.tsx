@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import VurderEtterlonnSluttpakkeForm from './VurderEtterlonnSluttpakkeForm';
 import messages from '../../../../../i18n/nb_NO.json';
 

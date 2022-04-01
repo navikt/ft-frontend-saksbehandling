@@ -7,14 +7,15 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 
 import {
   dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
-} from '@ft-frontend-saksbehandling/utils';
-import { InputField } from '@ft-frontend-saksbehandling/form';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-
+} from '@navikt/ft-utils';
+import { InputField } from '@navikt/ft-form-redux-legacy';
+import {
+  aktivitetStatus,
+  KodeverkType,
+  AksjonspunktCode,
+  periodeAarsak,
+  isAksjonspunktOpen,
+} from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
   AlleKodeverk,
@@ -22,10 +23,9 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
-} from '@ft-frontend-saksbehandling/types';
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
+} from '@navikt/ft-types';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import {
   TidsbegrenseArbeidsforholdInntektMap,
@@ -35,13 +35,15 @@ import {
   TidsbegrensetArbeidsforholdPeriodeTransformedValues,
 } from '../../types/ATFLAksjonspunktTsType';
 
+import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+
 const formPrefix = 'inntektField';
 
 // Disse er nå slått sammen til et AP, men må håndtere begge AP'ene helt til det ene er slettet fra databasen
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const finnAksjonspunktForFastsettBgTidsbegrensetAT = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => gjeldendeAksjonspunkter
   && (gjeldendeAksjonspunkter.find((ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD

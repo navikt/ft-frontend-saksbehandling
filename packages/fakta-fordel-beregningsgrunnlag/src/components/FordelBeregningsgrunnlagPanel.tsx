@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
 
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { ArbeidsgiverOpplysningerPerId, AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import {
+  Aksjonspunkt, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId, AlleKodeverk,
+} from '@navikt/ft-types';
+import { VurderRefusjonBeregningsgrunnlagAP, FordelBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
 
-import FordelBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';
-import VurderRefusjonBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/VurderRefusjonBeregningsgrunnlagAP';
 import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
 import FordelingForm from './FordelingForm';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
   VURDER_REFUSJON_BERGRUNN,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const harFordelInfo = (bg: Beregningsgrunnlag): boolean => (bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false);
 
@@ -116,4 +113,5 @@ export class FordelBeregningsgrunnlagPanel extends Component<OwnProps & WrappedC
   }
 }
 
-export default injectIntl(FordelBeregningsgrunnlagPanel);
+// @ts-ignore Skriv om til funksjonell-komponent, bruk useIntl og fjern any
+export default injectIntl(FordelBeregningsgrunnlagPanel) as any;

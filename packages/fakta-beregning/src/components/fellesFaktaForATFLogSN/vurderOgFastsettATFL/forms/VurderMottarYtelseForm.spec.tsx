@@ -2,17 +2,17 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
 
-import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { RadioGroupField } from '@ft-frontend-saksbehandling/form';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { isRequiredMessage } from '@navikt/ft-utils';
+import { RadioGroupField } from '@navikt/ft-form-redux-legacy';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
 import {
   AlleKodeverk,
   ArbeidstakerUtenIMAndel,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
-} from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
+  Beregningsgrunnlag,
+} from '@navikt/ft-types';
 import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
 import VurderMottarYtelseForm, {
   frilansMedAndreFrilanstilfeller,

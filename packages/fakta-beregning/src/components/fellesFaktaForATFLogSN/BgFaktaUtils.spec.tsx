@@ -1,12 +1,14 @@
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import organisasjonstyper from '@ft-frontend-saksbehandling/kodeverk/src/organisasjonstype';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import {
+  aktivitetStatus as aktivitetStatuser,
+  organisasjonstype as organisasjonstyper,
+  faktaOmBeregningTilfelle,
+  KodeverkType,
+} from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag,
   BeregningsgrunnlagArbeidsforhold,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import {
@@ -43,7 +45,7 @@ const arbeidstakerAndel1 = {
 };
 
 const alleKodeverk = {
-  [kodeverkTyper.AKTIVITET_STATUS]: [{
+  [KodeverkType.AKTIVITET_STATUS]: [{
     kode: aktivitetStatuser.ARBEIDSAVKLARINGSPENGER,
     kodeverk: 'AKTIVITET_STATUS',
     navn: 'Arbeidsavklaringspenger',

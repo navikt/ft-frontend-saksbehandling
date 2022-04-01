@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 
 import TilstotendeYtelser, { getTekstForAndelBruktIBeregning } from './TilstotendeYtelser';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';

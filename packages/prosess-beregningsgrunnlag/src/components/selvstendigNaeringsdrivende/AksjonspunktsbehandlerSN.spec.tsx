@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt } from '@navikt/ft-types';
 
 import AksjonspunktBehandlerSN from './AksjonspunktsbehandlerSN';
 import VurderOgFastsettSN from './VurderOgFastsettSN';
@@ -11,7 +11,7 @@ import messages from '../../../i18n/nb_NO.json';
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const mockAksjonspunktMedKodeOgStatus = (apKode: string, status: string): Aksjonspunkt => ({
   definisjon: apKode,

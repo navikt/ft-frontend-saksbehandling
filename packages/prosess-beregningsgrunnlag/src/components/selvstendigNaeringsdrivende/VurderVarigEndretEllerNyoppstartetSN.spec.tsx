@@ -1,11 +1,9 @@
 import React from 'react';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { aktivitetStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
 import messages from '../../../i18n/nb_NO.json';
 import {
   VurderVarigEndretEllerNyoppstartetSNImpl as UnwrappedForm,
@@ -18,7 +16,7 @@ const intlMock = getIntlMock(messages);
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const mockAksjonspunktMedKodeOgStatus = (apKode, begrunnelse, status) => ({
   definisjon: apKode,

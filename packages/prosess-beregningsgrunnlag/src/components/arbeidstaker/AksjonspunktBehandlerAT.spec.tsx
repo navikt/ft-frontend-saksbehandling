@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { AlleKodeverk, BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AlleKodeverk, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktBehandlerAT from './AksjonspunktBehandlerAT';
 import messages from '../../../i18n/nb_NO.json';

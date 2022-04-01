@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { faktaOmBeregningTilfelle, aktivitetStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag,
@@ -11,7 +9,7 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import {
   FaktaForATFLOgSNPanelImpl, transformValues, transformValuesFaktaForATFLOgSN,
 } from './FaktaForATFLOgSNPanel';
@@ -25,7 +23,7 @@ import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const aksjonspunkter = [{
   definisjon: VURDER_FAKTA_FOR_ATFL_SN,

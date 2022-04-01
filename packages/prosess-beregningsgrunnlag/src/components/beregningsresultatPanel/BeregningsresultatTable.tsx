@@ -1,19 +1,17 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { createSelector } from 'reselect';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
 
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
-import dekningsgradKode from '@ft-frontend-saksbehandling/kodeverk/src/dekningsgrad';
-import fagsakYtelseType from '@ft-frontend-saksbehandling/kodeverk/src/fagsakYtelseType';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
+import {
+  aktivitetStatus, periodeAarsak, dekningsgrad as dekningsgradKode, fagsakYtelseType, vilkarUtfallType,
+} from '@navikt/ft-kodeverk';
+import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Vilkar, YtelseGrunnlag,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
+
 import { andelErIkkeTilkommetEllerLagtTilAvSBH } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import BeregningsresutatPanel from './BeregningsResultatPanel';
 import BeregningsresultatPeriodeTabellType, {

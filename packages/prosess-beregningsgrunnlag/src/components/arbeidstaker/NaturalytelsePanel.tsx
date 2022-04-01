@@ -1,23 +1,25 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
+import moment from 'moment';
 import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
 import {
   dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE,
-} from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
+} from '@navikt/ft-utils';
+import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
-} from '@ft-frontend-saksbehandling/types';
-import moment from 'moment';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+} from '@navikt/ft-types';
+
 import NaturalytelseTabellData, {
   NaturalytelseEndring,
   NaturalytelseTabellRad,
 } from '../../types/NaturalytelseTableTsType';
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {
     allePerioder: BeregningsgrunnlagPeriodeProp[];

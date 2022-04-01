@@ -1,4 +1,4 @@
-import { getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { getIntlMock } from '@navikt/ft-utils-test';
 import { compareAndeler, ulikeAndelerErrorMessage, validateUlikeAndeler } from './ValidateAndelerUtils';
 import messages from '../../../i18n/nb_NO.json';
 import AndelFieldValue from '../../typer/FieldValues';

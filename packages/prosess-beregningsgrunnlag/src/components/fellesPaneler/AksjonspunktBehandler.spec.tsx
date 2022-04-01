@@ -1,13 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { aktivitetStatus, KodeverkType, periodeAarsak } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt, AlleKodeverk } from '@navikt/ft-types';
 
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
 import messages from '../../../i18n/nb_NO.json';
 import { AksjonspunktBehandlerImpl as UnwrappedForm } from './AksjonspunktBehandler';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
@@ -42,7 +39,7 @@ const aksjonspunkter = [
 ];
 
 const alleKodeverk = {
-  [kodeverkTyper.AKTIVITET_STATUS]: [{
+  [KodeverkType.AKTIVITET_STATUS]: [{
     kode: aktivitetStatus.ARBEIDSTAKER,
     kodeverk: 'AKTIVITET_STATUS',
     navn: 'Arbeidstaker',

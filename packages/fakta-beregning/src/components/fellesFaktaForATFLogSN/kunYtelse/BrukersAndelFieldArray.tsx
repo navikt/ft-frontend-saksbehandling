@@ -7,20 +7,18 @@ import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import { createSelector } from 'reselect';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { Image } from '@navikt/fp-react-components';
 
-import { InputField, NavFieldGroup, SelectField } from '@ft-frontend-saksbehandling/form';
+import { InputField, NavFieldGroup, SelectField } from '@navikt/ft-form-redux-legacy';
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
-} from '@ft-frontend-saksbehandling/utils';
-import addCircleIcon from '@ft-frontend-saksbehandling/assets/images/add-circle.svg';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+} from '@navikt/ft-utils';
+import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
 import {
-  Table, TableColumn, TableRow, VerticalSpacer,
-} from '@ft-frontend-saksbehandling/shared-components';
-import { AlleKodeverk, KodeverkMedNavn } from '@ft-frontend-saksbehandling/types';
+  Table, TableColumn, TableRow, VerticalSpacer, Image,
+} from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
 
+import addCircleIcon from '../../../images/add-circle.svg';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { isBeregningFormDirty as isFormDirty } from '../../BeregningFormUtils';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
@@ -251,4 +249,5 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(BrukersAndelFieldArray);
+// @ts-ignore Ta vekk denny og any når redux-form blir fjerna
+export default connect(mapStateToProps)(BrukersAndelFieldArray) as any;

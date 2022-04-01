@@ -2,11 +2,10 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Column } from 'nav-frontend-grid';
-import { FlexRow } from '@navikt/fp-react-components';
 
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import sammenligningType from '@ft-frontend-saksbehandling/kodeverk/src/sammenligningType';
-import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
+import { sammenligningType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
+import { FlexRow } from '@navikt/ft-ui-komponenter';
 import AvvikopplysningerATFLSN from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 

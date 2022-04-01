@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { required } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import { Beregningsgrunnlag, FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
-import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+import { required } from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 

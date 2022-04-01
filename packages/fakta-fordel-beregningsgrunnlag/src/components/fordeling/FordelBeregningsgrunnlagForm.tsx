@@ -2,32 +2,29 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { IntlShape } from 'react-intl';
 
-import { removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { BorderBox, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import { aktivitetStatus as aktivitetStatuser, periodeAarsak, KodeverkType } from '@navikt/ft-kodeverk';
+import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagPeriode,
   AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+  Beregningsgrunnlag,
+} from '@navikt/ft-types';
 import {
   FordelBeregningsgrunnlagPerioderTransformedValues,
   FordelBeregningsgrunnlagAndelTransformedValues,
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
-}
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
+} from '@navikt/ft-types-aksjonspunkter';
 
-import styles from './fordelBeregningsgrunnlagForm.less';
+import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
 import FordelBeregningsgrunnlagMedAksjonspunktValues, {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagValues,
 } from '../../types/FordelingTsType';
+import styles from './fordelBeregningsgrunnlagForm.less';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 

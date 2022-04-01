@@ -2,10 +2,12 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertittel } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import vilkarType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarType';
-import aksjonspunktCodes, { isBeregningAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import aktivitetStatus, {
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import {
+  vilkarType,
+  AksjonspunktCode,
+  aktivitetStatus,
+  isBeregningAksjonspunkt,
   isStatusArbeidstakerOrKombinasjon,
   isStatusDagpengerOrAAP,
   isStatusFrilanserOrKombinasjon,
@@ -13,11 +15,10 @@ import aktivitetStatus, {
   isStatusMilitaer,
   isStatusSNOrKombinasjon,
   isStatusTilstotendeYtelse,
-} from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId } from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import Vilkar from '@ft-frontend-saksbehandling/types/src/vilkarTsType';
+} from '@navikt/ft-kodeverk';
+import {
+  Vilkar, Beregningsgrunnlag, AlleKodeverk, ArbeidsgiverOpplysningerPerId, Aksjonspunkt,
+} from '@navikt/ft-types';
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
 import BeregningForm from './beregningForm/BeregningForm';
 import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
@@ -63,7 +64,7 @@ const getBGVilkar = (vilkar: Vilkar[]): Vilkar => (vilkar
   : undefined);
 
 const getAksjonspunktForGraderingPaaAndelUtenBG = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => (aksjonspunkter
-  ? aksjonspunkter.find((ap) => ap.definisjon === aksjonspunktCodes.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG)
+  ? aksjonspunkter.find((ap) => ap.definisjon === AksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG)
   : undefined);
 
 type OwnProps = {

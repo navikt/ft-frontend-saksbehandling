@@ -1,9 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 
-import { BeregningsgrunnlagArbeidsforhold } from '@ft-frontend-saksbehandling/types';
 import { TidsbegrensetArbeidsforholdForm } from './TidsbegrensetArbeidsforholdForm';
 import messages from '../../../../i18n/nb_NO.json';
 

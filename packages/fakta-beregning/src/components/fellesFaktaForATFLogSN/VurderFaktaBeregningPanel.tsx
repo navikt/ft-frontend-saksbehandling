@@ -4,22 +4,21 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 
-import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-import { FaktaBegrunnelseTextField, FaktaSubmitButton } from '@ft-frontend-saksbehandling/fakta-felles';
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { ArbeidsgiverOpplysningerPerId, AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import {
+  Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt,
+} from '@navikt/ft-types';
 import {
   BeregningFaktaOgOverstyringAP,
-} from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+} from '@navikt/ft-types-aksjonspunkter';
 import FaktaForATFLOgSNPanel, {
   getBuildInitialValuesFaktaForATFLOgSN,
   transformValuesFaktaForATFLOgSN,
   validationForVurderFakta,
 } from './FaktaForATFLOgSNPanel';
+import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
+import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
 
 import { erAvklartAktivitetEndret } from '../avklareAktiviteter/AvklareAktiviteterPanel';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
@@ -31,7 +30,7 @@ const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const findAksjonspunktMedBegrunnelse = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => {
   if (aksjonspunkter.some((ap) => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG)) {
@@ -52,8 +51,8 @@ export const harIkkeEndringerIAvklarMedFlereAksjonspunkter = (verdiForAvklarAkti
 };
 
 const isAksjonspunktClosed = (alleAp: Aksjonspunkt[]): boolean => {
-  const relevantAp = alleAp.filter((ap) => ap.definisjon === aksjonspunktCodes.VURDER_FAKTA_FOR_ATFL_SN
-    || ap.definisjon === aksjonspunktCodes.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+  const relevantAp = alleAp.filter((ap) => ap.definisjon === AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN
+    || ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
   return relevantAp.length === 0 ? false : relevantAp.some((ap) => !isAksjonspunktOpen(ap.status));
 };
 

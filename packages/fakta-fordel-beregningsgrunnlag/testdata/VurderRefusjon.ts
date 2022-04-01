@@ -1,4 +1,4 @@
-import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 
 export const bgUtenDelvisRefusjon = {
   skjaeringstidspunktBeregning: '2020-05-15',

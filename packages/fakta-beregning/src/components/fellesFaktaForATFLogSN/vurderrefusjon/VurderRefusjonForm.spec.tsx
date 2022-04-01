@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
-import { FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
+import { FaktaOmBeregning } from '@navikt/ft-types';
 import VurderRefusjonForm, { lagFieldName } from './VurderRefusjonForm';
 
 const {

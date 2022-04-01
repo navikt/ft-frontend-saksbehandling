@@ -1,4 +1,4 @@
-import { Aksjonspunkt, AvklarBeregningAktiviteterMap } from '@ft-frontend-saksbehandling/types';
+import { Aksjonspunkt, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
 
 export type AktivitetValues = {
   beregningAktivitetNavn: string;

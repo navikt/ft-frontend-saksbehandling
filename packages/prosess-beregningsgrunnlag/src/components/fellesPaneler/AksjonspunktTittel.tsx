@@ -1,15 +1,13 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   Beregningsgrunnlag, BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
-} from '@ft-frontend-saksbehandling/types';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+  Aksjonspunkt,
+} from '@navikt/ft-types';
+import { AksjonspunktCode, aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -17,7 +15,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_DEKNINGSGRAD,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const getAvviksprosent = (sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[]): number => {
   const avvikElem = sammenligningsgrunnlagPrStatus.find((status) => status.avvikProsent > 25);

@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import { AlleKodeverk, Beregningsgrunnlag, FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
+import { faktaOmBeregningTilfelle, aktivitetStatus as aktivitetStatuser, inntektskategorier } from '@navikt/ft-kodeverk';
+import { AlleKodeverk, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import VurderOgFastsettATFL, { skalFastsettInntektForArbeidstaker, skalFastsettInntektForFrilans } from './VurderOgFastsettATFL';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
 import VurderBesteberegningForm, { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';

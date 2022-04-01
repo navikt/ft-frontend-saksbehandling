@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
-
 import { Column, Row } from 'nav-frontend-grid';
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus, { isStatusDagpengerOrAAP } from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+
+import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { aktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 

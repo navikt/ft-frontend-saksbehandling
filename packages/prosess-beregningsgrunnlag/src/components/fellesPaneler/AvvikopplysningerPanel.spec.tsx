@@ -2,10 +2,9 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Panel from 'nav-frontend-paneler';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import sammenligningType from '@ft-frontend-saksbehandling/kodeverk/src/sammenligningType';
-import { SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { sammenligningType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import AvviksopplysningerPanel from './AvvikopplysningerPanel';
 import AvviksopplysningerSN from '../selvstendigNaeringsdrivende/AvvikopplysningerSN';
 import AvviksopplysningerFL from '../frilanser/AvvikopplysningerFL';

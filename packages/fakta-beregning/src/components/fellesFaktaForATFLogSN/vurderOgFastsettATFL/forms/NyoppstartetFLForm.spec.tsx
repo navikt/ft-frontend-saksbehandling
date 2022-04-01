@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { inntektskategorier, aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 import NyoppstartetFLForm, { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 

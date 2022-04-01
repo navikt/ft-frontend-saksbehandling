@@ -1,15 +1,14 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/fp-react-components';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { EtikettInfo } from 'nav-frontend-etiketter';
-import { getKodeverknavnFn } from '@ft-frontend-saksbehandling/utils';
+import { getKodeverknavnFn } from '@navikt/ft-utils';
 import {
-  DateLabel, VerticalSpacer, AvsnittSkiller,
-} from '@ft-frontend-saksbehandling/shared-components';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+  DateLabel, VerticalSpacer, AvsnittSkiller, FlexColumn, FlexContainer, FlexRow,
+} from '@navikt/ft-ui-komponenter';
+import { KodeverkType } from '@navikt/ft-kodeverk';
+import { AlleKodeverk } from '@navikt/ft-types';
 
 import styles from './skjeringspunktOgStatusPanel.less';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';

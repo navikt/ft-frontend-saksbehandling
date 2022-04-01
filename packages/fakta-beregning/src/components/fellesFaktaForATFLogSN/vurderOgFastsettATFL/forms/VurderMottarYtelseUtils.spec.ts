@@ -1,5 +1,5 @@
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,

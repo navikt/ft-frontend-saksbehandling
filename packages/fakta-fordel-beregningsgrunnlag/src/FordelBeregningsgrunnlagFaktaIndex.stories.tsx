@@ -1,15 +1,14 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import FordelBeregningsgrunnlagFaktaIndex from '@ft-frontend-saksbehandling/fakta-fordel-beregningsgrunnlag';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
+import {
+  inntektskategorier, AksjonspunktCode, periodeAarsak,
+} from '@navikt/ft-kodeverk';
 import {
   Behandling, Beregningsgrunnlag, FaktaOmFordeling, ArbeidsforholdTilFordeling, BeregningsgrunnlagPeriodeProp, BeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode, FordelBeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold,
-} from '@ft-frontend-saksbehandling/types';
-import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
+} from '@navikt/ft-types';
+import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
 import { beregningsgrunnlag as bgMedNaturalytelse, aksjonspunkt as apMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import { beregningsgrunnlag as bgArbeidOgGradertNæring, aksjonspunkt as apArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
@@ -18,6 +17,7 @@ import {
   bgMedDelvisRefusjon as vurderDelvisRefBG,
   aksjonspunkt as vurderRefusjonAP,
 } from '../testdata/VurderRefusjon';
+import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaIndex';
 
 type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 
@@ -37,7 +37,7 @@ const merknaderFraBeslutter = {
 };
 
 const fordelAP = ([{
-  definisjon: aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG,
+  definisjon: AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
   status: 'OPPR',
   erAktivt: true,
   kanLoses: true,
@@ -208,7 +208,7 @@ export const arbeidOgGradertNæringUtenBeregningsgrunnlag = () => (
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+      [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
@@ -226,7 +226,7 @@ export const tilkommetArbeidMedFlyttingAvNaturalytelse = () => (
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+      [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
@@ -260,7 +260,7 @@ export const aapOgRefusjon = () => {
       behandling={behandling}
       alleKodeverk={alleKodeverk as any}
       alleMerknaderFraBeslutter={{
-        [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+        [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -295,7 +295,7 @@ export const kanEndreRefusjonskrav = () => {
       behandling={behandling}
       alleKodeverk={alleKodeverk as any}
       alleMerknaderFraBeslutter={{
-        [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+        [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -349,7 +349,7 @@ export const skalSlåSammenNaturalytelseperioder = () => {
       behandling={behandling}
       alleKodeverk={alleKodeverk as any}
       alleMerknaderFraBeslutter={{
-        [aksjonspunktCodes.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+        [AksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -368,7 +368,7 @@ export const viseVurderTilkommetRefusjonskrav = () => (
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
+      [AksjonspunktCode.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
@@ -386,7 +386,7 @@ export const skalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon
     behandling={behandling}
     alleKodeverk={alleKodeverk as any}
     alleMerknaderFraBeslutter={{
-      [aksjonspunktCodes.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
+      [AksjonspunktCode.VURDER_REFUSJON_BERGRUNN]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}

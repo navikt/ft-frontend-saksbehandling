@@ -2,19 +2,18 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { InputField } from '@ft-frontend-saksbehandling/form';
+import { InputField } from '@navikt/ft-form-redux-legacy';
 import {
   getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber, required,
-} from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+} from '@navikt/ft-utils';
+import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
 
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 

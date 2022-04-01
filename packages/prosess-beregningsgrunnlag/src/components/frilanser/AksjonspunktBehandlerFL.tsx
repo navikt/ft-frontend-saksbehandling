@@ -2,11 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import { InputField } from '@ft-frontend-saksbehandling/form';
+import { InputField } from '@navikt/ft-form-redux-legacy';
 import {
   formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required,
-} from '@ft-frontend-saksbehandling/utils';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-utils';
+import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import ArbeidstakerFrilansValues, { FrilansInntektValues } from '../../types/ATFLAksjonspunktTsType';
 

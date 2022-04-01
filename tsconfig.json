@@ -3,22 +3,21 @@
 		"target": "esnext",
 		"module": "es2020",
 		"moduleResolution": "node",
-		"types": [ "node", "jest" ],
+		"types": [ "node", "jest", "@testing-library/jest-dom" ],
 		"allowJs": true,
-		"noEmit": true,
 		"strict": false,
+		"noEmit": true,
 		"strictBindCallApply": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"sourceMap": true,
 		"jsx": "react",
 		"typeRoots": ["./node_modules/@types", "./@types"],
-		"baseUrl": "packages/",
 		"skipLibCheck": true,
 	},
 	"include": [
 		"packages/**/*",
 		"@types"
 	],
-
+	"exclude": ["node_modules", "**.spec.ts"],
 }

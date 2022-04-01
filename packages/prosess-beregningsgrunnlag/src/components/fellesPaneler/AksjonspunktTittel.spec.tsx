@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { AksjonspunktHelpTextHTML } from '@ft-frontend-saksbehandling/shared-components';
-import { Beregningsgrunnlag, SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
+import { Beregningsgrunnlag, SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { FormattedMessage } from 'react-intl';
 import AksjonspunktTittel from './AksjonspunktTittel';
 
@@ -47,7 +47,7 @@ describe('<AksjonspunktTittel>', () => {
   it('skal teste at AksjonspunktHjelp rendrer korrekt ved atfl avvik', () => {
     const bg = lagBG(0);
     const wrapper = shallow(<AksjonspunktTittel
-      aksjonspunkter={[lagAP(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)]}
+      aksjonspunkter={[lagAP(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)]}
       beregningsgrunnlag={bg}
     />);
     const aksjonspunktHelpTextHTML = wrapper.find(AksjonspunktHelpTextHTML);
@@ -56,7 +56,7 @@ describe('<AksjonspunktTittel>', () => {
   it('skal teste at AksjonspunktHjelp rendrer korrekt ny i arbeidslivet og næringsdrivende', () => {
     const bg = lagBG();
     const wrapper = shallow(<AksjonspunktTittel
-      aksjonspunkter={[lagAP(aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)]}
+      aksjonspunkter={[lagAP(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)]}
       beregningsgrunnlag={bg}
     />);
     const aksjonspunktHelpTextHTML = wrapper.find(AksjonspunktHelpTextHTML);

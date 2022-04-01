@@ -1,4 +1,4 @@
-import TilbakekrevingKodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/tilbakekrevingKodeverkTyper';
+import { tilbakekrevingKodeverkTyper as TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 
 import KodeverkMedNavn from './kodeverkMedNavnTsType';
 

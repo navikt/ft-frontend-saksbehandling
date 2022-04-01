@@ -1,6 +1,5 @@
-import OpplysningAdresseType from '@ft-frontend-saksbehandling/kodeverk/src/opplysningAdresseType';
-import landkoder from '@ft-frontend-saksbehandling/kodeverk/src/landkoder';
-import { Personadresse } from '@ft-frontend-saksbehandling/types';
+import { OpplysningAdresseType, landkoder } from '@navikt/ft-kodeverk';
+import { Personadresse } from '@navikt/ft-types';
 
 const emptyIfnull = (text?: string): string => (text == null ? '' : text);
 

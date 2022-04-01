@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
 import {
@@ -10,19 +11,14 @@ import {
   parseCurrencyInput,
   formatCurrencyNoKr,
   removeSpacesFromNumber,
-} from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-utils';
 import {
   InputField,
   RadioGroupField, RadioOption, TextAreaField,
-} from '@ft-frontend-saksbehandling/form';
-
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+} from '@navikt/ft-form-redux-legacy';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { aktivitetStatus, isAksjonspunktOpen, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import VurderVarigEndretTransformed, { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 
@@ -31,7 +27,7 @@ const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
 export const varigEndringRadioname = 'erVarigEndretNaering';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
-const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE } = aksjonspunktCodes;
+const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE } = AksjonspunktCode;
 
 type OwnProps = {
     endretTekst?: React.ReactNode;
@@ -179,4 +175,5 @@ VurderVarigEndretEllerNyoppstartetSNImpl.transformValues = (values: Required<Vur
   };
 };
 
-export default injectIntl(VurderVarigEndretEllerNyoppstartetSNImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(VurderVarigEndretEllerNyoppstartetSNImpl) as any;

@@ -1,24 +1,24 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { Image } from '@navikt/fp-react-components';
-
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
 import {
   FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
 } from 'react-intl';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-
-import avslaatIkonUrl from '@ft-frontend-saksbehandling/assets/images/avslaatt_mini.svg';
+import { Column, Row } from 'nav-frontend-grid';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import Vilkar from '@ft-frontend-saksbehandling/types/src/vilkarTsType';
-import styles from './beregningsresultatTable.less';
+
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { vilkarUtfallType } from '@navikt/ft-kodeverk';
+import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Vilkar } from '@navikt/ft-types';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import BeregningsresultatPeriodeTabellType, {
   AvkortetRadType, BeregningsresultatAndelElementType,
   BruttoRadType, DagsatsRadType, RedusertRadType,
 } from '../../types/BeregningsresultatPeriodeTabellType';
+import avslaatIkonUrl from '../../images/avslaatt_mini.svg';
+
+import styles from './beregningsresultatTable.less';
 
 const lagSpesialRaderRad = (visningsObjekt: BruttoRadType | AvkortetRadType | RedusertRadType): ReactElement => {
   if (!visningsObjekt || !visningsObjekt.verdi || visningsObjekt.display === false) return null;
@@ -223,4 +223,5 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps & WrappedComponentProps
     </Panel>
   );
 };
-export default (injectIntl(BeregningsresutatPanel));
+// TODO bruk useIntl og ta vekk any
+export default (injectIntl(BeregningsresutatPanel)) as any;
