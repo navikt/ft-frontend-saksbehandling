@@ -3,6 +3,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nodeExternals = require('webpack-node-externals');
 
+const SRC_DIR = path.resolve(__dirname, './src');
+
 module.exports = {
   mode: 'production',
   devtool: 'source-map',
@@ -23,6 +25,7 @@ module.exports = {
       options: {
         rootMode: 'upward',
       },
+      include: [SRC_DIR],
     }, {
       test: /\.(less|css)?$/,
       use: [
@@ -67,7 +70,9 @@ module.exports = {
   })],
 
   externalsPresets: { node: true },
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    modulesDir: path.resolve(__dirname, '../../node_modules'),
+  })],
 
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.less'],

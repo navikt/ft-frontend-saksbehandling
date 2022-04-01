@@ -10,18 +10,15 @@
     "url": "git+https://github.com/navikt/ft-frontend-saksbehandling.git"
   },
   "scripts": {
-    "test": "jest -o --colors",
     "test:all": "jest --colors",
     "test:all:testonly": "jest --colors --selectProjects test",
     "test:watch": "jest --watch --colors",
     "test:watch:all": "jest --watchAll --colors",
     "test:coverage": "jest --coverage --colors --selectProjects test",
     "ts-check": "tsc  --pretty",
-    "lint": "eslint \"packages/**/*.ts*\"",
     "lint:fix": "eslint --fix --cache \"packages/**/*.ts*\"",
     "less:lint": "stylelint \"packages/**/*.less\"",
     "dev": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_ENV=development node webpack/webpack.dev.server.js --config webpack/webpack.dev.js",
-    "build": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_ENV=production webpack --config webpack/webpack.prod.js",
     "doc": "react-asciidoc-generator ./packages/ -o ../../docs/generated/react.adoc --handlebar-template src/docs/asciidoc-template.handlebars",
     "up": "docker-compose up -d --remove-orphans --build",
     "down": "docker-compose down",
@@ -29,7 +26,10 @@
     "lint:config": "node -e 'console.dir(require(\"./.eslintrc.js\"))'",
     "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 9002",
     "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook",
-    "bootstrap": "lerna bootstrap -- --legacy-peer-deps --no-package-lock"
+    "bootstrap": "lerna bootstrap -- --legacy-peer-deps --no-package-lock",
+    "build": "lerna run build --stream",
+    "lint": "lerna run lint --stream --parallel",
+    "test": "yarn jest --coverage"
   },
   "dependencies": {
     "@babel/runtime": "^7.17.7",
@@ -154,5 +154,8 @@
     "react-test-renderer": "^17.0.2",
     "trim": "^1.0.1"
   },
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "workspaces": {
+    "packages": ["packages/*"]
+  }
 }

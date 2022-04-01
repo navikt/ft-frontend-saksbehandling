@@ -27,8 +27,9 @@ module.exports = {
 
   plugins: [new CleanWebpackPlugin()],
 
-  externalsPresets: { node: true },
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    modulesDir: path.resolve(__dirname, '../../node_modules'),
+  })],
 
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],

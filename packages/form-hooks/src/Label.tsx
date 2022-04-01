@@ -2,7 +2,6 @@ import React, {
   ReactElement, ElementType, FunctionComponent,
 } from 'react';
 import classnames from 'classnames/bind';
-import { injectIntl, WrappedComponentProps } from 'react-intl';
 import { Undertekst } from 'nav-frontend-typografi';
 
 import styles from './label.less';
@@ -17,7 +16,7 @@ interface OwnProps {
   readOnly?: boolean;
 }
 
-const Label: FunctionComponent<OwnProps & WrappedComponentProps> = ({
+const Label: FunctionComponent<OwnProps> = ({
   input,
   readOnly = false,
   typographyElement: TypoElem = Undertekst,
@@ -33,4 +32,4 @@ const Label: FunctionComponent<OwnProps & WrappedComponentProps> = ({
   );
 };
 
-export default injectIntl(Label);
+export default Label;
