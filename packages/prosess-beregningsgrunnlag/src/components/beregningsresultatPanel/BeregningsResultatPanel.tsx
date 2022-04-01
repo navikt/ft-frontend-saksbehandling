@@ -223,4 +223,5 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps & WrappedComponentProps
     </Panel>
   );
 };
-export default (injectIntl(BeregningsresutatPanel));
+// TODO bruk useIntl og ta vekk any
+export default (injectIntl(BeregningsresutatPanel)) as any;

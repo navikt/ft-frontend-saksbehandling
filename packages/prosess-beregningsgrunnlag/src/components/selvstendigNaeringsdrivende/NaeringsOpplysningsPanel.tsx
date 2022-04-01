@@ -180,4 +180,5 @@ export const NaeringsopplysningsPanel: FunctionComponent<OwnProps & WrappedCompo
   );
 };
 
-export default injectIntl(NaeringsopplysningsPanel);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(NaeringsopplysningsPanel) as any;

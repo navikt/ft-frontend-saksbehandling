@@ -175,4 +175,5 @@ VurderVarigEndretEllerNyoppstartetSNImpl.transformValues = (values: Required<Vur
   };
 };
 
-export default injectIntl(VurderVarigEndretEllerNyoppstartetSNImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(VurderVarigEndretEllerNyoppstartetSNImpl) as any;

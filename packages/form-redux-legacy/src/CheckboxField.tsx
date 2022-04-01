@@ -21,7 +21,7 @@ interface RenderCheckboxFieldProps {
   isEdited: boolean;
 }
 
-export const RenderCheckboxField = renderNavField(({
+export const RenderCheckboxField: any = renderNavField(({
   onChange,
   label,
   ...otherProps

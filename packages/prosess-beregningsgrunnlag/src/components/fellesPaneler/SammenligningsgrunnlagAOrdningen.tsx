@@ -299,4 +299,5 @@ export const SammenligningsgrunnlagAOrdningenImpl: FunctionComponent<OwnProps & 
   );
 };
 
-export default injectIntl(SammenligningsgrunnlagAOrdningenImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(SammenligningsgrunnlagAOrdningenImpl) as any;

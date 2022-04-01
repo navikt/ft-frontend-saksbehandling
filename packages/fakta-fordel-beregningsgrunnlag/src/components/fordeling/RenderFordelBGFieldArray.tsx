@@ -542,4 +542,5 @@ const mapStateToPropsFactory = (initialState: any, initialOwnProps: OwnProps) =>
   });
 };
 
-export default connect(mapStateToPropsFactory)(RenderFordelBGFieldArray);
+// @ts-ignore Skriv om til funksjonell-komponent, bruk useIntl og fjern any
+export default connect(mapStateToPropsFactory)(RenderFordelBGFieldArray) as any;

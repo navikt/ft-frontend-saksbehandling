@@ -78,4 +78,5 @@ DekningsgradAksjonspunktPanelImpl.transformValues = (values: Required<Dekningsgr
   dekningsgrad: values[RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN],
 });
 
-export default injectIntl(DekningsgradAksjonspunktPanelImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(DekningsgradAksjonspunktPanelImpl) as any;

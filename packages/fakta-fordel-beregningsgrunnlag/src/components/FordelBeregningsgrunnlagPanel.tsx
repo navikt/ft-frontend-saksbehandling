@@ -113,4 +113,5 @@ export class FordelBeregningsgrunnlagPanel extends Component<OwnProps & WrappedC
   }
 }
 
-export default injectIntl(FordelBeregningsgrunnlagPanel);
+// @ts-ignore Skriv om til funksjonell-komponent, bruk useIntl og fjern any
+export default injectIntl(FordelBeregningsgrunnlagPanel) as any;

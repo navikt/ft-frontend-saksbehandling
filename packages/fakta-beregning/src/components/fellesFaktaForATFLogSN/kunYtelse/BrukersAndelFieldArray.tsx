@@ -249,4 +249,5 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(BrukersAndelFieldArray);
+// @ts-ignore Ta vekk denny og any når redux-form blir fjerna
+export default connect(mapStateToProps)(BrukersAndelFieldArray) as any;

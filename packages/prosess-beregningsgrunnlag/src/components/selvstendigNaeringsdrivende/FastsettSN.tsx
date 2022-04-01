@@ -134,4 +134,5 @@ FastsettSNImpl.transformValuesNyIArbeidslivet = (values:Required<NyIArbeidslivet
   bruttoBeregningsgrunnlag: removeSpacesFromNumber(values[fastsettInntektFieldname]),
 });
 
-export default injectIntl(FastsettSNImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(FastsettSNImpl) as any;

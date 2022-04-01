@@ -5,8 +5,8 @@
 		"moduleResolution": "node",
 		"types": [ "node", "jest", "@testing-library/jest-dom" ],
 		"allowJs": true,
-		"noEmit": true,
 		"strict": false,
+		"noEmit": true,
 		"strictBindCallApply": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
@@ -19,5 +19,5 @@
 		"packages/**/*",
 		"@types"
 	],
-
+	"exclude": ["node_modules", "**.spec.ts"],
 }

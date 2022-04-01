@@ -169,4 +169,5 @@ export const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export const AndelRow = connect(mapStateToProps)(injectIntl(AndelRowImpl));
+// @ts-ignore Ta vekk denny og any når redux-form blir fjerna
+export const AndelRow = connect(mapStateToProps)(injectIntl(AndelRowImpl)) as any;

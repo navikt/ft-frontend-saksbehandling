@@ -45,4 +45,4 @@ Label.defaultProps = {
   readOnly: false,
 };
 
-export default injectIntl(Label);
+export default injectIntl(Label) as any;

@@ -41,7 +41,7 @@ const acceptedFormatToIso = (string: string): string => {
   return string;
 };
 
-export const RenderDatepickerField = renderNavField(PureDatepicker);
+export const RenderDatepickerField: any = renderNavField(PureDatepicker);
 
 const DatepickerField: FunctionComponent<BaseFieldProps & DatepickerFieldProps> = ({
   name,

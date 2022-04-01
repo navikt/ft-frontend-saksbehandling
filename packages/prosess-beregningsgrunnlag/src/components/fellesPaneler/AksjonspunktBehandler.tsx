@@ -287,4 +287,5 @@ AksjonspunktBehandlerImpl.defaultProps = {
 
 AksjonspunktBehandlerImpl.transformValues = (values: ArbeidstakerFrilansValues): string => values.ATFLVurdering;
 
-export default injectIntl(AksjonspunktBehandlerImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(AksjonspunktBehandlerImpl) as any;
