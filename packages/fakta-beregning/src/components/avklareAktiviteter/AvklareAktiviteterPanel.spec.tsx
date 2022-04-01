@@ -339,7 +339,9 @@ describe('<AvklareAktiviteterPanel>', () => {
     values.aktiviteterValues[id3] = { skalBrukes: true };
     values.aktiviteterValues[idAAP] = { skalBrukes: true };
     const transformed = transformValues(values);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(1);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList[0].oppdragsgiverOrg).toBe(aktivitet1.arbeidsgiverIdent);
   });
 
@@ -362,7 +364,9 @@ describe('<AvklareAktiviteterPanel>', () => {
     values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME] = 'begrunnelse';
     values[MANUELL_OVERSTYRING_FIELD] = true;
     const transformed = transformValues(values);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(1);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(aktivitet3.aktørIdString);
     expect(transformed.begrunnelse).toBe('begrunnelse');
     expect(transformed.kode).toBe(OVERSTYRING_AV_BEREGNINGSAKTIVITETER);

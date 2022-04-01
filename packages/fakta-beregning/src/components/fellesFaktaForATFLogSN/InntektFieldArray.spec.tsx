@@ -246,13 +246,13 @@ describe('<InntektFieldArray>', () => {
 
   it('skal fjerne dagpengeandel om dagpenger og lagt til manuelt', () => {
     const newfields = new MockFieldsWithContent('fieldArrayName', [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: true }]);
-    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[kodeverkTyper.AKTIVITET_STATUS], false);
+    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[KodeverkType.AKTIVITET_STATUS], false);
     expect(newfields.length).toBe(0);
   });
 
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
     const newfields = new MockFieldsWithContent('fieldArrayName', [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false }]);
-    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[kodeverkTyper.AKTIVITET_STATUS], false);
+    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[KodeverkType.AKTIVITET_STATUS], false);
     expect(newfields.length).toBe(1);
   });
 
