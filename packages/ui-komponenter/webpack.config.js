@@ -32,7 +32,7 @@ module.exports = {
         {
           loader: MiniCssExtractPlugin.loader,
           options: {
-            publicPath: '',
+            publicPath: './',
           },
         }, {
           loader: 'css-loader',
@@ -55,6 +55,7 @@ module.exports = {
             },
           },
         }],
+      include: [SRC_DIR],
     }, {
       test: /\.(svg)$/,
       type: 'asset/resource',

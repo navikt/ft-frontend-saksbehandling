@@ -3,13 +3,9 @@ import { reduxForm } from 'redux-form';
 import { IntlProvider } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import ReduxWrapper from './ReduxWrapper';
-import InputField from './InputField';
-import CheckboxField from './CheckboxField';
-import DecimalField from './DecimalField';
-import RadioGroupField from './RadioGroupField';
-import RadioOption from './RadioOption';
-import SelectField from './SelectField';
-import TextAreaField from './TextAreaField';
+import {
+  RadioOption, TextAreaField, SelectField, RadioGroupField, DecimalField, CheckboxField, InputField,
+} from '../index';
 
 export default {
   title: 'form-redux/FormRedux',

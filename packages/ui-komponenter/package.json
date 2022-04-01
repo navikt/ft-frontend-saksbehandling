@@ -110,5 +110,9 @@
   "repository": {
       "type": "git",
       "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./dist/style.css": "./dist/style.css"
   }
 }

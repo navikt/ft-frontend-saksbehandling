@@ -65,7 +65,7 @@ interface DecimalFieldProps {
   label?: LabelType;
   readOnly?: boolean;
   isEdited?: boolean;
-  normalizeOnBlur: (value: number) => number;
+  normalizeOnBlur?: (value: number) => number;
   alignRightCenterOnReadOnly?: boolean;
 }
 
