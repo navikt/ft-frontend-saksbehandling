@@ -1,14 +1,17 @@
 import React from 'react';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { metaMock, MockFieldsWithContent } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import { Table } from '@ft-frontend-saksbehandling/shared-components';
-import { AlleKodeverk, FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import {
+  faktaOmBeregningTilfelle,
+  aktivitetStatus as aktivitetStatuser,
+  AksjonspunktCode,
+  KodeverkType,
+} from '@navikt/ft-kodeverk';
+import { isRequiredMessage } from '@navikt/ft-utils';
+import {
+  getIntlMock, shallowWithIntl, metaMock, MockFieldsWithContent,
+} from '@navikt/ft-utils-test';
+import { Table } from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk, FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
+
 import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { AndelRow } from './InntektFieldArrayRow';
@@ -21,7 +24,7 @@ const intlMock = getIntlMock(messages);
 
 const aksjonspunkter = [
   {
-    definisjon: aksjonspunktCodes.VURDER_FAKTA_FOR_ATFL_SN,
+    definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
     status: 'OPPR',
   },
 ];
@@ -30,7 +33,7 @@ const behandlingUuid = '1000051';
 const behandlingVersjon = 1;
 
 const alleKodeverk = {
-  [kodeverkTyper.AKTIVITET_STATUS]: [
+  [KodeverkType.AKTIVITET_STATUS]: [
     {
       kode: aktivitetStatuser.MILITAER_ELLER_SIVIL,
       navn: 'Militær og siviltjeneste',
@@ -243,13 +246,13 @@ describe('<InntektFieldArray>', () => {
 
   it('skal fjerne dagpengeandel om dagpenger og lagt til manuelt', () => {
     const newfields = new MockFieldsWithContent('fieldArrayName', [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: true }]);
-    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[kodeverkTyper.AKTIVITET_STATUS], false);
+    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[KodeverkType.AKTIVITET_STATUS], false);
     expect(newfields.length).toBe(0);
   });
 
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
     const newfields = new MockFieldsWithContent('fieldArrayName', [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false }]);
-    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[kodeverkTyper.AKTIVITET_STATUS], false);
+    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[KodeverkType.AKTIVITET_STATUS], false);
     expect(newfields.length).toBe(1);
   });
 

@@ -4,24 +4,23 @@ import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { InjectedFormProps, Validator, reduxForm } from 'redux-form';
 
-import { FaktaBegrunnelseTextField, FaktaSubmitButton } from '@ft-frontend-saksbehandling/fakta-felles';
-import { getKodeverknavnFn } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { ArbeidsgiverOpplysningerPerId, AlleKodeverk } from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { getKodeverknavnFn } from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import {
+  ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt, Beregningsgrunnlag,
+} from '@navikt/ft-types';
+import { FordelBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
 
-import FordelBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';
+import FaktaBegrunnelseTextField from '../legacy/FaktaBegrunnelseTextField';
+import FaktaSubmitButton from '../legacy/FaktaSubmitButton';
 import FordelingHelpText from './FordelingHelpText';
 import FastsettFordeltBeregningsgrunnlag, { FastsettFordeltBeregningsgrunnlagImpl } from './fordeling/FastsettFordeltBeregningsgrunnlag';
 import FordelBeregningsgrunnlagMedAksjonspunktValues from '../types/FordelingTsType';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const FORM_NAME_FORDEL_BEREGNING = 'fordelBeregningsgrunnlagForm';
 

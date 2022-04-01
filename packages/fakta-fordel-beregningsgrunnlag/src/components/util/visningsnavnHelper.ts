@@ -1,10 +1,10 @@
 import moment from 'moment';
-import { DDMMYYYY_DATE_FORMAT } from '@ft-frontend-saksbehandling/utils';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysninger,
   ArbeidsgiverOpplysningerPerId,
   RefusjonTilVurderingAndel,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 
 const getEndCharFromId = (id?: string) : string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
 

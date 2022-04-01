@@ -3,16 +3,16 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
-import { DDMMYYYY_DATE_FORMAT, required } from '@ft-frontend-saksbehandling/utils';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { DDMMYYYY_DATE_FORMAT, required } from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
   KortvarigAndel,
-} from '@ft-frontend-saksbehandling/types';
-import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+} from '@navikt/ft-types';
+import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 

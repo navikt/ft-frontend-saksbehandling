@@ -1,4 +1,4 @@
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { lagNaturalytelseTabelldata } from './NaturalytelsePanel';
 
 const lagBGPeriode = (fom, tom, andeler) => ({

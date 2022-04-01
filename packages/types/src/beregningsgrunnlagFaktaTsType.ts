@@ -53,7 +53,7 @@ export type AvklarBeregningAktiviteterMap = Readonly<{
   aktiviteterTomDatoMapping?: AvklarBeregningAktiviteter[];
 }>
 
-interface KunYtelseAndel extends FaktaOmBeregningAndel {
+export interface KunYtelseAndel extends FaktaOmBeregningAndel {
   fastsattBelopPrMnd: number;
 }
 

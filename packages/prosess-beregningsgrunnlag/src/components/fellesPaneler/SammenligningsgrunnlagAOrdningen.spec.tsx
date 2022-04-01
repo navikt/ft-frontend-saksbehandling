@@ -2,10 +2,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { inntektAktivitetType } from '@navikt/ft-kodeverk';
 
-import inntektAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/inntektAktivitetType';
 import messages from '../../../i18n/nb_NO.json';
 import { SammenligningsgrunnlagAOrdningenImpl } from './SammenligningsgrunnlagAOrdningen';
 

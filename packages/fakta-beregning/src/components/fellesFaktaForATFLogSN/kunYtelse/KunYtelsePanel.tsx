@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   AlleKodeverk,
   KunYtelse,
-} from '@ft-frontend-saksbehandling/types';
-import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+} from '@navikt/ft-types';
+import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import { IntlShape } from 'react-intl';
 import { BrukersAndelFieldArrayImpl } from './BrukersAndelFieldArray';
 import KunYtelseBesteberegningPanel from './KunYtelseBesteberegningPanel';

@@ -1,5 +1,5 @@
-import { isRequiredMessage } from '@ft-frontend-saksbehandling/utils';
-import { getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { isRequiredMessage } from '@navikt/ft-utils';
+import { getIntlMock } from '@navikt/ft-utils-test/src/intl-enzyme-test-helper';
 
 import {
   compareAndeler,

@@ -1,5 +1,5 @@
-import { AlleKodeverk, AlleKodeverkTilbakekreving } from '@ft-frontend-saksbehandling/types';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+import { AlleKodeverk, AlleKodeverkTilbakekreving, KodeverkMedNavn } from '@navikt/ft-types';
+import { KodeverkType } from '@navikt/ft-kodeverk';
 
 export const getKodeverknavnFraKode = (
   alleKodeverk: AlleKodeverk | AlleKodeverkTilbakekreving,
@@ -7,7 +7,8 @@ export const getKodeverknavnFraKode = (
   kode: string,
   undertype?: string,
 ): string => {
-  let kodeverkForType = alleKodeverk[kodeverkType];
+  // @ts-ignore fiks
+  let kodeverkForType: KodeverkMedNavn[] = alleKodeverk[kodeverkType];
   if (!kodeverkForType || kodeverkForType.length === 0) {
     return '';
   }

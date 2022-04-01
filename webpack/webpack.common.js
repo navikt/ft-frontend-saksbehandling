@@ -11,8 +11,6 @@ const VERSION = PACKAGE.version;
 const ROOT_DIR = path.resolve(__dirname, '../public/client');
 const CORE_DIR = path.resolve(__dirname, '../node_modules');
 const PACKAGES_DIR = path.resolve(__dirname, '../packages');
-const CSS_DIR = path.join(PACKAGES_DIR, 'assets/styles');
-const IMAGE_DIR = path.join(PACKAGES_DIR, 'assets/images');
 
 const isDevelopment = JSON.stringify(process.env.NODE_ENV) === '"development"';
 
@@ -69,7 +67,6 @@ const config = {
             },
           }],
         include: [PACKAGES_DIR],
-        exclude: [CSS_DIR],
       }, {
         test: /\.(less|css)?$/,
         use: [
@@ -91,36 +88,13 @@ const config = {
               },
             },
           }],
-        include: [CSS_DIR, CORE_DIR],
-      }, {
-        test: /\.(svg)$/,
-        issuer: /\.less?$/,
-        type: 'asset/resource',
-        generator: {
-          filename: '[name]_[contenthash].[ext]',
-        },
-        include: [IMAGE_DIR],
-      }, {
-        test: /\.(svg)$/,
-        issuer: /\.(tsx)?$/,
-        use: [{
-          loader: '@svgr/webpack',
-        },{
-          loader: 'file-loader',
-          options: {
-            esModule: false,
-            name: isDevelopment ? '[name]_[contenthash].[ext]' : '/[name]_[contenthash].[ext]',
-          },
-        }],
-        include: [IMAGE_DIR],
-        type: 'javascript/auto',
-      },{
-        test: /\.(svg)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: '[name]_[contenthash].[ext]',
-        },
         include: [CORE_DIR],
+      }, {
+        test: /\.(svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: '[name]_[contenthash].[ext]',
+        },
       }],
   },
 

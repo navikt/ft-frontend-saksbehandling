@@ -2,9 +2,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const PACKAGES_DIR = path.resolve(__dirname, '../packages');
-const IMAGE_DIR = path.join(PACKAGES_DIR, 'assets/images');
 const CORE_DIR = path.resolve(__dirname, '../node_modules');
-const CSS_DIR = path.join(PACKAGES_DIR, 'assets/styles');
+const STORYBOOK_DIR = path.resolve(__dirname);
 
 module.exports = {
   core: {
@@ -74,8 +73,7 @@ module.exports = {
             },
           },
         }],
-      include: [PACKAGES_DIR],
-      exclude: [CSS_DIR],
+      exclude: [CORE_DIR, STORYBOOK_DIR],
     }, {
       test: /\.(less)?$/,
       use: [
@@ -97,36 +95,13 @@ module.exports = {
             },
           },
         }],
-      include: [CSS_DIR, CORE_DIR],
+      include: [CORE_DIR, STORYBOOK_DIR],
     }, {
-      test: /\.(svg)$/,
-      issuer: /\.less?$/,
-      type: 'asset/resource',
-      generator: {
-        filename: '[name]_[contenthash].[ext]',
-      },
-      include: [IMAGE_DIR],
-    }, {
-      test: /\.(svg)$/,
-      issuer: /\.(tsx)?$/,
-      use: [{
-        loader: '@svgr/webpack',
-      },{
-        loader: 'file-loader',
-        options: {
-          esModule: false,
-          name: '[name]_[contenthash].[ext]',
-        },
-      }],
-      include: [IMAGE_DIR],
-      type: 'javascript/auto',
-    },{
       test: /\.(svg)$/,
       type: 'asset/resource',
       generator: {
         filename: '[name]_[contenthash].[ext]',
       },
-      include: [CORE_DIR],
     });
 
     config.plugins.push(new MiniCssExtractPlugin({

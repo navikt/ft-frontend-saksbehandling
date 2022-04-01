@@ -3,21 +3,20 @@ import React, {
 } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { FlexColumn, FlexRow } from '@navikt/fp-react-components';
 
 import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
-import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@ft-frontend-saksbehandling/utils';
+import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import {
-  VerticalSpacer, AvsnittSkiller, ReactECharts,
-} from '@ft-frontend-saksbehandling/shared-components';
+  VerticalSpacer, AvsnittSkiller, ReactECharts, FlexColumn, FlexRow,
+} from '@navikt/ft-ui-komponenter';
 import moment from 'moment';
 
 import {
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
   InntektsgrunnlagMåned,
-} from '@ft-frontend-saksbehandling/types';
-import inntektAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/inntektAktivitetType';
+} from '@navikt/ft-types';
+import { inntektAktivitetType } from '@navikt/ft-kodeverk';
 import styles from './sammenligningsgrunnlagAOrdningen.less';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import Lesmerpanel from '../redesign/LesmerPanel';
@@ -300,4 +299,5 @@ export const SammenligningsgrunnlagAOrdningenImpl: FunctionComponent<OwnProps & 
   );
 };
 
-export default injectIntl(SammenligningsgrunnlagAOrdningenImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(SammenligningsgrunnlagAOrdningenImpl) as any;

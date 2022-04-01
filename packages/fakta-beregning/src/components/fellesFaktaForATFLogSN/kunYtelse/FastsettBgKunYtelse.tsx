@@ -1,12 +1,12 @@
 import React from 'react';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   AlleKodeverk,
   KunYtelse,
-} from '@ft-frontend-saksbehandling/types';
-import { FaktaBeregningTransformedValues } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+} from '@navikt/ft-types';
+import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
 import { IntlShape } from 'react-intl';
 import KunYtelsePanel from './KunYtelsePanel';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';

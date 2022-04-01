@@ -1,6 +1,5 @@
-import organisasjonstyper from '@ft-frontend-saksbehandling/kodeverk/src/organisasjonstype';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@ft-frontend-saksbehandling/types';
+import { faktaOmBeregningTilfelle, organisasjonstype as organisasjonstyper } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { lonnsendringField } from './LonnsendringForm';
 import transformValues from './ArbeidUtenInntektsmelding';
 

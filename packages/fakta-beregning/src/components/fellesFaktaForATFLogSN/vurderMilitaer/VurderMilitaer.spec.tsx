@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { FaktaOmBeregning } from '@ft-frontend-saksbehandling/types';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { FaktaOmBeregning } from '@navikt/ft-types';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 
 import VurderMilitaer, { vurderMilitaerField } from './VurderMilitaer';
 import messages from '../../../../i18n/nb_NO.json';

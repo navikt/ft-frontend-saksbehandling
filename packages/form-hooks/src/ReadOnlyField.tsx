@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { EditedIcon } from '@ft-frontend-saksbehandling/shared-components';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import Label, { LabelType } from './Label';
 

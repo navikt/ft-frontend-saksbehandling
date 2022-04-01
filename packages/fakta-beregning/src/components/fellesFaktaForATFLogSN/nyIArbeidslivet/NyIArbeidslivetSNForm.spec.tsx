@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
+import { shallowWithIntl } from '@navikt/ft-utils-test';
 
 import NyIArbeidslivetSNForm from './NyIArbeidslivetSNForm';
 import messages from '../../../../i18n/nb_NO.json';

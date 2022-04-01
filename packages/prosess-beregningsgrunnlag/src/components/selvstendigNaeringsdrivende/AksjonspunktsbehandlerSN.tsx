@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt } from '@navikt/ft-types';
 import VurderOgFastsettSN from './VurderOgFastsettSN';
 
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const skalFastsetteSN = (aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter && aksjonspunkter.some(
   (ap) => ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE

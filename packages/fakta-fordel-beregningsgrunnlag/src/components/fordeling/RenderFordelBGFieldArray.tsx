@@ -1,34 +1,30 @@
 import React, { FunctionComponent, ReactElement } from 'react';
+import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import { connect } from 'react-redux';
 import {
   FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
 } from 'react-intl';
 import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { Image } from '@navikt/fp-react-components';
 
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
+import {
+  aktivitetStatus, behandlingType as bt, beregningsgrunnlagAndeltyper, KodeverkType, inntektskategorier, isSelvstendigNæringsdrivende,
+} from '@navikt/ft-kodeverk';
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, getKodeverknavnFn,
-} from '@ft-frontend-saksbehandling/utils';
+} from '@navikt/ft-utils';
 import {
-  Table, TableColumn, TableRow,
-} from '@ft-frontend-saksbehandling/shared-components';
-import bt from '@ft-frontend-saksbehandling/kodeverk/src/behandlingType';
+  Table, TableColumn, TableRow, Image,
+} from '@navikt/ft-ui-komponenter';
 import {
-  DecimalField, InputField, NavFieldGroup, PeriodpickerField, SelectField,
-} from '@ft-frontend-saksbehandling/form';
-import beregningsgrunnlagAndeltyper from '@ft-frontend-saksbehandling/kodeverk/src/beregningsgrunnlagAndeltyper';
-import inntektskategorier, { isSelvstendigNæringsdrivende } from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import addCircleIcon from '@ft-frontend-saksbehandling/assets/images/add-circle.svg';
-
-import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
+  DecimalField, InputField, NavFieldGroup, PeriodpickerField, SelectField, LabelType,
+} from '@navikt/ft-form-redux-legacy';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn, AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import LabelType from '@ft-frontend-saksbehandling/form/src/LabelType';
+} from '@navikt/ft-types';
+
 import finnUnikeArbeidsforhold from '../FinnUnikeArbeidsforhold';
+import addCircleIcon from '../../images/add-circle.svg';
 import {
   validateAndeler, validateSumFastsattBelop, validateTotalRefusjonPrArbeidsforhold, validateUlikeAndeler,
   validateSumRefusjon, validateSumFastsattForUgraderteAktiviteter,
@@ -542,8 +538,9 @@ const mapStateToPropsFactory = (initialState: any, initialOwnProps: OwnProps) =>
     getKodeverknavn,
     arbeidsforholdList: finnUnikeArbeidsforhold(ownProps),
     harKunYtelse: initialOwnProps.beregningsgrunnlag.aktivitetStatus
-      .some((status) => status === aktivitetStatuser.KUN_YTELSE),
+      .some((status) => status === aktivitetStatus.KUN_YTELSE),
   });
 };
 
-export default connect(mapStateToPropsFactory)(RenderFordelBGFieldArray);
+// @ts-ignore Skriv om til funksjonell-komponent, bruk useIntl og fjern any
+export default connect(mapStateToPropsFactory)(RenderFordelBGFieldArray) as any;

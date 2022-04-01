@@ -1,16 +1,13 @@
 import React, { FunctionComponent } from 'react';
 
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-
-import { ArbeidsgiverOpplysningerPerId, AlleKodeverk } from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import AvklarBeregningsaktiviteterAP, {
-  OverstyrBeregningsaktiviteterAP,
-} from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningAktivitetAP';
-import BeregningFaktaAP, { BeregningOverstyringAP } from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
+import { AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import {
+  ArbeidsgiverOpplysningerPerId, AlleKodeverk, Beregningsgrunnlag, Aksjonspunkt,
+} from '@navikt/ft-types';
+import {
+  BeregningFaktaAP, BeregningOverstyringAP, AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP,
+} from '@navikt/ft-types-aksjonspunkter';
 import { IntlShape } from 'react-intl';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanel';
@@ -19,7 +16,7 @@ const {
   VURDER_FAKTA_FOR_ATFL_SN,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 type OwnProps = {
   intl: IntlShape

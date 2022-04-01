@@ -3,22 +3,21 @@ import { FormattedMessage } from 'react-intl';
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, getKodeverknavnFn } from '@ft-frontend-saksbehandling/utils';
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+import { KodeverkType, AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, getKodeverknavnFn } from '@navikt/ft-utils';
+import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
   AlleKodeverk, PerioderMedGraderingEllerRefusjon,
-} from '@ft-frontend-saksbehandling/types';
+  Beregningsgrunnlag,
+  Aksjonspunkt,
+} from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from './util/visningsnavnHelper';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const textCase = {
   GRADERING: 'GRADERING',

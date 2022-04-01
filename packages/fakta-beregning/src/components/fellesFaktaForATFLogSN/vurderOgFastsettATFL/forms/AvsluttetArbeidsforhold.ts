@@ -1,5 +1,5 @@
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AndelFieldIdentifikator, InntektTransformed } from '../../../../typer/FieldValues';
 
 const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse = (andel: AndelFieldIdentifikator | InntektTransformed,

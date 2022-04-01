@@ -1,5 +1,3 @@
-import { Aksjonspunkt } from '@ft-frontend-saksbehandling/types';
-
 export type OverstyringAksjonspunkter = AksjonspunktCode.OVERSTYR_SOKNADSFRISTVILKAR
   | AksjonspunktCode.OVERSTYR_ADOPSJONSVILKAR
   | AksjonspunktCode.OVERSTYR_FODSELSVILKAR
@@ -163,6 +161,23 @@ const beregningAksjonspunkter = [
 const aksjonspunktIsOfType = (
   validAksjonspunktCodes: string[],
 ) => (aksjonspunktCode: string): boolean => validAksjonspunktCodes.includes(aksjonspunktCode);
+
+// TODO Burde importera fra types, men da får ein syklisk avhengigheit
+type Aksjonspunkt = Readonly<{
+  definisjon: string;
+  status: string;
+  begrunnelse?: string;
+  vilkarType?: string;
+  toTrinnsBehandling?: boolean;
+  toTrinnsBehandlingGodkjent?: boolean;
+  vurderPaNyttArsaker?: string[];
+  besluttersBegrunnelse?: string;
+  aksjonspunktType?: string;
+  kanLoses: boolean;
+  erAktivt: boolean;
+  endretAv?: string;
+  endretTidspunkt?: string;
+}>
 
 export const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
   .some((ap) => ap.definisjon === aksjonspunktKode);

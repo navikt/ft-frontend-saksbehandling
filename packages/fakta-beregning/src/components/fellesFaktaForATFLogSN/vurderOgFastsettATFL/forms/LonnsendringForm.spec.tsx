@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 import LonnsendringForm, { lonnsendringField } from './LonnsendringForm';
 
 describe('<LonnsendringForm>', () => {

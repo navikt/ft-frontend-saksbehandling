@@ -1,14 +1,14 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
-import { RadioGroupField, RadioOption } from '@ft-frontend-saksbehandling/form';
-import { required } from '@ft-frontend-saksbehandling/utils';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { required } from '@navikt/ft-utils';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   FaktaOmBeregning,
   RefusjonskravSomKommerForSentListe,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 

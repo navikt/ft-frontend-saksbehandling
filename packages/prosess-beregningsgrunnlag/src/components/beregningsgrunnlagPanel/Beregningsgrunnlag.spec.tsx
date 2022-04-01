@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+
+import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@navikt/ft-kodeverk';
+import { AlleKodeverk } from '@navikt/ft-types';
 
 import Beregningsgrunnlag from './Beregningsgrunnlag';
 import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
@@ -71,7 +70,7 @@ const selvstedigNaeringsdrivendeAndel = {
 const atflAksjonspunkt = {
   id: 55,
   erAktivt: true,
-  definisjon: aksjonspunktCodes.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  definisjon: AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   toTrinnsBehandling: false,
   status: 'OPPR',
   begrunnelse: 'begrunnelse arbeidstaker/frilans',

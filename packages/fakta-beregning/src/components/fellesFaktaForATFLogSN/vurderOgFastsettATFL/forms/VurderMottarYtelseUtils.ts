@@ -1,5 +1,5 @@
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, VurderMottarYtelse } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, VurderMottarYtelse } from '@navikt/ft-types';
 import { AndelMottarYtelseMap } from '../../../../typer/AndelMottarYtelseMap';
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 

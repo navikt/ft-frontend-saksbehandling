@@ -5,12 +5,13 @@ import {
 import {
   FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
 } from 'react-intl';
-import { FlexColumn, FlexRow } from '@navikt/fp-react-components';
-import { VerticalSpacer, AvsnittSkiller } from '@ft-frontend-saksbehandling/shared-components';
+import {
+  VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
+} from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { dateFormat, formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import Lesmerpanel from '../redesign/LesmerPanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './naeringsOpplysningsPanel.less';
@@ -179,4 +180,5 @@ export const NaeringsopplysningsPanel: FunctionComponent<OwnProps & WrappedCompo
   );
 };
 
-export default injectIntl(NaeringsopplysningsPanel);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(NaeringsopplysningsPanel) as any;

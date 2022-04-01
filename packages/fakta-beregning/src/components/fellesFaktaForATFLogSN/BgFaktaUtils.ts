@@ -1,11 +1,14 @@
-import inntektskategorier from '@ft-frontend-saksbehandling/kodeverk/src/inntektskategorier';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import organisasjonstyper from '@ft-frontend-saksbehandling/kodeverk/src/organisasjonstype';
-import OAType from '@ft-frontend-saksbehandling/kodeverk/src/opptjeningAktivitetType';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
-import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@ft-frontend-saksbehandling/utils';
+import {
+  inntektskategorier,
+  aktivitetStatus,
+  organisasjonstype as organisasjonstyper,
+  opptjeningAktivitetType as OAType,
+  faktaOmBeregningTilfelle,
+  AksjonspunktCode,
+  KodeverkType,
+} from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { createSelector } from 'reselect';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
 import {
   AndelForFaktaOmBeregning,
   FaktaOmBeregning,
@@ -13,8 +16,7 @@ import {
   Beregningsgrunnlag,
   ATFLSammeOrgAndel,
   AlleKodeverk, Aksjonspunkt,
-} from '@ft-frontend-saksbehandling/types';
-import KodeverkType from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
+} from '@navikt/ft-types';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
@@ -206,7 +208,7 @@ export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boole
   && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true);
 
 const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean => aksjonspuntker
-  && aksjonspuntker.some((ap) => ap.definisjon === aksjonspunktCodes.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+  && aksjonspuntker.some((ap) => ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
 export const erOverstyringAvBeregningsgrunnlag = createSelector<any, any>([
   getFormValuesForBeregning,

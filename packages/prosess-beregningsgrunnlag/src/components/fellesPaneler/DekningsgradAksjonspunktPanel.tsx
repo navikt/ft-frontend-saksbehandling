@@ -1,17 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
 
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
+import { AksjonspunktCode, isAksjonspunktOpen, dekningsgrad } from '@navikt/ft-kodeverk';
 
-import { Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import { RadioGroupField, RadioOption, TextAreaField } from '@ft-frontend-saksbehandling/form';
+import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
+import { RadioGroupField, RadioOption, TextAreaField } from '@navikt/ft-form-redux-legacy';
 import {
   hasValidText, maxLength, minLength, required,
-} from '@ft-frontend-saksbehandling/utils';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+} from '@navikt/ft-utils';
 import { Column, Row } from 'nav-frontend-grid';
-import dekningsgrad from '@ft-frontend-saksbehandling/kodeverk/src/dekningsgrad';
 import DekningsgradTransformedValues, {
   DekningsgradValues,
 } from '../../types/DekningsgradAksjonspunktTsType';
@@ -63,7 +60,7 @@ export const DekningsgradAksjonspunktPanelImpl: FunctionComponent<OwnProps & Wra
 );
 
 DekningsgradAksjonspunktPanelImpl.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag, aksjonspunter: Aksjonspunkt[]): DekningsgradValues => {
-  const aksjonspunkt = aksjonspunter && aksjonspunter.find((ap) => ap.definisjon === aksjonspunktCodes.VURDER_DEKNINGSGRAD);
+  const aksjonspunkt = aksjonspunter && aksjonspunter.find((ap) => ap.definisjon === AksjonspunktCode.VURDER_DEKNINGSGRAD);
   const begrunnelse = aksjonspunkt && aksjonspunkt.begrunnelse ? aksjonspunkt.begrunnelse : null;
   const initialDekningsgrad = aksjonspunkt && !isAksjonspunktOpen(aksjonspunkt.status) ? beregningsgrunnlag.dekningsgrad : null;
   if (initialDekningsgrad && begrunnelse) {
@@ -76,9 +73,10 @@ DekningsgradAksjonspunktPanelImpl.buildInitialValues = (beregningsgrunnlag: Bere
 };
 
 DekningsgradAksjonspunktPanelImpl.transformValues = (values: Required<DekningsgradValues>): DekningsgradTransformedValues => ({
-  kode: aksjonspunktCodes.VURDER_DEKNINGSGRAD,
+  kode: AksjonspunktCode.VURDER_DEKNINGSGRAD,
   begrunnelse: values[TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING],
   dekningsgrad: values[RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN],
 });
 
-export default injectIntl(DekningsgradAksjonspunktPanelImpl);
+// TODO bruk useIntl og ta vekk any
+export default injectIntl(DekningsgradAksjonspunktPanelImpl) as any;

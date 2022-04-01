@@ -3,13 +3,13 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { FormattedMessage } from 'react-intl';
 
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import opptjeningAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/opptjeningAktivitetType';
-import { RadioGroupField } from '@ft-frontend-saksbehandling/form';
+import { KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { RadioGroupField } from '@navikt/ft-form-redux-legacy';
 import {
   Table, TableRow, TableColumn, EditedIcon,
-} from '@ft-frontend-saksbehandling/shared-components';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-ui-komponenter';
+import { AlleKodeverk } from '@navikt/ft-types';
+
 import { VurderAktiviteterTabell, lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
 
 const aktivitet1 = {
@@ -86,7 +86,7 @@ const agOpplysninger = {
 };
 
 const alleKodeverk = {
-  [kodeverkTyper.OPPTJENING_AKTIVITET_TYPE]: [{
+  [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [{
     kode: opptjeningAktivitetType.ARBEID,
     navn: 'Arbeid',
     kodeverk: 'test',

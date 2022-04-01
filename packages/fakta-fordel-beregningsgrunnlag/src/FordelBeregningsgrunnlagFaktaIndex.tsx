@@ -3,14 +3,11 @@ import { RawIntlProvider } from 'react-intl';
 
 import {
   ArbeidsgiverOpplysningerPerId, StandardFaktaPanelProps, Beregningsgrunnlag,
-} from '@ft-frontend-saksbehandling/types';
-import { createIntl } from '@ft-frontend-saksbehandling/utils';
-import { ReduxWrapper } from '@ft-frontend-saksbehandling/form';
+} from '@navikt/ft-types';
+import { createIntl } from '@navikt/ft-utils';
+import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
+import { VurderRefusjonBeregningsgrunnlagAP, FordelBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
 
-import FordelBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/FordelBeregningsgrunnlagAP';
-import VurderRefusjonBeregningsgrunnlagAP
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlagPanel';
 import messages from '../i18n/nb_NO.json';
 

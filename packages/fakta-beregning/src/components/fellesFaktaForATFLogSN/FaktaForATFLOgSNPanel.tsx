@@ -1,19 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import faktaOmBeregningTilfelle from '@ft-frontend-saksbehandling/kodeverk/src/faktaOmBeregningTilfelle';
+import { IntlShape } from 'react-intl';
 import { createSelector, createStructuredSelector } from 'reselect';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { VerticalSpacer } from '@ft-frontend-saksbehandling/shared-components';
+
+import { faktaOmBeregningTilfelle, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, KortvarigAndel,
-} from '@ft-frontend-saksbehandling/types';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+  ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, KortvarigAndel, Aksjonspunkt, Beregningsgrunnlag,
+} from '@navikt/ft-types';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
-} from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningFaktaAP';
-import { IntlShape } from 'react-intl';
+} from '@navikt/ft-types-aksjonspunkter';
+
 import TidsbegrensetArbeidsforholdForm from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import VurderMilitaer from './vurderMilitaer/VurderMilitaer';
 import NyoppstartetFLForm from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
@@ -40,7 +39,7 @@ import {
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const getFaktaOmBeregning = createSelector(
   [(ownProps: OwnProps) => ownProps.beregningsgrunnlag],

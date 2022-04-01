@@ -1,12 +1,12 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import Panel from 'nav-frontend-paneler';
 
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { vilkarUtfallType } from '@navikt/ft-kodeverk';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { Vilkar } from '@navikt/ft-types';
 
-import Vilkar from '@ft-frontend-saksbehandling/types/src/vilkarTsType';
-import { FormattedMessage } from 'react-intl';
 import BeregningsresutatPanel from './BeregningsResultatPanel';
 import messages from '../../../i18n/nb_NO.json';
 import BeregningsresultatPeriodeTabellType, { AvkortetRadType, BruttoRadType, RedusertRadType } from '../../types/BeregningsresultatPeriodeTabellType';

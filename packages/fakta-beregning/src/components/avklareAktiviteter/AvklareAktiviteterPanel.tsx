@@ -9,23 +9,21 @@ import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl'
 import { Element } from 'nav-frontend-typografi';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Knapp } from 'nav-frontend-knapper';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/fp-react-components';
 
-import { FaktaBegrunnelseTextField, FaktaSubmitButton } from '@ft-frontend-saksbehandling/fakta-felles';
 import {
-  AksjonspunktHelpTextTemp, VerticalSpacer, OverstyringKnapp,
-} from '@ft-frontend-saksbehandling/shared-components';
-import aksjonspunktCodes, { hasAksjonspunkt } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
+  AksjonspunktHelpTextTemp, VerticalSpacer, OverstyringKnapp, FlexColumn, FlexContainer, FlexRow,
+} from '@navikt/ft-ui-komponenter';
+import { AksjonspunktCode, isAksjonspunktOpen, hasAksjonspunkt } from '@navikt/ft-kodeverk';
 import {
-  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, AvklarBeregningAktiviteterMap, AlleKodeverk,
-} from '@ft-frontend-saksbehandling/types';
-import BeregningAktivitetAP, { AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP }
-  from '@ft-frontend-saksbehandling/types-avklar-aksjonspunkter/src/fakta/BeregningAktivitetAP';
+  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, AvklarBeregningAktiviteterMap, AlleKodeverk, Aksjonspunkt,
+} from '@navikt/ft-types';
+import { BeregningAktivitetAP, AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP } from '@navikt/ft-types-aksjonspunkter';
+
 import { formNameAvklarAktiviteter, getFormInitialValuesForAvklarAktiviteter, getFormValuesForAvklarAktiviteter } from '../BeregningFormUtils';
 import { erOverstyringAvBeregningsgrunnlag } from '../fellesFaktaForATFLogSN/BgFaktaUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
+import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
+import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
 
 import styles from './avklareAktiviteterPanel.less';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
@@ -33,7 +31,7 @@ import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 
@@ -244,6 +242,7 @@ export class AvklareAktiviteterPanelImpl extends Component<OwnProps & InjectedFo
     if (skalSkjuleKomponent(aksjonspunkter, kanOverstyre, erOverstyrt)) {
       return null;
     }
+    // @ts-ignore Fiks
     const avklarAktiviteter = getAvklarAktiviteter(this.props);
     const overskriftOgKnapp = (
       <FlexContainer>
@@ -390,6 +389,7 @@ export const transformValues = (values: AvklarAktiviteterValues): BeregningAktiv
   if (skalKunneLoseAksjonspunkt(skalOverstyre, aksjonspunkter)) {
     const vurderAktiviteterTransformed = VurderAktiviteterPanel.transformValues(values, avklarAktiviteter.aktiviteterTomDatoMapping, skalOverstyre);
     const beg = values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME];
+    // @ts-ignore
     return {
       kode: skalOverstyre ? OVERSTYRING_AV_BEREGNINGSAKTIVITETER : AVKLAR_AKTIVITETER,
       begrunnelse: beg === undefined ? null : beg,
@@ -409,8 +409,8 @@ const skalKunneOverstyre = (erOverstyrer: boolean,
 
 const getIsAksjonspunktClosed = createSelector([(ownProps: OwnProps) => ownProps.aksjonspunkter],
   (alleAp): boolean => {
-    const relevantOpenAps = alleAp.filter((ap) => ap.definisjon === aksjonspunktCodes.AVKLAR_AKTIVITETER
-    || ap.definisjon === aksjonspunktCodes.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
+    const relevantOpenAps = alleAp.filter((ap) => ap.definisjon === AksjonspunktCode.AVKLAR_AKTIVITETER
+    || ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
       .filter((ap) => isAksjonspunktOpen(ap.status));
     return relevantOpenAps.length === 0;
   });

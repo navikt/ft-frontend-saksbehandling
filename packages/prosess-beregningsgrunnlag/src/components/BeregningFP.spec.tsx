@@ -2,8 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { FormattedMessage } from 'react-intl';
 import { shallow } from 'enzyme/build';
-import aktivitetStatus from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import vilkarUtfallType from '@ft-frontend-saksbehandling/kodeverk/src/vilkarUtfallType';
+import { aktivitetStatus, vilkarUtfallType } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
   AlleKodeverk,
@@ -11,7 +10,7 @@ import {
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
   Vilkar,
-} from '@ft-frontend-saksbehandling/types';
+} from '@navikt/ft-types';
 import BeregningFP from './BeregningFP';
 import BeregningForm from './beregningForm/BeregningForm';
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';

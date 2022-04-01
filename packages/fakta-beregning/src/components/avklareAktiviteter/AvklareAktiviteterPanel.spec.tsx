@@ -1,12 +1,9 @@
 import React from 'react';
 
-import { shallowWithIntl, getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import kodeverkTyper from '@ft-frontend-saksbehandling/kodeverk/src/kodeverkTyper';
-import opptjeningAktivitetType from '@ft-frontend-saksbehandling/kodeverk/src/opptjeningAktivitetType';
-import { reduxFormPropsMock } from '@ft-frontend-saksbehandling/utils-test/src/redux-form-test-helper';
-import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@ft-frontend-saksbehandling/shared-components';
-import { FaktaOmBeregning, AlleKodeverk, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { shallowWithIntl, getIntlMock, reduxFormPropsMock } from '@navikt/ft-utils-test';
+import { AksjonspunktCode, KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+import { FaktaOmBeregning, AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import sinon from 'sinon';
 import messages from '../../../i18n/nb_NO.json';
@@ -25,10 +22,10 @@ const intlMock = getIntlMock(messages);
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const alleKodeverk = {
-  [kodeverkTyper.OPPTJENING_AKTIVITET_TYPE]: [{
+  [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [{
     kode: opptjeningAktivitetType.ARBEID,
     kodeverk: 'test',
     navn: 'Arbeid',
@@ -342,7 +339,9 @@ describe('<AvklareAktiviteterPanel>', () => {
     values.aktiviteterValues[id3] = { skalBrukes: true };
     values.aktiviteterValues[idAAP] = { skalBrukes: true };
     const transformed = transformValues(values);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(1);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList[0].oppdragsgiverOrg).toBe(aktivitet1.arbeidsgiverIdent);
   });
 
@@ -365,7 +364,9 @@ describe('<AvklareAktiviteterPanel>', () => {
     values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME] = 'begrunnelse';
     values[MANUELL_OVERSTYRING_FIELD] = true;
     const transformed = transformValues(values);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(1);
+    // @ts-ignore Fiks
     expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(aktivitet3.aktørIdString);
     expect(transformed.begrunnelse).toBe('begrunnelse');
     expect(transformed.kode).toBe(OVERSTYRING_AV_BEREGNINGSAKTIVITETER);

@@ -1,10 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import periodeAarsak from '@ft-frontend-saksbehandling/kodeverk/src/periodeAarsak';
-import { getIntlMock } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { AlleKodeverk, Beregningsgrunnlag } from '@ft-frontend-saksbehandling/types';
+import { aktivitetStatus as aktivitetStatuser, periodeAarsak } from '@navikt/ft-kodeverk';
+import { getIntlMock } from '@navikt/ft-utils-test';
+import { AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import {
   FordelBeregningsgrunnlagForm,

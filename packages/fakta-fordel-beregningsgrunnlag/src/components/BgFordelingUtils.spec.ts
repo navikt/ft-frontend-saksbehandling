@@ -1,6 +1,6 @@
-import { formatCurrencyNoKr } from '@ft-frontend-saksbehandling/utils';
-import aktivitetStatuser from '@ft-frontend-saksbehandling/kodeverk/src/aktivitetStatus';
-import { BeregningsgrunnlagArbeidsforhold } from '@ft-frontend-saksbehandling/types';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { aktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import {
   mapToBelop,
   setArbeidsforholdInitialValues,

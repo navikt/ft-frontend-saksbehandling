@@ -1,6 +1,6 @@
-import { ArbeidsgiverOpplysninger } from '@ft-frontend-saksbehandling/types';
+import { ArbeidsgiverOpplysninger } from '@navikt/ft-types';
 import moment from 'moment';
-import { DDMMYYYY_DATE_FORMAT } from '@ft-frontend-saksbehandling/utils';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 const getEndCharFromId = (id: string | undefined): string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
 

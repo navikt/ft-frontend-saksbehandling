@@ -1,11 +1,10 @@
 import React from 'react';
 import sinon from 'sinon';
 
-import aksjonspunktCodes from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import aksjonspunktStatus from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
-import Beregningsgrunnlag from '@ft-frontend-saksbehandling/types/src/beregningsgrunnlagTsType';
-import { getIntlMock, shallowWithIntl } from '@ft-frontend-saksbehandling/utils-test/src/intl-enzyme-test-helper';
-import { AlleKodeverk } from '@ft-frontend-saksbehandling/types';
+import { AksjonspunktCode, aksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
+
 import BeregningInfoPanel from './BeregningInfoPanel';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanel';
@@ -19,7 +18,7 @@ const {
   VURDER_FAKTA_FOR_ATFL_SN,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const alleKodeverk = {} as AlleKodeverk;
 

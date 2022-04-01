@@ -1,12 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
-import { FlexRow } from '@navikt/fp-react-components';
-
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Column } from 'nav-frontend-grid';
-import sammenligningType from '@ft-frontend-saksbehandling/kodeverk/src/sammenligningType';
 
-import { SammenligningsgrunlagProp } from '@ft-frontend-saksbehandling/types';
+import { sammenligningType } from '@navikt/ft-kodeverk';
+import { FlexRow } from '@navikt/ft-ui-komponenter';
+import { SammenligningsgrunlagProp } from '@navikt/ft-types';
+
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
 
