@@ -1,14 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { formValueSelector } from 'redux-form';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 
 import {
   dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
 } from '@navikt/ft-utils';
-import { InputField } from '@navikt/ft-form-redux-legacy';
+import { useFormContext, InputField } from '@navikt/ft-form-hooks';
 import {
   aktivitetStatus,
   KodeverkType,
@@ -24,6 +22,7 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
+import { TidsbegrensetArbeidsforholdPeriodeResultat } from '@navikt/ft-types-aksjonspunkter';
 
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -32,8 +31,8 @@ import {
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
-  TidsbegrensetArbeidsforholdPeriodeTransformedValues,
 } from '../../types/ATFLAksjonspunktTsType';
+import BeregningsgrunnlagValues from '../../types/BeregningsgrunnlagAksjonspunktTsType';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 
@@ -69,7 +68,7 @@ const finnPerioderMedAvsluttetArbeidsforhold = (allePerioder: Beregningsgrunnlag
 };
 
 // Nøkkelen til et inputfield konstrueres utifra navnet på andelen og perioden den er i samt en fast prefix
-export const createInputFieldKey = (andel: BeregningsgrunnlagAndel, periode: BeregningsgrunnlagPeriodeProp): string => {
+const createInputFieldKey = (andel: BeregningsgrunnlagAndel, periode: BeregningsgrunnlagPeriodeProp): string => {
   if (!andel.arbeidsforhold) {
     return undefined;
   }
@@ -140,36 +139,31 @@ const initializeMap = (perioder: BeregningsgrunnlagPeriodeProp[],
   return mapMedAndeler;
 };
 
-export const createTableData = createSelector(
-  [(ownProps: OwnProps) => ownProps.allePerioder,
-    (ownProps: OwnProps) => ownProps.alleKodeverk,
-    (ownProps: OwnProps) => ownProps.arbeidsgiverOpplysningerPerId],
-  (allePerioder: BeregningsgrunnlagPeriodeProp[],
-    alleKodeverk: AlleKodeverk,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): TidsbegrenseArbeidsforholdTabellData => {
-    // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
-    const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
-    const kopiAvPerioder = relevantePerioder.slice(0);
-    const arbeidsforholdPeriodeMap = initializeMap(kopiAvPerioder, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId);
-    // Etter å ha initialiser mappet med faste bokser kan vi fjerne første element fra lista, da
-    // denne ikke skal være en av de redigerbare feltene i tabellen, og det er disse vi skal lage nå
-    kopiAvPerioder.forEach((periode) => {
-      const arbeidstakerAndeler = findRelevanteArbeidstakerAndeler(periode);
-      arbeidstakerAndeler.forEach((andel) => {
-        const mapKey = createArbeidsforholdMapKey(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId);
-        const mapValue = arbeidsforholdPeriodeMap[mapKey];
-        const newMapValue = createMapValueObject();
-        newMapValue.tabellInnhold = andel.overstyrtPrAar !== undefined && andel.overstyrtPrAar !== null ? formatCurrencyNoKr(andel.overstyrtPrAar) : '';
-        newMapValue.erTidsbegrenset = false;
-        newMapValue.isEditable = true;
-        newMapValue.inputfieldKey = createInputFieldKey(andel, periode);
-        mapValue.push(newMapValue);
-        arbeidsforholdPeriodeMap[mapKey] = mapValue;
-      });
+const createTableData = (allePerioder: BeregningsgrunnlagPeriodeProp[],
+  alleKodeverk: AlleKodeverk,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): TidsbegrenseArbeidsforholdTabellData => {
+  // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
+  const kopiAvPerioder = relevantePerioder.slice(0);
+  const arbeidsforholdPeriodeMap = initializeMap(kopiAvPerioder, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId);
+  // Etter å ha initialiser mappet med faste bokser kan vi fjerne første element fra lista, da
+  // denne ikke skal være en av de redigerbare feltene i tabellen, og det er disse vi skal lage nå
+  kopiAvPerioder.forEach((periode) => {
+    const arbeidstakerAndeler = findRelevanteArbeidstakerAndeler(periode);
+    arbeidstakerAndeler.forEach((andel) => {
+      const mapKey = createArbeidsforholdMapKey(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId);
+      const mapValue = arbeidsforholdPeriodeMap[mapKey];
+      const newMapValue = createMapValueObject();
+      newMapValue.tabellInnhold = andel.overstyrtPrAar !== undefined && andel.overstyrtPrAar !== null ? formatCurrencyNoKr(andel.overstyrtPrAar) : '';
+      newMapValue.erTidsbegrenset = false;
+      newMapValue.isEditable = true;
+      newMapValue.inputfieldKey = createInputFieldKey(andel, periode);
+      mapValue.push(newMapValue);
+      arbeidsforholdPeriodeMap[mapKey] = mapValue;
     });
-    return arbeidsforholdPeriodeMap;
-  },
-);
+  });
+  return arbeidsforholdPeriodeMap;
+};
 
 const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactElement => (
   <tr id="bruttoPrPeriodeRad" key="bruttoPrPeriodeRad">
@@ -266,10 +260,15 @@ const createRows = (tableData: TidsbegrenseArbeidsforholdTabellData,
   return rows;
 };
 
+const getIsAksjonspunktClosed = (gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean => {
+  const aksjonspunkt = finnAksjonspunktForFastsettBgTidsbegrensetAT(gjeldendeAksjonspunkter);
+  return aksjonspunkt ? !isAksjonspunktOpen(aksjonspunkt.status) : false;
+};
+
 interface StaticFunctions {
   buildInitialValues?: (allePerioder: BeregningsgrunnlagPeriodeProp[]) => TidsbegrenseArbeidsforholdValues;
   transformValues?: (values: TidsbegrenseArbeidsforholdValues,
-                     perioder: BeregningsgrunnlagPeriodeProp[]) => TidsbegrensetArbeidsforholdPeriodeTransformedValues[];
+                     perioder: BeregningsgrunnlagPeriodeProp[]) => TidsbegrensetArbeidsforholdPeriodeResultat[];
 }
 
 type BruttoPrPeriode = {
@@ -277,49 +276,7 @@ type BruttoPrPeriode = {
   periode: string;
 }
 
-type OwnProps = {
-    readOnly: boolean;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-    formName: string;
-    aksjonspunkter: Aksjonspunkt[];
-    allePerioder: BeregningsgrunnlagPeriodeProp[];
-    alleKodeverk: AlleKodeverk;
-};
-
-type MappedOwnProps = {
-  tableData: TidsbegrenseArbeidsforholdTabellData;
-  isAksjonspunktClosed: boolean;
-  bruttoPrPeriodeList: BruttoPrPeriode[],
-}
-
-export const AksjonspunktBehandlerTidsbegrensetImpl: FunctionComponent<OwnProps & MappedOwnProps> & StaticFunctions = ({
-  readOnly, tableData, isAksjonspunktClosed, bruttoPrPeriodeList,
-}) => {
-  const perioder = bruttoPrPeriodeList.slice(1);
-  return (
-    <table className={styles.inntektTableTB}>
-      <tbody>
-        {createRows(tableData, readOnly, isAksjonspunktClosed, perioder)}
-      </tbody>
-    </table>
-  );
-};
-
-AksjonspunktBehandlerTidsbegrensetImpl.defaultProps = {
-  isAksjonspunktClosed: false,
-  bruttoPrPeriodeList: undefined,
-};
-
-export const getIsAksjonspunktClosed = createSelector(
-  [(ownProps: OwnProps) => ownProps.aksjonspunkter],
-  (gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean => {
-    const aksjonspunkt = finnAksjonspunktForFastsettBgTidsbegrensetAT(gjeldendeAksjonspunkter);
-    return aksjonspunkt ? !isAksjonspunktOpen(aksjonspunkt.status) : false;
-  },
-);
-
-const mapStateToProps = (state: any, ownProps: OwnProps): MappedOwnProps => {
-  const { allePerioder, formName } = ownProps;
+const lagBruttoPrPeriodeListe = (allePerioder: BeregningsgrunnlagPeriodeProp[], formMethods: UseFormReturn<BeregningsgrunnlagValues>): BruttoPrPeriode[] => {
   const bruttoPrPeriodeList = [];
   const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
   const forstePeriodeATInntekt = relevantePerioder[0].beregningsgrunnlagPrStatusOgAndel
@@ -335,7 +292,7 @@ const mapStateToProps = (state: any, ownProps: OwnProps): MappedOwnProps => {
       .filter((andel) => andel.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER);
     const bruttoPrAndelForPeriode = arbeidstakerAndeler.map((andel) => {
       const inputFieldKey = createInputFieldKey(andel, periode);
-      const fastsattInntekt = formValueSelector(formName)(state, inputFieldKey);
+      const fastsattInntekt = formMethods.watch(inputFieldKey);
       return (fastsattInntekt === undefined || fastsattInntekt === '') ? 0 : removeSpacesFromNumber(fastsattInntekt);
     });
     const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
@@ -344,14 +301,36 @@ const mapStateToProps = (state: any, ownProps: OwnProps): MappedOwnProps => {
       periode: `${periode.beregningsgrunnlagPeriodeFom}_${periode.beregningsgrunnlagPeriodeTom}`,
     });
   });
-  return {
-    tableData: createTableData(ownProps),
-    isAksjonspunktClosed: getIsAksjonspunktClosed(ownProps),
-    bruttoPrPeriodeList,
-  };
+  return bruttoPrPeriodeList;
 };
 
-AksjonspunktBehandlerTidsbegrensetImpl.buildInitialValues = (allePerioder: BeregningsgrunnlagPeriodeProp[]): TidsbegrenseArbeidsforholdValues => {
+type OwnProps = {
+    readOnly: boolean;
+    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+    formName: string;
+    aksjonspunkter: Aksjonspunkt[];
+    allePerioder: BeregningsgrunnlagPeriodeProp[];
+    alleKodeverk: AlleKodeverk;
+};
+
+const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly, allePerioder, aksjonspunkter, alleKodeverk, arbeidsgiverOpplysningerPerId,
+}) => {
+  const tabellData = createTableData(allePerioder, alleKodeverk, arbeidsgiverOpplysningerPerId);
+  const isAksjonspunktClosed = getIsAksjonspunktClosed(aksjonspunkter);
+  const formMethods = useFormContext<BeregningsgrunnlagValues>();
+  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods);
+  const perioder = bruttoPrPeriodeList.slice(1);
+  return (
+    <table className={styles.inntektTableTB}>
+      <tbody>
+        {createRows(tabellData, readOnly, isAksjonspunktClosed, perioder)}
+      </tbody>
+    </table>
+  );
+};
+
+AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (allePerioder: BeregningsgrunnlagPeriodeProp[]): TidsbegrenseArbeidsforholdValues => {
   const initialValues = {};
   const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
   relevantePerioder.forEach((periode) => {
@@ -364,8 +343,8 @@ AksjonspunktBehandlerTidsbegrensetImpl.buildInitialValues = (allePerioder: Bereg
   return initialValues;
 };
 
-AksjonspunktBehandlerTidsbegrensetImpl.transformValues = (values: TidsbegrenseArbeidsforholdValues,
-  perioder: BeregningsgrunnlagPeriodeProp[]): TidsbegrensetArbeidsforholdPeriodeTransformedValues[] => {
+AksjonspunktBehandlerTidsbegrenset.transformValues = (values: TidsbegrenseArbeidsforholdValues,
+  perioder: BeregningsgrunnlagPeriodeProp[]): TidsbegrensetArbeidsforholdPeriodeResultat[] => {
   const fastsattePerioder = [];
   const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(perioder);
   relevantePerioder.forEach((periode) => {
@@ -386,7 +365,5 @@ AksjonspunktBehandlerTidsbegrensetImpl.transformValues = (values: TidsbegrenseAr
   });
   return fastsattePerioder;
 };
-
-const AksjonspunktBehandlerTidsbegrenset = connect(mapStateToProps)(AksjonspunktBehandlerTidsbegrensetImpl);
 
 export default AksjonspunktBehandlerTidsbegrenset;

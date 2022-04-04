@@ -5,7 +5,7 @@ import { Column, Row } from 'nav-frontend-grid';
 
 import { DateLabel, VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import { aktivitetStatus } from '@navikt/ft-kodeverk';
-import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -40,7 +40,7 @@ const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndele
           <Normaltekst>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
             <span className={beregningStyles.semiBoldText}>
-              <DateLabel dateString={dateFormat(startDato)} />
+              <DateLabel dateString={startDato} />
             </span>
           </Normaltekst>
         </Column>

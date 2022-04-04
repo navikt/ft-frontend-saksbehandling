@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
+import { FormattedMessage } from 'react-intl';
 import { Column } from 'nav-frontend-grid';
 
 import { sammenligningType } from '@navikt/ft-kodeverk';

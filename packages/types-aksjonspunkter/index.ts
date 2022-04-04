@@ -78,6 +78,17 @@ export { default as VurdereDokumentForVedtakAp } from './src/prosess/VurdereDoku
 export { default as OverstyringMedlemskapsvilkaretLopendeAp } from './src/prosess/OverstyringMedlemskapsvilkaretLopendeAp';
 export { default as VarselRevurderingAp } from './src/prosess/VarselRevurderingAp';
 export { default as UttakAp } from './src/prosess/UttakAp';
+export {
+  default as BeregningsgrunnlagResultatAP,
+  DekningsgradResultatAp,
+  ArbeidsinntektResultat,
+  FastsettAvvikATFLResultatAP,
+  TidsbegrensetArbeidsforholdInntektResultat,
+  TidsbegrensetArbeidsforholdPeriodeResultat,
+  FastsettAvvikATFLTidsbegrensetResultatAP,
+  VurderVarigEndretNyoppstartetResultatAP,
+  NyIArbeidslivetruttoNæringResultatAP,
+} from './src/prosess/BeregningsgrunnlagAP';
 
 export { default as VurderFaresignalerAp } from './src/risiko/VurderFaresignalerAp';
 export { default as FatterVedtakAp } from './src/totrinn/FatterVedtakAp';

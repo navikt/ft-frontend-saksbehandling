@@ -1,15 +1,15 @@
 import React, {
   FunctionComponent, ReactElement, useMemo, useCallback,
 } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import moment from 'moment';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 
-import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   VerticalSpacer, AvsnittSkiller, ReactECharts, FlexColumn, FlexRow,
 } from '@navikt/ft-ui-komponenter';
-import moment from 'moment';
 
 import {
   Inntektsgrunnlag,
@@ -17,9 +17,11 @@ import {
   InntektsgrunnlagMåned,
 } from '@navikt/ft-types';
 import { inntektAktivitetType } from '@navikt/ft-kodeverk';
-import styles from './sammenligningsgrunnlagAOrdningen.less';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import Lesmerpanel from '../redesign/LesmerPanel';
+
+import styles from './sammenligningsgrunnlagAOrdningen.less';
 
 const GRAF_FARGE_AT = '#99bdcd';
 const GRAF_FARGE_FL = '#c1b5d0';
@@ -145,9 +147,10 @@ type Inntektstyper = {
   harYtelseinntekt: boolean;
 }
 
-export const SammenligningsgrunnlagAOrdningenImpl: FunctionComponent<OwnProps & WrappedComponentProps> = ({
-  sammenligningsGrunnlagInntekter, skjeringstidspunktDato, intl,
+const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
+  sammenligningsGrunnlagInntekter, skjeringstidspunktDato,
 }) => {
+  const intl = useIntl();
   const måneder = sammenligningsGrunnlagInntekter?.måneder;
   if (!måneder || måneder.length === 0 || !skjeringstidspunktDato) {
     return null;
@@ -299,5 +302,4 @@ export const SammenligningsgrunnlagAOrdningenImpl: FunctionComponent<OwnProps & 
   );
 };
 
-// TODO bruk useIntl og ta vekk any
-export default injectIntl(SammenligningsgrunnlagAOrdningenImpl) as any;
+export default SammenligningsgrunnlagAOrdningen;

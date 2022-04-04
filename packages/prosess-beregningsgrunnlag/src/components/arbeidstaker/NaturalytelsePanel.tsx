@@ -13,13 +13,12 @@ import {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import NaturalytelseTabellData, {
   NaturalytelseEndring,
   NaturalytelseTabellRad,
 } from '../../types/NaturalytelseTableTsType';
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {
     allePerioder: BeregningsgrunnlagPeriodeProp[];
@@ -125,7 +124,7 @@ const slåSammenEndringerSomHengerSammen = (endringer: NaturalytelseEndring[]): 
   return sammenslåtteEndringer;
 };
 
-export const lagNaturalytelseTabelldata = (allePerioder: BeregningsgrunnlagPeriodeProp[],
+const lagNaturalytelseTabelldata = (allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): NaturalytelseTabellData => {
   const alleNatAndeler = finnAlleArbeidstakernøkkler(allePerioder, arbeidsgiverOpplysningerPerId);
   alleNatAndeler.forEach((natAndel) => {

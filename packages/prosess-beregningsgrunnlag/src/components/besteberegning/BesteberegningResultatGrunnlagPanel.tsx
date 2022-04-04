@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { Column, Row } from 'nav-frontend-grid';
+
 import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
   Månedsgrunnlag,
 } from '@navikt/ft-types';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
-import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import {
   VerticalSpacer,

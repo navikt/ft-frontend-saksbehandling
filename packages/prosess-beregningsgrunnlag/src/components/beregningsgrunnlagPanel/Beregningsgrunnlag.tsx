@@ -10,6 +10,10 @@ import {
   AlleKodeverk,
   Aksjonspunkt,
 } from '@navikt/ft-types';
+import {
+  FastsettAvvikATFLResultatAP,
+  FastsettAvvikATFLTidsbegrensetResultatAP,
+} from '@navikt/ft-types-aksjonspunkter';
 
 import YtelserFraInfotrygd from '../tilstotendeYtelser/YtelserFraInfotrygd';
 import GrunnlagForAarsinntektPanelSN from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';
@@ -17,7 +21,7 @@ import TilstotendeYtelser from '../tilstotendeYtelser/TilstotendeYtelser';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 import MilitaerPanel from '../militar/MilitaerPanel';
-import { AksjonspunktBehandlerTidsbegrensetImpl } from '../arbeidstaker/AksjonspunktBehandlerTB';
+import AksjonspunktBehandlerTidsbegrenset from '../arbeidstaker/AksjonspunktBehandlerTB';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 
 import GrunnlagForAarsinntektPanelFL from '../frilanser/GrunnlagForAarsinntektPanelFL';
@@ -27,8 +31,7 @@ import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntek
 import NaeringsopplysningsPanel from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import beregningStyles from './beregningsgrunnlag.less';
 import {
-  ATFLTransformedValues,
-  ATFLDekningsgradBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues, ATFLTidsbegrensetTransformedValues,
+  ATFLDekningsgradBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues,
 } from '../../types/ATFLAksjonspunktTsType';
 
 export const TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING = 'begrunnDekningsgradEndring';
@@ -126,8 +129,9 @@ interface StaticFunctions {
   buildInitialValues?: (gjeldendeAksjonspunkter: Aksjonspunkt[]) => ATFLDekningsgradBegrunnelseValues;
   transformATFLValues: (values: ATFLValues,
                         relevanteStatuser: RelevanteStatuserProp,
-                        alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]) => ATFLTransformedValues;
-  transformATFLTidsbegrensetValues: (values: ATFLTidsbegrensetValues, allePerioder: BeregningsgrunnlagPeriodeProp[]) => ATFLTidsbegrensetTransformedValues;
+                        alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]) => FastsettAvvikATFLResultatAP;
+  transformATFLTidsbegrensetValues: (values: ATFLTidsbegrensetValues,
+                                     allePerioder: BeregningsgrunnlagPeriodeProp[]) => FastsettAvvikATFLTidsbegrensetResultatAP;
 }
 
 type OwnProps = {
@@ -188,7 +192,7 @@ Beregningsgrunnlag.buildInitialValues = (gjeldendeAksjonspunkter: Aksjonspunkt[]
 
 Beregningsgrunnlag.transformATFLValues = (values: ATFLValues,
   relevanteStatuser: RelevanteStatuserProp,
-  alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]): ATFLTransformedValues => ({
+  alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]): FastsettAvvikATFLResultatAP => ({
   kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   begrunnelse: values.ATFLVurdering,
   inntektPrAndelList: AksjonspunktBehandlerAT.transformValues(values, relevanteStatuser, alleAndelerIFørstePeriode),
@@ -196,10 +200,10 @@ Beregningsgrunnlag.transformATFLValues = (values: ATFLValues,
 });
 
 Beregningsgrunnlag.transformATFLTidsbegrensetValues = (values: ATFLTidsbegrensetValues,
-  allePerioder: BeregningsgrunnlagPeriodeProp[]): ATFLTidsbegrensetTransformedValues => ({
+  allePerioder: BeregningsgrunnlagPeriodeProp[]): FastsettAvvikATFLTidsbegrensetResultatAP => ({
   kode: FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   begrunnelse: values.ATFLVurdering,
-  fastsatteTidsbegrensedePerioder: AksjonspunktBehandlerTidsbegrensetImpl.transformValues(values, allePerioder),
+  fastsatteTidsbegrensedePerioder: AksjonspunktBehandlerTidsbegrenset.transformValues(values, allePerioder),
   frilansInntekt: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,
 });
 
