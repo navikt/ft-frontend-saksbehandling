@@ -54,7 +54,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   <div>
     { /* @ts-ignore */ }
     <AvklareAktiviteterPanel
-      readOnly={readOnly || (hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, aksjonspunkter) && !erOverstyrer)}
+      readOnly={readOnly}
       harAndreAksjonspunkterIPanel={hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)}
       submitCallback={submitCallback}
       submittable={submittable}

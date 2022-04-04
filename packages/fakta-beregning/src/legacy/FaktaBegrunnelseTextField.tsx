@@ -32,7 +32,7 @@ type TransformedValues = {
 };
 
 interface StaticFunctions {
-  buildInitialValues: (aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt, begrunnelseFieldName?: string) => FormValues;
+  buildInitialValues: (hentetBegrunnelse: string, begrunnelseFieldName?: string) => FormValues;
   transformValues: (values: FormValues, name?: string) => TransformedValues;
 }
 
@@ -72,15 +72,10 @@ FaktaBegrunnelseTextField.defaultProps = {
   hasVurderingText: false,
 };
 
-const getBegrunnelse = (aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt): string => {
-  if (aksjonspunkt && Array.isArray(aksjonspunkt)) {
-    return aksjonspunkt.length > 0 ? aksjonspunkt[0].begrunnelse : '';
-  }
-  return aksjonspunkt && !Array.isArray(aksjonspunkt) ? aksjonspunkt.begrunnelse : '';
-};
-
-FaktaBegrunnelseTextField.buildInitialValues = (aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt, begrunnelseFieldName = 'begrunnelse'): FormValues => ({
-  [begrunnelseFieldName]: decodeHtmlEntity(getBegrunnelse(aksjonspunkt)),
+FaktaBegrunnelseTextField.buildInitialValues = (
+  hentetBegrunnelse: string,
+  begrunnelseFieldName = 'begrunnelse'): FormValues => ({
+  [begrunnelseFieldName]: decodeHtmlEntity(hentetBegrunnelse),
 });
 
 FaktaBegrunnelseTextField.transformValues = (values: FormValues, name = 'begrunnelse'): TransformedValues => ({
