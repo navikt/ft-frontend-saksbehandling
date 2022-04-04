@@ -1,7 +1,7 @@
 export type Vilkarperiode = Readonly<{
   avslagKode?: string;
   begrunnelse?: string;
-  vurderesIBehandlingen?: boolean;
+  vurdersIBehandlingen?: boolean;
   merknad?: string;
   merknadParametere: { [name: string]: string };
   periode: { fom: string; tom: string };
