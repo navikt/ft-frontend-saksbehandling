@@ -157,6 +157,7 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }) => {
+
   const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
 
