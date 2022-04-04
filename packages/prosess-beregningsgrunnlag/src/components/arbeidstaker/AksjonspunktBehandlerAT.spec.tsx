@@ -2,6 +2,7 @@ import React from 'react';
 import { shallowWithIntl } from '@navikt/ft-utils-test';
 import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { InputField } from '@navikt/ft-form-redux-legacy';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktBehandlerAT from './AksjonspunktBehandlerAT';
 import messages from '../../../i18n/nb_NO.json';
@@ -49,7 +50,7 @@ describe('<AksjonspunktBehandlerAT>', () => {
       expect(arbeidsgiverNavn.at(0).childAt(0).text()).toBe(
         `${arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent].navn} (${andel.arbeidsforhold.arbeidsgiverIdent})...5678`,
       );
-      const inputField = rows.first().find('InputField');
+      const inputField = rows.first().find(InputField);
       expect(inputField).toHaveLength(1);
       expect(inputField.props().readOnly).toBe(false);
     });
@@ -71,7 +72,7 @@ describe('<AksjonspunktBehandlerAT>', () => {
       expect(arbeidsgiverNavn.at(0).childAt(0).text()).toBe(
         `${arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent].navn} (${andel.arbeidsforhold.arbeidsgiverIdent})...5678`,
       );
-      const inputField = rows.first().find('InputField');
+      const inputField = rows.first().find(InputField);
       expect(inputField).toHaveLength(1);
       expect(inputField.props().readOnly).toBe(true);
     });
