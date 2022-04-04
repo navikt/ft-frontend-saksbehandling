@@ -20,6 +20,7 @@ import FaktaForATFLOgSNPanel, {
 import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
 import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import { erAvklartAktivitetEndret } from '../avklareAktiviteter/AvklareAktiviteterPanel';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { erOverstyring, erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
@@ -197,7 +198,7 @@ export const buildInitialValuesVurderFaktaBeregning = createSelector(
   [(state: any, ownProps: any) => ownProps.aksjonspunkter, getBuildInitialValuesFaktaForATFLOgSN],
   (aksjonspunkter: Aksjonspunkt[], buildInitialValuesTilfeller: () => FaktaOmBeregningValues): FaktaOmBeregningAksjonspunktValues => ({
     aksjonspunkter,
-    ...FaktaBegrunnelseTextField.buildInitialValues(findAksjonspunktMedBegrunnelse(aksjonspunkter)?.begrunnelse, BEGRUNNELSE_FAKTA_TILFELLER_NAME),
+    ...FaktaBegrunnelseTextField.buildInitialValues(findAksjonspunktMedBegrunnelse(aksjonspunkter).begrunnelse, BEGRUNNELSE_FAKTA_TILFELLER_NAME),
     ...buildInitialValuesTilfeller(),
   }),
 );
@@ -226,7 +227,7 @@ const mapStateToPropsFactory = (_state: any, initialProps: OwnProps) => {
       validate,
       onSubmit: lagSubmitFn(ownProps),
       // @ts-ignore
-      verdiForAvklarAktivitetErEndret: false,
+      verdiForAvklarAktivitetErEndret: erAvklartAktivitetEndret(state, ownProps),
       // @ts-ignore FIX reselect
       erOverstyrt: erOverstyringAvBeregningsgrunnlag(state, ownProps),
       hasBegrunnelse: initialValues && !!initialValues[BEGRUNNELSE_FAKTA_TILFELLER_NAME],
