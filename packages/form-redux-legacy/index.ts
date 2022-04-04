@@ -1,5 +1,4 @@
 require('!style-loader!css-loader!@navikt/ft-ui-komponenter/dist/style.css');
-require('!style-loader!css-loader!@navikt/ft-form-redux-legacy/dist/style.css');
 
 export { default as CheckboxField } from './src/CheckboxField';
 export { default as DatepickerField } from './src/DatepickerField';
