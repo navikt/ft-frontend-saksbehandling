@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
+import { TextAreaField } from '@navikt/ft-form-redux-legacy';
 import { aktivitetStatus, KodeverkType, periodeAarsak } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, AlleKodeverk } from '@navikt/ft-types';
 
@@ -64,8 +65,8 @@ describe('<UnwrappedForm>', () => {
     />, messages);
     const rows = wrapper.find('Row');
     expect(rows.first().find(FormattedMessage).first().props().id).toBe('Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler');
-    expect(rows.at(1).find('TextAreaField').first().props().name).toBe('ATFLVurdering');
-    expect(rows.at(1).find('TextAreaField').first().props().readOnly).toBe(readOnly);
+    expect(rows.at(1).find(TextAreaField).first().props().name).toBe('ATFLVurdering');
+    expect(rows.at(1).find(TextAreaField).first().props().readOnly).toBe(readOnly);
     const aksjonspunktBehandlerAT = wrapper.find('AksjonspunktBehandlerAT');
     const aksjonspunktBehandlerTB = wrapper.find('AksjonspunktBehandlerTB');
     const aksjonspunktBehandlerFL = wrapper.find('AksjonspunktBehandlerFL');
@@ -95,8 +96,8 @@ describe('<UnwrappedForm>', () => {
     />, messages);
     const rows = wrapper.find('Row');
     expect(rows.first().find(FormattedMessage).first().props().id).toBe('Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler');
-    expect(rows.at(1).find('TextAreaField').first().props().name).toBe('ATFLVurdering');
-    expect(rows.at(1).find('TextAreaField').first().props().readOnly).toBe(readOnly);
+    expect(rows.at(1).find(TextAreaField).first().props().name).toBe('ATFLVurdering');
+    expect(rows.at(1).find(TextAreaField).first().props().readOnly).toBe(readOnly);
     const aksjonspunktBehandlerAT = wrapper.find('AksjonspunktBehandlerAT');
     const aksjonspunktBehandlerTB = wrapper.find('AksjonspunktBehandlerTB');
     const aksjonspunktBehandlerFL = wrapper.find('AksjonspunktBehandlerFL');
@@ -127,8 +128,8 @@ describe('<UnwrappedForm>', () => {
     />, messages);
     const rows = wrapper.find('Row');
     expect(rows.first().find(FormattedMessage).first().props().id).toBe('Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler');
-    expect(rows.at(1).find('TextAreaField').first().props().name).toBe('ATFLVurdering');
-    expect(rows.at(1).find('TextAreaField').first().props().readOnly).toBe(readOnly);
+    expect(rows.at(1).find(TextAreaField).first().props().name).toBe('ATFLVurdering');
+    expect(rows.at(1).find(TextAreaField).first().props().readOnly).toBe(readOnly);
     const aksjonspunktBehandlerAT = wrapper.find('AksjonspunktBehandlerAT');
     const aksjonspunktBehandlerTB = wrapper.find('AksjonspunktBehandlerTB');
     const aksjonspunktBehandlerFL = wrapper.find('AksjonspunktBehandlerFL');
@@ -160,8 +161,8 @@ describe('<UnwrappedForm>', () => {
     />, messages);
     const rows = wrapper.find('Row');
     expect(rows.first().find(FormattedMessage).first().props().id).toBe('Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler');
-    expect(rows.at(1).find('TextAreaField').first().props().name).toBe('ATFLVurdering');
-    expect(rows.at(1).find('TextAreaField').first().props().readOnly).toBe(readOnly);
+    expect(rows.at(1).find(TextAreaField).first().props().name).toBe('ATFLVurdering');
+    expect(rows.at(1).find(TextAreaField).first().props().readOnly).toBe(readOnly);
     const aksjonspunktBehandlerAT = wrapper.find('AksjonspunktBehandlerAT');
     const aksjonspunktBehandlerTB = wrapper.find(AksjonspunktBehandlerTB);
     const aksjonspunktBehandlerFL = wrapper.find('AksjonspunktBehandlerFL');

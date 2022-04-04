@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { shallowWithIntl } from '@navikt/ft-utils-test';
+import { DateLabel } from '@navikt/ft-ui-komponenter';
 import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
@@ -44,7 +45,7 @@ describe('<GrunnlagForAarsinntektPanelFL>', () => {
     />, messages);
     const rows = wrapper.find('Row');
     const ledeTextStart = rows.at(0).find(FormattedMessage);
-    const ledeTextStartDato = rows.at(0).find('DateLabel');
+    const ledeTextStartDato = rows.at(0).find(DateLabel);
 
     expect(rows).toHaveLength(3);
     expect(ledeTextStart.get(0).props.id).toBe('Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2');
