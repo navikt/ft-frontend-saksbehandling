@@ -62,5 +62,8 @@
 
   "VurderRefusjonForm.ErRefusjonskravGyldig": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent. Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
 
-  "BeregningInfoPanel.Validation.MinstEnFastsatt": "Må ha overstyrt inntekt for minst én aktivitet."
+  "BeregningInfoPanel.Validation.MinstEnFastsatt": "Må ha overstyrt inntekt for minst én aktivitet.",
+
+  "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
+  "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
 }

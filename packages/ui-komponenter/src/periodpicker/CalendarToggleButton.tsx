@@ -57,6 +57,7 @@ class CalendarToggleButton extends Component<OwnProps, StateProps> {
     return (
       <button
         type="button"
+        // @ts-ignore Fiks
         ref={this.handleButtonRef}
         className={className}
         style={generateStyleObject(inputOffsetTop, inputOffsetWidth, buttonWidth)}

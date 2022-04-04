@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { RefusjonTilVurderingAndel } from '@navikt/ft-types';
+import { DatepickerField, InputField } from '@navikt/ft-form-redux-legacy';
+
 import { VurderEndringRefusjonRadImpl } from './VurderEndringRefusjonRad';
 
 const lagAndel = (skalKunneFastsetteDelvisRefusjon: boolean, agOrgnr: string, arbId?: string, dato?: string) => ({
@@ -37,9 +39,9 @@ describe('<VurderEndringRefusjonRad>', () => {
       formName="test"
     />);
 
-    const datepicker = wrapper.find('DatepickerField');
+    const datepicker = wrapper.find(DatepickerField);
     expect(datepicker).toHaveLength(1);
-    const inputfield = wrapper.find('InputField');
+    const inputfield = wrapper.find(InputField);
     expect(inputfield).toHaveLength(1);
   });
 
@@ -56,9 +58,9 @@ describe('<VurderEndringRefusjonRad>', () => {
       formName="test"
     />);
 
-    const datepicker = wrapper.find('DatepickerField');
+    const datepicker = wrapper.find(DatepickerField);
     expect(datepicker).toHaveLength(1);
-    const inputfield = wrapper.find('InputField');
+    const inputfield = wrapper.find(InputField);
     expect(inputfield).toHaveLength(0);
   });
 });
