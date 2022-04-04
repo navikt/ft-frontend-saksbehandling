@@ -122,6 +122,7 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
     return (
       <div
         className={className}
+        // @ts-ignore Fiks
         ref={this.setCalendarRootRef}
         onBlur={this.onBlur}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
