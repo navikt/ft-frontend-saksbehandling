@@ -12,6 +12,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
+
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AvviksopplysningerSN from '../selvstendigNaeringsdrivende/AvvikopplysningerSN';
 import AvviksopplysningerAT from '../arbeidstaker/AvvikopplysningerAT';

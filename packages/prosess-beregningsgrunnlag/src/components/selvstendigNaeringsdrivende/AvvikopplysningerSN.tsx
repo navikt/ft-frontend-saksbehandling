@@ -6,6 +6,7 @@ import { Column } from 'nav-frontend-grid';
 import { sammenligningType, aktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { FlexRow } from '@navikt/ft-ui-komponenter';
+
 import AvvikopplysningerATFLSN from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 

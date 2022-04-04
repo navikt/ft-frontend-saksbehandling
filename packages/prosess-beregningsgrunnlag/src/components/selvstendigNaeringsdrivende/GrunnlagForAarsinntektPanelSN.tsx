@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import {
   Element, Normaltekst, Undertekst,
 } from 'nav-frontend-typografi';
+import { Column, Row } from 'nav-frontend-grid';
 
 import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-
-import { Column, Row } from 'nav-frontend-grid';
 import { BeregningsgrunnlagAndel, PgiVerdier } from '@navikt/ft-types';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 const createHeaderRow = (): React.ReactNode => (
@@ -79,7 +79,7 @@ type OwnProps = {
  * Presentasjonskomponent. Viser PGI-verdier for selvstendig næringsdrivende.
  * Vises også hvis status er en kombinasjonsstatus som inkluderer selvstendig næringsdrivende.
  */
-export const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
+const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
   const snAndel = alleAndeler.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (!snAndel) {
     return null;

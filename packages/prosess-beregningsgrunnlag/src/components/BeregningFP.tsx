@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertittel } from 'nav-frontend-typografi';
+
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   vilkarType,
@@ -19,9 +20,12 @@ import {
 import {
   Vilkar, Beregningsgrunnlag, AlleKodeverk, ArbeidsgiverOpplysningerPerId, Aksjonspunkt,
 } from '@navikt/ft-types';
+import { BeregningsgrunnlagResultatAP } from '@navikt/ft-types-aksjonspunkter';
+
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
 import BeregningForm from './beregningForm/BeregningForm';
 import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
+import BeregningsgrunnlagValues from '../types/BeregningsgrunnlagAksjonspunktTsType';
 
 const visningForManglendeBG = () => (
   <>
@@ -68,7 +72,7 @@ const getAksjonspunktForGraderingPaaAndelUtenBG = (aksjonspunkter: Aksjonspunkt[
   : undefined);
 
 type OwnProps = {
-    submitCallback: (...args: any[]) => any;
+    submitCallback: (aksjonspunktData: BeregningsgrunnlagResultatAP[]) => Promise<void>;
     readOnly: boolean;
     readOnlySubmitButton: boolean;
     aksjonspunkter: Aksjonspunkt[];
@@ -76,6 +80,8 @@ type OwnProps = {
     beregningsgrunnlag: Beregningsgrunnlag;
     vilkar: Vilkar[];
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+    formData?: BeregningsgrunnlagValues;
+    setFormData: (data: BeregningsgrunnlagValues) => void,
 };
 
 /**
@@ -93,6 +99,8 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   vilkar,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
+  formData,
+  setFormData,
 }) => {
   if (!beregningsgrunnlag) {
     return visningForManglendeBG();
@@ -113,6 +121,8 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
         alleKodeverk={alleKodeverk}
         vilkaarBG={vilkaarBG}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        setFormData={setFormData}
+        formData={formData}
       />
 
       {aksjonspunktGraderingPaaAndelUtenBG

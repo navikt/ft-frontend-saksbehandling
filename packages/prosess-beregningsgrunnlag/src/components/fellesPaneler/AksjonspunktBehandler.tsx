@@ -3,15 +3,15 @@ import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';
 import {
-  FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
+  FormattedMessage, IntlShape,
+  useIntl,
 } from 'react-intl';
 
 import {
-  dateFormat,
   hasValidText, maxLength, minLength, required,
 } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { TextAreaField } from '@navikt/ft-form-redux-legacy';
+import { TextAreaField } from '@navikt/ft-form-hooks';
 
 import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@navikt/ft-kodeverk';
 import {
@@ -21,6 +21,8 @@ import {
   BeregningsgrunnlagPeriodeProp,
   Aksjonspunkt,
 } from '@navikt/ft-types';
+
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
@@ -29,7 +31,7 @@ import AksjonspunktBehandlerSN from '../selvstendigNaeringsdrivende/Aksjonspunkt
 import ArbeidstakerFrilansValues from '../../types/ATFLAksjonspunktTsType';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import DekningsgradAksjonspunktPanel from './DekningsgradAksjonspunktPanel';
-import ProsessStegSubmitButton from '../../legacy/ProsessStegSubmitButton';
+import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 
 import styles from './aksjonspunktBehandler.less';
 
@@ -48,28 +50,6 @@ const finnATFLVurderingLabel = (gjeldendeAksjonspunkter: Aksjonspunkt[]): ReactE
     return <FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />;
   }
   return <FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />;
-};
-const finnGjeldeneAksjonsPunkt = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => {
-  const eksklusiveAksjonspunkter = [AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-    AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-    AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-    AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE] as string[];
-  return aksjonspunkter.find((ap) => eksklusiveAksjonspunkter.includes(ap.definisjon));
-};
-
-const lagEndretTekst = (aksjonspunkter: Aksjonspunkt[], readOnly: boolean): ReactElement => {
-  if (!aksjonspunkter || !readOnly) return null;
-  const aksjonspunkt = finnGjeldeneAksjonsPunkt(aksjonspunkter);
-  if (!aksjonspunkt) return null;
-  const { endretAv, endretTidspunkt } = aksjonspunkt;
-  if (!endretTidspunkt) return null;
-  const godkjentEndretAv = /[a-zA-Z]{1}[0-9]{6}/.test(endretAv) ? endretAv : '';
-  return (
-    <FormattedMessage
-      id="Beregningsgrunnlag.Forms.EndretTekst"
-      values={{ endretAv: godkjentEndretAv, endretDato: dateFormat(endretTidspunkt) }}
-    />
-  );
 };
 
 const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean => allePerioder
@@ -116,7 +96,6 @@ const settOppKomponenterForNæring = (readOnly: boolean,
         erNyArbLivet={erNyArbLivet}
         erVarigEndring={erVarigEndring}
         erNyoppstartet={erNyoppstartet}
-        endretTekst={lagEndretTekst(aksjonspunkter, readOnly)}
       />
     </>
   );
@@ -183,7 +162,6 @@ const settOppKomponenterForATFL = (aksjonspunkter: Aksjonspunkt[],
             readOnly={readOnly}
             textareaClass={styles.textAreaStyle}
             placeholder={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder' })}
-            endrettekst={lagEndretTekst(aksjonspunkter, readOnly)}
           />
         </Column>
       </Row>
@@ -205,10 +183,11 @@ type OwnProps = {
     allePerioder?: BeregningsgrunnlagPeriodeProp[];
     relevanteStatuser: RelevanteStatuserProp;
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+    isSubmitting: boolean;
+    isDirty: boolean;
 };
 
-export const AksjonspunktBehandlerImpl: FunctionComponent<OwnProps & WrappedComponentProps> & StaticFunctions = ({
-  intl,
+const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   aksjonspunkter,
   formName,
@@ -217,7 +196,10 @@ export const AksjonspunktBehandlerImpl: FunctionComponent<OwnProps & WrappedComp
   alleKodeverk,
   relevanteStatuser,
   arbeidsgiverOpplysningerPerId,
+  isDirty,
+  isSubmitting,
 }) => {
+  const intl = useIntl();
   if (!aksjonspunkter || aksjonspunkter.length === 0) {
     return null;
   }
@@ -225,9 +207,10 @@ export const AksjonspunktBehandlerImpl: FunctionComponent<OwnProps & WrappedComp
     <Row>
       <Column xs="12">
         <ProsessStegSubmitButton
-          formName={formName}
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
+          isDirty={isDirty}
+          isSubmitting={isSubmitting}
         />
       </Column>
     </Row>
@@ -281,11 +264,10 @@ export const AksjonspunktBehandlerImpl: FunctionComponent<OwnProps & WrappedComp
   );
 };
 
-AksjonspunktBehandlerImpl.defaultProps = {
+AksjonspunktBehandler.defaultProps = {
   allePerioder: undefined,
 };
 
-AksjonspunktBehandlerImpl.transformValues = (values: ArbeidstakerFrilansValues): string => values.ATFLVurdering;
+AksjonspunktBehandler.transformValues = (values: ArbeidstakerFrilansValues): string => values.ATFLVurdering;
 
-// TODO bruk useIntl og ta vekk any
-export default injectIntl(AksjonspunktBehandlerImpl) as any;
+export default AksjonspunktBehandler;

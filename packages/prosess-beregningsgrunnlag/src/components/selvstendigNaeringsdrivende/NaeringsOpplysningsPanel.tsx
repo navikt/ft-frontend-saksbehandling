@@ -3,8 +3,9 @@ import {
   Element, Normaltekst, Undertekst,
 } from 'nav-frontend-typografi';
 import {
-  FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
+  FormattedMessage, IntlShape, useIntl,
 } from 'react-intl';
+
 import {
   VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
 } from '@navikt/ft-ui-komponenter';
@@ -12,6 +13,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
+
 import Lesmerpanel from '../redesign/LesmerPanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './naeringsOpplysningsPanel.less';
@@ -90,11 +92,11 @@ type OwnProps = {
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-export const NaeringsopplysningsPanel: FunctionComponent<OwnProps & WrappedComponentProps> = ({
+const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
   alleAndelerIForstePeriode,
   arbeidsgiverOpplysningerPerId,
-  intl,
 }) => {
+  const intl = useIntl();
   const snAndel = alleAndelerIForstePeriode.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (!snAndel?.næringer) {
     return null;
@@ -180,5 +182,4 @@ export const NaeringsopplysningsPanel: FunctionComponent<OwnProps & WrappedCompo
   );
 };
 
-// TODO bruk useIntl og ta vekk any
-export default injectIntl(NaeringsopplysningsPanel) as any;
+export default NaeringsopplysningsPanel;

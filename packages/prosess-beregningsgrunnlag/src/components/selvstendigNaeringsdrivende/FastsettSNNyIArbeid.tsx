@@ -1,6 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
+import {
+  FormattedMessage, useIntl,
+} from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 import {
   hasValidText,
@@ -13,14 +16,13 @@ import {
 } from '@navikt/ft-utils';
 import {
   InputField, TextAreaField,
-} from '@navikt/ft-form-redux-legacy';
-import { aktivitetStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
-import { Normaltekst } from 'nav-frontend-typografi';
+} from '@navikt/ft-form-hooks';
+import { AksjonspunktCode, aktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
+import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { NyIArbeidslivetruttoNæringResultatAP } from '@navikt/ft-types-aksjonspunkter';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import {
-  NyIArbeidslivetruttoNæringTransformed,
   NyIArbeidslivetValues,
 } from '../../types/NaringAksjonspunktTsType';
 
@@ -43,7 +45,7 @@ type OwnProps = {
 
 interface StaticFunctions {
   buildInitialValuesNyIArbeidslivet: (relevanteAndeler: BeregningsgrunnlagAndel[], gjeldendeAksjonspunkter: Aksjonspunkt[]) => NyIArbeidslivetValues;
-  transformValuesNyIArbeidslivet: (values: Required<NyIArbeidslivetValues>) => NyIArbeidslivetruttoNæringTransformed
+  transformValuesNyIArbeidslivet: (values: Required<NyIArbeidslivetValues>) => NyIArbeidslivetruttoNæringResultatAP
 }
 
 /**
@@ -54,8 +56,8 @@ interface StaticFunctions {
  * Presentasjonskomponent. Setter opp inputfelt som lar saksbehandler fastsette
  * næringsinntekt for selvstendig næringsdrivende. Opprettes enten hvis det er varig endret / nyoppstartet næring eller søker er ny i arbeidslivet.
  */
-export const FastsettSNImpl: FunctionComponent<OwnProps & WrappedComponentProps> & StaticFunctions = ({
-  readOnly, isAksjonspunktClosed, intl, gjeldendeAksjonspunkter, erNyArbLivet, endretTekst,
+const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly, isAksjonspunktClosed, gjeldendeAksjonspunkter, erNyArbLivet,
 }) => {
   const harGammeltAPFastsettBrutto = gjeldendeAksjonspunkter
     ? gjeldendeAksjonspunkter.find((ap) => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)
@@ -63,6 +65,7 @@ export const FastsettSNImpl: FunctionComponent<OwnProps & WrappedComponentProps>
   const harAPSNNyiArbLiv = gjeldendeAksjonspunkter
     ? gjeldendeAksjonspunkter.find((ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
     : false;
+  const intl = useIntl();
 
   return (
     <>
@@ -106,7 +109,6 @@ export const FastsettSNImpl: FunctionComponent<OwnProps & WrappedComponentProps>
                   maxLength={1500}
                   readOnly={readOnly}
                   placeholder={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder' })}
-                  endrettekst={endretTekst}
                 />
               </div>
             </Column>
@@ -117,7 +119,7 @@ export const FastsettSNImpl: FunctionComponent<OwnProps & WrappedComponentProps>
   );
 };
 
-FastsettSNImpl.buildInitialValuesNyIArbeidslivet = (relevanteAndeler: BeregningsgrunnlagAndel[],
+FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (relevanteAndeler: BeregningsgrunnlagAndel[],
   gjeldendeAksjonspunkter: Aksjonspunkt[]): NyIArbeidslivetValues => {
   const snAndel = relevanteAndeler.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   const nyIArbeidslivetAP = gjeldendeAksjonspunkter
@@ -128,11 +130,10 @@ FastsettSNImpl.buildInitialValuesNyIArbeidslivet = (relevanteAndeler: Beregnings
   };
 };
 
-FastsettSNImpl.transformValuesNyIArbeidslivet = (values:Required<NyIArbeidslivetValues>): NyIArbeidslivetruttoNæringTransformed => ({
+FastsettSNNyIArbeid.transformValuesNyIArbeidslivet = (values:Required<NyIArbeidslivetValues>): NyIArbeidslivetruttoNæringResultatAP => ({
   kode: FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   begrunnelse: values[begrunnelseFieldname],
   bruttoBeregningsgrunnlag: removeSpacesFromNumber(values[fastsettInntektFieldname]),
 });
 
-// TODO bruk useIntl og ta vekk any
-export default injectIntl(FastsettSNImpl) as any;
+export default FastsettSNNyIArbeid;

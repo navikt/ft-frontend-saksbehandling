@@ -1,4 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
+import { FormattedMessage } from 'react-intl';
+
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   Beregningsgrunnlag as BeregningsgrunnlagProp,
@@ -7,7 +9,6 @@ import {
   Aksjonspunkt,
 } from '@navikt/ft-types';
 import { AksjonspunktCode, aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { FormattedMessage } from 'react-intl';
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
