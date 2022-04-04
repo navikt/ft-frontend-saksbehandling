@@ -1,29 +1,29 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import {
-  FormattedMessage, injectIntl, IntlShape, WrappedComponentProps,
-} from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import {
+  FormattedMessage, IntlShape, useIntl,
+} from 'react-intl';
 import { vilkarUtfallType } from '@navikt/ft-kodeverk';
-import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 import { Vilkar } from '@navikt/ft-types';
 
+import avslaatIkonUrl from '../../images/avslaatt_mini.svg';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import BeregningsresultatPeriodeTabellType, {
   AvkortetRadType, BeregningsresultatAndelElementType,
   BruttoRadType, DagsatsRadType, RedusertRadType,
 } from '../../types/BeregningsresultatPeriodeTabellType';
-import avslaatIkonUrl from '../../images/avslaatt_mini.svg';
 
 import styles from './beregningsresultatTable.less';
 
-const lagSpesialRaderRad = (visningsObjekt: BruttoRadType | AvkortetRadType | RedusertRadType): ReactElement => {
+const lagSpesialRaderRad = (visningsObjekt: BruttoRadType | AvkortetRadType | RedusertRadType, radNøkkel: string): ReactElement => {
   if (!visningsObjekt || !visningsObjekt.verdi || visningsObjekt.display === false) return null;
   return (
-    <Row key={`SpesialRad_${visningsObjekt.verdi}`}>
+    <Row key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
       <Column xs="10">
         <Normaltekst>
           {visningsObjekt.ledetekst}
@@ -138,10 +138,10 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
   if (!ikkeVurdert) {
     if (rowsAndeler.length > 1) {
       rows.push(lineRad('andelLinje'));
-      rows.push(lagSpesialRaderRad(bruttoRad));
+      rows.push(lagSpesialRaderRad(bruttoRad, 'brutto'));
     }
-    rows.push(lagSpesialRaderRad(avkortetRad));
-    rows.push(lagSpesialRaderRad(redusertRad));
+    rows.push(lagSpesialRaderRad(avkortetRad, 'avkortet'));
+    rows.push(lagSpesialRaderRad(redusertRad, 'redusert'));
   }
   rows.push(lagDagsatsRad(dagsatser, ikkeVurdert));
   return rows;
@@ -209,9 +209,10 @@ type OwnProps = {
     vilkaarBG: Vilkar;
     periodeResultatTabeller: BeregningsresultatPeriodeTabellType[];
 };
-const BeregningsresutatPanel: FunctionComponent<OwnProps & WrappedComponentProps> = ({
-  intl, vilkaarBG, periodeResultatTabeller, grunnbeløp,
+const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
+  vilkaarBG, periodeResultatTabeller, grunnbeløp,
 }) => {
+  const intl = useIntl();
   const skalLagePeriodeHeaders = periodeResultatTabeller.length > 1;
   return (
     <Panel className={beregningStyles.panelRight}>
@@ -223,5 +224,4 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps & WrappedComponentProps
     </Panel>
   );
 };
-// TODO bruk useIntl og ta vekk any
-export default (injectIntl(BeregningsresutatPanel)) as any;
+export default BeregningsresutatPanel;
