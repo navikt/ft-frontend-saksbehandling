@@ -159,8 +159,10 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
   formNameAvklarAktiviteter,
   arbeidsgiverOpplysningerPerId,
 }) => {
+
   const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
+
   return (
     <>
       {listeSomSkalVurderes.map((aktivitetMap) => (
