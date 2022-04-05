@@ -6,7 +6,7 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import {
   dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
 } from '@navikt/ft-utils';
-import { useFormContext, InputField } from '@navikt/ft-form-hooks';
+import { formHooks, InputField } from '@navikt/ft-form-hooks';
 import {
   aktivitetStatus,
   KodeverkType,
@@ -318,7 +318,7 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
 }) => {
   const tabellData = createTableData(allePerioder, alleKodeverk, arbeidsgiverOpplysningerPerId);
   const isAksjonspunktClosed = getIsAksjonspunktClosed(aksjonspunkter);
-  const formMethods = useFormContext<BeregningsgrunnlagValues>();
+  const formMethods = formHooks.useFormContext<BeregningsgrunnlagValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods);
   const perioder = bruttoPrPeriodeList.slice(1);
   return (

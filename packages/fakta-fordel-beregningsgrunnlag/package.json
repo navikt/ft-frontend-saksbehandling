@@ -10,12 +10,16 @@
       "package.json"
   ],
   "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage --colors",
+    "tsc": "tsc --pretty",
+    "eslint": "eslint \"src/**/*.ts*\"",
+    "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
+    "less:lint": "stylelint \"src/**/*.less\"",
     "build-webpack": "cross-env NODE_OPTIONS='--openssl-legacy-provider' webpack --config webpack.config.js",
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack & yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
-    "test": "jest --passWithNoTests",
-    "ts-check": "tsc --pretty",
     "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 7002"
   },
   "dependencies": {

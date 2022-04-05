@@ -10,4 +10,4 @@ export { default as TextAreaField } from './src/TextAreaField';
 export { default as Form } from './src/Form';
 export { default as SkjemaGruppeMedFeilviser } from './src/SkjemaGruppeMedFeilviser';
 export { default as PeriodFieldArray } from './src/PeriodFieldArray';
-export { default as useFormContext } from './src/useFormContext';
+export { default as formHooks } from './src/formHooksWrapper';

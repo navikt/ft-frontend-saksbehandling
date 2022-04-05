@@ -79,10 +79,7 @@ module.exports = {
             exclude: [SRC_DIR],
           }, {
             test: /\.(svg)$/,
-            type: 'asset/resource',
-            generator: {
-              filename: '[name]_[contenthash].[ext]',
-            },
+            type: 'asset/inline',
           });
 
           config.resolve.extensions.push('.js', '.jsx', '.ts', '.tsx', '.less', '.css');

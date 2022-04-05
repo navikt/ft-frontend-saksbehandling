@@ -80,10 +80,7 @@ module.exports = {
       include: [NODE_MODULES_DIR],
     }, {
       test: /\.(svg)$/,
-      type: 'asset/resource',
-      generator: {
-        filename: '[name]_[contenthash].[ext]',
-      },
+      type: 'asset/inline',
     }],
   },
 
