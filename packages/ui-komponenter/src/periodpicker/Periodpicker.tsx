@@ -15,7 +15,6 @@ interface OwnProps {
   feil?: string;
   disabled?: boolean;
   disabledDays?: Modifier | Modifier[];
-  hideLabel?: boolean;
 }
 
 interface StateProps {

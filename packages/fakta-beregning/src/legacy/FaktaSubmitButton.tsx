@@ -29,8 +29,11 @@ const isDisabled = (
 };
 
 interface PureOwnProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   formNames?: string[];
+  // eslint-disable-next-line react/no-unused-prop-types
   formName?: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   doNotCheckForRequiredFields?: boolean;
   buttonText?: string;
   isReadOnly: boolean;

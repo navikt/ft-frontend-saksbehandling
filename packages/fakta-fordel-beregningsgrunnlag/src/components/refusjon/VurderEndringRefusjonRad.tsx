@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
@@ -69,6 +69,9 @@ export const VurderEndringRefusjonRadImpl: FunctionComponent<OwnProps & MappedOw
   const andelTekst = refusjonAndel.skalKunneFastsetteDelvisRefusjon
     ? 'BeregningInfoPanel.RefusjonBG.TidligereRefusjon'
     : 'BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon';
+
+  const formatTag = useCallback((chunks) => <b>{chunks}</b>, []);
+
   return (
     <>
       <Row>
@@ -78,7 +81,7 @@ export const VurderEndringRefusjonRadImpl: FunctionComponent<OwnProps & MappedOw
             values={{
               ag: navn,
               dato: dateFormat(refusjonAndel.nyttRefusjonskravFom),
-              b: (chunks) => <b>{chunks}</b>,
+              b: formatTag,
             }}
           />
         </Column>

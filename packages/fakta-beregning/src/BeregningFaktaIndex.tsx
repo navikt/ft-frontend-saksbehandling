@@ -22,7 +22,6 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps>
   aksjonspunkter,
   submitCallback,
   readOnly,
-  harApneAksjonspunkter,
   submittable,
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
@@ -38,7 +37,6 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps>
         aksjonspunkter={aksjonspunkter}
         submitCallback={submitCallback}
         readOnly={readOnly}
-        hasOpenAksjonspunkter={harApneAksjonspunkter}
         submittable={submittable}
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
