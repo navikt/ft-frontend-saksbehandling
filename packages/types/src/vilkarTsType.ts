@@ -9,7 +9,7 @@ type Vilkar = Readonly<{
   avslagKode?: string;
   lovReferanse?: string;
   overstyrbar: boolean;
-  periode?: Vilkarperiode;
+  perioder?: Vilkarperiode[];
 }>
 
 export default Vilkar;
