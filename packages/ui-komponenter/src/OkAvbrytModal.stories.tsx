@@ -5,7 +5,7 @@ import { Story } from '@storybook/react'; // eslint-disable-line import/no-extra
 import OkAvbrytModal from './OkAvbrytModal';
 
 export default {
-  title: 'ui-komponenter/OkAvbrytModal',
+  title: 'OkAvbrytModal',
   component: OkAvbrytModal,
 };
 

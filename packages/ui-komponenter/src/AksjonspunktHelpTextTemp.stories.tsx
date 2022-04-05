@@ -4,7 +4,7 @@ import { Story } from '@storybook/react'; // eslint-disable-line import/no-extra
 import AksjonspunktHelpTextTemp from './AksjonspunktHelpTextTemp';
 
 export default {
-  title: 'ui-komponenter/AksjonspunktHelpTextTemp',
+  title: 'AksjonspunktHelpTextTemp',
   component: AksjonspunktHelpTextTemp,
 };
 

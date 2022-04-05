@@ -10,7 +10,7 @@ const intl = createIntl({
 });
 
 export default {
-  title: 'ui-komponenter/DataFetchPendingModal',
+  title: 'DataFetchPendingModal',
   component: DataFetchPendingModal,
 };
 

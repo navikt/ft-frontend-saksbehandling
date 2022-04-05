@@ -22,7 +22,6 @@ import {
   Aksjonspunkt,
 } from '@navikt/ft-types';
 
-
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';

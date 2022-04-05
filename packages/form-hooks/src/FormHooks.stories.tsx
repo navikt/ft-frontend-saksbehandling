@@ -6,8 +6,10 @@ import {
 } from '../index';
 import Form from './Form';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+
 export default {
-  title: 'form-hooks/FormHooks',
+  title: 'FormHooks',
 };
 
 export const visFormkomponenter = () => {

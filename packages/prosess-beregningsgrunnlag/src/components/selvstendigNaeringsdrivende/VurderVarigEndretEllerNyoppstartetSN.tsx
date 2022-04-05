@@ -18,7 +18,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { aktivitetStatus, isAksjonspunktOpen, AksjonspunktCode } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
 import {
-  InputField, RadioGroupField, RadioOption, TextAreaField, useFormContext,
+  InputField, RadioGroupField, RadioOption, TextAreaField, formHooks,
 } from '@navikt/ft-form-hooks';
 import { VurderVarigEndretNyoppstartetResultatAP } from '@navikt/ft-types-aksjonspunkter';
 
@@ -68,7 +68,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
     radioLabel2 = (<FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndring" />);
   }
   const intl = useIntl();
-  const formMethods = useFormContext<BeregningsgrunnlagValues>();
+  const formMethods = formHooks.useFormContext<BeregningsgrunnlagValues>();
   const erVarigEndretNaering = formMethods.watch('erVarigEndretNaering');
   return (
     <>

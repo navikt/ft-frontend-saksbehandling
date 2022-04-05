@@ -3,7 +3,7 @@ import React from 'react';
 import OverstyringKnapp from './OverstyringKnapp';
 
 export default {
-  title: 'ui-komponenter/OverstyringKnapp',
+  title: 'OverstyringKnapp',
   component: OverstyringKnapp,
 };
 

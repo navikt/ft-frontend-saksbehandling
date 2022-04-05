@@ -6,7 +6,7 @@ import TableRow from './TableRow';
 import TableColumn from './TableColumn';
 
 export default {
-  title: 'ui-komponenter/Table',
+  title: 'Table',
   component: Table,
 };
 

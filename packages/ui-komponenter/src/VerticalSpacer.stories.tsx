@@ -3,7 +3,7 @@ import React from 'react';
 import VerticalSpacer from './VerticalSpacer';
 
 export default {
-  title: 'ui-komponenter/VerticalSpacer',
+  title: 'VerticalSpacer',
   component: VerticalSpacer,
 };
 

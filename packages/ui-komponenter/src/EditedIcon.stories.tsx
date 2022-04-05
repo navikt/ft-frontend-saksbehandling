@@ -3,7 +3,7 @@ import React from 'react';
 import EditedIcon from './EditedIcon';
 
 export default {
-  title: 'ui-komponenter/EditedIcon',
+  title: 'EditedIcon',
 };
 
 export const Default = () => (
