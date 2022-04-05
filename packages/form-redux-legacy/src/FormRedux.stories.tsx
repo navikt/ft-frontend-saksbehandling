@@ -7,6 +7,8 @@ import {
   RadioOption, TextAreaField, SelectField, RadioGroupField, DecimalField, CheckboxField, InputField,
 } from '../index';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+
 export default {
   title: 'FormRedux',
   component: ReduxWrapper,

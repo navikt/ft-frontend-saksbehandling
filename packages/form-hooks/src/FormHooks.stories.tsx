@@ -6,6 +6,8 @@ import {
 } from '../index';
 import Form from './Form';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+
 export default {
   title: 'FormHooks',
 };

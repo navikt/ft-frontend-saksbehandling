@@ -19,6 +19,9 @@ import {
 } from '../testdata/VurderRefusjon';
 import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaIndex';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+import '@navikt/ft-form-redux-legacy/dist/style.css';
+
 type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 
 export default {

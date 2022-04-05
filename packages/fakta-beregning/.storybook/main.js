@@ -57,7 +57,7 @@ module.exports = {
               }],
             include: [SRC_DIR],
           }, {
-            test: /\.(less|css)?$/,
+            test: /\.(less)?$/,
             use: [
               {
                 loader: MiniCssExtractPlugin.loader,
