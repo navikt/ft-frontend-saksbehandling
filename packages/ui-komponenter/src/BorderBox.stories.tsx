@@ -3,7 +3,7 @@ import React from 'react';
 import BorderBox from './BorderBox';
 
 export default {
-  title: 'ui-komponenter/BorderBox',
+  title: 'BorderBox',
   component: BorderBox,
 };
 

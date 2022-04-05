@@ -15,6 +15,9 @@ import {
   beregningsgrunnlag as bgMedArbeidOgDagpenger, aksjonspunkt as aksjonspunktArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+import '@navikt/ft-form-redux-legacy/dist/style.css';
+
 const behandling = {
   uuid: '1',
   versjon: 1,
@@ -166,7 +169,7 @@ const merknaderFraBeslutter = {
 };
 
 export default {
-  title: 'fakta/fakta-beregning',
+  title: 'fakta-beregning',
   component: BeregningFaktaIndex,
 };
 

@@ -21,8 +21,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: Typescript and linting
-        run: yarn less:lint && yarn lint && yarn ts-check
+      - name: Bygg
+        run: yarn build
 
-     # - name: Run test and coverage
-    #  run: yarn test:coverage
+      - name: Typescript and linting
+        run: yarn less:lint && yarn eslint && yarn tsc
+
+      - name: Run test and coverage
+        run: yarn test:coverage

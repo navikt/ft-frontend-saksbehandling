@@ -4,7 +4,7 @@ import { Story } from '@storybook/react'; // eslint-disable-line import/no-extra
 import AvsnittSkiller from './AvsnittSkiller';
 
 export default {
-  title: 'ui-komponenter/AvsnittSkiller',
+  title: 'AvsnittSkiller',
   component: AvsnittSkiller,
 };
 

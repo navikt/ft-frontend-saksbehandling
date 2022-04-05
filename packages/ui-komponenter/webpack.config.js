@@ -58,10 +58,7 @@ module.exports = {
       include: [SRC_DIR],
     }, {
       test: /\.(svg)$/,
-      type: 'asset/resource',
-      generator: {
-        filename: '[name]_[contenthash].[ext]',
-      },
+      type: 'asset/inline',
     }],
   },
 

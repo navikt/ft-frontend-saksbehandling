@@ -7,7 +7,7 @@ import WarningModal from './WarningModal';
 import Image from './Image';
 
 export default {
-  title: 'ui-komponenter/Image',
+  title: 'Image',
 };
 
 export const Default = () => (

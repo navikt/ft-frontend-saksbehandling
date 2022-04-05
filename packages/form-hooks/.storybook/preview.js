@@ -1,10 +1,8 @@
+import React from 'react';
+import '@formatjs/intl-datetimeformat/polyfill-force';
+import '@formatjs/intl-datetimeformat/locale-data/nb';
+import '@formatjs/intl-numberformat/polyfill-force';
+import '@formatjs/intl-numberformat/locale-data/nb';
+import '../../../.storybook/global.less';
 
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
-    },
-  },
-}
+export const decorators = [(Story) => <div style={{ margin: '40px'}}><Story/></div>];

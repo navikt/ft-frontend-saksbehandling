@@ -10,17 +10,22 @@
       "package.json"
   ],
   "scripts": {
+    "test": "jest --passWithNoTests",
+    "test:coverage": "jest --passWithNoTests --coverage --colors",
+    "tsc": "tsc --pretty",
+    "eslint": "eslint \"src/**/*.ts*\"",
+    "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
+    "less:lint": "stylelint \"src/**/*.less\"",
     "build-webpack": "cross-env NODE_OPTIONS='--openssl-legacy-provider' webpack --config webpack.config.js",
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack & yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
-    "test": "jest --passWithNoTests",
-    "ts-check": "tsc --pretty",
-    "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 7002"
+    "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 7003"
   },
   "dependencies": {
     "@navikt/ft-ui-komponenter": "1.0.0-beta.3",
     "@navikt/ft-types": "1.0.0-beta.2",
+    "@navikt/ft-utils": "1.0.0-beta.2",
     "classnames": "2.3.1",
     "dayjs": "1.11.0",
     "lodash.throttle": "4.1.1",
@@ -45,6 +50,7 @@
   "peerDependencies": {
     "@navikt/ft-ui-komponenter": "1.0.0-beta.3",
     "@navikt/ft-types": "1.0.0-beta.2",
+    "@navikt/ft-utils": "1.0.0-beta.2",
     "classnames": "2.3.1",
     "dayjs": "1.11.0",
     "lodash.throttle": "4.1.1",

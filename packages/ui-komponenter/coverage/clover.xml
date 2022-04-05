@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1649150425842" clover="3.2.0">
+  <project timestamp="1649150425842" name="All files">
+    <metrics statements="147" coveredstatements="111" conditionals="124" coveredconditionals="56" methods="48" coveredmethods="34" elements="319" coveredelements="201" complexity="0" loc="147" ncloc="147" packages="3" files="37" classes="37"/>
+    <package name="src">
+      <metrics statements="80" coveredstatements="68" conditionals="53" coveredconditionals="30" methods="29" coveredmethods="22"/>
+      <file name="AksjonspunktHelpTextHTML.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\AksjonspunktHelpTextHTML.stories.tsx">
+        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+      </file>
+      <file name="AksjonspunktHelpTextHTML.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\AksjonspunktHelpTextHTML.tsx">
+        <metrics statements="7" coveredstatements="6" conditionals="11" coveredconditionals="8" methods="2" coveredmethods="2"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="29" count="2" type="cond" truecount="4" falsecount="1"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="45" count="4" type="cond" truecount="1" falsecount="1"/>
+      </file>
+      <file name="AksjonspunktHelpTextTemp.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\AksjonspunktHelpTextTemp.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="AksjonspunktHelpTextTemp.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\AksjonspunktHelpTextTemp.stories.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+      </file>
+      <file name="AksjonspunktHelpTextTemp.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\AksjonspunktHelpTextTemp.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="5" methods="2" coveredmethods="2"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="35" count="2" type="cond" truecount="1" falsecount="1"/>
+      </file>
+      <file name="DateLabel.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\DateLabel.stories.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+      </file>
+      <file name="DateLabel.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\DateLabel.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+      </file>
+      <file name="Image.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\Image.stories.tsx">
+        <metrics statements="11" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="3"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+      </file>
+      <file name="Image.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\Image.tsx">
+        <metrics statements="17" coveredstatements="11" conditionals="16" coveredconditionals="7" methods="5" coveredmethods="3"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="26" count="0" type="cond" truecount="1" falsecount="0"/>
+        <line num="37" count="10" type="stmt"/>
+        <line num="39" count="10" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="42" count="10" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="46" count="10" type="stmt"/>
+        <line num="47" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="48" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="55" count="10" type="cond" truecount="2" falsecount="2"/>
+        <line num="58" count="10" type="stmt"/>
+        <line num="73" count="10" type="cond" truecount="1" falsecount="1"/>
+        <line num="74" count="10" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+      </file>
+      <file name="LoadingPanel.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\LoadingPanel.stories.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+      </file>
+      <file name="LoadingPanel.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\LoadingPanel.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
+      <file name="OkAvbrytModal.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\OkAvbrytModal.stories.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+      </file>
+      <file name="OkAvbrytModal.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\OkAvbrytModal.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+      </file>
+      <file name="Tooltip.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\Tooltip.tsx">
+        <metrics statements="3" coveredstatements="2" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+      </file>
+      <file name="VerticalSpacer.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\VerticalSpacer.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+      </file>
+      <file name="WarningModal.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\WarningModal.stories.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
+      <file name="WarningModal.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\WarningModal.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+      </file>
+      <file name="aksjonspunktHelpTextHTML.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\aksjonspunktHelpTextHTML.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+      </file>
+      <file name="loadingPanel.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\loadingPanel.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="okAvbrytModal.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\okAvbrytModal.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="tooltip.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\tooltip.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
+      </file>
+      <file name="verticalSpacer.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\verticalSpacer.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="warningModal.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\warningModal.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.flexGrid">
+      <metrics statements="14" coveredstatements="14" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+      <file name="FlexColumn.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\flexGrid\FlexColumn.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="17" count="12" type="stmt"/>
+      </file>
+      <file name="FlexContainer.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\flexGrid\FlexContainer.stories.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+      </file>
+      <file name="FlexContainer.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\flexGrid\FlexContainer.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+      </file>
+      <file name="FlexRow.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\flexGrid\FlexRow.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="28" count="5" type="stmt"/>
+      </file>
+      <file name="flexColumn.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\flexGrid\flexColumn.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
+      </file>
+      <file name="flexContainer.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\flexGrid\flexContainer.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
+      </file>
+      <file name="flexRow.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\flexGrid\flexRow.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.table">
+      <metrics statements="53" coveredstatements="29" conditionals="65" coveredconditionals="20" methods="15" coveredmethods="8"/>
+      <file name="Table.stories.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\table\Table.stories.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+      </file>
+      <file name="Table.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\table\Table.tsx">
+        <metrics statements="7" coveredstatements="6" conditionals="11" coveredconditionals="4" methods="4" coveredmethods="3"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+      </file>
+      <file name="TableColumn.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\table\TableColumn.tsx">
+        <metrics statements="5" coveredstatements="4" conditionals="7" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="26" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+      </file>
+      <file name="TableRow.tsx" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\table\TableRow.tsx">
+        <metrics statements="32" coveredstatements="10" conditionals="47" coveredconditionals="12" methods="9" coveredmethods="3"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="19" count="1" type="cond" truecount="0" falsecount="2"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="47" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="105" count="3" type="stmt"/>
+      </file>
+      <file name="table.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\table\table.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="tableColumn.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\table\tableColumn.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="tableRow.less" path="C:\develop\ft-frontend-saksbehandling\packages\ui-komponenter\src\table\tableRow.less">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

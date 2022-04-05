@@ -3,7 +3,7 @@ import React from 'react';
 import FaktaGruppe from './FaktaGruppe';
 
 export default {
-  title: 'ui-komponenter/FaktaGruppe',
+  title: 'FaktaGruppe',
   component: FaktaGruppe,
 };
 
