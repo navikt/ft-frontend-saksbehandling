@@ -42,7 +42,6 @@ describe('<BeregningInfoPanel>', () => {
     const wrapper = shallowWithIntl(<BeregningInfoPanel
       intl={intlMock}
       aksjonspunkter={[tidsbegrensetAP]}
-      hasOpenAksjonspunkter
       submittable
       readOnly
       alleKodeverk={alleKodeverk}
@@ -66,7 +65,6 @@ describe('<BeregningInfoPanel>', () => {
     const wrapper = shallowWithIntl(<BeregningInfoPanel
       intl={intlMock}
       aksjonspunkter={[overstyringAP]}
-      hasOpenAksjonspunkter
       submittable
       readOnly={false}
       submitCallback={sinon.spy()}
@@ -91,7 +89,6 @@ describe('<BeregningInfoPanel>', () => {
     const wrapper = shallowWithIntl(<BeregningInfoPanel
       intl={intlMock}
       aksjonspunkter={[overstyringAP]}
-      hasOpenAksjonspunkter
       submittable
       readOnly={false}
       submitCallback={sinon.spy()}
@@ -116,7 +113,6 @@ describe('<BeregningInfoPanel>', () => {
     const wrapper = shallowWithIntl(<BeregningInfoPanel
       intl={intlMock}
       aksjonspunkter={[tidsbegrensetAP]}
-      hasOpenAksjonspunkter
       submittable
       readOnly
       submitCallback={sinon.spy()}

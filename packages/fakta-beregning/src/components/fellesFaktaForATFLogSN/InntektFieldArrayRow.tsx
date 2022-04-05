@@ -48,8 +48,8 @@ type OwnProps = {
     andelElementFieldId: string;
     removeAndel: (...args: any[]) => any;
     index: number;
+    // eslint-disable-next-line react/no-unused-prop-types
     alleKodeverk: AlleKodeverk;
-    skalHaMilitær?: boolean;
 };
 
 /**

@@ -15,7 +15,6 @@ export interface ReadOnlyFieldProps {
   input: { value: string | number };
   isEdited?: boolean;
   type?: string;
-  renderReadOnlyValue?: (value: any) => any;
   alignRightCenterOnReadOnly?: boolean;
   endrettekst?: React.ReactNode;
 }

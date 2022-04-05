@@ -62,7 +62,6 @@ const config = {
     'jest/valid-expect': OFF,
     'function-paren-newline': OFF,
     'function-call-argument-newline': OFF,
-    'no-restricted-exports': OFF,
     'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.spec.ts', '**/*.spec.tsx', '**/*.stories.tsx'] }],
     'react/function-component-definition': ['error', {
       namedComponents: 'arrow-function',
@@ -78,16 +77,12 @@ const config = {
     '@typescript-eslint/no-unused-vars': [ERROR],
 
     // TODO (TOR) Ignorert inntil videre grunnet kost/nytte
-    'react/no-unstable-nested-components': OFF,
     'max-classes-per-file': OFF,
-    'jsx-a11y/anchor-is-valid': OFF,
     'jsx-a11y/control-has-associated-label': OFF,
     'react/jsx-props-no-spreading': OFF,
     '@typescript-eslint/no-empty-function': OFF,
     '@typescript-eslint/no-explicit-any': OFF,
     '@typescript-eslint/ban-ts-comment': OFF,
-    '@typescript-eslint/explicit-module-boundary-types': OFF,
-    'react/no-unused-prop-types': OFF,
   },
   overrides: [{
     files: ['*.spec.tsx', '*.spec.ts'],

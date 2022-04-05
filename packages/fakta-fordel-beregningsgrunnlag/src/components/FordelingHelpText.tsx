@@ -189,9 +189,13 @@ type OwnProps = {
 };
 
 type OwnInitialProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   beregningsgrunnlag: Beregningsgrunnlag;
+  // eslint-disable-next-line react/no-unused-prop-types
   alleKodeverk: AlleKodeverk;
+  // eslint-disable-next-line react/no-unused-prop-types
   aksjonspunkter: Aksjonspunkt[];
+  // eslint-disable-next-line react/no-unused-prop-types
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 

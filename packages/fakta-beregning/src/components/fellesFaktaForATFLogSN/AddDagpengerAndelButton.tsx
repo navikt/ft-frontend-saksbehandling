@@ -30,7 +30,6 @@ const onKeyDown = (fields, aktivitetStatuser) => ({ key }) => {
 type OwnProps = {
     fields: FieldArrayFieldsProps<any>;
     aktivitetStatuser: KodeverkMedNavn[];
-    erKunYtelse: boolean;
 };
 
 export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedComponentProps> = ({

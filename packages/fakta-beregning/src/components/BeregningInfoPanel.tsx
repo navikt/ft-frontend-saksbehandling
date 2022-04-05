@@ -22,7 +22,6 @@ type OwnProps = {
   intl: IntlShape
   submitCallback: (aksjonspunktData: AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP
     | BeregningFaktaAP | BeregningOverstyringAP) => Promise<void>;
-  hasOpenAksjonspunkter: boolean;
   readOnly: boolean;
   aksjonspunkter: Aksjonspunkt[];
   submittable: boolean;
