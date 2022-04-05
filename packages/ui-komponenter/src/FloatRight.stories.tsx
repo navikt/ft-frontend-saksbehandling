@@ -3,7 +3,7 @@ import React from 'react';
 import FloatRight from './FloatRight';
 
 export default {
-  title: 'ui-komponenter/FloatRight',
+  title: 'FloatRight',
   component: FloatRight,
 };
 

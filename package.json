@@ -16,8 +16,9 @@
     "eslint": "lerna run eslint --stream --parallel",
     "less:lint": "lerna run less:lint --stream --parallel",
     "build": "lerna run build --stream",
+    "storybook-all": "lerna run storybook --parallel -- --ci",
+    "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 7000",
     "dev": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_ENV=development node webpack/webpack.dev.server.js --config webpack/webpack.dev.js",
-    "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 9002",
     "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook"
   },
   "dependencies": {

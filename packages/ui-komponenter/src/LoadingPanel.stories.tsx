@@ -4,7 +4,7 @@ import { Story } from '@storybook/react'; // eslint-disable-line import/no-extra
 import LoadingPanel from './LoadingPanel';
 
 export default {
-  title: 'ui-komponenter/LoadingPanel',
+  title: 'LoadingPanel',
   component: LoadingPanel,
 };
 

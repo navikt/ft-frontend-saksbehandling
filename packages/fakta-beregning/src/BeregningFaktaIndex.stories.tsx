@@ -166,7 +166,7 @@ const merknaderFraBeslutter = {
 };
 
 export default {
-  title: 'fakta/fakta-beregning',
+  title: 'fakta-beregning',
   component: BeregningFaktaIndex,
 };
 

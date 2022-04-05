@@ -8,7 +8,7 @@ import {
 } from '../index';
 
 export default {
-  title: 'form-redux/FormRedux',
+  title: 'FormRedux',
   component: ReduxWrapper,
 };
 

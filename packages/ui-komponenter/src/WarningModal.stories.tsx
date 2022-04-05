@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import WarningModal from './WarningModal';
 
 export default {
-  title: 'ui-komponenter/WarningModal',
+  title: 'WarningModal',
 };
 
 export const Default: Story = () => (

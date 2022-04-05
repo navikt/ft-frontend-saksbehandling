@@ -20,7 +20,7 @@
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack & yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
-    "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 7001"
+    "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 7006"
   },
   "dependencies": {
     "@navikt/fnrvalidator": "1.1.4",

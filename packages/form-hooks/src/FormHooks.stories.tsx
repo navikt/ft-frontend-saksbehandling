@@ -7,7 +7,7 @@ import {
 import Form from './Form';
 
 export default {
-  title: 'form-hooks/FormHooks',
+  title: 'FormHooks',
 };
 
 export const visFormkomponenter = () => {

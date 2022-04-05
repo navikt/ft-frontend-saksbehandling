@@ -325,7 +325,7 @@ const lagBG = (
 };
 
 export default {
-  title: 'prosess/prosess-beregningsgrunnlag',
+  title: 'prosess-beregningsgrunnlag',
   component: BeregningsgrunnlagProsessIndex,
 };
 

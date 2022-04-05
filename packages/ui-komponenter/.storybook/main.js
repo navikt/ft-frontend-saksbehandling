@@ -1,8 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const SRC_DIR = path.resolve(__dirname, '../src');
-const NODE_MODULES_DIR = path.resolve(__dirname, '../../../node_modules');
 
 module.exports = {
     core: {
@@ -57,7 +57,7 @@ module.exports = {
               }],
             include: [SRC_DIR],
           }, {
-            test: /\.(less)?$/,
+            test: /\.(less|css)?$/,
             use: [
               {
                 loader: MiniCssExtractPlugin.loader,
@@ -77,7 +77,7 @@ module.exports = {
                   },
                 },
               }],
-            include: [NODE_MODULES_DIR],
+            exclude: [SRC_DIR],
           }, {
             test: /\.(svg)$/,
             type: 'asset/inline',
@@ -88,6 +88,15 @@ module.exports = {
           config.plugins.push(new MiniCssExtractPlugin({
             filename: 'style[name].css',
             ignoreOrder: true,
+          }));
+          config.plugins.push(new ESLintPlugin({
+            context: SRC_DIR,
+            extensions: ['tsx', 'ts'],
+            failOnWarning: false,
+            failOnError: false,
+            fix: true,
+            overrideConfigFile: path.resolve(__dirname, '../../../eslint/eslintrc.dev.js'),
+            cache: true,
           }));
 
         return config;
