@@ -42,8 +42,8 @@ const OverstyringKnapp: FunctionComponent<OwnProps> = ({
     <Image
       className={isOverstyrt ? styles.keyWithoutCursor : styles.key}
       src={isOverstyrt ? keyUtgraetImage : keyImage}
-      onClick={!erOverstyrt ? setOverstyrtFn : undefined}
-      onKeyDown={!erOverstyrt ? setOverstyrtFn : undefined}
+      onClick={erOverstyrt ? undefined : setOverstyrtFn}
+      onKeyDown={erOverstyrt ? undefined : setOverstyrtFn}
       tabIndex={0}
       tooltip={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })}
       alt={intl.formatMessage({ id: erOverstyrt ? 'OverstyringKnapp.HarOverstyrt' : 'OverstyringKnapp.Overstyring' })}
