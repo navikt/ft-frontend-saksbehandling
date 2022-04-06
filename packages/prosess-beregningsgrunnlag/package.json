@@ -99,7 +99,7 @@
     "@storybook/storybook-deployer": "^2.8.10",
     "@storybook/testing-react": "^1.2.3",
     "@testing-library/react": "12.1.4",
-    "@testing-library/user-event": "13.5.0",
+    "@testing-library/user-event": "14.0.4",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "enzyme": "3.11.0",
