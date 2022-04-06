@@ -16,11 +16,11 @@
     "eslint": "eslint \"src/**/*.ts*\"",
     "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
     "less:lint": "stylelint \"src/**/*.less\"",
-    "build-webpack": "cross-env NODE_OPTIONS='--openssl-legacy-provider' webpack --config webpack.config.js",
+    "build-webpack": "cross-env webpack --config webpack.config.js",
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack & yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
-    "storybook": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 7006"
+    "storybook": "cross-env start-storybook -p 7006"
   },
   "dependencies": {
     "@navikt/fnrvalidator": "1.1.4",
@@ -32,6 +32,7 @@
     "nav-frontend-core": "6.0.1",
     "nav-frontend-grid": "2.0.1",
     "nav-frontend-grid-style": "1.0.2",
+    "nav-frontend-ikoner-assets": "3.0.1",
     "nav-frontend-js-utils": "^1.0.20",
     "nav-frontend-knapper": "3.1.2",
     "nav-frontend-knapper-style": "2.1.1",
