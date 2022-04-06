@@ -1160,7 +1160,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@commercetools/enzyme-extensions@5.0.0", "@commercetools/enzyme-extensions@^5.0.0":
+"@commercetools/enzyme-extensions@5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@commercetools/enzyme-extensions/-/enzyme-extensions-5.0.0.tgz#0ba0841b02384069ae60e76165d65ee170874fe9"
   integrity sha512-oK80WDnFwmgE7BfEKvEQ95uRgnIpuEXC1RiSWxasEYO+hUuuyCW0fgz4EEdhjbq3O+JhifprBvvcI1rOBaoNHg==
@@ -1323,15 +1323,6 @@
     "@formatjs/ecma402-abstract" "1.11.4"
     tslib "^2.1.0"
 
-"@formatjs/intl-datetimeformat@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl-datetimeformat/-/intl-datetimeformat-5.0.1.tgz#d38906ecd7ee77069253ff7fa76bc76f57991bd5"
-  integrity sha512-RiXVsr9GwqaVaFCsPVMToBZJPvBJyNeA/n/wKKw/4it4tztWRkxHL6kmZ8DbrKWchzRjA0fPMMz5dfBZVu7QXA==
-  dependencies:
-    "@formatjs/ecma402-abstract" "1.11.4"
-    "@formatjs/intl-localematcher" "0.2.25"
-    tslib "^2.1.0"
-
 "@formatjs/intl-displaynames@5.4.3":
   version "5.4.3"
   resolved "https://registry.yarnpkg.com/@formatjs/intl-displaynames/-/intl-displaynames-5.4.3.tgz#e468586694350c722c7efab1a31fcde68aeaed8b"
@@ -1355,15 +1346,6 @@
   resolved "https://registry.yarnpkg.com/@formatjs/intl-localematcher/-/intl-localematcher-0.2.25.tgz#60892fe1b271ec35ba07a2eb018a2dd7bca6ea3a"
   integrity sha512-YmLcX70BxoSopLFdLr1Ds99NdlTI2oWoLbaUW2M406lxOIPzE1KQhRz2fPUkq34xVZQaihCoU29h0KK7An3bhA==
   dependencies:
-    tslib "^2.1.0"
-
-"@formatjs/intl-numberformat@^7.4.2":
-  version "7.4.3"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl-numberformat/-/intl-numberformat-7.4.3.tgz#dbf15fb6c8341088f1d526cf24d54f5388b478d1"
-  integrity sha512-oxhLCw00YO7brwMPqGD+ui5gdeWoMiRhqsRSqwsDSRd03aJ/N3/VZQDoxGIn3IM9bhlPM5W0ckXiXuOMFLszjw==
-  dependencies:
-    "@formatjs/ecma402-abstract" "1.11.4"
-    "@formatjs/intl-localematcher" "0.2.25"
     tslib "^2.1.0"
 
 "@formatjs/intl@2.1.1":
@@ -3809,7 +3791,7 @@
     "@types/react-test-renderer" ">=16.9.0"
     react-error-boundary "^3.1.0"
 
-"@testing-library/react@12.1.4", "@testing-library/react@^12.1.4":
+"@testing-library/react@12.1.4":
   version "12.1.4"
   resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-12.1.4.tgz#09674b117e550af713db3f4ec4c0942aa8bbf2c0"
   integrity sha512-jiPKOm7vyUw311Hn/HlNQ9P8/lHNtArAx0PisXyFixDDvfl8DbD6EUdbshK5eqauvBSvzZd19itqQ9j3nferJA==
@@ -3818,7 +3800,7 @@
     "@testing-library/dom" "^8.0.0"
     "@types/react-dom" "*"
 
-"@testing-library/user-event@13.5.0", "@testing-library/user-event@^13.5.0":
+"@testing-library/user-event@13.5.0":
   version "13.5.0"
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-13.5.0.tgz#69d77007f1e124d55314a2b73fd204b333b13295"
   integrity sha512-5Kwtbo3Y/NowpkbRuSepbyMFkZmHgD+vPzYB/RJ4oxt5Gj/avFFBYjhw27cqSVPVw/3a67NK1PbiIr9k4Gwmdg==
@@ -5341,13 +5323,6 @@ axios-mock-adapter@1.20.0, axios-mock-adapter@^1.20.0:
     is-blob "^2.1.0"
     is-buffer "^2.0.5"
 
-axios@0.26.1:
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
-  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
-  dependencies:
-    follow-redirects "^1.14.8"
-
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
@@ -6753,7 +6728,7 @@ core-js-pure@^3.20.2, core-js-pure@^3.8.1, core-js-pure@^3.8.2:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.21.1.tgz#8c4d1e78839f5f46208de7230cebfb72bc3bdb51"
   integrity sha512-12VZfFIu+wyVbBebyHmRTuEE/tZrB4tJToWcwAMcsp3h4+sHR+fMJWbKpYiCRWlhFBq+KNyO8rIV9rTkeVmznQ==
 
-core-js@3.21.1, core-js@^3.0.4, core-js@^3.21.1, core-js@^3.6.5, core-js@^3.8.2:
+core-js@3.21.1, core-js@^3.0.4, core-js@^3.6.5, core-js@^3.8.2:
   version "3.21.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.21.1.tgz#f2e0ddc1fc43da6f904706e8e955bc19d06a0d94"
   integrity sha512-FRq5b/VMrWlrmCzwRrpDYNxyHP9BcAZC+xHJaqTgIE5091ZV1NTmyh0sGOg5XqpnHvR0svdy0sv1gWA1zmhxig==
@@ -7144,7 +7119,7 @@ dateformat@^3.0.0:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dayjs@1.11.0, dayjs@^1.11.0:
+dayjs@1.11.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.0.tgz#009bf7ef2e2ea2d5db2e6583d2d39a4b5061e805"
   integrity sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==
@@ -7550,11 +7525,6 @@ dotenv-expand@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
-
-dotenv@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
-  integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
 
 dotenv@^8.0.0:
   version "8.6.0"
@@ -8687,7 +8657,7 @@ focus-trap@^6.7.3:
   dependencies:
     tabbable "^5.2.1"
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.8:
+follow-redirects@^1.0.0:
   version "1.14.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
   integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
@@ -9437,7 +9407,7 @@ history@5.0.0:
   dependencies:
     "@babel/runtime" "^7.7.6"
 
-history@5.3.0, history@^5.2.0, history@^5.3.0:
+history@^5.2.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
   integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
@@ -12357,11 +12327,6 @@ nav-frontend-ikoner-assets@3.0.1:
   resolved "https://registry.yarnpkg.com/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-3.0.1.tgz#7531ea6da2a5b2d9cd7071b2b3a495fdf6b309e7"
   integrity sha512-rRzdUl7w02xcX0ZljE3cmkow4haEePNP1gPuWRSvQt5ybL2eiE573l3lgsd4PuPuQp1T4fYFqFlPWjkUwpXVqw==
 
-nav-frontend-ikonknapper@2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-ikonknapper/-/nav-frontend-ikonknapper-2.1.2.tgz#f1fa791487a8f445b9af7853a2c4ea16e305e4c9"
-  integrity sha512-LO8fHsLsL49HFatyzJb3eaAC5j/RfQ4EimJ04sropaTwX4EXlQuQ+yh7Nztms8zBqJ5DzuDAwRjjgq4/z8/3RQ==
-
 nav-frontend-js-utils@1.0.20, nav-frontend-js-utils@^1.0.20:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.20.tgz#fac829adb801d66275ac273255d5102b73d5805e"
@@ -14289,7 +14254,7 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-collapse@5.1.1, react-collapse@^5.1.1:
+react-collapse@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-5.1.1.tgz#a2fa08ef13f372141b02e6a7d49ef72427bcbc2b"
   integrity sha512-k6cd7csF1o9LBhQ4AGBIdxB60SUEUMQDAnL2z1YvYNr9KoKr+nDkhN6FK7uGaBd/rYrYfrMpzpmJEIeHRYogBw==
@@ -17254,9 +17219,9 @@ webpack-dev-middleware@^5.3.1:
     schema-utils "^4.0.0"
 
 webpack-dev-server@^4.7.4:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.8.0.tgz#022bb845946e31ca01527509a942869ecfc7e047"
-  integrity sha512-yZ7OWVP1nOtv8s10R/ZCsH6zf6QKkNusMRBE9DsQbOknRzKaFYYrbwVPCXp8ynUOTt3RlD9szM8H0pUlrJ6wcw==
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.8.1.tgz#58f9d797710d6e25fa17d6afab8708f958c11a29"
+  integrity sha512-dwld70gkgNJa33czmcj/PlKY/nOy/BimbrgZRaR9vDATBQAYgLzggR0nxDtPLJiLrMgZwbE6RRfJ5vnBBasTyg==
   dependencies:
     "@types/bonjour" "^3.5.9"
     "@types/connect-history-api-fallback" "^1.3.5"
