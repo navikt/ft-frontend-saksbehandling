@@ -3,7 +3,7 @@ import { IntlShape } from 'react-intl';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  ArbeidsgiverOpplysningerPerId, AlleKodeverk, Beregningsgrunnlag, Aksjonspunkt,
+  ArbeidsgiverOpplysningerPerId, AlleKodeverk, Beregningsgrunnlag, Aksjonspunkt, Vilkar,
 } from '@navikt/ft-types';
 import BeregningFaktaAP, {
   BeregningOverstyringAP, AvklarBeregningsaktiviteterAP,
@@ -11,11 +11,12 @@ import BeregningFaktaAP, {
 import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
 import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
-import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanel';
+import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
+import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
+import SubmitBeregningType from '../typer/SubmitBeregningTsType';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
-  OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
 } = FaktaBeregningAksjonspunktCode;
 
@@ -25,14 +26,17 @@ const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[
 type OwnProps = {
   intl: IntlShape
   submitCallback: (aksjonspunktData: AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP
-    | BeregningFaktaAP | BeregningOverstyringAP) => Promise<void>;
+    | BeregningFaktaAP | BeregningOverstyringAP | SubmitBeregningType[]) => Promise<void>;
   readOnly: boolean;
   aksjonspunkter: Aksjonspunkt[];
+  vilkar: Vilkar;
   submittable: boolean;
   erOverstyrer: boolean;
   alleKodeverk: AlleKodeverk;
-  beregningsgrunnlag?: Beregningsgrunnlag;
+  beregningsgrunnlag?: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  setFormData: (data: any) => void;
+  formData: AvklarAktiviteterFormValues;
 };
 
 /**
@@ -50,6 +54,9 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   erOverstyrer,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
+  setFormData,
+  formData,
+  vilkar,
 }) => (
   <div>
     { /* @ts-ignore */ }
@@ -63,17 +70,21 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
       alleKodeverk={alleKodeverk}
       beregningsgrunnlag={beregningsgrunnlag}
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+      setFormData={setFormData}
+      formData={formData}
+      vilkår={vilkar}
+      intl={intl}
     />
     <VerticalSpacer thirtyTwoPx />
     { /* @ts-ignore */ }
     <VurderFaktaBeregningPanel
       intl={intl}
-      readOnly={readOnly || ((hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter) || beregningsgrunnlag.erOverstyrtInntekt) && !erOverstyrer)}
+      readOnly={readOnly || ((hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter) || beregningsgrunnlag.at(0).erOverstyrtInntekt) && !erOverstyrer)}
       submitCallback={submitCallback}
       submittable={submittable}
       aksjonspunkter={aksjonspunkter}
       alleKodeverk={alleKodeverk}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={beregningsgrunnlag.at(0)}
       erOverstyrer={erOverstyrer}
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
     />
