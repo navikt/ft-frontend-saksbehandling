@@ -5,12 +5,12 @@ import {
   aktivitetStatus as aktivitetStatuser, inntektskategorier, opptjeningAktivitetType,
   aksjonspunktStatus, faktaOmBeregningTilfelle,
 } from '@navikt/ft-kodeverk';
-import {
-  AndelForFaktaOmBeregning,
+import Vilkarperiode, {
   Behandling,
-  BeregningAktivitet, BeregningAvklaringsbehov,
   Beregningsgrunnlag,
+  BeregningAktivitet,
   FaktaOmBeregning,
+  AndelForFaktaOmBeregning,
   FaktaOmBeregningAndel,
   Vilkar,
 } from '@navikt/ft-types';
@@ -19,9 +19,7 @@ import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
 import {
-  aksjonspunkt as aksjonspunktArbeidOgDagpenger,
-  beregningsgrunnlag as bgMedArbeidOgDagpenger,
-  vilkar as vilkarArbeidOgDagpenger,
+  beregningsgrunnlag as bgMedArbeidOgDagpenger, aksjonspunkt as aksjonspunktArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -48,14 +46,7 @@ const {
 
 const lagBeregningsgrunnlagAvklarAktiviteter = (
   aktiviteter: BeregningAktivitet[],
-  avklaringsbehov: BeregningAvklaringsbehov[] = [],
 ): Beregningsgrunnlag => ({
-  avklaringsbehov,
-  vilkårperiodeFom: '2022-03-02',
-  periode: {
-    fom: '2022-03-02',
-    tom: '2022-04-30',
-  },
   faktaOmBeregning: {
     avklarAktiviteter: {
       aktiviteterTomDatoMapping: [
@@ -67,18 +58,13 @@ const lagBeregningsgrunnlagAvklarAktiviteter = (
     },
     andelerForFaktaOmBeregning: [],
   },
-} as unknown as Beregningsgrunnlag);
+} as Beregningsgrunnlag);
 
 const lagBeregningsgrunnlag = (
   andeler: FaktaOmBeregningAndel[],
   faktaOmBeregning: FaktaOmBeregning,
 ): Beregningsgrunnlag => ({
   vilkårperiodeFom: '2022-03-02',
-  periode: {
-    fom: '2022-03-02',
-    tom: '2022-04-30',
-  },
-  avklaringsbehov: [],
   skjaeringstidspunktBeregning: null,
   dekningsgrad: null,
   grunnbeløp: null,
@@ -197,7 +183,7 @@ const vilkar: Vilkar = {
   avslagKode: '',
   overstyrbar: true,
   perioder: [{
-    vurderesIBehandlingen: true,
+    vurdersIBehandlingen: true,
     merknadParametere: { name: '' },
     periode: { fom: '2022-03-02', tom: '2022-03-04' },
     vilkarStatus: 'IKKE_VURDERT',
@@ -241,7 +227,7 @@ const agOpplysninger = {
 export const ArbeidOgDagpenger = () => (
   <BeregningFaktaIndex
     behandling={behandling}
-    beregningsgrunnlag={bgMedArbeidOgDagpenger}
+    beregningsgrunnlag={[bgMedArbeidOgDagpenger]}
     aksjonspunkter={aksjonspunktArbeidOgDagpenger}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
@@ -254,7 +240,7 @@ export const ArbeidOgDagpenger = () => (
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
-    vilkar={vilkarArbeidOgDagpenger}
+    vilkar={vilkar}
   />
 );
 
@@ -273,12 +259,7 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
     aapAktivitet,
     arbeidsAktivitet,
   ];
-  const beregningsgrunnlag = lagBeregningsgrunnlagAvklarAktiviteter(aktiviteter, [{
-    definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-    status: aksjonspunktStatus.OPPRETTET,
-    begrunnelse: undefined,
-    kanLoses: true,
-  }]);
+  const beregningsgrunnlag = lagBeregningsgrunnlagAvklarAktiviteter(aktiviteter);
 
   return (
     <BeregningFaktaIndex
@@ -363,23 +344,21 @@ export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={[{
-        ...beregningsgrunnlag,
-        avklaringsbehov: [{
-          definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-          status: aksjonspunktStatus.UTFORT,
-          begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
-          kanLoses: true,
-        },
-        {
-          definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-          status: aksjonspunktStatus.OPPRETTET,
-          begrunnelse: undefined,
-          kanLoses: true,
-        },
-        ],
+      beregningsgrunnlag={[beregningsgrunnlag]}
+      aksjonspunkter={[{
+        definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
+        status: aksjonspunktStatus.UTFORT,
+        begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
+        kanLoses: true,
+        erAktivt: true,
+      },
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: aksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+        erAktivt: true,
       }]}
-      aksjonspunkter={[]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
