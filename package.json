@@ -18,7 +18,6 @@
     "build": "lerna run build --stream",
     "storybook-all": "lerna run storybook --parallel -- --ci",
     "storybook": "cross-env start-storybook -p 7000",
-    "dev": "cross-env NODE_ENV=development node webpack/webpack.dev.server.js --config webpack/webpack.dev.js",
     "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook"
   },
   "devDependencies": {

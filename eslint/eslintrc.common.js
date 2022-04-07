@@ -59,6 +59,7 @@ const config = {
     'react/static-property-placement': OFF,
     'react/state-in-constructor': OFF,
     'react/prop-types': OFF,
+    'no-restricted-exports': OFF,
     'jest/valid-expect': OFF,
     'function-paren-newline': OFF,
     'function-call-argument-newline': OFF,
