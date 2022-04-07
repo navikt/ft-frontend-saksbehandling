@@ -4,7 +4,6 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Element } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
-import { createSelector } from 'reselect';
 
 import { useFormContext } from 'react-hook-form';
 import { getError } from '@navikt/ft-form-hooks/src/formUtils';
@@ -28,9 +27,7 @@ import {
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import {
-  formNameAvklarAktiviteter,
-  getFormInitialValuesForAvklarAktiviteter,
-  getFormValuesForAvklarAktiviteter,
+  formNameAvklarAktiviteter
 } from '../BeregningFormUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import styles from './avklareAktiviteterPanel.less';
@@ -38,11 +35,10 @@ import {
   erSubmittable,
   findBegrunnelse,
   skalKunneLoseAvklaringsbehov,
-  skalViseOverstyringsknapp,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
-import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
-import { FaktaSubmitButton } from '../../legacy/FaktaSubmitButton';
+import FaktaBegrunnelseTextField from '../../felles/FaktaBegrunnelseTextField';
+import { FaktaSubmitButton } from '../../felles/FaktaSubmitButton';
 
 const {
   AVKLAR_AKTIVITETER,
@@ -51,42 +47,6 @@ const {
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
-
-const getAvklarAktiviteter = createSelector(
-  [(ownProps: OwnProps) => ownProps.beregningsgrunnlag.faktaOmBeregning],
-  (faktaOmBeregning): AvklarBeregningAktiviteterMap => (faktaOmBeregning ? faktaOmBeregning.avklarAktiviteter : undefined),
-);
-
-const erEndring = (avklaringsbehov: BeregningAvklaringsbehov[],
-  erOverstyrt: boolean,
-  avklarAktiviteter: AvklarBeregningAktiviteterMap,
-  values, initialValues) => {
-  if (!hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && (!values || !values[MANUELL_OVERSTYRING_FIELD])) {
-    return false;
-  }
-  if (!!values[MANUELL_OVERSTYRING_FIELD] !== hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) {
-    return true;
-  }
-  let harEndring = false;
-  if (values && avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping) {
-    harEndring = VurderAktiviteterPanel.hasValueChangedFromInitial(avklarAktiviteter.aktiviteterTomDatoMapping,
-      values,
-      initialValues,
-      erOverstyrt);
-  }
-  if (values && !harEndring) {
-    harEndring = initialValues[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME] !== values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME];
-  }
-  return harEndring;
-};
-
-const erAvklartAktivitetEndret = createSelector(
-  [(state, ownProps: OwnProps) => ownProps.avklaringsbehov,
-    (state, ownProps) => ownProps.erOverstyrt,
-    (state, ownProps: OwnProps) => getAvklarAktiviteter(ownProps),
-    getFormValuesForAvklarAktiviteter,
-    getFormInitialValuesForAvklarAktiviteter], erEndring,
-);
 
 // TODO bytt navn aksjonspunkter till avklaringsbegov (alle metoder, navn osv)
 

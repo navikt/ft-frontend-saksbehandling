@@ -6,7 +6,7 @@ import {
 import { TextAreaField } from '@navikt/ft-form-hooks';
 
 import styles from './faktaBegrunnelseTextField.less';
-import messages from '../../../i18n/nb_NO.json';
+import messages from '../../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
@@ -47,8 +47,7 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
   name,
 }) => {
   const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.BegrunnEndringene';
-  const textAreaLabel = label || intl.formatMessage({ id: code });
-
+  const textAreaLabel = label || { id: code };
   return (
     <RawIntlProvider value={intl}>
       {(isSubmittable || hasBegrunnelse) && (
