@@ -6,6 +6,8 @@ import { getRelatedTargetIE11, isIE11, createIntl } from '@navikt/ft-utils';
 
 import messages from '../../i18n/nb_NO.json';
 
+import '../../style/dayPicker.less';
+
 const intl = createIntl(messages);
 
 const getRelatedTarget = (e: React.FocusEvent): Promise<any> => {
