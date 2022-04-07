@@ -3,9 +3,8 @@ import { RawIntlProvider } from 'react-intl';
 import {
   decodeHtmlEntity, hasValidText, maxLength, minLength, required, createIntl,
 } from '@navikt/ft-utils';
-import { TextAreaField } from '@navikt/ft-form-redux-legacy';
+import { TextAreaField } from '@navikt/ft-form-hooks';
 
-import { Aksjonspunkt } from '@navikt/ft-types';
 import styles from './faktaBegrunnelseTextField.less';
 import messages from '../../i18n/nb_NO.json';
 
