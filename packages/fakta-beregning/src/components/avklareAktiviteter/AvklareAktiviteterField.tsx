@@ -27,7 +27,7 @@ import {
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import {
-  formNameAvklarAktiviteter
+  formNameAvklarAktiviteter,
 } from '../BeregningFormUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import styles from './avklareAktiviteterPanel.less';
@@ -37,8 +37,8 @@ import {
   skalKunneLoseAvklaringsbehov,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
-import FaktaBegrunnelseTextField from '../../felles/FaktaBegrunnelseTextField';
-import { FaktaSubmitButton } from '../../felles/FaktaSubmitButton';
+import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
+import SubmitButton from '../felles/SubmitButton';
 
 const {
   AVKLAR_AKTIVITETER,
@@ -56,7 +56,7 @@ export const buildInitialValues = (
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
-  ): AvklarAktiviteterValues => {
+): AvklarAktiviteterValues => {
   const harAvklarAksjonspunkt = hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov);
   const erOverstyrt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
   const begrunnelse = findBegrunnelse(avklaringsbehov);
@@ -78,7 +78,7 @@ export const buildInitialValues = (
   };
 };
 
-const transformValues = (values) => {
+export const transformFieldValue = (values) => {
   // FERDIG
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
   const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov, values.erTilVurdering);
@@ -225,12 +225,12 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
               <FlexContainer>
                 <FlexRow>
                   <FlexColumn>
-                    <FaktaSubmitButton
-                      buttonText={intl.formatMessage({ id: erOverstyrtKnappTrykket ? 'AvklarAktivitetPanel.OverstyrText' : 'AvklarAktivitetPanel.ButtonText' })}
-                      formName={formNameAvklarAktiviteter}
+                    <SubmitButton
+                      text={intl.formatMessage({ id: erOverstyrtKnappTrykket ? 'AvklarAktivitetPanel.OverstyrText' : 'AvklarAktivitetPanel.ButtonText' })}
                       isSubmittable={erSubmittable(submittable, true, !!errors[fieldId])}
-                      isReadOnly={readOnly}
-                      hasOpenAksjonspunkter={!isAvklaringsbehovClosed}
+                      isDirty={isDirty}
+                      isSubmitting={isSubmitting}
+                      isReadOnly={readOnly || (isAvklaringsbehovClosed && !isDirty)}
                     />
                   </FlexColumn>
                   {isDirty && (

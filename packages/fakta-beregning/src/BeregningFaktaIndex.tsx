@@ -2,7 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
-import { ArbeidsgiverOpplysningerPerId, StandardFaktaPanelProps, Beregningsgrunnlag } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar,
+} from '@navikt/ft-types';
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
 
 import BeregningFaktaAP, {
@@ -15,9 +17,11 @@ import messages from '../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 type OwnProps = {
-  beregningsgrunnlag?: Beregningsgrunnlag;
+  beregningsgrunnlag?: Beregningsgrunnlag[];
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  setFormData: (data: any) => void;
+  vilkar: Vilkar;
 };
 
 type Akasjonspunkter = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP | BeregningFaktaAP | BeregningOverstyringAP;
@@ -33,6 +37,7 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
+  vilkar,
 }) => (
   <RawIntlProvider value={intl}>
     <ReduxWrapper formName="BeregningFaktaIndex" formData={formData} setFormData={setFormData}>
@@ -46,6 +51,9 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
         submittable={submittable}
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        setFormData={setFormData}
+        formData={formData}
+        vilkar={vilkar}
       />
     </ReduxWrapper>
   </RawIntlProvider>
