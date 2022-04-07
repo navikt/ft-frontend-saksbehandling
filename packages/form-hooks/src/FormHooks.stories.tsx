@@ -6,6 +6,8 @@ import {
 } from '../index';
 import Form from './Form';
 
+// TODO Kvifor feilar denne kun på Github?
+// eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
 export default {
