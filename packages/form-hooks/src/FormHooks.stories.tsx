@@ -6,6 +6,7 @@ import {
 } from '../index';
 import Form from './Form';
 
+// @ts-ignore Fiks. Kvifor feilar denne kun på github?
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
 export default {
