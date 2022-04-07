@@ -132,10 +132,6 @@ interface StaticFunctions {
   validate: (values: AvklarAktiviteterValues,
              aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
              erOverstyrt: boolean) => any;
-  hasValueChangedFromInitial: (aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-                               values: AvklarAktiviteterValues,
-                               initialValues: AvklarAktiviteterValues,
-                               erOverstyrt: boolean) => boolean;
   buildInitialValues: (aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
                        alleKodeverk: AlleKodeverk,
                        erOverstyrt: boolean,
@@ -223,17 +219,6 @@ VurderAktiviteterPanel.transformValues = (values: AvklarAktiviteterValues,
     beregningsaktivitetLagreDtoList: listerSomVurderes
       .flatMap((liste) => VurderAktiviteterTabell.transformValues(values, liste.aktiviteter, gjeldendeSkjæringstidspunkt, liste.tom)),
   });
-};
-
-VurderAktiviteterPanel.hasValueChangedFromInitial = (aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-  values: AvklarAktiviteterValues,
-  initialValues: AvklarAktiviteterValues,
-  erOverstyrt: boolean): boolean => {
-  if (!aktiviteterTomDatoMapping) {
-    return false;
-  }
-  const listerSomVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
-  return listerSomVurderes.find((liste) => VurderAktiviteterTabell.hasValueChangedFromInitial(liste.aktiviteter, values, initialValues)) !== undefined;
 };
 
 /**

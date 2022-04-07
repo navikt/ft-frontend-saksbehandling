@@ -320,18 +320,6 @@ export class VurderAktiviteterTabell extends Component<OwnProps & MappedOwnProps
       }));
   };
 
-  static hasValueChangedFromInitial = (aktiviteter: BeregningAktivitet[], values: AvklarAktiviteterValues, initialValues: AvklarAktiviteterValues): boolean => {
-    const changedAktiviteter = aktiviteter.map(lagAktivitetFieldId).find((fieldId) => {
-      if (values.aktiviteterValues[fieldId] && initialValues.aktiviteterValues[fieldId]) {
-        if (values.aktiviteterValues[fieldId].skalBrukes !== initialValues.aktiviteterValues[fieldId].skalBrukes) {
-          return true;
-        }
-      }
-      return false;
-    });
-    return changedAktiviteter !== undefined;
-  };
-
   static buildInitialValues = (aktiviteter: BeregningAktivitet[],
     alleKodeverk: AlleKodeverk,
     erOverstyrt: boolean,
