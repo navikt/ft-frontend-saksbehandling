@@ -3,7 +3,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 
 import { ariaCheck, createIntl } from '@navikt/ft-utils';
 
-import messages from '../../i18n/nb_NO.json';
+import messages from '../../../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
@@ -35,7 +35,7 @@ interface OwnProps {
 /**
  * ProsessStegSubmitButton
  */
-const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
+const SubmitButton: FunctionComponent<OwnProps> = ({
   isReadOnly,
   isSubmittable,
   isSubmitting,
@@ -60,4 +60,4 @@ const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
   return null;
 };
 
-export default ProsessStegSubmitButton;
+export default SubmitButton;

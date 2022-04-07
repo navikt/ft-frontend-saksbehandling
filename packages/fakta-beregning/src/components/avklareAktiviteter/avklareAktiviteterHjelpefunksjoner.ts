@@ -1,6 +1,5 @@
 import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
 import aksjonspunktCodes, {
-  hasAksjonspunkt,
   hasAvklaringsbehov,
 } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
 import { BeregningAvklaringsbehov } from '@ft-frontend-saksbehandling/types';
@@ -27,7 +26,6 @@ export const hasOpenAvklaringsbehov = (kode: string, avklaringsbehov: BeregningA
 export const hasOpenAvklarAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => hasOpenAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)
   || hasOpenAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
 
-
 export const findBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[]): string => (avklaringsbehov.some(
   (ab) => ab.definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER || ab.definisjon === AVKLAR_AKTIVITETER)
   ? avklaringsbehov.find((ab) => (ab.definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER || ab.definisjon === AVKLAR_AKTIVITETER)).begrunnelse
@@ -53,12 +51,6 @@ export const skalViseSubmitKnappEllerBegrunnelse = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   erOverstyrt: boolean,
 ): boolean => hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) || erOverstyrt;
-
-export const skalViseSubmitknappForPanel = (harAndreAksjonspunkterIPanel: boolean,
-  erOverstyrt: boolean,
-  erBgOverstyrt: boolean,
-  aksjonspunkter: Aksjonspunkt[]): boolean => !skalViseSubmitknappInneforBorderBox(harAndreAksjonspunkterIPanel, erOverstyrt, erBgOverstyrt, aksjonspunkter)
-  && skalViseSubmitKnappEllerBegrunnelse(aksjonspunkter, erOverstyrt);
 
 export const erSubmittable = (submittable: boolean,
   submitEnabled: boolean,

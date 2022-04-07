@@ -5,8 +5,14 @@ import {
   AktivitetStatus as aktivitetStatuser, Inntektskategori, OpptjeningAktivitetType,
   AksjonspunktStatus, FaktaOmBeregningTilfelle,
 } from '@navikt/ft-kodeverk';
-import {
-  Behandling, Beregningsgrunnlag, BeregningAktivitet, FaktaOmBeregning, AndelForFaktaOmBeregning, FaktaOmBeregningAndel,
+import Vilkarperiode, {
+  Behandling,
+  Beregningsgrunnlag,
+  BeregningAktivitet,
+  FaktaOmBeregning,
+  AndelForFaktaOmBeregning,
+  FaktaOmBeregningAndel,
+  Vilkar,
 } from '@navikt/ft-types';
 import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 
@@ -58,6 +64,7 @@ const lagBeregningsgrunnlag = (
   andeler: FaktaOmBeregningAndel[],
   faktaOmBeregning: FaktaOmBeregning,
 ): Beregningsgrunnlag => ({
+  vilkårperiodeFom: '2022-03-02',
   skjaeringstidspunktBeregning: null,
   dekningsgrad: null,
   grunnbeløp: null,
@@ -168,6 +175,21 @@ const standardFaktaAAPAndel = {
 const merknaderFraBeslutter = {
   notAccepted: false,
 };
+const vilkar: Vilkar = {
+  vilkarType: '',
+  vilkarStatus: '',
+  merknadParametere: {
+  },
+  avslagKode: '',
+  overstyrbar: true,
+  perioder: [{
+    vurdersIBehandlingen: true,
+    merknadParametere: { name: '' },
+    periode: { fom: '2022-03-02', tom: '2022-03-04' },
+    vilkarStatus: 'IKKE_VURDERT',
+  },
+  ],
+};
 
 export default {
   title: 'fakta-beregning',
@@ -205,7 +227,7 @@ const agOpplysninger = {
 export const ArbeidOgDagpenger = () => (
   <BeregningFaktaIndex
     behandling={behandling}
-    beregningsgrunnlag={bgMedArbeidOgDagpenger}
+    beregningsgrunnlag={[bgMedArbeidOgDagpenger]}
     aksjonspunkter={aksjonspunktArbeidOgDagpenger}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
@@ -218,6 +240,7 @@ export const ArbeidOgDagpenger = () => (
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
+    vilkar={vilkar}
   />
 );
 
@@ -241,7 +264,7 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
         status: AksjonspunktStatus.OPPRETTET,
@@ -260,6 +283,7 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -320,7 +344,7 @@ export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
         status: AksjonspunktStatus.UTFORT,
@@ -346,6 +370,7 @@ export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -386,7 +411,7 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -405,6 +430,7 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -441,7 +467,7 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -460,6 +486,7 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -495,7 +522,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -514,6 +541,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -552,7 +580,7 @@ export const KunArbeidstakerMedVurderingSentRefusjonskrav = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -571,6 +599,7 @@ export const KunArbeidstakerMedVurderingSentRefusjonskrav = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -611,7 +640,7 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -630,6 +659,7 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -654,7 +684,7 @@ export const VurderingAvMilitær = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -673,6 +703,7 @@ export const VurderingAvMilitær = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -713,7 +744,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -732,6 +763,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -758,7 +790,7 @@ export const KunTidsbegrensetArbeidsforhold = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -777,6 +809,7 @@ export const KunTidsbegrensetArbeidsforhold = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -802,7 +835,7 @@ export const VurderingAvEtterlønnSluttpakke = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -821,6 +854,7 @@ export const VurderingAvEtterlønnSluttpakke = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -850,7 +884,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -869,6 +903,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -893,7 +928,7 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -912,6 +947,7 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -1077,7 +1113,7 @@ export const KombinasjonstestForFaktapanel = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
         status: AksjonspunktStatus.UTFORT,
@@ -1103,6 +1139,7 @@ export const KombinasjonstestForFaktapanel = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -1160,7 +1197,7 @@ export const OverstyringAvInntekt = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
         status: AksjonspunktStatus.OPPRETTET,
@@ -1179,6 +1216,7 @@ export const OverstyringAvInntekt = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
@@ -1208,7 +1246,7 @@ export const VurderKunYtelseBesteberegning = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={beregningsgrunnlag}
+      beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: AksjonspunktStatus.OPPRETTET,
@@ -1227,6 +1265,7 @@ export const VurderKunYtelseBesteberegning = () => {
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
+      vilkar={vilkar}
     />
   );
 };
