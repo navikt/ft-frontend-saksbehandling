@@ -1,7 +1,6 @@
 {
   "name": "ft-frontend-saksbehandling",
   "description": "Frontend for saksbehandlingsløsninger i NAV",
-  "main": "./dist/index.js",
   "author": "NAV",
   "private": true,
   "license": "SEE LICENSE IN LICENSE",
@@ -16,6 +15,7 @@
     "eslint": "lerna run eslint --stream --parallel",
     "less:lint": "lerna run less:lint --stream --parallel",
     "build": "lerna run build --stream",
+    "lerna-publish": "lerna publish",
     "storybook-all": "lerna run storybook --parallel -- --ci",
     "storybook": "cross-env start-storybook -p 7000",
     "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook"
@@ -109,7 +109,6 @@
     "react-test-renderer": "^17.0.2",
     "trim": "^1.0.1"
   },
-  "version": "0.0.0",
   "workspaces": {
     "packages": ["packages/*"]
   }

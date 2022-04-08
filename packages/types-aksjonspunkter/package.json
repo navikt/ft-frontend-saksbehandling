@@ -10,10 +10,10 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "1.0.0-beta.1"
+    "@navikt/ft-kodeverk": "1.0.0-beta.2"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "1.0.0-beta.1"
+    "@navikt/ft-kodeverk": "1.0.0-beta.2"
   },
   "devDependencies": {
     "typescript": "4.6.3"
