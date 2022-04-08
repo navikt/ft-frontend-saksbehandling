@@ -12,7 +12,6 @@ if (process.argv.includes('--no-fix')) {
 
 const options = {
   static: {
-    directory: 'packages',
     watch: true,
   },
   devMiddleware: {

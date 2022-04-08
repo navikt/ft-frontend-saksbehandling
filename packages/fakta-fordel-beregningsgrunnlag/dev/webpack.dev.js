@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('../package.json').dependencies;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -113,6 +114,9 @@ module.exports = {
       fix: true,
       overrideConfigFile: path.resolve(__dirname, '../../../eslint/eslintrc.dev.js'),
       cache: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'index.html'),
     }),
     new MiniCssExtractPlugin({
       filename: 'style[name].css',
