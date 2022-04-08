@@ -57,6 +57,28 @@ module.exports = {
         }],
       include: [SRC_DIR],
     }, {
+      test: /\.(less|css)?$/,
+      use: [
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            publicPath: './',
+          },
+        }, {
+          loader: 'css-loader',
+        }, {
+          loader: 'less-loader',
+          options: {
+            lessOptions: {
+              modifyVars: {
+                nodeModulesPath: '~',
+                coreModulePath: '~',
+              },
+            },
+          },
+        }],
+      exclude: [SRC_DIR],
+    }, {
       test: /\.(svg)$/,
       type: 'asset/inline',
     }],
