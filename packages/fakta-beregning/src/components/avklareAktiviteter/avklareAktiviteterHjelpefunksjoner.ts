@@ -1,9 +1,5 @@
-import Aksjonspunkt from '@ft-frontend-saksbehandling/types/src/aksjonspunktTsType';
-import aksjonspunktCodes, {
-  hasAvklaringsbehov,
-} from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktCodes';
-import { BeregningAvklaringsbehov } from '@ft-frontend-saksbehandling/types';
-import { isAksjonspunktOpen } from '@ft-frontend-saksbehandling/kodeverk/src/aksjonspunktStatus';
+import aksjonspunktCodes, { isAksjonspunktOpen, hasAvklaringsbehov } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt, BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 const {
   AVKLAR_AKTIVITETER,
