@@ -20,7 +20,6 @@ import FaktaForATFLOgSNPanel, {
 import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
 import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
-import { erAvklartAktivitetEndret } from '../avklareAktiviteter/AvklareAktiviteterPanel';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { erOverstyring, erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
@@ -227,7 +226,7 @@ const mapStateToPropsFactory = (_state: any, initialProps: OwnProps) => {
       validate,
       onSubmit: lagSubmitFn(ownProps),
       // @ts-ignore
-      verdiForAvklarAktivitetErEndret: erAvklartAktivitetEndret(state, ownProps),
+      verdiForAvklarAktivitetErEndret: false,
       // @ts-ignore FIX reselect
       erOverstyrt: erOverstyringAvBeregningsgrunnlag(state, ownProps),
       hasBegrunnelse: initialValues && !!initialValues[BEGRUNNELSE_FAKTA_TILFELLER_NAME],
