@@ -13,6 +13,7 @@ import BeregningFaktaAP, {
 import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAktivitetAP';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import messages from '../i18n/nb_NO.json';
+import SubmitBeregningType from './typer/SubmitBeregningTsType';
 
 const intl = createIntl(messages);
 
@@ -22,6 +23,8 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   setFormData: (data: any) => void;
   vilkar: Vilkar;
+  submitCallback: (aksjonspunktData: AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP
+    | BeregningFaktaAP | BeregningOverstyringAP | SubmitBeregningType[]) => Promise<void>;
 };
 
 type Akasjonspunkter = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP | BeregningFaktaAP | BeregningOverstyringAP;

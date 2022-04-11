@@ -6,11 +6,6 @@ import { Element } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
 
 import { useFormContext } from 'react-hook-form';
-import { getError } from '@navikt/ft-form-hooks/src/formUtils';
-import aksjonspunktCodes, {
-  hasAvklaringsbehov,
-  isAvklaringsbehovOpen,
-} from '@navikt/ft-kodeverk/src/aksjonspunktCodes';
 import {
   AksjonspunktHelpTextTemp, FlexColumn,
   FlexContainer,
@@ -25,6 +20,7 @@ import {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
+import { hasAvklaringsbehov, AksjonspunktCode, isAvklaringsbehovOpen } from '@navikt/ft-kodeverk';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import {
   formNameAvklarAktiviteter,
@@ -43,7 +39,7 @@ import SubmitButton from '../felles/SubmitButton';
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
@@ -110,7 +106,6 @@ interface OwnProps {
   submittable: boolean;
   alleKodeverk: AlleKodeverk;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  harAndreAksjonspunkterIPanel: boolean;
   fieldId: string;
   intl: any;
 }
@@ -143,8 +138,8 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     resetField(fieldId);
   };
 
-  const isAvklaringsbehovClosed: boolean = avklaringsbehov.filter((ap) => ap.definisjon === aksjonspunktCodes.AVKLAR_AKTIVITETER
-    || ap.definisjon === aksjonspunktCodes.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
+  const isAvklaringsbehovClosed: boolean = avklaringsbehov.filter((ap) => ap.definisjon === AksjonspunktCode.AVKLAR_AKTIVITETER
+    || ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
     .filter((ap) => isAvklaringsbehovOpen(ap.status)).length === 0;
 
   return (
@@ -182,7 +177,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
         <>
           <VerticalSpacer sixteenPx />
           <AlertStripe type="feil">
-            {getError(errors, fieldId)}
+            {errors}
           </AlertStripe>
         </>
       )}
