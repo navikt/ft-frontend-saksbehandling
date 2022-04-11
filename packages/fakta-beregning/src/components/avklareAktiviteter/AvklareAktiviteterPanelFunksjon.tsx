@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { IntlShape } from 'react-intl';
 
 import { useFieldArray, useForm } from 'react-hook-form';
-import aksjonspunktCodes, { hasAksjonspunkt } from '@navikt/ft-kodeverk/src/aksjonspunktCodes';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   Aksjonspunkt,
@@ -12,7 +11,8 @@ import {
   Vilkar,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import Form from '@navikt/ft-form-hooks/src/Form';
+import { Form } from '@navikt/ft-form-hooks';
+import { AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
@@ -23,7 +23,7 @@ import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
 const {
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   AVKLAR_AKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
@@ -110,7 +110,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   setFormData,
   formData,
 }) => {
-  const methods = useForm({
+  const formMethods = useForm<AvklarAktiviteterFormValues>({
     defaultValues: formData || {
       [formNameAvklarAktiviteter]: beregningsgrunnlag.map((bg) => buildInitialValues(
         bg.avklaringsbehov,
@@ -129,7 +129,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
 
   const { fields } = useFieldArray({
     name: formNameAvklarAktiviteter,
-    control: methods.control,
+    control: formMethods.control,
   });
 
   const losAvklaringsbehov = () => {
@@ -155,8 +155,8 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   return (
     <>
       <Form
-        formMethods={methods}
-        onSubmit={(values) => submitCallback(transformValues(values))}
+        formMethods={formMethods}
+        onSubmit={(values) => submitCallback(transformValues(values as AvklarAktiviteterFormValues))}
         setDataOnUnmount={setFormData}
       >
         {fields.map((field, index) => (
@@ -169,7 +169,6 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
             submittable={submittable}
             alleKodeverk={alleKodeverk}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            harAndreAksjonspunkterIPanel={harAndreAksjonspunkterIPanel}
           />
         ))}
       </Form>
