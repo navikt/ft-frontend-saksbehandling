@@ -73,7 +73,6 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
       setFormData={setFormData}
       formData={formData}
       vilkår={vilkar}
-      intl={intl}
     />
     <VerticalSpacer thirtyTwoPx />
     { /* @ts-ignore */ }

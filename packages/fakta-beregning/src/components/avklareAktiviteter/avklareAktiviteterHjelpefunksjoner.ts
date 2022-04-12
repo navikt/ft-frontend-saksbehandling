@@ -1,10 +1,10 @@
-import aksjonspunktCodes, { isAksjonspunktOpen, hasAvklaringsbehov } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen, hasAvklaringsbehov, AksjonspunktCode } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = aksjonspunktCodes;
+} = AksjonspunktCode;
 
 export const harAvklaringsbehovSomKanLøses = (
   avklaringsbehovCode: string,
