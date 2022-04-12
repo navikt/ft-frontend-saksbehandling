@@ -65,6 +65,15 @@ const lagBeregningsgrunnlag = (
   faktaOmBeregning: FaktaOmBeregning,
 ): Beregningsgrunnlag => ({
   vilkårperiodeFom: '2022-03-02',
+  periode: {
+    fom: '2022-03-02',
+    tom: '2022-04-30',
+  },
+  avklaringsbehov: [{
+    definisjon: '5052',
+    status: 'OPPR',
+    kanLoses: true,
+  }],
   skjaeringstidspunktBeregning: null,
   dekningsgrad: null,
   grunnbeløp: null,

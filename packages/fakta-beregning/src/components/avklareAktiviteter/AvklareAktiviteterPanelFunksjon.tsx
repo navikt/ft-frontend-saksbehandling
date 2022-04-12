@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { IntlShape } from 'react-intl';
 
 import { useFieldArray, useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -39,7 +38,6 @@ const skalViseAktiviteterTabell = (aksjonspunkter: Aksjonspunkt[],
   erOverstyrt: boolean): boolean => hasAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) || kanOverstyre || erOverstyrt;
 
 type OwnProps = {
-    intl: IntlShape
     readOnly: boolean;
     submittable: boolean;
     harAndreAksjonspunkterIPanel: boolean;
@@ -132,10 +130,6 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     control: formMethods.control,
   });
 
-  const losAvklaringsbehov = () => {
-    // TO DO
-  };
-
   if (skalSkjuleKomponent(aksjonspunkter, kanOverstyre, erOverstyrt)) {
     return null;
   }
@@ -143,25 +137,59 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   if (!skalViseAktiviteterTabell(aksjonspunkter, kanOverstyre, erOverstyrt)) {
     return (
       <>
-        <form onSubmit={losAvklaringsbehov}>
+        <Form
+          formMethods={formMethods}
+          onSubmit={(values) => submitCallback(transformValues(values as AvklarAktiviteterFormValues))}
+          setDataOnUnmount={setFormData}
+        >
           {/* TODO, HVA SKA VI HA HER DERSOM VI IKKE HAR FIELD? overskriftOgKnapp */}
           <VerticalSpacer sixteenPx />
-        </form>
+        </Form>
         {harAndreAksjonspunkterIPanel && <VerticalSpacer twentyPx />}
       </>
     );
   }
 
+  const validate = (values: AvklarAktiviteterFormValues) => {
+    const errors = [
+      {
+        type: 'custom',
+        name: 'avklarAktiviteterForm.feil2',
+        message: 'Double Check This',
+      },
+    ];
+
+    values[formNameAvklarAktiviteter].forEach((field, index) => {
+      const { avklarAktiviteter } = field;
+      if (avklarAktiviteter) {
+        const harBlivitOverstyrt = values[MANUELL_OVERSTYRING_FIELD];
+        const feilmeldinger = VurderAktiviteterPanel.validate(field, avklarAktiviteter.aktiviteterTomDatoMapping, harBlivitOverstyrt);
+        // TODO ha noen feilmeldinger her
+      }
+    });
+
+    errors.forEach(({ name, type, message }) => formMethods.setError(name, { type, message }),
+    );
+  };
+
+  const losAvklaringsbehov = (values) => {
+    validate(values);
+    if (!formMethods.formState.errors) {
+      submitCallback(transformValues(values as AvklarAktiviteterFormValues));
+    }
+  };
+
   return (
     <>
       <Form
         formMethods={formMethods}
-        onSubmit={(values) => submitCallback(transformValues(values as AvklarAktiviteterFormValues))}
+        onSubmit={(values) => losAvklaringsbehov(values)}
         setDataOnUnmount={setFormData}
       >
         {fields.map((field, index) => (
           <AvklareAktiviteterField
-            fieldId={field.id}
+            key={field.id}
+            fieldId={index}
             avklarAktiviteter={beregningsgrunnlag[index].faktaOmBeregning.avklarAktiviteter}
             avklaringsbehov={beregningsgrunnlag[index].avklaringsbehov}
             erOverstyrer={kanOverstyre}
@@ -175,15 +203,6 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
       {harAndreAksjonspunkterIPanel && <VerticalSpacer twentyPx />}
     </>
   );
-};
-
-const validate = (values: AvklarAktiviteterValues): any => {
-  const { avklarAktiviteter } = values;
-  if (avklarAktiviteter) {
-    const erOverstyrt = values[MANUELL_OVERSTYRING_FIELD];
-    return VurderAktiviteterPanel.validate(values, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrt);
-  }
-  return {};
 };
 
 export default AvklareAktiviteterPanelImpl;

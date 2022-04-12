@@ -4,6 +4,12 @@ export const beregningsgrunnlag = {
   skjaeringstidspunktBeregning: '2020-01-13',
   skjæringstidspunkt: '2020-01-13',
   aktivitetStatus: ['AT'],
+  avklaringsbehov: [{
+    definisjon: '5052',
+    status: 'OPPR',
+    kanLoses: true,
+  }],
+  vilkårperiodeFom: '2022-03-02',
   beregningsgrunnlagPeriode: [{
     beregningsgrunnlagPeriodeFom: '2020-01-13',
     beregnetPrAar: 0,
@@ -88,6 +94,10 @@ export const beregningsgrunnlag = {
   årsinntektVisningstall: 0,
   dekningsgrad: 100,
   erOverstyrtInntekt: false,
+  periode: {
+    fom: '2022-03-02',
+    tom: '2022-04-30'
+  },
 } as Beregningsgrunnlag;
 
 export const aksjonspunkt = [
