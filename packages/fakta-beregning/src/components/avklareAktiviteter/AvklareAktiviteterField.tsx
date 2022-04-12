@@ -5,7 +5,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { Element } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
 
-import { useFormContext } from 'react-hook-form';
 import {
   AksjonspunktHelpTextTemp, FlexColumn,
   FlexContainer,
@@ -21,10 +20,8 @@ import {
 } from '@navikt/ft-types';
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
 import { hasAvklaringsbehov, AksjonspunktCode, isAvklaringsbehovOpen } from '@navikt/ft-kodeverk';
+import { formHooks } from '@navikt/ft-form-hooks';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
-import {
-  formNameAvklarAktiviteter,
-} from '../BeregningFormUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import styles from './avklareAktiviteterPanel.less';
 import {
@@ -35,6 +32,7 @@ import {
 } from './avklareAktiviteterHjelpefunksjoner';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
+import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 
 const {
   AVKLAR_AKTIVITETER,
@@ -106,8 +104,15 @@ interface OwnProps {
   submittable: boolean;
   alleKodeverk: AlleKodeverk;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  fieldId: string;
+  fieldId: number;
   intl: any;
+}
+
+type ErrorMessages = {
+  [key:string]: {
+    type: string;
+    message: string;
+  }
 }
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
@@ -124,8 +129,16 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   const harOverstyrAksjonspunkt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
   const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAksjonspunkt);
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
+  const { resetField, formState: { isDirty, isSubmitting, errors } } = formHooks.useFormContext<AvklarAktiviteterFormValues | ErrorMessages>();
 
-  const { watch, resetField, formState: { isDirty, isSubmitting, errors } } = useFormContext();
+  const finnesFeilForBegrunnelse = !!errors.avklarAktiviteterForm?.[fieldId]?.begrunnelseAvklareAktiviteter;
+
+  console.log('ERROR', errors?.avklarAktiviteterForm?.[fieldId], Object.values(errors?.avklarAktiviteterForm?.[fieldId] || {}));
+
+  const formFeil: {
+    type: string;
+    message: string;
+  }[] = Object.values(errors?.avklarAktiviteterForm?.[fieldId] || {}).filter((err) => err.type === 'custom');
 
   useEffect(() => {
     if (!submitEnabled) {
@@ -133,9 +146,14 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     }
   }, []);
 
-  const initializeForm = () => {
-    setErOverstyrtKnappTrykket(!erOverstyrtKnappTrykket);
-    resetField(fieldId);
+  const initializeForm = (skalOverstyre: boolean) => {
+    if (skalOverstyre) {
+      setErOverstyrtKnappTrykket(!erOverstyrtKnappTrykket);
+    } else if (!skalOverstyre && erOverstyrtKnappTrykket) {
+      setErOverstyrtKnappTrykket(false);
+    }
+
+    resetField(`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`);
   };
 
   const isAvklaringsbehovClosed: boolean = avklaringsbehov.filter((ap) => ap.definisjon === AksjonspunktCode.AVKLAR_AKTIVITETER
@@ -154,7 +172,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
           {(erOverstyrer || harOverstyrAksjonspunkt) && (
             <FlexColumn>
               <OverstyringKnapp
-                onClick={() => initializeForm()}
+                onClick={() => initializeForm(true)}
                 erOverstyrt={erOverstyrtKnappTrykket}
               />
             </FlexColumn>
@@ -173,11 +191,13 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
         </AksjonspunktHelpTextTemp>
       )}
 
-      {errors && (
+      {formFeil.length > 0 && (
         <>
           <VerticalSpacer sixteenPx />
           <AlertStripe type="feil">
-            {errors}
+            { formFeil.length > 1
+              ? <ul>{formFeil.map((err) => <li>{err.message}</li>)}</ul>
+              : formFeil.map((err) => err.message)}
           </AlertStripe>
         </>
       )}
@@ -190,26 +210,10 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
 
       <VerticalSpacer twentyPx />
 
-      {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <VurderAktiviteterPanel
-          aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
-          readOnly={readOnly}
-          isAksjonspunktClosed={isAvklaringsbehovClosed}
-          erOverstyrt={erOverstyrtKnappTrykket}
-          alleKodeverk={alleKodeverk}
-          values={watch(fieldId)}
-          harAksjonspunkt={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
-          formNameAvklarAktiviteter={formNameAvklarAktiviteter}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
-      )}
-
-      <VerticalSpacer twentyPx />
-
       {skalViseSubmitKnappEllerBegrunnelse(avklaringsbehov, erOverstyrtKnappTrykket) && (
         <>
           <FaktaBegrunnelseTextField
-            name={BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}
+            name={`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`}
             isSubmittable={submittable}
             isReadOnly={readOnly}
             hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== null}
@@ -222,10 +226,11 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                   <FlexColumn>
                     <SubmitButton
                       text={intl.formatMessage({ id: erOverstyrtKnappTrykket ? 'AvklarAktivitetPanel.OverstyrText' : 'AvklarAktivitetPanel.ButtonText' })}
-                      isSubmittable={erSubmittable(submittable, true, !!errors[fieldId])}
+                      isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
                       isDirty={isDirty}
                       isSubmitting={isSubmitting}
                       isReadOnly={readOnly || (isAvklaringsbehovClosed && !isDirty)}
+                      hasEmptyRequiredFields={finnesFeilForBegrunnelse}
                     />
                   </FlexColumn>
                   {isDirty && (
@@ -234,7 +239,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                         htmlType="button"
                         spinner={isSubmitting}
                         disabled={isSubmitting}
-                        onClick={() => initializeForm()}
+                        onClick={() => initializeForm(false)}
                         mini
                       >
                         <FormattedMessage id="AvklareAktiviteter.Avbryt" />
