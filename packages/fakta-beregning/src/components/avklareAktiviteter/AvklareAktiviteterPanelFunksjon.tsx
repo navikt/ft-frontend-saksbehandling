@@ -14,7 +14,6 @@ import { Form } from '@navikt/ft-form-hooks';
 import { AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
-import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
@@ -54,18 +53,20 @@ type OwnProps = {
 
 const transformValues = (values: AvklarAktiviteterFormValues) : SubmitBeregningType[] => {
   const fieldArrayList = values[formNameAvklarAktiviteter];
-  const løsteGrunnlag = fieldArrayList
+  const overstyrteGrunnlag = fieldArrayList
+    .filter((v) => v[MANUELL_OVERSTYRING_FIELD])
     .map(transformFieldValue)
     .filter((v) => v);
-
-  const overstyrteGrunnlag = løsteGrunnlag.filter(({ kode }) => kode === OVERSTYRING_AV_BEREGNINGSAKTIVITETER);
-  const avklarGrunnlag = løsteGrunnlag.filter(({ kode }) => kode === AVKLAR_AKTIVITETER);
+  const avklarGrunnlag = fieldArrayList
+    .filter((v) => !v[MANUELL_OVERSTYRING_FIELD])
+    .map(transformFieldValue)
+    .filter((v) => v);
 
   const apDataTilSubmit = [];
 
   if (overstyrteGrunnlag.length > 0) {
     const beg = overstyrteGrunnlag.map(({ begrunnelse }) => begrunnelse)
-      .reduce((samletBegrunnelse, begrunnelse) => `${samletBegrunnelse} ${begrunnelse}`, '');
+      .reduce((samletBegrunnelse, begrunnelse) => (samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`), '');
     const data = {
       kode: OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
       begrunnelse: beg,
@@ -76,7 +77,7 @@ const transformValues = (values: AvklarAktiviteterFormValues) : SubmitBeregningT
 
   if (avklarGrunnlag.length > 0) {
     const beg = avklarGrunnlag.map(({ begrunnelse }) => begrunnelse)
-      .reduce((samletBegrunnelse, begrunnelse) => `${samletBegrunnelse} ${begrunnelse}`, '');
+      .reduce((samletBegrunnelse, begrunnelse) => (samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`), '');
     const data = {
       kode: AVKLAR_AKTIVITETER,
       begrunnelse: beg,
@@ -125,10 +126,15 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   const erOverstyrt = false;
   const kanOverstyre: boolean = erOverstyrer && !hasAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter);
 
-  const { fields } = useFieldArray({
+  const { fields, update } = useFieldArray({
     name: formNameAvklarAktiviteter,
     control: formMethods.control,
   });
+
+  const updateOverstyring = (index : number, skalOverstyre : boolean) : void => {
+    const currVal = formMethods.getValues(`avklarAktiviteterForm.${index}`);
+    update(index, { ...currVal, manuellOverstyringBeregningAktiviteter: skalOverstyre });
+  };
 
   if (skalSkjuleKomponent(aksjonspunkter, kanOverstyre, erOverstyrt)) {
     return null;
@@ -152,11 +158,12 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
 
   const validate = (values: AvklarAktiviteterFormValues) => {
     const errors = [
-      {
+      /* {
+
         type: 'custom',
         name: 'avklarAktiviteterForm.feil2',
         message: 'Double Check This',
-      },
+      }, */
     ];
 
     values[formNameAvklarAktiviteter].forEach((field, index) => {
@@ -174,7 +181,8 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
 
   const losAvklaringsbehov = (values) => {
     validate(values);
-    if (!formMethods.formState.errors) {
+
+    if (Object.keys(formMethods.formState.errors).length === 0) {
       submitCallback(transformValues(values as AvklarAktiviteterFormValues));
     }
   };
@@ -197,6 +205,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
             submittable={submittable}
             alleKodeverk={alleKodeverk}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            updateOverstyring={updateOverstyring}
           />
         ))}
       </Form>

@@ -33,6 +33,7 @@ import {
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
+import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 
 const {
   AVKLAR_AKTIVITETER,
@@ -90,7 +91,6 @@ export const transformFieldValue = (values) => {
 
   return {
     ...vurderAktiviteterTransformed,
-    kode: skalOverstyre ? OVERSTYRING_AV_BEREGNINGSAKTIVITETER : AVKLAR_AKTIVITETER,
     periode: values.periode,
     begrunnelse: values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME],
   };
@@ -106,6 +106,7 @@ interface OwnProps {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
   intl: any;
+  updateOverstyring: (index : number, skalOverstyre : boolean) => void;
 }
 
 type ErrorMessages = {
@@ -125,15 +126,18 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   submittable,
   fieldId,
   intl,
+  updateOverstyring,
 }) => {
+  const {
+    resetField, watch, getValues, formState: { isDirty, isSubmitting, errors },
+  } = formHooks.useFormContext<AvklarAktiviteterFormValues | ErrorMessages>();
+
   const harOverstyrAksjonspunkt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
-  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAksjonspunkt);
+  const erOverstyrtErAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
+  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAksjonspunkt || erOverstyrtErAktivt);
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
-  const { resetField, formState: { isDirty, isSubmitting, errors } } = formHooks.useFormContext<AvklarAktiviteterFormValues | ErrorMessages>();
 
   const finnesFeilForBegrunnelse = !!errors.avklarAktiviteterForm?.[fieldId]?.begrunnelseAvklareAktiviteter;
-
-  console.log('ERROR', errors?.avklarAktiviteterForm?.[fieldId], Object.values(errors?.avklarAktiviteterForm?.[fieldId] || {}));
 
   const formFeil: {
     type: string;
@@ -153,6 +157,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       setErOverstyrtKnappTrykket(false);
     }
 
+    updateOverstyring(fieldId, skalOverstyre);
     resetField(`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`);
   };
 
@@ -208,6 +213,22 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
         </Element>
       )}
 
+      <VerticalSpacer twentyPx />
+
+      {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
+        <VurderAktiviteterPanel
+          aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAvklaringsbehovClosed}
+          erOverstyrt={erOverstyrtKnappTrykket}
+          alleKodeverk={alleKodeverk}
+          values={watch(`avklarAktiviteterForm.${fieldId}`)}
+          harAksjonspunkt={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
+          formNameAvklarAktiviteter={formNameAvklarAktiviteter}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          fieldId={fieldId}
+        />
+      )}
       <VerticalSpacer twentyPx />
 
       {skalViseSubmitKnappEllerBegrunnelse(avklaringsbehov, erOverstyrtKnappTrykket) && (
