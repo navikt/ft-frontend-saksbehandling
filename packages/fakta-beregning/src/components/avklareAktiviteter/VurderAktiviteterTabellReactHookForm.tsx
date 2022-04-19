@@ -21,9 +21,8 @@ const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, sk
     );
   }
   const harAAP = aktiviteter.some((a) => a.arbeidsforholdType && a.arbeidsforholdType === opptjeningAktivitetTyper.AAP);
-  const harVentelonnVartpenger = aktiviteter.some(
-    (aktivitet) => aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER,
-  );
+  const harVentelonnVartpenger = aktiviteter.some((aktivitet) => aktivitet.arbeidsforholdType
+    && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER);
   if (harAAP) {
     return (
       <FormattedMessage
@@ -43,34 +42,35 @@ const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, sk
   return '';
 };
 
-const getHeaderTextCodes = (): string[] => [
+const getHeaderTextCodes = (): string[] => ([
   'VurderAktiviteterTabell.Header.Aktivitet',
   'VurderAktiviteterTabell.Header.Periode',
   'VurderAktiviteterTabell.Header.Benytt',
   'VurderAktiviteterTabell.Header.IkkeBenytt',
-];
+]
+);
 
 type OwnProps = {
-  readOnly: boolean,
-  isAvklaringsbehovClosed: boolean,
-  aktiviteter: BeregningAktivitet[],
-  alleKodeverk: AlleKodeverk,
-  erOverstyrt: boolean,
-  harAvklaringsbehov: boolean,
-  tomDatoForAktivitetGruppe: string,
-  valgtSkjæringstidspunkt: string,
-  ingenAktiviterErBrukt: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  fieldId: number,
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  aktiviteter: BeregningAktivitet[];
+  alleKodeverk: AlleKodeverk;
+  erOverstyrt: boolean;
+  harAksjonspunkt: boolean;
+  tomDatoForAktivitetGruppe: string;
+  valgtSkjæringstidspunkt: string;
+  ingenAktiviterErBrukt: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldId: number;
 };
 
 const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
   readOnly,
-  isAvklaringsbehovClosed,
+  isAksjonspunktClosed,
   aktiviteter,
   alleKodeverk,
   erOverstyrt,
-  harAvklaringsbehov,
+  harAksjonspunkt,
   tomDatoForAktivitetGruppe,
   valgtSkjæringstidspunkt,
   ingenAktiviterErBrukt,
@@ -78,17 +78,18 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
   fieldId,
 }) => (
   <>
-    <Element>{finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}</Element>
+    <Element>
+      {finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}
+    </Element>
     <Table headerTextCodes={getHeaderTextCodes()} noHover>
       {aktiviteter.map((aktivitet) => (
         <VurderAktiviteterTabellRad
-          key={`${aktivitet.arbeidsgiverIdent}-${aktivitet.fom}-${aktivitet.tom}`}
           aktivitet={aktivitet}
           readOnly={readOnly}
-          isAvklaringsbehovClosed={isAvklaringsbehovClosed}
+          isAksjonspunktClosed={isAksjonspunktClosed}
           alleKodeverk={alleKodeverk}
           erOverstyrt={erOverstyrt}
-          harAvklaringsbehov={harAvklaringsbehov}
+          harAksjonspunkt={harAksjonspunkt}
           tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}
           valgtSkjæringstidspunkt={valgtSkjæringstidspunkt}
           ingenAktiviterErBrukt={ingenAktiviterErBrukt}
