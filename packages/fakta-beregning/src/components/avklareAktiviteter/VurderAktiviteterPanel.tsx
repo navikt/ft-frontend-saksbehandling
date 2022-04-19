@@ -9,12 +9,13 @@ import {
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import VurderAktiviteterTabell, { lagAktivitetFieldId } from './VurderAktiviteterTabell';
 import AvklarAktiviteterValues, { AktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import VurderAktiviteterTabellReactHookForm from './VurderAktiviteterTabellReactHookForm';
 
 const harListeAktivitetSomSkalBrukes = (mapping: AvklarBeregningAktiviteter, values: AvklarAktiviteterValues): boolean => mapping.aktiviteter
   .find((aktivitet) => {
     const fieldId = lagAktivitetFieldId(aktivitet);
     return !!values.aktiviteterValues && !!values.aktiviteterValues[fieldId]
-      ? values.aktiviteterValues[fieldId].skalBrukes
+      ? values.aktiviteterValues[fieldId].skalBrukes !== 'false'
       : aktivitet.skalBrukes;
   }) !== undefined;
 
@@ -76,6 +77,7 @@ const finnListerSomSkalVurderes = (aktiviteterTomDatoMapping: AvklarBeregningAkt
   if (erOverstyrt) {
     return nyTomDatoMapping;
   }
+
   if (!values || harListeAktivitetSomSkalBrukes(nyTomDatoMapping[0], values) || nyTomDatoMapping.length === 1) {
     return [nyTomDatoMapping[0]];
   }
@@ -105,7 +107,7 @@ const utledGjeldendeSkjæringstidspunkt = (values: AvklarAktiviteterValues, list
     const { aktiviteter } = listeSomSkalVurderes[k];
     for (let i = 0; i < aktiviteter.length; i += 1) {
       const tempaktivitet = values.aktiviteterValues[lagAktivitetFieldId(aktiviteter[i])];
-      if (tempaktivitet.skalBrukes) {
+      if (tempaktivitet.skalBrukes === 'true') {
         return listeSomSkalVurderes[k].tom;
       }
     }
@@ -123,6 +125,7 @@ type OwnProps = {
     formNameAvklarAktiviteter: string;
     values: AvklarAktiviteterValues;
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+    fieldId: number;
 };
 
 interface StaticFunctions {
@@ -154,6 +157,7 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
   alleKodeverk,
   formNameAvklarAktiviteter,
   arbeidsgiverOpplysningerPerId,
+  fieldId,
 }) => {
   const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
@@ -161,8 +165,7 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
   return (
     <>
       {listeSomSkalVurderes.map((aktivitetMap) => (
-        /* @ts-ignore */
-        <VurderAktiviteterTabell
+        <VurderAktiviteterTabellReactHookForm
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
           aktiviteter={aktivitetMap.aktiviteter}
@@ -172,9 +175,9 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
           tomDatoForAktivitetGruppe={aktivitetMap.tom}
           valgtSkjæringstidspunkt={gjeldendeSkjæringstidspunkt}
           ingenAktiviterErBrukt={gjeldendeSkjæringstidspunkt === undefined}
-          formNameAvklarAktiviteter={formNameAvklarAktiviteter}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           key={aktivitetMap.tom}
+          fieldId={fieldId}
         />
       ))}
     </>

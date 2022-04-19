@@ -13,64 +13,64 @@ import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTa
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 
 type OwnProps = {
-  readOnly: boolean,
-  isAvklaringsbehovClosed: boolean,
-  aktivitet: BeregningAktivitet,
-  alleKodeverk: AlleKodeverk,
-  erOverstyrt: boolean,
-  harAvklaringsbehov: boolean,
-  tomDatoForAktivitetGruppe: string,
-  valgtSkjæringstidspunkt: string,
-  ingenAktiviterErBrukt: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  fieldId: number,
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  aktivitet: BeregningAktivitet;
+  alleKodeverk: AlleKodeverk;
+  erOverstyrt: boolean;
+  harAksjonspunkt: boolean;
+  tomDatoForAktivitetGruppe: string;
+  valgtSkjæringstidspunkt: string;
+  ingenAktiviterErBrukt: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldId: number;
 };
 
 const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));
 
-const lagVisningsnavn = (
-  aktivitet: BeregningAktivitet,
+const lagVisningsnavn = (aktivitet: BeregningAktivitet,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
-): string => {
+  alleKodeverk: AlleKodeverk): string => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent];
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? getKodeverknavnFn(alleKodeverk)(aktivitet.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
-      : '';
+      ? getKodeverknavnFn(alleKodeverk)(aktivitet.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE) : '';
   }
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
 };
 
 const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   readOnly,
-  isAvklaringsbehovClosed,
+  isAksjonspunktClosed,
   aktivitet,
   alleKodeverk,
   erOverstyrt,
-  harAvklaringsbehov,
+  harAksjonspunkt,
   tomDatoForAktivitetGruppe,
   valgtSkjæringstidspunkt,
   ingenAktiviterErBrukt,
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }) => {
-  const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(
-    valgtSkjæringstidspunkt,
-    tomDatoForAktivitetGruppe,
-  );
+  console.log('valgtSkjæringstidspunkt', valgtSkjæringstidspunkt);
+
+  const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
   return (
     <TableRow key={lagAktivitetFieldId(aktivitet)}>
       <TableColumn className={styles.navnKol}>
-        <Normaltekst>{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk)}</Normaltekst>
+        <Normaltekst>
+          {lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk)}
+        </Normaltekst>
       </TableColumn>
       <TableColumn className={styles.rowalign}>
-        {!erOverstyrt && (
+        {!erOverstyrt
+        && (
           <Normaltekst>
             <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
           </Normaltekst>
         )}
-        {erOverstyrt && (
+        {erOverstyrt
+        && (
           <>
             <DateLabel dateString={aktivitet.fom} />
             {' '}
@@ -84,40 +84,30 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
           </>
         )}
       </TableColumn>
-      <TableColumn className={styles.radios}>
+      <TableColumn className={styles.radioMiddle}>
         <RadioGroupField
-          validate={[required]}
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
-          readOnly={
-            readOnly
-            || !skalVurdereAktivitet(
-              aktivitet,
-              erOverstyrt,
-              harAvklaringsbehov,
-              erValgtSkjæringstidspunktLikEllerFørTomDato,
-              ingenAktiviterErBrukt,
-            )
-          }
+          readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
+            erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)}
         >
-          {[
-            <RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`} value="true" />,
-            <RadioOption
-              label=""
-              key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`}
-              value="false"
-            />,
-          ]}
+          {[<RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`} value="true" />]}
         </RadioGroupField>
       </TableColumn>
-      {isAvklaringsbehovClosed && readOnly && (
+      <TableColumn className={styles.radioMiddle}>
+        <RadioGroupField
+          name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
+          readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
+            erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)}
+        >
+          {[<RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`} value="false" />]}
+        </RadioGroupField>
+      </TableColumn>
+      {isAksjonspunktClosed && readOnly
+      && (
         <TableColumn>
-          {skalVurdereAktivitet(
-            aktivitet,
-            erOverstyrt,
-            harAvklaringsbehov,
-            erValgtSkjæringstidspunktLikEllerFørTomDato,
-            ingenAktiviterErBrukt,
-          ) && <EditedIcon />}
+          {skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
+            erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)
+          && <EditedIcon />}
         </TableColumn>
       )}
     </TableRow>
