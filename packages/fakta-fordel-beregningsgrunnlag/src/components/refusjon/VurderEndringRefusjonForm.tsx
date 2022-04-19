@@ -138,6 +138,7 @@ const mapStateToProps = (initialState: any, initialProps: OwnProps) => {
   };
 };
 
+// @ts-ignore
 export default connect(mapStateToProps)(reduxForm({
   form: FORM_NAME,
   enableReinitialize: true,
