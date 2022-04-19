@@ -104,6 +104,7 @@ const createAndelerTableRows = (
 ));
 
 const createBruttoBGSummaryRow = (fields, readOnly, beregningsgrunnlag) => (
+  /* @ts-ignore */
   <SummaryRow
     readOnly={readOnly}
     key="summaryRow"

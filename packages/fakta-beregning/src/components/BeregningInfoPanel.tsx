@@ -48,6 +48,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
 }) => (
   <div>
+    { /* @ts-ignore */ }
     <AvklareAktiviteterPanel
       readOnly={readOnly || (hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, aksjonspunkter) && !erOverstyrer)}
       harAndreAksjonspunkterIPanel={hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)}
@@ -60,6 +61,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
     />
     <VerticalSpacer thirtyTwoPx />
+    { /* @ts-ignore */ }
     <VurderFaktaBeregningPanel
       intl={intl}
       readOnly={readOnly || ((hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter) || beregningsgrunnlag.erOverstyrtInntekt) && !erOverstyrer)}

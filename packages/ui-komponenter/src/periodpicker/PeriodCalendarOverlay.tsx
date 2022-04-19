@@ -131,6 +131,7 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
         onKeyDown={this.onKeyDown}
         role="link"
       >
+        {/* @ts-ignore fiks */ }
         <DayPicker
           {...dayPickerLocalization}
           className={dayPickerClassName}

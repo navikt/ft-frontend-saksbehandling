@@ -84,6 +84,7 @@ export class FordelBeregningsgrunnlagPanel extends Component<OwnProps & WrappedC
       <>
         {skalViseRefusjon
       && (
+      /* @ts-ignore */
       <VurderEndringRefusjonForm
         submitEnabled={submitEnabled}
         submittable={submittable}
@@ -95,6 +96,7 @@ export class FordelBeregningsgrunnlagPanel extends Component<OwnProps & WrappedC
       />
       )}
         {skalViseFordeling && (
+          /* @ts-ignore */
           <FordelingForm
             intl={intl}
             submitEnabled={submitEnabled}

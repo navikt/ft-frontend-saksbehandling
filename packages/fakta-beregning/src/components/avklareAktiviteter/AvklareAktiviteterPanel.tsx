@@ -325,6 +325,7 @@ export class AvklareAktiviteterPanelImpl extends Component<OwnProps & InjectedFo
                 <FlexContainer>
                   <FlexRow>
                     <FlexColumn>
+                      { /* @ts-ignore */ }
                       <FaktaSubmitButton
                         buttonText={intl.formatMessage({ id: erOverstyrt ? 'AvklarAktivitetPanel.OverstyrText' : 'AvklarAktivitetPanel.ButtonText' })}
                         formName={formProps.form}
@@ -355,6 +356,7 @@ export class AvklareAktiviteterPanelImpl extends Component<OwnProps & InjectedFo
           {skalViseSubmitknappForPanel(harAndreAksjonspunkterIPanel, erOverstyrt, erBgOverstyrt, aksjonspunkter) && (
             <>
               <VerticalSpacer twentyPx />
+              { /* @ts-ignore */ }
               <FaktaSubmitButton
                 buttonText={erOverstyrt ? intl.formatMessage({ id: 'AvklarAktivitetPanel.OverstyrText' }) : undefined}
                 formName={formProps.form}

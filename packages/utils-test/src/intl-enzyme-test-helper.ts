@@ -44,12 +44,12 @@ const getOptions = (moduleMessages: Record<string, string>): ShallowRendererProp
   };
 };
 
-export function shallowWithIntl(node: ReactElement, intlMessages: Record<string, string>, options?: ShallowRendererProps) {
+export function shallowWithIntl(node: ReactElement, intlMessages: Record<string, string>, options?: ShallowRendererProps): any {
   // @ts-ignore
   return shallow(nodeWithIntlProp(node, intlMessages), { ...getOptions(intlMessages), ...options });
 }
 
-export function mountWithIntl(node: ReactElement, intlMessages: Record<string, string>, options?: ShallowRendererProps) {
+export function mountWithIntl(node: ReactElement, intlMessages: Record<string, string>, options?: ShallowRendererProps): any {
   // @ts-ignore
   return mount(nodeWithIntlProp(node, intlMessages), { ...getOptions(intlMessages), ...options });
 }
