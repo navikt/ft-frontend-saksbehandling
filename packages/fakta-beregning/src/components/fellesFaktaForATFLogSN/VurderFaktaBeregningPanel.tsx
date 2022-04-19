@@ -141,6 +141,7 @@ export class VurderFaktaBeregningPanelImpl extends Component<OwnProps & Injected
             </AksjonspunktHelpTextTemp>
           )}
           <VerticalSpacer twentyPx />
+          { /* @ts-ignore */ }
           <FaktaForATFLOgSNPanel
             readOnly={readOnly}
             isAksjonspunktClosed={isAksjonspunktClosed(aksjonspunkter)}
@@ -160,6 +161,7 @@ export class VurderFaktaBeregningPanelImpl extends Component<OwnProps & Injected
                 hasBegrunnelse={hasBegrunnelse}
               />
               <VerticalSpacer twentyPx />
+              { /* @ts-ignore */ }
               <FaktaSubmitButton
                 formName={formProps.form}
                 isSubmittable={submittable && submitEnabled && harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, aksjonspunkter)}

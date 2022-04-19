@@ -69,6 +69,7 @@ const FordelingFormImpl: FunctionComponent<PureOwnProps & MappedOwnProps & Injec
   ...formProps
 }) => (
   <form onSubmit={formProps.handleSubmit}>
+    { /* @ts-ignore */ }
     <FordelingHelpText
       isAksjonspunktClosed={isAksjonspunktClosed}
       alleKodeverk={alleKodeverk}
@@ -77,6 +78,7 @@ const FordelingFormImpl: FunctionComponent<PureOwnProps & MappedOwnProps & Injec
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
     />
     <VerticalSpacer twentyPx />
+    { /* @ts-ignore */ }
     <FastsettFordeltBeregningsgrunnlag
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
@@ -93,6 +95,7 @@ const FordelingFormImpl: FunctionComponent<PureOwnProps & MappedOwnProps & Injec
       hasBegrunnelse={hasBegrunnelse}
     />
     <VerticalSpacer twentyPx />
+    { /* @ts-ignore */ }
     <FaktaSubmitButton
       formName={formProps.form}
       isSubmittable={submittable && submitEnabled}

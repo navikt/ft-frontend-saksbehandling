@@ -33,6 +33,7 @@ export const Label: FunctionComponent<LabelProps & WrappedComponentProps> = ({
   }
   return (
     <span className={classNames('labelWrapper', { readOnly })}>
+      { /* @ts-ignore */ }
       <TypoElem tag="span" className={styles.label}>
         {format(intl, input)}
       </TypoElem>

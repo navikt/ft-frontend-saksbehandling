@@ -52,6 +52,7 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   <div>
     {skalSjekkeBesteberegning
     && (
+      /* @ts-ignore */
       <KunYtelseBesteberegningPanel
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}

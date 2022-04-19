@@ -27,6 +27,7 @@ const Label: FunctionComponent<OwnProps> = ({
 
   return (
     <span className={classNames('labelWrapper', { readOnly })}>
+      { /* @ts-ignore */ }
       <TypoElem tag="span" className={styles.label}>{input}</TypoElem>
     </span>
   );

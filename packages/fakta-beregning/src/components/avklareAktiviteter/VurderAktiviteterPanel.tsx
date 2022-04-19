@@ -164,6 +164,7 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
   return (
     <>
       {listeSomSkalVurderes.map((aktivitetMap) => (
+        /* @ts-ignore */
         <VurderAktiviteterTabell
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}

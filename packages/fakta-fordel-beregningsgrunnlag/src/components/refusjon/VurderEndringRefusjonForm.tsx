@@ -72,6 +72,7 @@ export const VurderEndringRefusjonFormImpl: FunctionComponent<OwnProps & MappedO
         <VerticalSpacer sixteenPx />
         <TidligereUtbetalinger beregningsgrunnlag={beregningsgrunnlag} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
         { andeler.map((andel) => (
+          /* @ts-ignore */
           <VurderEndringRefusjonRad
             refusjonAndel={andel}
             readOnly={readOnly}
@@ -91,6 +92,7 @@ export const VurderEndringRefusjonFormImpl: FunctionComponent<OwnProps & MappedO
         />
 
         <VerticalSpacer twentyPx />
+        { /* @ts-ignore */ }
         <FaktaSubmitButton
           formName={formProps.form}
           isSubmittable={submittable && submitEnabled}

@@ -173,6 +173,7 @@ const getFaktaPanels = (
   faktaPanels.push(
     <React.Fragment key="VurderOgFastsettATFL">
       {spacer(true)}
+      { /* @ts-ignore */ }
       <VurderOgFastsettATFL
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
