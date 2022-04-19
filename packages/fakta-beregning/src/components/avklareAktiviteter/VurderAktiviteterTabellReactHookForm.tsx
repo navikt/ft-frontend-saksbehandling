@@ -1,0 +1,103 @@
+import React, { FunctionComponent } from 'react';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import { Element } from 'nav-frontend-typografi';
+import { Table } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, hasValidDate } from '@navikt/ft-utils';
+
+import moment from 'moment';
+import { FormattedMessage } from 'react-intl';
+import { opptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
+
+const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
+  const datoFeil = hasValidDate(skjaeringstidspunkt);
+  const formatertStp = datoFeil ? '' : moment(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
+  if (erOverstyrt) {
+    return (
+      <FormattedMessage
+        id="VurderAktiviteterTabell.Overstyrt.Overskrift"
+        values={{ skjaeringstidspunkt: formatertStp }}
+      />
+    );
+  }
+  const harAAP = aktiviteter.some((a) => a.arbeidsforholdType && a.arbeidsforholdType === opptjeningAktivitetTyper.AAP);
+  const harVentelonnVartpenger = aktiviteter.some((aktivitet) => aktivitet.arbeidsforholdType
+    && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER);
+  if (harAAP) {
+    return (
+      <FormattedMessage
+        id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift"
+        values={{ skjaeringstidspunkt: formatertStp }}
+      />
+    );
+  }
+  if (harVentelonnVartpenger) {
+    return (
+      <FormattedMessage
+        id="VurderAktiviteterTabell.VentelonnVartpenger.Overskrift"
+        values={{ skjaeringstidspunkt: formatertStp }}
+      />
+    );
+  }
+  return '';
+};
+
+const getHeaderTextCodes = (): string[] => ([
+  'VurderAktiviteterTabell.Header.Aktivitet',
+  'VurderAktiviteterTabell.Header.Periode',
+  'VurderAktiviteterTabell.Header.Benytt',
+  'VurderAktiviteterTabell.Header.IkkeBenytt',
+]
+);
+
+type OwnProps = {
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  aktiviteter: BeregningAktivitet[];
+  alleKodeverk: AlleKodeverk;
+  erOverstyrt: boolean;
+  harAksjonspunkt: boolean;
+  tomDatoForAktivitetGruppe: string;
+  valgtSkjæringstidspunkt: string;
+  ingenAktiviterErBrukt: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldId: number;
+};
+
+const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
+  readOnly,
+  isAksjonspunktClosed,
+  aktiviteter,
+  alleKodeverk,
+  erOverstyrt,
+  harAksjonspunkt,
+  tomDatoForAktivitetGruppe,
+  valgtSkjæringstidspunkt,
+  ingenAktiviterErBrukt,
+  arbeidsgiverOpplysningerPerId,
+  fieldId,
+}) => (
+  <>
+    <Element>
+      {finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}
+    </Element>
+    <Table headerTextCodes={getHeaderTextCodes()} noHover>
+      {aktiviteter.map((aktivitet) => (
+        <VurderAktiviteterTabellRad
+          aktivitet={aktivitet}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          alleKodeverk={alleKodeverk}
+          erOverstyrt={erOverstyrt}
+          harAksjonspunkt={harAksjonspunkt}
+          tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}
+          valgtSkjæringstidspunkt={valgtSkjæringstidspunkt}
+          ingenAktiviterErBrukt={ingenAktiviterErBrukt}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          fieldId={fieldId}
+        />
+      ))}
+    </Table>
+  </>
+);
+export default VurderAktiviteterTabellReactHookForm;

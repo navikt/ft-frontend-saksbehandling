@@ -129,6 +129,7 @@ const lagTableRow = (
   ingenAktiviterErBrukt: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement => {
+  console.log('valgtSkjæringstidspunkt', valgtSkjæringstidspunkt);
   const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
   return (
     <TableRow key={lagAktivitetFieldId(aktivitet)}>
@@ -234,11 +235,14 @@ const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, sk
 const skalBrukesPretufylling = (aktivitet: BeregningAktivitet,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
-  erTomLikEllerFørSkjæringstidpunkt: boolean): boolean => {
+  erTomLikEllerFørSkjæringstidpunkt: boolean): string => {
   if (skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt, erTomLikEllerFørSkjæringstidpunkt, false)) {
-    return aktivitet.skalBrukes;
+    if (aktivitet.skalBrukes === undefined || aktivitet.skalBrukes === null) {
+      return null;
+    }
+    return aktivitet.skalBrukes.toString();
   }
-  return aktivitet.skalBrukes === true || aktivitet.skalBrukes === null || aktivitet.skalBrukes === undefined;
+  return aktivitet.skalBrukes === true || aktivitet.skalBrukes === null || aktivitet.skalBrukes === undefined ? 'true' : 'false';
 };
 
 const mapToInitialValues = (aktivitet: BeregningAktivitet,
@@ -305,7 +309,7 @@ export class VurderAktiviteterTabell extends Component<OwnProps & MappedOwnProps
     tomDatoForAktivitetGruppe: string): BeregningAktivitetTransformedValues[] => {
     const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
     return aktiviteter
-      .filter((aktivitet) => values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === false
+      .filter((aktivitet) => values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'false'
         || values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null)
       .map((aktivitet) => ({
         oppdragsgiverOrg: aktivitet.aktørIdString ? null : aktivitet.arbeidsgiverIdent,
@@ -316,7 +320,7 @@ export class VurderAktiviteterTabell extends Component<OwnProps & MappedOwnProps
           : aktivitet.tom,
         opptjeningAktivitetType: aktivitet.arbeidsforholdType ? aktivitet.arbeidsforholdType : null,
         arbeidsgiverIdentifikator: aktivitet.aktørIdString ? aktivitet.aktørIdString : null,
-        skalBrukes: erValgtSkjæringstidspunktLikEllerFørTomDato ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes : true,
+        skalBrukes: erValgtSkjæringstidspunktLikEllerFørTomDato ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'true' : true,
       }));
   };
 

@@ -4,7 +4,7 @@ export type AktivitetValues = {
   beregningAktivitetNavn: string;
   fom: string;
   tom: string;
-  skalBrukes: boolean;
+  skalBrukes: string;
 }
 
 export type AktiviteterValues = {
