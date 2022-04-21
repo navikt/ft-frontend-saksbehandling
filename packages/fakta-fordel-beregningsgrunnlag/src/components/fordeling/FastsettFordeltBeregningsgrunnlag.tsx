@@ -10,7 +10,7 @@ import {
   Beregningsgrunnlag,
 } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { FordelBeregningsgrunnlagPerioderTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 
 import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 import FordelBeregningsgrunnlagMedAksjonspunktValues, { FordelBeregningsgrunnlagValues } from '../../types/FordelingTsType';

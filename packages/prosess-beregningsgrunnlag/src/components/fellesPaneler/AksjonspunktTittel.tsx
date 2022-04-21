@@ -8,7 +8,8 @@ import {
   SammenligningsgrunlagProp,
   Aksjonspunkt,
 } from '@navikt/ft-types';
-import { AksjonspunktCode, aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -16,7 +17,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_DEKNINGSGRAD,
-} = AksjonspunktCode;
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const getAvviksprosent = (sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[]): number => {
   const avvikElem = sammenligningsgrunnlagPrStatus.find((status) => status.avvikProsent > 25);

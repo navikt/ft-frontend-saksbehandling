@@ -5,11 +5,12 @@ import { FormattedMessage } from 'react-intl';
 import { Undertittel } from 'nav-frontend-typografi';
 
 import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { AksjonspunktCode, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt, RefusjonTilVurderingAndel, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId,
 } from '@navikt/ft-types';
-import { VurderRefusjonBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
+import VurderRefusjonBeregningsgrunnlagAP from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
@@ -22,7 +23,7 @@ const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const {
   VURDER_REFUSJON_BERGRUNN,
-} = AksjonspunktCode;
+} = FaktaFordelBeregningAksjonspunktCode;
 
 const finnAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]) : Aksjonspunkt | undefined => (aksjonspunkter
   ? aksjonspunkter.find((ap) => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined);

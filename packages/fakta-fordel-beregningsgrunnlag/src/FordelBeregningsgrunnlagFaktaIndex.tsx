@@ -6,7 +6,8 @@ import {
 } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
-import { VurderRefusjonBeregningsgrunnlagAP, FordelBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
+import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 
 import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlagPanel';
 import messages from '../i18n/nb_NO.json';
@@ -16,10 +17,11 @@ const intl = createIntl(messages);
 type OwnProps = {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
 };
 
-const FordelBeregningsgrunnlagFaktaIndex:FunctionComponent<OwnProps & StandardFaktaPanelProps> = ({
+type Aksjonspunkter = FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP;
+
+const FordelBeregningsgrunnlagFaktaIndex:FunctionComponent<OwnProps & StandardFaktaPanelProps<Aksjonspunkter>> = ({
   behandling,
   beregningsgrunnlag,
   alleKodeverk,

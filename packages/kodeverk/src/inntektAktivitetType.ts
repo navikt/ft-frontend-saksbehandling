@@ -1,7 +1,7 @@
-const inntektAktivitetType = {
-  YTELSE: 'YTELSEINNTEKT',
-  ARBEID: 'ARBEIDSTAKERINNTEKT',
-  FRILANS: 'FRILANSINNTEKT',
-};
+enum InntektAktivitetType {
+  YTELSE = 'YTELSEINNTEKT',
+  ARBEID = 'ARBEIDSTAKERINNTEKT',
+  FRILANS = 'FRILANSINNTEKT',
+}
 
-export default inntektAktivitetType;
+export default InntektAktivitetType;

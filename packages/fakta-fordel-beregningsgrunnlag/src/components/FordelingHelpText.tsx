@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { KodeverkType, AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { KodeverkType } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, getKodeverknavnFn } from '@navikt/ft-utils';
 import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
@@ -14,10 +14,11 @@ import {
   Aksjonspunkt,
 } from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from './util/visningsnavnHelper';
+import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
-} = AksjonspunktCode;
+} = FaktaFordelBeregningAksjonspunktCode;
 
 export const textCase = {
   GRADERING: 'GRADERING',
@@ -25,6 +26,9 @@ export const textCase = {
   PERMISJON: 'PERMISJON',
   ENDRING_YTELSE: 'ENDRING_YTELSE',
 };
+
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
+  .some((ap) => ap.definisjon === aksjonspunktKode);
 
 const formatDate = (date: string): string => (date ? moment(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 

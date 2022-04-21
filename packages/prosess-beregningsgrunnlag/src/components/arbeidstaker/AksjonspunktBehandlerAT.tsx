@@ -14,7 +14,7 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
 } from '@navikt/ft-types';
-import { ArbeidsinntektResultat } from '@navikt/ft-types-aksjonspunkter';
+import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';

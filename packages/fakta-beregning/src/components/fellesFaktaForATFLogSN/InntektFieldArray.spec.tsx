@@ -2,7 +2,6 @@ import React from 'react';
 import {
   faktaOmBeregningTilfelle,
   aktivitetStatus as aktivitetStatuser,
-  AksjonspunktCode,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { isRequiredMessage } from '@navikt/ft-utils';
@@ -12,6 +11,7 @@ import {
 import { Table } from '@navikt/ft-ui-komponenter';
 import { AlleKodeverk, FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
 
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { AndelRow } from './InntektFieldArrayRow';
@@ -24,7 +24,7 @@ const intlMock = getIntlMock(messages);
 
 const aksjonspunkter = [
   {
-    definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+    definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
     status: 'OPPR',
   },
 ];

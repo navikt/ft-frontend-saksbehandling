@@ -15,12 +15,13 @@ import {
   removeSpacesFromNumber,
 } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { aktivitetStatus, isAksjonspunktOpen, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
 import {
   InputField, RadioGroupField, RadioOption, TextAreaField, formHooks,
 } from '@navikt/ft-form-hooks';
-import { VurderVarigEndretNyoppstartetResultatAP } from '@navikt/ft-types-aksjonspunkter';
+import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
@@ -31,7 +32,7 @@ const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
 export const varigEndringRadioname = 'erVarigEndretNaering';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
-const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE } = AksjonspunktCode;
+const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
     endretTekst?: React.ReactNode;

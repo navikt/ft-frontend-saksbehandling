@@ -10,7 +10,6 @@ import { formHooks, InputField } from '@navikt/ft-form-hooks';
 import {
   aktivitetStatus,
   KodeverkType,
-  AksjonspunktCode,
   periodeAarsak,
   isAksjonspunktOpen,
 } from '@navikt/ft-kodeverk';
@@ -22,7 +21,8 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { TidsbegrensetArbeidsforholdPeriodeResultat } from '@navikt/ft-types-aksjonspunkter';
+import { TidsbegrensetArbeidsforholdPeriodeResultat } from '../../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -42,7 +42,7 @@ const formPrefix = 'inntektField';
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-} = AksjonspunktCode;
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const finnAksjonspunktForFastsettBgTidsbegrensetAT = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => gjeldendeAksjonspunkter
   && (gjeldendeAksjonspunkter.find((ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD

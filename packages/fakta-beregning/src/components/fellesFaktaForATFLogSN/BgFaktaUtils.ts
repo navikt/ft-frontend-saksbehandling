@@ -4,7 +4,6 @@ import {
   organisasjonstype as organisasjonstyper,
   opptjeningAktivitetType as OAType,
   faktaOmBeregningTilfelle,
-  AksjonspunktCode,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -17,6 +16,7 @@ import {
   ATFLSammeOrgAndel,
   AlleKodeverk, Aksjonspunkt,
 } from '@navikt/ft-types';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
@@ -208,7 +208,7 @@ export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boole
   && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true);
 
 const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean => aksjonspuntker
-  && aksjonspuntker.some((ap) => ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+  && aksjonspuntker.some((ap) => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
 export const erOverstyringAvBeregningsgrunnlag = createSelector<any, any>([
   getFormValuesForBeregning,

@@ -26,7 +26,7 @@ const periodeHarAarsakSomTilsierVisning = (aarsaker: string[]): boolean => {
   }
   const aarsakerSomTilsierMuligEndringIDagsats = [periodeAarsak.NATURALYTELSE_BORTFALT,
     periodeAarsak.ARBEIDSFORHOLD_AVSLUTTET, periodeAarsak.NATURALYTELSE_TILKOMMER];
-  return aarsaker.filter((aarsak) => aarsakerSomTilsierMuligEndringIDagsats.indexOf(aarsak) !== -1).length > 0;
+  return aarsaker.filter((aarsak) => aarsakerSomTilsierMuligEndringIDagsats.some((a) => a === aarsak)).length > 0;
 };
 
 const setTekstStrengKeyPavilkaarUtfallType = (vilkarStatus: string, skalFastsetteGrunnlag: boolean): string => {

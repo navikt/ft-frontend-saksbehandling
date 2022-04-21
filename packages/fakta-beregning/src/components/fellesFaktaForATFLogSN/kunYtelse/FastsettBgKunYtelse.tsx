@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlShape } from 'react-intl';
 import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   AndelForFaktaOmBeregning,
@@ -6,8 +7,7 @@ import {
   AlleKodeverk,
   KunYtelse,
 } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
-import { IntlShape } from 'react-intl';
+import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import KunYtelsePanel from './KunYtelsePanel';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 

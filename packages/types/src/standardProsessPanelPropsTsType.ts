@@ -1,15 +1,13 @@
-import { ProsessAksjonspunkt } from '@navikt/ft-types-aksjonspunkter';
-
 import Aksjonspunkt from './aksjonspunktTsType';
 import Behandling from './behandlingTsType';
 import Vilkar from './vilkarTsType';
 import AlleKodeverk from './kodeverkAlleTsType';
 
-interface StandardProsessPanelProps {
+type StandardProsessPanelProps<AP_TYPE> = Readonly<{
   behandling: Behandling;
   alleKodeverk: AlleKodeverk;
   alleMerknaderFraBeslutter: { [key: string] : { notAccepted?: boolean }};
-  submitCallback: (aksjonspunktData: ProsessAksjonspunkt | ProsessAksjonspunkt[]) => Promise<void>;
+  submitCallback: (aksjonspunktData: AP_TYPE) => Promise<void>;
   status: string;
   isReadOnly: boolean;
   readOnlySubmitButton: boolean;
@@ -18,6 +16,6 @@ interface StandardProsessPanelProps {
   isAksjonspunktOpen: boolean;
   formData?: any;
   setFormData: (data: any) => void;
-}
+}>
 
 export default StandardProsessPanelProps;

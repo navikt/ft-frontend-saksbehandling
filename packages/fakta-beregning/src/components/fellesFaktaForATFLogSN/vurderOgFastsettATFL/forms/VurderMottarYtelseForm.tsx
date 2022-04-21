@@ -10,7 +10,7 @@ import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag,
   ArbeidstakerUtenIMAndel, BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse,
 } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,

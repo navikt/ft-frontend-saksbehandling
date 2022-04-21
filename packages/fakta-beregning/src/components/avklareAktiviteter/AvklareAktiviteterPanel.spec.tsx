@@ -1,12 +1,13 @@
 import React from 'react';
+import sinon from 'sinon';
 
 import { shallowWithIntl, getIntlMock, reduxFormPropsMock } from '@navikt/ft-utils-test';
-import { AksjonspunktCode, KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 import { FaktaOmBeregning, AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import sinon from 'sinon';
 import messages from '../../../i18n/nb_NO.json';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import {
   AvklareAktiviteterPanelImpl,
   BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME,
@@ -22,7 +23,7 @@ const intlMock = getIntlMock(messages);
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 const alleKodeverk = {
   [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [{

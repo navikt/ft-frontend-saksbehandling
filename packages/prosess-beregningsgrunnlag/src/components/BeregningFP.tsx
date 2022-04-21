@@ -6,9 +6,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   vilkarType,
-  AksjonspunktCode,
   aktivitetStatus,
-  isBeregningAksjonspunkt,
   isStatusArbeidstakerOrKombinasjon,
   isStatusDagpengerOrAAP,
   isStatusFrilanserOrKombinasjon,
@@ -20,12 +18,22 @@ import {
 import {
   Vilkar, Beregningsgrunnlag, AlleKodeverk, ArbeidsgiverOpplysningerPerId, Aksjonspunkt,
 } from '@navikt/ft-types';
-import { BeregningsgrunnlagResultatAP } from '@navikt/ft-types-aksjonspunkter';
+import BeregningsgrunnlagResultatAP from '../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
 import BeregningForm from './beregningForm/BeregningForm';
 import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
 import BeregningsgrunnlagValues from '../types/BeregningsgrunnlagAksjonspunktTsType';
+
+const beregningAksjonspunkter = [
+  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
+  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
+];
 
 const visningForManglendeBG = () => (
   <>
@@ -47,7 +55,7 @@ const visningForManglendeBG = () => (
 );
 
 const getAksjonspunkterForBeregning = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt[] => (aksjonspunkter
-  ? aksjonspunkter.filter((ap) => isBeregningAksjonspunkt(ap.definisjon))
+  ? aksjonspunkter.filter((ap) => beregningAksjonspunkter.some((a) => a === ap.definisjon))
   : []);
 
 const getRelevanteStatuser = (bg: Beregningsgrunnlag): RelevanteStatuserProp => (bg.aktivitetStatus ? ({
@@ -68,7 +76,7 @@ const getBGVilkar = (vilkar: Vilkar[]): Vilkar => (vilkar
   : undefined);
 
 const getAksjonspunktForGraderingPaaAndelUtenBG = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => (aksjonspunkter
-  ? aksjonspunkter.find((ap) => ap.definisjon === AksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG)
+  ? aksjonspunkter.find((ap) => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG)
   : undefined);
 
 type OwnProps = {

@@ -1,16 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { FieldArray } from 'redux-form';
+import { IntlShape } from 'react-intl';
 import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
 import { createSelector } from 'reselect';
 import {
   ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse, Aksjonspunkt, Beregningsgrunnlag,
 } from '@navikt/ft-types';
-import {
-  BeregningFaktaTransformedValues,
-  FaktaBeregningTransformedValues,
-} from '@navikt/ft-types-aksjonspunkter';
-import { IntlShape } from 'react-intl';
+import { FaktaBeregningTransformedValues, BeregningFaktaTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import LonnsendringForm, { lonnsendringField }
   from './forms/LonnsendringForm';
 import NyoppstartetFLForm, { erNyoppstartetFLField }
