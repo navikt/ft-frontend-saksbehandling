@@ -57,8 +57,8 @@
   },
   "peerDependencies": {
     "@navikt/fnrvalidator": "1.1.4",
-    "@navikt/ft-types": "1.0.1-beta.0",
-    "@navikt/ft-utils": "1.0.1-beta.0",
+    "@navikt/ft-types": "^1.0.0",
+    "@navikt/ft-utils": "^1.0.0",
     "classnames": "2.3.1",
     "echarts": "5.3.2",
     "moment": "2.29.3",
