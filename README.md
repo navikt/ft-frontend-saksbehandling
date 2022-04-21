@@ -26,7 +26,8 @@ En publiser pakker på denne måten:
 1. Gjør endringer i aktuelle pakker
 2. Gå til rot
 3. `yarn build`
-4. `yarn lerna-publish`
+4. Commit endringer
+5. `yarn lerna-publish`
 
 ### Autentisering
 
