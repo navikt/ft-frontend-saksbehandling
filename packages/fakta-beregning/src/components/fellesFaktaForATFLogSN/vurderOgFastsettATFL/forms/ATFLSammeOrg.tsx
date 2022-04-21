@@ -3,7 +3,7 @@ import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 
 export const transformValuesForATFLISammeOrg = (inntektVerdier: InntektTransformed[],

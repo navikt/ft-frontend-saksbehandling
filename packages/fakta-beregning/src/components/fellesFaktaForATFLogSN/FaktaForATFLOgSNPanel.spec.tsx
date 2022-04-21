@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import { faktaOmBeregningTilfelle, aktivitetStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag,
@@ -20,10 +20,11 @@ import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/Nyoppstartet
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import VurderOgFastsettATFL from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 const aksjonspunkter = [{
   definisjon: VURDER_FAKTA_FOR_ATFL_SN,

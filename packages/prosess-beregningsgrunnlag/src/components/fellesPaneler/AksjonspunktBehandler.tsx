@@ -3,8 +3,7 @@ import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';
 import {
-  FormattedMessage, IntlShape,
-  useIntl,
+  FormattedMessage, IntlShape, useIntl,
 } from 'react-intl';
 
 import {
@@ -13,7 +12,7 @@ import {
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 
-import { AksjonspunktCode, aktivitetStatus, periodeAarsak } from '@navikt/ft-kodeverk';
+import { aktivitetStatus, periodeAarsak } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -31,6 +30,7 @@ import ArbeidstakerFrilansValues from '../../types/ATFLAksjonspunktTsType';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import DekningsgradAksjonspunktPanel from './DekningsgradAksjonspunktPanel';
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import styles from './aksjonspunktBehandler.less';
 
@@ -226,11 +226,11 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
       </div>
     );
   }
-  const atflAPKoder = [AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-    AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD] as string[];
+  const atflAPKoder = [ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD] as string[];
 
   const harATFLAP = aksjonspunkter.some((ap) => atflAPKoder.includes(ap.definisjon));
-  const harDekningsgradAP = aksjonspunkter.some((ap) => ap.definisjon === AksjonspunktCode.VURDER_DEKNINGSGRAD);
+  const harDekningsgradAP = aksjonspunkter.some((ap) => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD);
   return (
     <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
       <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>

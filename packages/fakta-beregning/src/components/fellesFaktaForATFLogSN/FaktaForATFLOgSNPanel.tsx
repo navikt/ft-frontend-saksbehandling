@@ -3,15 +3,12 @@ import { connect } from 'react-redux';
 import { IntlShape } from 'react-intl';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { faktaOmBeregningTilfelle, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, KortvarigAndel, Aksjonspunkt, Beregningsgrunnlag,
 } from '@navikt/ft-types';
-import {
-  BeregningFaktaTransformedValues,
-  FaktaBeregningTransformedValues,
-} from '@navikt/ft-types-aksjonspunkter';
+import { FaktaBeregningTransformedValues, BeregningFaktaTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 
 import TidsbegrensetArbeidsforholdForm from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import VurderMilitaer from './vurderMilitaer/VurderMilitaer';
@@ -36,10 +33,11 @@ import {
   FaktaStateProps,
   TilfellerValues,
 } from '../../typer/FaktaBeregningTypes';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 export const getFaktaOmBeregning = createSelector(
   [(ownProps: OwnProps) => ownProps.beregningsgrunnlag],

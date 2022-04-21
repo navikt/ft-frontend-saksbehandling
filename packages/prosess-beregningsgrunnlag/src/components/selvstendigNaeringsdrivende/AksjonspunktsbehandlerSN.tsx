@@ -1,11 +1,9 @@
 import React, { FunctionComponent } from 'react';
 
-import { AksjonspunktCode, hasAksjonspunkt, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import {
-  NyIArbeidslivetruttoNæringResultatAP,
-  VurderVarigEndretNyoppstartetResultatAP,
-} from '@navikt/ft-types-aksjonspunkter';
+import { NyIArbeidslivetruttoNæringResultatAP, VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import FastsettSNNyIArbeid from './FastsettSNNyIArbeid';
 import VurderVarigEndretEllerNyoppstartetSN from './VurderVarigEndretEllerNyoppstartetSN';
@@ -17,7 +15,10 @@ import {
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-} = AksjonspunktCode;
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
+
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
+  .some((ap) => ap.definisjon === aksjonspunktKode);
 
 const skalFastsetteSN = (aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter && aksjonspunkter.some(
   (ap) => ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE

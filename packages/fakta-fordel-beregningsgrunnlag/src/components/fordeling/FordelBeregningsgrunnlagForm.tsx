@@ -17,7 +17,7 @@ import {
   FordelBeregningsgrunnlagAndelTransformedValues,
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
-} from '@navikt/ft-types-aksjonspunkter';
+} from '../../types/interface/FordelBeregningsgrunnlagAP';
 
 import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
 import FordelBeregningsgrunnlagMedAksjonspunktValues, {

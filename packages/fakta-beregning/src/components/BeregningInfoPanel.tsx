@@ -1,14 +1,15 @@
 import React, { FunctionComponent } from 'react';
+import { IntlShape } from 'react-intl';
 
-import { AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, AlleKodeverk, Beregningsgrunnlag, Aksjonspunkt,
 } from '@navikt/ft-types';
-import {
-  BeregningFaktaAP, BeregningOverstyringAP, AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP,
-} from '@navikt/ft-types-aksjonspunkter';
-import { IntlShape } from 'react-intl';
+import BeregningFaktaAP, {
+  BeregningOverstyringAP, AvklarBeregningsaktiviteterAP,
+} from '../typer/interface/BeregningFaktaAP';
+import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
+import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanel';
 
@@ -16,7 +17,10 @@ const {
   VURDER_FAKTA_FOR_ATFL_SN,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
+
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
+  .some((ap) => ap.definisjon === aksjonspunktKode);
 
 type OwnProps = {
   intl: IntlShape

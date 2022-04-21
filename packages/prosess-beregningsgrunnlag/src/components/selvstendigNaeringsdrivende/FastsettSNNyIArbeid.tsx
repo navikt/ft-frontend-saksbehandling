@@ -17,10 +17,12 @@ import {
 import {
   InputField, TextAreaField,
 } from '@navikt/ft-form-hooks';
-import { AksjonspunktCode, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { NyIArbeidslivetruttoNæringResultatAP } from '@navikt/ft-types-aksjonspunkter';
+import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import {
   NyIArbeidslivetValues,
@@ -33,7 +35,7 @@ export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-} = AksjonspunktCode;
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
     endretTekst?: React.ReactNode;

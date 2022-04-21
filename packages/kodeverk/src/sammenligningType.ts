@@ -1,8 +1,8 @@
-const sammenligningType = {
-  FL: 'SAMMENLIGNING_FL',
-  SN: 'SAMMENLIGNING_SN',
-  AT: 'SAMMENLIGNING_AT',
-  ATFLSN: 'SAMMENLIGNING_ATFL_SN',
-};
+enum SammenligningType {
+  FL = 'SAMMENLIGNING_FL',
+  SN = 'SAMMENLIGNING_SN',
+  AT = 'SAMMENLIGNING_AT',
+  ATFLSN = 'SAMMENLIGNING_ATFL_SN',
+}
 
-export default sammenligningType;
+export default SammenligningType;

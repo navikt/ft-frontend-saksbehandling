@@ -6,11 +6,12 @@ import { InjectedFormProps, Validator, reduxForm } from 'redux-form';
 
 import { getKodeverknavnFn } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { isAksjonspunktOpen, AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt, Beregningsgrunnlag,
 } from '@navikt/ft-types';
-import { FordelBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
+import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
+import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 import FaktaBegrunnelseTextField from '../legacy/FaktaBegrunnelseTextField';
 import FaktaSubmitButton from '../legacy/FaktaSubmitButton';
@@ -18,9 +19,12 @@ import FordelingHelpText from './FordelingHelpText';
 import FastsettFordeltBeregningsgrunnlag, { FastsettFordeltBeregningsgrunnlagImpl } from './fordeling/FastsettFordeltBeregningsgrunnlag';
 import FordelBeregningsgrunnlagMedAksjonspunktValues from '../types/FordelingTsType';
 
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
+  .some((ap) => ap.definisjon === aksjonspunktKode);
+
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
-} = AksjonspunktCode;
+} = FaktaFordelBeregningAksjonspunktCode;
 
 const FORM_NAME_FORDEL_BEREGNING = 'fordelBeregningsgrunnlagForm';
 

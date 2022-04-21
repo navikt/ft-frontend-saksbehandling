@@ -1,15 +1,16 @@
-import { aksjonspunktStatus, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { aksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt } from '@navikt/ft-types';
 import {
   BEGRUNNELSE_FAKTA_TILFELLER_NAME,
   harIkkeEndringerIAvklarMedFlereAksjonspunkter,
   transformValuesVurderFaktaBeregning,
 } from './VurderFaktaBeregningPanel';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   AVKLAR_AKTIVITETER,
   VURDER_FAKTA_FOR_ATFL_SN,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 const avklarAktiviteterAp = {
   id: 1,

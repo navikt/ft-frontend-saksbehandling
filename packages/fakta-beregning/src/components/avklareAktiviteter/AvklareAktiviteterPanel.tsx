@@ -13,12 +13,14 @@ import { Knapp } from 'nav-frontend-knapper';
 import {
   AksjonspunktHelpTextTemp, VerticalSpacer, OverstyringKnapp, FlexColumn, FlexContainer, FlexRow,
 } from '@navikt/ft-ui-komponenter';
-import { AksjonspunktCode, isAksjonspunktOpen, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, AvklarBeregningAktiviteterMap, AlleKodeverk, Aksjonspunkt,
 } from '@navikt/ft-types';
-import { BeregningAktivitetAP, AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP } from '@navikt/ft-types-aksjonspunkter';
-
+import BeregningAktivitetAP, {
+  AvklarBeregningsaktiviteterAP, OverstyrBeregningsaktiviteterAP,
+} from '../../typer/interface/BeregningAktivitetAP';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { formNameAvklarAktiviteter, getFormInitialValuesForAvklarAktiviteter, getFormValuesForAvklarAktiviteter } from '../BeregningFormUtils';
 import { erOverstyringAvBeregningsgrunnlag } from '../fellesFaktaForATFLogSN/BgFaktaUtils';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
@@ -31,11 +33,14 @@ import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 export const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 
 export const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
+
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
+  .some((ap) => ap.definisjon === aksjonspunktKode);
 
 const findAksjonspunktMedBegrunnelse = (aksjonspunkter: Aksjonspunkt[], kode: string): Aksjonspunkt => aksjonspunkter
   .filter((ap) => ap.definisjon === kode && ap.begrunnelse !== null)[0];
@@ -411,8 +416,8 @@ const skalKunneOverstyre = (erOverstyrer: boolean,
 
 const getIsAksjonspunktClosed = createSelector([(ownProps: OwnProps) => ownProps.aksjonspunkter],
   (alleAp): boolean => {
-    const relevantOpenAps = alleAp.filter((ap) => ap.definisjon === AksjonspunktCode.AVKLAR_AKTIVITETER
-    || ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
+    const relevantOpenAps = alleAp.filter((ap) => ap.definisjon === FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER
+    || ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
       .filter((ap) => isAksjonspunktOpen(ap.status));
     return relevantOpenAps.length === 0;
   });

@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 
-import { AksjonspunktCode } from '@navikt/ft-kodeverk';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -10,10 +9,8 @@ import {
   AlleKodeverk,
   Aksjonspunkt,
 } from '@navikt/ft-types';
-import {
-  FastsettAvvikATFLResultatAP,
-  FastsettAvvikATFLTidsbegrensetResultatAP,
-} from '@navikt/ft-types-aksjonspunkter';
+import { FastsettAvvikATFLResultatAP, FastsettAvvikATFLTidsbegrensetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import YtelserFraInfotrygd from '../tilstotendeYtelser/YtelserFraInfotrygd';
 import GrunnlagForAarsinntektPanelSN from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';
@@ -39,7 +36,7 @@ export const TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING = 'begrunnDekningsgradEn
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-} = AksjonspunktCode;
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.find(
   (ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS
