@@ -9,7 +9,7 @@
     "url": "git+https://github.com/navikt/ft-frontend-saksbehandling.git"
   },
   "scripts": {
-    "test": "lerna run test --stream --parallel",
+    "test": "lerna run test --stream",
     "test:coverage": "lerna run test:coverage --stream --parallel",
     "tsc": "lerna run tsc --stream --parallel",
     "eslint": "lerna run eslint --stream --parallel",

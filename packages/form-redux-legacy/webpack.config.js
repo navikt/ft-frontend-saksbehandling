@@ -1,78 +1,21 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const nodeExternals = require('webpack-node-externals');
+const { merge } = require('webpack-merge');
+const prodConfig = require('../../webpack/webpack.prod.template');
+const styleModulesRule = require('../../webpack/rules/style-modules-rule');
 
-module.exports = {
-  mode: 'production',
-  devtool: 'source-map',
-  entry: './index.ts',
+const SRC_DIR = path.resolve(__dirname, './src');
+
+const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '',
-    filename: 'index.js',
     library: {
       name: '@navikt/ft-form-redux-legacy',
       type: 'umd',
     },
   },
   module: {
-    rules: [{
-      test: /\.(tsx?|ts?)$/,
-      loader: 'babel-loader',
-      options: {
-        rootMode: 'upward',
-      },
-    }, {
-      test: /\.(less|css)?$/,
-      use: [
-        {
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            publicPath: '',
-          },
-        }, {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            modules: {
-              localIdentName: '[name]_[local]_[contenthash:base64:5]',
-            },
-          },
-        }, {
-          loader: 'less-loader',
-          options: {
-            lessOptions: {
-              modules: true,
-              localIdentName: '[name]_[local]_[contenthash:base64:5]',
-              modifyVars: {
-                nodeModulesPath: '~',
-                coreModulePath: '~',
-              },
-            },
-          },
-        }],
-    }, {
-      test: /\.(svg)$/,
-      type: 'asset/inline',
-    }],
-  },
-
-  plugins: [new CleanWebpackPlugin(), new MiniCssExtractPlugin({
-    filename: 'style.css',
-    ignoreOrder: true,
-  })],
-
-  externalsPresets: { node: true },
-  externals: [nodeExternals({
-    modulesDir: path.resolve(__dirname, '../../node_modules'),
-  })],
-
-  resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.less'],
-  },
-
-  optimization: {
-    moduleIds: 'named',
+    rules: prodConfig.module.rules.concat([styleModulesRule(SRC_DIR)]),
   },
 };
+
+module.exports = merge(prodConfig, config);
