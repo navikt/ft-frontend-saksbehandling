@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-fakta-beregning",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,12 +24,12 @@
     "storybook": "cross-env start-storybook -p 7001"
   },
   "dependencies": {
-    "@navikt/ft-form-redux-legacy": "1.0.1-beta.0",
-    "@navikt/ft-kodeverk": "1.0.1-beta.0",
-    "@navikt/ft-konstanter": "1.0.1-beta.0",
-    "@navikt/ft-types": "1.0.1-beta.0",
-    "@navikt/ft-ui-komponenter": "1.0.1-beta.0",
-    "@navikt/ft-utils": "1.0.1-beta.0",
+    "@navikt/ft-form-redux-legacy": "^1.0.0",
+    "@navikt/ft-kodeverk": "^1.0.0",
+    "@navikt/ft-konstanter": "^1.0.0",
+    "@navikt/ft-types": "^1.0.0",
+    "@navikt/ft-ui-komponenter": "^1.0.0",
+    "@navikt/ft-utils": "^1.0.0",
     "core-js": "3.22.0",
     "moment": "2.29.3",
     "nav-frontend-alertstriper": "4.0.1",
@@ -80,8 +80,8 @@
     "reselect": "4.1.5"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "1.0.0",
-    "@navikt/ft-utils-test": "1.0.0",
+    "@navikt/ft-storybook-utils": "^1.0.0",
+    "@navikt/ft-utils-test": "^1.0.0",
     "@storybook/addon-actions": "6.4.22",
     "@storybook/testing-react": "1.2.4",
     "clean-webpack-plugin": "4.0.0",
