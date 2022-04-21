@@ -12,7 +12,7 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 

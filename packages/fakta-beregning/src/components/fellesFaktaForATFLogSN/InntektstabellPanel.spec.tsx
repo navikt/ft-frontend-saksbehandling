@@ -2,13 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
-import { AksjonspunktCode } from '@navikt/ft-kodeverk';
 
 import { InntektstabellPanelImpl } from './InntektstabellPanel';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 describe('<InntektstabellPanel>', () => {
   it('skal vise checkbox for overstyring', () => {

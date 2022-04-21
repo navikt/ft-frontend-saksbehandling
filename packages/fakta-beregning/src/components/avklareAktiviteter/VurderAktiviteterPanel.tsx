@@ -6,7 +6,7 @@ import {
   BeregningAktivitet,
   AlleKodeverk,
 } from '@navikt/ft-types';
-import { BeregningAktiviteterTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import VurderAktiviteterTabell, { lagAktivitetFieldId } from './VurderAktiviteterTabell';
 import AvklarAktiviteterValues, { AktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 

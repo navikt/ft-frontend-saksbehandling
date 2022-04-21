@@ -6,7 +6,7 @@ import { required } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 

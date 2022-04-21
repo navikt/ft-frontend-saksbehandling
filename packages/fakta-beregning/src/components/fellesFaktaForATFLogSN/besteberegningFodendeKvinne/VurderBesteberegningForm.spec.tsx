@@ -1,10 +1,11 @@
 import { isRequiredMessage } from '@navikt/ft-utils';
-import { AksjonspunktCode, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
+import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 describe('<VurderBesteberegning>', () => {
   it('skal ikkje validere om man ikkje har tilfelle', () => {

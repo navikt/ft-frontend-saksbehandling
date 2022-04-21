@@ -2,12 +2,13 @@ import React from 'react';
 
 import { MockFieldsWithContent, shallowWithIntl, getIntlMock } from '@navikt/ft-utils-test';
 import {
-  faktaOmBeregningTilfelle, aktivitetStatus as aktivitetStatuser, AksjonspunktCode, inntektskategorier, KodeverkType,
+  faktaOmBeregningTilfelle, aktivitetStatus as aktivitetStatuser, inntektskategorier, KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { AlleKodeverk } from '@navikt/ft-types';
 import { InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-redux-legacy';
 
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
 import { AndelRowImpl, mapStateToProps } from './InntektFieldArrayRow';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
@@ -17,7 +18,7 @@ const intlMock = getIntlMock(messages);
 
 const aksjonspunkter = [
   {
-    definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+    definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
     status: 'OPPR',
   },
 ];

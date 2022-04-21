@@ -1,6 +1,6 @@
-const dekningsgrad = {
-  HUNDRE: 100,
-  ATTI: 80,
-};
+enum Dekningsgrad {
+  HUNDRE = 100,
+  ATTI = 80,
+}
 
-export default dekningsgrad;
+export default Dekningsgrad;

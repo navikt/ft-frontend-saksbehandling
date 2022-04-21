@@ -18,7 +18,7 @@ import {
 } from '@navikt/ft-utils';
 import { DatepickerField, InputField } from '@navikt/ft-form-redux-legacy';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
-import { VurderRefusjonAndelTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 import VurderRefusjonValues from '../../types/VurderRefusjonTsType';

@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 
 import {
   aktivitetStatus as aktivitetStatuser, inntektskategorier, opptjeningAktivitetType,
-  AksjonspunktCode, aksjonspunktStatus, faktaOmBeregningTilfelle,
+  aksjonspunktStatus, faktaOmBeregningTilfelle,
 } from '@navikt/ft-kodeverk';
 import {
   Behandling, Beregningsgrunnlag, BeregningAktivitet, FaktaOmBeregning, AndelForFaktaOmBeregning, FaktaOmBeregningAndel,
@@ -11,6 +11,7 @@ import {
 import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 
 import BeregningFaktaIndex from './BeregningFaktaIndex';
+import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
 import {
   beregningsgrunnlag as bgMedArbeidOgDagpenger, aksjonspunkt as aksjonspunktArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
@@ -209,7 +210,7 @@ export const ArbeidOgDagpenger = () => (
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
     alleMerknaderFraBeslutter={{
-      [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+      [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
     }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
@@ -242,7 +243,7 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.AVKLAR_AKTIVITETER,
+        definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -251,7 +252,7 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -321,14 +322,14 @@ export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.AVKLAR_AKTIVITETER,
+        definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
         status: aksjonspunktStatus.UTFORT,
         begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
         kanLoses: true,
         erAktivt: true,
       },
       {
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -337,7 +338,7 @@ export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -387,7 +388,7 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -396,7 +397,7 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -442,7 +443,7 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -451,7 +452,7 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -496,7 +497,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -505,7 +506,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -553,7 +554,7 @@ export const KunArbeidstakerMedVurderingSentRefusjonskrav = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -562,7 +563,7 @@ export const KunArbeidstakerMedVurderingSentRefusjonskrav = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -612,7 +613,7 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -621,7 +622,7 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -655,7 +656,7 @@ export const VurderingAvMilitær = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -664,7 +665,7 @@ export const VurderingAvMilitær = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -714,7 +715,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -723,7 +724,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -759,7 +760,7 @@ export const KunTidsbegrensetArbeidsforhold = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -768,7 +769,7 @@ export const KunTidsbegrensetArbeidsforhold = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -803,7 +804,7 @@ export const VurderingAvEtterlønnSluttpakke = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -812,7 +813,7 @@ export const VurderingAvEtterlønnSluttpakke = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -851,7 +852,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -860,7 +861,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -894,7 +895,7 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -903,7 +904,7 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -1078,14 +1079,14 @@ export const KombinasjonstestForFaktapanel = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.AVKLAR_AKTIVITETER,
+        definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
         status: aksjonspunktStatus.UTFORT,
         begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
         kanLoses: true,
         erAktivt: true,
       },
       {
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -1094,7 +1095,7 @@ export const KombinasjonstestForFaktapanel = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -1161,7 +1162,7 @@ export const OverstyringAvInntekt = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+        definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -1170,7 +1171,7 @@ export const OverstyringAvInntekt = () => {
       erOverstyrer
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
@@ -1209,7 +1210,7 @@ export const VurderKunYtelseBesteberegning = () => {
       behandling={behandling}
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
-        definisjon: AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
@@ -1218,7 +1219,7 @@ export const VurderKunYtelseBesteberegning = () => {
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
-        [AksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
       }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}

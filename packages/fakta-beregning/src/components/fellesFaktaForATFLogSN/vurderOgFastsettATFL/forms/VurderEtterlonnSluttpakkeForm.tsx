@@ -8,7 +8,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Beregningsgrunnlag, FaktaOmBeregning, Aksjonspunkt } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import {
   FaktaOmBeregningAksjonspunktValues,

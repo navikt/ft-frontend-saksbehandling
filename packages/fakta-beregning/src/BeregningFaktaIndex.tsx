@@ -5,6 +5,10 @@ import { createIntl } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, StandardFaktaPanelProps, Beregningsgrunnlag } from '@navikt/ft-types';
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
 
+import BeregningFaktaAP, {
+  BeregningOverstyringAP, AvklarBeregningsaktiviteterAP,
+} from './typer/interface/BeregningFaktaAP';
+import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAktivitetAP';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import messages from '../i18n/nb_NO.json';
 
@@ -16,7 +20,9 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps> = ({
+type Akasjonspunkter = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP | BeregningFaktaAP | BeregningOverstyringAP;
+
+const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<Akasjonspunkter>> = ({
   beregningsgrunnlag,
   alleKodeverk,
   aksjonspunkter,

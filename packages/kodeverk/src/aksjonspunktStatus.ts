@@ -1,9 +1,9 @@
-const aksjonspunktStatus = {
-  OPPRETTET: 'OPPR',
-  UTFORT: 'UTFO',
-  AVBRUTT: 'AVBR',
-};
+enum AksjonspunktStatus {
+  OPPRETTET = 'OPPR',
+  UTFORT = 'UTFO',
+  AVBRUTT = 'AVBR',
+}
 
-export default aksjonspunktStatus;
+export const isAksjonspunktOpen = (statusKode: string): boolean => statusKode === AksjonspunktStatus.OPPRETTET;
 
-export const isAksjonspunktOpen = (statusKode: string): boolean => statusKode === aksjonspunktStatus.OPPRETTET;
+export default AksjonspunktStatus;

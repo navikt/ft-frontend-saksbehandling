@@ -18,7 +18,7 @@ import {
 import {
   ArbeidsgiverOpplysningerPerId, BeregningAktivitet, AlleKodeverk,
 } from '@navikt/ft-types';
-import { BeregningAktivitetTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';

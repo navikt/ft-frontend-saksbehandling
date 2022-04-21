@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertittel } from 'nav-frontend-typografi';
 
-import { faktaOmBeregningTilfelle, AksjonspunktCode, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
 import { AvsnittSkiller, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   Aksjonspunkt,
@@ -18,7 +18,8 @@ import {
   YtelseGrunnlag,
 } from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
-import { BeregningsgrunnlagResultatAP } from '@navikt/ft-types-aksjonspunkter/';
+import BeregningsgrunnlagResultatAP from '../../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
 import AvviksopplysningerPanel from '../fellesPaneler/AvvikopplysningerPanel';
@@ -50,7 +51,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_DEKNINGSGRAD,
-} = AksjonspunktCode;
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
 // ------------------------------------------------------------------------------------------ //
 // Methods
 // ------------------------------------------------------------------------------------------ //

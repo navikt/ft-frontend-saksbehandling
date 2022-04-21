@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { IntlShape } from 'react-intl';
 import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
@@ -8,8 +9,7 @@ import {
   AlleKodeverk,
   KunYtelse,
 } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
-import { IntlShape } from 'react-intl';
+import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { BrukersAndelFieldArrayImpl } from './BrukersAndelFieldArray';
 import KunYtelseBesteberegningPanel from './KunYtelseBesteberegningPanel';
 import KunYtelseUtenBesteberegningPanel from './KunYtelseUtenBesteberegningPanel';

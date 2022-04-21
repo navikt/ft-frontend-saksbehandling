@@ -1,10 +1,11 @@
 import React from 'react';
 import sinon from 'sinon';
 
-import { AksjonspunktCode, aksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { aksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
 import { AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
+import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
 import BeregningInfoPanel from './BeregningInfoPanel';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanel';
@@ -18,7 +19,7 @@ const {
   VURDER_FAKTA_FOR_ATFL_SN,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 const alleKodeverk = {} as AlleKodeverk;
 

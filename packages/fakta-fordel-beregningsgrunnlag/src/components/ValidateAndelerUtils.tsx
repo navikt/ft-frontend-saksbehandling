@@ -297,7 +297,7 @@ const validateSumFastsattArbeidstakerOgFrilanser = (values: FordelBeregningsgrun
     AktivitetStatus.FRILANSER,
     AktivitetStatus.DAGPENGER,
     AktivitetStatus.ARBEIDSAVKLARINGSPENGER];
-  const statuserSomValideres = values.filter((v) => statuserSomPrioriteresOverSN.includes(v.aktivitetStatus)).map((v) => v.aktivitetStatus);
+  const statuserSomValideres = values.filter((v) => statuserSomPrioriteresOverSN.some((s) => s === v.aktivitetStatus)).map((v) => v.aktivitetStatus);
   const sumFastsattBelop = finnFastsattBeløpForStatus(values, statuserSomValideres);
   const beskrivendeString = lagBeskrivendeStringAvStatuser(statuserSomValideres, getKodeverknavn);
   return totalFordelingSkalVereLavereEnn(sumFastsattBelop, seksG, beskrivendeString, totalFordelingForMåVæreLavereEnn, intl);

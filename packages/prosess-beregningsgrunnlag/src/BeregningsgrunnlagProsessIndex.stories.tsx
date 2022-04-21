@@ -1,10 +1,10 @@
 import React from 'react';
+import moment from 'moment';
 import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import {
-  AksjonspunktCode, vilkarType, vilkarUtfallType, periodeAarsak, sammenligningType, inntektAktivitetType,
-  aktivitetStatus,
+  vilkarType, vilkarUtfallType, periodeAarsak, sammenligningType, inntektAktivitetType, aktivitetStatus,
 } from '@navikt/ft-kodeverk';
 import {
   Beregningsgrunnlag, Behandling, Aksjonspunkt, Vilkar, BeregningsgrunnlagPeriodeProp, Næring,
@@ -12,9 +12,9 @@ import {
 } from '@navikt/ft-types';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { ProsessAksjonspunkt } from '@navikt/ft-types-aksjonspunkter';
 
-import moment from 'moment';
+import BeregningsgrunnlagResultatAP from './types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from './types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -337,7 +337,7 @@ const Template: Story<{
   vilkar: Vilkar[],
   beregningsgrunnlag: Beregningsgrunnlag;
   aksjonspunkter: Aksjonspunkt[];
-  submitCallback: (aksjonspunktData: ProsessAksjonspunkt | ProsessAksjonspunkt[]) => Promise<void>;
+  submitCallback: (aksjonspunktData: BeregningsgrunnlagResultatAP[]) => Promise<void>;
 }> = ({
   readOnly,
   vilkar,
@@ -364,7 +364,8 @@ const Template: Story<{
 
 export const JusterDekningsgradAP = Template.bind({});
 JusterDekningsgradAP.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS), lagAPMedKode(AksjonspunktCode.VURDER_DEKNINGSGRAD)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(),
     200000, null, true, false)])], ['AT'], lagInntektsgrunnlag(), malSGGrunnlagAvvik()),
@@ -394,7 +395,7 @@ BrukersAndelUtenAvvik.args = {
 
 export const ArbeidstakerMedAvvik = Template.bind({});
 ArbeidstakerMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(),
     200000, null, true, false)])], ['AT'], null, malSGGrunnlagAvvik()),
@@ -404,7 +405,7 @@ ArbeidstakerMedAvvik.args = {
 
 export const ArbeidstakerFrilansMedAvvik = Template.bind({});
 ArbeidstakerFrilansMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(),
     200000, null, true, false), lagFrilansandel(1,
@@ -424,7 +425,7 @@ Militær.args = {
 
 export const SelvstendigNæringsdrivendeMedAksjonspunkt = Template.bind({});
 SelvstendigNæringsdrivendeMedAksjonspunkt.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true, false,
     lagNæring(true, false))])], ['SN'], null, malSGGrunnlagAvvik()),
@@ -434,7 +435,7 @@ SelvstendigNæringsdrivendeMedAksjonspunkt.args = {
 
 export const MangeTidsbegrensetArbeidsforholdMedAvvik = Template.bind({});
 MangeTidsbegrensetArbeidsforholdMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD)],
   readOnly: false,
   beregningsgrunnlag: {
     beregningsgrunnlagPeriode: [lagPeriode([lagTBAndel(1, '999999999', 100000),
@@ -457,7 +458,7 @@ MangeTidsbegrensetArbeidsforholdMedAvvik.args = {
 
 export const TidsbegrensetArbeidsforholdMedAvvik = Template.bind({});
 TidsbegrensetArbeidsforholdMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD)],
   readOnly: false,
   beregningsgrunnlag: {
     beregningsgrunnlagPeriode: [lagPeriode([lagTBAndel(1, '999999999', 100000)], [], STP, etterSTP(20)),
@@ -473,7 +474,7 @@ TidsbegrensetArbeidsforholdMedAvvik.args = {
 
 export const ArbeidstakerFrilanserOgSelvstendigNæringsdrivende = Template.bind({});
 ArbeidstakerFrilanserOgSelvstendigNæringsdrivende.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true),
     lagArbeidsandel(2, malArbeidsorhold(), 150000, null, false, false),
@@ -520,7 +521,7 @@ Dagpenger.args = {
 export const GraderingPåBeregningsgrunnlagUtenPenger = Template.bind({});
 GraderingPåBeregningsgrunnlagUtenPenger.args = {
   aksjonspunkter: [{
-    definisjon: AksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
+    definisjon: ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
     status: 'UTFO',
     begrunnelse: 'her var det noe galt en gang',
     kanLoses: true,
@@ -572,7 +573,7 @@ ArbeidstakerAvslagHalvG.args = {
 
 export const ArbeidstakerMedAksjonspunktBehandlet = Template.bind({});
 ArbeidstakerMedAksjonspunktBehandlet.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, 'Dette er en begrunnelse')],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, 'Dette er en begrunnelse')],
   readOnly: true,
   beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 30000, 333333, true, false)])],
     ['AT'], null, malSGGrunnlagAvvik()),
@@ -582,7 +583,7 @@ ArbeidstakerMedAksjonspunktBehandlet.args = {
 
 export const FrilansMedAvvik = Template.bind({});
 FrilansMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagFrilansandel(1, 200000, null, true)])],
     ['FL'], null, malSGGrunnlagAvvik()),
@@ -602,7 +603,7 @@ SelvstendigNæringsdrivendeUtenAksjonspunkt.args = {
 
 export const SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt = Template.bind({});
 SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true, false, lagNæring(false, true))])],
     ['SN'], null, malSGGrunnlagAvvik()),
@@ -612,7 +613,7 @@ SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt.args = {
 
 export const SelvstendigNæringsdrivendNyIArbeidslivet = Template.bind({});
 SelvstendigNæringsdrivendNyIArbeidslivet.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true, true, lagNæring(false, false))])],
     ['SN'], null, null),
@@ -643,7 +644,7 @@ YtelseFraNav.args = {
 
 export const ArbeidstakerOgAAPMedAksjonspunkt = Template.bind({});
 ArbeidstakerOgAAPMedAksjonspunkt.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 325845, null, true, false),
     lagGenerellAndel(1, aktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000)])],
@@ -654,7 +655,7 @@ ArbeidstakerOgAAPMedAksjonspunkt.args = {
 
 export const FrilansDagpengerOgSelvstendigNæringsdrivende = Template.bind({});
 FrilansDagpengerOgSelvstendigNæringsdrivende.args = {
-  aksjonspunkter: [lagAPMedKode(AksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
   readOnly: false,
   beregningsgrunnlag: lagBG([malPeriode([lagFrilansandel(1, 100500, null, false),
     lagSNMedPGI(2, 500000, null, true, false, lagNæring(false, true)),

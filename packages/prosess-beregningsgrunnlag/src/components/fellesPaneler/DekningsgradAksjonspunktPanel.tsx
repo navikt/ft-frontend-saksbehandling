@@ -2,14 +2,15 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { AksjonspunktCode, isAksjonspunktOpen, dekningsgrad } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen, dekningsgrad } from '@navikt/ft-kodeverk';
 
 import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
 import { RadioGroupField, RadioOption, TextAreaField } from '@navikt/ft-form-hooks';
 import {
   hasValidText, maxLength, minLength, required,
 } from '@navikt/ft-utils';
-import { DekningsgradResultatAp } from '@navikt/ft-types-aksjonspunkter';
+import { DekningsgradResultatAp } from '../../types/interface/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import DekningsgradValues from '../../types/DekningsgradAksjonspunktTsType';
 import styles from './aksjonspunktBehandler.less';
@@ -62,7 +63,7 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
 };
 
 DekningsgradAksjonspunktPanel.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag, aksjonspunter: Aksjonspunkt[]): DekningsgradValues => {
-  const aksjonspunkt = aksjonspunter && aksjonspunter.find((ap) => ap.definisjon === AksjonspunktCode.VURDER_DEKNINGSGRAD);
+  const aksjonspunkt = aksjonspunter && aksjonspunter.find((ap) => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD);
   const begrunnelse = aksjonspunkt && aksjonspunkt.begrunnelse ? aksjonspunkt.begrunnelse : null;
   const initialDekningsgrad = aksjonspunkt && !isAksjonspunktOpen(aksjonspunkt.status) ? beregningsgrunnlag.dekningsgrad : null;
   if (initialDekningsgrad && begrunnelse) {
@@ -75,7 +76,7 @@ DekningsgradAksjonspunktPanel.buildInitialValues = (beregningsgrunnlag: Beregnin
 };
 
 DekningsgradAksjonspunktPanel.transformValues = (values: Required<DekningsgradValues>): DekningsgradResultatAp => ({
-  kode: AksjonspunktCode.VURDER_DEKNINGSGRAD,
+  kode: ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
   begrunnelse: values[TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING],
   dekningsgrad: values[RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN],
 });

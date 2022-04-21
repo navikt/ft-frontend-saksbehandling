@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
 
-import { AksjonspunktCode } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId, AlleKodeverk,
 } from '@navikt/ft-types';
-import { VurderRefusjonBeregningsgrunnlagAP, FordelBeregningsgrunnlagAP } from '@navikt/ft-types-aksjonspunkter';
+import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
+import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
 import FordelingForm from './FordelingForm';
@@ -13,7 +14,7 @@ import FordelingForm from './FordelingForm';
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
   VURDER_REFUSJON_BERGRUNN,
-} = AksjonspunktCode;
+} = FaktaFordelBeregningAksjonspunktCode;
 
 const harFordelInfo = (bg: Beregningsgrunnlag): boolean => (bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false);
 

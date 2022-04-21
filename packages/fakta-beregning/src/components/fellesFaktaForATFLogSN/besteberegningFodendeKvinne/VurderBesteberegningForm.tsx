@@ -4,12 +4,13 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
-import { AksjonspunktCode, aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { required } from '@navikt/ft-utils';
 import { Aksjonspunkt, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '@navikt/ft-types-aksjonspunkter';
+import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { getFormValuesForBeregning } from '../../BeregningFormUtils';
 
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.less';
@@ -20,7 +21,7 @@ export const besteberegningField = 'vurderbesteberegningField';
 
 const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 type OwnProps = {
     readOnly: boolean;
