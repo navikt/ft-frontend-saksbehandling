@@ -10,10 +10,12 @@
   },
   "scripts": {
     "test": "lerna run test --stream",
-    "test:changed": "lerna run test --stream --since main",
+    "test:changed": "lerna run test --stream --parallel --since main",
     "test:coverage": "lerna run test:coverage --stream --parallel",
     "tsc": "lerna run tsc --stream --parallel",
+    "tsc:changed": "lerna run tsc --stream --parallel --since main",
     "eslint": "lerna run eslint --stream --parallel",
+    "eslint:changed": "lerna run eslint --stream --parallel --since main",
     "less:lint": "lerna run less:lint --stream --parallel",
     "build": "lerna run build --stream",
     "lerna-publish": "lerna publish",

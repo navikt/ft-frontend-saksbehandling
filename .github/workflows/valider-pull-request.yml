@@ -22,7 +22,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Typescript and linting
-        run: yarn less:lint && yarn eslint && yarn tsc
+        run: yarn less:lint && yarn eslint:changed && yarn tsc:changed
 
       - name: Run test
         run: yarn test:changed
