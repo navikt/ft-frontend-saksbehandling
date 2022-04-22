@@ -126,5 +126,5 @@ export {
   arbeidsprosentMåVare100VidUtsettelseAvArbeidMessage,
 } from './src/validation/messages';
 
-export { getKodeverknavnFn } from './src/kodeverkUtils';
+export { getKodeverknavnFn, getKodeverknavnFraKode } from './src/kodeverkUtils';
 export { default as createIntl } from './src/createIntl';
