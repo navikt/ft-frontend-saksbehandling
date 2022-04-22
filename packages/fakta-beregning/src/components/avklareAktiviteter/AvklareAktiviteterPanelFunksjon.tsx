@@ -11,9 +11,9 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
-import { AksjonspunktCode, hasAksjonspunkt } from '@navikt/ft-kodeverk';
+import { AksjonspunktCode, hasAksjonspunkt, hasAvklaringsbehov } from '@navikt/ft-kodeverk';
+import beregningAvklaringsbehovTsType from '@navikt/ft-types/src/beregningAvklaringsbehovTsType';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
-import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
@@ -28,13 +28,15 @@ export const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter
 const finnVilkårperiode = (vilkår: Vilkar,
   vilkårperiodeFom: string) : Vilkarperiode => vilkår.perioder.find(({ periode }) => periode.fom === vilkårperiodeFom);
 
-const skalSkjuleKomponent = (aksjonspunkter: Aksjonspunkt[],
-  kanOverstyre: boolean,
-  erOverstyrt: boolean): boolean => !hasAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) && !kanOverstyre && !erOverstyrt;
+const skalSkjuleKomponent = (avklaringsbehov: beregningAvklaringsbehovTsType[],
+  kanOverstyre: boolean): boolean => !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)
+  && !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)
+  && !kanOverstyre;
 
-const skalViseAktiviteterTabell = (aksjonspunkter: Aksjonspunkt[],
-  kanOverstyre: boolean,
-  erOverstyrt: boolean): boolean => hasAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) || kanOverstyre || erOverstyrt;
+const skalViseAktiviteterTabell = (avklaringsbehov: beregningAvklaringsbehovTsType[],
+  kanOverstyre: boolean): boolean => hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)
+  || !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)
+  || kanOverstyre;
 
 type OwnProps = {
     readOnly: boolean;
@@ -119,12 +121,15 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
         finnVilkårperiode(vilkår, bg.vilkårperiodeFom),
       )),
     },
-
   });
 
-  // TODO fix overstyrt.
-  const erOverstyrt = false;
   const kanOverstyre: boolean = erOverstyrer && !hasAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter);
+  // TODO fix mapping av avklaringsbehov så vi slipper ha object spread på linje 145
+  const avklaringsbehov = beregningsgrunnlag.map((bg) => {
+    if (bg.avklaringsbehov.length > 0) {
+      return bg.avklaringsbehov;
+    }
+  });
 
   const { fields, update } = useFieldArray({
     name: formNameAvklarAktiviteter,
@@ -136,11 +141,11 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     update(index, { ...currVal, manuellOverstyringBeregningAktiviteter: skalOverstyre });
   };
 
-  if (skalSkjuleKomponent(aksjonspunkter, kanOverstyre, erOverstyrt)) {
+  if (skalSkjuleKomponent(...avklaringsbehov, kanOverstyre)) {
     return null;
   }
 
-  if (!skalViseAktiviteterTabell(aksjonspunkter, kanOverstyre, erOverstyrt)) {
+  if (!skalViseAktiviteterTabell(...avklaringsbehov, kanOverstyre)) {
     return (
       <>
         <Form
@@ -156,32 +161,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     );
   }
 
-  const validate = (values: AvklarAktiviteterFormValues) => {
-    const errors = [
-      /* {
-
-        type: 'custom',
-        name: 'avklarAktiviteterForm.feil2',
-        message: 'Double Check This',
-      }, */
-    ];
-
-    values[formNameAvklarAktiviteter].forEach((field, index) => {
-      const { avklarAktiviteter } = field;
-      if (avklarAktiviteter) {
-        const harBlivitOverstyrt = values[MANUELL_OVERSTYRING_FIELD];
-        const feilmeldinger = VurderAktiviteterPanel.validate(field, avklarAktiviteter.aktiviteterTomDatoMapping, harBlivitOverstyrt);
-        // TODO ha noen feilmeldinger her
-      }
-    });
-
-    errors.forEach(({ name, type, message }) => formMethods.setError(name, { type, message }),
-    );
-  };
-
   const losAvklaringsbehov = (values) => {
-    validate(values);
-
     if (Object.keys(formMethods.formState.errors).length === 0) {
       submitCallback(transformValues(values as AvklarAktiviteterFormValues));
     }

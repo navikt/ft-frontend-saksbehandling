@@ -1,4 +1,4 @@
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = {
   skjaeringstidspunktBeregning: '2020-01-13',
@@ -58,6 +58,7 @@ export const beregningsgrunnlag = {
           fom: '2019-02-03',
           tom: '2020-02-03',
           arbeidsforholdType: 'ARBEID',
+          skalBrukes: true,
         }],
       }, {
         tom: '2019-11-12',
@@ -96,7 +97,7 @@ export const beregningsgrunnlag = {
   erOverstyrtInntekt: false,
   periode: {
     fom: '2022-03-02',
-    tom: '2022-04-30'
+    tom: '2022-04-30',
   },
 } as Beregningsgrunnlag;
 
@@ -109,3 +110,10 @@ export const aksjonspunkt = [
     kanLoses: true,
     erAktivt: true,
   }];
+
+export const avklaringsbehov = [
+  {
+    definisjon: '5058',
+    status: 'OPPR',
+    kanLoses: true,
+  }] as BeregningAvklaringsbehov[];
