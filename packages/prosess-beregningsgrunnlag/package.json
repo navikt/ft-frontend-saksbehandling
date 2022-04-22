@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-prosess-beregningsgrunnlag",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,11 +24,11 @@
     "storybook": "cross-env start-storybook -p 7005"
   },
   "dependencies": {
-    "@navikt/ft-form-hooks": "^1.0.0",
+    "@navikt/ft-form-hooks": "^1.0.1",
     "@navikt/ft-kodeverk": "^1.0.0",
-    "@navikt/ft-types": "^1.0.0",
-    "@navikt/ft-ui-komponenter": "^1.0.0",
-    "@navikt/ft-utils": "^1.0.0",
+    "@navikt/ft-types": "^1.0.1",
+    "@navikt/ft-ui-komponenter": "^1.0.1",
+    "@navikt/ft-utils": "^1.0.1",
     "classnames": "2.3.1",
     "moment": "2.29.3",
     "nav-frontend-chevron": "1.0.30",

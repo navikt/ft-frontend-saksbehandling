@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-fakta-beregning",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,12 +24,12 @@
     "storybook": "cross-env start-storybook -p 7001"
   },
   "dependencies": {
-    "@navikt/ft-form-redux-legacy": "^1.0.0",
+    "@navikt/ft-form-redux-legacy": "^1.0.1",
     "@navikt/ft-kodeverk": "^1.0.0",
     "@navikt/ft-konstanter": "^1.0.0",
-    "@navikt/ft-types": "^1.0.0",
-    "@navikt/ft-ui-komponenter": "^1.0.0",
-    "@navikt/ft-utils": "^1.0.0",
+    "@navikt/ft-types": "^1.0.1",
+    "@navikt/ft-ui-komponenter": "^1.0.1",
+    "@navikt/ft-utils": "^1.0.1",
     "core-js": "3.22.0",
     "moment": "2.29.3",
     "nav-frontend-alertstriper": "4.0.1",
