@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "lerna run test --stream",
+    "test:changed": "lerna run test --stream --since main",
     "test:coverage": "lerna run test:coverage --stream --parallel",
     "tsc": "lerna run tsc --stream --parallel",
     "eslint": "lerna run eslint --stream --parallel",

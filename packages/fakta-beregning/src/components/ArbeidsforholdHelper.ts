@@ -12,6 +12,7 @@ export const createVisningsnavnFakta = (agOpplysning: ArbeidsgiverOpplysninger, 
     }
     return `${agOpplysning.navn}${getEndCharFromId(eksternArbeidsforholdId)}`;
   }
+
   return `${agOpplysning.navn} (${agOpplysning.identifikator})${getEndCharFromId(eksternArbeidsforholdId)}`;
 };
 
