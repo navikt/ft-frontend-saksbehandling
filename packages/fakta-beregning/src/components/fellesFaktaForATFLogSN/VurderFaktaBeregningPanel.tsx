@@ -197,7 +197,7 @@ export const buildInitialValuesVurderFaktaBeregning = createSelector(
   [(state: any, ownProps: any) => ownProps.aksjonspunkter, getBuildInitialValuesFaktaForATFLOgSN],
   (aksjonspunkter: Aksjonspunkt[], buildInitialValuesTilfeller: () => FaktaOmBeregningValues): FaktaOmBeregningAksjonspunktValues => ({
     aksjonspunkter,
-    ...FaktaBegrunnelseTextField.buildInitialValues(findAksjonspunktMedBegrunnelse(aksjonspunkter).begrunnelse, BEGRUNNELSE_FAKTA_TILFELLER_NAME),
+    ...FaktaBegrunnelseTextField.buildInitialValues(findAksjonspunktMedBegrunnelse(aksjonspunkter)?.begrunnelse, BEGRUNNELSE_FAKTA_TILFELLER_NAME),
     ...buildInitialValuesTilfeller(),
   }),
 );
