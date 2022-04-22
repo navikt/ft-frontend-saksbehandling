@@ -122,7 +122,6 @@ type OwnProps = {
     harAksjonspunkt: boolean;
     aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[];
     alleKodeverk: AlleKodeverk;
-    formNameAvklarAktiviteter: string;
     values: AvklarAktiviteterValues;
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
     fieldId: number;
@@ -135,6 +134,9 @@ interface StaticFunctions {
   validate: (values: AvklarAktiviteterValues,
              aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
              erOverstyrt: boolean) => any;
+  harIngenAktiviteter: (values: AvklarAktiviteterValues,
+             aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
+             erOverstyrt: boolean) => boolean;
   buildInitialValues: (aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
                        alleKodeverk: AlleKodeverk,
                        erOverstyrt: boolean,
@@ -155,7 +157,6 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
   erOverstyrt,
   harAksjonspunkt,
   alleKodeverk,
-  formNameAvklarAktiviteter,
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }) => {
@@ -182,6 +183,21 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
       ))}
     </>
   );
+};
+
+VurderAktiviteterPanel.harIngenAktiviteter = (values, aktiviteterTomDatoMapping, erOverstyrt) : boolean => {
+  const listerSomVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
+  const harAktiviteterSomSkalBrukes = harListeAktivitetSomSkalBrukes(listerSomVurderes[0], values);
+  if (harAktiviteterSomSkalBrukes) {
+    return false;
+  }
+  const harAktiviteterINesteSkjæringstidspunkt = listerSomVurderes.length > 1
+      && listerSomVurderes[1].aktiviteter.length > 0;
+  if (!harAktiviteterINesteSkjæringstidspunkt) {
+    return true;
+  }
+  const harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt = harListeAktivitetSomSkalBrukes(listerSomVurderes[1], values);
+  return !harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt;
 };
 
 VurderAktiviteterPanel.validate = (values, aktiviteterTomDatoMapping, erOverstyrt) => {

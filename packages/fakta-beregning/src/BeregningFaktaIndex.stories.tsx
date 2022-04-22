@@ -5,12 +5,12 @@ import {
   AktivitetStatus as aktivitetStatuser, Inntektskategori, OpptjeningAktivitetType,
   AksjonspunktStatus, FaktaOmBeregningTilfelle,
 } from '@navikt/ft-kodeverk';
-import Vilkarperiode, {
-  Behandling,
-  Beregningsgrunnlag,
-  BeregningAktivitet,
-  FaktaOmBeregning,
+import {
   AndelForFaktaOmBeregning,
+  Behandling,
+  BeregningAktivitet,
+  Beregningsgrunnlag,
+  FaktaOmBeregning,
   FaktaOmBeregningAndel,
   Vilkar,
 } from '@navikt/ft-types';
@@ -19,7 +19,8 @@ import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
 import {
-  beregningsgrunnlag as bgMedArbeidOgDagpenger, aksjonspunkt as aksjonspunktArbeidOgDagpenger,
+  aksjonspunkt as aksjonspunktArbeidOgDagpenger,
+  beregningsgrunnlag as bgMedArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -47,6 +48,12 @@ const {
 const lagBeregningsgrunnlagAvklarAktiviteter = (
   aktiviteter: BeregningAktivitet[],
 ): Beregningsgrunnlag => ({
+  avklaringsbehov: [],
+  vilkårperiodeFom: '2022-03-02',
+  periode: {
+    fom: '2022-03-02',
+    tom: '2022-04-30',
+  },
   faktaOmBeregning: {
     avklarAktiviteter: {
       aktiviteterTomDatoMapping: [
@@ -58,7 +65,7 @@ const lagBeregningsgrunnlagAvklarAktiviteter = (
     },
     andelerForFaktaOmBeregning: [],
   },
-} as Beregningsgrunnlag);
+} as unknown as Beregningsgrunnlag);
 
 const lagBeregningsgrunnlag = (
   andeler: FaktaOmBeregningAndel[],
@@ -69,11 +76,7 @@ const lagBeregningsgrunnlag = (
     fom: '2022-03-02',
     tom: '2022-04-30',
   },
-  avklaringsbehov: [{
-    definisjon: '5052',
-    status: 'OPPR',
-    kanLoses: true,
-  }],
+  avklaringsbehov: [],
   skjaeringstidspunktBeregning: null,
   dekningsgrad: null,
   grunnbeløp: null,
@@ -353,21 +356,23 @@ export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={[beregningsgrunnlag]}
-      aksjonspunkter={[{
-        definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-        status: AksjonspunktStatus.UTFORT,
-        begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
-        kanLoses: true,
-        erAktivt: true,
-      },
-      {
-        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: AksjonspunktStatus.OPPRETTET,
-        begrunnelse: undefined,
-        kanLoses: true,
-        erAktivt: true,
+      beregningsgrunnlag={[{
+        ...beregningsgrunnlag,
+        avklaringsbehov: [{
+          definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
+          status: AksjonspunktStatus.UTFORT,
+          begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
+          kanLoses: true,
+        },
+        {
+          definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+          status: AksjonspunktStatus.OPPRETTET,
+          begrunnelse: undefined,
+          kanLoses: true,
+        },
+        ],
       }]}
+      aksjonspunkter={[]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{
