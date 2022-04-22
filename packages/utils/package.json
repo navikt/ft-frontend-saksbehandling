@@ -29,7 +29,7 @@
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "^1.0.0",
-    "@navikt/ft-types": "^1.0.0",
+    "@navikt/ft-types": "^1.0.1",
     "dayjs": "1.11.1",
     "moment": "2.29.3",
     "react-intl": "5.24.8"
