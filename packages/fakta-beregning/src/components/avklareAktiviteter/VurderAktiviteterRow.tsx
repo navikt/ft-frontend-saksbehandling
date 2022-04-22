@@ -52,8 +52,6 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }) => {
-  console.log('valgtSkjæringstidspunkt', valgtSkjæringstidspunkt);
-
   const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
   return (
     <TableRow key={lagAktivitetFieldId(aktivitet)}>
@@ -86,20 +84,13 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
       </TableColumn>
       <TableColumn className={styles.radioMiddle}>
         <RadioGroupField
+          validate={[required]}
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
             erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)}
         >
-          {[<RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`} value="true" />]}
-        </RadioGroupField>
-      </TableColumn>
-      <TableColumn className={styles.radioMiddle}>
-        <RadioGroupField
-          name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
-          readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
-            erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)}
-        >
-          {[<RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`} value="false" />]}
+          {[<RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`} value="true" />,
+            <RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`} value="false" />]}
         </RadioGroupField>
       </TableColumn>
       {isAksjonspunktClosed && readOnly

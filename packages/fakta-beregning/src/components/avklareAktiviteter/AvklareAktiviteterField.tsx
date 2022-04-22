@@ -133,16 +133,11 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   } = formHooks.useFormContext<AvklarAktiviteterFormValues | ErrorMessages>();
 
   const harOverstyrAksjonspunkt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
-  const erOverstyrtErAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
-  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAksjonspunkt || erOverstyrtErAktivt);
+  const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
+  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAksjonspunkt || erOverstyrtAktivt);
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
 
   const finnesFeilForBegrunnelse = !!errors.avklarAktiviteterForm?.[fieldId]?.begrunnelseAvklareAktiviteter;
-
-  const formFeil: {
-    type: string;
-    message: string;
-  }[] = Object.values(errors?.avklarAktiviteterForm?.[fieldId] || {}).filter((err) => err.type === 'custom');
 
   useEffect(() => {
     if (!submitEnabled) {
@@ -196,13 +191,15 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
         </AksjonspunktHelpTextTemp>
       )}
 
-      {formFeil.length > 0 && (
+      {VurderAktiviteterPanel.harIngenAktiviteter(
+        watch(`avklarAktiviteterForm.${fieldId}`),
+        avklarAktiviteter.aktiviteterTomDatoMapping,
+        erOverstyrtAktivt,
+      ) && (
         <>
           <VerticalSpacer sixteenPx />
           <AlertStripe type="feil">
-            { formFeil.length > 1
-              ? <ul>{formFeil.map((err) => <li>{err.message}</li>)}</ul>
-              : formFeil.map((err) => err.message)}
+            {intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' })}
           </AlertStripe>
         </>
       )}
@@ -224,7 +221,6 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
           alleKodeverk={alleKodeverk}
           values={watch(`avklarAktiviteterForm.${fieldId}`)}
           harAksjonspunkt={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
-          formNameAvklarAktiviteter={formNameAvklarAktiviteter}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldId={fieldId}
         />
