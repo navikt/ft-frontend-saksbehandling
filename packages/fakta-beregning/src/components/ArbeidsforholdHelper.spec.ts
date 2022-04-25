@@ -1,3 +1,4 @@
+import { isTest } from '@navikt/ft-utils';
 import { createVisningsnavnFakta } from './ArbeidsforholdHelper';
 
 const lagAgopplysning = (identifikator: string, navn: string, fødselsdato?: string) => {
@@ -18,6 +19,7 @@ const lagAgopplysning = (identifikator: string, navn: string, fødselsdato?: str
 
 describe('<ArbeidsforholdHelper>', () => {
   it('Skal lage arbeidsgivernavn for virksomhet', () => {
+    isTest();
     const agOpp = lagAgopplysning('999999999', 'REMA 1000');
     const navn = createVisningsnavnFakta(agOpp, undefined);
     expect(navn).toBe('REMA 1000 (999999999)');
