@@ -6,11 +6,11 @@ import { ArbeidsgiverOpplysninger } from '@navikt/ft-types';
 const getEndCharFromId = (id?: string): string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
 
 export const createVisningsnavnFakta = (agOpplysning: ArbeidsgiverOpplysninger, eksternArbeidsforholdId?: string): string => {
+  isTest();
   if (agOpplysning.erPrivatPerson) {
     if (agOpplysning.fødselsdato) {
       return `${agOpplysning.navn} (${moment(agOpplysning.fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(eksternArbeidsforholdId)}`;
     }
-    isTest();
     return `${agOpplysning.navn}${getEndCharFromId(eksternArbeidsforholdId)}`;
   }
 
