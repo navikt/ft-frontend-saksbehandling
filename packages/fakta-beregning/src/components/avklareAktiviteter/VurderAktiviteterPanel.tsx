@@ -118,8 +118,8 @@ const utledGjeldendeSkjæringstidspunkt = (values: AvklarAktiviteterValues, list
 type OwnProps = {
     erOverstyrt: boolean;
     readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    harAksjonspunkt: boolean;
+    isAvklaringsbehovClosed: boolean;
+    harAvklaringsbehov: boolean;
     aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[];
     alleKodeverk: AlleKodeverk;
     values: AvklarAktiviteterValues;
@@ -131,16 +131,13 @@ interface StaticFunctions {
   transformValues: (values: AvklarAktiviteterValues,
                     aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
                     erOverstyrt: boolean) => BeregningAktiviteterTransformedValues;
-  validate: (values: AvklarAktiviteterValues,
-             aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-             erOverstyrt: boolean) => any;
   harIngenAktiviteter: (values: AvklarAktiviteterValues,
              aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
              erOverstyrt: boolean) => boolean;
   buildInitialValues: (aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
                        alleKodeverk: AlleKodeverk,
                        erOverstyrt: boolean,
-                       harAksjonspunkt: boolean,
+                       harAvklaringsbehov: boolean,
                        arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => AktiviteterValues;
 }
 
@@ -151,11 +148,11 @@ interface StaticFunctions {
  */
 export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  isAksjonspunktClosed,
+  isAvklaringsbehovClosed,
   values,
   aktiviteterTomDatoMapping,
   erOverstyrt,
-  harAksjonspunkt,
+  harAvklaringsbehov,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
   fieldId,
@@ -168,10 +165,10 @@ export const VurderAktiviteterPanel:FunctionComponent<OwnProps> & StaticFunction
       {listeSomSkalVurderes.map((aktivitetMap) => (
         <VurderAktiviteterTabellReactHookForm
           readOnly={readOnly}
-          isAksjonspunktClosed={isAksjonspunktClosed}
+          isAvklaringsbehovClosed={isAvklaringsbehovClosed}
           aktiviteter={aktivitetMap.aktiviteter}
           erOverstyrt={erOverstyrt}
-          harAksjonspunkt={harAksjonspunkt}
+          harAvklaringsbehov={harAvklaringsbehov}
           alleKodeverk={alleKodeverk}
           tomDatoForAktivitetGruppe={aktivitetMap.tom}
           valgtSkjæringstidspunkt={gjeldendeSkjæringstidspunkt}
@@ -198,32 +195,6 @@ VurderAktiviteterPanel.harIngenAktiviteter = (values, aktiviteterTomDatoMapping,
   }
   const harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt = harListeAktivitetSomSkalBrukes(listerSomVurderes[1], values);
   return !harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt;
-};
-
-VurderAktiviteterPanel.validate = (values, aktiviteterTomDatoMapping, erOverstyrt) => {
-  const listerSomVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
-  let errors = VurderAktiviteterTabell.validate(values, listerSomVurderes[0].aktiviteter);
-  if (errors !== null) {
-    return errors;
-  }
-  const harAktiviteterSomSkalBrukes = harListeAktivitetSomSkalBrukes(listerSomVurderes[0], values);
-  if (harAktiviteterSomSkalBrukes) {
-    return {};
-  }
-  const harAktiviteterINesteSkjæringstidspunkt = listerSomVurderes.length > 1
-    && listerSomVurderes[1].aktiviteter.length > 0;
-  if (!harAktiviteterINesteSkjæringstidspunkt) {
-    return { _error: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' };
-  }
-  errors = VurderAktiviteterTabell.validate(values, listerSomVurderes[1].aktiviteter);
-  if (errors !== null) {
-    return errors;
-  }
-  const harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt = harListeAktivitetSomSkalBrukes(listerSomVurderes[1], values);
-  if (!harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt) {
-    return { _error: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' };
-  }
-  return {};
 };
 
 const erLikEllerFør = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));
@@ -273,7 +244,7 @@ const utledGjeldendeSkjæringstidspunktVedPreutfylling = (aktiviteterTomDatoMapp
 VurderAktiviteterPanel.buildInitialValues = (aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
   alleKodeverk: AlleKodeverk,
   erOverstyrt: boolean,
-  harAksjonspunkt: boolean,
+  harAvklaringsbehov: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): AktiviteterValues => {
   if (!aktiviteterTomDatoMapping || aktiviteterTomDatoMapping.length === 0) {
     return {};
@@ -285,7 +256,7 @@ VurderAktiviteterPanel.buildInitialValues = (aktiviteterTomDatoMapping: AvklarBe
     initialValues = {
       ...initialValues,
       ...VurderAktiviteterTabell.buildInitialValues(liste.aktiviteter, alleKodeverk, erOverstyrt,
-        harAksjonspunkt, erLikEllerFør(gjeldendeSkjæringstidspunkt, liste.tom), arbeidsgiverOpplysningerPerId),
+        harAvklaringsbehov, erLikEllerFør(gjeldendeSkjæringstidspunkt, liste.tom), arbeidsgiverOpplysningerPerId),
     };
   });
   return initialValues;
