@@ -10,6 +10,7 @@ export const createVisningsnavnFakta = (agOpplysning: ArbeidsgiverOpplysninger, 
     if (agOpplysning.fødselsdato) {
       return `${agOpplysning.navn} (${moment(agOpplysning.fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(eksternArbeidsforholdId)}`;
     }
+
     return `${agOpplysning.navn}${getEndCharFromId(eksternArbeidsforholdId)}`;
   }
 
