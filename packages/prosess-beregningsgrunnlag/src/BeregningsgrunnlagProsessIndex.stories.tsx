@@ -17,9 +17,6 @@ import BeregningsgrunnlagResultatAP from './types/interface/BeregningsgrunnlagAP
 import ProsessBeregningsgrunnlagAksjonspunktCode from './types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';
 
-import '@navikt/ft-ui-komponenter/dist/style.css';
-import '@navikt/ft-form-hooks/dist/style.css';
-
 const STP = '2021-01-01';
 
 const førSTP = (dager: number): string => moment(STP).subtract(dager, 'days').format(ISO_DATE_FORMAT);
