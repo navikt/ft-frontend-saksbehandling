@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { createIntl } from '@navikt/ft-utils';
+import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar,
 } from '@navikt/ft-types';
@@ -14,6 +14,9 @@ import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAkti
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import messages from '../i18n/nb_NO.json';
 import SubmitBeregningType from './typer/SubmitBeregningTsType';
+import messages from '../i18n/nb_NO.json';
+import BeregningInfoPanel from './components/BeregningInfoPanel';
+import styles from './beregningFaktaIndex.less';
 
 const intl = createIntl(messages);
 
@@ -30,6 +33,38 @@ type OwnProps = {
 type Akasjonspunkter = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP | BeregningFaktaAP | BeregningOverstyringAP;
 
 const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<Akasjonspunkter>> = ({
+const {
+  VURDER_FAKTA_FOR_ATFL_SN,
+  AVKLAR_AKTIVITETER,
+} = AksjonspunktCode;
+
+const lagLabel = (bg, vilkårsperioder) => {
+  const stpOpptjening = bg.faktaOmBeregning.avklarAktiviteter.skjæringstidspunktOpptjening;
+  const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
+  if (vilkårPeriode) {
+    const { fom, tom } = vilkårPeriode.periode;
+    if (tom !== null) {
+      return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`;
+    }
+    return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - `;
+  }
+  return `${dayjs(stpOpptjening).format(DDMMYYYY_DATE_FORMAT)}`;
+};
+
+const harAvklaringsbehovIPanel = (avklaringsbehov) => {
+  const harBehovForAvklaring = !!avklaringsbehov;
+  if (harBehovForAvklaring) {
+    const harVurderFaktaAksjonspunkt = avklaringsbehov.some((ap) => ap.definisjon.kode === VURDER_FAKTA_FOR_ATFL_SN && ap.kanLoses !== false);
+    const harAvklarAktiviteterAP = avklaringsbehov.some((ap) => ap.definisjon.kode === AVKLAR_AKTIVITETER && ap.kanLoses !== false);
+    return harVurderFaktaAksjonspunkt || harAvklarAktiviteterAP;
+  }
+  return false;
+};
+
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsType[]) => harAvklaringsbehovIPanel(bg.avklaringsbehov)
+  && vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning).vurderesIBehandlingen;
+
+const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps> = ({
   beregningsgrunnlag,
   alleKodeverk,
   aksjonspunkter,
@@ -41,25 +76,56 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
   formData,
   setFormData,
   vilkar,
-}) => (
-  <RawIntlProvider value={intl}>
-    <ReduxWrapper formName="BeregningFaktaIndex" formData={formData} setFormData={setFormData}>
-      <BeregningInfoPanel
-        intl={intl}
-        beregningsgrunnlag={beregningsgrunnlag}
-        alleKodeverk={alleKodeverk}
-        aksjonspunkter={aksjonspunkter}
-        submitCallback={submitCallback}
-        readOnly={readOnly}
-        submittable={submittable}
-        erOverstyrer={erOverstyrer}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        setFormData={setFormData}
-        formData={formData}
-        vilkar={vilkar}
-      />
-    </ReduxWrapper>
-  </RawIntlProvider>
-);
+}) => {
+  const skalBrukeTabs = beregningsgrunnlag.length > 1;
+  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
+  const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
+  const beregningErBehandlet = vilkar.vilkarStatus !== vilkarUtfallType.IKKE_VURDERT;
+  if (beregningErBehandlet === false && !aksjonspunkter.length) {
+    return <>Beregningssteget er ikke behandlet.</>;
+  }
+
+  if ((!aktivtBeregningsgrunnlag || !vilkar) && !aksjonspunkter.length) {
+    return <>Har ikke beregningsgrunnlag.</>;
+  }
+
+  const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
+  const vilkårsperioder = vilkar.perioder;
+
+  return (
+    <RawIntlProvider value={intl}>
+      <ReduxWrapper formName="BeregningFaktaIndex" formData={formData} setFormData={setFormData}>
+        {skalBrukeTabs && (
+        <div className={styles.tabsContainer}>
+          <TabsPure
+            tabs={beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
+              aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
+              label: lagLabel(currentBeregningsgrunnlag, vilkårsperioder),
+              className: skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : '',
+            }))}
+            onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
+          />
+        </div>
+        )}
+        <BeregningInfoPanel
+          intl={intl}
+          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+          beregningsgrunnlag={beregningsgrunnlag}
+          alleKodeverk={alleKodeverk}
+          aksjonspunkter={aksjonspunkter}
+          avklaringsbehov={aktiveAvklaringsBehov}
+          submitCallback={submitCallback}
+          readOnly={readOnly}
+          submittable={submittable}
+          erOverstyrer={erOverstyrer}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          setFormData={setFormData}
+          formData={formData}
+          vilkar={vilkar}
+        />
+      </ReduxWrapper>
+    </RawIntlProvider>
+  );
+};
 
 export default BeregningFaktaIndex;
