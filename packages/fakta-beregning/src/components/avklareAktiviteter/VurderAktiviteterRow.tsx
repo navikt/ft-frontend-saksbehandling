@@ -14,11 +14,11 @@ import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
+  isAvklaringsbehovClosed: boolean;
   aktivitet: BeregningAktivitet;
   alleKodeverk: AlleKodeverk;
   erOverstyrt: boolean;
-  harAksjonspunkt: boolean;
+  harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
   valgtSkjæringstidspunkt: string;
   ingenAktiviterErBrukt: boolean;
@@ -41,11 +41,11 @@ const lagVisningsnavn = (aktivitet: BeregningAktivitet,
 
 const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   readOnly,
-  isAksjonspunktClosed,
+  isAvklaringsbehovClosed,
   aktivitet,
   alleKodeverk,
   erOverstyrt,
-  harAksjonspunkt,
+  harAvklaringsbehov,
   tomDatoForAktivitetGruppe,
   valgtSkjæringstidspunkt,
   ingenAktiviterErBrukt,
@@ -86,17 +86,17 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
         <RadioGroupField
           validate={[required]}
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
-          readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
+          readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAvklaringsbehov,
             erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)}
         >
           {[<RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`} value="true" />,
             <RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`} value="false" />]}
         </RadioGroupField>
       </TableColumn>
-      {isAksjonspunktClosed && readOnly
+      {isAvklaringsbehovClosed && readOnly
       && (
         <TableColumn>
-          {skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
+          {skalVurdereAktivitet(aktivitet, erOverstyrt, harAvklaringsbehov,
             erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)
           && <EditedIcon />}
         </TableColumn>
