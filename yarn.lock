@@ -2679,42 +2679,6 @@
   resolved "https://npm.pkg.github.com/download/@navikt/fnrvalidator/1.1.4/57aacaca4b4d6c045625ec4e86cc6029f566f6388de258d45f93ef027f888219#b2ce64cb24b3726f715eee110f9f3fde37b907f7"
   integrity sha512-EZBwlNhp886E57GuknLB6G9Bnv4nl+e5K12B/2BeLpWZENxCmcQ+5oFvIThvEsU+LVOdfJxxGOxSvrwe5ZB3pQ==
 
-"@navikt/ft-prosess-beregningsgrunnlag@1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@navikt/ft-prosess-beregningsgrunnlag/1.0.0/c97fcb2df86f254ab25a33d5bc6514a913bab8d03af818649fe3834bf2194fbb#e99973876d1768fb13745dccaa0e3f09f5746440"
-  integrity sha512-mMbDRqSj5/DLH+Ed0PDeuhcL1DvP09WdXp34TELK+Il+G/Kxl8LL5tot+Q879y5G78QsOmm4d7rj1CbSO/ztLw==
-  dependencies:
-    "@navikt/ft-form-hooks" "^1.0.0"
-    "@navikt/ft-kodeverk" "^1.0.0"
-    "@navikt/ft-types" "^1.0.0"
-    "@navikt/ft-ui-komponenter" "^1.0.0"
-    "@navikt/ft-utils" "^1.0.0"
-    classnames "2.3.1"
-    moment "2.29.3"
-    nav-frontend-chevron "1.0.30"
-    nav-frontend-chevron-style "1.0.4"
-    nav-frontend-core "6.0.1"
-    nav-frontend-etiketter "3.0.1"
-    nav-frontend-grid "2.0.1"
-    nav-frontend-grid-style "1.0.2"
-    nav-frontend-js-utils "1.0.20"
-    nav-frontend-knapper "3.1.2"
-    nav-frontend-knapper-style "2.1.1"
-    nav-frontend-lesmerpanel "2.0.2"
-    nav-frontend-lesmerpanel-style "2.0.1"
-    nav-frontend-modal "2.0.1"
-    nav-frontend-modal-style "2.0.1"
-    nav-frontend-paneler "3.0.1"
-    nav-frontend-paneler-style "2.0.1"
-    nav-frontend-skjema "4.0.5"
-    nav-frontend-skjema-style "3.0.2"
-    nav-frontend-typografi "4.0.1"
-    nav-frontend-typografi-style "2.0.1"
-    react "17.0.2"
-    react-collapse "5.1.1"
-    react-hook-form "7.30.0"
-    react-intl "5.24.8"
-
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -13030,21 +12994,7 @@ nav-frontend-spinner@3.0.1, nav-frontend-spinner@^3.0.1:
   resolved "https://registry.yarnpkg.com/nav-frontend-spinner/-/nav-frontend-spinner-3.0.1.tgz#1bacd7810933a0bb1eb3bd2d2f917a4674dd6def"
   integrity sha512-aypBmm5ux6qknI69kW0fTn694mg2739DCPW0F5mcui1oIADuEhQpWSbUJVbQ+613X6u0SNxPeOSgxF1jHtuAuQ==
 
-<<<<<<< HEAD
-nav-frontend-typografi-style@2.0.1, nav-frontend-typografi-style@^2.0.1:
-=======
-nav-frontend-tabs-style@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/nav-frontend-tabs-style/-/nav-frontend-tabs-style-2.0.1.tgz#b3a68898a1b3df25cfc9246cedd6fd96fd9c0a42"
-  integrity sha512-5YGeSdGu/4p3aqZLp3cJMJxYXUEoIZCmJ0r2r84JF2C5OKFcpr5QWlUO6eAVwEjaTwhL1J43R+9enyasEidvIg==
-
-nav-frontend-tabs@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-tabs/-/nav-frontend-tabs-2.0.2.tgz#54a3f327cc9c09dedc143ecd94d4eb616f9ffd27"
-  integrity sha512-HDyMuMayhKZDID2whJLT77nNfEtGY8wN3DgEkGMitwv+j64p54DVAO6OplwrZhusqCQ2vRkKGQ58NSFDmnD8gw==
-
 nav-frontend-typografi-style@2.0.1:
->>>>>>> e0525ec (Legger til tabs i fakta-beregning)
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/nav-frontend-typografi-style/-/nav-frontend-typografi-style-2.0.1.tgz#6522b2f8b007535831ec003008823fbd508f90b8"
   integrity sha512-9vb94WbB4+w30ZNg3/AqgK/fsduU5eqlkY5kXTPGcRcvHpf9l8/nfQI3aD0xSETw8q8zVOwHT00XPc4jkPK9WA==

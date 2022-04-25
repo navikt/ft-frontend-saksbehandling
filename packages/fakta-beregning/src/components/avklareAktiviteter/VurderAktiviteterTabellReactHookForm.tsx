@@ -52,11 +52,11 @@ const getHeaderTextCodes = (): string[] => ([
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
+  isAvklaringsbehovClosed: boolean;
   aktiviteter: BeregningAktivitet[];
   alleKodeverk: AlleKodeverk;
   erOverstyrt: boolean;
-  harAksjonspunkt: boolean;
+  harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
   valgtSkjæringstidspunkt: string;
   ingenAktiviterErBrukt: boolean;
@@ -66,11 +66,11 @@ type OwnProps = {
 
 const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
   readOnly,
-  isAksjonspunktClosed,
+  isAvklaringsbehovClosed,
   aktiviteter,
   alleKodeverk,
   erOverstyrt,
-  harAksjonspunkt,
+  harAvklaringsbehov,
   tomDatoForAktivitetGruppe,
   valgtSkjæringstidspunkt,
   ingenAktiviterErBrukt,
@@ -86,10 +86,10 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
         <VurderAktiviteterTabellRad
           aktivitet={aktivitet}
           readOnly={readOnly}
-          isAksjonspunktClosed={isAksjonspunktClosed}
+          isAvklaringsbehovClosed={isAvklaringsbehovClosed}
           alleKodeverk={alleKodeverk}
           erOverstyrt={erOverstyrt}
-          harAksjonspunkt={harAksjonspunkt}
+          harAvklaringsbehov={harAvklaringsbehov}
           tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}
           valgtSkjæringstidspunkt={valgtSkjæringstidspunkt}
           ingenAktiviterErBrukt={ingenAktiviterErBrukt}

@@ -8,7 +8,7 @@ import {
 import {
   AndelForFaktaOmBeregning,
   Behandling,
-  BeregningAktivitet,
+  BeregningAktivitet, BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
@@ -21,6 +21,7 @@ import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksj
 import {
   aksjonspunkt as aksjonspunktArbeidOgDagpenger,
   beregningsgrunnlag as bgMedArbeidOgDagpenger,
+  vilkar as vilkarArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -47,8 +48,9 @@ const {
 
 const lagBeregningsgrunnlagAvklarAktiviteter = (
   aktiviteter: BeregningAktivitet[],
+  avklaringsbehov: BeregningAvklaringsbehov[] = [],
 ): Beregningsgrunnlag => ({
-  avklaringsbehov: [],
+  avklaringsbehov,
   vilkårperiodeFom: '2022-03-02',
   periode: {
     fom: '2022-03-02',
@@ -239,7 +241,7 @@ const agOpplysninger = {
 export const ArbeidOgDagpenger = () => (
   <BeregningFaktaIndex
     behandling={behandling}
-    beregningsgrunnlag={[bgMedArbeidOgDagpenger]}
+    beregningsgrunnlag={bgMedArbeidOgDagpenger}
     aksjonspunkter={aksjonspunktArbeidOgDagpenger}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
@@ -252,7 +254,7 @@ export const ArbeidOgDagpenger = () => (
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
-    vilkar={vilkar}
+    vilkar={vilkarArbeidOgDagpenger}
   />
 );
 
@@ -271,7 +273,12 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
     aapAktivitet,
     arbeidsAktivitet,
   ];
-  const beregningsgrunnlag = lagBeregningsgrunnlagAvklarAktiviteter(aktiviteter);
+  const beregningsgrunnlag = lagBeregningsgrunnlagAvklarAktiviteter(aktiviteter, [{
+    definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
+    status: aksjonspunktStatus.OPPRETTET,
+    begrunnelse: undefined,
+    kanLoses: true,
+  }]);
 
   return (
     <BeregningFaktaIndex
