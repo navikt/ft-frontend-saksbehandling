@@ -2,6 +2,7 @@ export {
   range,
   haystack,
   isArrayEmpty,
+  isTest,
 } from './src/arrayUtils';
 export {
   isIE11,

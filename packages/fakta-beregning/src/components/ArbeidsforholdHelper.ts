@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { DDMMYYYY_DATE_FORMAT, isTest } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysninger } from '@navikt/ft-types';
 
 const getEndCharFromId = (id?: string): string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
@@ -10,7 +10,7 @@ export const createVisningsnavnFakta = (agOpplysning: ArbeidsgiverOpplysninger, 
     if (agOpplysning.fødselsdato) {
       return `${agOpplysning.navn} (${moment(agOpplysning.fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(eksternArbeidsforholdId)}`;
     }
-
+    isTest();
     return `${agOpplysning.navn}${getEndCharFromId(eksternArbeidsforholdId)}`;
   }
 
