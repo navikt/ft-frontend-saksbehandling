@@ -33,7 +33,6 @@ import {
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
-import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 
 const {
   AVKLAR_AKTIVITETER,
@@ -43,8 +42,6 @@ const {
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
-// TODO bytt navn aksjonspunkter till avklaringsbegov (alle metoder, navn osv)
-
 export const buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   avklarAktiviteter: AvklarBeregningAktiviteterMap,
@@ -52,14 +49,14 @@ export const buildInitialValues = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
 ): AvklarAktiviteterValues => {
-  const harAvklarAksjonspunkt = hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov);
+  const harAvklarAktiviteterAvklaringsbehov = hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov);
   const erOverstyrt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
   const begrunnelse = findBegrunnelse(avklaringsbehov);
   let aktiviteterValues;
 
   if (avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping) {
     aktiviteterValues = VurderAktiviteterPanel.buildInitialValues(avklarAktiviteter.aktiviteterTomDatoMapping,
-      alleKodeverk, erOverstyrt, harAvklarAksjonspunkt, arbeidsgiverOpplysningerPerId);
+      alleKodeverk, erOverstyrt, harAvklarAktiviteterAvklaringsbehov, arbeidsgiverOpplysningerPerId);
   }
 
   return {
@@ -74,7 +71,6 @@ export const buildInitialValues = (
 };
 
 export const transformFieldValue = (values) => {
-  // FERDIG
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
   const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov, values.erTilVurdering);
   const { avklarAktiviteter } = values;
@@ -109,13 +105,6 @@ interface OwnProps {
   updateOverstyring: (index : number, skalOverstyre : boolean) => void;
 }
 
-type ErrorMessages = {
-  [key:string]: {
-    type: string;
-    message: string;
-  }
-}
-
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   avklarAktiviteter,
   avklaringsbehov,
@@ -130,11 +119,11 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
 }) => {
   const {
     resetField, watch, getValues, formState: { isDirty, isSubmitting, errors },
-  } = formHooks.useFormContext<AvklarAktiviteterFormValues | ErrorMessages>();
+  } = formHooks.useFormContext<AvklarAktiviteterFormValues>();
 
-  const harOverstyrAksjonspunkt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
+  const harOverstyrAvklaringsbehov = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
   const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
-  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAksjonspunkt || erOverstyrtAktivt);
+  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAvklaringsbehov || erOverstyrtAktivt);
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
 
   const finnesFeilForBegrunnelse = !!errors.avklarAktiviteterForm?.[fieldId]?.begrunnelseAvklareAktiviteter;
@@ -169,7 +158,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
               <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
             </Element>
           </FlexColumn>
-          {(erOverstyrer || harOverstyrAksjonspunkt) && (
+          {(erOverstyrer || harOverstyrAvklaringsbehov) && (
             <FlexColumn>
               <OverstyringKnapp
                 onClick={() => initializeForm(true)}
@@ -216,11 +205,11 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
         <VurderAktiviteterPanel
           aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
           readOnly={readOnly}
-          isAksjonspunktClosed={isAvklaringsbehovClosed}
+          isAvklaringsbehovClosed={isAvklaringsbehovClosed}
           erOverstyrt={erOverstyrtKnappTrykket}
           alleKodeverk={alleKodeverk}
           values={watch(`avklarAktiviteterForm.${fieldId}`)}
-          harAksjonspunkt={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
+          harAvklaringsbehov={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldId={fieldId}
         />
