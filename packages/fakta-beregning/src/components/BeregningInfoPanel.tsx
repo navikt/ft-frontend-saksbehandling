@@ -3,17 +3,16 @@ import { IntlShape } from 'react-intl';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  ArbeidsgiverOpplysningerPerId, AlleKodeverk, Beregningsgrunnlag, Vilkar, BeregningAvklaringsbehov, Aksjonspunkt,
+  Aksjonspunkt, AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkar,
 } from '@navikt/ft-types';
-import BeregningFaktaAP, {
-  BeregningOverstyringAP, AvklarBeregningsaktiviteterAP,
-} from '../typer/interface/BeregningFaktaAP';
+import BeregningFaktaAP, { AvklarBeregningsaktiviteterAP, BeregningOverstyringAP } from '../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
 import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
 import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
 import SubmitBeregningType from '../typer/SubmitBeregningTsType';
+import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
@@ -21,9 +20,6 @@ const {
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   AVKLAR_AKTIVITETER,
 } = FaktaBeregningAksjonspunktCode;
-
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
-  .some((ap) => ap.definisjon === aksjonspunktKode);
 
 const relevanteKoder = [VURDER_FAKTA_FOR_ATFL_SN,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,

@@ -10,17 +10,18 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
-import { AksjonspunktCode, hasAvklaringsbehov } from '@navikt/ft-kodeverk';
 import BeregningAvklaringsbehov from '@navikt/ft-types/src/beregningAvklaringsbehovTsType';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
+import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   AVKLAR_AKTIVITETER,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 export const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 

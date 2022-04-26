@@ -19,7 +19,7 @@ import {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
-import { hasAvklaringsbehov, AksjonspunktCode, isAvklaringsbehovOpen } from '@navikt/ft-kodeverk';
+import { AksjonspunktCode, isAvklaringsbehovOpen } from '@navikt/ft-kodeverk';
 import { formHooks } from '@navikt/ft-form-hooks';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
@@ -33,6 +33,7 @@ import {
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
+import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 
 const {
   AVKLAR_AKTIVITETER,
@@ -62,7 +63,7 @@ export const buildInitialValues = (
   return {
     [MANUELL_OVERSTYRING_FIELD]: erOverstyrt,
     periode: vilkårsperiode.periode,
-    erTilVurdering: vilkårsperiode.vurdersIBehandlingen,
+    erTilVurdering: vilkårsperiode.vurderesIBehandlingen,
     avklaringsbehov,
     avklarAktiviteter,
     aktiviteterValues,
