@@ -1,5 +1,6 @@
-import { isAksjonspunktOpen, hasAvklaringsbehov, AksjonspunktCode } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen, AksjonspunktCode } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningAvklaringsbehov } from '@navikt/ft-types';
+import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 
 const {
   AVKLAR_AKTIVITETER,
