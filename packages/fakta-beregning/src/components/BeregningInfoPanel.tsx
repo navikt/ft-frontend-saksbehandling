@@ -87,6 +87,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         vilkår={vilkar}
       />
       <VerticalSpacer thirtyTwoPx />
+      { /* @ts-ignore */ }
       <VurderFaktaBeregningPanel
         intl={intl}
         readOnly={avklarFaktaBeregningReadOnly}

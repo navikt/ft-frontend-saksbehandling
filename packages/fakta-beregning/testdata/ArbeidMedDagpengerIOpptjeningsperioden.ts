@@ -41,15 +41,11 @@ export const beregningsgrunnlag = [{
     } as BeregningsgrunnlagAndel],
   }],
   sammenligningsgrunnlagPrStatus: [],
-  ledetekstBrutto: 'Brutto beregningsgrunnlag',
-  ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
-  ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
-  halvG: 49929.0,
   grunnbeløp: 99858,
   faktaOmBeregning: {
     faktaOmBeregningTilfeller: ['VURDER_BESTEBEREGNING'],
     avklarAktiviteter: {
-      skjæringstidspunktOpptjening: '2020-01-13',
+      skjæringstidspunkt: '2020-01-13',
       aktiviteterTomDatoMapping: [{
         tom: '2020-01-13',
         aktiviteter: [{
@@ -90,8 +86,6 @@ export const beregningsgrunnlag = [{
     }],
     vurderMilitaer: { harMilitaer: undefined },
   },
-  hjemmel: '-',
-  årsinntektVisningstall: 0,
   dekningsgrad: 100,
   erOverstyrtInntekt: false,
 },
@@ -136,15 +130,11 @@ export const beregningsgrunnlag = [{
       } as BeregningsgrunnlagAndel],
     }],
     sammenligningsgrunnlagPrStatus: [],
-    ledetekstBrutto: 'Brutto beregningsgrunnlag',
-    ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
-    ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
-    halvG: 49929.0,
     grunnbeløp: 99858,
     faktaOmBeregning: {
       faktaOmBeregningTilfeller: ['VURDER_BESTEBEREGNING'],
       avklarAktiviteter: {
-        skjæringstidspunktOpptjening: '2020-02-13',
+        skjæringstidspunkt: '2020-02-13',
         aktiviteterTomDatoMapping: [{
           tom: '2020-02-13',
           aktiviteter: [{
@@ -185,8 +175,6 @@ export const beregningsgrunnlag = [{
       }],
       vurderMilitaer: { harMilitaer: undefined },
     },
-    hjemmel: '-',
-    årsinntektVisningstall: 0,
     dekningsgrad: 100,
     erOverstyrtInntekt: false,
   }] as Beregningsgrunnlag[];
