@@ -19,7 +19,6 @@ import {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
-import { AksjonspunktCode, isAvklaringsbehovOpen } from '@navikt/ft-kodeverk';
 import { formHooks } from '@navikt/ft-form-hooks';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
@@ -33,12 +32,13 @@ import {
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
-import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
@@ -146,8 +146,8 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     resetField(`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`);
   };
 
-  const isAvklaringsbehovClosed: boolean = avklaringsbehov.filter((ap) => ap.definisjon === AksjonspunktCode.AVKLAR_AKTIVITETER
-    || ap.definisjon === AksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
+  const isAvklaringsbehovClosed: boolean = avklaringsbehov.filter((ap) => ap.definisjon === FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER
+    || ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
     .filter((ap) => isAvklaringsbehovOpen(ap.status)).length === 0;
 
   return (
@@ -263,4 +263,4 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   );
 };
 
-export default injectIntl(AvklareAktiviteterField);
+export default injectIntl(AvklareAktiviteterField) as any;
