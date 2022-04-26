@@ -14,12 +14,13 @@ import {
 } from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
+  ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter,
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
-import { formHooks } from '@navikt/ft-form-hooks';
+import { formHooks, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { UseFormGetValues } from 'react-hook-form';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import styles from './avklareAktiviteterPanel.less';
@@ -94,6 +95,7 @@ export const transformFieldValue = (values) => {
 };
 
 interface OwnProps {
+  aktivtBeregningsgrunnlagIndeks: number,
   avklarAktiviteter: AvklarBeregningAktiviteterMap;
   avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
@@ -106,7 +108,15 @@ interface OwnProps {
   updateOverstyring: (index : number, skalOverstyre : boolean) => void;
 }
 
+const validate = (getValues: UseFormGetValues<any>, fieldId: number, aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[], erOverstyrt: boolean, intl: any) => () => {
+  if (VurderAktiviteterPanel.harIngenAktiviteter(getValues(`avklarAktiviteterForm.${fieldId}`), aktiviteterTomDatoMapping, erOverstyrt)) {
+    return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
+  }
+  return [];
+};
+
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
+  aktivtBeregningsgrunnlagIndeks,
   avklarAktiviteter,
   avklaringsbehov,
   erOverstyrer,
@@ -150,6 +160,8 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     || ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
     .filter((ap) => isAvklaringsbehovOpen(ap.status)).length === 0;
 
+  const valideringer = [validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl)];
+
   return (
     <>
       <FlexContainer>
@@ -181,19 +193,6 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
         </AksjonspunktHelpTextTemp>
       )}
 
-      {VurderAktiviteterPanel.harIngenAktiviteter(
-        watch(`avklarAktiviteterForm.${fieldId}`),
-        avklarAktiviteter.aktiviteterTomDatoMapping,
-        erOverstyrtAktivt,
-      ) && (
-        <>
-          <VerticalSpacer sixteenPx />
-          <AlertStripe type="feil">
-            {intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' })}
-          </AlertStripe>
-        </>
-      )}
-
       {erOverstyrtKnappTrykket && (
         <Element>
           <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
@@ -203,17 +202,22 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
 
       {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <VurderAktiviteterPanel
-          aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
-          readOnly={readOnly}
-          isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-          erOverstyrt={erOverstyrtKnappTrykket}
-          alleKodeverk={alleKodeverk}
-          values={watch(`avklarAktiviteterForm.${fieldId}`)}
-          harAvklaringsbehov={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          fieldId={fieldId}
-        />
+        <SkjemaGruppeMedFeilviser
+          name={`vurderAktiviteterSkjema.${fieldId}`}
+          validate={valideringer}
+        >
+          <VurderAktiviteterPanel
+            aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
+            readOnly={readOnly}
+            isAvklaringsbehovClosed={isAvklaringsbehovClosed}
+            erOverstyrt={erOverstyrtKnappTrykket}
+            alleKodeverk={alleKodeverk}
+            values={watch(`avklarAktiviteterForm.${fieldId}`)}
+            harAvklaringsbehov={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            fieldId={fieldId}
+          />
+        </SkjemaGruppeMedFeilviser>
       )}
       <VerticalSpacer twentyPx />
 
