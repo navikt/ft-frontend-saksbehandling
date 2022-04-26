@@ -197,7 +197,7 @@ const vilkar: Vilkar = {
   avslagKode: '',
   overstyrbar: true,
   perioder: [{
-    vurdersIBehandlingen: true,
+    vurderesIBehandlingen: true,
     merknadParametere: { name: '' },
     periode: { fom: '2022-03-02', tom: '2022-03-04' },
     vilkarStatus: 'IKKE_VURDERT',

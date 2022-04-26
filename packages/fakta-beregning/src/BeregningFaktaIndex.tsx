@@ -6,17 +6,21 @@ import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar,
 } from '@navikt/ft-types';
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
+import dayjs from 'dayjs';
+import { TabsPure } from 'nav-frontend-tabs';
 
+import vilkarperiodeTsType from '@navikt/ft-types/src/vilkarperiodeTsType';
+import { vilkarUtfallType } from '@navikt/ft-kodeverk';
 import BeregningFaktaAP, {
   BeregningOverstyringAP, AvklarBeregningsaktiviteterAP,
 } from './typer/interface/BeregningFaktaAP';
+
 import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAktivitetAP';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
-import messages from '../i18n/nb_NO.json';
 import SubmitBeregningType from './typer/SubmitBeregningTsType';
 import messages from '../i18n/nb_NO.json';
-import BeregningInfoPanel from './components/BeregningInfoPanel';
 import styles from './beregningFaktaIndex.less';
+import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
 
 const intl = createIntl(messages);
 
@@ -30,13 +34,12 @@ type OwnProps = {
     | BeregningFaktaAP | BeregningOverstyringAP | SubmitBeregningType[]) => Promise<void>;
 };
 
-type Akasjonspunkter = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP | BeregningFaktaAP | BeregningOverstyringAP;
+type Aksjonspunkter = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP | BeregningFaktaAP | BeregningOverstyringAP;
 
-const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<Akasjonspunkter>> = ({
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
   AVKLAR_AKTIVITETER,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 const lagLabel = (bg, vilkårsperioder) => {
   const stpOpptjening = bg.faktaOmBeregning.avklarAktiviteter.skjæringstidspunktOpptjening;
@@ -64,7 +67,7 @@ const harAvklaringsbehovIPanel = (avklaringsbehov) => {
 const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsType[]) => harAvklaringsbehovIPanel(bg.avklaringsbehov)
   && vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning).vurderesIBehandlingen;
 
-const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps> = ({
+const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<Aksjonspunkter>> = ({
   beregningsgrunnlag,
   alleKodeverk,
   aksjonspunkter,
