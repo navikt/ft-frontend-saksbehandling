@@ -51,6 +51,7 @@ export type AvklarBeregningAktiviteter = Readonly<{
 
 export type AvklarBeregningAktiviteterMap = Readonly<{
   aktiviteterTomDatoMapping?: AvklarBeregningAktiviteter[];
+  skjæringstidspunkt: string;
 }>
 
 export interface KunYtelseAndel extends FaktaOmBeregningAndel {
