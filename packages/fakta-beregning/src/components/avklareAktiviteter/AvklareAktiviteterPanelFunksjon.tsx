@@ -155,6 +155,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
           (aktivtBeregningsgrunnlagIndeks === index
           && (
           <AvklareAktiviteterField
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
             key={field.id}
             fieldId={index}
             avklarAktiviteter={beregningsgrunnlag[index].faktaOmBeregning.avklarAktiviteter}
