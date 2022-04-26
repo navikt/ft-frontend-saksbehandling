@@ -42,7 +42,7 @@ const {
 } = FaktaBeregningAksjonspunktCode;
 
 const lagLabel = (bg, vilkårsperioder) => {
-  const stpOpptjening = bg.faktaOmBeregning.avklarAktiviteter.skjæringstidspunktOpptjening;
+  const stpOpptjening = bg.faktaOmBeregning.avklarAktiviteter.skjæringstidspunkt;
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;

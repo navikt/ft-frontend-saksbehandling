@@ -1,11 +1,11 @@
-import { isAksjonspunktOpen, AksjonspunktCode } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
 const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = AksjonspunktCode;
+} = FaktaBeregningAksjonspunktCode;
 
 export const harAvklaringsbehovSomKanLøses = (
   avklaringsbehovCode: string,
@@ -18,7 +18,7 @@ export const skalKunneLoseAvklaringsbehov = (
   erTilVurdering) => (skalOverstyre || harAvklaringsbehovSomKanLøses(AVKLAR_AKTIVITETER, avklaringsbehov)) && erTilVurdering;
 
 export const hasOpenAvklaringsbehov = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean => avklaringsbehov.some((ap) => ap.definisjon === kode
-  && isAksjonspunktOpen(ap.status));
+  && isAvklaringsbehovOpen(ap.status));
 
 export const hasOpenAvklarAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => hasOpenAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)
   || hasOpenAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
@@ -27,15 +27,6 @@ export const findBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[]): st
   (ab) => ab.definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER || ab.definisjon === AVKLAR_AKTIVITETER)
   ? avklaringsbehov.find((ab) => (ab.definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER || ab.definisjon === AVKLAR_AKTIVITETER)).begrunnelse
   : null);
-
-export const findAksjonspunktMedBegrunnelse = (aksjonspunkter: Aksjonspunkt[], kode: string): Aksjonspunkt => aksjonspunkter
-  .filter((ap) => ap.definisjon === kode && ap.begrunnelse !== null)[0];
-
-export const hasOpenAksjonspunkt = (kode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter.some((ap) => ap.definisjon === kode
-  && isAksjonspunktOpen(ap.status));
-
-export const hasOpenAvklarAksjonspunkter = (aksjonspunkter: Aksjonspunkt[]): boolean => hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter)
-  || hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, aksjonspunkter);
 
 export const skalViseSubmitknappInneforBorderBox = (harAndreAvklaringsbehovIPanel: boolean,
   erOverstyrt: boolean,
@@ -52,6 +43,3 @@ export const skalViseSubmitKnappEllerBegrunnelse = (
 export const erSubmittable = (submittable: boolean,
   submitEnabled: boolean,
   hasErrors: boolean): boolean => submittable && submitEnabled && !hasErrors;
-
-export const skalViseOverstyringsknapp = (kanOverstyre: boolean,
-  erOverstyrt: boolean): boolean => kanOverstyre || erOverstyrt;
