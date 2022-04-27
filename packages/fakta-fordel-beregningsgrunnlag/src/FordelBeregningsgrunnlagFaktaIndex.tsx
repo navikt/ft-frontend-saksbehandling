@@ -5,10 +5,9 @@ import {
   ArbeidsgiverOpplysningerPerId, StandardFaktaPanelProps, Beregningsgrunnlag,
 } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
-import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
-import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 
+import FordelBeregningsgrunnlagAP from './types/FordelBeregningsgrunnlagAP';
+import VurderRefusjonBeregningsgrunnlagAP from './types/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlagPanel';
 import messages from '../i18n/nb_NO.json';
 
@@ -17,11 +16,12 @@ const intl = createIntl(messages);
 type OwnProps = {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
 };
 
-type Aksjonspunkter = FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP;
+type Props = OwnProps & StandardFaktaPanelProps<FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP>
 
-const FordelBeregningsgrunnlagFaktaIndex:FunctionComponent<OwnProps & StandardFaktaPanelProps<Aksjonspunkter>> = ({
+const FordelBeregningsgrunnlagFaktaIndex:FunctionComponent<Props> = ({
   behandling,
   beregningsgrunnlag,
   alleKodeverk,
@@ -34,18 +34,18 @@ const FordelBeregningsgrunnlagFaktaIndex:FunctionComponent<OwnProps & StandardFa
   setFormData,
 }) => (
   <RawIntlProvider value={intl}>
-    <ReduxWrapper formName="FordelBeregningsgrunnlagFaktaIndex" formData={formData} setFormData={setFormData}>
-      <FordelBeregningsgrunnlagPanel
-        behandlingType={behandling.type}
-        alleKodeverk={alleKodeverk}
-        aksjonspunkter={aksjonspunkter}
-        submitCallback={submitCallback}
-        readOnly={readOnly}
-        beregningsgrunnlag={beregningsgrunnlag}
-        submittable={submittable}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
-    </ReduxWrapper>
+    <FordelBeregningsgrunnlagPanel
+      behandlingType={behandling.type}
+      alleKodeverk={alleKodeverk}
+      aksjonspunkter={aksjonspunkter}
+      submitCallback={submitCallback}
+      readOnly={readOnly}
+      beregningsgrunnlag={beregningsgrunnlag}
+      submittable={submittable}
+      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+      formData={formData}
+      setFormData={setFormData}
+    />
   </RawIntlProvider>
 );
 

@@ -37,8 +37,5 @@
   "BeregningInfoPanel.RefusjonBG.TidligereRefusjon": "<b>{ag}</b> krever refusjon fra og med {dato}. Det er tidligere innvilget et lavere refusjonsbeløp",
   "BeregningInfoPanel.RefusjonBG.RefusjonFra": "Refusjonsbeløpet skal gjelde fra og med",
   "BeregningInfoPanel.RefusjonBG.Aksjonspunkt": "Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.",
-  "BeregningInfoPanel.RefusjonBG.DelvisPrMnd": "Før denne datoen skal refusjonsbeløpet per måned være",
-
-  "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
-  "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
+  "BeregningInfoPanel.RefusjonBG.DelvisPrMnd": "Før denne datoen skal refusjonsbeløpet per måned være"
 }

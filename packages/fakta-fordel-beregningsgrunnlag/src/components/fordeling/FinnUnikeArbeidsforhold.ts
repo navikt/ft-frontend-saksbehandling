@@ -1,14 +1,12 @@
-import { createSelector } from 'reselect';
 import {
-  FordelBeregningsgrunnlagAndel,
-  FordelBeregningsgrunnlagPeriode,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
+  FordelBeregningsgrunnlagAndel,
+  FordelBeregningsgrunnlagPeriode,
   BeregningsgrunnlagArbeidsforhold,
 } from '@navikt/ft-types';
-
-import { BGFordelArbeidsforhold } from '../types/FordelingTsType';
+import { BGFordelArbeidsforhold } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const arbeidsforholdEksistererIListen = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold, arbeidsgiverList: BGFordelArbeidsforhold[]): boolean => {
   if (arbeidsforhold.arbeidsforholdId === null) {
@@ -58,17 +56,10 @@ const getUniqueListOfArbeidsforholdFromPerioder = (fordelPerioder: FordelBeregni
   finnAndelerFraBgperioder(bgPerioder),
 );
 
-type SelectorProps = {
-  beregningsgrunnlag: Beregningsgrunnlag;
-}
-
-const finnUnikeArbeidsforhold = createSelector(
-  [(props: SelectorProps) => props.beregningsgrunnlag],
-  (beregningsgrunnlag): BGFordelArbeidsforhold[] => {
-    const fordelBGPerioder = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
-    const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
-    return getUniqueListOfArbeidsforholdFromPerioder(fordelBGPerioder, bgPerioder);
-  },
-);
+const finnUnikeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag): BGFordelArbeidsforhold[] => {
+  const fordelBGPerioder = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
+  const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
+  return getUniqueListOfArbeidsforholdFromPerioder(fordelBGPerioder, bgPerioder);
+};
 
 export default finnUnikeArbeidsforhold;

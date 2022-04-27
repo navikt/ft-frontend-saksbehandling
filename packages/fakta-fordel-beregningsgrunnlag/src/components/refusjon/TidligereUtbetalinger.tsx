@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-
 import { Table } from '@navikt/ft-ui-komponenter';
 import { Beregningsgrunnlag, RefusjonTilVurderingAndel, ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
-import styles from './tidligereUtbetalinger.less';
 import TidligereUtbetalingRad from './TidligereUtbetalingRad';
 
+import styles from './tidligereUtbetalinger.less';
+
 type OwnProps = {
-    beregningsgrunnlag: Beregningsgrunnlag;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  beregningsgrunnlag: Beregningsgrunnlag;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
