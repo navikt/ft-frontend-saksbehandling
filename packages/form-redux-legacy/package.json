@@ -1,5 +1,6 @@
 {
   "name": "@navikt/ft-form-redux-legacy",
+  "description": "Overbygg over redux-form. Skal ikke brukes av nye komponenter!! Tilbyr form-komponenter som radioknapp og textarea",
   "version": "1.0.1",
   "license": "MIT",
   "main": "./dist/index.js",

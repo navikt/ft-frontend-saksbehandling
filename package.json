@@ -21,7 +21,7 @@
     "lerna-publish": "lerna publish",
     "storybook-all": "lerna run storybook --parallel -- --ci",
     "storybook": "cross-env start-storybook -p 7000",
-    "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook"
+    "deploy-storybook": "storybook-to-ghpages -o .storybook-static-build --packages packages"
   },
   "devDependencies": {
     "@babel/core": "7.17.9",

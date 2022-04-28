@@ -1,5 +1,6 @@
 {
   "name": "@navikt/ft-fakta-beregning",
+  "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
   "version": "1.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
