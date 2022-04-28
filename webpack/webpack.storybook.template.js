@@ -40,7 +40,7 @@ module.exports = (config, srcDir) => {
       failOnError: false,
       fix: true,
       overrideConfigFile: path.resolve(__dirname, '../eslint/eslintrc.dev.js'),
-      cache: true,
+      lintDirtyModulesOnly: true,
     }));
 
   return config;

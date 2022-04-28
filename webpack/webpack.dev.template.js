@@ -45,7 +45,7 @@ module.exports = (dirname) => ({
       failOnError: false,
       fix: true,
       overrideConfigFile: path.resolve(__dirname, '../eslint/eslintrc.dev.js'),
-      cache: true,
+      lintDirtyModulesOnly: true,
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './index.html'),
