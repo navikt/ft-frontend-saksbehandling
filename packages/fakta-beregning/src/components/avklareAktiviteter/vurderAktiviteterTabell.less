@@ -1,6 +1,19 @@
-.radioMiddle > div {
-  margin-top: -16px;
-  vertical-align: middle;
+.radios {
+  > fieldset > div {
+    margin-top: -16px;
+    vertical-align: middle;
+  }
+
+  :global {
+    .optionGridFlexRow {
+      justify-content: space-between;
+    }
+
+    .optionGridFlexColumn:last-of-type {
+      margin-right: -48px;
+      padding-left: 48px;
+    }
+  }
 }
 
 .navnKol {
