@@ -1,8 +1,6 @@
 import React, { ElementType, FunctionComponent } from 'react';
 import { range } from '@navikt/ft-utils';
-import {
-  EditedIcon, FlexContainer, FlexRow, FlexColumn,
-} from '@navikt/ft-ui-komponenter';
+import { EditedIcon, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 import styles from './optionGrid.less';
 
 export type Direction = 'horizontal' | 'vertical';
@@ -28,14 +26,13 @@ export const OptionGrid: FunctionComponent<OwnProps> = ({
     const numRows = rows || options.length;
     return (
       <FlexContainer>
-        <FlexColumn className={styles.fullBreddeIE}>
-          {range(numRows)
-            .map((rowIndex) => (
-              <FlexRow key={`row${rowIndex}`} spaceBetween={spaceBetween}>
-                {options.filter((_option, optionIndex) => optionIndex % numRows === rowIndex)}
-                {isEdited && <EditedIcon className="radioEdited" />}
-              </FlexRow>
-            ))}
+        <FlexColumn className={`${styles.fullBreddeIE} optionGridFlexColumn`}>
+          {range(numRows).map(rowIndex => (
+            <FlexRow key={`row${rowIndex}`} spaceBetween={spaceBetween}>
+              {options.filter((_option, optionIndex) => optionIndex % numRows === rowIndex)}
+              {isEdited && <EditedIcon className="radioEdited" />}
+            </FlexRow>
+          ))}
         </FlexColumn>
       </FlexContainer>
     );
@@ -43,13 +40,12 @@ export const OptionGrid: FunctionComponent<OwnProps> = ({
   const numColumns = columns || options.length;
   return (
     <FlexContainer>
-      <FlexRow spaceBetween={spaceBetween}>
-        {range(numColumns)
-          .map((columnIndex) => (
-            <FlexColumn key={`column${columnIndex}`}>
-              {options.filter((_option, optionIndex) => optionIndex % numColumns === columnIndex)}
-            </FlexColumn>
-          ))}
+      <FlexRow className="optionGridFlexRow" spaceBetween={spaceBetween}>
+        {range(numColumns).map(columnIndex => (
+          <FlexColumn className="optionGridFlexColumn" key={`column${columnIndex}`}>
+            {options.filter((_option, optionIndex) => optionIndex % numColumns === columnIndex)}
+          </FlexColumn>
+        ))}
         {isEdited && <EditedIcon className="radioEdited" />}
       </FlexRow>
     </FlexContainer>
