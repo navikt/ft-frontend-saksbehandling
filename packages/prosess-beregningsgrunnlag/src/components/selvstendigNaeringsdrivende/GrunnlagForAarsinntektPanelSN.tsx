@@ -6,7 +6,7 @@ import {
 import { Column, Row } from 'nav-frontend-grid';
 
 import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel, PgiVerdier } from '@navikt/ft-types';
 
@@ -80,7 +80,7 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer selvstendig næringsdrivende.
  */
 const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const snAndel = alleAndeler.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndel = alleAndeler.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (!snAndel) {
     return null;
   }

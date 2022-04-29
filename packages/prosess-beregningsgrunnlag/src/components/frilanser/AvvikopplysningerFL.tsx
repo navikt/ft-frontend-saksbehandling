@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Column } from 'nav-frontend-grid';
 
-import { sammenligningType } from '@navikt/ft-kodeverk';
+import { SammenligningType } from '@navikt/ft-kodeverk';
 import { FlexRow } from '@navikt/ft-ui-komponenter';
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 
@@ -36,13 +36,13 @@ const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({ relevanteStatuser, s
     );
   }
   const sammenligningsGrunnlagFL = sammenligningsgrunnlagPrStatus
-    ? sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === sammenligningType.FL
-      || status.sammenligningsgrunnlagType === sammenligningType.ATFLSN)
+    ? sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === SammenligningType.FL
+      || status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)
     : undefined;
   if (!sammenligningsGrunnlagFL) {
     return null;
   }
-  if (kombinasjonsstatusATFL && sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === sammenligningType.ATFLSN)) {
+  if (kombinasjonsstatusATFL && sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)) {
     return null;
   }
   const avvikFL = sammenligningsGrunnlagFL.avvikProsent !== undefined ? sammenligningsGrunnlagFL.avvikProsent : '';

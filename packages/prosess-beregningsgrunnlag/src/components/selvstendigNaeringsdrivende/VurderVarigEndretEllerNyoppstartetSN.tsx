@@ -15,13 +15,13 @@ import {
   removeSpacesFromNumber,
 } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
 import {
   InputField, RadioGroupField, RadioOption, TextAreaField, formHooks,
 } from '@navikt/ft-form-hooks';
-import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
@@ -159,7 +159,7 @@ VurderVarigEndretEllerNyoppstartetSN.defaultProps = {
 
 VurderVarigEndretEllerNyoppstartetSN.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[],
   gjeldendeAksjonspunkter: Aksjonspunkt[]): VurderOgFastsettValues => {
-  const snAndel = relevanteAndeler.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndel = relevanteAndeler.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   const varigEndretNaeringAP = gjeldendeAksjonspunkter
     .find((ap) => ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE);
   if (varigEndretNaeringAP) {

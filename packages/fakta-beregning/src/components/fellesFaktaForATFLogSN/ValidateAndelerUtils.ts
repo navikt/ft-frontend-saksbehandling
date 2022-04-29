@@ -1,5 +1,5 @@
 import { IntlShape } from 'react-intl';
-import { beregningsgrunnlagAndeltyper, aktivitetstatusTilAndeltypeMap } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndeltyper, aktivitetstatusTilAndeltypeMap } from '@navikt/ft-kodeverk';
 import { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue from '../../typer/FieldValues';
 
@@ -30,7 +30,7 @@ const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
         return { andelsinfo: matchendeAndelFraListe[0].andel, inntektskategori };
       }
     }
-    if (beregningsgrunnlagAndeltyper[andel]) {
+    if (BeregningsgrunnlagAndeltyper[andel]) {
       return { andelsinfo: andel, inntektskategori };
     }
     return { andelsinfo: andel, inntektskategori };

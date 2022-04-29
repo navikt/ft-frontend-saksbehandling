@@ -1,5 +1,5 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
-import ProsessBeregningsgrunnlagAksjonspunktCode from './ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../ProsessBeregningsgrunnlagAksjonspunktCode';
 
 export type DekningsgradResultatAp = {
   dekningsgrad: number,

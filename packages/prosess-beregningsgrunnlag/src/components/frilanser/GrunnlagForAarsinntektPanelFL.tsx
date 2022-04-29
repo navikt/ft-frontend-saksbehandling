@@ -4,7 +4,7 @@ import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { DateLabel, VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
@@ -22,7 +22,7 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer frilanser.
  */
 const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const relevanteAndeler = alleAndeler.filter((andel) => andel.aktivitetStatus === aktivitetStatus.FRILANSER);
+  const relevanteAndeler = alleAndeler.filter((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
   const beregnetAarsinntekt = relevanteAndeler[0].beregnetPrAar;
   const startDato = relevanteAndeler[0].arbeidsforhold.startdato;
   return (

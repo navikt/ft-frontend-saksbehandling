@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertittel } from 'nav-frontend-typografi';
 
-import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AvsnittSkiller, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   Aksjonspunkt,
@@ -18,8 +18,8 @@ import {
   YtelseGrunnlag,
 } from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
-import BeregningsgrunnlagResultatAP from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import BeregningsgrunnlagResultatAP from '../../types/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
 import AvviksopplysningerPanel from '../fellesPaneler/AvvikopplysningerPanel';
@@ -57,7 +57,7 @@ const {
 // ------------------------------------------------------------------------------------------ //
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning): boolean => (faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
-  ? faktaOmBeregning.faktaOmBeregningTilfeller.some((tilfelle) => tilfelle === faktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+  ? faktaOmBeregning.faktaOmBeregningTilfeller.some((tilfelle) => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
   : false);
 
 const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag): boolean => !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
@@ -69,9 +69,9 @@ export const buildInitialValues = (beregningsgrunnlag: BeregningsgrunnlagProp,
   }
   const allePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   const alleAndelerIForstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel;
-  const arbeidstakerAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER);
-  const frilanserAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === aktivitetStatus.FRILANSER);
-  const selvstendigNaeringAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const arbeidstakerAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
+  const frilanserAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
+  const selvstendigNaeringAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   return {
     ...Beregningsgrunnlag.buildInitialValues(gjeldendeAksjonspunkter),
     ...AksjonspunktBehandlerTidsbegrenset.buildInitialValues(allePerioder),

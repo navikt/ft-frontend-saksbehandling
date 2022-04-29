@@ -9,8 +9,8 @@ import {
   AlleKodeverk,
   Aksjonspunkt,
 } from '@navikt/ft-types';
-import { FastsettAvvikATFLResultatAP, FastsettAvvikATFLTidsbegrensetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import { FastsettAvvikATFLResultatAP, FastsettAvvikATFLTidsbegrensetResultatAP } from '../../types/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import YtelserFraInfotrygd from '../tilstotendeYtelser/YtelserFraInfotrygd';
 import GrunnlagForAarsinntektPanelSN from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';

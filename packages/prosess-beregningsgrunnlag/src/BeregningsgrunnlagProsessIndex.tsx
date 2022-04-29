@@ -4,7 +4,7 @@ import { RawIntlProvider } from 'react-intl';
 import { createIntl } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
 
-import BeregningsgrunnlagResultatAP from './types/interface/BeregningsgrunnlagAP';
+import BeregningsgrunnlagResultatAP from './types/BeregningsgrunnlagAP';
 import BeregningFP from './components/BeregningFP';
 import messages from '../i18n/nb_NO.json';
 

@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { NyIArbeidslivetruttoNæringResultatAP, VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import { NyIArbeidslivetruttoNæringResultatAP, VurderVarigEndretNyoppstartetResultatAP } from '../../types/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import FastsettSNNyIArbeid from './FastsettSNNyIArbeid';
 import VurderVarigEndretEllerNyoppstartetSN from './VurderVarigEndretEllerNyoppstartetSN';

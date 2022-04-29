@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { aktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
+import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
 

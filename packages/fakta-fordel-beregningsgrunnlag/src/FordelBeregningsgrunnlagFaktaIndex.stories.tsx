@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import {
-  inntektskategorier, periodeAarsak,
+  Inntektskategorier, PeriodeAarsak,
 } from '@navikt/ft-kodeverk';
 import {
   Behandling, Beregningsgrunnlag, FaktaOmFordeling, ArbeidsforholdTilFordeling, BeregningsgrunnlagPeriodeProp, BeregningsgrunnlagAndel,
@@ -158,15 +158,15 @@ const agOpplysninger = {
 const mapIKKode = (bgStatus: string): string => {
   switch (bgStatus) {
     case 'AT':
-      return inntektskategorier.ARBEIDSTAKER;
+      return Inntektskategorier.ARBEIDSTAKER;
     case 'AAP':
-      return inntektskategorier.ARBEIDSAVKLARINGSPENGER;
+      return Inntektskategorier.ARBEIDSAVKLARINGSPENGER;
     case 'FL':
-      return inntektskategorier.FRILANSER;
+      return Inntektskategorier.FRILANSER;
     case 'SN':
-      return inntektskategorier.SELVSTENDIG_NÆRINGSDRIVENDE;
+      return Inntektskategorier.SELVSTENDIG_NÆRINGSDRIVENDE;
     default:
-      return inntektskategorier.UDEFINERT;
+      return Inntektskategorier.UDEFINERT;
   }
 };
 
@@ -257,7 +257,7 @@ export const aapOgRefusjon = () => {
   const atAndel = lagBGAndel(1, 'AT', 300000);
   atAndel.arbeidsforhold = arbeidsforhold;
   const aapAndel = lagBGAndel(2, 'AAP', 100000);
-  const andreBGPperiode = lagBGPeriode([aapAndel, atAndel], [periodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27');
+  const andreBGPperiode = lagBGPeriode([aapAndel, atAndel], [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27');
   const bg = lagBG([førsteBGPeriode, andreBGPperiode], faktaOmFordeling);
   return (
     <FordelBeregningsgrunnlagFaktaIndex
@@ -292,7 +292,7 @@ export const kanEndreRefusjonskrav = () => {
   const atAndel = lagBGAndel(1, 'AT', 300000);
   atAndel.arbeidsforhold = arbeidsforhold;
   const aapAndel = lagBGAndel(2, 'AAP', 100000);
-  const andreBGPperiode = lagBGPeriode([aapAndel, atAndel], [periodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27');
+  const andreBGPperiode = lagBGPeriode([aapAndel, atAndel], [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27');
   const bg = lagBG([førsteBGPeriode, andreBGPperiode], faktaOmFordeling);
   return (
     <FordelBeregningsgrunnlagFaktaIndex
@@ -331,7 +331,7 @@ export const skalSlåSammenNaturalytelseperioder = () => {
   const andrePeriode = lagFordelPeriode([andreFordelAndel], false, false, '2019-11-27', '2019-12-05');
   const andreBGAndel = lagBGAndel(1, 'AT', 100000);
   andreBGAndel.arbeidsforhold = arbeidsforholdEn;
-  const andreBGPperiode = lagBGPeriode([andreBGAndel], [periodeAarsak.NATURALYTELSE_BORTFALT], '2019-11-27', '2019-12-05');
+  const andreBGPperiode = lagBGPeriode([andreBGAndel], [PeriodeAarsak.NATURALYTELSE_BORTFALT], '2019-11-27', '2019-12-05');
 
   // Tredje periode
   const tredjeAndeler = [lagFordelingsandel(1, 'AT', 0, 0), lagFordelingsandel(2, 'AT', 300000, 0)];
@@ -342,7 +342,7 @@ export const skalSlåSammenNaturalytelseperioder = () => {
   atAndel.arbeidsforhold = arbeidsforholdEn;
   const atAndelTo = lagBGAndel(2, 'AT', 300000);
   atAndelTo.arbeidsforhold = arbeidsforholdTo;
-  const tredjeBGPeriode = lagBGPeriode([atAndel, atAndelTo], [periodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-12-06');
+  const tredjeBGPeriode = lagBGPeriode([atAndel, atAndelTo], [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-12-06');
 
   const arbfor = lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-12-06');
   const faktaOmFordeling = lagFaktaOmFordeling([arbfor], [førstePeriode, andrePeriode, tredjePeriode]);

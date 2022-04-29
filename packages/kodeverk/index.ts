@@ -1,12 +1,12 @@
-export { default as tilbakekrevingKodeverkTyper } from './src/tilbakekrevingKodeverkType';
+export { default as TilbakekrevingKodeverkType } from './src/tilbakekrevingKodeverkType';
 export { default as OpplysningAdresseType } from './src/opplysningAdresseType';
-export { default as vilkarType } from './src/vilkarType';
+export { default as VilkarType } from './src/vilkarType';
 export { default as KodeverkType } from './src/kodeverkType';
-export { default as landkoder } from './src/landkode';
-export { default as avslagsarsakCodes } from './src/avslagsarsakCode';
-export { default as arbeidType } from './src/arbeidType';
+export { default as Landkoder } from './src/landkode';
+export { default as AvslagsarsakCodes } from './src/avslagsarsakCode';
+export { default as ArbeidType } from './src/arbeidType';
 export {
-  default as aktivitetStatus,
+  default as AktivitetStatus,
   aktivitetstatusTilAndeltypeMap,
   isStatusArbeidstakerOrKombinasjon,
   isStatusDagpengerOrAAP,
@@ -16,16 +16,20 @@ export {
   isStatusSNOrKombinasjon,
   isStatusTilstotendeYtelse,
 } from './src/aktivitetStatus';
-export { default as opptjeningAktivitetType } from './src/opptjeningAktivitetType';
-export { default as aksjonspunktStatus, isAksjonspunktOpen } from './src/aksjonspunktStatus';
-export { default as faktaOmBeregningTilfelle } from './src/faktaOmBeregningTilfelle';
-export { default as behandlingType } from './src/behandlingType';
-export { default as inntektAktivitetType } from './src/inntektAktivitetType';
-export { default as beregningsgrunnlagAndeltyper } from './src/beregningsgrunnlagAndelType';
-export { default as vilkarUtfallType } from './src/vilkarUtfallType';
-export { default as periodeAarsak } from './src/periodeAarsak';
-export { default as dekningsgrad } from './src/dekningsgrad';
-export { default as fagsakYtelseType } from './src/fagsakYtelseType';
-export { default as sammenligningType } from './src/sammenligningType';
-export { default as organisasjonstype } from './src/organisasjonstype';
-export { default as inntektskategorier, isSelvstendigNæringsdrivende } from './src/inntektskategori';
+export { default as OpptjeningAktivitetType } from './src/opptjeningAktivitetType';
+export { default as AksjonspunktStatus, isAksjonspunktOpen } from './src/aksjonspunktStatus';
+export { default as FaktaOmBeregningTilfelle } from './src/faktaOmBeregningTilfelle';
+export { default as BehandlingType } from './src/behandlingType';
+export { default as InntektAktivitetType } from './src/inntektAktivitetType';
+export { default as BeregningsgrunnlagAndeltyper } from './src/beregningsgrunnlagAndelType';
+export { default as VilkarUtfallType } from './src/vilkarUtfallType';
+export { default as PeriodeAarsak } from './src/periodeAarsak';
+export { default as Dekningsgrad } from './src/dekningsgrad';
+export { default as FagsakYtelseType } from './src/fagsakYtelseType';
+export { default as SammenligningType } from './src/sammenligningType';
+export { default as Organisasjonstype } from './src/organisasjonstype';
+export { default as BehandlingArsakType } from './src/behandlingArsakType';
+export { default as KonsekvensForYtelsen } from './src/konsekvensForYtelsen';
+export { default as BehandlingResultatType } from './src/behandlingResultatType';
+export { default as TilbakekrevingVidereBehandling } from './src/tilbakekrevingVidereBehandling';
+export { default as Inntektskategorier, isSelvstendigNæringsdrivende } from './src/inntektskategori';

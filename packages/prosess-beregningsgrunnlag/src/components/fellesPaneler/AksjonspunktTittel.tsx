@@ -8,8 +8,8 @@ import {
   SammenligningsgrunlagProp,
   Aksjonspunkt,
 } from '@navikt/ft-types';
-import { aktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../ProsessBeregningsgrunnlagAksjonspunktCode';
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -50,7 +50,7 @@ const findAksjonspunktHelpTekst = (gjeldendeAksjonspunkt: Aksjonspunkt, erVarigE
 const lagAksjonspunktHelpText = (åpneAksjonspunkter: Aksjonspunkt[],
   avvikProsent: number,
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): ReactElement => {
-  const snAndel = alleAndelerIForstePeriode.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndel = alleAndelerIForstePeriode.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   const erVarigEndring = !!(snAndel?.næringer?.some((naring) => naring.erVarigEndret === true));
   return (
     <div>

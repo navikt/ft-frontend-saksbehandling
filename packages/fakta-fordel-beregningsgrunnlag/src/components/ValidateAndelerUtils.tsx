@@ -1,7 +1,7 @@
 import { IntlShape } from 'react-intl';
 
 import {
-  beregningsgrunnlagAndeltyper, aktivitetStatus as AktivitetStatus, aktivitetstatusTilAndeltypeMap, KodeverkType,
+  BeregningsgrunnlagAndeltyper, AktivitetStatus, aktivitetstatusTilAndeltypeMap, KodeverkType,
 } from '@navikt/ft-kodeverk';
 import {
   dateIsAfter, formatCurrencyNoKr, removeSpacesFromNumber, required,
@@ -61,7 +61,7 @@ const mapAndelToSortedObject = (value: FordelBeregningsgrunnlagAndelValues, ande
         return { andelsinfo: matchendeAndelFraListe[0].andel + arbeidsforholdId, inntektskategori };
       }
     }
-    if (beregningsgrunnlagAndeltyper[andel]) {
+    if (BeregningsgrunnlagAndeltyper[andel]) {
       return { andelsinfo: andel, inntektskategori };
     }
     return { andelsinfo: andel + arbeidsforholdId, inntektskategori };

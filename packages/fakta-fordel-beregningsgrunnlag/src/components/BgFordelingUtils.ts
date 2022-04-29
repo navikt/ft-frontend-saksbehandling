@@ -1,4 +1,4 @@
-import { inntektskategorier, aktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { Inntektskategorier, AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -29,23 +29,23 @@ export const settAndelIArbeid = (andelerIArbeid: number[]): string => {
 };
 
 const finnnInntektskategorikode = (andel: FordelBeregningsgrunnlagAndel): string => (andel.inntektskategori
-&& andel.inntektskategori !== inntektskategorier.UDEFINERT ? andel.inntektskategori : '');
+&& andel.inntektskategori !== Inntektskategorier.UDEFINERT ? andel.inntektskategori : '');
 
 const createAndelnavn = (andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): string => {
-  if (!andel.aktivitetStatus || andel.aktivitetStatus === aktivitetStatus.UDEFINERT) {
+  if (!andel.aktivitetStatus || andel.aktivitetStatus === AktivitetStatus.UDEFINERT) {
     return '';
   }
-  if (andel.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold) {
+  if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold) {
     const agOpplysninger = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
     if (!agOpplysninger) {
       return andel.arbeidsforhold.arbeidsforholdType ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE) : '';
     }
     return createVisningsnavnForAktivitetFordeling(agOpplysninger, andel.arbeidsforhold.eksternArbeidsforholdId);
   }
-  if (harKunYtelse && andel.aktivitetStatus === aktivitetStatus.BRUKERS_ANDEL) {
+  if (harKunYtelse && andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL) {
     return 'Ytelse';
   }
   return getKodeverknavn(andel.aktivitetStatus, KodeverkType.AKTIVITET_STATUS);
@@ -84,7 +84,7 @@ export const setGenerellAndelsinfo = (andel: FordelBeregningsgrunnlagAndel,
   kilde: andel.kilde == null ? null : andel.kilde,
   lagtTilAvSaksbehandler: andel.lagtTilAvSaksbehandler === true,
   inntektskategori: finnnInntektskategorikode(andel),
-  forrigeInntektskategori: !andel.inntektskategori || andel.inntektskategori === inntektskategorier.UDEFINERT ? null : andel.inntektskategori,
+  forrigeInntektskategori: !andel.inntektskategori || andel.inntektskategori === Inntektskategorier.UDEFINERT ? null : andel.inntektskategori,
 });
 
 export const mapToBelop = (andel: FordelBeregningsgrunnlagAndelValues): number => {

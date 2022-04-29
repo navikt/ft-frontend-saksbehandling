@@ -7,7 +7,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import {
   FormattedMessage, IntlShape, useIntl,
 } from 'react-intl';
-import { vilkarUtfallType } from '@navikt/ft-kodeverk';
+import { VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 import { Vilkar } from '@navikt/ft-types';
 
@@ -192,8 +192,8 @@ const createPeriodeResultat = (vilkaarBG: Vilkar,
   grunnbeløp: number,
   periodeIndex: number): ReactElement => {
   const key = lagKeyForPeriode(periodeData.headers[0]);
-  const ikkeOppfylt = !!(vilkaarBG && vilkaarBG.vilkarStatus === vilkarUtfallType.IKKE_OPPFYLT);
-  const ikkeVurdert = !!(vilkaarBG && vilkaarBG.vilkarStatus === vilkarUtfallType.IKKE_VURDERT);
+  const ikkeOppfylt = !!(vilkaarBG && vilkaarBG.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT);
+  const ikkeVurdert = !!(vilkaarBG && vilkaarBG.vilkarStatus === VilkarUtfallType.IKKE_VURDERT);
   const halvG = Math.round(grunnbeløp / 2);
   return (
     <React.Fragment key={`Wr${key}`}>

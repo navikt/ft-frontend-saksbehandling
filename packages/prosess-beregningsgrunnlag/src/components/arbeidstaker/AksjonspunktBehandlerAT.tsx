@@ -6,7 +6,7 @@ import { InputField } from '@navikt/ft-form-hooks';
 import {
   getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber, required,
 } from '@navikt/ft-utils';
-import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 
 import {
   AlleKodeverk,
@@ -14,7 +14,7 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
 } from '@navikt/ft-types';
-import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
+import { ArbeidsinntektResultat } from '../../types/BeregningsgrunnlagAP';
 
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
@@ -37,7 +37,7 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
     return [];
   }
   return andeler
-    .filter((andel) => andel.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER)
+    .filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
     .filter((andel) => andel.skalFastsetteGrunnlag === true)
     .filter((andel) => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };

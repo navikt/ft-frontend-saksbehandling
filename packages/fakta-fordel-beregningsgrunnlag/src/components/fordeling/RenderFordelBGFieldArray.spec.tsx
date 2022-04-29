@@ -8,7 +8,7 @@ import {
 import { SelectField } from '@navikt/ft-form-redux-legacy';
 import { TableRow } from '@navikt/ft-ui-komponenter';
 import { AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
-import { beregningsgrunnlagAndeltyper } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndeltyper } from '@navikt/ft-kodeverk';
 
 import { skalIkkjeVereHoegereEnnRefusjonFraInntektsmelding } from '../ValidateAndelerUtils';
 import { lagBelopKolonne, RenderFordelBGFieldArrayImpl } from './RenderFordelBGFieldArray';
@@ -97,7 +97,7 @@ describe('<RenderFordelBGFieldArray>', () => {
     expect(selectValuesArbeidsforhold).toHaveLength(2);
     expect(selectValuesArbeidsforhold[0].props.value).toBe(arbeidstakerAndelsnr.toString());
     expect(selectValuesArbeidsforhold[0].props.children).toBe(forventetArbeidstakerString);
-    expect(selectValuesArbeidsforhold[1].props.value).toBe(beregningsgrunnlagAndeltyper.BRUKERS_ANDEL);
+    expect(selectValuesArbeidsforhold[1].props.value).toBe(BeregningsgrunnlagAndeltyper.BRUKERS_ANDEL);
   });
 
   it('skal ikkje selectvalues med Ytelse når ikkje kun ytelse', () => {

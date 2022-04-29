@@ -39,6 +39,7 @@ export type {
   FaktaOmFordeling,
 } from './src/beregningsgrunnlagFordelingTsType';
 export type { default as KodeverkMedNavn } from './src/kodeverkMedNavnTsType';
+export type { default as AlleKodeverkTilbakekreving } from './src/kodeverkAlleTilbakekrevingTsType';
 export type { default as AlleKodeverk } from './src/kodeverkAlleTsType';
 export type { FamilieHendelse, FamilieHendelseSamling, AvklartBarn } from './src/familieHendelseTsType';
 export type { default as Fagsak } from './src/fagsakTsType';
@@ -48,4 +49,6 @@ export type { default as StandardProsessPanelProps } from './src/standardProsess
 export type { default as AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
 export type { default as Vilkar } from './src/vilkarTsType';
 export type { default as Behandling } from './src/behandlingTsType';
+export type { default as FeilutbetalingFakta } from './src/feilutbetalingFaktaTsType';
+export type { default as FeilutbetalingAarsak } from './src/feilutbetalingAarsakTsType';
 export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/besteberegningTsTypes';

@@ -1,5 +1,5 @@
 import {
-  KodeverkType, avslagsarsakCodes, arbeidType, vilkarType,
+  KodeverkType, AvslagsarsakCodes, ArbeidType, VilkarType,
 } from '@navikt/ft-kodeverk';
 import { AlleKodeverk } from '@navikt/ft-types';
 
@@ -9,14 +9,14 @@ describe('<kodeverkUtils>', () => {
   it('skal finne navn til gitt kodeverk-kode', () => {
     const alleKodeverk = {
       [KodeverkType.ARBEID_TYPE]: [{
-        kode: arbeidType.LONN_UNDER_UTDANNING,
+        kode: ArbeidType.LONN_UNDER_UTDANNING,
         kodeverk: 'ARBEID_TYPE',
         navn: 'Lønn under utdanning',
       }],
     } as AlleKodeverk;
 
     const kodeverkType = KodeverkType.ARBEID_TYPE;
-    const kode = arbeidType.LONN_UNDER_UTDANNING;
+    const kode = ArbeidType.LONN_UNDER_UTDANNING;
 
     const navn = getKodeverknavnFraKode(alleKodeverk, kodeverkType, kode);
 
@@ -26,13 +26,13 @@ describe('<kodeverkUtils>', () => {
   it('skal finne navn til gitt kodeverk-objekt', () => {
     const alleKodeverk = {
       [KodeverkType.ARBEID_TYPE]: [{
-        kode: arbeidType.LONN_UNDER_UTDANNING,
+        kode: ArbeidType.LONN_UNDER_UTDANNING,
         kodeverk: 'ARBEID_TYPE',
         navn: 'Lønn under utdanning',
       }],
     } as AlleKodeverk;
 
-    const navn = getKodeverknavnFn(alleKodeverk)(arbeidType.LONN_UNDER_UTDANNING, KodeverkType.ARBEID_TYPE);
+    const navn = getKodeverknavnFn(alleKodeverk)(ArbeidType.LONN_UNDER_UTDANNING, KodeverkType.ARBEID_TYPE);
 
     expect(navn).toBe('Lønn under utdanning');
   });
@@ -40,12 +40,12 @@ describe('<kodeverkUtils>', () => {
   it('skal finne navn til gitt kodeverk-objekt når en har underkategori i kodeverk-json', () => {
     const alleKodeverk = {
       [KodeverkType.AVSLAGSARSAK]: {
-        [vilkarType.FODSELSVILKARET_MOR]: [{
-          kode: avslagsarsakCodes.INGEN_BEREGNINGSREGLER,
+        [VilkarType.FODSELSVILKARET_MOR]: [{
+          kode: AvslagsarsakCodes.INGEN_BEREGNINGSREGLER,
           kodeverk: 'AVSLAGSARSAK',
           navn: 'Ingen beregningsregler',
         }],
-        [vilkarType.MEDLEMSKAPSVILKÅRET_LØPENDE]: [{
+        [VilkarType.MEDLEMSKAPSVILKÅRET_LØPENDE]: [{
           kode: 'test 2',
           kodeverk: 'AVSLAGSARSAK',
           navn: 'test 2',

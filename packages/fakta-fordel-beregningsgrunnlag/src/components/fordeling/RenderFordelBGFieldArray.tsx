@@ -8,7 +8,7 @@ import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
 import {
-  aktivitetStatus, behandlingType as bt, beregningsgrunnlagAndeltyper, KodeverkType, inntektskategorier, isSelvstendigNæringsdrivende,
+  AktivitetStatus, BehandlingType as bt, BeregningsgrunnlagAndeltyper, KodeverkType, Inntektskategorier, isSelvstendigNæringsdrivende,
 } from '@navikt/ft-kodeverk';
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, getKodeverknavnFn,
@@ -81,7 +81,7 @@ const arbeidsgiverSelectValuesForKunYtelse = (arbeidsforholdList: BGFordelArbeid
       </option>
     ));
   nedtrekksvalgListe.push(
-    <option value={beregningsgrunnlagAndeltyper.BRUKERS_ANDEL} key={beregningsgrunnlagAndeltyper.BRUKERS_ANDEL}>
+    <option value={BeregningsgrunnlagAndeltyper.BRUKERS_ANDEL} key={BeregningsgrunnlagAndeltyper.BRUKERS_ANDEL}>
       {intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Ytelse' })}
     </option>,
   );
@@ -133,7 +133,7 @@ const summerBeregningsgrunnlagPrAar = (fields: FieldArrayFieldsProps<FordelBereg
 };
 
 const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues): boolean => (isSelvstendigNæringsdrivende(fieldVal.inntektskategori)
-  || inntektskategorier.FRILANSER === fieldVal.inntektskategori);
+  || Inntektskategorier.FRILANSER === fieldVal.inntektskategori);
 
 // @ts-ignore Sender inn FieldArrayMetaProps.error, som har en any shape, så slipper ikke unna any her
 const renderMessage = (intl: IntlShape, error: any): string => (error[0] && error[0].id ? intl.formatMessage(...error) : error);
@@ -538,7 +538,7 @@ const mapStateToPropsFactory = (initialState: any, initialOwnProps: OwnProps) =>
     getKodeverknavn,
     arbeidsforholdList: finnUnikeArbeidsforhold(ownProps),
     harKunYtelse: initialOwnProps.beregningsgrunnlag.aktivitetStatus
-      .some((status) => status === aktivitetStatus.KUN_YTELSE),
+      .some((status) => status === AktivitetStatus.KUN_YTELSE),
   });
 };
 

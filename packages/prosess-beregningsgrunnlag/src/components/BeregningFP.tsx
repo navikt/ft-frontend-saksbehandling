@@ -5,8 +5,8 @@ import { Undertittel } from 'nav-frontend-typografi';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  vilkarType,
-  aktivitetStatus,
+  VilkarType,
+  AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
   isStatusDagpengerOrAAP,
   isStatusFrilanserOrKombinasjon,
@@ -18,8 +18,8 @@ import {
 import {
   Vilkar, Beregningsgrunnlag, AlleKodeverk, ArbeidsgiverOpplysningerPerId, Aksjonspunkt,
 } from '@navikt/ft-types';
-import BeregningsgrunnlagResultatAP from '../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import BeregningsgrunnlagResultatAP from '../types/BeregningsgrunnlagAP';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
 import BeregningForm from './beregningForm/BeregningForm';
@@ -64,15 +64,15 @@ const getRelevanteStatuser = (bg: Beregningsgrunnlag): RelevanteStatuserProp => 
   isSelvstendigNaeringsdrivende: bg.aktivitetStatus.some((kode) => isStatusSNOrKombinasjon(kode)),
   harAndreTilstotendeYtelser: bg.aktivitetStatus.some((kode) => isStatusTilstotendeYtelse(kode)),
   harDagpengerEllerAAP: bg.aktivitetStatus.some((kode) => isStatusDagpengerOrAAP(kode)),
-  isAAP: bg.aktivitetStatus.some((kode) => kode === aktivitetStatus.ARBEIDSAVKLARINGSPENGER),
-  isDagpenger: bg.aktivitetStatus.some((kode) => kode === aktivitetStatus.DAGPENGER),
+  isAAP: bg.aktivitetStatus.some((kode) => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
+  isDagpenger: bg.aktivitetStatus.some((kode) => kode === AktivitetStatus.DAGPENGER),
   skalViseBeregningsgrunnlag: bg.aktivitetStatus && bg.aktivitetStatus.length > 0,
   isKombinasjonsstatus: bg.aktivitetStatus.some((kode) => isStatusKombinasjon(kode)) || bg.aktivitetStatus.length > 1,
   isMilitaer: bg.aktivitetStatus.some((kode) => isStatusMilitaer(kode)),
 }) : null);
 
 const getBGVilkar = (vilkar: Vilkar[]): Vilkar => (vilkar
-  ? vilkar.find((v) => v.vilkarType && v.vilkarType === vilkarType.BEREGNINGSGRUNNLAGVILKARET)
+  ? vilkar.find((v) => v.vilkarType && v.vilkarType === VilkarType.BEREGNINGSGRUNNLAGVILKARET)
   : undefined);
 
 const getAksjonspunktForGraderingPaaAndelUtenBG = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => (aksjonspunkter
