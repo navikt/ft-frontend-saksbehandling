@@ -3,13 +3,11 @@ import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 
 import {
-  mapToBelop,
   setArbeidsforholdInitialValues,
   setGenerellAndelsinfo,
   settAndelIArbeid,
   settFastsattBelop,
 } from './BgFordelingUtils';
-import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
