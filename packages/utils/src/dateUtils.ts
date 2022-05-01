@@ -184,3 +184,24 @@ export const getRangeOfMonths = (fom: string, tom: string): { month: string, yea
 
   return range;
 };
+
+export const initializeDate = (dateString: string) => {
+  const supportedFormats = ['YYYY-MM-DD', 'DD.MM.YYYY'];
+  return dayjs(dateString, supportedFormats).utc(true).startOf('day');
+};
+
+export const prettifyDateString = (dateString: string) => {
+  const prettyDateFormat = 'DD.MM.YYYY';
+
+  const dateObject = initializeDate(dateString);
+  return dateObject.format(prettyDateFormat);
+};
+
+export function isSameOrBefore(date: string | Dayjs | Date, otherDate: string | Dayjs | Date) {
+  const dateFormats = ['YYYY-MM-DD', 'DD.MM.YYYY'];
+  const dateInQuestion = dayjs(date, dateFormats).utc(true);
+  const formattedOtherDate = dayjs(otherDate, dateFormats).utc(true);
+  return dateInQuestion.isBefore(formattedOtherDate) || dateInQuestion.isSame(formattedOtherDate);
+}
+
+export const isValidDate = (date: any) => !Number.isNaN(new Date(date) as any);
