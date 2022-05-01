@@ -6,8 +6,8 @@ import {
 } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import FordelBeregningsgrunnlagAP from './types/FordelBeregningsgrunnlagAP';
-import VurderRefusjonBeregningsgrunnlagAP from './types/VurderRefusjonBeregningsgrunnlagAP';
+import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
+import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlagPanel';
 import messages from '../i18n/nb_NO.json';
 

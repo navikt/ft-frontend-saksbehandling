@@ -26,8 +26,8 @@ import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaI
 import { beregningsgrunnlag as bgArbeidOgGradertNæring, aksjonspunkt as apArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
 import { beregningsgrunnlag as bgMedNaturalytelse, aksjonspunkt as apMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import { FaktaFordelBeregningAksjonspunktCode } from '..';
-import VurderRefusjonBeregningsgrunnlagAP from './types/VurderRefusjonBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagAP from './types/FordelBeregningsgrunnlagAP';
+import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 
 const agOpplysninger = {
   874652202: {

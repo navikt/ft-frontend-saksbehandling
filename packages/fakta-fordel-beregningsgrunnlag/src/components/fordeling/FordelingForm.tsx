@@ -8,11 +8,11 @@ import {
   ArbeidsgiverOpplysningerPerId, AlleKodeverk, Beregningsgrunnlag, Aksjonspunkt,
 } from '@navikt/ft-types';
 
-import FordelBeregningsgrunnlagAP from '../../types/FordelBeregningsgrunnlagAP';
+import FordelBeregningsgrunnlagAP from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelingHelpText from './FordelingHelpText';
 import FastsettFordeltBeregningsgrunnlag from './FastsettFordeltBeregningsgrunnlag';
 import { FordelBeregningsgrunnlagMedAksjonspunktValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../../FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import FaktaSubmitButton from '../felles/FaktaSubmitButton';
 

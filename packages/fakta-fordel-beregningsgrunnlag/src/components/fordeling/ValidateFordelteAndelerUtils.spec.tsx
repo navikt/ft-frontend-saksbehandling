@@ -95,7 +95,7 @@ describe('<ValidateAndelerUtils>', () => {
     },
     ];
 
-    const getValues = jest.fn(() => 'ARBEIDSTAKER');
+    const getValues = jest.fn(() => 'ARBEIDSTAKER') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
@@ -124,7 +124,7 @@ describe('<ValidateAndelerUtils>', () => {
     },
     ];
 
-    const getValues = jest.fn((): string => 'DAGPENGER');
+    const getValues = jest.fn((): string => 'DAGPENGER') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
     expect(ulikeAndelerError()).toBe(null);
@@ -159,7 +159,7 @@ describe('<ValidateAndelerUtils>', () => {
     },
     ];
 
-    const getValues = jest.fn((): string => 'FRILANS');
+    const getValues = jest.fn((): string => 'FRILANS') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
@@ -219,7 +219,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
@@ -253,7 +253,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler, fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
     expect(ulikeAndelerError()).toBe(null);
@@ -287,7 +287,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler, fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
     expect(ulikeAndelerError()).toBe(refusjonHøyereEnnKravFeilmelding);
@@ -342,7 +342,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler, 500000, intlMock);
     expect(validateFastsattBeløp()).toBe(null);
@@ -380,7 +380,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler, 500000, intlMock);
     expect(validateFastsattBeløp()).toBe('Summen må være lik 500 000');
@@ -420,7 +420,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler, '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(null);
@@ -460,7 +460,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler, '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(gradertAndelMåVæreFordeltMerEnn0Feilmelding);
@@ -500,7 +500,7 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler, '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(null);
@@ -540,9 +540,10 @@ describe('<ValidateAndelerUtils>', () => {
         default:
           return null;
       }
-    });
+    }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler, '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues,
+      fieldname, andeler, '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(null);
   });
 });

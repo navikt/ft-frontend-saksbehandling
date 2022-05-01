@@ -9,10 +9,10 @@ import {
 } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
-import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/FordelBeregningsgrunnlagAP';
+import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 
-import FordelBeregningsgrunnlagMedAksjonspunktValues, { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] => {
   if (beregningsgrunnlag && beregningsgrunnlag.faktaOmFordeling
@@ -36,7 +36,7 @@ interface StaticFunctions {
                        bg: Beregningsgrunnlag,
                        getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
                        arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => FordelBeregningsgrunnlagValues;
-  transformValues: (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+  transformValues: (values: FordelBeregningsgrunnlagValues,
                     fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
                     bgPerioder: BeregningsgrunnlagPeriodeProp[]) => FordelBeregningsgrunnlagPerioderTransformedValues;
 }
@@ -71,7 +71,7 @@ FastsettFordeltBeregningsgrunnlag.buildInitialValues = (fordelBGPerioder: Fordel
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): FordelBeregningsgrunnlagValues => (FordelBeregningsgrunnlagForm
   .buildInitialValues(fordelBGPerioder, bg, getKodeverknavn, arbeidsgiverOpplysningerPerId));
 
-FastsettFordeltBeregningsgrunnlag.transformValues = (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+FastsettFordeltBeregningsgrunnlag.transformValues = (values: FordelBeregningsgrunnlagValues,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPerioderTransformedValues => FordelBeregningsgrunnlagForm.transformValues(values,
   fordelBGPerioder, bgPerioder);

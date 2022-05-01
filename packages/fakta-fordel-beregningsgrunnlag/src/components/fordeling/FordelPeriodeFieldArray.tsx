@@ -23,18 +23,17 @@ import {
   isSelvstendigNæringsdrivende,
 } from '@navikt/ft-kodeverk';
 import {
-  InputField, SelectField, SkjemaGruppeMedFeilviser,
+  InputField, SelectField, SkjemaGruppeMedFeilviser, formHooks,
 } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn, AlleKodeverk,
 } from '@navikt/ft-types';
-import { useFieldArray, useFormContext } from 'react-hook-form';
 import {
   validateSumFastsattBelop, validateTotalRefusjonPrArbeidsforhold, validateUlikeAndeler,
   validateSumRefusjon, validateSumFastsattForUgraderteAktiviteter, validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
-import { BGFordelArbeidsforhold, FordelBeregningsgrunnlagAndelValues, PeriodeTsType } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { BGFordelArbeidsforhold, FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
 import addCircleIcon from '../../images/add-circle.svg';
 
@@ -402,24 +401,13 @@ type OwnProps = {
     periodeFom: string;
 };
 
-interface StaticFunctions {
-  validate: (intl: IntlShape,
-             values: FordelBeregningsgrunnlagAndelValues[],
-             sumIPeriode: number,
-             getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-             grunnbeløp: number,
-             periode: PeriodeTsType,
-             skalValidereRefusjon: boolean,
-             arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => any;
-}
-
 /**
  *  RenderFordelBGFieldArray
  *
  * Presentasjonskomponent: Viser fordeling av brutto beregningsgrunnlag ved endret beregningsgrunnlag
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-const FordelPeriodeFieldArray: FunctionComponent<OwnProps> & StaticFunctions = ({
+const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   fieldName,
   readOnly,
   skalIkkeRedigereInntekt,
@@ -434,10 +422,10 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> & StaticFunctions = (
 }) => {
   const {
     control, watch, getValues,
-  } = useFormContext();
+  } = formHooks.useFormContext();
   const {
     fields, append, remove, update,
-  } = useFieldArray({
+  } = formHooks.useFieldArray({
     control,
     name: fieldName,
   });
@@ -460,7 +448,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> & StaticFunctions = (
 
   // Valideringer, fields settes også opp for perioder om ikke skal endres, disse trenger vi ikke validere.
   const valideringer = [];
-  const fieldsMåValideres = fields.some((field: FordelBeregningsgrunnlagAndelValues) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
+  const fieldsMåValideres = fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
   if (fieldsMåValideres) {
     valideringer.push(validateUlikeAndeler(getValues, fieldName, fields, intl));
     valideringer.push(validateSumFastsattForUgraderteAktiviteter(getValues, fieldName, fields, intl, beregningsgrunnlag.grunnbeløp, getKodeverknavn));

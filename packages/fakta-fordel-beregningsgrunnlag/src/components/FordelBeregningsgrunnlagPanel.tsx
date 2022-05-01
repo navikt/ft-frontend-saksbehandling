@@ -4,15 +4,15 @@ import {
   ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt, Beregningsgrunnlag,
 } from '@navikt/ft-types';
 
-import FordelBeregningsgrunnlagAP from '../types/FordelBeregningsgrunnlagAP';
-import VurderRefusjonBeregningsgrunnlagAP from '../types/VurderRefusjonBeregningsgrunnlagAP';
+import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
+import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
 import FordelingForm from './fordeling/FordelingForm';
 import {
   FordelBeregningsgrunnlagMedAksjonspunktValues,
   VurderRefusjonValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,

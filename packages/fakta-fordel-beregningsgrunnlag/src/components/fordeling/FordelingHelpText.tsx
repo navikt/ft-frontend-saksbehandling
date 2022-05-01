@@ -13,7 +13,7 @@ import {
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
-import FaktaFordelBeregningAksjonspunktCode from '../../FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
@@ -186,7 +186,7 @@ export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag,
 };
 
 type OwnProps = {
-    isAksjonspunktClosed: boolean;
+  isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
   aksjonspunkter: Aksjonspunkt[];

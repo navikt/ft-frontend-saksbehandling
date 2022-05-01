@@ -16,11 +16,11 @@ import {
   FordelBeregningsgrunnlagAndelTransformedValues,
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
-} from '../../types/FordelBeregningsgrunnlagAP';
+} from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
 
 import styles from './fordelBeregningsgrunnlagForm.less';
-import FordelBeregningsgrunnlagMedAksjonspunktValues, {
+import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -112,7 +112,7 @@ const inkludererPeriode = (periode: FordelBeregningsgrunnlagPeriode) => ({ fom, 
   .isSameOrAfter(moment(periode.fom))
     && (periode.tom === null || moment(tom).isSameOrBefore(moment(periode.tom)));
 
-export const lagPerioderForSubmit = (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+export const lagPerioderForSubmit = (values: FordelBeregningsgrunnlagValues,
   index: number,
   kombinertPeriode: FordelBeregningsgrunnlagPeriode,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[]): FordelBeregningsgrunnlagPeriodeTransformedValues[] => fordelBGPerioder
@@ -127,7 +127,7 @@ export const slaaSammenPerioder = (perioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPeriode[] => perioder.reduce(sjekkOmPeriodeSkalLeggesTil(bgPerioder), []);
 
 export const transformPerioder = (fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-  values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+  values: FordelBeregningsgrunnlagValues,
   bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPeriodeTransformedValues[] => {
   const fordelBeregningsgrunnlagPerioder = [];
   const kombinertePerioder = slaaSammenPerioder(fordelBGPerioder, bgPerioder);
@@ -163,7 +163,7 @@ interface OwnState {
  */
 
 export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> {
-  static transformValues = (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+  static transformValues = (values: FordelBeregningsgrunnlagValues,
     fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
     bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPerioderTransformedValues => ({
     endretBeregningsgrunnlagPerioder: transformPerioder(fordelBGPerioder, values, bgPerioder),

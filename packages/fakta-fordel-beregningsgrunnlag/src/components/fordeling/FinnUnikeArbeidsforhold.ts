@@ -10,7 +10,7 @@ import { BGFordelArbeidsforhold } from '../../types/FordelBeregningsgrunnlagPane
 
 const arbeidsforholdEksistererIListen = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold, arbeidsgiverList: BGFordelArbeidsforhold[]): boolean => {
   if (arbeidsforhold.arbeidsforholdId === null) {
-    return arbeidsgiverList.map(({ arbeidsgiverId }) => (arbeidsgiverId)).includes(arbeidsforhold.arbeidsgiverIdent);
+    return arbeidsgiverList.map(({ arbeidsgiverIdent }) => (arbeidsgiverIdent)).includes(arbeidsforhold.arbeidsgiverIdent);
   }
   return arbeidsgiverList.map(({ arbeidsforholdId }) => (arbeidsforholdId)).includes(arbeidsforhold.arbeidsforholdId);
 };

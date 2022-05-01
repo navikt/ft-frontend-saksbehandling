@@ -1,5 +1,5 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
-import FaktaFordelBeregningAksjonspunktCode from '../FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAksjonspunktCode from './FaktaFordelBeregningAksjonspunktCode';
 
 export type FordelBeregningsgrunnlagFastsatteVerdierTransformedValues = {
   refusjonPrÅr: number;

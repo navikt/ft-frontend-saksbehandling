@@ -9,7 +9,7 @@ import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHel
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagArbeidAndelValues,
-  FordelBeregningsgrunnlagGenerellAndelValues,
+  FordelBeregningsgrunnlagGenerellAndelValues, FordelBeregningsgrunnlagMedAksjonspunktValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
@@ -90,7 +90,7 @@ export const setGenerellAndelsinfo = (andel: FordelBeregningsgrunnlagAndel,
 
 export const mapToBelop = (field: FordelBeregningsgrunnlagAndelValues,
   fieldname: string,
-  getValues: UseFormGetValues<FordelBeregningsgrunnlagAndelValues>,
+  getValues: UseFormGetValues<FordelBeregningsgrunnlagMedAksjonspunktValues>,
   index: number): number => {
   if (field.skalRedigereInntekt) {
     const fastsattBeløp = getValues(`${fieldname}.${index}.fastsattBelop`);

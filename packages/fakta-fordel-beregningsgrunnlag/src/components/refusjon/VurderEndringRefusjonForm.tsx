@@ -9,11 +9,11 @@ import {
   Aksjonspunkt, RefusjonTilVurderingAndel, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId,
 } from '@navikt/ft-types';
 
-import VurderRefusjonBeregningsgrunnlagAP from '../../types/VurderRefusjonBeregningsgrunnlagAP';
+import VurderRefusjonBeregningsgrunnlagAP from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import { VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../../FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
 import FaktaSubmitButton from '../felles/FaktaSubmitButton';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 
