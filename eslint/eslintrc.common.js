@@ -21,6 +21,7 @@ const config = {
     'plugin:@typescript-eslint/recommended',
     'plugin:jest/recommended',
     'plugin:jest-dom/recommended',
+    'prettier',
   ],
 
   parserOptions: {
@@ -45,11 +46,7 @@ const config = {
   },
 
   rules: {
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      { 'ts': 'never', 'tsx': 'never' }
-    ],
+    'import/extensions': ['error', 'ignorePackages', { ts: 'never', tsx: 'never' }],
     'linebreak-style': OFF,
     'import/no-named-as-default': OFF,
     'max-len': [ERROR, 160],
@@ -63,11 +60,17 @@ const config = {
     'jest/valid-expect': OFF,
     'function-paren-newline': OFF,
     'function-call-argument-newline': OFF,
-    'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.spec.ts', '**/*.spec.tsx', '**/*.stories.tsx'] }],
-    'react/function-component-definition': ['error', {
-      namedComponents: 'arrow-function',
-      unnamedComponents: 'arrow-function',
-    }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.spec.ts', '**/*.spec.tsx', '**/*.stories.tsx'] },
+    ],
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
 
     // note you must disable the base rule as it can report incorrect errors
     'no-use-before-define': OFF,
@@ -85,11 +88,13 @@ const config = {
     '@typescript-eslint/no-explicit-any': OFF,
     '@typescript-eslint/ban-ts-comment': OFF,
   },
-  overrides: [{
-    files: ['*.spec.tsx', '*.spec.ts'],
-    rules: {
-      'no-unused-expressions': OFF,
+  overrides: [
+    {
+      files: ['*.spec.tsx', '*.spec.ts'],
+      rules: {
+        'no-unused-expressions': OFF,
+      },
     },
-  }],
+  ],
 };
 module.exports = config;
