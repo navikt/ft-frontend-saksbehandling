@@ -21,7 +21,8 @@
     "lerna-publish": "lerna publish",
     "storybook-all": "lerna run storybook --parallel -- --ci",
     "storybook": "cross-env start-storybook -p 7000",
-    "deploy-storybook": "storybook-to-ghpages -o .storybook-static-build --packages packages"
+    "deploy-storybook": "storybook-to-ghpages -o .storybook-static-build --packages packages",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "7.17.9",
@@ -81,6 +82,7 @@
     "eslint-webpack-plugin": "3.1.1",
     "file-loader": "6.2.0",
     "html-webpack-plugin": "5.5.0",
+    "husky": "7.0.4",
     "identity-obj-proxy": "3.0.0",
     "ignore-styles": "5.0.1",
     "jest": "27.5.1",
@@ -91,6 +93,7 @@
     "lerna": "4.0.0",
     "less": "4.1.2",
     "less-loader": "10.2.0",
+    "lint-staged": "12.4.1",
     "mini-css-extract-plugin": "2.6.0",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "postcss-less": "6.0.0",
@@ -120,5 +123,10 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "lint-staged": {
+    "packages/**/*.{ts,tsx,js,jsx}": "eslint --cache --fix",
+    "packages/**/*.css": "stylelint --fix",
+    "packages/**/*.{ts,tsx,js,jsx, css}": "prettier --write"
   }
 }
