@@ -69,7 +69,7 @@ type OwnProps = {
     setFormData: (data: VurderRefusjonValues) => void,
 };
 
-export const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
+const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
   submittable,
   readOnly,
   beregningsgrunnlag,
