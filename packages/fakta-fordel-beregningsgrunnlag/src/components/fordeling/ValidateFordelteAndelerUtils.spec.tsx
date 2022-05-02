@@ -5,6 +5,9 @@ import {
   validateUlikeAndeler, validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
 import messages from '../../../i18n/nb_NO.json';
+import {
+  FordelBeregningsgrunnlagAndelValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const intlMock = getIntlMock(messages);
 const fieldname = 'feltnavn';
@@ -63,12 +66,11 @@ describe('<ValidateAndelerUtils>', () => {
       inntektskategori: 'ARBEIDSTAKER',
       arbeidsforholdId: 'egg4g232',
       arbeidsgiverId: '999999997',
-    },
-    ];
+    }];
 
     const getValues = jest.fn();
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
     expect(ulikeAndelerError()).toBe(null);
   });
 
@@ -97,7 +99,7 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn(() => 'ARBEIDSTAKER') as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
   });
 
@@ -126,7 +128,7 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((): string => 'DAGPENGER') as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
     expect(ulikeAndelerError()).toBe(null);
   });
 
@@ -161,7 +163,7 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((): string => 'FRILANS') as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
   });
 
@@ -221,7 +223,7 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler, intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
   });
 
@@ -255,7 +257,8 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler, fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
+    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler as FordelBeregningsgrunnlagAndelValues[],
+      fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
     expect(ulikeAndelerError()).toBe(null);
   });
 
@@ -289,7 +292,8 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler, fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
+    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler as FordelBeregningsgrunnlagAndelValues[],
+      fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
     expect(ulikeAndelerError()).toBe(refusjonHøyereEnnKravFeilmelding);
   });
 
@@ -306,7 +310,8 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler, fieldname, jest.fn(), getKodeverknavn, arbeidsgiverOppysninger, intlMock);
+    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler as FordelBeregningsgrunnlagAndelValues[],
+      fieldname, jest.fn(), getKodeverknavn, arbeidsgiverOppysninger, intlMock);
     expect(ulikeAndelerError()).toBe(null);
   });
 
@@ -344,7 +349,7 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler, 500000, intlMock);
+    const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], 500000, intlMock);
     expect(validateFastsattBeløp()).toBe(null);
   });
 
@@ -382,7 +387,7 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler, 500000, intlMock);
+    const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], 500000, intlMock);
     expect(validateFastsattBeløp()).toBe('Summen må være lik 500 000');
   });
 
@@ -422,7 +427,7 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler, '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(null);
   });
 
@@ -462,7 +467,7 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler, '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(gradertAndelMåVæreFordeltMerEnn0Feilmelding);
   });
 
@@ -502,7 +507,7 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler, '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(null);
   });
 
@@ -543,7 +548,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues,
-      fieldname, andeler, '2022-04-21', intlMock);
+      fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
     expect(verifiserGraderteAndeler()).toBe(null);
   });
 });
