@@ -36,6 +36,10 @@ module.exports = {
           title: 'ui-komponenter',
           url: 'http://localhost:7006',
       },
+      'plattform-komponenter': {
+          title: 'plattform-komponenter',
+          url: 'http://localhost:7007',
+      },
   },
   webpackFinal: async (config, { configType }) => {
 
