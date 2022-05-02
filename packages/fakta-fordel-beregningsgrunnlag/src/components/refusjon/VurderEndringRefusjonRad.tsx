@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useFormContext } from 'react-hook-form';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import {
@@ -14,7 +13,7 @@ import {
   removeSpacesFromNumber,
   formatCurrencyNoKr,
 } from '@navikt/ft-utils';
-import { Datepicker, InputField } from '@navikt/ft-form-hooks';
+import { Datepicker, InputField, formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -71,7 +70,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   const andelTekst = refusjonAndel.skalKunneFastsetteDelvisRefusjon
     ? 'BeregningInfoPanel.RefusjonBG.TidligereRefusjon'
     : 'BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon';
-  const formMethods = useFormContext<VurderRefusjonValues>();
+  const formMethods = formHooks.useFormContext<VurderRefusjonValues>();
   const valgtStartdato = formMethods.watch(lagNøkkelRefusjonsstart(refusjonAndel));
   const erRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
   const boldTransformator = useCallback((chunks) => <b>{chunks}</b>, []);
