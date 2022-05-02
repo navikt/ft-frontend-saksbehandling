@@ -29,6 +29,9 @@ import { FaktaFordelBeregningAksjonspunktCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+import '@navikt/ft-form-hooks/dist/style.css';
+
 const agOpplysninger = {
   874652202: {
     navn: 'NAV Innlandet',
