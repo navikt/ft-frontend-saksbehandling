@@ -21,12 +21,12 @@
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack & yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
-    "storybook": "cross-env start-storybook -p 7006"
+    "storybook": "cross-env start-storybook -p 7007"
   },
  "dependencies": {
-    "@navikt/ds-css": "^0.16.15",
+    "@navikt/ds-css": "^0.17.0",
     "@navikt/ds-icons": "^0.8.7",
-    "@navikt/ds-react": "^0.17.19",
+    "@navikt/ds-react": "^0.18.3",
     "@navikt/ft-utils": "^1.0.1"
 },
 "peerDependencies": {
@@ -77,7 +77,7 @@
   "nav-frontend-etiketter": "^3.0.1",
   "nav-frontend-etiketter-style": "^2.0.1",
   "nav-frontend-ikoner-assets": "^3.0.1",
-  "nav-frontend-ikonknapper": "^1.0.32",
+  "nav-frontend-ikonknapper": "^2.1.2",
   "nav-frontend-js-utils": "^1.0.20",
   "nav-frontend-knapper": "^3.1.2",
   "nav-frontend-knapper-style": "^2.1.1",
