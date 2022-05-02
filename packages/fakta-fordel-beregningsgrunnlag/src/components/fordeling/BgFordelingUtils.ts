@@ -1,15 +1,16 @@
-import { inntektskategorier, aktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { UseFormGetValues } from 'react-hook-form';
+import { KodeverkType, aktivitetStatus, inntektskategorier } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId,
   FordelBeregningsgrunnlagAndel,
 } from '@navikt/ft-types';
-import { createVisningsnavnForAktivitetFordeling } from './util/visningsnavnHelper';
+import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagArbeidAndelValues,
-  FordelBeregningsgrunnlagGenerellAndelValues,
-} from '../types/FordelingTsType';
+  FordelBeregningsgrunnlagGenerellAndelValues, FordelBeregningsgrunnlagMedAksjonspunktValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 
@@ -87,10 +88,13 @@ export const setGenerellAndelsinfo = (andel: FordelBeregningsgrunnlagAndel,
   forrigeInntektskategori: !andel.inntektskategori || andel.inntektskategori === inntektskategorier.UDEFINERT ? null : andel.inntektskategori,
 });
 
-export const mapToBelop = (andel: FordelBeregningsgrunnlagAndelValues): number => {
-  const { fastsattBelop, readOnlyBelop } = andel;
-  if (andel.skalRedigereInntekt) {
-    return fastsattBelop ? removeSpacesFromNumber(fastsattBelop) : 0;
+export const mapToBelop = (field: FordelBeregningsgrunnlagAndelValues,
+  fieldname: string,
+  getValues: UseFormGetValues<FordelBeregningsgrunnlagMedAksjonspunktValues>,
+  index: number): number => {
+  if (field.skalRedigereInntekt) {
+    const fastsattBeløp = getValues(`${fieldname}.${index}.fastsattBelop`);
+    return fastsattBeløp ? removeSpacesFromNumber(fastsattBeløp) : 0;
   }
-  return readOnlyBelop ? removeSpacesFromNumber(readOnlyBelop) : 0;
+  return field.readOnlyBelop ? removeSpacesFromNumber(field.readOnlyBelop) : 0;
 };

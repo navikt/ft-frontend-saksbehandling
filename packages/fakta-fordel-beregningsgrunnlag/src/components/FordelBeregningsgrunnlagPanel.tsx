@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl';
+import React, { FunctionComponent } from 'react';
 
 import {
-  Aksjonspunkt, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId, AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt, Beregningsgrunnlag,
 } from '@navikt/ft-types';
-import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
-import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
+import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
+import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
-import FordelingForm from './FordelingForm';
+import FordelingForm from './fordeling/FordelingForm';
+import {
+  FordelBeregningsgrunnlagMedAksjonspunktValues,
+  VurderRefusjonValues,
+} from '../types/FordelBeregningsgrunnlagPanelValues';
+import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
@@ -32,10 +35,8 @@ interface OwnProps {
   alleKodeverk: AlleKodeverk;
   behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-}
-
-interface OwnState {
-  submitEnabled: boolean;
+  formData?: FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonValues;
+  setFormData: (data: FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonValues) => void,
 }
 
 /**
@@ -43,78 +44,52 @@ interface OwnState {
  *
  * Har ansvar for å sette opp Redux Formen for "avklar fakta om fordeling" panel.
  */
-export class FordelBeregningsgrunnlagPanel extends Component<OwnProps & WrappedComponentProps, OwnState> {
-  constructor(props: OwnProps & WrappedComponentProps) {
-    super(props);
-    this.state = {
-      submitEnabled: false,
-    };
-  }
-
-  componentDidMount() {
-    const { submitEnabled } = this.state;
-    if (!submitEnabled) {
-      this.setState({
-        submitEnabled: true,
-      });
-    }
-  }
-
-  render() {
-    const {
-      props: {
-        intl,
-        readOnly,
-        aksjonspunkter,
-        submitCallback,
-        beregningsgrunnlag,
-        alleKodeverk,
-        behandlingType,
-        submittable,
-        arbeidsgiverOpplysningerPerId,
-      },
-      state: {
-        submitEnabled,
-      },
-    } = this;
-    const fordelAP = getAksjonspunkt(aksjonspunkter, FORDEL_BEREGNINGSGRUNNLAG);
-    const refusjonAP = getAksjonspunkt(aksjonspunkter, VURDER_REFUSJON_BERGRUNN);
-    const skalViseFordeling = fordelAP && harFordelInfo(beregningsgrunnlag);
-    const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlag);
-    return (
-      <>
-        {skalViseRefusjon
-      && (
-      /* @ts-ignore */
-      <VurderEndringRefusjonForm
-        submitEnabled={submitEnabled}
+const FordelBeregningsgrunnlagPanel:FunctionComponent<OwnProps> = ({
+  readOnly,
+  aksjonspunkter,
+  submitCallback,
+  beregningsgrunnlag,
+  alleKodeverk,
+  behandlingType,
+  submittable,
+  arbeidsgiverOpplysningerPerId,
+  formData,
+  setFormData,
+}) => {
+  const fordelAP = getAksjonspunkt(aksjonspunkter, FORDEL_BEREGNINGSGRUNNLAG);
+  const refusjonAP = getAksjonspunkt(aksjonspunkter, VURDER_REFUSJON_BERGRUNN);
+  const skalViseFordeling = fordelAP && harFordelInfo(beregningsgrunnlag);
+  const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlag);
+  return (
+    <>
+      {skalViseRefusjon && (
+        <VurderEndringRefusjonForm
+          submittable={submittable}
+          readOnly={readOnly}
+          submitCallback={submitCallback}
+          beregningsgrunnlag={beregningsgrunnlag}
+          aksjonspunkter={aksjonspunkter}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          formData={formData as VurderRefusjonValues}
+          setFormData={setFormData}
+        />
+      )}
+      {skalViseFordeling && (
+      <FordelingForm
         submittable={submittable}
         readOnly={readOnly}
         submitCallback={submitCallback}
+        alleKodeverk={alleKodeverk}
         beregningsgrunnlag={beregningsgrunnlag}
+        behandlingType={behandlingType}
         aksjonspunkter={aksjonspunkter}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        formData={formData as FordelBeregningsgrunnlagMedAksjonspunktValues}
+        setFormData={setFormData}
       />
       )}
-        {skalViseFordeling && (
-          /* @ts-ignore */
-          <FordelingForm
-            intl={intl}
-            submitEnabled={submitEnabled}
-            submittable={submittable}
-            readOnly={readOnly}
-            submitCallback={submitCallback}
-            alleKodeverk={alleKodeverk}
-            beregningsgrunnlag={beregningsgrunnlag}
-            behandlingType={behandlingType}
-            aksjonspunkter={aksjonspunkter}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        )}
-      </>
-    );
-  }
-}
+    </>
+  );
+};
 
-// @ts-ignore Skriv om til funksjonell-komponent, bruk useIntl og fjern any
-export default injectIntl(FordelBeregningsgrunnlagPanel) as any;
+export default FordelBeregningsgrunnlagPanel;

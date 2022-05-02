@@ -1,14 +1,13 @@
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { aktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
+import { aktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+
 import {
-  mapToBelop,
   setArbeidsforholdInitialValues,
   setGenerellAndelsinfo,
   settAndelIArbeid,
   settFastsattBelop,
 } from './BgFordelingUtils';
-import { FordelBeregningsgrunnlagAndelValues } from '../types/FordelingTsType';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
@@ -26,15 +25,15 @@ const agOpplysninger = {
 
 const arbeidstakerIkkeFastsatt = {
   lagtTilAvSaksbehandler: false,
-  aktivitetStatus: aktivitetStatuser.ARBEIDSTAKER,
+  aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
   inntektskategori: 'ARBEIDSTAKER',
 };
 
 const getKodeverknavn = (kode) => {
-  if (kode === aktivitetStatuser.ARBEIDSTAKER) {
+  if (kode === aktivitetStatus.ARBEIDSTAKER) {
     return 'Arbeidstaker';
   }
-  if (kode === aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE) {
+  if (kode === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
     return 'Selvstendig næringsdrivende';
   }
   return '';
@@ -79,7 +78,7 @@ describe('<BgFordelingUtils>', () => {
         arbeidsforholdId: '321378huda7e2',
         eksternArbeidsforholdId: '345678',
       } as BeregningsgrunnlagArbeidsforhold,
-      aktivitetStatus: aktivitetStatuser.ARBEIDSTAKER,
+      aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
       andelsnr: 3,
       kilde: 'PROSESS_START',
       lagtTilAvSaksbehandler: false,
@@ -98,7 +97,7 @@ describe('<BgFordelingUtils>', () => {
 
   it('skal sette initial values for generell andelinfo uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -114,7 +113,7 @@ describe('<BgFordelingUtils>', () => {
 
   it('skal ikkje sette arbeidsforhold initial values for andel uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -139,25 +138,5 @@ describe('<BgFordelingUtils>', () => {
     expect(arbeidsforholdIV.arbeidsforholdId).toBe('321378huda7e2');
     expect(arbeidsforholdIV.arbeidsperiodeFom).toBe('2017-01-01');
     expect(arbeidsforholdIV.arbeidsperiodeTom).toBe('2018-01-01');
-  });
-
-  it('skal mappe fastsattBeløp til beløp om inntekt skal redigeres', () => {
-    const andel = {
-      skalRedigereInntekt: true,
-      fastsattBelop: '10 000',
-      readOnlyBelop: '20 000',
-    };
-    const belop = mapToBelop(andel as FordelBeregningsgrunnlagAndelValues);
-    expect(belop).toBe(10000);
-  });
-
-  it('skal mappe readOnlyBelop til beløp om inntekt ikke skal redigeres', () => {
-    const andel = {
-      skalRedigereInntekt: false,
-      fastsattBelop: '10 000',
-      readOnlyBelop: '20 000',
-    };
-    const belop = mapToBelop(andel as FordelBeregningsgrunnlagAndelValues);
-    expect(belop).toBe(20000);
   });
 });

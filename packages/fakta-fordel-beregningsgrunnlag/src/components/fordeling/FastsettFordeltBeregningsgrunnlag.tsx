@@ -1,6 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { IntlShape } from 'react-intl';
 
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -10,16 +8,23 @@ import {
   Beregningsgrunnlag,
 } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 
+import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
-import FordelBeregningsgrunnlagMedAksjonspunktValues, { FordelBeregningsgrunnlagValues } from '../../types/FordelingTsType';
+
+import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+
+const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] => {
+  if (beregningsgrunnlag && beregningsgrunnlag.faktaOmFordeling
+    && beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag) {
+    return beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
+  }
+  return [];
+};
 
 type OwnProps = {
     readOnly: boolean;
-    perioder: FordelBeregningsgrunnlagPeriode[];
     isAksjonspunktClosed: boolean;
-    bgPerioder: BeregningsgrunnlagPeriodeProp[];
     beregningsgrunnlag: Beregningsgrunnlag;
     alleKodeverk: AlleKodeverk;
     behandlingType: string;
@@ -31,75 +36,44 @@ interface StaticFunctions {
                        bg: Beregningsgrunnlag,
                        getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
                        arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => FordelBeregningsgrunnlagValues;
-  transformValues: (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+  transformValues: (values: FordelBeregningsgrunnlagValues,
                     fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
                     bgPerioder: BeregningsgrunnlagPeriodeProp[]) => FordelBeregningsgrunnlagPerioderTransformedValues;
-  validate: (intl: IntlShape,
-             values: FordelBeregningsgrunnlagMedAksjonspunktValues,
-             fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-             beregningsgrunnlag: Beregningsgrunnlag,
-             getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-             arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => any;
 }
 
-export const FastsettFordeltBeregningsgrunnlagImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
+const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
   isAksjonspunktClosed,
   readOnly,
-  perioder, bgPerioder,
   beregningsgrunnlag,
   alleKodeverk,
   behandlingType,
   arbeidsgiverOpplysningerPerId,
-}) => (
-  <FordelBeregningsgrunnlagForm
-    perioder={perioder}
-    readOnly={readOnly}
-    isAksjonspunktClosed={isAksjonspunktClosed}
-    bgPerioder={bgPerioder}
-    beregningsgrunnlag={beregningsgrunnlag}
-    alleKodeverk={alleKodeverk}
-    behandlingType={behandlingType}
-    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-  />
-);
+}) => {
+  const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
+  const perioder = getFordelPerioder(beregningsgrunnlag);
+  return (
+    <FordelBeregningsgrunnlagForm
+      perioder={perioder}
+      readOnly={readOnly}
+      isAksjonspunktClosed={isAksjonspunktClosed}
+      bgPerioder={bgPerioder}
+      beregningsgrunnlag={beregningsgrunnlag}
+      alleKodeverk={alleKodeverk}
+      behandlingType={behandlingType}
+      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+    />
+  );
+};
 
-FastsettFordeltBeregningsgrunnlagImpl.buildInitialValues = (fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+FastsettFordeltBeregningsgrunnlag.buildInitialValues = (fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bg: Beregningsgrunnlag,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): FordelBeregningsgrunnlagValues => (FordelBeregningsgrunnlagForm
   .buildInitialValues(fordelBGPerioder, bg, getKodeverknavn, arbeidsgiverOpplysningerPerId));
 
-FastsettFordeltBeregningsgrunnlagImpl.transformValues = (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+FastsettFordeltBeregningsgrunnlag.transformValues = (values: FordelBeregningsgrunnlagValues,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPerioderTransformedValues => FordelBeregningsgrunnlagForm.transformValues(values,
   fordelBGPerioder, bgPerioder);
 
-FastsettFordeltBeregningsgrunnlagImpl.validate = (intl: IntlShape,
-  values: FordelBeregningsgrunnlagMedAksjonspunktValues,
-  fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-  beregningsgrunnlag: Beregningsgrunnlag,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => (
-  FordelBeregningsgrunnlagForm
-    .validate(intl, values, fordelBGPerioder, beregningsgrunnlag, getKodeverknavn, arbeidsgiverOpplysningerPerId));
-
-const emptyArray = [];
-
-const getFordelPerioder = (beregningsgrunnlag) => {
-  if (beregningsgrunnlag && beregningsgrunnlag.faktaOmFordeling
-    && beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag) {
-    return beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
-  }
-  return undefined;
-};
-
-const mapStateToProps = (state, ownProps) => {
-  const bgPerioder = ownProps.beregningsgrunnlag.beregningsgrunnlagPeriode;
-  const perioder = getFordelPerioder(ownProps.beregningsgrunnlag);
-  return ({
-    perioder: perioder || emptyArray,
-    bgPerioder,
-  });
-};
-
-export default connect(mapStateToProps)(FastsettFordeltBeregningsgrunnlagImpl);
+export default FastsettFordeltBeregningsgrunnlag;

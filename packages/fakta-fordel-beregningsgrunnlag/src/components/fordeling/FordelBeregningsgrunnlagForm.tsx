@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { IntlShape } from 'react-intl';
 
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import { aktivitetStatus as aktivitetStatuser, periodeAarsak, KodeverkType } from '@navikt/ft-kodeverk';
+import { periodeAarsak, aktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -18,13 +17,13 @@ import {
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-
 import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
-import FordelBeregningsgrunnlagMedAksjonspunktValues, {
+
+import styles from './fordelBeregningsgrunnlagForm.less';
+import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagValues,
-} from '../../types/FordelingTsType';
-import styles from './fordelBeregningsgrunnlagForm.less';
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 
@@ -113,7 +112,7 @@ const inkludererPeriode = (periode: FordelBeregningsgrunnlagPeriode) => ({ fom, 
   .isSameOrAfter(moment(periode.fom))
     && (periode.tom === null || moment(tom).isSameOrBefore(moment(periode.tom)));
 
-export const lagPerioderForSubmit = (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+export const lagPerioderForSubmit = (values: FordelBeregningsgrunnlagValues,
   index: number,
   kombinertPeriode: FordelBeregningsgrunnlagPeriode,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[]): FordelBeregningsgrunnlagPeriodeTransformedValues[] => fordelBGPerioder
@@ -124,16 +123,11 @@ export const lagPerioderForSubmit = (values: FordelBeregningsgrunnlagMedAksjonsp
     tom: p.tom,
   }));
 
-export const finnSumIPeriode = (bgPerioder: BeregningsgrunnlagPeriodeProp[], fom: string): number => {
-  const periode = bgPerioder.find((p) => p.beregningsgrunnlagPeriodeFom === fom);
-  return periode.bruttoInkludertBortfaltNaturalytelsePrAar;
-};
-
 export const slaaSammenPerioder = (perioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPeriode[] => perioder.reduce(sjekkOmPeriodeSkalLeggesTil(bgPerioder), []);
 
 export const transformPerioder = (fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-  values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+  values: FordelBeregningsgrunnlagValues,
   bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPeriodeTransformedValues[] => {
   const fordelBeregningsgrunnlagPerioder = [];
   const kombinertePerioder = slaaSammenPerioder(fordelBGPerioder, bgPerioder);
@@ -169,32 +163,7 @@ interface OwnState {
  */
 
 export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> {
-  static validate = (
-    intl: IntlShape,
-    values: FordelBeregningsgrunnlagMedAksjonspunktValues,
-    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-    beregningsgrunnlag: Beregningsgrunnlag,
-    getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  ) => {
-    const errors = {};
-    if (fordelBGPerioder && fordelBGPerioder.length > 0) {
-      const perioderSlattSammen = slaaSammenPerioder(fordelBGPerioder, beregningsgrunnlag.beregningsgrunnlagPeriode);
-      const grunnbeløp = Number(beregningsgrunnlag.grunnbeløp);
-      for (let i = 0; i < perioderSlattSammen.length; i += 1) {
-        const sumIPeriode = finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, perioderSlattSammen[i].fom);
-        const periode = values[getFieldNameKey(i)];
-        const fordelPeriode = perioderSlattSammen[i];
-        const skalValidereRefusjon = fordelPeriode && fordelPeriode.skalKunneEndreRefusjon;
-        const periodeDato = { fom: fordelPeriode.fom, tom: fordelPeriode.tom };
-        errors[getFieldNameKey(i)] = FordelBeregningsgrunnlagPeriodePanel.validate(intl, periode, sumIPeriode,
-          getKodeverknavn, grunnbeløp, periodeDato, skalValidereRefusjon, arbeidsgiverOpplysningerPerId);
-      }
-    }
-    return errors;
-  };
-
-  static transformValues = (values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+  static transformValues = (values: FordelBeregningsgrunnlagValues,
     fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
     bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPerioderTransformedValues => ({
     endretBeregningsgrunnlagPerioder: transformPerioder(fordelBGPerioder, values, bgPerioder),
@@ -208,7 +177,7 @@ export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> 
     if (!fordelBGPerioder) {
       return initialValues;
     }
-    const harKunYtelse = bg.aktivitetStatus.some((status) => status === aktivitetStatuser.KUN_YTELSE);
+    const harKunYtelse = bg.aktivitetStatus.some((status) => status === aktivitetStatus.KUN_YTELSE);
     const bgPerioder = bg.beregningsgrunnlagPeriode;
     slaaSammenPerioder(fordelBGPerioder, bgPerioder).forEach((periode, index) => {
       const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);
@@ -255,11 +224,9 @@ export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> 
             <VerticalSpacer eightPx />
             <FordelBeregningsgrunnlagPeriodePanel
               readOnly={readOnly}
+              fordelingsperiode={periode}
               fordelBGFieldArrayName={getFieldNameKey(index)}
-              fom={periode.fom}
-              tom={periode.tom}
               open={openPanels ? openPanels.filter((panel) => panel === periode.fom).length > 0 : false}
-              skalRedigereInntekt={periode.skalRedigereInntekt}
               isAksjonspunktClosed={isAksjonspunktClosed}
               showPanel={this.showPanel}
               beregningsgrunnlag={beregningsgrunnlag}

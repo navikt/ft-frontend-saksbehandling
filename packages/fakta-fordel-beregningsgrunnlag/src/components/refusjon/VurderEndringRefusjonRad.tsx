@@ -1,10 +1,7 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-
+import { Normaltekst } from 'nav-frontend-typografi';
 import {
   dateFormat,
   hasValidDate,
@@ -16,12 +13,13 @@ import {
   removeSpacesFromNumber,
   formatCurrencyNoKr,
 } from '@navikt/ft-utils';
-import { DatepickerField, InputField } from '@navikt/ft-form-redux-legacy';
+import { Datepicker, InputField, formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
-import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 
+import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
-import VurderRefusjonValues from '../../types/VurderRefusjonTsType';
+import { VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+
 import styles from './vurderEndringRefusjonRad.less';
 
 const FIELD_KEY_REFUSJONSTART = 'REFUSJON_ENDRING_DATO';
@@ -37,6 +35,13 @@ const lagNøkkel = (prefix: string, andel: RefusjonTilVurderingAndel): string =>
 export const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
 export const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel) : string => lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
 
+const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
+  if (!verdiFraForm) {
+    return false;
+  }
+  return new Date(verdiFraForm).getTime() === new Date(stp).getTime();
+};
+
 type OwnProps = {
     refusjonAndel?: RefusjonTilVurderingAndel;
     readOnly: boolean;
@@ -46,21 +51,17 @@ type OwnProps = {
     formName: string;
 };
 
-type MappedOwnProps = {
-  valgtDatoErLikSTP?: boolean;
-}
-
 interface StaticFunctions {
   buildInitialValues: (andel: RefusjonTilVurderingAndel) => VurderRefusjonValues;
   transformValues: (values: VurderRefusjonValues, andel: RefusjonTilVurderingAndel, skjæringstidspunkt: string) => VurderRefusjonAndelTransformedValues;
 }
 
-export const VurderEndringRefusjonRadImpl: FunctionComponent<OwnProps & MappedOwnProps> & StaticFunctions = ({
+export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunctions = ({
   refusjonAndel,
   readOnly,
   erAksjonspunktÅpent,
   arbeidsgiverOpplysningerPerId,
-  valgtDatoErLikSTP,
+  skjæringstidspunkt,
 }) => {
   if (!refusjonAndel) {
     return null;
@@ -69,9 +70,10 @@ export const VurderEndringRefusjonRadImpl: FunctionComponent<OwnProps & MappedOw
   const andelTekst = refusjonAndel.skalKunneFastsetteDelvisRefusjon
     ? 'BeregningInfoPanel.RefusjonBG.TidligereRefusjon'
     : 'BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon';
-
-  const formatTag = useCallback((chunks) => <b>{chunks}</b>, []);
-
+  const formMethods = formHooks.useFormContext<VurderRefusjonValues>();
+  const valgtStartdato = formMethods.watch(lagNøkkelRefusjonsstart(refusjonAndel));
+  const erRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
+  const boldTransformator = useCallback((chunks) => <b>{chunks}</b>, []);
   return (
     <>
       <Row>
@@ -81,7 +83,7 @@ export const VurderEndringRefusjonRadImpl: FunctionComponent<OwnProps & MappedOw
             values={{
               ag: navn,
               dato: dateFormat(refusjonAndel.nyttRefusjonskravFom),
-              b: formatTag,
+              b: boldTransformator,
             }}
           />
         </Column>
@@ -95,15 +97,15 @@ export const VurderEndringRefusjonRadImpl: FunctionComponent<OwnProps & MappedOw
           </Normaltekst>
         </Column>
         <Column xs="4">
-          <DatepickerField
+          <Datepicker
             name={lagNøkkelRefusjonsstart(refusjonAndel)}
-            readOnly={readOnly}
+            isReadOnly={readOnly}
             validate={[required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]}
             isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
           />
         </Column>
       </Row>
-      {refusjonAndel.skalKunneFastsetteDelvisRefusjon && !valgtDatoErLikSTP && (
+      {refusjonAndel.skalKunneFastsetteDelvisRefusjon && !erRefusjonFraStart && (
         <Row>
           <Column xs="4">
             <Normaltekst className={styles.marginTopp}>
@@ -128,14 +130,14 @@ export const VurderEndringRefusjonRadImpl: FunctionComponent<OwnProps & MappedOw
   );
 };
 
-VurderEndringRefusjonRadImpl.buildInitialValues = (refusjonAndel: RefusjonTilVurderingAndel): VurderRefusjonValues => {
+VurderEndringRefusjonRad.buildInitialValues = (refusjonAndel: RefusjonTilVurderingAndel): VurderRefusjonValues => {
   const initialValues = {};
   initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom;
   initialValues[lagNøkkelDelvisRefusjon(refusjonAndel)] = formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd);
   return initialValues;
 };
 
-VurderEndringRefusjonRadImpl.transformValues = (values: VurderRefusjonValues,
+VurderEndringRefusjonRad.transformValues = (values: VurderRefusjonValues,
   andel: RefusjonTilVurderingAndel,
   skjæringstidspunkt: string): VurderRefusjonAndelTransformedValues => {
   const datoNøkkel = lagNøkkelRefusjonsstart(andel);
@@ -153,19 +155,5 @@ VurderEndringRefusjonRadImpl.transformValues = (values: VurderRefusjonValues,
     delvisRefusjonPrMndFørStart: delvisRefusjonPrMnd,
   };
 };
-
-const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
-  if (!verdiFraForm) {
-    return false;
-  }
-  return new Date(verdiFraForm).getTime() === new Date(stp).getTime();
-};
-
-const mapStateToProps = (state: any, ownProps: OwnProps): MappedOwnProps => ({
-  valgtDatoErLikSTP: (erValgtDatoLikSTP(ownProps.skjæringstidspunkt,
-    formValueSelector(ownProps.formName)(state, lagNøkkelRefusjonsstart(ownProps.refusjonAndel)))),
-});
-
-const VurderEndringRefusjonRad = connect(mapStateToProps)(VurderEndringRefusjonRadImpl);
 
 export default VurderEndringRefusjonRad;
