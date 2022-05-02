@@ -1,4 +1,9 @@
-import { initializeDate, isSameOrBefore, isValidDate, prettifyDateString } from './dateUtils';
+import {
+  initializeDate,
+  isSameOrBefore,
+  isValidDate,
+  prettifyDateString,
+} from './dateUtils';
 
 class Period {
   fom: string;
@@ -20,8 +25,8 @@ class Period {
     const fomDayjs = initializeDate(this.fom);
     const tomDayjs = initializeDate(this.tom);
     return (
-      (dateInQuestion.isSame(fomDayjs) || dateInQuestion.isAfter(fomDayjs)) &&
-      (dateInQuestion.isSame(tomDayjs) || dateInQuestion.isBefore(tomDayjs))
+      (dateInQuestion.isSame(fomDayjs) || dateInQuestion.isAfter(fomDayjs))
+      && (dateInQuestion.isSame(tomDayjs) || dateInQuestion.isBefore(tomDayjs))
     );
   }
 
@@ -54,7 +59,7 @@ class Period {
   }
 
   overlapsWithSomePeriodInList(periodList: Period[]) {
-    return periodList.some(currentPeriod => this.overlapsWith(currentPeriod));
+    return periodList.some((currentPeriod) => this.overlapsWith(currentPeriod));
   }
 
   fomIsBeforeOrSameAsTom() {
