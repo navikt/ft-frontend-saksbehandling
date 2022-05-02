@@ -24,23 +24,29 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-const lagAndelNøkkel = (andel: BeregningsgrunnlagAndel): string =>
-  andel.arbeidsforhold.arbeidsforholdId
+const lagAndelNøkkel = (andel: BeregningsgrunnlagAndel): string => {
+  if (!andel.arbeidsforhold || !andel.arbeidsforhold.arbeidsgiverIdent) {
+    return 'N/A';
+  }
+  return andel.arbeidsforhold.arbeidsforholdId
     ? andel.arbeidsforhold.arbeidsgiverIdent + andel.arbeidsforhold.arbeidsforholdId
     : andel.arbeidsforhold.arbeidsgiverIdent;
+};
 
-const lagVisningForAndel = (
-  andel: BeregningsgrunnlagAndel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): string => {
+const lagVisningForAndel = (andel: BeregningsgrunnlagAndel,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): string => {
+  if (!andel.arbeidsforhold || !andel.arbeidsforhold.arbeidsgiverIdent) {
+    return 'Ukjent arbeidsforhold';
+  }
   const arbeidsforholdInfo = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
   return createVisningsnavnForAktivitet(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId);
 };
 
-const lagNatAndel = (
-  andel: BeregningsgrunnlagAndel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): NaturalytelseTabellRad => {
+const andelslisteEllerTom = (bgperiode: BeregningsgrunnlagPeriodeProp): BeregningsgrunnlagAndel[] => (bgperiode.beregningsgrunnlagPrStatusOgAndel
+  ? bgperiode.beregningsgrunnlagPrStatusOgAndel
+  : []);
+
+const lagNatAndel = (andel: BeregningsgrunnlagAndel, arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): NaturalytelseTabellRad => {
   const visningsnavn = lagVisningForAndel(andel, arbeidsgiverOpplysningerPerId);
   const nøkkel = lagAndelNøkkel(andel);
   const naturalytelseEndringer = [] as NaturalytelseEndring[];
@@ -61,12 +67,12 @@ const finnAlleArbeidstakernøkkler = (
   if (!allePerioder || allePerioder.length < 1) {
     return [];
   }
-  const natAndeler = [];
-  allePerioder.forEach(periode => {
-    periode.beregningsgrunnlagPrStatusOgAndel
-      .filter(andel => andelHarBortfaltNaturalytelse(andel))
-      .map(andel => lagNatAndel(andel, arbeidsgiverOpplysningerPerId))
-      .forEach(natAndel => {
+  const natAndeler = [] as NaturalytelseTabellRad[];
+  allePerioder.forEach((periode) => {
+    andelslisteEllerTom(periode)
+      .filter((andel) => andelHarBortfaltNaturalytelse(andel))
+      .map((andel) => lagNatAndel(andel, arbeidsgiverOpplysningerPerId))
+      .forEach((natAndel) => {
         if (!natAndeler.some(({ nøkkel }) => nøkkel === natAndel.nøkkel)) {
           natAndeler.push(natAndel);
         }
@@ -76,23 +82,20 @@ const finnAlleArbeidstakernøkkler = (
 };
 
 const finnBortfaltBeløp = (periode: BeregningsgrunnlagPeriodeProp, nøkkel: string): number => {
-  const matchendeAndel = periode.beregningsgrunnlagPrStatusOgAndel
-    .filter(bgAndel => andelHarBortfaltNaturalytelse(bgAndel))
-    .find(bgAndel => lagAndelNøkkel(bgAndel) === nøkkel);
-  return matchendeAndel?.arbeidsforhold.naturalytelseBortfaltPrÅr;
+  const matchendeAndel = andelslisteEllerTom(periode)
+    .find((bgAndel) => lagAndelNøkkel(bgAndel) === nøkkel);
+  const bortfalt = matchendeAndel && matchendeAndel.arbeidsforhold ? matchendeAndel.arbeidsforhold.naturalytelseBortfaltPrÅr : 0;
+  return bortfalt || 0;
 };
 
-const lagNatEndringForAndel = (
-  natAndel: NaturalytelseTabellRad,
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-): NaturalytelseEndring[] => {
-  const endringer = [];
-  allePerioder.forEach(periode => {
+const lagNatEndringForAndel = (natAndel: NaturalytelseTabellRad, allePerioder: BeregningsgrunnlagPeriodeProp[]): NaturalytelseEndring[] => {
+  const endringer = [] as NaturalytelseEndring[];
+  allePerioder.forEach((periode) => {
     const bortfaltBeløp = finnBortfaltBeløp(periode, natAndel.nøkkel);
     if (bortfaltBeløp) {
       endringer.push({
-        fom: periode.beregningsgrunnlagPeriodeFom,
-        tom: periode.beregningsgrunnlagPeriodeTom,
+        fom: periode.beregningsgrunnlagPeriodeFom || '',
+        tom: periode.beregningsgrunnlagPeriodeTom || '',
         beløpPrÅr: bortfaltBeløp,
         beløpPrMåned: bortfaltBeløp / 12,
       });
@@ -106,7 +109,7 @@ const slåSammenEndringerSomHengerSammen = (endringer: NaturalytelseEndring[]): 
     return endringer;
   }
   endringer.sort((a, b) => moment(a.fom).diff(moment(b.fom)));
-  const sammenslåtteEndringer = [];
+  const sammenslåtteEndringer = [] as NaturalytelseEndring[];
   let kontrollertTom = moment(endringer[0].fom);
   endringer.forEach(end => {
     if (!moment(end.fom).isBefore(kontrollertTom)) {
@@ -126,7 +129,7 @@ const slåSammenEndringerSomHengerSammen = (endringer: NaturalytelseEndring[]): 
         // Beløp endres aldri, setter kontrollertTom til TIDENES_ENDE
         kontrollertTom = moment(TIDENES_ENDE);
         sammenslåtteEndringer.push({
-          tom: null,
+          tom: '',
           fom: end.fom,
           beløpPrÅr: end.beløpPrÅr,
           beløpPrMåned: end.beløpPrMåned,
@@ -140,7 +143,7 @@ const slåSammenEndringerSomHengerSammen = (endringer: NaturalytelseEndring[]): 
 const lagNaturalytelseTabelldata = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): NaturalytelseTabellData => {
+): undefined | NaturalytelseTabellData => {
   const alleNatAndeler = finnAlleArbeidstakernøkkler(allePerioder, arbeidsgiverOpplysningerPerId);
   alleNatAndeler.forEach(natAndel => {
     const endringer = lagNatEndringForAndel(natAndel, allePerioder);
@@ -148,7 +151,7 @@ const lagNaturalytelseTabelldata = (
     const sammenslåtteEndringer = slåSammenEndringerSomHengerSammen(endringer);
     sammenslåtteEndringer.forEach(endring => natAndel.naturalytelseEndringer.push(endring));
   });
-  return !alleNatAndeler || alleNatAndeler.length < 1 ? null : { rader: alleNatAndeler };
+  return !alleNatAndeler || alleNatAndeler.length < 1 ? undefined : { rader: alleNatAndeler };
 };
 
 const lagPeriodeTekst = (endring: NaturalytelseEndring): string => {

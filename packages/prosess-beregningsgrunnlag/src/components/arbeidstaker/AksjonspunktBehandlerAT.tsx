@@ -10,12 +10,11 @@ import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
-  BeregningsgrunnlagArbeidsforhold,
 } from '@navikt/ft-types';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
+import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
@@ -38,22 +37,7 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
     .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
 
-const lagVisningsnavn = (
-  arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): string => {
-  const arbeidsgiverInformasjon = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
-  if (!arbeidsgiverInformasjon) {
-    return arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
-      : '';
-  }
-  return createVisningsnavnForAktivitet(arbeidsgiverInformasjon, arbeidsforhold.eksternArbeidsforholdId);
-};
-
-const createRows = (
-  relevanteAndelerAT: BeregningsgrunnlagAndel[],
+const createRows = (relevanteAndelerAT: BeregningsgrunnlagAndel[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   readOnly: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -62,7 +46,7 @@ const createRows = (
     <Row key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
       <Column xs="7">
         <Normaltekst>
-          {lagVisningsnavn(andel.arbeidsforhold, getKodeverknavn, arbeidsgiverOpplysningerPerId)}
+          {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
         </Normaltekst>
       </Column>
       <Column xs="5">
@@ -80,11 +64,8 @@ const createRows = (
   ));
 
 interface StaticFunctions {
-  transformValues?: (
-    values: ArbeidstakerInntektValues,
-    relevanteStatuser: RelevanteStatuserProp,
-    alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-  ) => ArbeidsinntektResultat[];
+  transformValues: (values: ArbeidstakerInntektValues, relevanteStatuser: RelevanteStatuserProp,
+                     alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],) => ArbeidsinntektResultat[];
 }
 
 type OwnProps = {
@@ -107,18 +88,20 @@ const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = (
 AksjonspunktBehandlerAT.transformValues = (
   values: ArbeidstakerInntektValues,
   relevanteStatuser: RelevanteStatuserProp,
-  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-): ArbeidsinntektResultat[] => {
-  let inntektPrAndelList = null;
+  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): ArbeidsinntektResultat[] => {
+  let inntektPrAndelList = [] as ArbeidsinntektResultat[];
   if (relevanteStatuser.isArbeidstaker) {
-    inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode).map(({ andelsnr }, index) => {
-      const overstyrtInntekt = values[`inntekt${index}`];
-      return {
-        inntekt:
-          overstyrtInntekt === undefined || overstyrtInntekt === '' ? 0 : removeSpacesFromNumber(overstyrtInntekt),
-        andelsnr,
-      };
-    });
+    inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode)
+      .map(({ andelsnr }, index) => {
+        const overstyrtInntekt = values[`inntekt${index}`];
+        if (!andelsnr) {
+          throw new Error('Forventer andelsnr på andeler som skal fastsettes.');
+        }
+        return {
+          inntekt: (overstyrtInntekt === undefined || overstyrtInntekt === '') ? 0 : removeSpacesFromNumber(overstyrtInntekt),
+          andelsnr,
+        };
+      });
   }
   return inntektPrAndelList;
 };
