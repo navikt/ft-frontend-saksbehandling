@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 
 import { useFieldArray, useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -121,15 +121,26 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   const formMethods = useForm<AvklarAktiviteterFormValues>({
     defaultValues: formData || buildFormInitialValues(beregningsgrunnlag, alleKodeverk, arbeidsgiverOpplysningerPerId, vilkår),
   });
+
+  const {
+    formState: { dirtyFields, errors, isSubmitted }, control, getValues, trigger,
+  } = formMethods;
+
+  useEffect(() => {
+    if (isSubmitted && dirtyFields.avklarAktiviteterForm?.[aktivtBeregningsgrunnlagIndeks]) {
+      trigger();
+    }
+  }, [aktivtBeregningsgrunnlagIndeks]);
+
   const avklaringsbehov = beregningsgrunnlag.flatMap((bg) => bg.avklaringsbehov);
 
   const { fields, update } = useFieldArray({
     name: formNameAvklarAktiviteter,
-    control: formMethods.control,
+    control,
   });
 
   const updateOverstyring = (index : number, skalOverstyre : boolean) : void => {
-    const currVal = formMethods.getValues(`avklarAktiviteterForm.${index}`);
+    const currVal = getValues(`avklarAktiviteterForm.${index}`);
     update(index, { ...currVal, manuellOverstyringBeregningAktiviteter: skalOverstyre });
   };
 
@@ -138,7 +149,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   }
 
   const losAvklaringsbehov = (values) => {
-    if (Object.keys(formMethods.formState.errors).length === 0) {
+    if (Object.keys(errors).length === 0) {
       submitCallback(transformValues(values as AvklarAktiviteterFormValues));
     }
   };
