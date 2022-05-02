@@ -1,0 +1,114 @@
+{
+  "name": "@navikt/ft-plattform-komponenter",
+  "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "index.js",
+    "package.json"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage --colors",
+    "tsc": "tsc --pretty",
+    "eslint": "eslint \"src/**/*.ts*\"",
+    "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
+    "less:lint": "stylelint \"src/**/*.less\"",
+    "build-webpack": "cross-env webpack --config webpack.config.js",
+    "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --downlevelIteration --resolveJsonModule --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
+    "build": "yarn build-webpack & yarn build-ts-declarations",
+    "clean": "rm -rf ./dist ./node_modules",
+    "storybook": "cross-env start-storybook -p 7006"
+  },
+ "dependencies": {
+    "@navikt/ds-css": "^0.16.15",
+    "@navikt/ds-icons": "^0.8.7",
+    "@navikt/ds-react": "^0.17.19",
+    "@navikt/ft-utils": "^1.0.1"
+},
+"peerDependencies": {
+  "classnames": "2.3.1",
+  "dayjs": "1.11.0",
+  "lodash.throttle": "4.1.1",
+  "nav-frontend-alertstriper": "^4.0.1",
+  "nav-frontend-alertstriper-style": "^3.0.1",
+  "nav-frontend-chevron": "^1.0.30",
+  "nav-frontend-chevron-style": "^1.0.4",
+  "nav-frontend-core": "^6.0.1",
+  "nav-frontend-etiketter": "^3.0.1",
+  "nav-frontend-etiketter-style": "^2.0.1",
+  "nav-frontend-ikoner-assets": "^3.0.1",
+  "nav-frontend-ikonknapper": "^1.0.32",
+  "nav-frontend-js-utils": "^1.0.20",
+  "nav-frontend-knapper": "^3.1.2",
+  "nav-frontend-knapper-style": "^2.1.1",
+  "nav-frontend-lenker": "^2.0.1",
+  "nav-frontend-lenker-style": "^2.0.1",
+  "nav-frontend-paneler": "^3.0.1",
+  "nav-frontend-paneler-style": "^2.0.1",
+  "nav-frontend-spinner": "^3.0.1",
+  "nav-frontend-spinner-style": "^1.0.2",
+  "nav-frontend-typografi": "^4.0.1",
+  "nav-frontend-typografi-style": "^2.0.1",
+  "prop-types": "^15.8.1",
+  "react": "^17.0.2",
+  "react-collapse": "^5.1.1",
+  "react-dom": "^17.0.2",
+  "react-popper": "^2.2.5"
+},
+  "peerDependenciesMeta": {
+    "react-popper": {
+        "optional": true
+    }
+},
+"devDependencies": {
+  "@storybook/react": "^6.3.0-alpha.14",
+  "classnames": "^2.3.1",
+  "dayjs": "^1.11.0",
+  "lodash.throttle": "^4.1.1",
+  "nav-frontend-alertstriper": "^4.0.1",
+  "nav-frontend-alertstriper-style": "^3.0.1",
+  "nav-frontend-chevron": "^1.0.30",
+  "nav-frontend-chevron-style": "^1.0.4",
+  "nav-frontend-core": "^6.0.1",
+  "nav-frontend-etiketter": "^3.0.1",
+  "nav-frontend-etiketter-style": "^2.0.1",
+  "nav-frontend-ikoner-assets": "^3.0.1",
+  "nav-frontend-ikonknapper": "^1.0.32",
+  "nav-frontend-js-utils": "^1.0.20",
+  "nav-frontend-knapper": "^3.1.2",
+  "nav-frontend-knapper-style": "^2.1.1",
+  "nav-frontend-lenker": "^2.0.1",
+  "nav-frontend-lenker-style": "^2.0.1",
+  "nav-frontend-paneler": "^3.0.1",
+  "nav-frontend-paneler-style": "^2.0.1",
+  "nav-frontend-spinner": "^3.0.1",
+  "nav-frontend-spinner-style": "^1.0.2",
+  "nav-frontend-typografi": "^4.0.1",
+  "nav-frontend-typografi-style": "^2.0.1",
+  "prop-types": "^15.8.1",
+  "react": "^17.0.2",
+  "react-collapse": "^5.1.1",
+  "react-dom": "^17.0.2",
+  "react-popper": "^2.2.5"
+},
+  "resolutions": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-test-renderer": "17.0.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./dist/style.css": "./dist/style.css"
+  }
+}

@@ -128,3 +128,8 @@ export {
 
 export { getKodeverknavnFn, getKodeverknavnFraKode } from './src/kodeverkUtils';
 export { default as createIntl } from './src/createIntl';
+
+export { default as bemUtils } from './src/bemUtils';
+export { default as Period } from './src/Period';
+export { prettifyDateString } from './src/dateUtils';
+export { sortPeriodsByFomDate } from './src/periodUtils';
