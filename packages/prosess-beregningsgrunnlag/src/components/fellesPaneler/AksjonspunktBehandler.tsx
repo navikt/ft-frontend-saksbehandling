@@ -33,11 +33,20 @@ import styles from './aksjonspunktBehandler.less';
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
+const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[],
+  status: string): boolean => {
+  if (!allePerioder || allePerioder.length < 1) {
+    return false;
+  }
+  const andeler = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel : [];
+  return andeler?.some((a) => a.aktivitetStatus === status && a.skalFastsetteGrunnlag);
+};
+
 const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] => {
   if (allePerioder && allePerioder.length > 0) {
-    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel;
+    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel : [];
   }
-  return undefined;
+  return [];
 };
 const harFlereAksjonspunkter = (gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean =>
   !!gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.length > 1;
@@ -58,7 +67,7 @@ const settOppKomponenterForNæring = (
   readOnly: boolean,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   aksjonspunkter: Aksjonspunkt[],
-): ReactElement => {
+): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
@@ -111,15 +120,8 @@ const settOppKomponenterForATFL = (
   intl: IntlShape,
 ): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
-  const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
-  const flAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.FRILANSER,
-  );
-  const atAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  );
-  const visFL = flAndel && flAndel.skalFastsetteGrunnlag;
-  const visAT = atAndel && atAndel.skalFastsetteGrunnlag;
+  const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, aktivitetStatus.FRILANSER);
+  const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, aktivitetStatus.ARBEIDSTAKER);
   return (
     <>
       <Row>
@@ -141,12 +143,12 @@ const settOppKomponenterForATFL = (
         />
       )}
       {!erTidsbegrenset && visAT && (
-        <AksjonspunktBehandlerAT
-          readOnly={readOnly}
-          alleAndelerIForstePeriode={alleAndelerIForstePeriode}
-          alleKodeverk={alleKodeverk}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
+      <AksjonspunktBehandlerAT
+        readOnly={readOnly}
+        alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+        alleKodeverk={alleKodeverk}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+      />
       )}
       {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} />}
       <VerticalSpacer sixteenPx />
@@ -170,10 +172,6 @@ const settOppKomponenterForATFL = (
   );
 };
 
-interface StaticFunctions {
-  transformValues?: (values: ArbeidstakerFrilansValues) => string;
-}
-
 type OwnProps = {
   readOnly: boolean;
   aksjonspunkter: Aksjonspunkt[];
@@ -187,7 +185,7 @@ type OwnProps = {
   isDirty: boolean;
 };
 
-const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
+const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   readOnly,
   aksjonspunkter,
   formName,
@@ -200,7 +198,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
   isSubmitting,
 }) => {
   const intl = useIntl();
-  if (!aksjonspunkter || aksjonspunkter.length === 0) {
+  if (!aksjonspunkter || aksjonspunkter.length === 0 || !allePerioder) {
     return null;
   }
   const submittKnapp = (
@@ -275,9 +273,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
 };
 
 AksjonspunktBehandler.defaultProps = {
-  allePerioder: undefined,
+  allePerioder: [],
 };
-
-AksjonspunktBehandler.transformValues = (values: ArbeidstakerFrilansValues): string => values.ATFLVurdering;
 
 export default AksjonspunktBehandler;

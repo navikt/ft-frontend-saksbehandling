@@ -32,11 +32,11 @@ const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVE
   ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
-  endretTekst?: React.ReactNode;
-  readOnly: boolean;
-  erVarigEndring: boolean;
-  erNyoppstartet: boolean;
-  erVarigEndretNaering?: boolean;
+    endretTekst?: React.ReactNode;
+    readOnly: boolean;
+    erVarigEndring?: boolean;
+    erNyoppstartet?: boolean;
+    erVarigEndretNaering?: boolean;
 };
 
 interface StaticFunctions {

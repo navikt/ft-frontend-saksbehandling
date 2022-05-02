@@ -11,9 +11,9 @@ import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 type OwnProps = {
-  beregnetAarsinntekt?: number;
-  sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
-  relevanteStatuser: RelevanteStatuserProp;
+    beregnetAarsinntekt?: number;
+    sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[];
+    relevanteStatuser: RelevanteStatuserProp;
 };
 
 const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
@@ -78,6 +78,5 @@ const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
 
 AvvikopplysningerFL.defaultProps = {
   beregnetAarsinntekt: undefined,
-  sammenligningsgrunnlagPrStatus: undefined,
 };
 export default AvvikopplysningerFL;
