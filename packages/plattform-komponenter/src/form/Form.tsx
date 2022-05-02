@@ -14,37 +14,37 @@ export interface FormProps {
 }
 
 const Form = ({
-    children,
-    onSubmit,
-    buttonLabel,
-    shouldShowSubmitButton,
-    onAvbryt,
-    submitButtonDisabled,
-    cancelButtonDisabled,
+  children,
+  onSubmit,
+  buttonLabel,
+  shouldShowSubmitButton,
+  onAvbryt,
+  submitButtonDisabled,
+  cancelButtonDisabled,
 }: FormProps): JSX.Element => (
-    <form onSubmit={onSubmit}>
-        {children}
-        {shouldShowSubmitButton !== false && (
-            <Box marginTop={Margin.xxLarge}>
-                <div className={styles.buttonContainer}>
-                    <Hovedknapp
-                        id="submitButton"
-                        disabled={submitButtonDisabled === true}
-                        spinner={submitButtonDisabled === true}
-                    >
-                        {buttonLabel}
-                    </Hovedknapp>
-                    {onAvbryt && (
-                        <div className={styles.buttonContainer__avbryt}>
-                            <Knapp htmlType="button" onClick={onAvbryt} disabled={cancelButtonDisabled === true}>
-                                Avbryt
-                            </Knapp>
-                        </div>
-                    )}
-                </div>
-            </Box>
+  <form onSubmit={onSubmit}>
+    {children}
+    {shouldShowSubmitButton !== false && (
+    <Box marginTop={Margin.xxLarge}>
+      <div className={styles.buttonContainer}>
+        <Hovedknapp
+          id="submitButton"
+          disabled={submitButtonDisabled === true}
+          spinner={submitButtonDisabled === true}
+        >
+          {buttonLabel}
+        </Hovedknapp>
+        {onAvbryt && (
+        <div className={styles.buttonContainer__avbryt}>
+          <Knapp htmlType="button" onClick={onAvbryt} disabled={cancelButtonDisabled === true}>
+            Avbryt
+          </Knapp>
+        </div>
         )}
-    </form>
+      </div>
+    </Box>
+    )}
+  </form>
 );
 
 export default Form;

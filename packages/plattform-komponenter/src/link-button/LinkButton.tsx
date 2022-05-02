@@ -8,12 +8,12 @@ export interface LinkButtonProps {
 }
 
 const LinkButton = ({ className, onClick, children }: LinkButtonProps) => {
-    const cls = `${className || ''} ${styles.linkButton}`;
-    return (
-        <button type="button" className={cls} onClick={onClick}>
-            {children}
-        </button>
-    );
+  const cls = `${className || ''} ${styles.linkButton}`;
+  return (
+    <button type="button" className={cls} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
 export default LinkButton;

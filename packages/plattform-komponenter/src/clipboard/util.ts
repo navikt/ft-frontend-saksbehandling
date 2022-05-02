@@ -1,26 +1,26 @@
-const copyContentsToClipboard = (node): boolean => {
-    let didCopy = false;
-    /* eslint-disable no-param-reassign */
-    if (node) {
-        node.contentEditable = 'true';
-        const tempTextContents = node.innerText;
-        node.innerText = node.innerText.replace(' ', '');
-        const range = document.createRange();
-        range.selectNodeContents(node);
+const copyContentsToClipboard = (node: any): boolean => {
+  let didCopy = false;
+  /* eslint-disable no-param-reassign */
+  if (node) {
+    node.contentEditable = 'true';
+    const tempTextContents = node.innerText;
+    node.innerText = node.innerText.replace(' ', '');
+    const range = document.createRange();
+    range.selectNodeContents(node);
 
-        const selection = window.getSelection();
+    const selection = window.getSelection();
 
-        if (selection) {
-            selection.removeAllRanges();
-            selection.addRange(range);
+    if (selection) {
+      selection.removeAllRanges();
+      selection.addRange(range);
 
-            didCopy = document.execCommand('copy');
-            selection.removeAllRanges();
-        }
-        node.innerText = tempTextContents;
-        node.contentEditable = 'false';
+      didCopy = document.execCommand('copy');
+      selection.removeAllRanges();
     }
-    /* eslint-enable no-param-reassign */
-    return didCopy;
+    node.innerText = tempTextContents;
+    node.contentEditable = 'false';
+  }
+  /* eslint-enable no-param-reassign */
+  return didCopy;
 };
 export default copyContentsToClipboard;

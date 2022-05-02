@@ -9,8 +9,8 @@ interface InfoPanel {
 }
 
 const InfoPanel = ({ children, type }: InfoPanel) => {
-    const cls = classnames(styles.infoPanel, styles[`infoPanel--${type}`]);
-    return <Panel className={cls}>{children}</Panel>;
+  const cls = classnames(styles.infoPanel, styles[`infoPanel--${type}`]);
+  return <Panel className={cls}>{children}</Panel>;
 };
 
 export default InfoPanel;

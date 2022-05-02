@@ -10,20 +10,22 @@ export interface LabelledContentProps {
     indentContent?: boolean;
 }
 
-const LabelledContent = ({ label, content, labelTag, indentContent }: LabelledContentProps) => {
-    const cl = classNames(styles.labelledContent__content, {
-        [styles.labelledContent__indentation]: indentContent,
-    });
-    return (
-        <div className={styles.labelledContent}>
-            <Element className={styles.labelledContent__label} tag={labelTag || 'p'}>
-                {label}
-            </Element>
-            <div className={cl}>
-                <div>{content}</div>
-            </div>
-        </div>
-    );
+const LabelledContent = ({
+  label, content, labelTag, indentContent,
+}: LabelledContentProps) => {
+  const cl = classNames(styles.labelledContent__content, {
+    [styles.labelledContent__indentation]: indentContent,
+  });
+  return (
+    <div className={styles.labelledContent}>
+      <Element className={styles.labelledContent__label} tag={labelTag || 'p'}>
+        {label}
+      </Element>
+      <div className={cl}>
+        <div>{content}</div>
+      </div>
+    </div>
+  );
 };
 
 export default LabelledContent;

@@ -10,21 +10,23 @@ export interface DetailViewProps {
     className?: string;
 }
 
-const DetailView = ({ title, children, contentAfterTitleRenderer, className }: DetailViewProps) => {
-    const cls = classnames(styles.detailView, {
-        [className]: !!className,
-    });
-    return (
-        <div className={cls}>
-            <div className={styles.detailView__titleContainer}>
-                <Undertittel>{title}</Undertittel>
-                {contentAfterTitleRenderer && (
-                    <div className={styles.detailView__nextToTitle}>{contentAfterTitleRenderer()}</div>
-                )}
-            </div>
-            {children}
-        </div>
-    );
+const DetailView = ({
+  title, children, contentAfterTitleRenderer, className,
+}: DetailViewProps) => {
+  const cls = classnames(styles.detailView, className ? {
+    [className]: !!className,
+  } : {});
+  return (
+    <div className={cls}>
+      <div className={styles.detailView__titleContainer}>
+        <Undertittel>{title}</Undertittel>
+        {contentAfterTitleRenderer && (
+        <div className={styles.detailView__nextToTitle}>{contentAfterTitleRenderer()}</div>
+        )}
+      </div>
+      {children}
+    </div>
+  );
 };
 
 export default DetailView;

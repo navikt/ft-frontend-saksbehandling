@@ -1,25 +1,29 @@
 import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react';
-import NavigationWithDetailView from './../navigation-with-detail-view/NavigationWithDetailView';
-import DetailView from './../detail-view/DetailView';
+import NavigationWithDetailView from './NavigationWithDetailView';
+import DetailView from '../detail-view/DetailView';
 
 export default {
-    title: 'React Components',
-    component: NavigationWithDetailView,
+  title: 'React Components',
+  component: NavigationWithDetailView,
 };
 
-const Template: Story<ComponentProps<typeof NavigationWithDetailView>> = (args) => (
+const Template: Story<ComponentProps<typeof NavigationWithDetailView>> = (args) => {
+  const navigationSection = () => <p>Navigasjon</p>;
+  const detailSection = () => (
+    <DetailView title="Tittel">
+      <p>Detaljer</p>
+    </DetailView>
+  );
+  return (
     <NavigationWithDetailView
-        {...args}
-        navigationSection={() => <p>Navigasjon</p>}
-        showDetailSection={true}
-        detailSection={() => (
-            <DetailView title="Tittel">
-                <p>Detaljer</p>
-            </DetailView>
-        )}
+      {...args}
+      navigationSection={navigationSection}
+      showDetailSection
+      detailSection={detailSection}
     />
-);
+  );
+};
 
 export const NavigationWithDetail = Template.bind({});
 NavigationWithDetail.args = {};
