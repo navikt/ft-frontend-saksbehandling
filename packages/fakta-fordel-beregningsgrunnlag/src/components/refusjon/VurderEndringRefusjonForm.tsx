@@ -1,22 +1,21 @@
 import React, { FunctionComponent } from 'react';
-import { InjectedFormProps, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Undertittel } from 'nav-frontend-typografi';
-
+import { Form } from '@navikt/ft-form-hooks';
 import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt, RefusjonTilVurderingAndel, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId,
 } from '@navikt/ft-types';
-import VurderRefusjonBeregningsgrunnlagAP from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
+import VurderRefusjonBeregningsgrunnlagAP from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
-import VurderRefusjonValues from '../../types/VurderRefusjonTsType';
-import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
-import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
+import { VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaSubmitButton from '../felles/FaktaSubmitButton';
+import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 
 const BEGRUNNELSE_FIELD = 'VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE';
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
@@ -35,78 +34,7 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
   return `${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef})`;
 };
 
-interface MappedOwnProps {
-  initialValues: VurderRefusjonValues;
-  onSubmit: (formValues: VurderRefusjonValues) => void;
-}
-
-type OwnProps = {
-    submitCallback: (aksjonspunktData: VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
-    readOnly: boolean;
-    submittable: boolean;
-    submitEnabled: boolean;
-    beregningsgrunnlag?: Beregningsgrunnlag;
-    aksjonspunkter: Aksjonspunkt[];
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-};
-
-export const VurderEndringRefusjonFormImpl: FunctionComponent<OwnProps & MappedOwnProps & InjectedFormProps> = ({
-  submitEnabled,
-  submittable,
-  readOnly,
-  beregningsgrunnlag,
-  aksjonspunkter,
-  arbeidsgiverOpplysningerPerId,
-  ...formProps
-}) => {
-  const { andeler } = beregningsgrunnlag.refusjonTilVurdering;
-  const ap = finnAksjonspunkt(aksjonspunkter);
-  const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
-  return (
-    <>
-      <AksjonspunktHelpTextTemp isAksjonspunktOpen={erAksjonspunktÅpent}>
-        {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
-      </AksjonspunktHelpTextTemp>
-      <VerticalSpacer sixteenPx />
-      <form onSubmit={formProps.handleSubmit}>
-        <Undertittel><FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" /></Undertittel>
-        <VerticalSpacer sixteenPx />
-        <TidligereUtbetalinger beregningsgrunnlag={beregningsgrunnlag} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
-        { andeler.map((andel) => (
-          /* @ts-ignore */
-          <VurderEndringRefusjonRad
-            refusjonAndel={andel}
-            readOnly={readOnly}
-            erAksjonspunktÅpent={erAksjonspunktÅpent}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            key={lagRadNøkkel(andel)}
-            skjæringstidspunkt={beregningsgrunnlag.skjaeringstidspunktBeregning}
-            formName={FORM_NAME}
-          />
-        ))}
-        <VerticalSpacer twentyPx />
-        <FaktaBegrunnelseTextField
-          name={BEGRUNNELSE_FIELD}
-          isSubmittable={submittable}
-          isReadOnly={readOnly}
-          hasBegrunnelse={!!(ap && ap.begrunnelse)}
-        />
-
-        <VerticalSpacer twentyPx />
-        { /* @ts-ignore */ }
-        <FaktaSubmitButton
-          formName={formProps.form}
-          isSubmittable={submittable && submitEnabled}
-          isReadOnly={readOnly}
-          hasOpenAksjonspunkter={erAksjonspunktÅpent}
-        />
-        <VerticalSpacer sixteenPx />
-      </form>
-    </>
-  );
-};
-
-export const buildInitialValues = (bg: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt[]): VurderRefusjonValues => {
+const buildInitialValues = (bg: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt[]): VurderRefusjonValues => {
   const { andeler } = bg.refusjonTilVurdering;
   let initialValues = {};
   andeler.forEach((andel) => {
@@ -120,30 +48,86 @@ export const buildInitialValues = (bg: Beregningsgrunnlag, aksjonspunkter: Aksjo
   return initialValues;
 };
 
-export const transformValues = (values: VurderRefusjonValues, bg: Beregningsgrunnlag): VurderRefusjonBeregningsgrunnlagAP => {
+const transformValues = (values: VurderRefusjonValues, bg: Beregningsgrunnlag): VurderRefusjonBeregningsgrunnlagAP => {
   const { andeler } = bg.refusjonTilVurdering;
   const transformedAndeler = andeler.map((andel) => VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning));
   return {
-    begrunnelse: values[BEGRUNNELSE_FIELD],
+    begrunnelse: values.begrunnelse,
     kode: VURDER_REFUSJON_BERGRUNN,
     fastsatteAndeler: transformedAndeler,
   };
 };
 
-const mapStateToProps = (initialState: any, initialProps: OwnProps) => {
-  const onSubmit = (values) => initialProps.submitCallback(transformValues(values, initialProps.beregningsgrunnlag));
-  return (state: any, ownProps: OwnProps): MappedOwnProps => {
-    const initialValues = buildInitialValues(ownProps.beregningsgrunnlag, ownProps.aksjonspunkter);
-    return ({
-      initialValues,
-      onSubmit,
-    });
-  };
+type OwnProps = {
+    submitCallback: (aksjonspunktData: VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
+    readOnly: boolean;
+    submittable: boolean;
+    beregningsgrunnlag?: Beregningsgrunnlag;
+    aksjonspunkter: Aksjonspunkt[];
+    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+    formData?: VurderRefusjonValues;
+    setFormData: (data: VurderRefusjonValues) => void,
 };
 
-// @ts-ignore
-export default connect(mapStateToProps)(reduxForm({
-  form: FORM_NAME,
-  enableReinitialize: true,
-  destroyOnUnmount: false,
-})(VurderEndringRefusjonFormImpl));
+const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
+  submittable,
+  readOnly,
+  beregningsgrunnlag,
+  aksjonspunkter,
+  arbeidsgiverOpplysningerPerId,
+  setFormData,
+  formData,
+  submitCallback,
+}) => {
+  const { andeler } = beregningsgrunnlag.refusjonTilVurdering;
+  const ap = finnAksjonspunkt(aksjonspunkter);
+  const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
+  const formMethods = useForm<VurderRefusjonValues>({
+    defaultValues: formData || buildInitialValues(beregningsgrunnlag, aksjonspunkter),
+  });
+  const begrunnelse = formMethods.watch('begrunnelse');
+  return (
+    <>
+      <AksjonspunktHelpTextTemp isAksjonspunktOpen={erAksjonspunktÅpent}>
+        {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
+      </AksjonspunktHelpTextTemp>
+      <VerticalSpacer sixteenPx />
+      <Form
+        formMethods={formMethods}
+        onSubmit={(values) => submitCallback(transformValues(values, beregningsgrunnlag))}
+        setDataOnUnmount={setFormData}
+      >
+        <Undertittel><FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" /></Undertittel>
+        <VerticalSpacer sixteenPx />
+        <TidligereUtbetalinger beregningsgrunnlag={beregningsgrunnlag} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
+        { andeler.map((andel) => (
+          <VurderEndringRefusjonRad
+            refusjonAndel={andel}
+            readOnly={readOnly}
+            erAksjonspunktÅpent={erAksjonspunktÅpent}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            key={lagRadNøkkel(andel)}
+            skjæringstidspunkt={beregningsgrunnlag.skjaeringstidspunktBeregning}
+            formName={FORM_NAME}
+          />
+        ))}
+        <VerticalSpacer twentyPx />
+        <FaktaBegrunnelseTextField
+          isSubmittable={submittable}
+          isReadOnly={readOnly}
+          hasBegrunnelse={!!begrunnelse}
+        />
+        <VerticalSpacer twentyPx />
+        <FaktaSubmitButton
+          isSubmittable={submittable}
+          isReadOnly={readOnly}
+          isSubmitting={formMethods.formState.isSubmitting}
+          isDirty={formMethods.formState.isDirty}
+        />
+        <VerticalSpacer sixteenPx />
+      </Form>
+    </>
+  );
+};
+
+export default VurderEndringRefusjonForm;

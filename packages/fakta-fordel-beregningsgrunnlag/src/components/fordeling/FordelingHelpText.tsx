@@ -1,24 +1,26 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { createSelector } from 'reselect';
 import moment from 'moment';
-import { connect } from 'react-redux';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, getKodeverknavnFn } from '@navikt/ft-utils';
-import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, getKodeverknavnFn, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { AksjonspunktHelpTextTemp } from '@navikt/ft-ui-komponenter';
 import {
+  Aksjonspunkt,
+  Beregningsgrunnlag,
+  AlleKodeverk,
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
-  AlleKodeverk, PerioderMedGraderingEllerRefusjon,
-  Beregningsgrunnlag,
-  Aksjonspunkt,
+  PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
-import { createVisningsnavnForAktivitetFordeling } from './util/visningsnavnHelper';
-import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
+import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
 const {
   FORDEL_BEREGNINGSGRUNNLAG,
 } = FaktaFordelBeregningAksjonspunktCode;
+
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
+  .some((ap) => ap.definisjon === aksjonspunktKode);
 
 export const textCase = {
   GRADERING: 'GRADERING',
@@ -26,9 +28,6 @@ export const textCase = {
   PERMISJON: 'PERMISJON',
   ENDRING_YTELSE: 'ENDRING_YTELSE',
 };
-
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
-  .some((ap) => ap.definisjon === aksjonspunktKode);
 
 const formatDate = (date: string): string => (date ? moment(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
@@ -167,65 +166,44 @@ const lagHelpTextsFordelBG = (endredeArbeidsforhold: ArbeidsforholdTilFordeling[
     .filter(({ perioderMedGraderingEllerRefusjon }) => harGraderingEllerRefusjon(perioderMedGraderingEllerRefusjon));
   const endringYtelse = endredeArbeidsforhold
     .filter(({ perioderMedGraderingEllerRefusjon }) => perioderMedGraderingEllerRefusjon.map(({ erSøktYtelse }) => erSøktYtelse).includes(true));
-  const helpTexts = createGraderingOrRefusjonString(gradering,
+  return createGraderingOrRefusjonString(gradering,
     refusjon,
     permisjonMedGraderingEllerRefusjon,
     endringYtelse,
     getKodeverknavn,
     arbeidsgiverOpplysningerPerId);
-  if (helpTexts.length === 2) {
-    return [
-      <div key="HjelpeTextDiv">
-        {helpTexts[0]}
-        <VerticalSpacer key="fordelingSpacer" eightPx />
-        {helpTexts[1]}
-      </div>];
-  }
-  return helpTexts;
 };
 
-type MappedOwnProps = {
-  helpText: React.ReactElement[];
-}
+export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag,
+  alleKodeverk: AlleKodeverk,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  aksjonspunkter: Aksjonspunkt[]): ReactElement[] => {
+  const fordelBG = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag;
+  const endredeArbeidsforhold = fordelBG ? fordelBG.arbeidsforholdTilFordeling : [];
+  return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, aksjonspunkter)
+    ? lagHelpTextsFordelBG(endredeArbeidsforhold, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId)
+    : [];
+};
 
 type OwnProps = {
-    isAksjonspunktClosed: boolean;
+  isAksjonspunktClosed: boolean;
+  beregningsgrunnlag: Beregningsgrunnlag;
+  alleKodeverk: AlleKodeverk;
+  aksjonspunkter: Aksjonspunkt[];
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-type OwnInitialProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  beregningsgrunnlag: Beregningsgrunnlag;
-  // eslint-disable-next-line react/no-unused-prop-types
-  alleKodeverk: AlleKodeverk;
-  // eslint-disable-next-line react/no-unused-prop-types
-  aksjonspunkter: Aksjonspunkt[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-}
+const FordelingHelpText: FunctionComponent<OwnProps> = ({
+  isAksjonspunktClosed,
+  beregningsgrunnlag,
+  alleKodeverk,
+  aksjonspunkter,
+  arbeidsgiverOpplysningerPerId,
+}) => {
+  const helpText = getHelpTextsFordelBG(beregningsgrunnlag, alleKodeverk, arbeidsgiverOpplysningerPerId, aksjonspunkter);
+  return (
+    <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAksjonspunktClosed}>{helpText}</AksjonspunktHelpTextTemp>
+  );
+};
 
-export const FordelingHelpTextImpl: FunctionComponent<OwnProps & MappedOwnProps & OwnInitialProps> = ({ helpText, isAksjonspunktClosed }) => (
-  <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAksjonspunktClosed}>{helpText}</AksjonspunktHelpTextTemp>
-);
-
-export const getHelpTextsFordelBG = createSelector(
-  [(ownProps: OwnInitialProps) => ownProps.beregningsgrunnlag,
-    (ownProps: OwnInitialProps) => ownProps.alleKodeverk,
-    (ownProps: OwnInitialProps) => ownProps.arbeidsgiverOpplysningerPerId,
-    (ownProps: OwnInitialProps) => ownProps.aksjonspunkter],
-  (beregningsgrunnlag,
-    alleKodeverk,
-    arbeidsgiverOpplysningerPerId,
-    aksjonspunkter): ReactElement[] => {
-    const fordelBG = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag;
-    const endredeArbeidsforhold = fordelBG ? fordelBG.arbeidsforholdTilFordeling : [];
-    return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, aksjonspunkter)
-      ? lagHelpTextsFordelBG(endredeArbeidsforhold, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId)
-      : [];
-  },
-);
-
-const mapStateToProps = (state: any, ownProps: OwnInitialProps): MappedOwnProps => ({
-  helpText: getHelpTextsFordelBG(ownProps),
-});
-
-export default connect(mapStateToProps)(FordelingHelpTextImpl);
+export default FordelingHelpText;
