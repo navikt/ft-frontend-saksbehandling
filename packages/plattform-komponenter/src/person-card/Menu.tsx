@@ -10,19 +10,17 @@ interface MenuProps {
     isOpen: boolean;
 }
 
-const Menu = ({ onClick, isOpen }: MenuProps): JSX.Element => {
-    return (
-        <button
-            className={styles[menuCls.block]}
-            type="button"
-            onClick={onClick}
-            aria-haspopup="dialog"
-            aria-expanded={isOpen}
-            aria-label="Meny"
-        >
-            <OtherIcon />
-        </button>
-    );
-};
+const Menu = ({ onClick, isOpen }: MenuProps): JSX.Element => (
+  <button
+    className={styles[menuCls.block]}
+    type="button"
+    onClick={onClick}
+    aria-haspopup="dialog"
+    aria-expanded={isOpen}
+    aria-label="Meny"
+  >
+    <OtherIcon />
+  </button>
+);
 
 export default Menu;

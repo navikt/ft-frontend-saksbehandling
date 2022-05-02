@@ -10,13 +10,11 @@ interface ProcessMenuProps {
 
 const processMenuCls = bemUtils('processMenu');
 
-export const ProcessMenu = ({ steps, onClick }: ProcessMenuProps): JSX.Element => {
-    return (
-        <ol className={styles[processMenuCls.block]}>
-            {steps.map((step, index) => (
-                <Step key={step.label.split(' ').join('')} index={index} onClick={onClick} {...step} />
-            ))}
-        </ol>
-    );
-};
+export const ProcessMenu = ({ steps, onClick }: ProcessMenuProps): JSX.Element => (
+  <ol className={styles[processMenuCls.block]}>
+    {steps.map((step, index) => (
+      <Step key={step.label.split(' ').join('')} index={index} onClick={onClick} {...step} />
+    ))}
+  </ol>
+);
 export default ProcessMenu;

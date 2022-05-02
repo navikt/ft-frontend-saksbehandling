@@ -5,8 +5,6 @@ interface PageErrorProps {
     message: string;
 }
 
-const PageError = ({ message }: PageErrorProps) => {
-    return <Alertstripe type="feil">{message}</Alertstripe>;
-};
+const PageError = ({ message }: PageErrorProps) => <Alertstripe type="feil">{message}</Alertstripe>;
 
 export default PageError;

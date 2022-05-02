@@ -8,14 +8,16 @@ interface IAssessedByProps {
     date?: string;
 }
 
-export default function AssessedBy({ name, date }: IAssessedByProps) {
-    if (!name) {
-        return null;
-    }
-    return (
-        <div className={styles['assessed-by']}>
-            <CaseworkerFilled height="1.5em" width="1.5em" />
-            <span>{`Vurdering av ${name ? name : ''}${date ? `, ${prettifyDateString(date)}` : ''}`}</span>
-        </div>
-    );
-}
+const AssessedBy = ({ name, date }: IAssessedByProps) => {
+  if (!name) {
+    return null;
+  }
+  return (
+    <div className={styles['assessed-by']}>
+      <CaseworkerFilled height="1.5em" width="1.5em" />
+      <span>{`Vurdering av ${name || ''}${date ? `, ${prettifyDateString(date)}` : ''}`}</span>
+    </div>
+  );
+};
+
+export default AssessedBy;

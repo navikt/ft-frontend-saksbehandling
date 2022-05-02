@@ -10,17 +10,15 @@ export interface SystemButtonProps {
     isToggled?: boolean;
 }
 
-const SystemButton: React.FunctionComponent<SystemButtonProps> = ({ onClick, isToggled }) => {
-    return (
-        <div className={styles[systemsCls.block]}>
-            <Systemerknapp
-                onClick={onClick}
-                className={styles[systemsCls.element('button')]}
-                aria-haspopup="dialog"
-                aria-expanded={isToggled}
-            />
-        </div>
-    );
-};
+const SystemButton: React.FunctionComponent<SystemButtonProps> = ({ onClick, isToggled }) => (
+  <div className={styles[systemsCls.block]}>
+    <Systemerknapp
+      onClick={onClick}
+      className={styles[systemsCls.element('button')]}
+      aria-haspopup="dialog"
+      aria-expanded={isToggled}
+    />
+  </div>
+);
 
 export default SystemButton;

@@ -1,14 +1,14 @@
 import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react';
-import LinkButtonComponent from './../link-button/LinkButton';
+import LinkButtonComponent from './LinkButton';
 
 export default {
-    title: 'React Components',
-    component: LinkButtonComponent,
+  title: 'React Components',
+  component: LinkButtonComponent,
 };
 
-const Template: Story<ComponentProps<typeof LinkButtonComponent>> = (args) => (
-    <LinkButtonComponent onClick={() => console.log('I was clicked')}>Click me</LinkButtonComponent>
+const Template: Story<ComponentProps<typeof LinkButtonComponent>> = () => (
+  <LinkButtonComponent onClick={() => console.log('I was clicked')}>Click me</LinkButtonComponent>
 );
 
 export const LinkButton = Template.bind({});

@@ -9,13 +9,13 @@ export interface TitleWithUnderlineProps {
 }
 
 const TitleWithUnderline = ({ children, titleClass, contentAfterTitleRenderer }: TitleWithUnderlineProps) => (
-    <>
-        <div className={styles.titleWithUnderline}>
-            <TitleComponent className={titleClass}>{children}</TitleComponent>
-            {contentAfterTitleRenderer && contentAfterTitleRenderer()}
-        </div>
-        <hr style={{ color: '#B7B1A9' }} />
-    </>
+  <>
+    <div className={styles.titleWithUnderline}>
+      <TitleComponent className={titleClass}>{children}</TitleComponent>
+      {contentAfterTitleRenderer && contentAfterTitleRenderer()}
+    </div>
+    <hr style={{ color: '#B7B1A9' }} />
+  </>
 );
 
 export default TitleWithUnderline;

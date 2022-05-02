@@ -8,26 +8,24 @@ export interface NavigationWithDetailViewProps {
 }
 
 const NavigationWithDetailView = ({
-    navigationSection,
-    detailSection,
-    showDetailSection,
-}: NavigationWithDetailViewProps) => {
-    return (
-        <div className={styles.navigationWithDetailView}>
-            <div
-                className={`${styles.navigationWithDetailView__navigationSection} navigationWithDetailView__navigationSection`}
-            >
-                {navigationSection()}
-            </div>
-            {showDetailSection && (
-                <div
-                    className={`${styles.navigationWithDetailView__detailSection} navigationWithDetailView__detailSection`}
-                >
-                    {detailSection()}
-                </div>
-            )}
-        </div>
-    );
-};
+  navigationSection,
+  detailSection,
+  showDetailSection,
+}: NavigationWithDetailViewProps) => (
+  <div className={styles.navigationWithDetailView}>
+    <div
+      className={`${styles.navigationWithDetailView__navigationSection} navigationWithDetailView__navigationSection`}
+    >
+      {navigationSection()}
+    </div>
+    {showDetailSection && (
+    <div
+      className={`${styles.navigationWithDetailView__detailSection} navigationWithDetailView__detailSection`}
+    >
+      {detailSection()}
+    </div>
+    )}
+  </div>
+);
 
 export default NavigationWithDetailView;

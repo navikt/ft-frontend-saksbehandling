@@ -8,20 +8,21 @@ export interface StatefulSideMenuProps {
     theme?: ThemeProp;
 }
 
-const StatefulSideMenu = ({ heading, links, onClick, theme }: StatefulSideMenuProps): JSX.Element => {
-    const [currentIndex, setCurrentIndex] = React.useState(0);
-    const handleOnClick = (index: number): void => {
-        setCurrentIndex(index);
-        onClick(index);
-    };
+const StatefulSideMenu = ({
+  heading, links, onClick, theme,
+}: StatefulSideMenuProps): JSX.Element => {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const handleOnClick = (index: number): void => {
+    setCurrentIndex(index);
+    onClick(index);
+  };
 
-    const getLinksWithActiveState = (): Link[] =>
-        links.map((link, index) => ({
-            ...link,
-            active: currentIndex === index,
-        }));
+  const getLinksWithActiveState = (): Link[] => links.map((link, index) => ({
+    ...link,
+    active: currentIndex === index,
+  }));
 
-    return <SideMenu heading={heading} links={getLinksWithActiveState()} onClick={handleOnClick} theme={theme} />;
+  return <SideMenu heading={heading} links={getLinksWithActiveState()} onClick={handleOnClick} theme={theme} />;
 };
 
 export default StatefulSideMenu;

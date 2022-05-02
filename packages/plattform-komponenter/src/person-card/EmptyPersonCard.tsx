@@ -12,14 +12,14 @@ interface EmptyPersonCard {
 }
 
 const EmptyPersonCard: React.FC<EmptyPersonCard> = ({ namePlaceholder }) => (
-    <Card>
-        <div className={styles[personCardCls.element('container')]}>
-            <GenderIcon />
-            <Normaltekst tag="p" className={styles[personCardCls.element('namePlaceholder')]}>
-                {namePlaceholder}
-            </Normaltekst>
-        </div>
-    </Card>
+  <Card>
+    <div className={styles[personCardCls.element('container')]}>
+      <GenderIcon />
+      <Normaltekst tag="p" className={styles[personCardCls.element('namePlaceholder')]}>
+        {namePlaceholder}
+      </Normaltekst>
+    </div>
+  </Card>
 );
 
 export default EmptyPersonCard;
