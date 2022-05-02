@@ -10,26 +10,28 @@ interface PageContainerProps {
     children?: React.ReactNode;
 }
 
-const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageContainerProps): JSX.Element => {
-    const shouldHideChildren = isLoading || hasError;
+const PageContainer = ({
+  isLoading, hasError, preventUnmount, children,
+}: PageContainerProps): JSX.Element => {
+  const shouldHideChildren = isLoading || hasError;
 
-    const renderChildrenContent = () => {
-        if (preventUnmount) {
-            return <div className={shouldHideChildren ? styles.visuallyHidden : ''}>{children}</div>;
-        }
-        if (shouldHideChildren) {
-            return null;
-        }
-        return children;
-    };
+  const renderChildrenContent = () => {
+    if (preventUnmount) {
+      return <div className={shouldHideChildren ? styles.visuallyHidden : ''}>{children}</div>;
+    }
+    if (shouldHideChildren) {
+      return null;
+    }
+    return children;
+  };
 
-    return (
-        <>
-            {isLoading && <Spinner />}
-            {hasError && <PageError message="Noe gikk galt, vennligst prøv igjen senere" />}
-            {renderChildrenContent()}
-        </>
-    );
+  return (
+    <>
+      {isLoading && <Spinner />}
+      {hasError && <PageError message="Noe gikk galt, vennligst prøv igjen senere" />}
+      {renderChildrenContent()}
+    </>
+  );
 };
 
 export default PageContainer;

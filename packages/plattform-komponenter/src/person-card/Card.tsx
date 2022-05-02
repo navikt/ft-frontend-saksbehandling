@@ -9,16 +9,14 @@ interface CardProps {
     active?: boolean;
 }
 
-const Card = ({ children, active }: CardProps): JSX.Element => {
-    return (
-        <div
-            className={
+const Card = ({ children, active }: CardProps): JSX.Element => (
+  <div
+    className={
                 active ? `${styles[cardCls.block]} ${styles[cardCls.modifier('active')]}` : styles[cardCls.block]
             }
-        >
-            {children}
-        </div>
-    );
-};
+  >
+    {children}
+  </div>
+);
 
 export default Card;

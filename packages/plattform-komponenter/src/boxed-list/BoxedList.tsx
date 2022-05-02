@@ -6,7 +6,7 @@ interface BoxedListProps {
 }
 
 const BoxedList: React.FunctionComponent<BoxedListProps> = ({ children }) => (
-    <ul className={styles.boxedList}>{children}</ul>
+  <ul className={styles.boxedList}>{children}</ul>
 );
 
 export default BoxedList;

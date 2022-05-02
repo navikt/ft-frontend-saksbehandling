@@ -1,7 +1,7 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import { Normaltekst } from 'nav-frontend-typografi';
-import BoxedList from './../boxed-list/BoxedList';
+import BoxedList from '../boxed-list/BoxedList';
 import styles from './boxedListWithLinks.less';
 
 interface ListItemProps {
@@ -24,26 +24,27 @@ const listItemCls = bemUtils('boxedList__item');
 
 /** Bordered list with links */
 export const BoxedListWithLinks: React.FunctionComponent<BoxedListWithLinksProps> = ({
-    items,
-    onClick,
+  items,
+  onClick,
 }: BoxedListWithLinksProps) => (
-    <BoxedList>
-        {items.map(({ name, href, isExternal }, index) => (
-            <li className={styles[listItemCls.block]} key={href}>
-                <a
-                    href={href}
-                    className={styles[listItemCls.element('anchor')]}
-                    target={isExternal ? '_blank' : ''}
-                    rel={isExternal ? 'noopener noreferrer' : ''}
-                    onClick={(e) => {
-                        if (onClick) onClick(index, e);
-                    }}
-                >
-                    <Normaltekst>{name}</Normaltekst>
-                </a>
-            </li>
-        ))}
-    </BoxedList>
+  <BoxedList>
+    {items.map(({ name, href, isExternal }, index) => (
+      <li className={styles[listItemCls.block]} key={href}>
+        {/* eslint-disable-next-line react/jsx-no-target-blank */ }
+        <a
+          href={href}
+          className={styles[listItemCls.element('anchor')]}
+          target={isExternal ? '_blank' : ''}
+          rel={isExternal ? 'noopener noreferrer' : ''}
+          onClick={(e) => {
+            if (onClick) onClick(index, e);
+          }}
+        >
+          <Normaltekst>{name}</Normaltekst>
+        </a>
+      </li>
+    ))}
+  </BoxedList>
 );
 
 export default BoxedListWithLinks;

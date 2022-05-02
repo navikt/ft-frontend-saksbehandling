@@ -10,37 +10,38 @@ import styles from './step.less';
 interface StepIconProps {
     type: string;
     isFinished?: boolean;
-    iconAltText?: string;
     usePartialStatus?: boolean;
 }
 
 const stepCls = bemUtils('step');
 
-const StepIcon = ({ type, isFinished, iconAltText, usePartialStatus }: StepIconProps): JSX.Element => {
-    const isWarning = type === StepType.warning;
-    const isDanger = type === StepType.danger;
+const StepIcon = ({
+  type, isFinished, usePartialStatus,
+}: StepIconProps): JSX.Element => {
+  const isWarning = type === StepType.warning;
+  const isDanger = type === StepType.danger;
 
-    if (usePartialStatus) {
-        return (
-            <div
-                className={classnames(`${styles[stepCls.element('icon')]} ${styles['step__icon--partial']}`, {
-                    [styles['step__icon--success']]: !isWarning && !isDanger,
-                    [styles['step__icon--warning']]: isWarning,
-                    [styles['step__icon--danger']]: isDanger,
-                })}
-            />
-        );
-    }
-    if (isFinished) {
-        return <CheckIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--success']}`} />;
-    }
-    if (isWarning) {
-        return <WarningIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--warning']}`} />;
-    }
-    if (isDanger) {
-        return <AvslåttValgIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--danger']}`} />;
-    }
-    return <span className={styles[stepCls.element('icon-placeholder')]} />;
+  if (usePartialStatus) {
+    return (
+      <div
+        className={classnames(`${styles[stepCls.element('icon')]} ${styles['step__icon--partial']}`, {
+          [styles['step__icon--success']]: !isWarning && !isDanger,
+          [styles['step__icon--warning']]: isWarning,
+          [styles['step__icon--danger']]: isDanger,
+        })}
+      />
+    );
+  }
+  if (isFinished) {
+    return <CheckIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--success']}`} />;
+  }
+  if (isWarning) {
+    return <WarningIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--warning']}`} />;
+  }
+  if (isDanger) {
+    return <AvslåttValgIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--danger']}`} />;
+  }
+  return <span className={styles[stepCls.element('icon-placeholder')]} />;
 };
 
 export default StepIcon;

@@ -38,11 +38,11 @@ class Period {
     return this.includesDate(otherPeriod.fom) && !this.includesDate(otherPeriod.tom);
   }
 
-  overlapsRight(otherPeriod) {
+  overlapsRight(otherPeriod: Period) {
     return this.includesDate(otherPeriod.tom) && !this.includesDate(otherPeriod.fom);
   }
 
-  overlapsWith(otherPeriod) {
+  overlapsWith(otherPeriod: Period) {
     return this.covers(otherPeriod) || this.overlapsLeft(otherPeriod) || this.overlapsRight(otherPeriod);
   }
 

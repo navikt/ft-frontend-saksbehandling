@@ -13,8 +13,6 @@ export interface StepProps {
     isActive?: boolean;
     type?: StepType;
     onClick?: (index: number) => void;
-    iconAltText?: string;
-    isDisabled?: boolean;
 }
 
 interface ComponentProps {
@@ -25,63 +23,63 @@ const stepCls = bemUtils('step');
 
 // eslint-disable-next-line react/display-name
 export const Step = React.memo(
-    ({
-        label,
-        index,
-        isActive,
-        onClick,
-        isFinished,
-        type = StepType.default,
-        iconAltText,
-        usePartialStatus,
-    }: StepProps & ComponentProps): JSX.Element => {
-        const handleButtonClick = (event: React.FormEvent<HTMLButtonElement>): void => {
-            event.preventDefault();
-            onClick(index);
-        };
+  ({
+    label,
+    index,
+    isActive,
+    onClick,
+    isFinished,
+    type = StepType.default,
+    usePartialStatus,
+  }: StepProps & ComponentProps): JSX.Element => {
+    const handleButtonClick = (event: React.FormEvent<HTMLButtonElement>): void => {
+      event.preventDefault();
+      if (onClick) {
+        onClick(index);
+      }
+    };
 
-        const stepIndicatorCls = classnames(
-            `${styles[stepCls.element('indicator')]} ${styles[`step__indicator--${type}`]}`,
-            {
-                [styles['step__indicator--active']]: isActive,
-                [styles['step__indicator--partial']]: usePartialStatus,
-            }
-        );
+    const stepIndicatorCls = classnames(
+      `${styles[stepCls.element('indicator')]} ${styles[`step__indicator--${type}`]}`,
+      {
+        [styles['step__indicator--active']]: isActive,
+        [styles['step__indicator--partial']]: usePartialStatus,
+      },
+    );
 
-        return (
-            <li
-                key={label.split(' ').join('')}
-                className={styles[stepCls.block]}
-                aria-current={isActive ? 'step' : undefined}
-            >
-                <button
-                    className={
+    return (
+      <li
+        key={label.split(' ').join('')}
+        className={styles[stepCls.block]}
+        aria-current={isActive ? 'step' : undefined}
+      >
+        <button
+          className={
                         isActive
-                            ? `${styles[stepCls.element('button')]} ${styles[`step__button--active`]}`
-                            : styles[stepCls.element('button')]
+                          ? `${styles[stepCls.element('button')]} ${styles['step__button--active']}`
+                          : styles[stepCls.element('button')]
                     }
-                    type="button"
-                    onClick={handleButtonClick}
-                    data-tooltip={label}
-                >
-                    <span className={styles[stepCls.element('text-icon-container')]}>
-                        <StepIcon
-                            type={type}
-                            isFinished={isFinished}
-                            iconAltText={iconAltText}
-                            usePartialStatus={usePartialStatus}
-                        />
-                        <Normaltekst tag="span">{label}</Normaltekst>
-                    </span>
-                    <span className={stepIndicatorCls} />
-                </button>
-                {isActive && (
-                    <div className={styles[stepCls.element('arrow-container')]}>
-                        <div className={styles[stepCls.element('arrow')]} />
-                    </div>
-                )}
-            </li>
-        );
-    }
+          type="button"
+          onClick={handleButtonClick}
+          data-tooltip={label}
+        >
+          <span className={styles[stepCls.element('text-icon-container')]}>
+            <StepIcon
+              type={type}
+              isFinished={isFinished}
+              usePartialStatus={usePartialStatus}
+            />
+            <Normaltekst tag="span">{label}</Normaltekst>
+          </span>
+          <span className={stepIndicatorCls} />
+        </button>
+        {isActive && (
+        <div className={styles[stepCls.element('arrow-container')]}>
+          <div className={styles[stepCls.element('arrow')]} />
+        </div>
+        )}
+      </li>
+    );
+  },
 );
 export default Step;

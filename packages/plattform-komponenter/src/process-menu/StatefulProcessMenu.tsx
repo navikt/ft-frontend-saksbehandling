@@ -13,24 +13,22 @@ interface StatefulProcessMenuProps {
     onClick?: (index: number) => void;
 }
 export const StatefulProcessMenu = ({ steps, onClick }: StatefulProcessMenuProps): JSX.Element => {
-    const [activeIndex, setActiveIndex] = React.useState(0);
-    const handleOnClick = (index: number): void => {
-        setActiveIndex(index);
-        onClick(index);
-    };
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const handleOnClick = (index: number): void => {
+    setActiveIndex(index);
+    if (onClick) {
+      onClick(index);
+    }
+  };
 
-    const buildSteps = (): StepProps[] => {
-        return steps.map((step, index) => {
-            return {
-                ...step,
-                isActive: activeIndex === index,
-                isFinished: activeIndex > index,
-                isDisabled: activeIndex + 1 < index,
-                type: activeIndex > index ? StepType.success : step.type,
-            };
-        });
-    };
-    return <ProcessMenu steps={buildSteps()} onClick={handleOnClick} />;
+  const buildSteps = (): StepProps[] => steps.map((step, index) => ({
+    ...step,
+    isActive: activeIndex === index,
+    isFinished: activeIndex > index,
+    isDisabled: activeIndex + 1 < index,
+    type: activeIndex > index ? StepType.success : step.type,
+  }));
+  return <ProcessMenu steps={buildSteps()} onClick={handleOnClick} />;
 };
 
 export default StatefulProcessMenu;

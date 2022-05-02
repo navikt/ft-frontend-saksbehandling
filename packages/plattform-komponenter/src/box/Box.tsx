@@ -17,13 +17,13 @@ export interface BoxProps {
 }
 
 const Box = ({ children, marginBottom, marginTop }: BoxProps): JSX.Element => {
-    const marginTopClass = styles[`${marginTop}MarginTop`];
-    const marginBottomClass = styles[`${marginBottom}MarginBottom`];
-    const boxClassnames = classNames({
-        [marginTopClass]: marginTop,
-        [marginBottomClass]: marginBottom,
-    });
-    return <div className={boxClassnames}>{children}</div>;
+  const marginTopClass = styles[`${marginTop}MarginTop`];
+  const marginBottomClass = styles[`${marginBottom}MarginBottom`];
+  const boxClassnames = classNames({
+    [marginTopClass]: marginTop,
+    [marginBottomClass]: marginBottom,
+  });
+  return <div className={boxClassnames}>{children}</div>;
 };
 
 export default Box;

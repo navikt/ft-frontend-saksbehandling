@@ -15,12 +15,12 @@ interface TextInfostripeProps extends BaseInfostripeProps {
 }
 type InfostripeProps = ElementInfostripeProps | TextInfostripeProps;
 const Infostripe = ({ text, iconRenderer, element }: InfostripeProps) => (
-    <div className={styles.infostripe}>
-        <div className={styles.infostripe__iconContainer}>{iconRenderer()}</div>
-        <div className={styles.infostripe__textContainer}>
-            {element ? element : <p className={styles.infostripe__text}>{text}</p>}
-        </div>
+  <div className={styles.infostripe}>
+    <div className={styles.infostripe__iconContainer}>{iconRenderer()}</div>
+    <div className={styles.infostripe__textContainer}>
+      {element || <p className={styles.infostripe__text}>{text}</p>}
     </div>
+  </div>
 );
 
 export default Infostripe;
