@@ -33,7 +33,11 @@ import {
   validateSumRefusjon, validateSumFastsattForUgraderteAktiviteter, validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
-import { BGFordelArbeidsforhold, FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import {
+  BGFordelArbeidsforhold,
+  FordelBeregningsgrunnlagAndelValues,
+  FordelBeregningsgrunnlagMedAksjonspunktValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
 import addCircleIcon from '../../images/add-circle.svg';
 
@@ -96,7 +100,7 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactEleme
   </option>
 ));
 
-const summerFordelingForrigeBehandlingFraFields = (fields: any): string => {
+const summerFordelingForrigeBehandlingFraFields = (fields: FordelBeregningsgrunnlagAndelValues[]): string => {
   let sum = 0;
   let index = 0;
   for (index; index < fields.length; index += 1) {
@@ -108,7 +112,7 @@ const summerFordelingForrigeBehandlingFraFields = (fields: any): string => {
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-const summerFordeling = (fieldname: string, fields: any, watch: any): string => {
+const summerFordeling = (fieldname: string, fields: FordelBeregningsgrunnlagAndelValues[], watch: any): string => {
   let sum = 0;
   let index = 0;
   for (index; index < fields.length; index += 1) {
@@ -122,7 +126,7 @@ const summerFordeling = (fieldname: string, fields: any, watch: any): string => 
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-const summerBeregningsgrunnlagPrAar = (fields: any): string => {
+const summerBeregningsgrunnlagPrAar = (fields: FordelBeregningsgrunnlagAndelValues[]): string => {
   let sum = 0;
   let index = 0;
   for (index; index < fields.length; index += 1) {
@@ -137,7 +141,7 @@ const summerBeregningsgrunnlagPrAar = (fields: any): string => {
 const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues): boolean => (isSelvstendigNæringsdrivende(fieldVal.inntektskategori)
   || inntektskategorier.FRILANSER === fieldVal.inntektskategori);
 
-const onKeyDown = (fields: any,
+const onKeyDown = (fields: FordelBeregningsgrunnlagAndelValues[],
   periodeUtenAarsak: boolean): (arg: React.KeyboardEvent) => void => ({ key }) => {
   if (key === 'Enter') {
     fields.push(defaultBGFordeling(periodeUtenAarsak));
@@ -149,7 +153,7 @@ const finnArbeidsforholdForAndel = (arbeidsforholdListe: BGFordelArbeidsforhold[
   return arbeidsforholdListe.find((arbeidsforhold) => arbeidsforhold.andelsnr === andelsnr);
 };
 
-const finnAktivitetStatus = (fields: any, val: string): string => {
+const finnAktivitetStatus = (fields: FordelBeregningsgrunnlagAndelValues[], val: string): string => {
   const andelsnr = Number(val);
   for (let index = 0; index < fields.length; index += 1) {
     if (fields[index].andelsnr === andelsnr) {
@@ -159,7 +163,7 @@ const finnAktivitetStatus = (fields: any, val: string): string => {
   return null;
 };
 
-const setArbeidsforholdInfo = (fields: any,
+const setArbeidsforholdInfo = (fields: FordelBeregningsgrunnlagAndelValues[],
   index: number,
   arbeidsforholdList: BGFordelArbeidsforhold[],
   val: string,
@@ -182,7 +186,7 @@ const setArbeidsforholdInfo = (fields: any,
   }
 };
 
-const arbeidsforholdReadOnlyOrSelect = (fields: any,
+const arbeidsforholdReadOnlyOrSelect = (fields: FordelBeregningsgrunnlagAndelValues[],
   index: number,
   fieldname: string,
   selectVals: ReactElement[],
@@ -246,11 +250,11 @@ export const lagBelopKolonne = (fieldname: string,
 };
 
 const skalViseSletteknapp = (index: number,
-  fields: any,
+  fields: FordelBeregningsgrunnlagAndelValues[],
   readOnly: boolean): boolean => ((fields[index].nyAndel
 || fields[index].lagtTilAvSaksbehandler) && !readOnly);
 
-const createAndelerTableRows = (fields: any,
+const createAndelerTableRows = (fields: FordelBeregningsgrunnlagAndelValues[],
   isAksjonspunktClosed: boolean,
   readOnly: boolean,
   inntektskategoriKoder: KodeverkMedNavn[],
@@ -422,7 +426,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
 }) => {
   const {
     control, watch, getValues,
-  } = formHooks.useFormContext();
+  } = formHooks.useFormContext<FordelBeregningsgrunnlagMedAksjonspunktValues>();
   const {
     fields, append, remove, update,
   } = formHooks.useFieldArray({

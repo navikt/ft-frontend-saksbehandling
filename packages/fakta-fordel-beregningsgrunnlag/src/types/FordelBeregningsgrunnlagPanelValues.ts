@@ -57,6 +57,7 @@ export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenere
   forrigeArbeidsinntektPrAar?: number;
   beregningsperiodeFom?: string;
   beregningsperiodeTom?: string;
+  id?: string;
 }
 
 export type AksjonspunktValues = {
@@ -74,11 +75,6 @@ export type FordelBeregningsgrunnlagValues = {
 }
 
 export type FordelBeregningsgrunnlagMedAksjonspunktValues = AksjonspunktValues & FordelBeregningsgrunnlagValues;
-
-export type PeriodeTsType = {
-  fom: string;
-  tom: string;
-};
 
 export type FordelingFieldError = {
   refusjonskrav?: string;

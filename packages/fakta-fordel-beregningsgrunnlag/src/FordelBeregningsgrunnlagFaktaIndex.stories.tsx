@@ -29,6 +29,7 @@ import { FaktaFordelBeregningAksjonspunktCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 
+// eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 
