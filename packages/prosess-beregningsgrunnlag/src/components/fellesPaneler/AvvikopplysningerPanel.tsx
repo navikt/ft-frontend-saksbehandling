@@ -157,7 +157,7 @@ const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
   sammenligningsgrunnlagPrStatus,
   gjelderBesteberegning,
 }) => {
-  if (!allePerioder || !harRelevanteStatuserSatt({ ...relevanteStatuser }) || !sammenligningsgrunnlagPrStatus) {
+  if (!allePerioder || !harRelevanteStatuserSatt({ ...relevanteStatuser })) {
     return null;
   }
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
@@ -168,14 +168,12 @@ const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
         <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.ApplicationInformation" />
       </Element>
       <VerticalSpacer eightPx />
-      {lagRelevantePaneler(
-        alleAndelerIForstePeriode,
-        relevanteStatuser,
-        allePerioder,
-        harAksjonspunkter,
-        sammenligningsgrunnlagPrStatus,
-        gjelderBesteberegning,
-      )}
+      {
+        lagRelevantePaneler(
+          alleAndelerIForstePeriode, relevanteStatuser, allePerioder, harAksjonspunkter, sammenligningsgrunnlagPrStatus || [], gjelderBesteberegning,
+        )
+      }
+
     </Panel>
   );
 };

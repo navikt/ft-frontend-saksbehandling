@@ -42,10 +42,13 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
 );
 
 AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[]): FrilansInntektValues => {
-  const overstyrtBeløp = relevanteAndeler.length > 0 ? relevanteAndeler[0].overstyrtPrAar : undefined;
-  return {
-    inntektFrilanser: overstyrtBeløp !== undefined ? formatCurrencyNoKr(overstyrtBeløp) : '',
-  };
+  const overstyrtBeløp = relevanteAndeler.length > 0 ? formatCurrencyNoKr(relevanteAndeler[0].overstyrtPrAar) : undefined;
+  if (overstyrtBeløp) {
+    return {
+      inntektFrilanser: overstyrtBeløp,
+    };
+  }
+  return null;
 };
 
 export default AksjonspunktBehandlerFL;
