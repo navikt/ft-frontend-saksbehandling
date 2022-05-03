@@ -34,6 +34,7 @@ type Behandling = {
   behandlingÅrsaker: BehandlingÅrsak[];
   ansvarligSaksbehandler?: string;
   kanHenleggeBehandling?: boolean;
+  fristBehandlingPaaVent?: string;
   harVerge?: boolean;
   førsteÅrsak?: BehandlingÅrsak;
   taskStatus?: {

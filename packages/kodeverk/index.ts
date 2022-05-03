@@ -1,4 +1,4 @@
-export { default as tilbakekrevingKodeverkTyper } from './src/tilbakekrevingKodeverkType';
+export { default as TilbakekrevingKodeverkType } from './src/tilbakekrevingKodeverkType';
 export { default as OpplysningAdresseType } from './src/opplysningAdresseType';
 export { default as vilkarType } from './src/vilkarType';
 export { default as KodeverkType } from './src/kodeverkType';
