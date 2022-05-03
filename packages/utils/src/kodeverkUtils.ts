@@ -1,8 +1,8 @@
-import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
+import { AlleKodeverk, AlleKodeverkTilbakekreving, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 export const getKodeverknavnFraKode = (
-  alleKodeverk: AlleKodeverk,
+  alleKodeverk: AlleKodeverk | AlleKodeverkTilbakekreving,
   kodeverkType: string,
   kode: string,
   undertype?: string,
@@ -22,7 +22,7 @@ export const getKodeverknavnFraKode = (
 };
 
 export const getKodeverknavnFn = (
-  alleKodeverk: AlleKodeverk,
+  alleKodeverk: AlleKodeverk | AlleKodeverkTilbakekreving,
 ) => (
   kode: string,
   kodeverkType: KodeverkType,
