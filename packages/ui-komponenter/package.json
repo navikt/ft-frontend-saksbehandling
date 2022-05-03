@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@navikt/fnrvalidator": "1.1.4",
-    "@navikt/ft-utils": "^1.0.2",
+    "@navikt/ft-utils": "^1.0.3",
     "classnames": "2.3.1",
     "echarts": "5.3.2",
     "moment": "2.29.3",
@@ -82,7 +82,7 @@
     "react-modal": "3.15.1"
   },
   "devDependencies": {
-    "@navikt/ft-utils-test": "^1.0.1",
+    "@navikt/ft-utils-test": "^1.0.2",
     "@storybook/addon-actions": "6.4.22",
     "@storybook/testing-react": "1.2.4",
     "@testing-library/jest-dom": "5.16.4",

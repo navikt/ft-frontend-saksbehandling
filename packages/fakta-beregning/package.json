@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-beregning",
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,12 +25,12 @@
     "storybook": "cross-env start-storybook -p 7001"
   },
   "dependencies": {
-    "@navikt/ft-form-redux-legacy": "^1.0.2",
-    "@navikt/ft-kodeverk": "^1.0.1",
+    "@navikt/ft-form-redux-legacy": "^1.0.3",
+    "@navikt/ft-kodeverk": "^1.0.2",
     "@navikt/ft-konstanter": "^1.0.1",
-    "@navikt/ft-types": "^1.0.2",
-    "@navikt/ft-ui-komponenter": "^1.0.2",
-    "@navikt/ft-utils": "^1.0.2",
+    "@navikt/ft-types": "^1.0.3",
+    "@navikt/ft-ui-komponenter": "^1.0.3",
+    "@navikt/ft-utils": "^1.0.3",
     "core-js": "3.22.3",
     "moment": "2.29.3",
     "nav-frontend-alertstriper": "4.0.1",
@@ -82,7 +82,7 @@
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^1.0.0",
-    "@navikt/ft-utils-test": "^1.0.1",
+    "@navikt/ft-utils-test": "^1.0.2",
     "@storybook/addon-actions": "6.4.22",
     "@storybook/testing-react": "1.2.4",
     "clean-webpack-plugin": "4.0.0",
