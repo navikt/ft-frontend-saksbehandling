@@ -16,7 +16,9 @@ interface OwnProps {
   onBlur?: (value: any) => void;
   shouldValidateOnBlur?: boolean;
   autoFocus?: boolean;
-  parse?: (value: string) => string | number;
+  parse?: (value: string | number) => string | number;
+  format?: (value: string | number) => string | number;
+  normalizeOnBlur?: (value: string | number) => string | number;
   isEdited?: boolean;
   maxLength?: number;
 }
@@ -33,6 +35,8 @@ const InputField: FunctionComponent<OwnProps> = ({
   placeholder,
   autoFocus,
   parse = (value) => value,
+  format = (value) => value,
+  normalizeOnBlur,
   isEdited,
   maxLength,
 }) => {
@@ -56,7 +60,7 @@ const InputField: FunctionComponent<OwnProps> = ({
       feil={getError(errors, name)}
       bredde={bredde}
       {...field}
-      value={field.value ? field.value : ''}
+      value={field.value ? format(field.value) : ''}
       autoFocus={autoFocus}
       autoComplete="off"
       maxLength={maxLength}
@@ -70,6 +74,9 @@ const InputField: FunctionComponent<OwnProps> = ({
           }
         } else if (onBlur) {
           onBlur(event?.target?.value);
+        }
+        if (normalizeOnBlur) {
+          field.onChange(event?.target?.value ? normalizeOnBlur(parse(event?.target?.value)) : undefined);
         }
       }}
     />

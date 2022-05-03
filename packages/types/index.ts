@@ -39,6 +39,7 @@ export type {
   FaktaOmFordeling,
 } from './src/beregningsgrunnlagFordelingTsType';
 export type { default as KodeverkMedNavn } from './src/kodeverkMedNavnTsType';
+export type { default as AlleKodeverkTilbakekreving } from './src/kodeverkAlleTilbakekrevingTsType';
 export type { default as AlleKodeverk } from './src/kodeverkAlleTsType';
 export type { FamilieHendelse, FamilieHendelseSamling, AvklartBarn } from './src/familieHendelseTsType';
 export type { default as Fagsak } from './src/fagsakTsType';
