@@ -1,8 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate } from '@navikt/ft-utils';
 import {
-  RadioOption, TextAreaField, SelectField, RadioGroupField, CheckboxField, InputField,
+  RadioOption, TextAreaField, SelectField, RadioGroupField, CheckboxField, InputField, Datepicker,
 } from '../index';
 import Form from './Form';
 
@@ -49,6 +50,12 @@ export const visFormkomponenter = () => {
       <TextAreaField
         label="TextAreaField"
         name="testTextAreaField"
+      />
+      <VerticalSpacer sixteenPx />
+      <Datepicker
+        label=""
+        name="reserverTil"
+        validate={[hasValidDate, dateAfterOrEqual(new Date()), dateBeforeOrEqual(new Date())]}
       />
     </Form>
   );

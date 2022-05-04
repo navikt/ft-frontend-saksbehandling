@@ -28,7 +28,6 @@ export { default as FaktaGruppe } from './src/FaktaGruppe';
 export { default as AvsnittSkiller } from './src/AvsnittSkiller';
 export { default as EditedIcon } from './src/EditedIcon';
 export { default as WarningModal } from './src/WarningModal';
-export { default as Modal } from './src/Modal';
 export { default as LabelWithHeader } from './src/LabelWithHeader';
 export { default as usePrevious } from './src/hooks/usePrevious';
 export { default as ReactECharts } from './src/echart/ReactECharts';

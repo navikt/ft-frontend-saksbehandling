@@ -18,7 +18,7 @@ interface RadioOption {
   field: ControllerRenderProps<FieldValues, string>;
   radio: RadioProps;
   parse?: (value: string) => any;
-  onChange?: (value) => void;
+  onChange?: (value: any) => void;
   disabled: boolean;
   isReadOnly: boolean;
 }
@@ -32,7 +32,7 @@ const RadioOption: FunctionComponent<RadioOption> = ({
   disabled,
   isReadOnly,
 }) => {
-  const parsedValue = parse(radio.value);
+  const parsedValue = parse ? parse(radio.value) : radio.value;
   const isChecked = parsedValue === field.value;
 
   if (isReadOnly && !isChecked) {
@@ -64,7 +64,7 @@ interface RadioGroupPanelProps {
   label?: LabelType;
   radios: RadioProps[];
   validate?: ((value: string | number) => any)[];
-  onChange?: (value) => void;
+  onChange?: (value: any) => void;
   disabled?: boolean;
   isReadOnly?: boolean;
   isHorizontal?: boolean;
@@ -74,7 +74,7 @@ interface RadioGroupPanelProps {
 const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
   label,
   name,
-  validate,
+  validate = [],
   radios,
   onChange,
   disabled = false,

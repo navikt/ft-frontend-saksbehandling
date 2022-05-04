@@ -14,7 +14,7 @@ dayjs.extend(customParseFormat);
 export interface DatepickerProps {
   label?: LabelType;
   name: string;
-  validate?: ((value: string | number) => any)[];
+  validate?: ((value: string) => any)[];
   ariaLabel?: string;
   defaultValue?: string;
   limitations?: DatepickerLimitations;
@@ -32,7 +32,7 @@ export interface DatepickerProps {
 
 const Datepicker: FunctionComponent<DatepickerProps> = ({
   name,
-  validate,
+  validate = [],
   limitations,
   label,
   ariaLabel,
