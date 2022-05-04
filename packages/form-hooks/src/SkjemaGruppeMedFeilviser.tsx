@@ -6,7 +6,7 @@ import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { getError, getValidationRules } from './formUtils';
 
 interface NavFieldGroupProps {
-  name?: string;
+  name: string;
   errorMessage?: string | ReactNode;
   description?: string;
   children: ReactNode[] | ReactNode;

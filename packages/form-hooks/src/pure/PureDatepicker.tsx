@@ -9,10 +9,10 @@ import { LabelType } from '../Label';
 import './datepicker.less';
 
 interface PureDatepickerProps {
-  label: LabelType;
+  label?: LabelType;
   errorMessage?: string;
   ariaLabel?: string;
-  inputId?: string;
+  inputId: string;
   calendarSettings?: {
     position?: CalendarPlacement;
   };
