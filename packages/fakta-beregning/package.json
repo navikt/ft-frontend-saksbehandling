@@ -53,11 +53,11 @@
     "reselect": "4.1.5"
   },
   "peerDependencies": {
-    "@navikt/ft-form-redux-legacy": "^1.0.5",
+    "@navikt/ft-form-redux-legacy": "^1.0.6",
     "@navikt/ft-kodeverk": "^1.0.2",
     "@navikt/ft-konstanter": "^1.0.1",
     "@navikt/ft-types": "^1.0.4",
-    "@navikt/ft-ui-komponenter": "^1.0.5",
+    "@navikt/ft-ui-komponenter": "^1.0.6",
     "@navikt/ft-utils": "^1.0.5",
     "core-js": "3.22.3",
     "moment": "2.29.3",
