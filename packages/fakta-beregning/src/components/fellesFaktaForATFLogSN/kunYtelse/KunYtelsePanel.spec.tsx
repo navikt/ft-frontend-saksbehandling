@@ -1,5 +1,4 @@
 import { inntektskategorier } from '@navikt/ft-kodeverk';
-import { AlleKodeverk } from '@navikt/ft-types';
 
 import KunYtelsePanel, { brukersAndelFieldArrayName } from './KunYtelsePanel';
 import { besteberegningField } from './KunYtelseBesteberegningPanel';
@@ -35,7 +34,7 @@ const alleKodeverk = {
       kodeverk: 'AKTIVITET_STATUS',
     },
   ],
-} as AlleKodeverk;
+} as any;
 
 const faktaOmBeregningAndeler = [faktaOmBeregningAndel1, faktaOmBeregningAndel2];
 

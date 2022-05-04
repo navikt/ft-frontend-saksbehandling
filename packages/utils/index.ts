@@ -25,6 +25,7 @@ export {
   TIDENES_ENDE,
   timeFormat,
   getRangeOfMonths,
+  getDateAndTime,
 } from './src/dateUtils';
 export { default as decodeHtmlEntity } from './src/decodeHtmlEntity';
 export {
@@ -109,6 +110,7 @@ export {
   hasValidOrgNumber,
   hasValidOrgNumberOrFodselsnr,
   hasNoWhiteSpace,
+  hasValidPosOrNegInteger,
 } from './src/validation/validators';
 export type { Options } from './src/validation/validators';
 

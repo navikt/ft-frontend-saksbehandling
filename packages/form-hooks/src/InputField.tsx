@@ -14,6 +14,7 @@ interface OwnProps {
   className?: string;
   placeholder?: string;
   onBlur?: (value: any) => void;
+  onChange?: (value: any) => void;
   shouldValidateOnBlur?: boolean;
   autoFocus?: boolean;
   parse?: (value: string | number) => string | number;
@@ -21,6 +22,7 @@ interface OwnProps {
   normalizeOnBlur?: (value: string | number) => string | number;
   isEdited?: boolean;
   maxLength?: number;
+  autoComplete?: boolean;
 }
 
 const InputField: FunctionComponent<OwnProps> = ({
@@ -31,6 +33,7 @@ const InputField: FunctionComponent<OwnProps> = ({
   bredde,
   shouldValidateOnBlur = false,
   onBlur,
+  onChange,
   className,
   placeholder,
   autoFocus,
@@ -39,6 +42,7 @@ const InputField: FunctionComponent<OwnProps> = ({
   normalizeOnBlur,
   isEdited,
   maxLength,
+  autoComplete = false,
 }) => {
   const { formState: { errors }, trigger } = useFormContext();
   const { field } = useController({
@@ -62,9 +66,15 @@ const InputField: FunctionComponent<OwnProps> = ({
       {...field}
       value={field.value ? format(field.value) : ''}
       autoFocus={autoFocus}
-      autoComplete="off"
+      autoComplete={autoComplete ? undefined : 'off'}
       maxLength={maxLength}
-      onChange={(event) => field.onChange(event.currentTarget.value ? parse(event.currentTarget.value) : undefined)}
+      onChange={(event) => {
+        const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : undefined;
+        if (onChange) {
+          onChange(verdi);
+        }
+        return field.onChange(verdi);
+      }}
       onBlur={async (event) => {
         field.onBlur();
         if (shouldValidateOnBlur) {
