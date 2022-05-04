@@ -50,6 +50,8 @@ import {
   textRegex,
   tomorrow,
   yesterday,
+  numberOptionalNegativeRegex,
+  integerOptionalNegativeRegex,
 } from './validatorsHelper';
 
 type DateType = moment.Moment | Date | string;
@@ -116,6 +118,12 @@ const hasValidDec = (text: string | number): FormValidationResult => (isEmpty(te
   ? null : invalidDecimalMessage(text.toString()));
 export const hasValidInteger = (text: string | number): FormValidationResult => (hasValidNumber(text) || hasValidInt(text));
 export const hasValidDecimal = (text: string | number): FormValidationResult => (hasValidNumber(text) || hasValidDec(text));
+
+const hasValidPosOrNegNumber = (text: string): FormValidationResult => (isEmpty(text)
+  || numberOptionalNegativeRegex.test(text) ? null : invalidNumberMessage(text));
+const hasValidPosOrNegInt = (text: string): FormValidationResult => (isEmpty(text)
+  || integerOptionalNegativeRegex.test(text) ? null : invalidIntegerMessage(text));
+export const hasValidPosOrNegInteger = (text: string): FormValidationResult => (hasValidPosOrNegNumber(text) || hasValidPosOrNegInt(text));
 
 export const hasValidSaksnummerOrFodselsnummerFormat = (text: string): FormValidationResult => (isEmpty(text) || saksnummerOrFodselsnummerPattern.test(text)
   ? null : invalidSaksnummerOrFodselsnummerFormatMessage());
