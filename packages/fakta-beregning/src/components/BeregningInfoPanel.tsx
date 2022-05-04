@@ -95,7 +95,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         submittable={submittable}
         aksjonspunkter={aksjonspunkter}
         alleKodeverk={alleKodeverk}
-        beregningsgrunnlag={beregningsgrunnlag.at(0)}
+        beregningsgrunnlag={beregningsgrunnlag[0]}
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
