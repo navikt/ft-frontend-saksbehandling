@@ -1290,3 +1290,43 @@ export const VurderKunYtelseBesteberegning = () => {
     />
   );
 };
+
+export const ReadonlyForVanligSaksbehandlerUtenOverstyrerrolleMedOverstyringsaksjonspunkt = () => {
+  const overstyringAPBeregningsaktiviteter = {
+    id: 1,
+    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+    status: aksjonspunktStatus.OPPRETTET,
+    kanLoses: true,
+    erAktivt: true,
+    begrunnelse: undefined,
+  };
+
+  const overstyringAPBeregningsgrunnlag = {
+    id: 1,
+    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+    status: aksjonspunktStatus.OPPRETTET,
+    kanLoses: true,
+    erAktivt: true,
+    begrunnelse: undefined,
+  };
+
+  return (
+    <BeregningFaktaIndex
+      behandling={behandling}
+      beregningsgrunnlag={[{ ...bgMedArbeidOgDagpenger[0], avklaringsbehov: [overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag] }]}
+      aksjonspunkter={[overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag]}
+      erOverstyrer={false}
+      alleKodeverk={alleKodeverkMock as any}
+      alleMerknaderFraBeslutter={{
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+      }}
+      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      readOnly={false}
+      harApneAksjonspunkter
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={vilkarArbeidOgDagpenger}
+    />
+  );
+};

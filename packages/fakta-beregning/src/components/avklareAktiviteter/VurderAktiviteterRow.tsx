@@ -1,10 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { Normaltekst } from 'nav-frontend-typografi';
-import {
-  DateLabel, EditedIcon, PeriodLabel, TableColumn, TableRow,
-} from '@navikt/ft-ui-komponenter';
-import { getKodeverknavnFn, required } from '@navikt/ft-utils';
+import { DateLabel, EditedIcon, PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { getKodeverknavnFn, prettifyDateString, required } from '@navikt/ft-utils';
 import moment from 'moment';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Datepicker, RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
@@ -59,6 +57,13 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
     valgtSkjæringstidspunkt,
     tomDatoForAktivitetGruppe,
   );
+
+  const lagLabel = (skalBrukes: boolean) => {
+    const arbeidsgiver = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk);
+    const dato = `${prettifyDateString(aktivitet.fom)} til ${prettifyDateString(aktivitet.tom)}`;
+    return `${skalBrukes ? 'Benytt' : 'Ikke benytt'} ${arbeidsgiver} ${dato}`;
+  };
+
   return (
     <TableRow key={lagAktivitetFieldId(aktivitet)}>
       <TableColumn className={styles.navnKol}>
@@ -72,10 +77,7 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
         )}
         {erOverstyrt && (
           <>
-            <DateLabel dateString={aktivitet.fom} />
-            {' '}
-            -
-            {' '}
+            <DateLabel dateString={aktivitet.fom} /> -{' '}
             <Datepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
               validate={[required]}
@@ -89,8 +91,8 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
           validate={[required]}
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           readOnly={
-            readOnly
-            || !skalVurdereAktivitet(
+            readOnly ||
+            !skalVurdereAktivitet(
               aktivitet,
               erOverstyrt,
               harAvklaringsbehov,
@@ -100,9 +102,13 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
           }
         >
           {[
-            <RadioOption label="" key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`} value="true" />,
             <RadioOption
-              label=""
+              label={lagLabel(true)}
+              key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`}
+              value="true"
+            />,
+            <RadioOption
+              label={lagLabel(false)}
               key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`}
               value="false"
             />,
