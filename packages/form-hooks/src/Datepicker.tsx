@@ -22,6 +22,7 @@ export interface DatepickerProps {
   disabled?: boolean;
   isReadOnly?: boolean;
   parse?: (value: string) => string;
+  onChange?: (value: any) => void;
   disabledDays?: {
     before: Date;
     after?: Date;
@@ -41,6 +42,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   disabled = false,
   isReadOnly = false,
   parse = (value) => value,
+  onChange,
   disabledDays,
   initialMonth,
   isEdited,
@@ -54,13 +56,11 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
     defaultValue,
   });
 
-  const { onChange, value } = field;
-
   if (isReadOnly) {
     return (
       <ReadOnlyField
         label={<Label input={label} readOnly />}
-        value={value ? dayjs(value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined}
+        value={field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined}
         isEdited={isEdited}
       />
     );
@@ -69,8 +69,14 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   return (
     <PureDatepicker
       label={label}
-      onChange={(date) => onChange(parse(date))}
-      value={value || undefined}
+      onChange={(date) => {
+        const verdi = parse(date);
+        if (onChange) {
+          onChange(verdi);
+        }
+        return field.onChange(verdi);
+      }}
+      value={field.value || undefined}
       errorMessage={error || getError(errors, name)}
       limitations={limitations}
       ariaLabel={ariaLabel}
