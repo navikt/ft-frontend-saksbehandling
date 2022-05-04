@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-beregning",
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,7 +25,7 @@
     "storybook": "cross-env start-storybook -p 7001"
   },
   "dependencies": {
-    "@navikt/ft-form-redux-legacy": "^1.0.6",
+    "@navikt/ft-form-redux-legacy": "^1.0.7",
     "@navikt/ft-kodeverk": "^1.0.2",
     "@navikt/ft-konstanter": "^1.0.1",
     "@navikt/ft-types": "^1.0.4",
