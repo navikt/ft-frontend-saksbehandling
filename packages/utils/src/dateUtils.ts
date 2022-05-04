@@ -205,3 +205,13 @@ export function isSameOrBefore(date: string | Dayjs | Date, otherDate: string | 
 }
 
 export const isValidDate = (date: any) => !Number.isNaN(new Date(date) as any);
+
+export const getDateAndTime = (tidspunkt?: string): { date: string; time: string } | undefined => {
+  if (!tidspunkt) {
+    return undefined;
+  }
+  const dateTime = dayjs(tidspunkt);
+  const date = dateTime.format(DDMMYYYY_DATE_FORMAT);
+  const time = dateTime.format(HHMM_TIME_FORMAT);
+  return { date, time };
+};
