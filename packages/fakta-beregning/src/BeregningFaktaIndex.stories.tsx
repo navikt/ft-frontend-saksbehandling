@@ -2,20 +2,18 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import {
-  aktivitetStatus as aktivitetStatuser, inntektskategorier, opptjeningAktivitetType,
-  aksjonspunktStatus, faktaOmBeregningTilfelle,
+  aksjonspunktStatus,
+  aktivitetStatus as aktivitetStatuser,
+  faktaOmBeregningTilfelle,
+  inntektskategorier,
+  opptjeningAktivitetType,
 } from '@navikt/ft-kodeverk';
 import {
-  AndelForFaktaOmBeregning,
-  Behandling,
-  BeregningAktivitet, BeregningAvklaringsbehov,
-  Beregningsgrunnlag,
-  FaktaOmBeregning,
-  FaktaOmBeregningAndel,
-  Vilkar,
+  AndelForFaktaOmBeregning, Behandling, Beregningsgrunnlag, FaktaOmBeregning, FaktaOmBeregningAndel, Vilkar,
 } from '@navikt/ft-types';
 import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 
+import dayjs from 'dayjs';
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
 import {
@@ -23,6 +21,17 @@ import {
   beregningsgrunnlag as bgMedArbeidOgDagpenger,
   vilkar as vilkarArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
+
+import {
+  aksjonspunkt as aksjonspunktArbeidOgAAP,
+  beregningsgrunnlag as bgArbeidOgAAP,
+  vilkar as vilkarArbeidOgAAP,
+} from '../testdata/ArbeidMedAAPPåSkjæringstidspunktet';
+
+import {
+  aksjonspunkt as aksjonspunktArbeidOgAAPLøstAksjonspunkt,
+  beregningsgrunnlag as bgArbeidOgAAPLøstAksjonspunkt,
+} from '../testdata/ArbeidMedAAPPåSkjæringstidspunktetLøstAksjonspunkt';
 
 import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
@@ -53,40 +62,18 @@ const {
   VURDER_SN_NY_I_ARBEIDSLIVET,
 } = faktaOmBeregningTilfelle;
 
-const lagBeregningsgrunnlagAvklarAktiviteter = (
-  aktiviteter: BeregningAktivitet[],
-  avklaringsbehov: BeregningAvklaringsbehov[] = [],
-): Beregningsgrunnlag => ({
-  avklaringsbehov,
-  vilkårperiodeFom: '2022-03-02',
-  periode: {
-    fom: '2022-03-02',
-    tom: '2022-04-30',
-  },
-  faktaOmBeregning: {
-    avklarAktiviteter: {
-      aktiviteterTomDatoMapping: [
-        {
-          tom: '01.01.2020',
-          aktiviteter,
-        },
-      ],
-    },
-    andelerForFaktaOmBeregning: [],
-  },
-} as unknown as Beregningsgrunnlag);
-
 const lagBeregningsgrunnlag = (
   andeler: FaktaOmBeregningAndel[],
   faktaOmBeregning: FaktaOmBeregning,
+  stp = '2022-03-02',
 ): Beregningsgrunnlag => ({
-  vilkårperiodeFom: '2022-03-02',
+  vilkårperiodeFom: stp,
   periode: {
-    fom: '2022-03-02',
-    tom: '2022-04-30',
+    fom: stp,
+    tom: dayjs(stp).add(10, 'days'),
   },
   avklaringsbehov: [],
-  skjaeringstidspunktBeregning: null,
+  skjaeringstidspunktBeregning: stp,
   dekningsgrad: null,
   grunnbeløp: null,
   erOverstyrtInntekt: null,
@@ -199,14 +186,16 @@ const merknaderFraBeslutter = {
 const vilkar: Vilkar = {
   vilkarType: '',
   vilkarStatus: '',
-  merknadParametere: {
-  },
+  merknadParametere: {},
   avslagKode: '',
   overstyrbar: true,
   perioder: [{
     vurderesIBehandlingen: true,
     merknadParametere: { name: '' },
-    periode: { fom: '2022-03-02', tom: '2022-03-04' },
+    periode: {
+      fom: '2022-03-02',
+      tom: '2022-03-04',
+    },
     vilkarStatus: 'IKKE_VURDERT',
   },
   ],
@@ -217,6 +206,12 @@ export default {
   component: BeregningFaktaIndex,
 };
 
+/**
+ * Arbeid og dagpenger
+ *
+ * Her er det ingen aksjonspunkt, men panelet skal vere synlig siden saksbehandler har overstyringsrolle
+ *
+ */
 export const ArbeidOgDagpenger = () => (
   <BeregningFaktaIndex
     behandling={behandling}
@@ -237,6 +232,12 @@ export const ArbeidOgDagpenger = () => (
   />
 );
 
+/**
+ * To arbeidsforhold og saksbehandler har overstyringsrolle
+ *
+ * Her er det ikkje aksjonspunkt, men panelet skal likevel vere synlig siden saksbehandler er overstyrer
+ *
+ */
 export const ToArbeidsforholdIOpptjeningsperioden = () => (
   <BeregningFaktaIndex
     behandling={behandling}
@@ -255,143 +256,55 @@ export const ToArbeidsforholdIOpptjeningsperioden = () => (
   />
 );
 
-export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
-  const aapAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.AAP,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
-  };
-  const arbeidsAktivitet = {
-    ...standardFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
-  };
-  const aktiviteter = [
-    aapAktivitet,
-    arbeidsAktivitet,
-  ];
-  const beregningsgrunnlag = lagBeregningsgrunnlagAvklarAktiviteter(aktiviteter, [{
-    definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-    status: aksjonspunktStatus.OPPRETTET,
-    begrunnelse: undefined,
-    kanLoses: true,
-  }]);
+/**
+ * Arbeid og AAP med uført aksjonspunkt
+ *
+ * Dersom bruker har både arbeid og full AAP på skjæringstidspunktet blir det opprettet aksjonspunkt 5052.
+ * I dette scenarioet setter opp panelet i situasjonen der saksbehandler ser aksjonspunktet for første gang.
+ *
+ */
+export const ArbeidOgAAP = () => (
+  <BeregningFaktaIndex
+    behandling={behandling}
+    beregningsgrunnlag={bgArbeidOgAAP}
+    aksjonspunkter={aksjonspunktArbeidOgAAP}
+    erOverstyrer
+    alleKodeverk={alleKodeverkMock as any}
+    alleMerknaderFraBeslutter={{}}
+    submitCallback={action('button-click') as (data: any) => Promise<any>}
+    readOnly={false}
+    harApneAksjonspunkter
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vilkarArbeidOgAAP}
+  />
+);
 
-  return (
-    <BeregningFaktaIndex
-      behandling={behandling}
-      beregningsgrunnlag={[beregningsgrunnlag]}
-      aksjonspunkter={[{
-        definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-        status: aksjonspunktStatus.OPPRETTET,
-        begrunnelse: undefined,
-        kanLoses: true,
-        erAktivt: true,
-      }]}
-      erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
-      readOnly={false}
-      harApneAksjonspunkter
-      submittable
-      arbeidsgiverOpplysningerPerId={agOpplysninger}
-      setFormData={() => undefined}
-      vilkar={vilkar}
-    />
-  );
-};
-
-export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
-  const aapAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.AAP,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
-  };
-  const arbeidsAktivitet = {
-    ...standardFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
-    skalBrukes: true,
-  };
-  const aktiviteter = [
-    aapAktivitet,
-    arbeidsAktivitet,
-  ];
-  const arbeidstakerBeregningsgrunnlagAndel = {
-    andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
-    aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
-    inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
-  } as FaktaOmBeregningAndel;
-  const aapBeregningsgrunnlagAndel = {
-    andelsnr: standardFaktaAAPAndel.andelsnr,
-    aktivitetStatus: standardFaktaAAPAndel.aktivitetStatus,
-    inntektskategori: standardFaktaAAPAndel.inntektskategori,
-  } as FaktaOmBeregningAndel;
-  const andeler = [
-    arbeidstakerBeregningsgrunnlagAndel,
-    aapBeregningsgrunnlagAndel,
-  ];
-  const andelerForFaktaOmBeregning = [
-    standardFaktaArbeidstakerAndel,
-    standardFaktaAAPAndel,
-  ];
-  const refusjonskravSomKommerForSentListe = [
-    {
-      arbeidsgiverIdent: standardFaktaArbeidstakerAndel.arbeidsforhold.arbeidsgiverIdent,
-    },
-  ];
-  const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT],
-    refusjonskravSomKommerForSentListe,
-    andelerForFaktaOmBeregning,
-    avklarAktiviteter: {
-      aktiviteterTomDatoMapping: [
-        {
-          tom: '01-01-2020',
-          aktiviteter,
-        },
-      ],
-    },
-  };
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
-  return (
-    <BeregningFaktaIndex
-      behandling={behandling}
-      beregningsgrunnlag={[{
-        ...beregningsgrunnlag,
-        avklaringsbehov: [{
-          definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-          status: aksjonspunktStatus.UTFORT,
-          begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
-          kanLoses: true,
-        },
-        {
-          definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-          status: aksjonspunktStatus.OPPRETTET,
-          begrunnelse: undefined,
-          kanLoses: true,
-        },
-        ],
-      }]}
-      aksjonspunkter={[]}
-      erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
-      readOnly={false}
-      harApneAksjonspunkter
-      submittable
-      arbeidsgiverOpplysningerPerId={agOpplysninger}
-      setFormData={() => undefined}
-      vilkar={vilkar}
-    />
-  );
-};
+/**
+ * Arbeid og AAP med uført aksjonspunkt
+ *
+ * Dersom bruker har både arbeid og full AAP på skjæringstidspunktet blir det opprettet aksjonspunkt 5052.
+ * I dette scenarioet setter opp panelet i situasjonen der saksbehandler har løst aksjonspunktet 5052 og gått videre.
+ *
+ */
+export const ArbeidOgAAPMedUtførtAksjonspunkt = () => (
+  <BeregningFaktaIndex
+    behandling={behandling}
+    beregningsgrunnlag={bgArbeidOgAAPLøstAksjonspunkt}
+    aksjonspunkter={aksjonspunktArbeidOgAAPLøstAksjonspunkt}
+    erOverstyrer
+    alleKodeverk={alleKodeverkMock as any}
+    alleMerknaderFraBeslutter={{}}
+    submitCallback={action('button-click') as (data: any) => Promise<any>}
+    readOnly={false}
+    harApneAksjonspunkter
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vilkarArbeidOgAAP}
+  />
+);
 
 export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
   const arbeidstakerBeregningsgrunnlagAndel = {
@@ -424,12 +337,13 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
     vurderMottarYtelse,
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag1 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02');
+  const beregningsgrunnlag2 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-15');
 
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={[beregningsgrunnlag]}
+      beregningsgrunnlag={[beregningsgrunnlag1, beregningsgrunnlag2]}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
         status: aksjonspunktStatus.OPPRETTET,
@@ -537,64 +451,6 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
-  return (
-    <BeregningFaktaIndex
-      behandling={behandling}
-      beregningsgrunnlag={[beregningsgrunnlag]}
-      aksjonspunkter={[{
-        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
-        begrunnelse: undefined,
-        kanLoses: true,
-        erAktivt: true,
-      }]}
-      erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
-      readOnly={false}
-      harApneAksjonspunkter
-      submittable
-      arbeidsgiverOpplysningerPerId={agOpplysninger}
-      setFormData={() => undefined}
-      vilkar={vilkar}
-    />
-  );
-};
-
-export const KunArbeidstakerMedVurderingSentRefusjonskrav = () => {
-  const arbeidstakerBeregningsgrunnlagAndel = {
-    andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
-    aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
-    inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
-  };
-  const arbeidstakerBeregningsgrunnlagAndel2 = {
-    andelsnr: standardFaktaArbeidstakerAndel2.andelsnr,
-    aktivitetStatus: standardFaktaArbeidstakerAndel2.aktivitetStatus,
-    inntektskategori: standardFaktaArbeidstakerAndel2.inntektskategori,
-  };
-  const andeler = [
-    arbeidstakerBeregningsgrunnlagAndel,
-    arbeidstakerBeregningsgrunnlagAndel2,
-  ];
-  const andelerForFaktaOmBeregning = [
-    standardFaktaArbeidstakerAndel,
-    standardFaktaArbeidstakerAndel2,
-  ];
-  const refusjonskravSomKommerForSentListe = [
-    {
-      arbeidsgiverIdent: standardFaktaArbeidstakerAndel.arbeidsforhold.arbeidsgiverIdent,
-    },
-  ];
-  const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT],
-    refusjonskravSomKommerForSentListe,
-    andelerForFaktaOmBeregning,
-  } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
-
   return (
     <BeregningFaktaIndex
       behandling={behandling}
@@ -1310,7 +1166,10 @@ export const ReadonlyForVanligSaksbehandlerUtenOverstyrerrolleMedOverstyringsaks
   return (
     <BeregningFaktaIndex
       behandling={behandling}
-      beregningsgrunnlag={[{ ...bgMedArbeidOgDagpenger[0], avklaringsbehov: [overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag] }]}
+      beregningsgrunnlag={[{
+        ...bgMedArbeidOgDagpenger[0],
+        avklaringsbehov: [overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag],
+      }]}
       aksjonspunkter={[overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}

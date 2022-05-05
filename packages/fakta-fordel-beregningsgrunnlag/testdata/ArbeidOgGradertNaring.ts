@@ -295,7 +295,6 @@ export const beregningsgrunnlag = {
       fastsattBelop: 0.0,
       inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
       aktivitetStatus: 'SN',
-      visningsnavn: 'Næring',
       arbeidsforhold: {
         arbeidsforholdType: 'NÆRING',
       },

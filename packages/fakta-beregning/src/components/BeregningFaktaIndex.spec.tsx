@@ -4,11 +4,12 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import * as stories from '../BeregningFaktaIndex.stories';
 
-const { ArbeidOgDagpenger } = composeStories(stories);
+const { ArbeidOgDagpenger, ArbeidOgAAP } = composeStories(stories);
 
 describe('<BeregningFaktaIndexSpec', () => {
-  it('skal kunne løse aksjonspunkt', () => {
-    render(<ArbeidOgDagpenger />);
+  it('skal kunne løse aksjonspunkt for Arbeid og full AAP', () => {
+    render(<ArbeidOgAAP />);
+    // TODO: Valider på at AAP ikkje skal kunne endres
     userEvent.click(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
     userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
     userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
@@ -18,6 +19,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal vise feilmelding dersom ingen benyttede aktiviteter', async () => {
     render(<ArbeidOgDagpenger />);
+    // TODO: Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
     userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
     userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
     userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
@@ -32,6 +34,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal beholde feilmelding dersom man bytter tab', async () => {
     render(<ArbeidOgDagpenger />);
+    // TODO: Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
     userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
     userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
     userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
@@ -44,6 +47,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
     // Bytter tab
     userEvent.click(screen.getByRole('tab', { name: '13.02.2020' }));
+    // TODO: Begrunnelse skal vere read only her, enten må man sjekke på det eller overstyre
     userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
     userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
     const måHaAktivitetFeilmeldingNyTab = screen.queryByText(
@@ -65,6 +69,6 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   // TODO : Skriv test for ikke overstyrer + ingen aksjonspunkt => ikke vises
   // TODO : Skriv test for ikke overstyrer + overstyringsaksjonspunkt => vises, men readonly
-  // TODO : Skriv test for AAP, ingen EditedIcon for AAP-rad
+  // TODO : Skriv test for AAP, ingen EditedIcon for AAP-rad når aksjonspunkt er uført
 
 });
