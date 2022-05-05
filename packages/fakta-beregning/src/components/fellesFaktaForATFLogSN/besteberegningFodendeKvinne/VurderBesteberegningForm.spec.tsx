@@ -1,5 +1,5 @@
 import { isRequiredMessage } from '@navikt/ft-utils';
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
 import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
 
@@ -9,12 +9,12 @@ const {
 
 describe('<VurderBesteberegning>', () => {
   it('skal ikkje validere om man ikkje har tilfelle', () => {
-    const error = VurderBesteberegningForm.validate({}, [faktaOmBeregningTilfelle.VURDER_LONNSENDRING]);
+    const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING]);
     expect(Object.keys(error)).toHaveLength(0);
   });
 
   it('skal validere om ikkje vurdert', () => {
-    const error = VurderBesteberegningForm.validate({}, [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING]);
+    const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING]);
     expect(error[besteberegningField]).toBe(isRequiredMessage());
   });
 
@@ -24,7 +24,7 @@ describe('<VurderBesteberegning>', () => {
       andeler: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
     };
     const initialValues = VurderBesteberegningForm.buildInitialValues([],
-      vurderBesteberegning, [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING], false);
+      vurderBesteberegning, [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING], false);
     expect(initialValues[besteberegningField]).toBe(false);
   });
 
@@ -40,7 +40,7 @@ describe('<VurderBesteberegning>', () => {
       erAktivt: true,
     };
     const initialValues = VurderBesteberegningForm.buildInitialValues([ap],
-      vurderBesteberegning, [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING], false);
+      vurderBesteberegning, [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING], false);
     expect(initialValues[besteberegningField]).toBe(false);
   });
 
@@ -50,7 +50,7 @@ describe('<VurderBesteberegning>', () => {
       andeler: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
     };
     const initialValues = VurderBesteberegningForm.buildInitialValues([], vurderBesteberegning,
-      [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING], true);
+      [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING], true);
     expect(initialValues[besteberegningField]).toBe(false);
   });
 

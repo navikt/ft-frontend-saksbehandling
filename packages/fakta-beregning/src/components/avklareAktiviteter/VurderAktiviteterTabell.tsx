@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import moment from 'moment';
 
-import { KodeverkType, opptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import { RadioGroupField, RadioOption, DatepickerField } from '@navikt/ft-form-redux-legacy';
 import {
   required, getKodeverknavnFn, DDMMYYYY_DATE_FORMAT, hasValidDate,

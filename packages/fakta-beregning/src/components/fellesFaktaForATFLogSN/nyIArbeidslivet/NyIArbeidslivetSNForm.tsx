@@ -4,7 +4,7 @@ import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { required } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import Beregningsgrunnlag from '@navikt/ft-types/src/beregningsgrunnlagTsType';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
 
@@ -58,7 +58,7 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
   }
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
     .map((periode) => periode.beregningsgrunnlagPrStatusOgAndel);
-  const snAndeler = alleAndeler.flat().filter((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndeler = alleAndeler.flat().filter((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (snAndeler.length > 0) {
     initialValues[radioGroupFieldName] = snAndeler[0].erNyIArbeidslivet;
   }

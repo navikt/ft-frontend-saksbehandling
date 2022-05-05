@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
-import { inntektskategorier, periodeAarsak } from '@navikt/ft-kodeverk';
+import { Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   Behandling,
   Aksjonspunkt,
@@ -199,15 +199,15 @@ const lagArbforTilFordeling = (arbGiverId: string, arbId: string, refKrav: numbe
 const mapIKKode = (bgStatus: string): string => {
   switch (bgStatus) {
     case 'AT':
-      return inntektskategorier.ARBEIDSTAKER;
+      return Inntektskategori.ARBEIDSTAKER;
     case 'AAP':
-      return inntektskategorier.ARBEIDSAVKLARINGSPENGER;
+      return Inntektskategori.ARBEIDSAVKLARINGSPENGER;
     case 'FL':
-      return inntektskategorier.FRILANSER;
+      return Inntektskategori.FRILANSER;
     case 'SN':
-      return inntektskategorier.SELVSTENDIG_NÆRINGSDRIVENDE;
+      return Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE;
     default:
-      return inntektskategorier.UDEFINERT;
+      return Inntektskategori.UDEFINERT;
   }
 };
 
@@ -289,7 +289,7 @@ AapOgRefusjon.args = {
   beregningsgrunnlag: lagBG([lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
     lagBGPeriode([lagBGAndel(2, 'AAP', 100000),
       lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))],
-    [periodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27')],
+    [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27')],
   lagFaktaOmFordeling([lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
     [lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, 0)], false, false, '2019-08-05', '2019-11-26'),
       lagFordelPeriode([lagFordelingsandel(2, 'AAP', 0, 0),
@@ -305,7 +305,7 @@ FordelingKanEndreRefusjonskrav.args = {
   beregningsgrunnlag: lagBG([lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
     lagBGPeriode([lagBGAndel(2, 'AAP', 100000),
       lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))],
-    [periodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27')],
+    [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27')],
   lagFaktaOmFordeling([lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
     [lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, 0)], false, false, '2019-08-05', '2019-11-26'),
       lagFordelPeriode([lagFordelingsandel(2, 'AAP', 0, 0),
@@ -322,11 +322,11 @@ SkalSlåSammenNaturalytelseperioder.args = {
     lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))], [], '2019-08-05', '2019-11-26'),
   lagBGPeriode([lagBGAndel(1, 'AT', 100000,
     lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],
-  [periodeAarsak.NATURALYTELSE_BORTFALT], '2019-11-27', '2019-12-05'),
+  [PeriodeAarsak.NATURALYTELSE_BORTFALT], '2019-11-27', '2019-12-05'),
   lagBGPeriode([lagBGAndel(1, 'AT', 100000,
     lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000)),
   lagBGAndel(2, 'AT', 300000,
-    lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))], [periodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-12-06')],
+    lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))], [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-12-06')],
   lagFaktaOmFordeling([lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-12-06')],
     [lagFordelPeriode([lagFordelingsandel(1, 'AT', 0, 0,
       lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],

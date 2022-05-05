@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { faktaOmBeregningTilfelle, aktivitetStatus as aktivitetStatuser, inntektskategorier } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle, AktivitetStatus as aktivitetStatuser, Inntektskategori } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import VurderOgFastsettATFL, { skalFastsettInntektForArbeidstaker, skalFastsettInntektForFrilans } from './VurderOgFastsettATFL';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
@@ -17,7 +17,7 @@ const {
   VURDER_NYOPPSTARTET_FL,
   FASTSETT_MAANEDSINNTEKT_FL,
   FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
-} = faktaOmBeregningTilfelle;
+} = FaktaOmBeregningTilfelle;
 
 const lagBeregningsgrunnlag = (andeler) => ({
   beregningsgrunnlagPeriode: [
@@ -62,10 +62,10 @@ describe('<VurderOgFastsettATFL>', () => {
     const values = {};
     values[besteberegningField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [
-      lagAndelValues(1, '10 000', inntektskategorier.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
-      lagAndelValues(undefined, '20 000', inntektskategorier.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
+      lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
+      lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
     ];
-    const andeler = [lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER)];
+    const andeler = [lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER)];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
     const faktaOmBeregning = lagFaktaOmBeregning([VURDER_BESTEBEREGNING], undefined, undefined);
     const transformed = VurderOgFastsettATFL.transformValues(faktaOmBeregning as FaktaOmBeregning, beregningsgrunnlag)(values);
@@ -83,14 +83,14 @@ describe('<VurderOgFastsettATFL>', () => {
     values[lonnsendringField] = true;
     values[erNyoppstartetFLField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [
-      lagAndelValues(1, '10 000', inntektskategorier.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
-      lagAndelValues(2, '30 000', inntektskategorier.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(undefined, '20 000', inntektskategorier.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
+      lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
+      lagAndelValues(2, '30 000', Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
+      lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
     ];
-    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER);
+    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
     const andeler = [
       andelMedLonnsendring,
-      lagAndel(2, aktivitetStatuser.FRILANSER, inntektskategorier.FRILANSER),
+      lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
     ];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
     const faktaOmBeregning = lagFaktaOmBeregning([VURDER_BESTEBEREGNING,
@@ -106,15 +106,15 @@ describe('<VurderOgFastsettATFL>', () => {
     values[lonnsendringField] = true;
     values[erNyoppstartetFLField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [
-      lagAndelValues(1, '10 000', inntektskategorier.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
-      lagAndelValues(2, '30 000', inntektskategorier.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(undefined, '20 000', inntektskategorier.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
+      lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
+      lagAndelValues(2, '30 000', Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
+      lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
     ];
-    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER);
+    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
     const andeler = [
       andelMedLonnsendring,
       {
-        ...lagAndel(2, aktivitetStatuser.FRILANSER, inntektskategorier.FRILANSER),
+        ...lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
         erNyoppstartet: true,
       },
     ];
@@ -137,11 +137,11 @@ describe('<VurderOgFastsettATFL>', () => {
     const tilfeller = [VURDER_BESTEBEREGNING, VURDER_LONNSENDRING,
       VURDER_MOTTAR_YTELSE, VURDER_NYOPPSTARTET_FL,
     ];
-    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER);
+    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
     const andeler = [
       andelMedLonnsendring,
       {
-        ...lagAndel(2, aktivitetStatuser.FRILANSER, inntektskategorier.FRILANSER),
+        ...lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
         erNyoppstartet: true,
       },
     ];
@@ -181,8 +181,8 @@ describe('<VurderOgFastsettATFL>', () => {
   it('skal returnere true for fastsetting av FL-inntekt når FL-inntekt skal fastsettes', () => {
     const values = {};
     values[INNTEKT_FIELD_ARRAY_NAME] = [
-      lagAndelValues(1, 10000, inntektskategorier.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(2, 20000, inntektskategorier.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
+      lagAndelValues(1, 10000, Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
+      lagAndelValues(2, 20000, Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
     ];
     const skalFastsetteInntektMock = (andel) => (andel.aktivitetStatus === aktivitetStatuser.FRILANSER);
     const skalFastsetteFL = skalFastsettInntektForFrilans.resultFunc(values, skalFastsetteInntektMock);
@@ -192,8 +192,8 @@ describe('<VurderOgFastsettATFL>', () => {
   it('skal returnere false for fastsetting av FL-inntekt når FL-inntekt ikkje skal fastsettes', () => {
     const values = {};
     values[INNTEKT_FIELD_ARRAY_NAME] = [
-      lagAndelValues(1, 10000, inntektskategorier.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(2, 20000, inntektskategorier.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
+      lagAndelValues(1, 10000, Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
+      lagAndelValues(2, 20000, Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
     ];
     const skalFastsetteInntektMock = (andel) => (andel.aktivitetStatus !== aktivitetStatuser.FRILANSER);
     const skalFastsetteFL = skalFastsettInntektForFrilans.resultFunc(values, skalFastsetteInntektMock);
@@ -203,8 +203,8 @@ describe('<VurderOgFastsettATFL>', () => {
   it('skal returnere true for fastsetting av AT-inntekt når AT-inntekt skal fastsettes', () => {
     const values = {};
     values[INNTEKT_FIELD_ARRAY_NAME] = [
-      lagAndelValues(1, 10000, inntektskategorier.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(2, 20000, inntektskategorier.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
+      lagAndelValues(1, 10000, Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
+      lagAndelValues(2, 20000, Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
     ];
     const skalFastsetteInntektMock = (andel) => (andel.aktivitetStatus === aktivitetStatuser.ARBEIDSTAKER);
     const skalFastsetteAT = skalFastsettInntektForArbeidstaker.resultFunc(values, skalFastsetteInntektMock);
@@ -214,8 +214,8 @@ describe('<VurderOgFastsettATFL>', () => {
   it('skal returnere false for fastsetting av AT-inntekt når AT-inntekt ikkje skal fastsettes', () => {
     const values = {};
     values[INNTEKT_FIELD_ARRAY_NAME] = [
-      lagAndelValues(1, 10000, inntektskategorier.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(2, 20000, inntektskategorier.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
+      lagAndelValues(1, 10000, Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
+      lagAndelValues(2, 20000, Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
     ];
     const skalFastsetteInntektMock = (andel) => (andel.aktivitetStatus !== aktivitetStatuser.ARBEIDSTAKER);
     const skalFastsetteAT = skalFastsettInntektForArbeidstaker.resultFunc(values, skalFastsetteInntektMock);

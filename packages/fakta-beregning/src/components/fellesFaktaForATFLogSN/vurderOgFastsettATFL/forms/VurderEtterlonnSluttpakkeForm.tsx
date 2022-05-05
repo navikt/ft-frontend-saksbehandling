@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { required } from '@navikt/ft-utils';
-import { isAksjonspunktOpen, faktaOmBeregningTilfelle, opptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen, FaktaOmBeregningTilfelle, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import 'core-js/features/array/flat-map';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
@@ -87,12 +87,12 @@ VurderEtterlonnSluttpakkeForm.transformValues = (values: FaktaOmBeregningAksjons
   faktaOmBeregning: FaktaOmBeregning,
   fastsatteAndelsnr: number[]): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!tilfeller.includes(faktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
+  if (!tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
     return {};
   }
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
     return ({
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
     });
   }
@@ -104,13 +104,13 @@ VurderEtterlonnSluttpakkeForm.transformValues = (values: FaktaOmBeregningAksjons
     .find((field) => field.andelsnr === etterlønnSluttpakkeAndelsnr);
   if (!etterlonnSluttpakkeField) {
     return ({
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
     });
   }
   if (fastsatteAndelsnr.includes(etterlonnSluttpakkeField.andelsnr)) {
     return ({
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
     });
   }
@@ -119,7 +119,7 @@ VurderEtterlonnSluttpakkeForm.transformValues = (values: FaktaOmBeregningAksjons
     fastsettEtterlønnSluttpakke: { fastsattPrMnd: etterlonnSluttpakkeField.fastsattBelop },
   };
   return {
-    faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE, faktaOmBeregningTilfelle.FASTSETT_ETTERLONN_SLUTTPAKKE],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE, FaktaOmBeregningTilfelle.FASTSETT_ETTERLONN_SLUTTPAKKE],
     ...inntekt,
     vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
   };

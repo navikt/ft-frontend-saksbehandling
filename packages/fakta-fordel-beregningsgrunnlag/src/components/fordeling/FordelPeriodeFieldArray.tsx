@@ -15,11 +15,11 @@ import {
   Table, TableColumn, TableRow, Image,
 } from '@navikt/ft-ui-komponenter';
 import {
-  beregningsgrunnlagAndeltyper,
-  behandlingType as bt,
+  BeregningsgrunnlagAndelType,
+  BehandlingType as bt,
   KodeverkType,
-  aktivitetStatus,
-  inntektskategorier,
+  AktivitetStatus,
+  Inntektskategori,
   isSelvstendigNæringsdrivende,
 } from '@navikt/ft-kodeverk';
 import {
@@ -87,7 +87,7 @@ const arbeidsgiverSelectValuesForKunYtelse = (arbeidsforholdList: BGFordelArbeid
       </option>
     ));
   nedtrekksvalgListe.push(
-    <option value={beregningsgrunnlagAndeltyper.BRUKERS_ANDEL} key={beregningsgrunnlagAndeltyper.BRUKERS_ANDEL}>
+    <option value={BeregningsgrunnlagAndelType.BRUKERS_ANDEL} key={BeregningsgrunnlagAndelType.BRUKERS_ANDEL}>
       {intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Ytelse' })}
     </option>,
   );
@@ -139,7 +139,7 @@ const summerBeregningsgrunnlagPrAar = (fields: FordelBeregningsgrunnlagAndelValu
 };
 
 const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues): boolean => (isSelvstendigNæringsdrivende(fieldVal.inntektskategori)
-  || inntektskategorier.FRILANSER === fieldVal.inntektskategori);
+  || Inntektskategori.FRILANSER === fieldVal.inntektskategori);
 
 const onKeyDown = (fields: FordelBeregningsgrunnlagAndelValues[],
   periodeUtenAarsak: boolean): (arg: React.KeyboardEvent) => void => ({ key }) => {
@@ -434,7 +434,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     name: fieldName,
   });
   const harKunYtelse = beregningsgrunnlag.aktivitetStatus
-    .some((status) => status === aktivitetStatus.KUN_YTELSE);
+    .some((status) => status === AktivitetStatus.KUN_YTELSE);
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
   const sumFordelingForrigeBehandling = summerFordelingForrigeBehandlingFraFields(fields);
   const sumFordeling = summerFordeling(fieldName, fields, watch);

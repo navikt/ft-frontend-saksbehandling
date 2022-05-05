@@ -1,4 +1,4 @@
-import { KodeverkType, vilkarType as VilkarType } from '@navikt/ft-kodeverk';
+import { KodeverkType, VilkarType } from '@navikt/ft-kodeverk';
 
 import KodeverkMedNavn from './kodeverkMedNavnTsType';
 

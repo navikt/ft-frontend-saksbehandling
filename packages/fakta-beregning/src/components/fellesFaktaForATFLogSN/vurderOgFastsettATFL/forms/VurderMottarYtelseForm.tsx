@@ -4,7 +4,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { getKodeverknavnFn, removeSpacesFromNumber, required } from '@navikt/ft-utils';
-import { KodeverkType, faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { KodeverkType, FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag,
@@ -25,7 +25,7 @@ import {
   VurderMottarYtelseValues,
 } from '../../../../typer/FaktaBeregningTypes';
 
-const andreFrilansTilfeller = [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, faktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON];
+const andreFrilansTilfeller = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON];
 
 export const mottarYtelseForArbeidMsg = () => ('BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid');
 
@@ -163,7 +163,7 @@ const transformValuesArbeidstakerUtenIM = (values: FaktaOmBeregningAksjonspunktV
       }
     });
     if (listeMedFastsatteMaanedsinntekter.length > 0) {
-      faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
+      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
       return {
         fastsattUtenInntektsmelding: { andelListe: listeMedFastsatteMaanedsinntekter },
       };
@@ -183,11 +183,11 @@ const transformValuesFrilans = (values: FaktaOmBeregningAksjonspunktValues,
   const skalFastsetteInntektFrilans = values.vurderMottarYtelseValues[finnFrilansFieldName()];
   if (skalFastsetteInntektFrilans) {
     const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel
-      .find((andel) => andel.aktivitetStatus === aktivitetStatus.FRILANSER);
+      .find((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
     if (!fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
       const frilansInntekt = inntektVerdier.find((field) => field.andelsnr === frilansAndel.andelsnr);
       fastsatteAndelsnr.push(frilansAndel.andelsnr);
-      faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
+      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
       return {
         fastsettMaanedsinntektFL: { maanedsinntekt: removeSpacesFromNumber(frilansInntekt.fastsattBelop) },
 
@@ -202,7 +202,7 @@ const transformValuesMottarYtelse = (values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
   faktaOmBeregningTilfeller: string[]): FaktaBeregningTransformedValues => {
   const ATAndelerUtenIM = faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM ? faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM : [];
-  faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+  faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
   return {
     mottarYtelse: {
       frilansMottarYtelse: values.vurderMottarYtelseValues[finnFrilansFieldName()],
@@ -240,7 +240,7 @@ VurderMottarYtelseForm.transformValues = (values: FaktaOmBeregningAksjonspunktVa
   fastsatteAndelsnr: number[]): FaktaBeregningTransformedValues => {
   const faktaOmBeregningTilfeller = [];
   const aktiveTilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!aktiveTilfeller.map((kode) => kode).includes(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+  if (!aktiveTilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
     return {};
   }
   return ({

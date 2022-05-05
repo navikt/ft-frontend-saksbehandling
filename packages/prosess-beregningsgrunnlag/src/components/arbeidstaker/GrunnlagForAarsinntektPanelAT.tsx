@@ -8,7 +8,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import {
   getKodeverknavnFn, dateFormat, formatCurrencyNoKr,
 } from '@navikt/ft-utils';
-import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
 } from '@navikt/ft-ui-komponenter';
@@ -40,7 +40,7 @@ const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): Beregnings
     return [];
   }
   return andeler
-    .filter((andel) => andel.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER)
+    .filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
     .filter((andel) => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
 

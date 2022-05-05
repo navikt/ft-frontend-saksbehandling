@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { inntektskategorier, aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { Inntektskategori, AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import NyoppstartetFLForm, { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { InntektTransformed } from '../../../../typer/FieldValues';
@@ -17,7 +17,7 @@ describe('<NyoppstartetFLForm>', () => {
   });
 
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
     andelerForFaktaOmBeregning: [],
   };
 
@@ -31,19 +31,19 @@ describe('<NyoppstartetFLForm>', () => {
   const frilansAndelInntekt = {
     andelsnr: 1,
     fastsattBelop: 10000,
-    inntektskategori: inntektskategorier.FRILANSER,
+    inntektskategori: Inntektskategori.FRILANSER,
     nyAndel: false,
     lagtTilAvSaksbehandler: false,
-    aktivitetStatus: aktivitetStatus.FRILANSER,
+    aktivitetStatus: AktivitetStatus.FRILANSER,
   };
 
   const arbeidstakerInntekt = {
     andelsnr: 2,
     fastsattBelop: 20000,
-    inntektskategori: inntektskategorier.ARBEIDSTAKER,
+    inntektskategori: Inntektskategori.ARBEIDSTAKER,
     nyAndel: false,
     lagtTilAvSaksbehandler: false,
-    aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
+    aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   };
 
   it('skal teste transform values med inntekter', () => {
@@ -57,8 +57,8 @@ describe('<NyoppstartetFLForm>', () => {
     const transformedObject = NyoppstartetFLForm.transformValues(values, inntekterPrMnd, faktaOmBeregning, fastsatteAndeler);
     expect(transformedObject.vurderNyoppstartetFL.erNyoppstartetFL).toBe(true);
     expect(transformedObject.faktaOmBeregningTilfeller.length).toBe(2);
-    expect(transformedObject.faktaOmBeregningTilfeller.includes(faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toBe(true);
-    expect(transformedObject.faktaOmBeregningTilfeller.includes(faktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL)).toBe(true);
+    expect(transformedObject.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toBe(true);
+    expect(transformedObject.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL)).toBe(true);
     expect(transformedObject.fastsettMaanedsinntektFL.maanedsinntekt).toBe(10000);
     expect(fastsatteAndeler.length).toBe(1);
   });
@@ -69,7 +69,7 @@ describe('<NyoppstartetFLForm>', () => {
         {
           beregningsgrunnlagPrStatusOgAndel: [
             {
-              aktivitetStatus: aktivitetStatus.FRILANSER,
+              aktivitetStatus: AktivitetStatus.FRILANSER,
               erNyoppstartet: true,
             },
           ],

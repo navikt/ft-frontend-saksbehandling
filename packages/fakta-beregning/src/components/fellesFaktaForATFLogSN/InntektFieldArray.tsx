@@ -8,7 +8,7 @@ import {
   isArrayEmpty, removeSpacesFromNumber, required,
 } from '@navikt/ft-utils';
 import {
-  inntektskategorier, KodeverkType, aktivitetStatus, faktaOmBeregningTilfelle,
+  Inntektskategori, KodeverkType, AktivitetStatus, FaktaOmBeregningTilfelle,
 } from '@navikt/ft-kodeverk';
 import { Table, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
@@ -28,20 +28,20 @@ import { vurderMilitaerField } from './vurderMilitaer/VurderMilitaer';
 import styles from './inntektFieldArray.less';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) : AndelFieldValue => ({
-  andel: aktivitetStatuser.find(({ kode }) => kode === aktivitetStatus.DAGPENGER).navn,
-  aktivitetStatus: aktivitetStatus.DAGPENGER,
+  andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
+  aktivitetStatus: AktivitetStatus.DAGPENGER,
   fastsattBelop: '',
-  inntektskategori: inntektskategorier.DAGPENGER,
+  inntektskategori: Inntektskategori.DAGPENGER,
   nyAndel: true,
   skalKunneEndreAktivitet: false,
   lagtTilAvSaksbehandler: true,
 });
 
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]) : AndelFieldValue => ({
-  andel: aktivitetStatuser.find(({ kode }) => kode === aktivitetStatus.MILITAER_ELLER_SIVIL).navn,
-  aktivitetStatus: aktivitetStatus.MILITAER_ELLER_SIVIL,
+  andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.MILITAER_ELLER_SIVIL).navn,
+  aktivitetStatus: AktivitetStatus.MILITAER_ELLER_SIVIL,
   fastsattBelop: '',
-  inntektskategori: inntektskategorier.ARBEIDSTAKER,
+  inntektskategori: Inntektskategori.ARBEIDSTAKER,
   nyAndel: true,
   skalKunneEndreAktivitet: false,
   lagtTilAvSaksbehandler: true,
@@ -126,7 +126,7 @@ const findAktivitetStatusIndex = (fields: FieldArrayFieldsProps<AndelFieldValue>
   return index;
 };
 
-const harDagpenger = (fields: FieldArrayFieldsProps<AndelFieldValue>) => findAktivitetStatusIndex(fields, aktivitetStatus.DAGPENGER) !== -1;
+const harDagpenger = (fields: FieldArrayFieldsProps<AndelFieldValue>) => findAktivitetStatusIndex(fields, AktivitetStatus.DAGPENGER) !== -1;
 
 const fjernEllerLeggTilAktivitetStatus = (fields: FieldArrayFieldsProps<AndelFieldValue>,
   aktivitetStatusKode: string,
@@ -154,7 +154,7 @@ export const leggTilDagpengerOmBesteberegning = (fields: FieldArrayFieldsProps<A
   skalKunneLeggeTilDagpenger: boolean) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
-    aktivitetStatus.DAGPENGER,
+    AktivitetStatus.DAGPENGER,
     skalHaBesteberegning,
     (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && andel.lagtTilAvSaksbehandler,
     dagpenger(aktivitetStatuser),
@@ -166,7 +166,7 @@ const fjernEllerLeggTilMilitær = (fields: FieldArrayFieldsProps<AndelFieldValue
   aktivitetStatuser: KodeverkMedNavn[]) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
-    aktivitetStatus.MILITAER_ELLER_SIVIL,
+    AktivitetStatus.MILITAER_ELLER_SIVIL,
     skalHaMilitær === true,
     () => skalHaMilitær === false,
     lagNyMS(aktivitetStatuser),
@@ -329,7 +329,7 @@ export const mapStateToProps = (state, ownProps) => {
     isBeregningFormDirty,
     skalHaBesteberegning,
     skalHaMilitær,
-    erKunYtelse: tilfeller && tilfeller.includes(faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE),
+    erKunYtelse: tilfeller && tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE),
   };
 };
 export default connect(mapStateToProps)(InntektFieldArray);

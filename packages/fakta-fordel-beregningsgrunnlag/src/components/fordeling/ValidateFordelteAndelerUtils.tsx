@@ -4,7 +4,7 @@ import { UseFormGetValues } from 'react-hook-form';
 import {
   dateIsAfter, formatCurrencyNoKr, removeSpacesFromNumber,
 } from '@navikt/ft-utils';
-import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
 import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';
@@ -262,7 +262,7 @@ const validateSumFastsattArbeidstaker = (getValues: UseFormGetValues<FordelBereg
   seksG: number,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   intl: IntlShape): string => {
-  const statuserSomValideres = [aktivitetStatus.ARBEIDSTAKER];
+  const statuserSomValideres = [AktivitetStatus.ARBEIDSTAKER];
   const sumFastsattBelop = finnFastsattBeløpForStatus(getValues, fieldname, fields, statuserSomValideres);
   const beskrivendeString = lagBeskrivendeStringAvStatuser(statuserSomValideres, getKodeverknavn);
   return totalFordelingSkalVereLavereEnn(sumFastsattBelop, seksG, beskrivendeString, totalFordelingForMåVæreLavereEnn, intl);
@@ -274,10 +274,10 @@ const validateSumFastsattArbeidstakerOgFrilanser = (getValues: UseFormGetValues<
   seksG: number,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   intl: IntlShape): string => {
-  const statuserSomPrioriteresOverSN = [aktivitetStatus.ARBEIDSTAKER,
-    aktivitetStatus.FRILANSER,
-    aktivitetStatus.DAGPENGER,
-    aktivitetStatus.ARBEIDSAVKLARINGSPENGER] as string[];
+  const statuserSomPrioriteresOverSN = [AktivitetStatus.ARBEIDSTAKER,
+    AktivitetStatus.FRILANSER,
+    AktivitetStatus.DAGPENGER,
+    AktivitetStatus.ARBEIDSAVKLARINGSPENGER] as string[];
   const statuserSomValideres = fields.filter((v) => statuserSomPrioriteresOverSN.includes(v.aktivitetStatus)).map((v) => v.aktivitetStatus);
   const sumFastsattBelop = finnFastsattBeløpForStatus(getValues, fieldname, fields, statuserSomValideres);
   const beskrivendeString = lagBeskrivendeStringAvStatuser(statuserSomValideres, getKodeverknavn);
@@ -290,12 +290,12 @@ export const validateSumFastsattForUgraderteAktiviteter = (getValues: UseFormGet
   intl: IntlShape,
   grunnbeløp: number,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string) => () => {
-  const skalGradereFL = !!fields.find((v) => v.andelIArbeid !== '0.00' && v.aktivitetStatus === aktivitetStatus.FRILANSER);
+  const skalGradereFL = !!fields.find((v) => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.FRILANSER);
   const seksG = 6 * grunnbeløp;
   if (skalGradereFL) {
     return validateSumFastsattArbeidstaker(getValues, fieldname, fields, seksG, getKodeverknavn, intl);
   }
-  const skalGradereSN = !!fields.find((v) => v.andelIArbeid !== '0.00' && v.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const skalGradereSN = !!fields.find((v) => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (skalGradereSN) {
     return validateSumFastsattArbeidstakerOgFrilanser(getValues, fieldname, fields, seksG, getKodeverknavn, intl);
   }

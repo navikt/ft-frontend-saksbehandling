@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { FlexContainer, VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
@@ -101,7 +101,7 @@ const lagRelevantePaneler = (
       {
         relevanteStatuser.isArbeidstaker && (
           <AvviksopplysningerAT
-            beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [aktivitetStatus.ARBEIDSTAKER, aktivitetStatus.FRILANSER])}
+            beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [AktivitetStatus.ARBEIDSTAKER, AktivitetStatus.FRILANSER])}
             sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus}
             relevanteStatuser={relevanteStatuser}
           />
@@ -110,7 +110,7 @@ const lagRelevantePaneler = (
       {
         relevanteStatuser.isFrilanser && (
           <AvviksopplysningerFL
-            beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [aktivitetStatus.ARBEIDSTAKER, aktivitetStatus.FRILANSER])}
+            beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [AktivitetStatus.ARBEIDSTAKER, AktivitetStatus.FRILANSER])}
             sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus}
             relevanteStatuser={relevanteStatuser}
           />

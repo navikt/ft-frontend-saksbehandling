@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlShape } from 'react-intl';
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
@@ -11,7 +11,7 @@ import { FaktaBeregningTransformedValues } from '../../../typer/interface/Beregn
 import KunYtelsePanel from './KunYtelsePanel';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 
-const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = faktaOmBeregningTilfelle;
+const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
 
 export const setFaktaPanelForKunYtelse = (faktaPanels,
   tilfeller,

@@ -12,7 +12,7 @@ import { InputField, NavFieldGroup, SelectField } from '@navikt/ft-form-redux-le
 import {
   formatCurrencyNoKr, isArrayEmpty, parseCurrencyInput, removeSpacesFromNumber, required, getKodeverknavnFn,
 } from '@navikt/ft-utils';
-import { KodeverkType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   Table, TableColumn, TableRow, VerticalSpacer, Image,
 } from '@navikt/ft-ui-komponenter';
@@ -27,7 +27,7 @@ import styles from './brukersAndelFieldArray.less';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], alleKodeverk) => ({
   andel: getKodeverknavnFn(alleKodeverk)(
-    aktivitetStatuser.filter((kode) => kode === aktivitetStatus.BRUKERS_ANDEL)[0],
+    aktivitetStatuser.filter((kode) => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
     KodeverkType.AKTIVITET_STATUS),
   fastsattBelop: '',
   inntektskategori: '',
