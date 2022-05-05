@@ -1,5 +1,5 @@
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 
 import {
@@ -25,15 +25,15 @@ const agOpplysninger = {
 
 const arbeidstakerIkkeFastsatt = {
   lagtTilAvSaksbehandler: false,
-  aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
+  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   inntektskategori: 'ARBEIDSTAKER',
 };
 
 const getKodeverknavn = (kode) => {
-  if (kode === aktivitetStatus.ARBEIDSTAKER) {
+  if (kode === AktivitetStatus.ARBEIDSTAKER) {
     return 'Arbeidstaker';
   }
-  if (kode === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+  if (kode === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
     return 'Selvstendig næringsdrivende';
   }
   return '';
@@ -78,7 +78,7 @@ describe('<BgFordelingUtils>', () => {
         arbeidsforholdId: '321378huda7e2',
         eksternArbeidsforholdId: '345678',
       } as BeregningsgrunnlagArbeidsforhold,
-      aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
+      aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
       andelsnr: 3,
       kilde: 'PROSESS_START',
       lagtTilAvSaksbehandler: false,
@@ -97,7 +97,7 @@ describe('<BgFordelingUtils>', () => {
 
   it('skal sette initial values for generell andelinfo uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -113,7 +113,7 @@ describe('<BgFordelingUtils>', () => {
 
   it('skal ikkje sette arbeidsforhold initial values for andel uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',

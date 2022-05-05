@@ -1,5 +1,5 @@
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './AvsluttetArbeidsforhold';
@@ -16,9 +16,9 @@ const transformValuesArbeidUtenInntektsmelding = (values: FaktaOmBeregningAksjon
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
 
   if (!tilfeller.map((kode) => kode)
-    .includes(faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)
+    .includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)
     && !tilfeller.map((kode) => kode)
-      .includes(faktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
+      .includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
     return {};
   }
   if (inntektVerdier === null) {
@@ -39,7 +39,7 @@ const transformValuesArbeidUtenInntektsmelding = (values: FaktaOmBeregningAksjon
     }));
   if (fastsattInntekt.length > 0) {
     return ({
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING],
       fastsattUtenInntektsmelding: { andelListe: fastsattInntekt },
     });
   }

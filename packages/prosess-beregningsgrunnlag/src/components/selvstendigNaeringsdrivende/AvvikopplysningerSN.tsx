@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Column } from 'nav-frontend-grid';
 
-import { sammenligningType, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { SammenligningType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { FlexRow } from '@navikt/ft-ui-komponenter';
 
@@ -31,7 +31,7 @@ const AvvikopplysningerSN: FunctionComponent<OwnProps> = ({
   alleAndelerIForstePeriode,
   relevanteStatuser,
 }) => {
-  const snAndel = alleAndelerIForstePeriode.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndel = alleAndelerIForstePeriode.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   const erNyArbLivet = snAndel?.erNyIArbeidslivet;
   const erVarigEndring = snAndel?.næringer && snAndel.næringer.some((naring) => naring.erVarigEndret === true);
   const erNyoppstartet = snAndel?.næringer && snAndel.næringer.some((naring) => naring.erNyoppstartet === true);
@@ -42,8 +42,8 @@ const AvvikopplysningerSN: FunctionComponent<OwnProps> = ({
     return ingenAvviksvurdering('Beregningsgrunnlag.Avviksopplysninger.SN.IkkeVarigEndring');
   }
   const sammenligningsGrunnlagSN = sammenligningsgrunnlagPrStatus
-    ? sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === sammenligningType.SN
-      || status.sammenligningsgrunnlagType === sammenligningType.ATFLSN)
+    ? sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === SammenligningType.SN
+      || status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)
     : undefined;
   if (!sammenligningsGrunnlagSN || !snAndel) {
     return null;

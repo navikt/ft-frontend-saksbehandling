@@ -2,8 +2,8 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import {
-  aktivitetStatus as aktivitetStatuser, inntektskategorier, opptjeningAktivitetType,
-  aksjonspunktStatus, faktaOmBeregningTilfelle,
+  AktivitetStatus as aktivitetStatuser, Inntektskategori, OpptjeningAktivitetType,
+  AksjonspunktStatus, FaktaOmBeregningTilfelle,
 } from '@navikt/ft-kodeverk';
 import {
   Behandling, Beregningsgrunnlag, BeregningAktivitet, FaktaOmBeregning, AndelForFaktaOmBeregning, FaktaOmBeregningAndel,
@@ -36,7 +36,7 @@ const {
   VURDER_ETTERLONN_SLUTTPAKKE,
   FASTSETT_BG_KUN_YTELSE,
   VURDER_SN_NY_I_ARBEIDSLIVET,
-} = faktaOmBeregningTilfelle;
+} = FaktaOmBeregningTilfelle;
 
 const lagBeregningsgrunnlagAvklarAktiviteter = (
   aktiviteter: BeregningAktivitet[],
@@ -85,7 +85,7 @@ const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: s
 );
 
 const standardFaktaArbeidstakerAndel = {
-  ...lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER),
+  ...lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -93,11 +93,11 @@ const standardFaktaArbeidstakerAndel = {
     arbeidsgiverId: '12345678',
     arbeidsgiverIdent: '12345678',
     startdato: '01.01.2019',
-    arbeidsforholdType: opptjeningAktivitetType.ARBEID,
+    arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
 const standardFaktaArbeidstakerAndel2 = {
-  ...lagAndel(4, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER),
+  ...lagAndel(4, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -106,11 +106,11 @@ const standardFaktaArbeidstakerAndel2 = {
     arbeidsgiverIdent: '12345679',
     startdato: '01.01.2019',
     opphoersdato: '01.01.2020',
-    arbeidsforholdType: opptjeningAktivitetType.ARBEID,
+    arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
 const tidsbegrensetFaktaArbeidstakerAndel = {
-  ...lagAndel(6, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER),
+  ...lagAndel(6, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -119,11 +119,11 @@ const tidsbegrensetFaktaArbeidstakerAndel = {
     arbeidsgiverIdent: '12345671',
     startdato: '01.09.2019',
     opphoersdato: '01.01.2020',
-    arbeidsforholdType: opptjeningAktivitetType.ARBEID,
+    arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
 const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
-  ...lagAndel(7, aktivitetStatuser.ARBEIDSTAKER, inntektskategorier.ARBEIDSTAKER),
+  ...lagAndel(7, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -131,36 +131,36 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
     arbeidsgiverId: '795349533',
     arbeidsgiverIdent: '795349533',
     startdato: '01.09.2019',
-    arbeidsforholdType: opptjeningAktivitetType.ETTERLONN_SLUTTPAKKE,
+    arbeidsforholdType: OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE,
   },
 };
 const standardFaktaDagpengerAndel = {
-  ...lagAndel(3, aktivitetStatuser.DAGPENGER, inntektskategorier.DAGPENGER),
+  ...lagAndel(3, aktivitetStatuser.DAGPENGER, Inntektskategori.DAGPENGER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaFrilansAndel = {
-  ...lagAndel(2, aktivitetStatuser.FRILANSER, inntektskategorier.FRILANSER),
+  ...lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaMilitærAndel = {
-  ...lagAndel(5, aktivitetStatuser.MILITAER_ELLER_SIVIL, inntektskategorier.ARBEIDSTAKER),
+  ...lagAndel(5, aktivitetStatuser.MILITAER_ELLER_SIVIL, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaYtelseAndel = {
-  ...lagAndel(8, aktivitetStatuser.KUN_YTELSE, inntektskategorier.UDEFINERT),
+  ...lagAndel(8, aktivitetStatuser.KUN_YTELSE, Inntektskategori.UDEFINERT),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaNæringAndel = {
-  ...lagAndel(9, aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE, inntektskategorier.SELVSTENDIG_NÆRINGSDRIVENDE),
+  ...lagAndel(9, aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE, Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaAAPAndel = {
-  ...lagAndel(10, aktivitetStatuser.ARBEIDSAVKLARINGSPENGER, inntektskategorier.ARBEIDSAVKLARINGSPENGER),
+  ...lagAndel(10, aktivitetStatuser.ARBEIDSAVKLARINGSPENGER, Inntektskategori.ARBEIDSAVKLARINGSPENGER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
@@ -223,7 +223,7 @@ export const ArbeidOgDagpenger = () => (
 
 export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
   const aapAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.AAP,
+    arbeidsforholdType: OpptjeningAktivitetType.AAP,
     fom: '01-01-2019',
     tom: '01-04-2020',
   };
@@ -244,7 +244,7 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -266,7 +266,7 @@ export const AvklarAktiviteterFullAAPOgAndreAktiviteter = () => {
 
 export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
   const aapAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.AAP,
+    arbeidsforholdType: OpptjeningAktivitetType.AAP,
     fom: '01-01-2019',
     tom: '01-04-2020',
   };
@@ -323,14 +323,14 @@ export const AvklartAktiviteterMedAksjonspunktIFaktaAvklaring = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-        status: aksjonspunktStatus.UTFORT,
+        status: AksjonspunktStatus.UTFORT,
         begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
         kanLoses: true,
         erAktivt: true,
       },
       {
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -389,7 +389,7 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -444,7 +444,7 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -498,7 +498,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -555,7 +555,7 @@ export const KunArbeidstakerMedVurderingSentRefusjonskrav = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -614,7 +614,7 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -657,7 +657,7 @@ export const VurderingAvMilitær = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -716,7 +716,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -761,7 +761,7 @@ export const KunTidsbegrensetArbeidsforhold = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -805,7 +805,7 @@ export const VurderingAvEtterlønnSluttpakke = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -853,7 +853,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -896,7 +896,7 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -918,7 +918,7 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
 
 export const KombinasjonstestForFaktapanel = () => {
   const aapAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.AAP,
+    arbeidsforholdType: OpptjeningAktivitetType.AAP,
     fom: '01-01-2019',
     tom: '01-04-2020',
   };
@@ -941,7 +941,7 @@ export const KombinasjonstestForFaktapanel = () => {
     skalBrukes: true,
   };
   const næringAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.NARING,
+    arbeidsforholdType: OpptjeningAktivitetType.NARING,
     fom: '01-01-2019',
     tom: '01-04-2020',
     skalBrukes: true,
@@ -953,13 +953,13 @@ export const KombinasjonstestForFaktapanel = () => {
     skalBrukes: true,
   };
   const frilansAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.FRILANS,
+    arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
     fom: '01-01-2019',
     tom: '01-04-2020',
     skalBrukes: true,
   };
   const militærAktivitet = {
-    arbeidsforholdType: opptjeningAktivitetType.MILITAR_ELLER_SIVILTJENESTE,
+    arbeidsforholdType: OpptjeningAktivitetType.MILITAR_ELLER_SIVILTJENESTE,
     fom: '01-01-2019',
     tom: '01-04-2020',
     skalBrukes: true,
@@ -1080,14 +1080,14 @@ export const KombinasjonstestForFaktapanel = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-        status: aksjonspunktStatus.UTFORT,
+        status: AksjonspunktStatus.UTFORT,
         begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
         kanLoses: true,
         erAktivt: true,
       },
       {
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -1163,7 +1163,7 @@ export const OverstyringAvInntekt = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,
@@ -1211,7 +1211,7 @@ export const VurderKunYtelseBesteberegning = () => {
       beregningsgrunnlag={beregningsgrunnlag}
       aksjonspunkter={[{
         definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: aksjonspunktStatus.OPPRETTET,
+        status: AksjonspunktStatus.OPPRETTET,
         begrunnelse: undefined,
         kanLoses: true,
         erAktivt: true,

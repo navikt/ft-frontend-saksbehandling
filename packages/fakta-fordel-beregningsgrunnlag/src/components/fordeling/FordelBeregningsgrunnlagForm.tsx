@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import { periodeAarsak, aktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { PeriodeAarsak, AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -70,13 +70,13 @@ const harPeriodeSomKanKombineresMedForrige = (periode: BeregningsgrunnlagPeriode
   if (fordelPeriode.skalRedigereInntekt !== forrigeEndringPeriode.skalRedigereInntekt) {
     return false;
   }
-  if (periode.periodeAarsaker.map((kode) => kode).includes(periodeAarsak.ENDRING_I_REFUSJONSKRAV)
-  || periode.periodeAarsaker.map((kode) => kode).includes(periodeAarsak.REFUSJON_OPPHOERER)
-  || periode.periodeAarsaker.map((kode) => kode).includes(periodeAarsak.GRADERING)
-  || periode.periodeAarsaker.map((kode) => kode).includes(periodeAarsak.GRADERING_OPPHOERER)) {
+  if (periode.periodeAarsaker.map((kode) => kode).includes(PeriodeAarsak.ENDRING_I_REFUSJONSKRAV)
+  || periode.periodeAarsaker.map((kode) => kode).includes(PeriodeAarsak.REFUSJON_OPPHOERER)
+  || periode.periodeAarsaker.map((kode) => kode).includes(PeriodeAarsak.GRADERING)
+  || periode.periodeAarsaker.map((kode) => kode).includes(PeriodeAarsak.GRADERING_OPPHOERER)) {
     return false;
   }
-  if (periode.periodeAarsaker.map((kode) => kode).includes(periodeAarsak.ARBEIDSFORHOLD_AVSLUTTET)) {
+  if (periode.periodeAarsaker.map((kode) => kode).includes(PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET)) {
     const periodeIndex = bgPerioder.indexOf(periode);
     const forrigePeriode = bgPerioder[periodeIndex - 1];
     return forrigePeriode.bruttoPrAar === periode.bruttoPrAar;
@@ -177,7 +177,7 @@ export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> 
     if (!fordelBGPerioder) {
       return initialValues;
     }
-    const harKunYtelse = bg.aktivitetStatus.some((status) => status === aktivitetStatus.KUN_YTELSE);
+    const harKunYtelse = bg.aktivitetStatus.some((status) => status === AktivitetStatus.KUN_YTELSE);
     const bgPerioder = bg.beregningsgrunnlagPeriode;
     slaaSammenPerioder(fordelBGPerioder, bgPerioder).forEach((periode, index) => {
       const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);

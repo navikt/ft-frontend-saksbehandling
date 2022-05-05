@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl'
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { KodeverkType, aktivitetStatus, inntektskategorier } from '@navikt/ft-kodeverk';
+import { KodeverkType, AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 import { Image } from '@navikt/ft-ui-komponenter';
 import { FieldArrayFieldsProps } from 'redux-form';
 import { KodeverkMedNavn } from '@navikt/ft-types';
@@ -12,10 +12,10 @@ import addCircleIcon from '../../images/add-circle.svg';
 import styles from './addAndelButton.less';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
-  andel: aktivitetStatuser.filter(({ kode }) => kode === aktivitetStatus.DAGPENGER)[0].navn,
-  aktivitetStatus: aktivitetStatus.DAGPENGER,
+  andel: aktivitetStatuser.filter(({ kode }) => kode === AktivitetStatus.DAGPENGER)[0].navn,
+  aktivitetStatus: AktivitetStatus.DAGPENGER,
   fastsattBelop: '',
-  inntektskategori: inntektskategorier.DAGPENGER,
+  inntektskategori: Inntektskategori.DAGPENGER,
   nyAndel: true,
   skalKunneEndreAktivitet: true,
   lagtTilAvSaksbehandler: true,

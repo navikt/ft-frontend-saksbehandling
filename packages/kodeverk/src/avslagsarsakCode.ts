@@ -1,5 +1,5 @@
-enum AvslagsarsakCodes {
+enum AvslagsarsakCode {
   INGEN_BEREGNINGSREGLER = '1099',
 }
 
-export default AvslagsarsakCodes;
+export default AvslagsarsakCode;

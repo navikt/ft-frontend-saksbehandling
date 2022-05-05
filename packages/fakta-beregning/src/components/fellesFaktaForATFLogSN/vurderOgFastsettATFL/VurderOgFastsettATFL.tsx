@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { FieldArray } from 'redux-form';
 import { IntlShape } from 'react-intl';
-import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { createSelector } from 'reselect';
 import {
   ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse, Aksjonspunkt, Beregningsgrunnlag,
@@ -31,20 +31,20 @@ import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '
 import AndelFieldValue, { InntektTransformed } from '../../../typer/FieldValues';
 
 const lonnsendringErVurdertEllerIkkjeTilstede = (tilfeller: string[], values: FaktaOmBeregningAksjonspunktValues): boolean => (
-  !tilfeller.includes(faktaOmBeregningTilfelle.VURDER_LONNSENDRING)
+  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)
   || (values[lonnsendringField] !== undefined && values[lonnsendringField] !== null));
 
 const nyoppstartetFLErVurdertEllerIkkjeTilstede = (tilfeller: string[], values: FaktaOmBeregningAksjonspunktValues): boolean => (
-  !tilfeller.includes(faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)
+  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)
   || (values[erNyoppstartetFLField] !== undefined && values[erNyoppstartetFLField] !== null));
 
 const besteberegningErVurdertEllerIkkjeTilstede = (tilfeller: string[], values: FaktaOmBeregningAksjonspunktValues): boolean => (
-  !tilfeller.includes(faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
+  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
   || (values[besteberegningField] !== undefined && values[besteberegningField] !== null));
 
 const mottarYtelseErVurdertEllerIkkjeTilstede = (tilfeller: string[], vurderMottarYtelse: VurderMottarYtelse,
   values: FaktaOmBeregningAksjonspunktValues): boolean => (
-  !tilfeller.includes(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)
+  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)
   || (harVurdertMottarYtelse(values, vurderMottarYtelse)));
 
 const harVurdert = (tilfeller: string[], values: FaktaOmBeregningAksjonspunktValues, faktaOmBeregning: FaktaOmBeregning): boolean => (
@@ -171,28 +171,28 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         beregningsgrunnlag={beregningsgrunnlag}
         manglerInntektsmelding={manglerInntektsmelding}
       />
-      {tilfeller.includes(faktaOmBeregningTilfelle.VURDER_LONNSENDRING)
+      {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)
       && (
         <LonnsendringForm
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
         />
       )}
-      {tilfeller.includes(faktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)
+      {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)
       && (
         <VurderEtterlonnSluttpakkeForm
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
         />
       )}
-      {tilfeller.includes(faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)
+      {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)
       && (
         <NyoppstartetFLForm
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
         />
       )}
-      {tilfeller.includes(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)
+      {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)
       && (
         <VurderMottarYtelseForm
           readOnly={readOnly}
@@ -203,7 +203,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         />
       )}
-      {tilfeller.includes(faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) && !tilfeller.includes(faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)
+      {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) && !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)
       && (
         /* @ts-ignore */
         <VurderBesteberegningForm
@@ -341,7 +341,7 @@ export const skalFastsettInntektForArbeidstaker = createSelector([
   if (!fields) {
     return false;
   }
-  return fields.filter((field) => field.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER).map(skalFastsette).includes(true);
+  return fields.filter((field) => field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER).map(skalFastsette).includes(true);
 });
 
 export const skalFastsettInntektForFrilans = createSelector([
@@ -352,7 +352,7 @@ export const skalFastsettInntektForFrilans = createSelector([
   if (!fields) {
     return false;
   }
-  return fields.filter((field) => field.aktivitetStatus === aktivitetStatus.FRILANSER).map(skalFastsette).includes(true);
+  return fields.filter((field) => field.aktivitetStatus === AktivitetStatus.FRILANSER).map(skalFastsette).includes(true);
 });
 
 const getManglerInntektsmelding = createSelector([(ownProps: OwnProps) => ownProps.beregningsgrunnlag],
@@ -366,7 +366,7 @@ const getManglerInntektsmelding = createSelector([(ownProps: OwnProps) => ownPro
 
 const getSkalViseTabell = createSelector([
   (state, ownProps) => ownProps.tilfeller],
-(tilfeller) => !tilfeller.includes(faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE));
+(tilfeller) => !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE));
 
 const mapStateToProps = (state, ownProps) => ({
   // @ts-ignore FIX reselect

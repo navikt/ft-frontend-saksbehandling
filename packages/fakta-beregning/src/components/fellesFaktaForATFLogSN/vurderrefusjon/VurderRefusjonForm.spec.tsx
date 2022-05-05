@@ -2,14 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
 import { FaktaOmBeregning } from '@navikt/ft-types';
 import VurderRefusjonForm, { lagFieldName } from './VurderRefusjonForm';
 
 const {
   VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
-} = faktaOmBeregningTilfelle;
+} = FaktaOmBeregningTilfelle;
 
 const agOpplysninger = {
   8279312213: {

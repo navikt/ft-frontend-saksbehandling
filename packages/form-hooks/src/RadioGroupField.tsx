@@ -12,10 +12,6 @@ import styles from './radioGroupField.less';
 
 const classNames = classnames.bind(styles);
 
-/**
- * @deprecated Bruk heller RadioGrupPanel!
- */
-
 interface OwnProps {
   name: string;
   label?: LabelType;
@@ -30,6 +26,9 @@ interface OwnProps {
   parse?: (value: string) => any;
 }
 
+/**
+ * @deprecated Bruk heller RadioGrupPanel!
+ */
 const RadioGroupField: FunctionComponent<OwnProps> = ({
   label,
   name,

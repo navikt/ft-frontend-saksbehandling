@@ -2,7 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 
 import { shallowWithIntl, getIntlMock, reduxFormPropsMock } from '@navikt/ft-utils-test';
-import { KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextTemp, OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 import { FaktaOmBeregning, AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
@@ -27,19 +27,19 @@ const {
 
 const alleKodeverk = {
   [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [{
-    kode: opptjeningAktivitetType.ARBEID,
+    kode: OpptjeningAktivitetType.ARBEID,
     kodeverk: 'test',
     navn: 'Arbeid',
   }, {
-    kode: opptjeningAktivitetType.FRILANS,
+    kode: OpptjeningAktivitetType.FRILANS,
     kodeverk: 'test',
     navn: 'Frilans',
   }, {
-    kode: opptjeningAktivitetType.DAGPENGER,
+    kode: OpptjeningAktivitetType.DAGPENGER,
     kodeverk: 'test',
     navn: 'Dagpenger',
   }, {
-    kode: opptjeningAktivitetType.NARING,
+    kode: OpptjeningAktivitetType.NARING,
     kodeverk: 'test',
     navn: 'Næring',
   }],

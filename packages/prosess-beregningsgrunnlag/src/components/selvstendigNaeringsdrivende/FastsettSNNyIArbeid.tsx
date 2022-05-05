@@ -17,7 +17,7 @@ import {
 import {
   InputField, TextAreaField,
 } from '@navikt/ft-form-hooks';
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
@@ -123,7 +123,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
 
 FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (relevanteAndeler: BeregningsgrunnlagAndel[],
   gjeldendeAksjonspunkter: Aksjonspunkt[]): NyIArbeidslivetValues => {
-  const snAndel = relevanteAndeler.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndel = relevanteAndeler.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   const nyIArbeidslivetAP = gjeldendeAksjonspunkter
     .find((ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET);
   return {

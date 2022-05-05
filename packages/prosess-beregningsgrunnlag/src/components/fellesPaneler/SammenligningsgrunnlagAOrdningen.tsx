@@ -16,7 +16,7 @@ import {
   InntektsgrunnlagInntekt,
   InntektsgrunnlagMåned,
 } from '@navikt/ft-types';
-import { inntektAktivitetType } from '@navikt/ft-kodeverk';
+import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import Lesmerpanel from '../redesign/LesmerPanel';
@@ -29,13 +29,13 @@ const GRAF_FARGE_YTELSE = '#C6C2BF';
 
 const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStatuser: Inntektstyper): ReactElement => {
   const sumATAndeler = månederMedInntekter.flatMap((måned) => måned.inntekter)
-    .filter((innt) => innt.inntektAktivitetType === inntektAktivitetType.ARBEID)
+    .filter((innt) => innt.inntektAktivitetType === InntektAktivitetType.ARBEID)
     .map(({ beløp }) => beløp).reduce((i1, i2) => i1 + i2, 0);
   const sumFLAndeler = månederMedInntekter.flatMap((måned) => måned.inntekter)
-    .filter((innt) => innt.inntektAktivitetType === inntektAktivitetType.FRILANS)
+    .filter((innt) => innt.inntektAktivitetType === InntektAktivitetType.FRILANS)
     .map(({ beløp }) => beløp).reduce((i1, i2) => i1 + i2, 0);
   const sumYtelseAndeler = månederMedInntekter.flatMap((måned) => måned.inntekter)
-    .filter((innt) => innt.inntektAktivitetType === inntektAktivitetType.YTELSE)
+    .filter((innt) => innt.inntektAktivitetType === InntektAktivitetType.YTELSE)
     .map(({ beløp }) => beløp).reduce((i1, i2) => i1 + i2, 0);
   return (
     <>
@@ -156,21 +156,21 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
     return null;
   }
   const relevanteStatuser = {
-    harFrilansinntekt: finnesInntektAvType(måneder, inntektAktivitetType.FRILANS),
-    harArbeidsinntekt: finnesInntektAvType(måneder, inntektAktivitetType.ARBEID),
-    harYtelseinntekt: finnesInntektAvType(måneder, inntektAktivitetType.YTELSE),
+    harFrilansinntekt: finnesInntektAvType(måneder, InntektAktivitetType.FRILANS),
+    harArbeidsinntekt: finnesInntektAvType(måneder, InntektAktivitetType.ARBEID),
+    harYtelseinntekt: finnesInntektAvType(måneder, InntektAktivitetType.YTELSE),
   } as Inntektstyper;
 
   const arbeidTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid' });
   const frilansTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans' });
   const ytelseTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse' });
 
-  const dataForArbeid = useMemo(() => (relevanteStatuser.harArbeidsinntekt ? finnDataForIAT(måneder, skjeringstidspunktDato, inntektAktivitetType.ARBEID) : []),
+  const dataForArbeid = useMemo(() => (relevanteStatuser.harArbeidsinntekt ? finnDataForIAT(måneder, skjeringstidspunktDato, InntektAktivitetType.ARBEID) : []),
     [relevanteStatuser.harArbeidsinntekt, måneder, skjeringstidspunktDato]);
   const dataForFrilans = useMemo(() => (relevanteStatuser.harFrilansinntekt
-    ? finnDataForIAT(måneder, skjeringstidspunktDato, inntektAktivitetType.FRILANS) : []),
+    ? finnDataForIAT(måneder, skjeringstidspunktDato, InntektAktivitetType.FRILANS) : []),
   [relevanteStatuser.harArbeidsinntekt, måneder, skjeringstidspunktDato]);
-  const dataForYtelse = useMemo(() => (relevanteStatuser.harYtelseinntekt ? finnDataForIAT(måneder, skjeringstidspunktDato, inntektAktivitetType.YTELSE) : []),
+  const dataForYtelse = useMemo(() => (relevanteStatuser.harYtelseinntekt ? finnDataForIAT(måneder, skjeringstidspunktDato, InntektAktivitetType.YTELSE) : []),
     [relevanteStatuser.harArbeidsinntekt, måneder, skjeringstidspunktDato]);
 
   const barFormatter = useCallback((params) => {

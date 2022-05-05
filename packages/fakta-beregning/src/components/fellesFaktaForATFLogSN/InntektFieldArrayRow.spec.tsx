@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MockFieldsWithContent, shallowWithIntl, getIntlMock } from '@navikt/ft-utils-test';
 import {
-  faktaOmBeregningTilfelle, aktivitetStatus as aktivitetStatuser, inntektskategorier, KodeverkType,
+  FaktaOmBeregningTilfelle, AktivitetStatus as aktivitetStatuser, Inntektskategori, KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { AlleKodeverk } from '@navikt/ft-types';
@@ -33,21 +33,21 @@ jest.mock('redux-form', () => {
 
 const alleKodeverk = {
   [KodeverkType.INNTEKTSKATEGORI]: [{
-    kode: inntektskategorier.ARBEIDSTAKER,
+    kode: Inntektskategori.ARBEIDSTAKER,
     navn: 'Arbeidstaker',
     kodeverk: 'test',
   }, {
-    kode: inntektskategorier.FRILANSER,
+    kode: Inntektskategori.FRILANSER,
     navn: 'Frilanser',
     kodeverk: 'test',
   },
   {
-    kode: inntektskategorier.DAGPENGER,
+    kode: Inntektskategori.DAGPENGER,
     navn: 'Dagpenger',
     kodeverk: 'test',
   },
   {
-    kode: inntektskategorier.SELVSTENDIG_NÆRINGSDRIVENDE,
+    kode: Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE,
     navn: 'Selvstendig næringsdrivende',
     kodeverk: 'test',
   },
@@ -74,7 +74,7 @@ const andelField = {
 const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
 
 const faktaOmBeregning = {
-  faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
+  faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
 };
 const initial = {
   fieldArrayName: null,

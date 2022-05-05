@@ -1,7 +1,7 @@
 import {
-  aktivitetStatus as aktivitetStatuser,
-  organisasjonstype as organisasjonstyper,
-  faktaOmBeregningTilfelle,
+  AktivitetStatus as aktivitetStatuser,
+  Organisasjonstype as organisasjonstyper,
+  FaktaOmBeregningTilfelle,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import {
@@ -418,7 +418,7 @@ describe('<BgFaktaUtils>', () => {
     };
     const fakta = {
       ...faktaOmBeregning,
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE],
     };
     const skalRedigereInntekt = skalFastsetteInntektForAndel(values, fakta, beregningsgrunnlag)(brukersAndel);
     expect(skalRedigereInntekt).toBe(true);

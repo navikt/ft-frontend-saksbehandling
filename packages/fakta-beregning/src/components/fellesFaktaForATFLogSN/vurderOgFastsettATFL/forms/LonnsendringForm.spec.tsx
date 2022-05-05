@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import LonnsendringForm, { lonnsendringField } from './LonnsendringForm';
 
@@ -16,7 +16,7 @@ describe('<LonnsendringForm>', () => {
   });
 
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
     arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1 }],
     andelerForFaktaOmBeregning: [],
   };
@@ -41,7 +41,7 @@ describe('<LonnsendringForm>', () => {
         {
           beregningsgrunnlagPrStatusOgAndel: [
             {
-              aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
+              aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
               lonnsendringIBeregningsperioden: true,
             },
           ],

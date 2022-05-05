@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  faktaOmBeregningTilfelle,
-  aktivitetStatus as aktivitetStatuser,
+  FaktaOmBeregningTilfelle,
+  AktivitetStatus as aktivitetStatuser,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { isRequiredMessage } from '@navikt/ft-utils';
@@ -96,7 +96,7 @@ describe('<InntektFieldArray>', () => {
     const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
 
     const faktaOmBeregning = {
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
     };
     const bg = {
       beregningsgrunnlagPeriode: [
@@ -115,7 +115,7 @@ describe('<InntektFieldArray>', () => {
     const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
 
     const faktaOmBeregning = {
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE],
       andelerForFaktaOmBeregning: [],
     };
     const bg = {
@@ -130,7 +130,7 @@ describe('<InntektFieldArray>', () => {
   });
 
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
     andelerForFaktaOmBeregning: [],
   } as FaktaOmBeregning;
   const initial = {

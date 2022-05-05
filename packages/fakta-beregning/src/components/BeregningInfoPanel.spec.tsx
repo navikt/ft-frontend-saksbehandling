@@ -1,7 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
 
-import { aksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { getIntlMock, shallowWithIntl } from '@navikt/ft-utils-test';
 import { AlleKodeverk, Beregningsgrunnlag } from '@navikt/ft-types';
 
@@ -37,7 +37,7 @@ describe('<BeregningInfoPanel>', () => {
       definisjon: VURDER_FAKTA_FOR_ATFL_SN,
       kanLoses: true,
       erAktivt: true,
-      status: aksjonspunktStatus.OPPRETTET,
+      status: AksjonspunktStatus.OPPRETTET,
     };
 
     const wrapper = shallowWithIntl(<BeregningInfoPanel
@@ -61,7 +61,7 @@ describe('<BeregningInfoPanel>', () => {
       definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
       kanLoses: true,
       erAktivt: true,
-      status: aksjonspunktStatus.OPPRETTET,
+      status: AksjonspunktStatus.OPPRETTET,
     };
     const wrapper = shallowWithIntl(<BeregningInfoPanel
       intl={intlMock}
@@ -83,7 +83,7 @@ describe('<BeregningInfoPanel>', () => {
     const overstyringAP = {
       id: 1,
       definisjon: OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-      status: aksjonspunktStatus.OPPRETTET,
+      status: AksjonspunktStatus.OPPRETTET,
       kanLoses: true,
       erAktivt: true,
     };
@@ -107,7 +107,7 @@ describe('<BeregningInfoPanel>', () => {
     const tidsbegrensetAP = {
       id: 1,
       definisjon: AVKLAR_AKTIVITETER,
-      status: aksjonspunktStatus.OPPRETTET,
+      status: AksjonspunktStatus.OPPRETTET,
       kanLoses: true,
       erAktivt: true,
     };

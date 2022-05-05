@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { isAksjonspunktOpen, dekningsgrad } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen, Dekningsgrad } from '@navikt/ft-kodeverk';
 
 import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
 import { RadioGroupField, RadioOption, TextAreaField } from '@navikt/ft-form-hooks';
@@ -42,8 +42,8 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
   return (
     <>
       <RadioGroupField name={RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN} readOnly={readOnly} validate={[required]}>
-        <RadioOption label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent80' })} value={dekningsgrad.ATTI} />
-        <RadioOption label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent100' })} value={dekningsgrad.HUNDRE} />
+        <RadioOption label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent80' })} value={Dekningsgrad.ATTI} />
+        <RadioOption label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent100' })} value={Dekningsgrad.HUNDRE} />
       </RadioGroupField>
       <Row>
         <Column xs="12">
