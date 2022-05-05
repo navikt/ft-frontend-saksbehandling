@@ -24,6 +24,13 @@ import {
   vilkar as vilkarArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
 
+import {
+  beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
+  vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
+} from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
+
+import agOpplysninger from '../testdata/arbeidsgiverOpplysninger';
+
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-redux-legacy/dist/style.css';
 
@@ -210,34 +217,6 @@ export default {
   component: BeregningFaktaIndex,
 };
 
-const agOpplysninger = {
-  12345678: {
-    navn: 'Bedriften',
-    identifikator: '12345678',
-    erPrivatPerson: false,
-  },
-  12345679: {
-    navn: 'Bedriften2',
-    identifikator: '12345679',
-    erPrivatPerson: false,
-  },
-  12345671: {
-    navn: 'Bedriften3',
-    identifikator: '12345671',
-    erPrivatPerson: false,
-  },
-  795349533: {
-    navn: 'Bedriften4',
-    identifikator: '795349533',
-    erPrivatPerson: false,
-  },
-  910909088: {
-    navn: 'BEDRIFT AS',
-    identifikator: '910909088',
-    erPrivatPerson: false,
-  },
-};
-
 export const ArbeidOgDagpenger = () => (
   <BeregningFaktaIndex
     behandling={behandling}
@@ -255,6 +234,24 @@ export const ArbeidOgDagpenger = () => (
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
     vilkar={vilkarArbeidOgDagpenger}
+  />
+);
+
+export const ToArbeidsforholdIOpptjeningsperioden = () => (
+  <BeregningFaktaIndex
+    behandling={behandling}
+    beregningsgrunnlag={bgToArbeidsforholdIOpptjeningsperioden}
+    aksjonspunkter={[]}
+    erOverstyrer
+    alleKodeverk={alleKodeverkMock as any}
+    alleMerknaderFraBeslutter={{}}
+    submitCallback={action('button-click') as (data: any) => Promise<any>}
+    readOnly={false}
+    harApneAksjonspunkter
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vilkarToArbeidsforholdIOpptjeningsperioden}
   />
 );
 

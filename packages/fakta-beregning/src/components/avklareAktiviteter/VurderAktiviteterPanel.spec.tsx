@@ -56,10 +56,10 @@ describe('<VurderAktiviteterPanel>', () => {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[id1] = { skalBrukes: false };
-    values.aktiviteterValues[id2] = { skalBrukes: false };
-    values.aktiviteterValues[id3] = { skalBrukes: false };
-    values.aktiviteterValues[idAAP] = { skalBrukes: false };
+    values.aktiviteterValues[id1] = { skalBrukes: "false" };
+    values.aktiviteterValues[id2] = { skalBrukes: "false" };
+    values.aktiviteterValues[id3] = { skalBrukes: "false" };
+    values.aktiviteterValues[idAAP] = { skalBrukes: "false" };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
@@ -94,10 +94,10 @@ describe('<VurderAktiviteterPanel>', () => {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[id1] = { skalBrukes: true, tom: aktivitet1STP2.tom };
-    values.aktiviteterValues[id2] = { skalBrukes: false, tom: aktivitet2STP2.tom };
-    values.aktiviteterValues[id3] = { skalBrukes: false, tom: aktivitet3.tom };
-    values.aktiviteterValues[idAAP] = { skalBrukes: false, tom: aktivitetAAP.tom };
+    values.aktiviteterValues[id1] = { skalBrukes: "true", tom: aktivitet1STP2.tom };
+    values.aktiviteterValues[id2] = { skalBrukes: "false", tom: aktivitet2STP2.tom };
+    values.aktiviteterValues[id3] = { skalBrukes: "false", tom: aktivitet3.tom };
+    values.aktiviteterValues[idAAP] = { skalBrukes: "false", tom: aktivitetAAP.tom };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
@@ -133,10 +133,10 @@ describe('<VurderAktiviteterPanel>', () => {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp2)] = { skalBrukes: false, tom: aktivitetStp2.tom };
+    values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp2)] = { skalBrukes: 'false', tom: aktivitetStp2.tom };
     values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp3)] = { skalBrukes: null, tom: aktivitetStp3.tom };
-    values.aktiviteterValues[id3] = { skalBrukes: false, tom: aktivitet3.tom };
-    values.aktiviteterValues[idAAP] = { skalBrukes: false, tom: aktivitetAAP.tom };
+    values.aktiviteterValues[id3] = { skalBrukes: 'false', tom: aktivitet3.tom };
+    values.aktiviteterValues[idAAP] = { skalBrukes: 'false', tom: aktivitetAAP.tom };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
