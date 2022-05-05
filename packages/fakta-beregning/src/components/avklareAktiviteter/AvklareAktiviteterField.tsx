@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import AlertStripe from 'nav-frontend-alertstriper';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Element } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
@@ -72,7 +71,7 @@ export const buildInitialValues = (
   };
 };
 
-export const transformFieldValue = (values) => {
+export const transformFieldValue = (values: AvklarAktiviteterValues) => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
   const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov, values.erTilVurdering);
   const { avklarAktiviteter } = values;
@@ -95,7 +94,6 @@ export const transformFieldValue = (values) => {
 };
 
 interface OwnProps {
-  aktivtBeregningsgrunnlagIndeks: number,
   avklarAktiviteter: AvklarBeregningAktiviteterMap;
   avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
@@ -116,7 +114,6 @@ const validate = (getValues: UseFormGetValues<any>, fieldId: number, aktiviteter
 };
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
-  aktivtBeregningsgrunnlagIndeks,
   avklarAktiviteter,
   avklaringsbehov,
   erOverstyrer,

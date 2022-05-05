@@ -62,4 +62,9 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(måHaAktivitetFeilmeldingEtterBytteAvTab).toBeInTheDocument();
     expect(feltetMåFyllesUtfeilmeldingEtterBytteAvTab).toBeInTheDocument();
   });
+
+  // TODO : Skriv test for ikke overstyrer + ingen aksjonspunkt => ikke vises
+  // TODO : Skriv test for ikke overstyrer + overstyringsaksjonspunkt => vises, men readonly
+  // TODO : Skriv test for AAP, ingen EditedIcon for AAP-rad
+
 });

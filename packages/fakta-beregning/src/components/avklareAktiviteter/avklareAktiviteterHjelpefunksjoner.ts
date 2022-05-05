@@ -1,6 +1,8 @@
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet, BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import AvklarAktiviteterValues, { AktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 
 const {
   AVKLAR_AKTIVITETER,
@@ -13,9 +15,9 @@ export const harAvklaringsbehovSomKanLøses = (
 ): boolean => avklaringsbehov.some((ap) => ap.definisjon === avklaringsbehovCode && ap.kanLoses);
 
 export const skalKunneLoseAvklaringsbehov = (
-  skalOverstyre,
-  avklaringsbehov,
-  erTilVurdering) => (skalOverstyre || harAvklaringsbehovSomKanLøses(AVKLAR_AKTIVITETER, avklaringsbehov)) && erTilVurdering;
+  skalOverstyre: boolean,
+  avklaringsbehov: BeregningAvklaringsbehov[],
+  erTilVurdering: boolean) => (skalOverstyre || harAvklaringsbehovSomKanLøses(AVKLAR_AKTIVITETER, avklaringsbehov)) && erTilVurdering;
 
 export const hasOpenAvklaringsbehov = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean => avklaringsbehov.some((ap) => ap.definisjon === kode
   && isAvklaringsbehovOpen(ap.status));
