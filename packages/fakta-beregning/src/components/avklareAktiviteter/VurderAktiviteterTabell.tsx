@@ -1,29 +1,14 @@
-import React, { Component, ReactElement } from 'react';
-import { change as reduxChange } from 'redux-form';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import React from 'react';
 import moment from 'moment';
 
-import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
-import { RadioGroupField, RadioOption, DatepickerField } from '@navikt/ft-form-redux-legacy';
-import {
-  required, getKodeverknavnFn, DDMMYYYY_DATE_FORMAT, hasValidDate,
-} from '@navikt/ft-utils';
+import { KodeverkType, opptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { getKodeverknavnFn } from '@navikt/ft-utils';
 
-import {
-  Table, TableRow, TableColumn, PeriodLabel, DateLabel, EditedIcon,
-} from '@navikt/ft-ui-komponenter';
-import {
-  ArbeidsgiverOpplysningerPerId, BeregningAktivitet, AlleKodeverk,
-} from '@navikt/ft-types';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet, } from '@navikt/ft-types';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
-
-import styles from './vurderAktiviteterTabell.less';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på
@@ -115,130 +100,20 @@ const lagVisningsnavn = (aktivitet: BeregningAktivitet,
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
 };
 
-const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));
-
-const lagTableRow = (
-  readOnly: boolean,
-  isAksjonspunktClosed: boolean,
-  aktivitet: BeregningAktivitet,
-  alleKodeverk: AlleKodeverk,
-  erOverstyrt: boolean,
-  harAksjonspunkt: boolean,
-  tomDatoForAktivitetGruppe: string,
-  valgtSkjæringstidspunkt: string,
-  ingenAktiviterErBrukt: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement => {
-  const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
-  return (
-    <TableRow key={lagAktivitetFieldId(aktivitet)}>
-      <TableColumn className={styles.navnKol}>
-        <Normaltekst>
-          {lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk)}
-        </Normaltekst>
-      </TableColumn>
-      <TableColumn className={styles.rowalign}>
-        {!erOverstyrt
-      && (
-      <Normaltekst>
-        <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
-      </Normaltekst>
-      )}
-        {erOverstyrt
-      && (
-        <>
-          <DateLabel dateString={aktivitet.fom} />
-          {' '}
-          -
-          {' '}
-          <DatepickerField
-            name={`aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
-            validate={[required]}
-            readOnly={readOnly}
-          />
-        </>
-
-      )}
-      </TableColumn>
-      <TableColumn className={styles.radioMiddle}>
-        <RadioGroupField
-          name={`aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
-          readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
-            erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)}
-        >
-          {[<RadioOption key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`} value />]}
-        </RadioGroupField>
-      </TableColumn>
-      <TableColumn className={styles.radioMiddle}>
-        <RadioGroupField
-          name={`aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
-          readOnly={readOnly || !skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
-            erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)}
-        >
-          {[<RadioOption key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`} value={false} />]}
-        </RadioGroupField>
-      </TableColumn>
-      {isAksjonspunktClosed && readOnly
-      && (
-      <TableColumn>
-        {skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt,
-          erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)
-          && <EditedIcon />}
-      </TableColumn>
-      )}
-    </TableRow>
-  );
-};
-
-const getHeaderTextCodes = (): string[] => ([
-  'VurderAktiviteterTabell.Header.Aktivitet',
-  'VurderAktiviteterTabell.Header.Periode',
-  'VurderAktiviteterTabell.Header.Benytt',
-  'VurderAktiviteterTabell.Header.IkkeBenytt',
-]
-);
-
-const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
-  const datoFeil = hasValidDate(skjaeringstidspunkt);
-  const formatertStp = datoFeil ? '' : moment(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
-  if (erOverstyrt) {
-    return (
-      <FormattedMessage
-        id="VurderAktiviteterTabell.Overstyrt.Overskrift"
-        values={{ skjaeringstidspunkt: formatertStp }}
-      />
-    );
-  }
-  const harAAP = aktiviteter.some((a) => a.arbeidsforholdType && a.arbeidsforholdType === opptjeningAktivitetTyper.AAP);
-  const harVentelonnVartpenger = aktiviteter.some((aktivitet) => aktivitet.arbeidsforholdType
-    && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER);
-  if (harAAP) {
-    return (
-      <FormattedMessage
-        id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift"
-        values={{ skjaeringstidspunkt: formatertStp }}
-      />
-    );
-  }
-  if (harVentelonnVartpenger) {
-    return (
-      <FormattedMessage
-        id="VurderAktiviteterTabell.VentelonnVartpenger.Overskrift"
-        values={{ skjaeringstidspunkt: formatertStp }}
-      />
-    );
-  }
-  return '';
-};
+const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1)
+  .isSameOrBefore(moment(dato2));
 
 const skalBrukesPretufylling = (aktivitet: BeregningAktivitet,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
-  erTomLikEllerFørSkjæringstidpunkt: boolean): boolean => {
+  erTomLikEllerFørSkjæringstidpunkt: boolean): string => {
   if (skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt, erTomLikEllerFørSkjæringstidpunkt, false)) {
-    return aktivitet.skalBrukes;
+    if (aktivitet.skalBrukes === undefined || aktivitet.skalBrukes === null) {
+      return null;
+    }
+    return aktivitet.skalBrukes.toString();
   }
-  return aktivitet.skalBrukes === true || aktivitet.skalBrukes === null || aktivitet.skalBrukes === undefined;
+  return aktivitet.skalBrukes === true || aktivitet.skalBrukes === null || aktivitet.skalBrukes === undefined ? 'true' : 'false';
 };
 
 const mapToInitialValues = (aktivitet: BeregningAktivitet,
@@ -253,155 +128,41 @@ const mapToInitialValues = (aktivitet: BeregningAktivitet,
   skalBrukes: skalBrukesPretufylling(aktivitet, erOverstyrt, harAksjonspunkt, erTomLikEllerFørSkjæringstidpunkt),
 });
 
-type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    aktiviteter: BeregningAktivitet[];
-    alleKodeverk: AlleKodeverk;
-    erOverstyrt: boolean;
-    harAksjonspunkt: boolean;
-    tomDatoForAktivitetGruppe: string;
-    valgtSkjæringstidspunkt: string;
-    formNameAvklarAktiviteter: string;
-    ingenAktiviterErBrukt: boolean;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+export const transformValues = (values: AvklarAktiviteterValues,
+  aktiviteter: BeregningAktivitet[],
+  valgtSkjæringstidspunkt: string,
+  tomDatoForAktivitetGruppe: string): BeregningAktivitetTransformedValues[] => {
+  const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
+  return aktiviteter
+    .filter((aktivitet) => values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'false'
+      || values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null)
+    .map((aktivitet) => ({
+      oppdragsgiverOrg: aktivitet.aktørIdString ? null : aktivitet.arbeidsgiverIdent,
+      arbeidsforholdRef: aktivitet.arbeidsforholdId,
+      fom: aktivitet.fom,
+      tom: values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null
+        ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom
+        : aktivitet.tom,
+      opptjeningAktivitetType: aktivitet.arbeidsforholdType ? aktivitet.arbeidsforholdType : null,
+      arbeidsgiverIdentifikator: aktivitet.arbeidsgiverIdent,
+      skalBrukes: erValgtSkjæringstidspunktLikEllerFørTomDato ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'true' : true,
+    }));
 };
 
-type DispatchedProps = {
-  reduxChange: (behandlingFormName: string, fieldName: string, value: boolean) => void;
+export const buildInitialValues = (aktiviteter: BeregningAktivitet[],
+  alleKodeverk: AlleKodeverk,
+  erOverstyrt: boolean,
+  harAksjonspunkt: boolean,
+  erTomLikEllerFørSkjæringstidpunkt: boolean,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): AktiviteterValues => {
+  if (!aktiviteter) {
+    return {};
+  }
+  const initialValues = {};
+  aktiviteter.forEach((aktivitet) => {
+    initialValues[lagAktivitetFieldId(aktivitet)] = mapToInitialValues(aktivitet, alleKodeverk, erOverstyrt, harAksjonspunkt,
+      erTomLikEllerFørSkjæringstidpunkt, arbeidsgiverOpplysningerPerId);
+  });
+  return initialValues;
 };
 
-type MappedOwnProps = {
-  behandlingFormName: string;
-}
-
-/**
- * VurderAktiviteterTabell
- *
- * Presentasjonskomponent.. Inneholder tabeller for avklaring av skjæringstidspunkt
- */
-export class VurderAktiviteterTabell extends Component<OwnProps & MappedOwnProps & DispatchedProps> {
-  static validate = (values: AvklarAktiviteterValues, aktiviteter: BeregningAktivitet[]) => {
-    const errors = {};
-    let harError = false;
-    aktiviteter
-      .forEach((aktivitet) => {
-        const fieldId = lagAktivitetFieldId(aktivitet);
-        const e = required(values.aktiviteterValues[fieldId].skalBrukes);
-        if (e) {
-          errors[fieldId] = { skalBrukes: e };
-          harError = true;
-        }
-      });
-    if (harError) {
-      return errors;
-    }
-    return null;
-  };
-
-  static transformValues = (values: AvklarAktiviteterValues,
-    aktiviteter: BeregningAktivitet[],
-    valgtSkjæringstidspunkt: string,
-    tomDatoForAktivitetGruppe: string): BeregningAktivitetTransformedValues[] => {
-    const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
-    return aktiviteter
-      .filter((aktivitet) => values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === false
-        || values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null)
-      .map((aktivitet) => ({
-        oppdragsgiverOrg: aktivitet.aktørIdString ? null : aktivitet.arbeidsgiverIdent,
-        arbeidsforholdRef: aktivitet.arbeidsforholdId,
-        fom: aktivitet.fom,
-        tom: values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null
-          ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom
-          : aktivitet.tom,
-        opptjeningAktivitetType: aktivitet.arbeidsforholdType ? aktivitet.arbeidsforholdType : null,
-        arbeidsgiverIdentifikator: aktivitet.aktørIdString ? aktivitet.aktørIdString : null,
-        skalBrukes: erValgtSkjæringstidspunktLikEllerFørTomDato ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes : true,
-      }));
-  };
-
-  static hasValueChangedFromInitial = (aktiviteter: BeregningAktivitet[], values: AvklarAktiviteterValues, initialValues: AvklarAktiviteterValues): boolean => {
-    const changedAktiviteter = aktiviteter.map(lagAktivitetFieldId).find((fieldId) => {
-      if (values.aktiviteterValues[fieldId] && initialValues.aktiviteterValues[fieldId]) {
-        if (values.aktiviteterValues[fieldId].skalBrukes !== initialValues.aktiviteterValues[fieldId].skalBrukes) {
-          return true;
-        }
-      }
-      return false;
-    });
-    return changedAktiviteter !== undefined;
-  };
-
-  static buildInitialValues = (aktiviteter: BeregningAktivitet[],
-    alleKodeverk: AlleKodeverk,
-    erOverstyrt: boolean,
-    harAksjonspunkt: boolean,
-    erTomLikEllerFørSkjæringstidpunkt: boolean,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): AktiviteterValues => {
-    if (!aktiviteter) {
-      return {};
-    }
-    const initialValues = {};
-    aktiviteter.forEach((aktivitet) => {
-      initialValues[lagAktivitetFieldId(aktivitet)] = mapToInitialValues(aktivitet, alleKodeverk, erOverstyrt, harAksjonspunkt,
-        erTomLikEllerFørSkjæringstidpunkt, arbeidsgiverOpplysningerPerId);
-    });
-    return initialValues;
-  };
-
-  componentDidUpdate() {
-    const {
-      behandlingFormName, reduxChange: reduxFieldChange, aktiviteter,
-      valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe, ingenAktiviterErBrukt,
-    } = this.props;
-
-    const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
-    if (!erAktivitetValgbar(erValgtSkjæringstidspunktLikEllerFørTomDato, ingenAktiviterErBrukt)) {
-      aktiviteter.map((a) => `${lagAktivitetFieldId(a)}.skalBrukes`)
-        .forEach((fieldName) => {
-          reduxFieldChange(behandlingFormName, fieldName, true);
-        });
-    }
-  }
-
-  render() {
-    const {
-      readOnly,
-      isAksjonspunktClosed,
-      aktiviteter,
-      alleKodeverk,
-      erOverstyrt,
-      harAksjonspunkt,
-      tomDatoForAktivitetGruppe,
-      ingenAktiviterErBrukt,
-      valgtSkjæringstidspunkt,
-      arbeidsgiverOpplysningerPerId,
-    } = this.props;
-
-    return (
-      <>
-        <Element>
-          {finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}
-        </Element>
-        <Table headerTextCodes={getHeaderTextCodes()} noHover>
-          {aktiviteter.map((aktivitet) => (
-            lagTableRow(readOnly, isAksjonspunktClosed, aktivitet, alleKodeverk, erOverstyrt,
-              harAksjonspunkt, tomDatoForAktivitetGruppe, valgtSkjæringstidspunkt, ingenAktiviterErBrukt, arbeidsgiverOpplysningerPerId)
-          ))}
-        </Table>
-      </>
-    );
-  }
-}
-
-const mapStateToProps = (state, ownProps: OwnProps): MappedOwnProps => ({
-  behandlingFormName: ownProps.formNameAvklarAktiviteter,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch): DispatchedProps => ({
-  ...bindActionCreators({
-    reduxChange,
-  }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VurderAktiviteterTabell);

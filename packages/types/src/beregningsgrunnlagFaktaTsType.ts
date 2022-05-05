@@ -15,7 +15,6 @@ export type AndelForFaktaOmBeregning = Readonly<{
   aktivitetStatus?: string;
   belopReadOnly?: number;
   fastsattBelop?: number;
-  visningsnavn?: string;
   skalKunneEndreAktivitet?: boolean;
   lagtTilAvSaksbehandler: boolean;
 }>
@@ -51,6 +50,7 @@ export type AvklarBeregningAktiviteter = Readonly<{
 
 export type AvklarBeregningAktiviteterMap = Readonly<{
   aktiviteterTomDatoMapping?: AvklarBeregningAktiviteter[];
+  skjæringstidspunkt: string;
 }>
 
 export interface KunYtelseAndel extends FaktaOmBeregningAndel {

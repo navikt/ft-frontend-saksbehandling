@@ -1,10 +1,10 @@
-import { Aksjonspunkt, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
 
 export type AktivitetValues = {
   beregningAktivitetNavn: string;
   fom: string;
   tom: string;
-  skalBrukes: boolean;
+  skalBrukes: string;
 }
 
 export type AktiviteterValues = {
@@ -14,9 +14,11 @@ export type AktiviteterValues = {
 type AvklarAktiviteterValues = {
   manuellOverstyringBeregningAktiviteter?: boolean;
   begrunnelseAvklareAktiviteter?: string;
-  aksjonspunkter?: Aksjonspunkt[];
+  avklaringsbehov?: BeregningAvklaringsbehov[];
   avklarAktiviteter?: AvklarBeregningAktiviteterMap;
   aktiviteterValues?: AktiviteterValues;
+  periode?: { fom: string; tom: string;}
+  erTilVurdering?: boolean;
 }
 
 export default AvklarAktiviteterValues;

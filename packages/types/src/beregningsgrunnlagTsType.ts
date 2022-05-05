@@ -1,3 +1,4 @@
+import BeregningAvklaringsbehov from './beregningAvklaringsbehovTsType'; 
 import RefusjonTilVurdering, { FaktaOmFordeling } from './beregningsgrunnlagFordelingTsType';
 import { Besteberegninggrunnlag } from './besteberegningTsTypes';
 import BeregningsgrunnlagArbeidsforhold from './beregningsgrunnlagArbeidsforholdTsType';
@@ -108,6 +109,8 @@ export type BeregningsgrunnlagPeriodeProp = Readonly<{
 }>
 
 type Beregningsgrunnlag = Readonly<{
+  vilkårperiodeFom: string;
+  avklaringsbehov: BeregningAvklaringsbehov[]
   skjaeringstidspunktBeregning: string;
   dekningsgrad: number;
   grunnbeløp: number;

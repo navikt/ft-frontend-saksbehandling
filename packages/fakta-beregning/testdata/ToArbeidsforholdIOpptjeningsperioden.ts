@@ -3,11 +3,7 @@ import { Beregningsgrunnlag, BeregningsgrunnlagAndel, Vilkar } from '@navikt/ft-
 export const beregningsgrunnlag = [{
   skjaeringstidspunktBeregning: '2020-01-13',
   aktivitetStatus: ['AT'],
-  avklaringsbehov: [{
-    definisjon: '5058',
-    status: 'OPPR',
-    kanLoses: true,
-  }],
+  avklaringsbehov: [],
   vilkårperiodeFom: '2022-01-13',
   beregningsgrunnlagPeriode: [{
     beregningsgrunnlagPeriodeFom: '2020-01-13',
@@ -43,7 +39,7 @@ export const beregningsgrunnlag = [{
   sammenligningsgrunnlagPrStatus: [],
   grunnbeløp: 99858,
   faktaOmBeregning: {
-    faktaOmBeregningTilfeller: ['VURDER_BESTEBEREGNING'],
+    faktaOmBeregningTilfeller: [],
     avklarAktiviteter: {
       skjæringstidspunkt: '2020-01-13',
       aktiviteterTomDatoMapping: [{
@@ -58,13 +54,14 @@ export const beregningsgrunnlag = [{
       }, {
         tom: '2019-11-12',
         aktiviteter: [{
+          arbeidsgiverIdent: '12345678',
           fom: '2019-02-03',
-          tom: '2019-11-11',
-          arbeidsforholdType: 'DAGPENGER',
+          tom: '2019-11-12',
+          arbeidsforholdType: 'ARBEID',
+          skalBrukes: true,
         }],
       }],
     },
-    vurderBesteberegning: { skalHaBesteberegning: undefined },
     andelerForFaktaOmBeregning: [{
       belopReadOnly: 30000.00,
       inntektskategori: 'ARBEIDSTAKER',
@@ -127,11 +124,11 @@ export const beregningsgrunnlag = [{
     sammenligningsgrunnlagPrStatus: [],
     grunnbeløp: 99858,
     faktaOmBeregning: {
-      faktaOmBeregningTilfeller: ['VURDER_BESTEBEREGNING'],
+      faktaOmBeregningTilfeller: [],
       avklarAktiviteter: {
         skjæringstidspunkt: '2020-02-13',
         aktiviteterTomDatoMapping: [{
-          tom: '2020-02-13',
+          tom: '2020-01-13',
           aktiviteter: [{
             arbeidsgiverIdent: '910909088',
             fom: '2019-02-03',
@@ -142,13 +139,14 @@ export const beregningsgrunnlag = [{
         }, {
           tom: '2019-11-12',
           aktiviteter: [{
+            arbeidsgiverIdent: '12345678',
             fom: '2019-02-03',
-            tom: '2019-11-11',
-            arbeidsforholdType: 'DAGPENGER',
+            tom: '2019-11-12',
+            arbeidsforholdType: 'ARBEID',
+            skalBrukes: true,
           }],
         }],
       },
-      vurderBesteberegning: { skalHaBesteberegning: undefined },
       andelerForFaktaOmBeregning: [{
         belopReadOnly: 30000.00,
         inntektskategori: 'ARBEIDSTAKER',
@@ -200,12 +198,4 @@ export const vilkar: Vilkar = {
   ],
 };
 
-export const aksjonspunkt = [
-  {
-    definisjon: '5058',
-    status: 'OPPR',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-    erAktivt: true,
-  }];
+export const aksjonspunkt = [];

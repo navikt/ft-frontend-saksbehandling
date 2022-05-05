@@ -207,7 +207,7 @@ const skalKunneEndreTotaltBeregningsgrunnlag = (values: FaktaOmBeregningAksjonsp
 export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boolean => (!!values
   && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true);
 
-const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean => aksjonspuntker
+export const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean => aksjonspuntker
   && aksjonspuntker.some((ap) => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
 export const erOverstyringAvBeregningsgrunnlag = createSelector<any, any>([
