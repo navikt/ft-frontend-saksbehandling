@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel, Vilkar } from '@navikt/ft-types';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel, Vilkar } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = [{
   skjaeringstidspunktBeregning: '2020-01-13',
@@ -66,7 +66,6 @@ export const beregningsgrunnlag = [{
       belopReadOnly: 30000.00,
       inntektskategori: 'ARBEIDSTAKER',
       aktivitetStatus: 'AT',
-      visningsnavn: 'BEDRIFT AS (910909088)',
       arbeidsforhold: {
         arbeidsgiverNavn: 'BEDRIFT AS',
         arbeidsgiverId: '910909088',
@@ -152,7 +151,6 @@ export const beregningsgrunnlag = [{
         belopReadOnly: 30000.00,
         inntektskategori: 'ARBEIDSTAKER',
         aktivitetStatus: 'AT',
-        visningsnavn: 'BEDRIFT AS (910909088)',
         arbeidsforhold: {
           arbeidsgiverNavn: 'BEDRIFT AS',
           arbeidsgiverId: '910909088',
@@ -176,25 +174,28 @@ export const beregningsgrunnlag = [{
 export const vilkar: Vilkar = {
   vilkarType: '',
   vilkarStatus: '',
-  merknadParametere: {
-  },
+  merknadParametere: {},
   avslagKode: '',
   overstyrbar: true,
   perioder: [{
     vurderesIBehandlingen: true,
     merknadParametere: { name: '' },
-    periode: { fom: '2022-01-13', tom: '2022-01-20' },
+    periode: {
+      fom: '2022-01-13',
+      tom: '2022-01-20'
+    },
     vilkarStatus: 'IKKE_VURDERT',
   },
     {
       vurderesIBehandlingen: true,
       merknadParametere: { name: '' },
-      periode: { fom: '2022-02-13', tom: '2022-02-20' },
+      periode: {
+        fom: '2022-02-13',
+        tom: '2022-02-20'
+      },
       vilkarStatus: 'IKKE_VURDERT',
     },
   ],
 };
 
 export const aksjonspunkt = [];
-
-export const avklaringsbehov = [] as BeregningAvklaringsbehov[];
