@@ -50,3 +50,5 @@ export type { default as AksjonspunktTilBekreftelse } from './src/AksjonspunktTi
 export type { default as Vilkar } from './src/vilkarTsType';
 export type { default as Behandling } from './src/behandlingTsType';
 export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/besteberegningTsTypes';
+export type { default as BeregningAvklaringsbehov } from './src/beregningAvklaringsbehovTsType';
+export type { default as Vilkarperiode } from './src/vilkarperiodeTsType';

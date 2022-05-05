@@ -1,10 +1,5 @@
-import { isRequiredMessage } from '@navikt/ft-utils';
 import VurderAktiviteterPanel, { leggTilAktivitet, finnPlasseringIListe } from './VurderAktiviteterPanel';
 import { lagAktivitetFieldId } from './VurderAktiviteterTabell';
-
-import {
-  BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME,
-} from './AvklareAktiviteterPanel';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
@@ -53,7 +48,7 @@ const id3 = '324234234234efj8343f34f2019-01-01';
 const idAAP = 'AAP2019-01-01';
 
 describe('<VurderAktiviteterPanel>', () => {
-  it('skal validere om ingen aktiviteter skal brukes og det ikkje finnes fleire aktiviteter i opptjeningsperioden', () => {
+  it('skal returnere true om ingen aktiviteter skal brukes og det ikkje finnes fleire aktiviteter i opptjeningsperioden', () => {
     const aktiviteterTomDatoMapping = [
       { tom: '2019-02-02', aktiviteter },
     ];
@@ -61,21 +56,19 @@ describe('<VurderAktiviteterPanel>', () => {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[id1] = { skalBrukes: false };
-    values.aktiviteterValues[id2] = { skalBrukes: false };
-    values.aktiviteterValues[id3] = { skalBrukes: false };
-    values.aktiviteterValues[idAAP] = { skalBrukes: false };
-    values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME] = 'sefiojsiejfise';
+    values.aktiviteterValues[id1] = { skalBrukes: "false" };
+    values.aktiviteterValues[id2] = { skalBrukes: "false" };
+    values.aktiviteterValues[id3] = { skalBrukes: "false" };
+    values.aktiviteterValues[idAAP] = { skalBrukes: "false" };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
     };
-    const errors = VurderAktiviteterPanel.validate(values, aktiviteterTomDatoMapping, false);
-    // eslint-disable-next-line no-underscore-dangle
-    expect(errors._error).toBe('VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet');
+    const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
+    expect(harIngenAktiviteter).toBe(true);
   });
 
-  it('skal ikkje validere om ingen aktiviteter skal brukes og det finnes fleire aktiviteter i opptjeningsperioden', () => {
+  it('skal returnere false om ingen aktiviteter skal brukes og det finnes fleire aktiviteter i opptjeningsperioden', () => {
     const aktivitet1STP2 = {
       arbeidsgiverIdent: '384723894723',
       fom: '2019-01-01',
@@ -101,20 +94,19 @@ describe('<VurderAktiviteterPanel>', () => {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[id1] = { skalBrukes: true, tom: aktivitet1STP2.tom };
-    values.aktiviteterValues[id2] = { skalBrukes: false, tom: aktivitet2STP2.tom };
-    values.aktiviteterValues[id3] = { skalBrukes: false, tom: aktivitet3.tom };
-    values.aktiviteterValues[idAAP] = { skalBrukes: false, tom: aktivitetAAP.tom };
+    values.aktiviteterValues[id1] = { skalBrukes: "true", tom: aktivitet1STP2.tom };
+    values.aktiviteterValues[id2] = { skalBrukes: "false", tom: aktivitet2STP2.tom };
+    values.aktiviteterValues[id3] = { skalBrukes: "false", tom: aktivitet3.tom };
+    values.aktiviteterValues[idAAP] = { skalBrukes: "false", tom: aktivitetAAP.tom };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
     };
-    values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME] = 'sefiojsiejfise';
-    const errors = VurderAktiviteterPanel.validate(values, aktiviteterTomDatoMapping, false);
-    expect(Object.keys(errors)).toHaveLength(0);
+    const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
+    expect(harIngenAktiviteter).toBe(false);
   });
 
-  it('skal validere om ingen aktiviteter er valgt i stp nr 2', () => {
+  it('skal returnere true om ingen aktiviteter er valgt i stp nr 2', () => {
     const aktivitetStp2 = {
       arbeidsgiverIdent: '384723894723',
       fom: '2019-01-01',
@@ -141,57 +133,17 @@ describe('<VurderAktiviteterPanel>', () => {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp2)] = { skalBrukes: false, tom: aktivitetStp2.tom };
+    values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp2)] = { skalBrukes: 'false', tom: aktivitetStp2.tom };
     values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp3)] = { skalBrukes: null, tom: aktivitetStp3.tom };
-    values.aktiviteterValues[id3] = { skalBrukes: false, tom: aktivitet3.tom };
-    values.aktiviteterValues[idAAP] = { skalBrukes: false, tom: aktivitetAAP.tom };
+    values.aktiviteterValues[id3] = { skalBrukes: 'false', tom: aktivitet3.tom };
+    values.aktiviteterValues[idAAP] = { skalBrukes: 'false', tom: aktivitetAAP.tom };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
     };
 
-    values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME] = 'sefiojsiejfise';
-    const errors = VurderAktiviteterPanel.validate(values, aktiviteterTomDatoMapping, false);
-    // eslint-disable-next-line no-underscore-dangle
-    expect(errors._error).toBe('VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet');
-  });
-
-  it('skal validere ubesvart radio', () => {
-    const aktivitet1STP2 = {
-      arbeidsgiverIdent: '384723894723',
-      fom: '2019-01-01',
-      tom: '2019-01-01',
-      skalBrukes: null,
-      arbeidsforholdType: 'ARBEID',
-    };
-    const aktivitet2STP2 = {
-      arbeidsgiverIdent: '334534623342',
-      arbeidsforholdId: 'efj8343f34f',
-      fom: '2019-01-01',
-      tom: '2019-01-01',
-      skalBrukes: true,
-      arbeidsforholdType: 'ARBEID',
-    };
-
-    const aktiviteterTomDatoMapping = [
-      { tom: '2019-02-02', aktiviteter },
-      { tom: '2019-01-02', aktiviteter: [aktivitet1STP2, aktivitet2STP2] },
-    ];
-    const values = {
-      avklarAktiviteter: null,
-      aktiviteterValues: {},
-    };
-    values.aktiviteterValues[id1] = { skalBrukes: false };
-    values.aktiviteterValues[id2] = { skalBrukes: false };
-    values.aktiviteterValues[id3] = { skalBrukes: null };
-    values.aktiviteterValues[idAAP] = { skalBrukes: false };
-    values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME] = 'sefiojsiejfise';
-    values.avklarAktiviteter = {
-      aktiviteterTomDatoMapping,
-      skjæringstidspunkt: '2019-02-02',
-    };
-    const errors = VurderAktiviteterPanel.validate(values, aktiviteterTomDatoMapping, false);
-    expect(errors[id3].skalBrukes).toBe(isRequiredMessage());
+    const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
+    expect(harIngenAktiviteter).toBe(true);
   });
 
   it('skal kunne legge til aktivitet i tom mapping', () => {
