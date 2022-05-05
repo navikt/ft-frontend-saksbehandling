@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Sidetittel as PageTitle } from 'nav-frontend-typografi';
 import { bemUtils } from '@navikt/ft-utils';
 import styles from './header.less';
 
 interface HeaderProps {
-    title: string;
-    titleHref?: string;
+  title: string;
+  titleHref?: string;
+  children: ReactElement | ReactElement[];
 }
 
 const headerCls = bemUtils('header');

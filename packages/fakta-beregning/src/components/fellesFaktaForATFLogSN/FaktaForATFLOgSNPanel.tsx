@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { IntlShape } from 'react-intl';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, AlleKodeverk, KortvarigAndel, Aksjonspunkt, Beregningsgrunnlag,
@@ -117,7 +117,7 @@ const getFaktaPanels = (
   const faktaPanels = [];
   let hasShownPanel = false;
   tilfeller.forEach((tilfelle) => {
-    if (tilfelle === faktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD) {
+    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD) {
       hasShownPanel = true;
       faktaPanels.push(
         <React.Fragment key={tilfelle}>
@@ -130,7 +130,7 @@ const getFaktaPanels = (
         </React.Fragment>,
       );
     }
-    if (tilfelle === faktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET) {
+    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET) {
       hasShownPanel = true;
       faktaPanels.push(
         <React.Fragment key={tilfelle}>
@@ -142,7 +142,7 @@ const getFaktaPanels = (
         </React.Fragment>,
       );
     }
-    if (tilfelle === faktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE) {
+    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE) {
       hasShownPanel = true;
       faktaPanels.push(
         <React.Fragment key={tilfelle}>
@@ -153,7 +153,7 @@ const getFaktaPanels = (
         </React.Fragment>,
       );
     }
-    if (tilfelle === faktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT) {
+    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT) {
       hasShownPanel = true;
       faktaPanels.push(
         <React.Fragment key={tilfelle}>
@@ -241,7 +241,7 @@ const kunYtelseTransform = (faktaOmBeregning: FaktaOmBeregning,
   faktaOmBeregning.kunYtelse, aktivePaneler);
 
 const nyIArbeidslivetTransform = (vurderFaktaValues, values) => {
-  vurderFaktaValues.faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
+  vurderFaktaValues.faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
   return ({
     ...vurderFaktaValues,
     ...NyIArbeidslivetSNForm.transformValues(values),
@@ -249,7 +249,7 @@ const nyIArbeidslivetTransform = (vurderFaktaValues, values) => {
 };
 
 const kortvarigeArbeidsforholdTransform = (kortvarigeArbeidsforhold: KortvarigAndel[]) => (vurderFaktaValues, values: FaktaOmBeregningAksjonspunktValues) => {
-  vurderFaktaValues.faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
+  vurderFaktaValues.faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
   return ({
     ...vurderFaktaValues,
     ...TidsbegrensetArbeidsforholdForm.transformValues(values, kortvarigeArbeidsforhold),
@@ -257,7 +257,7 @@ const kortvarigeArbeidsforholdTransform = (kortvarigeArbeidsforhold: KortvarigAn
 };
 
 const vurderMilitaerSiviltjenesteTransform = (vurderFaktaValues, values) => {
-  vurderFaktaValues.faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
+  vurderFaktaValues.faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
   return ({
     ...vurderFaktaValues,
     ...VurderMilitaer.transformValues(values),
@@ -265,7 +265,7 @@ const vurderMilitaerSiviltjenesteTransform = (vurderFaktaValues, values) => {
 };
 
 const vurderRefusjonskravTransform = (faktaOmBeregning) => (vurderFaktaValues, values) => {
-  vurderFaktaValues.faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT);
+  vurderFaktaValues.faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT);
   return ({
     ...vurderFaktaValues,
     ...VurderRefusjonForm.transformValues(faktaOmBeregning.refusjonskravSomKommerForSentListe)(values),
@@ -281,16 +281,16 @@ export const transformValues = (
 ) => (vurderFaktaValues, values) => {
   let transformed = { ...vurderFaktaValues };
   aktivePaneler.forEach((kode) => {
-    if (kode === faktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET) {
+    if (kode === FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET) {
       transformed = nyIArbTransform(transformed, values);
     }
-    if (kode === faktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD) {
+    if (kode === FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD) {
       transformed = kortvarigTransform(transformed, values);
     }
-    if (kode === faktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE) {
+    if (kode === FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE) {
       transformed = militaerTransform(transformed, values);
     }
-    if (kode === faktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT) {
+    if (kode === FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT) {
       transformed = vurderRefusjonTransform(transformed, values);
     }
   });
@@ -302,7 +302,7 @@ export const setInntektValues = (aktivePaneler: string[],
   vurderOgFastsettATFLTransform: (values: FaktaOmBeregningAksjonspunktValues) => BeregningFaktaTransformedValues) => (
   values: FaktaOmBeregningAksjonspunktValues,
 ): BeregningFaktaTransformedValues => {
-  if (aktivePaneler.includes(faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
+  if (aktivePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
     return { fakta: fatsettKunYtelseTransform(values) };
   }
   return { ...vurderOgFastsettATFLTransform(values) };

@@ -1,4 +1,4 @@
-import { aksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt } from '@navikt/ft-types';
 import {
   BEGRUNNELSE_FAKTA_TILFELLER_NAME,
@@ -15,7 +15,7 @@ const {
 const avklarAktiviteterAp = {
   id: 1,
   definisjon: AVKLAR_AKTIVITETER,
-  status: aksjonspunktStatus.OPPRETTET,
+  status: AksjonspunktStatus.OPPRETTET,
   kanLoses: true,
   erAktivt: true,
 } as Aksjonspunkt;

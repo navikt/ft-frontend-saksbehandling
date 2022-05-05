@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   Beregningsgrunnlag,
@@ -50,7 +50,7 @@ const lagBeregningsgrunnlag = (andeler) => ({
 
 describe('<FaktaForATFLOgSNPanel>', () => {
   it('skal vise TidsbegrensetArbeidsforholdForm', () => {
-    const aktivertePaneler = [faktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD];
+    const aktivertePaneler = [FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD];
     const wrapper = shallow(<FaktaForATFLOgSNPanelImpl
       readOnly={false}
       aktivePaneler={aktivertePaneler}
@@ -67,7 +67,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
   });
 
   it('skal vise NyIArbeidslivetSNForm', () => {
-    const aktivertePaneler = [faktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET];
+    const aktivertePaneler = [FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET];
     const wrapper = shallow(<FaktaForATFLOgSNPanelImpl
       readOnly={false}
       aktivePaneler={aktivertePaneler}
@@ -84,7 +84,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
   });
 
   it('skal vise NyoppstartetFLForm', () => {
-    const aktivertePaneler = [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL];
+    const aktivertePaneler = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL];
     const wrapper = shallow(<FaktaForATFLOgSNPanelImpl
       readOnly={false}
       aktivePaneler={aktivertePaneler}
@@ -101,7 +101,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
   });
 
   it('skal kunne transform values for kun besteberegning', () => {
-    const aktivePaneler = [faktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE];
+    const aktivePaneler = [FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE];
     const andel1 = { andelsnr: 1, aktivitetStatus: 'ATFL' } as BeregningsgrunnlagAndel;
     const andel2 = { andelsnr: 2, aktivitetStatus: 'SN' } as BeregningsgrunnlagAndel;
     const faktaOmBeregning = {
@@ -138,8 +138,8 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     ];
     const transformedValues = transformValuesFaktaForATFLOgSN(values);
     expect(transformedValues.fakta.faktaOmBeregningTilfeller).toHaveLength(2);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller[1]).toEqual(faktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller[0]).toEqual(faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING);
+    expect(transformedValues.fakta.faktaOmBeregningTilfeller[1]).toEqual(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
+    expect(transformedValues.fakta.faktaOmBeregningTilfeller[0]).toEqual(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING);
     expect(transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe).toHaveLength(2);
     expect(transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[0].andelsnr).toEqual(andel1.andelsnr);
     expect(transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[0].fastsatteVerdier.fastsattBeløp).toEqual(10000);
@@ -150,7 +150,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
   });
 
   it('skal kunne transform values nyoppstartet fl og lønnsendring', () => {
-    const aktivePaneler = [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, faktaOmBeregningTilfelle.VURDER_LONNSENDRING];
+    const aktivePaneler = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.VURDER_LONNSENDRING];
     const forholdMedAtOgFl = {
       andelsnr: 2,
       inntektskategori: 'Arbeidstaker',
@@ -181,7 +181,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       } as BeregningsgrunnlagArbeidsforhold,
       andelsnr: 1,
       arbeidsforholdType: 'Frilans',
-      aktivitetStatus: aktivitetStatus.FRILANSER,
+      aktivitetStatus: AktivitetStatus.FRILANSER,
     } as FaktaOmBeregningAndel;
 
     const faktaOmBeregning = {
@@ -208,17 +208,17 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         fastsattBelop: '20 000',
         inntektskategori: 'FRILANS',
         andelsnr: frilansAndel.andelsnr,
-        aktivitetStatus: aktivitetStatus.FRILANSER,
+        aktivitetStatus: AktivitetStatus.FRILANSER,
         kanRedigereInntekt: true,
       },
     ];
     const transformedValues = transformValuesFaktaForATFLOgSN(values);
     expect(transformedValues.fakta.faktaOmBeregningTilfeller).toHaveLength(4);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller.includes(faktaOmBeregningTilfelle.VURDER_LONNSENDRING)).toEqual(true);
+    expect(transformedValues.fakta.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)).toEqual(true);
     expect(transformedValues.fakta.faktaOmBeregningTilfeller
-      .includes(faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toEqual(true);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller.includes(faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toEqual(true);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller.includes(faktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL)).toEqual(true);
+      .includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toEqual(true);
+    expect(transformedValues.fakta.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toEqual(true);
+    expect(transformedValues.fakta.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL)).toEqual(true);
     expect(transformedValues.fakta.fastsattUtenInntektsmelding.andelListe).toHaveLength(1);
     expect(transformedValues.fakta.fastsattUtenInntektsmelding.andelListe[0].andelsnr).toEqual(2);
     expect(transformedValues.fakta.fastsattUtenInntektsmelding.andelListe[0].fastsattBeløp).toEqual(10000);
@@ -231,7 +231,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     const lonnsendringTransform = sinon.spy();
     const vurderRefusjonTransform = sinon.spy();
 
-    const aktivePaneler = [faktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET];
+    const aktivePaneler = [FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET];
     transformValues(aktivePaneler,
       nyIArbTransform,
       kortvarigTransform,
@@ -249,7 +249,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     const lonnsendringTransform = sinon.spy();
     const vurderRefusjonTransform = sinon.spy();
 
-    const aktivePaneler = [faktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET, faktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD];
+    const aktivePaneler = [FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET, FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD];
     transformValues(aktivePaneler,
       nyIArbTransform,
       kortvarigTransform,

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { isRequiredMessage } from '@navikt/ft-utils';
 import { RadioGroupField } from '@navikt/ft-form-redux-legacy';
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
 import {
   AlleKodeverk,
@@ -213,7 +213,7 @@ describe('<VurderMottarYtelseForm>', () => {
     const wrapper = shallow(<VurderMottarYtelseForm
       readOnly={false}
       isAksjonspunktClosed={false}
-      tilfeller={[faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL]}
+      tilfeller={[FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL]}
       beregningsgrunnlag={{ faktaOmBeregning: faktaBG } as Beregningsgrunnlag}
       alleKodeverk={alleKodeverk}
       arbeidsgiverOpplysningerPerId={agOpplysninger}
@@ -238,7 +238,7 @@ describe('<VurderMottarYtelseForm>', () => {
     const wrapper = shallow(<VurderMottarYtelseForm
       readOnly={false}
       isAksjonspunktClosed={false}
-      tilfeller={[faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL]}
+      tilfeller={[FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL]}
       beregningsgrunnlag={bg as Beregningsgrunnlag}
       alleKodeverk={alleKodeverk}
       arbeidsgiverOpplysningerPerId={agOpplysninger}
@@ -262,7 +262,7 @@ describe('<VurderMottarYtelseForm>', () => {
   });
 
   it('skal transform values og sende ned FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING ved mottar ytelse for AT uten inntektsmelding', () => {
-    const tilfeller = [faktaOmBeregningTilfelle.VURDER_LONNSENDRING, faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING, FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const inntektPrMnd = [
       { andelsnr: andel.andelsnr, fastsattBelop: 10000 } as InntektTransformed,
       { andelsnr: andel3.andelsnr, fastsattBelop: 20000 } as InntektTransformed,
@@ -292,14 +292,14 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(fastsatteInntekter[1].fastsattBeløp).toBe(20000);
     const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
     expect(fastsatteTilfeller.length).toBe(2);
-    expect(fastsatteTilfeller[0]).toBe(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+    expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
     expect(fastsatteTilfeller[1]).toBe(
-      faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+      FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
     );
   });
 
   it('skal kunne sette beløp til 0', () => {
-    const tilfeller = [faktaOmBeregningTilfelle.VURDER_LONNSENDRING, faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING, FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const inntektPrMnd = [
       { andelsnr: andel.andelsnr, fastsattBelop: 0 } as InntektTransformed,
       { andelsnr: andel3.andelsnr, fastsattBelop: 0 } as InntektTransformed,
@@ -329,14 +329,14 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(fastsatteInntekter[1].fastsattBeløp).toBe(0);
     const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
     expect(fastsatteTilfeller.length).toBe(2);
-    expect(fastsatteTilfeller[0]).toBe(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+    expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
     expect(fastsatteTilfeller[1]).toBe(
-      faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+      FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
     );
   });
 
   it('skal transform values og sende ned FASTSETT_MAANEDSINNTEKT_FL ved mottar ytelse for Frilans', () => {
-    const tilfeller = [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const inntektPrMnd = [
       { andelsnr: 4, fastsattBelop: 10000, aktivitetStatus: 'FL' } as InntektTransformed,
     ];
@@ -357,13 +357,13 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(fastsattInntekt).toBe(10000);
     const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
     expect(fastsatteTilfeller.length).toBe(2);
-    expect(fastsatteTilfeller[0]).toBe(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
-    expect(fastsatteTilfeller[1]).toBe(faktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
+    expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+    expect(fastsatteTilfeller[1]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
   });
 
   it('skal transform values ved mottar ytelse for Frilans og arbeidstaker uten inntektsmelding', () => {
-    const tilfeller = [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, faktaOmBeregningTilfelle.VURDER_LONNSENDRING,
-      faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.VURDER_LONNSENDRING,
+      FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const inntektPrMnd = [
       { andelsnr: andel.andelsnr, fastsattBelop: 10000 } as InntektTransformed,
       { andelsnr: andel3.andelsnr, fastsattBelop: 20000 } as InntektTransformed,
@@ -397,16 +397,16 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(fastsatteArbeidsinntekter[1].fastsattBeløp).toBe(20000);
     const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
     expect(fastsatteTilfeller.length).toBe(3);
-    expect(fastsatteTilfeller[0]).toBe(faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
-    expect(fastsatteTilfeller[2]).toBe(faktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
+    expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+    expect(fastsatteTilfeller[2]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
     expect(fastsatteTilfeller[1]).toBe(
-      faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+      FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
     );
   });
 
   it('skal ikkje transform values mottar ytelse for AT uten inntektsmelding visst inntekt allerede er lagt til', () => {
-    const tilfeller = [faktaOmBeregningTilfelle.VURDER_LONNSENDRING, faktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
-      faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING, FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+      FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const inntektPrMnd = [
       { andelsnr: andel.andelsnr, fastsattBelop: 10000 } as InntektTransformed,
       { andelsnr: andel3.andelsnr, fastsattBelop: 20000 } as InntektTransformed,
@@ -430,8 +430,8 @@ describe('<VurderMottarYtelseForm>', () => {
   });
 
   it('skal ikkje transform values mottar ytelse for frilans visst inntekt allerede er lagt til', () => {
-    const tilfeller = [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, faktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL,
-      faktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL,
+      FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const inntektPrMnd = [
       { andelsnr: 4, fastsattBelop: 10000, aktivitetStatus: 'FL' } as InntektTransformed,
     ];

@@ -1,4 +1,4 @@
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AndelFieldIdentifikator, InntektTransformed } from '../../../../typer/FieldValues';
 
@@ -6,7 +6,7 @@ const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse = (
   beregningsgrunnlag: Beregningsgrunnlag, arbeidsforholdId?: string): boolean => {
   if (arbeidsforholdId === null) {
     const antallAndelerISammeVirksomhetMedReferanse = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel
-      .filter((a) => a.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER)
+      .filter((a) => a.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
       .filter((a) => a.arbeidsforhold && a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId)
       .filter((a) => a.arbeidsforhold && a.arbeidsforhold.arbeidsforholdId != null)
       .length;

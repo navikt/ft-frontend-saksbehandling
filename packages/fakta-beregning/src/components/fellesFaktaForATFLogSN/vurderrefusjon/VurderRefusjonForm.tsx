@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { required } from '@navikt/ft-utils';
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   FaktaOmBeregning,
@@ -14,7 +14,7 @@ import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 
 const {
   VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
-} = faktaOmBeregningTilfelle;
+} = FaktaOmBeregningTilfelle;
 
 const erRefusjonskravGyldigFieldPrefix = 'erKravGyldig_';
 

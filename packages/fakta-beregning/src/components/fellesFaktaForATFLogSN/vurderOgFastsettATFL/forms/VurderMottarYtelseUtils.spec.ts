@@ -1,4 +1,4 @@
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import {
   andelsnrMottarYtelseMap,
@@ -30,7 +30,7 @@ const arbeidsforhold3 = {
 } as BeregningsgrunnlagArbeidsforhold;
 
 const andel = {
-  aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
+  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   andelsnr: 1,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
@@ -38,7 +38,7 @@ const andel = {
 };
 
 const andel2 = {
-  aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
+  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   andelsnr: 2,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
@@ -46,7 +46,7 @@ const andel2 = {
 };
 
 const andel3 = {
-  aktivitetStatus: aktivitetStatus.ARBEIDSTAKER,
+  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   andelsnr: 3,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
@@ -54,7 +54,7 @@ const andel3 = {
 };
 
 const frilansAndel = {
-  aktivitetStatus: aktivitetStatus.FRILANSER,
+  aktivitetStatus: AktivitetStatus.FRILANSER,
   andelsnr: 4,
 };
 

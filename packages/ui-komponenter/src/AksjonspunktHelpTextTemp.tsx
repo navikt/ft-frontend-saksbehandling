@@ -18,6 +18,9 @@ interface OwnProps {
 /**
  * TODO (TOR) Dette er ein midlertidig komponent som byttar mellom to komponentar. Er ikkje bestemt korleis dette faktisk skal sjå ut enno.
  */
+/**
+ * @deprecated Bruk heller AksjonspunktHelpTextHTML!
+ */
 const AksjonspunktHelpTextTemp: FunctionComponent<OwnProps> = ({
   isAksjonspunktOpen,
   children,

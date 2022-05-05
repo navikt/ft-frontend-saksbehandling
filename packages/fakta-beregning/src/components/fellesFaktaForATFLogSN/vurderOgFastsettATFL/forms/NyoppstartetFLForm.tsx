@@ -4,7 +4,7 @@ import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { required } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { faktaOmBeregningTilfelle, aktivitetStatus } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { InntektTransformed } from '../../../../typer/FieldValues';
@@ -59,7 +59,7 @@ NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag)
   }
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
     .map((periode) => periode.beregningsgrunnlagPrStatusOgAndel);
-  const flAndeler = alleAndeler.flat().filter((andel) => andel.aktivitetStatus === aktivitetStatus.FRILANSER);
+  const flAndeler = alleAndeler.flat().filter((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
   if (flAndeler.length > 0) {
     initialValues[erNyoppstartetFLField] = flAndeler[0].erNyoppstartet;
   }
@@ -71,26 +71,26 @@ NyoppstartetFLForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues
   faktaOmBeregning: FaktaOmBeregning,
   fastsatteAndelsnr: number[]): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!tilfeller.map((kode) => kode).includes(faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
+  if (!tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
     return {};
   }
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
     return ({
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
       vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
     });
   }
   const frilansField = inntektPrMnd
-    .find((field) => field.aktivitetStatus === aktivitetStatus.FRILANSER);
+    .find((field) => field.aktivitetStatus === AktivitetStatus.FRILANSER);
   if (!frilansField) {
     return ({
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
       vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
     });
   }
   if (fastsatteAndelsnr.includes(frilansField.andelsnr)) {
     return ({
-      faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
       vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
     });
   }
@@ -99,7 +99,7 @@ NyoppstartetFLForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues
     fastsettMaanedsinntektFL: { maanedsinntekt: frilansField.fastsattBelop },
   };
   return {
-    faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, faktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL],
     ...inntekt,
     vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
   };

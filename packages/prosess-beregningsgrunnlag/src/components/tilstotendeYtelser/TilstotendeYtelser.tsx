@@ -5,22 +5,22 @@ import { Column, Row } from 'nav-frontend-grid';
 
 import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { aktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
-  if (andel.aktivitetStatus === aktivitetStatus.DAGPENGER) {
+  if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
     return 'Beregningsgrunnlag.TilstottendeYtelse.Dagpenger';
   }
-  if (andel.aktivitetStatus === aktivitetStatus.ARBEIDSAVKLARINGSPENGER) {
+  if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSAVKLARINGSPENGER) {
     return 'Beregningsgrunnlag.TilstottendeYtelse.AAP';
   }
   return '';
 };
-const isAktivitetKodeDagpenger = (aktivitetStatusKode: string): boolean => aktivitetStatusKode === aktivitetStatus.DAGPENGER;
+const isAktivitetKodeDagpenger = (aktivitetStatusKode: string): boolean => aktivitetStatusKode === AktivitetStatus.DAGPENGER;
 
 type OwnProps = {
     alleAndeler: BeregningsgrunnlagAndel[];

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { IntlShape } from 'react-intl';
-import { faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   AndelForFaktaOmBeregning,
@@ -123,7 +123,7 @@ KunYtelsePanel.transformValues = (values: FaktaOmBeregningAksjonspunktValues, ku
 });
 
 KunYtelsePanel.validate = (values: FaktaOmBeregningAksjonspunktValues, aktivertePaneler: string[], kunYtelse: KunYtelse, intl: IntlShape): any => {
-  if (!values || !aktivertePaneler.includes(faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
+  if (!values || !aktivertePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
     return {};
   }
   const errors = {};

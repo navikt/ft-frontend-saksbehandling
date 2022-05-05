@@ -4,7 +4,7 @@ import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { required } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
@@ -64,7 +64,7 @@ LonnsendringForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): 
   if (!alleAndeler || alleAndeler.length < 1) {
     return initialValues;
   }
-  const alleATAndeler = alleAndeler.filter((andel) => andel.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER);
+  const alleATAndeler = alleAndeler.filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
   if (!alleATAndeler || alleATAndeler.length < 1) {
     return initialValues;
   }
@@ -80,11 +80,11 @@ export const harFieldLønnsendring = (field: InntektTransformed,
 LonnsendringForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!tilfeller.map((kode) => kode).includes(faktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
+  if (!tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
     return {};
   }
   return ({
-    faktaOmBeregningTilfeller: [faktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
     vurdertLonnsendring: { erLønnsendringIBeregningsperioden: values[lonnsendringField] },
   });
 };

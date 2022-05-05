@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
-import { aktivitetStatus, faktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { required } from '@navikt/ft-utils';
@@ -82,8 +82,8 @@ VurderBesteberegningPanelImpl.buildInitialValues = (aksjonspunkter: Aksjonspunkt
   vurderBesteberegning: VurderBesteberegning,
   faktaOmBeregningTilfeller: string[],
   erOverstyrt: boolean): VurderBesteberegningValues => {
-  if (!(faktaOmBeregningTilfeller.includes(faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
-    || faktaOmBeregningTilfeller.includes(faktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
+  if (!(faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
+    || faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
     return {};
   }
   if (!vurderBesteberegning) {
@@ -101,8 +101,8 @@ VurderBesteberegningPanelImpl.buildInitialValues = (aksjonspunkter: Aksjonspunkt
 };
 
 VurderBesteberegningPanelImpl.validate = (values: FaktaOmBeregningAksjonspunktValues, aktivertePaneler: string[]): any => {
-  if (!values || !(aktivertePaneler.includes(faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
-  || aktivertePaneler.includes(faktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
+  if (!values || !(aktivertePaneler.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
+  || aktivertePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
     return {};
   }
   const errors = {};
@@ -136,7 +136,7 @@ VurderBesteberegningPanelImpl.transformValues = (values: FaktaOmBeregningAksjons
       },
     }));
   const nyDagpengeAndel = inntektPrAndel
-    .find((a) => a.nyAndel && a.aktivitetStatus === aktivitetStatus.DAGPENGER);
+    .find((a) => a.nyAndel && a.aktivitetStatus === AktivitetStatus.DAGPENGER);
   return {
     besteberegningAndeler: {
       besteberegningAndelListe: transformedValues,
@@ -153,14 +153,14 @@ VurderBesteberegningPanelImpl.transformValues = (values: FaktaOmBeregningAksjons
 export const vurderBesteberegningTransform = (faktaOmBeregning: FaktaOmBeregning) => (values: FaktaOmBeregningAksjonspunktValues,
   inntektPrAndel: InntektTransformed[]): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!(tilfeller.map((kode) => kode).includes(faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
-      || tilfeller.map((kode) => kode).includes(faktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
+  if (!(tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
+      || tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
     return {};
   }
   const besteberegningValues = VurderBesteberegningPanelImpl.transformValues(values, faktaOmBeregning, inntektPrAndel);
-  const faktaOmBeregningTilfeller = [faktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
+  const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
   if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
-    faktaOmBeregningTilfeller.push(faktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
+    faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
   }
   return ({
     faktaOmBeregningTilfeller,

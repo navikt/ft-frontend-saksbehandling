@@ -7,6 +7,7 @@ coverage
 *.log*
 node_modules
 dist
+.storybook-static-build
 lerna-debug.log
 .vscode
 .yarnrc

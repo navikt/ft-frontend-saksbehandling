@@ -10,7 +10,7 @@ import {
   VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
 } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
-import { aktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 
@@ -97,7 +97,7 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
 }) => {
   const intl = useIntl();
-  const snAndel = alleAndelerIForstePeriode.find((andel) => andel.aktivitetStatus === aktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndel = alleAndelerIForstePeriode.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (!snAndel?.næringer) {
     return null;
   }

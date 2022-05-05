@@ -1,9 +1,9 @@
 import {
-  inntektskategorier,
-  aktivitetStatus,
-  organisasjonstype as organisasjonstyper,
-  opptjeningAktivitetType as OAType,
-  faktaOmBeregningTilfelle,
+  Inntektskategori,
+  AktivitetStatus,
+  Organisasjonstype as organisasjonstyper,
+  OpptjeningAktivitetType as OAType,
+  FaktaOmBeregningTilfelle,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -32,7 +32,7 @@ import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typ
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
 const preutfyllInntektskategori = (andel: AndelForFaktaOmBeregning) => (andel.inntektskategori
-&& andel.inntektskategori !== inntektskategorier.UDEFINERT ? andel.inntektskategori : '');
+&& andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '');
 
 export const setArbeidsforholdInitialValues = (andel: AndelForFaktaOmBeregning) => ({
   arbeidsgiverId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsgiverIdent : null,
@@ -87,9 +87,9 @@ const erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon = (field: And
 
 // Aktivitetstatus
 
-const erArbeidstaker = (field: AndelFieldIdentifikator): boolean => (field.aktivitetStatus && field.aktivitetStatus === aktivitetStatus.ARBEIDSTAKER);
+const erArbeidstaker = (field: AndelFieldIdentifikator): boolean => (field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
 
-const erFrilanser = (field: AndelFieldIdentifikator): boolean => (field.aktivitetStatus && field.aktivitetStatus === aktivitetStatus.FRILANSER);
+const erFrilanser = (field: AndelFieldIdentifikator): boolean => (field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER);
 
 // Nyoppstartet frilanser
 
@@ -158,7 +158,7 @@ const erAndelKunstigArbeidsforhold = (andel: AndelFieldIdentifikator,
 
 // Kun Ytelse
 const harKunYtelse = (faktaOmBeregning: FaktaOmBeregning): boolean => !!faktaOmBeregning.faktaOmBeregningTilfeller && faktaOmBeregning.faktaOmBeregningTilfeller
-  .find((kode) => kode === faktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !== undefined;
+  .find((kode) => kode === FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !== undefined;
 
 const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
