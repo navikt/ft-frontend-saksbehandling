@@ -10,8 +10,6 @@ describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne løse aksjonspunkt for Arbeid og full AAP', () => {
     render(<ArbeidOgAAP />);
     // TODO: Valider på at AAP ikkje skal kunne endres
-    console.log(screen.debug(undefined, 300000));
-
     userEvent.click(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 01.04.2020'));
     userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
     userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
