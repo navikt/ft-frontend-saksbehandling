@@ -72,7 +72,7 @@ export const diff = (a?: DiffInput | null, b?: DiffInput | null): boolean | Reco
 
     // @ts-ignore
     return (
-      [...new Set([...Object.keys(thing1), ...Object.keys(thing2)])]
+      [...new Set([...Object.keys(thing1 as object), ...Object.keys(thing2 as object)])]
         // @ts-ignore
         .reduce((diffs, key) => ({ ...diffs, [key]: diff(thing1[key], thing2[key]) }), {})
     );
