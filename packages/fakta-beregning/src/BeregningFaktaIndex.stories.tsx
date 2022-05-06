@@ -72,28 +72,29 @@ const lagBeregningsgrunnlag = (
   andeler: FaktaOmBeregningAndel[],
   faktaOmBeregning: FaktaOmBeregning,
   stp = '2022-03-02',
-): Beregningsgrunnlag => ({
-  vilkårperiodeFom: stp,
-  periode: {
-    fom: stp,
-    tom: dayjs(stp).add(10, 'days'),
-  },
-  avklaringsbehov: [],
-  skjaeringstidspunktBeregning: stp,
-  dekningsgrad: null,
-  grunnbeløp: null,
-  erOverstyrtInntekt: null,
-  beregningsgrunnlagPeriode: [
-    {
-      beregningsgrunnlagPrStatusOgAndel: andeler.map((andel) => ({
-        andelsnr: andel.andelsnr,
-        aktivitetStatus: andel.aktivitetStatus,
-        inntektskategori: andel.inntektskategori,
-      })),
+): Beregningsgrunnlag =>
+  ({
+    vilkårperiodeFom: stp,
+    periode: {
+      fom: stp,
+      tom: dayjs(stp).subtract(-10, 'days'),
     },
-  ],
-  faktaOmBeregning,
-} as Beregningsgrunnlag);
+    avklaringsbehov: [],
+    skjaeringstidspunktBeregning: stp,
+    dekningsgrad: null,
+    grunnbeløp: null,
+    erOverstyrtInntekt: null,
+    beregningsgrunnlagPeriode: [
+      {
+        beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({
+          andelsnr: andel.andelsnr,
+          aktivitetStatus: andel.aktivitetStatus,
+          inntektskategori: andel.inntektskategori,
+        })),
+      },
+    ],
+    faktaOmBeregning,
+  } as Beregningsgrunnlag);
 
 const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: string): FaktaOmBeregningAndel => ({
   andelsnr,
