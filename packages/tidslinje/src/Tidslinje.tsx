@@ -27,7 +27,7 @@ export type TidslinjeTimes = {
   fodsel: string;
   revurdering: string;
   dodSoker: string;
-}
+};
 
 interface TidslinjeProps {
   customTimes: TidslinjeTimes;
@@ -41,11 +41,16 @@ interface TidslinjeProps {
 }
 
 const getOptions = (customTimes: TidslinjeTimes, sortedUttakPeriods: Periode[]) => ({
-  end: moment(sortedUttakPeriods[sortedUttakPeriods.length - 1].tom).add(2, 'days').toDate(),
+  end: moment(sortedUttakPeriods[sortedUttakPeriods.length - 1].tom)
+    .add(2, 'days')
+    .toDate(),
   locale: moment.locale('nb'),
   margin: { item: 14 },
   max: moment(customTimes.fodsel).add(4, 'years').toDate(),
-  min: moment.min([moment(customTimes.fodsel), moment(sortedUttakPeriods[0].fom)]).subtract(4, 'weeks').toDate(),
+  min: moment
+    .min([moment(customTimes.fodsel), moment(sortedUttakPeriods[0].fom)])
+    .subtract(4, 'weeks')
+    .toDate(),
   moment,
   moveable: true,
   orientation: { axis: 'top' },
@@ -73,9 +78,9 @@ const sortByDate = (a: Periode, b: Periode): number => {
 };
 
 type PeriodeMedStartOgSlutt = {
- start: Date;
- end: Date;
-} & Periode
+  start: Date;
+  end: Date;
+} & Periode;
 
 const parseDates = (item: Periode): PeriodeMedStartOgSlutt => ({
   ...item,
@@ -87,7 +92,7 @@ const formatItems = (periodItems: Periode[] = []): PeriodeMedStartOgSlutt[] => {
   const itemsWithDates = periodItems.map(parseDates);
   const formattedItemsArray: PeriodeMedStartOgSlutt[] = [];
   formattedItemsArray.length = 0;
-  itemsWithDates.forEach((item) => {
+  itemsWithDates.forEach(item => {
     formattedItemsArray.push(item);
   });
   return formattedItemsArray;
@@ -96,11 +101,11 @@ const formatItems = (periodItems: Periode[] = []): PeriodeMedStartOgSlutt[] => {
 const formatGroups = (periodItems: Periode[] = []) => {
   const duplicatesRemoved = periodItems.reduce<Periode[]>((accPeriods, period) => {
     // @ts-ignore Fiks
-    const hasPeriod = accPeriods.some((p) => p.group === period.group);
+    const hasPeriod = accPeriods.some(p => p.group === period.group);
     if (!hasPeriod) accPeriods.push(period);
     return accPeriods;
   }, []);
-  return duplicatesRemoved.map((activity) => ({
+  return duplicatesRemoved.map(activity => ({
     // @ts-ignore Fiks
     id: activity.group,
     content: '',
@@ -173,19 +178,10 @@ class Tidslinje extends Component<TidslinjeProps> {
       <div className={styles.timelineContainer}>
         <Row>
           <Column xs="1" className={styles.sokerContainer}>
-            {medsokerKjonnKode
-              && (
-                <TimeLineSoker
-                  soker1KjonnKode={medsokerKjonnKode}
-                  soker2KjonnKode={hovedsokerKjonnKode}
-                />
-              )}
-            {!medsokerKjonnKode
-              && (
-                <TimeLineSokerEnsamSoker
-                  hovedsokerKjonnKode={hovedsokerKjonnKode}
-                />
-              )}
+            {medsokerKjonnKode && (
+              <TimeLineSoker soker1KjonnKode={medsokerKjonnKode} soker2KjonnKode={hovedsokerKjonnKode} />
+            )}
+            {!medsokerKjonnKode && <TimeLineSokerEnsamSoker hovedsokerKjonnKode={hovedsokerKjonnKode} />}
           </Column>
           <Column xs="11">
             <div className={styles.timeLineWrapper}>
@@ -198,7 +194,7 @@ class Tidslinje extends Component<TidslinjeProps> {
                   initialGroups={groups}
                   customTimes={customTimes}
                   selectHandler={selectPeriodCallback}
-                  selection={[selectedPeriod ? selectedPeriod.id : null]}
+                  selection={selectedPeriod ? [selectedPeriod.id] : undefined}
                 />
               </div>
             </div>

@@ -76,8 +76,8 @@ const formaterPerioderForTidslinje = (
     const per = vilkarsVurdertePerioder.find(
       (p: CustomVilkarsVurdertePeriode) => p.fom === periode.fom && p.tom === periode.tom,
     );
-    // @ts-ignore Fiks
     const erBelopetIBehold =
+      // @ts-ignore Fiks
       per && per[per.valgtVilkarResultatType] ? per[per.valgtVilkarResultatType].erBelopetIBehold : undefined;
     const erSplittet = per ? !!per.erSplittet : false;
     return {
@@ -93,13 +93,12 @@ const finnOriginalPeriode = (
   lagretPeriode: CustomVilkarsVurdertePeriode | VilkarsVurdertPeriode,
   perioder: DetaljertFeilutbetalingPeriode[] | CustomPeriode[],
 ) =>
-  perioder
+  perioder.find(
     // @ts-ignore Fiks
-    .find(
-      (periode: CustomPeriode) =>
-        !moment(lagretPeriode.fom).isBefore(moment(periode.fom)) &&
-        !moment(lagretPeriode.tom).isAfter(moment(periode.tom)),
-    );
+    (periode: CustomPeriode) =>
+      !moment(lagretPeriode.fom).isBefore(moment(periode.fom)) &&
+      !moment(lagretPeriode.tom).isAfter(moment(periode.tom)),
+  );
 
 const erIkkeLagret = (periode: DetaljertFeilutbetalingPeriode, lagredePerioder: { tom: string; fom: string }[]) =>
   lagredePerioder.every(lagretPeriode => {
