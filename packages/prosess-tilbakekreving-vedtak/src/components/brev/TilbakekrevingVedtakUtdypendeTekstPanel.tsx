@@ -3,9 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import {
-  required, hasValidText, maxLength, minLength,
-} from '@navikt/ft-utils';
+import { required, hasValidText, maxLength, minLength } from '@navikt/ft-utils';
 import { TextAreaField, formHooks } from '@navikt/ft-form-hooks';
 
 import addCircleIcon from '../../images/add-circle.svg';
@@ -20,7 +18,7 @@ const valideringsreglerPakrevet = [required, minLength3, hasValidText];
 interface OwnProps {
   type: string;
   readOnly: boolean;
-  fritekstPakrevet: boolean;
+  fritekstPakrevet?: boolean;
   maximumLength?: number;
 }
 
@@ -39,12 +37,18 @@ const TilbakekrevingVedtakUtdypendeTekstPanel: FunctionComponent<OwnProps> = ({
   valideringsRegler.push(maximumLength ? maxLength(maximumLength) : maxLength4000);
   return (
     <>
-      {(isTextfieldHidden && !readOnly) && (
+      {isTextfieldHidden && !readOnly && (
         <>
           <VerticalSpacer eightPx />
           <div
-            onClick={(event) => { event.preventDefault(); hideTextField(false); }}
-            onKeyDown={(event) => { event.preventDefault(); hideTextField(false); }}
+            onClick={event => {
+              event.preventDefault();
+              hideTextField(false);
+            }}
+            onKeyDown={event => {
+              event.preventDefault();
+              hideTextField(false);
+            }}
             className={styles.addPeriode}
             role="button"
             tabIndex={0}

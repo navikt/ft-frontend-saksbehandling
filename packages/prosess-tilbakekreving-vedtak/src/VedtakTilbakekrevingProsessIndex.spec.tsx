@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  render, screen, waitFor,
-} from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import * as stories from './VedtakTilbakekrevingProsessIndex.stories';
@@ -11,9 +9,8 @@ const { Default } = composeStories(stories);
 describe('<VedtakTilbakekrevingProsessIndex>', () => {
   it('skal fylle ut to obligatoriske felter for periode og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
-    const lagreMedSideeffekter = jest.fn(() => lagre);
 
-    const utils = render(<Default bekreftAksjonspunkterMedSideeffekter={lagreMedSideeffekter} />);
+    const utils = render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Vedtak')).toBeInTheDocument();
     expect(screen.getByText(/01.10.2018/)).toBeInTheDocument();

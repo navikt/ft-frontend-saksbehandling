@@ -3,20 +3,22 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
 import { Column, Row } from 'nav-frontend-grid';
-import {
-  Element, Normaltekst, Undertekst,
-} from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 
 import { VerticalSpacer, AksjonspunktHelpTextTemp, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { TextAreaField, CheckboxField, Form } from '@navikt/ft-form-hooks';
 import {
-  DDMMYYYY_DATE_FORMAT, hasValidText, maxLength, minLength, required, getKodeverknavnFn, decodeHtmlEntity,
+  DDMMYYYY_DATE_FORMAT,
+  hasValidText,
+  maxLength,
+  minLength,
+  required,
+  getKodeverknavnFn,
+  decodeHtmlEntity,
 } from '@navikt/ft-utils';
-import {
-  AlleKodeverk, AlleKodeverkTilbakekreving, FeilutbetalingFakta, FeilutbetalingAarsak,
-} from '@navikt/ft-types';
+import { AlleKodeverk, AlleKodeverkTilbakekreving, FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
 import FeilutbetalingPerioderFieldArray, { FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
 
@@ -32,52 +34,56 @@ type FormValues = {
   behandlePerioderSamlet?: boolean;
 } & PeriodeFormValues;
 
-const sorterPerioder = (
-  feilutbetalingFakta: FeilutbetalingFakta,
-) => ([...feilutbetalingFakta.behandlingFakta.perioder].sort((a, b) => moment(a.fom).diff(moment(b.fom))));
+const sorterPerioder = (feilutbetalingFakta: FeilutbetalingFakta) =>
+  feilutbetalingFakta.behandlingFakta.perioder
+    ? [...feilutbetalingFakta.behandlingFakta.perioder].sort((a, b) => moment(a.fom).diff(moment(b.fom)))
+    : [];
 
 const buildInitialValues = (feilutbetalingFakta: FeilutbetalingFakta): FormValues => {
-  const { behandlingFakta: { begrunnelse } } = feilutbetalingFakta;
+  const {
+    behandlingFakta: { begrunnelse },
+  } = feilutbetalingFakta;
   return {
     begrunnelse: decodeHtmlEntity(begrunnelse),
-    perioder: sorterPerioder(feilutbetalingFakta)
-      .map((p) => {
-        const {
-          fom, tom, feilutbetalingÅrsakDto,
-        } = p;
+    perioder: sorterPerioder(feilutbetalingFakta).map(p => {
+      const { fom, tom, feilutbetalingÅrsakDto } = p;
 
-        const period = { fom, tom };
+      const period = { fom, tom };
 
-        if (!feilutbetalingÅrsakDto) {
-          return period;
-        }
+      if (!feilutbetalingÅrsakDto) {
+        return period;
+      }
 
-        const {
-          hendelseType,
-          hendelseUndertype,
-        } = feilutbetalingÅrsakDto;
+      const { hendelseType, hendelseUndertype } = feilutbetalingÅrsakDto;
 
-        return {
-          ...period,
-          årsak: hendelseType,
-          [hendelseType]: {
-            underÅrsak: hendelseUndertype || null,
-          },
-        };
-      }),
+      return {
+        ...period,
+        årsak: hendelseType,
+        [hendelseType]: {
+          underÅrsak: hendelseUndertype || null,
+        },
+      };
+    }),
   };
 };
 
-const transformValues = (values: FormValues, årsaker: FeilutbetalingAarsak['hendelseTyper']): AvklartFaktaFeilutbetalingAp => {
-  const feilutbetalingFakta = values.perioder.map((periode) => {
-    const feilutbetalingÅrsak = årsaker.find((el) => el.hendelseType === periode.årsak);
-    const feilutbetalingUnderÅrsak = feilutbetalingÅrsak.hendelseUndertyper.find((el) => el === periode[periode.årsak]?.underÅrsak);
+const transformValues = (
+  values: FormValues,
+  årsaker: FeilutbetalingAarsak['hendelseTyper'],
+): AvklartFaktaFeilutbetalingAp => {
+  const feilutbetalingFakta = values.perioder.map(periode => {
+    const feilutbetalingÅrsak = årsaker.find(el => el.hendelseType === periode.årsak);
+    const feilutbetalingUnderÅrsak = feilutbetalingÅrsak?.hendelseUndertyper
+      ? feilutbetalingÅrsak.hendelseUndertyper
+          // @ts-ignore Fiks
+          .find(el => el === periode[periode.årsak]?.underÅrsak)
+      : undefined;
 
     return {
       fom: periode.fom,
       tom: periode.tom,
       årsak: {
-        hendelseType: feilutbetalingÅrsak.hendelseType,
+        hendelseType: feilutbetalingÅrsak?.hendelseType,
         hendelseUndertype: feilutbetalingUnderÅrsak,
       },
     };
@@ -115,9 +121,9 @@ interface OwnProps {
   readOnly: boolean;
   alleKodeverk: AlleKodeverkTilbakekreving;
   fpsakKodeverk: AlleKodeverk;
-  alleMerknaderFraBeslutter: { [key: string] : { notAccepted?: boolean }};
-  formData?: FormValues,
-  setFormData: (data: FormValues) => void,
+  alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
+  formData?: FormValues;
+  setFormData: (data: FormValues) => void;
 }
 
 const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
@@ -176,10 +182,9 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                       <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
                     </Undertekst>
                     <Normaltekst className={styles.smallPaddingRight}>
-                      {`${moment(feilutbetaling.totalPeriodeFom)
-                        .format(DDMMYYYY_DATE_FORMAT)} - ${
-                        moment(feilutbetaling.totalPeriodeTom)
-                          .format(DDMMYYYY_DATE_FORMAT)}`}
+                      {`${moment(feilutbetaling.totalPeriodeFom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
+                        feilutbetaling.totalPeriodeTom,
+                      ).format(DDMMYYYY_DATE_FORMAT)}`}
                     </Normaltekst>
                   </Column>
                 </Row>
@@ -190,9 +195,7 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                     <Undertekst className={styles.undertekstMarginBottom}>
                       <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
                     </Undertekst>
-                    <Normaltekst className={styles.redText}>
-                      {feilutbetaling.aktuellFeilUtbetaltBeløp}
-                    </Normaltekst>
+                    <Normaltekst className={styles.redText}>{feilutbetaling.aktuellFeilUtbetaltBeløp}</Normaltekst>
                   </Column>
                 </Row>
               </Column>
@@ -203,8 +206,11 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                       <FormattedMessage id="FeilutbetalingInfoPanel.TidligereVarseltBeløp" />
                     </Undertekst>
                     <Normaltekst className={styles.smallPaddingRight}>
-                      {feilutbetaling.tidligereVarseltBeløp
-                        ? feilutbetaling.tidligereVarseltBeløp : <FormattedMessage id="FeilutbetalingInfoPanel.IkkeVarslet" />}
+                      {feilutbetaling.tidligereVarseltBeløp ? (
+                        feilutbetaling.tidligereVarseltBeløp
+                      ) : (
+                        <FormattedMessage id="FeilutbetalingInfoPanel.IkkeVarslet" />
+                      )}
                     </Normaltekst>
                   </Column>
                 </Row>
@@ -222,7 +228,9 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
             <Row className={styles.smallMarginTop}>
               <Column xs="11">
                 <FaktaGruppe
-                  merknaderFraBeslutter={alleMerknaderFraBeslutter[FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING]}
+                  merknaderFraBeslutter={
+                    alleMerknaderFraBeslutter[FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING]
+                  }
                   withoutBorder
                 >
                   <FeilutbetalingPerioderFieldArray
@@ -249,9 +257,11 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                 <Undertekst className={styles.undertekstMarginBottom}>
                   <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
                 </Undertekst>
-                { feilutbetaling.behandlingÅrsaker && (
+                {feilutbetaling.behandlingÅrsaker && (
                   <Normaltekst className={styles.smallPaddingRight}>
-                    {feilutbetaling.behandlingÅrsaker.map((ba) => getFpsakKodeverknavn(ba.behandlingArsakType, KodeverkType.BEHANDLING_AARSAK)).join(', ')}
+                    {feilutbetaling.behandlingÅrsaker
+                      .map(ba => getFpsakKodeverknavn(ba.behandlingArsakType, KodeverkType.BEHANDLING_AARSAK))
+                      .join(', ')}
                   </Normaltekst>
                 )}
               </Column>
@@ -261,8 +271,7 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                     <FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />
                   </Undertekst>
                   <Normaltekst className={styles.smallPaddingRight}>
-                    {moment(feilutbetaling.datoForRevurderingsvedtak)
-                      .format(DDMMYYYY_DATE_FORMAT)}
+                    {moment(feilutbetaling.datoForRevurderingsvedtak).format(DDMMYYYY_DATE_FORMAT)}
                   </Normaltekst>
                 </Column>
               )}
@@ -285,7 +294,8 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                 {feilutbetaling.behandlingsresultat && (
                   <Normaltekst className={styles.smallPaddingRight}>
                     {feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
-                      .map((ba) => getFpsakKodeverknavn(ba, KodeverkType.KONSEKVENS_FOR_YTELSEN)).join(', ')}
+                      .map(ba => getFpsakKodeverknavn(ba, KodeverkType.KONSEKVENS_FOR_YTELSEN))
+                      .join(', ')}
                   </Normaltekst>
                 )}
               </Column>
@@ -297,7 +307,10 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                 </Undertekst>
                 {feilutbetaling.tilbakekrevingValg && (
                   <Normaltekst className={styles.smallPaddingRight}>
-                    {getKodeverknavn(feilutbetaling.tilbakekrevingValg.videreBehandling, KodeverkType.TILBAKEKR_VIDERE_BEH)}
+                    {getKodeverknavn(
+                      feilutbetaling.tilbakekrevingValg.videreBehandling,
+                      KodeverkType.TILBAKEKR_VIDERE_BEH,
+                    )}
                   </Normaltekst>
                 )}
               </Column>

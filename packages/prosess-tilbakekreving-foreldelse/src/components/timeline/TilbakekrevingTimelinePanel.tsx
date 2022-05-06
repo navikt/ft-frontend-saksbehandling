@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from 'react';
+import React, { Component, MouseEvent, KeyboardEvent } from 'react';
 import { IntlShape } from 'react-intl';
 
 import TilbakekrevingTimeline from './TilbakekrevingTimeline';
@@ -8,7 +8,7 @@ interface PureOwnProps {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   setPeriode: (periode: TidslinjePeriode) => void;
-  toggleDetaljevindu: (event: MouseEvent) => void
+  toggleDetaljevindu: (event: MouseEvent | KeyboardEvent) => void;
   kjonn: string;
   hjelpetekstKomponent: React.ReactNode;
   intl: IntlShape;
@@ -22,18 +22,14 @@ class TilbakekrevingTimelinePanel extends Component<PureOwnProps, StateProps> {
   constructor(props: PureOwnProps) {
     super(props);
     this.state = {
-      valgtPeriode: null,
+      valgtPeriode: undefined,
     };
   }
 
   // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps: PureOwnProps): void {
-    const {
-      valgtPeriode: vPeriode,
-    } = nextProps;
-    const {
-      valgtPeriode,
-    } = this.state;
+    const { valgtPeriode: vPeriode } = nextProps;
+    const { valgtPeriode } = this.state;
 
     if (vPeriode !== valgtPeriode) {
       this.setState((state: StateProps) => ({
@@ -54,16 +50,8 @@ class TilbakekrevingTimelinePanel extends Component<PureOwnProps, StateProps> {
   };
 
   render() {
-    const {
-      perioder,
-      toggleDetaljevindu,
-      hjelpetekstKomponent,
-      kjonn,
-      intl,
-    } = this.props;
-    const {
-      valgtPeriode,
-    } = this.state;
+    const { perioder, toggleDetaljevindu, hjelpetekstKomponent, kjonn, intl } = this.props;
+    const { valgtPeriode } = this.state;
 
     return (
       <TilbakekrevingTimeline

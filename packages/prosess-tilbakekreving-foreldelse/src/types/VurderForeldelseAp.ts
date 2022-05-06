@@ -5,8 +5,8 @@ type VurderForeldelseAp = {
   foreldelsePerioder: {
     fraDato: string;
     tilDato: string;
-    foreldelseVurderingType: string;
-    begrunnelse: string;
+    foreldelseVurderingType?: string;
+    begrunnelse?: string;
   }[];
 } & AksjonspunktTilBekreftelse<ForeldelseAksjonspunktCodes.VURDER_FORELDELSE>;
 

@@ -1,6 +1,6 @@
 type FeilutbetalingAarsak = {
   hendelseTyper: {
-    hendelseType?: string;
+    hendelseType: string;
     hendelseUndertyper?: string[];
   }[];
   ytelseType: string;

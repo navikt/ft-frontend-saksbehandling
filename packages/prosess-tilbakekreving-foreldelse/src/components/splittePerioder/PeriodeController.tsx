@@ -19,17 +19,17 @@ export type PeriodeMedBelop = {
   fom: string;
   tom: string;
   begrunnelse: string;
-}
+};
 
 export type PeriodeMedFeilutbetaling = {
   fom: string;
   tom: string;
   feilutbetaling: number;
-}
+};
 
 interface PureOwnProps {
   behandlingUuid: string;
-  beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[]}) => Promise<any>;
+  beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
   oppdaterSplittedePerioder: (data: PeriodeMedFeilutbetaling[]) => void;
   callbackForward: (event: React.KeyboardEvent | React.MouseEvent) => void;
   callbackBackward: (event: React.KeyboardEvent | React.MouseEvent) => void;
@@ -44,7 +44,7 @@ interface StateProps {
 }
 
 export class PeriodeController extends Component<PureOwnProps, StateProps> {
-  constructor(props) {
+  constructor(props: PureOwnProps) {
     super(props);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -102,9 +102,9 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
       perioder: [forstePeriode, andrePeriode],
     };
 
-    callBeregnBelop(params).then((response) => {
+    callBeregnBelop(params).then((response: { perioder: { belop: number }[] }) => {
       const { perioder } = response;
-      const harPeriodeMedBelop0 = perioder.some((p) => p.belop === 0);
+      const harPeriodeMedBelop0 = perioder.some(p => p.belop === 0);
       if (harPeriodeMedBelop0) {
         this.setState((state: StateProps) => ({
           ...state,
@@ -128,13 +128,7 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
   }
 
   render() {
-    const {
-      intl,
-      callbackForward,
-      callbackBackward,
-      periode,
-      readOnly,
-    } = this.props;
+    const { intl, callbackForward, callbackBackward, periode, readOnly } = this.props;
 
     const { showDelPeriodeModal, finnesBelopMed0Verdi } = this.state;
 
@@ -156,7 +150,7 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
                 srcHover={splitPeriodImageHoverUrl}
                 alt={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
                 onMouseDown={this.showModal}
-                onKeyDown={(e) => (e.key === 'Enter' ? this.showModal(e) : null)}
+                onKeyDown={e => (e.key === 'Enter' ? this.showModal(e) : null)}
               />
               <FormattedMessage id="PeriodeController.DelOppPerioden" />
             </span>
@@ -173,8 +167,16 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
         </Column>
         <Column xs="2">
           <FloatRight>
-            <TimeLineButton text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })} type="prev" callback={callbackBackward} />
-            <TimeLineButton text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })} type="next" callback={callbackForward} />
+            <TimeLineButton
+              text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })}
+              type="prev"
+              callback={callbackBackward}
+            />
+            <TimeLineButton
+              text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })}
+              type="next"
+              callback={callbackForward}
+            />
           </FloatRight>
         </Column>
       </Row>

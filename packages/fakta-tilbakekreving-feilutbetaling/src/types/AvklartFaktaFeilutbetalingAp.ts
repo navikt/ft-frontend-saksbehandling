@@ -7,9 +7,9 @@ type AvklartFaktaFeilutbetalingAp = {
     fom: string;
     tom: string;
     årsak: {
-      hendelseType: string;
-      hendelseUndertype: string;
-    }
+      hendelseType?: string;
+      hendelseUndertype?: string;
+    };
   }[];
 } & AksjonspunktTilBekreftelse<FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING>;
 

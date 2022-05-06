@@ -2,8 +2,9 @@ import { FeilutbetalingPeriode } from '@navikt/ft-types';
 
 type ForeldelsesresultatActivity = Readonly<{
   feilutbetaling: number;
-  foreldet: string;
+  foreldet?: string;
   erSplittet?: boolean;
-}> & FeilutbetalingPeriode;
+}> &
+  FeilutbetalingPeriode;
 
 export default ForeldelsesresultatActivity;

@@ -12,7 +12,7 @@ import underavsnittType from '../../kodeverk/avsnittType';
 
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.less';
 
-export type FormValues = Record<string, Record<string, string> | string>
+export type FormValues = Record<string, Record<string, string> | string>;
 
 interface OwnProps {
   intl: IntlShape;
@@ -24,7 +24,7 @@ interface OwnProps {
 }
 
 interface StaticFunctions {
-  buildInitialValues?: (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]) => FormValues,
+  buildInitialValues: (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]) => FormValues;
 }
 
 export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
@@ -41,39 +41,41 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
       <FormattedMessage id="TilbakekrevingVedtak.Vedtaksbrev" />
     </Undertittel>
     <VerticalSpacer eightPx />
-    {vedtaksbrevAvsnitt.map((avsnitt) => {
+    {vedtaksbrevAvsnitt.map(avsnitt => {
       const underavsnitter = avsnitt.underavsnittsliste;
       const periode = `${avsnitt.fom}_${avsnitt.tom}`;
-      const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some((p) => p === periode);
-      const visApen = avsnitt.avsnittstype === underavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
+      const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some(p => p === periode);
+      const visApen =
+        avsnitt.avsnittstype === underavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
           <Ekspanderbartpanel
             className={harPeriodeSomManglerObligatoriskVerdi || visApen ? styles.panelMedGulmarkering : styles.panel}
-            tittel={avsnitt.overskrift
-              ? avsnitt.overskrift : intl.formatMessage({ id: 'TilbakekrevingEditerVedtaksbrevPanel.LovhjemlerOgKlagerettOverskrift' })}
+            tittel={
+              avsnitt.overskrift
+                ? avsnitt.overskrift
+                : intl.formatMessage({ id: 'TilbakekrevingEditerVedtaksbrevPanel.LovhjemlerOgKlagerettOverskrift' })
+            }
             apen={harPeriodeSomManglerObligatoriskVerdi || visApen}
           >
-            {underavsnitter.map((underavsnitt) => (
-              <React.Fragment key={underavsnitt.underavsnittstype + underavsnitt.overskrift + underavsnitt.brødtekst}>
-                {underavsnitt.overskrift && (
-                  <Element>
-                    {underavsnitt.overskrift}
-                  </Element>
-                )}
-                {underavsnitt.brødtekst && (
-                  <Normaltekst>
-                    {underavsnitt.brødtekst}
-                  </Normaltekst>
-                )}
+            {underavsnitter.map(underavsnitt => (
+              <React.Fragment
+                key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
+              >
+                {underavsnitt.overskrift && <Element>{underavsnitt.overskrift}</Element>}
+                {underavsnitt.brødtekst && <Normaltekst>{underavsnitt.brødtekst}</Normaltekst>}
                 {underavsnitt.fritekstTillatt && (
                   <>
                     <VerticalSpacer eightPx />
                     <TilbakekrevingVedtakUtdypendeTekstPanel
-                      type={underavsnitt.underavsnittstype ? `${periode}.${underavsnitt.underavsnittstype}` : avsnitt.avsnittstype}
+                      type={
+                        underavsnitt.underavsnittstype
+                          ? `${periode}.${underavsnitt.underavsnittstype}`
+                          : avsnitt.avsnittstype
+                      }
                       readOnly={readOnly}
                       fritekstPakrevet={underavsnitt.fritekstPåkrevet}
-                      maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : null}
+                      maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
                     />
                   </>
                 )}
@@ -88,23 +90,28 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
   </div>
 );
 
-TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]): FormValues => vedtaksbrevAvsnitt
-  .filter((avsnitt) => avsnitt.underavsnittsliste.some((underavsnitt) => underavsnitt.fritekst))
-  .reduce((acc, avsnitt) => {
-    const underavsnitter = avsnitt.underavsnittsliste;
-    const friteksterForUnderavsnitt = underavsnitter
-      .filter((underavsnitt) => underavsnitt.fritekst)
-      .reduce((underAcc, underavsnitt) => ({
-        ...underAcc,
-        [underavsnitt.underavsnittstype ? underavsnitt.underavsnittstype
-          : avsnitt.avsnittstype]: decodeHtmlEntity(underavsnitt.fritekst),
-      }), {});
+TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]): FormValues =>
+  vedtaksbrevAvsnitt
+    .filter(avsnitt => avsnitt.underavsnittsliste.some(underavsnitt => underavsnitt.fritekst))
+    .reduce((acc, avsnitt) => {
+      const underavsnitter = avsnitt.underavsnittsliste;
+      const friteksterForUnderavsnitt = underavsnitter
+        .filter(underavsnitt => underavsnitt.fritekst)
+        .reduce(
+          (underAcc, underavsnitt) => ({
+            ...underAcc,
+            [underavsnitt.underavsnittstype ? underavsnitt.underavsnittstype : avsnitt.avsnittstype]: decodeHtmlEntity(
+              underavsnitt.fritekst,
+            ),
+          }),
+          {},
+        );
 
-    const nyeFritekster = avsnitt.fom
-      ? { [`${avsnitt.fom}_${avsnitt.tom}`]: friteksterForUnderavsnitt }
-      : friteksterForUnderavsnitt;
+      const nyeFritekster = avsnitt.fom
+        ? { [`${avsnitt.fom}_${avsnitt.tom}`]: friteksterForUnderavsnitt }
+        : friteksterForUnderavsnitt;
 
-    return { ...acc, ...nyeFritekster };
-  }, {});
+      return { ...acc, ...nyeFritekster };
+    }, {});
 
 export default TilbakekrevingEditerVedtaksbrevPanel;

@@ -3,9 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 
-import {
-  Image, FlexContainer, FlexColumn, FlexRow, VerticalSpacer,
-} from '@navikt/ft-ui-komponenter';
+import { Image, FlexContainer, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Form } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
@@ -30,15 +28,13 @@ type VedtakData = {
     saerligeGrunnerAvsnitt: string;
     saerligeGrunnerAnnetAvsnitt: string;
   }[];
-}
+};
 
-const formatVedtakData = (
-  values: FormValues,
-): VedtakData => {
+const formatVedtakData = (values: FormValues): VedtakData => {
   const perioder = omit(values, underavsnittType.OPPSUMMERING);
   return {
     oppsummeringstekst: values[underavsnittType.OPPSUMMERING] as string,
-    perioderMedTekst: Object.keys(perioder).map((key) => ({
+    perioderMedTekst: Object.keys(perioder).map(key => ({
       fom: key.split('_')[0],
       tom: key.split('_')[1],
       faktaAvsnitt: perioder[key][underavsnittType.FAKTA],
@@ -53,10 +49,13 @@ const formatVedtakData = (
 const harFritekstOppsummeringPakrevdMenIkkeUtfylt = (
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[],
   formVerdier: FormValues,
-): boolean => vedtaksbrevAvsnitt
-  .some((avsnitt) => avsnitt.avsnittstype === underavsnittType.OPPSUMMERING
-  && avsnitt.underavsnittsliste.some((ua) => ua.fritekstPåkrevet)
-  && !formVerdier[underavsnittType.OPPSUMMERING]);
+): boolean =>
+  vedtaksbrevAvsnitt.some(
+    avsnitt =>
+      avsnitt.avsnittstype === underavsnittType.OPPSUMMERING &&
+      avsnitt.underavsnittsliste.some(ua => ua.fritekstPåkrevet) &&
+      !formVerdier[underavsnittType.OPPSUMMERING],
+  );
 
 const transformValues = (values: FormValues): ForeslaVedtakTilbakekrevingAp => ({
   kode: VedtakAksjonspunktCode.FORESLA_VEDTAK,
@@ -66,38 +65,43 @@ const transformValues = (values: FormValues): ForeslaVedtakTilbakekrevingAp => (
 const finnPerioderSomIkkeHarVerdiForObligatoriskFelt = (
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[],
   formVerdier: FormValues,
-): string[] => vedtaksbrevAvsnitt.reduce((acc: string[], va) => {
-  const periode = `${va.fom}_${va.tom}`;
-  const friteksterForPeriode = formVerdier[periode];
+): string[] =>
+  vedtaksbrevAvsnitt.reduce((acc: string[], va) => {
+    const periode = `${va.fom}_${va.tom}`;
+    const friteksterForPeriode = formVerdier[periode] as Record<string, string>;
 
-  const harObligatoriskFaktaTekst = va.underavsnittsliste.some((ua) => ua.fritekstPåkrevet && ua.underavsnittstype === underavsnittType.FAKTA);
-  if (harObligatoriskFaktaTekst && (!friteksterForPeriode || !friteksterForPeriode[underavsnittType.FAKTA])) {
-    return acc.concat(periode);
-  }
+    const harObligatoriskFaktaTekst = va.underavsnittsliste.some(
+      ua => ua.fritekstPåkrevet && ua.underavsnittstype === underavsnittType.FAKTA,
+    );
+    if (harObligatoriskFaktaTekst && (!friteksterForPeriode || !friteksterForPeriode[underavsnittType.FAKTA])) {
+      return acc.concat(periode);
+    }
 
-  const harObligatoriskSarligeGrunnerAnnetTekst = va.underavsnittsliste
-    .some((ua) => ua.fritekstPåkrevet && ua.underavsnittstype === underavsnittType.SARLIGEGRUNNER_ANNET);
-  if (harObligatoriskSarligeGrunnerAnnetTekst && (!friteksterForPeriode || !friteksterForPeriode[underavsnittType.SARLIGEGRUNNER_ANNET])) {
-    return acc.concat(periode);
-  }
-  return acc;
-}, []);
+    const harObligatoriskSarligeGrunnerAnnetTekst = va.underavsnittsliste.some(
+      ua => ua.fritekstPåkrevet && ua.underavsnittstype === underavsnittType.SARLIGEGRUNNER_ANNET,
+    );
+    if (
+      harObligatoriskSarligeGrunnerAnnetTekst &&
+      (!friteksterForPeriode || !friteksterForPeriode[underavsnittType.SARLIGEGRUNNER_ANNET])
+    ) {
+      return acc.concat(periode);
+    }
+    return acc;
+  }, []);
 
 export type ForhandsvisData = {
   uuid: string;
 } & VedtakData;
 
-const fetchPreview = (
-  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<any>,
-  uuid: string,
-  formVerdier: FormValues,
-) => (e: React.KeyboardEvent | React.MouseEvent): void => {
-  fetchPreviewVedtaksbrev({
-    uuid,
-    ...formatVedtakData(formVerdier),
-  });
-  e.preventDefault();
-};
+const fetchPreview =
+  (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<any>, uuid: string, formVerdier: FormValues) =>
+  (e: React.KeyboardEvent | React.MouseEvent): void => {
+    fetchPreviewVedtaksbrev({
+      uuid,
+      ...formatVedtakData(formVerdier),
+    });
+    e.preventDefault();
+  };
 
 interface OwnProps {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
@@ -124,8 +128,10 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
 }) => {
   const vedtaksbrevAvsnitt = avsnittsliste;
 
-  const defaultValues = useMemo(() => formData || TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues(vedtaksbrevAvsnitt),
-    [formData, vedtaksbrevAvsnitt]);
+  const defaultValues = useMemo(
+    () => formData || TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues(vedtaksbrevAvsnitt),
+    [formData, vedtaksbrevAvsnitt],
+  );
 
   const intl = useIntl();
   const formMethods = useForm<FormValues>({
@@ -134,10 +140,17 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
 
   const formVerdier = formMethods.watch();
 
-  const fritekstOppsummeringPakrevdMenIkkeUtfylt = harFritekstOppsummeringPakrevdMenIkkeUtfylt(vedtaksbrevAvsnitt, formVerdier);
-  const perioderSomIkkeHarUtfyltObligatoriskVerdi = finnPerioderSomIkkeHarVerdiForObligatoriskFelt(vedtaksbrevAvsnitt, formVerdier);
+  const fritekstOppsummeringPakrevdMenIkkeUtfylt = harFritekstOppsummeringPakrevdMenIkkeUtfylt(
+    vedtaksbrevAvsnitt,
+    formVerdier,
+  );
+  const perioderSomIkkeHarUtfyltObligatoriskVerdi = finnPerioderSomIkkeHarVerdiForObligatoriskFelt(
+    vedtaksbrevAvsnitt,
+    formVerdier,
+  );
 
-  const harObligatoriskeFelterSomIkkeErUtfylt = fritekstOppsummeringPakrevdMenIkkeUtfylt || perioderSomIkkeHarUtfyltObligatoriskVerdi.length > 0;
+  const harObligatoriskeFelterSomIkkeErUtfylt =
+    fritekstOppsummeringPakrevdMenIkkeUtfylt || perioderSomIkkeHarUtfyltObligatoriskVerdi.length > 0;
 
   return (
     <Form
@@ -161,7 +174,9 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
             <ProsessStegSubmitButton
               text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
               isReadOnly={readOnly}
-              isSubmittable={perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt}
+              isSubmittable={
+                perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
+              }
               isSubmitting={formMethods.formState.isSubmitting}
               isDirty={formMethods.formState.isDirty}
               hasEmptyRequiredFields={harObligatoriskeFelterSomIkkeErUtfylt}
@@ -170,11 +185,13 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
           {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
             <FlexColumn>
               <div className={styles.padding}>
-                { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a
                   href=""
                   onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
-                  onKeyDown={(e) => (e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null)}
+                  onKeyDown={e =>
+                    e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
+                  }
                   className={classNames(styles.buttonLink, 'lenke lenke--frittstaende')}
                 >
                   <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
