@@ -21,24 +21,15 @@ interface OwnProps {
 /**
  * @deprecated Bruk heller AksjonspunktHelpTextHTML!
  */
-const AksjonspunktHelpTextTemp: FunctionComponent<OwnProps> = ({
-  isAksjonspunktOpen,
-  children,
-}) => (
+const AksjonspunktHelpTextTemp: FunctionComponent<OwnProps> = ({ isAksjonspunktOpen, children }) => (
   <>
-    {isAksjonspunktOpen && (
-      <AksjonspunktHelpTextHTML>
-        {children}
-      </AksjonspunktHelpTextHTML>
-    )}
+    {isAksjonspunktOpen && <AksjonspunktHelpTextHTML>{children}</AksjonspunktHelpTextHTML>}
     {!isAksjonspunktOpen && (
       <>
-        {React.Children.map(children, (child) => (
+        {React.Children.map(children, child => (
           // @ts-ignore (Dette skal fjernast)
           <Normaltekst key={isObject(child) ? child.key : child} className={styles.wordwrap}>
-            <strong>
-              {intl.formatMessage({ id: 'HelpText.Aksjonspunkt.BehandletAksjonspunkt' })}
-            </strong>
+            <strong>{intl.formatMessage({ id: 'HelpText.Aksjonspunkt.BehandletAksjonspunkt' })}</strong>
             {child}
           </Normaltekst>
         ))}

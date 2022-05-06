@@ -7,13 +7,14 @@ export default {
 };
 
 export const visTooltipTilHøyre = () => (
-  <Tooltip content={(
-    <div>
-      <b>Dette er en tooltip</b>
-      <br />
-      ...
-    </div>
-)}
+  <Tooltip
+    content={
+      <div>
+        <b>Dette er en tooltip</b>
+        <br />
+        ...
+      </div>
+    }
   >
     Hold muspeker over denne teksten for å få opp tooltip
   </Tooltip>
@@ -22,13 +23,13 @@ export const visTooltipTilHøyre = () => (
 export const visTooltipTilVenstre = () => (
   <Tooltip
     alignLeft
-    content={(
+    content={
       <div>
         <b>Dette er en tooltip</b>
         <br />
         ...
       </div>
-)}
+    }
   >
     Hold muspeker over denne teksten for å få opp tooltip
   </Tooltip>
@@ -37,13 +38,13 @@ export const visTooltipTilVenstre = () => (
 export const visTooltipOver = () => (
   <Tooltip
     alignTop
-    content={(
+    content={
       <div>
         <b>Dette er en tooltip</b>
         <br />
         ...
       </div>
-)}
+    }
   >
     Hold muspeker over denne teksten for å få opp tooltip
   </Tooltip>
@@ -52,13 +53,13 @@ export const visTooltipOver = () => (
 export const visTooltipUnder = () => (
   <Tooltip
     alignBottom
-    content={(
+    content={
       <div>
         <b>Dette er en tooltip</b>
         <br />
         ...
       </div>
-)}
+    }
   >
     Hold muspeker over denne teksten for å få opp tooltip
   </Tooltip>

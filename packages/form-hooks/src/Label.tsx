@@ -1,6 +1,4 @@
-import React, {
-  ReactElement, ElementType, FunctionComponent,
-} from 'react';
+import React, { ReactElement, ElementType, FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 import { Undertekst } from 'nav-frontend-typografi';
 
@@ -16,19 +14,17 @@ interface OwnProps {
   readOnly?: boolean;
 }
 
-const Label: FunctionComponent<OwnProps> = ({
-  input,
-  readOnly = false,
-  typographyElement: TypoElem = Undertekst,
-}) => {
+const Label: FunctionComponent<OwnProps> = ({ input, readOnly = false, typographyElement: TypoElem = Undertekst }) => {
   if (!input) {
     return null;
   }
 
   return (
     <span className={classNames('labelWrapper', { readOnly })}>
-      { /* @ts-ignore */ }
-      <TypoElem tag="span" className={styles.label}>{input}</TypoElem>
+      {/* @ts-ignore */}
+      <TypoElem tag="span" className={styles.label}>
+        {input}
+      </TypoElem>
     </span>
   );
 };

@@ -22,13 +22,16 @@ import { InntektTransformed } from '../../../../typer/FieldValues';
 export const lonnsendringField = 'lonnsendringField';
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
   buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => LønnsendringValues;
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues, faktaOmBeregning: FaktaOmBeregning) => FaktaBeregningTransformedValues;
+  transformValues: (
+    values: FaktaOmBeregningAksjonspunktValues,
+    faktaOmBeregning: FaktaOmBeregning,
+  ) => FaktaBeregningTransformedValues;
 }
 
 const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
@@ -37,12 +40,7 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readO
       <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring" />
     </Normaltekst>
     <VerticalSpacer eightPx />
-    <RadioGroupField
-      name={lonnsendringField}
-      validate={[required]}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
+    <RadioGroupField name={lonnsendringField} validate={[required]} readOnly={readOnly} isEdited={isAksjonspunktClosed}>
       <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
       <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
     </RadioGroupField>
@@ -50,8 +48,10 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readO
 );
 
 const buildInitialLonnsendring = (alleATAndeler: BeregningsgrunnlagAndel[]): boolean | undefined => {
-  const harSattLonnsendringTilTrue = alleATAndeler.find((andel) => andel.lonnsendringIBeregningsperioden === true) !== undefined;
-  const harSattLonnsendringTilFalse = alleATAndeler.find((andel) => andel.lonnsendringIBeregningsperioden === false) !== undefined;
+  const harSattLonnsendringTilTrue =
+    alleATAndeler.find(andel => andel.lonnsendringIBeregningsperioden === true) !== undefined;
+  const harSattLonnsendringTilFalse =
+    alleATAndeler.find(andel => andel.lonnsendringIBeregningsperioden === false) !== undefined;
   return harSattLonnsendringTilTrue || (harSattLonnsendringTilFalse ? false : undefined);
 };
 
@@ -64,7 +64,7 @@ LonnsendringForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): 
   if (!alleAndeler || alleAndeler.length < 1) {
     return initialValues;
   }
-  const alleATAndeler = alleAndeler.filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
+  const alleATAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
   if (!alleATAndeler || alleATAndeler.length < 1) {
     return initialValues;
   }
@@ -72,21 +72,26 @@ LonnsendringForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): 
   return initialValues;
 };
 
-export const harFieldLønnsendring = (field: InntektTransformed,
+export const harFieldLønnsendring = (
+  field: InntektTransformed,
   faktaOmBeregning: FaktaOmBeregning,
-  values: FaktaOmBeregningAksjonspunktValues): boolean => values[lonnsendringField] && faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM
-  .find((andel) => andel.andelsnr === field.andelsnr) !== undefined;
+  values: FaktaOmBeregningAksjonspunktValues,
+): boolean =>
+  values[lonnsendringField] &&
+  faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM.find(andel => andel.andelsnr === field.andelsnr) !== undefined;
 
-LonnsendringForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues,
-  faktaOmBeregning: FaktaOmBeregning): FaktaBeregningTransformedValues => {
+LonnsendringForm.transformValues = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  faktaOmBeregning: FaktaOmBeregning,
+): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
+  if (!tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
     return {};
   }
-  return ({
+  return {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
     vurdertLonnsendring: { erLønnsendringIBeregningsperioden: values[lonnsendringField] },
-  });
+  };
 };
 
 export default LonnsendringForm;

@@ -1,5 +1,5 @@
 import { composeStories } from '@storybook/testing-react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import * as stories from '../BeregningFaktaIndex.stories';
@@ -70,5 +70,4 @@ describe('<BeregningFaktaIndexSpec', () => {
   // TODO : Skriv test for ikke overstyrer + ingen aksjonspunkt => ikke vises
   // TODO : Skriv test for ikke overstyrer + overstyringsaksjonspunkt => vises, men readonly
   // TODO : Skriv test for AAP, ingen EditedIcon for AAP-rad når aksjonspunkt er uført
-
 });

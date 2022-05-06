@@ -3,16 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst, Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import {
-  BeregningsgrunnlagAndel,
-  BeregningsgrunnlagPeriodeProp,
-  Månedsgrunnlag,
-} from '@navikt/ft-types';
+import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import {
-  VerticalSpacer,
-  Table, TableColumn, TableRow,
-} from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 
 interface OwnProps {
   periode: BeregningsgrunnlagPeriodeProp;
@@ -21,29 +14,31 @@ interface OwnProps {
 
 const erBeløpSatt = (beløp: number): boolean => !!beløp || beløp === 0;
 
-const finnGjeldendeBeløp = (andel: BeregningsgrunnlagAndel): number => (erBeløpSatt(andel.overstyrtPrAar) ? andel.overstyrtPrAar : andel.beregnetPrAar);
+const finnGjeldendeBeløp = (andel: BeregningsgrunnlagAndel): number =>
+  erBeløpSatt(andel.overstyrtPrAar) ? andel.overstyrtPrAar : andel.beregnetPrAar;
 
-const finnKap8Beregning = (periode: BeregningsgrunnlagPeriodeProp): number => periode.beregningsgrunnlagPrStatusOgAndel
-  .map((andel) => finnGjeldendeBeløp(andel)).reduce((i1, i2) => i1 + i2, 0);
+const finnKap8Beregning = (periode: BeregningsgrunnlagPeriodeProp): number =>
+  periode.beregningsgrunnlagPrStatusOgAndel.map(andel => finnGjeldendeBeløp(andel)).reduce((i1, i2) => i1 + i2, 0);
 
-const finnBesteberegnet = (besteMåneder : Månedsgrunnlag[]): number => (
-  besteMåneder.flatMap((måned) => måned.inntekter).map(({ inntekt }) => inntekt).reduce((i1, i2) => i1 + i2, 0) * 2
-);
+const finnBesteberegnet = (besteMåneder: Månedsgrunnlag[]): number =>
+  besteMåneder
+    .flatMap(måned => måned.inntekter)
+    .map(({ inntekt }) => inntekt)
+    .reduce((i1, i2) => i1 + i2, 0) * 2;
 
-const girKap8Besteberegning = (kap8Beregning: number, kap1473Beregning: number): boolean => (kap8Beregning > kap1473Beregning);
+const girKap8Besteberegning = (kap8Beregning: number, kap1473Beregning: number): boolean =>
+  kap8Beregning > kap1473Beregning;
 
 const headerColumnContent = [
   // For å lage tom kolonne først
   <div key="TomKolNøkkel" />,
   <Element key="Kap8Nøkkel">
     {' '}
-    <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterKap8" />
-    {' '}
+    <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterKap8" />{' '}
   </Element>,
   <Element key="BBNøkkel">
     {' '}
-    <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning" />
-    {' '}
+    <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning" />{' '}
   </Element>,
 ];
 
@@ -52,10 +47,7 @@ const headerColumnContent = [
  *
  * Presentasjonskomponent. Viser sammenligning av kap 8 beregning og §14-7, ledd 3 beregning.
  */
-const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({
-  periode,
-  besteMåneder,
-}) => {
+const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ periode, besteMåneder }) => {
   if (!besteMåneder || besteMåneder.length < 1) {
     return null;
   }
@@ -79,14 +71,10 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({
                 </Normaltekst>
               </TableColumn>
               <TableColumn>
-                <Normaltekst>
-                  {formatCurrencyNoKr(kap8Beregning)}
-                </Normaltekst>
+                <Normaltekst>{formatCurrencyNoKr(kap8Beregning)}</Normaltekst>
               </TableColumn>
               <TableColumn>
-                <Normaltekst>
-                  {formatCurrencyNoKr(besteberegnet)}
-                </Normaltekst>
+                <Normaltekst>{formatCurrencyNoKr(besteberegnet)}</Normaltekst>
               </TableColumn>
             </TableRow>
           </Table>

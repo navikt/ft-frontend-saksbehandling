@@ -2,16 +2,16 @@ import React from 'react';
 import styles from './infostripe.less';
 
 interface BaseInfostripeProps {
-    iconRenderer: () => React.ReactNode;
+  iconRenderer: () => React.ReactNode;
 }
 
 interface ElementInfostripeProps extends BaseInfostripeProps {
-    element: JSX.Element;
-    text?: never;
+  element: JSX.Element;
+  text?: never;
 }
 interface TextInfostripeProps extends BaseInfostripeProps {
-    text: string;
-    element?: never;
+  text: string;
+  element?: never;
 }
 type InfostripeProps = ElementInfostripeProps | TextInfostripeProps;
 const Infostripe = ({ text, iconRenderer, element }: InfostripeProps) => (

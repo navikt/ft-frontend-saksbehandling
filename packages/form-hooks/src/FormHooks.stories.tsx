@@ -3,7 +3,13 @@ import { useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate } from '@navikt/ft-utils';
 import {
-  RadioOption, TextAreaField, SelectField, RadioGroupField, CheckboxField, InputField, Datepicker,
+  RadioOption,
+  TextAreaField,
+  SelectField,
+  RadioGroupField,
+  CheckboxField,
+  InputField,
+  Datepicker,
 } from '../index';
 import Form from './Form';
 
@@ -19,20 +25,11 @@ export const visFormkomponenter = () => {
   const formMethods = useForm();
   return (
     <Form formMethods={formMethods}>
-      <InputField
-        label="InputField"
-        name="testinput"
-      />
+      <InputField label="InputField" name="testinput" />
       <VerticalSpacer sixteenPx />
-      <CheckboxField
-        label="CheckboxField"
-        name="testcheckbox"
-      />
+      <CheckboxField label="CheckboxField" name="testcheckbox" />
       <VerticalSpacer sixteenPx />
-      <RadioGroupField
-        label="RadioGroupField"
-        name="testRadioField"
-      >
+      <RadioGroupField label="RadioGroupField" name="testRadioField">
         <RadioOption label="Dette er en test 1" value="test1" />
         <RadioOption label="Dette er en test 2" value="test2" />
       </RadioGroupField>
@@ -47,10 +44,7 @@ export const visFormkomponenter = () => {
         ]}
       />
       <VerticalSpacer sixteenPx />
-      <TextAreaField
-        label="TextAreaField"
-        name="testTextAreaField"
-      />
+      <TextAreaField label="TextAreaField" name="testTextAreaField" />
       <VerticalSpacer sixteenPx />
       <Datepicker
         label=""

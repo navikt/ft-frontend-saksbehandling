@@ -37,10 +37,10 @@ class CustomNavSelect extends Component<OwnProps> {
   }
 
   getOptionValues(): any {
-    const { props: { selectValues } } = this;
-    return selectValues
-      .map((option) => option.props)
-      .map((props = {}) => props.value);
+    const {
+      props: { selectValues },
+    } = this;
+    return selectValues.map(option => option.props).map((props = {}) => props.value);
   }
 
   selectedValue(value: ReactNode): any {
@@ -50,7 +50,10 @@ class CustomNavSelect extends Component<OwnProps> {
   }
 
   checkCorrespondingOptionForValue(): void {
-    const { getOptionValues, props: { value } } = this;
+    const {
+      getOptionValues,
+      props: { value },
+    } = this;
     const n = value || '';
     // (aa) added "&& value !== ''" as to not spam other browsers
     if (!getOptionValues().includes(n) && n !== '') {
@@ -62,9 +65,7 @@ class CustomNavSelect extends Component<OwnProps> {
   render() {
     const {
       selectedValue,
-      props: {
-        placeholder, selectValues, value, hideValueOnDisable, disabled, label, ...otherProps
-      },
+      props: { placeholder, selectValues, value, hideValueOnDisable, disabled, label, ...otherProps },
     } = this;
     return (
       <NavSelect
@@ -73,7 +74,11 @@ class CustomNavSelect extends Component<OwnProps> {
         disabled={disabled}
         label={<Label input={label} readOnly={false} />}
       >
-        {placeholder && <option value="" disabled>{placeholder}</option>}
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {selectValues}
       </NavSelect>
     );

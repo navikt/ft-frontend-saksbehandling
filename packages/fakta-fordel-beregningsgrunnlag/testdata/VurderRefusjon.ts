@@ -67,4 +67,5 @@ export const aksjonspunkt = [
     aksjonspunktType: 'MANU',
     kanLoses: true,
     erAktivt: true,
-  }];
+  },
+];

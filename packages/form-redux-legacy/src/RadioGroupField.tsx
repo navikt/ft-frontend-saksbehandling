@@ -32,65 +32,70 @@ interface RadioGroupFieldProps {
 
 const classNames = classnames.bind(styles);
 
-const isChecked = (radioOption: React.ReactElement<RadioOptionProps>, actualValueStringified: string): boolean => radioOption.key === actualValueStringified;
+const isChecked = (radioOption: React.ReactElement<RadioOptionProps>, actualValueStringified: string): boolean =>
+  radioOption.key === actualValueStringified;
 
-const renderRadioGroupField = renderNavField(({
-  label,
-  columns,
-  name,
-  value,
-  onChange,
-  bredde,
-  readOnly,
-  isEdited,
-  feil,
-  children,
-  spaceBetween,
-  rows,
-  direction,
-  DOMName,
-  legend,
-}: BaseFieldProps & RadioGroupFieldProps & { feil?: string; value: any }) => {
-  const optionProps = {
+const renderRadioGroupField = renderNavField(
+  ({
+    label,
+    columns,
+    name,
+    value,
     onChange,
-    name: DOMName || name,
-    groupDisabled: readOnly,
-    className: classNames('radio'),
-    actualValue: value,
-  };
-  const actualValueStringified = JSON.stringify(value);
-  const showCheckedOnly = readOnly && value !== null && value !== undefined && value !== '';
-  const options = children
-    .filter((radioOption) => !!radioOption)
-    .map((radioOption) => React.cloneElement(radioOption as React.ReactElement<any>, { key: JSON.stringify(radioOption.props.value), ...optionProps }))
-    .filter((radioOption) => !showCheckedOnly || isChecked(radioOption, actualValueStringified));
+    bredde,
+    readOnly,
+    isEdited,
+    feil,
+    children,
+    spaceBetween,
+    rows,
+    direction,
+    DOMName,
+    legend,
+  }: BaseFieldProps & RadioGroupFieldProps & { feil?: string; value: any }) => {
+    const optionProps = {
+      onChange,
+      name: DOMName || name,
+      groupDisabled: readOnly,
+      className: classNames('radio'),
+      actualValue: value,
+    };
+    const actualValueStringified = JSON.stringify(value);
+    const showCheckedOnly = readOnly && value !== null && value !== undefined && value !== '';
+    const options = children
+      .filter(radioOption => !!radioOption)
+      .map(radioOption =>
+        React.cloneElement(radioOption as React.ReactElement<any>, {
+          key: JSON.stringify(radioOption.props.value),
+          ...optionProps,
+        }),
+      )
+      .filter(radioOption => !showCheckedOnly || isChecked(radioOption, actualValueStringified));
 
-  return (
-    <NavSkjemaGruppe
-      feil={readOnly ? undefined : feil}
-      className={classNames(`input--${bredde}`, 'radioGroup', { readOnly })}
-      legend={legend}
-    >
-      {/* @ts-ignore Fiks  */}
-      {label.props.input && <span className={classNames('radioGroupLabel', { readOnly })}>{label}</span>}
-      <OptionGrid
-        direction={direction}
-        isEdited={readOnly && isEdited}
-        // @ts-ignore Fiks
-        options={options}
-        spaceBetween={spaceBetween}
-        columns={showCheckedOnly ? 1 : columns}
-        rows={showCheckedOnly ? 1 : rows}
-      />
-    </NavSkjemaGruppe>
-  );
-});
+    return (
+      <NavSkjemaGruppe
+        feil={readOnly ? undefined : feil}
+        className={classNames(`input--${bredde}`, 'radioGroup', { readOnly })}
+        legend={legend}
+      >
+        {/* @ts-ignore Fiks  */}
+        {label.props.input && <span className={classNames('radioGroupLabel', { readOnly })}>{label}</span>}
+        <OptionGrid
+          direction={direction}
+          isEdited={readOnly && isEdited}
+          // @ts-ignore Fiks
+          options={options}
+          spaceBetween={spaceBetween}
+          columns={showCheckedOnly ? 1 : columns}
+          rows={showCheckedOnly ? 1 : rows}
+        />
+      </NavSkjemaGruppe>
+    );
+  },
+);
 
 export const RadioGroupField = (props: BaseFieldProps & RadioGroupFieldProps) => (
-  <Field
-    component={renderRadioGroupField}
-    {...props}
-  />
+  <Field component={renderRadioGroupField} {...props} />
 );
 
 RadioGroupField.defaultProps = {

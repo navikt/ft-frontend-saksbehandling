@@ -9,9 +9,5 @@ export default {
 };
 
 export const Default: Story = () => (
-  <WarningModal
-    bodyText="Dette er en advarsel"
-    showModal
-    submit={action('button-click')}
-  />
+  <WarningModal bodyText="Dette er en advarsel" showModal submit={action('button-click')} />
 );

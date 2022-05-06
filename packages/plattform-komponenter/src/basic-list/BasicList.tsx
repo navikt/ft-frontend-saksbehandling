@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './basicList.less';
 
 export interface BasicListProps {
-    elements: React.ReactNode[];
+  elements: React.ReactNode[];
 }
 
 const BasicList = ({ elements }: BasicListProps) => (

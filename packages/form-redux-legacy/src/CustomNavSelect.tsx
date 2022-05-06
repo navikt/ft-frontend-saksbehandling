@@ -33,21 +33,28 @@ class CustomNavSelect extends Component<WrappedFieldProps & CustomNavSelectProps
   }
 
   getOptionValues(): string[] {
-    const { props: { selectValues } } = this;
-    return selectValues
-      .map((option) => option.props)
-      // @ts-ignore
-      .map((props = {}) => props.value);
+    const {
+      props: { selectValues },
+    } = this;
+    return (
+      selectValues
+        .map(option => option.props)
+        // @ts-ignore
+        .map((props = {}) => props.value)
+    );
   }
 
   selectedValue(value: string): string {
-    const selectedValue = this.getOptionValues().find((optionValue) => optionValue === value);
+    const selectedValue = this.getOptionValues().find(optionValue => optionValue === value);
 
     return selectedValue || '';
   }
 
   checkCorrespondingOptionForValue(): void {
-    const { getOptionValues, props: { value } } = this;
+    const {
+      getOptionValues,
+      props: { value },
+    } = this;
     // (aa) added "&& value !== ''" as to not spam other browsers
     if (!getOptionValues().includes(value) && value !== '') {
       // eslint-disable-next-line no-console
@@ -58,17 +65,15 @@ class CustomNavSelect extends Component<WrappedFieldProps & CustomNavSelectProps
   render() {
     const {
       selectedValue,
-      props: {
-        placeholder, selectValues, value, hideValueOnDisable, disabled, ...otherProps
-      },
+      props: { placeholder, selectValues, value, hideValueOnDisable, disabled, ...otherProps },
     } = this;
     return (
-      <NavSelect
-        {...otherProps}
-        value={hideValueOnDisable && disabled ? '' : selectedValue(value)}
-        disabled={disabled}
-      >
-        {placeholder && <option value="" disabled>{placeholder}</option>}
+      <NavSelect {...otherProps} value={hideValueOnDisable && disabled ? '' : selectedValue(value)} disabled={disabled}>
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {selectValues}
       </NavSelect>
     );

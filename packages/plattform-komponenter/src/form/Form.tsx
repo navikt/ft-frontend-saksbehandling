@@ -4,13 +4,13 @@ import styles from './form.less';
 import Box, { Margin } from '../box/Box';
 
 export interface FormProps {
-    children: React.ReactNode;
-    buttonLabel?: string;
-    onSubmit: (e?: any) => void;
-    shouldShowSubmitButton?: boolean;
-    onAvbryt?: () => void;
-    submitButtonDisabled?: boolean;
-    cancelButtonDisabled?: boolean;
+  children: React.ReactNode;
+  buttonLabel?: string;
+  onSubmit: (e?: any) => void;
+  shouldShowSubmitButton?: boolean;
+  onAvbryt?: () => void;
+  submitButtonDisabled?: boolean;
+  cancelButtonDisabled?: boolean;
 }
 
 const Form = ({
@@ -25,24 +25,24 @@ const Form = ({
   <form onSubmit={onSubmit}>
     {children}
     {shouldShowSubmitButton !== false && (
-    <Box marginTop={Margin.xxLarge}>
-      <div className={styles.buttonContainer}>
-        <Hovedknapp
-          id="submitButton"
-          disabled={submitButtonDisabled === true}
-          spinner={submitButtonDisabled === true}
-        >
-          {buttonLabel}
-        </Hovedknapp>
-        {onAvbryt && (
-        <div className={styles.buttonContainer__avbryt}>
-          <Knapp htmlType="button" onClick={onAvbryt} disabled={cancelButtonDisabled === true}>
-            Avbryt
-          </Knapp>
+      <Box marginTop={Margin.xxLarge}>
+        <div className={styles.buttonContainer}>
+          <Hovedknapp
+            id="submitButton"
+            disabled={submitButtonDisabled === true}
+            spinner={submitButtonDisabled === true}
+          >
+            {buttonLabel}
+          </Hovedknapp>
+          {onAvbryt && (
+            <div className={styles.buttonContainer__avbryt}>
+              <Knapp htmlType="button" onClick={onAvbryt} disabled={cancelButtonDisabled === true}>
+                Avbryt
+              </Knapp>
+            </div>
+          )}
         </div>
-        )}
-      </div>
-    </Box>
+      </Box>
     )}
   </form>
 );

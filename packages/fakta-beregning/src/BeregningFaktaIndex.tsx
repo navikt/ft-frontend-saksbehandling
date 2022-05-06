@@ -1,26 +1,22 @@
-import React, { FunctionComponent, useState } from 'react';
-import { RawIntlProvider } from 'react-intl';
-
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import {
-  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar,
-} from '@navikt/ft-types';
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
+import { vilkarUtfallType } from '@navikt/ft-kodeverk';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar } from '@navikt/ft-types';
+import vilkarperiodeTsType from '@navikt/ft-types/src/vilkarperiodeTsType';
+import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { TabsPure } from 'nav-frontend-tabs';
-
-import vilkarperiodeTsType from '@navikt/ft-types/src/vilkarperiodeTsType';
-import { vilkarUtfallType } from '@navikt/ft-kodeverk';
-import BeregningFaktaAP, {
-  BeregningOverstyringAP, AvklarBeregningsaktiviteterAP,
-} from './typer/interface/BeregningFaktaAP';
-
-import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAktivitetAP';
-import BeregningInfoPanel from './components/BeregningInfoPanel';
-import SubmitBeregningType from './typer/SubmitBeregningTsType';
+import React, { FunctionComponent, useState } from 'react';
+import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.less';
+import BeregningInfoPanel from './components/BeregningInfoPanel';
+import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAktivitetAP';
+import BeregningFaktaAP, {
+  AvklarBeregningsaktiviteterAP,
+  BeregningOverstyringAP,
+} from './typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
+import SubmitBeregningType from './typer/SubmitBeregningTsType';
 
 const intl = createIntl(messages);
 
@@ -30,16 +26,23 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   setFormData: (data: any) => void;
   vilkar: Vilkar;
-  submitCallback: (aksjonspunktData: AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP
-    | BeregningFaktaAP | BeregningOverstyringAP | SubmitBeregningType[]) => Promise<void>;
+  submitCallback: (
+    aksjonspunktData:
+      | AvklarBeregningsaktiviteterAP
+      | OverstyrBeregningsaktiviteterAP
+      | BeregningFaktaAP
+      | BeregningOverstyringAP
+      | SubmitBeregningType[],
+  ) => Promise<void>;
 };
 
-type Aksjonspunkter = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP | BeregningFaktaAP | BeregningOverstyringAP;
+type Aksjonspunkter =
+  | AvklarBeregningsaktiviteterAP
+  | OverstyrBeregningsaktiviteterAP
+  | BeregningFaktaAP
+  | BeregningOverstyringAP;
 
-const {
-  VURDER_FAKTA_FOR_ATFL_SN,
-  AVKLAR_AKTIVITETER,
-} = FaktaBeregningAksjonspunktCode;
+const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
 const lagLabel = (bg, vilkårsperioder) => {
   const stpOpptjening = bg.faktaOmBeregning.avklarAktiviteter.skjæringstidspunkt;
@@ -54,18 +57,23 @@ const lagLabel = (bg, vilkårsperioder) => {
   return `${dayjs(stpOpptjening).format(DDMMYYYY_DATE_FORMAT)}`;
 };
 
-const harAvklaringsbehovIPanel = (avklaringsbehov) => {
+const harAvklaringsbehovIPanel = avklaringsbehov => {
   const harBehovForAvklaring = !!avklaringsbehov;
   if (harBehovForAvklaring) {
-    const harVurderFaktaAksjonspunkt = avklaringsbehov.some((ap) => ap.definisjon.kode === VURDER_FAKTA_FOR_ATFL_SN && ap.kanLoses !== false);
-    const harAvklarAktiviteterAP = avklaringsbehov.some((ap) => ap.definisjon.kode === AVKLAR_AKTIVITETER && ap.kanLoses !== false);
+    const harVurderFaktaAksjonspunkt = avklaringsbehov.some(
+      ap => ap.definisjon.kode === VURDER_FAKTA_FOR_ATFL_SN && ap.kanLoses !== false,
+    );
+    const harAvklarAktiviteterAP = avklaringsbehov.some(
+      ap => ap.definisjon.kode === AVKLAR_AKTIVITETER && ap.kanLoses !== false,
+    );
     return harVurderFaktaAksjonspunkt || harAvklarAktiviteterAP;
   }
   return false;
 };
 
-const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsType[]) => harAvklaringsbehovIPanel(bg.avklaringsbehov)
-  && vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning).vurderesIBehandlingen;
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsType[]) =>
+  harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
+  vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning).vurderesIBehandlingen;
 
 const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<Aksjonspunkter>> = ({
   beregningsgrunnlag,
@@ -99,16 +107,16 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
     <RawIntlProvider value={intl}>
       <ReduxWrapper formName="BeregningFaktaIndex" formData={formData} setFormData={setFormData}>
         {skalBrukeTabs && (
-        <div className={styles.tabsContainer}>
-          <TabsPure
-            tabs={beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
-              aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
-              label: lagLabel(currentBeregningsgrunnlag, vilkårsperioder),
-              className: skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : '',
-            }))}
-            onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
-          />
-        </div>
+          <div className={styles.tabsContainer}>
+            <TabsPure
+              tabs={beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
+                aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
+                label: lagLabel(currentBeregningsgrunnlag, vilkårsperioder),
+                className: skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : '',
+              }))}
+              onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
+            />
+          </div>
         )}
         <BeregningInfoPanel
           intl={intl}

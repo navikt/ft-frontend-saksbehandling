@@ -15,7 +15,9 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-const BeregningsgrunnlagProsessIndex: FunctionComponent<OwnProps & StandardProsessPanelProps<BeregningsgrunnlagResultatAP[]>> = ({
+const BeregningsgrunnlagProsessIndex: FunctionComponent<
+  OwnProps & StandardProsessPanelProps<BeregningsgrunnlagResultatAP[]>
+> = ({
   beregningsgrunnlag,
   aksjonspunkter,
   submitCallback,

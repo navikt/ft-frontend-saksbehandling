@@ -13,7 +13,7 @@ type VurderRefusjonTransformedValues = {
   fastsatteAndeler: VurderRefusjonAndelTransformedValues[];
 };
 
-type VurderRefusjonBeregningsgrunnlagAP = VurderRefusjonTransformedValues
-  & AksjonspunktTilBekreftelse<FaktaFordelBeregningAksjonspunktCode.VURDER_REFUSJON_BERGRUNN>;
+type VurderRefusjonBeregningsgrunnlagAP = VurderRefusjonTransformedValues &
+  AksjonspunktTilBekreftelse<FaktaFordelBeregningAksjonspunktCode.VURDER_REFUSJON_BERGRUNN>;
 
 export default VurderRefusjonBeregningsgrunnlagAP;

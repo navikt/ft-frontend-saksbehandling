@@ -44,7 +44,11 @@ const PureDatepicker: FunctionComponent<PureDatepickerProps & DatepickerProps> =
 
   return (
     <div className="datepicker">
-      {label && <Label htmlFor={inputId}><Undertekst>{label}</Undertekst></Label>}
+      {label && (
+        <Label htmlFor={inputId}>
+          <Undertekst>{label}</Undertekst>
+        </Label>
+      )}
       <Datepicker
         onChange={onChange}
         value={value}

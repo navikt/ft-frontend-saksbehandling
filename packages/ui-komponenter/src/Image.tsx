@@ -1,6 +1,4 @@
-import React, {
-  FunctionComponent, useState, useCallback, ReactNode, KeyboardEvent, MouseEvent,
-} from 'react';
+import React, { FunctionComponent, useState, useCallback, ReactNode, KeyboardEvent, MouseEvent } from 'react';
 
 import Tooltip from './Tooltip';
 

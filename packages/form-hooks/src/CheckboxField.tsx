@@ -26,7 +26,9 @@ const CheckboxField: FunctionComponent<OwnProps> = ({
   className,
   disabled,
 }) => {
-  const { formState: { errors } } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   const { field } = useController({
     name,
@@ -43,7 +45,7 @@ const CheckboxField: FunctionComponent<OwnProps> = ({
       checked={field.value === true}
       className={className}
       {...field}
-      onChange={(event) => {
+      onChange={event => {
         field.onChange(event);
         if (onChange) {
           onChange(event.currentTarget.checked);

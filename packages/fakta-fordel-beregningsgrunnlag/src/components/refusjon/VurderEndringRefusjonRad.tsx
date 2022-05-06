@@ -32,8 +32,10 @@ const lagNøkkel = (prefix: string, andel: RefusjonTilVurderingAndel): string =>
   return `${prefix}${andel.arbeidsgiver.arbeidsgiverAktørId}${andel.internArbeidsforholdRef}`;
 };
 
-export const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
-export const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel) : string => lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
+export const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string =>
+  lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
+export const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel): string =>
+  lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
 
 const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
   if (!verdiFraForm) {
@@ -43,17 +45,21 @@ const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
 };
 
 type OwnProps = {
-    refusjonAndel?: RefusjonTilVurderingAndel;
-    readOnly: boolean;
-    erAksjonspunktÅpent: boolean;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-    skjæringstidspunkt: string;
-    formName: string;
+  refusjonAndel?: RefusjonTilVurderingAndel;
+  readOnly: boolean;
+  erAksjonspunktÅpent: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  skjæringstidspunkt: string;
+  formName: string;
 };
 
 interface StaticFunctions {
   buildInitialValues: (andel: RefusjonTilVurderingAndel) => VurderRefusjonValues;
-  transformValues: (values: VurderRefusjonValues, andel: RefusjonTilVurderingAndel, skjæringstidspunkt: string) => VurderRefusjonAndelTransformedValues;
+  transformValues: (
+    values: VurderRefusjonValues,
+    andel: RefusjonTilVurderingAndel,
+    skjæringstidspunkt: string,
+  ) => VurderRefusjonAndelTransformedValues;
 }
 
 export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunctions = ({
@@ -73,7 +79,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   const formMethods = formHooks.useFormContext<VurderRefusjonValues>();
   const valgtStartdato = formMethods.watch(lagNøkkelRefusjonsstart(refusjonAndel));
   const erRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
-  const boldTransformator = useCallback((chunks) => <b>{chunks}</b>, []);
+  const boldTransformator = useCallback(chunks => <b>{chunks}</b>, []);
   return (
     <>
       <Row>
@@ -91,9 +97,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
       <Row>
         <Column xs="4">
           <Normaltekst className={styles.marginTopp}>
-            <FormattedMessage
-              id="BeregningInfoPanel.RefusjonBG.RefusjonFra"
-            />
+            <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
           </Normaltekst>
         </Column>
         <Column xs="4">
@@ -109,16 +113,18 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
         <Row>
           <Column xs="4">
             <Normaltekst className={styles.marginTopp}>
-              <FormattedMessage
-                id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd"
-              />
+              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
             </Normaltekst>
           </Column>
           <Column xs="4">
             <InputField
               name={lagNøkkelDelvisRefusjon(refusjonAndel)}
               bredde="S"
-              validate={[required, minValueFormatted(1), maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}
+              validate={[
+                required,
+                minValueFormatted(1),
+                maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd),
+              ]}
               parse={parseCurrencyInput}
               readOnly={readOnly}
               isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}
@@ -137,9 +143,11 @@ VurderEndringRefusjonRad.buildInitialValues = (refusjonAndel: RefusjonTilVurderi
   return initialValues;
 };
 
-VurderEndringRefusjonRad.transformValues = (values: VurderRefusjonValues,
+VurderEndringRefusjonRad.transformValues = (
+  values: VurderRefusjonValues,
   andel: RefusjonTilVurderingAndel,
-  skjæringstidspunkt: string): VurderRefusjonAndelTransformedValues => {
+  skjæringstidspunkt: string,
+): VurderRefusjonAndelTransformedValues => {
   const datoNøkkel = lagNøkkelRefusjonsstart(andel);
   const fastsattDato = values[datoNøkkel];
   let delvisRefusjonPrMnd = null;

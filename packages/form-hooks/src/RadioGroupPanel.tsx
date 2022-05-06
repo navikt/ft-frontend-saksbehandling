@@ -1,7 +1,5 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
-import {
-  useFormContext, useController, ControllerRenderProps, FieldValues,
-} from 'react-hook-form';
+import { useFormContext, useController, ControllerRenderProps, FieldValues } from 'react-hook-form';
 import { RadioGruppe, Radio } from 'nav-frontend-skjema';
 import { FlexContainer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { LabelType } from './Label';
@@ -23,15 +21,7 @@ interface RadioOption {
   isReadOnly: boolean;
 }
 
-const RadioOption: FunctionComponent<RadioOption> = ({
-  name,
-  field,
-  radio,
-  parse,
-  onChange,
-  disabled,
-  isReadOnly,
-}) => {
+const RadioOption: FunctionComponent<RadioOption> = ({ name, field, radio, parse, onChange, disabled, isReadOnly }) => {
   const parsedValue = parse ? parse(radio.value) : radio.value;
   const isChecked = parsedValue === field.value;
 
@@ -80,9 +70,11 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
   disabled = false,
   isReadOnly = false,
   isHorizontal = false,
-  parse = (value) => value,
+  parse = value => value,
 }) => {
-  const { formState: { errors } } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
   const { field } = useController({
     name,
     rules: {
@@ -92,22 +84,23 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
 
   return (
     <RadioGruppe legend={label} feil={getError(errors, name)}>
-      {!isHorizontal && radios.map((radio) => (
-        <RadioOption
-          key={radio.value}
-          name={name}
-          field={field}
-          radio={radio}
-          parse={parse}
-          onChange={onChange}
-          disabled={disabled}
-          isReadOnly={isReadOnly}
-        />
-      ))}
+      {!isHorizontal &&
+        radios.map(radio => (
+          <RadioOption
+            key={radio.value}
+            name={name}
+            field={field}
+            radio={radio}
+            parse={parse}
+            onChange={onChange}
+            disabled={disabled}
+            isReadOnly={isReadOnly}
+          />
+        ))}
       {isHorizontal && (
         <FlexContainer>
           <FlexRow>
-            {radios.map((radio) => (
+            {radios.map(radio => (
               <FlexColumn key={radio.value}>
                 <RadioOption
                   name={name}

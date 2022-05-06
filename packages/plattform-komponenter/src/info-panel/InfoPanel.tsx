@@ -4,8 +4,8 @@ import Panel from 'nav-frontend-paneler';
 import styles from './infoPanel.less';
 
 interface InfoPanel {
-    children: React.ReactNode;
-    type: 'success' | 'warning';
+  children: React.ReactNode;
+  type: 'success' | 'warning';
 }
 
 const InfoPanel = ({ children, type }: InfoPanel) => {

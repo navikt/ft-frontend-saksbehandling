@@ -6,10 +6,6 @@ interface OwnProps {
   children?: ReactNode;
 }
 
-const FloatRight: FunctionComponent<OwnProps> = ({ children }) => (
-  <span className={styles.floatRight}>
-    {children}
-  </span>
-);
+const FloatRight: FunctionComponent<OwnProps> = ({ children }) => <span className={styles.floatRight}>{children}</span>;
 
 export default FloatRight;

@@ -8,11 +8,11 @@ type StandardFaktaPanelProps<AP_TYPE> = Readonly<{
   readOnly: boolean;
   submittable: boolean;
   harApneAksjonspunkter: boolean;
-  alleMerknaderFraBeslutter: { [key: string] : { notAccepted?: boolean }};
+  alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   submitCallback: (aksjonspunktData: AP_TYPE) => Promise<void>;
   alleKodeverk: AlleKodeverk;
-  formData?: any,
-  setFormData: (data: any) => void,
-}>
+  formData?: any;
+  setFormData: (data: any) => void;
+}>;
 
 export default StandardFaktaPanelProps;

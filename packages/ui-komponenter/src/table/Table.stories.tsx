@@ -16,29 +16,15 @@ const Template: Story<{
   isSelected: boolean;
   isBold: boolean;
   isApLeftBorder: boolean;
-}> = ({
-  noHover,
-  isDashedBottomBorder,
-  isSelected,
-  isBold,
-  isApLeftBorder,
-}) => (
+}> = ({ noHover, isDashedBottomBorder, isSelected, isBold, isApLeftBorder }) => (
   <Table headerColumnContent={[<div>Navn</div>, <div>Alder</div>]} noHover={noHover}>
     <TableRow isDashedBottomBorder={isDashedBottomBorder} isSelected={isSelected}>
-      <TableColumn>
-        Espen Utvikler
-      </TableColumn>
-      <TableColumn>
-        41
-      </TableColumn>
+      <TableColumn>Espen Utvikler</TableColumn>
+      <TableColumn>41</TableColumn>
     </TableRow>
     <TableRow isApLeftBorder={isApLeftBorder} isBold={isBold}>
-      <TableColumn>
-        Auto Joakim
-      </TableColumn>
-      <TableColumn>
-        35
-      </TableColumn>
+      <TableColumn>Auto Joakim</TableColumn>
+      <TableColumn>35</TableColumn>
     </TableRow>
   </Table>
 );

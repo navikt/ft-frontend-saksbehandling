@@ -8,7 +8,7 @@ import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type Props = {
-    bruttoPrAar: number;
+  bruttoPrAar: number;
 };
 
 /**
@@ -22,9 +22,7 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => (
     <Row>
       <Column xs="12">
         <Element className={beregningStyles.avsnittOverskrift}>
-          <FormattedMessage
-            id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2"
-          />
+          <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
         </Element>
         <VerticalSpacer eightPx />
       </Column>
@@ -46,15 +44,11 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => (
     <Row>
       <Column xs="7">
         <Normaltekst>
-          <FormattedMessage
-            id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn"
-          />
+          <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
         </Normaltekst>
       </Column>
       <Column xs="2" className={beregningStyles.colMaanedText}>
-        <Normaltekst>
-          {formatCurrencyNoKr(bruttoPrAar / 12)}
-        </Normaltekst>
+        <Normaltekst>{formatCurrencyNoKr(bruttoPrAar / 12)}</Normaltekst>
       </Column>
       <Column xs="2" className={beregningStyles.colAarText}>
         <Element>{formatCurrencyNoKr(bruttoPrAar)}</Element>

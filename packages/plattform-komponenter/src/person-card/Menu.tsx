@@ -6,8 +6,8 @@ import styles from './menu.less';
 const menuCls = bemUtils('menu');
 
 interface MenuProps {
-    onClick: () => void;
-    isOpen: boolean;
+  onClick: () => void;
+  isOpen: boolean;
 }
 
 const Menu = ({ onClick, isOpen }: MenuProps): JSX.Element => (

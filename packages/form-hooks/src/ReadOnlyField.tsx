@@ -15,12 +15,7 @@ interface OwnProps {
   type?: string;
 }
 
-export const ReadOnlyField: FunctionComponent<OwnProps> = ({
-  label,
-  value,
-  isEdited,
-  type,
-}) => {
+export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdited, type }) => {
   if (!hasValue(value)) {
     return null;
   }

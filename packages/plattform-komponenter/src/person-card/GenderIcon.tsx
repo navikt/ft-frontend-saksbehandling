@@ -11,8 +11,8 @@ const cardCls = bemUtils('personCard');
 export type GenderType = 'male' | 'female' | 'unknown';
 
 interface GenderIconProps {
-    gender?: GenderType;
-    isChild?: boolean;
+  gender?: GenderType;
+  isChild?: boolean;
 }
 
 const GenderIcon = ({ gender, isChild }: GenderIconProps): JSX.Element => {
@@ -27,10 +27,10 @@ const GenderIcon = ({ gender, isChild }: GenderIconProps): JSX.Element => {
   return (
     <div
       className={
-                !icon
-                  ? `${styles[cardCls.element('gender-icon')]} ${styles['personCard__gender-icon--unknown']}`
-                  : styles[cardCls.element('gender-icon')]
-            }
+        !icon
+          ? `${styles[cardCls.element('gender-icon')]} ${styles['personCard__gender-icon--unknown']}`
+          : styles[cardCls.element('gender-icon')]
+      }
     >
       {icon || <UnknownIcon />}
     </div>

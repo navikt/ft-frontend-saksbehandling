@@ -10,6 +10,6 @@ type Vilkar = Readonly<{
   lovReferanse?: string;
   overstyrbar: boolean;
   perioder?: Vilkarperiode[];
-}>
+}>;
 
 export default Vilkar;

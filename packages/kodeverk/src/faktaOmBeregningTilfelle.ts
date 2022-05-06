@@ -18,7 +18,8 @@ enum FaktaOmBeregningTilfelle {
 
 const besteberegningTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING,
-  FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE];
+  FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
+];
 
 export const vurderOgFastsettATFLTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
@@ -30,31 +31,43 @@ export const vurderOgFastsettATFLTilfeller = [
   FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
 ];
 
-export const fastsettATLIntersection = (tilfeller: string[]): string[] => vurderOgFastsettATFLTilfeller.filter((tilfelle) => tilfeller.includes(tilfelle));
+export const fastsettATLIntersection = (tilfeller: string[]): string[] =>
+  vurderOgFastsettATFLTilfeller.filter(tilfelle => tilfeller.includes(tilfelle));
 
-const harLonnsendringOgNyoppstartet = (tilfeller: string[]): boolean => tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)
-  && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL);
+const harLonnsendringOgNyoppstartet = (tilfeller: string[]): boolean =>
+  tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING) &&
+  tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL);
 
-const harIkkeLonnsendringEllerNyoppstartet = (tilfeller: string[]): boolean => !(tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)
-|| tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL));
+const harIkkeLonnsendringEllerNyoppstartet = (tilfeller: string[]): boolean =>
+  !(
+    tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING) ||
+    tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)
+  );
 
-export const harVurderMottarYtelse = (tilfeller: string[]): boolean => tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+export const harVurderMottarYtelse = (tilfeller: string[]): boolean =>
+  tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
 
-export const harKunATFLISammeOrg = (tilfeller: string[]): boolean => (harIkkeLonnsendringEllerNyoppstartet(tilfeller)
-  || harVurderMottarYtelse(tilfeller))
-  && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+export const harKunATFLISammeOrg = (tilfeller: string[]): boolean =>
+  (harIkkeLonnsendringEllerNyoppstartet(tilfeller) || harVurderMottarYtelse(tilfeller)) &&
+  tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
-const harLonnsendringNyOppstartetFLOgATFLISammeOrg = (tilfeller: string[]): boolean => harLonnsendringOgNyoppstartet(tilfeller)
-  && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+const harLonnsendringNyOppstartetFLOgATFLISammeOrg = (tilfeller: string[]): boolean =>
+  harLonnsendringOgNyoppstartet(tilfeller) &&
+  tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
-export const erATFLSpesialtilfelle = (tilfeller: string[]): boolean => harLonnsendringNyOppstartetFLOgATFLISammeOrg(tilfeller);
+export const erATFLSpesialtilfelle = (tilfeller: string[]): boolean =>
+  harLonnsendringNyOppstartetFLOgATFLISammeOrg(tilfeller);
 
-export const erATFLSpesialtilfelleEllerVurderMottarYtelse = (tilfeller: string[]): boolean => erATFLSpesialtilfelle(tilfeller)
-|| harVurderMottarYtelse(tilfeller);
+export const erATFLSpesialtilfelleEllerVurderMottarYtelse = (tilfeller: string[]): boolean =>
+  erATFLSpesialtilfelle(tilfeller) || harVurderMottarYtelse(tilfeller);
 
-export const harIkkeATFLSameOrg = (tilfeller: string[]): boolean => !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+export const harIkkeATFLSameOrg = (tilfeller: string[]): boolean =>
+  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
-export const harFastsettATFLInntektTilfelleUtenomBesteberegning = (tilfeller: string[]): boolean => tilfeller
-  .some((tilfelle) => vurderOgFastsettATFLTilfeller.some((t) => t === tilfelle) && !besteberegningTilfeller.some((t) => t === tilfelle));
+export const harFastsettATFLInntektTilfelleUtenomBesteberegning = (tilfeller: string[]): boolean =>
+  tilfeller.some(
+    tilfelle =>
+      vurderOgFastsettATFLTilfeller.some(t => t === tilfelle) && !besteberegningTilfeller.some(t => t === tilfelle),
+  );
 
 export default FaktaOmBeregningTilfelle;

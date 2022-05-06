@@ -12,17 +12,16 @@ interface OwnPropsWrapper {
 }
 
 // @ts-ignore fiks
-const Wrapper: FunctionComponent<OwnPropsWrapper> = ({
-  withoutBorder,
-  error,
-  children,
-  className,
-}) => {
+const Wrapper: FunctionComponent<OwnPropsWrapper> = ({ withoutBorder, error, children, className }) => {
   if (withoutBorder) {
     return children;
   }
 
-  return <BorderBox error={error} className={className}>{children}</BorderBox>;
+  return (
+    <BorderBox error={error} className={className}>
+      {children}
+    </BorderBox>
+  );
 };
 
 interface OwnPropsFaktaGruppe {

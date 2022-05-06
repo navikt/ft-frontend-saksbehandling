@@ -27,14 +27,15 @@ const VerticalSpacer: FunctionComponent<OwnProps> = ({
   thirtyTwoPx = false,
   fourtyPx = false,
 }) => (
-  <div className={classNames({
-    fourPx,
-    eightPx,
-    sixteenPx,
-    twentyPx,
-    thirtyTwoPx,
-    fourtyPx,
-  })}
+  <div
+    className={classNames({
+      fourPx,
+      eightPx,
+      sixteenPx,
+      twentyPx,
+      thirtyTwoPx,
+      fourtyPx,
+    })}
   />
 );
 

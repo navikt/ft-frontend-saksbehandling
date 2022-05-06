@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import {
-  ArbeidsgiverOpplysningerPerId, StandardFaktaPanelProps, Beregningsgrunnlag,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, StandardFaktaPanelProps, Beregningsgrunnlag } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
@@ -19,9 +17,9 @@ type OwnProps = {
   submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
 };
 
-type Props = OwnProps & StandardFaktaPanelProps<FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP>
+type Props = OwnProps & StandardFaktaPanelProps<FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP>;
 
-const FordelBeregningsgrunnlagFaktaIndex:FunctionComponent<Props> = ({
+const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   behandling,
   beregningsgrunnlag,
   alleKodeverk,

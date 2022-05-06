@@ -15,7 +15,5 @@ export const Default: Story = () => (
 );
 
 export const SkalIkkeVisesNårDetIkkeErAksjonspunkter: Story = () => (
-  <AksjonspunktHelpTextHTML>
-    {[]}
-  </AksjonspunktHelpTextHTML>
+  <AksjonspunktHelpTextHTML>{[]}</AksjonspunktHelpTextHTML>
 );

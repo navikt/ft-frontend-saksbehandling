@@ -9,83 +9,83 @@ export type BeregningAktivitetTransformedValues = {
   arbeidsgiverIdentifikator?: string;
   arbeidsforholdRef?: string;
   skalBrukes: boolean;
-}
+};
 
 export type BeregningAktiviteterTransformedValues = {
   beregningsaktivitetLagreDtoList: BeregningAktivitetTransformedValues[];
-}
+};
 
 export type OverstyrBeregningsaktiviteterAP = BeregningAktiviteterTransformedValues &
   AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER>;
 
-export type AvklarBeregningsaktiviteterAP = BeregningAktiviteterTransformedValues
-  & AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER>;
+export type AvklarBeregningsaktiviteterAP = BeregningAktiviteterTransformedValues &
+  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER>;
 
 export type NyoppstartetFLTransformedValues = {
   erNyoppstartetFL: boolean;
-}
+};
 
 export type VurderteArbeidsforholdTransformedValues = {
   andelsnr: number;
   tidsbegrensetArbeidsforhold: boolean;
   opprinneligVerdi?: boolean;
-}
+};
 
 export type TidsbegrensetArbeidsforholdTransformedValues = {
   fastsatteArbeidsforhold: VurderteArbeidsforholdTransformedValues[];
-}
+};
 
 export type NyIArbeidslivetTransformedValues = {
   erNyIArbeidslivet: boolean;
-}
+};
 
 export type FastsettMånedsinntektFLTransformedValues = {
   maanedsinntekt: number;
-}
+};
 
 export type VurderLønnsendringTransformedValues = {
   erLønnsendringIBeregningsperioden: boolean;
-}
+};
 
 export type FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues = {
   andelsnr: number;
   fastsattBeløp: number;
   inntektskategori: string;
-}
+};
 
 export type FastsettMånedsinntektUtenInntektsmeldingTransformedValues = {
   andelListe: FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues[];
-}
+};
 
 export type VurderATFLISammeOrAndelTransformedValues = {
   andelsnr: number;
   arbeidsinntekt: number;
-}
+};
 
 export type VurderATFLISammeOrgTransformedValues = {
   vurderATogFLiSammeOrganisasjonAndelListe: VurderATFLISammeOrAndelTransformedValues[];
-}
+};
 
 export type FastsatteVerdierForBesteberegningTransformedValues = {
   fastsattBeløp: number;
   inntektskategori: string;
-}
+};
 
 export type BesteberegningFødendeKvinneAndelTransformedValues = {
   andelsnr: number;
   nyAndel: boolean;
   lagtTilAvSaksbehandler: boolean;
   fastsatteVerdier: FastsatteVerdierForBesteberegningTransformedValues;
-}
+};
 
 export type DagpengeAndelLagtTilBesteberegningTransformedValues = {
   fastsatteVerdier: FastsatteVerdierForBesteberegningTransformedValues;
-}
+};
 
 export type BesteberegningFødendeKvinneTransformedValues = {
   besteberegningAndelListe: BesteberegningFødendeKvinneAndelTransformedValues[];
   nyDagpengeAndel?: DagpengeAndelLagtTilBesteberegningTransformedValues;
-}
+};
 
 export type FastsattBrukersAndelTransformedValues = {
   nyAndel: boolean;
@@ -93,39 +93,39 @@ export type FastsattBrukersAndelTransformedValues = {
   inntektskategori: string;
   andelsnr?: number;
   lagtTilAvSaksbehandler?: boolean;
-}
+};
 
 export type FastsettBgKunYtelseTransformedValues = {
   andeler: FastsattBrukersAndelTransformedValues[];
   skalBrukeBesteberegning: boolean;
-}
+};
 
 export type VurderEtterlønnSluttpakkeTransformedValues = {
   erEtterlønnSluttpakke: boolean;
-}
+};
 
 export type FastsettEtterlønnSluttpakkeTransformedValues = {
   fastsattPrMnd: number;
-}
+};
 
 export type ArbeidstakerandelUtenIMMottarYtelseTransformedValues = {
   andelsnr: number;
   mottarYtelse: boolean;
-}
+};
 
 export type MottarYtelseTransformedValues = {
   frilansMottarYtelse: boolean;
   arbeidstakerUtenIMMottarYtelse: ArbeidstakerandelUtenIMMottarYtelseTransformedValues[];
-}
+};
 
 export type VurderMilitærTransformedValues = {
   harMilitaer: boolean;
-}
+};
 
 export type RefusjonskravPrArbeidsgiverVurderingTransformedValues = {
   arbeidsgiverId: string;
   skalUtvideGyldighet: boolean;
-}
+};
 
 export type FaktaBeregningTransformedValues = {
   faktaOmBeregningTilfeller?: string[];
@@ -143,7 +143,7 @@ export type FaktaBeregningTransformedValues = {
   mottarYtelse?: MottarYtelseTransformedValues;
   vurderMilitaer?: VurderMilitærTransformedValues;
   refusjonskravGyldighet?: RefusjonskravPrArbeidsgiverVurderingTransformedValues[];
-}
+};
 
 export type FastsatteVerdierTransformedValues = {
   refusjon?: number;
@@ -153,7 +153,7 @@ export type FastsatteVerdierTransformedValues = {
   fastsattÅrsbeløpInklNaturalytelse?: number;
   inntektskategori?: string;
   skalHaBesteberegning?: boolean;
-}
+};
 
 export type FastsettBeregningsgrunnlagAndelTransformedValues = {
   andelsnr?: number;
@@ -169,18 +169,18 @@ export type FastsettBeregningsgrunnlagAndelTransformedValues = {
   forrigeRefusjonPrÅr?: number;
   forrigeArbeidsinntektPrÅr?: number;
   fastsatteVerdier: FastsatteVerdierTransformedValues;
-}
+};
 
 export type BeregningFaktaTransformedValues = {
   fakta: FaktaBeregningTransformedValues;
   overstyrteAndeler?: FastsettBeregningsgrunnlagAndelTransformedValues[];
-}
+};
 
-export type BeregningFaktaAP = BeregningFaktaTransformedValues
-  & AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN>;
+export type BeregningFaktaAP = BeregningFaktaTransformedValues &
+  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN>;
 
-export type BeregningOverstyringAP = BeregningFaktaTransformedValues
-  & AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG>;
+export type BeregningOverstyringAP = BeregningFaktaTransformedValues &
+  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG>;
 
 export type BeregningFaktaOgOverstyringAP = BeregningFaktaAP | BeregningOverstyringAP;
 

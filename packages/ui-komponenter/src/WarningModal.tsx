@@ -21,12 +21,7 @@ interface OwnProps {
  *
  * Modal med advarselikon og som viser en valgfri tekst i tillegg til knappen OK.
  */
-const WarningModal: FunctionComponent<OwnProps> = ({
-  bodyText,
-  headerText,
-  showModal,
-  submit,
-}) => (
+const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showModal, submit }) => (
   <Modal
     className={styles.modal}
     isOpen={showModal}
@@ -45,13 +40,7 @@ const WarningModal: FunctionComponent<OwnProps> = ({
         <Normaltekst>{bodyText}</Normaltekst>
       </Column>
       <Column xs="2">
-        <Hovedknapp
-          className={styles.submitButton}
-          mini
-          htmlType="submit"
-          onClick={submit}
-          autoFocus
-        >
+        <Hovedknapp className={styles.submitButton} mini htmlType="submit" onClick={submit} autoFocus>
           OK
         </Hovedknapp>
       </Column>

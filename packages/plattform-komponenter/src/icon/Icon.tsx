@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface IconProps {
-    children: React.ReactNode;
-    size: number;
+  children: React.ReactNode;
+  size: number;
 }
 
 const Icon = ({ size, children }: IconProps) => (

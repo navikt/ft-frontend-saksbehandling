@@ -9,7 +9,10 @@ import {
   AlleKodeverk,
   Aksjonspunkt,
 } from '@navikt/ft-types';
-import { FastsettAvvikATFLResultatAP, FastsettAvvikATFLTidsbegrensetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import {
+  FastsettAvvikATFLResultatAP,
+  FastsettAvvikATFLTidsbegrensetResultatAP,
+} from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import YtelserFraInfotrygd from '../tilstotendeYtelser/YtelserFraInfotrygd';
@@ -28,20 +31,23 @@ import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntek
 import NaeringsopplysningsPanel from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import beregningStyles from './beregningsgrunnlag.less';
 import {
-  ATFLDekningsgradBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues,
+  ATFLDekningsgradBegrunnelseValues,
+  ATFLTidsbegrensetValues,
+  ATFLValues,
 } from '../../types/ATFLAksjonspunktTsType';
 
 export const TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING = 'begrunnDekningsgradEndring';
 
-const {
-  FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-  FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
+  ProsessBeregningsgrunnlagAksjonspunktCode;
 
-const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.find(
-  (ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS
-  || ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-);
+const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt =>
+  gjeldendeAksjonspunkter &&
+  gjeldendeAksjonspunkter.find(
+    ap =>
+      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
+      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  );
 
 const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] => {
   if (allePerioder && allePerioder.length > 0) {
@@ -50,95 +56,80 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
   return undefined;
 };
 
-const createRelevantePaneler = (alleAndelerIForstePeriode : BeregningsgrunnlagAndel[],
+const createRelevantePaneler = (
+  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
   relevanteStatuser: RelevanteStatuserProp,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   gjelderBesteberegning: boolean,
   alleKodeverk: AlleKodeverk,
   sammenligningsGrunnlagInntekter: Inntektsgrunnlag,
   skjeringstidspunktDato: string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): ReactElement => ( // NOSONAR TODO splitte i flere komponenter?
-    <div className={beregningStyles.panelLeft}>
-      { relevanteStatuser.isArbeidstaker
-      && (
-        <GrunnlagForAarsinntektPanelAT
-          alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
-          allePerioder={allePerioder}
-          alleKodeverk={alleKodeverk}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
-      )}
-      { relevanteStatuser.isFrilanser
-    && (
-      <GrunnlagForAarsinntektPanelFL
-        alleAndeler={alleAndelerIForstePeriode}
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): ReactElement => ( // NOSONAR TODO splitte i flere komponenter?
+  <div className={beregningStyles.panelLeft}>
+    {relevanteStatuser.isArbeidstaker && (
+      <GrunnlagForAarsinntektPanelAT
+        alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
+        allePerioder={allePerioder}
+        alleKodeverk={alleKodeverk}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
     )}
-      {(relevanteStatuser.harDagpengerEllerAAP)
-      && (
-        <div>
-          <TilstotendeYtelser
-            alleAndeler={alleAndelerIForstePeriode}
-            relevanteStatuser={relevanteStatuser}
-            gjelderBesteberegning={gjelderBesteberegning}
-          />
-        </div>
-      )}
-      {(relevanteStatuser.isMilitaer)
-      && (
-        <MilitaerPanel
+    {relevanteStatuser.isFrilanser && <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />}
+    {relevanteStatuser.harDagpengerEllerAAP && (
+      <div>
+        <TilstotendeYtelser
           alleAndeler={alleAndelerIForstePeriode}
+          relevanteStatuser={relevanteStatuser}
+          gjelderBesteberegning={gjelderBesteberegning}
         />
-      )}
-      {(relevanteStatuser.harAndreTilstotendeYtelser)
-      && (
-        <YtelserFraInfotrygd
-          bruttoPrAar={allePerioder[0].bruttoPrAar}
-        />
-      )}
+      </div>
+    )}
+    {relevanteStatuser.isMilitaer && <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />}
+    {relevanteStatuser.harAndreTilstotendeYtelser && <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />}
 
-      { relevanteStatuser.isSelvstendigNaeringsdrivende
-      && (
-        <>
-          <GrunnlagForAarsinntektPanelSN
-            alleAndeler={alleAndelerIForstePeriode}
-          />
-          <NaeringsopplysningsPanel
-            alleAndelerIForstePeriode={alleAndelerIForstePeriode}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        </>
-      )}
-      { !relevanteStatuser.isSelvstendigNaeringsdrivende
-      && sammenligningsGrunnlagInntekter
-      && skjeringstidspunktDato
-      && (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker)
-      && (
+    {relevanteStatuser.isSelvstendigNaeringsdrivende && (
+      <>
+        <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />
+        <NaeringsopplysningsPanel
+          alleAndelerIForstePeriode={alleAndelerIForstePeriode}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
+      </>
+    )}
+    {!relevanteStatuser.isSelvstendigNaeringsdrivende &&
+      sammenligningsGrunnlagInntekter &&
+      skjeringstidspunktDato &&
+      (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
         <SammenlignsgrunnlagAOrdningen
           sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
           skjeringstidspunktDato={skjeringstidspunktDato}
         />
       )}
-    </div>
+  </div>
 );
 
 interface StaticFunctions {
   buildInitialValues?: (gjeldendeAksjonspunkter: Aksjonspunkt[]) => ATFLDekningsgradBegrunnelseValues;
-  transformATFLValues: (values: ATFLValues,
-                        relevanteStatuser: RelevanteStatuserProp,
-                        alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]) => FastsettAvvikATFLResultatAP;
-  transformATFLTidsbegrensetValues: (values: ATFLTidsbegrensetValues,
-                                     allePerioder: BeregningsgrunnlagPeriodeProp[]) => FastsettAvvikATFLTidsbegrensetResultatAP;
+  transformATFLValues: (
+    values: ATFLValues,
+    relevanteStatuser: RelevanteStatuserProp,
+    alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
+  ) => FastsettAvvikATFLResultatAP;
+  transformATFLTidsbegrensetValues: (
+    values: ATFLTidsbegrensetValues,
+    allePerioder: BeregningsgrunnlagPeriodeProp[],
+  ) => FastsettAvvikATFLTidsbegrensetResultatAP;
 }
 
 type OwnProps = {
-    relevanteStatuser: RelevanteStatuserProp;
-    allePerioder?: BeregningsgrunnlagPeriodeProp[];
-    gjelderBesteberegning: boolean;
-    alleKodeverk: AlleKodeverk;
-    sammenligningsGrunnlagInntekter?: Inntektsgrunnlag;
-    skjeringstidspunktDato?: string;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  relevanteStatuser: RelevanteStatuserProp;
+  allePerioder?: BeregningsgrunnlagPeriodeProp[];
+  gjelderBesteberegning: boolean;
+  alleKodeverk: AlleKodeverk;
+  sammenligningsGrunnlagInntekter?: Inntektsgrunnlag;
+  skjeringstidspunktDato?: string;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 // ------------------------------------------------------------------------------------------ //
@@ -160,17 +151,15 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
   arbeidsgiverOpplysningerPerId,
 }) => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
-  return (
-    createRelevantePaneler(
-      alleAndelerIForstePeriode,
-      relevanteStatuser,
-      allePerioder,
-      gjelderBesteberegning,
-      alleKodeverk,
-      sammenligningsGrunnlagInntekter,
-      skjeringstidspunktDato,
-      arbeidsgiverOpplysningerPerId,
-    )
+  return createRelevantePaneler(
+    alleAndelerIForstePeriode,
+    relevanteStatuser,
+    allePerioder,
+    gjelderBesteberegning,
+    alleKodeverk,
+    sammenligningsGrunnlagInntekter,
+    skjeringstidspunktDato,
+    arbeidsgiverOpplysningerPerId,
   );
 };
 
@@ -180,24 +169,30 @@ Beregningsgrunnlag.defaultProps = {
   skjeringstidspunktDato: undefined,
 };
 
-Beregningsgrunnlag.buildInitialValues = (gjeldendeAksjonspunkter: Aksjonspunkt[]): ATFLDekningsgradBegrunnelseValues => {
+Beregningsgrunnlag.buildInitialValues = (
+  gjeldendeAksjonspunkter: Aksjonspunkt[],
+): ATFLDekningsgradBegrunnelseValues => {
   const aksjonspunktATFL = finnAksjonspunktForATFL(gjeldendeAksjonspunkter);
   return {
-    ATFLVurdering: (aksjonspunktATFL) ? aksjonspunktATFL.begrunnelse : '',
+    ATFLVurdering: aksjonspunktATFL ? aksjonspunktATFL.begrunnelse : '',
   };
 };
 
-Beregningsgrunnlag.transformATFLValues = (values: ATFLValues,
+Beregningsgrunnlag.transformATFLValues = (
+  values: ATFLValues,
   relevanteStatuser: RelevanteStatuserProp,
-  alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]): FastsettAvvikATFLResultatAP => ({
+  alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
+): FastsettAvvikATFLResultatAP => ({
   kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   begrunnelse: values.ATFLVurdering,
   inntektPrAndelList: AksjonspunktBehandlerAT.transformValues(values, relevanteStatuser, alleAndelerIFørstePeriode),
   inntektFrilanser: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,
 });
 
-Beregningsgrunnlag.transformATFLTidsbegrensetValues = (values: ATFLTidsbegrensetValues,
-  allePerioder: BeregningsgrunnlagPeriodeProp[]): FastsettAvvikATFLTidsbegrensetResultatAP => ({
+Beregningsgrunnlag.transformATFLTidsbegrensetValues = (
+  values: ATFLTidsbegrensetValues,
+  allePerioder: BeregningsgrunnlagPeriodeProp[],
+): FastsettAvvikATFLTidsbegrensetResultatAP => ({
   kode: FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   begrunnelse: values.ATFLVurdering,
   fastsatteTidsbegrensedePerioder: AksjonspunktBehandlerTidsbegrenset.transformValues(values, allePerioder),

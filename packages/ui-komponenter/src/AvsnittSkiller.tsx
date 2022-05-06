@@ -16,7 +16,7 @@ type OwnProps = {
   className?: string;
 };
 
-const AvsnittSkiller:FunctionComponent<OwnProps> = ({
+const AvsnittSkiller: FunctionComponent<OwnProps> = ({
   spaceUnder,
   spaceAbove,
   leftPanel,
@@ -25,25 +25,20 @@ const AvsnittSkiller:FunctionComponent<OwnProps> = ({
   className,
 }) => (
   <>
-    {spaceAbove && (
-    <VerticalSpacer thirtyTwoPx />
-    )}
+    {spaceAbove && <VerticalSpacer thirtyTwoPx />}
     <Row>
       <Column xs="12">
-        <div className={classNames(className,
-          {
+        <div
+          className={classNames(className, {
             leftPanel,
             rightPanel,
-          },
-        )}
+          })}
         >
           <div className={dividerParagraf ? styles.dividerParagraf : styles.divider} />
         </div>
       </Column>
     </Row>
-    {spaceUnder && (
-    <VerticalSpacer thirtyTwoPx />
-    )}
+    {spaceUnder && <VerticalSpacer thirtyTwoPx />}
   </>
 );
 AvsnittSkiller.defaultProps = {

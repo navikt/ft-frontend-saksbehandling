@@ -79,13 +79,14 @@ export const FaktaSubmitButton: FunctionComponent<PureOwnProps & MappedOwnProps>
 
 const mapStateToProps = (state: any, ownProps: PureOwnProps): MappedOwnProps => {
   const fNames = ownProps.formNames ? ownProps.formNames : [ownProps.formName];
-  const formNames = fNames.map((f) => (f.includes('.') ? f.substr(f.lastIndexOf('.') + 1) : f));
+  const formNames = fNames.map(f => (f.includes('.') ? f.substr(f.lastIndexOf('.') + 1) : f));
   return {
-    isSubmitting: formNames.some((formName) => reduxIsSubmitting(formName)(state)),
-    isDirty: formNames.some((formName) => reduxIsDirty(formName)(state)),
+    isSubmitting: formNames.some(formName => reduxIsSubmitting(formName)(state)),
+    isDirty: formNames.some(formName => reduxIsDirty(formName)(state)),
     hasEmptyRequiredFields: ownProps.doNotCheckForRequiredFields
-    // @ts-ignore
-      ? false : formNames.some((formName) => hasBehandlingFormErrorsOfType(formName, isRequiredMessage())(state)),
+      ? // @ts-ignore
+        false
+      : formNames.some(formName => hasBehandlingFormErrorsOfType(formName, isRequiredMessage())(state)),
   };
 };
 

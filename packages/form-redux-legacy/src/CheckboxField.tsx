@@ -21,22 +21,20 @@ interface RenderCheckboxFieldProps {
   isEdited: boolean;
 }
 
-export const RenderCheckboxField: any = renderNavField(({
-  onChange,
-  label,
-  ...otherProps
-}: WrappedFieldProps & RenderCheckboxFieldProps) => {
-  // eslint-disable-next-line no-param-reassign
-  delete otherProps.isEdited;
-  return (
-    <NavCheckbox
-      onChange={(event) => onChange(event.target.checked)}
-      checked={!!otherProps.value}
-      label={React.cloneElement(label, { typographyElement: Normaltekst })}
-      {...otherProps}
-    />
-  );
-});
+export const RenderCheckboxField: any = renderNavField(
+  ({ onChange, label, ...otherProps }: WrappedFieldProps & RenderCheckboxFieldProps) => {
+    // eslint-disable-next-line no-param-reassign
+    delete otherProps.isEdited;
+    return (
+      <NavCheckbox
+        onChange={event => onChange(event.target.checked)}
+        checked={!!otherProps.value}
+        label={React.cloneElement(label, { typographyElement: Normaltekst })}
+        {...otherProps}
+      />
+    );
+  },
+);
 
 const CheckboxField: FunctionComponent<BaseFieldProps & CheckboxFieldProps> = ({
   name,

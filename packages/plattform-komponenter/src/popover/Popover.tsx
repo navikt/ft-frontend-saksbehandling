@@ -8,14 +8,14 @@ import {
 } from 'react-popper';
 
 interface PopoverProps {
-    // eslint-disable-next-line
-    popperProps: PopperProps<any>;
-    arrowProps?: Partial<ArrowProps>;
-    referenceProps: ReferenceProps;
-    popperIsVisible: boolean;
-    renderArrowElement?: boolean;
-    customPopperStyles?: React.CSSProperties;
-    popperChildrenProps?: PopperChildrenProps;
+  // eslint-disable-next-line
+  popperProps: PopperProps<any>;
+  arrowProps?: Partial<ArrowProps>;
+  referenceProps: ReferenceProps;
+  popperIsVisible: boolean;
+  renderArrowElement?: boolean;
+  customPopperStyles?: React.CSSProperties;
+  popperChildrenProps?: PopperChildrenProps;
 }
 
 export const Popover: React.FunctionComponent<PopoverProps> = ({
@@ -61,14 +61,14 @@ export const Popover: React.FunctionComponent<PopoverProps> = ({
         }}
       >
         {renderArrowElement && (
-        <div
-          {...arrowProps}
-          ref={setArrowElement}
-          className="arrow"
-          style={arrowStyles}
-          data-popper-placement={placement}
-          data-popper-arrow
-        />
+          <div
+            {...arrowProps}
+            ref={setArrowElement}
+            className="arrow"
+            style={arrowStyles}
+            data-popper-placement={placement}
+            data-popper-arrow
+          />
         )}
         {
           // @ts-ignore

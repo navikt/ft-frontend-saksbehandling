@@ -62,10 +62,10 @@ const getArrowBoxLeftCss = (alignOffset?: number, marginTop?: number, marginLeft
     width: 1rem;
   }
 `;
-const getArrowBox = (alignOffset?: number, alignLeft?: boolean, marginTop?: number, marginLeft?: number): string => (alignLeft
-  ? getArrowBoxLeftCss(alignOffset, marginTop, marginLeft)
-  : getArrowBoxTopCss(alignOffset, marginTop, marginLeft)
-);
+const getArrowBox = (alignOffset?: number, alignLeft?: boolean, marginTop?: number, marginLeft?: number): string =>
+  alignLeft
+    ? getArrowBoxLeftCss(alignOffset, marginTop, marginLeft)
+    : getArrowBoxTopCss(alignOffset, marginTop, marginLeft);
 const getClassName = (alignOffset?: number, alignLeft?: boolean, hideBorder?: boolean): string => {
   if (hideBorder) {
     return '';
@@ -96,9 +96,11 @@ const ArrowBox: FunctionComponent<OwnProps> = ({
   hideBorder = false,
 }) => (
   <>
-    <style dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-      __html: getArrowBox(alignOffset, alignLeft, marginTop, marginLeft),
-    }}
+    <style
+      dangerouslySetInnerHTML={{
+        // eslint-disable-line react/no-danger
+        __html: getArrowBox(alignOffset, alignLeft, marginTop, marginLeft),
+      }}
     />
     <div className={getClassName(alignOffset, alignLeft, hideBorder)}>{children}</div>
   </>

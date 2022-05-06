@@ -37,14 +37,17 @@ const InputField: FunctionComponent<OwnProps> = ({
   className,
   placeholder,
   autoFocus,
-  parse = (value) => value,
-  format = (value) => value,
+  parse = value => value,
+  format = value => value,
   normalizeOnBlur,
   isEdited,
   maxLength,
   autoComplete = false,
 }) => {
-  const { formState: { errors }, trigger } = useFormContext();
+  const {
+    formState: { errors },
+    trigger,
+  } = useFormContext();
   const { field } = useController({
     name,
     rules: {
@@ -68,14 +71,14 @@ const InputField: FunctionComponent<OwnProps> = ({
       autoFocus={autoFocus}
       autoComplete={autoComplete ? undefined : 'off'}
       maxLength={maxLength}
-      onChange={(event) => {
+      onChange={event => {
         const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : undefined;
         if (onChange) {
           onChange(verdi);
         }
         return field.onChange(verdi);
       }}
-      onBlur={async (event) => {
+      onBlur={async event => {
         field.onBlur();
         if (shouldValidateOnBlur) {
           const isValidationOk = await trigger();

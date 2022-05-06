@@ -2,12 +2,11 @@ import { getIntlMock } from '@navikt/ft-utils-test';
 import {
   validateSumFastsattBelop,
   validateTotalRefusjonPrArbeidsforhold,
-  validateUlikeAndeler, validerBGGraderteAndeler,
+  validateUlikeAndeler,
+  validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
 import messages from '../../../i18n/nb_NO.json';
-import {
-  FordelBeregningsgrunnlagAndelValues,
-} from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const intlMock = getIntlMock(messages);
 const fieldname = 'feltnavn';
@@ -15,7 +14,7 @@ const likeAndelerFeilmelding = 'Andeler for samme aktivitet må ha ulik inntekts
 const refusjonHøyereEnnKravFeilmelding = 'Total refusjon for  kan ikke være høyere enn beløpet fra inntektsmeldingen.';
 const gradertAndelMåVæreFordeltMerEnn0Feilmelding = 'Fastsatt beløp for gradert andel må være høyere enn 0.';
 
-const getKodeverknavn = (kode) => {
+const getKodeverknavn = kode => {
   if (kode === 'AAP') {
     return 'Arbeidsavklaringspenger';
   }
@@ -37,177 +36,203 @@ const arbeidsgiverOppysninger = {
 
 describe('<ValidateAndelerUtils>', () => {
   it('skal ikke gi feil om ingen andeler er lagt til', () => {
-    const andeler = [{
-      andelsnr: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 2,
-      andel: 'Virksomheten 2',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '433f34',
-      arbeidsgiverId: '999999998',
-    },
-    {
-      andelsnr: 3,
-      andel: 'Virksomheten 3',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: 'egg4g232',
-      arbeidsgiverId: '999999997',
-    }];
+    const andeler = [
+      {
+        andelsnr: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 2,
+        andel: 'Virksomheten 2',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '433f34',
+        arbeidsgiverId: '999999998',
+      },
+      {
+        andelsnr: 3,
+        andel: 'Virksomheten 3',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: 'egg4g232',
+        arbeidsgiverId: '999999997',
+      },
+    ];
 
     const getValues = jest.fn();
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(null);
   });
 
   it('skal gi feil om det er lagt til identisk andel', () => {
-    const andeler = [{
-      andelsnr: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 1,
-      andelsnrRef: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: true,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 1,
+        andelsnrRef: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: true,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
     ];
 
     const getValues = jest.fn(() => 'ARBEIDSTAKER') as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
   });
 
   it('skal ikke gi feil om det er lagt til andel med ny inntektskategori', () => {
-    const andeler = [{
-      andelsnr: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 1,
-      andelsnrRef: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: true,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 1,
+        andelsnrRef: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: true,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
     ];
 
     const getValues = jest.fn((): string => 'DAGPENGER') as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(null);
   });
 
   it('skal gi feil om det er lagt til andel med samme inntektskategori uten arbeid', () => {
-    const andeler = [{
-      andelsnr: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 2,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-      inntektskategori: 'FRILANS',
-    },
-    {
-      andelsnr: 2,
-      andelsnrRef: 2,
-      andel: 'Frilans',
-      nyAndel: true,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 2,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+        inntektskategori: 'FRILANS',
+      },
+      {
+        andelsnr: 2,
+        andelsnrRef: 2,
+        andel: 'Frilans',
+        nyAndel: true,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+      },
     ];
 
     const getValues = jest.fn((): string => 'FRILANS') as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
   });
 
   it('skal gi feil om det er lagt til flere andeler men bare en av de er duplikat', () => {
-    const andeler = [{
-      andelsnr: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 1,
-      andelsnrRef: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: true,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 1,
-      andelsnrRef: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: true,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 1,
-      andelsnrRef: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: true,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 1,
+        andelsnrRef: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: true,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 1,
+        andelsnrRef: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: true,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 1,
+        andelsnrRef: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: true,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
     ];
 
     const getValues = jest.fn((x: string): string => {
@@ -223,29 +248,35 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const ulikeAndelerError = validateUlikeAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], intlMock);
+    const ulikeAndelerError = validateUlikeAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
   });
 
   it('skal ikke gi feil når total refusjon er lavere enn inntektsmeldingen', () => {
-    const andeler = [{
-      andelsnr: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-      refusjonskravFraInntektsmelding: 250000,
-    },
-    {
-      andelsnr: 2,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+        refusjonskravFraInntektsmelding: 250000,
+      },
+      {
+        andelsnr: 2,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -257,30 +288,37 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler as FordelBeregningsgrunnlagAndelValues[],
-      fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
+    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      fieldname,
+      getValues,
+      getKodeverknavn,
+      arbeidsgiverOppysninger,
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(null);
   });
 
   it('skal gi feil når total refusjon er høyere enn inntektsmeldingen', () => {
-    const andeler = [{
-      andelsnr: 1,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-      refusjonskravFraInntektsmelding: 250000,
-    },
-    {
-      andelsnr: 2,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+        refusjonskravFraInntektsmelding: 250000,
+      },
+      {
+        andelsnr: 2,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -292,8 +330,14 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler as FordelBeregningsgrunnlagAndelValues[],
-      fieldname, getValues, getKodeverknavn, arbeidsgiverOppysninger, intlMock);
+    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      fieldname,
+      getValues,
+      getKodeverknavn,
+      arbeidsgiverOppysninger,
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(refusjonHøyereEnnKravFeilmelding);
   });
 
@@ -310,32 +354,39 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(andeler as FordelBeregningsgrunnlagAndelValues[],
-      fieldname, jest.fn(), getKodeverknavn, arbeidsgiverOppysninger, intlMock);
+    const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      fieldname,
+      jest.fn(),
+      getKodeverknavn,
+      arbeidsgiverOppysninger,
+      intlMock,
+    );
     expect(ulikeAndelerError()).toBe(null);
   });
 
   it('skal validere at hele beløpet er fordelt', () => {
-    const andeler = [{
-      andelsnr: 1,
-      skalRedigereInntekt: true,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 2,
-      skalRedigereInntekt: true,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-      inntektskategori: 'FRILANS',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        skalRedigereInntekt: true,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 2,
+        skalRedigereInntekt: true,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+        inntektskategori: 'FRILANS',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -349,31 +400,38 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], 500000, intlMock);
+    const validateFastsattBeløp = validateSumFastsattBelop(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      500000,
+      intlMock,
+    );
     expect(validateFastsattBeløp()).toBe(null);
   });
 
   it('skal gi feil når total fordeling er større enn tillatt beløp', () => {
-    const andeler = [{
-      andelsnr: 1,
-      skalRedigereInntekt: true,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-    },
-    {
-      andelsnr: 2,
-      skalRedigereInntekt: true,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-      inntektskategori: 'FRILANS',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        skalRedigereInntekt: true,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+      },
+      {
+        andelsnr: 2,
+        skalRedigereInntekt: true,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+        inntektskategori: 'FRILANS',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -387,33 +445,40 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const validateFastsattBeløp = validateSumFastsattBelop(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], 500000, intlMock);
+    const validateFastsattBeløp = validateSumFastsattBelop(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      500000,
+      intlMock,
+    );
     expect(validateFastsattBeløp()).toBe('Summen må være lik 500 000');
   });
 
   it('skal ikke gi feil når gradert andel har mer enn 0 i fordelt beløp', () => {
-    const andeler = [{
-      andelsnr: 1,
-      skalRedigereInntekt: true,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-      andelIArbeid: '50',
-      arbeidsperiodeTom: '9999-12-31',
-    },
-    {
-      andelsnr: 2,
-      skalRedigereInntekt: true,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-      inntektskategori: 'FRILANS',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        skalRedigereInntekt: true,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+        andelIArbeid: '50',
+        arbeidsperiodeTom: '9999-12-31',
+      },
+      {
+        andelsnr: 2,
+        skalRedigereInntekt: true,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+        inntektskategori: 'FRILANS',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -427,33 +492,40 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      '2022-04-21',
+      intlMock,
+    );
     expect(verifiserGraderteAndeler()).toBe(null);
   });
 
   it('skal gi feil når gradert andel har 0 i fordelt beløp', () => {
-    const andeler = [{
-      andelsnr: 1,
-      skalRedigereInntekt: true,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-      andelIArbeid: '50',
-      arbeidsperiodeTom: '9999-12-31',
-    },
-    {
-      andelsnr: 2,
-      skalRedigereInntekt: true,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-      inntektskategori: 'FRILANS',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        skalRedigereInntekt: true,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+        andelIArbeid: '50',
+        arbeidsperiodeTom: '9999-12-31',
+      },
+      {
+        andelsnr: 2,
+        skalRedigereInntekt: true,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+        inntektskategori: 'FRILANS',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -467,33 +539,40 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      '2022-04-21',
+      intlMock,
+    );
     expect(verifiserGraderteAndeler()).toBe(gradertAndelMåVæreFordeltMerEnn0Feilmelding);
   });
 
   it('skal ikke gi feil når gradert andel har 0 i fordelt beløp men det er avsluttet', () => {
-    const andeler = [{
-      andelsnr: 1,
-      skalRedigereInntekt: true,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-      andelIArbeid: '50',
-      arbeidsperiodeTom: '2022-04-20',
-    },
-    {
-      andelsnr: 2,
-      skalRedigereInntekt: true,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-      inntektskategori: 'FRILANS',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        skalRedigereInntekt: true,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+        andelIArbeid: '50',
+        arbeidsperiodeTom: '2022-04-20',
+      },
+      {
+        andelsnr: 2,
+        skalRedigereInntekt: true,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+        inntektskategori: 'FRILANS',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -507,33 +586,40 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues, fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      '2022-04-21',
+      intlMock,
+    );
     expect(verifiserGraderteAndeler()).toBe(null);
   });
 
   it('skal tillate 0 i fordeling på andeler som ikke skal graderes', () => {
-    const andeler = [{
-      andelsnr: 1,
-      skalRedigereInntekt: true,
-      andel: 'Virksomheten 1',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'AT',
-      inntektskategori: 'ARBEIDSTAKER',
-      arbeidsforholdId: '2974239',
-      arbeidsgiverId: '999999999',
-      andelIArbeid: '0',
-      arbeidsperiodeTom: '9999-12-31',
-    },
-    {
-      andelsnr: 2,
-      skalRedigereInntekt: true,
-      andel: 'Frilans',
-      nyAndel: false,
-      lagtTilAvSaksbehandler: false,
-      aktivitetStatus: 'FL',
-      inntektskategori: 'FRILANS',
-    },
+    const andeler = [
+      {
+        andelsnr: 1,
+        skalRedigereInntekt: true,
+        andel: 'Virksomheten 1',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'AT',
+        inntektskategori: 'ARBEIDSTAKER',
+        arbeidsforholdId: '2974239',
+        arbeidsgiverId: '999999999',
+        andelIArbeid: '0',
+        arbeidsperiodeTom: '9999-12-31',
+      },
+      {
+        andelsnr: 2,
+        skalRedigereInntekt: true,
+        andel: 'Frilans',
+        nyAndel: false,
+        lagtTilAvSaksbehandler: false,
+        aktivitetStatus: 'FL',
+        inntektskategori: 'FRILANS',
+      },
     ];
 
     const getValues = jest.fn((x: string): number => {
@@ -547,8 +633,13 @@ describe('<ValidateAndelerUtils>', () => {
       }
     }) as any;
 
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(getValues,
-      fieldname, andeler as FordelBeregningsgrunnlagAndelValues[], '2022-04-21', intlMock);
+    const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      getValues,
+      fieldname,
+      andeler as FordelBeregningsgrunnlagAndelValues[],
+      '2022-04-21',
+      intlMock,
+    );
     expect(verifiserGraderteAndeler()).toBe(null);
   });
 });

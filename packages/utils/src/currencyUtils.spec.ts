@@ -1,6 +1,4 @@
-import {
-  formatCurrencyNoKr, formatCurrencyWithKr, parseCurrencyInput, removeSpacesFromNumber,
-} from './currencyUtils';
+import { formatCurrencyNoKr, formatCurrencyWithKr, parseCurrencyInput, removeSpacesFromNumber } from './currencyUtils';
 
 describe('Currency-utils', () => {
   it('skal teste at beloep er korrekt formatert med krone-notasjon', () => {

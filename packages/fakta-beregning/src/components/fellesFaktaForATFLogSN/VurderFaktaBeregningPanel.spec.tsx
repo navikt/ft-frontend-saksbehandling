@@ -7,10 +7,7 @@ import {
 } from './VurderFaktaBeregningPanel';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
-const {
-  AVKLAR_AKTIVITETER,
-  VURDER_FAKTA_FOR_ATFL_SN,
-} = FaktaBeregningAksjonspunktCode;
+const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
 
 const avklarAktiviteterAp = {
   id: 1,
@@ -20,12 +17,14 @@ const avklarAktiviteterAp = {
   erAktivt: true,
 } as Aksjonspunkt;
 
-const aksjonspunkter = [{
-  definisjon: VURDER_FAKTA_FOR_ATFL_SN,
-  status: 'OPPR',
-  erAktivt: true,
-  kanLoses: true,
-}];
+const aksjonspunkter = [
+  {
+    definisjon: VURDER_FAKTA_FOR_ATFL_SN,
+    status: 'OPPR',
+    erAktivt: true,
+    kanLoses: true,
+  },
+];
 
 describe('<VurderFaktaBeregningPanel>', () => {
   it('skal ikkje transformValues uten aksjonspunkt', () => {
@@ -46,7 +45,10 @@ describe('<VurderFaktaBeregningPanel>', () => {
     };
     const tilfeller = [];
     const values = {
-      [BEGRUNNELSE_FAKTA_TILFELLER_NAME]: 'begrunnelse', aksjonspunkter, faktaOmBeregning, tilfeller,
+      [BEGRUNNELSE_FAKTA_TILFELLER_NAME]: 'begrunnelse',
+      aksjonspunkter,
+      faktaOmBeregning,
+      tilfeller,
     };
     const transformed = transformValuesVurderFaktaBeregning(values);
     expect(transformed.begrunnelse).toBe('begrunnelse');

@@ -8,10 +8,10 @@ import { AlleKodeverk } from '@navikt/ft-types';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
 
 type OwnProps = {
-    readOnly: boolean;
-    brukersAndelFieldArrayName: string;
-    isAksjonspunktClosed: boolean;
-    alleKodeverk: AlleKodeverk;
+  readOnly: boolean;
+  brukersAndelFieldArrayName: string;
+  isAksjonspunktClosed: boolean;
+  alleKodeverk: AlleKodeverk;
 };
 
 /**

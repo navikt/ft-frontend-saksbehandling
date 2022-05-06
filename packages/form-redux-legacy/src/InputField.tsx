@@ -15,15 +15,9 @@ interface InputFieldProps {
   label?: LabelType;
 }
 
-const InputField: FunctionComponent<BaseFieldProps & InputFieldProps & (NavFrontendInputProps | ReadOnlyFieldProps)> = ({
-  name,
-  type,
-  label,
-  validate,
-  readOnly,
-  isEdited,
-  ...otherProps
-}) => (
+const InputField: FunctionComponent<
+  BaseFieldProps & InputFieldProps & (NavFrontendInputProps | ReadOnlyFieldProps)
+> = ({ name, type, label, validate, readOnly, isEdited, ...otherProps }) => (
   // @ts-ignore
   <Field
     name={name}

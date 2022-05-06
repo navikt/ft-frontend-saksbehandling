@@ -42,10 +42,18 @@ describe('<KunYtelsePanel>', () => {
   it('skal transform values riktig', () => {
     const kunYtelse = { fodendeKvinneMedDP: false };
     const andel1 = {
-      andelsnr: 1, nyAndel: false, lagtTilAvSaksbehandler: false, fastsattBelop: '10 000', inntektskategori: Inntektskategori.ARBEIDSTAKER,
+      andelsnr: 1,
+      nyAndel: false,
+      lagtTilAvSaksbehandler: false,
+      fastsattBelop: '10 000',
+      inntektskategori: Inntektskategori.ARBEIDSTAKER,
     };
     const andel2 = {
-      andelsnr: null, nyAndel: true, lagtTilAvSaksbehandler: true, fastsattBelop: '20 000', inntektskategori: Inntektskategori.SJØMANN,
+      andelsnr: null,
+      nyAndel: true,
+      lagtTilAvSaksbehandler: true,
+      fastsattBelop: '20 000',
+      inntektskategori: Inntektskategori.SJØMANN,
     };
     const values = {};
     values[`${brukersAndelFieldArrayName}`] = [andel1, andel2];

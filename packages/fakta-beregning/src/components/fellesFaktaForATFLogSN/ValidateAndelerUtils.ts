@@ -7,7 +7,7 @@ export type SortedAndelInfo = {
   andelsinfo: string;
   inntektskategori: string;
   arbeidsforholdId?: string;
-}
+};
 
 export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo): number => {
   if (andel1.andelsinfo === andel2.andelsinfo) {
@@ -20,12 +20,10 @@ export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo)
 };
 
 const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
-  const {
-    nyAndel, andel, inntektskategori, aktivitetStatus, arbeidsforholdId,
-  } = value;
+  const { nyAndel, andel, inntektskategori, aktivitetStatus, arbeidsforholdId } = value;
   if (nyAndel) {
     if (!Number.isNaN(Number(andel))) {
-      const matchendeAndelFraListe = andelList.filter((andelValue) => andelValue.andelsnr === parseFloat(andel));
+      const matchendeAndelFraListe = andelList.filter(andelValue => andelValue.andelsnr === parseFloat(andel));
       if (matchendeAndelFraListe.length > 0) {
         return { andelsinfo: matchendeAndelFraListe[0].andel, inntektskategori };
       }
@@ -41,14 +39,20 @@ const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
   return { andelsinfo: andel, inntektskategori, arbeidsforholdId };
 };
 
-export const ulikeAndelerErrorMessage = (intl: IntlShape): string => intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.UlikeAndeler' });
+export const ulikeAndelerErrorMessage = (intl: IntlShape): string =>
+  intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.UlikeAndeler' });
 
-const erAndelerLike = (andel1: SortedAndelInfo, andel2: SortedAndelInfo): boolean => andel2.andelsinfo === andel1.andelsinfo
-  && andel2.inntektskategori === andel1.inntektskategori && andel1.arbeidsforholdId === andel2.arbeidsforholdId;
+const erAndelerLike = (andel1: SortedAndelInfo, andel2: SortedAndelInfo): boolean =>
+  andel2.andelsinfo === andel1.andelsinfo &&
+  andel2.inntektskategori === andel1.inntektskategori &&
+  andel1.arbeidsforholdId === andel2.arbeidsforholdId;
 
-export const validateUlikeAndelerWithGroupingFunction = (andelList: BrukersAndelValues[] | AndelFieldValue[], mapToSort: ((andel: BrukersAndelValues,
-   andelList: BrukersAndelValues[] | AndelFieldValue[]) => SortedAndelInfo), intl: IntlShape): string => {
-  const mappedAndeler = andelList.map((value) => (mapToSort(value, andelList)));
+export const validateUlikeAndelerWithGroupingFunction = (
+  andelList: BrukersAndelValues[] | AndelFieldValue[],
+  mapToSort: (andel: BrukersAndelValues, andelList: BrukersAndelValues[] | AndelFieldValue[]) => SortedAndelInfo,
+  intl: IntlShape,
+): string => {
+  const mappedAndeler = andelList.map(value => mapToSort(value, andelList));
   const sortedAndeler = mappedAndeler.slice().sort((andel1, andel2) => compareAndeler(andel1, andel2));
   for (let i = 0; i < sortedAndeler.length - 1; i += 1) {
     if (erAndelerLike(sortedAndeler[i], sortedAndeler[i + 1])) {
@@ -58,13 +62,16 @@ export const validateUlikeAndelerWithGroupingFunction = (andelList: BrukersAndel
   return null;
 };
 
-export const validateUlikeAndeler = (andelList: AndelFieldValue[],
-  intl: IntlShape): string => validateUlikeAndelerWithGroupingFunction(andelList, mapAndelToSortedObject, intl);
+export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string =>
+  validateUlikeAndelerWithGroupingFunction(andelList, mapAndelToSortedObject, intl);
 
-const minstEnFastsattErrorMessage = (intl: IntlShape): string => intl.formatMessage({ id: 'BeregningInfoPanel.Validation.MinstEnFastsatt' });
+const minstEnFastsattErrorMessage = (intl: IntlShape): string =>
+  intl.formatMessage({ id: 'BeregningInfoPanel.Validation.MinstEnFastsatt' });
 
 export const validateMinstEnFastsatt = (andelList: AndelFieldValue[], intl: IntlShape): string => {
-  const harAndelMedFastsattInntekt = andelList.some(({ fastsattBelop }) => fastsattBelop !== null && fastsattBelop !== '');
+  const harAndelMedFastsattInntekt = andelList.some(
+    ({ fastsattBelop }) => fastsattBelop !== null && fastsattBelop !== '',
+  );
   if (!harAndelMedFastsattInntekt) {
     return minstEnFastsattErrorMessage(intl);
   }

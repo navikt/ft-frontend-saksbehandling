@@ -18,17 +18,12 @@ export default {
 
 export const Default = () => (
   <RawIntlProvider value={intl}>
-    <DateTimeLabel
-      dateTimeString="2017-08-02T00:54:25.455"
-    />
+    <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" />
   </RawIntlProvider>
 );
 
 export const NyttFormat = () => (
   <RawIntlProvider value={intl}>
-    <DateTimeLabel
-      dateTimeString="2017-08-02T00:54:25.455"
-      useNewFormat
-    />
+    <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" useNewFormat />
   </RawIntlProvider>
 );

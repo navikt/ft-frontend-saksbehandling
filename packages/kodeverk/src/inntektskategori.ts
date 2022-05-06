@@ -19,8 +19,7 @@ const SELVSTENDIG_NÆRINGSDRIVENDE_INNTEKTSKATEGORIER = [
   Inntektskategori.FISKER,
 ];
 
-export const isSelvstendigNæringsdrivende = (
-  inntektskategori:string,
-):boolean => SELVSTENDIG_NÆRINGSDRIVENDE_INNTEKTSKATEGORIER.some((s) => s === inntektskategori);
+export const isSelvstendigNæringsdrivende = (inntektskategori: string): boolean =>
+  SELVSTENDIG_NÆRINGSDRIVENDE_INNTEKTSKATEGORIER.some(s => s === inntektskategori);
 
 export default Inntektskategori;

@@ -4,25 +4,25 @@ import AutocompleteSuggestion from './AutocompleteSuggestion';
 import styles from './autocomplete.less';
 
 export interface AutocompleteProps {
-    onSelect: (value: Suggestion) => void;
-    onChange: (value: string) => void;
-    placeholder: string;
-    suggestions: Suggestion[];
-    value: string;
-    ariaLabel: string;
-    id: string;
-    name?: string;
-    shouldFocusOnMount?: boolean;
+  onSelect: (value: Suggestion) => void;
+  onChange: (value: string) => void;
+  placeholder: string;
+  suggestions: Suggestion[];
+  value: string;
+  ariaLabel: string;
+  id: string;
+  name?: string;
+  shouldFocusOnMount?: boolean;
 }
 
 interface State {
-    activeSuggestionIndex: number;
-    hasFocus: boolean;
-    shouldShowSuggestions: boolean;
-    setAriaActiveDescendant: boolean;
-    shouldBlur: boolean;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    blurDelay: any;
+  activeSuggestionIndex: number;
+  hasFocus: boolean;
+  shouldShowSuggestions: boolean;
+  setAriaActiveDescendant: boolean;
+  shouldBlur: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  blurDelay: any;
 }
 
 class Autocomplete extends React.Component<AutocompleteProps, State> {
@@ -123,9 +123,8 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
       case 40: // Pil ned
         if (shouldShowSuggestions) {
           event.preventDefault();
-          activeSuggestionIndex = activeSuggestionIndex + 1 === suggestions.length
-            ? suggestions.length - 1
-            : activeSuggestionIndex + 1;
+          activeSuggestionIndex =
+            activeSuggestionIndex + 1 === suggestions.length ? suggestions.length - 1 : activeSuggestionIndex + 1;
           this.setState({ activeSuggestionIndex });
         }
         break;
@@ -190,15 +189,12 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
   }
 
   render() {
-    const {
-      suggestions, id, ariaLabel, placeholder, value, name, shouldFocusOnMount,
-    } = this.props;
-    const {
-      activeSuggestionIndex, setAriaActiveDescendant, hasFocus, shouldShowSuggestions,
-    } = this.state;
+    const { suggestions, id, ariaLabel, placeholder, value, name, shouldFocusOnMount } = this.props;
+    const { activeSuggestionIndex, setAriaActiveDescendant, hasFocus, shouldShowSuggestions } = this.state;
 
     const showSuggestions = hasFocus && shouldShowSuggestions && suggestions.length > 0;
-    const activeDescendant = setAriaActiveDescendant && activeSuggestionIndex > -1 ? `${id}-item-${activeSuggestionIndex}` : undefined;
+    const activeDescendant =
+      setAriaActiveDescendant && activeSuggestionIndex > -1 ? `${id}-item-${activeSuggestionIndex}` : undefined;
 
     return (
       <div
@@ -222,7 +218,7 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
           onBlur={this.onBlur}
           onKeyDown={this.onKeyDown}
           onFocus={this.onFocus}
-          ref={(input) => {
+          ref={input => {
             this.inputRef = input;
           }}
           className={`${styles.autocomplete__input} typo-normal`}
@@ -232,24 +228,22 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
         <ul
           id={`${id}-suggestions`}
           role="listbox"
-          className={
-                        showSuggestions ? styles.autocomplete__suggestions : styles['autocomplete__suggestions--hidden']
-                    }
+          className={showSuggestions ? styles.autocomplete__suggestions : styles['autocomplete__suggestions--hidden']}
         >
-          {showSuggestions
-                        && suggestions.map((suggestion: Suggestion, index: number) => (
-                          <AutocompleteSuggestion
-                            id={`${id}-item-${index}`}
-                            key={suggestion.key}
-                            index={index}
-                            value={suggestion}
-                            match={value}
-                            active={index === activeSuggestionIndex}
-                            onClick={this.setValue}
-                            setSuggestionIndex={this.setSuggestionIndex}
-                            avoidBlur={this.avoidBlur}
-                          />
-                        ))}
+          {showSuggestions &&
+            suggestions.map((suggestion: Suggestion, index: number) => (
+              <AutocompleteSuggestion
+                id={`${id}-item-${index}`}
+                key={suggestion.key}
+                index={index}
+                value={suggestion}
+                match={value}
+                active={index === activeSuggestionIndex}
+                onClick={this.setValue}
+                setSuggestionIndex={this.setSuggestionIndex}
+                avoidBlur={this.avoidBlur}
+              />
+            ))}
         </ul>
       </div>
     );

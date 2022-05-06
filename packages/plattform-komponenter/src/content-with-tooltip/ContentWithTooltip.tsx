@@ -3,11 +3,11 @@ import classnames from 'classnames';
 import styles from './contentWithTooltip.less';
 
 export interface ContentWithTooltipProps {
-    tooltipText: string;
-    tooltipDirectionRight?: boolean;
-    tooltipClassName?: string;
-    children?: React.ReactNode;
-    inline?: boolean;
+  tooltipText: string;
+  tooltipDirectionRight?: boolean;
+  tooltipClassName?: string;
+  children?: React.ReactNode;
+  inline?: boolean;
 }
 
 const ContentWithTooltip = ({

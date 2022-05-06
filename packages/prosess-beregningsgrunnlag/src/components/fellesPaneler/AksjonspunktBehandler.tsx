@@ -2,13 +2,9 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';
-import {
-  FormattedMessage, IntlShape, useIntl,
-} from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import {
-  hasValidText, maxLength, minLength, required,
-} from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 
@@ -43,7 +39,8 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
   }
   return undefined;
 };
-const harFlereAksjonspunkter = (gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean => !!gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.length > 1;
+const harFlereAksjonspunkter = (gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean =>
+  !!gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.length > 1;
 const finnATFLVurderingLabel = (gjeldendeAksjonspunkter: Aksjonspunkt[]): ReactElement => {
   if (harFlereAksjonspunkter(gjeldendeAksjonspunkter)) {
     return <FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />;
@@ -51,23 +48,27 @@ const finnATFLVurderingLabel = (gjeldendeAksjonspunkter: Aksjonspunkt[]): ReactE
   return <FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />;
 };
 
-const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean => allePerioder
-  .some(({ periodeAarsaker }) => periodeAarsaker
-    && periodeAarsaker.some((kode) => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET));
+const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean =>
+  allePerioder.some(
+    ({ periodeAarsaker }) =>
+      periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET),
+  );
 
-const settOppKomponenterForNæring = (readOnly: boolean,
+const settOppKomponenterForNæring = (
+  readOnly: boolean,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  aksjonspunkter: Aksjonspunkt[]): ReactElement => {
+  aksjonspunkter: Aksjonspunkt[],
+): ReactElement => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
-    (andel) => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
   if (!snAndel) {
     return null;
   }
   const erNyArbLivet = snAndel.erNyIArbeidslivet;
-  const erVarigEndring = snAndel.næringer && snAndel.næringer.some((naring) => naring.erVarigEndret === true);
-  const erNyoppstartet = snAndel.næringer && snAndel.næringer.some((naring) => naring.erNyoppstartet === true);
+  const erVarigEndring = snAndel.næringer && snAndel.næringer.some(naring => naring.erVarigEndret === true);
+  const erNyoppstartet = snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
   return (
     <>
       <Row>
@@ -100,20 +101,22 @@ const settOppKomponenterForNæring = (readOnly: boolean,
   );
 };
 
-const settOppKomponenterForATFL = (aksjonspunkter: Aksjonspunkt[],
+const settOppKomponenterForATFL = (
+  aksjonspunkter: Aksjonspunkt[],
   alleKodeverk: AlleKodeverk,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   readOnly: boolean,
   formName: string,
-  intl: IntlShape): ReactElement => {
+  intl: IntlShape,
+): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const flAndel = alleAndelerIForstePeriode.find(
-    (andel) => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.FRILANSER,
   );
   const atAndel = alleAndelerIForstePeriode.find(
-    (andel) => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
   );
   const visFL = flAndel && flAndel.skalFastsetteGrunnlag;
   const visAT = atAndel && atAndel.skalFastsetteGrunnlag;
@@ -128,28 +131,24 @@ const settOppKomponenterForATFL = (aksjonspunkter: Aksjonspunkt[],
       </Row>
       <VerticalSpacer eightPx />
       {erTidsbegrenset && (
-      <AksjonspunktBehandlerTB
-        readOnly={readOnly}
-        formName={formName}
-        allePerioder={allePerioder}
-        alleKodeverk={alleKodeverk}
-        aksjonspunkter={aksjonspunkter}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
+        <AksjonspunktBehandlerTB
+          readOnly={readOnly}
+          formName={formName}
+          allePerioder={allePerioder}
+          alleKodeverk={alleKodeverk}
+          aksjonspunkter={aksjonspunkter}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
       )}
       {!erTidsbegrenset && visAT && (
-      <AksjonspunktBehandlerAT
-        readOnly={readOnly}
-        alleAndelerIForstePeriode={alleAndelerIForstePeriode}
-        alleKodeverk={alleKodeverk}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
+        <AksjonspunktBehandlerAT
+          readOnly={readOnly}
+          alleAndelerIForstePeriode={alleAndelerIForstePeriode}
+          alleKodeverk={alleKodeverk}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
       )}
-      {visFL && (
-      <AksjonspunktBehandlerFL
-        readOnly={readOnly}
-      />
-      )}
+      {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} />}
       <VerticalSpacer sixteenPx />
       <Row>
         <Column xs="12">
@@ -160,7 +159,9 @@ const settOppKomponenterForATFL = (aksjonspunkter: Aksjonspunkt[],
             maxLength={1500}
             readOnly={readOnly}
             textareaClass={styles.textAreaStyle}
-            placeholder={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder' })}
+            placeholder={intl.formatMessage({
+              id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
+            })}
           />
         </Column>
       </Row>
@@ -174,16 +175,16 @@ interface StaticFunctions {
 }
 
 type OwnProps = {
-    readOnly: boolean;
-    aksjonspunkter: Aksjonspunkt[];
-    alleKodeverk: AlleKodeverk;
-    formName: string;
-    readOnlySubmitButton: boolean;
-    allePerioder?: BeregningsgrunnlagPeriodeProp[];
-    relevanteStatuser: RelevanteStatuserProp;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-    isSubmitting: boolean;
-    isDirty: boolean;
+  readOnly: boolean;
+  aksjonspunkter: Aksjonspunkt[];
+  alleKodeverk: AlleKodeverk;
+  formName: string;
+  readOnlySubmitButton: boolean;
+  allePerioder?: BeregningsgrunnlagPeriodeProp[];
+  relevanteStatuser: RelevanteStatuserProp;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  isSubmitting: boolean;
+  isDirty: boolean;
 };
 
 const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
@@ -226,17 +227,29 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
       </div>
     );
   }
-  const atflAPKoder = [ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD] as string[];
+  const atflAPKoder = [
+    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  ] as string[];
 
-  const harATFLAP = aksjonspunkter.some((ap) => atflAPKoder.includes(ap.definisjon));
-  const harDekningsgradAP = aksjonspunkter.some((ap) => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD);
+  const harATFLAP = aksjonspunkter.some(ap => atflAPKoder.includes(ap.definisjon));
+  const harDekningsgradAP = aksjonspunkter.some(
+    ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
+  );
   return (
     <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
       <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-        {harATFLAP && settOppKomponenterForATFL(aksjonspunkter, alleKodeverk, allePerioder, arbeidsgiverOpplysningerPerId, readOnly, formName, intl)}
-        {harDekningsgradAP
-        && (
+        {harATFLAP &&
+          settOppKomponenterForATFL(
+            aksjonspunkter,
+            alleKodeverk,
+            allePerioder,
+            arbeidsgiverOpplysningerPerId,
+            readOnly,
+            formName,
+            intl,
+          )}
+        {harDekningsgradAP && (
           <>
             <Row>
               <Column xs="12">
@@ -248,9 +261,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> & StaticFunctions = ({
             <VerticalSpacer eightPx />
             <Row>
               <Column xs="12">
-                <DekningsgradAksjonspunktPanel
-                  readOnly={readOnly}
-                />
+                <DekningsgradAksjonspunktPanel readOnly={readOnly} />
               </Column>
             </Row>
             <VerticalSpacer sixteenPx />

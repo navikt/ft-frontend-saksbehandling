@@ -17,9 +17,7 @@ interface OwnProps {
  * Komponent/Ikon som viser om noe i GUI er endret.
  */
 
-const EditedIcon: FunctionComponent<OwnProps> = ({
-  className = '',
-}) => (
+const EditedIcon: FunctionComponent<OwnProps> = ({ className = '' }) => (
   <span className={classNames('editedIcon', className)}>
     <Image
       src={endretFelt}

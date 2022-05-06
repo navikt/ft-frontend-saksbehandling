@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 import { range } from '@navikt/ft-utils';
-import {
-  EditedIcon, FlexColumn, FlexContainer, FlexRow,
-} from '@navikt/ft-ui-komponenter';
+import { EditedIcon, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import styles from './optionGrid.less';
 
@@ -17,20 +15,24 @@ interface OptionGridProps {
 }
 
 export const OptionGrid: FunctionComponent<OptionGridProps> = ({
-  columns, rows, options, spaceBetween, isEdited, direction,
+  columns,
+  rows,
+  options,
+  spaceBetween,
+  isEdited,
+  direction,
 }) => {
   if (direction === 'vertical') {
     const numRows = rows || options.length;
     return (
       <FlexContainer>
         <FlexColumn className={styles.fullBreddeIE}>
-          {range(numRows)
-            .map((rowIndex) => (
-              <FlexRow key={`row${rowIndex}`} spaceBetween={spaceBetween}>
-                {options.filter((_option, optionIndex) => optionIndex % numRows === rowIndex)}
-                {isEdited && <EditedIcon className="radioEdited" />}
-              </FlexRow>
-            ))}
+          {range(numRows).map(rowIndex => (
+            <FlexRow key={`row${rowIndex}`} spaceBetween={spaceBetween}>
+              {options.filter((_option, optionIndex) => optionIndex % numRows === rowIndex)}
+              {isEdited && <EditedIcon className="radioEdited" />}
+            </FlexRow>
+          ))}
         </FlexColumn>
       </FlexContainer>
     );
@@ -39,12 +41,11 @@ export const OptionGrid: FunctionComponent<OptionGridProps> = ({
   return (
     <FlexContainer>
       <FlexRow spaceBetween={spaceBetween}>
-        {range(numColumns)
-          .map((columnIndex) => (
-            <FlexColumn key={`column${columnIndex}`}>
-              {options.filter((_option, optionIndex) => optionIndex % numColumns === columnIndex)}
-            </FlexColumn>
-          ))}
+        {range(numColumns).map(columnIndex => (
+          <FlexColumn key={`column${columnIndex}`}>
+            {options.filter((_option, optionIndex) => optionIndex % numColumns === columnIndex)}
+          </FlexColumn>
+        ))}
         {isEdited && <EditedIcon className="radioEdited" />}
       </FlexRow>
     </FlexContainer>

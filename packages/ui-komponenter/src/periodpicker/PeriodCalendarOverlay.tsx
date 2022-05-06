@@ -49,16 +49,18 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
   }
 
   onBlur(e: React.FocusEvent): void {
-    const { targetIsCalendarOrCalendarButton, props: { onClose } } = this;
-    getRelatedTarget(e)
-      .then((relatedTarget: HTMLDivElement) => {
-        if (targetIsCalendarOrCalendarButton(relatedTarget)) {
-          return;
-        }
-        if (onClose) {
-          onClose();
-        }
-      });
+    const {
+      targetIsCalendarOrCalendarButton,
+      props: { onClose },
+    } = this;
+    getRelatedTarget(e).then((relatedTarget: HTMLDivElement) => {
+      if (targetIsCalendarOrCalendarButton(relatedTarget)) {
+        return;
+      }
+      if (onClose) {
+        onClose();
+      }
+    });
   }
 
   onKeyDown({ key }: React.KeyboardEvent): void {
@@ -96,7 +98,10 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
   }
 
   targetIsCalendarOrCalendarButton(target: HTMLDivElement): boolean {
-    const { calendarRootRef, props: { elementIsCalendarButton } } = this;
+    const {
+      calendarRootRef,
+      props: { elementIsCalendarButton },
+    } = this;
 
     const targetIsInsideCalendar = calendarRootRef && calendarRootRef.contains(target);
     const targetIsCalendarButton = elementIsCalendarButton(target);
@@ -105,9 +110,7 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
   }
 
   render() {
-    const {
-      disabled, className, dayPickerClassName, disabledDays, startDate, endDate,
-    } = this.props;
+    const { disabled, className, dayPickerClassName, disabledDays, startDate, endDate } = this.props;
     if (disabled) {
       return null;
     }
@@ -115,9 +118,11 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
     const { formatMessage, locale } = intl;
     const dayPickerLocalization = {
       locale,
-      months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((monthNum) => formatMessage({ id: `Calendar.Month.${monthNum}` })),
-      weekdaysLong: [0, 1, 2, 3, 4, 5, 6].map((dayNum) => formatMessage({ id: `Calendar.Day.${dayNum}` })),
-      weekdaysShort: [0, 1, 2, 3, 4, 5, 6].map((dayName) => formatMessage({ id: `Calendar.Day.Short.${dayName}` })),
+      months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(monthNum =>
+        formatMessage({ id: `Calendar.Month.${monthNum}` }),
+      ),
+      weekdaysLong: [0, 1, 2, 3, 4, 5, 6].map(dayNum => formatMessage({ id: `Calendar.Day.${dayNum}` })),
+      weekdaysShort: [0, 1, 2, 3, 4, 5, 6].map(dayName => formatMessage({ id: `Calendar.Day.Short.${dayName}` })),
       firstDayOfWeek: 1,
     };
 
@@ -131,7 +136,7 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
         onKeyDown={this.onKeyDown}
         role="link"
       >
-        {/* @ts-ignore fiks */ }
+        {/* @ts-ignore fiks */}
         <DayPicker
           {...dayPickerLocalization}
           className={dayPickerClassName}

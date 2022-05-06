@@ -8,7 +8,7 @@ export default {
   component: NavigationWithDetailView,
 };
 
-const Template: Story<ComponentProps<typeof NavigationWithDetailView>> = (args) => {
+const Template: Story<ComponentProps<typeof NavigationWithDetailView>> = args => {
   const navigationSection = () => <p>Navigasjon</p>;
   const detailSection = () => (
     <DetailView title="Tittel">

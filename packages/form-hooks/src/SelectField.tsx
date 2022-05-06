@@ -38,7 +38,9 @@ const SelectField: FunctionComponent<OwnProps> = ({
   className,
   ...otherProps
 }) => {
-  const { formState: { errors } } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   const { field } = useController({
     name,
@@ -48,7 +50,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   });
 
   if (readOnly) {
-    const option = selectValues.map((sv) => sv.props).find((o) => o.value === field.value);
+    const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
     return <ReadOnlyField value={value} {...otherProps} />;
   }
@@ -63,7 +65,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
       feil={getError(errors, name)}
       bredde={bredde}
       {...field}
-      onChange={(evt) => {
+      onChange={evt => {
         if (onChange) {
           onChange(evt);
         }

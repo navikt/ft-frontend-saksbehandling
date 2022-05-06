@@ -23,22 +23,12 @@ interface OwnProps {
  * <PeriodLabel dateStringFom="2017-08-25" dateStringTom="2017-08-31" />
  * ```
  */
-const PeriodLabel: FunctionComponent<OwnProps> = ({
-  dateStringFom,
-  dateStringTom,
-  showTodayString = false,
-}) => (
+const PeriodLabel: FunctionComponent<OwnProps> = ({ dateStringFom, dateStringTom, showTodayString = false }) => (
   <span>
     <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateStringFom)} />
     {' - '}
-    {dateStringTom
-      && <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateStringTom)} />}
-    {showTodayString && !dateStringTom
-      && (
-      <span>
-        {intl.formatMessage({ id: 'PeriodLabel.DateToday' })}
-      </span>
-      )}
+    {dateStringTom && <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateStringTom)} />}
+    {showTodayString && !dateStringTom && <span>{intl.formatMessage({ id: 'PeriodLabel.DateToday' })}</span>}
   </span>
 );
 

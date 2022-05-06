@@ -15,30 +15,37 @@ import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] => {
-  if (beregningsgrunnlag && beregningsgrunnlag.faktaOmFordeling
-    && beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag) {
+  if (
+    beregningsgrunnlag &&
+    beregningsgrunnlag.faktaOmFordeling &&
+    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag
+  ) {
     return beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
   }
   return [];
 };
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    beregningsgrunnlag: Beregningsgrunnlag;
-    alleKodeverk: AlleKodeverk;
-    behandlingType: string;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  beregningsgrunnlag: Beregningsgrunnlag;
+  alleKodeverk: AlleKodeverk;
+  behandlingType: string;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 interface StaticFunctions {
-  buildInitialValues: (fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-                       bg: Beregningsgrunnlag,
-                       getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-                       arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => FordelBeregningsgrunnlagValues;
-  transformValues: (values: FordelBeregningsgrunnlagValues,
-                    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-                    bgPerioder: BeregningsgrunnlagPeriodeProp[]) => FordelBeregningsgrunnlagPerioderTransformedValues;
+  buildInitialValues: (
+    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+    bg: Beregningsgrunnlag,
+    getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  ) => FordelBeregningsgrunnlagValues;
+  transformValues: (
+    values: FordelBeregningsgrunnlagValues,
+    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+    bgPerioder: BeregningsgrunnlagPeriodeProp[],
+  ) => FordelBeregningsgrunnlagPerioderTransformedValues;
 }
 
 const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
@@ -65,15 +72,19 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
   );
 };
 
-FastsettFordeltBeregningsgrunnlag.buildInitialValues = (fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+FastsettFordeltBeregningsgrunnlag.buildInitialValues = (
+  fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bg: Beregningsgrunnlag,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): FordelBeregningsgrunnlagValues => (FordelBeregningsgrunnlagForm
-  .buildInitialValues(fordelBGPerioder, bg, getKodeverknavn, arbeidsgiverOpplysningerPerId));
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): FordelBeregningsgrunnlagValues =>
+  FordelBeregningsgrunnlagForm.buildInitialValues(fordelBGPerioder, bg, getKodeverknavn, arbeidsgiverOpplysningerPerId);
 
-FastsettFordeltBeregningsgrunnlag.transformValues = (values: FordelBeregningsgrunnlagValues,
+FastsettFordeltBeregningsgrunnlag.transformValues = (
+  values: FordelBeregningsgrunnlagValues,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-  bgPerioder: BeregningsgrunnlagPeriodeProp[]): FordelBeregningsgrunnlagPerioderTransformedValues => FordelBeregningsgrunnlagForm.transformValues(values,
-  fordelBGPerioder, bgPerioder);
+  bgPerioder: BeregningsgrunnlagPeriodeProp[],
+): FordelBeregningsgrunnlagPerioderTransformedValues =>
+  FordelBeregningsgrunnlagForm.transformValues(values, fordelBGPerioder, bgPerioder);
 
 export default FastsettFordeltBeregningsgrunnlag;

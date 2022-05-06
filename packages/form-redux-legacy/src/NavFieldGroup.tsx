@@ -4,9 +4,11 @@ import { SkjemaGruppe } from 'nav-frontend-skjema';
 
 import renderNavField from './renderNavField';
 
-const renderNavSkjemaGruppeWithError = renderNavField(({
-  title, feil, getChildren, className,
-}) => <SkjemaGruppe description={title} feil={feil} className={className}>{getChildren()}</SkjemaGruppe>);
+const renderNavSkjemaGruppeWithError = renderNavField(({ title, feil, getChildren, className }) => (
+  <SkjemaGruppe description={title} feil={feil} className={className}>
+    {getChildren()}
+  </SkjemaGruppe>
+));
 
 interface NavFieldGroupProps {
   errorMessageName?: string;
@@ -17,7 +19,11 @@ interface NavFieldGroupProps {
 }
 
 const NavFieldGroup: FunctionComponent<NavFieldGroupProps> = ({
-  errorMessageName, errorMessage, title, children, className,
+  errorMessageName,
+  errorMessage,
+  title,
+  children,
+  className,
 }) => {
   if (!errorMessageName) {
     return (

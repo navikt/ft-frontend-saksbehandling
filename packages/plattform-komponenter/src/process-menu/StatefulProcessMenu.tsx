@@ -3,14 +3,14 @@ import StepType from './StepType';
 import ProcessMenu from './ProcessMenu';
 
 interface StepProps {
-    label: string;
-    type?: StepType;
-    iconAltText?: string;
+  label: string;
+  type?: StepType;
+  iconAltText?: string;
 }
 
 interface StatefulProcessMenuProps {
-    steps: StepProps[];
-    onClick?: (index: number) => void;
+  steps: StepProps[];
+  onClick?: (index: number) => void;
 }
 export const StatefulProcessMenu = ({ steps, onClick }: StatefulProcessMenuProps): JSX.Element => {
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -21,13 +21,14 @@ export const StatefulProcessMenu = ({ steps, onClick }: StatefulProcessMenuProps
     }
   };
 
-  const buildSteps = (): StepProps[] => steps.map((step, index) => ({
-    ...step,
-    isActive: activeIndex === index,
-    isFinished: activeIndex > index,
-    isDisabled: activeIndex + 1 < index,
-    type: activeIndex > index ? StepType.success : step.type,
-  }));
+  const buildSteps = (): StepProps[] =>
+    steps.map((step, index) => ({
+      ...step,
+      isActive: activeIndex === index,
+      isFinished: activeIndex > index,
+      isDisabled: activeIndex + 1 < index,
+      type: activeIndex > index ? StepType.success : step.type,
+    }));
   return <ProcessMenu steps={buildSteps()} onClick={handleOnClick} />;
 };
 

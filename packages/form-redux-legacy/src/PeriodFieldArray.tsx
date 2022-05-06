@@ -18,30 +18,36 @@ const onClick = (fields: FieldArrayFieldsProps<any>, emptyPeriodTemplate?: any) 
   fields.push(emptyPeriodTemplate);
 };
 
-const onKeyDown = (fields: FieldArrayFieldsProps<any>, emptyPeriodTemplate?: any) => ({ key }: React.KeyboardEvent): void => {
-  if (key === 'Enter') {
-    fields.push(emptyPeriodTemplate);
-  }
-};
+const onKeyDown =
+  (fields: FieldArrayFieldsProps<any>, emptyPeriodTemplate?: any) =>
+  ({ key }: React.KeyboardEvent): void => {
+    if (key === 'Enter') {
+      fields.push(emptyPeriodTemplate);
+    }
+  };
 
-const getRemoveButton = (index: number, fields: FieldArrayFieldsProps<any>) => (className?: string): ReactNode | undefined => {
-  if (index > 0) {
-    return (
-      <button
-        className={className || styles.buttonRemove}
-        type="button"
-        onClick={() => {
-          fields.remove(index);
-        }}
-      />
-    );
-  }
-  return undefined;
-};
+const getRemoveButton =
+  (index: number, fields: FieldArrayFieldsProps<any>) =>
+  (className?: string): ReactNode | undefined => {
+    if (index > 0) {
+      return (
+        <button
+          className={className || styles.buttonRemove}
+          type="button"
+          onClick={() => {
+            fields.remove(index);
+          }}
+        />
+      );
+    }
+    return undefined;
+  };
 
-const showErrorMessage = (meta?: FieldArrayMetaProps): boolean => meta && meta.error && (meta.dirty || meta.submitFailed);
+const showErrorMessage = (meta?: FieldArrayMetaProps): boolean =>
+  meta && meta.error && (meta.dirty || meta.submitFailed);
 
-const finnFeilmelding = (meta?: FieldArrayMetaProps): string => (Array.isArray(meta.error) ? meta.error[0] : meta.error);
+const finnFeilmelding = (meta?: FieldArrayMetaProps): string =>
+  Array.isArray(meta.error) ? meta.error[0] : meta.error;
 
 interface OwnProps {
   children: (id: any, index: number, removeButtonElmt?: (className?: string) => ReactNode) => ReactNode;
@@ -76,17 +82,15 @@ const PeriodFieldArray: FunctionComponent<OwnProps> = ({
 }) => {
   const text = bodyText || intl.formatMessage({ id: 'PeriodFieldArray.LeggTilPeriode' });
   return (
-    <NavFieldGroup
-      title={titleText}
-      errorMessage={showErrorMessage(meta) ? finnFeilmelding(meta) : null}
-    >
-      {fields.map((periodeElementFieldId, index) => children(periodeElementFieldId, index, getRemoveButton(index, fields)))}
+    <NavFieldGroup title={titleText} errorMessage={showErrorMessage(meta) ? finnFeilmelding(meta) : null}>
+      {fields.map((periodeElementFieldId, index) =>
+        children(periodeElementFieldId, index, getRemoveButton(index, fields)),
+      )}
       {shouldShowAddButton && (
         <Row>
           <Column xs="12">
-            {!createAddButtonInsteadOfImageLink && !readOnly
+            {!createAddButtonInsteadOfImageLink && !readOnly && (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              && (
               <div
                 onClick={onClick(fields, emptyPeriodTemplate)}
                 onKeyDown={onKeyDown(fields, emptyPeriodTemplate)}
@@ -95,17 +99,11 @@ const PeriodFieldArray: FunctionComponent<OwnProps> = ({
                 tabIndex={0}
               >
                 <Image className={styles.addCircleIcon} src={addCircleIcon} alt={text} />
-                <Undertekst className={styles.imageText}>
-                  {text}
-                </Undertekst>
+                <Undertekst className={styles.imageText}>{text}</Undertekst>
               </div>
-              )}
+            )}
             {createAddButtonInsteadOfImageLink && !readOnly && (
-              <button
-                type="button"
-                onClick={onClick(fields, emptyPeriodTemplate)}
-                className={styles.buttonAdd}
-              >
+              <button type="button" onClick={onClick(fields, emptyPeriodTemplate)} className={styles.buttonAdd}>
                 {text}
               </button>
             )}

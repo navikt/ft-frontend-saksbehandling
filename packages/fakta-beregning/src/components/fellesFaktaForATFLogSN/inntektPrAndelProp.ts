@@ -4,8 +4,8 @@ type InntektPrAndelProp = {
   inntektskategori?: string;
   nyAndel?: boolean;
   lagtTilAvSaksbehandler?: boolean;
-  aktivitetStatus? : string;
+  aktivitetStatus?: string;
   arbeidsforholdId?: string;
   arbeidsgiverId?: string;
-}
+};
 export default InntektPrAndelProp;
