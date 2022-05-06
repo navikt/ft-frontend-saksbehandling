@@ -14,7 +14,7 @@ const createMouseDownHandler =
   };
 
 // @ts-ignore Fiks
-const findNearestRow = (element: EventTarget) =>
+const findNearestRow = (element: EventTarget<HTMLElement>) =>
   element.tagName === 'TR' ? element : findNearestRow(element.parentElement);
 
 const setFocus = (e: React.KeyboardEvent, isNext: boolean): void => {
