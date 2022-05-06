@@ -40,6 +40,22 @@ module.exports = {
           title: 'plattform-komponenter',
           url: 'http://localhost:7007',
       },
+      'fakta-tilbakekreving-feilutbetaling': {
+          title: 'fakta-tilbakekreving-feilutbetaling',
+          url: 'http://localhost:7008',
+      },
+      'prosess-tilbakekreving-foreldelse': {
+          title: 'prosess-tilbakekreving-foreldelse',
+          url: 'http://localhost:7009',
+      },
+      'prosess-tilbakekreving': {
+          title: 'prosess-tilbakekreving',
+          url: 'http://localhost:7010',
+      },
+      'prosess-tilbakekreving-vedtak': {
+          title: 'prosess-tilbakekreving-vedtak',
+          url: 'http://localhost:7011',
+      },
   },
   webpackFinal: async (config, { configType }) => {
 
