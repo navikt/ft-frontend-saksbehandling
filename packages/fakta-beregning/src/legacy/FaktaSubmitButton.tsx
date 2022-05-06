@@ -77,7 +77,7 @@ export const FaktaSubmitButton: FunctionComponent<PureOwnProps & MappedOwnProps>
   </RawIntlProvider>
 );
 
-const mapStateToProps = (state: any, ownProps: PureOwnProps): MappedOwnProps => {
+const mapStateToProps = (state, ownProps: PureOwnProps): MappedOwnProps => {
   const fNames = ownProps.formNames ? ownProps.formNames : [ownProps.formName];
   const formNames = fNames.map(f => (f.includes('.') ? f.substr(f.lastIndexOf('.') + 1) : f));
   return {
@@ -86,7 +86,7 @@ const mapStateToProps = (state: any, ownProps: PureOwnProps): MappedOwnProps => 
     hasEmptyRequiredFields: ownProps.doNotCheckForRequiredFields
       ? // @ts-ignore
         false
-      : formNames.some(formName => hasBehandlingFormErrorsOfType(formName, isRequiredMessage())(state)),
+      : formNames.some(formName => hasBehandlingFormErrorsOfType(formName, isRequiredMessage())(state as never)), // TODO: Finn ut hva som er galt her
   };
 };
 

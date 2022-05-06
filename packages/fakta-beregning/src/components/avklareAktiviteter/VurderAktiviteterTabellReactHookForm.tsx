@@ -6,7 +6,7 @@ import { DDMMYYYY_DATE_FORMAT, hasValidDate } from '@navikt/ft-utils';
 
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { opptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {

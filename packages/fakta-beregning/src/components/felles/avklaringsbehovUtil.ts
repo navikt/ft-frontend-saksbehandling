@@ -1,7 +1,7 @@
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { aksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 
 export const hasAvklaringsbehov = (avklarinsbehovKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === avklarinsbehovKode);
 
-export const isAvklaringsbehovOpen = (statusKode: string): boolean => statusKode === aksjonspunktStatus.OPPRETTET;
+export const isAvklaringsbehovOpen = (statusKode: string): boolean => statusKode === AksjonspunktStatus.OPPRETTET;

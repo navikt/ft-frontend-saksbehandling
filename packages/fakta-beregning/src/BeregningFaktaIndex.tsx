@@ -1,5 +1,5 @@
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
-import { vilkarUtfallType } from '@navikt/ft-kodeverk';
+import { VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar } from '@navikt/ft-types';
 import vilkarperiodeTsType from '@navikt/ft-types/src/vilkarperiodeTsType';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
@@ -91,7 +91,7 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
-  const beregningErBehandlet = vilkar.vilkarStatus !== vilkarUtfallType.IKKE_VURDERT;
+  const beregningErBehandlet = vilkar.vilkarStatus !== VilkarUtfallType.IKKE_VURDERT;
   if (beregningErBehandlet === false && !aksjonspunkter.length) {
     return <>Beregningssteget er ikke behandlet.</>;
   }
