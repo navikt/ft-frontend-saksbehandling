@@ -1,5 +1,5 @@
 import { Vilkarperiode, AlleKodeverk, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
-import { KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import arbeidsgiverOpplysninger from '../../../testdata/arbeidsgiverOpplysninger';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
@@ -10,22 +10,22 @@ const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregn
 const alleKodeverk = {
   [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [
     {
-      kode: opptjeningAktivitetType.ARBEID,
+      kode: OpptjeningAktivitetType.ARBEID,
       kodeverk: 'test',
       navn: 'Arbeid',
     },
     {
-      kode: opptjeningAktivitetType.FRILANS,
+      kode: OpptjeningAktivitetType.FRILANS,
       kodeverk: 'test',
       navn: 'Frilans',
     },
     {
-      kode: opptjeningAktivitetType.DAGPENGER,
+      kode: OpptjeningAktivitetType.DAGPENGER,
       kodeverk: 'test',
       navn: 'Dagpenger',
     },
     {
-      kode: opptjeningAktivitetType.NARING,
+      kode: OpptjeningAktivitetType.NARING,
       kodeverk: 'test',
       navn: 'Næring',
     },

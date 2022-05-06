@@ -1,5 +1,6 @@
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 
+// @ts-ignore
 export const bgUtenDelvisRefusjon = {
   skjaeringstidspunktBeregning: '2020-05-15',
   dekningsgrad: null,
@@ -29,6 +30,7 @@ export const bgUtenDelvisRefusjon = {
   },
 } as Beregningsgrunnlag;
 
+// @ts-ignore
 export const bgMedDelvisRefusjon = {
   skjaeringstidspunktBeregning: '2020-06-01',
   skjæringstidspunkt: '2020-06-01',

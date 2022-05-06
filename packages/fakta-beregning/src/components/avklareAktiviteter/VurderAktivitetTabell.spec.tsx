@@ -1,4 +1,4 @@
-import { KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk } from '@navikt/ft-types';
 import {
   buildInitialValues,
@@ -39,7 +39,7 @@ const aktivitet3 = {
 const aktivitetAAP = {
   arbeidsgiverNavn: null,
   arbeidsgiverIdent: null,
-  arbeidsforholdType: opptjeningAktivitetType.AAP,
+  arbeidsforholdType: OpptjeningAktivitetType.AAP,
   fom: '2019-01-01',
   tom: '2020-02-02',
   skalBrukes: null,
@@ -69,27 +69,27 @@ const agOpplysninger = {
 const alleKodeverk = {
   [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [
     {
-      kode: opptjeningAktivitetType.ARBEID,
+      kode: OpptjeningAktivitetType.ARBEID,
       navn: 'Arbeid',
       kodeverk: 'test',
     },
     {
-      kode: opptjeningAktivitetType.FRILANS,
+      kode: OpptjeningAktivitetType.FRILANS,
       navn: 'Frilans',
       kodeverk: 'test',
     },
     {
-      kode: opptjeningAktivitetType.DAGPENGER,
+      kode: OpptjeningAktivitetType.DAGPENGER,
       navn: 'Dagpenger',
       kodeverk: 'test',
     },
     {
-      kode: opptjeningAktivitetType.NARING,
+      kode: OpptjeningAktivitetType.NARING,
       navn: 'Næring',
       kodeverk: 'test',
     },
     {
-      kode: opptjeningAktivitetType.AAP,
+      kode: OpptjeningAktivitetType.AAP,
       navn: 'Arbeidsavklaringspenger',
       kodeverk: 'test',
     },

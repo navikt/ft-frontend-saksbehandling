@@ -164,6 +164,7 @@ const lagBGPeriode = (
 };
 
 const lagBG = (perioder: BeregningsgrunnlagPeriodeProp[], faktaOmFordeling: FaktaOmFordeling): Beregningsgrunnlag =>
+  // @ts-ignore
   ({
     skjaeringstidspunktBeregning: '2019-09-16',
     aktivitetStatus: [],

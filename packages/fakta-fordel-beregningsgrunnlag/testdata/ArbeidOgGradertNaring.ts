@@ -1,5 +1,6 @@
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
 
+// @ts-ignore
 export const beregningsgrunnlag = {
   skjaeringstidspunktBeregning: '2019-03-05',
   skjæringstidspunkt: '2019-03-05',
