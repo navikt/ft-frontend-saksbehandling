@@ -25,37 +25,42 @@ interface OwnProps {
  *
  * Presentasjonskomponent. Definerer en tabell med rader og kolonner.
  */
-const Table = React.forwardRef<HTMLTableElement, OwnProps>(({
-  headerTextCodes = [],
-  headerColumnContent = [],
-  classNameTable = '',
-  noHover = false,
-  hasGrayHeader = false,
-  children,
-}, ref) => (
-  <table ref={ref} className={classNames('table', { [classNameTable]: classNameTable, rowHover: !noHover })}>
-    <thead>
-      <TableRow isHeader noHover={noHover} hasGrayHeader={hasGrayHeader}>
-        {headerTextCodes.map((headerElement) => (typeof headerElement === 'string' && headerElement.startsWith(EMPTY_STRING)
-          ? <TableColumn key={headerElement}>&nbsp;</TableColumn>
-          : (
-            <TableColumn key={headerElement}>
-              <FormattedMessage id={headerElement} />
-            </TableColumn>
-          )))}
-        {headerColumnContent.map((element) => (
-          <TableColumn key={element.key}>
-            {element}
-          </TableColumn>
-        ))}
-      </TableRow>
-    </thead>
-    <tbody>
-      {Array.isArray(children)
-        ? React.Children.map(children, ((child) => React.cloneElement(child as any, { noHover }))) // NOSONAR
-        : React.cloneElement(children, { noHover })}
-    </tbody>
-  </table>
-));
+const Table = React.forwardRef<HTMLTableElement, OwnProps>(
+  (
+    {
+      headerTextCodes = [],
+      headerColumnContent = [],
+      classNameTable = '',
+      noHover = false,
+      hasGrayHeader = false,
+      children,
+    },
+    ref,
+  ) => (
+    <table ref={ref} className={classNames('table', { [classNameTable]: classNameTable, rowHover: !noHover })}>
+      <thead>
+        <TableRow isHeader noHover={noHover} hasGrayHeader={hasGrayHeader}>
+          {headerTextCodes.map(headerElement =>
+            typeof headerElement === 'string' && headerElement.startsWith(EMPTY_STRING) ? (
+              <TableColumn key={headerElement}>&nbsp;</TableColumn>
+            ) : (
+              <TableColumn key={headerElement}>
+                <FormattedMessage id={headerElement} />
+              </TableColumn>
+            ),
+          )}
+          {headerColumnContent.map(element => (
+            <TableColumn key={element.key}>{element}</TableColumn>
+          ))}
+        </TableRow>
+      </thead>
+      <tbody>
+        {Array.isArray(children)
+          ? React.Children.map(children, child => React.cloneElement(child as any, { noHover })) // NOSONAR
+          : React.cloneElement(children, { noHover })}
+      </tbody>
+    </table>
+  ),
+);
 
 export default Table;

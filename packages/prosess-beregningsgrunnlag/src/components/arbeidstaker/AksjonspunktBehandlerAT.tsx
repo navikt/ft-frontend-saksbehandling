@@ -3,9 +3,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
 import { InputField } from '@navikt/ft-form-hooks';
-import {
-  getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber, required,
-} from '@navikt/ft-utils';
+import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber, required } from '@navikt/ft-utils';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 
 import {
@@ -20,9 +18,7 @@ import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
-import {
-  ArbeidstakerInntektValues,
-} from '../../types/ATFLAksjonspunktTsType';
+import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
@@ -37,25 +33,32 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
     return [];
   }
   return andeler
-    .filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
-    .filter((andel) => andel.skalFastsetteGrunnlag === true)
-    .filter((andel) => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
+    .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
+    .filter(andel => andel.skalFastsetteGrunnlag === true)
+    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
 
-const lagVisningsnavn = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
+const lagVisningsnavn = (
+  arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): string => {
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): string => {
   const arbeidsgiverInformasjon = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
   if (!arbeidsgiverInformasjon) {
-    return arbeidsforhold.arbeidsforholdType ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE) : '';
+    return arbeidsforhold.arbeidsforholdType
+      ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      : '';
   }
   return createVisningsnavnForAktivitet(arbeidsgiverInformasjon, arbeidsforhold.eksternArbeidsforholdId);
 };
 
-const createRows = (relevanteAndelerAT: BeregningsgrunnlagAndel[],
+const createRows = (
+  relevanteAndelerAT: BeregningsgrunnlagAndel[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   readOnly: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): ReactElement[] => relevanteAndelerAT.map((andel, index) => (
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): ReactElement[] =>
+  relevanteAndelerAT.map((andel, index) => (
     <Row key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
       <Column xs="7">
         <Normaltekst>
@@ -74,18 +77,21 @@ const createRows = (relevanteAndelerAT: BeregningsgrunnlagAndel[],
         </div>
       </Column>
     </Row>
-));
+  ));
 
 interface StaticFunctions {
-  transformValues?: (values: ArbeidstakerInntektValues, relevanteStatuser: RelevanteStatuserProp,
-                     alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],) => ArbeidsinntektResultat[];
+  transformValues?: (
+    values: ArbeidstakerInntektValues,
+    relevanteStatuser: RelevanteStatuserProp,
+    alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
+  ) => ArbeidsinntektResultat[];
 }
 
 type OwnProps = {
-    readOnly: boolean;
-    alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
-    alleKodeverk: AlleKodeverk;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
+  alleKodeverk: AlleKodeverk;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
@@ -95,26 +101,24 @@ const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = (
 }) => {
   const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
-  return (
-    <>
-      { createRows(relevanteAndelerAT, getKodeverknavn, readOnly, arbeidsgiverOpplysningerPerId) }
-    </>
-  );
+  return <>{createRows(relevanteAndelerAT, getKodeverknavn, readOnly, arbeidsgiverOpplysningerPerId)}</>;
 };
 
-AksjonspunktBehandlerAT.transformValues = (values: ArbeidstakerInntektValues,
+AksjonspunktBehandlerAT.transformValues = (
+  values: ArbeidstakerInntektValues,
   relevanteStatuser: RelevanteStatuserProp,
-  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): ArbeidsinntektResultat[] => {
+  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
+): ArbeidsinntektResultat[] => {
   let inntektPrAndelList = null;
   if (relevanteStatuser.isArbeidstaker) {
-    inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode)
-      .map(({ andelsnr }, index) => {
-        const overstyrtInntekt = values[`inntekt${index}`];
-        return {
-          inntekt: (overstyrtInntekt === undefined || overstyrtInntekt === '') ? 0 : removeSpacesFromNumber(overstyrtInntekt),
-          andelsnr,
-        };
-      });
+    inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode).map(({ andelsnr }, index) => {
+      const overstyrtInntekt = values[`inntekt${index}`];
+      return {
+        inntekt:
+          overstyrtInntekt === undefined || overstyrtInntekt === '' ? 0 : removeSpacesFromNumber(overstyrtInntekt),
+        andelsnr,
+      };
+    });
   }
   return inntektPrAndelList;
 };

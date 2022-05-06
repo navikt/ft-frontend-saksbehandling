@@ -1,6 +1,4 @@
-import React, {
-  FunctionComponent, ReactNode,
-} from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import classnames from 'classnames/bind';
 
 import { createIntl } from '@navikt/ft-utils';
@@ -62,9 +60,7 @@ const ExpandableTableRow: FunctionComponent<OwnProps> = ({
     >
       <TableColumn className={showContent ? styles.active : styles.hidden} />
       <TableColumn colspanAll className={showContent ? styles.active : styles.hidden}>
-        <div className={showContent ? styles.active : styles.hidden}>
-          {content}
-        </div>
+        <div className={showContent ? styles.active : styles.hidden}>{content}</div>
       </TableColumn>
     </TableRow>
   </>

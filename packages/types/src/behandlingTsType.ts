@@ -43,6 +43,6 @@ type Behandling = {
     status: string;
     readOnly: boolean;
   };
-}
+};
 
 export default Behandling;

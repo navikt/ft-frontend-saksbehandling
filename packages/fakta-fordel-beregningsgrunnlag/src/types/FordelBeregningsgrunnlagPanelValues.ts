@@ -8,8 +8,7 @@ export type FordelBeregningsgrunnlagGenerellAndelValues = {
   lagtTilAvSaksbehandler: boolean;
   inntektskategori?: string;
   forrigeInntektskategori?: string;
-
-}
+};
 
 export type FordelBeregningsgrunnlagArbeidAndelValues = {
   arbeidsgiverNavn?: string;
@@ -19,7 +18,7 @@ export type FordelBeregningsgrunnlagArbeidAndelValues = {
   arbeidsperiodeTom?: string;
   eksternArbeidsforholdId?: string;
   arbeidsforholdType?: string;
-}
+};
 
 export type BGFordelArbeidsforhold = {
   andelsnr: number;
@@ -39,40 +38,41 @@ export type BGFordelArbeidsforhold = {
   opphoersdato?: string;
   arbeidsforholdId?: string;
   arbeidsforholdType?: string;
-}
+};
 
-export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenerellAndelValues & FordelBeregningsgrunnlagArbeidAndelValues & {
-  andelIArbeid?: string;
-  fordelingForrigeBehandling: string;
-  fastsattBelop: string;
-  readOnlyBelop?: string;
-  refusjonskrav?: string;
-  skalKunneEndreRefusjon?: boolean;
-  belopFraInntektsmelding: number;
-  skalRedigereInntekt: boolean;
-  refusjonskravFraInntektsmelding: number;
-  nyttArbeidsforhold?: boolean;
-  beregningsgrunnlagPrAar?: string;
-  forrigeRefusjonPrAar?: number;
-  forrigeArbeidsinntektPrAar?: number;
-  beregningsperiodeFom?: string;
-  beregningsperiodeTom?: string;
-  id?: string;
-}
+export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenerellAndelValues &
+  FordelBeregningsgrunnlagArbeidAndelValues & {
+    andelIArbeid?: string;
+    fordelingForrigeBehandling: string;
+    fastsattBelop: string;
+    readOnlyBelop?: string;
+    refusjonskrav?: string;
+    skalKunneEndreRefusjon?: boolean;
+    belopFraInntektsmelding: number;
+    skalRedigereInntekt: boolean;
+    refusjonskravFraInntektsmelding: number;
+    nyttArbeidsforhold?: boolean;
+    beregningsgrunnlagPrAar?: string;
+    forrigeRefusjonPrAar?: number;
+    forrigeArbeidsinntektPrAar?: number;
+    beregningsperiodeFom?: string;
+    beregningsperiodeTom?: string;
+    id?: string;
+  };
 
 export type AksjonspunktValues = {
   begrunnelse?: string;
-}
+};
 
 export type FordelErrorMessageLabel = {
   id: string;
-}
+};
 
 export type FordelErrorMessage = FordelErrorMessageLabel | any;
 
 export type FordelBeregningsgrunnlagValues = {
   [key: string]: FordelBeregningsgrunnlagAndelValues[];
-}
+};
 
 export type FordelBeregningsgrunnlagMedAksjonspunktValues = AksjonspunktValues & FordelBeregningsgrunnlagValues;
 
@@ -85,7 +85,7 @@ export type FordelingFieldError = {
 
 export type VurderRefusjonValues = {
   [key: string]: string;
-}
+};
 
 type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonValues;
 

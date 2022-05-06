@@ -22,10 +22,7 @@ interface OwnProps {
  * <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" />
  * ```
  */
-const DateTimeLabel: FunctionComponent<OwnProps> = ({
-  dateTimeString,
-  useNewFormat = false,
-}) => (
+const DateTimeLabel: FunctionComponent<OwnProps> = ({ dateTimeString, useNewFormat = false }) => (
   <>
     <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateTimeString)} />
     {!useNewFormat && (

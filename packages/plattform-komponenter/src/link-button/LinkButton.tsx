@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './linkButton.less';
 
 export interface LinkButtonProps {
-    onClick: () => void;
-    children: React.ReactNode;
-    className?: string;
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
 }
 
 const LinkButton = ({ className, onClick, children }: LinkButtonProps) => {

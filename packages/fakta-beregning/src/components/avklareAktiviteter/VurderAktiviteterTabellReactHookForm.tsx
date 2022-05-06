@@ -6,7 +6,7 @@ import { DDMMYYYY_DATE_FORMAT, hasValidDate } from '@navikt/ft-utils';
 
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { opptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
@@ -20,9 +20,10 @@ const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, sk
       />
     );
   }
-  const harAAP = aktiviteter.some((a) => a.arbeidsforholdType && a.arbeidsforholdType === opptjeningAktivitetTyper.AAP);
+  const harAAP = aktiviteter.some(a => a.arbeidsforholdType && a.arbeidsforholdType === opptjeningAktivitetTyper.AAP);
   const harVentelonnVartpenger = aktiviteter.some(
-    (aktivitet) => aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER,
+    aktivitet =>
+      aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER,
   );
   if (harAAP) {
     return (
@@ -51,17 +52,17 @@ const getHeaderTextCodes = (): string[] => [
 ];
 
 type OwnProps = {
-  readOnly: boolean,
-  isAvklaringsbehovClosed: boolean,
-  aktiviteter: BeregningAktivitet[],
-  alleKodeverk: AlleKodeverk,
-  erOverstyrt: boolean,
-  harAvklaringsbehov: boolean,
-  tomDatoForAktivitetGruppe: string,
-  valgtSkjæringstidspunkt: string,
-  ingenAktiviterErBrukt: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  fieldId: number,
+  readOnly: boolean;
+  isAvklaringsbehovClosed: boolean;
+  aktiviteter: BeregningAktivitet[];
+  alleKodeverk: AlleKodeverk;
+  erOverstyrt: boolean;
+  harAvklaringsbehov: boolean;
+  tomDatoForAktivitetGruppe: string;
+  valgtSkjæringstidspunkt: string;
+  ingenAktiviterErBrukt: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldId: number;
 };
 
 const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
@@ -80,7 +81,7 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
   <>
     <Element>{finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}</Element>
     <Table headerTextCodes={getHeaderTextCodes()} noHover>
-      {aktiviteter.map((aktivitet) => (
+      {aktiviteter.map(aktivitet => (
         <VurderAktiviteterTabellRad
           key={`${aktivitet.arbeidsgiverIdent}-${aktivitet.fom}-${aktivitet.tom}`}
           aktivitet={aktivitet}

@@ -12,6 +12,6 @@ type Aksjonspunkt = Readonly<{
   erAktivt: boolean;
   endretAv?: string;
   endretTidspunkt?: string;
-}>
+}>;
 
 export default Aksjonspunkt;

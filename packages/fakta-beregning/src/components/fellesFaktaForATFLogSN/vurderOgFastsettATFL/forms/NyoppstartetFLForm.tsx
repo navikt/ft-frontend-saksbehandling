@@ -22,16 +22,18 @@ import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../
 export const erNyoppstartetFLField = 'NyoppstartetFLField';
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
   buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => NyoppstartetFLValues;
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues,
-                    inntektPrMnd: InntektTransformed[],
-                    faktaOmBeregning: FaktaOmBeregning,
-                    fastsatteAndelsnr: number[]) => FaktaBeregningTransformedValues;
+  transformValues: (
+    values: FaktaOmBeregningAksjonspunktValues,
+    inntektPrMnd: InntektTransformed[],
+    faktaOmBeregning: FaktaOmBeregning,
+    fastsatteAndelsnr: number[],
+  ) => FaktaBeregningTransformedValues;
 }
 
 const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
@@ -57,49 +59,54 @@ NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag)
   if (beregningsgrunnlag === undefined || beregningsgrunnlag.beregningsgrunnlagPeriode === undefined) {
     return initialValues;
   }
-  const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
-    .map((periode) => periode.beregningsgrunnlagPrStatusOgAndel);
-  const flAndeler = alleAndeler.flat().filter((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
+  const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode.map(
+    periode => periode.beregningsgrunnlagPrStatusOgAndel,
+  );
+  const flAndeler = alleAndeler.flat().filter(andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
   if (flAndeler.length > 0) {
     initialValues[erNyoppstartetFLField] = flAndeler[0].erNyoppstartet;
   }
   return initialValues;
 };
 
-NyoppstartetFLForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues,
+NyoppstartetFLForm.transformValues = (
+  values: FaktaOmBeregningAksjonspunktValues,
   inntektPrMnd: InntektTransformed[],
   faktaOmBeregning: FaktaOmBeregning,
-  fastsatteAndelsnr: number[]): FaktaBeregningTransformedValues => {
+  fastsatteAndelsnr: number[],
+): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
+  if (!tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
     return {};
   }
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
-    return ({
+    return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
       vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
-    });
+    };
   }
-  const frilansField = inntektPrMnd
-    .find((field) => field.aktivitetStatus === AktivitetStatus.FRILANSER);
+  const frilansField = inntektPrMnd.find(field => field.aktivitetStatus === AktivitetStatus.FRILANSER);
   if (!frilansField) {
-    return ({
+    return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
       vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
-    });
+    };
   }
   if (fastsatteAndelsnr.includes(frilansField.andelsnr)) {
-    return ({
+    return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
       vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
-    });
+    };
   }
   fastsatteAndelsnr.push(frilansField.andelsnr);
   const inntekt = {
     fastsettMaanedsinntektFL: { maanedsinntekt: frilansField.fastsattBelop },
   };
   return {
-    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL],
+    faktaOmBeregningTilfeller: [
+      FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
+      FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL,
+    ],
     ...inntekt,
     vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
   };

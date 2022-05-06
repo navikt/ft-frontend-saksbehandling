@@ -3,18 +3,18 @@ import { Suggestion } from './types/Suggestion';
 import styles from './autocompleteSuggestion.less';
 
 interface Props {
-    id: string;
-    index: number;
-    onClick: (value: Suggestion) => void;
-    value: Suggestion;
-    match: string;
-    active: boolean;
-    setSuggestionIndex: (index: number) => void;
-    avoidBlur: () => void;
+  id: string;
+  index: number;
+  onClick: (value: Suggestion) => void;
+  value: Suggestion;
+  match: string;
+  active: boolean;
+  setSuggestionIndex: (index: number) => void;
+  avoidBlur: () => void;
 }
 
 interface State {
-    value: Suggestion;
+  value: Suggestion;
 }
 
 class AutocompleteSuggestion extends React.Component<Props, State> {
@@ -40,9 +40,7 @@ class AutocompleteSuggestion extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      match, active, avoidBlur, id,
-    } = this.props;
+    const { match, active, avoidBlur, id } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
     const { value } = this.state.value;
     const matchFound = value.toLowerCase().startsWith(match.toLowerCase());
@@ -66,9 +64,7 @@ class AutocompleteSuggestion extends React.Component<Props, State> {
             }`}
           >
             {value.substring(0, match.length)}
-            <span className={styles.autocompleteSuggestion__substring}>
-              {value.substring(match.length)}
-            </span>
+            <span className={styles.autocompleteSuggestion__substring}>{value.substring(match.length)}</span>
           </span>
         ) : (
           <span

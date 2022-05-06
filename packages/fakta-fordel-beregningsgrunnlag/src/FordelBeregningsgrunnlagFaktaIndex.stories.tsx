@@ -23,8 +23,14 @@ import {
   aksjonspunkt as vurderRefusjonAP,
 } from '../testdata/VurderRefusjon';
 import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaIndex';
-import { beregningsgrunnlag as bgArbeidOgGradertNæring, aksjonspunkt as apArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
-import { beregningsgrunnlag as bgMedNaturalytelse, aksjonspunkt as apMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
+import {
+  beregningsgrunnlag as bgArbeidOgGradertNæring,
+  aksjonspunkt as apArbeidOgGradertNæring,
+} from '../testdata/ArbeidOgGradertNaring';
+import {
+  beregningsgrunnlag as bgMedNaturalytelse,
+  aksjonspunkt as apMedNaturalytelse,
+} from '../testdata/NyttArbeidOgNaturalytelse';
 import { FaktaFordelBeregningAksjonspunktCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
@@ -88,12 +94,14 @@ const behandling = {
   type: 'BT-003',
 } as Behandling;
 
-const fordelAP = ([{
-  definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
-  status: 'OPPR',
-  erAktivt: true,
-  kanLoses: true,
-}]);
+const fordelAP = [
+  {
+    definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+    status: 'OPPR',
+    erAktivt: true,
+    kanLoses: true,
+  },
+];
 
 export default {
   title: 'fakta/fakta-fordel-beregningsgrunnlag',
@@ -105,12 +113,7 @@ const Template: Story<{
   beregningsgrunnlag: Beregningsgrunnlag;
   aksjonspunkter: Aksjonspunkt[];
   submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
-}> = ({
-  readOnly,
-  beregningsgrunnlag,
-  submitCallback,
-  aksjonspunkter,
-}) => (
+}> = ({ readOnly, beregningsgrunnlag, submitCallback, aksjonspunkter }) => (
   <FordelBeregningsgrunnlagFaktaIndex
     behandling={behandling}
     beregningsgrunnlag={beregningsgrunnlag}
@@ -142,7 +145,12 @@ const lagBGAndel = (
   arbeidsforhold,
 });
 
-const lagBGPeriode = (andelsliste: BeregningsgrunnlagAndel[], periodeAarsaker: string[], fom: string, tom?: string): BeregningsgrunnlagPeriodeProp => {
+const lagBGPeriode = (
+  andelsliste: BeregningsgrunnlagAndel[],
+  periodeAarsaker: string[],
+  fom: string,
+  tom?: string,
+): BeregningsgrunnlagPeriodeProp => {
   const sum = andelsliste.reduce((acc, andel) => acc + (andel.beregnetPrAar ? andel.beregnetPrAar : 0), 0);
   return {
     beregningsgrunnlagPeriodeFom: fom,
@@ -155,30 +163,40 @@ const lagBGPeriode = (andelsliste: BeregningsgrunnlagAndel[], periodeAarsaker: s
   };
 };
 
-const lagBG = (perioder: BeregningsgrunnlagPeriodeProp[], faktaOmFordeling: FaktaOmFordeling): Beregningsgrunnlag => ({
-  skjaeringstidspunktBeregning: '2019-09-16',
-  aktivitetStatus: [],
-  dekningsgrad: null,
-  grunnbeløp: null,
-  erOverstyrtInntekt: null,
-  beregningsgrunnlagPeriode: perioder,
-  ledetekstBrutto: 'Brutto beregningsgrunnlag',
-  ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
-  ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
-  halvG: 49929,
-  hjemmel: 'F_14_7_8_30',
-  faktaOmFordeling,
-  årsinntektVisningstall: 360000,
-} as Beregningsgrunnlag);
+const lagBG = (perioder: BeregningsgrunnlagPeriodeProp[], faktaOmFordeling: FaktaOmFordeling): Beregningsgrunnlag =>
+  // @ts-ignore
+  ({
+    skjaeringstidspunktBeregning: '2019-09-16',
+    aktivitetStatus: [],
+    dekningsgrad: null,
+    grunnbeløp: null,
+    erOverstyrtInntekt: null,
+    beregningsgrunnlagPeriode: perioder,
+    ledetekstBrutto: 'Brutto beregningsgrunnlag',
+    ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
+    ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
+    halvG: 49929,
+    hjemmel: 'F_14_7_8_30',
+    faktaOmFordeling,
+    årsinntektVisningstall: 360000,
+  } as Beregningsgrunnlag);
 
-const lagFaktaOmFordeling = (arbfor: ArbeidsforholdTilFordeling[], perioder: FordelBeregningsgrunnlagPeriode[]): FaktaOmFordeling => ({
+const lagFaktaOmFordeling = (
+  arbfor: ArbeidsforholdTilFordeling[],
+  perioder: FordelBeregningsgrunnlagPeriode[],
+): FaktaOmFordeling => ({
   fordelBeregningsgrunnlag: {
     arbeidsforholdTilFordeling: arbfor,
     fordelBeregningsgrunnlagPerioder: perioder,
   },
 });
 
-const lagArbforTilFordeling = (arbGiverId: string, arbId: string, refKrav: number, refKravFom: string): ArbeidsforholdTilFordeling => ({
+const lagArbforTilFordeling = (
+  arbGiverId: string,
+  arbId: string,
+  refKrav: number,
+  refKravFom: string,
+): ArbeidsforholdTilFordeling => ({
   arbeidsforholdId: arbId,
   arbeidsforholdType: 'ARBEID',
   arbeidsgiverIdent: arbGiverId,
@@ -211,8 +229,13 @@ const mapIKKode = (bgStatus: string): string => {
   }
 };
 
-const lagFordelingsandel = (andelsnr: number, status: string, ref: number, fordelt: number,
-  arbeidsforhold?: BeregningsgrunnlagArbeidsforhold): FordelBeregningsgrunnlagAndel => ({
+const lagFordelingsandel = (
+  andelsnr: number,
+  status: string,
+  ref: number,
+  fordelt: number,
+  arbeidsforhold?: BeregningsgrunnlagArbeidsforhold,
+): FordelBeregningsgrunnlagAndel => ({
   aktivitetStatus: status,
   andelsnr,
   arbeidsforholdType: '-',
@@ -241,7 +264,11 @@ const lagFordelPeriode = (
   tom,
 });
 
-const lagArbeidsforhold = (arbeidsgiverId: string, arbeidsforholdId: string, refKrav: number): BeregningsgrunnlagArbeidsforhold => ({
+const lagArbeidsforhold = (
+  arbeidsgiverId: string,
+  arbeidsforholdId: string,
+  refKrav: number,
+): BeregningsgrunnlagArbeidsforhold => ({
   arbeidsgiverIdent: arbeidsgiverId,
   startdato: '2018-10-09',
   arbeidsforholdId,
@@ -286,15 +313,40 @@ export const AapOgRefusjon = Template.bind({});
 AapOgRefusjon.args = {
   aksjonspunkter: fordelAP,
   readOnly: false,
-  beregningsgrunnlag: lagBG([lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
-    lagBGPeriode([lagBGAndel(2, 'AAP', 100000),
-      lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))],
-    [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27')],
-  lagFaktaOmFordeling([lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
-    [lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, 0)], false, false, '2019-08-05', '2019-11-26'),
-      lagFordelPeriode([lagFordelingsandel(2, 'AAP', 0, 0),
-        lagFordelingsandel(1, 'AT', 0, 0, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))],
-      true, false, '2019-11-27')])),
+  beregningsgrunnlag: lagBG(
+    [
+      lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
+      lagBGPeriode(
+        [
+          lagBGAndel(2, 'AAP', 100000),
+          lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+        ],
+        [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        '2019-11-27',
+      ),
+    ],
+    lagFaktaOmFordeling(
+      [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
+      [
+        lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, 0)], false, false, '2019-08-05', '2019-11-26'),
+        lagFordelPeriode(
+          [
+            lagFordelingsandel(2, 'AAP', 0, 0),
+            lagFordelingsandel(
+              1,
+              'AT',
+              0,
+              0,
+              lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
+            ),
+          ],
+          true,
+          false,
+          '2019-11-27',
+        ),
+      ],
+    ),
+  ),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
@@ -302,15 +354,40 @@ export const FordelingKanEndreRefusjonskrav = Template.bind({});
 FordelingKanEndreRefusjonskrav.args = {
   aksjonspunkter: fordelAP,
   readOnly: false,
-  beregningsgrunnlag: lagBG([lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
-    lagBGPeriode([lagBGAndel(2, 'AAP', 100000),
-      lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))],
-    [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27')],
-  lagFaktaOmFordeling([lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
-    [lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, 0)], false, false, '2019-08-05', '2019-11-26'),
-      lagFordelPeriode([lagFordelingsandel(2, 'AAP', 0, 0),
-        lagFordelingsandel(1, 'AT', 300000, 0, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))],
-      true, true, '2019-11-27')])),
+  beregningsgrunnlag: lagBG(
+    [
+      lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
+      lagBGPeriode(
+        [
+          lagBGAndel(2, 'AAP', 100000),
+          lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+        ],
+        [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        '2019-11-27',
+      ),
+    ],
+    lagFaktaOmFordeling(
+      [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
+      [
+        lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, 0)], false, false, '2019-08-05', '2019-11-26'),
+        lagFordelPeriode(
+          [
+            lagFordelingsandel(2, 'AAP', 0, 0),
+            lagFordelingsandel(
+              1,
+              'AT',
+              300000,
+              0,
+              lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
+            ),
+          ],
+          true,
+          true,
+          '2019-11-27',
+        ),
+      ],
+    ),
+  ),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
@@ -318,24 +395,85 @@ export const SkalSlåSammenNaturalytelseperioder = Template.bind({});
 SkalSlåSammenNaturalytelseperioder.args = {
   aksjonspunkter: fordelAP,
   readOnly: false,
-  beregningsgrunnlag: lagBG([lagBGPeriode([lagBGAndel(1, 'AT', 100000,
-    lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))], [], '2019-08-05', '2019-11-26'),
-  lagBGPeriode([lagBGAndel(1, 'AT', 100000,
-    lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],
-  [PeriodeAarsak.NATURALYTELSE_BORTFALT], '2019-11-27', '2019-12-05'),
-  lagBGPeriode([lagBGAndel(1, 'AT', 100000,
-    lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000)),
-  lagBGAndel(2, 'AT', 300000,
-    lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))], [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV], '2019-12-06')],
-  lagFaktaOmFordeling([lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-12-06')],
-    [lagFordelPeriode([lagFordelingsandel(1, 'AT', 0, 0,
-      lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],
-    false, false, '2019-08-05', '2019-11-26'),
-    lagFordelPeriode([lagFordelingsandel(1, 'AT', 0, 0,
-      lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))], false, false, '2019-11-27', '2019-12-05'),
-    lagFordelPeriode([lagFordelingsandel(1, 'AT', 0, 0,
-      lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000)),
-    lagFordelingsandel(2, 'AT', 300000, 0, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000))],
-    true, true, '2019-12-06')])),
+  beregningsgrunnlag: lagBG(
+    [
+      lagBGPeriode(
+        [lagBGAndel(1, 'AT', 100000, lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],
+        [],
+        '2019-08-05',
+        '2019-11-26',
+      ),
+      lagBGPeriode(
+        [lagBGAndel(1, 'AT', 100000, lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],
+        [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+        '2019-11-27',
+        '2019-12-05',
+      ),
+      lagBGPeriode(
+        [
+          lagBGAndel(1, 'AT', 100000, lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000)),
+          lagBGAndel(2, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+        ],
+        [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        '2019-12-06',
+      ),
+    ],
+    lagFaktaOmFordeling(
+      [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-12-06')],
+      [
+        lagFordelPeriode(
+          [
+            lagFordelingsandel(
+              1,
+              'AT',
+              0,
+              0,
+              lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000),
+            ),
+          ],
+          false,
+          false,
+          '2019-08-05',
+          '2019-11-26',
+        ),
+        lagFordelPeriode(
+          [
+            lagFordelingsandel(
+              1,
+              'AT',
+              0,
+              0,
+              lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000),
+            ),
+          ],
+          false,
+          false,
+          '2019-11-27',
+          '2019-12-05',
+        ),
+        lagFordelPeriode(
+          [
+            lagFordelingsandel(
+              1,
+              'AT',
+              0,
+              0,
+              lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000),
+            ),
+            lagFordelingsandel(
+              2,
+              'AT',
+              300000,
+              0,
+              lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
+            ),
+          ],
+          true,
+          true,
+          '2019-12-06',
+        ),
+      ],
+    ),
+  ),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };

@@ -1,33 +1,35 @@
 import { Vilkarperiode, AlleKodeverk, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import arbeidsgiverOpplysninger from '../../../testdata/arbeidsgiverOpplysninger';
-import { KodeverkType, opptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 
-const {
-  AVKLAR_AKTIVITETER,
-  OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = FaktaBeregningAksjonspunktCode;
+const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
 const alleKodeverk = {
-  [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [{
-    kode: opptjeningAktivitetType.ARBEID,
-    kodeverk: 'test',
-    navn: 'Arbeid',
-  }, {
-    kode: opptjeningAktivitetType.FRILANS,
-    kodeverk: 'test',
-    navn: 'Frilans',
-  }, {
-    kode: opptjeningAktivitetType.DAGPENGER,
-    kodeverk: 'test',
-    navn: 'Dagpenger',
-  }, {
-    kode: opptjeningAktivitetType.NARING,
-    kodeverk: 'test',
-    navn: 'Næring',
-  }],
+  [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [
+    {
+      kode: OpptjeningAktivitetType.ARBEID,
+      kodeverk: 'test',
+      navn: 'Arbeid',
+    },
+    {
+      kode: OpptjeningAktivitetType.FRILANS,
+      kodeverk: 'test',
+      navn: 'Frilans',
+    },
+    {
+      kode: OpptjeningAktivitetType.DAGPENGER,
+      kodeverk: 'test',
+      navn: 'Dagpenger',
+    },
+    {
+      kode: OpptjeningAktivitetType.NARING,
+      kodeverk: 'test',
+      navn: 'Næring',
+    },
+  ],
 } as AlleKodeverk;
 
 const aktivitet1 = {
@@ -65,12 +67,7 @@ const aktivitetAAP = {
   skalBrukes: null,
 };
 
-const aktiviteter = [
-  aktivitet1,
-  aktivitet2,
-  aktivitet3,
-  aktivitetAAP,
-];
+const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
 
 const id1 = '3847238947232019-01-01';
 const id2 = '334534623342efj8343f34f2019-01-01';
@@ -81,26 +78,26 @@ const vilkarPeriode = {
   vurderesIBehandlingen: true,
   periode: {
     fom: '2019-02-02',
-    tom: '2019-02-03'
+    tom: '2019-02-03',
   },
-  vilkarStatus: 'IKKE_VURDERT'
+  vilkarStatus: 'IKKE_VURDERT',
 } as Vilkarperiode;
 
-const avklarAktiviteterAvklaringsbehov = [{
-  definisjon: AVKLAR_AKTIVITETER,
-  status: 'UTFO',
-  kanLoses: true
-}];
-
+const avklarAktiviteterAvklaringsbehov = [
+  {
+    definisjon: AVKLAR_AKTIVITETER,
+    status: 'UTFO',
+    kanLoses: true,
+  },
+];
 
 describe('<AvklareAktiviteterField>', () => {
-
   it('skal teste at initial values blir bygget', () => {
     const avklarAktiviteter = {
       aktiviteterTomDatoMapping: [
         {
           tom: '2019-02-02',
-          aktiviteter
+          aktiviteter,
         },
       ],
     } as AvklarBeregningAktiviteterMap;
@@ -110,11 +107,10 @@ describe('<AvklareAktiviteterField>', () => {
       avklarAktiviteter,
       alleKodeverk,
       arbeidsgiverOpplysninger,
-      vilkarPeriode);
-    expect(initialValues !== null)
-      .toBe(true);
-    expect(initialValues['manuellOverstyringBeregningAktiviteter'])
-      .toBe(false);
+      vilkarPeriode,
+    );
+    expect(initialValues !== null).toBe(true);
+    expect(initialValues.manuellOverstyringBeregningAktiviteter).toBe(false);
   });
 
   it('skal teste at initial values blir bygget uten aksjonspunkt', () => {
@@ -122,7 +118,7 @@ describe('<AvklareAktiviteterField>', () => {
       aktiviteterTomDatoMapping: [
         {
           tom: '2019-02-02',
-          aktiviteter
+          aktiviteter,
         },
       ],
     } as AvklarBeregningAktiviteterMap;
@@ -132,11 +128,10 @@ describe('<AvklareAktiviteterField>', () => {
       avklarAktiviteter,
       alleKodeverk,
       arbeidsgiverOpplysninger,
-      vilkarPeriode);
-    expect(initialValues !== null)
-      .toBe(true);
-    expect(initialValues['manuellOverstyringBeregningAktiviteter'])
-      .toBe(false);
+      vilkarPeriode,
+    );
+    expect(initialValues !== null).toBe(true);
+    expect(initialValues.manuellOverstyringBeregningAktiviteter).toBe(false);
   });
 
   it('skal teste at initial values blir bygget med overstyrt aksjonspunkt', () => {
@@ -144,25 +139,26 @@ describe('<AvklareAktiviteterField>', () => {
       aktiviteterTomDatoMapping: [
         {
           tom: '2019-02-02',
-          aktiviteter
+          aktiviteter,
         },
       ],
     } as AvklarBeregningAktiviteterMap;
-    const aps = [{
-      definisjon: OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-      status: 'OPPR',
-      kanLoses: true,
-    }];
+    const aps = [
+      {
+        definisjon: OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+        status: 'OPPR',
+        kanLoses: true,
+      },
+    ];
     const initialValues = buildInitialValues(
       aps,
       avklarAktiviteter,
       alleKodeverk,
       arbeidsgiverOpplysninger,
-      vilkarPeriode);
-    expect(initialValues !== null)
-      .toBe(true);
-    expect(initialValues['manuellOverstyringBeregningAktiviteter'])
-      .toBe(true);
+      vilkarPeriode,
+    );
+    expect(initialValues !== null).toBe(true);
+    expect(initialValues.manuellOverstyringBeregningAktiviteter).toBe(true);
   });
 
   it('skal transform values for avklar aktiviteter aksjonspunkt', () => {
@@ -171,7 +167,7 @@ describe('<AvklareAktiviteterField>', () => {
       aktiviteterTomDatoMapping: [
         {
           tom: '2019-02-02',
-          aktiviteter
+          aktiviteter,
         },
       ],
     } as AvklarBeregningAktiviteterMap;
@@ -208,12 +204,11 @@ describe('<AvklareAktiviteterField>', () => {
 
     const transformed = transformFieldValue(values);
     expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(3);
-    expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator)
-      .toBe(aktivitet2.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator)
-      .toBe(aktivitet3.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType)
-      .toBe(aktivitetAAP.arbeidsforholdType)
+    expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(aktivitet2.arbeidsgiverIdent);
+    expect(transformed.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator).toBe(aktivitet3.arbeidsgiverIdent);
+    expect(transformed.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType).toBe(
+      aktivitetAAP.arbeidsforholdType,
+    );
   });
 
   it('skal transform values om valgt overstyring', () => {
@@ -222,10 +217,10 @@ describe('<AvklareAktiviteterField>', () => {
       aktiviteterTomDatoMapping: [
         {
           tom: '2019-02-02',
-          aktiviteter
+          aktiviteter,
         },
       ],
-    } as AvklarBeregningAktiviteterMap;;
+    } as AvklarBeregningAktiviteterMap;
     const aps = [];
     const values = {
       avklarAktiviteter,
@@ -256,18 +251,16 @@ describe('<AvklareAktiviteterField>', () => {
       fom: aktivitetAAP.fom,
       tom: aktivitetAAP.tom,
     };
-    values['begrunnelseAvklareAktiviteter'] = 'begrunnelse';
-    values['manuellOverstyringBeregningAktiviteter'] = true;
+    values.begrunnelseAvklareAktiviteter = 'begrunnelse';
+    values.manuellOverstyringBeregningAktiviteter = true;
     values.erTilVurdering = true;
     const transformed = transformFieldValue(values);
     expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(3);
-    expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator)
-      .toBe(aktivitet2.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator)
-      .toBe(aktivitet3.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType)
-      .toBe(aktivitetAAP.arbeidsforholdType);
-    expect(transformed.begrunnelse)
-      .toBe('begrunnelse');
+    expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(aktivitet2.arbeidsgiverIdent);
+    expect(transformed.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator).toBe(aktivitet3.arbeidsgiverIdent);
+    expect(transformed.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType).toBe(
+      aktivitetAAP.arbeidsforholdType,
+    );
+    expect(transformed.begrunnelse).toBe('begrunnelse');
   });
 });

@@ -6,16 +6,17 @@ import { reducer as formReducer, reduxForm } from 'redux-form';
 import { mount } from 'enzyme';
 import InputField from './InputField';
 
-const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => <form onSubmit={handleSubmit}>{children}</form>);
-const mountFieldInForm = (field, initialValues) => mount(
-  <Provider store={createStore(combineReducers({ form: formReducer }))}>
-    <IntlProvider locale="nb-NO" messages={{}}>
-      <MockForm initialValues={initialValues}>
-        {field}
-      </MockForm>
-    </IntlProvider>
-  </Provider>,
-);
+const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => (
+  <form onSubmit={handleSubmit}>{children}</form>
+));
+const mountFieldInForm = (field, initialValues) =>
+  mount(
+    <Provider store={createStore(combineReducers({ form: formReducer }))}>
+      <IntlProvider locale="nb-NO" messages={{}}>
+        <MockForm initialValues={initialValues}>{field}</MockForm>
+      </IntlProvider>
+    </Provider>,
+  );
 
 describe('<InputField>', () => {
   it('Skal rendre input', () => {

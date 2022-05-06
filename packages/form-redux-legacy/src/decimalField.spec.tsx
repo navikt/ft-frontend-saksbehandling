@@ -6,16 +6,17 @@ import { reducer as formReducer, reduxForm } from 'redux-form';
 import { mount } from 'enzyme';
 import DecimalField from './DecimalField';
 
-const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => <form onSubmit={handleSubmit}>{children}</form>);
-const mountFieldInForm = (field, initialValues) => mount(
-  <Provider store={createStore(combineReducers({ form: formReducer }))}>
-    <IntlProvider locale="nb-NO" messages={{}}>
-      <MockForm initialValues={initialValues}>
-        {field}
-      </MockForm>
-    </IntlProvider>
-  </Provider>,
-);
+const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => (
+  <form onSubmit={handleSubmit}>{children}</form>
+));
+const mountFieldInForm = (field, initialValues) =>
+  mount(
+    <Provider store={createStore(combineReducers({ form: formReducer }))}>
+      <IntlProvider locale="nb-NO" messages={{}}>
+        <MockForm initialValues={initialValues}>{field}</MockForm>
+      </IntlProvider>
+    </Provider>,
+  );
 
 describe('<DecimalField>', () => {
   it('skal legge til desimaler på onBlur hvis bruker kun skriver inn heltall', () => {
@@ -24,10 +25,11 @@ describe('<DecimalField>', () => {
         name="prosent"
         normalizeOnBlur={
           // @ts-ignore Fiks
-          (value) => (Number.isNaN(value)
-            ? value
-            // @ts-ignore Fiks
-            : parseFloat(value).toFixed(2))
+          value =>
+            Number.isNaN(value)
+              ? value
+              : // @ts-ignore Fiks
+                parseFloat(value).toFixed(2)
         }
       />,
       { prosent: 10 },
@@ -44,10 +46,11 @@ describe('<DecimalField>', () => {
         name="prosent"
         normalizeOnBlur={
           // @ts-ignore Fiks
-          (value) => (Number.isNaN(value)
-            ? value
-            // @ts-ignore Fiks
-            : parseFloat(value).toFixed(2))
+          value =>
+            Number.isNaN(value)
+              ? value
+              : // @ts-ignore Fiks
+                parseFloat(value).toFixed(2)
         }
       />,
       { prosent: 10 },
@@ -65,10 +68,11 @@ describe('<DecimalField>', () => {
         name="prosent"
         normalizeOnBlur={
           // @ts-ignore Fiks
-          (value) => (Number.isNaN(value)
-            ? value
-            // @ts-ignore Fiks
-            : parseFloat(value).toFixed(2))
+          value =>
+            Number.isNaN(value)
+              ? value
+              : // @ts-ignore Fiks
+                parseFloat(value).toFixed(2)
         }
       />,
       { prosent: 10 },

@@ -5,11 +5,11 @@ export type AktivitetValues = {
   fom: string;
   tom: string;
   skalBrukes: string;
-}
+};
 
 export type AktiviteterValues = {
   [key: string]: AktivitetValues;
-}
+};
 
 type AvklarAktiviteterValues = {
   manuellOverstyringBeregningAktiviteter?: boolean;
@@ -17,8 +17,8 @@ type AvklarAktiviteterValues = {
   avklaringsbehov?: BeregningAvklaringsbehov[];
   avklarAktiviteter?: AvklarBeregningAktiviteterMap;
   aktiviteterValues?: AktiviteterValues;
-  periode?: { fom: string; tom: string;}
+  periode?: { fom: string; tom: string };
   erTilVurdering?: boolean;
-}
+};
 
 export default AvklarAktiviteterValues;

@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './navigationWithDetailViewStyles.less';
 
 export interface NavigationWithDetailViewProps {
-    navigationSection: () => React.ReactNode;
-    detailSection: () => React.ReactNode;
-    showDetailSection: boolean;
+  navigationSection: () => React.ReactNode;
+  detailSection: () => React.ReactNode;
+  showDetailSection: boolean;
 }
 
 const NavigationWithDetailView = ({
@@ -19,11 +19,9 @@ const NavigationWithDetailView = ({
       {navigationSection()}
     </div>
     {showDetailSection && (
-    <div
-      className={`${styles.navigationWithDetailView__detailSection} navigationWithDetailView__detailSection`}
-    >
-      {detailSection()}
-    </div>
+      <div className={`${styles.navigationWithDetailView__detailSection} navigationWithDetailView__detailSection`}>
+        {detailSection()}
+      </div>
     )}
   </div>
 );

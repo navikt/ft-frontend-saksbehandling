@@ -3,7 +3,7 @@ export type AndelFieldIdentifikator = {
   andelsnr?: number;
   arbeidsgiverId?: string;
   arbeidsforholdType?: string;
-}
+};
 
 type AndelFieldValue = AndelFieldIdentifikator & {
   andel: string;
@@ -14,11 +14,11 @@ type AndelFieldValue = AndelFieldIdentifikator & {
   arbeidsforholdId?: string;
   arbeidsperiodeFom?: string;
   arbeidsperiodeTom?: string;
-  skalKunneEndreAktivitet?: boolean
+  skalKunneEndreAktivitet?: boolean;
   fastsattBelop?: string;
   belopReadOnly?: string;
   refusjonskrav?: string;
-}
+};
 
 export type InntektTransformed = {
   andelsnr: number;
@@ -29,6 +29,6 @@ export type InntektTransformed = {
   aktivitetStatus?: string;
   arbeidsforholdId?: string;
   arbeidsgiverId?: string;
-}
+};
 
 export default AndelFieldValue;

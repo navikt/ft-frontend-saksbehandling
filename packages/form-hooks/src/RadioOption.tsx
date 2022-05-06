@@ -34,9 +34,9 @@ export const RadioOption: FunctionComponent<RadioOptionProps> = ({
       checked={checked}
       value={value}
       disabled={disabled || groupDisabled}
-      onChange={(newValue) => {
+      onChange={newValue => {
         if (onChange) {
-          onChange((newValue));
+          onChange(newValue);
         }
       }}
     />

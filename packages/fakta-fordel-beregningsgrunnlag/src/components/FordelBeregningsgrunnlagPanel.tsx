@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import {
-  ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt, Beregningsgrunnlag,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
 import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -14,17 +12,15 @@ import {
 } from '../types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 
-const {
-  FORDEL_BEREGNINGSGRUNNLAG,
-  VURDER_REFUSJON_BERGRUNN,
-} = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
 
-const harFordelInfo = (bg: Beregningsgrunnlag): boolean => (bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false);
+const harFordelInfo = (bg: Beregningsgrunnlag): boolean =>
+  bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false;
 
 const harRefusjonInfo = (bg: Beregningsgrunnlag): boolean => !!(bg && bg.refusjonTilVurdering);
 
-const getAksjonspunkt = (aksjonspunkter: Aksjonspunkt[],
-  def: string): Aksjonspunkt | undefined => (aksjonspunkter && def ? aksjonspunkter.find((ap) => ap.definisjon === def) : undefined);
+const getAksjonspunkt = (aksjonspunkter: Aksjonspunkt[], def: string): Aksjonspunkt | undefined =>
+  aksjonspunkter && def ? aksjonspunkter.find(ap => ap.definisjon === def) : undefined;
 
 interface OwnProps {
   readOnly: boolean;
@@ -36,7 +32,7 @@ interface OwnProps {
   behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonValues;
-  setFormData: (data: FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonValues) => void,
+  setFormData: (data: FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonValues) => void;
 }
 
 /**
@@ -44,7 +40,7 @@ interface OwnProps {
  *
  * Har ansvar for å sette opp Redux Formen for "avklar fakta om fordeling" panel.
  */
-const FordelBeregningsgrunnlagPanel:FunctionComponent<OwnProps> = ({
+const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   readOnly,
   aksjonspunkter,
   submitCallback,
@@ -75,18 +71,18 @@ const FordelBeregningsgrunnlagPanel:FunctionComponent<OwnProps> = ({
         />
       )}
       {skalViseFordeling && (
-      <FordelingForm
-        submittable={submittable}
-        readOnly={readOnly}
-        submitCallback={submitCallback}
-        alleKodeverk={alleKodeverk}
-        beregningsgrunnlag={beregningsgrunnlag}
-        behandlingType={behandlingType}
-        aksjonspunkter={aksjonspunkter}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        formData={formData as FordelBeregningsgrunnlagMedAksjonspunktValues}
-        setFormData={setFormData}
-      />
+        <FordelingForm
+          submittable={submittable}
+          readOnly={readOnly}
+          submitCallback={submitCallback}
+          alleKodeverk={alleKodeverk}
+          beregningsgrunnlag={beregningsgrunnlag}
+          behandlingType={behandlingType}
+          aksjonspunkter={aksjonspunkter}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          formData={formData as FordelBeregningsgrunnlagMedAksjonspunktValues}
+          setFormData={setFormData}
+        />
       )}
     </>
   );

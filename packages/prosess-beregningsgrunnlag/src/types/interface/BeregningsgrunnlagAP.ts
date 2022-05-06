@@ -2,13 +2,13 @@ import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 import ProsessBeregningsgrunnlagAksjonspunktCode from './ProsessBeregningsgrunnlagAksjonspunktCode';
 
 export type DekningsgradResultatAp = {
-  dekningsgrad: number,
+  dekningsgrad: number;
 } & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD>;
 
 export type ArbeidsinntektResultat = {
   andelsnr: number;
   inntekt: number;
-}
+};
 
 export type FastsettAvvikATFLResultatAP = {
   inntektPrAndelList: ArbeidsinntektResultat[];
@@ -18,13 +18,13 @@ export type FastsettAvvikATFLResultatAP = {
 export type TidsbegrensetArbeidsforholdInntektResultat = {
   andelsnr: number;
   bruttoFastsattInntekt: number;
-}
+};
 
 export type TidsbegrensetArbeidsforholdPeriodeResultat = {
   periodeFom: string;
   periodeTom: string;
   fastsatteTidsbegrensedeAndeler: TidsbegrensetArbeidsforholdInntektResultat[];
-}
+};
 
 export type FastsettAvvikATFLTidsbegrensetResultatAP = {
   fastsatteTidsbegrensedePerioder: TidsbegrensetArbeidsforholdPeriodeResultat[];
@@ -40,7 +40,11 @@ export type NyIArbeidslivetruttoNæringResultatAP = {
   bruttoBeregningsgrunnlag: number;
 } & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET>;
 
-type BeregningsgrunnlagResultatAP = NyIArbeidslivetruttoNæringResultatAP | VurderVarigEndretNyoppstartetResultatAP
-  | FastsettAvvikATFLTidsbegrensetResultatAP | FastsettAvvikATFLResultatAP | DekningsgradResultatAp;
+type BeregningsgrunnlagResultatAP =
+  | NyIArbeidslivetruttoNæringResultatAP
+  | VurderVarigEndretNyoppstartetResultatAP
+  | FastsettAvvikATFLTidsbegrensetResultatAP
+  | FastsettAvvikATFLResultatAP
+  | DekningsgradResultatAp;
 
 export default BeregningsgrunnlagResultatAP;

@@ -1,6 +1,4 @@
-import {
-  KodeverkType, AvslagsarsakCode, ArbeidType, VilkarType,
-} from '@navikt/ft-kodeverk';
+import { KodeverkType, AvslagsarsakCode, ArbeidType, VilkarType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk } from '@navikt/ft-types';
 
 import { getKodeverknavnFn, getKodeverknavnFraKode } from './kodeverkUtils';
@@ -8,11 +6,13 @@ import { getKodeverknavnFn, getKodeverknavnFraKode } from './kodeverkUtils';
 describe('<kodeverkUtils>', () => {
   it('skal finne navn til gitt kodeverk-kode', () => {
     const alleKodeverk = {
-      [KodeverkType.ARBEID_TYPE]: [{
-        kode: ArbeidType.LONN_UNDER_UTDANNING,
-        kodeverk: 'ARBEID_TYPE',
-        navn: 'Lønn under utdanning',
-      }],
+      [KodeverkType.ARBEID_TYPE]: [
+        {
+          kode: ArbeidType.LONN_UNDER_UTDANNING,
+          kodeverk: 'ARBEID_TYPE',
+          navn: 'Lønn under utdanning',
+        },
+      ],
     } as AlleKodeverk;
 
     const kodeverkType = KodeverkType.ARBEID_TYPE;
@@ -25,11 +25,13 @@ describe('<kodeverkUtils>', () => {
 
   it('skal finne navn til gitt kodeverk-objekt', () => {
     const alleKodeverk = {
-      [KodeverkType.ARBEID_TYPE]: [{
-        kode: ArbeidType.LONN_UNDER_UTDANNING,
-        kodeverk: 'ARBEID_TYPE',
-        navn: 'Lønn under utdanning',
-      }],
+      [KodeverkType.ARBEID_TYPE]: [
+        {
+          kode: ArbeidType.LONN_UNDER_UTDANNING,
+          kodeverk: 'ARBEID_TYPE',
+          navn: 'Lønn under utdanning',
+        },
+      ],
     } as AlleKodeverk;
 
     const navn = getKodeverknavnFn(alleKodeverk)(ArbeidType.LONN_UNDER_UTDANNING, KodeverkType.ARBEID_TYPE);
@@ -40,22 +42,30 @@ describe('<kodeverkUtils>', () => {
   it('skal finne navn til gitt kodeverk-objekt når en har underkategori i kodeverk-json', () => {
     const alleKodeverk = {
       [KodeverkType.AVSLAGSARSAK]: {
-        [VilkarType.FODSELSVILKARET_MOR]: [{
-          kode: AvslagsarsakCode.INGEN_BEREGNINGSREGLER,
-          kodeverk: 'AVSLAGSARSAK',
-          navn: 'Ingen beregningsregler',
-        }],
-        [VilkarType.MEDLEMSKAPSVILKÅRET_LØPENDE]: [{
-          kode: 'test 2',
-          kodeverk: 'AVSLAGSARSAK',
-          navn: 'test 2',
-        }],
+        [VilkarType.FODSELSVILKARET_MOR]: [
+          {
+            kode: AvslagsarsakCode.INGEN_BEREGNINGSREGLER,
+            kodeverk: 'AVSLAGSARSAK',
+            navn: 'Ingen beregningsregler',
+          },
+        ],
+        [VilkarType.MEDLEMSKAPSVILKÅRET_LØPENDE]: [
+          {
+            kode: 'test 2',
+            kodeverk: 'AVSLAGSARSAK',
+            navn: 'test 2',
+          },
+        ],
       },
     };
 
     // @ts-ignore (Kodeverket for avslagsårsak er anleis enn alle andre. Bør nok flyttast til eigen resttjeneste,
     // evt. må typen til alle-kodeverk endrast i heile appen)
-    const navn = getKodeverknavnFn(alleKodeverk)(AvslagsarsakCode.INGEN_BEREGNINGSREGLER, KodeverkType.AVSLAGSARSAK, VilkarType.FODSELSVILKARET_MOR);
+    const navn = getKodeverknavnFn(alleKodeverk)(
+      AvslagsarsakCode.INGEN_BEREGNINGSREGLER,
+      KodeverkType.AVSLAGSARSAK,
+      VilkarType.FODSELSVILKARET_MOR,
+    );
 
     expect(navn).toBe('Ingen beregningsregler');
   });

@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import { IntlShape } from 'react-intl';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import {
-  AndelForFaktaOmBeregning,
-  ArbeidsgiverOpplysningerPerId,
-  AlleKodeverk,
-  KunYtelse,
-} from '@navikt/ft-types';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, AlleKodeverk, KunYtelse } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { BrukersAndelFieldArrayImpl } from './BrukersAndelFieldArray';
 import KunYtelseBesteberegningPanel from './KunYtelseBesteberegningPanel';
@@ -19,21 +14,31 @@ import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../ty
 export const brukersAndelFieldArrayName = 'brukersAndelBG';
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    skalSjekkeBesteberegning: boolean;
-    skalViseInntektstabell?: boolean;
-    alleKodeverk: AlleKodeverk;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  skalSjekkeBesteberegning: boolean;
+  skalViseInntektstabell?: boolean;
+  alleKodeverk: AlleKodeverk;
 };
 
 interface StaticFunctions {
-  buildInitialValues: (kunYtelse: KunYtelse,
-                       faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
-                       arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-                       alleKodeverk: AlleKodeverk) => KunYtelseValues;
+  buildInitialValues: (
+    kunYtelse: KunYtelse,
+    faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
+    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+    alleKodeverk: AlleKodeverk,
+  ) => KunYtelseValues;
   summerFordeling: (values: any) => number;
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues, kunYtelse: KunYtelse) => FaktaBeregningTransformedValues;
-  validate: (values: FaktaOmBeregningAksjonspunktValues, aktivertePaneler: string[], kunYtelse: KunYtelse, intl: IntlShape) => any;
+  transformValues: (
+    values: FaktaOmBeregningAksjonspunktValues,
+    kunYtelse: KunYtelse,
+  ) => FaktaBeregningTransformedValues;
+  validate: (
+    values: FaktaOmBeregningAksjonspunktValues,
+    aktivertePaneler: string[],
+    kunYtelse: KunYtelse,
+    intl: IntlShape,
+  ) => any;
 }
 
 /**
@@ -50,8 +55,7 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   alleKodeverk,
 }) => (
   <div>
-    {skalSjekkeBesteberegning
-    && (
+    {skalSjekkeBesteberegning && (
       /* @ts-ignore */
       <KunYtelseBesteberegningPanel
         readOnly={readOnly}
@@ -61,8 +65,7 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
         alleKodeverk={alleKodeverk}
       />
     )}
-    {!skalSjekkeBesteberegning && skalViseInntektstabell
-    && (
+    {!skalSjekkeBesteberegning && skalViseInntektstabell && (
       <KunYtelseUtenBesteberegningPanel
         readOnly={readOnly}
         brukersAndelFieldArrayName={brukersAndelFieldArrayName}
@@ -77,20 +80,22 @@ KunYtelsePanel.defaultProps = {
   skalViseInntektstabell: true,
 };
 
-KunYtelsePanel.buildInitialValues = (kunYtelse,
+KunYtelsePanel.buildInitialValues = (
+  kunYtelse,
   faktaOmBeregningAndeler,
   arbeidsgiverOpplysningerPerId,
-  alleKodeverk): KunYtelseValues => {
+  alleKodeverk,
+): KunYtelseValues => {
   if (!kunYtelse || !kunYtelse.andeler || kunYtelse.andeler.length === 0) {
     return {};
   }
-  const kunYtelseValues = kunYtelse.andeler.map((andel) => {
-    const andelMedInfo = faktaOmBeregningAndeler.find((faktaAndel) => faktaAndel.andelsnr === andel.andelsnr);
-    return ({
+  const kunYtelseValues = kunYtelse.andeler.map(andel => {
+    const andelMedInfo = faktaOmBeregningAndeler.find(faktaAndel => faktaAndel.andelsnr === andel.andelsnr);
+    return {
       ...setGenerellAndelsinfo(andelMedInfo, arbeidsgiverOpplysningerPerId, alleKodeverk),
-      fastsattBelop: andel.fastsattBelopPrMnd || andel.fastsattBelopPrMnd === 0
-        ? formatCurrencyNoKr(andel.fastsattBelopPrMnd) : '',
-    });
+      fastsattBelop:
+        andel.fastsattBelopPrMnd || andel.fastsattBelopPrMnd === 0 ? formatCurrencyNoKr(andel.fastsattBelopPrMnd) : '',
+    };
   });
   const initialValues = {
     [brukersAndelFieldArrayName]: kunYtelseValues,
@@ -104,25 +109,33 @@ KunYtelsePanel.buildInitialValues = (kunYtelse,
   return initialValues;
 };
 
-KunYtelsePanel.summerFordeling = (values) => (values[brukersAndelFieldArrayName]
-  .map(({ fastsattBelop }) => (fastsattBelop ? removeSpacesFromNumber(fastsattBelop) : 0))
-  .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0));
+KunYtelsePanel.summerFordeling = values =>
+  values[brukersAndelFieldArrayName]
+    .map(({ fastsattBelop }) => (fastsattBelop ? removeSpacesFromNumber(fastsattBelop) : 0))
+    .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
 
-KunYtelsePanel.transformValues = (values: FaktaOmBeregningAksjonspunktValues, kunYtelse: KunYtelse): FaktaBeregningTransformedValues => ({
+KunYtelsePanel.transformValues = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  kunYtelse: KunYtelse,
+): FaktaBeregningTransformedValues => ({
   kunYtelseFordeling: {
-    andeler: values[brukersAndelFieldArrayName].map((fieldValue) => ({
+    andeler: values[brukersAndelFieldArrayName].map(fieldValue => ({
       andelsnr: fieldValue.andelsnr,
       fastsattBeløp: removeSpacesFromNumber(fieldValue.fastsattBelop),
       inntektskategori: fieldValue.inntektskategori,
       nyAndel: fieldValue.nyAndel,
       lagtTilAvSaksbehandler: fieldValue.lagtTilAvSaksbehandler,
     })),
-    skalBrukeBesteberegning: kunYtelse.fodendeKvinneMedDP
-      ? KunYtelseBesteberegningPanel.transformValues(values) : null,
+    skalBrukeBesteberegning: kunYtelse.fodendeKvinneMedDP ? KunYtelseBesteberegningPanel.transformValues(values) : null,
   },
 });
 
-KunYtelsePanel.validate = (values: FaktaOmBeregningAksjonspunktValues, aktivertePaneler: string[], kunYtelse: KunYtelse, intl: IntlShape): any => {
+KunYtelsePanel.validate = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  aktivertePaneler: string[],
+  kunYtelse: KunYtelse,
+  intl: IntlShape,
+): any => {
   if (!values || !aktivertePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
     return {};
   }

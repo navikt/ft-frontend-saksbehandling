@@ -7,16 +7,16 @@ import StepType from './StepType';
 import styles from './step.less';
 
 export interface StepProps {
-    label: string;
-    isFinished?: boolean;
-    usePartialStatus?: boolean;
-    isActive?: boolean;
-    type?: StepType;
-    onClick?: (index: number) => void;
+  label: string;
+  isFinished?: boolean;
+  usePartialStatus?: boolean;
+  isActive?: boolean;
+  type?: StepType;
+  onClick?: (index: number) => void;
 }
 
 interface ComponentProps {
-    index: number;
+  index: number;
 }
 
 const stepCls = bemUtils('step');
@@ -55,28 +55,24 @@ export const Step = React.memo(
       >
         <button
           className={
-                        isActive
-                          ? `${styles[stepCls.element('button')]} ${styles['step__button--active']}`
-                          : styles[stepCls.element('button')]
-                    }
+            isActive
+              ? `${styles[stepCls.element('button')]} ${styles['step__button--active']}`
+              : styles[stepCls.element('button')]
+          }
           type="button"
           onClick={handleButtonClick}
           data-tooltip={label}
         >
           <span className={styles[stepCls.element('text-icon-container')]}>
-            <StepIcon
-              type={type}
-              isFinished={isFinished}
-              usePartialStatus={usePartialStatus}
-            />
+            <StepIcon type={type} isFinished={isFinished} usePartialStatus={usePartialStatus} />
             <Normaltekst tag="span">{label}</Normaltekst>
           </span>
           <span className={stepIndicatorCls} />
         </button>
         {isActive && (
-        <div className={styles[stepCls.element('arrow-container')]}>
-          <div className={styles[stepCls.element('arrow')]} />
-        </div>
+          <div className={styles[stepCls.element('arrow-container')]}>
+            <div className={styles[stepCls.element('arrow')]} />
+          </div>
         )}
       </li>
     );

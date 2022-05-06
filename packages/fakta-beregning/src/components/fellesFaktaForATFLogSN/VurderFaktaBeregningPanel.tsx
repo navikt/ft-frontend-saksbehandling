@@ -6,12 +6,8 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 
 import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import {
-  Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt,
-} from '@navikt/ft-types';
-import {
-  BeregningFaktaOgOverstyringAP,
-} from '../../typer/interface/BeregningFaktaAP';
+import { Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId, AlleKodeverk, Aksjonspunkt } from '@navikt/ft-types';
+import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import FaktaForATFLOgSNPanel, {
   getBuildInitialValuesFaktaForATFLOgSN,
   transformValuesFaktaForATFLOgSN,
@@ -31,66 +27,75 @@ const {
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
 } = FaktaBeregningAksjonspunktCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter
-  .some((ap) => ap.definisjon === aksjonspunktKode);
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
+  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
 
 const findAksjonspunktMedBegrunnelse = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => {
-  if (aksjonspunkter.some((ap) => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG)) {
-    return aksjonspunkter
-      .find((ap) => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG && ap.begrunnelse !== null);
+  if (aksjonspunkter.some(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG)) {
+    return aksjonspunkter.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG && ap.begrunnelse !== null);
   }
-  return aksjonspunkter
-    .find((ap) => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.begrunnelse !== null);
+  return aksjonspunkter.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.begrunnelse !== null);
 };
 
 export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
 
-export const harIkkeEndringerIAvklarMedFlereAksjonspunkter = (verdiForAvklarAktivitetErEndret: boolean, aksjonspunkter: Aksjonspunkt[]): boolean => {
-  if ((hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) || hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter))) {
+export const harIkkeEndringerIAvklarMedFlereAksjonspunkter = (
+  verdiForAvklarAktivitetErEndret: boolean,
+  aksjonspunkter: Aksjonspunkt[],
+): boolean => {
+  if (
+    hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) ||
+    hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter)
+  ) {
     return !verdiForAvklarAktivitetErEndret;
   }
   return true;
 };
 
 const isAksjonspunktClosed = (alleAp: Aksjonspunkt[]): boolean => {
-  const relevantAp = alleAp.filter((ap) => ap.definisjon === FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN
-    || ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
-  return relevantAp.length === 0 ? false : relevantAp.some((ap) => !isAksjonspunktOpen(ap.status));
+  const relevantAp = alleAp.filter(
+    ap =>
+      ap.definisjon === FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN ||
+      ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+  );
+  return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
 };
 
 const lagHelpTextsForFakta = (): ReactElement[] => {
   const helpTexts = [];
-  helpTexts.push(<FormattedMessage key="VurderFaktaForBeregningen" id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning" />);
+  helpTexts.push(
+    <FormattedMessage key="VurderFaktaForBeregningen" id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning" />,
+  );
   return helpTexts;
 };
 
-const hasOpenAksjonspunkt = (kode: string, aksjonspunkter: Aksjonspunkt[]): boolean => aksjonspunkter.some((ap) => ap.definisjon === kode
-  && isAksjonspunktOpen(ap.status));
+const hasOpenAksjonspunkt = (kode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
+  aksjonspunkter.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
 
 type OwnProps = {
-    intl: IntlShape,
-    readOnly: boolean;
-    submittable: boolean;
-    beregningsgrunnlag: Beregningsgrunnlag;
-    aksjonspunkter: Aksjonspunkt[];
-    alleKodeverk: AlleKodeverk;
-    erOverstyrer: boolean;
-    submitCallback: (aksjonspunktData: BeregningFaktaOgOverstyringAP) => Promise<void>;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  intl: IntlShape;
+  readOnly: boolean;
+  submittable: boolean;
+  beregningsgrunnlag: Beregningsgrunnlag;
+  aksjonspunkter: Aksjonspunkt[];
+  alleKodeverk: AlleKodeverk;
+  erOverstyrer: boolean;
+  submitCallback: (aksjonspunktData: BeregningFaktaOgOverstyringAP) => Promise<void>;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 type MappedOwnProps = {
   initialValues: FaktaOmBeregningAksjonspunktValues;
   validate: (formValues: FaktaOmBeregningAksjonspunktValues) => any;
   onSubmit: (formValues: FaktaOmBeregningAksjonspunktValues) => void;
-  verdiForAvklarAktivitetErEndret: boolean,
-  erOverstyrt: boolean,
-  hasBegrunnelse: boolean,
-}
+  verdiForAvklarAktivitetErEndret: boolean;
+  erOverstyrt: boolean;
+  hasBegrunnelse: boolean;
+};
 
 type OwnState = {
   submitEnabled: boolean;
-}
+};
 
 /**
  * VurderFaktaBeregningPanel
@@ -129,12 +134,15 @@ export class VurderFaktaBeregningPanelImpl extends Component<OwnProps & Injected
         arbeidsgiverOpplysningerPerId,
         ...formProps
       },
-      state: {
-        submitEnabled,
-      },
+      state: { submitEnabled },
     } = this;
 
-    if (!(hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) || hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, aksjonspunkter))) {
+    if (
+      !(
+        hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) ||
+        hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, aksjonspunkter)
+      )
+    ) {
       return (
         <form onSubmit={formProps.handleSubmit}>
           {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) && (
@@ -143,7 +151,7 @@ export class VurderFaktaBeregningPanelImpl extends Component<OwnProps & Injected
             </AksjonspunktHelpTextTemp>
           )}
           <VerticalSpacer twentyPx />
-          { /* @ts-ignore */ }
+          {/* @ts-ignore */}
           <FaktaForATFLOgSNPanel
             readOnly={readOnly}
             isAksjonspunktClosed={isAksjonspunktClosed(aksjonspunkter)}
@@ -163,10 +171,14 @@ export class VurderFaktaBeregningPanelImpl extends Component<OwnProps & Injected
                 hasBegrunnelse={hasBegrunnelse}
               />
               <VerticalSpacer twentyPx />
-              { /* @ts-ignore */ }
+              {/* @ts-ignore */}
               <FaktaSubmitButton
                 formName={formProps.form}
-                isSubmittable={submittable && submitEnabled && harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, aksjonspunkter)}
+                isSubmittable={
+                  submittable &&
+                  submitEnabled &&
+                  harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, aksjonspunkter)
+                }
                 isReadOnly={readOnly}
                 hasOpenAksjonspunkter={!isAksjonspunktClosed(aksjonspunkter)}
               />
@@ -179,7 +191,9 @@ export class VurderFaktaBeregningPanelImpl extends Component<OwnProps & Injected
   }
 }
 
-export const transformValuesVurderFaktaBeregning = (values: FaktaOmBeregningAksjonspunktValues): BeregningFaktaOgOverstyringAP => {
+export const transformValuesVurderFaktaBeregning = (
+  values: FaktaOmBeregningAksjonspunktValues,
+): BeregningFaktaOgOverstyringAP => {
   const { aksjonspunkter } = values;
   if (hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) || erOverstyring(values)) {
     const faktaBeregningValues = values;
@@ -195,16 +209,25 @@ export const transformValuesVurderFaktaBeregning = (values: FaktaOmBeregningAksj
 
 export const buildInitialValuesVurderFaktaBeregning = createSelector(
   [(state: any, ownProps: any) => ownProps.aksjonspunkter, getBuildInitialValuesFaktaForATFLOgSN],
-  (aksjonspunkter: Aksjonspunkt[], buildInitialValuesTilfeller: () => FaktaOmBeregningValues): FaktaOmBeregningAksjonspunktValues => ({
+  (
+    aksjonspunkter: Aksjonspunkt[],
+    buildInitialValuesTilfeller: () => FaktaOmBeregningValues,
+  ): FaktaOmBeregningAksjonspunktValues => ({
     aksjonspunkter,
-    ...FaktaBegrunnelseTextField.buildInitialValues(findAksjonspunktMedBegrunnelse(aksjonspunkter)?.begrunnelse, BEGRUNNELSE_FAKTA_TILFELLER_NAME),
+    ...FaktaBegrunnelseTextField.buildInitialValues(
+      findAksjonspunktMedBegrunnelse(aksjonspunkter)?.begrunnelse,
+      BEGRUNNELSE_FAKTA_TILFELLER_NAME,
+    ),
     ...buildInitialValuesTilfeller(),
   }),
 );
 
 export const validateVurderFaktaBeregning = (values: FaktaOmBeregningAksjonspunktValues, intl: IntlShape): any => {
   const { aksjonspunkter } = values;
-  if (values && ((aksjonspunkter && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)) || erOverstyring(values))) {
+  if (
+    values &&
+    ((aksjonspunkter && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)) || erOverstyring(values))
+  ) {
     return {
       ...validationForVurderFakta(values, intl),
     };
@@ -212,16 +235,18 @@ export const validateVurderFaktaBeregning = (values: FaktaOmBeregningAksjonspunk
   return null;
 };
 
-const lagSubmitFn = createSelector([
-  (ownProps: OwnProps) => ownProps.submitCallback],
-(submitCallback) => (values: FaktaOmBeregningAksjonspunktValues) => submitCallback(transformValuesVurderFaktaBeregning(values)));
+const lagSubmitFn = createSelector(
+  [(ownProps: OwnProps) => ownProps.submitCallback],
+  submitCallback => (values: FaktaOmBeregningAksjonspunktValues) =>
+    submitCallback(transformValuesVurderFaktaBeregning(values)),
+);
 
 const mapStateToPropsFactory = (_state: any, initialProps: OwnProps) => {
-  const validate = (values) => validateVurderFaktaBeregning(values, initialProps.intl);
+  const validate = values => validateVurderFaktaBeregning(values, initialProps.intl);
   return (state: any, ownProps: OwnProps): MappedOwnProps => {
     // @ts-ignore FIX reselect
     const initialValues = buildInitialValuesVurderFaktaBeregning(state, ownProps);
-    return ({
+    return {
       initialValues,
       validate,
       onSubmit: lagSubmitFn(ownProps),
@@ -230,13 +255,15 @@ const mapStateToPropsFactory = (_state: any, initialProps: OwnProps) => {
       // @ts-ignore FIX reselect
       erOverstyrt: erOverstyringAvBeregningsgrunnlag(state, ownProps),
       hasBegrunnelse: initialValues && !!initialValues[BEGRUNNELSE_FAKTA_TILFELLER_NAME],
-    });
+    };
   };
 };
 
-export default connect(mapStateToPropsFactory)(reduxForm({
-  form: formNameVurderFaktaBeregning,
-  enableReinitialize: true,
-  destroyOnUnmount: false,
-  keepDirtyOnReinitialize: true,
-})(VurderFaktaBeregningPanelImpl));
+export default connect(mapStateToPropsFactory)(
+  reduxForm({
+    form: formNameVurderFaktaBeregning,
+    enableReinitialize: true,
+    destroyOnUnmount: false,
+    keepDirtyOnReinitialize: true,
+  })(VurderFaktaBeregningPanelImpl),
+);

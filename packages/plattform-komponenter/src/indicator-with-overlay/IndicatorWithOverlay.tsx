@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './indicatorWithOverlay.less';
 
 interface IndicatorWithOverlayProps {
-    indicatorRenderer: () => React.ReactNode;
-    overlayRenderer: () => React.ReactNode;
+  indicatorRenderer: () => React.ReactNode;
+  overlayRenderer: () => React.ReactNode;
 }
 
 const IndicatorWithOverlay = ({ indicatorRenderer, overlayRenderer }: IndicatorWithOverlayProps) => (

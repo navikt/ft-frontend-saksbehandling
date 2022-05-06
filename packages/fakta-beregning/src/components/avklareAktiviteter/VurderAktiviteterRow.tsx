@@ -11,17 +11,17 @@ import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTa
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 
 type OwnProps = {
-  readOnly: boolean,
-  isAvklaringsbehovClosed: boolean,
-  aktivitet: BeregningAktivitet,
-  alleKodeverk: AlleKodeverk,
-  erOverstyrt: boolean,
-  harAvklaringsbehov: boolean,
-  tomDatoForAktivitetGruppe: string,
-  valgtSkjæringstidspunkt: string,
-  ingenAktiviterErBrukt: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  fieldId: number,
+  readOnly: boolean;
+  isAvklaringsbehovClosed: boolean;
+  aktivitet: BeregningAktivitet;
+  alleKodeverk: AlleKodeverk;
+  erOverstyrt: boolean;
+  harAvklaringsbehov: boolean;
+  tomDatoForAktivitetGruppe: string;
+  valgtSkjæringstidspunkt: string;
+  ingenAktiviterErBrukt: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldId: number;
 };
 
 const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));

@@ -19,30 +19,24 @@ const summerBeregnet = (fields, skalRedigereInntekt) => {
 };
 
 type OwnProps = {
-    readOnly: boolean;
-    skalVisePeriode: boolean;
-    skalViseRefusjon: boolean;
-    sumBeregnet: number;
+  readOnly: boolean;
+  skalVisePeriode: boolean;
+  skalViseRefusjon: boolean;
+  sumBeregnet: number;
 };
 
-const SummaryRow: FunctionComponent<OwnProps> = ({
-  skalVisePeriode, skalViseRefusjon, readOnly, sumBeregnet,
-}) => (
+const SummaryRow: FunctionComponent<OwnProps> = ({ skalVisePeriode, skalViseRefusjon, readOnly, sumBeregnet }) => (
   <TableRow key="bruttoBGSummaryRow">
     <TableColumn>
       <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
     </TableColumn>
-    {skalVisePeriode
-          && <TableColumn />}
+    {skalVisePeriode && <TableColumn />}
     <TableColumn className={styles.rightAlign}>
       <div className={styles.readOnlyContainer}>
-        <Normaltekst className={readOnly ? styles.readOnlyContent : ''}>
-          {formatCurrencyNoKr(sumBeregnet)}
-        </Normaltekst>
+        <Normaltekst className={readOnly ? styles.readOnlyContent : ''}>{formatCurrencyNoKr(sumBeregnet)}</Normaltekst>
       </div>
     </TableColumn>
-    {skalViseRefusjon
-          && <TableColumn />}
+    {skalViseRefusjon && <TableColumn />}
     <TableColumn />
   </TableRow>
 );

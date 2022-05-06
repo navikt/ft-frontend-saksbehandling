@@ -18,15 +18,15 @@ import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
 const radioGroupFieldName = 'erSNNyIArbeidslivet';
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
 };
 
 type TansformedProps = {
   vurderNyIArbeidslivet: {
     erNyIArbeidslivet: boolean;
-  }
-}
+  };
+};
 
 interface StaticFunctions {
   buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => NyIArbeidslivetValues;
@@ -56,16 +56,19 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
     return initialValues;
   }
-  const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
-    .map((periode) => periode.beregningsgrunnlagPrStatusOgAndel);
-  const snAndeler = alleAndeler.flat().filter((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode.map(
+    periode => periode.beregningsgrunnlagPrStatusOgAndel,
+  );
+  const snAndeler = alleAndeler
+    .flat()
+    .filter(andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (snAndeler.length > 0) {
     initialValues[radioGroupFieldName] = snAndeler[0].erNyIArbeidslivet;
   }
   return initialValues;
 };
 
-NyIArbeidslivetSNForm.transformValues = (values) => ({
+NyIArbeidslivetSNForm.transformValues = values => ({
   vurderNyIArbeidslivet: { erNyIArbeidslivet: values[radioGroupFieldName] },
 });
 

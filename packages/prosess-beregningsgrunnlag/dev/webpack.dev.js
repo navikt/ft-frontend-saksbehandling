@@ -6,9 +6,7 @@ const getDevConfig = require('../../../webpack/webpack.dev.template');
 const runServer = require('../../../webpack/webpack.dev.server');
 
 const config = {
-  entry: [
-    path.join(__dirname, 'index.ts'),
-  ],
+  entry: [path.join(__dirname, 'index.ts')],
   plugins: [
     new ModuleFederationPlugin({
       name: 'ft_prosess_beregningsgrunnlag',

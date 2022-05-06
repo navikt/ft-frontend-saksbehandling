@@ -11,7 +11,7 @@ import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {
-    alleAndeler: BeregningsgrunnlagAndel[];
+  alleAndeler: BeregningsgrunnlagAndel[];
 };
 
 /**
@@ -22,7 +22,7 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer frilanser.
  */
 const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const relevanteAndeler = alleAndeler.filter((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
+  const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
   const beregnetAarsinntekt = relevanteAndeler[0].beregnetPrAar;
   const startDato = relevanteAndeler[0].arbeidsforhold.startdato;
   return (
@@ -35,16 +35,16 @@ const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndele
         <VerticalSpacer eightPx />
       </>
       {startDato && (
-      <Row className={beregningStyles.rows}>
-        <Column xs="12">
-          <Normaltekst>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
-            <span className={beregningStyles.semiBoldText}>
-              <DateLabel dateString={startDato} />
-            </span>
-          </Normaltekst>
-        </Column>
-      </Row>
+        <Row className={beregningStyles.rows}>
+          <Column xs="12">
+            <Normaltekst>
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
+              <span className={beregningStyles.semiBoldText}>
+                <DateLabel dateString={startDato} />
+              </span>
+            </Normaltekst>
+          </Column>
+        </Row>
       )}
       <VerticalSpacer eightPx />
       <Row className={beregningStyles.rows}>

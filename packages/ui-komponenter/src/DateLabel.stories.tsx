@@ -18,9 +18,7 @@ export default {
 
 const Template: Story = () => (
   <RawIntlProvider value={intl}>
-    <DateLabel
-      dateString="2017-10-02"
-    />
+    <DateLabel dateString="2017-10-02" />
   </RawIntlProvider>
 );
 

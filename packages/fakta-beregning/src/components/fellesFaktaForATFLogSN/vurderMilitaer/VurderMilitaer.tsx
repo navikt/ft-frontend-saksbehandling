@@ -15,8 +15,8 @@ import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
 export const vurderMilitaerField = 'vurderMilitær';
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -50,7 +50,7 @@ VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): Vurder
   return initialValues;
 };
 
-VurderMilitaer.transformValues = (values) => ({
+VurderMilitaer.transformValues = values => ({
   vurderMilitaer: { harMilitaer: values[vurderMilitaerField] },
 });
 

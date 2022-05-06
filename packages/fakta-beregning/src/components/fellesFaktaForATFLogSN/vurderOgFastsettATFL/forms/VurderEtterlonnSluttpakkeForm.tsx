@@ -24,19 +24,27 @@ import {
 export const harEtterlonnSluttpakkeField = 'vurderEtterlønnSluttpakke';
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
-  buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag, faktaAksjonspunkt: Aksjonspunkt) => VurderEtterlønnSluttpakkeValues;
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues,
-                    inntektPrMnd: InntektTransformed[],
-                    faktaOmBeregning: FaktaOmBeregning,
-                    fastsatteAndelsnr: number[]) => FaktaBeregningTransformedValues;
+  buildInitialValues: (
+    beregningsgrunnlag: Beregningsgrunnlag,
+    faktaAksjonspunkt: Aksjonspunkt,
+  ) => VurderEtterlønnSluttpakkeValues;
+  transformValues: (
+    values: FaktaOmBeregningAksjonspunktValues,
+    inntektPrMnd: InntektTransformed[],
+    faktaOmBeregning: FaktaOmBeregning,
+    fastsatteAndelsnr: number[],
+  ) => FaktaBeregningTransformedValues;
 }
 
-const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
+const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly,
+  isAksjonspunktClosed,
+}) => (
   <div>
     <Normaltekst>
       <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
@@ -54,17 +62,20 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
   </div>
 );
 
-VurderEtterlonnSluttpakkeForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag,
-  faktaAksjonspunkt: Aksjonspunkt): VurderEtterlønnSluttpakkeValues => {
+VurderEtterlonnSluttpakkeForm.buildInitialValues = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  faktaAksjonspunkt: Aksjonspunkt,
+): VurderEtterlønnSluttpakkeValues => {
   const initialValues = {};
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode || !faktaAksjonspunkt) {
     return {};
   }
   const apErTidligereLost = !isAksjonspunktOpen(faktaAksjonspunkt.status);
   const relevanteAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
-    .flatMap((periode) => periode.beregningsgrunnlagPrStatusOgAndel)
-    .filter(({ arbeidsforhold }) => arbeidsforhold
-  && arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE);
+    .flatMap(periode => periode.beregningsgrunnlagPrStatusOgAndel)
+    .filter(
+      ({ arbeidsforhold }) => arbeidsforhold && arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE,
+    );
   if (relevanteAndeler.length > 0) {
     initialValues[harEtterlonnSluttpakkeField] = apErTidligereLost ? relevanteAndeler[0].beregnetPrAar > 0 : undefined;
   }
@@ -75,51 +86,58 @@ const finnEtterlønnSluttpakkeAndelNr = (faktaOmBeregning: FaktaOmBeregning): nu
   if (!faktaOmBeregning.andelerForFaktaOmBeregning) {
     return undefined;
   }
-  const etterlønnSluttpakkeAndel = faktaOmBeregning.andelerForFaktaOmBeregning
-    .find((andel) => andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
-    && andel.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE);
+  const etterlønnSluttpakkeAndel = faktaOmBeregning.andelerForFaktaOmBeregning.find(
+    andel =>
+      andel.arbeidsforhold &&
+      andel.arbeidsforhold.arbeidsforholdType &&
+      andel.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE,
+  );
 
   return etterlønnSluttpakkeAndel ? etterlønnSluttpakkeAndel.andelsnr : undefined;
 };
 
-VurderEtterlonnSluttpakkeForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues,
+VurderEtterlonnSluttpakkeForm.transformValues = (
+  values: FaktaOmBeregningAksjonspunktValues,
   inntektPrMnd: InntektTransformed[],
   faktaOmBeregning: FaktaOmBeregning,
-  fastsatteAndelsnr: number[]): FaktaBeregningTransformedValues => {
+  fastsatteAndelsnr: number[],
+): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
   if (!tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
     return {};
   }
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
-    return ({
+    return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
-    });
+    };
   }
   const etterlønnSluttpakkeAndelsnr = finnEtterlønnSluttpakkeAndelNr(faktaOmBeregning);
   if (!etterlønnSluttpakkeAndelsnr) {
     return {};
   }
-  const etterlonnSluttpakkeField = inntektPrMnd
-    .find((field) => field.andelsnr === etterlønnSluttpakkeAndelsnr);
+  const etterlonnSluttpakkeField = inntektPrMnd.find(field => field.andelsnr === etterlønnSluttpakkeAndelsnr);
   if (!etterlonnSluttpakkeField) {
-    return ({
+    return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
-    });
+    };
   }
   if (fastsatteAndelsnr.includes(etterlonnSluttpakkeField.andelsnr)) {
-    return ({
+    return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
-    });
+    };
   }
   fastsatteAndelsnr.push(etterlonnSluttpakkeField.andelsnr);
   const inntekt = {
     fastsettEtterlønnSluttpakke: { fastsattPrMnd: etterlonnSluttpakkeField.fastsattBelop },
   };
   return {
-    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE, FaktaOmBeregningTilfelle.FASTSETT_ETTERLONN_SLUTTPAKKE],
+    faktaOmBeregningTilfeller: [
+      FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE,
+      FaktaOmBeregningTilfelle.FASTSETT_ETTERLONN_SLUTTPAKKE,
+    ],
     ...inntekt,
     vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
   };

@@ -21,24 +21,29 @@ const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
   lagtTilAvSaksbehandler: true,
 });
 
-const onKeyDown = (fields, aktivitetStatuser) => ({ key }) => {
-  if (key === 'Enter') {
-    fields.push(dagpenger(aktivitetStatuser));
-  }
-};
+const onKeyDown =
+  (fields, aktivitetStatuser) =>
+  ({ key }) => {
+    if (key === 'Enter') {
+      fields.push(dagpenger(aktivitetStatuser));
+    }
+  };
 
 type OwnProps = {
-    fields: FieldArrayFieldsProps<any>;
-    aktivitetStatuser: KodeverkMedNavn[];
+  fields: FieldArrayFieldsProps<any>;
+  aktivitetStatuser: KodeverkMedNavn[];
 };
 
 export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedComponentProps> = ({
-  intl, fields, aktivitetStatuser,
+  intl,
+  fields,
+  aktivitetStatuser,
 }) => (
   <Row className={styles.buttonRow}>
     <Column xs="3">
-      {// eslint-disable-next-line jsx-a11y/click-events-have-key-events
-        }
+      {
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      }
       <div
         id="leggTilAndelDiv"
         onClick={() => {
@@ -55,9 +60,7 @@ export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedCo
           tooltip={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel' })}
         />
         <Undertekst className={styles.imageText}>
-          <FormattedMessage
-            id="BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel"
-          />
+          <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel" />
         </Undertekst>
       </div>
     </Column>

@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
-import {
-  decodeHtmlEntity, hasValidText, maxLength, minLength, required, createIntl,
-} from '@navikt/ft-utils';
+import { decodeHtmlEntity, hasValidText, maxLength, minLength, required, createIntl } from '@navikt/ft-utils';
 import { TextAreaField } from '@navikt/ft-form-redux-legacy';
 
 import styles from './faktaBegrunnelseTextField.less';
@@ -73,7 +71,8 @@ FaktaBegrunnelseTextField.defaultProps = {
 
 FaktaBegrunnelseTextField.buildInitialValues = (
   hentetBegrunnelse: string,
-  begrunnelseFieldName = 'begrunnelse'): FormValues => ({
+  begrunnelseFieldName = 'begrunnelse',
+): FormValues => ({
   [begrunnelseFieldName]: decodeHtmlEntity(hentetBegrunnelse),
 });
 

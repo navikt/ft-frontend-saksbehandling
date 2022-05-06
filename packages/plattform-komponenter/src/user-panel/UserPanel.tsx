@@ -7,15 +7,13 @@ import styles from './userPanel.less';
 const userCls = bemUtils('user');
 
 interface UserPanelProps {
-    name: string;
-    unit?: string;
-    onClick?: (e: React.FormEvent<HTMLButtonElement>) => void;
-    isToggled?: boolean;
+  name: string;
+  unit?: string;
+  onClick?: (e: React.FormEvent<HTMLButtonElement>) => void;
+  isToggled?: boolean;
 }
 
-const UserPanel: React.FunctionComponent<UserPanelProps> = ({
-  name, unit, onClick, isToggled,
-}) => {
+const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClick, isToggled }) => {
   if (onClick) {
     return (
       <button
@@ -30,9 +28,9 @@ const UserPanel: React.FunctionComponent<UserPanelProps> = ({
             {name}
           </Text>
           {unit && (
-          <Text tag="span" className={styles[userCls.element('unit')]}>
-            {unit}
-          </Text>
+            <Text tag="span" className={styles[userCls.element('unit')]}>
+              {unit}
+            </Text>
           )}
         </span>
         {isToggled ? (

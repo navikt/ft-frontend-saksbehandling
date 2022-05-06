@@ -10,7 +10,10 @@ import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
 
-const viserIkkeAvviksvurdering = (erKombinasjonsstatusATSN: boolean, erKombinasjonsstatusATFLSN: boolean): ReactElement => (
+const viserIkkeAvviksvurdering = (
+  erKombinasjonsstatusATSN: boolean,
+  erKombinasjonsstatusATFLSN: boolean,
+): ReactElement => (
   <FlexRow>
     <Column xs="12">
       <Normaltekst>
@@ -26,9 +29,9 @@ const viserIkkeAvviksvurdering = (erKombinasjonsstatusATSN: boolean, erKombinasj
 );
 
 type OwnProps = {
-    relevanteStatuser: RelevanteStatuserProp;
-    sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[];
-    beregnetAarsinntekt?: number;
+  relevanteStatuser: RelevanteStatuserProp;
+  sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[];
+  beregnetAarsinntekt?: number;
 };
 
 const AvvikopplysningerAT: FunctionComponent<OwnProps> = ({
@@ -36,26 +39,31 @@ const AvvikopplysningerAT: FunctionComponent<OwnProps> = ({
   sammenligningsgrunnlagPrStatus,
   beregnetAarsinntekt,
 }) => {
-  const erKombinasjonsstatusATSN = relevanteStatuser.isKombinasjonsstatus
-    && relevanteStatuser.isArbeidstaker
-    && relevanteStatuser.isSelvstendigNaeringsdrivende
-    && !relevanteStatuser.isFrilanser;
-  const erKombinasjonsstatusATFLSN = relevanteStatuser.isKombinasjonsstatus
-    && relevanteStatuser.isArbeidstaker
-    && relevanteStatuser.isSelvstendigNaeringsdrivende
-    && relevanteStatuser.isFrilanser;
+  const erKombinasjonsstatusATSN =
+    relevanteStatuser.isKombinasjonsstatus &&
+    relevanteStatuser.isArbeidstaker &&
+    relevanteStatuser.isSelvstendigNaeringsdrivende &&
+    !relevanteStatuser.isFrilanser;
+  const erKombinasjonsstatusATFLSN =
+    relevanteStatuser.isKombinasjonsstatus &&
+    relevanteStatuser.isArbeidstaker &&
+    relevanteStatuser.isSelvstendigNaeringsdrivende &&
+    relevanteStatuser.isFrilanser;
   if (erKombinasjonsstatusATSN || erKombinasjonsstatusATFLSN) {
     return viserIkkeAvviksvurdering(erKombinasjonsstatusATSN, erKombinasjonsstatusATFLSN);
   }
   const sammenligningsGrunnlagAT = sammenligningsgrunnlagPrStatus
-    ? sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === SammenligningType.AT
-    || status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)
+    ? sammenligningsgrunnlagPrStatus.find(
+        status =>
+          status.sammenligningsgrunnlagType === SammenligningType.AT ||
+          status.sammenligningsgrunnlagType === SammenligningType.ATFLSN,
+      )
     : undefined;
   if (!sammenligningsGrunnlagAT) {
     return null;
   }
   const avvikAT = sammenligningsGrunnlagAT.avvikProsent;
-  const avvikATRounded = avvikAT ? parseFloat((avvikAT.toFixed(1))) : 0;
+  const avvikATRounded = avvikAT ? parseFloat(avvikAT.toFixed(1)) : 0;
   const sammenligningsgrunnlagSumAT = sammenligningsGrunnlagAT.rapportertPrAar;
   const { differanseBeregnet } = sammenligningsGrunnlagAT;
   const visPaneler = {

@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import {
-  Element, Normaltekst, Undertekst,
-} from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
@@ -20,7 +18,6 @@ const createHeaderRow = (): React.ReactNode => (
       </Undertekst>
     </Column>
     <Column xs="2" className={beregningStyles.colAarText}>
-
       <Undertekst className={beregningStyles.etikettLiten}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotalPensjonsGivende" />
       </Undertekst>
@@ -37,32 +34,24 @@ const createSumRow = (pgiSnitt: number): React.ReactNode => (
     <Row key="grunnlagAarsinntektSN">
       <Column xs="10" className={beregningStyles.rightAlignTextInDiv}>
         <Element>
-          <FormattedMessage
-            id="Beregningsgrunnlag.AarsinntektPanel.SnittPensjonsGivende"
-          />
+          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SnittPensjonsGivende" />
         </Element>
       </Column>
       <Column xs="2" className={beregningStyles.colAarText}>
-        <Element>
-          {formatCurrencyNoKr(pgiSnitt)}
-        </Element>
+        <Element>{formatCurrencyNoKr(pgiSnitt)}</Element>
       </Column>
     </Row>
   </>
 );
 const createInntektRows = (pgiVerdier: PgiVerdier[]): React.ReactNode => (
   <>
-    {pgiVerdier.map((element) => (
+    {pgiVerdier.map(element => (
       <Row key={element.årstall}>
         <Column xs="7">
-          <Undertekst>
-            {element.årstall}
-          </Undertekst>
+          <Undertekst>{element.årstall}</Undertekst>
         </Column>
         <Column xs="5" className={beregningStyles.colAarText}>
-          <Undertekst>
-            {formatCurrencyNoKr(element.beløp)}
-          </Undertekst>
+          <Undertekst>{formatCurrencyNoKr(element.beløp)}</Undertekst>
         </Column>
       </Row>
     ))}
@@ -70,7 +59,7 @@ const createInntektRows = (pgiVerdier: PgiVerdier[]): React.ReactNode => (
 );
 
 type OwnProps = {
-    alleAndeler: BeregningsgrunnlagAndel[];
+  alleAndeler: BeregningsgrunnlagAndel[];
 };
 
 /**
@@ -80,7 +69,7 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer selvstendig næringsdrivende.
  */
 const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const snAndel = alleAndeler.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const snAndel = alleAndeler.find(andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
   if (!snAndel) {
     return null;
   }
@@ -101,16 +90,8 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
       </Row>
       <VerticalSpacer fourPx />
       {createHeaderRow()}
-      {!!pgiVerdier && (
-        <>
-          {createInntektRows(pgiVerdier)}
-        </>
-      )}
-      {pgiSnitt !== undefined && (
-        <>
-          {createSumRow(pgiSnitt)}
-        </>
-      )}
+      {!!pgiVerdier && <>{createInntektRows(pgiVerdier)}</>}
+      {pgiSnitt !== undefined && <>{createSumRow(pgiSnitt)}</>}
     </>
   );
 };

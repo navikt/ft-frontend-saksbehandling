@@ -5,7 +5,8 @@ import { Element } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
 
 import {
-  AksjonspunktHelpTextTemp, FlexColumn,
+  AksjonspunktHelpTextTemp,
+  FlexColumn,
   FlexContainer,
   FlexRow,
   OverstyringKnapp,
@@ -13,7 +14,8 @@ import {
 } from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter,
+  ArbeidsgiverOpplysningerPerId,
+  AvklarBeregningAktiviteter,
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
@@ -35,10 +37,7 @@ import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
-const {
-  AVKLAR_AKTIVITETER,
-  OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = FaktaBeregningAksjonspunktCode;
+const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
@@ -56,8 +55,13 @@ export const buildInitialValues = (
   let aktiviteterValues;
 
   if (avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping) {
-    aktiviteterValues = VurderAktiviteterPanel.buildInitialValues(avklarAktiviteter.aktiviteterTomDatoMapping,
-      alleKodeverk, erOverstyrt, harAvklarAktiviteterAvklaringsbehov, arbeidsgiverOpplysningerPerId);
+    aktiviteterValues = VurderAktiviteterPanel.buildInitialValues(
+      avklarAktiviteter.aktiviteterTomDatoMapping,
+      alleKodeverk,
+      erOverstyrt,
+      harAvklarAktiviteterAvklaringsbehov,
+      arbeidsgiverOpplysningerPerId,
+    );
   }
 
   return {
@@ -73,7 +77,11 @@ export const buildInitialValues = (
 
 export const transformFieldValue = (values: AvklarAktiviteterValues) => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
-  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov, values.erTilVurdering);
+  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(
+    skalOverstyre,
+    values.avklaringsbehov,
+    values.erTilVurdering,
+  );
   const { avklarAktiviteter } = values;
 
   if (!skalLoseAvklaringsbehov) {
@@ -103,15 +111,29 @@ interface OwnProps {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
   intl: any;
-  updateOverstyring: (index : number, skalOverstyre : boolean) => void;
+  updateOverstyring: (index: number, skalOverstyre: boolean) => void;
 }
 
-const validate = (getValues: UseFormGetValues<any>, fieldId: number, aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[], erOverstyrt: boolean, intl: any) => () => {
-  if (VurderAktiviteterPanel.harIngenAktiviteter(getValues(`avklarAktiviteterForm.${fieldId}`), aktiviteterTomDatoMapping, erOverstyrt)) {
-    return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
-  }
-  return [];
-};
+const validate =
+  (
+    getValues: UseFormGetValues<any>,
+    fieldId: number,
+    aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
+    erOverstyrt: boolean,
+    intl: any,
+  ) =>
+  () => {
+    if (
+      VurderAktiviteterPanel.harIngenAktiviteter(
+        getValues(`avklarAktiviteterForm.${fieldId}`),
+        aktiviteterTomDatoMapping,
+        erOverstyrt,
+      )
+    ) {
+      return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
+    }
+    return [];
+  };
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   avklarAktiviteter,
@@ -126,12 +148,17 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   updateOverstyring,
 }) => {
   const {
-    resetField, watch, getValues, formState: { isDirty, isSubmitting, errors },
+    resetField,
+    watch,
+    getValues,
+    formState: { isDirty, isSubmitting, errors },
   } = formHooks.useFormContext<AvklarAktiviteterFormValues>();
 
   const harOverstyrAvklaringsbehov = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
   const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
-  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(harOverstyrAvklaringsbehov || erOverstyrtAktivt);
+  const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(
+    harOverstyrAvklaringsbehov || erOverstyrtAktivt,
+  );
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
 
   const finnesFeilForBegrunnelse = !!errors.avklarAktiviteterForm?.[fieldId]?.begrunnelseAvklareAktiviteter;
@@ -153,9 +180,14 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     resetField(`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`);
   };
 
-  const isAvklaringsbehovClosed: boolean = avklaringsbehov.filter((ap) => ap.definisjon === FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER
-    || ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER)
-    .filter((ap) => isAvklaringsbehovOpen(ap.status)).length === 0;
+  const isAvklaringsbehovClosed: boolean =
+    avklaringsbehov
+      .filter(
+        ap =>
+          ap.definisjon === FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER ||
+          ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+      )
+      .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 
   const valideringer = [validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl)];
 
@@ -170,10 +202,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
           </FlexColumn>
           {(erOverstyrer || harOverstyrAvklaringsbehov) && (
             <FlexColumn>
-              <OverstyringKnapp
-                onClick={() => initializeForm(true)}
-                erOverstyrt={erOverstyrtKnappTrykket}
-              />
+              <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
             </FlexColumn>
           )}
         </FlexRow>
@@ -183,10 +212,12 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
 
       {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && (
         <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAvklaringsbehovClosed}>
-          {[<FormattedMessage
-            key="VurderFaktaForBeregningen"
-            id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
-          />]}
+          {[
+            <FormattedMessage
+              key="VurderFaktaForBeregningen"
+              id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
+            />,
+          ]}
         </AksjonspunktHelpTextTemp>
       )}
 
@@ -199,10 +230,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
 
       {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <SkjemaGruppeMedFeilviser
-          name={`vurderAktiviteterSkjema.${fieldId}`}
-          validate={valideringer}
-        >
+        <SkjemaGruppeMedFeilviser name={`vurderAktiviteterSkjema.${fieldId}`} validate={valideringer}>
           <VurderAktiviteterPanel
             aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
             readOnly={readOnly}
@@ -233,7 +261,11 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                 <FlexRow>
                   <FlexColumn>
                     <SubmitButton
-                      text={intl.formatMessage({ id: erOverstyrtKnappTrykket ? 'AvklarAktivitetPanel.OverstyrText' : 'AvklarAktivitetPanel.ButtonText' })}
+                      text={intl.formatMessage({
+                        id: erOverstyrtKnappTrykket
+                          ? 'AvklarAktivitetPanel.OverstyrText'
+                          : 'AvklarAktivitetPanel.ButtonText',
+                      })}
                       isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
                       isDirty={isDirty}
                       isSubmitting={isSubmitting}

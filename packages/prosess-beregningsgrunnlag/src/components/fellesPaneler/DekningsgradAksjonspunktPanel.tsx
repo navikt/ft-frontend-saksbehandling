@@ -6,9 +6,7 @@ import { isAksjonspunktOpen, Dekningsgrad } from '@navikt/ft-kodeverk';
 
 import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
 import { RadioGroupField, RadioOption, TextAreaField } from '@navikt/ft-form-hooks';
-import {
-  hasValidText, maxLength, minLength, required,
-} from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-utils';
 import { DekningsgradResultatAp } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -23,11 +21,11 @@ const maxLength1500 = maxLength(1500);
 
 interface StaticFunctions {
   buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt[]) => DekningsgradValues;
-  transformValues: (values: Required<DekningsgradValues>) => DekningsgradResultatAp
+  transformValues: (values: Required<DekningsgradValues>) => DekningsgradResultatAp;
 }
 
 type OwnProps = {
-    readOnly: boolean;
+  readOnly: boolean;
 };
 
 /**
@@ -35,15 +33,19 @@ type OwnProps = {
  *
  * Viser skjæringstidspunkt for beregningen og en liste med aktivitetsstatuser.
  */
-const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly,
-}) => {
+const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const intl = useIntl();
   return (
     <>
       <RadioGroupField name={RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN} readOnly={readOnly} validate={[required]}>
-        <RadioOption label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent80' })} value={Dekningsgrad.ATTI} />
-        <RadioOption label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent100' })} value={Dekningsgrad.HUNDRE} />
+        <RadioOption
+          label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent80' })}
+          value={Dekningsgrad.ATTI}
+        />
+        <RadioOption
+          label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent100' })}
+          value={Dekningsgrad.HUNDRE}
+        />
       </RadioGroupField>
       <Row>
         <Column xs="12">
@@ -62,10 +64,16 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
   );
 };
 
-DekningsgradAksjonspunktPanel.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag, aksjonspunter: Aksjonspunkt[]): DekningsgradValues => {
-  const aksjonspunkt = aksjonspunter && aksjonspunter.find((ap) => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD);
+DekningsgradAksjonspunktPanel.buildInitialValues = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  aksjonspunter: Aksjonspunkt[],
+): DekningsgradValues => {
+  const aksjonspunkt =
+    aksjonspunter &&
+    aksjonspunter.find(ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD);
   const begrunnelse = aksjonspunkt && aksjonspunkt.begrunnelse ? aksjonspunkt.begrunnelse : null;
-  const initialDekningsgrad = aksjonspunkt && !isAksjonspunktOpen(aksjonspunkt.status) ? beregningsgrunnlag.dekningsgrad : null;
+  const initialDekningsgrad =
+    aksjonspunkt && !isAksjonspunktOpen(aksjonspunkt.status) ? beregningsgrunnlag.dekningsgrad : null;
   if (initialDekningsgrad && begrunnelse) {
     return {
       [RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN]: initialDekningsgrad,

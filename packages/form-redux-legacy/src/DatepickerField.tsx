@@ -32,9 +32,9 @@ const isoToDdMmYyyy = (string: string): string => {
 };
 
 const acceptedFormatToIso = (string: string): string => {
-  const validDate = ACCEPTED_DATE_INPUT_FORMATS
-    .map((format) => moment(string, format, true))
-    .find((parsedDate) => parsedDate.isValid());
+  const validDate = ACCEPTED_DATE_INPUT_FORMATS.map(format => moment(string, format, true)).find(parsedDate =>
+    parsedDate.isValid(),
+  );
   if (validDate) {
     return validDate.format(ISO_DATE_FORMAT);
   }
@@ -57,8 +57,8 @@ const DatepickerField: FunctionComponent<BaseFieldProps & DatepickerFieldProps> 
     component={readOnly ? ReadOnlyField : RenderDatepickerField}
     label={label}
     {...otherProps}
-    format={(value) => isoToDdMmYyyy(format(value, name))}
-    parse={(value) => parse(acceptedFormatToIso(value), name)}
+    format={value => isoToDdMmYyyy(format(value, name))}
+    parse={value => parse(acceptedFormatToIso(value), name)}
     readOnly={readOnly}
     readOnlyHideEmpty
     isEdited={isEdited}
@@ -69,8 +69,8 @@ DatepickerField.defaultProps = {
   label: '',
   readOnly: false,
   isEdited: false,
-  format: (value) => value,
-  parse: (value) => value,
+  format: value => value,
+  parse: value => value,
 };
 
 export default DatepickerField;

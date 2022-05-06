@@ -30,9 +30,9 @@ const TextAreaWithBadge: FunctionComponent<TextAreaWithBadgeProps & WrappedCompo
   ...otherProps
 }) => (
   <div className={badges ? styles.textAreaFieldWithBadges : null}>
-    { badges && (
+    {badges && (
       <div className={styles.etikettWrapper}>
-        { badges.map(({ text, type, title }) => (
+        {badges.map(({ text, type, title }) => (
           <EtikettFokus key={text} type={type} title={intl.formatMessage({ id: title })}>
             {text}
           </EtikettFokus>

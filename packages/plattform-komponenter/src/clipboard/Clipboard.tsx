@@ -5,8 +5,8 @@ import copyContentsToClipboard from './util';
 import styles from './clipboard.less';
 
 interface ClipboardProps {
-    children: React.ReactNode;
-    buttonLabel?: string;
+  children: React.ReactNode;
+  buttonLabel?: string;
 }
 
 const clipboardCls = bemUtils('clipboard');

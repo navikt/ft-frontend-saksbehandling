@@ -20,21 +20,21 @@ export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel):
   }
   return '';
 };
-const isAktivitetKodeDagpenger = (aktivitetStatusKode: string): boolean => aktivitetStatusKode === AktivitetStatus.DAGPENGER;
+const isAktivitetKodeDagpenger = (aktivitetStatusKode: string): boolean =>
+  aktivitetStatusKode === AktivitetStatus.DAGPENGER;
 
 type OwnProps = {
-    alleAndeler: BeregningsgrunnlagAndel[];
-    relevanteStatuser: RelevanteStatuserProp;
-    gjelderBesteberegning: boolean;
+  alleAndeler: BeregningsgrunnlagAndel[];
+  relevanteStatuser: RelevanteStatuserProp;
+  gjelderBesteberegning: boolean;
 };
 
 const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevanteStatuser, gjelderBesteberegning }) => {
-  const relevanteAndeler = alleAndeler.filter((andel) => isStatusDagpengerOrAAP(andel.aktivitetStatus));
+  const relevanteAndeler = alleAndeler.filter(andel => isStatusDagpengerOrAAP(andel.aktivitetStatus));
   const harFlereYtelser = relevanteAndeler.length > 1;
   return (
     <>
-      {relevanteStatuser.isKombinasjonsstatus
-      && (
+      {relevanteStatuser.isKombinasjonsstatus && (
         <>
           <AvsnittSkiller spaceAbove spaceUnder />
           <Element className={beregningStyles.avsnittOverskrift}>
@@ -64,9 +64,7 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
             <Row>
               <Column xs="4">
                 <Element>
-                  <FormattedMessage
-                    id={getTekstForAndelBruktIBeregning(andel)}
-                  />
+                  <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />
                 </Element>
               </Column>
               <Column xs="3" />
@@ -74,7 +72,9 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
                 <Normaltekst>{formatCurrencyNoKr(andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0)}</Normaltekst>
               </Column>
               <Column xs="2" className={beregningStyles.colAarText}>
-                <Normaltekst className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>{formatCurrencyNoKr(andel.beregnetPrAar)}</Normaltekst>
+                <Normaltekst className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>
+                  {formatCurrencyNoKr(andel.beregnetPrAar)}
+                </Normaltekst>
               </Column>
               <Column xs="2" />
             </Row>

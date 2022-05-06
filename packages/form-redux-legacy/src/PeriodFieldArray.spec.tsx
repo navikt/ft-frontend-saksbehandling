@@ -12,13 +12,10 @@ describe('<PeriodFieldArray>', () => {
   it('skal vise en rad og knapp for å legge til periode', () => {
     const fields = new MockFields('perioder', 1);
     const wrapper = shallowWithIntl(
-      <PeriodFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={readOnly}
-      >
+      <PeriodFieldArray fields={fields} meta={metaMock} readOnly={readOnly}>
         {() => <span key="1">test</span>}
-      </PeriodFieldArray>, messages,
+      </PeriodFieldArray>,
+      messages,
     );
 
     const span = wrapper.find('span');
@@ -33,18 +30,15 @@ describe('<PeriodFieldArray>', () => {
     const fields = new MockFields('perioder', 2);
 
     const wrapper = shallowWithIntl(
-      <PeriodFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={readOnly}
-      >
+      <PeriodFieldArray fields={fields} meta={metaMock} readOnly={readOnly}>
         {(_periodeElementFieldId, index, getRemoveButton: () => void) => (
           <div key={index} id={`id_${index}`}>
             test
             {getRemoveButton()}
           </div>
         )}
-      </PeriodFieldArray>, messages,
+      </PeriodFieldArray>,
+      messages,
     );
     const row1 = wrapper.find('#id_0');
     expect(row1).toHaveLength(1);
@@ -61,13 +55,10 @@ describe('<PeriodFieldArray>', () => {
     const fields = new MockFields('perioder', 1);
 
     const wrapper = shallowWithIntl(
-      <PeriodFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={readOnly}
-      >
+      <PeriodFieldArray fields={fields} meta={metaMock} readOnly={readOnly}>
         {() => <span key="1">test</span>}
-      </PeriodFieldArray>, messages,
+      </PeriodFieldArray>,
+      messages,
     );
 
     const addDiv = wrapper.find('div');
@@ -82,18 +73,15 @@ describe('<PeriodFieldArray>', () => {
     const fields = new MockFields('perioder', 2);
 
     const wrapper = shallowWithIntl(
-      <PeriodFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={readOnly}
-      >
+      <PeriodFieldArray fields={fields} meta={metaMock} readOnly={readOnly}>
         {(_periodeElementFieldId, index, getRemoveButton: () => void) => (
           <div key={index} id={`id_${index}`}>
             test
             {getRemoveButton()}
           </div>
         )}
-      </PeriodFieldArray>, messages,
+      </PeriodFieldArray>,
+      messages,
     );
 
     const btn = wrapper.find('button');
@@ -108,13 +96,10 @@ describe('<PeriodFieldArray>', () => {
     const fields = new MockFields('perioder', 1);
 
     const wrapper = shallowWithIntl(
-      <PeriodFieldArray
-        fields={fields}
-        shouldShowAddButton={false}
-        readOnly={readOnly}
-      >
+      <PeriodFieldArray fields={fields} shouldShowAddButton={false} readOnly={readOnly}>
         {() => <span key="1">test</span>}
-      </PeriodFieldArray>, messages,
+      </PeriodFieldArray>,
+      messages,
     );
 
     expect(wrapper.find(Image)).toHaveLength(0);
@@ -125,13 +110,10 @@ describe('<PeriodFieldArray>', () => {
     const fields = new MockFields('perioder', 1);
 
     const wrapper = shallowWithIntl(
-      <PeriodFieldArray
-        fields={fields}
-        createAddButtonInsteadOfImageLink
-        readOnly={readOnly}
-      >
+      <PeriodFieldArray fields={fields} createAddButtonInsteadOfImageLink readOnly={readOnly}>
         {() => <span key="1">test</span>}
-      </PeriodFieldArray>, messages,
+      </PeriodFieldArray>,
+      messages,
     );
 
     expect(wrapper.find(Image)).toHaveLength(0);

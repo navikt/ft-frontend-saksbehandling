@@ -7,9 +7,7 @@ import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FaktaOmBeregning } from '@navikt/ft-types';
 import VurderRefusjonForm, { lagFieldName } from './VurderRefusjonForm';
 
-const {
-  VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
-} = FaktaOmBeregningTilfelle;
+const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
 const agOpplysninger = {
   8279312213: {
@@ -26,19 +24,19 @@ const agOpplysninger = {
 
 describe('<VurderRefusjonForm>', () => {
   it('skal vise eitt sett med radioknapper om ein arbeidsgiver', () => {
-    const senRefusjonkravListe = [
-      { arbeidsgiverIdent: '8279312213' },
-    ];
+    const senRefusjonkravListe = [{ arbeidsgiverIdent: '8279312213' }];
     const fakta = {
       andelerForFaktaOmBeregning: [],
       refusjonskravSomKommerForSentListe: senRefusjonkravListe,
     } as FaktaOmBeregning;
-    const wrapper = shallow(<VurderRefusjonForm
-      readOnly={false}
-      arbeidsgiverOpplysningerPerId={agOpplysninger}
-      isAksjonspunktClosed={false}
-      faktaOmBeregning={fakta}
-    />);
+    const wrapper = shallow(
+      <VurderRefusjonForm
+        readOnly={false}
+        arbeidsgiverOpplysningerPerId={agOpplysninger}
+        isAksjonspunktClosed={false}
+        faktaOmBeregning={fakta}
+      />,
+    );
     const formattedMessage = wrapper.find(FormattedMessage);
     expect(formattedMessage).toHaveLength(1);
     const radioGroup = wrapper.find(RadioGroupField);
@@ -48,20 +46,19 @@ describe('<VurderRefusjonForm>', () => {
   });
 
   it('skal vise to sett med radioknapper om to arbeidsgivere', () => {
-    const senRefusjonkravListe = [
-      { arbeidsgiverIdent: '8279312213' },
-      { arbeidsgiverIdent: '45345345345' },
-    ];
+    const senRefusjonkravListe = [{ arbeidsgiverIdent: '8279312213' }, { arbeidsgiverIdent: '45345345345' }];
     const fakta = {
       andelerForFaktaOmBeregning: [],
       refusjonskravSomKommerForSentListe: senRefusjonkravListe,
     } as FaktaOmBeregning;
-    const wrapper = shallow(<VurderRefusjonForm
-      readOnly={false}
-      arbeidsgiverOpplysningerPerId={agOpplysninger}
-      isAksjonspunktClosed={false}
-      faktaOmBeregning={fakta}
-    />);
+    const wrapper = shallow(
+      <VurderRefusjonForm
+        readOnly={false}
+        arbeidsgiverOpplysningerPerId={agOpplysninger}
+        isAksjonspunktClosed={false}
+        faktaOmBeregning={fakta}
+      />,
+    );
     const formattedMessage = wrapper.find(FormattedMessage);
     expect(formattedMessage).toHaveLength(2);
     const radioGroup = wrapper.find(RadioGroupField);
@@ -73,7 +70,10 @@ describe('<VurderRefusjonForm>', () => {
       { erRefusjonskravGyldig: true, arbeidsgiverIdent: '8279312213' },
       { erRefusjonskravGyldig: false, arbeidsgiverIdent: '45345345345' },
     ];
-    const initialValues = VurderRefusjonForm.buildInitialValues([VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT], senRefusjonkravListe);
+    const initialValues = VurderRefusjonForm.buildInitialValues(
+      [VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT],
+      senRefusjonkravListe,
+    );
     expect(initialValues[lagFieldName('8279312213')]).toBe(true);
     expect(initialValues[lagFieldName('45345345345')]).toBe(false);
   });

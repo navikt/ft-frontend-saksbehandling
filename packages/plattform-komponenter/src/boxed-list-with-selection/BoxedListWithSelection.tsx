@@ -5,13 +5,13 @@ import BoxedList from '../boxed-list/BoxedList';
 import styles from './boxedListWithSelection.less';
 
 interface ListItemProps {
-    name: string;
-    selected?: boolean;
+  name: string;
+  selected?: boolean;
 }
 
 interface BoxedListWithSelectionProps {
-    items: ListItemProps[];
-    onClick?: (index: number, e: React.SyntheticEvent) => void;
+  items: ListItemProps[];
+  onClick?: (index: number, e: React.SyntheticEvent) => void;
 }
 
 const boxedListWithSelectionItemCls = bemUtils('boxedList__selectItem');
@@ -21,12 +21,12 @@ const BoxedListWithSelection: React.FunctionComponent<BoxedListWithSelectionProp
     {items.map(({ name, selected }, index) => (
       <li
         className={
-                    selected
-                      ? `${styles[boxedListWithSelectionItemCls.block]} ${
-                        styles[boxedListWithSelectionItemCls.modifier('selected')]
-                      }`
-                      : styles[boxedListWithSelectionItemCls.block]
-                }
+          selected
+            ? `${styles[boxedListWithSelectionItemCls.block]} ${
+                styles[boxedListWithSelectionItemCls.modifier('selected')]
+              }`
+            : styles[boxedListWithSelectionItemCls.block]
+        }
         // eslint-disable-next-line react/no-array-index-key
         key={`${name}_${index}`}
       >
@@ -34,7 +34,7 @@ const BoxedListWithSelection: React.FunctionComponent<BoxedListWithSelectionProp
           className={styles[boxedListWithSelectionItemCls.element('button')]}
           aria-current={selected}
           type="button"
-          onClick={(e) => (onClick ? onClick(index, e) : undefined)}
+          onClick={e => (onClick ? onClick(index, e) : undefined)}
         >
           <Normaltekst tag="span">{name}</Normaltekst>
         </button>

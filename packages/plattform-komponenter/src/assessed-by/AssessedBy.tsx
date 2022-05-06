@@ -4,8 +4,8 @@ import { prettifyDateString } from '@navikt/ft-utils';
 import styles from './assessedBy.less';
 
 interface IAssessedByProps {
-    name?: string;
-    date?: string;
+  name?: string;
+  date?: string;
 }
 
 const AssessedBy = ({ name, date }: IAssessedByProps) => {

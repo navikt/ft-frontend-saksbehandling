@@ -1,15 +1,13 @@
 import { UseFormGetValues } from 'react-hook-form';
 import { KodeverkType, AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import {
-  ArbeidsgiverOpplysningerPerId,
-  FordelBeregningsgrunnlagAndel,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagArbeidAndelValues,
-  FordelBeregningsgrunnlagGenerellAndelValues, FordelBeregningsgrunnlagMedAksjonspunktValues,
+  FordelBeregningsgrunnlagGenerellAndelValues,
+  FordelBeregningsgrunnlagMedAksjonspunktValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
@@ -29,20 +27,24 @@ export const settAndelIArbeid = (andelerIArbeid: number[]): string => {
   return `${minAndel}${GRADERING_RANGE_DENOMINATOR}${maxAndel}`;
 };
 
-const finnnInntektskategorikode = (andel: FordelBeregningsgrunnlagAndel): string => (andel.inntektskategori
-&& andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '');
+const finnnInntektskategorikode = (andel: FordelBeregningsgrunnlagAndel): string =>
+  andel.inntektskategori && andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '';
 
-const createAndelnavn = (andel: FordelBeregningsgrunnlagAndel,
+const createAndelnavn = (
+  andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): string => {
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): string => {
   if (!andel.aktivitetStatus || andel.aktivitetStatus === AktivitetStatus.UDEFINERT) {
     return '';
   }
   if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold) {
     const agOpplysninger = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
     if (!agOpplysninger) {
-      return andel.arbeidsforhold.arbeidsforholdType ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE) : '';
+      return andel.arbeidsforhold.arbeidsforholdType
+        ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+        : '';
     }
     return createVisningsnavnForAktivitetFordeling(agOpplysninger, andel.arbeidsforhold.eksternArbeidsforholdId);
   }
@@ -52,10 +54,14 @@ const createAndelnavn = (andel: FordelBeregningsgrunnlagAndel,
   return getKodeverknavn(andel.aktivitetStatus, KodeverkType.AKTIVITET_STATUS);
 };
 
-export const finnFastsattPrAar = (fordeltPrAar: number): number | null => (nullOrUndefined(fordeltPrAar) ? null : fordeltPrAar);
+export const finnFastsattPrAar = (fordeltPrAar: number): number | null =>
+  nullOrUndefined(fordeltPrAar) ? null : fordeltPrAar;
 
-export const settFastsattBelop = (fordeltPrAar: number, bruttoPrAar: number,
-  skalPreutfyllesMedBeregningsgrunnlag: boolean): string => {
+export const settFastsattBelop = (
+  fordeltPrAar: number,
+  bruttoPrAar: number,
+  skalPreutfyllesMedBeregningsgrunnlag: boolean,
+): string => {
   const fastsatt = finnFastsattPrAar(fordeltPrAar);
   if (fastsatt !== null) {
     return formatCurrencyNoKr(fastsatt);
@@ -63,21 +69,31 @@ export const settFastsattBelop = (fordeltPrAar: number, bruttoPrAar: number,
   return skalPreutfyllesMedBeregningsgrunnlag && !nullOrUndefined(bruttoPrAar) ? formatCurrencyNoKr(bruttoPrAar) : '';
 };
 
-export const setArbeidsforholdInitialValues = (andel: FordelBeregningsgrunnlagAndel): FordelBeregningsgrunnlagArbeidAndelValues => ({
-  arbeidsgiverNavn: andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverNavn ? andel.arbeidsforhold.arbeidsgiverNavn : '',
-  arbeidsgiverId: andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverIdent ? andel.arbeidsforhold.arbeidsgiverIdent : '',
-  eksternArbeidsforholdId: andel.arbeidsforhold && andel.arbeidsforhold.eksternArbeidsforholdId ? andel.arbeidsforhold.eksternArbeidsforholdId : '',
-  arbeidsforholdId: andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdId ? andel.arbeidsforhold.arbeidsforholdId : '',
+export const setArbeidsforholdInitialValues = (
+  andel: FordelBeregningsgrunnlagAndel,
+): FordelBeregningsgrunnlagArbeidAndelValues => ({
+  arbeidsgiverNavn:
+    andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverNavn ? andel.arbeidsforhold.arbeidsgiverNavn : '',
+  arbeidsgiverId:
+    andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverIdent ? andel.arbeidsforhold.arbeidsgiverIdent : '',
+  eksternArbeidsforholdId:
+    andel.arbeidsforhold && andel.arbeidsforhold.eksternArbeidsforholdId
+      ? andel.arbeidsforhold.eksternArbeidsforholdId
+      : '',
+  arbeidsforholdId:
+    andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdId ? andel.arbeidsforhold.arbeidsforholdId : '',
   arbeidsperiodeFom: andel.arbeidsforhold ? andel.arbeidsforhold.startdato : '',
-  arbeidsperiodeTom: andel.arbeidsforhold && andel.arbeidsforhold.opphoersdato !== null
-    ? andel.arbeidsforhold.opphoersdato : '',
+  arbeidsperiodeTom:
+    andel.arbeidsforhold && andel.arbeidsforhold.opphoersdato !== null ? andel.arbeidsforhold.opphoersdato : '',
   arbeidsforholdType: andel.arbeidsforholdType,
 });
 
-export const setGenerellAndelsinfo = (andel: FordelBeregningsgrunnlagAndel,
+export const setGenerellAndelsinfo = (
+  andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): FordelBeregningsgrunnlagGenerellAndelValues => ({
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): FordelBeregningsgrunnlagGenerellAndelValues => ({
   andel: createAndelnavn(andel, harKunYtelse, getKodeverknavn, arbeidsgiverOpplysningerPerId),
   aktivitetStatus: andel.aktivitetStatus,
   andelsnr: andel.andelsnr,
@@ -85,13 +101,16 @@ export const setGenerellAndelsinfo = (andel: FordelBeregningsgrunnlagAndel,
   kilde: andel.kilde == null ? null : andel.kilde,
   lagtTilAvSaksbehandler: andel.lagtTilAvSaksbehandler === true,
   inntektskategori: finnnInntektskategorikode(andel),
-  forrigeInntektskategori: !andel.inntektskategori || andel.inntektskategori === Inntektskategori.UDEFINERT ? null : andel.inntektskategori,
+  forrigeInntektskategori:
+    !andel.inntektskategori || andel.inntektskategori === Inntektskategori.UDEFINERT ? null : andel.inntektskategori,
 });
 
-export const mapToBelop = (field: FordelBeregningsgrunnlagAndelValues,
+export const mapToBelop = (
+  field: FordelBeregningsgrunnlagAndelValues,
   fieldname: string,
   getValues: UseFormGetValues<FordelBeregningsgrunnlagMedAksjonspunktValues>,
-  index: number): number => {
+  index: number,
+): number => {
   if (field.skalRedigereInntekt) {
     const fastsattBeløp = getValues(`${fieldname}.${index}.fastsattBelop`);
     return fastsattBeløp ? removeSpacesFromNumber(fastsattBeløp) : 0;

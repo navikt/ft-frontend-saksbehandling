@@ -10,30 +10,15 @@ export default {
   title: 'Image',
 };
 
-export const Default = () => (
-  <Image
-    alt="Alt-tekst"
-    src={innvilgetImageUrl}
-  />
-);
+export const Default = () => <Image alt="Alt-tekst" src={innvilgetImageUrl} />;
 
 export const KlikkbartIkon = () => {
   const [visModal, setVisModal] = useState(false);
 
   return (
     <>
-      <Image
-        alt="Alt-tekst"
-        src={innvilgetImageUrl}
-        onClick={() => setVisModal(true)}
-      />
-      {visModal && (
-        <WarningModal
-          bodyText="Dette er en advarsel"
-          showModal
-          submit={() => setVisModal(false)}
-        />
-      )}
+      <Image alt="Alt-tekst" src={innvilgetImageUrl} onClick={() => setVisModal(true)} />
+      {visModal && <WarningModal bodyText="Dette er en advarsel" showModal submit={() => setVisModal(false)} />}
     </>
   );
 };
@@ -42,14 +27,12 @@ export const IkonMedTooltip = () => (
   <Image
     alt="Alt-tekst"
     src={innvilgetImageUrl}
-    tooltip={<div><b>Dette er en tooltip-tekst</b></div>}
+    tooltip={
+      <div>
+        <b>Dette er en tooltip-tekst</b>
+      </div>
+    }
   />
 );
 
-export const AnnetIkonVedHoover = () => (
-  <Image
-    alt="Alt-tekst"
-    src={questionNormalUrl}
-    srcHover={questionHoverUrl}
-  />
-);
+export const AnnetIkonVedHoover = () => <Image alt="Alt-tekst" src={questionNormalUrl} srcHover={questionHoverUrl} />;

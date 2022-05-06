@@ -6,10 +6,7 @@ import LonnsendringForm, { lonnsendringField } from './LonnsendringForm';
 
 describe('<LonnsendringForm>', () => {
   it('skal teste at korrekt antall radioknapper vises med korrekte props', () => {
-    const wrapper = shallow(<LonnsendringForm
-      readOnly={false}
-      isAksjonspunktClosed={false}
-    />);
+    const wrapper = shallow(<LonnsendringForm readOnly={false} isAksjonspunktClosed={false} />);
     const radios = wrapper.find('RadioOption');
     expect(radios).toHaveLength(2);
     expect(radios.last().prop('disabled')).toEqual(false);
@@ -22,14 +19,14 @@ describe('<LonnsendringForm>', () => {
   };
 
   it('skal teste at transformValues gir korrekt output', () => {
-    const values = { };
+    const values = {};
     values[lonnsendringField] = true;
     const transformedObject = LonnsendringForm.transformValues(values, faktaOmBeregning);
     expect(transformedObject.vurdertLonnsendring.erLønnsendringIBeregningsperioden).toBe(true);
   });
 
   it('skal ikkje submitte inntekt uten lønnsendring', () => {
-    const values = { };
+    const values = {};
     values[lonnsendringField] = false;
     const transformedObject = LonnsendringForm.transformValues(values, faktaOmBeregning);
     expect(transformedObject.vurdertLonnsendring.erLønnsendringIBeregningsperioden).toBe(false);

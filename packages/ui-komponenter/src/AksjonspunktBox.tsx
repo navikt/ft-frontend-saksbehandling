@@ -18,10 +18,11 @@ const AksjonspunktBox: FunctionComponent<OwnProps> = ({
   className,
   children,
 }) => (
-  <div className={classNames(className, 'aksjonspunkt', {
-    erAksjonspunktApent: erAksjonspunktApent && !erIkkeGodkjentAvBeslutter,
-    erIkkeGodkjentAvBeslutter,
-  })}
+  <div
+    className={classNames(className, 'aksjonspunkt', {
+      erAksjonspunktApent: erAksjonspunktApent && !erIkkeGodkjentAvBeslutter,
+      erIkkeGodkjentAvBeslutter,
+    })}
   >
     {children}
   </div>

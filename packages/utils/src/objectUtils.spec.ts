@@ -1,7 +1,5 @@
 // noinspection JSUnresolvedVariable
-import {
-  diff, isEqual, isObject, isObjectEmpty, notNull,
-} from './objectUtils';
+import { diff, isEqual, isObject, isObjectEmpty, notNull } from './objectUtils';
 
 describe('Object-utils', () => {
   it('skal kaste feil når verdi er null', () => {

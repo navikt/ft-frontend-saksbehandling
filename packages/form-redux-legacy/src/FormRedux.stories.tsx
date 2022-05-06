@@ -4,7 +4,13 @@ import { IntlProvider } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import ReduxWrapper from './ReduxWrapper';
 import {
-  RadioOption, TextAreaField, SelectField, RadioGroupField, DecimalField, CheckboxField, InputField,
+  RadioOption,
+  TextAreaField,
+  SelectField,
+  RadioGroupField,
+  DecimalField,
+  CheckboxField,
+  InputField,
 } from '../index';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -14,31 +20,21 @@ export default {
   component: ReduxWrapper,
 };
 
-const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => <form onSubmit={handleSubmit}>{children}</form>);
+const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => (
+  <form onSubmit={handleSubmit}>{children}</form>
+));
 
 export const visFormkomponenter = () => (
   <IntlProvider locale="nb-NO" messages={{}}>
     <ReduxWrapper formName="test">
       <MockForm>
-        <InputField
-          label="InputField"
-          name="testinput"
-        />
+        <InputField label="InputField" name="testinput" />
         <VerticalSpacer sixteenPx />
-        <CheckboxField
-          label="CheckboxField"
-          name="testcheckbox"
-        />
+        <CheckboxField label="CheckboxField" name="testcheckbox" />
         <VerticalSpacer sixteenPx />
-        <DecimalField
-          label="DecimalField"
-          name="testdecimalField"
-        />
+        <DecimalField label="DecimalField" name="testdecimalField" />
         <VerticalSpacer sixteenPx />
-        <RadioGroupField
-          label="RadioGroupField"
-          name="testRadioField"
-        >
+        <RadioGroupField label="RadioGroupField" name="testRadioField">
           <RadioOption label="Dette er en test 1" value="test1" />
           <RadioOption label="Dette er en test 2" value="test2" />
         </RadioGroupField>
@@ -53,10 +49,7 @@ export const visFormkomponenter = () => (
           ]}
         />
         <VerticalSpacer sixteenPx />
-        <TextAreaField
-          label="TextAreaField"
-          name="testTextAreaField"
-        />
+        <TextAreaField label="TextAreaField" name="testTextAreaField" />
       </MockForm>
     </ReduxWrapper>
   </IntlProvider>

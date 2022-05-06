@@ -6,9 +6,7 @@ import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 import { InntektstabellPanelImpl } from './InntektstabellPanel';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
-const {
-  OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = FaktaBeregningAksjonspunktCode;
+const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 
 describe('<InntektstabellPanel>', () => {
   it('skal vise checkbox for overstyring', () => {
@@ -37,9 +35,14 @@ describe('<InntektstabellPanel>', () => {
         hjelpeTekstId="hjelpetekst"
         tabell={<span> tabell </span>}
         kanOverstyre
-        aksjonspunkter={[{
-          definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG, status: 'OPPR', erAktivt: true, kanLoses: true,
-        }]}
+        aksjonspunkter={[
+          {
+            definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+            status: 'OPPR',
+            erAktivt: true,
+            kanLoses: true,
+          },
+        ]}
         readOnly={false}
         erOverstyrer={false}
         reduxFormChange={() => undefined}

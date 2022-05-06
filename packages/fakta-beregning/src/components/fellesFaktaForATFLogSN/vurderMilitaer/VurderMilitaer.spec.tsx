@@ -6,7 +6,7 @@ import { shallowWithIntl } from '@navikt/ft-utils-test';
 import VurderMilitaer, { vurderMilitaerField } from './VurderMilitaer';
 import messages from '../../../../i18n/nb_NO.json';
 
-const mockBGMedStatus = (mili) => ({
+const mockBGMedStatus = mili => ({
   vurderMilitaer: {
     harMilitaer: mili,
   },
@@ -14,10 +14,7 @@ const mockBGMedStatus = (mili) => ({
 
 describe('<VurderMilitaer>', () => {
   it('Skal teste at komponenten vises korrekt med radioknapper', () => {
-    const wrapper = shallowWithIntl(<VurderMilitaer
-      readOnly={false}
-      isAksjonspunktClosed={false}
-    />, messages);
+    const wrapper = shallowWithIntl(<VurderMilitaer readOnly={false} isAksjonspunktClosed={false} />, messages);
     const radios = wrapper.find('RadioOption');
     expect(radios).toHaveLength(2);
   });
