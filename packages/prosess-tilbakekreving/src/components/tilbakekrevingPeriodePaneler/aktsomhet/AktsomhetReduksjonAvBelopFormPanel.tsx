@@ -2,20 +2,16 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
-import {
-  ArrowBox, VerticalSpacer, FlexColumn, FlexRow,
-} from '@navikt/ft-ui-komponenter';
+import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import {
-  formatCurrencyNoKr, minValue, maxValue, required,
-} from '@navikt/ft-utils';
+import { formatCurrencyNoKr, minValue, maxValue, required } from '@navikt/ft-utils';
 
 import aktsomhet from '../../../kodeverk/aktsomhet';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.less';
 
-const minValue1 = minValue(0.00);
+const minValue1 = minValue(0.0);
 const maxValue100 = maxValue(99.99);
 
 const parseCurrencyInput = (input: any) => {
@@ -24,10 +20,7 @@ const parseCurrencyInput = (input: any) => {
   return Number.isNaN(parsedValue) ? '' : parsedValue;
 };
 
-const validerAtMindreEnn = (
-  intl: IntlShape,
-  feilutbetalingBelop: number,
-) => (belopSomSkalTilbakekreves: number) => {
+const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (belopSomSkalTilbakekreves: number) => {
   if (belopSomSkalTilbakekreves >= feilutbetalingBelop) {
     return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.BelopMaVereMindreEnnFeilutbetalingen' });
   }
@@ -41,7 +34,7 @@ interface OwnProps {
   name: string;
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
-  handletUaktsomhetGrad: string;
+  handletUaktsomhetGrad?: string;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   andelSomTilbakekreves?: string;
@@ -64,15 +57,22 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
           <VerticalSpacer eightPx />
           <RadioGroupPanel
             name={`${name}.harGrunnerTilReduksjon`}
-            label={<Undertekst><FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" /></Undertekst>}
+            label={
+              <Undertekst>
+                <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />
+              </Undertekst>
+            }
             validate={[required]}
-            radios={[{
-              label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-              value: 'true',
-            }, {
-              label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-              value: 'false',
-            }]}
+            radios={[
+              {
+                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                value: 'true',
+              },
+              {
+                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                value: 'false',
+              },
+            ]}
             isReadOnly={readOnly}
             parse={(value: string) => value === 'true'}
             isHorizontal
@@ -83,16 +83,22 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
         <ArrowBox alignOffset={24}>
           <Row>
             <Column md="6">
-              {(!harMerEnnEnYtelse && andelSomTilbakekreves !== EGENDEFINERT) && (
+              {!harMerEnnEnYtelse && andelSomTilbakekreves !== EGENDEFINERT && (
                 <>
-                  <Undertekst><FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" /></Undertekst>
+                  <Undertekst>
+                    <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
+                  </Undertekst>
                   <FlexRow>
                     <FlexColumn>
                       <SelectField
                         name={`${name}.andelSomTilbakekreves`}
                         label=""
                         validate={[required]}
-                        selectValues={ANDELER.map((andel) => <option key={andel} value={andel}>{andel}</option>)}
+                        selectValues={ANDELER.map(andel => (
+                          <option key={andel} value={andel}>
+                            {andel}
+                          </option>
+                        ))}
                         bredde="s"
                       />
                     </FlexColumn>
@@ -100,31 +106,42 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                   </FlexRow>
                 </>
               )}
-              {(!harMerEnnEnYtelse && andelSomTilbakekreves === EGENDEFINERT) && (
+              {!harMerEnnEnYtelse && andelSomTilbakekreves === EGENDEFINERT && (
                 <>
-                  <Undertekst><FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" /></Undertekst>
+                  <Undertekst>
+                    <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
+                  </Undertekst>
                   <FlexRow>
                     <FlexColumn>
                       <InputField
                         name={`${name}.andelSomTilbakekrevesManuell`}
                         readOnly={readOnly}
                         validate={[required, minValue1, maxValue100]}
-                        normalizeOnBlur={(value: string) => (Number.isNaN(value) ? value : parseFloat(value).toFixed(2))}
+                        normalizeOnBlur={(value: string | number) =>
+                          Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2)
+                        }
                         format={(value: string | number) => value.toString().replace('.', ',')}
-                        parse={(value: string) => value.replace(',', '.')}
+                        parse={(value: string | number) => value.toString().replace(',', '.')}
                         bredde="S"
                       />
                     </FlexColumn>
-                    <FlexColumn className={handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM ? styles.suffixGrovText : styles.suffix}>%</FlexColumn>
+                    <FlexColumn
+                      className={
+                        handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM ? styles.suffixGrovText : styles.suffix
+                      }
+                    >
+                      %
+                    </FlexColumn>
                   </FlexRow>
                 </>
               )}
-              {(harMerEnnEnYtelse) && (
+              {harMerEnnEnYtelse && (
                 <InputField
                   name={`${name}.belopSomSkalTilbakekreves`}
                   label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiBelopSomSkalTilbakekreves" />}
                   validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
                   readOnly={readOnly}
+                  // @ts-ignore Fiks
                   format={formatCurrencyNoKr}
                   parse={parseCurrencyInput}
                   bredde="S"
@@ -133,8 +150,12 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
             </Column>
             {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
               <Column md="6">
-                <Undertekst><FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" /></Undertekst>
-                <Normaltekst className={styles.labelPadding}><FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" /></Normaltekst>
+                <Undertekst>
+                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
+                </Undertekst>
+                <Normaltekst className={styles.labelPadding}>
+                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
+                </Normaltekst>
               </Column>
             )}
           </Row>
@@ -146,25 +167,37 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
             <Column md="6">
               <Undertekst>
                 <FormattedMessage
-                  id={harMerEnnEnYtelse ? 'AktsomhetReduksjonAvBelopFormPanel.BelopSomSkalTilbakekreves'
-                    : 'AktsomhetReduksjonAvBelopFormPanel.andelSomTilbakekreves'}
+                  id={
+                    harMerEnnEnYtelse
+                      ? 'AktsomhetReduksjonAvBelopFormPanel.BelopSomSkalTilbakekreves'
+                      : 'AktsomhetReduksjonAvBelopFormPanel.andelSomTilbakekreves'
+                  }
                 />
               </Undertekst>
-              <Normaltekst className={styles.labelPadding}>{harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}</Normaltekst>
+              <Normaltekst className={styles.labelPadding}>
+                {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
+              </Normaltekst>
             </Column>
-            { handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
+            {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
               <Column md="6">
                 <RadioGroupPanel
                   name={`${name}.skalDetTilleggesRenter`}
-                  label={<Undertekst><FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" /></Undertekst>}
+                  label={
+                    <Undertekst>
+                      <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
+                    </Undertekst>
+                  }
                   validate={[required]}
-                  radios={[{
-                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                    value: 'true',
-                  }, {
-                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                    value: 'false',
-                  }]}
+                  radios={[
+                    {
+                      label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                      value: 'true',
+                    },
+                    {
+                      label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                      value: 'false',
+                    },
+                  ]}
                   isReadOnly={readOnly}
                   parse={(value: string) => value === 'true'}
                   isHorizontal

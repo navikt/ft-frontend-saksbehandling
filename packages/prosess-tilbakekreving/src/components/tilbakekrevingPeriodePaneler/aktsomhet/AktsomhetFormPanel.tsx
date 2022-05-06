@@ -10,17 +10,13 @@ import Aktsomhet from '../../../kodeverk/aktsomhet';
 import AktsomhetGradFormPanel from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './AktsomhetReduksjonAvBelopFormPanel';
 
-const uaktsomhetCodes = [
-  Aktsomhet.GROVT_UAKTSOM,
-  Aktsomhet.SIMPEL_UAKTSOM,
-  Aktsomhet.FORSETT,
-];
+const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
 
 const forstoBurdeForstattTekster = {
   [Aktsomhet.FORSETT]: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
   [Aktsomhet.GROVT_UAKTSOM]: 'AktsomhetFormPanel.AktsomhetTyperLabel.GrovtUaktsomt',
   [Aktsomhet.SIMPEL_UAKTSOM]: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
-};
+} as Record<string, string>;
 
 interface AktsomhetData {
   andelSomTilbakekreves: number | string;
@@ -57,16 +53,22 @@ interface OwnProps {
   antallYtelser: number;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  aktsomhetTyper?: KodeverkMedNavn[];
-  sarligGrunnTyper?: KodeverkMedNavn[];
+  aktsomhetTyper: KodeverkMedNavn[];
+  sarligGrunnTyper: KodeverkMedNavn[];
   andelSomTilbakekreves?: string;
   name: string;
 }
 
 interface StaticFunctions {
-  buildInitalValues?: (vilkarResultatInfo: { aktsomhet: string | any; aktsomhetInfo?: AktsomhetInfo }) => InitialValuesAktsomhetForm,
-  transformValues?: (info: { handletUaktsomhetGrad: string }, sarligGrunnTyper: KodeverkMedNavn[], vurderingBegrunnelse: string) =>
-    TransformedValuesAktsomhetForm,
+  buildInitalValues: (vilkarResultatInfo: {
+    aktsomhet: string | any;
+    aktsomhetInfo?: AktsomhetInfo;
+  }) => InitialValuesAktsomhetForm;
+  transformValues: (
+    info: { handletUaktsomhetGrad: string },
+    sarligGrunnTyper: KodeverkMedNavn[],
+    vurderingBegrunnelse: string,
+  ) => TransformedValuesAktsomhetForm;
 }
 
 const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
@@ -87,17 +89,25 @@ const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   <>
     <RadioGroupPanel
       name={`${name}.handletUaktsomhetGrad`}
-      label={<Undertekst><FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" /></Undertekst>}
+      label={
+        <Undertekst>
+          <FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />
+        </Undertekst>
+      }
       validate={[required]}
-      radios={aktsomhetTyper.map((vrt) => ({
-        label: erValgtResultatTypeForstoBurdeForstaatt ? <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} /> : vrt.navn,
+      radios={aktsomhetTyper.map(vrt => ({
+        label: erValgtResultatTypeForstoBurdeForstaatt ? (
+          <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} />
+        ) : (
+          vrt.navn
+        ),
         value: vrt.kode,
       }))}
       isReadOnly={readOnly}
       onChange={resetFields}
       isHorizontal
     />
-    {uaktsomhetCodes.includes(handletUaktsomhetGrad) && (
+    {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
       <AktsomhetGradFormPanel
         name={`${name}.${handletUaktsomhetGrad}`}
         harGrunnerTilReduksjon={harGrunnerTilReduksjon}
@@ -131,18 +141,24 @@ const parseFloatAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunn
 };
 
 const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]) => {
-  const sarligeGrunner = sarligGrunnTyper.reduce((acc: string[], type: KodeverkMedNavn) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc), []);
+  const sarligeGrunner = sarligGrunnTyper.reduce(
+    (acc: string[], type: KodeverkMedNavn) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc),
+    [],
+  );
 
   const { harGrunnerTilReduksjon } = aktsomhet;
-  const andelSomTilbakekreves = aktsomhet.andelSomTilbakekreves === EGENDEFINERT
-    ? parseFloatAndelSomTilbakekreves(aktsomhet.andelSomTilbakekrevesManuell, harGrunnerTilReduksjon)
-    : parseIntAndelSomTilbakekreves(aktsomhet.andelSomTilbakekreves, harGrunnerTilReduksjon);
+  const andelSomTilbakekreves =
+    aktsomhet.andelSomTilbakekreves === EGENDEFINERT
+      ? parseFloatAndelSomTilbakekreves(aktsomhet.andelSomTilbakekrevesManuell, harGrunnerTilReduksjon)
+      : parseIntAndelSomTilbakekreves(aktsomhet.andelSomTilbakekreves, harGrunnerTilReduksjon);
 
   return {
     harGrunnerTilReduksjon,
     ileggRenter: harGrunnerTilReduksjon ? undefined : aktsomhet.skalDetTilleggesRenter,
     sarligGrunner: sarligeGrunner.length > 0 ? sarligeGrunner : undefined,
-    tilbakekrevesBelop: aktsomhet.harGrunnerTilReduksjon ? removeSpacesFromNumber(aktsomhet.belopSomSkalTilbakekreves) : undefined,
+    tilbakekrevesBelop: aktsomhet.harGrunnerTilReduksjon
+      ? removeSpacesFromNumber(aktsomhet.belopSomSkalTilbakekreves)
+      : undefined,
     annetBegrunnelse: aktsomhet.annetBegrunnelse,
     sarligGrunnerBegrunnelse: aktsomhet.sarligGrunnerBegrunnelse,
     tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr,
@@ -150,8 +166,8 @@ const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]
   };
 };
 
-AktsomhetFormPanel.transformValues = (info: { handletUaktsomhetGrad: string }, sarligGrunnTyper: KodeverkMedNavn[],
-  vurderingBegrunnelse: string): TransformedValuesAktsomhetForm => {
+AktsomhetFormPanel.transformValues = (info, sarligGrunnTyper, vurderingBegrunnelse) => {
+  // @ts-ignore Fiks
   const aktsomhet = info[info.handletUaktsomhetGrad];
   return {
     '@type': 'annet',
@@ -161,24 +177,39 @@ AktsomhetFormPanel.transformValues = (info: { handletUaktsomhetGrad: string }, s
   };
 };
 
-const lagAktsomhetData = (aktsomhetInfo: AktsomhetInfo, andelSomTilbakekreves: string): InitialValuesAktsomhetForm => ({
-  andelSomTilbakekreves: andelSomTilbakekreves === undefined || ANDELER.includes(andelSomTilbakekreves) ? andelSomTilbakekreves : EGENDEFINERT,
-  andelSomTilbakekrevesManuell: !ANDELER.includes(andelSomTilbakekreves) ? aktsomhetInfo.andelTilbakekreves : undefined,
+const lagAktsomhetData = (
+  aktsomhetInfo: AktsomhetInfo,
+  andelSomTilbakekreves?: string,
+): InitialValuesAktsomhetForm => ({
+  andelSomTilbakekreves:
+    andelSomTilbakekreves === undefined || ANDELER.includes(andelSomTilbakekreves)
+      ? andelSomTilbakekreves
+      : EGENDEFINERT,
+  andelSomTilbakekrevesManuell:
+    andelSomTilbakekreves && ANDELER.includes(andelSomTilbakekreves) ? undefined : aktsomhetInfo.andelTilbakekreves,
   harGrunnerTilReduksjon: aktsomhetInfo.harGrunnerTilReduksjon,
   skalDetTilleggesRenter: aktsomhetInfo.ileggRenter,
   belopSomSkalTilbakekreves: aktsomhetInfo.tilbakekrevesBelop,
   annetBegrunnelse: aktsomhetInfo.annetBegrunnelse,
   sarligGrunnerBegrunnelse: decodeHtmlEntity(aktsomhetInfo.sarligGrunnerBegrunnelse),
   tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: aktsomhetInfo.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr,
-  ...(aktsomhetInfo.sarligGrunner ? aktsomhetInfo.sarligGrunner.reduce((acc: any, sg: any) => ({ ...acc, [(sg.kode ? sg.kode : sg)]: true }), {}) : {}),
+  ...(aktsomhetInfo.sarligGrunner
+    ? aktsomhetInfo.sarligGrunner.reduce((acc: any, sg: any) => ({ ...acc, [sg.kode ? sg.kode : sg]: true }), {})
+    : {}),
 });
 
-AktsomhetFormPanel.buildInitalValues = (vilkarResultatInfo: { aktsomhet: string | any; aktsomhetInfo?: AktsomhetInfo }): InitialValuesAktsomhetForm => {
+AktsomhetFormPanel.buildInitalValues = vilkarResultatInfo => {
   const { aktsomhet, aktsomhetInfo } = vilkarResultatInfo;
-  const andelSomTilbakekreves = aktsomhetInfo && aktsomhetInfo.andelTilbakekreves !== undefined ? `${aktsomhetInfo.andelTilbakekreves}` : undefined;
-  const aktsomhetData = aktsomhetInfo ? {
-    [(aktsomhet.kode && 'kode' in aktsomhet ? aktsomhet.kode : aktsomhet)]: lagAktsomhetData(aktsomhetInfo, andelSomTilbakekreves),
-  } : {};
+  const andelSomTilbakekreves =
+    aktsomhetInfo && aktsomhetInfo.andelTilbakekreves !== undefined ? `${aktsomhetInfo.andelTilbakekreves}` : undefined;
+  const aktsomhetData = aktsomhetInfo
+    ? {
+        [aktsomhet.kode && 'kode' in aktsomhet ? aktsomhet.kode : aktsomhet]: lagAktsomhetData(
+          aktsomhetInfo,
+          andelSomTilbakekreves,
+        ),
+      }
+    : {};
 
   return {
     handletUaktsomhetGrad: aktsomhet && aktsomhet.kode && 'kode' in aktsomhet ? aktsomhet.kode : aktsomhet,

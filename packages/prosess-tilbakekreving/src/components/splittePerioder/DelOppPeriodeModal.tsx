@@ -9,7 +9,12 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import AlertStripe from 'nav-frontend-alertstriper';
 
 import {
-  dateAfterOrEqual, dateBeforeOrEqual, DDMMYYYY_DATE_FORMAT, hasValidDate, ISO_DATE_FORMAT, required,
+  dateAfterOrEqual,
+  dateBeforeOrEqual,
+  DDMMYYYY_DATE_FORMAT,
+  hasValidDate,
+  ISO_DATE_FORMAT,
+  required,
 } from '@navikt/ft-utils';
 import { Datepicker, Form } from '@navikt/ft-form-hooks';
 
@@ -18,32 +23,31 @@ import styles from './delOppPeriodeModal.less';
 type Periode = {
   fom: string;
   tom: string;
-}
+};
 
 export type PerioderData = {
   forstePeriode: Periode;
   andrePeriode: Periode;
-}
+};
 
 type FormValues = {
   forstePeriodeTomDato?: string;
-}
-
-const validerMotPeriode = (
-  periodeData: Periode,
-  intl: IntlShape,
-) => (
-  tomDato: string,
-): any => {
-  if (tomDato
-    && (dateAfterOrEqual(tomDato)(moment(periodeData.tom.toString()).subtract(1, 'day'))
-      || dateBeforeOrEqual(tomDato)(periodeData.fom))) {
-    return intl.formatMessage({ id: 'DelOppPeriodeModalImpl.DatoUtenforPeriode' });
-  }
-  return null;
 };
 
-const transformValues = (values: FormValues, periodeData: Periode) => {
+const validerMotPeriode =
+  (periodeData: Periode, intl: IntlShape) =>
+  (tomDato: string): any => {
+    if (
+      tomDato &&
+      (dateAfterOrEqual(tomDato)(moment(periodeData.tom.toString()).subtract(1, 'day')) ||
+        dateBeforeOrEqual(tomDato)(periodeData.fom))
+    ) {
+      return intl.formatMessage({ id: 'DelOppPeriodeModalImpl.DatoUtenforPeriode' });
+    }
+    return null;
+  };
+
+const transformValues = (values: FormValues, periodeData: Periode): any => {
   const addDay = moment(values.forstePeriodeTomDato).add(1, 'days');
   const forstePeriode = {
     fom: periodeData.fom,
@@ -94,9 +98,13 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
           <FormattedMessage id="DelOppPeriodeModalImpl.DelOppPerioden" />
         </Element>
         <div className={styles.marginTop}>
-          <Undertekst><FormattedMessage id="DelOppPeriodeModalImpl.Periode" /></Undertekst>
+          <Undertekst>
+            <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
+          </Undertekst>
           <Normaltekst>
-            {`${moment(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${moment(periodeData.tom.toString()).format(DDMMYYYY_DATE_FORMAT)}`}
+            {`${moment(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
+              periodeData.tom.toString(),
+            ).format(DDMMYYYY_DATE_FORMAT)}`}
           </Normaltekst>
         </div>
         <div className={styles.marginTop}>
@@ -115,20 +123,10 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
         )}
         <Row className={styles.marginTop}>
           <Column>
-            <Hovedknapp
-              mini
-              htmlType="submit"
-              className={styles.button}
-              disabled={!formMethods.formState.isDirty}
-            >
+            <Hovedknapp mini htmlType="submit" className={styles.button} disabled={!formMethods.formState.isDirty}>
               <FormattedMessage id="DelOppPeriodeModalImpl.Ok" />
             </Hovedknapp>
-            <Knapp
-              htmlType="button"
-              mini
-              onClick={cancelEvent}
-              className={styles.cancelButton}
-            >
+            <Knapp htmlType="button" mini onClick={cancelEvent} className={styles.cancelButton}>
               <FormattedMessage id="DelOppPeriodeModalImpl.Avbryt" />
             </Knapp>
           </Column>

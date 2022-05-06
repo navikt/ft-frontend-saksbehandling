@@ -5,12 +5,8 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Undertekst } from 'nav-frontend-typografi';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import {
-  formHooks, CheckboxField, TextAreaField, SkjemaGruppeMedFeilviser,
-} from '@navikt/ft-form-hooks';
-import {
-  hasValidText, maxLength, minLength, required,
-} from '@navikt/ft-utils';
+import { formHooks, CheckboxField, TextAreaField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-utils';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 
 import AktsomhetReduksjonAvBelopFormPanel from './AktsomhetReduksjonAvBelopFormPanel';
@@ -18,23 +14,19 @@ import AktsomhetReduksjonAvBelopFormPanel from './AktsomhetReduksjonAvBelopFormP
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-const validerAtMinstEnSærligGrunnErValgt = (
-  intl: IntlShape,
-  getValues: UseFormGetValues<any>,
-  name: string,
-  sarligGrunnTyper: KodeverkMedNavn[],
-) => () => {
-  if (sarligGrunnTyper.some((sgt) => !!getValues(`${name}.${sgt.kode}`))) {
-    return undefined;
-  }
-  return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.MaVelgeSarligGrunn' });
-};
+const validerAtMinstEnSærligGrunnErValgt =
+  (intl: IntlShape, getValues: UseFormGetValues<any>, name: string, sarligGrunnTyper: KodeverkMedNavn[]) => () => {
+    if (sarligGrunnTyper.some(sgt => !!getValues(`${name}.${sgt.kode}`))) {
+      return undefined;
+    }
+    return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.MaVelgeSarligGrunn' });
+  };
 
 interface OwnProps {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
-  handletUaktsomhetGrad: string;
-  erSerligGrunnAnnetValgt: boolean;
+  handletUaktsomhetGrad?: string;
+  erSerligGrunnAnnetValgt?: boolean;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   andelSomTilbakekreves?: string;
@@ -54,9 +46,7 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
   andelSomTilbakekreves,
 }) => {
   const intl = useIntl();
-  const {
-    getValues,
-  } = formHooks.useFormContext();
+  const { getValues } = formHooks.useFormContext();
   return (
     <div>
       <Undertekst>
@@ -69,12 +59,7 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
       >
         {sarligGrunnTyper.map((sgt: KodeverkMedNavn) => (
           <React.Fragment key={sgt.kode}>
-            <CheckboxField
-              key={sgt.kode}
-              name={`${name}.${sgt.kode}`}
-              label={sgt.navn}
-              readOnly={readOnly}
-            />
+            <CheckboxField key={sgt.kode} name={`${name}.${sgt.kode}`} label={sgt.navn} readOnly={readOnly} />
             <VerticalSpacer eightPx />
           </React.Fragment>
         ))}

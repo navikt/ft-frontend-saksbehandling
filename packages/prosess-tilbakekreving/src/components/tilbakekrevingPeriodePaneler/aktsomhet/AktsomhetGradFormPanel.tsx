@@ -9,13 +9,13 @@ import AktsomhetGradUaktsomhetFormPanel from './AktsomhetGradUaktsomhetFormPanel
 interface OwnProps {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
-  handletUaktsomhetGrad: Aktsomhet;
-  erSerligGrunnAnnetValgt: boolean;
+  handletUaktsomhetGrad?: Aktsomhet;
+  erSerligGrunnAnnetValgt?: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  sarligGrunnTyper?: KodeverkMedNavn[];
+  sarligGrunnTyper: KodeverkMedNavn[];
   andelSomTilbakekreves?: string;
   name: string;
 }
@@ -34,14 +34,14 @@ const AktsomhetGradFormPanel: FunctionComponent<OwnProps> = ({
   name,
 }) => (
   <>
-    { handletUaktsomhetGrad === Aktsomhet.FORSETT && (
+    {handletUaktsomhetGrad === Aktsomhet.FORSETT && (
       <AktsomhetGradForsettFormPanel
         name={name}
         readOnly={readOnly}
         erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
       />
     )}
-    { handletUaktsomhetGrad !== Aktsomhet.FORSETT && (
+    {handletUaktsomhetGrad !== Aktsomhet.FORSETT && (
       <AktsomhetGradUaktsomhetFormPanel
         name={name}
         harGrunnerTilReduksjon={harGrunnerTilReduksjon}

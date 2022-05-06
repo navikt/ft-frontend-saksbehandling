@@ -5,11 +5,13 @@ import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
 import {
-  Behandling, AlleKodeverkTilbakekreving, Aksjonspunkt, FeilutbetalingPerioderWrapper, DetaljerteFeilutbetalingsperioder,
+  Behandling,
+  AlleKodeverkTilbakekreving,
+  Aksjonspunkt,
+  FeilutbetalingPerioderWrapper,
+  DetaljerteFeilutbetalingsperioder,
 } from '@navikt/ft-types';
-import {
-  AksjonspunktStatus, NavBrukerKjonn, ForeldelseVurderingType, BehandlingStatus,
-} from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, NavBrukerKjonn, ForeldelseVurderingType, BehandlingStatus } from '@navikt/ft-kodeverk';
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
 import TilbakekrevingProsessIndex from './TilbakekrevingProsessIndex';
 
@@ -23,34 +25,41 @@ import '@navikt/ft-tidslinje/dist/style.css';
 const intl = createIntl(messages);
 
 const perioderForeldelse = {
-  perioder: [{
-    fom: '2019-01-01',
-    tom: '2019-02-02',
-    belop: 1000,
-    foreldelseVurderingType: ForeldelseVurderingType.IKKE_FORELDET,
-  }, {
-    fom: '2019-02-03',
-    tom: '2019-04-02',
-    belop: 3000,
-    foreldelseVurderingType: ForeldelseVurderingType.FORELDET,
-  }],
+  perioder: [
+    {
+      fom: '2019-01-01',
+      tom: '2019-02-02',
+      belop: 1000,
+      foreldelseVurderingType: ForeldelseVurderingType.IKKE_FORELDET,
+    },
+    {
+      fom: '2019-02-03',
+      tom: '2019-04-02',
+      belop: 3000,
+      foreldelseVurderingType: ForeldelseVurderingType.FORELDET,
+    },
+  ],
 } as FeilutbetalingPerioderWrapper;
 
 const defaultVilkarvurderingsperioder = {
-  perioder: [{
-    fom: '2019-01-01',
-    tom: '2019-04-01',
-    foreldet: false,
-    feilutbetaling: 10,
-    årsak: {
-      hendelseType: 'MEDLEMSKAP',
+  perioder: [
+    {
+      fom: '2019-01-01',
+      tom: '2019-04-01',
+      foreldet: false,
+      feilutbetaling: 10,
+      årsak: {
+        hendelseType: 'MEDLEMSKAP',
+      },
+      redusertBeloper: [],
+      ytelser: [
+        {
+          aktivitet: 'Arbeidstaker',
+          belop: 1050,
+        },
+      ],
     },
-    redusertBeloper: [],
-    ytelser: [{
-      aktivitet: 'Arbeidstaker',
-      belop: 1050,
-    }],
-  }],
+  ],
   rettsgebyr: 1000,
 } as DetaljerteFeilutbetalingsperioder;
 const vilkarvurdering = {
@@ -67,19 +76,17 @@ export default {
 const Template: Story<{
   submitCallback: (aksjonspunktData: any) => Promise<void>;
   aksjonspunkter?: Aksjonspunkt[];
-  vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder
-}> = ({
-  submitCallback,
-  aksjonspunkter = [],
-  vilkarvurderingsperioder,
-}) => (
+  vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
+}> = ({ submitCallback, aksjonspunkter = [], vilkarvurderingsperioder }) => (
   <RawIntlProvider value={intl}>
     <TilbakekrevingProsessIndex
-      behandling={{
-        uuid: '1',
-        versjon: 1,
-        status: BehandlingStatus.BEHANDLING_UTREDES,
-      } as Behandling}
+      behandling={
+        {
+          uuid: '1',
+          versjon: 1,
+          status: BehandlingStatus.BEHANDLING_UTREDES,
+        } as Behandling
+      }
       tilbakekrevingKodeverk={alleKodeverk}
       isReadOnly={false}
       setFormData={() => undefined}
@@ -89,7 +96,7 @@ const Template: Story<{
       navBrukerKjonn={NavBrukerKjonn.KVINNE}
       vilkarvurderingsperioder={vilkarvurderingsperioder}
       vilkarvurdering={vilkarvurdering}
-      beregnBelop={() => Promise.resolve()}
+      beregnBelop={(params?: any) => Promise.resolve(params)}
       alleKodeverk={{} as any}
       alleMerknaderFraBeslutter={{}}
       status=""
@@ -103,45 +110,54 @@ const Template: Story<{
 export const Default = Template.bind({});
 Default.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
-  aksjonspunkter: [{
-    definisjon: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
-    status: AksjonspunktStatus.OPPRETTET,
-    begrunnelse: undefined,
-    kanLoses: true,
-    erAktivt: true,
-  }],
+  aksjonspunkter: [
+    {
+      definisjon: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
+      status: AksjonspunktStatus.OPPRETTET,
+      begrunnelse: undefined,
+      kanLoses: true,
+      erAktivt: true,
+    },
+  ],
   vilkarvurderingsperioder: defaultVilkarvurderingsperioder,
 };
 
 export const MedToPerioder = Template.bind({});
 MedToPerioder.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
-  aksjonspunkter: [{
-    definisjon: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
-    status: AksjonspunktStatus.OPPRETTET,
-    begrunnelse: undefined,
-    kanLoses: true,
-    erAktivt: true,
-  }],
+  aksjonspunkter: [
+    {
+      definisjon: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
+      status: AksjonspunktStatus.OPPRETTET,
+      begrunnelse: undefined,
+      kanLoses: true,
+      erAktivt: true,
+    },
+  ],
   vilkarvurderingsperioder: {
-    perioder: [defaultVilkarvurderingsperioder.perioder[0], {
-      fom: '2019-04-01',
-      tom: '2019-10-01',
-      foreldet: false,
-      feilutbetaling: 100,
-      årsak: {
-        hendelseType: {
-          kode: 'MEDLEM',
-          kodeverk: '',
-          navn: '§22 Medlemskap',
+    perioder: [
+      defaultVilkarvurderingsperioder.perioder[0],
+      {
+        fom: '2019-04-01',
+        tom: '2019-10-01',
+        foreldet: false,
+        feilutbetaling: 100,
+        årsak: {
+          hendelseType: {
+            kode: 'MEDLEM',
+            kodeverk: '',
+            navn: '§22 Medlemskap',
+          },
         },
+        redusertBeloper: [],
+        ytelser: [
+          {
+            aktivitet: 'Arbeidstaker',
+            belop: 2050,
+          },
+        ],
       },
-      redusertBeloper: [],
-      ytelser: [{
-        aktivitet: 'Arbeidstaker',
-        belop: 2050,
-      }],
-    }],
+    ],
     rettsgebyr: 1000,
   } as DetaljerteFeilutbetalingsperioder,
 };

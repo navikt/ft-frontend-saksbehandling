@@ -91,9 +91,9 @@ export class PeriodeController extends Component<OwnProps, StateProps> {
       perioder: [forstePeriode, andrePeriode],
     };
 
-    callBeregnBelop(params).then((response) => {
+    callBeregnBelop(params).then((response: { perioder: { belop: number }[] }) => {
       const { perioder } = response;
-      const harPeriodeMedBelop0 = perioder.some((p) => p.belop === 0);
+      const harPeriodeMedBelop0 = perioder.some(p => p.belop === 0);
       if (harPeriodeMedBelop0) {
         this.setState((state: any) => ({
           ...state,
@@ -117,13 +117,7 @@ export class PeriodeController extends Component<OwnProps, StateProps> {
   }
 
   render() {
-    const {
-      intl,
-      callbackForward,
-      callbackBackward,
-      periode,
-      readOnly,
-    } = this.props;
+    const { intl, callbackForward, callbackBackward, periode, readOnly } = this.props;
 
     const { showDelPeriodeModal, finnesBelopMed0Verdi } = this.state;
 
@@ -136,8 +130,7 @@ export class PeriodeController extends Component<OwnProps, StateProps> {
           </Element>
         </Column>
         <Column xs="7">
-          {!readOnly
-          && (
+          {!readOnly && (
             <span className={styles.splitPeriodPosition}>
               <Image
                 tabIndex={0}
@@ -146,7 +139,7 @@ export class PeriodeController extends Component<OwnProps, StateProps> {
                 srcHover={splitPeriodImageHoverUrl}
                 alt={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
                 onMouseDown={this.showModal}
-                onKeyDown={(e) => (e.key === 'Enter' ? this.showModal(e) : null)}
+                onKeyDown={e => (e.key === 'Enter' ? this.showModal(e) : null)}
               />
               <FormattedMessage id="PeriodeController.DelOppPerioden" />
             </span>
@@ -163,8 +156,16 @@ export class PeriodeController extends Component<OwnProps, StateProps> {
         </Column>
         <Column xs="2">
           <FloatRight>
-            <TimeLineButton text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })} type="prev" callback={callbackBackward} />
-            <TimeLineButton text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })} type="next" callback={callbackForward} />
+            <TimeLineButton
+              text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })}
+              type="prev"
+              callback={callbackBackward}
+            />
+            <TimeLineButton
+              text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })}
+              type="next"
+              callback={callbackForward}
+            />
           </FloatRight>
         </Column>
       </Row>

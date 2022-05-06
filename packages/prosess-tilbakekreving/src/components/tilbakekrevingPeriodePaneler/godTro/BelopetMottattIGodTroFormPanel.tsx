@@ -2,9 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Undertekst, Normaltekst } from 'nav-frontend-typografi';
 
-import {
-  minValue, required, removeSpacesFromNumber, formatCurrencyNoKr,
-} from '@navikt/ft-utils';
+import { minValue, required, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 
@@ -18,10 +16,7 @@ const parseCurrencyInput = (input: any) => {
   return Number.isNaN(parsedValue) ? '' : parsedValue;
 };
 
-const validerAtMindreEnn = (
-  intl: IntlShape,
-  feilutbetalingBelop: number,
-) => (tilbakekrevdBelop: number) => {
+const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (tilbakekrevdBelop: number) => {
   if (tilbakekrevdBelop > feilutbetalingBelop) {
     return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.BelopKanIkkeVereStorreEnnFeilutbetalingen' });
   }
@@ -41,13 +36,16 @@ interface OwnProps {
 }
 
 interface StaticFunctions {
-  buildIntialValues?: (info: { erBelopetIBehold: boolean; tilbakekrevesBelop: number }) => InitialValuesGodTroForm,
-  transformValues?: (info: { erBelopetIBehold: boolean; tilbakekrevdBelop: number }, vurderingBegrunnelse: string) => {
+  buildIntialValues: (info: { erBelopetIBehold: boolean; tilbakekrevesBelop: number }) => InitialValuesGodTroForm;
+  transformValues: (
+    info: { erBelopetIBehold: boolean; tilbakekrevdBelop: number },
+    vurderingBegrunnelse: string,
+  ) => {
     '@type': string;
     begrunnelse: string;
     erBelopetIBehold: boolean;
-    tilbakekrevesBelop: number;
-  },
+    tilbakekrevesBelop?: number;
+  };
 }
 
 const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
@@ -61,15 +59,22 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
     <>
       <RadioGroupPanel
         name={`${name}.erBelopetIBehold`}
-        label={<Undertekst><FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" /></Undertekst>}
+        label={
+          <Undertekst>
+            <FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />
+          </Undertekst>
+        }
         validate={[required]}
-        radios={[{
-          label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Ja" />,
-          value: 'true',
-        }, {
-          label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Nei" />,
-          value: 'false',
-        }]}
+        radios={[
+          {
+            label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Ja" />,
+            value: 'true',
+          },
+          {
+            label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Nei" />,
+            value: 'false',
+          },
+        ]}
         isReadOnly={readOnly}
         parse={(value: string) => value === 'true'}
       />
@@ -81,6 +86,7 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
               label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.AngiBelop" />}
               validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
               readOnly={readOnly}
+              // @ts-ignore Fiks
               format={formatCurrencyNoKr}
               parse={parseCurrencyInput}
               bredde="S"
@@ -99,14 +105,14 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
   );
 };
 
-BelopetMottattIGodTroFormPanel.transformValues = (info: { erBelopetIBehold: boolean; tilbakekrevdBelop: number }, vurderingBegrunnelse: string) => ({
+BelopetMottattIGodTroFormPanel.transformValues = (info, vurderingBegrunnelse) => ({
   '@type': 'godTro',
   begrunnelse: vurderingBegrunnelse,
   erBelopetIBehold: info.erBelopetIBehold,
   tilbakekrevesBelop: info.erBelopetIBehold ? removeSpacesFromNumber(info.tilbakekrevdBelop) : undefined,
 });
 
-BelopetMottattIGodTroFormPanel.buildIntialValues = (info: { erBelopetIBehold: boolean; tilbakekrevesBelop: number }) => ({
+BelopetMottattIGodTroFormPanel.buildIntialValues = info => ({
   erBelopetIBehold: info.erBelopetIBehold,
   tilbakekrevdBelop: info.tilbakekrevesBelop,
 });

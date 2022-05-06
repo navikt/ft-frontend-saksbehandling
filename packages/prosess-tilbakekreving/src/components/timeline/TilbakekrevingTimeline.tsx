@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent, RefObject } from 'react';
+import React, { Component, MouseEvent, KeyboardEvent, RefObject } from 'react';
 import moment from 'moment';
 import { Column, Row } from 'nav-frontend-grid';
 import { IntlShape } from 'react-intl';
@@ -49,8 +49,7 @@ const getOptions = (sortedPeriods: Periode[]) => {
   };
 };
 
-const parseDateString = (dateString: moment.Moment | string) => moment(dateString, ISO_DATE_FORMAT)
-  .toDate();
+const parseDateString = (dateString: moment.Moment | string) => moment(dateString, ISO_DATE_FORMAT).toDate();
 
 function sortByDate(a: Periode, b: Periode) {
   if (a.fom < b.fom) {
@@ -66,27 +65,26 @@ const parseDates = (item: Periode) => ({
   ...item,
   start: parseDateString(item.fom),
 
-  end: parseDateString(moment(item.tom)
-    .add(1, 'days')),
+  end: parseDateString(moment(item.tom).add(1, 'days')),
 });
 
 const formatItems = (periodItems: Periode[] = []) => {
   const itemsWithDates = periodItems.map(parseDates);
   const formattedItemsArray: any = [];
   formattedItemsArray.length = 0;
-  itemsWithDates.forEach((item) => {
+  itemsWithDates.forEach(item => {
     formattedItemsArray.push(item);
   });
   return formattedItemsArray;
 };
 
 const formatGroups = (periodItems: Periode[] = []) => {
-  const duplicatesRemoved = periodItems.reduce((accPeriods, period) => {
-    const hasPeriod = accPeriods.some((p) => p.group === period.group);
+  const duplicatesRemoved = periodItems.reduce<Periode[]>((accPeriods, period) => {
+    const hasPeriod = accPeriods.some(p => p.group === period.group);
     if (!hasPeriod) accPeriods.push(period);
     return accPeriods;
   }, []);
-  return duplicatesRemoved.map((activity) => ({
+  return duplicatesRemoved.map(activity => ({
     id: activity.group,
     content: '',
   }));
@@ -94,7 +92,7 @@ const formatGroups = (periodItems: Periode[] = []) => {
 
 interface OwnProps {
   perioder: TidslinjePeriode[];
-  toggleDetaljevindu: (event: MouseEvent) => void;
+  toggleDetaljevindu: (event: MouseEvent | KeyboardEvent) => void;
   selectedPeriod?: TidslinjePeriode;
   selectPeriodCallback: (...args: any[]) => any;
   hjelpetekstKomponent: React.ReactNode;
@@ -151,15 +149,8 @@ class TilbakekrevingTimeline extends Component<OwnProps> {
   }
 
   render() {
-    const {
-      intl,
-      perioder,
-      selectedPeriod,
-      selectPeriodCallback,
-      toggleDetaljevindu,
-      hjelpetekstKomponent,
-      kjonn,
-    } = this.props;
+    const { intl, perioder, selectedPeriod, selectPeriodCallback, toggleDetaljevindu, hjelpetekstKomponent, kjonn } =
+      this.props;
 
     const newPerioder = perioder.map((periode: TidslinjePeriode) => {
       const className = periode.isGodkjent ? GODKJENT_CLASSNAME : AVVIST_CLASSNAME;
@@ -181,7 +172,9 @@ class TilbakekrevingTimeline extends Component<OwnProps> {
                 className={styles.iconMedsoker}
                 src={isKvinne(kjonn) ? urlKvinne : urlMann}
                 alt={intl.formatMessage({ id: 'TilbakekrevingTimeline.ImageText' })}
-                tooltip={intl.formatMessage({ id: isKvinne(kjonn) ? 'TilbakekrevingTimeline.Woman' : 'TilbakekrevingTimeline.Man' })}
+                tooltip={intl.formatMessage({
+                  id: isKvinne(kjonn) ? 'TilbakekrevingTimeline.Woman' : 'TilbakekrevingTimeline.Man',
+                })}
               />
             </Row>
           </Column>
@@ -194,7 +187,7 @@ class TilbakekrevingTimeline extends Component<OwnProps> {
                   initialItems={items}
                   initialGroups={groups}
                   selectHandler={selectPeriodCallback}
-                  selection={[selectedPeriod ? selectedPeriod.id : null]}
+                  selection={selectedPeriod ? [selectedPeriod.id] : undefined}
                 />
               </div>
             </div>

@@ -6,18 +6,23 @@ import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 
+import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import {
-  TextAreaField, SelectField, Form, RadioGroupPanel,
-} from '@navikt/ft-form-hooks';
-import {
-  formatCurrencyNoKr, hasValidText, maxLength, minLength, required, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity,
+  formatCurrencyNoKr,
+  hasValidText,
+  maxLength,
+  minLength,
+  required,
+  DDMMYYYY_DATE_FORMAT,
+  decodeHtmlEntity,
 } from '@navikt/ft-utils';
-import {
-  FlexColumn, FlexRow, WarningModal, VerticalSpacer, usePrevious,
-} from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, WarningModal, VerticalSpacer, usePrevious } from '@navikt/ft-ui-komponenter';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import {
-  KodeverkMedNavn, AlleKodeverkTilbakekreving, FeilutbetalingPerioderWrapper, DetaljertFeilutbetalingPeriode,
+  KodeverkMedNavn,
+  AlleKodeverkTilbakekreving,
+  FeilutbetalingPerioderWrapper,
+  DetaljertFeilutbetalingPeriode,
 } from '@navikt/ft-types';
 
 import sarligGrunn from '../kodeverk/sarligGrunn';
@@ -25,8 +30,12 @@ import Aktsomhet, { AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
 import VilkarResultat from '../kodeverk/vilkarResultat';
 import TilbakekrevingAktivitetTabell from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
 import ForeldetFormPanel from './tilbakekrevingPeriodePaneler/ForeldetFormPanel';
-import BelopetMottattIGodTroFormPanel, { InitialValuesGodTroForm } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
-import AktsomhetFormPanel, { InitialValuesAktsomhetForm } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
+import BelopetMottattIGodTroFormPanel, {
+  InitialValuesGodTroForm,
+} from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
+import AktsomhetFormPanel, {
+  InitialValuesAktsomhetForm,
+} from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
 import DataForPeriode from '../types/dataForPeriodeTsType';
 
 import styles from './tilbakekrevingPeriodeForm.less';
@@ -42,12 +51,12 @@ export type CustomPeriode = {
   erTotalBelopUnder4Rettsgebyr: boolean;
   foreldelseVurderingType?: string;
   begrunnelse?: string;
-  harMerEnnEnYtelse: boolean;
-} & DetaljertFeilutbetalingPeriode
+  harMerEnnEnYtelse?: boolean;
+} & DetaljertFeilutbetalingPeriode;
 
 export type CustomPerioder = {
   perioder: CustomPeriode[];
-}
+};
 
 export interface InitialValuesDetailForm {
   valgtVilkarResultatType: string;
@@ -55,7 +64,7 @@ export interface InitialValuesDetailForm {
   erForeldet?: boolean;
   periodenErForeldet?: boolean;
   foreldetBegrunnelse?: string;
-  vurderingBegrunnelse?: string;
+  vurderingBegrunnelse: string;
   harMerEnnEnYtelse: boolean;
   [VilkarResultat.FEIL_OPPLYSNINGER]?: InitialValuesAktsomhetForm;
   [VilkarResultat.FORSTO_BURDE_FORSTAATT]?: InitialValuesAktsomhetForm;
@@ -68,7 +77,7 @@ export type CustomVilkarsVurdertePeriode = {
   tom: string;
   erSplittet?: boolean;
   feilutbetaling?: number;
-} & InitialValuesDetailForm
+} & InitialValuesDetailForm;
 
 interface OwnProps {
   data: DataForPeriode;
@@ -100,11 +109,18 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
 
   const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType');
   const handletUaktsomhetsgrad = formMethods.watch(`${valgtVilkarResultatType}.handletUaktsomhetGrad`);
-  const harGrunnerTilReduksjon = formMethods.watch(`${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.harGrunnerTilReduksjon`);
-  const andelSomTilbakekreves = formMethods.watch(`${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.andelSomTilbakekreves`);
-  const tilbakekrevSelvOmBeloepErUnder4Rettsgebyr = formMethods
-    .watch(`${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`);
-  const erSerligGrunnAnnetValgt = formMethods.watch(`${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${sarligGrunn.ANNET}`);
+  const harGrunnerTilReduksjon = formMethods.watch(
+    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.harGrunnerTilReduksjon`,
+  );
+  const andelSomTilbakekreves = formMethods.watch(
+    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.andelSomTilbakekreves`,
+  );
+  const tilbakekrevSelvOmBeloepErUnder4Rettsgebyr = formMethods.watch(
+    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`,
+  );
+  const erSerligGrunnAnnetValgt = formMethods.watch(
+    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${sarligGrunn.ANNET}`,
+  );
   const erBelopetIBehold = formMethods.watch(`${valgtVilkarResultatType}.erBelopetIBehold`);
 
   const forrigeVilkarResultatType = usePrevious(valgtVilkarResultatType);
@@ -113,19 +129,24 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
   const reduserteBelop = data.redusertBeloper;
   const sarligGrunnTyper = alleKodeverk[TilbakekrevingKodeverkType.SARLIG_GRUNN];
   const vilkarResultatTyper = alleKodeverk[TilbakekrevingKodeverkType.VILKAR_RESULTAT];
-  const aktsomhetTyper = AKTSOMHET_REKKEFØLGE
-    .map((a) => alleKodeverk[TilbakekrevingKodeverkType.AKTSOMHET].find((el: KodeverkMedNavn) => el.kode === a));
+  const aktsomhetTyper = AKTSOMHET_REKKEFØLGE.map(a =>
+    alleKodeverk[TilbakekrevingKodeverkType.AKTSOMHET].find((el: KodeverkMedNavn) => el.kode === a),
+  );
 
   const onEndrePeriodeForKopi = (event: any, vurdertePerioder: CustomVilkarsVurdertePeriode[]) => {
     const fomTom = event.target.value.split('_');
-    const kopierDenne = vurdertePerioder.find((per) => per.fom === fomTom[0] && per.tom === fomTom[1]);
-    const vilkårResultatType = kopierDenne.valgtVilkarResultatType;
-    const resultatType = kopierDenne[vilkårResultatType];
+    const kopierDenne = vurdertePerioder.find(per => per.fom === fomTom[0] && per.tom === fomTom[1]);
+    const vilkårResultatType = kopierDenne?.valgtVilkarResultatType;
+    // @ts-ignore Fiks
+    const resultatType = kopierDenne && vilkårResultatType ? kopierDenne[vilkårResultatType] : undefined;
 
     const resultatTypeKopi = JSON.parse(JSON.stringify(resultatType));
     if (vilkårResultatType !== VilkarResultat.GOD_TRO) {
       const { handletUaktsomhetGrad } = resultatTypeKopi;
-      if (handletUaktsomhetGrad !== Aktsomhet.FORSETT && periode.harMerEnnEnYtelse !== kopierDenne.harMerEnnEnYtelse) {
+      if (
+        handletUaktsomhetGrad !== Aktsomhet.FORSETT &&
+        periode?.harMerEnnEnYtelse !== kopierDenne?.harMerEnnEnYtelse
+      ) {
         resultatTypeKopi[handletUaktsomhetGrad].andelSomTilbakekreves = null;
         resultatTypeKopi[handletUaktsomhetGrad].andelSomTilbakekrevesManuell = null;
         resultatTypeKopi[handletUaktsomhetGrad].belopSomSkalTilbakekreves = null;
@@ -133,9 +154,11 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
     }
 
     formMethods.setValue('valgtVilkarResultatType', vilkårResultatType, { shouldDirty: true });
-    formMethods.setValue('begrunnelse', kopierDenne.begrunnelse, { shouldDirty: true });
-    formMethods.setValue('vurderingBegrunnelse', kopierDenne.vurderingBegrunnelse, { shouldDirty: true });
-    formMethods.setValue(vilkårResultatType, resultatTypeKopi, { shouldDirty: true });
+    formMethods.setValue('begrunnelse', kopierDenne?.begrunnelse, { shouldDirty: true });
+    formMethods.setValue('vurderingBegrunnelse', kopierDenne?.vurderingBegrunnelse, { shouldDirty: true });
+    if (vilkårResultatType) {
+      formMethods.setValue(vilkårResultatType, resultatTypeKopi, { shouldDirty: true });
+    }
 
     event.preventDefault();
   };
@@ -146,7 +169,11 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
   };
 
   const saveOrToggleModal = (values: any) => {
-    if (antallPerioderMedAksjonspunkt > 1 && data.erTotalBelopUnder4Rettsgebyr && tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false) {
+    if (
+      antallPerioderMedAksjonspunkt > 1 &&
+      data.erTotalBelopUnder4Rettsgebyr &&
+      tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false
+    ) {
       setShowModal(!showModal);
     } else {
       oppdaterPeriode(values);
@@ -167,20 +194,27 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
 
   const transformToBold = useCallback((chunks: any) => <b>{chunks}</b>, []);
 
-  const vurdertePerioder = vilkarsVurdertePerioder.filter((per) => !per.erForeldet && per.valgtVilkarResultatType != null);
+  const vurdertePerioder = vilkarsVurdertePerioder.filter(
+    per => !per.erForeldet && per.valgtVilkarResultatType != null,
+  );
   return (
     <Form formMethods={formMethods} onSubmit={saveOrToggleModal}>
-      {reduserteBelop.map((belop) => (
-        <React.Fragment key={belop.belop}>
-          <Normaltekst>
-            <FormattedMessage
-              id={belop.erTrekk ? 'TilbakekrevingPeriodeForm.FeilutbetaltBelopTrekk' : 'TilbakekrevingPeriodeForm.FeilutbetaltBelopEtterbetaling'}
-              values={{ belop: formatCurrencyNoKr(belop.belop), b: transformToBold }}
-            />
-          </Normaltekst>
-          <VerticalSpacer eightPx />
-        </React.Fragment>
-      ))}
+      {reduserteBelop &&
+        reduserteBelop.map(belop => (
+          <React.Fragment key={belop.belop}>
+            <Normaltekst>
+              <FormattedMessage
+                id={
+                  belop.erTrekk
+                    ? 'TilbakekrevingPeriodeForm.FeilutbetaltBelopTrekk'
+                    : 'TilbakekrevingPeriodeForm.FeilutbetaltBelopEtterbetaling'
+                }
+                values={{ belop: formatCurrencyNoKr(belop.belop), b: transformToBold }}
+              />
+            </Normaltekst>
+            <VerticalSpacer eightPx />
+          </React.Fragment>
+        ))}
       <TilbakekrevingAktivitetTabell ytelser={data.ytelser} />
       <VerticalSpacer twentyPx />
       {!readOnly && !data.erForeldet && vurdertePerioder.length > 0 && (
@@ -192,12 +226,18 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
               </Element>
               <SelectField
                 name="perioderForKopi"
-                selectValues={vurdertePerioder.map((per) => {
+                selectValues={vurdertePerioder.map(per => {
                   const perId = `${per.fom}_${per.tom}`;
-                  const perValue = `${moment(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(per.tom).format(DDMMYYYY_DATE_FORMAT)}`;
-                  return <option key={perId} value={perId}>{perValue}</option>;
+                  const perValue = `${moment(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(per.tom).format(
+                    DDMMYYYY_DATE_FORMAT,
+                  )}`;
+                  return (
+                    <option key={perId} value={perId}>
+                      {perValue}
+                    </option>
+                  );
                 })}
-                onChange={(event) => onEndrePeriodeForKopi(event, vurdertePerioder)}
+                onChange={event => onEndrePeriodeForKopi(event, vurdertePerioder)}
                 bredde="m"
                 label=""
               />
@@ -232,9 +272,13 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                 <VerticalSpacer twentyPx />
                 <RadioGroupPanel
                   name="valgtVilkarResultatType"
-                  label={<Undertekst><FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" /></Undertekst>}
+                  label={
+                    <Undertekst>
+                      <FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />
+                    </Undertekst>
+                  }
                   validate={[required]}
-                  radios={vilkarResultatTyper.map((vrt) => ({
+                  radios={vilkarResultatTyper.map(vrt => ({
                     label: vrt.navn,
                     value: vrt.kode,
                   }))}
@@ -251,17 +295,22 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
               {valgtVilkarResultatType && (
                 <>
                   <Element>
-                    <FormattedMessage id={valgtVilkarResultatType === VilkarResultat.GOD_TRO
-                      ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro' : 'TilbakekrevingPeriodeForm.Aktsomhet'}
+                    <FormattedMessage
+                      id={
+                        valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                          ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro'
+                          : 'TilbakekrevingPeriodeForm.Aktsomhet'
+                      }
                     />
                   </Element>
                   <VerticalSpacer eightPx />
                   <TextAreaField
                     name="vurderingBegrunnelse"
                     label={intl.formatMessage({
-                      id: valgtVilkarResultatType === VilkarResultat.GOD_TRO
-                        ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
-                        : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
+                      id:
+                        valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                          ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
+                          : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
                     })}
                     validate={[required, minLength3, maxLength1500, hasValidText]}
                     maxLength={1500}
@@ -285,7 +334,10 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                       handletUaktsomhetGrad={handletUaktsomhetsgrad}
                       resetFields={resetUtaktsomhetsgrad}
                       erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                      erValgtResultatTypeForstoBurdeForstaatt={valgtVilkarResultatType === VilkarResultat.FORSTO_BURDE_FORSTAATT}
+                      erValgtResultatTypeForstoBurdeForstaatt={
+                        valgtVilkarResultatType === VilkarResultat.FORSTO_BURDE_FORSTAATT
+                      }
+                      // @ts-ignore Fiks
                       aktsomhetTyper={aktsomhetTyper}
                       sarligGrunnTyper={sarligGrunnTyper}
                       antallYtelser={data.ytelser.length}
@@ -303,11 +355,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
       <FlexRow>
         <FlexColumn>
-          <Hovedknapp
-            mini
-            htmlType="submit"
-            disabled={!formMethods.formState.isDirty || readOnly}
-          >
+          <Hovedknapp mini htmlType="submit" disabled={!formMethods.formState.isDirty || readOnly}>
             <FormattedMessage id="TilbakekrevingPeriodeForm.Oppdater" />
           </Hovedknapp>
         </FlexColumn>
@@ -317,25 +365,35 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
           </Knapp>
         </FlexColumn>
       </FlexRow>
-      { showModal
-        && <WarningModal bodyText={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr' })} showModal submit={saveForm} />}
+      {showModal && (
+        <WarningModal
+          bodyText={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr' })}
+          showModal
+          submit={saveForm}
+        />
+      )}
     </Form>
   );
 };
 
-export const periodeFormBuildInitialValues = (periode: any, foreldelsePerioder: FeilutbetalingPerioderWrapper): InitialValuesDetailForm => {
+export const periodeFormBuildInitialValues = (
+  periode: any,
+  foreldelsePerioder: FeilutbetalingPerioderWrapper,
+): InitialValuesDetailForm => {
   const { vilkarResultat, begrunnelse, vilkarResultatInfo } = periode;
 
   const vilkarResultatKode = vilkarResultat && vilkarResultat.kode ? vilkarResultat.kode : vilkarResultat;
-  let foreldetData = { erForeldet: false, periodenErForeldet: undefined, foreldetBegrunnelse: undefined };
+  let foreldetData;
   const erForeldet = periode.erForeldet ? periode.erForeldet : periode.foreldet;
   if (erForeldet) {
-    const foreldelsePeriode = foreldelsePerioder.perioder.find((p) => p.fom === periode.fom && p.tom === periode.tom);
+    const foreldelsePeriode = foreldelsePerioder.perioder.find(p => p.fom === periode.fom && p.tom === periode.tom);
     foreldetData = {
       erForeldet,
       periodenErForeldet: true,
-      foreldetBegrunnelse: decodeHtmlEntity(foreldelsePeriode.begrunnelse),
+      foreldetBegrunnelse: foreldelsePeriode ? decodeHtmlEntity(foreldelsePeriode.begrunnelse) : undefined,
     };
+  } else {
+    foreldetData = { erForeldet: false, periodenErForeldet: undefined, foreldetBegrunnelse: undefined };
   }
 
   const initialValues = {
@@ -345,11 +403,17 @@ export const periodeFormBuildInitialValues = (periode: any, foreldelsePerioder: 
     ...foreldetData,
   };
 
-  const godTroData = vilkarResultatKode === VilkarResultat.GOD_TRO ? BelopetMottattIGodTroFormPanel.buildIntialValues(vilkarResultatInfo) : {};
-  const annetData = vilkarResultatKode !== undefined && vilkarResultatKode !== VilkarResultat.GOD_TRO
-    ? AktsomhetFormPanel.buildInitalValues(vilkarResultatInfo) : {};
+  const godTroData =
+    vilkarResultatKode === VilkarResultat.GOD_TRO
+      ? BelopetMottattIGodTroFormPanel.buildIntialValues(vilkarResultatInfo)
+      : {};
+  const annetData =
+    vilkarResultatKode !== undefined && vilkarResultatKode !== VilkarResultat.GOD_TRO
+      ? AktsomhetFormPanel.buildInitalValues(vilkarResultatInfo)
+      : {};
   return {
     ...initialValues,
+    // @ts-ignore Fiks
     vurderingBegrunnelse: vilkarResultatInfo ? decodeHtmlEntity(vilkarResultatInfo.begrunnelse) : undefined,
     [initialValues.valgtVilkarResultatType]: {
       ...godTroData,
@@ -358,12 +422,22 @@ export const periodeFormBuildInitialValues = (periode: any, foreldelsePerioder: 
   };
 };
 
-export const periodeFormTransformValues = (values: CustomVilkarsVurdertePeriode, sarligGrunnTyper: KodeverkMedNavn[]) => {
+export const periodeFormTransformValues = (
+  values: CustomVilkarsVurdertePeriode,
+  sarligGrunnTyper: KodeverkMedNavn[],
+) => {
   const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
+  // @ts-ignore Fiks
   const info = values[valgtVilkarResultatType];
 
-  const godTroData = valgtVilkarResultatType === VilkarResultat.GOD_TRO ? BelopetMottattIGodTroFormPanel.transformValues(info, vurderingBegrunnelse) : {};
-  const annetData = valgtVilkarResultatType !== VilkarResultat.GOD_TRO ? AktsomhetFormPanel.transformValues(info, sarligGrunnTyper, vurderingBegrunnelse) : {};
+  const godTroData =
+    valgtVilkarResultatType === VilkarResultat.GOD_TRO
+      ? BelopetMottattIGodTroFormPanel.transformValues(info, vurderingBegrunnelse)
+      : {};
+  const annetData =
+    valgtVilkarResultatType !== VilkarResultat.GOD_TRO
+      ? AktsomhetFormPanel.transformValues(info, sarligGrunnTyper, vurderingBegrunnelse)
+      : {};
 
   return {
     begrunnelse,
