@@ -18,21 +18,24 @@ import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '..
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 
-const createArbeidsforholdRadioKey = (andel: KortvarigAndel): string => (andel && andel.arbeidsforhold
-  ? `${andel.arbeidsforhold.arbeidsgiverIdent}(${andel.arbeidsforhold.arbeidsforholdId})(${andel.andelsnr})`
-  : '');
+const createArbeidsforholdRadioKey = (andel: KortvarigAndel): string =>
+  andel && andel.arbeidsforhold
+    ? `${andel.arbeidsforhold.arbeidsgiverIdent}(${andel.arbeidsforhold.arbeidsforholdId})(${andel.andelsnr})`
+    : '';
 
-const lagVisningsnavn = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): string => {
+const lagVisningsnavn = (
+  arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): string => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
   return createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
 };
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    faktaOmBeregning: FaktaOmBeregning;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  faktaOmBeregning: FaktaOmBeregning;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 interface StaticFunctions {
@@ -48,13 +51,18 @@ interface StaticFunctions {
  */
 
 export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly, faktaOmBeregning, isAksjonspunktClosed, arbeidsgiverOpplysningerPerId,
+  readOnly,
+  faktaOmBeregning,
+  isAksjonspunktClosed,
+  arbeidsgiverOpplysningerPerId,
 }) => {
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
   return (
     <div>
-      {andelsliste.map((andel) => (
-        <div key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)}`}>
+      {andelsliste.map(andel => (
+        <div
+          key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)}`}
+        >
           <Normaltekst>
             <FormattedMessage
               id={kortvarigStringId}
@@ -86,7 +94,7 @@ TidsbegrensetArbeidsforholdForm.buildInitialValues = (andeler: KortvarigAndel[])
   if (!andeler) {
     return initialValues;
   }
-  andeler.forEach((andel) => {
+  andeler.forEach(andel => {
     if (andel.erTidsbegrensetArbeidsforhold !== undefined) {
       initialValues[createArbeidsforholdRadioKey(andel)] = andel.erTidsbegrensetArbeidsforhold;
     }
@@ -94,10 +102,12 @@ TidsbegrensetArbeidsforholdForm.buildInitialValues = (andeler: KortvarigAndel[])
   return initialValues;
 };
 
-TidsbegrensetArbeidsforholdForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues,
-  andeler: KortvarigAndel[]): FaktaBeregningTransformedValues => {
+TidsbegrensetArbeidsforholdForm.transformValues = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  andeler: KortvarigAndel[],
+): FaktaBeregningTransformedValues => {
   const newValues = [];
-  andeler.forEach((andel) => {
+  andeler.forEach(andel => {
     const fieldName = createArbeidsforholdRadioKey(andel);
     const booleanValue = values.tidsbegrensetValues[fieldName];
     const valueObject = {

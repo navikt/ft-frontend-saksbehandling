@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  render, screen, waitFor,
-} from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import * as stories from './FordelBeregningsgrunnlagFaktaIndex.stories';
@@ -18,7 +16,9 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
 
     const utils = render(<AapOgRefusjon submitCallback={lagre} />);
 
-    expect(await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.')).toBeInTheDocument();
+    expect(
+      await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
+    ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
 
     // Første periode
@@ -110,7 +110,11 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
 
     const utils = render(<ViseVurderTilkommetRefusjonskrav submitCallback={lagre} />);
 
-    expect(await screen.findByText('Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.')).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        'Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.',
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
     expect(screen.getAllByText('JENS MAGNE (01.01.2000)')).toHaveLength(2);
     expect(screen.getByText('krever refusjon fra og med 01.06.2020')).toBeInTheDocument();
@@ -148,10 +152,16 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
 
     const utils = render(<SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon submitCallback={lagre} />);
 
-    expect(await screen.findByText('Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.')).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        'Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.',
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
     expect(screen.getAllByText('KATOLSK KEBAB A/S (999999999)')).toHaveLength(3);
-    expect(screen.getByText('krever refusjon fra og med 01.06.2020. Det er tidligere innvilget et lavere refusjonsbeløp')).toBeInTheDocument();
+    expect(
+      screen.getByText('krever refusjon fra og med 01.06.2020. Det er tidligere innvilget et lavere refusjonsbeløp'),
+    ).toBeInTheDocument();
     expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
     expect(screen.getByText('Før denne datoen skal refusjonsbeløpet per måned være')).toBeInTheDocument();
 

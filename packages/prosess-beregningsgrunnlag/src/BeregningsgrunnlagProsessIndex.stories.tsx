@@ -4,11 +4,24 @@ import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import {
-  VilkarType, VilkarUtfallType, PeriodeAarsak, SammenligningType, InntektAktivitetType, AktivitetStatus,
+  VilkarType,
+  VilkarUtfallType,
+  PeriodeAarsak,
+  SammenligningType,
+  InntektAktivitetType,
+  AktivitetStatus,
 } from '@navikt/ft-kodeverk';
 import {
-  Beregningsgrunnlag, Behandling, Aksjonspunkt, Vilkar, BeregningsgrunnlagPeriodeProp, Næring,
-  SammenligningsgrunlagProp, BeregningsgrunnlagAndel, BeregningsgrunnlagArbeidsforhold, Inntektsgrunnlag,
+  Beregningsgrunnlag,
+  Behandling,
+  Aksjonspunkt,
+  Vilkar,
+  BeregningsgrunnlagPeriodeProp,
+  Næring,
+  SammenligningsgrunlagProp,
+  BeregningsgrunnlagAndel,
+  BeregningsgrunnlagArbeidsforhold,
+  Inntektsgrunnlag,
 } from '@navikt/ft-types';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
@@ -36,8 +49,9 @@ const behandling = {
 } as Behandling;
 
 const lagNæring = (varigEndring: boolean, nyoppstartet: boolean): Næring => ({
-  begrunnelse: 'Jeg utvidet virksomheten fra en ren frisørsalong til også å tilby hudpleie. '
-    + 'Jeg jobbet opprinnelig alene men har ansatt to stykker i løpet av det siste året',
+  begrunnelse:
+    'Jeg utvidet virksomheten fra en ren frisørsalong til også å tilby hudpleie. ' +
+    'Jeg jobbet opprinnelig alene men har ansatt to stykker i løpet av det siste året',
   endringsdato: '2016-05-01',
   erNyoppstartet: nyoppstartet,
   erVarigEndret: varigEndring,
@@ -51,7 +65,7 @@ const lagNæring = (varigEndring: boolean, nyoppstartet: boolean): Næring => ({
   virksomhetType: 'ANNEN',
 });
 
-const lagPGIVerdier = () => ([
+const lagPGIVerdier = () => [
   {
     beløp: 124412,
     årstall: 2017,
@@ -64,26 +78,33 @@ const lagPGIVerdier = () => ([
     beløp: 9861482,
     årstall: 2015,
   },
-]);
+];
 
-const lagSNMedPGI = (andelnr: number, beregnet: number, overstyrt: number, skalFastsettGrunnlag: boolean,
-  erNyIArbeidslivet?: boolean, næring?: Næring) : BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-  beregningsperiodeFom: '2019-01-01',
-  beregningsperiodeTom: '2021-12-31',
-  beregnetPrAar: beregnet,
-  overstyrtPrAar: overstyrt,
-  bruttoPrAar: overstyrt || beregnet,
-  avkortetPrAar: 360000,
-  redusertPrAar: 599000,
-  erNyIArbeidslivet,
-  skalFastsetteGrunnlag: skalFastsettGrunnlag,
-  andelsnr: andelnr,
-  lagtTilAvSaksbehandler: false,
-  erTilkommetAndel: false,
-  pgiVerdier: lagPGIVerdier(),
-  næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
-} as BeregningsgrunnlagAndel);
+const lagSNMedPGI = (
+  andelnr: number,
+  beregnet: number,
+  overstyrt: number,
+  skalFastsettGrunnlag: boolean,
+  erNyIArbeidslivet?: boolean,
+  næring?: Næring,
+): BeregningsgrunnlagAndel =>
+  ({
+    aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    beregningsperiodeFom: '2019-01-01',
+    beregningsperiodeTom: '2021-12-31',
+    beregnetPrAar: beregnet,
+    overstyrtPrAar: overstyrt,
+    bruttoPrAar: overstyrt || beregnet,
+    avkortetPrAar: 360000,
+    redusertPrAar: 599000,
+    erNyIArbeidslivet,
+    skalFastsetteGrunnlag: skalFastsettGrunnlag,
+    andelsnr: andelnr,
+    lagtTilAvSaksbehandler: false,
+    erTilkommetAndel: false,
+    pgiVerdier: lagPGIVerdier(),
+    næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
+  } as BeregningsgrunnlagAndel);
 
 const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Aksjonspunkt> => ({
   definisjon: kode,
@@ -95,10 +116,12 @@ const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Aksjons
   endretTidspunkt: førSTP(5),
 });
 
-const vilkarMedUtfall = (kode: string): Vilkar[] => [{
-  vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
-  vilkarStatus: kode,
-} as Vilkar];
+const vilkarMedUtfall = (kode: string): Vilkar[] => [
+  {
+    vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
+    vilkarStatus: kode,
+  } as Vilkar,
+];
 
 const arbeidsgiverOpplysninger = {
   999999996: {
@@ -121,7 +144,6 @@ const arbeidsgiverOpplysninger = {
     navn: 'Svaneby sykehjem',
     erPrivatPerson: false,
   },
-
 };
 
 const lagArbeidsforhold = (
@@ -148,12 +170,14 @@ const lagArbeidsforhold = (
 
 const malArbeidsorhold = (): BeregningsgrunnlagArbeidsforhold => lagArbeidsforhold('999999996', null, null);
 
-const lagArbeidsandel = (andelnr: number,
+const lagArbeidsandel = (
+  andelnr: number,
   arbeid: BeregningsgrunnlagArbeidsforhold,
   beregnet: number,
   overstyrt: number,
   skalFastsette: boolean,
-  erTidsbegrenset: boolean): BeregningsgrunnlagAndel => ({
+  erTidsbegrenset: boolean,
+): BeregningsgrunnlagAndel => ({
   aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   beregningsperiodeFom: bgpFom,
   beregningsperiodeTom: bgpTom,
@@ -170,9 +194,15 @@ const lagArbeidsandel = (andelnr: number,
   erTilkommetAndel: false,
 });
 
-const malArbeidsandel = (): BeregningsgrunnlagAndel => lagArbeidsandel(1, malArbeidsorhold(), 200000, null, false, false);
+const malArbeidsandel = (): BeregningsgrunnlagAndel =>
+  lagArbeidsandel(1, malArbeidsorhold(), 200000, null, false, false);
 
-const lagFrilansandel = (andelnr: number, beregnet: number, overstyrt: number, skalFastsette: boolean): BeregningsgrunnlagAndel => ({
+const lagFrilansandel = (
+  andelnr: number,
+  beregnet: number,
+  overstyrt: number,
+  skalFastsette: boolean,
+): BeregningsgrunnlagAndel => ({
   aktivitetStatus: AktivitetStatus.FRILANSER,
   beregningsperiodeFom: '2019-06-01',
   beregningsperiodeTom: '2019-08-31',
@@ -225,7 +255,8 @@ const lagPeriode = (
   beregningsgrunnlagPrStatusOgAndel: andelsliste,
 });
 
-const malPeriode = (andelsliste: BeregningsgrunnlagAndel[]): BeregningsgrunnlagPeriodeProp => lagPeriode(andelsliste, [], STP, null, 999);
+const malPeriode = (andelsliste: BeregningsgrunnlagAndel[]): BeregningsgrunnlagPeriodeProp =>
+  lagPeriode(andelsliste, [], STP, null, 999);
 
 const lagSammenligningsGrunnlag = (
   kode: string,
@@ -246,15 +277,15 @@ const malSGGrunnlagAvvik = () => lagSammenligningsGrunnlag(SammenligningType.ATF
 const malSGGrunnlag = () => lagSammenligningsGrunnlag(SammenligningType.ATFLSN, 200000, 0, 0);
 
 type Inntekt = {
-  inntektAktivitetType: string,
+  inntektAktivitetType: string;
   beløp: number;
-}
+};
 
 type InntektOgPeriode = {
   fom: string;
   tom: string;
   inntekter: Inntekt[];
-}
+};
 
 const lagATInntektsgrunnlag = (inntekt: number): Inntekt => ({
   inntektAktivitetType: InntektAktivitetType.ARBEID,
@@ -279,18 +310,90 @@ const lagMånedInntekt = (fom: string, tom: string, inntekter: Inntekt[]): Innte
 
 const lagInntektsgrunnlag = (): Inntektsgrunnlag => {
   const måneder = [];
-  måneder.push(lagMånedInntekt('2020-01-01', '2020-01-31', [lagATInntektsgrunnlag(35000), lagYtelseInntektsgrunnlag(4000), lagFLInntektsgrunnlag(0)]));
-  måneder.push(lagMånedInntekt('2020-02-01', '2020-02-28', [lagATInntektsgrunnlag(70000), lagYtelseInntektsgrunnlag(6000), lagFLInntektsgrunnlag(5000)]));
-  måneder.push(lagMånedInntekt('2020-03-01', '2020-03-31', [lagATInntektsgrunnlag(40000), lagYtelseInntektsgrunnlag(7000), lagFLInntektsgrunnlag(12000)]));
-  måneder.push(lagMånedInntekt('2020-04-01', '2020-04-30', [lagATInntektsgrunnlag(50000), lagYtelseInntektsgrunnlag(20000), lagFLInntektsgrunnlag(45000)]));
-  måneder.push(lagMånedInntekt('2020-05-01', '2020-05-31', [lagATInntektsgrunnlag(37000), lagYtelseInntektsgrunnlag(10000), lagFLInntektsgrunnlag(30000)]));
-  måneder.push(lagMånedInntekt('2020-06-01', '2020-06-30', [lagATInntektsgrunnlag(45000), lagYtelseInntektsgrunnlag(5000), lagFLInntektsgrunnlag(20000)]));
-  måneder.push(lagMånedInntekt('2020-07-01', '2020-07-31', [lagATInntektsgrunnlag(25000), lagYtelseInntektsgrunnlag(3000), lagFLInntektsgrunnlag(25000)]));
-  måneder.push(lagMånedInntekt('2020-08-01', '2020-08-31', [lagATInntektsgrunnlag(33000), lagYtelseInntektsgrunnlag(7000), lagFLInntektsgrunnlag(0)]));
-  måneder.push(lagMånedInntekt('2020-09-01', '2020-09-30', [lagATInntektsgrunnlag(25000), lagYtelseInntektsgrunnlag(6000), lagFLInntektsgrunnlag(33000)]));
-  måneder.push(lagMånedInntekt('2020-10-01', '2020-10-31', [lagATInntektsgrunnlag(8000), lagYtelseInntektsgrunnlag(20000), lagFLInntektsgrunnlag(1000)]));
-  måneder.push(lagMånedInntekt('2020-11-01', '2020-11-30', [lagATInntektsgrunnlag(54000), lagYtelseInntektsgrunnlag(1000), lagFLInntektsgrunnlag(25000)]));
-  måneder.push(lagMånedInntekt('2020-12-01', '2020-12-31', [lagATInntektsgrunnlag(47000), lagYtelseInntektsgrunnlag(0), lagFLInntektsgrunnlag(10000)]));
+  måneder.push(
+    lagMånedInntekt('2020-01-01', '2020-01-31', [
+      lagATInntektsgrunnlag(35000),
+      lagYtelseInntektsgrunnlag(4000),
+      lagFLInntektsgrunnlag(0),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-02-01', '2020-02-28', [
+      lagATInntektsgrunnlag(70000),
+      lagYtelseInntektsgrunnlag(6000),
+      lagFLInntektsgrunnlag(5000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-03-01', '2020-03-31', [
+      lagATInntektsgrunnlag(40000),
+      lagYtelseInntektsgrunnlag(7000),
+      lagFLInntektsgrunnlag(12000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-04-01', '2020-04-30', [
+      lagATInntektsgrunnlag(50000),
+      lagYtelseInntektsgrunnlag(20000),
+      lagFLInntektsgrunnlag(45000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-05-01', '2020-05-31', [
+      lagATInntektsgrunnlag(37000),
+      lagYtelseInntektsgrunnlag(10000),
+      lagFLInntektsgrunnlag(30000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-06-01', '2020-06-30', [
+      lagATInntektsgrunnlag(45000),
+      lagYtelseInntektsgrunnlag(5000),
+      lagFLInntektsgrunnlag(20000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-07-01', '2020-07-31', [
+      lagATInntektsgrunnlag(25000),
+      lagYtelseInntektsgrunnlag(3000),
+      lagFLInntektsgrunnlag(25000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-08-01', '2020-08-31', [
+      lagATInntektsgrunnlag(33000),
+      lagYtelseInntektsgrunnlag(7000),
+      lagFLInntektsgrunnlag(0),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-09-01', '2020-09-30', [
+      lagATInntektsgrunnlag(25000),
+      lagYtelseInntektsgrunnlag(6000),
+      lagFLInntektsgrunnlag(33000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-10-01', '2020-10-31', [
+      lagATInntektsgrunnlag(8000),
+      lagYtelseInntektsgrunnlag(20000),
+      lagFLInntektsgrunnlag(1000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-11-01', '2020-11-30', [
+      lagATInntektsgrunnlag(54000),
+      lagYtelseInntektsgrunnlag(1000),
+      lagFLInntektsgrunnlag(25000),
+    ]),
+  );
+  måneder.push(
+    lagMånedInntekt('2020-12-01', '2020-12-31', [
+      lagATInntektsgrunnlag(47000),
+      lagYtelseInntektsgrunnlag(0),
+      lagFLInntektsgrunnlag(10000),
+    ]),
+  );
   return {
     måneder,
   } as Inntektsgrunnlag;
@@ -324,6 +427,7 @@ const lagBG = (
     erOverstyrtInntekt: false,
     inntektsgrunnlag,
   };
+  // @ts-ignore
   return beregningsgrunnlag;
 };
 
@@ -334,17 +438,11 @@ export default {
 
 const Template: Story<{
   readOnly: boolean;
-  vilkar: Vilkar[],
+  vilkar: Vilkar[];
   beregningsgrunnlag: Beregningsgrunnlag;
   aksjonspunkter: Aksjonspunkt[];
   submitCallback: (aksjonspunktData: BeregningsgrunnlagResultatAP[]) => Promise<void>;
-}> = ({
-  readOnly,
-  vilkar,
-  beregningsgrunnlag,
-  submitCallback,
-  aksjonspunkter,
-}) => (
+}> = ({ readOnly, vilkar, beregningsgrunnlag, submitCallback, aksjonspunkter }) => (
   <BeregningsgrunnlagProsessIndex
     behandling={behandling}
     beregningsgrunnlag={beregningsgrunnlag}
@@ -364,11 +462,17 @@ const Template: Story<{
 
 export const JusterDekningsgradAP = Template.bind({});
 JusterDekningsgradAP.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
-    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(),
-    200000, null, true, false)])], ['AT'], lagInntektsgrunnlag(), malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, null, true, false)])],
+    ['AT'],
+    lagInntektsgrunnlag(),
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -377,8 +481,12 @@ export const ArbeidstakerUtenAvvik = Template.bind({});
 ArbeidstakerUtenAvvik.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(),
-    200000, null, false, false)])], ['AT'], null, malSGGrunnlag()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, null, false, false)])],
+    ['AT'],
+    null,
+    malSGGrunnlag(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -387,29 +495,49 @@ export const BrukersAndelUtenAvvik = Template.bind({});
 BrukersAndelUtenAvvik.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([malArbeidsandel(),
-    lagGenerellAndel(1, AktivitetStatus.BRUKERS_ANDEL, 200000)])], ['AT, BA'], null, malSGGrunnlag()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([malArbeidsandel(), lagGenerellAndel(1, AktivitetStatus.BRUKERS_ANDEL, 200000)])],
+    ['AT, BA'],
+    null,
+    malSGGrunnlag(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const ArbeidstakerMedAvvik = Template.bind({});
 ArbeidstakerMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(),
-    200000, null, true, false)])], ['AT'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, null, true, false)])],
+    ['AT'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const ArbeidstakerFrilansMedAvvik = Template.bind({});
 ArbeidstakerFrilansMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(),
-    200000, null, true, false), lagFrilansandel(1,
-    200000, null, true)])], ['AT_FL'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [
+      malPeriode([
+        lagArbeidsandel(1, malArbeidsorhold(), 200000, null, true, false),
+        lagFrilansandel(1, 200000, null, true),
+      ]),
+    ],
+    ['AT_FL'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -418,35 +546,75 @@ export const Militær = Template.bind({});
 Militær.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagGenerellAndel(1, AktivitetStatus.MILITAER_ELLER_SIVIL, 300000)])], ['MS'], null),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagGenerellAndel(1, AktivitetStatus.MILITAER_ELLER_SIVIL, 300000)])],
+    ['MS'],
+    null,
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const SelvstendigNæringsdrivendeMedAksjonspunkt = Template.bind({});
 SelvstendigNæringsdrivendeMedAksjonspunkt.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [
+    lagAPMedKode(
+      ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+    ),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true, false,
-    lagNæring(true, false))])], ['SN'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagSNMedPGI(1, 200000, null, true, false, lagNæring(true, false))])],
+    ['SN'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const MangeTidsbegrensetArbeidsforholdMedAvvik = Template.bind({});
 MangeTidsbegrensetArbeidsforholdMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD),
+  ],
   readOnly: false,
   beregningsgrunnlag: {
-    beregningsgrunnlagPeriode: [lagPeriode([lagTBAndel(1, '999999999', 100000),
-      lagTBAndel(2, '999999998', 250000), lagTBAndel(3, '999999997', 5000),
-      lagFrilansandel(4, 4500, null, true)], [], STP, etterSTP(20)),
-    lagPeriode([lagTBAndel(1, '999999999', 100000),
-      lagTBAndel(2, '999999998', 250000), lagTBAndel(3, '999999997', 5000),
-      lagFrilansandel(4, 4500, null, true)], [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET], etterSTP(21), etterSTP(35)),
-    lagPeriode([lagTBAndel(1, '999999999', 100000),
-      lagTBAndel(2, '999999998', 250000), lagTBAndel(3, '999999997', 5000),
-      lagFrilansandel(4, 4500, null, true)], [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET], etterSTP(36), etterSTP(40))],
+    beregningsgrunnlagPeriode: [
+      lagPeriode(
+        [
+          lagTBAndel(1, '999999999', 100000),
+          lagTBAndel(2, '999999998', 250000),
+          lagTBAndel(3, '999999997', 5000),
+          lagFrilansandel(4, 4500, null, true),
+        ],
+        [],
+        STP,
+        etterSTP(20),
+      ),
+      lagPeriode(
+        [
+          lagTBAndel(1, '999999999', 100000),
+          lagTBAndel(2, '999999998', 250000),
+          lagTBAndel(3, '999999997', 5000),
+          lagFrilansandel(4, 4500, null, true),
+        ],
+        [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+        etterSTP(21),
+        etterSTP(35),
+      ),
+      lagPeriode(
+        [
+          lagTBAndel(1, '999999999', 100000),
+          lagTBAndel(2, '999999998', 250000),
+          lagTBAndel(3, '999999997', 5000),
+          lagFrilansandel(4, 4500, null, true),
+        ],
+        [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+        etterSTP(36),
+        etterSTP(40),
+      ),
+    ],
     sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik()],
     skjaeringstidspunktBeregning: STP,
     dekningsgrad: 100,
@@ -458,11 +626,20 @@ MangeTidsbegrensetArbeidsforholdMedAvvik.args = {
 
 export const TidsbegrensetArbeidsforholdMedAvvik = Template.bind({});
 TidsbegrensetArbeidsforholdMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD),
+  ],
   readOnly: false,
   beregningsgrunnlag: {
-    beregningsgrunnlagPeriode: [lagPeriode([lagTBAndel(1, '999999999', 100000)], [], STP, etterSTP(20)),
-      lagPeriode([lagTBAndel(1, '999999999', 100000)], [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET], etterSTP(21), etterSTP(35))],
+    beregningsgrunnlagPeriode: [
+      lagPeriode([lagTBAndel(1, '999999999', 100000)], [], STP, etterSTP(20)),
+      lagPeriode(
+        [lagTBAndel(1, '999999999', 100000)],
+        [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+        etterSTP(21),
+        etterSTP(35),
+      ),
+    ],
     sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik()],
     skjaeringstidspunktBeregning: STP,
     dekningsgrad: 100,
@@ -474,11 +651,24 @@ TidsbegrensetArbeidsforholdMedAvvik.args = {
 
 export const ArbeidstakerFrilanserOgSelvstendigNæringsdrivende = Template.bind({});
 ArbeidstakerFrilanserOgSelvstendigNæringsdrivende.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [
+    lagAPMedKode(
+      ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+    ),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true),
-    lagArbeidsandel(2, malArbeidsorhold(), 150000, null, false, false),
-    lagFrilansandel(3, 200000, null, false)])], ['AT_FL_SN'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [
+      malPeriode([
+        lagSNMedPGI(1, 200000, null, true),
+        lagArbeidsandel(2, malArbeidsorhold(), 150000, null, false, false),
+        lagFrilansandel(3, 200000, null, false),
+      ]),
+    ],
+    ['AT_FL_SN'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -488,18 +678,32 @@ NaturalYtelse.args = {
   aksjonspunkter: [],
   readOnly: false,
   beregningsgrunnlag: {
-    beregningsgrunnlagPeriode: [lagPeriode([lagArbeidsandel(1,
-      lagArbeidsforhold('999999999', null, null, 5000, null),
-      100000, null, false, false)], [], STP, etterSTP(20)),
-    lagPeriode([lagArbeidsandel(1,
-      lagArbeidsforhold('999999999', null, null, 4000, null),
-      100000, null, false, false)], [], etterSTP(21), etterSTP(30)),
-    lagPeriode([lagArbeidsandel(1,
-      lagArbeidsforhold('999999999', null, null, 3000, null),
-      100000, null, false, false)], [], etterSTP(31), etterSTP(50)),
-    lagPeriode([lagArbeidsandel(1,
-      lagArbeidsforhold('999999999', null, null, 2000, null),
-      100000, null, false, false)], [], etterSTP(51), etterSTP(200))],
+    beregningsgrunnlagPeriode: [
+      lagPeriode(
+        [lagArbeidsandel(1, lagArbeidsforhold('999999999', null, null, 5000, null), 100000, null, false, false)],
+        [],
+        STP,
+        etterSTP(20),
+      ),
+      lagPeriode(
+        [lagArbeidsandel(1, lagArbeidsforhold('999999999', null, null, 4000, null), 100000, null, false, false)],
+        [],
+        etterSTP(21),
+        etterSTP(30),
+      ),
+      lagPeriode(
+        [lagArbeidsandel(1, lagArbeidsforhold('999999999', null, null, 3000, null), 100000, null, false, false)],
+        [],
+        etterSTP(31),
+        etterSTP(50),
+      ),
+      lagPeriode(
+        [lagArbeidsandel(1, lagArbeidsforhold('999999999', null, null, 2000, null), 100000, null, false, false)],
+        [],
+        etterSTP(51),
+        etterSTP(200),
+      ),
+    ],
     sammenligningsgrunnlag: malSGGrunnlag(),
     skjaeringstidspunktBeregning: STP,
     dekningsgrad: 100,
@@ -520,15 +724,17 @@ Dagpenger.args = {
 
 export const GraderingPåBeregningsgrunnlagUtenPenger = Template.bind({});
 GraderingPåBeregningsgrunnlagUtenPenger.args = {
-  aksjonspunkter: [{
-    definisjon: ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
-    status: 'UTFO',
-    begrunnelse: 'her var det noe galt en gang',
-    kanLoses: true,
-    erAktivt: true,
-    endretAv: 'B123456',
-    endretTidspunkt: førSTP(5),
-  }],
+  aksjonspunkter: [
+    {
+      definisjon: ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
+      status: 'UTFO',
+      begrunnelse: 'her var det noe galt en gang',
+      kanLoses: true,
+      erAktivt: true,
+      endretAv: 'B123456',
+      endretTidspunkt: førSTP(5),
+    },
+  ],
   readOnly: true,
   beregningsgrunnlag: lagBG([malPeriode([malArbeidsandel()])], ['AT'], null, malSGGrunnlag()),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
@@ -539,9 +745,18 @@ export const ArbeidstakerDagpengerOgSelvstendigNæringsdrivendeUtenAksjonspunkt 
 ArbeidstakerDagpengerOgSelvstendigNæringsdrivendeUtenAksjonspunkt.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, false),
-    lagArbeidsandel(2, malArbeidsorhold(), 150000, null, false, false),
-    lagGenerellAndel(3, AktivitetStatus.DAGPENGER, 200000)])], ['AT_SN', 'DP'], null, malSGGrunnlag()),
+  beregningsgrunnlag: lagBG(
+    [
+      malPeriode([
+        lagSNMedPGI(1, 200000, null, false),
+        lagArbeidsandel(2, malArbeidsorhold(), 150000, null, false, false),
+        lagGenerellAndel(3, AktivitetStatus.DAGPENGER, 200000),
+      ]),
+    ],
+    ['AT_SN', 'DP'],
+    null,
+    malSGGrunnlag(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -550,13 +765,39 @@ export const ArbeidstakerMed3Arbeidsforhold2ISammeOrganisasjon = Template.bind({
 ArbeidstakerMed3Arbeidsforhold2ISammeOrganisasjon.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, lagArbeidsforhold('999999999', 'abc123abc123abc123', 'abc123abc123abc123'),
-    150000, null, false, false),
-  lagArbeidsandel(2, lagArbeidsforhold('999999999', 'osifgjoiwqhøqeh', 'osifgjoiwqhøqeh'),
-    150000, null, false, false),
-  lagArbeidsandel(2, lagArbeidsforhold('999999998', 'osifgjoiwqhøqeh', 'osifgjoiwqhøqeh'),
-    150000, null, false, false)])],
-  ['AT'], null, malSGGrunnlag()),
+  beregningsgrunnlag: lagBG(
+    [
+      malPeriode([
+        lagArbeidsandel(
+          1,
+          lagArbeidsforhold('999999999', 'abc123abc123abc123', 'abc123abc123abc123'),
+          150000,
+          null,
+          false,
+          false,
+        ),
+        lagArbeidsandel(
+          2,
+          lagArbeidsforhold('999999999', 'osifgjoiwqhøqeh', 'osifgjoiwqhøqeh'),
+          150000,
+          null,
+          false,
+          false,
+        ),
+        lagArbeidsandel(
+          2,
+          lagArbeidsforhold('999999998', 'osifgjoiwqhøqeh', 'osifgjoiwqhøqeh'),
+          150000,
+          null,
+          false,
+          false,
+        ),
+      ]),
+    ],
+    ['AT'],
+    null,
+    malSGGrunnlag(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -565,28 +806,42 @@ export const ArbeidstakerAvslagHalvG = Template.bind({});
 ArbeidstakerAvslagHalvG.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 30000, null, false, false)])],
-    ['AT'], null, malSGGrunnlag()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 30000, null, false, false)])],
+    ['AT'],
+    null,
+    malSGGrunnlag(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const ArbeidstakerMedAksjonspunktBehandlet = Template.bind({});
 ArbeidstakerMedAksjonspunktBehandlet.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, 'Dette er en begrunnelse')],
+  aksjonspunkter: [
+    lagAPMedKode(
+      ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+      'Dette er en begrunnelse',
+    ),
+  ],
   readOnly: true,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 30000, 333333, true, false)])],
-    ['AT'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 30000, 333333, true, false)])],
+    ['AT'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const FrilansMedAvvik = Template.bind({});
 FrilansMedAvvik.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagFrilansandel(1, 200000, null, true)])],
-    ['FL'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG([malPeriode([lagFrilansandel(1, 200000, null, true)])], ['FL'], null, malSGGrunnlagAvvik()),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -595,28 +850,46 @@ export const SelvstendigNæringsdrivendeUtenAksjonspunkt = Template.bind({});
 SelvstendigNæringsdrivendeUtenAksjonspunkt.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, false, false, lagNæring(false, false))])],
-    ['SN'], null, null),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagSNMedPGI(1, 200000, null, false, false, lagNæring(false, false))])],
+    ['SN'],
+    null,
+    null,
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt = Template.bind({});
 SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [
+    lagAPMedKode(
+      ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+    ),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true, false, lagNæring(false, true))])],
-    ['SN'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagSNMedPGI(1, 200000, null, true, false, lagNæring(false, true))])],
+    ['SN'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const SelvstendigNæringsdrivendNyIArbeidslivet = Template.bind({});
 SelvstendigNæringsdrivendNyIArbeidslivet.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 200000, null, true, true, lagNæring(false, false))])],
-    ['SN'], null, null),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagSNMedPGI(1, 200000, null, true, true, lagNæring(false, false))])],
+    ['SN'],
+    null,
+    null,
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -625,9 +898,17 @@ export const ArbeidstakerOgSelvstendigNæringsdrivendeSnStorreEnnAtOgStorreEnn6g
 ArbeidstakerOgSelvstendigNæringsdrivendeSnStorreEnnAtOgStorreEnn6g.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagSNMedPGI(1, 600000, null, false, false, lagNæring(false, false)),
-    lagArbeidsandel(2, malArbeidsorhold(), 200000, null, false, false)])],
-  ['AT_SN'], null, null),
+  beregningsgrunnlag: lagBG(
+    [
+      malPeriode([
+        lagSNMedPGI(1, 600000, null, false, false, lagNæring(false, false)),
+        lagArbeidsandel(2, malArbeidsorhold(), 200000, null, false, false),
+      ]),
+    ],
+    ['AT_SN'],
+    null,
+    null,
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -636,31 +917,57 @@ export const YtelseFraNav = Template.bind({});
 YtelseFraNav.args = {
   aksjonspunkter: [],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagGenerellAndel(1, AktivitetStatus.KUN_YTELSE, 325845)])],
-    ['kun_YTELSE'], null, null),
+  beregningsgrunnlag: lagBG(
+    [malPeriode([lagGenerellAndel(1, AktivitetStatus.KUN_YTELSE, 325845)])],
+    ['kun_YTELSE'],
+    null,
+    null,
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const ArbeidstakerOgAAPMedAksjonspunkt = Template.bind({});
 ArbeidstakerOgAAPMedAksjonspunkt.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+  aksjonspunkter: [
+    lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 325845, null, true, false),
-    lagGenerellAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000)])],
-  ['KUN_YTELSE', 'AT'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [
+      malPeriode([
+        lagArbeidsandel(1, malArbeidsorhold(), 325845, null, true, false),
+        lagGenerellAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000),
+      ]),
+    ],
+    ['KUN_YTELSE', 'AT'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
 export const FrilansDagpengerOgSelvstendigNæringsdrivende = Template.bind({});
 FrilansDagpengerOgSelvstendigNæringsdrivende.args = {
-  aksjonspunkter: [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE)],
+  aksjonspunkter: [
+    lagAPMedKode(
+      ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+    ),
+  ],
   readOnly: false,
-  beregningsgrunnlag: lagBG([malPeriode([lagFrilansandel(1, 100500, null, false),
-    lagSNMedPGI(2, 500000, null, true, false, lagNæring(false, true)),
-    lagGenerellAndel(3, AktivitetStatus.DAGPENGER, 100500)])],
-  ['FL_SN', 'DP'], null, malSGGrunnlagAvvik()),
+  beregningsgrunnlag: lagBG(
+    [
+      malPeriode([
+        lagFrilansandel(1, 100500, null, false),
+        lagSNMedPGI(2, 500000, null, true, false, lagNæring(false, true)),
+        lagGenerellAndel(3, AktivitetStatus.DAGPENGER, 100500),
+      ]),
+    ],
+    ['FL_SN', 'DP'],
+    null,
+    malSGGrunnlagAvvik(),
+  ),
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };

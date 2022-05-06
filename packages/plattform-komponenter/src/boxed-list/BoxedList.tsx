@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './boxedList.less';
 
 interface BoxedListProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const BoxedList: React.FunctionComponent<BoxedListProps> = ({ children }) => (

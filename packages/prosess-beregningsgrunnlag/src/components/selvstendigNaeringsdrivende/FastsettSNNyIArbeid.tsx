@@ -1,7 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import {
-  FormattedMessage, useIntl,
-} from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
@@ -14,9 +12,7 @@ import {
   required,
   formatCurrencyNoKr,
 } from '@navikt/ft-utils';
-import {
-  InputField, TextAreaField,
-} from '@navikt/ft-form-hooks';
+import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -24,9 +20,7 @@ import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/Ber
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
-import {
-  NyIArbeidslivetValues,
-} from '../../types/NaringAksjonspunktTsType';
+import { NyIArbeidslivetValues } from '../../types/NaringAksjonspunktTsType';
 
 const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
@@ -38,16 +32,19 @@ const {
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
-    endretTekst?: React.ReactNode;
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    erNyArbLivet: boolean;
-    gjeldendeAksjonspunkter: Aksjonspunkt[];
+  endretTekst?: React.ReactNode;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  erNyArbLivet: boolean;
+  gjeldendeAksjonspunkter: Aksjonspunkt[];
 };
 
 interface StaticFunctions {
-  buildInitialValuesNyIArbeidslivet: (relevanteAndeler: BeregningsgrunnlagAndel[], gjeldendeAksjonspunkter: Aksjonspunkt[]) => NyIArbeidslivetValues;
-  transformValuesNyIArbeidslivet: (values: Required<NyIArbeidslivetValues>) => NyIArbeidslivetruttoNæringResultatAP
+  buildInitialValuesNyIArbeidslivet: (
+    relevanteAndeler: BeregningsgrunnlagAndel[],
+    gjeldendeAksjonspunkter: Aksjonspunkt[],
+  ) => NyIArbeidslivetValues;
+  transformValuesNyIArbeidslivet: (values: Required<NyIArbeidslivetValues>) => NyIArbeidslivetruttoNæringResultatAP;
 }
 
 /**
@@ -59,13 +56,18 @@ interface StaticFunctions {
  * næringsinntekt for selvstendig næringsdrivende. Opprettes enten hvis det er varig endret / nyoppstartet næring eller søker er ny i arbeidslivet.
  */
 const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly, isAksjonspunktClosed, gjeldendeAksjonspunkter, erNyArbLivet,
+  readOnly,
+  isAksjonspunktClosed,
+  gjeldendeAksjonspunkter,
+  erNyArbLivet,
 }) => {
   const harGammeltAPFastsettBrutto = gjeldendeAksjonspunkter
-    ? gjeldendeAksjonspunkter.find((ap) => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)
+    ? gjeldendeAksjonspunkter.find(
+        ap => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
+      )
     : false;
   const harAPSNNyiArbLiv = gjeldendeAksjonspunkter
-    ? gjeldendeAksjonspunkter.find((ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
+    ? gjeldendeAksjonspunkter.find(ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
     : false;
   const intl = useIntl();
 
@@ -97,8 +99,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
         </>
       )}
 
-      {(harGammeltAPFastsettBrutto || harAPSNNyiArbLiv)
-      && (
+      {(harGammeltAPFastsettBrutto || harAPSNNyiArbLiv) && (
         <>
           <VerticalSpacer sixteenPx />
           <Row>
@@ -110,7 +111,9 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
                   validate={[required, maxLength1500, minLength3, hasValidText]}
                   maxLength={1500}
                   readOnly={readOnly}
-                  placeholder={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder' })}
+                  placeholder={intl.formatMessage({
+                    id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
+                  })}
                 />
               </div>
             </Column>
@@ -121,18 +124,26 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
   );
 };
 
-FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (relevanteAndeler: BeregningsgrunnlagAndel[],
-  gjeldendeAksjonspunkter: Aksjonspunkt[]): NyIArbeidslivetValues => {
-  const snAndel = relevanteAndeler.find((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
-  const nyIArbeidslivetAP = gjeldendeAksjonspunkter
-    .find((ap) => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET);
+FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
+  relevanteAndeler: BeregningsgrunnlagAndel[],
+  gjeldendeAksjonspunkter: Aksjonspunkt[],
+): NyIArbeidslivetValues => {
+  const snAndel = relevanteAndeler.find(
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  );
+  const nyIArbeidslivetAP = gjeldendeAksjonspunkter.find(
+    ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+  );
   return {
     [fastsettInntektFieldname]: snAndel ? formatCurrencyNoKr(snAndel.overstyrtPrAar) : undefined,
-    [begrunnelseFieldname]: nyIArbeidslivetAP && nyIArbeidslivetAP.begrunnelse ? nyIArbeidslivetAP.begrunnelse : undefined,
+    [begrunnelseFieldname]:
+      nyIArbeidslivetAP && nyIArbeidslivetAP.begrunnelse ? nyIArbeidslivetAP.begrunnelse : undefined,
   };
 };
 
-FastsettSNNyIArbeid.transformValuesNyIArbeidslivet = (values:Required<NyIArbeidslivetValues>): NyIArbeidslivetruttoNæringResultatAP => ({
+FastsettSNNyIArbeid.transformValuesNyIArbeidslivet = (
+  values: Required<NyIArbeidslivetValues>,
+): NyIArbeidslivetruttoNæringResultatAP => ({
   kode: FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   begrunnelse: values[begrunnelseFieldname],
   bruttoBeregningsgrunnlag: removeSpacesFromNumber(values[fastsettInntektFieldname]),

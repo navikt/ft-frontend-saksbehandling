@@ -28,13 +28,7 @@ interface OwnProps {
  *
  * Presentasjonskomponent. Modal som viser en valgfri tekst i tillegg til knappene OK og Avbryt.
  */
-const OkAvbrytModal: FunctionComponent<OwnProps> = ({
-  text,
-  okButtonText,
-  showModal,
-  cancel,
-  submit,
-}) => (
+const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showModal, cancel, submit }) => (
   <Modal
     className={styles.modal}
     isOpen={showModal}
@@ -48,21 +42,12 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({
     <FlexContainer>
       <FlexRow>
         <FlexColumn>
-          <Hovedknapp
-            mini
-            htmlType="submit"
-            onClick={submit}
-            autoFocus
-          >
+          <Hovedknapp mini htmlType="submit" onClick={submit} autoFocus>
             {okButtonText || intl.formatMessage({ id: 'OkAvbrytModal.Ok' })}
           </Hovedknapp>
         </FlexColumn>
         <FlexColumn>
-          <Knapp
-            mini
-            htmlType="reset"
-            onClick={cancel}
-          >
+          <Knapp mini htmlType="reset" onClick={cancel}>
             {intl.formatMessage({ id: 'OkAvbrytModal.Avbryt' })}
           </Knapp>
         </FlexColumn>

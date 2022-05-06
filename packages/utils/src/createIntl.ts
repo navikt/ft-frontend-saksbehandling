@@ -2,11 +2,13 @@ import { createIntl as createReactIntl, createIntlCache, IntlShape } from 'react
 
 const cache = createIntlCache();
 
-const createIntl = (messages: Record<string, string>): IntlShape => (
-  createReactIntl({
-    locale: 'nb-NO',
-    messages,
-  }, cache)
-);
+const createIntl = (messages: Record<string, string>): IntlShape =>
+  createReactIntl(
+    {
+      locale: 'nb-NO',
+      messages,
+    },
+    cache,
+  );
 
 export default createIntl;

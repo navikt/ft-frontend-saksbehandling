@@ -23,9 +23,7 @@ interface OwnProps {
  * Presentasjonskomponent. Viser hjelpetekster som forteller NAV-ansatt hva som må gjøres for
  * å avklare en eller flere aksjonspunkter.
  */
-const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({
-  children,
-}) => {
+const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({ children }) => {
   if (!children || (Array.isArray(children) && children.length === 0)) {
     return null;
   }
@@ -36,11 +34,15 @@ const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({
       <FlexContainer>
         <FlexRow>
           <FlexColumn>
-            <Image className={styles.image} alt={intl.formatMessage({ id: 'HelpText.Aksjonspunkt' })} src={advarselIkonUrl} />
+            <Image
+              className={styles.image}
+              alt={intl.formatMessage({ id: 'HelpText.Aksjonspunkt' })}
+              src={advarselIkonUrl}
+            />
           </FlexColumn>
 
           <FlexColumn className={styles.aksjonspunktText}>
-            {React.Children.map(children, (child) => (
+            {React.Children.map(children, child => (
               // @ts-ignore Fiks
               <div key={isObject(child) ? child.key : child} className={elementStyle}>
                 <Normaltekst className={styles.wordwrap}>{child}</Normaltekst>

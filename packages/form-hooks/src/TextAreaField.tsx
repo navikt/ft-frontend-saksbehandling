@@ -36,10 +36,12 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
   validate = [],
   readOnly,
   badges,
-  parse = (value) => value,
+  parse = value => value,
   ...otherProps
 }) => {
-  const { formState: { errors } } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
   const { field } = useController({
     name,
     rules: {
@@ -53,9 +55,9 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
 
   return (
     <div className={badges ? styles.textAreaFieldWithBadges : null}>
-      { badges && (
+      {badges && (
         <div className={styles.etikettWrapper}>
-          { badges.map(({ text, type, titleText }) => (
+          {badges.map(({ text, type, titleText }) => (
             <EtikettFokus key={text} type={type} title={titleText}>
               {text}
             </EtikettFokus>
@@ -67,7 +69,9 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
         autoComplete="off"
         feil={getError(errors, name)}
         {...field}
-        onChange={(event) => field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : undefined)}
+        onChange={event =>
+          field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : undefined)
+        }
         value={field.value ? field.value : ''}
         {...otherProps}
       />

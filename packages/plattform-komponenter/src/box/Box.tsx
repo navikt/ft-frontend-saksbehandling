@@ -3,17 +3,17 @@ import React from 'react';
 import styles from './box.less';
 
 export enum Margin {
-    small = 'small',
-    medium = 'medium',
-    large = 'large',
-    xLarge = 'xLarge',
-    xxLarge = 'xxLarge',
+  small = 'small',
+  medium = 'medium',
+  large = 'large',
+  xLarge = 'xLarge',
+  xxLarge = 'xxLarge',
 }
 
 export interface BoxProps {
-    children: React.ReactNode;
-    marginBottom?: Margin;
-    marginTop?: Margin;
+  children: React.ReactNode;
+  marginBottom?: Margin;
+  marginTop?: Margin;
 }
 
 const Box = ({ children, marginBottom, marginTop }: BoxProps): JSX.Element => {

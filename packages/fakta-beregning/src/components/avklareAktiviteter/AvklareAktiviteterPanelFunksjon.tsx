@@ -2,7 +2,13 @@ import React, { FunctionComponent, useEffect } from 'react';
 
 import { useFieldArray, useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkar, Vilkarperiode, } from '@navikt/ft-types';
+import {
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  Vilkar,
+  Vilkarperiode,
+} from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
 import BeregningAvklaringsbehov from '@navikt/ft-types/src/beregningAvklaringsbehovTsType';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
@@ -12,20 +18,17 @@ import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 
-const {
-  OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-  AVKLAR_AKTIVITETER,
-} = FaktaBeregningAksjonspunktCode;
+const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
-const finnVilkårperiode = (vilkår: Vilkar,
-  vilkårperiodeFom: string): Vilkarperiode => vilkår.perioder.find(({ periode }) => periode.fom === vilkårperiodeFom);
+const finnVilkårperiode = (vilkår: Vilkar, vilkårperiodeFom: string): Vilkarperiode =>
+  vilkår.perioder.find(({ periode }) => periode.fom === vilkårperiodeFom);
 
-const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[],
-  erOverstyrer: boolean): boolean => !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)
-  && !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)
-  && !erOverstyrer;
+const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOverstyrer: boolean): boolean =>
+  !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) &&
+  !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov) &&
+  !erOverstyrer;
 
 type OwnProps = {
   readOnly: boolean;
@@ -45,19 +48,24 @@ type OwnProps = {
 const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningType[] => {
   const fieldArrayList = values[formNameAvklarAktiviteter];
   const overstyrteGrunnlag = fieldArrayList
-    .filter((v) => v[MANUELL_OVERSTYRING_FIELD])
+    .filter(v => v[MANUELL_OVERSTYRING_FIELD])
     .map(transformFieldValue)
-    .filter((v) => v);
+    .filter(v => v);
   const avklarGrunnlag = fieldArrayList
-    .filter((v) => !v[MANUELL_OVERSTYRING_FIELD])
+    .filter(v => !v[MANUELL_OVERSTYRING_FIELD])
     .map(transformFieldValue)
-    .filter((v) => v);
+    .filter(v => v);
 
   const apDataTilSubmit = [];
 
   if (overstyrteGrunnlag.length > 0) {
-    const beg = overstyrteGrunnlag.map(({ begrunnelse }) => begrunnelse)
-      .reduce((samletBegrunnelse, begrunnelse) => (samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`), '');
+    const beg = overstyrteGrunnlag
+      .map(({ begrunnelse }) => begrunnelse)
+      .reduce(
+        (samletBegrunnelse, begrunnelse) =>
+          samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`,
+        '',
+      );
     const data = {
       kode: OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
       begrunnelse: beg,
@@ -67,8 +75,13 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
   }
 
   if (avklarGrunnlag.length > 0) {
-    const beg = avklarGrunnlag.map(({ begrunnelse }) => begrunnelse)
-      .reduce((samletBegrunnelse, begrunnelse) => (samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`), '');
+    const beg = avklarGrunnlag
+      .map(({ begrunnelse }) => begrunnelse)
+      .reduce(
+        (samletBegrunnelse, begrunnelse) =>
+          samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`,
+        '',
+      );
     const data = {
       kode: AVKLAR_AKTIVITETER,
       begrunnelse: beg,
@@ -80,16 +93,21 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
   return apDataTilSubmit;
 };
 
-const buildFormInitialValues = (beregningsgrunnlag: Beregningsgrunnlag[], alleKodeverk: AlleKodeverk,
+const buildFormInitialValues = (
+  beregningsgrunnlag: Beregningsgrunnlag[],
+  alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkår: Vilkar): AvklarAktiviteterFormValues => ({
-  [formNameAvklarAktiviteter]: beregningsgrunnlag.map((bg) => buildInitialValues(
-    bg.avklaringsbehov,
-    bg.faktaOmBeregning.avklarAktiviteter,
-    alleKodeverk,
-    arbeidsgiverOpplysningerPerId,
-    finnVilkårperiode(vilkår, bg.vilkårperiodeFom),
-  )),
+  vilkår: Vilkar,
+): AvklarAktiviteterFormValues => ({
+  [formNameAvklarAktiviteter]: beregningsgrunnlag.map(bg =>
+    buildInitialValues(
+      bg.avklaringsbehov,
+      bg.faktaOmBeregning.avklarAktiviteter,
+      alleKodeverk,
+      arbeidsgiverOpplysningerPerId,
+      finnVilkårperiode(vilkår, bg.vilkårperiodeFom),
+    ),
+  ),
 });
 
 /**
@@ -113,15 +131,12 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   formData,
 }) => {
   const formMethods = useForm<AvklarAktiviteterFormValues>({
-    defaultValues: formData || buildFormInitialValues(beregningsgrunnlag, alleKodeverk, arbeidsgiverOpplysningerPerId, vilkår),
+    defaultValues:
+      formData || buildFormInitialValues(beregningsgrunnlag, alleKodeverk, arbeidsgiverOpplysningerPerId, vilkår),
   });
 
   const {
-    formState: {
-      dirtyFields,
-      errors,
-      isSubmitted
-    },
+    formState: { dirtyFields, errors, isSubmitted },
     control,
     getValues,
     trigger,
@@ -133,12 +148,9 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     }
   }, [aktivtBeregningsgrunnlagIndeks]);
 
-  const avklaringsbehov = beregningsgrunnlag.flatMap((bg) => bg.avklaringsbehov);
+  const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
 
-  const {
-    fields,
-    update
-  } = useFieldArray({
+  const { fields, update } = useFieldArray({
     name: formNameAvklarAktiviteter,
     control,
   });
@@ -147,7 +159,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     const currVal = getValues(`avklarAktiviteterForm.${index}`);
     update(index, {
       ...currVal,
-      manuellOverstyringBeregningAktiviteter: skalOverstyre
+      manuellOverstyringBeregningAktiviteter: skalOverstyre,
     });
   };
 
@@ -155,7 +167,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     return null;
   }
 
-  const losAvklaringsbehov = (values) => {
+  const losAvklaringsbehov = values => {
     if (Object.keys(errors).length === 0) {
       submitCallback(transformValues(values as AvklarAktiviteterFormValues));
     }
@@ -166,12 +178,12 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
       <Form<AvklarAktiviteterFormValues>
         // @ts-ignore
         formMethods={formMethods}
-        onSubmit={(values) => losAvklaringsbehov(values)}
+        onSubmit={values => losAvklaringsbehov(values)}
         setDataOnUnmount={setFormData}
       >
-        {fields.map((field, index) => (
-          (aktivtBeregningsgrunnlagIndeks === index
-            && (
+        {fields.map(
+          (field, index) =>
+            aktivtBeregningsgrunnlagIndeks === index && (
               <AvklareAktiviteterField
                 aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
                 key={field.id}
@@ -185,10 +197,10 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 updateOverstyring={updateOverstyring}
               />
-            ))
-        ))}
+            ),
+        )}
       </Form>
-      {harAndreAvklaringsbehovIPanel && <VerticalSpacer twentyPx/>}
+      {harAndreAvklaringsbehovIPanel && <VerticalSpacer twentyPx />}
     </>
   );
 };

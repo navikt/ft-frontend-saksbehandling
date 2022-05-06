@@ -10,12 +10,7 @@ export default {
 };
 
 const Template: Story = () => (
-  <OkAvbrytModal
-    text="Dette er ein test"
-    showModal
-    submit={action('button-click')}
-    cancel={action('button-click')}
-  />
+  <OkAvbrytModal text="Dette er ein test" showModal submit={action('button-click')} cancel={action('button-click')} />
 );
 
 export const Default = Template.bind({});

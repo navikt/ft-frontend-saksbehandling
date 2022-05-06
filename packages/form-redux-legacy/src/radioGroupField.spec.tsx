@@ -7,16 +7,17 @@ import { mount } from 'enzyme';
 import RadioGroupField from './RadioGroupField';
 import RadioOption from './RadioOption';
 
-const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => <form onSubmit={handleSubmit}>{children}</form>);
-const mountFieldInForm = (field) => mount(
-  <Provider store={createStore(combineReducers({ form: formReducer }))}>
-    <IntlProvider locale="nb-NO" messages={{}}>
-      <MockForm>
-        {field}
-      </MockForm>
-    </IntlProvider>
-  </Provider>,
-);
+const MockForm = reduxForm({ form: 'mock' })(({ handleSubmit, children }) => (
+  <form onSubmit={handleSubmit}>{children}</form>
+));
+const mountFieldInForm = field =>
+  mount(
+    <Provider store={createStore(combineReducers({ form: formReducer }))}>
+      <IntlProvider locale="nb-NO" messages={{}}>
+        <MockForm>{field}</MockForm>
+      </IntlProvider>
+    </Provider>,
+  );
 
 describe('<RadioGroupField>', () => {
   it('Skal rendre radio inputs', () => {

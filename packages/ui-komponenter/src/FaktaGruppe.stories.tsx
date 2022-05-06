@@ -7,17 +7,9 @@ export default {
   component: FaktaGruppe,
 };
 
-export const visDefaultFaktagruppe = () => (
-  <FaktaGruppe>
-    Dette er en tekst
-  </FaktaGruppe>
-);
+export const visDefaultFaktagruppe = () => <FaktaGruppe>Dette er en tekst</FaktaGruppe>;
 
-export const visFaktagruppeMedTittel = () => (
-  <FaktaGruppe title="Dette er en tittel">
-    Dette er en tekst
-  </FaktaGruppe>
-);
+export const visFaktagruppeMedTittel = () => <FaktaGruppe title="Dette er en tittel">Dette er en tekst</FaktaGruppe>;
 
 export const visFaktagruppeUtenKantlinje = () => (
   <FaktaGruppe title="Dette er en tittel" withoutBorder>

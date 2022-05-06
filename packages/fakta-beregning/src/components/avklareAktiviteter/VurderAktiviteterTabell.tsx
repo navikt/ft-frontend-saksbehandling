@@ -1,14 +1,10 @@
-import React from 'react';
-import moment from 'moment';
-
-import { KodeverkType, opptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { getKodeverknavnFn } from '@navikt/ft-utils';
-
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet, } from '@navikt/ft-types';
-import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-
-import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
+import moment from 'moment';
 import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
+import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på
@@ -31,8 +27,8 @@ const aktivitetFieldIdPrefiks = (aktivitet: BeregningAktivitet, idType: string):
  * @param aktivitet
  * @returns aktivitetFieldId
  */
-const appendAktivitetFieldIdSuffiks = (aktivitetPrefiks: string,
-  aktivitet: BeregningAktivitet): string => aktivitetPrefiks + aktivitet.fom.replace('.', '');
+const appendAktivitetFieldIdSuffiks = (aktivitetPrefiks: string, aktivitet: BeregningAktivitet): string =>
+  aktivitetPrefiks + aktivitet.fom.replace('.', '');
 
 /**
  * Oppretter en unik ID for en aktivitet. Denne IDen brukes for å identifisere aktiviteter, slik at man f.eks kan
@@ -45,7 +41,10 @@ const appendAktivitetFieldIdSuffiks = (aktivitetPrefiks: string,
  */
 export const lagAktivitetFieldId = (aktivitet: BeregningAktivitet): string => {
   if (aktivitet.arbeidsgiverIdent || aktivitet.aktørIdString) {
-    const aktivitetPrefiks = aktivitetFieldIdPrefiks(aktivitet, aktivitet.arbeidsgiverIdent ? aktivitet.arbeidsgiverIdent : aktivitet.aktørIdString);
+    const aktivitetPrefiks = aktivitetFieldIdPrefiks(
+      aktivitet,
+      aktivitet.arbeidsgiverIdent ? aktivitet.arbeidsgiverIdent : aktivitet.aktørIdString,
+    );
     return appendAktivitetFieldIdSuffiks(aktivitetPrefiks, aktivitet);
   }
   return appendAktivitetFieldIdSuffiks(aktivitet.arbeidsforholdType, aktivitet);
@@ -59,8 +58,8 @@ export const lagAktivitetFieldId = (aktivitet: BeregningAktivitet): string => {
  * @param {*} ingenAktiviterErBrukt true hvis ingen aktiviteter er brukt
  * @returns true hvis aktivitet er valgbar (uavhengig av overstyring)
  */
-const erAktivitetValgbar = (erSkjæringstidpunktLikEllerFørTom: boolean,
-  ingenAktiviterErBrukt: boolean): boolean => erSkjæringstidpunktLikEllerFørTom || ingenAktiviterErBrukt;
+const erAktivitetValgbar = (erSkjæringstidpunktLikEllerFørTom: boolean, ingenAktiviterErBrukt: boolean): boolean =>
+  erSkjæringstidpunktLikEllerFørTom || ingenAktiviterErBrukt;
 
 /**
  * Denne metoden avgjør om en aktivitet skal kunne vurderes - eller ikke. Dvs om det skal kunne velges
@@ -72,11 +71,13 @@ const erAktivitetValgbar = (erSkjæringstidpunktLikEllerFørTom: boolean,
  * @param {*} erSkjæringstidpunktLikEllerFørTom - om et gjeldende skjæringstidspunkt er lik eller før t.o.m dato
  * @param {*} ingenAktiviterErBrukt - true hvis alle aktiviteter er satt til "Ikke benytt"
  */
-export const skalVurdereAktivitet = (aktivitet: BeregningAktivitet,
+export const skalVurdereAktivitet = (
+  aktivitet: BeregningAktivitet,
   skalOverstyre: boolean,
   harAksjonspunkt: boolean,
   erSkjæringstidpunktLikEllerFørTom: boolean,
-  ingenAktiviterErBrukt: boolean): boolean => {
+  ingenAktiviterErBrukt: boolean,
+): boolean => {
   if (!skalOverstyre && !harAksjonspunkt) {
     return false;
   }
@@ -89,80 +90,106 @@ export const skalVurdereAktivitet = (aktivitet: BeregningAktivitet,
   return true;
 };
 
-const lagVisningsnavn = (aktivitet: BeregningAktivitet,
+const lagVisningsnavn = (
+  aktivitet: BeregningAktivitet,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk): string => {
+  alleKodeverk: AlleKodeverk,
+): string => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent];
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? getKodeverknavnFn(alleKodeverk)(aktivitet.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE) : '';
+      ? getKodeverknavnFn(alleKodeverk)(aktivitet.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      : '';
   }
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
 };
 
-const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1)
-  .isSameOrBefore(moment(dato2));
+const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));
 
-const skalBrukesPretufylling = (aktivitet: BeregningAktivitet,
+const skalBrukesPretufylling = (
+  aktivitet: BeregningAktivitet,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
-  erTomLikEllerFørSkjæringstidpunkt: boolean): string => {
+  erTomLikEllerFørSkjæringstidpunkt: boolean,
+): string => {
   if (skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt, erTomLikEllerFørSkjæringstidpunkt, false)) {
     if (aktivitet.skalBrukes === undefined || aktivitet.skalBrukes === null) {
       return null;
     }
     return aktivitet.skalBrukes.toString();
   }
-  return aktivitet.skalBrukes === true || aktivitet.skalBrukes === null || aktivitet.skalBrukes === undefined ? 'true' : 'false';
+  return aktivitet.skalBrukes === true || aktivitet.skalBrukes === null || aktivitet.skalBrukes === undefined
+    ? 'true'
+    : 'false';
 };
 
-const mapToInitialValues = (aktivitet: BeregningAktivitet,
+const mapToInitialValues = (
+  aktivitet: BeregningAktivitet,
   alleKodeverk: AlleKodeverk,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
   erTomLikEllerFørSkjæringstidpunkt: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): AktivitetValues => ({
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): AktivitetValues => ({
   beregningAktivitetNavn: lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk),
   fom: aktivitet.fom,
   tom: aktivitet.tom,
   skalBrukes: skalBrukesPretufylling(aktivitet, erOverstyrt, harAksjonspunkt, erTomLikEllerFørSkjæringstidpunkt),
 });
 
-export const transformValues = (values: AvklarAktiviteterValues,
+export const transformValues = (
+  values: AvklarAktiviteterValues,
   aktiviteter: BeregningAktivitet[],
   valgtSkjæringstidspunkt: string,
-  tomDatoForAktivitetGruppe: string): BeregningAktivitetTransformedValues[] => {
-  const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(valgtSkjæringstidspunkt, tomDatoForAktivitetGruppe);
+  tomDatoForAktivitetGruppe: string,
+): BeregningAktivitetTransformedValues[] => {
+  const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(
+    valgtSkjæringstidspunkt,
+    tomDatoForAktivitetGruppe,
+  );
   return aktiviteter
-    .filter((aktivitet) => values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'false'
-      || values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null)
-    .map((aktivitet) => ({
+    .filter(
+      aktivitet =>
+        values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'false' ||
+        values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null,
+    )
+    .map(aktivitet => ({
       oppdragsgiverOrg: aktivitet.aktørIdString ? null : aktivitet.arbeidsgiverIdent,
       arbeidsforholdRef: aktivitet.arbeidsforholdId,
       fom: aktivitet.fom,
-      tom: values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null
-        ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom
-        : aktivitet.tom,
+      tom:
+        values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null
+          ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom
+          : aktivitet.tom,
       opptjeningAktivitetType: aktivitet.arbeidsforholdType ? aktivitet.arbeidsforholdType : null,
       arbeidsgiverIdentifikator: aktivitet.arbeidsgiverIdent,
-      skalBrukes: erValgtSkjæringstidspunktLikEllerFørTomDato ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'true' : true,
+      skalBrukes: erValgtSkjæringstidspunktLikEllerFørTomDato
+        ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'true'
+        : true,
     }));
 };
 
-export const buildInitialValues = (aktiviteter: BeregningAktivitet[],
+export const buildInitialValues = (
+  aktiviteter: BeregningAktivitet[],
   alleKodeverk: AlleKodeverk,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
   erTomLikEllerFørSkjæringstidpunkt: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): AktiviteterValues => {
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): AktiviteterValues => {
   if (!aktiviteter) {
     return {};
   }
   const initialValues = {};
-  aktiviteter.forEach((aktivitet) => {
-    initialValues[lagAktivitetFieldId(aktivitet)] = mapToInitialValues(aktivitet, alleKodeverk, erOverstyrt, harAksjonspunkt,
-      erTomLikEllerFørSkjæringstidpunkt, arbeidsgiverOpplysningerPerId);
+  aktiviteter.forEach(aktivitet => {
+    initialValues[lagAktivitetFieldId(aktivitet)] = mapToInitialValues(
+      aktivitet,
+      alleKodeverk,
+      erOverstyrt,
+      harAksjonspunkt,
+      erTomLikEllerFørSkjæringstidpunkt,
+      arbeidsgiverOpplysningerPerId,
+    );
   });
   return initialValues;
 };
-

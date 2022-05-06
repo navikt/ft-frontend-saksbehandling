@@ -7,7 +7,8 @@ import {
 import { NyIArbeidslivetValues, VurderOgFastsettValues } from './NaringAksjonspunktTsType';
 import DekningsgradValues from './DekningsgradAksjonspunktTsType';
 
-type BeregningsgrunnlagValues = ATFLDekningsgradBegrunnelseValues
+type BeregningsgrunnlagValues =
+  | ATFLDekningsgradBegrunnelseValues
   | ATFLTidsbegrensetValues
   | FrilansInntektValues
   | VurderOgFastsettValues

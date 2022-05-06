@@ -4,9 +4,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
 
 import { InputField } from '@navikt/ft-form-hooks';
-import {
-  formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required,
-} from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
@@ -18,7 +16,7 @@ interface StaticFunctions {
 }
 
 type OwnProps = {
-    readOnly: boolean;
+  readOnly: boolean;
 };
 
 const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => (
@@ -42,16 +40,16 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
   </Row>
 );
 
-AksjonspunktBehandlerFL.transformValuesForFL = (values: ArbeidstakerFrilansValues): number => (values.inntektFrilanser !== undefined
-  ? removeSpacesFromNumber(values.inntektFrilanser)
-  : null);
+AksjonspunktBehandlerFL.transformValuesForFL = (values: ArbeidstakerFrilansValues): number =>
+  values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null;
 
-AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler) => {
+AksjonspunktBehandlerFL.buildInitialValues = relevanteAndeler => {
   if (relevanteAndeler.length === 0) {
     return undefined;
   }
   return {
-    inntektFrilanser: relevanteAndeler[0].overstyrtPrAar !== undefined ? formatCurrencyNoKr(relevanteAndeler[0].overstyrtPrAar) : '',
+    inntektFrilanser:
+      relevanteAndeler[0].overstyrtPrAar !== undefined ? formatCurrencyNoKr(relevanteAndeler[0].overstyrtPrAar) : '',
   };
 };
 

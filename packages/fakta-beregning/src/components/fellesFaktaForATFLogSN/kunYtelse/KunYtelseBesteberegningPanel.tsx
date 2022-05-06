@@ -23,12 +23,12 @@ import {
 export const besteberegningField = 'besteberegningField';
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    brukersAndelFieldArrayName: string;
-    erBesteberegning?: boolean;
-    skalViseInntektstabell?: boolean;
-    alleKodeverk: AlleKodeverk;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  brukersAndelFieldArrayName: string;
+  erBesteberegning?: boolean;
+  skalViseInntektstabell?: boolean;
+  alleKodeverk: AlleKodeverk;
 };
 
 interface StaticFunctions {
@@ -61,8 +61,7 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
       <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
       <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
     </RadioGroupField>
-    {erBesteberegning !== undefined && erBesteberegning !== null
-    && (
+    {erBesteberegning !== undefined && erBesteberegning !== null && (
       <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
         <Row>
           <Column xs="9">
@@ -70,8 +69,7 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
               <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
             </Element>
           </Column>
-          {erBesteberegning
-          && (
+          {erBesteberegning && (
             <Column xs="3">
               <a
                 className={styles.navetLink}
@@ -84,18 +82,17 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
             </Column>
           )}
         </Row>
-        {skalViseInntektstabell
-        && (
-        <Row>
-          <Column xs="12">
-            <FieldArray
-              name={brukersAndelFieldArrayName}
-              component={BrukersAndelFieldArray}
-              readOnly={readOnly}
-              alleKodeverk={alleKodeverk}
-            />
-          </Column>
-        </Row>
+        {skalViseInntektstabell && (
+          <Row>
+            <Column xs="12">
+              <FieldArray
+                name={brukersAndelFieldArrayName}
+                component={BrukersAndelFieldArray}
+                readOnly={readOnly}
+                alleKodeverk={alleKodeverk}
+              />
+            </Column>
+          </Row>
         )}
       </ArrowBox>
     )}
@@ -107,7 +104,9 @@ KunYtelseBesteberegningImpl.defaultProps = {
   skalViseInntektstabell: true,
 };
 
-KunYtelseBesteberegningImpl.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({ [besteberegningField]: kunYtelse.erBesteberegning });
+KunYtelseBesteberegningImpl.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({
+  [besteberegningField]: kunYtelse.erBesteberegning,
+});
 
 KunYtelseBesteberegningImpl.validate = (values: FaktaOmBeregningAksjonspunktValues): any => {
   const errors = {};
@@ -115,9 +114,10 @@ KunYtelseBesteberegningImpl.validate = (values: FaktaOmBeregningAksjonspunktValu
   return errors;
 };
 
-KunYtelseBesteberegningImpl.transformValues = (values: FaktaOmBeregningAksjonspunktValues): boolean => (values[besteberegningField]);
+KunYtelseBesteberegningImpl.transformValues = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
+  values[besteberegningField];
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   erBesteberegning: getFormValuesForBeregning(state)[besteberegningField],
 });
 

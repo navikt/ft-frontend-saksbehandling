@@ -17,12 +17,7 @@ interface OwnProps {
  *
  * Presentasjonskomponent. Tabellkolonne som brukes av komponenten Table.
  */
-const TableColumn: FunctionComponent<OwnProps> = ({
-  children = '',
-  className,
-  hidden = false,
-  colspanAll = false,
-}) => {
+const TableColumn: FunctionComponent<OwnProps> = ({ children = '', className, hidden = false, colspanAll = false }) => {
   if (hidden) {
     return null;
   }

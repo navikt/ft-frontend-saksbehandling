@@ -8,7 +8,7 @@ import { AvsnittSkiller, VerticalSpacer, EditedIcon } from '@navikt/ft-ui-kompon
 import styles from './graderingUtenBGReadOnly.less';
 
 type OwnProps = {
-    aksjonspunkt: Aksjonspunkt;
+  aksjonspunkt: Aksjonspunkt;
 };
 
 /**
@@ -16,9 +16,7 @@ type OwnProps = {
  * Vil ikke lenger oppstå men vi må kunne vise begrunnelsen som ble
  * oppgitt av saksbehandler og en kort beskrivelse av aksjonspunktet.
  */
-const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({
-  aksjonspunkt,
-}) => {
+const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ aksjonspunkt }) => {
   if (!aksjonspunkt || !aksjonspunkt.begrunnelse) {
     return null;
   }
@@ -30,9 +28,7 @@ const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({
       </Element>
       <VerticalSpacer sixteenPx />
       <Normaltekst className={styles.readOnlyBlokk}>
-        {aksjonspunkt.begrunnelse}
-        {' '}
-        <EditedIcon />
+        {aksjonspunkt.begrunnelse} <EditedIcon />
       </Normaltekst>
     </>
   );

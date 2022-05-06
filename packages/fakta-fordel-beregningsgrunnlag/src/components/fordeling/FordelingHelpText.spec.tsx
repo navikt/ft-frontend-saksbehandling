@@ -1,6 +1,6 @@
 import { createFordelArbeidsforholdString, textCase } from './FordelingHelpText';
 
-const fn = (kode) => {
+const fn = kode => {
   if (kode === 'AAP') {
     return 'Arbeidsavklaringspenger';
   }
@@ -49,13 +49,16 @@ describe('<FordelingHelpText>', () => {
 
   it('skal lage endret arbeidsforhold for permisjon når permisjonTom er undefined', () => {
     const string = createFordelArbeidsforholdString(
-      [{
-        ...arbeidsforhold,
-        permisjon: {
-          permisjonFom: '2016-10-01',
-          permisjonTom: undefined,
+      [
+        {
+          ...arbeidsforhold,
+          permisjon: {
+            permisjonFom: '2016-10-01',
+            permisjonTom: undefined,
+          },
         },
-      }], textCase.PERMISJON,
+      ],
+      textCase.PERMISJON,
       agOpplysninger,
       fn,
     );
@@ -90,7 +93,12 @@ describe('<FordelingHelpText>', () => {
   };
 
   it('skal lage endret arbeidsforhold for endring i ytelse', () => {
-    const string = createFordelArbeidsforholdString([arbeidsforholdMedEndringISøktYtelse], textCase.ENDRING_YTELSE, agOpplysninger, fn);
+    const string = createFordelArbeidsforholdString(
+      [arbeidsforholdMedEndringISøktYtelse],
+      textCase.ENDRING_YTELSE,
+      agOpplysninger,
+      fn,
+    );
     expect(string).toEqual('Sopra Steria (123456789)...6789 f.o.m. 01.01.2016 - t.o.m. 01.01.2026');
   });
 });

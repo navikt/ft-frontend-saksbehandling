@@ -3,9 +3,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import 'moment/locale/nb';
-import {
-  DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT,
-} from './formats';
+import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
 
 dayjs.extend(utc);
 dayjs.extend(duration);
@@ -16,7 +14,7 @@ type WeekAndDay = {
   id: string;
   weeks?: number;
   days?: number;
-}
+};
 
 // TODO Denne funksjonen må ut ifrå utils. Dette er uttakslogikk
 const checkDays = (weeks?: number, days?: number): WeekAndDay => {
@@ -110,14 +108,12 @@ export const dateFormat = (date?: Date | string): string => moment(date).format(
 export const timeFormat = (date: string): string => moment(date).format(HHMM_TIME_FORMAT);
 
 // Skal ikke legge til dag når dato er tidenes ende
-export const addDaysToDate = (dateString: string, nrOfDays: number): string => (dateString === TIDENES_ENDE
-  ? dateString
-  : moment(dateString, ISO_DATE_FORMAT).add(nrOfDays, 'days').format(ISO_DATE_FORMAT));
+export const addDaysToDate = (dateString: string, nrOfDays: number): string =>
+  dateString === TIDENES_ENDE
+    ? dateString
+    : moment(dateString, ISO_DATE_FORMAT).add(nrOfDays, 'days').format(ISO_DATE_FORMAT);
 
-const hentMånederMellom = (
-  fomDate: Dayjs,
-  tomDate: Dayjs,
-) => {
+const hentMånederMellom = (fomDate: Dayjs, tomDate: Dayjs) => {
   const diff = tomDate.startOf('month').diff(fomDate.endOf('month'));
   const diffDuration = dayjs.duration(diff);
   return diffDuration.months();
@@ -126,7 +122,7 @@ const hentMånederMellom = (
 export const findDifferenceInMonthsAndDays = (
   fomDate: string,
   tomDate: string,
-): { months: number; days: number; } | undefined => {
+): { months: number; days: number } | undefined => {
   const fDate = dayjs(fomDate, ISO_DATE_FORMAT, true).utc(true);
   const tDate = dayjs(tomDate, ISO_DATE_FORMAT, true).utc(true);
   if (!fDate.isValid() || !tDate.isValid() || fDate.isAfter(tDate)) {
@@ -164,15 +160,17 @@ export const findDifferenceInMonthsAndDays = (
   };
 };
 
-export const getRangeOfMonths = (fom: string, tom: string): { month: string, year: string }[] => {
+export const getRangeOfMonths = (fom: string, tom: string): { month: string; year: string }[] => {
   moment.locale('nb');
   const fraMåned = moment(fom, YYYY_MM_FORMAT);
   const tilMåned = moment(tom, YYYY_MM_FORMAT);
   let currentMonth = fraMåned;
-  const range = [{
-    month: currentMonth.format('MMMM'),
-    year: currentMonth.format('YY'),
-  }];
+  const range = [
+    {
+      month: currentMonth.format('MMMM'),
+      year: currentMonth.format('YY'),
+    },
+  ];
 
   while (currentMonth.isBefore(tilMåned)) {
     currentMonth = currentMonth.add(1, 'month');

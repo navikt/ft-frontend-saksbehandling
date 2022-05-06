@@ -4,15 +4,13 @@ import PageError from '../page-error/PageError';
 import styles from './pageContainer.less';
 
 interface PageContainerProps {
-    isLoading?: boolean;
-    hasError?: boolean;
-    preventUnmount?: boolean;
-    children?: React.ReactNode;
+  isLoading?: boolean;
+  hasError?: boolean;
+  preventUnmount?: boolean;
+  children?: React.ReactNode;
 }
 
-const PageContainer = ({
-  isLoading, hasError, preventUnmount, children,
-}: PageContainerProps): JSX.Element => {
+const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageContainerProps): JSX.Element => {
   const shouldHideChildren = isLoading || hasError;
 
   const renderChildrenContent = () => {

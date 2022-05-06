@@ -18,7 +18,7 @@ interface FieldComponentProps {
   isEdited?: boolean;
 }
 
-const renderNavField = (WrappedNavFieldComponent) => {
+const renderNavField = WrappedNavFieldComponent => {
   const FieldComponent = (props: FieldComponentProps & WrappedFieldProps) => {
     const {
       input,
@@ -39,9 +39,11 @@ const renderNavField = (WrappedNavFieldComponent) => {
       label: <Label input={label} readOnly={readOnly} />,
     };
 
-    return readOnly
-      ? <WrappedNavFieldComponent {...fieldProps} {...input} isEdited={isEdited} {...otherProps} readOnly={readOnly} />
-      : <WrappedNavFieldComponent {...fieldProps} {...input} {...otherProps} readOnly={readOnly} />;
+    return readOnly ? (
+      <WrappedNavFieldComponent {...fieldProps} {...input} isEdited={isEdited} {...otherProps} readOnly={readOnly} />
+    ) : (
+      <WrappedNavFieldComponent {...fieldProps} {...input} {...otherProps} readOnly={readOnly} />
+    );
   };
 
   FieldComponent.defaultProps = {

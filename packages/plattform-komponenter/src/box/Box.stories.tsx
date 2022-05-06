@@ -7,7 +7,7 @@ export default {
   component: Box,
 };
 
-const Template: Story<ComponentProps<typeof Box>> = (args) => (
+const Template: Story<ComponentProps<typeof Box>> = args => (
   <Box {...args} marginTop={Margin.xxLarge} marginBottom={Margin.large}>
     <p>Dette er en box</p>
   </Box>

@@ -7,8 +7,13 @@ import { getKodeverknavnFn, removeSpacesFromNumber, required } from '@navikt/ft-
 import { KodeverkType, FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag,
-  ArbeidstakerUtenIMAndel, BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, AlleKodeverk, VurderMottarYtelse,
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  ArbeidstakerUtenIMAndel,
+  BeregningsgrunnlagArbeidsforhold,
+  FaktaOmBeregning,
+  AlleKodeverk,
+  VurderMottarYtelse,
 } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import {
@@ -20,80 +25,86 @@ import {
 } from './VurderMottarYtelseUtils';
 import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import {
-  FaktaOmBeregningAksjonspunktValues,
-  VurderMottarYtelseValues,
-} from '../../../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 
-const andreFrilansTilfeller = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL, FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON];
+const andreFrilansTilfeller = [
+  FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
+  FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
+];
 
-export const mottarYtelseForArbeidMsg = () => ('BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid');
+export const mottarYtelseForArbeidMsg = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid';
 
-const utledArbeidsforholdUtenIMRadioTekst = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
+const utledArbeidsforholdUtenIMRadioTekst = (
+  arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
   alleKodeverk: AlleKodeverk,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): React.ReactNode => {
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): React.ReactNode => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
   let radioNavn;
   if (!agOpplysning) {
     radioNavn = arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavnFn(alleKodeverk)(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE) : '';
+      ? getKodeverknavnFn(alleKodeverk)(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      : '';
   } else {
     radioNavn = createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
   }
-  return (
-    <FormattedMessage id={mottarYtelseForArbeidMsg()} values={{ arbeid: radioNavn }} />
-  );
+  return <FormattedMessage id={mottarYtelseForArbeidMsg()} values={{ arbeid: radioNavn }} />;
 };
 
-const mottarYtelseArbeidsforholdRadio = (andel: ArbeidstakerUtenIMAndel,
+const mottarYtelseArbeidsforholdRadio = (
+  andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
   isAksjonspunktClosed: boolean,
   alleKodeverk: AlleKodeverk,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): React.ReactNode => (
-    <div key={utledArbeidsforholdFieldName(andel)}>
-      <div>
-        <Normaltekst>
-          {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
-        </Normaltekst>
-      </div>
-      <VerticalSpacer eightPx />
-      <RadioGroupField
-        name={`vurderMottarYtelseValues.${utledArbeidsforholdFieldName(andel)}`}
-        readOnly={readOnly}
-        isEdited={isAksjonspunktClosed}
-      >
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-      </RadioGroupField>
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): React.ReactNode => (
+  <div key={utledArbeidsforholdFieldName(andel)}>
+    <div>
+      <Normaltekst>
+        {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
+      </Normaltekst>
     </div>
+    <VerticalSpacer eightPx />
+    <RadioGroupField
+      name={`vurderMottarYtelseValues.${utledArbeidsforholdFieldName(andel)}`}
+      readOnly={readOnly}
+      isEdited={isAksjonspunktClosed}
+    >
+      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
+    </RadioGroupField>
+  </div>
 );
 
-export const frilansMedAndreFrilanstilfeller = () => ('BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans');
-export const frilansUtenAndreFrilanstilfeller = () => ('BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans');
+export const frilansMedAndreFrilanstilfeller = () =>
+  'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
+export const frilansUtenAndreFrilanstilfeller = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
 
-const finnFrilansTekstKode = (tilfeller) => {
-  if (tilfeller.some((tilfelle) => andreFrilansTilfeller.includes(tilfelle))) {
+const finnFrilansTekstKode = tilfeller => {
+  if (tilfeller.some(tilfelle => andreFrilansTilfeller.includes(tilfelle))) {
     return frilansMedAndreFrilanstilfeller();
   }
   return frilansUtenAndreFrilanstilfeller();
 };
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    tilfeller: string[];
-    beregningsgrunnlag: Beregningsgrunnlag;
-    alleKodeverk: AlleKodeverk;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  tilfeller: string[];
+  beregningsgrunnlag: Beregningsgrunnlag;
+  alleKodeverk: AlleKodeverk;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 interface StaticFunctions {
   validate: (values: FaktaOmBeregningAksjonspunktValues, vurderMottarYtelse: VurderMottarYtelse) => any;
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues,
-                    inntektVerdier: InntektTransformed[],
-                    faktaOmBeregning: FaktaOmBeregning,
-                    beregningsgrunnlag: Beregningsgrunnlag,
-                    fastsatteAndelsnr: number[]) => FaktaBeregningTransformedValues;
+  transformValues: (
+    values: FaktaOmBeregningAksjonspunktValues,
+    inntektVerdier: InntektTransformed[],
+    faktaOmBeregning: FaktaOmBeregning,
+    beregningsgrunnlag: Beregningsgrunnlag,
+    fastsatteAndelsnr: number[],
+  ) => FaktaBeregningTransformedValues;
   buildInitialValues: (vurderMottarYtelse: VurderMottarYtelse) => VurderMottarYtelseValues;
 }
 
@@ -103,16 +114,25 @@ interface StaticFunctions {
  * Presentasjonskomponent. Setter opp aksjonspunktet VURDER_FAKTA_FOR_ATFL_SN for tilfelle VURDER_MOTTAR_YTELSE som ber
  * bruker vurder om bruker har mottatt ytelse for en eller flere aktiviteter.
  */
-const VurderMottarYtelseForm:FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly, isAksjonspunktClosed, beregningsgrunnlag, tilfeller, alleKodeverk, arbeidsgiverOpplysningerPerId,
+const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly,
+  isAksjonspunktClosed,
+  beregningsgrunnlag,
+  tilfeller,
+  alleKodeverk,
+  arbeidsgiverOpplysningerPerId,
 }) => {
-  const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse : undefined;
+  const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
+    ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
+    : undefined;
   const erFrilans = vurderMottarYtelse && vurderMottarYtelse.erFrilans;
-  const arbeidsforholdUtenIM = vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM ? vurderMottarYtelse.arbeidstakerAndelerUtenIM : [];
+  const arbeidsforholdUtenIM =
+    vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
+      ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
+      : [];
   return (
     <div>
-      {erFrilans
-      && (
+      {erFrilans && (
         <div>
           <div key={finnFrilansFieldName()}>
             <Normaltekst>
@@ -130,19 +150,27 @@ const VurderMottarYtelseForm:FunctionComponent<OwnProps> & StaticFunctions = ({
           </RadioGroupField>
         </div>
       )}
-      {arbeidsforholdUtenIM.map((andel) => (
-        mottarYtelseArbeidsforholdRadio(andel, readOnly, isAksjonspunktClosed, alleKodeverk, arbeidsgiverOpplysningerPerId)
-      ))}
+      {arbeidsforholdUtenIM.map(andel =>
+        mottarYtelseArbeidsforholdRadio(
+          andel,
+          readOnly,
+          isAksjonspunktClosed,
+          alleKodeverk,
+          arbeidsgiverOpplysningerPerId,
+        ),
+      )}
     </div>
   );
 };
 
-const transformValuesArbeidstakerUtenIM = (values: FaktaOmBeregningAksjonspunktValues,
+const transformValuesArbeidstakerUtenIM = (
+  values: FaktaOmBeregningAksjonspunktValues,
   inntektVerdier: InntektTransformed[],
   faktaOmBeregning: FaktaOmBeregning,
   beregningsgrunnlag: Beregningsgrunnlag,
   fastsatteAndelsnr: number[],
-  faktaOmBeregningTilfeller: string[]): FaktaBeregningTransformedValues => {
+  faktaOmBeregningTilfeller: string[],
+): FaktaBeregningTransformedValues => {
   if (inntektVerdier === null) {
     return {};
   }
@@ -150,9 +178,9 @@ const transformValuesArbeidstakerUtenIM = (values: FaktaOmBeregningAksjonspunktV
   if (skalFastsetteAT) {
     const listeMedFastsatteMaanedsinntekter = [];
     const mottarYtelseMap = andelsnrMottarYtelseMap(values, faktaOmBeregning.vurderMottarYtelse, beregningsgrunnlag);
-    faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM.forEach((andel) => {
+    faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM.forEach(andel => {
       if (mottarYtelseMap[andel.andelsnr] && !fastsatteAndelsnr.includes(andel.andelsnr)) {
-        const inntektUtenFormat = inntektVerdier.find((field) => field.andelsnr === andel.andelsnr).fastsattBelop;
+        const inntektUtenFormat = inntektVerdier.find(field => field.andelsnr === andel.andelsnr).fastsattBelop;
         if (inntektUtenFormat || inntektUtenFormat === 0) {
           listeMedFastsatteMaanedsinntekter.push({
             andelsnr: andel.andelsnr,
@@ -173,24 +201,27 @@ const transformValuesArbeidstakerUtenIM = (values: FaktaOmBeregningAksjonspunktV
   return {};
 };
 
-const transformValuesFrilans = (values: FaktaOmBeregningAksjonspunktValues,
+const transformValuesFrilans = (
+  values: FaktaOmBeregningAksjonspunktValues,
   inntektVerdier: InntektTransformed[],
   beregningsgrunnlag: Beregningsgrunnlag,
-  fastsatteAndelsnr: number[], faktaOmBeregningTilfeller: string[]): FaktaBeregningTransformedValues => {
+  fastsatteAndelsnr: number[],
+  faktaOmBeregningTilfeller: string[],
+): FaktaBeregningTransformedValues => {
   if (inntektVerdier === null) {
     return {};
   }
   const skalFastsetteInntektFrilans = values.vurderMottarYtelseValues[finnFrilansFieldName()];
   if (skalFastsetteInntektFrilans) {
-    const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel
-      .find((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
+    const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel.find(
+      andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+    );
     if (!fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
-      const frilansInntekt = inntektVerdier.find((field) => field.andelsnr === frilansAndel.andelsnr);
+      const frilansInntekt = inntektVerdier.find(field => field.andelsnr === frilansAndel.andelsnr);
       fastsatteAndelsnr.push(frilansAndel.andelsnr);
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
       return {
         fastsettMaanedsinntektFL: { maanedsinntekt: removeSpacesFromNumber(frilansInntekt.fastsattBelop) },
-
       };
     }
     return {};
@@ -198,15 +229,19 @@ const transformValuesFrilans = (values: FaktaOmBeregningAksjonspunktValues,
   return {};
 };
 
-const transformValuesMottarYtelse = (values: FaktaOmBeregningAksjonspunktValues,
+const transformValuesMottarYtelse = (
+  values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
-  faktaOmBeregningTilfeller: string[]): FaktaBeregningTransformedValues => {
-  const ATAndelerUtenIM = faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM ? faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM : [];
+  faktaOmBeregningTilfeller: string[],
+): FaktaBeregningTransformedValues => {
+  const ATAndelerUtenIM = faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM
+    ? faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM
+    : [];
   faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
   return {
     mottarYtelse: {
       frilansMottarYtelse: values.vurderMottarYtelseValues[finnFrilansFieldName()],
-      arbeidstakerUtenIMMottarYtelse: ATAndelerUtenIM.map((andel) => ({
+      arbeidstakerUtenIMMottarYtelse: ATAndelerUtenIM.map(andel => ({
         andelsnr: andel.andelsnr,
         mottarYtelse: values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
       })),
@@ -223,35 +258,49 @@ VurderMottarYtelseForm.buildInitialValues = (vurderMottarYtelse: VurderMottarYte
     initialValues[finnFrilansFieldName()] = vurderMottarYtelse.frilansMottarYtelse;
   }
 
-  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM ? vurderMottarYtelse.arbeidstakerAndelerUtenIM : [];
+  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
+    ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
+    : [];
   if (ATAndelerUtenIM.length < 1) {
     return initialValues;
   }
-  ATAndelerUtenIM.forEach((andel) => {
+  ATAndelerUtenIM.forEach(andel => {
     initialValues[utledArbeidsforholdFieldName(andel)] = andel.mottarYtelse;
   });
   return initialValues;
 };
 
-VurderMottarYtelseForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues,
+VurderMottarYtelseForm.transformValues = (
+  values: FaktaOmBeregningAksjonspunktValues,
   inntektVerdier: InntektTransformed[],
   faktaOmBeregning: FaktaOmBeregning,
   beregningsgrunnlag: Beregningsgrunnlag,
-  fastsatteAndelsnr: number[]): FaktaBeregningTransformedValues => {
+  fastsatteAndelsnr: number[],
+): FaktaBeregningTransformedValues => {
   const faktaOmBeregningTilfeller = [];
   const aktiveTilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!aktiveTilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+  if (!aktiveTilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
     return {};
   }
-  return ({
+  return {
     ...transformValuesMottarYtelse(values, faktaOmBeregning, faktaOmBeregningTilfeller),
-    ...transformValuesArbeidstakerUtenIM(values, inntektVerdier, faktaOmBeregning, beregningsgrunnlag, fastsatteAndelsnr, faktaOmBeregningTilfeller),
+    ...transformValuesArbeidstakerUtenIM(
+      values,
+      inntektVerdier,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+      fastsatteAndelsnr,
+      faktaOmBeregningTilfeller,
+    ),
     ...transformValuesFrilans(values, inntektVerdier, beregningsgrunnlag, fastsatteAndelsnr, faktaOmBeregningTilfeller),
     faktaOmBeregningTilfeller,
-  });
+  };
 };
 
-VurderMottarYtelseForm.validate = (values: FaktaOmBeregningAksjonspunktValues, vurderMottarYtelse: VurderMottarYtelse): any => {
+VurderMottarYtelseForm.validate = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  vurderMottarYtelse: VurderMottarYtelse,
+): any => {
   const errors = {};
   if (!vurderMottarYtelse) {
     return null;
@@ -259,9 +308,13 @@ VurderMottarYtelseForm.validate = (values: FaktaOmBeregningAksjonspunktValues, v
   if (vurderMottarYtelse.erFrilans) {
     errors[finnFrilansFieldName()] = required(values.vurderMottarYtelseValues[finnFrilansFieldName()]);
   }
-  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM ? vurderMottarYtelse.arbeidstakerAndelerUtenIM : [];
-  ATAndelerUtenIM.forEach((andel) => {
-    errors[utledArbeidsforholdFieldName(andel)] = required(values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)]);
+  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
+    ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
+    : [];
+  ATAndelerUtenIM.forEach(andel => {
+    errors[utledArbeidsforholdFieldName(andel)] = required(
+      values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
+    );
   });
   return errors;
 };

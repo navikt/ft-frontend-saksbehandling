@@ -11,14 +11,8 @@ interface OwnProps {
   fullHeight?: boolean;
 }
 
-const FlexContainer: FunctionComponent<OwnProps> = ({
-  children,
-  wrap = false,
-  fullHeight = false,
-}) => (
-  <div className={classNames('flexContainer', 'fluid', { flexWrap: wrap, fullHeight })}>
-    {children}
-  </div>
+const FlexContainer: FunctionComponent<OwnProps> = ({ children, wrap = false, fullHeight = false }) => (
+  <div className={classNames('flexContainer', 'fluid', { flexWrap: wrap, fullHeight })}>{children}</div>
 );
 
 export default FlexContainer;

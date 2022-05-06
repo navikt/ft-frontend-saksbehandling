@@ -4,26 +4,26 @@ export type AvkortetRadType = {
   ledetekst: ReactElement;
   verdi: string;
   display?: boolean;
-}
+};
 
 export type RedusertRadType = {
   ledetekst: ReactElement;
   verdi: string;
   display?: boolean;
-}
+};
 
 export type BruttoRadType = {
   ledetekst: ReactElement;
   verdi: string;
   display?: boolean;
   grunnlag: string;
-}
+};
 
 export type DagsatsRadType = {
   verdi: string;
   display?: boolean;
   grunnlag: string;
-}
+};
 
 export type BeregningsresultatAndelElementType = {
   ledetekst?: ReactElement;
@@ -32,7 +32,7 @@ export type BeregningsresultatAndelElementType = {
   skalFastsetteGrunnlag: boolean;
   verdi?: number;
   inntekt: number;
-}
+};
 
 export type BeregningsresultatPeriodeTabellType = {
   headers: ReactElement[];

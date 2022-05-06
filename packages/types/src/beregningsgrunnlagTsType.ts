@@ -1,25 +1,25 @@
-import BeregningAvklaringsbehov from './beregningAvklaringsbehovTsType'; 
+import BeregningAvklaringsbehov from './beregningAvklaringsbehovTsType';
 import RefusjonTilVurdering, { FaktaOmFordeling } from './beregningsgrunnlagFordelingTsType';
 import { Besteberegninggrunnlag } from './besteberegningTsTypes';
 import BeregningsgrunnlagArbeidsforhold from './beregningsgrunnlagArbeidsforholdTsType';
 import FaktaOmBeregning from './beregningsgrunnlagFaktaTsType';
 
 export type InntektsgrunnlagInntekt = Readonly<{
-  inntektAktivitetType: string,
+  inntektAktivitetType: string;
   beløp: number;
-}>
+}>;
 
 export type InntektsgrunnlagMåned = Readonly<{
   fom: string;
   tom: string;
   inntekter: InntektsgrunnlagInntekt[];
-}>
+}>;
 
 export type Inntektsgrunnlag = Readonly<{
   måneder?: InntektsgrunnlagMåned[];
-}>
+}>;
 
-export type Næring = Readonly <{
+export type Næring = Readonly<{
   orgnr: string;
   virksomhetType: string;
   utenlandskvirksomhetsnavn?: string;
@@ -34,14 +34,14 @@ export type Næring = Readonly <{
   kanRegnskapsførerKontaktes?: boolean;
   erNyIArbeidslivet?: boolean;
   oppgittInntekt?: number;
-}>
+}>;
 
-export type PgiVerdier = Readonly <{
+export type PgiVerdier = Readonly<{
   beløp: number;
-  årstall: number,
-}>
+  årstall: number;
+}>;
 
-export type BeregningsgrunnlagAndel = Readonly <{
+export type BeregningsgrunnlagAndel = Readonly<{
   aktivitetStatus: string;
   arbeidsforholdType?: string;
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
@@ -62,7 +62,7 @@ export type BeregningsgrunnlagAndel = Readonly <{
   pgi2?: number;
   pgi3?: number;
   pgiSnitt?: number;
-  pgiVerdier?: PgiVerdier[],
+  pgiVerdier?: PgiVerdier[];
   aarsbeloepFraTilstoetendeYtelse?: number;
   erNyIArbeidslivet?: boolean;
   erTidsbegrensetArbeidsforhold?: boolean;
@@ -70,7 +70,7 @@ export type BeregningsgrunnlagAndel = Readonly <{
   andelsnr?: number;
   lonnsendringIBeregningsperioden?: boolean;
   besteberegningPrAar?: number;
-  skalFastsetteGrunnlag?: boolean
+  skalFastsetteGrunnlag?: boolean;
   lagtTilAvSaksbehandler?: boolean;
   erTilkommetAndel?: boolean;
   næringer?: Næring[];
@@ -89,7 +89,7 @@ export type SammenligningsgrunlagProp = Readonly<{
   rapportertPrAar: number;
   sammenligningsgrunnlagFom: string;
   sammenligningsgrunnlagTom: string;
-}>
+}>;
 
 export type BeregningsgrunnlagPeriodeProp = Readonly<{
   avkortetPrAar?: number;
@@ -106,11 +106,11 @@ export type BeregningsgrunnlagPeriodeProp = Readonly<{
   redusertPrAar?: number;
   periodeAarsaker?: string[];
   beregningsgrunnlagPrStatusOgAndel?: BeregningsgrunnlagAndel[];
-}>
+}>;
 
 type Beregningsgrunnlag = Readonly<{
   vilkårperiodeFom: string;
-  avklaringsbehov: BeregningAvklaringsbehov[]
+  avklaringsbehov: BeregningAvklaringsbehov[];
   skjaeringstidspunktBeregning: string;
   dekningsgrad: number;
   grunnbeløp: number;
@@ -125,6 +125,6 @@ type Beregningsgrunnlag = Readonly<{
   ytelsesspesifiktGrunnlag?: YtelseGrunnlag;
   refusjonTilVurdering?: RefusjonTilVurdering;
   inntektsgrunnlag?: Inntektsgrunnlag;
-}>
+}>;
 
 export default Beregningsgrunnlag;

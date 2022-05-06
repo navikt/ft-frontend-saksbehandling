@@ -4,6 +4,6 @@ type Fagsak = Readonly<{
   relasjonsRolleType: string;
   status: string;
   dekningsgrad: number;
-}>
+}>;
 
 export default Fagsak;

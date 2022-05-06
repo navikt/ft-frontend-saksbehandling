@@ -4,8 +4,8 @@ import Step, { StepProps } from './Step';
 import styles from './processMenu.less';
 
 interface ProcessMenuProps {
-    steps: StepProps[];
-    onClick?: (index: number) => void;
+  steps: StepProps[];
+  onClick?: (index: number) => void;
 }
 
 const processMenuCls = bemUtils('processMenu');

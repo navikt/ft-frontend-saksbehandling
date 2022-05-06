@@ -7,8 +7,4 @@ export default {
   component: FadingPanel,
 };
 
-export const visPanel = () => (
-  <FadingPanel withoutTopMargin>
-    Dette er en tekst
-  </FadingPanel>
-);
+export const visPanel = () => <FadingPanel withoutTopMargin>Dette er en tekst</FadingPanel>;

@@ -5,7 +5,12 @@ import { EtikettInfo } from 'nav-frontend-etiketter';
 
 import { getKodeverknavnFn } from '@navikt/ft-utils';
 import {
-  DateLabel, VerticalSpacer, AvsnittSkiller, FlexColumn, FlexContainer, FlexRow,
+  DateLabel,
+  VerticalSpacer,
+  AvsnittSkiller,
+  FlexColumn,
+  FlexContainer,
+  FlexRow,
 } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk } from '@navikt/ft-types';
@@ -15,28 +20,32 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 
 export const RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN = 'dekningsgrad';
 
-const createStatusEtiketter = (listeMedStatuser: string[], getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string): ReactElement => {
+const createStatusEtiketter = (
+  listeMedStatuser: string[],
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+): ReactElement => {
   const statusList = [];
-  const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex((t) => (
-    t === status)));
-  unikeStatuser.forEach((status) => {
+  const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex(t => t === status));
+  unikeStatuser.forEach(status => {
     const statusName = getKodeverknavn(status, KodeverkType.AKTIVITET_STATUS);
     statusList.push({ visningsNavn: statusName, kode: status, className: `statusFarge${status}` });
   });
-  statusList.sort((a, b) => ((a.visningsNavn > b.visningsNavn) ? 1 : -1));
+  statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
   return (
     <>
-      {statusList.map((status) => (
-        <EtikettInfo key={status.visningsNavn} className={styles[status.className]} title={status.visningsNavn}>{status.visningsNavn}</EtikettInfo>
+      {statusList.map(status => (
+        <EtikettInfo key={status.visningsNavn} className={styles[status.className]} title={status.visningsNavn}>
+          {status.visningsNavn}
+        </EtikettInfo>
       ))}
     </>
   );
 };
 
 type OwnProps = {
-    skjeringstidspunktDato: string;
-    aktivitetStatusList: string[];
-    alleKodeverk: AlleKodeverk;
+  skjeringstidspunktDato: string;
+  aktivitetStatusList: string[];
+  alleKodeverk: AlleKodeverk;
 };
 
 /**

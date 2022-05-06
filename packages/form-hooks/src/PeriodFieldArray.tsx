@@ -14,7 +14,9 @@ function onClick<PERIOD_TYPE>(
   append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void,
   emptyPeriodTemplate?: any,
 ) {
-  return (): void => { append(emptyPeriodTemplate); };
+  return (): void => {
+    append(emptyPeriodTemplate);
+  };
 }
 
 function onKeyDown<PERIOD_TYPE>(
@@ -28,23 +30,22 @@ function onKeyDown<PERIOD_TYPE>(
   };
 }
 
-const getRemoveButton = (
-  index: number,
-  remove: (index?: number | number[]) => void,
-) => (className?: string): ReactNode | undefined => {
-  if (index > 0) {
-    return (
-      <button
-        className={className || styles.buttonRemove}
-        type="button"
-        onClick={() => {
-          remove(index);
-        }}
-      />
-    );
-  }
-  return undefined;
-};
+const getRemoveButton =
+  (index: number, remove: (index?: number | number[]) => void) =>
+  (className?: string): ReactNode | undefined => {
+    if (index > 0) {
+      return (
+        <button
+          className={className || styles.buttonRemove}
+          type="button"
+          onClick={() => {
+            remove(index);
+          }}
+        />
+      );
+    }
+    return undefined;
+  };
 
 interface OwnProps<PERIOD_TYPE> {
   children: (id: any, index: number, removeButtonElmt?: (className?: string) => ReactNode) => ReactNode;
@@ -55,8 +56,8 @@ interface OwnProps<PERIOD_TYPE> {
   emptyPeriodTemplate?: any;
   shouldShowAddButton?: boolean;
   createAddButtonInsteadOfImageLink?: boolean;
-  remove: (index?: number | number[]) => void,
-  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void
+  remove: (index?: number | number[]) => void;
+  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void;
 }
 
 /**
@@ -64,7 +65,7 @@ interface OwnProps<PERIOD_TYPE> {
  *
  * Overbygg over FieldArray (Redux-form) som håndterer å legge til og fjerne perioder
  */
-const PeriodFieldArray = <PERIOD_TYPE, >({
+const PeriodFieldArray = <PERIOD_TYPE,>({
   fields,
   readOnly = true,
   titleText,
@@ -79,17 +80,13 @@ const PeriodFieldArray = <PERIOD_TYPE, >({
   remove,
   append,
 }: OwnProps<PERIOD_TYPE>) => (
-  <SkjemaGruppeMedFeilviser
-    name="dummy"
-    description={titleText}
-  >
+  <SkjemaGruppeMedFeilviser name="dummy" description={titleText}>
     {fields.map((field, index) => children(field, index, getRemoveButton(index, remove)))}
     {shouldShowAddButton && (
       <Row>
         <Column xs="12">
-          {!createAddButtonInsteadOfImageLink && !readOnly
+          {!createAddButtonInsteadOfImageLink && !readOnly && (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            && (
             <div
               onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
               onKeyDown={onKeyDown<PERIOD_TYPE>(append, emptyPeriodTemplate)}
@@ -98,11 +95,9 @@ const PeriodFieldArray = <PERIOD_TYPE, >({
               tabIndex={0}
             >
               <Image className={styles.addCircleIcon} src={addCircleIcon} alt={bodyText} />
-              <Undertekst className={styles.imageText}>
-                {bodyText}
-              </Undertekst>
+              <Undertekst className={styles.imageText}>{bodyText}</Undertekst>
             </div>
-            )}
+          )}
           {createAddButtonInsteadOfImageLink && !readOnly && (
             <button
               type="button"
@@ -117,6 +112,6 @@ const PeriodFieldArray = <PERIOD_TYPE, >({
       </Row>
     )}
   </SkjemaGruppeMedFeilviser>
-  );
+);
 
 export default PeriodFieldArray;

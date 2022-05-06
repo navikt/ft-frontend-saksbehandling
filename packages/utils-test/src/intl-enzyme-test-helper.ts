@@ -16,11 +16,14 @@ const cache = createIntlCache();
 const getIntlObject = (moduleMessages: Record<string, string>) => {
   const selectedMessages = moduleMessages;
 
-  return createIntl({
-    locale: 'nb-NO',
-    defaultLocale: 'nb-NO',
-    messages: selectedMessages,
-  }, cache);
+  return createIntl(
+    {
+      locale: 'nb-NO',
+      defaultLocale: 'nb-NO',
+      messages: selectedMessages,
+    },
+    cache,
+  );
 };
 
 /**
@@ -44,12 +47,20 @@ const getOptions = (moduleMessages: Record<string, string>): ShallowRendererProp
   };
 };
 
-export function shallowWithIntl(node: ReactElement, intlMessages: Record<string, string>, options?: ShallowRendererProps): any {
+export function shallowWithIntl(
+  node: ReactElement,
+  intlMessages: Record<string, string>,
+  options?: ShallowRendererProps,
+): any {
   // @ts-ignore
   return shallow(nodeWithIntlProp(node, intlMessages), { ...getOptions(intlMessages), ...options });
 }
 
-export function mountWithIntl(node: ReactElement, intlMessages: Record<string, string>, options?: ShallowRendererProps): any {
+export function mountWithIntl(
+  node: ReactElement,
+  intlMessages: Record<string, string>,
+  options?: ShallowRendererProps,
+): any {
   // @ts-ignore
   return mount(nodeWithIntlProp(node, intlMessages), { ...getOptions(intlMessages), ...options });
 }

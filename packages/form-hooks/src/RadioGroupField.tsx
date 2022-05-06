@@ -40,9 +40,11 @@ const RadioGroupField: FunctionComponent<OwnProps> = ({
   spaceBetween,
   direction,
   validate = [],
-  parse = (value) => value,
+  parse = value => value,
 }) => {
-  const { formState: { errors } } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
   const { field } = useController({
     name,
     rules: {
@@ -50,27 +52,35 @@ const RadioGroupField: FunctionComponent<OwnProps> = ({
     },
   });
 
-  const customOnChange = useCallback((e: any) => {
-    field.onChange(parse(e.target.value));
-    if (onChange) {
-      onChange(e.target.value);
-    }
-  }, [field, onChange]);
+  const customOnChange = useCallback(
+    (e: any) => {
+      field.onChange(parse(e.target.value));
+      if (onChange) {
+        onChange(e.target.value);
+      }
+    },
+    [field, onChange],
+  );
 
   const showCheckedOnly = readOnly && field.value !== null && field.value !== undefined && field.value !== '';
 
-  const options = useMemo(() => children
-    .filter((radioOption) => !!radioOption)
-    .map((radioOption) => React.cloneElement(radioOption, {
-      key: JSON.stringify(radioOption.props.value),
-      name: field.name,
-      value: radioOption.props.value,
-      onChange: customOnChange,
-      groupDisabled: readOnly,
-      checked: radioOption.props.value.toString() === field.value?.toString(),
-    }))
-    .filter((radioOption) => !showCheckedOnly || radioOption.props.value.toString() === field.value?.toString()),
-  [children, field.value, customOnChange]);
+  const options = useMemo(
+    () =>
+      children
+        .filter(radioOption => !!radioOption)
+        .map(radioOption =>
+          React.cloneElement(radioOption, {
+            key: JSON.stringify(radioOption.props.value),
+            name: field.name,
+            value: radioOption.props.value,
+            onChange: customOnChange,
+            groupDisabled: readOnly,
+            checked: radioOption.props.value.toString() === field.value?.toString(),
+          }),
+        )
+        .filter(radioOption => !showCheckedOnly || radioOption.props.value.toString() === field.value?.toString()),
+    [children, field.value, customOnChange],
+  );
 
   const feil = getError(errors, name);
 

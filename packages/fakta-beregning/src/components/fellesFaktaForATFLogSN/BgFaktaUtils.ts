@@ -14,7 +14,8 @@ import {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   ATFLSammeOrgAndel,
-  AlleKodeverk, Aksjonspunkt,
+  AlleKodeverk,
+  Aksjonspunkt,
 } from '@navikt/ft-types';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
@@ -31,8 +32,8 @@ import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typ
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
-const preutfyllInntektskategori = (andel: AndelForFaktaOmBeregning) => (andel.inntektskategori
-&& andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '');
+const preutfyllInntektskategori = (andel: AndelForFaktaOmBeregning) =>
+  andel.inntektskategori && andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '';
 
 export const setArbeidsforholdInitialValues = (andel: AndelForFaktaOmBeregning) => ({
   arbeidsgiverId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsgiverIdent : null,
@@ -42,10 +43,14 @@ export const setArbeidsforholdInitialValues = (andel: AndelForFaktaOmBeregning) 
   arbeidsforholdType: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdType : null,
 });
 
-const lagVisningsnavn = (andel: AndelForFaktaOmBeregning,
+const lagVisningsnavn = (
+  andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk): string => {
-  const agOpplysning = andel.arbeidsforhold ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent] : undefined;
+  alleKodeverk: AlleKodeverk,
+): string => {
+  const agOpplysning = andel.arbeidsforhold
+    ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]
+    : undefined;
   if (!agOpplysning) {
     return andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
       ? getKodeverknavnFn(alleKodeverk)(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
@@ -54,9 +59,11 @@ const lagVisningsnavn = (andel: AndelForFaktaOmBeregning,
   return createVisningsnavnFakta(agOpplysning, andel.arbeidsforhold.eksternArbeidsforholdId);
 };
 
-export const setGenerellAndelsinfo = (andel: AndelForFaktaOmBeregning,
+export const setGenerellAndelsinfo = (
+  andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk): GenerellAndelInfo => ({
+  alleKodeverk: AlleKodeverk,
+): GenerellAndelInfo => ({
   andel: lagVisningsnavn(andel, arbeidsgiverOpplysningerPerId, alleKodeverk),
   aktivitetStatus: andel.aktivitetStatus,
   andelsnr: andel.andelsnr,
@@ -72,24 +79,34 @@ export const mapAndelFieldIdentifikator = (andel: AndelForFaktaOmBeregning): And
   arbeidsforholdType: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdType : null,
 });
 
-const atflSammeOrgListeInneholderAndel = (liste: ATFLSammeOrgAndel[],
-  field: AndelFieldIdentifikator): ATFLSammeOrgAndel => (liste ? liste.find((element) => element.andelsnr === field.andelsnr) : undefined);
+const atflSammeOrgListeInneholderAndel = (
+  liste: ATFLSammeOrgAndel[],
+  field: AndelFieldIdentifikator,
+): ATFLSammeOrgAndel => (liste ? liste.find(element => element.andelsnr === field.andelsnr) : undefined);
 
-const arbeidsforholdUtenIMInneholderAndel = (liste: AndelForFaktaOmBeregning[],
-  field: AndelFieldIdentifikator): AndelForFaktaOmBeregning => (liste ? liste.find((element) => element.andelsnr === field.andelsnr) : undefined);
+const arbeidsforholdUtenIMInneholderAndel = (
+  liste: AndelForFaktaOmBeregning[],
+  field: AndelFieldIdentifikator,
+): AndelForFaktaOmBeregning => (liste ? liste.find(element => element.andelsnr === field.andelsnr) : undefined);
 
-const erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon = (field: AndelFieldIdentifikator,
-  faktaOmBeregning: FaktaOmBeregning): boolean => {
-  const andelIListe = atflSammeOrgListeInneholderAndel(faktaOmBeregning
-    .arbeidstakerOgFrilanserISammeOrganisasjonListe, field);
+const erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon = (
+  field: AndelFieldIdentifikator,
+  faktaOmBeregning: FaktaOmBeregning,
+): boolean => {
+  const andelIListe = atflSammeOrgListeInneholderAndel(
+    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe,
+    field,
+  );
   return andelIListe && (andelIListe.inntektPrMnd === null || andelIListe.inntektPrMnd === undefined);
 };
 
 // Aktivitetstatus
 
-const erArbeidstaker = (field: AndelFieldIdentifikator): boolean => (field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
+const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 
-const erFrilanser = (field: AndelFieldIdentifikator): boolean => (field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER);
+const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
 
 // Nyoppstartet frilanser
 
@@ -109,30 +126,39 @@ export const skalHaBesteberegningSelector = createSelector([getFormValuesForBere
 
 // Lonnsendring
 
-const harLonnsendringUtenInntektsmelding = (values, field, faktaOmBeregning) => faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM
-&& arbeidsforholdUtenIMInneholderAndel(faktaOmBeregning
-  .arbeidsforholdMedLønnsendringUtenIM, field) && values[lonnsendringField];
+const harLonnsendringUtenInntektsmelding = (values, field, faktaOmBeregning) =>
+  faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM &&
+  arbeidsforholdUtenIMInneholderAndel(faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM, field) &&
+  values[lonnsendringField];
 
-const erATUtenInntektsmeldingMedLonnsendring = (field: AndelFieldIdentifikator,
+const erATUtenInntektsmeldingMedLonnsendring = (
+  field: AndelFieldIdentifikator,
   values: any,
-  faktaOmBeregning: FaktaOmBeregning) => erArbeidstaker(field)
-&& harLonnsendringUtenInntektsmelding(values, field, faktaOmBeregning);
+  faktaOmBeregning: FaktaOmBeregning,
+) => erArbeidstaker(field) && harLonnsendringUtenInntektsmelding(values, field, faktaOmBeregning);
 
 // AT og FL i samme organisasjon
 
-export const andelErStatusFLOgHarATISammeOrg = (field: AndelFieldIdentifikator,
-  faktaOmBeregning: FaktaOmBeregning): boolean => faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe
-&& erFrilanser(field);
-
-const andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg = (field: AndelFieldIdentifikator, faktaOmBeregning: FaktaOmBeregning):
-  boolean => faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe
-&& erArbeidstaker(field) && erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon(field, faktaOmBeregning);
-
-// Søker mottar ytelse
-const sokerMottarYtelseForAndel = (values: FaktaOmBeregningAksjonspunktValues,
+export const andelErStatusFLOgHarATISammeOrg = (
   field: AndelFieldIdentifikator,
   faktaOmBeregning: FaktaOmBeregning,
-  beregningsgrunnlag: Beregningsgrunnlag): boolean => {
+): boolean => faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe && erFrilanser(field);
+
+const andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg = (
+  field: AndelFieldIdentifikator,
+  faktaOmBeregning: FaktaOmBeregning,
+): boolean =>
+  faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe &&
+  erArbeidstaker(field) &&
+  erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon(field, faktaOmBeregning);
+
+// Søker mottar ytelse
+const sokerMottarYtelseForAndel = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  field: AndelFieldIdentifikator,
+  faktaOmBeregning: FaktaOmBeregning,
+  beregningsgrunnlag: Beregningsgrunnlag,
+): boolean => {
   const mottarYtelseMap = andelsnrMottarYtelseMap(values, faktaOmBeregning.vurderMottarYtelse, beregningsgrunnlag);
   return mottarYtelseMap[field.andelsnr];
 };
@@ -146,104 +172,138 @@ const andelErEtterlønnSluttpakkeOgSkalFastsettes = (andel: AndelFieldIdentifika
 };
 
 // Manuelt registrert med handlingstype LAGT_TIL_AV_BRUKER
-const erAndelKunstigArbeidsforhold = (andel: AndelFieldIdentifikator,
-  beregningsgrunnlag: Beregningsgrunnlag): boolean => {
+const erAndelKunstigArbeidsforhold = (
+  andel: AndelFieldIdentifikator,
+  beregningsgrunnlag: Beregningsgrunnlag,
+): boolean => {
   const firstBgPeriod = beregningsgrunnlag.beregningsgrunnlagPeriode[0];
-  const lagtTilAvBruker = firstBgPeriod.beregningsgrunnlagPrStatusOgAndel.find((a) => a.arbeidsforhold
-  && a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId
-  && a.arbeidsforhold.organisasjonstype
-  && a.arbeidsforhold.organisasjonstype === organisasjonstyper.KUNSTIG);
+  const lagtTilAvBruker = firstBgPeriod.beregningsgrunnlagPrStatusOgAndel.find(
+    a =>
+      a.arbeidsforhold &&
+      a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId &&
+      a.arbeidsforhold.organisasjonstype &&
+      a.arbeidsforhold.organisasjonstype === organisasjonstyper.KUNSTIG,
+  );
   return lagtTilAvBruker !== undefined;
 };
 
 // Kun Ytelse
-const harKunYtelse = (faktaOmBeregning: FaktaOmBeregning): boolean => !!faktaOmBeregning.faktaOmBeregningTilfeller && faktaOmBeregning.faktaOmBeregningTilfeller
-  .find((kode) => kode === FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !== undefined;
+const harKunYtelse = (faktaOmBeregning: FaktaOmBeregning): boolean =>
+  !!faktaOmBeregning.faktaOmBeregningTilfeller &&
+  faktaOmBeregning.faktaOmBeregningTilfeller.find(kode => kode === FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !==
+    undefined;
 
-const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues,
-  faktaOmBeregning: FaktaOmBeregning,
-  beregningsgrunnlag: Beregningsgrunnlag) => (andel: AndelFieldIdentifikator): boolean => {
-  if (skalHaBesteberegning(values)) {
-    return true;
-  }
-  if (sokerMottarYtelseForAndel(values, andel, faktaOmBeregning, beregningsgrunnlag)) {
-    return true;
-  }
-  if (erATUtenInntektsmeldingMedLonnsendring(andel, values, faktaOmBeregning)) {
-    return true;
-  }
-  if (andelErStatusFLOgHarATISammeOrg(andel, faktaOmBeregning)) {
-    return true;
-  }
-  if (andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg(andel, faktaOmBeregning)) {
-    return true;
-  }
-  if (erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag)) {
-    return true;
-  }
-  if (erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse(andel, beregningsgrunnlag)) {
-    return true;
-  }
-  if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
-    return true;
-  }
-  return false;
-};
+const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag =
+  (
+    values: FaktaOmBeregningAksjonspunktValues,
+    faktaOmBeregning: FaktaOmBeregning,
+    beregningsgrunnlag: Beregningsgrunnlag,
+  ) =>
+  (andel: AndelFieldIdentifikator): boolean => {
+    if (skalHaBesteberegning(values)) {
+      return true;
+    }
+    if (sokerMottarYtelseForAndel(values, andel, faktaOmBeregning, beregningsgrunnlag)) {
+      return true;
+    }
+    if (erATUtenInntektsmeldingMedLonnsendring(andel, values, faktaOmBeregning)) {
+      return true;
+    }
+    if (andelErStatusFLOgHarATISammeOrg(andel, faktaOmBeregning)) {
+      return true;
+    }
+    if (andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg(andel, faktaOmBeregning)) {
+      return true;
+    }
+    if (erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag)) {
+      return true;
+    }
+    if (erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse(andel, beregningsgrunnlag)) {
+      return true;
+    }
+    if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
+      return true;
+    }
+    return false;
+  };
 
-const skalKunneEndreTotaltBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues,
-  faktaOmBeregning: FaktaOmBeregning,
-  beregningsgrunnlag: Beregningsgrunnlag) => (andel: AndelFieldIdentifikator): boolean => {
-  if (skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel)) {
-    return true;
-  }
-  if (erNyoppstartetFrilanser(andel, values)) {
-    return true;
-  }
-  return false;
-};
+const skalKunneEndreTotaltBeregningsgrunnlag =
+  (
+    values: FaktaOmBeregningAksjonspunktValues,
+    faktaOmBeregning: FaktaOmBeregning,
+    beregningsgrunnlag: Beregningsgrunnlag,
+  ) =>
+  (andel: AndelFieldIdentifikator): boolean => {
+    if (
+      skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel)
+    ) {
+      return true;
+    }
+    if (erNyoppstartetFrilanser(andel, values)) {
+      return true;
+    }
+    return false;
+  };
 
 // Overstyring
 
-export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boolean => (!!values
-  && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true);
+export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
+  !!values && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true;
 
-export const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean => aksjonspuntker
-  && aksjonspuntker.some((ap) => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+export const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean =>
+  aksjonspuntker &&
+  aksjonspuntker.some(ap => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
-export const erOverstyringAvBeregningsgrunnlag = createSelector<any, any>([
-  getFormValuesForBeregning,
-  (state, ownProps) => ownProps.beregningsgrunnlag,
-  (state, ownProps) => ownProps.aksjonspunkter], (values: FaktaOmBeregningAksjonspunktValues,
-  beregningsgrunnlag: Beregningsgrunnlag,
-  aksjonspunkter: Aksjonspunkt[]) => erOverstyring(values)
-  || beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(aksjonspunkter));
+export const erOverstyringAvBeregningsgrunnlag = createSelector<any, any>(
+  [
+    getFormValuesForBeregning,
+    (state, ownProps) => ownProps.beregningsgrunnlag,
+    (state, ownProps) => ownProps.aksjonspunkter,
+  ],
+  (
+    values: FaktaOmBeregningAksjonspunktValues,
+    beregningsgrunnlag: Beregningsgrunnlag,
+    aksjonspunkter: Aksjonspunkt[],
+  ) => erOverstyring(values) || beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(aksjonspunkter),
+);
 
-export const erInitialOverstyringAvBeregningsgrunnlag = createSelector([
-  (state, ownProps) => ownProps.beregningsgrunnlag,
-  (state, ownProps) => ownProps.aksjonspunkter], (beregningsgrunnlag, aksjonspunkter) => beregningsgrunnlag.erOverstyrtInntekt
-  || harOverstyringsAP(aksjonspunkter));
+export const erInitialOverstyringAvBeregningsgrunnlag = createSelector(
+  [(state, ownProps) => ownProps.beregningsgrunnlag, (state, ownProps) => ownProps.aksjonspunkter],
+  (beregningsgrunnlag, aksjonspunkter) => beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(aksjonspunkter),
+);
 
-export const skalFastsetteInntektForAndel = (values: FaktaOmBeregningAksjonspunktValues,
-  faktaOmBeregning: FaktaOmBeregning,
-  beregningsgrunnlag: Beregningsgrunnlag) => (andel: AndelFieldIdentifikator): boolean => harKunYtelse(faktaOmBeregning)
-|| skalKunneEndreTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
+export const skalFastsetteInntektForAndel =
+  (
+    values: FaktaOmBeregningAksjonspunktValues,
+    faktaOmBeregning: FaktaOmBeregning,
+    beregningsgrunnlag: Beregningsgrunnlag,
+  ) =>
+  (andel: AndelFieldIdentifikator): boolean =>
+    harKunYtelse(faktaOmBeregning) ||
+    skalKunneEndreTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
-export const kanRedigereInntektForAndel = (values, faktaOmBeregning, beregningsgrunnlag) => (andel) => erOverstyring(values)
-  || skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel);
+export const kanRedigereInntektForAndel = (values, faktaOmBeregning, beregningsgrunnlag) => andel =>
+  erOverstyring(values) || skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
-export const getKanRedigereInntekt = createSelector<any, any>([
-  getFormValuesForBeregning,
-  (state, ownProps) => ownProps.beregningsgrunnlag.faktaOmBeregning,
-  (state, ownProps) => ownProps.beregningsgrunnlag], kanRedigereInntektForAndel);
+export const getKanRedigereInntekt = createSelector<any, any>(
+  [
+    getFormValuesForBeregning,
+    (state, ownProps) => ownProps.beregningsgrunnlag.faktaOmBeregning,
+    (state, ownProps) => ownProps.beregningsgrunnlag,
+  ],
+  kanRedigereInntektForAndel,
+);
 
 // Skal redigere inntektskategori
-export const skalRedigereInntektskategoriForAndel = (beregningsgrunnlag) => (andel) => erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag);
+export const skalRedigereInntektskategoriForAndel = beregningsgrunnlag => andel =>
+  erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag);
 
-export const getSkalRedigereInntektskategori = createSelector<any, any>([
-  (state, ownProps) => ownProps.beregningsgrunnlag],
-skalRedigereInntektskategoriForAndel);
+export const getSkalRedigereInntektskategori = createSelector<any, any>(
+  [(state, ownProps) => ownProps.beregningsgrunnlag],
+  skalRedigereInntektskategoriForAndel,
+);
 
-export const mapToBelop = (skalRedigereInntekt) => (andel) => {
+export const mapToBelop = skalRedigereInntekt => andel => {
   const { fastsattBelop, readOnlyBelop } = andel;
   if (!skalRedigereInntekt || skalRedigereInntekt(andel)) {
     return fastsattBelop ? removeSpacesFromNumber(fastsattBelop) : 0;
@@ -251,9 +311,11 @@ export const mapToBelop = (skalRedigereInntekt) => (andel) => {
   return readOnlyBelop ? removeSpacesFromNumber(readOnlyBelop) : 0;
 };
 
-export const mapAndelToField = (andel: AndelForFaktaOmBeregning,
+export const mapAndelToField = (
+  andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk): AndelFieldValue => ({
+  alleKodeverk: AlleKodeverk,
+): AndelFieldValue => ({
   ...setGenerellAndelsinfo(andel, arbeidsgiverOpplysningerPerId, alleKodeverk),
   ...setArbeidsforholdInitialValues(andel),
   ...mapAndelFieldIdentifikator(andel),

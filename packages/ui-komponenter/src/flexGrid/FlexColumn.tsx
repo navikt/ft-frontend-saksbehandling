@@ -10,13 +10,8 @@ interface OwnProps {
   className?: string;
 }
 
-const FlexColumn: FunctionComponent<OwnProps> = ({
-  children,
-  className,
-}) => (
-  <div className={classNames('flexColumnNew', className)}>
-    {children}
-  </div>
+const FlexColumn: FunctionComponent<OwnProps> = ({ children, className }) => (
+  <div className={classNames('flexColumnNew', className)}>{children}</div>
 );
 
 export default FlexColumn;

@@ -29,7 +29,7 @@ const arbeidstakerIkkeFastsatt = {
   inntektskategori: 'ARBEIDSTAKER',
 };
 
-const getKodeverknavn = (kode) => {
+const getKodeverknavn = kode => {
   if (kode === AktivitetStatus.ARBEIDSTAKER) {
     return 'Arbeidstaker';
   }

@@ -37,12 +37,15 @@ export const metaMock = {
 };
 
 export function mountFieldComponent(node: any, input = {}, meta = {}, label = 'field') {
-  return mountWithIntl(React.cloneElement(node, {
-    input: { ...inputMock, ...input },
-    meta: { ...metaMock, ...meta },
-    intl: getIntlMock({}),
-    label,
-  }), {});
+  return mountWithIntl(
+    React.cloneElement(node, {
+      input: { ...inputMock, ...input },
+      meta: { ...metaMock, ...meta },
+      intl: getIntlMock({}),
+      label,
+    }),
+    {},
+  );
 }
 
 /* Lagt til for a hindre warnings i tester */
@@ -136,9 +139,9 @@ export class MockFields implements FieldArrayFieldsProps<any> {
     this.move = sinon.spy();
     this.unshift = sinon.spy();
 
-    this.get = (index) => array[index];
+    this.get = index => array[index];
 
-    this.remove = (index) => array.splice(index, 1);
+    this.remove = index => array.splice(index, 1);
   }
 
   get length() {
@@ -200,10 +203,10 @@ export class MockFieldsWithContent implements FieldArrayFieldsProps<any> {
 
     this.pop = array.pop.bind(array);
     this.map = array.map.bind(array);
-    this.get = (index) => array[index];
+    this.get = index => array[index];
 
-    this.get = (index) => array[index];
-    this.remove = (index) => {
+    this.get = index => array[index];
+    this.remove = index => {
       this.fields.splice(index, 1);
       this.array.splice(index, 1);
       return this.array;

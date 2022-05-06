@@ -1,17 +1,11 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import {
-  Element, Normaltekst, Undertekst,
-} from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import {
-  getKodeverknavnFn, dateFormat, formatCurrencyNoKr,
-} from '@navikt/ft-utils';
+import { getKodeverknavnFn, dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
-import {
-  VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow,
-} from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -40,8 +34,8 @@ const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): Beregnings
     return [];
   }
   return andeler
-    .filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
-    .filter((andel) => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
+    .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
+    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
 
 const createArbeidsPeriodeText = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold): string => {
@@ -72,19 +66,25 @@ const createArbeidsStillingsNavnOgProsent = (arbeidsforhold: BeregningsgrunnlagA
   return ' ';
 };
 
-const lagVisningForAndel = (andel: BeregningsgrunnlagAndel,
+const lagVisningForAndel = (
+  andel: BeregningsgrunnlagAndel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string): string => {
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+): string => {
   const arbeidsforholdInfo = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
   if (!arbeidsforholdInfo) {
-    return andel.arbeidsforhold.arbeidsforholdType ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OVERFOERING_AARSAK_TYPE) : '';
+    return andel.arbeidsforhold.arbeidsforholdType
+      ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OVERFOERING_AARSAK_TYPE)
+      : '';
   }
   return createVisningsnavnForAktivitet(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId);
 };
 
-const createArbeidsIntektRows = (relevanteAndeler: BeregningsgrunnlagAndel[],
+const createArbeidsIntektRows = (
+  relevanteAndeler: BeregningsgrunnlagAndel[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): ReactElement[] => {
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): ReactElement[] => {
   const beregnetAarsinntekt = relevanteAndeler.reduce((acc, andel) => acc + andel.beregnetPrAar, 0);
   const beregnetMaanedsinntekt = beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0;
   const harFlereArbeidsforhold = relevanteAndeler.length > 1;
@@ -99,13 +99,24 @@ const createArbeidsIntektRows = (relevanteAndeler: BeregningsgrunnlagAndel[],
           </Normaltekst>
         </Column>
 
-        <Column key={`ColBrgMnd${andel.arbeidsforhold.arbeidsgiverIdent}`} xs="2" className={beregningStyles.colMaanedText}>
+        <Column
+          key={`ColBrgMnd${andel.arbeidsforhold.arbeidsgiverIdent}`}
+          xs="2"
+          className={beregningStyles.colMaanedText}
+        >
           <Normaltekst key={`ColBrgMndTxt${andel.arbeidsforhold.arbeidsgiverIdent}`}>
             {formatCurrencyNoKr(andel.beregnetPrAar / 12)}
           </Normaltekst>
         </Column>
-        <Column key={`ColBrgAar${andel.arbeidsforhold.arbeidsgiverIdent}`} xs="2" className={beregningStyles.colAarText}>
-          <Normaltekst key={`ColBrgAarTxt${andel.arbeidsforhold.arbeidsgiverIdent}`} className={!harFlereArbeidsforhold ? beregningStyles.semiBoldText : ''}>
+        <Column
+          key={`ColBrgAar${andel.arbeidsforhold.arbeidsgiverIdent}`}
+          xs="2"
+          className={beregningStyles.colAarText}
+        >
+          <Normaltekst
+            key={`ColBrgAarTxt${andel.arbeidsforhold.arbeidsgiverIdent}`}
+            className={!harFlereArbeidsforhold ? beregningStyles.semiBoldText : ''}
+          >
             {formatCurrencyNoKr(andel.beregnetPrAar)}
           </Normaltekst>
         </Column>
@@ -113,27 +124,23 @@ const createArbeidsIntektRows = (relevanteAndeler: BeregningsgrunnlagAndel[],
       <FlexRow key={`indexD${andel.arbeidsforhold.arbeidsgiverIdent}`}>
         {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
           <FlexColumn>
-            <Normaltekst>
-              {createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}
-            </Normaltekst>
+            <Normaltekst>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</Normaltekst>
           </FlexColumn>
         )}
         {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
-        <FlexColumn>
-          <Undertekst>
-            {createArbeidsPeriodeText(andel.arbeidsforhold)}
-          </Undertekst>
-        </FlexColumn>
+          <FlexColumn>
+            <Undertekst>{createArbeidsPeriodeText(andel.arbeidsforhold)}</Undertekst>
+          </FlexColumn>
         )}
         {andel.erTidsbegrensetArbeidsforhold && (
-        <FlexColumn>
-          <Undertekst>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
-          </Undertekst>
-        </FlexColumn>
+          <FlexColumn>
+            <Undertekst>
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
+            </Undertekst>
+          </FlexColumn>
         )}
       </FlexRow>
-      {(index < relevanteAndeler.length) && (
+      {index < relevanteAndeler.length && (
         <Row key={`indexSp${andel.arbeidsforhold.arbeidsgiverIdent}`}>
           <VerticalSpacer eightPx />
         </Row>
@@ -149,18 +156,13 @@ const createArbeidsIntektRows = (relevanteAndeler: BeregningsgrunnlagAndel[],
           </Column>
         </Row>
         <Row>
-          <Column xs="7"><FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" /></Column>
-          <Column
-            key="ColBBgMnd"
-            xs="2"
-            className={beregningStyles.colMaanedText}
-          >
+          <Column xs="7">
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
+          </Column>
+          <Column key="ColBBgMnd" xs="2" className={beregningStyles.colMaanedText}>
             <Normaltekst>{formatCurrencyNoKr(beregnetMaanedsinntekt)}</Normaltekst>
           </Column>
-          <Column
-            className={beregningStyles.colAarText}
-            xs="2"
-          >
+          <Column className={beregningStyles.colAarText} xs="2">
             <Element>{formatCurrencyNoKr(beregnetAarsinntekt)}</Element>
           </Column>
           <Column className={beregningStyles.colLink} />
@@ -177,10 +179,10 @@ interface StaticFunctions {
 }
 
 type OwnProps = {
-    alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
-    allePerioder?: BeregningsgrunnlagPeriodeProp[];
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-    alleKodeverk: AlleKodeverk;
+  alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
+  allePerioder?: BeregningsgrunnlagPeriodeProp[];
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  alleKodeverk: AlleKodeverk;
 };
 
 /**
@@ -224,10 +226,7 @@ const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctio
         <Column className={beregningStyles.colLink} xs="1" />
       </Row>
       {createArbeidsIntektRows(relevanteAndeler, getKodeverknavn, arbeidsgiverOpplysningerPerId)}
-      <NaturalytelsePanel
-        allePerioder={allePerioder}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
+      <NaturalytelsePanel allePerioder={allePerioder} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
     </>
   );
 };
@@ -236,9 +235,11 @@ GrunnlagForAarsinntektPanelAT.defaultProps = {
   allePerioder: undefined,
 };
 
-GrunnlagForAarsinntektPanelAT.buildInitialValues = (alleAndeler: BeregningsgrunnlagAndel[]): ArbeidstakerInntektValues => {
+GrunnlagForAarsinntektPanelAT.buildInitialValues = (
+  alleAndeler: BeregningsgrunnlagAndel[],
+): ArbeidstakerInntektValues => {
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndeler);
-  const initialValues = { };
+  const initialValues = {};
   relevanteAndeler.forEach((inntekt, index) => {
     initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar);
   });

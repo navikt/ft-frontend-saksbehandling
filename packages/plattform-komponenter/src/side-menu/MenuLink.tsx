@@ -15,9 +15,7 @@ interface MenuLinkProps {
 
 const menuLinkCls = bemUtils('menuLink');
 
-const MenuLink = ({
-  label, active, onClick, iconSrc, iconAltText, theme,
-}: MenuLinkProps): JSX.Element => {
+const MenuLink = ({ label, active, onClick, iconSrc, iconAltText, theme }: MenuLinkProps): JSX.Element => {
   const arrowTheme = theme === 'arrow';
   const handleOnClick = (event: React.FormEvent<HTMLButtonElement>): void => {
     event.preventDefault();

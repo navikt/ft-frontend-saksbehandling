@@ -8,7 +8,7 @@ import styles from './personCard.less';
 const personCardCls = bemUtils('personCard');
 
 interface EmptyPersonCard {
-    namePlaceholder: string;
+  namePlaceholder: string;
 }
 
 const EmptyPersonCard: React.FC<EmptyPersonCard> = ({ namePlaceholder }) => (

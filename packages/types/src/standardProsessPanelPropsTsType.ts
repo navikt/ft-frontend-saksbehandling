@@ -6,7 +6,7 @@ import AlleKodeverk from './kodeverkAlleTsType';
 type StandardProsessPanelProps<AP_TYPE> = Readonly<{
   behandling: Behandling;
   alleKodeverk: AlleKodeverk;
-  alleMerknaderFraBeslutter: { [key: string] : { notAccepted?: boolean }};
+  alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   submitCallback: (aksjonspunktData: AP_TYPE) => Promise<void>;
   status: string;
   isReadOnly: boolean;
@@ -16,6 +16,6 @@ type StandardProsessPanelProps<AP_TYPE> = Readonly<{
   isAksjonspunktOpen: boolean;
   formData?: any;
   setFormData: (data: any) => void;
-}>
+}>;
 
 export default StandardProsessPanelProps;

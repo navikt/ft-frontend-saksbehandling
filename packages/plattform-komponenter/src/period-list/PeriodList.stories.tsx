@@ -58,7 +58,8 @@ const perioder = [
       },
       {
         label: 'Årsak',
-        value: 'Barnet er innlagt i helseinstitusjon dekket etter avtale med annet land om trygd (mottar pleiepenger som i Norge, telles ikke i 8 uker)',
+        value:
+          'Barnet er innlagt i helseinstitusjon dekket etter avtale med annet land om trygd (mottar pleiepenger som i Norge, telles ikke i 8 uker)',
       },
     ],
   },
@@ -94,7 +95,8 @@ const perioder = [
       },
       {
         label: 'Årsak',
-        value: 'Barnet er innlagt i helseinstitusjon for norsk offentlig regning (mottar pleiepenger som i Norge, telles ikke i 8 uker)',
+        value:
+          'Barnet er innlagt i helseinstitusjon for norsk offentlig regning (mottar pleiepenger som i Norge, telles ikke i 8 uker)',
       },
     ],
   },

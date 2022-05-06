@@ -8,16 +8,14 @@ import AvslåttValgIcon from './icons/AvslåttIcon';
 import styles from './step.less';
 
 interface StepIconProps {
-    type: string;
-    isFinished?: boolean;
-    usePartialStatus?: boolean;
+  type: string;
+  isFinished?: boolean;
+  usePartialStatus?: boolean;
 }
 
 const stepCls = bemUtils('step');
 
-const StepIcon = ({
-  type, isFinished, usePartialStatus,
-}: StepIconProps): JSX.Element => {
+const StepIcon = ({ type, isFinished, usePartialStatus }: StepIconProps): JSX.Element => {
   const isWarning = type === StepType.warning;
   const isDanger = type === StepType.danger;
 

@@ -5,13 +5,13 @@ import ChevronIconBlack from '../icons/ChevronIconBlack';
 import ChevronIconGray from '../icons/ChevronIconGray';
 
 export interface InteractiveListElement {
-    content: React.ReactNode;
-    onClick: () => void;
-    active: boolean;
+  content: React.ReactNode;
+  onClick: () => void;
+  active: boolean;
 }
 
 interface InteractiveListProps {
-    elements: InteractiveListElement[];
+  elements: InteractiveListElement[];
 }
 
 const InteractiveListElement = (props: InteractiveListElement) => {
@@ -37,7 +37,7 @@ const InteractiveListElement = (props: InteractiveListElement) => {
 
 const InteractiveList = ({ elements }: InteractiveListProps) => (
   <ul className={styles.interactiveList}>
-    {elements.map((elementProps) => (
+    {elements.map(elementProps => (
       <InteractiveListElement {...elementProps} />
     ))}
   </ul>

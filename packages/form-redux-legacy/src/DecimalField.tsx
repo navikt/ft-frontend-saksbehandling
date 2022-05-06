@@ -12,7 +12,7 @@ interface NormalizeOnBlurFieldProps {
   component?: () => reduxFormField;
 }
 
-const createNormalizeOnBlurField = (WrappedNavFieldComponent) => {
+const createNormalizeOnBlurField = WrappedNavFieldComponent => {
   class FieldComponent extends Component<WrappedFieldProps & NormalizeOnBlurFieldProps & WrappedComponentProps> {
     constructor(props: WrappedFieldProps & NormalizeOnBlurFieldProps & WrappedComponentProps) {
       super(props);
@@ -28,10 +28,11 @@ const createNormalizeOnBlurField = (WrappedNavFieldComponent) => {
           // @ts-ignore Fiks
           input={{
             ...input,
-            onBlur: (event) => {
-              const value = event && event.target && Object.prototype.hasOwnProperty.call(event.target, 'value')
-                ? event.target.value
-                : event;
+            onBlur: event => {
+              const value =
+                event && event.target && Object.prototype.hasOwnProperty.call(event.target, 'value')
+                  ? event.target.value
+                  : event;
               const newValue = normalizeOnBlur ? normalizeOnBlur(value) : value;
               onBlur(newValue);
             },
@@ -80,10 +81,12 @@ const DecimalField: FunctionComponent<BaseFieldProps & DecimalFieldProps> = ({
   alignRightCenterOnReadOnly,
   ...otherProps
 }) => {
-  const other = readOnly ? {
-    ...otherProps,
-    alignRightCenterOnReadOnly,
-  } : otherProps;
+  const other = readOnly
+    ? {
+        ...otherProps,
+        alignRightCenterOnReadOnly,
+      }
+    : otherProps;
 
   return (
     <NormalizeOnBlurField

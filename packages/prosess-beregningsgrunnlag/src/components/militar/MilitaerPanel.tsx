@@ -11,7 +11,7 @@ import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {
-    alleAndeler: BeregningsgrunnlagAndel[];
+  alleAndeler: BeregningsgrunnlagAndel[];
 };
 
 /**
@@ -20,7 +20,7 @@ type OwnProps = {
  * Presentasjonskomponent. Viser beregningsgrunnlag for militær og sivilforsvarstjeneste.
  */
 const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const relevanteAndeler = alleAndeler.filter((andel) => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL);
+  const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL);
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
     <>

@@ -35,12 +35,7 @@ const aktivitetAAP = {
   skalBrukes: null,
 };
 
-const aktiviteter = [
-  aktivitet1,
-  aktivitet2,
-  aktivitet3,
-  aktivitetAAP,
-];
+const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
 
 const id1 = '3847238947232019-01-01';
 const id2 = '334534623342efj8343f34f2019-01-01';
@@ -49,17 +44,15 @@ const idAAP = 'AAP2019-01-01';
 
 describe('<VurderAktiviteterPanel>', () => {
   it('skal returnere true om ingen aktiviteter skal brukes og det ikkje finnes fleire aktiviteter i opptjeningsperioden', () => {
-    const aktiviteterTomDatoMapping = [
-      { tom: '2019-02-02', aktiviteter },
-    ];
+    const aktiviteterTomDatoMapping = [{ tom: '2019-02-02', aktiviteter }];
     const values = {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[id1] = { skalBrukes: "false" };
-    values.aktiviteterValues[id2] = { skalBrukes: "false" };
-    values.aktiviteterValues[id3] = { skalBrukes: "false" };
-    values.aktiviteterValues[idAAP] = { skalBrukes: "false" };
+    values.aktiviteterValues[id1] = { skalBrukes: 'false' };
+    values.aktiviteterValues[id2] = { skalBrukes: 'false' };
+    values.aktiviteterValues[id3] = { skalBrukes: 'false' };
+    values.aktiviteterValues[idAAP] = { skalBrukes: 'false' };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
@@ -88,16 +81,15 @@ describe('<VurderAktiviteterPanel>', () => {
     const aktiviteterTomDatoMapping = [
       { tom: '2019-02-02', aktiviteter: [aktivitet3, aktivitetAAP] },
       { tom: '2019-01-02', aktiviteter: [aktivitet1STP2, aktivitet2STP2] },
-
     ];
     const values = {
       avklarAktiviteter: null,
       aktiviteterValues: {},
     };
-    values.aktiviteterValues[id1] = { skalBrukes: "true", tom: aktivitet1STP2.tom };
-    values.aktiviteterValues[id2] = { skalBrukes: "false", tom: aktivitet2STP2.tom };
-    values.aktiviteterValues[id3] = { skalBrukes: "false", tom: aktivitet3.tom };
-    values.aktiviteterValues[idAAP] = { skalBrukes: "false", tom: aktivitetAAP.tom };
+    values.aktiviteterValues[id1] = { skalBrukes: 'true', tom: aktivitet1STP2.tom };
+    values.aktiviteterValues[id2] = { skalBrukes: 'false', tom: aktivitet2STP2.tom };
+    values.aktiviteterValues[id3] = { skalBrukes: 'false', tom: aktivitet3.tom };
+    values.aktiviteterValues[idAAP] = { skalBrukes: 'false', tom: aktivitetAAP.tom };
     values.avklarAktiviteter = {
       aktiviteterTomDatoMapping,
       skjæringstidspunkt: '2019-02-02',
@@ -127,7 +119,6 @@ describe('<VurderAktiviteterPanel>', () => {
       { tom: '2019-02-02', aktiviteter: [aktivitet3, aktivitetAAP] },
       { tom: '2019-01-02', aktiviteter: [aktivitetStp2] },
       { tom: '2019-01-01', aktiviteter: [aktivitetStp3] },
-
     ];
     const values = {
       avklarAktiviteter: null,
@@ -154,9 +145,7 @@ describe('<VurderAktiviteterPanel>', () => {
   });
 
   it('skal kunne legge til aktivitet i mapping med eksisterende dato som er ulik gitt dato', () => {
-    const aktiviteterTomDatoMapping = [
-      { tom: '2018-02-02', aktiviteter: [aktivitet2] },
-    ];
+    const aktiviteterTomDatoMapping = [{ tom: '2018-02-02', aktiviteter: [aktivitet2] }];
     leggTilAktivitet(aktiviteterTomDatoMapping, aktivitet1, '2019-02-08');
     leggTilAktivitet(aktiviteterTomDatoMapping, aktivitet1, '2017-02-08');
     expect(aktiviteterTomDatoMapping.length).toBe(3);

@@ -17,10 +17,10 @@ interface OwnProps {
  *
  * Valideringskomponent. Visar en box kring noe som skall fikses.
  */
-const BorderBox: FunctionComponent<OwnProps> = ({
-  error = false,
-  className,
-  children,
-}) => <Panel border className={classNames('borderbox', { error }, className)}>{children}</Panel>;
+const BorderBox: FunctionComponent<OwnProps> = ({ error = false, className, children }) => (
+  <Panel border className={classNames('borderbox', { error }, className)}>
+    {children}
+  </Panel>
+);
 
 export default BorderBox;

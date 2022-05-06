@@ -67,9 +67,7 @@ const arbeidstakerAndelerUtenIM = [
 const beregningsgrunnlag = {
   beregningsgrunnlagPeriode: [
     {
-      beregningsgrunnlagPrStatusOgAndel: [
-        andel, andel2, andel3, frilansAndel,
-      ],
+      beregningsgrunnlagPrStatusOgAndel: [andel, andel2, andel3, frilansAndel],
     },
   ],
 } as Beregningsgrunnlag;

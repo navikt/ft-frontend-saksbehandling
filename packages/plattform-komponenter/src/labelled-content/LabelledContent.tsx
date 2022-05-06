@@ -4,15 +4,13 @@ import classNames from 'classnames';
 import styles from './labelledContent.less';
 
 export interface LabelledContentProps {
-    label: string | React.ReactNode;
-    content: React.ReactNode;
-    labelTag?: string;
-    indentContent?: boolean;
+  label: string | React.ReactNode;
+  content: React.ReactNode;
+  labelTag?: string;
+  indentContent?: boolean;
 }
 
-const LabelledContent = ({
-  label, content, labelTag, indentContent,
-}: LabelledContentProps) => {
+const LabelledContent = ({ label, content, labelTag, indentContent }: LabelledContentProps) => {
   const cl = classNames(styles.labelledContent__content, {
     [styles.labelledContent__indentation]: indentContent,
   });

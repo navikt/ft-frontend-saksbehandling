@@ -10,15 +10,18 @@ import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelp
 
 import styles from './tidligereUtbetalinger.less';
 
-const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement[] => utbetalinger.map((utbetaling) => (
-  <Row className={styles.correctPadding} key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
-    <Column>
-      {utbetaling && utbetaling.erTildeltRefusjon
-        ? <Normaltekst>{andelsnavn}</Normaltekst>
-        : <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Direkteutbetaling" />}
-    </Column>
-  </Row>
-));
+const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement[] =>
+  utbetalinger.map(utbetaling => (
+    <Row className={styles.correctPadding} key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
+      <Column>
+        {utbetaling && utbetaling.erTildeltRefusjon ? (
+          <Normaltekst>{andelsnavn}</Normaltekst>
+        ) : (
+          <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Direkteutbetaling" />
+        )}
+      </Column>
+    </Row>
+  ));
 
 const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined => {
   if (!utbetaling) {
@@ -33,17 +36,16 @@ const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined
   );
 };
 
-const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] => utbetalinger.map((utbetaling) => (
-  <Row className={styles.correctPadding} key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
-    <Column>
-      {lagPeriode(utbetaling)}
-    </Column>
-  </Row>
-));
+const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] =>
+  utbetalinger.map(utbetaling => (
+    <Row className={styles.correctPadding} key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
+      <Column>{lagPeriode(utbetaling)}</Column>
+    </Row>
+  ));
 
 type OwnProps = {
-    refusjonAndel?: RefusjonTilVurderingAndel;
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  refusjonAndel?: RefusjonTilVurderingAndel;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 export const TidligereUtbetalingRad: FunctionComponent<OwnProps> = ({
@@ -51,15 +53,14 @@ export const TidligereUtbetalingRad: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
 }) => (
   <TableRow>
+    <TableColumn>{createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId)}</TableColumn>
     <TableColumn>
-      {createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId)}
+      {utbetalingTil(
+        refusjonAndel.tidligereUtbetalinger,
+        createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId),
+      )}
     </TableColumn>
-    <TableColumn>
-      {utbetalingTil(refusjonAndel.tidligereUtbetalinger, createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId))}
-    </TableColumn>
-    <TableColumn>
-      {perioder(refusjonAndel.tidligereUtbetalinger)}
-    </TableColumn>
+    <TableColumn>{perioder(refusjonAndel.tidligereUtbetalinger)}</TableColumn>
   </TableRow>
 );
 

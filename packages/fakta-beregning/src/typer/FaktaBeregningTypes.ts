@@ -1,50 +1,55 @@
 import {
-  Aksjonspunkt, AlleKodeverk, ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag, FaktaOmBeregning,
+  Aksjonspunkt,
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  FaktaOmBeregning,
   KortvarigAndel,
-  KunYtelse, RefusjonskravSomKommerForSentListe, VurderBesteberegning,
+  KunYtelse,
+  RefusjonskravSomKommerForSentListe,
+  VurderBesteberegning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 import AndelFieldValue from './FieldValues';
 
 export type TidsbegrensetandelValues = {
   [key: string]: boolean;
-}
+};
 
 export type VurderMilitærValues = {
   vurderMilitær?: boolean;
-}
+};
 
 export type NyIArbeidslivetValues = {
   erSNNyIArbeidslivet?: boolean;
-}
+};
 
 export type LønnsendringValues = {
-  lonnsendringField?: boolean
-}
+  lonnsendringField?: boolean;
+};
 
 export type NyoppstartetFLValues = {
-  NyoppstartetFLField?: boolean
-}
+  NyoppstartetFLField?: boolean;
+};
 export type VurderBesteberegningMedKunYtelseValues = {
   besteberegningField: boolean;
-}
+};
 
 export type VurderBesteberegningValues = {
   vurderbesteberegningField?: boolean;
-}
+};
 
 export type VurderEtterlønnSluttpakkeValues = {
   vurderEtterlønnSluttpakke?: boolean;
-}
+};
 
 export type ErOverstyringValues = {
   manuellOverstyringRapportertInntekt?: boolean;
-}
+};
 
 export type VurderOgFastsettATFLValues = ErOverstyringValues & {
   inntektFieldArray?: AndelFieldValue[];
-}
+};
 
 export type GenerellAndelInfo = {
   andel: string;
@@ -53,31 +58,38 @@ export type GenerellAndelInfo = {
   nyAndel: boolean;
   inntektskategori: string;
   lagtTilAvSaksbehandler: boolean;
-}
+};
 
 export type BrukersAndelValues = GenerellAndelInfo & {
   fastsattBelop: string;
-}
+};
 
-export type KunYtelseValues = VurderBesteberegningMedKunYtelseValues | {
-  brukersAndelBG?: BrukersAndelValues[];
-}
+export type KunYtelseValues =
+  | VurderBesteberegningMedKunYtelseValues
+  | {
+      brukersAndelBG?: BrukersAndelValues[];
+    };
 
 export type VurderMottarYtelseValues = {
   [key: string]: boolean;
-}
+};
 
 export type VurderRefusjonValues = {
   [key: string]: boolean;
-}
+};
 
-export type TilfellerValues = VurderMilitærValues & NyIArbeidslivetValues
-  & LønnsendringValues & NyoppstartetFLValues & KunYtelseValues &
-  VurderEtterlønnSluttpakkeValues & VurderBesteberegningValues & VurderOgFastsettATFLValues & {
-  tidsbegrensetValues?: TidsbegrensetandelValues;
-  vurderMottarYtelseValues?: VurderMottarYtelseValues;
-  vurderRefusjonValues?: VurderRefusjonValues;
-}
+export type TilfellerValues = VurderMilitærValues &
+  NyIArbeidslivetValues &
+  LønnsendringValues &
+  NyoppstartetFLValues &
+  KunYtelseValues &
+  VurderEtterlønnSluttpakkeValues &
+  VurderBesteberegningValues &
+  VurderOgFastsettATFLValues & {
+    tidsbegrensetValues?: TidsbegrensetandelValues;
+    vurderMottarYtelseValues?: VurderMottarYtelseValues;
+    vurderRefusjonValues?: VurderRefusjonValues;
+  };
 
 export type FaktaOmBeregningValues = TilfellerValues & {
   tilfeller?: string[];
@@ -86,19 +98,19 @@ export type FaktaOmBeregningValues = TilfellerValues & {
   beregningsgrunnlag?: Beregningsgrunnlag;
   vurderMottarYtelse?: VurderMottarYtelse;
   kunYtelse?: KunYtelse;
-}
+};
 
 export type FaktaOmBeregningAksjonspunktValues = FaktaOmBeregningValues & {
   aksjonspunkter?: Aksjonspunkt[];
   begrunnelseFaktaTilfeller?: string;
-}
+};
 
 export type FaktaStateProps = {
   beregningsgrunnlag: Beregningsgrunnlag;
   kortvarigeArbeidsforhold: KortvarigAndel[];
   vurderFaktaAP: Aksjonspunkt;
   kunYtelse: KunYtelse;
-  tilfeller: string[]
+  tilfeller: string[];
   vurderMottarYtelse: VurderMottarYtelse;
   vurderBesteberegning: VurderBesteberegning;
   alleKodeverk: AlleKodeverk;
@@ -107,8 +119,8 @@ export type FaktaStateProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   refusjonskravSomKommerForSentListe: RefusjonskravSomKommerForSentListe[];
   erOverstyrt: boolean;
-}
+};
 
 export type FaktaBeregningError = {
   id: string;
-}
+};

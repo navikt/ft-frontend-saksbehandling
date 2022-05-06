@@ -1,4 +1,1 @@
-export {
-  RETTSKILDE_URL,
-  LINK_TIL_BESTE_BEREGNING_REGNEARK,
-} from './src/eksterneLenker';
+export { RETTSKILDE_URL, LINK_TIL_BESTE_BEREGNING_REGNEARK } from './src/eksterneLenker';

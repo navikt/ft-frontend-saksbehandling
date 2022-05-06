@@ -56,40 +56,55 @@ const {
 // Methods
 // ------------------------------------------------------------------------------------------ //
 
-const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning): boolean => (faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
-  ? faktaOmBeregning.faktaOmBeregningTilfeller.some((tilfelle) => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
-  : false);
+const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning): boolean =>
+  faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
+    ? faktaOmBeregning.faktaOmBeregningTilfeller.some(
+        tilfelle => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
+      )
+    : false;
 
-const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag): boolean => !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
+const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag): boolean =>
+  !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
 
-export const buildInitialValues = (beregningsgrunnlag: BeregningsgrunnlagProp,
-  gjeldendeAksjonspunkter: Aksjonspunkt[]): BeregningsgrunnlagValues => {
+export const buildInitialValues = (
+  beregningsgrunnlag: BeregningsgrunnlagProp,
+  gjeldendeAksjonspunkter: Aksjonspunkt[],
+): BeregningsgrunnlagValues => {
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
     return undefined;
   }
   const allePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   const alleAndelerIForstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel;
-  const arbeidstakerAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
-  const frilanserAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
-  const selvstendigNaeringAndeler = alleAndelerIForstePeriode.filter((andel) => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+  const arbeidstakerAndeler = alleAndelerIForstePeriode.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  );
+  const frilanserAndeler = alleAndelerIForstePeriode.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+  );
+  const selvstendigNaeringAndeler = alleAndelerIForstePeriode.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  );
   return {
     ...Beregningsgrunnlag.buildInitialValues(gjeldendeAksjonspunkter),
     ...AksjonspunktBehandlerTidsbegrenset.buildInitialValues(allePerioder),
-    ...AksjonspunktBehandlerFL.buildInitialValues((frilanserAndeler)),
+    ...AksjonspunktBehandlerFL.buildInitialValues(frilanserAndeler),
     ...AksjonspunktBehandlerSN.buildInitialValues(selvstendigNaeringAndeler, gjeldendeAksjonspunkter),
     ...GrunnlagForAarsinntektPanelAT.buildInitialValues(arbeidstakerAndeler),
     ...DekningsgradAksjonspunktPanel.buildInitialValues(beregningsgrunnlag, gjeldendeAksjonspunkter),
   };
 };
 
-const harAksjonspunkt = (aksjonspunktKode: string, gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean => gjeldendeAksjonspunkter !== undefined
-  && gjeldendeAksjonspunkter !== null
-  && gjeldendeAksjonspunkter.some((ap) => ap.definisjon === aksjonspunktKode);
+const harAksjonspunkt = (aksjonspunktKode: string, gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean =>
+  gjeldendeAksjonspunkter !== undefined &&
+  gjeldendeAksjonspunkter !== null &&
+  gjeldendeAksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
 
-export const transformValues = (values: BeregningsgrunnlagValues,
+export const transformValues = (
+  values: BeregningsgrunnlagValues,
   relevanteStatuser: RelevanteStatuserProp,
   gjeldendeAksjonspunkter: Aksjonspunkt[],
-  allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagResultatAP[] => {
+  allePerioder: BeregningsgrunnlagPeriodeProp[],
+): BeregningsgrunnlagResultatAP[] => {
   allePerioder.sort((p1, p2) => p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom));
   const alleAndelerIFørstePeriode = allePerioder.length > 0 ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel : [];
 
@@ -98,26 +113,36 @@ export const transformValues = (values: BeregningsgrunnlagValues,
     aksjonspunkter.push(DekningsgradAksjonspunktPanel.transformValues(values as Required<DekningsgradValues>));
   }
   if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, gjeldendeAksjonspunkter)) {
-    return aksjonspunkter.concat(Beregningsgrunnlag.transformATFLValues(values as ATFLValues, relevanteStatuser, alleAndelerIFørstePeriode));
+    return aksjonspunkter.concat(
+      Beregningsgrunnlag.transformATFLValues(values as ATFLValues, relevanteStatuser, alleAndelerIFørstePeriode),
+    );
   }
-  if (harAksjonspunkt(VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE, gjeldendeAksjonspunkter)
-    || harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAksjonspunkter)) {
-    return aksjonspunkter.concat([AksjonspunktBehandlerSN.transformValues(values as VurderOgFastsettValues, gjeldendeAksjonspunkter)]);
+  if (
+    harAksjonspunkt(
+      VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+      gjeldendeAksjonspunkter,
+    ) ||
+    harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAksjonspunkter)
+  ) {
+    return aksjonspunkter.concat([
+      AksjonspunktBehandlerSN.transformValues(values as VurderOgFastsettValues, gjeldendeAksjonspunkter),
+    ]);
   }
   if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD, gjeldendeAksjonspunkter)) {
-    return aksjonspunkter.concat(Beregningsgrunnlag.transformATFLTidsbegrensetValues(values as ATFLTidsbegrensetValues, allePerioder));
+    return aksjonspunkter.concat(
+      Beregningsgrunnlag.transformATFLTidsbegrensetValues(values as ATFLTidsbegrensetValues, allePerioder),
+    );
   }
   return aksjonspunkter;
 };
 
-const getSammenligningsgrunnlagsPrStatus = (bg: BeregningsgrunnlagProp): SammenligningsgrunlagProp[] => (bg.sammenligningsgrunnlagPrStatus
-  ? bg.sammenligningsgrunnlagPrStatus
-  : undefined);
+const getSammenligningsgrunnlagsPrStatus = (bg: BeregningsgrunnlagProp): SammenligningsgrunlagProp[] =>
+  bg.sammenligningsgrunnlagPrStatus ? bg.sammenligningsgrunnlagPrStatus : undefined;
 
-const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): string[] => beregningsgrunnlagPerioder[0]
-  .beregningsgrunnlagPrStatusOgAndel
-  .filter((statusAndel) => statusAndel.erTilkommetAndel !== true)
-  .map((statusAndel) => statusAndel.aktivitetStatus);
+const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): string[] =>
+  beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
+    .filter(statusAndel => statusAndel.erTilkommetAndel !== true)
+    .map(statusAndel => statusAndel.aktivitetStatus);
 
 type OwnProps = {
   readOnly: boolean;
@@ -129,7 +154,7 @@ type OwnProps = {
   alleKodeverk: AlleKodeverk;
   vilkaarBG: Vilkar;
   formData?: BeregningsgrunnlagValues;
-  setFormData: (data: BeregningsgrunnlagValues) => void,
+  setFormData: (data: BeregningsgrunnlagValues) => void;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
@@ -158,7 +183,10 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
 }) => {
   const {
-    dekningsgrad, skjaeringstidspunktBeregning, beregningsgrunnlagPeriode, faktaOmBeregning,
+    dekningsgrad,
+    skjaeringstidspunktBeregning,
+    beregningsgrunnlagPeriode,
+    faktaOmBeregning,
     ytelsesspesifiktGrunnlag,
   } = beregningsgrunnlag;
   const formMethods = useForm<BeregningsgrunnlagValues>({
@@ -174,11 +202,19 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   return (
     <Form
       formMethods={formMethods}
-      onSubmit={(values) => submitCallback(transformValues(values, relevanteStatuser, gjeldendeAksjonspunkter, beregningsgrunnlag.beregningsgrunnlagPeriode))}
+      onSubmit={values =>
+        submitCallback(
+          transformValues(
+            values,
+            relevanteStatuser,
+            gjeldendeAksjonspunkter,
+            beregningsgrunnlag.beregningsgrunnlagPeriode,
+          ),
+        )
+      }
       setDataOnUnmount={setFormData}
     >
-      { harAksjonspunkter
-      && (
+      {harAksjonspunkter && (
         <>
           <VerticalSpacer eightPx />
           <AksjonspunktTittel aksjonspunkter={gjeldendeAksjonspunkter} beregningsgrunnlag={beregningsgrunnlag} />
@@ -195,7 +231,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             aktivitetStatusList={aktivitetStatusList}
             skjeringstidspunktDato={skjaeringstidspunktBeregning}
           />
-          { relevanteStatuser.skalViseBeregningsgrunnlag && (
+          {relevanteStatuser.skalViseBeregningsgrunnlag && (
             <Beregningsgrunnlag
               relevanteStatuser={relevanteStatuser}
               allePerioder={beregningsgrunnlagPeriode}
@@ -230,8 +266,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             harAksjonspunkter={harAksjonspunkter}
             gjelderBesteberegning={gjelderBesteberegning}
           />
-          {harAksjonspunkter
-          && (
+          {harAksjonspunkter && (
             <>
               <AvsnittSkiller spaceAbove spaceUnder rightPanel />
               <AksjonspunktBehandler

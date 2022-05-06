@@ -5,7 +5,7 @@ export type FaktaOmBeregningAndel = Readonly<{
   andelsnr?: number;
   inntektskategori?: string;
   aktivitetStatus?: string;
-}>
+}>;
 
 export type AndelForFaktaOmBeregning = Readonly<{
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
@@ -17,20 +17,20 @@ export type AndelForFaktaOmBeregning = Readonly<{
   fastsattBelop?: number;
   skalKunneEndreAktivitet?: boolean;
   lagtTilAvSaksbehandler: boolean;
-}>
+}>;
 
 export type RefusjonskravSomKommerForSentListe = Readonly<{
   arbeidsgiverIdent: string;
   erRefusjonskravGyldig?: boolean;
-}>
+}>;
 
 type VurderMilitaer = Readonly<{
   harMilitaer?: boolean;
-}>
+}>;
 
 export type VurderBesteberegning = Readonly<{
   skalHaBesteberegning?: boolean;
-}>
+}>;
 
 export type BeregningAktivitet = Readonly<{
   arbeidsgiverIdent?: string;
@@ -41,17 +41,17 @@ export type BeregningAktivitet = Readonly<{
   arbeidsforholdType: string;
   aktørIdString?: string;
   skalBrukes?: boolean;
-}>
+}>;
 
 export type AvklarBeregningAktiviteter = Readonly<{
   tom: string;
   aktiviteter?: BeregningAktivitet[];
-}>
+}>;
 
 export type AvklarBeregningAktiviteterMap = Readonly<{
   aktiviteterTomDatoMapping?: AvklarBeregningAktiviteter[];
   skjæringstidspunkt: string;
-}>
+}>;
 
 export interface KunYtelseAndel extends FaktaOmBeregningAndel {
   fastsattBelopPrMnd: number;
@@ -70,14 +70,14 @@ export type KunYtelse = Readonly<{
   andeler?: KunYtelseAndel[];
   fodendeKvinneMedDP: boolean;
   erBesteberegning?: boolean;
-}>
+}>;
 
 export type VurderMottarYtelse = Readonly<{
   erFrilans?: boolean;
   frilansMottarYtelse?: boolean;
   frilansInntektPrMnd?: number;
   arbeidstakerAndelerUtenIM?: ArbeidstakerUtenIMAndel[];
-}>
+}>;
 
 export interface ATFLSammeOrgAndel extends FaktaOmBeregningAndel {
   inntektPrMnd?: number;
@@ -99,6 +99,6 @@ export type FaktaOmBeregning = Readonly<{
   faktaOmBeregningTilfeller?: string[];
   vurderMottarYtelse?: VurderMottarYtelse;
   arbeidstakerOgFrilanserISammeOrganisasjonListe?: ATFLSammeOrgAndel[];
-}>
+}>;
 
 export default FaktaOmBeregning;

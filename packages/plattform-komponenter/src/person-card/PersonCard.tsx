@@ -9,21 +9,21 @@ import Menu from './Menu';
 import styles from './personCard.less';
 
 export enum Gender {
-    male = 'male',
-    female = 'female',
-    unknown = 'unknown',
+  male = 'male',
+  female = 'female',
+  unknown = 'unknown',
 }
 
 export interface PersonCardData {
-    name: string;
-    fodselsnummer: string;
-    gender: GenderType;
-    url?: string;
-    isActive?: boolean;
-    renderMenuContent?: () => React.ReactNode;
-    renderLabelContent?: () => React.ReactNode;
-    isChild?: boolean;
-    childAge?: string | React.ReactNode;
+  name: string;
+  fodselsnummer: string;
+  gender: GenderType;
+  url?: string;
+  isActive?: boolean;
+  renderMenuContent?: () => React.ReactNode;
+  renderLabelContent?: () => React.ReactNode;
+  isChild?: boolean;
+  childAge?: string | React.ReactNode;
 }
 
 const personCardCls = bemUtils('personCard');
@@ -60,10 +60,10 @@ const PersonCard = ({
     <Normaltekst
       tag="span"
       className={
-                    isActive
-                      ? `${styles.personCard__name} ${styles['personCard__name--active']}`
-                      : styles[personCardCls.element('name')]
-                }
+        isActive
+          ? `${styles.personCard__name} ${styles['personCard__name--active']}`
+          : styles[personCardCls.element('name')]
+      }
     >
       {name}
     </Normaltekst>
@@ -84,20 +84,14 @@ const PersonCard = ({
             {userDetails}
           </a>
         ) : (
-          <p className={`${styles.personCard__selector} ${styles['personCard__selector--inactive']}`}>
-            {userDetails}
-          </p>
+          <p className={`${styles.personCard__selector} ${styles['personCard__selector--inactive']}`}>{userDetails}</p>
         )}
       </div>
       {isChild ? (
         <div>
           {childAge && (
             <div className={styles[personCardCls.element('child-age')]}>
-              <Normaltekst tag="span">
-                (
-                {childAge}
-                )
-              </Normaltekst>
+              <Normaltekst tag="span">({childAge})</Normaltekst>
             </div>
           )}
         </div>
@@ -110,40 +104,34 @@ const PersonCard = ({
             </Clipboard>
 
             {!!renderMenuContent && (
-            <div ref={menuRef}>
-              <Popover
-                popperIsVisible={isMenuOpen}
-                renderArrowElement
-                customPopperStyles={{ top: '6px', left: '-1px', zIndex: 2 }}
-                popperProps={{
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  children: (): React.ReactNode => renderMenuContent && (
-                  <div className={styles[personCardCls.element('menu-container')]}>
-                    {renderMenuContent()}
-                  </div>
-                  ),
-                  placement: 'bottom-start',
-                  strategy: 'fixed',
-                }}
-                referenceProps={{
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  children: ({ ref }): React.ReactNode => (
-                    <div
-                      className={styles[personCardCls.element('menu-button-container')]}
-                      ref={ref}
-                    >
-                      <Menu onClick={onClick} isOpen={isMenuOpen} />
-                    </div>
-                  ),
-                }}
-                arrowProps={{ style: { left: '8px' } }}
-              />
-            </div>
+              <div ref={menuRef}>
+                <Popover
+                  popperIsVisible={isMenuOpen}
+                  renderArrowElement
+                  customPopperStyles={{ top: '6px', left: '-1px', zIndex: 2 }}
+                  popperProps={{
+                    // eslint-disable-next-line react/no-unstable-nested-components
+                    children: (): React.ReactNode =>
+                      renderMenuContent && (
+                        <div className={styles[personCardCls.element('menu-container')]}>{renderMenuContent()}</div>
+                      ),
+                    placement: 'bottom-start',
+                    strategy: 'fixed',
+                  }}
+                  referenceProps={{
+                    // eslint-disable-next-line react/no-unstable-nested-components
+                    children: ({ ref }): React.ReactNode => (
+                      <div className={styles[personCardCls.element('menu-button-container')]} ref={ref}>
+                        <Menu onClick={onClick} isOpen={isMenuOpen} />
+                      </div>
+                    ),
+                  }}
+                  arrowProps={{ style: { left: '8px' } }}
+                />
+              </div>
             )}
             {renderLabelContent && (
-            <div className={styles[personCardCls.element('labelContainer')]}>
-              {renderLabelContent()}
-            </div>
+              <div className={styles[personCardCls.element('labelContainer')]}>{renderLabelContent()}</div>
             )}
           </div>
         </>

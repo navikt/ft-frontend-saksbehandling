@@ -6,7 +6,10 @@ import { Form } from '@navikt/ft-form-hooks';
 import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
-  Aksjonspunkt, RefusjonTilVurderingAndel, Beregningsgrunnlag, ArbeidsgiverOpplysningerPerId,
+  Aksjonspunkt,
+  RefusjonTilVurderingAndel,
+  Beregningsgrunnlag,
+  ArbeidsgiverOpplysningerPerId,
 } from '@navikt/ft-types';
 
 import VurderRefusjonBeregningsgrunnlagAP from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -20,12 +23,10 @@ import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 const BEGRUNNELSE_FIELD = 'VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE';
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
-const {
-  VURDER_REFUSJON_BERGRUNN,
-} = FaktaFordelBeregningAksjonspunktCode;
+const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
 
-const finnAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]) : Aksjonspunkt | undefined => (aksjonspunkter
-  ? aksjonspunkter.find((ap) => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined);
+const finnAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined =>
+  aksjonspunkter ? aksjonspunkter.find(ap => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined;
 
 const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
   if (andel.arbeidsgiver.arbeidsgiverAktørId) {
@@ -37,7 +38,7 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
 const buildInitialValues = (bg: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt[]): VurderRefusjonValues => {
   const { andeler } = bg.refusjonTilVurdering;
   let initialValues = {};
-  andeler.forEach((andel) => {
+  andeler.forEach(andel => {
     initialValues = {
       ...initialValues,
       ...VurderEndringRefusjonRad.buildInitialValues(andel),
@@ -50,7 +51,9 @@ const buildInitialValues = (bg: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt
 
 const transformValues = (values: VurderRefusjonValues, bg: Beregningsgrunnlag): VurderRefusjonBeregningsgrunnlagAP => {
   const { andeler } = bg.refusjonTilVurdering;
-  const transformedAndeler = andeler.map((andel) => VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning));
+  const transformedAndeler = andeler.map(andel =>
+    VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),
+  );
   return {
     begrunnelse: values.begrunnelse,
     kode: VURDER_REFUSJON_BERGRUNN,
@@ -59,14 +62,14 @@ const transformValues = (values: VurderRefusjonValues, bg: Beregningsgrunnlag): 
 };
 
 type OwnProps = {
-    submitCallback: (aksjonspunktData: VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
-    readOnly: boolean;
-    submittable: boolean;
-    beregningsgrunnlag?: Beregningsgrunnlag;
-    aksjonspunkter: Aksjonspunkt[];
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-    formData?: VurderRefusjonValues;
-    setFormData: (data: VurderRefusjonValues) => void,
+  submitCallback: (aksjonspunktData: VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
+  readOnly: boolean;
+  submittable: boolean;
+  beregningsgrunnlag?: Beregningsgrunnlag;
+  aksjonspunkter: Aksjonspunkt[];
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  formData?: VurderRefusjonValues;
+  setFormData: (data: VurderRefusjonValues) => void;
 };
 
 const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
@@ -94,13 +97,18 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
       <VerticalSpacer sixteenPx />
       <Form
         formMethods={formMethods}
-        onSubmit={(values) => submitCallback(transformValues(values, beregningsgrunnlag))}
+        onSubmit={values => submitCallback(transformValues(values, beregningsgrunnlag))}
         setDataOnUnmount={setFormData}
       >
-        <Undertittel><FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" /></Undertittel>
+        <Undertittel>
+          <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
+        </Undertittel>
         <VerticalSpacer sixteenPx />
-        <TidligereUtbetalinger beregningsgrunnlag={beregningsgrunnlag} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
-        { andeler.map((andel) => (
+        <TidligereUtbetalinger
+          beregningsgrunnlag={beregningsgrunnlag}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
+        {andeler.map(andel => (
           <VurderEndringRefusjonRad
             refusjonAndel={andel}
             readOnly={readOnly}
@@ -112,11 +120,7 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
           />
         ))}
         <VerticalSpacer twentyPx />
-        <FaktaBegrunnelseTextField
-          isSubmittable={submittable}
-          isReadOnly={readOnly}
-          hasBegrunnelse={!!begrunnelse}
-        />
+        <FaktaBegrunnelseTextField isSubmittable={submittable} isReadOnly={readOnly} hasBegrunnelse={!!begrunnelse} />
         <VerticalSpacer twentyPx />
         <FaktaSubmitButton
           isSubmittable={submittable}

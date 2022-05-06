@@ -4,11 +4,7 @@ import {
   FaktaOmBeregningTilfelle,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
-import {
-  AlleKodeverk,
-  Beregningsgrunnlag,
-  BeregningsgrunnlagArbeidsforhold,
-} from '@navikt/ft-types';
+import { AlleKodeverk, Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import {
@@ -20,7 +16,10 @@ import {
   kanRedigereInntektForAndel,
   skalRedigereInntektskategoriForAndel,
 } from './BgFaktaUtils';
-import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
+import {
+  finnFrilansFieldName,
+  utledArbeidsforholdFieldName,
+} from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 
 const arbeidsgiver = {
@@ -45,26 +44,28 @@ const arbeidstakerAndel1 = {
 };
 
 const alleKodeverk = {
-  [KodeverkType.AKTIVITET_STATUS]: [{
-    kode: aktivitetStatuser.ARBEIDSAVKLARINGSPENGER,
-    kodeverk: 'AKTIVITET_STATUS',
-    navn: 'Arbeidsavklaringspenger',
-  },
-  {
-    kode: aktivitetStatuser.DAGPENGER,
-    kodeverk: 'AKTIVITET_STATUS',
-    navn: 'Dagpenger',
-  },
-  {
-    kode: aktivitetStatuser.FRILANSER,
-    kodeverk: 'AKTIVITET_STATUS',
-    navn: 'Frilans',
-  },
-  {
-    kode: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
-    kodeverk: 'AKTIVITET_STATUS',
-    navn: 'Selvstendig næringsdrivende',
-  }],
+  [KodeverkType.AKTIVITET_STATUS]: [
+    {
+      kode: aktivitetStatuser.ARBEIDSAVKLARINGSPENGER,
+      kodeverk: 'AKTIVITET_STATUS',
+      navn: 'Arbeidsavklaringspenger',
+    },
+    {
+      kode: aktivitetStatuser.DAGPENGER,
+      kodeverk: 'AKTIVITET_STATUS',
+      navn: 'Dagpenger',
+    },
+    {
+      kode: aktivitetStatuser.FRILANSER,
+      kodeverk: 'AKTIVITET_STATUS',
+      navn: 'Frilans',
+    },
+    {
+      kode: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      kodeverk: 'AKTIVITET_STATUS',
+      navn: 'Selvstendig næringsdrivende',
+    },
+  ],
 } as AlleKodeverk;
 
 describe('<BgFaktaUtils>', () => {
@@ -297,9 +298,16 @@ describe('<BgFaktaUtils>', () => {
   };
 
   const beregningsgrunnlag = {
-    beregningsgrunnlagPeriode: [{
-      beregningsgrunnlagPrStatusOgAndel: [arbeidstakerAndel1, arbeidstakerAndel3, frilansAndel, arbeidstakerAndel4, kunstigArbeidstakerAndel],
-    },
+    beregningsgrunnlagPeriode: [
+      {
+        beregningsgrunnlagPrStatusOgAndel: [
+          arbeidstakerAndel1,
+          arbeidstakerAndel3,
+          frilansAndel,
+          arbeidstakerAndel4,
+          kunstigArbeidstakerAndel,
+        ],
+      },
     ],
   } as Beregningsgrunnlag;
 
@@ -374,7 +382,11 @@ describe('<BgFaktaUtils>', () => {
     };
     const copyValues = { ...values };
     copyValues[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] = true;
-    const skalRedigereInntekt = kanRedigereInntektForAndel(copyValues, faktaOmBeregning, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = kanRedigereInntektForAndel(
+      copyValues,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
   });
 
@@ -390,7 +402,11 @@ describe('<BgFaktaUtils>', () => {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel3, agOpplysning, {} as AlleKodeverk),
     };
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      values,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
   });
 
@@ -407,7 +423,11 @@ describe('<BgFaktaUtils>', () => {
       ...setGenerellAndelsinfo(arbeidstakerAndel1, agOpplysning, {} as AlleKodeverk),
     };
     faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM = [arbeidstakerAndel1];
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      values,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
   });
 
@@ -439,7 +459,11 @@ describe('<BgFaktaUtils>', () => {
     const faktaOmBeregningCopy = { ...faktaOmBeregning };
     arbeidstakerAndel4.inntektPrMnd = 30000;
     faktaOmBeregningCopy.arbeidstakerOgFrilanserISammeOrganisasjonListe = [arbeidstakerAndel4];
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(values, faktaOmBeregningCopy, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      values,
+      faktaOmBeregningCopy,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(false);
   });
 
@@ -458,7 +482,11 @@ describe('<BgFaktaUtils>', () => {
     const faktaOmBeregningCopy = { ...faktaOmBeregning };
     arbeidstakerAndel4.inntektPrMnd = null;
     faktaOmBeregningCopy.arbeidstakerOgFrilanserISammeOrganisasjonListe = [arbeidstakerAndel4];
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(values, faktaOmBeregningCopy, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      values,
+      faktaOmBeregningCopy,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
   });
 
@@ -467,7 +495,11 @@ describe('<BgFaktaUtils>', () => {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(frilansAndel, {}, alleKodeverk),
     };
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      values,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
   });
 
@@ -479,7 +511,11 @@ describe('<BgFaktaUtils>', () => {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(frilansAndel, {}, alleKodeverk),
     };
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(valuesLocalCopy, faktaOmBeregning, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      valuesLocalCopy,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
   });
 
@@ -491,7 +527,11 @@ describe('<BgFaktaUtils>', () => {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(frilansAndel, {}, alleKodeverk),
     };
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(valuesLocalCopy, faktaOmBeregning, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      valuesLocalCopy,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(false);
   });
   it('skal redigere inntekt for frilansandel i samme org som arbeidstaker', () => {
@@ -500,7 +540,11 @@ describe('<BgFaktaUtils>', () => {
       ...setGenerellAndelsinfo(frilansAndel, {}, alleKodeverk),
     };
     faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe = [arbeidstakerAndel4];
-    const skalRedigereInntekt = skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntekt = skalFastsetteInntektForAndel(
+      values,
+      faktaOmBeregning,
+      beregningsgrunnlag,
+    )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
   });
 

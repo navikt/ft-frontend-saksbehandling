@@ -41,13 +41,15 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   error,
   disabled = false,
   isReadOnly = false,
-  parse = (value) => value,
+  parse = value => value,
   onChange,
   disabledDays,
   initialMonth,
   isEdited,
 }): JSX.Element => {
-  const { formState: { errors } } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
   const { field } = useController({
     name,
     rules: {
@@ -69,7 +71,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   return (
     <PureDatepicker
       label={label}
-      onChange={(date) => {
+      onChange={date => {
         const verdi = parse(date);
         if (onChange) {
           onChange(verdi);

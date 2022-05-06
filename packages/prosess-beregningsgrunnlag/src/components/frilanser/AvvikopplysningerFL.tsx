@@ -11,19 +11,23 @@ import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 type OwnProps = {
-    beregnetAarsinntekt?: number;
-    sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
-    relevanteStatuser: RelevanteStatuserProp;
+  beregnetAarsinntekt?: number;
+  sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
+  relevanteStatuser: RelevanteStatuserProp;
 };
 
-const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({ relevanteStatuser, sammenligningsgrunnlagPrStatus, beregnetAarsinntekt }) => {
-  const kombinasjonsstatusFNSN = relevanteStatuser.isKombinasjonsstatus
-    && !relevanteStatuser.isArbeidstaker
-    && relevanteStatuser.isSelvstendigNaeringsdrivende
-    && relevanteStatuser.isFrilanser;
-  const kombinasjonsstatusATFL = relevanteStatuser.isKombinasjonsstatus
-    && relevanteStatuser.isArbeidstaker
-    && relevanteStatuser.isFrilanser;
+const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
+  relevanteStatuser,
+  sammenligningsgrunnlagPrStatus,
+  beregnetAarsinntekt,
+}) => {
+  const kombinasjonsstatusFNSN =
+    relevanteStatuser.isKombinasjonsstatus &&
+    !relevanteStatuser.isArbeidstaker &&
+    relevanteStatuser.isSelvstendigNaeringsdrivende &&
+    relevanteStatuser.isFrilanser;
+  const kombinasjonsstatusATFL =
+    relevanteStatuser.isKombinasjonsstatus && relevanteStatuser.isArbeidstaker && relevanteStatuser.isFrilanser;
   if (kombinasjonsstatusFNSN) {
     return (
       <FlexRow>
@@ -36,17 +40,23 @@ const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({ relevanteStatuser, s
     );
   }
   const sammenligningsGrunnlagFL = sammenligningsgrunnlagPrStatus
-    ? sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === SammenligningType.FL
-      || status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)
+    ? sammenligningsgrunnlagPrStatus.find(
+        status =>
+          status.sammenligningsgrunnlagType === SammenligningType.FL ||
+          status.sammenligningsgrunnlagType === SammenligningType.ATFLSN,
+      )
     : undefined;
   if (!sammenligningsGrunnlagFL) {
     return null;
   }
-  if (kombinasjonsstatusATFL && sammenligningsgrunnlagPrStatus.find((status) => status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)) {
+  if (
+    kombinasjonsstatusATFL &&
+    sammenligningsgrunnlagPrStatus.find(status => status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)
+  ) {
     return null;
   }
   const avvikFL = sammenligningsGrunnlagFL.avvikProsent !== undefined ? sammenligningsGrunnlagFL.avvikProsent : '';
-  const avvikRoundedFL = avvikFL ? parseFloat((avvikFL.toFixed(1))) : 0;
+  const avvikRoundedFL = avvikFL ? parseFloat(avvikFL.toFixed(1)) : 0;
   const sammenligningsgrunnlagSumFL = sammenligningsGrunnlagFL.rapportertPrAar;
   const { differanseBeregnet } = sammenligningsGrunnlagFL;
   const visPaneler = {

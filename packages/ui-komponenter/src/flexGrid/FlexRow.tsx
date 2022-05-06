@@ -25,7 +25,16 @@ const FlexRow: FunctionComponent<OwnProps> = ({
   wrap = false,
   className,
 }) => (
-  <div className={classNames('flexRow', { spaceBetween }, { alignItemsToBaseline }, { alignItemsToFlexEnd }, { wrap }, className)}>
+  <div
+    className={classNames(
+      'flexRow',
+      { spaceBetween },
+      { alignItemsToBaseline },
+      { alignItemsToFlexEnd },
+      { wrap },
+      className,
+    )}
+  >
     {children}
   </div>
 );

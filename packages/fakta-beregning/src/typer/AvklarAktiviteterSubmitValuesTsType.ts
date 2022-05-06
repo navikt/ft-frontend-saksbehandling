@@ -1,4 +1,3 @@
-
 type BeregningsaktivitetLagreType = {
   arbeidsforholdRef?: string;
   arbeidsgiverIdentifikator?: string;
@@ -7,10 +6,10 @@ type BeregningsaktivitetLagreType = {
   opptjeningAktivitetType: string;
   skalBrukes?: boolean;
   tom?: string;
-}
+};
 
 type AvklarAktiviteterSubmitValuesTsType = {
-  beregningsaktivitetLagreDtoList: BeregningsaktivitetLagreType[]
-}
+  beregningsaktivitetLagreDtoList: BeregningsaktivitetLagreType[];
+};
 
 export default AvklarAktiviteterSubmitValuesTsType;

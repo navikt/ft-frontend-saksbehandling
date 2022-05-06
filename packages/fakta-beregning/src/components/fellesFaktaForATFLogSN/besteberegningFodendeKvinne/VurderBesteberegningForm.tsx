@@ -19,24 +19,26 @@ import { InntektTransformed } from '../../../typer/FieldValues';
 
 export const besteberegningField = 'vurderbesteberegningField';
 
-const {
-  OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-} = FaktaBeregningAksjonspunktCode;
+const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 
 type OwnProps = {
-    readOnly: boolean;
-    isAksjonspunktClosed: boolean;
-    erOverstyrt: boolean;
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  erOverstyrt: boolean;
 };
 
 interface StaticFunctions {
-  buildInitialValues: (aksjonspunkter: Aksjonspunkt[],
-                        vurderBesteberegning: VurderBesteberegning,
-                        faktaOmBeregningTilfeller: string[],
-                        erOverstyrt: boolean) => VurderBesteberegningValues;
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues,
-                    faktaOmBeregning: FaktaOmBeregning,
-                    inntektPrAndel: InntektTransformed[]) => FaktaBeregningTransformedValues;
+  buildInitialValues: (
+    aksjonspunkter: Aksjonspunkt[],
+    vurderBesteberegning: VurderBesteberegning,
+    faktaOmBeregningTilfeller: string[],
+    erOverstyrt: boolean,
+  ) => VurderBesteberegningValues;
+  transformValues: (
+    values: FaktaOmBeregningAksjonspunktValues,
+    faktaOmBeregning: FaktaOmBeregning,
+    inntektPrAndel: InntektTransformed[],
+  ) => FaktaBeregningTransformedValues;
   validate: (values: FaktaOmBeregningAksjonspunktValues, aktivertePaneler: string[]) => any;
 }
 
@@ -47,7 +49,11 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed, erOverstyrt }) => (
+const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly,
+  isAksjonspunktClosed,
+  erOverstyrt,
+}) => (
   <div>
     <Row>
       <Column xs="9">
@@ -55,11 +61,7 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
           <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
         </Normaltekst>
         <VerticalSpacer eightPx />
-        <RadioGroupField
-          name={besteberegningField}
-          readOnly={readOnly || erOverstyrt}
-          isEdited={isAksjonspunktClosed}
-        >
+        <RadioGroupField name={besteberegningField} readOnly={readOnly || erOverstyrt} isEdited={isAksjonspunktClosed}>
           <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
           <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
         </RadioGroupField>
@@ -78,18 +80,25 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
   </div>
 );
 
-VurderBesteberegningPanelImpl.buildInitialValues = (aksjonspunkter: Aksjonspunkt[],
+VurderBesteberegningPanelImpl.buildInitialValues = (
+  aksjonspunkter: Aksjonspunkt[],
   vurderBesteberegning: VurderBesteberegning,
   faktaOmBeregningTilfeller: string[],
-  erOverstyrt: boolean): VurderBesteberegningValues => {
-  if (!(faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
-    || faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
+  erOverstyrt: boolean,
+): VurderBesteberegningValues => {
+  if (
+    !(
+      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
+      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+    )
+  ) {
     return {};
   }
   if (!vurderBesteberegning) {
     return {};
   }
-  const erOverstyring = aksjonspunkter.find((ap) => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) !== undefined || erOverstyrt;
+  const erOverstyring =
+    aksjonspunkter.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) !== undefined || erOverstyrt;
   if (erOverstyring) {
     return {
       [besteberegningField]: false,
@@ -100,9 +109,17 @@ VurderBesteberegningPanelImpl.buildInitialValues = (aksjonspunkter: Aksjonspunkt
   };
 };
 
-VurderBesteberegningPanelImpl.validate = (values: FaktaOmBeregningAksjonspunktValues, aktivertePaneler: string[]): any => {
-  if (!values || !(aktivertePaneler.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
-  || aktivertePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
+VurderBesteberegningPanelImpl.validate = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  aktivertePaneler: string[],
+): any => {
+  if (
+    !values ||
+    !(
+      aktivertePaneler.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
+      aktivertePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+    )
+  ) {
     return {};
   }
   const errors = {};
@@ -110,9 +127,11 @@ VurderBesteberegningPanelImpl.validate = (values: FaktaOmBeregningAksjonspunktVa
   return errors;
 };
 
-VurderBesteberegningPanelImpl.transformValues = (values: FaktaOmBeregningAksjonspunktValues,
+VurderBesteberegningPanelImpl.transformValues = (
+  values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
-  inntektPrAndel: InntektTransformed[]): FaktaBeregningTransformedValues => {
+  inntektPrAndel: InntektTransformed[],
+): FaktaBeregningTransformedValues => {
   if (!faktaOmBeregning || !faktaOmBeregning.vurderBesteberegning) {
     return {};
   }
@@ -126,7 +145,7 @@ VurderBesteberegningPanelImpl.transformValues = (values: FaktaOmBeregningAksjons
   }
   const transformedValues = inntektPrAndel
     .filter(({ nyAndel }) => nyAndel !== true)
-    .map((verdi) => ({
+    .map(verdi => ({
       andelsnr: verdi.andelsnr,
       nyAndel: verdi.nyAndel,
       lagtTilAvSaksbehandler: verdi.lagtTilAvSaksbehandler,
@@ -135,40 +154,53 @@ VurderBesteberegningPanelImpl.transformValues = (values: FaktaOmBeregningAksjons
         inntektskategori: verdi.inntektskategori,
       },
     }));
-  const nyDagpengeAndel = inntektPrAndel
-    .find((a) => a.nyAndel && a.aktivitetStatus === AktivitetStatus.DAGPENGER);
+  const nyDagpengeAndel = inntektPrAndel.find(a => a.nyAndel && a.aktivitetStatus === AktivitetStatus.DAGPENGER);
   return {
     besteberegningAndeler: {
       besteberegningAndelListe: transformedValues,
-      nyDagpengeAndel: nyDagpengeAndel ? {
-        fastsatteVerdier: {
-          fastsattBeløp: nyDagpengeAndel.fastsattBelop,
-          inntektskategori: nyDagpengeAndel.inntektskategori,
-        },
-      } : null,
+      nyDagpengeAndel: nyDagpengeAndel
+        ? {
+            fastsatteVerdier: {
+              fastsattBeløp: nyDagpengeAndel.fastsattBelop,
+              inntektskategori: nyDagpengeAndel.inntektskategori,
+            },
+          }
+        : null,
     },
   };
 };
 
-export const vurderBesteberegningTransform = (faktaOmBeregning: FaktaOmBeregning) => (values: FaktaOmBeregningAksjonspunktValues,
-  inntektPrAndel: InntektTransformed[]): FaktaBeregningTransformedValues => {
-  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!(tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING)
-      || tilfeller.map((kode) => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE))) {
-    return {};
-  }
-  const besteberegningValues = VurderBesteberegningPanelImpl.transformValues(values, faktaOmBeregning, inntektPrAndel);
-  const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
-  if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
-    faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
-  }
-  return ({
-    faktaOmBeregningTilfeller,
-    ...besteberegningValues,
-  });
-};
+export const vurderBesteberegningTransform =
+  (faktaOmBeregning: FaktaOmBeregning) =>
+  (
+    values: FaktaOmBeregningAksjonspunktValues,
+    inntektPrAndel: InntektTransformed[],
+  ): FaktaBeregningTransformedValues => {
+    const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+    if (
+      !(
+        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
+        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+      )
+    ) {
+      return {};
+    }
+    const besteberegningValues = VurderBesteberegningPanelImpl.transformValues(
+      values,
+      faktaOmBeregning,
+      inntektPrAndel,
+    );
+    const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
+    if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
+      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
+    }
+    return {
+      faktaOmBeregningTilfeller,
+      ...besteberegningValues,
+    };
+  };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   erBesteberegning: getFormValuesForBeregning(state)[besteberegningField],
 });
 

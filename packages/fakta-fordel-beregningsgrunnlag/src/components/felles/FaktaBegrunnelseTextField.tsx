@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import {
-  decodeHtmlEntity, hasValidText, maxLength, minLength, required, createIntl,
-} from '@navikt/ft-utils';
+import { decodeHtmlEntity, hasValidText, maxLength, minLength, required, createIntl } from '@navikt/ft-utils';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { Aksjonspunkt } from '@navikt/ft-types';
 
@@ -81,7 +79,10 @@ const getBegrunnelse = (aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt): string => 
   return aksjonspunkt && !Array.isArray(aksjonspunkt) ? aksjonspunkt.begrunnelse : '';
 };
 
-FaktaBegrunnelseTextField.buildInitialValues = (aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt, begrunnelseFieldName = 'begrunnelse'): FormValues => ({
+FaktaBegrunnelseTextField.buildInitialValues = (
+  aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt,
+  begrunnelseFieldName = 'begrunnelse',
+): FormValues => ({
   [begrunnelseFieldName]: decodeHtmlEntity(getBegrunnelse(aksjonspunkt)),
 });
 

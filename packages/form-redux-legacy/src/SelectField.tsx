@@ -22,15 +22,13 @@ interface ReadOnlyProps {
   selectValues: ReactElement[];
 }
 
-const renderReadOnly = (): FunctionComponent<WrappedFieldProps & ReadOnlyProps> => ({
-  input,
-  selectValues,
-  ...otherProps
-}): JSX.Element => {
-  const option = selectValues.map((sv) => sv.props).find((o) => o.value === input.value);
-  const value = option ? option.children : undefined;
-  return <ReadOnlyField input={{ value }} {...otherProps} />;
-};
+const renderReadOnly =
+  (): FunctionComponent<WrappedFieldProps & ReadOnlyProps> =>
+  ({ input, selectValues, ...otherProps }): JSX.Element => {
+    const option = selectValues.map(sv => sv.props).find(o => o.value === input.value);
+    const value = option ? option.children : undefined;
+    return <ReadOnlyField input={{ value }} {...otherProps} />;
+  };
 
 const renderNavSelect = renderNavField(CustomNavSelect);
 

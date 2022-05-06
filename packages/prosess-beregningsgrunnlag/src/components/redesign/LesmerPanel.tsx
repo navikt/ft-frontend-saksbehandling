@@ -7,22 +7,23 @@ import LesMerToggle from './LesMerToggle';
 import styles from './lesMerPanel.less';
 
 type OwnProps = {
-    defaultApen?: boolean;
-    onOpen?: (...args: any[]) => any;
-    onClose?: (...args: any[]) => any;
-    intro?: React.ReactNode;
-    id?: string;
-    lukkTekst: string;
-    apneTekst: string;
-    className?: string;
-    border?: boolean;
+  defaultApen?: boolean;
+  onOpen?: (...args: any[]) => any;
+  onClose?: (...args: any[]) => any;
+  intro?: React.ReactNode;
+  id?: string;
+  lukkTekst: string;
+  apneTekst: string;
+  className?: string;
+  border?: boolean;
 };
 
 type StateProps = {
   erApen: boolean;
 };
 
-const lesMerPanelCls = (props: OwnProps): string => classNames(styles.lesMerPanel, props.className, props.border ? styles['lesMerPanel--border'] : '');
+const lesMerPanelCls = (props: OwnProps): string =>
+  classNames(styles.lesMerPanel, props.className, props.border ? styles['lesMerPanel--border'] : '');
 
 /**
  * Lesmerpanel
@@ -32,10 +33,10 @@ class Lesmerpanel extends Component<OwnProps, StateProps> {
   static defaultProps = {
     defaultApen: false,
     onClose: () => {
-    // This is intentional
+      // This is intentional
     },
     onOpen: () => {
-    // This is intentional
+      // This is intentional
     },
   };
 
@@ -58,48 +59,33 @@ class Lesmerpanel extends Component<OwnProps, StateProps> {
   }
 
   render() {
-    const {
-      intro,
-      children,
-      apneTekst,
-      lukkTekst,
-      id = guid(),
-      ...other
-    } = this.props;
+    const { intro, children, apneTekst, lukkTekst, id = guid(), ...other } = this.props;
     const domProps = omit(other, 'border', 'onOpen', 'onClose', 'defaultApen');
     const { erApen } = this.state;
     return (
-      <div
-        id={id}
-        className={lesMerPanelCls(this.props)}
-        {...domProps}
-      >
+      <div id={id} className={lesMerPanelCls(this.props)} {...domProps}>
         <div className={styles.lesMerPanel__introWrapper}>
-          {intro && (
-          <div className={styles.lesMerPanel__intro}>
-            { intro }
-          </div>
-          )}
+          {intro && <div className={styles.lesMerPanel__intro}>{intro}</div>}
           {children && (
-          <LesMerToggle
-            aria-controls={id}
-            apneTekst={apneTekst}
-            lukkTekst={lukkTekst}
-            erApen={erApen}
-            onClick={(e) => { this.toggle(e); }}
-          />
+            <LesMerToggle
+              aria-controls={id}
+              apneTekst={apneTekst}
+              lukkTekst={lukkTekst}
+              erApen={erApen}
+              onClick={e => {
+                this.toggle(e);
+              }}
+            />
           )}
         </div>
         {children && (
-        <div className={styles.lesMerPanel__merContainer}>
-          <UnmountClosed isOpened={erApen}>
-            <div className={styles.lesMerPanel__mer}>
-              <div>
-                {children}
+          <div className={styles.lesMerPanel__merContainer}>
+            <UnmountClosed isOpened={erApen}>
+              <div className={styles.lesMerPanel__mer}>
+                <div>{children}</div>
               </div>
-            </div>
-          </UnmountClosed>
-        </div>
+            </UnmountClosed>
+          </div>
         )}
       </div>
     );

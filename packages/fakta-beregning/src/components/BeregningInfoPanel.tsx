@@ -3,9 +3,17 @@ import { IntlShape } from 'react-intl';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  Aksjonspunkt, AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkar,
+  Aksjonspunkt,
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  Vilkar,
 } from '@navikt/ft-types';
-import BeregningFaktaAP, { AvklarBeregningsaktiviteterAP, BeregningOverstyringAP } from '../typer/interface/BeregningFaktaAP';
+import BeregningFaktaAP, {
+  AvklarBeregningsaktiviteterAP,
+  BeregningOverstyringAP,
+} from '../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
 import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
@@ -21,15 +29,23 @@ const {
   AVKLAR_AKTIVITETER,
 } = FaktaBeregningAksjonspunktCode;
 
-const relevanteKoder = [VURDER_FAKTA_FOR_ATFL_SN,
+const relevanteKoder = [
+  VURDER_FAKTA_FOR_ATFL_SN,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-  AVKLAR_AKTIVITETER];
+  AVKLAR_AKTIVITETER,
+];
 
 type OwnProps = {
-  intl: IntlShape
-  submitCallback: (aksjonspunktData: AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP
-    | BeregningFaktaAP | BeregningOverstyringAP | SubmitBeregningType[]) => Promise<void>;
+  intl: IntlShape;
+  submitCallback: (
+    aksjonspunktData:
+      | AvklarBeregningsaktiviteterAP
+      | OverstyrBeregningsaktiviteterAP
+      | BeregningFaktaAP
+      | BeregningOverstyringAP
+      | SubmitBeregningType[],
+  ) => Promise<void>;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
   aksjonspunkter: Aksjonspunkt[];
@@ -65,11 +81,19 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   formData,
   vilkar,
 }) => {
-  const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter((ap) => relevanteKoder.some((kode) => kode === ap.definisjon) && ap.kanLoses !== false);
-  const avklarAktiviteterReadOnly = readOnly || ((relevanteLøsbareAvklaringsbehov.length === 0
-    || hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) && !erOverstyrer);
-  const avklarFaktaBeregningReadOnly = readOnly || ((relevanteLøsbareAvklaringsbehov.length === 0
-    || hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)) && !erOverstyrer);
+  const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter(
+    ap => relevanteKoder.some(kode => kode === ap.definisjon) && ap.kanLoses !== false,
+  );
+  const avklarAktiviteterReadOnly =
+    readOnly ||
+    ((relevanteLøsbareAvklaringsbehov.length === 0 ||
+      hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) &&
+      !erOverstyrer);
+  const avklarFaktaBeregningReadOnly =
+    readOnly ||
+    ((relevanteLøsbareAvklaringsbehov.length === 0 ||
+      hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)) &&
+      !erOverstyrer);
   return (
     <div>
       <AvklareAktiviteterPanel
@@ -87,7 +111,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         vilkår={vilkar}
       />
       <VerticalSpacer thirtyTwoPx />
-      { /* @ts-ignore */ }
+      {/* @ts-ignore */}
       <VurderFaktaBeregningPanel
         intl={intl}
         readOnly={avklarFaktaBeregningReadOnly}

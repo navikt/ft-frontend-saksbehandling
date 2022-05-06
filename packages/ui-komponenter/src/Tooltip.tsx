@@ -26,12 +26,13 @@ const Tooltip: FunctionComponent<OwnProps> = ({
   alignBottom = false,
 }) => (
   <div className={styles.tooltip}>
-    <span className={classNames(styles.tooltiptext, {
-      right: alignRight || (!alignLeft && !alignTop && !alignBottom),
-      left: alignLeft,
-      top: alignTop,
-      bottom: alignBottom,
-    })}
+    <span
+      className={classNames(styles.tooltiptext, {
+        right: alignRight || (!alignLeft && !alignTop && !alignBottom),
+        left: alignLeft,
+        top: alignTop,
+        bottom: alignBottom,
+      })}
     >
       {content}
     </span>

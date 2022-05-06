@@ -1,6 +1,4 @@
-import React, {
-  ReactNode, FunctionComponent, useMemo,
-} from 'react';
+import React, { ReactNode, FunctionComponent, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { getError, getValidationRules } from './formUtils';
@@ -22,12 +20,16 @@ const SkjemaGruppeMedFeilviser: FunctionComponent<NavFieldGroupProps> = ({
   className,
   validate,
 }) => {
-  const { formState: { errors } } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
   const { field } = useController({
     name,
-    rules: validate ? {
-      validate: useMemo(() => getValidationRules(validate), [validate]),
-    } : undefined,
+    rules: validate
+      ? {
+          validate: useMemo(() => getValidationRules(validate), [validate]),
+        }
+      : undefined,
   });
 
   if (!name) {
@@ -39,12 +41,7 @@ const SkjemaGruppeMedFeilviser: FunctionComponent<NavFieldGroupProps> = ({
   }
 
   return (
-    <SkjemaGruppe
-      description={description}
-      feil={getError(errors, name)}
-      className={className}
-      {...field}
-    >
+    <SkjemaGruppe description={description} feil={getError(errors, name)} className={className} {...field}>
       {children}
     </SkjemaGruppe>
   );

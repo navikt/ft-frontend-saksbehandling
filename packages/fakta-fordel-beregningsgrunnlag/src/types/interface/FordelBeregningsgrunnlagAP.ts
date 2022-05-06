@@ -5,7 +5,7 @@ export type FordelBeregningsgrunnlagFastsatteVerdierTransformedValues = {
   refusjonPrÅr: number;
   fastsattÅrsbeløpInklNaturalytelse: number;
   inntektskategori: string;
-}
+};
 
 export type FordelBeregningsgrunnlagAndelTransformedValues = {
   andelsnr: number | string;
@@ -22,19 +22,19 @@ export type FordelBeregningsgrunnlagAndelTransformedValues = {
   forrigeRefusjonPrÅr: number;
   forrigeInntektskategori: string;
   fastsatteVerdier: FordelBeregningsgrunnlagFastsatteVerdierTransformedValues;
-}
+};
 
 export type FordelBeregningsgrunnlagPeriodeTransformedValues = {
   fom: string;
   tom: string;
   andeler: FordelBeregningsgrunnlagAndelTransformedValues[];
-}
+};
 
 export type FordelBeregningsgrunnlagPerioderTransformedValues = {
   endretBeregningsgrunnlagPerioder: FordelBeregningsgrunnlagPeriodeTransformedValues[];
-}
+};
 
-type FordelBeregningsgrunnlagAP = FordelBeregningsgrunnlagPerioderTransformedValues
-  & AksjonspunktTilBekreftelse<FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG>;
+type FordelBeregningsgrunnlagAP = FordelBeregningsgrunnlagPerioderTransformedValues &
+  AksjonspunktTilBekreftelse<FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG>;
 
 export default FordelBeregningsgrunnlagAP;

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  render, screen, waitFor,
-} from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import * as stories from './BeregningsgrunnlagProsessIndex.stories';
@@ -73,17 +71,19 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
-    expect(lagre).toHaveBeenNthCalledWith(1, [{
-      begrunnelse: 'Min begrunnelse for inntekt',
-      inntektPrAndelList: [
-        {
-          andelsnr: 1,
-          inntekt: 260000,
-        },
-      ],
-      inntektFrilanser: null,
-      kode: '5038',
-    }]);
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        begrunnelse: 'Min begrunnelse for inntekt',
+        inntektPrAndelList: [
+          {
+            andelsnr: 1,
+            inntekt: 260000,
+          },
+        ],
+        inntektFrilanser: null,
+        kode: '5038',
+      },
+    ]);
   });
 
   it('skal bekrefte aksjonspunkt for vurder varig endring selvstendig næringsdrivende', async () => {
@@ -108,8 +108,12 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('Regnskapsfører Regn S. Fører-99999999')).toBeInTheDocument();
     expect(screen.getByText('Søker har oppgitt varig endring fra')).toBeInTheDocument();
     expect(screen.getByText('01.05.2016')).toBeInTheDocument();
-    expect(screen.getByText('Jeg utvidet virksomheten fra en ren frisørsalong til også å tilby hudpleie.'
-      + ' Jeg jobbet opprinnelig alene men har ansatt to stykker i løpet av det siste året')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Jeg utvidet virksomheten fra en ren frisørsalong til også å tilby hudpleie.' +
+          ' Jeg jobbet opprinnelig alene men har ansatt to stykker i løpet av det siste året',
+      ),
+    ).toBeInTheDocument();
 
     // Aksjonspunkt
     expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
@@ -127,12 +131,14 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
-    expect(lagre).toHaveBeenNthCalledWith(1, [{
-      begrunnelse: 'Min begrunnelse for vurdering av varig endring',
-      bruttoBeregningsgrunnlag: 260000,
-      erVarigEndretNaering: true,
-      kode: '5039',
-    }]);
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        begrunnelse: 'Min begrunnelse for vurdering av varig endring',
+        bruttoBeregningsgrunnlag: 260000,
+        erVarigEndretNaering: true,
+        kode: '5039',
+      },
+    ]);
   });
 
   it('skal bekrefte aksjonspunkt for ny i arbeidslivet selvstendig næringsdrivende', async () => {
@@ -149,8 +155,12 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('01.11.2015-')).toBeInTheDocument();
 
     // Aksjonspunkt
-    expect(screen.getByText('Søker er ny i arbeidslivet. Det foretas derfor ingen avviksvurdering.')).toBeInTheDocument();
-    expect(screen.getByText('Skjønnsmessig fastsettelse av årsinntekt når søker er ny i arbeidslivet')).toBeInTheDocument();
+    expect(
+      screen.getByText('Søker er ny i arbeidslivet. Det foretas derfor ingen avviksvurdering.'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Skjønnsmessig fastsettelse av årsinntekt når søker er ny i arbeidslivet'),
+    ).toBeInTheDocument();
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
@@ -161,11 +171,13 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
-    expect(lagre).toHaveBeenNthCalledWith(1, [{
-      begrunnelse: 'Min begrunnelse for inntekt',
-      bruttoBeregningsgrunnlag: 500000,
-      kode: '5049',
-    }]);
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        begrunnelse: 'Min begrunnelse for inntekt',
+        bruttoBeregningsgrunnlag: 500000,
+        kode: '5049',
+      },
+    ]);
   });
 
   it('skal ha korrekt visning ved naturalytelser', async () => {
@@ -220,32 +232,34 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
-    expect(lagre).toHaveBeenNthCalledWith(1, [{
-      fastsatteTidsbegrensedePerioder: [
-        {
-          periodeFom: '2021-01-01',
-          periodeTom: '2021-01-21',
-          fastsatteTidsbegrensedeAndeler: [
-            {
-              andelsnr: 1,
-              bruttoFastsattInntekt: 222000,
-            },
-          ],
-        },
-        {
-          periodeFom: '2021-01-22',
-          periodeTom: '2021-02-05',
-          fastsatteTidsbegrensedeAndeler: [
-            {
-              andelsnr: 1,
-              bruttoFastsattInntekt: 333000,
-            },
-          ],
-        },
-      ],
-      begrunnelse: 'Min begrunnelse for tidsbegrenset inntekt',
-      frilansInntekt: null,
-      kode: '5047',
-    }]);
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        fastsatteTidsbegrensedePerioder: [
+          {
+            periodeFom: '2021-01-01',
+            periodeTom: '2021-01-21',
+            fastsatteTidsbegrensedeAndeler: [
+              {
+                andelsnr: 1,
+                bruttoFastsattInntekt: 222000,
+              },
+            ],
+          },
+          {
+            periodeFom: '2021-01-22',
+            periodeTom: '2021-02-05',
+            fastsatteTidsbegrensedeAndeler: [
+              {
+                andelsnr: 1,
+                bruttoFastsattInntekt: 333000,
+              },
+            ],
+          },
+        ],
+        begrunnelse: 'Min begrunnelse for tidsbegrenset inntekt',
+        frilansInntekt: null,
+        kode: '5047',
+      },
+    ]);
   });
 });

@@ -1,4 +1,4 @@
 {
-    "include": ["./", "../../@types/externals.d.ts"],
-    "extends": "../../tsconfig.json",
+  "include": ["./", "../../@types/externals.d.ts"],
+  "extends": "../../tsconfig.json"
 }

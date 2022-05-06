@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../icon/Icon';
 
 interface GreenCheckIconProps {
-    size?: number;
+  size?: number;
 }
 
 const GreenCheckIcon = ({ size }: GreenCheckIconProps) => (

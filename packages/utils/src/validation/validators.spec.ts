@@ -260,13 +260,19 @@ describe('Validators', () => {
 
   describe('dateRangesNotOverlapping', () => {
     it('skal feile når perioder overlapper', () => {
-      const periods = [['2017-10-10', '2017-12-10'], ['2017-01-10', '2017-10-11']];
+      const periods = [
+        ['2017-10-10', '2017-12-10'],
+        ['2017-01-10', '2017-10-11'],
+      ];
       const result = dateRangesNotOverlapping(periods);
       expect(result).toEqual('Perioder kan ikke overlappe i tid');
     });
 
     it('skal ikke feile når perioder ikke overlapper', () => {
-      const periods = [['2017-10-10', '2017-12-10'], ['2017-01-10', '2017-10-09']];
+      const periods = [
+        ['2017-10-10', '2017-12-10'],
+        ['2017-01-10', '2017-10-09'],
+      ];
       const result = dateRangesNotOverlapping(periods);
       expect(result).toBeNull();
     });
@@ -280,9 +286,7 @@ describe('Validators', () => {
 
     it('skal feile når dato er lik dagens dato', () => {
       const result = dateBeforeToday(todayAsISO);
-      expect(result).toEqual(
-        `Dato må være før eller lik ${moment().subtract(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`,
-      );
+      expect(result).toEqual(`Dato må være før eller lik ${moment().subtract(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
@@ -321,9 +325,7 @@ describe('Validators', () => {
 
     it('skal feile når dato er i dag', () => {
       const result = dateAfterToday(todayAsISO);
-      expect(result).toEqual(
-        `Dato må være etter eller lik ${moment().add(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`,
-      );
+      expect(result).toEqual(`Dato må være etter eller lik ${moment().add(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
@@ -375,9 +377,10 @@ describe('Validators', () => {
 
   describe('hasValidText', () => {
     it('skal ikke feile når tekst ikke har ugyldig tegn', () => {
-      const result = hasValidText('Hei hei\n'
-        + 'Áá Čč Đđ Ŋŋ Šš Ŧŧ Žž Ää Ææ Øø Åå\n'
-        + 'Lorem + ipsum_dolor, - (sit) amet?! 100%: §2&3="I\'m";');
+      const result = hasValidText(
+        // eslint-disable-next-line no-useless-concat
+        'Hei hei\n' + 'Áá Čč Đđ Ŋŋ Šš Ŧŧ Žž Ää Ææ Øø Åå\n' + 'Lorem + ipsum_dolor, - (sit) amet?! 100%: §2&3="I\'m";',
+      );
       expect(result).toBeNull();
     });
 
@@ -389,9 +392,8 @@ describe('Validators', () => {
 
   describe('hasValidName', () => {
     it('skal ikke feile når navn ikke har ugyldig tegn', () => {
-      const result = hasValidName('Navn navn'
-        + 'Áá Čč Đđ Ŋŋ Šš Ŧŧ Žž Ää Ææ Øø Åå'
-        + ' - . \' ');
+      // eslint-disable-next-line no-useless-concat
+      const result = hasValidName('Navn navn' + 'Áá Čč Đđ Ŋŋ Šš Ŧŧ Žž Ää Ææ Øø Åå' + " - . ' ");
       expect(result).toBeNull();
     });
 
