@@ -33,16 +33,23 @@ const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefin
     setOverstyrt(erOverstyrt);
   }, [erOverstyrt]);
 
-  return (
+  const image = (
     <Image
       className={isOverstyrt ? styles.keyWithoutCursor : styles.key}
       src={isOverstyrt ? keyUtgraetImage : keyImage}
-      onClick={erOverstyrt ? undefined : setOverstyrtFn}
-      onKeyDown={erOverstyrt ? undefined : setOverstyrtFn}
-      tabIndex={0}
       tooltip={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })}
       alt={intl.formatMessage({ id: erOverstyrt ? 'OverstyringKnapp.HarOverstyrt' : 'OverstyringKnapp.Overstyring' })}
     />
+  );
+
+  if (erOverstyrt) {
+    return image;
+  }
+
+  return (
+    <button className={styles.button} type="button" onClick={setOverstyrtFn}>
+      {image}
+    </button>
   );
 };
 
