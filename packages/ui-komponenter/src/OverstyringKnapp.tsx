@@ -47,7 +47,7 @@ const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefin
   }
 
   return (
-    <button className={styles.button} type="button" onClick={setOverstyrtFn}>
+    <button data-testid="overstyringsknapp" className={styles.button} type="button" onClick={setOverstyrtFn}>
       {image}
     </button>
   );

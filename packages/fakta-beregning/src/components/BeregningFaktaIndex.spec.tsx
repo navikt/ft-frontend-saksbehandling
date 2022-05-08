@@ -17,12 +17,12 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(feltetMåFyllesUtfeilmelding).not.toBeInTheDocument();
   });
 
-  it.skip('skal vise feilmelding dersom ingen benyttede aktiviteter', async () => {
+  it('skal vise feilmelding dersom ingen benyttede aktiviteter', async () => {
     render(<ArbeidOgDagpenger />);
-    // TODO: Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
+    userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
     userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
-    userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
+    userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
 
     const måHaAktivitetFeilmelding = await screen.findByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
@@ -32,12 +32,13 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(feltetMåFyllesUtfeilmelding).toBeInTheDocument();
   });
 
-  it.skip('skal beholde feilmelding dersom man bytter tab', async () => {
+  it('skal beholde feilmelding dersom man bytter tab', async () => {
     render(<ArbeidOgDagpenger />);
     // TODO: Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
+    userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
     userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
-    userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
+    userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     const måHaAktivitetFeilmeldingFørBytteAvTab = await screen.findByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
     );
@@ -47,9 +48,10 @@ describe('<BeregningFaktaIndexSpec', () => {
 
     // Bytter tab
     userEvent.click(screen.getByRole('tab', { name: '13.02.2020' }));
-    // TODO: Begrunnelse skal vere read only her, enten må man sjekke på det eller overstyre
+    expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
+    userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
-    userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
+    userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     const måHaAktivitetFeilmeldingNyTab = screen.queryByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
     );
