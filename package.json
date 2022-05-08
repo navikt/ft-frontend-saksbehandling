@@ -101,7 +101,7 @@
     "prettier": "^2.6.2",
     "raf": "3.4.1",
     "react-test-renderer": "17.0.2",
-    "sinon": "13.0.2",
+    "sinon": "14.0.0",
     "stylelint": "14.8.1",
     "stylelint-order": "5.0.0",
     "terser-webpack-plugin": "5.3.1",
