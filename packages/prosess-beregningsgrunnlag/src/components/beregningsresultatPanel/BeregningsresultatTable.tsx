@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import moment from 'moment';
 
 import {
   AktivitetStatus,
@@ -12,6 +11,7 @@ import {
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Vilkar, YtelseGrunnlag } from '@navikt/ft-types';
 
+import dayjs from 'dayjs';
 import { andelErIkkeTilkommetEllerLagtTilAvSBH } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import BeregningsresutatPanel from './BeregningsresutatPanel';
 import BeregningsresultatPeriodeTabellType, {
@@ -72,7 +72,7 @@ const lagPeriodeHeader = (fom: string, tom: string): ReactElement => (
   <FormattedMessage
     id="Beregningsgrunnlag.BeregningTable.Periode"
     key={`fom-tom${fom}${tom}`}
-    values={{ fom: moment(fom).format(DDMMYYYY_DATE_FORMAT), tom: tom ? moment(tom).format(DDMMYYYY_DATE_FORMAT) : '' }}
+    values={{ fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT), tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '' }}
   />
 );
 const summertVerdiFraListeProp = (andeler: BeregningsgrunnlagAndel[], propNavn: string): number => {
