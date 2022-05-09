@@ -3,14 +3,11 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
 import { InputField } from '@navikt/ft-form-hooks';
-import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber, required } from '@navikt/ft-utils';
+import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 
-import {
-  AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
-  BeregningsgrunnlagAndel,
-} from '@navikt/ft-types';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
@@ -37,7 +34,8 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
     .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
 
-const createRows = (relevanteAndelerAT: BeregningsgrunnlagAndel[],
+const createRows = (
+  relevanteAndelerAT: BeregningsgrunnlagAndel[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   readOnly: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -45,9 +43,7 @@ const createRows = (relevanteAndelerAT: BeregningsgrunnlagAndel[],
   relevanteAndelerAT.map((andel, index) => (
     <Row key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
       <Column xs="7">
-        <Normaltekst>
-          {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
-        </Normaltekst>
+        <Normaltekst>{createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}</Normaltekst>
       </Column>
       <Column xs="5">
         <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
@@ -64,8 +60,11 @@ const createRows = (relevanteAndelerAT: BeregningsgrunnlagAndel[],
   ));
 
 interface StaticFunctions {
-  transformValues: (values: ArbeidstakerInntektValues, relevanteStatuser: RelevanteStatuserProp,
-                     alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],) => ArbeidsinntektResultat[];
+  transformValues: (
+    values: ArbeidstakerInntektValues,
+    relevanteStatuser: RelevanteStatuserProp,
+    alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
+  ) => ArbeidsinntektResultat[];
 }
 
 type OwnProps = {
@@ -88,20 +87,21 @@ const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = (
 AksjonspunktBehandlerAT.transformValues = (
   values: ArbeidstakerInntektValues,
   relevanteStatuser: RelevanteStatuserProp,
-  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): ArbeidsinntektResultat[] => {
+  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
+): ArbeidsinntektResultat[] => {
   let inntektPrAndelList = [] as ArbeidsinntektResultat[];
   if (relevanteStatuser.isArbeidstaker) {
-    inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode)
-      .map(({ andelsnr }, index) => {
-        const overstyrtInntekt = values[`inntekt${index}`];
-        if (!andelsnr) {
-          throw new Error('Forventer andelsnr på andeler som skal fastsettes.');
-        }
-        return {
-          inntekt: (overstyrtInntekt === undefined || overstyrtInntekt === '') ? 0 : removeSpacesFromNumber(overstyrtInntekt),
-          andelsnr,
-        };
-      });
+    inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode).map(({ andelsnr }, index) => {
+      const overstyrtInntekt = values[`inntekt${index}`];
+      if (!andelsnr) {
+        throw new Error('Forventer andelsnr på andeler som skal fastsettes.');
+      }
+      return {
+        inntekt:
+          overstyrtInntekt === undefined || overstyrtInntekt === '' ? 0 : removeSpacesFromNumber(overstyrtInntekt),
+        andelsnr,
+      };
+    });
   }
   return inntektPrAndelList;
 };

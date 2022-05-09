@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate } from '@navikt/ft-utils';
+import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate } from '@navikt/ft-form-validators';
 import {
   RadioOption,
   TextAreaField,

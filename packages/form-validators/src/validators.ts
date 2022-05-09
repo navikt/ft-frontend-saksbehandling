@@ -1,8 +1,12 @@
 import moment from 'moment';
+import {
+  removeSpacesFromNumber,
+  fodselsnummerPattern,
+  isValidFodselsnummer,
+  DDMMYYYY_DATE_FORMAT,
+  ISO_DATE_FORMAT,
+} from '@navikt/ft-utils';
 
-import { fodselsnummerPattern, isValidFodselsnummer } from '../fodselsnummerUtils';
-import { removeSpacesFromNumber } from '../currencyUtils';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '../formats';
 import {
   arrayMinLengthMessage,
   dateNotAfterOrEqualMessage,

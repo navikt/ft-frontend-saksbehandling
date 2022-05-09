@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import { required, hasValidText, maxLength, minLength } from '@navikt/ft-utils';
+import { required, hasValidText, maxLength, minLength } from '@navikt/ft-form-validators';
 import { TextAreaField, formHooks } from '@navikt/ft-form-hooks';
 
 import addCircleIcon from '../../images/add-circle.svg';

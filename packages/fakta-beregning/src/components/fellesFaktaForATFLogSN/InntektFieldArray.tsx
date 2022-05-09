@@ -4,7 +4,8 @@ import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
 import { connect } from 'react-redux';
 
 import { NavFieldGroup } from '@navikt/ft-form-redux-legacy';
-import { isArrayEmpty, removeSpacesFromNumber, required } from '@navikt/ft-utils';
+import { isArrayEmpty, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { Inntektskategori, KodeverkType, AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Table, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {

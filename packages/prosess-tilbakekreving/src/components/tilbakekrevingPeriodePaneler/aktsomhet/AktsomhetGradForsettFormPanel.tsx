@@ -5,7 +5,7 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.less';
 
@@ -33,15 +33,22 @@ const AktsomhetGradForsettFormPanel: FunctionComponent<OwnProps> = ({
           <Column md="6">
             <RadioGroupPanel
               name={`${name}.skalDetTilleggesRenter`}
-              label={<Undertekst><FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" /></Undertekst>}
+              label={
+                <Undertekst>
+                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
+                </Undertekst>
+              }
               validate={[required]}
-              radios={[{
-                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                value: 'true',
-              }, {
-                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                value: 'false',
-              }]}
+              radios={[
+                {
+                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                  value: 'true',
+                },
+                {
+                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                  value: 'false',
+                },
+              ]}
               isReadOnly={readOnly}
               parse={(value: string) => value === 'true'}
               isHorizontal

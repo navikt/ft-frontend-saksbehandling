@@ -9,11 +9,7 @@ export interface OwnProps {
   height: number;
 }
 
-const ReactECharts: FunctionComponent<OwnProps> = ({
-  option,
-  style,
-  height,
-}): JSX.Element => {
+const ReactECharts: FunctionComponent<OwnProps> = ({ option, style, height }): JSX.Element => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import { isAksjonspunktOpen, Dekningsgrad } from '@navikt/ft-kodeverk';
 
 import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
 import { RadioGroupField, RadioOption, TextAreaField } from '@navikt/ft-form-hooks';
-import { hasValidText, maxLength, minLength, required } from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { DekningsgradResultatAp } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 

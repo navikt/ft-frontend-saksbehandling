@@ -3,16 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import {
-  dateFormat,
   hasValidDate,
   required,
   dateAfterOrEqual,
-  parseCurrencyInput,
   minValueFormatted,
   maxValueFormatted,
-  removeSpacesFromNumber,
-  formatCurrencyNoKr,
-} from '@navikt/ft-utils';
+} from '@navikt/ft-form-validators';
+import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { Datepicker, InputField, formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 

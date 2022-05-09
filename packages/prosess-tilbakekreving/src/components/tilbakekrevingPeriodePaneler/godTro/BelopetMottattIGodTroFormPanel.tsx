@@ -2,7 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Undertekst, Normaltekst } from 'nav-frontend-typografi';
 
-import { minValue, required, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { minValue, required } from '@navikt/ft-form-validators';
+import { removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 
