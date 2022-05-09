@@ -1,6 +1,6 @@
 import moment from 'moment';
+import { ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT } from '../formats';
 import {
   dateAfterOrEqual,
   dateAfterOrEqualToToday,

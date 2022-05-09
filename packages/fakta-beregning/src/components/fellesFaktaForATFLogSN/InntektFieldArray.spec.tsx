@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaktaOmBeregningTilfelle, AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
-import { isRequiredMessage } from '@navikt/ft-utils';
+import { isRequiredMessage } from '@navikt/ft-form-validators';
 import { getIntlMock, shallowWithIntl, metaMock, MockFieldsWithContent } from '@navikt/ft-utils-test';
 import { Table } from '@navikt/ft-ui-komponenter';
 import { AlleKodeverk, FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';

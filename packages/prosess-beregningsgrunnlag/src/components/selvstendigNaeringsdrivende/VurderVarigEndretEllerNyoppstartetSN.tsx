@@ -3,15 +3,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import {
-  hasValidText,
-  maxLength,
-  minLength,
-  required,
-  parseCurrencyInput,
-  formatCurrencyNoKr,
-  removeSpacesFromNumber,
-} from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+import { parseCurrencyInput, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
@@ -32,11 +25,11 @@ const { VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVE
   ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
-    endretTekst?: React.ReactNode;
-    readOnly: boolean;
-    erVarigEndring?: boolean;
-    erNyoppstartet?: boolean;
-    erVarigEndretNaering?: boolean;
+  endretTekst?: React.ReactNode;
+  readOnly: boolean;
+  erVarigEndring?: boolean;
+  erNyoppstartet?: boolean;
+  erVarigEndretNaering?: boolean;
 };
 
 interface StaticFunctions {

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
-import { required } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
 import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
 

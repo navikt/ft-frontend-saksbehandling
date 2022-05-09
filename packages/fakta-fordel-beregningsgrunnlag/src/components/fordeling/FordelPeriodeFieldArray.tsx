@@ -2,13 +2,8 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import {
-  formatCurrencyNoKr,
-  parseCurrencyInput,
-  removeSpacesFromNumber,
-  getKodeverknavnFn,
-  required,
-} from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, getKodeverknavnFn } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { Table, TableColumn, TableRow, Image } from '@navikt/ft-ui-komponenter';
 import {
   BeregningsgrunnlagAndelType,

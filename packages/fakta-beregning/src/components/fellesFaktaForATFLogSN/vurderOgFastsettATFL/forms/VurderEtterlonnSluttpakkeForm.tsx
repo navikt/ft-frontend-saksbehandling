@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
-import { required } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { isAksjonspunktOpen, FaktaOmBeregningTilfelle, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import 'core-js/features/array/flat-map';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';

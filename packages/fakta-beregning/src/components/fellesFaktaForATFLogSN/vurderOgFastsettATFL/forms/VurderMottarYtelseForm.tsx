@@ -3,7 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
-import { getKodeverknavnFn, removeSpacesFromNumber, required } from '@navikt/ft-utils';
+import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { KodeverkType, FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {

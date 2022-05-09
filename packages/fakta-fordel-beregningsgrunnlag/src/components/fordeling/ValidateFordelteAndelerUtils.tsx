@@ -1,7 +1,8 @@
 import { IntlShape } from 'react-intl';
 import { UseFormGetValues } from 'react-hook-form';
 
-import { dateIsAfter, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { dateIsAfter } from '@navikt/ft-form-validators';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
