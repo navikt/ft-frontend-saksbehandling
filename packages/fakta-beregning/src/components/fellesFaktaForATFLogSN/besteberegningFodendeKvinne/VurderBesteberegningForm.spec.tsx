@@ -1,4 +1,4 @@
-import { isRequiredMessage } from '@navikt/ft-utils';
+import { isRequiredMessage } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
 import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';

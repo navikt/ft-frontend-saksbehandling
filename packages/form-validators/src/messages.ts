@@ -1,6 +1,6 @@
-import createIntl from '../createIntl';
+import { createIntl } from '@navikt/ft-utils';
 
-import messages from '../../i18n/nb_NO.json';
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 

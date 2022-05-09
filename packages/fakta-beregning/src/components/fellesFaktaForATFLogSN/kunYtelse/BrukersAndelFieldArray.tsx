@@ -12,9 +12,9 @@ import {
   isArrayEmpty,
   parseCurrencyInput,
   removeSpacesFromNumber,
-  required,
   getKodeverknavnFn,
 } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Table, TableColumn, TableRow, VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';

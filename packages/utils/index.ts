@@ -1,14 +1,5 @@
-export {
-  range,
-  haystack,
-  isArrayEmpty,
-} from './src/arrayUtils';
-export {
-  isIE11,
-  isEdge,
-  getRelatedTargetIE11,
-  forhandsvisDokument,
-} from './src/browserUtils';
+export { range, haystack, isArrayEmpty } from './src/arrayUtils';
+export { isIE11, isEdge, getRelatedTargetIE11, forhandsvisDokument } from './src/browserUtils';
 export {
   formatCurrencyWithKr,
   formatCurrencyNoKr,
@@ -28,10 +19,7 @@ export {
   getDateAndTime,
 } from './src/dateUtils';
 export { default as decodeHtmlEntity } from './src/decodeHtmlEntity';
-export {
-  fodselsnummerPattern,
-  isValidFodselsnummer,
-} from './src/fodselsnummerUtils';
+export { fodselsnummerPattern, isValidFodselsnummer } from './src/fodselsnummerUtils';
 export {
   ISO_DATE_FORMAT,
   DDMMYYYY_DATE_FORMAT,
@@ -42,89 +30,9 @@ export {
   ACCEPTED_DATE_INPUT_FORMATS,
 } from './src/formats';
 export { default as guid } from './src/guid';
-export {
-  replaceNorwegianCharacters,
-  getLanguageFromSprakkode,
-} from './src/languageUtils';
-export {
-  notNull,
-  isObjectEmpty,
-  diff,
-  isEqual,
-  isObject,
-  omit,
-  omitOne,
-  omitMany,
-} from './src/objectUtils';
-export {
-  parseQueryString,
-  buildPath,
-  formatQueryString,
-} from './src/urlUtils';
-export {
-  ariaCheck,
-  validateProsentandel,
-  isUtbetalingsgradMerSamitidigUttaksprosent,
-  isUkerOgDagerVidNullUtbetalningsgrad,
-  isWithinOpptjeningsperiode,
-  hasValidPeriod,
-  hasValidPeriodIncludingOtherErrors,
-  validPeriodeFomTom,
-  isDatesEqual,
-  dateIsAfter,
-  arrayMinLength,
-  hasValidValue,
-  hasValidName,
-  hasValidText,
-  hasValidFodselsnummer,
-  hasValidFodselsnummerFormat,
-  dateAfterOrEqualToToday,
-  dateAfterToday,
-  dateBeforeOrEqualToToday,
-  dateBeforeToday,
-  dateRangesNotOverlapping,
-  dateRangesNotOverlappingCrossTypes,
-  dateAfterOrEqual,
-  dateIsBefore,
-  dateBeforeOrEqual,
-  hasValidDate,
-  hasValidSaksnummerOrFodselsnummerFormat,
-  hasValidDecimal,
-  hasValidInteger,
-  maxValue,
-  minValue,
-  maxValueFormatted,
-  minValueFormatted,
-  maxLength,
-  minLength,
-  requiredIfCustomFunctionIsTrue,
-  requiredIfCustomFunctionIsTrueNew,
-  requiredIfNotPristine,
-  notDash,
-  required,
-  maxLengthOrFodselsnr,
-  isTrekkdagerMerEnnNullUtsettelse,
-  isUtbetalingMerEnnNullUtsettelse,
-  hasValidOrgNumber,
-  hasValidOrgNumberOrFodselsnr,
-  hasNoWhiteSpace,
-  hasValidPosOrNegInteger,
-} from './src/validation/validators';
-export type { Options } from './src/validation/validators';
-
-export {
-  isRequiredMessage,
-  sammeFodselsnummerSomSokerMessage,
-  dateRangesOverlappingMessage,
-  dateRangesOverlappingBetweenPeriodTypesMessage,
-  invalidPeriodMessage,
-  invalidDateMessage,
-  invalidDecimalMessage,
-  dateNotBeforeOrEqualMessage,
-  dateNotAfterOrEqualMessage,
-  merEn100ProsentMessage,
-  arbeidsprosentMåVare100VidUtsettelseAvArbeidMessage,
-} from './src/validation/messages';
+export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/languageUtils';
+export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMany } from './src/objectUtils';
+export { parseQueryString, buildPath, formatQueryString } from './src/urlUtils';
 
 export { getKodeverknavnFn, getKodeverknavnFraKode } from './src/kodeverkUtils';
 export { default as createIntl } from './src/createIntl';

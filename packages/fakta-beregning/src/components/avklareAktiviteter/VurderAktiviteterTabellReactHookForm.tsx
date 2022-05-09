@@ -2,7 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { Element } from 'nav-frontend-typografi';
 import { Table } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, hasValidDate } from '@navikt/ft-utils';
+import { hasValidDate } from '@navikt/ft-form-validators';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';

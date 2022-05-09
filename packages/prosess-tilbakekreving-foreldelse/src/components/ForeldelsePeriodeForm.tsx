@@ -8,7 +8,14 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { TextAreaField, Datepicker, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { dateBeforeOrEqualToToday, hasValidText, maxLength, minLength, required, hasValidDate } from '@navikt/ft-utils';
+import {
+  dateBeforeOrEqualToToday,
+  hasValidText,
+  maxLength,
+  minLength,
+  required,
+  hasValidDate,
+} from '@navikt/ft-form-validators';
 import { TilbakekrevingKodeverkType, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import { AlleKodeverkTilbakekreving } from '@navikt/ft-types';
 

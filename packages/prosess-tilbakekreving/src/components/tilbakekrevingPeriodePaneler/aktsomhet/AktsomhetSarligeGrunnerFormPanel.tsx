@@ -6,7 +6,7 @@ import { Undertekst } from 'nav-frontend-typografi';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formHooks, CheckboxField, TextAreaField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
-import { hasValidText, maxLength, minLength, required } from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 
 import AktsomhetReduksjonAvBelopFormPanel from './AktsomhetReduksjonAvBelopFormPanel';

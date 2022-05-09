@@ -7,7 +7,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
-import { required } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { Aksjonspunkt, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';

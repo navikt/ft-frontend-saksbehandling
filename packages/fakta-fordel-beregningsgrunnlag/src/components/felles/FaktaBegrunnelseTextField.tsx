@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { decodeHtmlEntity, hasValidText, maxLength, minLength, required, createIntl } from '@navikt/ft-utils';
+import { decodeHtmlEntity, createIntl } from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { Aksjonspunkt } from '@navikt/ft-types';
 

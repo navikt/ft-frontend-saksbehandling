@@ -9,15 +9,8 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { VerticalSpacer, AksjonspunktHelpTextTemp, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { TextAreaField, CheckboxField, Form } from '@navikt/ft-form-hooks';
-import {
-  DDMMYYYY_DATE_FORMAT,
-  hasValidText,
-  maxLength,
-  minLength,
-  required,
-  getKodeverknavnFn,
-  decodeHtmlEntity,
-} from '@navikt/ft-utils';
+import { DDMMYYYY_DATE_FORMAT, getKodeverknavnFn, decodeHtmlEntity } from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AlleKodeverk, AlleKodeverkTilbakekreving, FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
 import FeilutbetalingPerioderFieldArray, { FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';

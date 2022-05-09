@@ -7,15 +7,8 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 
 import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import {
-  formatCurrencyNoKr,
-  hasValidText,
-  maxLength,
-  minLength,
-  required,
-  DDMMYYYY_DATE_FORMAT,
-  decodeHtmlEntity,
-} from '@navikt/ft-utils';
+import { formatCurrencyNoKr, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, WarningModal, VerticalSpacer, usePrevious } from '@navikt/ft-ui-komponenter';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import {

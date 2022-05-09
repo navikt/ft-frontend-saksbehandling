@@ -2,7 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Undertekst } from 'nav-frontend-typografi';
 
-import { decodeHtmlEntity, removeSpacesFromNumber, required } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
+import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { KodeverkMedNavn, AktsomhetInfo } from '@navikt/ft-types';
 

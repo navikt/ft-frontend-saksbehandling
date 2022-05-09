@@ -5,7 +5,8 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { formatCurrencyNoKr, minValue, maxValue, required } from '@navikt/ft-utils';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { minValue, maxValue, required } from '@navikt/ft-form-validators';
 
 import aktsomhet from '../../../kodeverk/aktsomhet';
 
