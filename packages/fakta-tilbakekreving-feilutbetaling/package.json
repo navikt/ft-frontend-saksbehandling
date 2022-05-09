@@ -1,0 +1,84 @@
+{
+  "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
+  "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "index.js",
+    "package.json"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage --colors",
+    "tsc": "tsc --pretty",
+    "eslint": "eslint \"src/**/*.ts*\"",
+    "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
+    "less:lint": "stylelint \"src/**/*.less\"",
+    "dev": "cross-env node dev/webpack.dev.js",
+    "build-webpack": "cross-env webpack --config webpack.config.js",
+    "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --target esnext --emitDeclarationOnly --downlevelIteration --resolveJsonModule --moduleResolution node --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
+    "build": "yarn build-webpack & yarn build-ts-declarations",
+    "clean": "rm -rf ./dist ./node_modules",
+    "storybook": "cross-env start-storybook -p 7008"
+  },
+  "dependencies": {
+    "@navikt/ft-form-hooks": "^1.0.7",
+    "@navikt/ft-kodeverk": "^1.0.2",
+    "@navikt/ft-types": "^1.0.4",
+    "@navikt/ft-ui-komponenter": "^1.0.6",
+    "@navikt/ft-utils": "^1.0.5",
+    "moment": "2.29.3",
+    "nav-frontend-core": "6.0.1",
+    "nav-frontend-grid": "2.0.1",
+    "nav-frontend-grid-style": "1.0.2",
+    "nav-frontend-knapper": "3.1.2",
+    "nav-frontend-knapper-style": "2.1.1",
+    "nav-frontend-typografi": "4.0.1",
+    "nav-frontend-typografi-style": "2.0.1",
+    "react": "17.0.2",
+    "react-hook-form": "7.30.0",
+    "react-intl": "5.24.8"
+  },
+  "peerDependencies": {
+    "@navikt/ft-form-hooks": "^1.0.7",
+    "@navikt/ft-kodeverk": "^1.0.2",
+    "@navikt/ft-types": "^1.0.4",
+    "@navikt/ft-ui-komponenter": "^1.0.6",
+    "@navikt/ft-utils": "^1.0.5",
+    "moment": "2.29.3",
+    "nav-frontend-core": "6.0.1",
+    "nav-frontend-grid": "2.0.1",
+    "nav-frontend-grid-style": "1.0.2",
+    "nav-frontend-knapper": "3.1.2",
+    "nav-frontend-knapper-style": "2.1.1",
+    "nav-frontend-typografi": "4.0.1",
+    "nav-frontend-typografi-style": "2.0.1",
+    "react": "17.0.2",
+    "react-hook-form": "7.30.0",
+    "react-intl": "5.24.8"
+  },
+  "devDependencies": {
+    "@navikt/ft-storybook-utils": "^1.0.0",
+    "@navikt/ft-utils-test": "^1.0.2",
+    "@storybook/addon-actions": "6.4.22",
+    "@storybook/testing-react": "1.2.4",
+    "@testing-library/react": "12.1.4",
+    "@testing-library/user-event": "13.5.0",
+    "clean-webpack-plugin": "4.0.0",
+    "cross-env": "7.0.3",
+    "typescript": "4.6.4",
+    "webpack": "5.72.0",
+    "webpack-cli": "4.9.2",
+    "webpack-node-externals": "3.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+  }
+}

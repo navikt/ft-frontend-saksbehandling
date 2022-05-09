@@ -1,0 +1,6 @@
+enum VedtakResultatType {
+  INGEN_TILBAKEBETALING = 'INGEN_TILBAKEBETALING',
+  DELVIS_TILBAKEBETALING = 'DELVIS_TILBAKEBETALING',
+}
+
+export default VedtakResultatType;
