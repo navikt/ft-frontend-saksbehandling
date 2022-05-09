@@ -8,9 +8,9 @@ import {
   formatCurrencyNoKr,
   parseCurrencyInput,
   removeSpacesFromNumber,
-  required,
   getKodeverknavnFn,
 } from '@navikt/ft-utils';
+import { required } from '@navikt/ft-form-validators';
 import { formHooks, InputField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, KodeverkType, PeriodeAarsak, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {

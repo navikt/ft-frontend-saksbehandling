@@ -5,13 +5,14 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { VerticalSpacer, AvsnittSkiller, ReactECharts, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { Inntektsgrunnlag, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import Lesmerpanel from '../redesign/LesmerPanel';
+import ReactECharts from '../echart/ReactECharts';
 
 import styles from './sammenligningsgrunnlagAOrdningen.less';
 
