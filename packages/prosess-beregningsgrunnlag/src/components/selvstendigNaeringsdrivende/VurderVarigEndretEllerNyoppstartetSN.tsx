@@ -8,7 +8,7 @@ import { parseCurrencyInput, formatCurrencyNoKr, removeSpacesFromNumber } from '
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
-import { InputField, RadioGroupField, RadioOption, TextAreaField, formHooks } from '@navikt/ft-form-hooks';
+import { InputField, RadioGroupPanel, TextAreaField, formHooks } from '@navikt/ft-form-hooks';
 import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -66,21 +66,29 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
   const intl = useIntl();
   const formMethods = formHooks.useFormContext<BeregningsgrunnlagValues>();
   const erVarigEndretNaering = formMethods.watch('erVarigEndretNaering');
+  const radioknapper = [
+    {
+      value: 'false',
+      label: radioLabel1,
+    },
+    {
+      value: 'true',
+      label: radioLabel2,
+    },
+  ];
   return (
     <>
       {!readOnly && (
         <Row>
           <Column xs="12">
-            <RadioGroupField
+            <RadioGroupPanel
               name={varigEndringRadioname}
               validate={[required]}
-              direction="vertical"
-              readOnly={readOnly}
+              isHorizontal={false}
+              isReadOnly={readOnly}
               parse={(value: string) => value === 'true'}
-            >
-              <RadioOption label={radioLabel1} value="false" />
-              <RadioOption label={radioLabel2} value="true" />
-            </RadioGroupField>
+              radios={radioknapper}
+            />
           </Column>
         </Row>
       )}
