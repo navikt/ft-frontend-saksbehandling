@@ -4,15 +4,16 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
 
 import { InputField } from '@navikt/ft-form-hooks';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, required } from '@navikt/ft-utils';
+import {
+  formatCurrencyNoKr, parseCurrencyInput, required,
+} from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
-import ArbeidstakerFrilansValues, { FrilansInntektValues } from '../../types/ATFLAksjonspunktTsType';
+import { FrilansInntektValues } from '../../types/ATFLAksjonspunktTsType';
 
 interface StaticFunctions {
-  buildInitialValues?: (relevanteAndeler: BeregningsgrunnlagAndel[]) => FrilansInntektValues;
-  transformValuesForFL?: (values: ArbeidstakerFrilansValues) => number;
+  buildInitialValues: (relevanteAndeler: BeregningsgrunnlagAndel[]) => FrilansInntektValues;
 }
 
 type OwnProps = {
@@ -40,17 +41,14 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
   </Row>
 );
 
-AksjonspunktBehandlerFL.transformValuesForFL = (values: ArbeidstakerFrilansValues): number =>
-  values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null;
-
-AksjonspunktBehandlerFL.buildInitialValues = relevanteAndeler => {
-  if (relevanteAndeler.length === 0) {
-    return undefined;
+AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[]): FrilansInntektValues => {
+  const overstyrtBeløp = relevanteAndeler.length > 0 ? formatCurrencyNoKr(relevanteAndeler[0].overstyrtPrAar) : undefined;
+  if (overstyrtBeløp) {
+    return {
+      inntektFrilanser: overstyrtBeløp,
+    };
   }
-  return {
-    inntektFrilanser:
-      relevanteAndeler[0].overstyrtPrAar !== undefined ? formatCurrencyNoKr(relevanteAndeler[0].overstyrtPrAar) : '',
-  };
+  return null;
 };
 
 export default AksjonspunktBehandlerFL;

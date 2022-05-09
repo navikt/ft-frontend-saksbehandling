@@ -17,9 +17,9 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 
 const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] => {
   if (allePerioder && allePerioder.length > 0) {
-    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel;
+    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel : [];
   }
-  return undefined;
+  return [];
 };
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -46,24 +46,17 @@ const beløpEller0 = (beløp: number | undefined): number => {
   return beløp;
 };
 
-const beregnAarsintektForAktivitetStatuser = (
-  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-  statuser: string[],
-): number => {
+const beregnet = (andel : BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
+
+const beregnAarsintektForAktivitetStatuser = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[], statuser: string[]): number => {
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIForstePeriode, statuser);
   if (relevanteAndeler) {
-    const brutto = relevanteAndeler.reduce((acc, andel) => acc + andel.beregnetPrAar, 0);
-    const bortfaltNaturalytelse = relevanteAndeler.reduce(
-      (acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseBortfaltPrÅr),
-      0,
-    );
-    const tilkommetNaturalytelse = relevanteAndeler.reduce(
-      (acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseTilkommetPrÅr),
-      0,
-    );
+    const brutto = relevanteAndeler.reduce((acc, andel) => acc + beregnet(andel), 0);
+    const bortfaltNaturalytelse = relevanteAndeler.reduce((acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseBortfaltPrÅr), 0);
+    const tilkommetNaturalytelse = relevanteAndeler.reduce((acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseTilkommetPrÅr), 0);
     return brutto + bortfaltNaturalytelse - tilkommetNaturalytelse;
   }
-  return null;
+  return 0;
 };
 
 const lagRelevantePaneler = (
@@ -150,11 +143,11 @@ const harRelevanteStatuserSatt = (statuser: RelevanteStatuserProp): boolean =>
   statuser.isMilitaer;
 
 type OwnProps = {
-  relevanteStatuser: RelevanteStatuserProp;
-  allePerioder?: BeregningsgrunnlagPeriodeProp[];
-  sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
-  harAksjonspunkter?: boolean;
-  gjelderBesteberegning: boolean;
+    relevanteStatuser: RelevanteStatuserProp;
+    allePerioder?: BeregningsgrunnlagPeriodeProp[];
+    sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
+    harAksjonspunkter: boolean;
+    gjelderBesteberegning: boolean;
 };
 
 const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
@@ -164,13 +157,10 @@ const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
   sammenligningsgrunnlagPrStatus,
   gjelderBesteberegning,
 }) => {
-  const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
-
-  const skalViseAvviksPanel = harRelevanteStatuserSatt({ ...relevanteStatuser });
-  if (!skalViseAvviksPanel) {
+  if (!allePerioder || !harRelevanteStatuserSatt({ ...relevanteStatuser })) {
     return null;
   }
-
+  const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   return (
     <Panel className={beregningStyles.panelRight}>
       <AvsnittSkiller spaceUnder />
@@ -178,20 +168,17 @@ const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
         <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.ApplicationInformation" />
       </Element>
       <VerticalSpacer eightPx />
-      {lagRelevantePaneler(
-        alleAndelerIForstePeriode,
-        relevanteStatuser,
-        allePerioder,
-        harAksjonspunkter,
-        sammenligningsgrunnlagPrStatus,
-        gjelderBesteberegning,
-      )}
+      {
+        lagRelevantePaneler(
+          alleAndelerIForstePeriode, relevanteStatuser, allePerioder, harAksjonspunkter, sammenligningsgrunnlagPrStatus || [], gjelderBesteberegning,
+        )
+      }
+
     </Panel>
   );
 };
 
 AvviksopplysningerPanel.defaultProps = {
-  harAksjonspunkter: false,
   sammenligningsgrunnlagPrStatus: undefined,
 };
 export default AvviksopplysningerPanel;

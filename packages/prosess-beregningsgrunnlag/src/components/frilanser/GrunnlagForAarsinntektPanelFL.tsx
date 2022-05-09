@@ -22,9 +22,14 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer frilanser.
  */
 const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
-  const beregnetAarsinntekt = relevanteAndeler[0].beregnetPrAar;
-  const startDato = relevanteAndeler[0].arbeidsforhold.startdato;
+  const relevantAndel = alleAndeler.find(
+    andel => !andel.erTilkommetAndel && andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+  );
+  if (!relevantAndel) {
+    return null;
+  }
+  const beregnetAarsinntekt = relevantAndel.beregnetPrAar;
+  const startDato = relevantAndel.arbeidsforhold?.startdato;
   return (
     <>
       <>
@@ -68,10 +73,10 @@ const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndele
           </Normaltekst>
         </Column>
         <Column xs="2" className={beregningStyles.colMaanedText}>
-          <Normaltekst>{formatCurrencyNoKr(beregnetAarsinntekt / 12)}</Normaltekst>
+          <Normaltekst>{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</Normaltekst>
         </Column>
         <Column xs="2" className={beregningStyles.colAarText}>
-          <Element>{formatCurrencyNoKr(beregnetAarsinntekt)}</Element>
+          <Element>{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Element>
         </Column>
       </Row>
     </>

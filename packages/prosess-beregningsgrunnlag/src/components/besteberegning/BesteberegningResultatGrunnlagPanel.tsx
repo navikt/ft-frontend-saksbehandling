@@ -12,13 +12,16 @@ interface OwnProps {
   besteMåneder: Månedsgrunnlag[];
 }
 
-const erBeløpSatt = (beløp: number): boolean => !!beløp || beløp === 0;
+const finnGjeldendeBeløp = (andel: BeregningsgrunnlagAndel): number => {
+  if (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0) {
+    return andel.overstyrtPrAar;
+  }
+  return !!andel.beregnetPrAar || andel.beregnetPrAar === 0 ? andel.beregnetPrAar : 0;
+};
 
-const finnGjeldendeBeløp = (andel: BeregningsgrunnlagAndel): number =>
-  erBeløpSatt(andel.overstyrtPrAar) ? andel.overstyrtPrAar : andel.beregnetPrAar;
-
-const finnKap8Beregning = (periode: BeregningsgrunnlagPeriodeProp): number =>
-  periode.beregningsgrunnlagPrStatusOgAndel.map(andel => finnGjeldendeBeløp(andel)).reduce((i1, i2) => i1 + i2, 0);
+const finnKap8Beregning = (periode: BeregningsgrunnlagPeriodeProp): number => (periode && periode.beregningsgrunnlagPrStatusOgAndel
+  ? periode.beregningsgrunnlagPrStatusOgAndel.map((andel) => finnGjeldendeBeløp(andel)).reduce((i1, i2) => i1 + i2, 0)
+  : 0);
 
 const finnBesteberegnet = (besteMåneder: Månedsgrunnlag[]): number =>
   besteMåneder

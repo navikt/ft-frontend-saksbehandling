@@ -110,16 +110,12 @@ const createRelevantePaneler = (
 );
 
 interface StaticFunctions {
-  buildInitialValues?: (gjeldendeAksjonspunkter: Aksjonspunkt[]) => ATFLDekningsgradBegrunnelseValues;
-  transformATFLValues: (
-    values: ATFLValues,
-    relevanteStatuser: RelevanteStatuserProp,
-    alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
-  ) => FastsettAvvikATFLResultatAP;
-  transformATFLTidsbegrensetValues: (
-    values: ATFLTidsbegrensetValues,
-    allePerioder: BeregningsgrunnlagPeriodeProp[],
-  ) => FastsettAvvikATFLTidsbegrensetResultatAP;
+  buildInitialValues: (gjeldendeAksjonspunkter: Aksjonspunkt[]) => ATFLDekningsgradBegrunnelseValues;
+  transformATFLValues: (values: ATFLValues,
+                        relevanteStatuser: RelevanteStatuserProp,
+                        alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]) => FastsettAvvikATFLResultatAP;
+  transformATFLTidsbegrensetValues: (values: ATFLTidsbegrensetValues,
+                                     allePerioder: BeregningsgrunnlagPeriodeProp[]) => FastsettAvvikATFLTidsbegrensetResultatAP;
 }
 
 type OwnProps = {

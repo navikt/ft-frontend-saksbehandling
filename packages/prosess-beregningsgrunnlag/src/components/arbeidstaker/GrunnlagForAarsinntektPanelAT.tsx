@@ -14,7 +14,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
+import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import NaturalytelsePanel from './NaturalytelsePanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
@@ -66,62 +66,38 @@ const createArbeidsStillingsNavnOgProsent = (arbeidsforhold: BeregningsgrunnlagA
   return ' ';
 };
 
-const lagVisningForAndel = (
-  andel: BeregningsgrunnlagAndel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-): string => {
-  const arbeidsforholdInfo = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
-  if (!arbeidsforholdInfo) {
-    return andel.arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OVERFOERING_AARSAK_TYPE)
-      : '';
-  }
-  return createVisningsnavnForAktivitet(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId);
-};
+const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
 
 const createArbeidsIntektRows = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement[] => {
-  const beregnetAarsinntekt = relevanteAndeler.reduce((acc, andel) => acc + andel.beregnetPrAar, 0);
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): ReactElement[] => {
+  const beregnetAarsinntekt = relevanteAndeler.reduce((acc, andel) => acc + finnBeregnetEller0(andel), 0);
   const beregnetMaanedsinntekt = beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0;
   const harFlereArbeidsforhold = relevanteAndeler.length > 1;
   const rows = relevanteAndeler.map((andel, index) => (
     <React.Fragment
-      key={`ArbInntektWrapper${lagVisningForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}${index + 1}`}
+      key={`ArbInntektWrapper${createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}${index + 1}`}
     >
       <Row key={`index${index + 1}`}>
-        <Column xs="7" key={`ColLable${andel.arbeidsforhold.arbeidsgiverIdent}`}>
+        <Column xs="7" key={`ColLable${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
           <Normaltekst key={`ColLableTxt${index + 1}`} className={beregningStyles.semiBoldText}>
-            {lagVisningForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
+            {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
           </Normaltekst>
         </Column>
 
-        <Column
-          key={`ColBrgMnd${andel.arbeidsforhold.arbeidsgiverIdent}`}
-          xs="2"
-          className={beregningStyles.colMaanedText}
-        >
-          <Normaltekst key={`ColBrgMndTxt${andel.arbeidsforhold.arbeidsgiverIdent}`}>
-            {formatCurrencyNoKr(andel.beregnetPrAar / 12)}
+        <Column key={`ColBrgMnd${andel.arbeidsforhold?.arbeidsgiverIdent}`} xs="2" className={beregningStyles.colMaanedText}>
+          <Normaltekst key={`ColBrgMndTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
+            {formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}
           </Normaltekst>
         </Column>
-        <Column
-          key={`ColBrgAar${andel.arbeidsforhold.arbeidsgiverIdent}`}
-          xs="2"
-          className={beregningStyles.colAarText}
-        >
-          <Normaltekst
-            key={`ColBrgAarTxt${andel.arbeidsforhold.arbeidsgiverIdent}`}
-            className={!harFlereArbeidsforhold ? beregningStyles.semiBoldText : ''}
-          >
+        <Column key={`ColBrgAar${andel.arbeidsforhold?.arbeidsgiverIdent}`} xs="2" className={beregningStyles.colAarText}>
+          <Normaltekst key={`ColBrgAarTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`} className={!harFlereArbeidsforhold ? beregningStyles.semiBoldText : ''}>
             {formatCurrencyNoKr(andel.beregnetPrAar)}
           </Normaltekst>
         </Column>
       </Row>
-      <FlexRow key={`indexD${andel.arbeidsforhold.arbeidsgiverIdent}`}>
+      <FlexRow key={`indexD${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
         {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
           <FlexColumn>
             <Normaltekst>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</Normaltekst>
@@ -140,8 +116,8 @@ const createArbeidsIntektRows = (
           </FlexColumn>
         )}
       </FlexRow>
-      {index < relevanteAndeler.length && (
-        <Row key={`indexSp${andel.arbeidsforhold.arbeidsgiverIdent}`}>
+      {(index < relevanteAndeler.length) && (
+        <Row key={`indexSp${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
           <VerticalSpacer eightPx />
         </Row>
       )}
@@ -175,14 +151,14 @@ const createArbeidsIntektRows = (
 };
 
 interface StaticFunctions {
-  buildInitialValues?: (alleAndeler: BeregningsgrunnlagAndel[]) => ArbeidstakerInntektValues;
+  buildInitialValues: (alleAndeler: BeregningsgrunnlagAndel[]) => ArbeidstakerInntektValues;
 }
 
 type OwnProps = {
-  alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
-  allePerioder?: BeregningsgrunnlagPeriodeProp[];
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  alleKodeverk: AlleKodeverk;
+    alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
+    allePerioder: BeregningsgrunnlagPeriodeProp[];
+    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+    alleKodeverk: AlleKodeverk;
 };
 
 /**
@@ -239,9 +215,9 @@ GrunnlagForAarsinntektPanelAT.buildInitialValues = (
   alleAndeler: BeregningsgrunnlagAndel[],
 ): ArbeidstakerInntektValues => {
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndeler);
-  const initialValues = {};
+  const initialValues = {} as ArbeidstakerInntektValues;
   relevanteAndeler.forEach((inntekt, index) => {
-    initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar);
+    initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar) || '';
   });
   return initialValues;
 };

@@ -1,6 +1,7 @@
-import { ArbeidsgiverOpplysninger } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysninger, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import moment from 'moment';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { KodeverkType } from '@navikt/ft-kodeverk';
 
 const getEndCharFromId = (id: string | undefined): string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
 
@@ -15,6 +16,23 @@ const createVisningsnavnForAktivitet = (
       : navn;
   }
   return identifikator ? `${navn} (${identifikator})${getEndCharFromId(eksternReferanse)}` : navn;
+};
+
+const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel,
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string): string => (andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
+  ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OVERFOERING_AARSAK_TYPE)
+  : '');
+
+export const createVisningsnavnForAndel = (andel: BeregningsgrunnlagAndel,
+  arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId,
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string): string => {
+  if (andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverIdent) {
+    const arbeidsforholdInfo = arbeidsgiverOpplysninger[andel.arbeidsforhold.arbeidsgiverIdent];
+    return arbeidsforholdInfo
+      ? createVisningsnavnForAktivitet(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId)
+      : lagVisningFraArbeidType(andel, getKodeverknavn);
+  }
+  return lagVisningFraArbeidType(andel, getKodeverknavn);
 };
 
 export default createVisningsnavnForAktivitet;
