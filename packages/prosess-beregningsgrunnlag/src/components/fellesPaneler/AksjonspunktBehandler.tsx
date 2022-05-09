@@ -32,13 +32,14 @@ import styles from './aksjonspunktBehandler.less';
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[],
-  status: string): boolean => {
+const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
   if (!allePerioder || allePerioder.length < 1) {
     return false;
   }
-  const andeler = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel : [];
-  return andeler?.some((a) => a.aktivitetStatus === status && a.skalFastsetteGrunnlag);
+  const andeler = allePerioder[0].beregningsgrunnlagPrStatusOgAndel
+    ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel
+    : [];
+  return andeler?.some(a => a.aktivitetStatus === status && a.skalFastsetteGrunnlag);
 };
 
 const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] => {
@@ -119,8 +120,8 @@ const settOppKomponenterForATFL = (
   intl: IntlShape,
 ): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
-  const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, aktivitetStatus.FRILANSER);
-  const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, aktivitetStatus.ARBEIDSTAKER);
+  const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
+  const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
   return (
     <>
       <Row>
@@ -142,12 +143,12 @@ const settOppKomponenterForATFL = (
         />
       )}
       {!erTidsbegrenset && visAT && (
-      <AksjonspunktBehandlerAT
-        readOnly={readOnly}
-        alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
-        alleKodeverk={alleKodeverk}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
+        <AksjonspunktBehandlerAT
+          readOnly={readOnly}
+          alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+          alleKodeverk={alleKodeverk}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
       )}
       {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} />}
       <VerticalSpacer sixteenPx />

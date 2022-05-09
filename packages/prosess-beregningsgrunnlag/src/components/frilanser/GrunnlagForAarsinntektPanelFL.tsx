@@ -22,7 +22,9 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer frilanser.
  */
 const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const relevantAndel = alleAndeler.find((andel) => !andel.erTilkommetAndel && andel.aktivitetStatus === aktivitetStatus.FRILANSER);
+  const relevantAndel = alleAndeler.find(
+    andel => !andel.erTilkommetAndel && andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+  );
   if (!relevantAndel) {
     return null;
   }
