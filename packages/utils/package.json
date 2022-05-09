@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,8 +21,8 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^1.0.2",
-    "@navikt/ft-types": "^1.0.4",
+    "@navikt/ft-kodeverk": "^1.0.4",
+    "@navikt/ft-types": "^1.0.6",
     "dayjs": "1.11.2",
     "moment": "2.29.3",
     "react-intl": "5.24.8"
