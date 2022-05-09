@@ -9,7 +9,7 @@ const { Default, MedToPerioder } = composeStories(stories);
 
 describe('<TilbakekrevingProsessIndex>', () => {
   Modal.setAppElement('body');
-  it.skip('skal vurdere perioden som God Tro og så bekrefte', async () => {
+  it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);
 
@@ -74,7 +74,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
     });
   });
 
-  it.skip('skal vurdere perioden som Forsto eller burde forstått og så bekrefte', async () => {
+  it('skal vurdere perioden som Forsto eller burde forstått og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
 
     const utils = render(<Default submitCallback={lagre} />);
@@ -173,7 +173,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
     });
   });
 
-  it.skip('skal splitte en periode i to, kopier valg fra periode, og så bekrefte', async () => {
+  it('skal splitte en periode i to, kopier valg fra periode, og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
 
     const utils = render(<Default submitCallback={lagre} />);
