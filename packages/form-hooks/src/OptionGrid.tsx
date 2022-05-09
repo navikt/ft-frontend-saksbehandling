@@ -27,7 +27,7 @@ export const OptionGrid: FunctionComponent<OwnProps> = ({
     return (
       <FlexContainer>
         <FlexColumn className={`${styles.fullBreddeIE} optionGridFlexColumn`}>
-          {range(numRows).map(rowIndex => (
+          {range(numRows).map((rowIndex: number) => (
             <FlexRow key={`row${rowIndex}`} spaceBetween={spaceBetween}>
               {options.filter((_option, optionIndex) => optionIndex % numRows === rowIndex)}
               {isEdited && <EditedIcon className="radioEdited" />}
@@ -41,7 +41,7 @@ export const OptionGrid: FunctionComponent<OwnProps> = ({
   return (
     <FlexContainer>
       <FlexRow className="optionGridFlexRow" spaceBetween={spaceBetween}>
-        {range(numColumns).map(columnIndex => (
+        {range(numColumns).map((columnIndex: number) => (
           <FlexColumn className="optionGridFlexColumn" key={`column${columnIndex}`}>
             {options.filter((_option, optionIndex) => optionIndex % numColumns === columnIndex)}
           </FlexColumn>
