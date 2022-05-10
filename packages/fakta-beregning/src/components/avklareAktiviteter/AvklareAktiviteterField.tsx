@@ -196,7 +196,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       <FlexContainer>
         <FlexRow>
           <FlexColumn>
-            <Element className={styles.avsnittOverskrift}>
+            <Element className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
               <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
             </Element>
           </FlexColumn>
