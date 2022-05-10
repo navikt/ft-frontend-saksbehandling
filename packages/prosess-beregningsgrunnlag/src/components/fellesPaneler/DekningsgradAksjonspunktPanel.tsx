@@ -19,20 +19,7 @@ const TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING = 'begrunnDekningsgradEndring';
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-enum DekningsgradOption {
-  HUNDRE = 'HUNDRE',
-  ATTI = 'ÅTTI',
-}
-
-const stringTilNumberParser = (value: string): number => {
-  if (value === DekningsgradOption.ATTI) {
-    return Dekningsgrad.ATTI;
-  }
-  if (value === DekningsgradOption.HUNDRE) {
-    return Dekningsgrad.HUNDRE;
-  }
-  throw new Error(`Ukjent dekningsgrad ${value}`);
-};
+const stringTilNumberParser = (value: string): number => (value === 'HUNDRE' ? Dekningsgrad.HUNDRE : Dekningsgrad.ATTI);
 
 interface StaticFunctions {
   buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt[]) => DekningsgradValues;
@@ -52,11 +39,11 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
   const intl = useIntl();
   const radioknapper = [
     {
-      value: DekningsgradOption.ATTI,
+      value: 'ÅTTI',
       label: intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent80' }),
     },
     {
-      value: DekningsgradOption.HUNDRE,
+      value: 'HUNDRE',
       label: intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent100' }),
     },
   ];
