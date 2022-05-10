@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import moment from 'moment';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 
@@ -10,6 +9,7 @@ import { VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow } from '@navikt/ft-
 import { Inntektsgrunnlag, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 
+import dayjs from 'dayjs';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import Lesmerpanel from '../redesign/LesmerPanel';
 import ReactECharts from '../echart/ReactECharts';
@@ -101,9 +101,9 @@ const finnInntektForStatus = (andeler: InntektsgrunnlagInntekt[], status?: strin
 const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], skjeringstidspunktDato: string, inntektAType?: string) => {
   const data = [];
   for (let step = 1; step <= 12; step += 1) {
-    const dato = moment(skjeringstidspunktDato, ISO_DATE_FORMAT).subtract(step, 'M');
+    const dato = dayjs(skjeringstidspunktDato, ISO_DATE_FORMAT).subtract(step, 'M');
     const aarMaaned = dato.format('YYYYMM');
-    const månedMedInntekter = andeler.find(andel => moment(andel.fom, ISO_DATE_FORMAT).format('YYYYMM') === aarMaaned);
+    const månedMedInntekter = andeler.find(andel => dayjs(andel.fom, ISO_DATE_FORMAT).format('YYYYMM') === aarMaaned);
     const beløp = finnInntektForStatus(månedMedInntekter?.inntekter, inntektAType);
     data.push([beløp, dato.toDate()]);
   }
@@ -206,7 +206,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
             tooltip: {
               trigger: 'axis',
               formatter: series => {
-                const date = moment(series[0].data[1]);
+                const date = dayjs(series[0].data[1]);
                 const maanedNavn = date.format('MMM');
                 const aar = date.format('YYYY');
                 const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1);
@@ -254,7 +254,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
               boundaryGap: false,
               axisLabel: {
                 formatter: (value: any) => {
-                  const date = moment(value);
+                  const date = dayjs(value);
                   const erIJanuar = date.format('MM') === '01' || date.format('MM') === '12';
                   const maanedNavn = date.format('MMM');
                   const aar = date.format('YYYY');
