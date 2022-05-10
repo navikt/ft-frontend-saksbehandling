@@ -5,7 +5,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import { isAksjonspunktOpen, Dekningsgrad } from '@navikt/ft-kodeverk';
 
 import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
-import { RadioGroupField, RadioOption, TextAreaField } from '@navikt/ft-form-hooks';
+import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { DekningsgradResultatAp } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
@@ -18,6 +18,8 @@ const TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING = 'begrunnDekningsgradEndring';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
+
+const stringTilNumberParser = (value: string): number => (value === 'HUNDRE' ? Dekningsgrad.HUNDRE : Dekningsgrad.ATTI);
 
 interface StaticFunctions {
   buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt[]) => DekningsgradValues;
@@ -35,18 +37,25 @@ type OwnProps = {
  */
 const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const intl = useIntl();
+  const radioknapper = [
+    {
+      value: 'ÅTTI',
+      label: intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent80' }),
+    },
+    {
+      value: 'HUNDRE',
+      label: intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent100' }),
+    },
+  ];
   return (
     <>
-      <RadioGroupField name={RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN} readOnly={readOnly} validate={[required]}>
-        <RadioOption
-          label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent80' })}
-          value={Dekningsgrad.ATTI}
-        />
-        <RadioOption
-          label={intl.formatMessage({ id: 'Beregningsgrunnlag.Skjeringstidspunkt.Prosent100' })}
-          value={Dekningsgrad.HUNDRE}
-        />
-      </RadioGroupField>
+      <RadioGroupPanel
+        name={RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN}
+        isReadOnly={readOnly}
+        validate={[required]}
+        radios={radioknapper}
+        parse={stringTilNumberParser}
+      />
       <Row>
         <Column xs="12">
           <TextAreaField

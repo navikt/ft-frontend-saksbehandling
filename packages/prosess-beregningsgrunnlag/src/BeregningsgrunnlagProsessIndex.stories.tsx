@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
@@ -26,6 +25,7 @@ import {
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
+import dayjs from 'dayjs';
 import BeregningsgrunnlagResultatAP from './types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from './types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';
@@ -35,8 +35,8 @@ import '@navikt/ft-form-hooks/dist/style.css';
 
 const STP = '2021-01-01';
 
-const førSTP = (dager: number): string => moment(STP).subtract(dager, 'days').format(ISO_DATE_FORMAT);
-const etterSTP = (dager: number): string => moment(STP).add(dager, 'days').format(ISO_DATE_FORMAT);
+const førSTP = (dager: number): string => dayjs(STP).subtract(dager, 'days').format(ISO_DATE_FORMAT);
+const etterSTP = (dager: number): string => dayjs(STP).add(dager, 'days').format(ISO_DATE_FORMAT);
 
 const bgpFom = '2022-03-01';
 const bgpTom = '2022-05-31';
