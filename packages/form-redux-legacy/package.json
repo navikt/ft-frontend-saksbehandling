@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-redux-legacy",
   "description": "Overbygg over redux-form. Skal ikke brukes av nye komponenter!! Tilbyr form-komponenter som radioknapp og textarea",
-  "version": "1.0.11",
+  "version": "1.0.10",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,8 +26,8 @@
   "dependencies": {
     "@navikt/fnrvalidator": "1.1.4",
     "@navikt/ft-types": "^1.0.7",
-    "@navikt/ft-ui-komponenter": "^1.0.11",
-    "@navikt/ft-utils": "^1.0.9",
+    "@navikt/ft-ui-komponenter": "^1.0.9",
+    "@navikt/ft-utils": "^1.0.8",
     "classnames": "2.3.1",
     "lodash.throttle": "4.1.1",
     "moment": "2.29.3",
