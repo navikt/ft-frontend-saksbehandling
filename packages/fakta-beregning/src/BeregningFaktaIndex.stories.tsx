@@ -236,6 +236,71 @@ export const ArbeidOgDagpenger: Story = () => (
   />
 );
 
+export const IkkeOverstyrerOgIngenAksjonspunkt: Story = () => (
+  <BeregningFaktaIndex
+    behandling={behandling}
+    beregningsgrunnlag={bgMedArbeidOgDagpenger}
+    aksjonspunkter={[]}
+    erOverstyrer={false}
+    alleKodeverk={alleKodeverkMock as any}
+    alleMerknaderFraBeslutter={{
+      [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+    }}
+    submitCallback={action('button-click') as (data: any) => Promise<any>}
+    readOnly={false}
+    harApneAksjonspunkter={false}
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vilkarArbeidOgDagpenger}
+  />
+);
+
+export const IkkeOverstyrerOgHarOverstyringsaksjonspunkt: Story = () => {
+  const overstyringAPBeregningsaktiviteter = {
+    id: 1,
+    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+    status: AksjonspunktStatus.OPPRETTET,
+    kanLoses: true,
+    erAktivt: true,
+    begrunnelse: undefined,
+  };
+
+  const overstyringAPBeregningsgrunnlag = {
+    id: 1,
+    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+    status: AksjonspunktStatus.OPPRETTET,
+    kanLoses: true,
+    erAktivt: true,
+    begrunnelse: undefined,
+  };
+
+  return (
+    <BeregningFaktaIndex
+      behandling={behandling}
+      beregningsgrunnlag={[
+        {
+          ...bgMedArbeidOgDagpenger[0],
+          avklaringsbehov: [overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag],
+        },
+      ]}
+      aksjonspunkter={[overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag]}
+      erOverstyrer={false}
+      alleKodeverk={alleKodeverkMock as any}
+      alleMerknaderFraBeslutter={{
+        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
+      }}
+      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      readOnly={false}
+      harApneAksjonspunkter
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={vilkarArbeidOgDagpenger}
+    />
+  );
+};
+
 /**
  * To arbeidsforhold og saksbehandler har overstyringsrolle
  *
@@ -292,7 +357,7 @@ export const ArbeidOgAAP: Story = () => (
  * I dette scenarioet setter opp panelet i situasjonen der saksbehandler har løst aksjonspunktet 5052 og gått videre.
  *
  */
-export const ArbeidOgAAPMedUtførtAksjonspunkt = () => (
+export const ArbeidOgAAPMedUtførtAksjonspunkt: Story = () => (
   <BeregningFaktaIndex
     behandling={behandling}
     beregningsgrunnlag={bgArbeidOgAAPLøstAksjonspunkt}
@@ -1120,51 +1185,6 @@ export const VurderKunYtelseBesteberegning = () => {
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
       vilkar={vilkar}
-    />
-  );
-};
-
-export const ReadonlyForVanligSaksbehandlerUtenOverstyrerrolleMedOverstyringsaksjonspunkt = () => {
-  const overstyringAPBeregningsaktiviteter = {
-    id: 1,
-    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-    status: AksjonspunktStatus.OPPRETTET,
-    kanLoses: true,
-    erAktivt: true,
-    begrunnelse: undefined,
-  };
-
-  const overstyringAPBeregningsgrunnlag = {
-    id: 1,
-    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-    status: AksjonspunktStatus.OPPRETTET,
-    kanLoses: true,
-    erAktivt: true,
-    begrunnelse: undefined,
-  };
-
-  return (
-    <BeregningFaktaIndex
-      behandling={behandling}
-      beregningsgrunnlag={[
-        {
-          ...bgMedArbeidOgDagpenger[0],
-          avklaringsbehov: [overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag],
-        },
-      ]}
-      aksjonspunkter={[overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag]}
-      erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
-      readOnly={false}
-      harApneAksjonspunkter
-      submittable
-      arbeidsgiverOpplysningerPerId={agOpplysninger}
-      setFormData={() => undefined}
-      vilkar={vilkarArbeidOgDagpenger}
     />
   );
 };

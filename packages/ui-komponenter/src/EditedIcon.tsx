@@ -18,7 +18,7 @@ interface OwnProps {
  */
 
 const EditedIcon: FunctionComponent<OwnProps> = ({ className = '' }) => (
-  <span className={classNames('editedIcon', className)}>
+  <span data-testid="editedIcon" className={classNames('editedIcon', className)}>
     <Image
       src={endretFelt}
       alt="Saksbehandler har endret feltets verdi"
