@@ -30,7 +30,7 @@ module.exports = (dirname) => ({
         },
       },
       styleModulesRule(path.join(dirname, '../src')), 
-      styleRule(path.join(dirname, '../src'), true)
+      styleRule(path.join(dirname, '../src'), true, true)
     ],
   },
   resolve: {
