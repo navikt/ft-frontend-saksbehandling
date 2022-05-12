@@ -12,7 +12,7 @@ const isDisabled = (
   isDirty: boolean,
   isSubmitting: boolean,
   isSubmittable: boolean,
-  hasEmptyRequiredFields: boolean,
+  hasEmptyRequiredFields?: boolean,
 ): boolean => {
   if ((!isDirty && !isSubmittable) || isSubmitting) {
     return true;
@@ -50,7 +50,7 @@ const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
       <Hovedknapp
         mini
         spinner={isSubmitting}
-        disabled={isDisabled(isDirty, isSubmitting, isSubmittable, !!hasEmptyRequiredFields)}
+        disabled={isDisabled(isDirty, isSubmitting, isSubmittable, hasEmptyRequiredFields)}
         onClick={onClick || ariaCheck}
         htmlType={onClick ? 'button' : 'submit'}
       >
