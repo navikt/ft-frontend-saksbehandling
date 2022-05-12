@@ -18,6 +18,7 @@ import BeregningsresultatPeriodeTabellType, {
   AvkortetRadType,
   BeregningsresultatAndelElementType,
   BruttoRadType,
+  DagsatsRadType,
   RedusertRadType,
 } from '../../types/BeregningsresultatPeriodeTabellType';
 
@@ -272,6 +273,7 @@ const settVisningsRaderForATFLSN = (
     rowsAndeler.push(atElement);
     rowsAndeler.push(flElement);
     rowsAndeler.push(snElement);
+    rowsAndeler.push(snElement);
   }
 };
 const settVisningsRaderForDPFLSN = (
@@ -387,11 +389,11 @@ const finnDagsatsGrunnlag = (
   bruttoRad: BruttoRadType,
   avkortetRad: AvkortetRadType,
   redusertRad: RedusertRadType,
-): string => {
+): string | null => {
   if (redusertRad.verdi && redusertRad.display !== false) return redusertRad.verdi;
   if (avkortetRad.verdi && avkortetRad.display !== false) return avkortetRad.verdi;
   if (bruttoRad.verdi && bruttoRad.display !== false) return bruttoRad.verdi;
-  return '';
+  return null;
 };
 
 const harSVPGrunnlag = (ytelseGrunnlag?: YtelseGrunnlag): boolean =>
@@ -458,9 +460,9 @@ const createBeregningTableData = (
       display: false,
     };
     const dagsatserRad = {
-      verdi: '',
-      grunnlag: '',
-    };
+      verdi: null,
+      grunnlag: null,
+    } as DagsatsRadType;
     const harBortfallNaturalYtelse = sjekkHarBortfaltNaturalYtelse(periode);
     headers.push(lagPeriodeHeader(periode.beregningsgrunnlagPeriodeFom, periode.beregningsgrunnlagPeriodeTom));
     bruttoRad.verdi = beløpEllerBlankString(periode.bruttoInkludertBortfaltNaturalytelsePrAar);

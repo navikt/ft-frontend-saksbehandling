@@ -20,9 +20,9 @@ export type BruttoRadType = {
 };
 
 export type DagsatsRadType = {
-  verdi: string;
+  verdi: string | null;
   display?: boolean;
-  grunnlag: string;
+  grunnlag: string | null;
 };
 
 export type BeregningsresultatAndelElementType = {
