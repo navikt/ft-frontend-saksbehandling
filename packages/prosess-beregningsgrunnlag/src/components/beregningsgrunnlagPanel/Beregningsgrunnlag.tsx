@@ -36,12 +36,10 @@ import {
   ATFLValues,
 } from '../../types/ATFLAksjonspunktTsType';
 
-export const TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING = 'begrunnDekningsgradEndring';
-
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   ProsessBeregningsgrunnlagAksjonspunktCode;
 
-const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt =>
+const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined =>
   gjeldendeAksjonspunkter &&
   gjeldendeAksjonspunkter.find(
     ap =>
@@ -49,11 +47,11 @@ const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjo
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   );
 
-const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] => {
+const finnAlleAndelerIFørstePeriode = (allePerioder?: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] => {
   if (allePerioder && allePerioder.length > 0) {
-    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel;
+    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
   }
-  return undefined;
+  return [];
 };
 
 const createRelevantePaneler = (
@@ -62,9 +60,9 @@ const createRelevantePaneler = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   gjelderBesteberegning: boolean,
   alleKodeverk: AlleKodeverk,
-  sammenligningsGrunnlagInntekter: Inntektsgrunnlag,
   skjeringstidspunktDato: string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  sammenligningsGrunnlagInntekter?: Inntektsgrunnlag,
 ): ReactElement => ( // NOSONAR TODO splitte i flere komponenter?
   <div className={beregningStyles.panelLeft}>
     {relevanteStatuser.isArbeidstaker && (
@@ -111,11 +109,15 @@ const createRelevantePaneler = (
 
 interface StaticFunctions {
   buildInitialValues: (gjeldendeAksjonspunkter: Aksjonspunkt[]) => ATFLDekningsgradBegrunnelseValues;
-  transformATFLValues: (values: ATFLValues,
-                        relevanteStatuser: RelevanteStatuserProp,
-                        alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[]) => FastsettAvvikATFLResultatAP;
-  transformATFLTidsbegrensetValues: (values: ATFLTidsbegrensetValues,
-                                     allePerioder: BeregningsgrunnlagPeriodeProp[]) => FastsettAvvikATFLTidsbegrensetResultatAP;
+  transformATFLValues: (
+    values: ATFLValues,
+    relevanteStatuser: RelevanteStatuserProp,
+    alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
+  ) => FastsettAvvikATFLResultatAP;
+  transformATFLTidsbegrensetValues: (
+    values: ATFLTidsbegrensetValues,
+    allePerioder: BeregningsgrunnlagPeriodeProp[],
+  ) => FastsettAvvikATFLTidsbegrensetResultatAP;
 }
 
 type OwnProps = {
@@ -124,7 +126,7 @@ type OwnProps = {
   gjelderBesteberegning: boolean;
   alleKodeverk: AlleKodeverk;
   sammenligningsGrunnlagInntekter?: Inntektsgrunnlag;
-  skjeringstidspunktDato?: string;
+  skjeringstidspunktDato: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
@@ -146,6 +148,9 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
   skjeringstidspunktDato,
   arbeidsgiverOpplysningerPerId,
 }) => {
+  if (!allePerioder) {
+    return null;
+  }
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   return createRelevantePaneler(
     alleAndelerIForstePeriode,
@@ -153,9 +158,9 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
     allePerioder,
     gjelderBesteberegning,
     alleKodeverk,
-    sammenligningsGrunnlagInntekter,
     skjeringstidspunktDato,
     arbeidsgiverOpplysningerPerId,
+    sammenligningsGrunnlagInntekter,
   );
 };
 
@@ -170,7 +175,7 @@ Beregningsgrunnlag.buildInitialValues = (
 ): ATFLDekningsgradBegrunnelseValues => {
   const aksjonspunktATFL = finnAksjonspunktForATFL(gjeldendeAksjonspunkter);
   return {
-    ATFLVurdering: aksjonspunktATFL ? aksjonspunktATFL.begrunnelse : '',
+    ATFLVurdering: aksjonspunktATFL && aksjonspunktATFL.begrunnelse ? aksjonspunktATFL.begrunnelse : '',
   };
 };
 

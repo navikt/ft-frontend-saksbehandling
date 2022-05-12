@@ -61,27 +61,23 @@ const visningForManglendeBG = () => (
 const getAksjonspunkterForBeregning = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt[] =>
   aksjonspunkter ? aksjonspunkter.filter(ap => beregningAksjonspunkter.some(a => a === ap.definisjon)) : [];
 
-const getRelevanteStatuser = (bg: Beregningsgrunnlag): RelevanteStatuserProp =>
-  bg.aktivitetStatus
-    ? {
-        isArbeidstaker: bg.aktivitetStatus.some(kode => isStatusArbeidstakerOrKombinasjon(kode)),
-        isFrilanser: bg.aktivitetStatus.some(kode => isStatusFrilanserOrKombinasjon(kode)),
-        isSelvstendigNaeringsdrivende: bg.aktivitetStatus.some(kode => isStatusSNOrKombinasjon(kode)),
-        harAndreTilstotendeYtelser: bg.aktivitetStatus.some(kode => isStatusTilstotendeYtelse(kode)),
-        harDagpengerEllerAAP: bg.aktivitetStatus.some(kode => isStatusDagpengerOrAAP(kode)),
-        isAAP: bg.aktivitetStatus.some(kode => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
-        isDagpenger: bg.aktivitetStatus.some(kode => kode === AktivitetStatus.DAGPENGER),
-        skalViseBeregningsgrunnlag: bg.aktivitetStatus && bg.aktivitetStatus.length > 0,
-        isKombinasjonsstatus:
-          bg.aktivitetStatus.some(kode => isStatusKombinasjon(kode)) || bg.aktivitetStatus.length > 1,
-        isMilitaer: bg.aktivitetStatus.some(kode => isStatusMilitaer(kode)),
-      }
-    : null;
+const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
+  isArbeidstaker: statuser.some(kode => isStatusArbeidstakerOrKombinasjon(kode)),
+  isFrilanser: statuser.some(kode => isStatusFrilanserOrKombinasjon(kode)),
+  isSelvstendigNaeringsdrivende: statuser.some(kode => isStatusSNOrKombinasjon(kode)),
+  harAndreTilstotendeYtelser: statuser.some(kode => isStatusTilstotendeYtelse(kode)),
+  harDagpengerEllerAAP: statuser.some(kode => isStatusDagpengerOrAAP(kode)),
+  isAAP: statuser.some(kode => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
+  isDagpenger: statuser.some(kode => kode === AktivitetStatus.DAGPENGER),
+  skalViseBeregningsgrunnlag: statuser.length > 0,
+  isKombinasjonsstatus: statuser.some(kode => isStatusKombinasjon(kode)) || statuser.length > 1,
+  isMilitaer: statuser.some(kode => isStatusMilitaer(kode)),
+});
 
-const getBGVilkar = (vilkar: Vilkar[]): Vilkar =>
+const getBGVilkar = (vilkar: Vilkar[]): Vilkar | undefined =>
   vilkar ? vilkar.find(v => v.vilkarType && v.vilkarType === VilkarType.BEREGNINGSGRUNNLAGVILKARET) : undefined;
 
-const getAksjonspunktForGraderingPaaAndelUtenBG = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt =>
+const getAksjonspunktForGraderingPaaAndelUtenBG = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined =>
   aksjonspunkter
     ? aksjonspunkter.find(
         ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
@@ -94,7 +90,7 @@ type OwnProps = {
   readOnlySubmitButton: boolean;
   aksjonspunkter: Aksjonspunkt[];
   alleKodeverk: AlleKodeverk;
-  beregningsgrunnlag: Beregningsgrunnlag;
+  beregningsgrunnlag?: Beregningsgrunnlag;
   vilkar: Vilkar[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: BeregningsgrunnlagValues;
@@ -119,11 +115,11 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
 }) => {
-  if (!beregningsgrunnlag) {
+  if (!beregningsgrunnlag || !beregningsgrunnlag.aktivitetStatus) {
     return visningForManglendeBG();
   }
   const gjeldendeAksjonspunkter = getAksjonspunkterForBeregning(aksjonspunkter);
-  const relevanteStatuser = getRelevanteStatuser(beregningsgrunnlag);
+  const relevanteStatuser = getRelevanteStatuser(beregningsgrunnlag.aktivitetStatus);
   const vilkaarBG = getBGVilkar(vilkar);
   const aksjonspunktGraderingPaaAndelUtenBG = getAksjonspunktForGraderingPaaAndelUtenBG(aksjonspunkter);
   return (

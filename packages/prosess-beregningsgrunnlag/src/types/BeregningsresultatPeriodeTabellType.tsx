@@ -31,7 +31,7 @@ export type BeregningsresultatAndelElementType = {
   pgiSnitt?: number;
   skalFastsetteGrunnlag: boolean;
   verdi?: number;
-  inntekt: number;
+  inntekt: number | string;
 };
 
 export type BeregningsresultatPeriodeTabellType = {

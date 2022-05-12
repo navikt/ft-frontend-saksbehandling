@@ -13,7 +13,6 @@ import {
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagPeriodeProp,
   FaktaOmBeregning,
-  SammenligningsgrunlagProp,
   Vilkar,
   YtelseGrunnlag,
 } from '@navikt/ft-types';
@@ -56,14 +55,14 @@ const {
 // Methods
 // ------------------------------------------------------------------------------------------ //
 
-const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning): boolean =>
+const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
     ? faktaOmBeregning.faktaOmBeregningTilfeller.some(
         tilfelle => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
       )
     : false;
 
-const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag): boolean =>
+const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag?: YtelseGrunnlag): boolean =>
   !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
 
 export const buildInitialValues = (
@@ -71,10 +70,11 @@ export const buildInitialValues = (
   gjeldendeAksjonspunkter: Aksjonspunkt[],
 ): BeregningsgrunnlagValues => {
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
-    return undefined;
+    return {};
   }
   const allePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
-  const alleAndelerIForstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel;
+  const alleAndelerIForstePeriode =
+    beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
   const arbeidstakerAndeler = alleAndelerIForstePeriode.filter(
     andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
   );
@@ -105,10 +105,18 @@ export const transformValues = (
   gjeldendeAksjonspunkter: Aksjonspunkt[],
   allePerioder: BeregningsgrunnlagPeriodeProp[],
 ): BeregningsgrunnlagResultatAP[] => {
-  allePerioder.sort((p1, p2) => p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom));
-  const alleAndelerIFørstePeriode = allePerioder.length > 0 ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel : [];
+  if (allePerioder.length < 1) {
+    throw new Error('Ingen beregningsgrunnlagperioder, ugyldig tilstand');
+  }
+  allePerioder.sort((p1, p2) => {
+    if (!p1.beregningsgrunnlagPeriodeFom || !p2.beregningsgrunnlagPeriodeFom) {
+      return 0;
+    }
+    return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
+  });
+  const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
 
-  const aksjonspunkter = [];
+  const aksjonspunkter = [] as BeregningsgrunnlagResultatAP[];
   if (harAksjonspunkt(VURDER_DEKNINGSGRAD, gjeldendeAksjonspunkter)) {
     aksjonspunkter.push(DekningsgradAksjonspunktPanel.transformValues(values as Required<DekningsgradValues>));
   }
@@ -136,13 +144,12 @@ export const transformValues = (
   return aksjonspunkter;
 };
 
-const getSammenligningsgrunnlagsPrStatus = (bg: BeregningsgrunnlagProp): SammenligningsgrunlagProp[] =>
-  bg.sammenligningsgrunnlagPrStatus ? bg.sammenligningsgrunnlagPrStatus : undefined;
-
 const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): string[] =>
   beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
-    .filter(statusAndel => statusAndel.erTilkommetAndel !== true)
-    .map(statusAndel => statusAndel.aktivitetStatus);
+    ? beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
+        .filter(statusAndel => statusAndel.erTilkommetAndel !== true)
+        .map(statusAndel => statusAndel.aktivitetStatus)
+    : [];
 
 type OwnProps = {
   readOnly: boolean;
@@ -152,7 +159,7 @@ type OwnProps = {
   readOnlySubmitButton: boolean;
   beregningsgrunnlag: BeregningsgrunnlagProp;
   alleKodeverk: AlleKodeverk;
-  vilkaarBG: Vilkar;
+  vilkaarBG?: Vilkar;
   formData?: BeregningsgrunnlagValues;
   setFormData: (data: BeregningsgrunnlagValues) => void;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -196,7 +203,6 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
 
-  const sammenligningsgrunnlagPrStatus = getSammenligningsgrunnlagsPrStatus(beregningsgrunnlag);
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.length > 0;
   return (
@@ -245,7 +251,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           <VerticalSpacer twentyPx />
           {gjelderAutomatiskBesteberegning && (
             <BesteberegningResultatGrunnlagPanel
-              besteMåneder={ytelsesspesifiktGrunnlag.besteberegninggrunnlag.besteMåneder}
+              besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
               periode={beregningsgrunnlagPeriode[0]}
             />
           )}
@@ -260,7 +266,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           <VerticalSpacer twentyPx />
 
           <AvviksopplysningerPanel
-            sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus}
+            sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
             relevanteStatuser={relevanteStatuser}
             allePerioder={beregningsgrunnlagPeriode}
             harAksjonspunkter={harAksjonspunkter}
@@ -285,14 +291,16 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           )}
           <>
             <AvsnittSkiller spaceAbove spaceUnder rightPanel />
-            <BeregningsresultatTable
-              beregningsgrunnlagPerioder={beregningsgrunnlag.beregningsgrunnlagPeriode}
-              dekningsgrad={dekningsgrad}
-              vilkaarBG={vilkaarBG}
-              aktivitetStatusList={aktivitetStatusList}
-              grunnbelop={beregningsgrunnlag.grunnbeløp}
-              ytelseGrunnlag={beregningsgrunnlag.ytelsesspesifiktGrunnlag}
-            />
+            {vilkaarBG && (
+              <BeregningsresultatTable
+                beregningsgrunnlagPerioder={beregningsgrunnlag.beregningsgrunnlagPeriode}
+                dekningsgrad={dekningsgrad}
+                vilkaarBG={vilkaarBG}
+                aktivitetStatusList={aktivitetStatusList}
+                grunnbelop={beregningsgrunnlag.grunnbeløp}
+                ytelseGrunnlag={beregningsgrunnlag.ytelsesspesifiktGrunnlag}
+              />
+            )}
           </>
         </Column>
       </Row>

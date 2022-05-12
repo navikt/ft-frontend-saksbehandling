@@ -63,28 +63,22 @@ const erVilkaarOppfyltForEnAvAndelene = (vilkarStatus: string, andeler: any[]): 
   return false;
 };
 
-const hentAndelFraPeriode = (periode: BeregningsgrunnlagPeriodeProp, andelType: string): BeregningsgrunnlagAndel[] =>
-  periode.beregningsgrunnlagPrStatusOgAndel
-    .filter(andel => andel.aktivitetStatus === andelType)
-    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
+const beløpEller0 = (beløp?: number): number => beløp || 0;
 
-const lagPeriodeHeader = (fom: string, tom: string): ReactElement => (
+const hentAndelFraPeriode = (periode: BeregningsgrunnlagPeriodeProp, andelType: string): BeregningsgrunnlagAndel[] =>
+  periode && periode.beregningsgrunnlagPrStatusOgAndel
+    ? periode.beregningsgrunnlagPrStatusOgAndel
+        .filter(andel => andel.aktivitetStatus === andelType)
+        .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel))
+    : [];
+
+const lagPeriodeHeader = (fom: string, tom?: string): ReactElement => (
   <FormattedMessage
     id="Beregningsgrunnlag.BeregningTable.Periode"
     key={`fom-tom${fom}${tom}`}
     values={{ fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT), tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '' }}
   />
 );
-const summertVerdiFraListeProp = (andeler: BeregningsgrunnlagAndel[], propNavn: string): number => {
-  if (!andeler || andeler.length < 1) {
-    return -1;
-  }
-  let sum = 0;
-  andeler.forEach(andel => {
-    sum += andel[propNavn] ? andel[propNavn] : 0;
-  });
-  return sum;
-};
 
 const opprettSNElement = (andel: BeregningsgrunnlagAndel, vilkårstatus: string): BeregningsresultatAndelElementType => {
   let erOverstyrt = false;
@@ -95,17 +89,17 @@ const opprettSNElement = (andel: BeregningsgrunnlagAndel, vilkårstatus: string)
       inntekt = andel.overstyrtPrAar;
       erOverstyrt = true;
     } else {
-      inntekt = andel.beregnetPrAar;
+      inntekt = andel.beregnetPrAar || andel.beregnetPrAar === 0 ? andel.beregnetPrAar : '';
     }
   } else if (skalFastsetteGrunnlag && vilkårstatus === VilkarUtfallType.IKKE_VURDERT) {
     inntekt = 'fastsett';
   } else {
-    inntekt = andel.bruttoPrAar || andel.bruttoPrAar === 0 ? andel.bruttoPrAar : undefined;
+    inntekt = andel.bruttoPrAar || andel.bruttoPrAar === 0 ? andel.bruttoPrAar : '';
   }
   const pgiSnitt = andel.pgiSnitt || andel.pgiSnitt === 0 ? andel.pgiSnitt : undefined;
   return {
     erOverstyrt,
-    skalFastsetteGrunnlag,
+    skalFastsetteGrunnlag: !!skalFastsetteGrunnlag,
     inntekt,
     pgiSnitt,
   };
@@ -122,14 +116,17 @@ const opprettATElement = (
     // denne testen kan brukes på alle
     erOverstyrt = andeler.some(atAndel => atAndel.overstyrtPrAar !== undefined && atAndel.overstyrtPrAar !== null);
     if (erOverstyrt) {
-      inntekt = summertVerdiFraListeProp(andeler, 'overstyrtPrAar');
+      inntekt =
+        andeler && andeler.length > 0 ? andeler.reduce((sum, andel) => sum + beløpEller0(andel.overstyrtPrAar), 0) : 0;
     } else {
-      inntekt = summertVerdiFraListeProp(andeler, 'beregnetPrAar');
+      inntekt =
+        andeler && andeler.length > 0 ? andeler.reduce((sum, andel) => sum + beløpEller0(andel.beregnetPrAar), 0) : 0;
     }
   } else if (skalFastsetteGrunnlag && vilkårstatus === VilkarUtfallType.IKKE_VURDERT) {
     inntekt = 'fastsett';
   } else {
-    inntekt = summertVerdiFraListeProp(andeler, 'bruttoPrAar');
+    inntekt =
+      andeler && andeler.length > 0 ? andeler.reduce((sum, andel) => sum + beløpEller0(andel.bruttoPrAar), 0) : 0;
   }
   return {
     erOverstyrt,
@@ -150,17 +147,17 @@ const opprettDefaultElement = (
       inntekt = førsteAndel.overstyrtPrAar;
       erOverstyrt = true;
     } else {
-      inntekt = førsteAndel.beregnetPrAar;
+      inntekt = førsteAndel.beregnetPrAar || førsteAndel.beregnetPrAar === 0 ? førsteAndel.beregnetPrAar : '';
     }
   } else if (skalFastsetteGrunnlag && vilkårstatus === VilkarUtfallType.IKKE_VURDERT) {
     inntekt = 'fastsett';
   } else {
-    inntekt = førsteAndel.bruttoPrAar || førsteAndel.bruttoPrAar === 0 ? førsteAndel.bruttoPrAar : undefined;
+    inntekt = førsteAndel.bruttoPrAar || førsteAndel.bruttoPrAar === 0 ? førsteAndel.bruttoPrAar : '';
   }
   skalFastsetteGrunnlag = førsteAndel.skalFastsetteGrunnlag;
   return {
     erOverstyrt,
-    skalFastsetteGrunnlag,
+    skalFastsetteGrunnlag: !!skalFastsetteGrunnlag,
     inntekt,
   };
 };
@@ -171,17 +168,14 @@ const opprettAndelElement = (
   vilkarStatus: string,
 ): BeregningsresultatAndelElementType => {
   const andelElement = {
-    ledetekst: null,
     erOverstyrt: false,
-    pgiSnitt: null,
     skalFastsetteGrunnlag: false,
-    verdi: null,
-    inntekt: null,
-  };
-  andelElement.ledetekst = 'Beregningsgrunnlag -';
+    inntekt: '',
+  } as BeregningsresultatAndelElementType;
+  andelElement.ledetekst = <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Generell" />;
   const andeler = hentAndelFraPeriode(periode, andelType);
   if (!andeler || andeler.length < 1) {
-    return null;
+    return andelElement;
   }
   const førsteAndel = andeler[0]; // Vil kun være en for statuser som ikke er ARBEIDSTAKER så drar for bruk i switch her
   if (andelType === AktivitetStatus.ARBEIDSTAKER) {
@@ -202,7 +196,7 @@ const opprettAndelElement = (
     andelElement.skalFastsetteGrunnlag = defaultElement.skalFastsetteGrunnlag;
   }
   if ((andelElement.inntekt || andelElement.inntekt === 0) && andelElement.inntekt !== -1) {
-    andelElement.verdi = andelElement.inntekt;
+    andelElement.verdi = Number(andelElement.inntekt);
   }
   const strKey = setTekstStrengKeyPavilkaarUtfallType(vilkarStatus, andelElement.skalFastsetteGrunnlag);
   andelElement.ledetekst = <FormattedMessage id={`Beregningsgrunnlag.BeregningTable.${strKey}.${andelType}`} />;
@@ -323,6 +317,7 @@ const settVisningsRaderForATDPSN = (
     rowsAndeler.push(snElement);
   }
 };
+
 const settVisningsRaderForDefault = (
   periode: BeregningsgrunnlagPeriodeProp,
   rowsAndeler: BeregningsresultatAndelElementType[],
@@ -367,21 +362,20 @@ const settVisningsRaderForDefault = (
 
   if (harBortfallNaturalYtelse) {
     const ntElement = {
-      verdi: null,
-      skalFastsetteGrunnlag: null,
-      ledetekst: null,
-      inntekt: null,
-    };
-    const atAndel = periode.beregningsgrunnlagPrStatusOgAndel.filter(
-      andel =>
-        andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold?.naturalytelseBortfaltPrÅr,
-    );
-    // TODO Fiks denne
-    // eslint-disable-next-line no-unsafe-optional-chaining
+      verdi: undefined,
+      skalFastsetteGrunnlag: false,
+      ledetekst: undefined,
+      inntekt: 0,
+    } as BeregningsresultatAndelElementType;
+    const atAndel = periode.beregningsgrunnlagPrStatusOgAndel
+      ? periode.beregningsgrunnlagPrStatusOgAndel.filter(
+          andel =>
+            andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold?.naturalytelseBortfaltPrÅr,
+        )
+      : [];
     ntElement.verdi =
       atAndel && atAndel.length > 0
-        ? // eslint-disable-next-line no-unsafe-optional-chaining
-          atAndel.reduce((sum, andel) => sum + andel.arbeidsforhold?.naturalytelseBortfaltPrÅr, 0)
+        ? atAndel.reduce((sum, andel) => sum + beløpEller0(andel.arbeidsforhold?.naturalytelseBortfaltPrÅr), 0)
         : undefined;
     ntElement.skalFastsetteGrunnlag = false;
     ntElement.ledetekst = <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Naturalytelser" />;
@@ -397,30 +391,34 @@ const finnDagsatsGrunnlag = (
   if (redusertRad.verdi && redusertRad.display !== false) return redusertRad.verdi;
   if (avkortetRad.verdi && avkortetRad.display !== false) return avkortetRad.verdi;
   if (bruttoRad.verdi && bruttoRad.display !== false) return bruttoRad.verdi;
-  return null;
+  return '';
 };
 
-const harSVPGrunnlag = (ytelseGrunnlag: YtelseGrunnlag): boolean =>
-  ytelseGrunnlag && ytelseGrunnlag.ytelsetype === FagsakYtelseType.SVANGERSKAPSPENGER;
+const harSVPGrunnlag = (ytelseGrunnlag?: YtelseGrunnlag): boolean =>
+  ytelseGrunnlag?.ytelsetype === FagsakYtelseType.SVANGERSKAPSPENGER;
 
-const finnDagsats = (periode: BeregningsgrunnlagPeriodeProp, ytelseGrunnlag: YtelseGrunnlag): number => {
+const finnDagsats = (periode: BeregningsgrunnlagPeriodeProp, ytelseGrunnlag?: YtelseGrunnlag): number => {
   if (harSVPGrunnlag(ytelseGrunnlag) && periode.avkortetPrAar) {
     return Math.round(periode.avkortetPrAar / VIRKEDAGER_PR_AAR);
   }
-  return periode.dagsats;
+  return periode.dagsats || 0;
 };
 
 const sjekkHarBortfaltNaturalYtelse = (periode: BeregningsgrunnlagPeriodeProp): boolean => {
   if (!periode) {
     return false;
   }
-  return periode.beregningsgrunnlagPrStatusOgAndel.some(
-    andel =>
-      andel.arbeidsforhold?.naturalytelseBortfaltPrÅr !== undefined &&
-      andel.arbeidsforhold?.naturalytelseBortfaltPrÅr !== null &&
-      andel.arbeidsforhold?.naturalytelseBortfaltPrÅr !== 0,
-  );
+  return periode && periode.beregningsgrunnlagPrStatusOgAndel
+    ? periode.beregningsgrunnlagPrStatusOgAndel.some(
+        andel =>
+          andel.arbeidsforhold?.naturalytelseBortfaltPrÅr !== undefined &&
+          andel.arbeidsforhold?.naturalytelseBortfaltPrÅr !== null &&
+          andel.arbeidsforhold?.naturalytelseBortfaltPrÅr !== 0,
+      )
+    : false;
 };
+
+const beløpEllerBlankString = (beløp?: number): string => formatCurrencyNoKr(beløp) || '';
 
 const createBeregningTableData = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
@@ -428,51 +426,51 @@ const createBeregningTableData = (
   dekningsgrad: number,
   grunnbelop: number,
   vilkar: Vilkar,
-  ytelseGrunnlag: YtelseGrunnlag,
+  ytelseGrunnlag?: YtelseGrunnlag,
 ): BeregningsresultatPeriodeTabellType[] => {
   const perioderSomSkalVises = allePerioder.filter(periode =>
-    periodeHarAarsakSomTilsierVisning(periode.periodeAarsaker),
+    periodeHarAarsakSomTilsierVisning(periode.periodeAarsaker || []),
   );
   if (perioderSomSkalVises.length < 1) {
     // Alle perioder har periodeårsak som egentlig ikke trengs vises, velger første periode som den eneste som blir vist.
     perioderSomSkalVises.push(allePerioder[0]);
   }
-  const periodeResultatTabeller = [];
+  const periodeResultatTabeller = [] as BeregningsresultatPeriodeTabellType[];
   const seksG = grunnbelop * 6;
   perioderSomSkalVises.forEach(periode => {
     const headers = [];
     const bruttoRad = {
       ledetekst: <FormattedMessage id="Beregningsgrunnlag.BeregningTable.BruttoTotalt" />,
-      verdi: null,
-      display: null,
-      grunnlag: null,
+      verdi: '',
+      display: false,
+      grunnlag: '',
     };
     const avkortetRad = {
       ledetekst: <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Avkortet6g" />,
-      verdi: null,
-      display: null,
+      verdi: '',
+      display: false,
     };
     const redusertRad = {
       ledetekst: (
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.RedusertProsent" values={{ redusert: dekningsgrad }} />
       ),
-      verdi: null,
-      display: null,
+      verdi: '',
+      display: false,
     };
     const dagsatserRad = {
-      verdi: null,
-      grunnlag: null,
+      verdi: '',
+      grunnlag: '',
     };
     const harBortfallNaturalYtelse = sjekkHarBortfaltNaturalYtelse(periode);
     headers.push(lagPeriodeHeader(periode.beregningsgrunnlagPeriodeFom, periode.beregningsgrunnlagPeriodeTom));
-    bruttoRad.verdi = formatCurrencyNoKr(periode.bruttoInkludertBortfaltNaturalytelsePrAar);
-    avkortetRad.verdi = formatCurrencyNoKr(periode.avkortetPrAar);
+    bruttoRad.verdi = beløpEllerBlankString(periode.bruttoInkludertBortfaltNaturalytelsePrAar);
+    avkortetRad.verdi = beløpEllerBlankString(periode.avkortetPrAar);
     if (dekningsgrad !== dekningsgradKode.HUNDRE) {
-      redusertRad.verdi = formatCurrencyNoKr(periode.redusertPrAar);
+      redusertRad.verdi = beløpEllerBlankString(periode.redusertPrAar);
     }
-    dagsatserRad.verdi = formatCurrencyNoKr(finnDagsats(periode, ytelseGrunnlag));
-    const rowsAndeler = [];
-    const rowsForklaringer = [];
+    dagsatserRad.verdi = beløpEllerBlankString(finnDagsats(periode, ytelseGrunnlag));
+    const rowsAndeler = [] as BeregningsresultatAndelElementType[];
+    const rowsForklaringer = [] as ReactElement[];
     aktivitetStatusList.sort((a, b) => (a > b ? 1 : -1)); // sorter alfabetisk
     const aktivitetStatusKodeKombo = aktivitetStatusList.map(andelKode => andelKode).join('_');
     switch (aktivitetStatusKodeKombo) {
@@ -512,7 +510,7 @@ const createBeregningTableData = (
     if (rowsAndeler.length < 2) {
       bruttoRad.display = false;
     }
-    if (bruttoRad.display !== false && bruttoRad.verdi === redusertRad.verdi) {
+    if (bruttoRad.display && bruttoRad.verdi === redusertRad.verdi) {
       redusertRad.display = false;
     }
 
@@ -535,7 +533,7 @@ type OwnProps = {
   aktivitetStatusList: string[];
   dekningsgrad: number;
   grunnbelop: number;
-  ytelseGrunnlag: YtelseGrunnlag;
+  ytelseGrunnlag?: YtelseGrunnlag;
 };
 
 /**

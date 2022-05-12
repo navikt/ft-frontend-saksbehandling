@@ -48,7 +48,7 @@ AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: Beregningsgrunnl
       inntektFrilanser: overstyrtBeløp,
     };
   }
-  return null;
+  return {};
 };
 
 export default AksjonspunktBehandlerFL;

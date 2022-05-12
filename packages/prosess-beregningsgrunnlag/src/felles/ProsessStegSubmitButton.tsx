@@ -50,7 +50,7 @@ const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
       <Hovedknapp
         mini
         spinner={isSubmitting}
-        disabled={isDisabled(isDirty, isSubmitting, isSubmittable, hasEmptyRequiredFields)}
+        disabled={isDisabled(isDirty, isSubmitting, isSubmittable, !!hasEmptyRequiredFields)}
         onClick={onClick || ariaCheck}
         htmlType={onClick ? 'button' : 'submit'}
       >
