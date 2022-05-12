@@ -443,22 +443,22 @@ const createBeregningTableData = (
     const headers = [];
     const bruttoRad = {
       ledetekst: <FormattedMessage id="Beregningsgrunnlag.BeregningTable.BruttoTotalt" />,
-      verdi: '',
-      display: false,
-      grunnlag: '',
-    };
+      verdi: null,
+      display: null,
+      grunnlag: null,
+    } as BruttoRadType;
     const avkortetRad = {
       ledetekst: <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Avkortet6g" />,
-      verdi: '',
-      display: false,
-    };
+      verdi: null,
+      display: null,
+    } as AvkortetRadType;
     const redusertRad = {
       ledetekst: (
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.RedusertProsent" values={{ redusert: dekningsgrad }} />
       ),
-      verdi: '',
-      display: false,
-    };
+      verdi: null,
+      display: null,
+    } as RedusertRadType;
     const dagsatserRad = {
       verdi: null,
       grunnlag: null,

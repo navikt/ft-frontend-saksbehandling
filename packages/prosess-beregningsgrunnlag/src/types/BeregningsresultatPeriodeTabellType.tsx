@@ -2,21 +2,21 @@ import { ReactElement } from 'react';
 
 export type AvkortetRadType = {
   ledetekst: ReactElement;
-  verdi: string;
-  display?: boolean;
+  verdi: string | null;
+  display?: boolean | null;
 };
 
 export type RedusertRadType = {
   ledetekst: ReactElement;
-  verdi: string;
-  display?: boolean;
+  verdi: string | null;
+  display?: boolean | null;
 };
 
 export type BruttoRadType = {
   ledetekst: ReactElement;
-  verdi: string;
-  display?: boolean;
-  grunnlag: string;
+  verdi: string | null;
+  display?: boolean | null;
+  grunnlag: string | null;
 };
 
 export type DagsatsRadType = {
