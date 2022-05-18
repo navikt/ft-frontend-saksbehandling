@@ -122,9 +122,7 @@ const Template: Story<{
     readOnly={readOnly}
     alleKodeverk={alleKodeverk as any}
     arbeidsgiverOpplysningerPerId={agOpplysninger}
-    alleMerknaderFraBeslutter={{}}
     setFormData={() => undefined}
-    harApneAksjonspunkter={!!aksjonspunkter}
     submittable
   />
 );
