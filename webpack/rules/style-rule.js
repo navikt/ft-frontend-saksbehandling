@@ -22,7 +22,6 @@ module.exports = (src, shouldTestCss, shouldNotAdd) => {
       },
     }].concat(rules);
   }
-  console.log(rules)
 
   return {
     test: shouldTestCss ? /\.(less|css)?$/ : /\.(less)?$/,

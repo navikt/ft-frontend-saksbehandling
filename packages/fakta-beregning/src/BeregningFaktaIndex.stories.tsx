@@ -10,7 +10,6 @@ import {
 } from '@navikt/ft-kodeverk';
 import {
   AndelForFaktaOmBeregning,
-  Behandling,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
@@ -48,11 +47,6 @@ import agOpplysninger from '../testdata/arbeidsgiverOpplysninger';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-redux-legacy/dist/style.css';
-
-const behandling = {
-  uuid: '1',
-  versjon: 1,
-} as Behandling;
 
 const {
   VURDER_MOTTAR_YTELSE,
@@ -183,9 +177,6 @@ const standardFaktaAAPAndel = {
   lagtTilAvSaksbehandler: false,
 };
 
-const merknaderFraBeslutter = {
-  notAccepted: false,
-};
 const vilkar: Vilkar = {
   vilkarType: '',
   vilkarStatus: '',
@@ -218,17 +209,12 @@ export default {
  */
 export const ArbeidOgDagpenger: Story = () => (
   <BeregningFaktaIndex
-    behandling={behandling}
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
     aksjonspunkter={aksjonspunktArbeidOgDagpenger}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
-    alleMerknaderFraBeslutter={{
-      [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-    }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
-    harApneAksjonspunkter
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
@@ -238,17 +224,12 @@ export const ArbeidOgDagpenger: Story = () => (
 
 export const IkkeOverstyrerOgIngenAksjonspunkt: Story = () => (
   <BeregningFaktaIndex
-    behandling={behandling}
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
     aksjonspunkter={[]}
     erOverstyrer={false}
     alleKodeverk={alleKodeverkMock as any}
-    alleMerknaderFraBeslutter={{
-      [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-    }}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
-    harApneAksjonspunkter={false}
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
@@ -277,7 +258,6 @@ export const IkkeOverstyrerOgHarOverstyringsaksjonspunkt: Story = () => {
 
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[
         {
           ...bgMedArbeidOgDagpenger[0],
@@ -287,12 +267,8 @@ export const IkkeOverstyrerOgHarOverstyringsaksjonspunkt: Story = () => {
       aksjonspunkter={[overstyringAPBeregningsaktiviteter, overstyringAPBeregningsgrunnlag]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -309,15 +285,12 @@ export const IkkeOverstyrerOgHarOverstyringsaksjonspunkt: Story = () => {
  */
 export const ToArbeidsforholdIOpptjeningsperioden = () => (
   <BeregningFaktaIndex
-    behandling={behandling}
     beregningsgrunnlag={bgToArbeidsforholdIOpptjeningsperioden}
     aksjonspunkter={[]}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
-    alleMerknaderFraBeslutter={{}}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
-    harApneAksjonspunkter
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
@@ -334,15 +307,12 @@ export const ToArbeidsforholdIOpptjeningsperioden = () => (
  */
 export const ArbeidOgAAP: Story = () => (
   <BeregningFaktaIndex
-    behandling={behandling}
     beregningsgrunnlag={bgArbeidOgAAP}
     aksjonspunkter={aksjonspunktArbeidOgAAP}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
-    alleMerknaderFraBeslutter={{}}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
-    harApneAksjonspunkter
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
@@ -359,15 +329,12 @@ export const ArbeidOgAAP: Story = () => (
  */
 export const ArbeidOgAAPMedUtførtAksjonspunkt: Story = () => (
   <BeregningFaktaIndex
-    behandling={behandling}
     beregningsgrunnlag={bgArbeidOgAAPLøstAksjonspunkt}
     aksjonspunkter={aksjonspunktArbeidOgAAPLøstAksjonspunkt}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
-    alleMerknaderFraBeslutter={{}}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
-    harApneAksjonspunkter
     submittable
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
@@ -405,7 +372,6 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
 
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag1, beregningsgrunnlag2]}
       aksjonspunkter={[
         {
@@ -418,12 +384,8 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -457,7 +419,6 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
 
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -470,12 +431,8 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -508,7 +465,6 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -521,12 +477,8 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -564,7 +516,6 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -577,12 +528,8 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -606,7 +553,6 @@ export const VurderingAvMilitær = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -619,12 +565,8 @@ export const VurderingAvMilitær = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -666,7 +608,6 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -679,12 +620,8 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -710,7 +647,6 @@ export const KunTidsbegrensetArbeidsforhold = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -723,12 +659,8 @@ export const KunTidsbegrensetArbeidsforhold = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -753,7 +685,6 @@ export const VurderingAvEtterlønnSluttpakke = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -766,12 +697,8 @@ export const VurderingAvEtterlønnSluttpakke = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -800,7 +727,6 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -813,12 +739,8 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -842,7 +764,6 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -855,12 +776,8 @@ export const SelvstendigNæringNyIArbeidslivet = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -1037,7 +954,6 @@ export const KombinasjonstestForFaktapanel = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -1057,12 +973,8 @@ export const KombinasjonstestForFaktapanel = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -1115,7 +1027,6 @@ export const OverstyringAvInntekt = () => {
 
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -1128,12 +1039,8 @@ export const OverstyringAvInntekt = () => {
       ]}
       erOverstyrer
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -1162,7 +1069,6 @@ export const VurderKunYtelseBesteberegning = () => {
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       aksjonspunkter={[
         {
@@ -1175,12 +1081,8 @@ export const VurderKunYtelseBesteberegning = () => {
       ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
-      harApneAksjonspunkter
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}

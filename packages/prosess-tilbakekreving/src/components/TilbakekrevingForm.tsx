@@ -237,8 +237,8 @@ interface OwnProps {
   navBrukerKjonn: string;
   beregnBelop: (data: any) => Promise<any>;
   behandlingUuid: string;
-  formData?: any;
-  setFormData: (data: any) => void;
+  formData?: CustomVilkarsVurdertePeriode[];
+  setFormData: (data: CustomVilkarsVurdertePeriode[]) => void;
 }
 
 /**

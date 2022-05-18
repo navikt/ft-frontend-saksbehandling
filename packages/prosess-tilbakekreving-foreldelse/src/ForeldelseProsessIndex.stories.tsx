@@ -96,12 +96,7 @@ const Template: Story<{
     aksjonspunkter={aksjonspunkter}
     navBrukerKjonn={NavBrukerKjonn.KVINNE}
     beregnBelop={(params?: any) => Promise.resolve(params)}
-    alleKodeverk={{} as any}
     alleMerknaderFraBeslutter={{}}
-    status=""
-    readOnlySubmitButton={false}
-    vilkar={[]}
-    isAksjonspunktOpen
   />
 );
 
