@@ -12,7 +12,6 @@ import {
 } from '@navikt/ft-kodeverk';
 import {
   Beregningsgrunnlag,
-  Behandling,
   Aksjonspunkt,
   Vilkar,
   BeregningsgrunnlagPeriodeProp,
@@ -42,11 +41,6 @@ const bgpFom = '2022-03-01';
 const bgpTom = '2022-05-31';
 
 type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
-
-const behandling = {
-  uuid: '1',
-  versjon: 1,
-} as Behandling;
 
 const lagNæring = (varigEndring: boolean, nyoppstartet: boolean): Næring => ({
   begrunnelse:
@@ -444,18 +438,14 @@ const Template: Story<{
   submitCallback: (aksjonspunktData: BeregningsgrunnlagResultatAP[]) => Promise<void>;
 }> = ({ readOnly, vilkar, beregningsgrunnlag, submitCallback, aksjonspunkter }) => (
   <BeregningsgrunnlagProsessIndex
-    behandling={behandling}
     beregningsgrunnlag={beregningsgrunnlag}
     aksjonspunkter={aksjonspunkter}
     submitCallback={submitCallback}
     isReadOnly={readOnly}
     readOnlySubmitButton={false}
-    isAksjonspunktOpen
     vilkar={vilkar}
     alleKodeverk={alleKodeverk as any}
-    status=""
     arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysninger}
-    alleMerknaderFraBeslutter={{}}
     setFormData={() => undefined}
   />
 );

@@ -3,10 +3,14 @@ import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
 import {
-  AlleKodeverkTilbakekreving, FeilutbetalingAarsak, FeilutbetalingFakta, StandardProsessPanelProps,
+  AlleKodeverk,
+  AlleKodeverkTilbakekreving,
+  FeilutbetalingAarsak,
+  FeilutbetalingFakta,
+  StandardProsessPanelProps,
 } from '@navikt/ft-types';
 
-import FeilutbetalingInfoPanel from './components/FeilutbetalingInfoPanel';
+import FeilutbetalingInfoPanel, { FormValues } from './components/FeilutbetalingInfoPanel';
 import AvklartFaktaFeilutbetalingAp from './types/AvklartFaktaFeilutbetalingAp';
 
 import messages from '../i18n/nb_NO.json';
@@ -18,9 +22,14 @@ interface OwnProps {
   feilutbetalingAarsak: FeilutbetalingAarsak[];
   fagsakYtelseTypeKode: string;
   tilbakekrevingKodeverk: AlleKodeverkTilbakekreving;
+  isAksjonspunktOpen: boolean;
+  alleKodeverk: AlleKodeverk;
+  alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
 }
 
-const FeilutbetalingFaktaIndex: FunctionComponent<OwnProps & StandardProsessPanelProps<AvklartFaktaFeilutbetalingAp>> = ({
+const FeilutbetalingFaktaIndex: FunctionComponent<
+  OwnProps & StandardProsessPanelProps<AvklartFaktaFeilutbetalingAp, FormValues>
+> = ({
   feilutbetalingFakta,
   feilutbetalingAarsak,
   fagsakYtelseTypeKode,
@@ -33,7 +42,7 @@ const FeilutbetalingFaktaIndex: FunctionComponent<OwnProps & StandardProsessPane
   formData,
   setFormData,
 }) => {
-  const fAarsak = feilutbetalingAarsak.find((a) => a.ytelseType === fagsakYtelseTypeKode);
+  const fAarsak = feilutbetalingAarsak.find(a => a.ytelseType === fagsakYtelseTypeKode);
   if (!fAarsak) {
     throw Error(`Mangler feilutbetalingsårsak for ytelsetype ${fagsakYtelseTypeKode}`);
   }

@@ -22,7 +22,7 @@ import FeilutbetalingAksjonspunktCode from '../FeilutbetalingAksjonspunktCode';
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-type FormValues = {
+export type FormValues = {
   begrunnelse?: string;
   behandlePerioderSamlet?: boolean;
 } & PeriodeFormValues;

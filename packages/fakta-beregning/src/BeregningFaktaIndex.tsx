@@ -1,6 +1,13 @@
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
 import { VilkarUtfallType } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar } from '@navikt/ft-types';
+import {
+  Aksjonspunkt,
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  StandardFaktaPanelProps,
+  Vilkar,
+} from '@navikt/ft-types';
 import vilkarperiodeTsType from '@navikt/ft-types/src/vilkarperiodeTsType';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
@@ -10,6 +17,7 @@ import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.less';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
+import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAktivitetAP';
 import BeregningFaktaAP, {
   AvklarBeregningsaktiviteterAP,
@@ -24,23 +32,11 @@ type OwnProps = {
   beregningsgrunnlag?: Beregningsgrunnlag[];
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  setFormData: (data: any) => void;
   vilkar: Vilkar;
-  submitCallback: (
-    aksjonspunktData:
-      | AvklarBeregningsaktiviteterAP
-      | OverstyrBeregningsaktiviteterAP
-      | BeregningFaktaAP
-      | BeregningOverstyringAP
-      | SubmitBeregningType[],
-  ) => Promise<void>;
+  alleKodeverk: AlleKodeverk;
+  submittable: boolean;
+  aksjonspunkter: Aksjonspunkt[];
 };
-
-type Aksjonspunkter =
-  | AvklarBeregningsaktiviteterAP
-  | OverstyrBeregningsaktiviteterAP
-  | BeregningFaktaAP
-  | BeregningOverstyringAP;
 
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
@@ -75,7 +71,16 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsT
   harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
   vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning).vurderesIBehandlingen;
 
-const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<Aksjonspunkter>> = ({
+type AksjonspunktDataDef =
+  | AvklarBeregningsaktiviteterAP
+  | OverstyrBeregningsaktiviteterAP
+  | BeregningFaktaAP
+  | BeregningOverstyringAP
+  | SubmitBeregningType[];
+
+const BeregningFaktaIndex: FunctionComponent<
+  OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>
+> = ({
   beregningsgrunnlag,
   alleKodeverk,
   aksjonspunkter,

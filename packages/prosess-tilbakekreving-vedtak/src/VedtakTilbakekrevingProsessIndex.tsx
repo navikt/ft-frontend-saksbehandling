@@ -1,13 +1,16 @@
-import React, {
-  FunctionComponent,
-} from 'react';
+import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
 import {
-  AlleKodeverkTilbakekreving, BeregningsresultatTilbakekreving, StandardProsessPanelProps, Vedtaksbrev,
+  AlleKodeverkTilbakekreving,
+  Behandling,
+  BeregningsresultatTilbakekreving,
+  StandardProsessPanelProps,
+  Vedtaksbrev,
 } from '@navikt/ft-types';
 
+import { FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
 import TilbakekrevingVedtak from './components/TilbakekrevingVedtak';
 import ForeslaVedtakTilbakekrevingAp from './types/ForeslaVedtakTilbakekrevingAp';
 import messages from '../i18n/nb_NO.json';
@@ -16,6 +19,7 @@ import { ForhandsvisData } from './components/TilbakekrevingVedtakForm';
 const intl = createIntl(messages);
 
 interface OwnProps {
+  behandling: Behandling;
   beregningsresultat: BeregningsresultatTilbakekreving;
   tilbakekrevingKodeverk: AlleKodeverkTilbakekreving;
   vedtaksbrev: Vedtaksbrev;
@@ -24,7 +28,9 @@ interface OwnProps {
   erRevurderingTilbakekrevingFeilBeløpBortfalt: boolean;
 }
 
-const VedtakTilbakekrevingProsessIndex: FunctionComponent<OwnProps & StandardProsessPanelProps<ForeslaVedtakTilbakekrevingAp>> = ({
+const VedtakTilbakekrevingProsessIndex: FunctionComponent<
+  OwnProps & StandardProsessPanelProps<ForeslaVedtakTilbakekrevingAp, FormValues>
+> = ({
   behandling,
   beregningsresultat,
   isReadOnly,

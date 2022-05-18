@@ -1,18 +1,8 @@
-import Aksjonspunkt from './aksjonspunktTsType';
-import Behandling from './behandlingTsType';
-import AlleKodeverk from './kodeverkAlleTsType';
-
-type StandardFaktaPanelProps<AP_TYPE> = Readonly<{
-  behandling: Behandling;
-  aksjonspunkter: Aksjonspunkt[];
-  readOnly: boolean;
-  submittable: boolean;
-  harApneAksjonspunkter: boolean;
-  alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
+type StandardFaktaPanelProps<AP_TYPE, DATA_TYPE> = Readonly<{
   submitCallback: (aksjonspunktData: AP_TYPE) => Promise<void>;
-  alleKodeverk: AlleKodeverk;
-  formData?: any;
-  setFormData: (data: any) => void;
+  readOnly: boolean;
+  formData?: DATA_TYPE;
+  setFormData: (data: DATA_TYPE) => void;
 }>;
 
 export default StandardFaktaPanelProps;

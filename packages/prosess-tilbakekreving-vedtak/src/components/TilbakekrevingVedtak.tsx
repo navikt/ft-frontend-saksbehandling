@@ -5,10 +5,9 @@ import { Undertittel, Undertekst, Normaltekst } from 'nav-frontend-typografi';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { getKodeverknavnFn } from '@navikt/ft-utils';
-import {
-  BeregningResultatPeriode, VedtaksbrevAvsnitt, AlleKodeverkTilbakekreving,
-} from '@navikt/ft-types';
+import { BeregningResultatPeriode, VedtaksbrevAvsnitt, AlleKodeverkTilbakekreving } from '@navikt/ft-types';
 
+import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import TilbakekrevingVedtakPeriodeTabell from './TilbakekrevingVedtakPeriodeTabell';
 import TilbakekrevingVedtakForm, { ForhandsvisData } from './TilbakekrevingVedtakForm';
 import ForeslaVedtakTilbakekrevingAp from '../types/ForeslaVedtakTilbakekrevingAp';
@@ -24,8 +23,8 @@ interface OwnProps {
   fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<any>;
   erRevurderingTilbakekrevingKlage?: boolean;
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;
-  formData?: any;
-  setFormData: (data: any) => void;
+  formData?: FormValues;
+  setFormData: (data: FormValues) => void;
 }
 
 const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
@@ -52,9 +51,7 @@ const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
       <Undertekst>
         <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
       </Undertekst>
-      <Normaltekst>
-        {getKodeverknavn(resultat, KodeverkType.VEDTAK_RESULTAT_TYPE)}
-      </Normaltekst>
+      <Normaltekst>{getKodeverknavn(resultat, KodeverkType.VEDTAK_RESULTAT_TYPE)}</Normaltekst>
       <VerticalSpacer sixteenPx />
       <TilbakekrevingVedtakPeriodeTabell perioder={perioder} getKodeverknavn={getKodeverknavn} />
       <VerticalSpacer sixteenPx />
