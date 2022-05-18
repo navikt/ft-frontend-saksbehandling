@@ -12,7 +12,7 @@ export type ArbeidsinntektResultat = {
 
 export type FastsettAvvikATFLResultatAP = {
   inntektPrAndelList: ArbeidsinntektResultat[];
-  inntektFrilanser: number;
+  inntektFrilanser: number | null;
 } & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS>;
 
 export type TidsbegrensetArbeidsforholdInntektResultat = {
@@ -28,7 +28,7 @@ export type TidsbegrensetArbeidsforholdPeriodeResultat = {
 
 export type FastsettAvvikATFLTidsbegrensetResultatAP = {
   fastsatteTidsbegrensedePerioder: TidsbegrensetArbeidsforholdPeriodeResultat[];
-  frilansInntekt: number;
+  frilansInntekt: number | null;
 } & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD>;
 
 export type VurderVarigEndretNyoppstartetResultatAP = {

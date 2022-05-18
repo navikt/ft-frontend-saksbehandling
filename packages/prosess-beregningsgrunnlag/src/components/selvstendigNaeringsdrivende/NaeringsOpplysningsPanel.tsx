@@ -8,7 +8,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 
-import Lesmerpanel from '../redesign/LesmerPanel';
+import Lesmerpanel from 'nav-frontend-lesmerpanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './naeringsOpplysningsPanel.less';
 
@@ -65,7 +65,6 @@ const lagBeskrivelsePanel = (næringsAndel: Næring, intl: IntlShape): React.Rea
   <>
     <VerticalSpacer fourPx />
     <Lesmerpanel
-      className={styles.lesMer}
       intro={lagIntroTilEndringspanel(næringsAndel)}
       lukkTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.NaeringsOpplysningsPanel.SkjulBegrunnelse' })}
       apneTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VisBegrunnelse' })}

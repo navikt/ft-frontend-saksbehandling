@@ -9,7 +9,7 @@ import { VerticalSpacer, Table, TableColumn, TableRow } from '@navikt/ft-ui-komp
 
 interface OwnProps {
   periode: BeregningsgrunnlagPeriodeProp;
-  besteMåneder: Månedsgrunnlag[];
+  besteMåneder?: Månedsgrunnlag[];
 }
 
 const finnGjeldendeBeløp = (andel: BeregningsgrunnlagAndel): number => {
@@ -19,9 +19,10 @@ const finnGjeldendeBeløp = (andel: BeregningsgrunnlagAndel): number => {
   return !!andel.beregnetPrAar || andel.beregnetPrAar === 0 ? andel.beregnetPrAar : 0;
 };
 
-const finnKap8Beregning = (periode: BeregningsgrunnlagPeriodeProp): number => (periode && periode.beregningsgrunnlagPrStatusOgAndel
-  ? periode.beregningsgrunnlagPrStatusOgAndel.map((andel) => finnGjeldendeBeløp(andel)).reduce((i1, i2) => i1 + i2, 0)
-  : 0);
+const finnKap8Beregning = (periode: BeregningsgrunnlagPeriodeProp): number =>
+  periode && periode.beregningsgrunnlagPrStatusOgAndel
+    ? periode.beregningsgrunnlagPrStatusOgAndel.map(andel => finnGjeldendeBeløp(andel)).reduce((i1, i2) => i1 + i2, 0)
+    : 0;
 
 const finnBesteberegnet = (besteMåneder: Månedsgrunnlag[]): number =>
   besteMåneder
