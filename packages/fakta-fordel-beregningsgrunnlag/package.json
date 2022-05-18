@@ -32,7 +32,7 @@
     "@navikt/ft-ui-komponenter": "^1.0.13",
     "@navikt/ft-utils": "^1.0.11",
     "classnames": "2.3.1",
-    "core-js": "3.22.4",
+    "core-js": "3.22.5",
     "moment": "2.29.3",
     "nav-frontend-core": "6.0.1",
     "nav-frontend-ekspanderbartpanel": "4.0.3",
@@ -44,7 +44,7 @@
     "nav-frontend-typografi": "4.0.1",
     "nav-frontend-typografi-style": "2.0.1",
     "react": "17.0.2",
-    "react-hook-form": "7.30.0",
+    "react-hook-form": "7.31.1",
     "react-intl": "5.24.8"
   },
   "peerDependencies": {
@@ -55,7 +55,7 @@
     "@navikt/ft-ui-komponenter": "^1.0.9",
     "@navikt/ft-utils": "^1.0.8",
     "classnames": "2.3.1",
-    "core-js": "3.22.4",
+    "core-js": "3.22.5",
     "moment": "2.29.3",
     "nav-frontend-core": "6.0.1",
     "nav-frontend-ekspanderbartpanel": "4.0.3",
@@ -67,7 +67,7 @@
     "nav-frontend-typografi": "4.0.1",
     "nav-frontend-typografi-style": "2.0.1",
     "react": "17.0.2",
-    "react-hook-form": "7.30.0",
+    "react-hook-form": "7.31.1",
     "react-intl": "5.24.8"
   },
   "devDependencies": {
@@ -80,7 +80,7 @@
     "clean-webpack-plugin": "4.0.0",
     "cross-env": "7.0.3",
     "typescript": "4.6.4",
-    "webpack": "5.72.0",
+    "webpack": "5.72.1",
     "webpack-cli": "4.9.2",
     "webpack-node-externals": "3.0.0"
   },
