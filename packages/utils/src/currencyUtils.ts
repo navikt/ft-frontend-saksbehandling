@@ -25,7 +25,7 @@ export const removeSpacesFromNumber = (input: number | string): number => {
   return Number.isNaN(parsedValue) ? (input as number) : parsedValue;
 };
 
-export const parseCurrencyInput = (input: string): string => {
+export const parseCurrencyInput = (input: string | number): string | number => {
   const inputNoSpace = input.toString().replace(/\s/g, '');
   const parsedValue = parseInt(inputNoSpace, 10);
   if (Number.isNaN(parsedValue)) {

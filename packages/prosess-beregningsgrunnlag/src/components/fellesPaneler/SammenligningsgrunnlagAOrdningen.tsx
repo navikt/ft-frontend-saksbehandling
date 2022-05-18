@@ -10,8 +10,10 @@ import { Inntektsgrunnlag, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } fro
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
+import Lesmerpanel from 'nav-frontend-lesmerpanel';
+import { CallbackDataParams } from 'echarts/types/dist/shared';
+import { OptionDataValue } from 'echarts/types/src/util/types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
-import Lesmerpanel from '../redesign/LesmerPanel';
 import ReactECharts from '../echart/ReactECharts';
 
 import styles from './sammenligningsgrunnlagAOrdningen.less';
@@ -104,7 +106,7 @@ const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], skjeringstidspunktDat
     const dato = dayjs(skjeringstidspunktDato, ISO_DATE_FORMAT).subtract(step, 'M');
     const aarMaaned = dato.format('YYYYMM');
     const månedMedInntekter = andeler.find(andel => dayjs(andel.fom, ISO_DATE_FORMAT).format('YYYYMM') === aarMaaned);
-    const beløp = finnInntektForStatus(månedMedInntekter?.inntekter, inntektAType);
+    const beløp = finnInntektForStatus(månedMedInntekter?.inntekter || [], inntektAType);
     data.push([beløp, dato.toDate()]);
   }
   return data;
@@ -185,7 +187,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
 
   const barFormatter = useCallback(params => {
     if (params.value[0] > 5000) {
-      return formatCurrencyNoKr(params.value[0]);
+      return formatCurrencyNoKr(params.value[0]) || '';
     }
     return params.value[0] === 0 ? '' : '..';
   }, []);
@@ -194,30 +196,33 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
     <>
       <AvsnittSkiller spaceAbove spaceUnder />
       <Lesmerpanel
-        className={styles.lesMer}
         intro={lagOverskrift()}
-        lukkTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SkjulMaaneder' })}
-        apneTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.VisMaaneder' })}
+        lukkTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SkjulGraf' })}
+        apneTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.VisGraf' })}
         defaultApen
       >
         <ReactECharts
-          height={350}
           option={{
             tooltip: {
               trigger: 'axis',
               formatter: series => {
-                const date = dayjs(series[0].data[1]);
+                const castedSeries = series as CallbackDataParams[];
+                const data = castedSeries[0].data as OptionDataValue[];
+                const date = dayjs(data[1]);
                 const maanedNavn = date.format('MMM');
                 const aar = date.format('YYYY');
                 const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1);
                 const overskrift = `${formattedMaaned} ${aar}`;
 
-                const seriesData = series
-                  .reduce(
-                    (acc, sData) =>
-                      acc.concat(`${sData.marker + sData.seriesName}: ${formatCurrencyNoKr(sData.data[0])}`),
-                    [],
-                  )
+                const seriesData = castedSeries
+                  .reduce<string[]>((acc, sData) => {
+                    const dataCasted = sData.data as OptionDataValue[];
+                    return acc.concat(
+                      `${(sData.marker || '') + (sData.seriesName || '')}: ${formatCurrencyNoKr(
+                        dataCasted[0] as string,
+                      )}`,
+                    );
+                  }, [])
                   .join('<br/>');
                 return `${overskrift}<br />${seriesData}`;
               },
@@ -245,7 +250,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
             xAxis: {
               type: 'value',
               axisLabel: {
-                formatter: (value: any) => formatCurrencyNoKr(value),
+                formatter: (value: any) => formatCurrencyNoKr(value) || '',
                 margin: 12,
               },
             },
@@ -309,6 +314,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
             ],
             color: [GRAF_FARGE_AT, GRAF_FARGE_FL, GRAF_FARGE_YTELSE],
           }}
+          height={350}
         />
       </Lesmerpanel>
       {lagSumRad(måneder, relevanteStatuser)}

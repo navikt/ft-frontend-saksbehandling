@@ -80,6 +80,7 @@ const lagBeregningsgrunnlag = (
     erOverstyrtInntekt: null,
     beregningsgrunnlagPeriode: [
       {
+        beregningsgrunnlagPeriodeFom: '2022-03-02',
         beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({
           andelsnr: andel.andelsnr,
           aktivitetStatus: andel.aktivitetStatus,
