@@ -80,7 +80,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(screen.queryByTestId('avklareAktiviteterHeading')).not.toBeInTheDocument();
   });
 
-  it('skal vise read only dersom ikke overstyrer men har overstyringsaksjonspunkt', () => {
+  it.skip('skal vise read only dersom ikke overstyrer men har overstyringsaksjonspunkt', () => {
     render(<IkkeOverstyrerOgHarOverstyringsaksjonspunkt />);
     expect(screen.getAllByTestId('overstyringsknapp')[0]).toHaveAttribute('aria-disabled', 'true');
     expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
