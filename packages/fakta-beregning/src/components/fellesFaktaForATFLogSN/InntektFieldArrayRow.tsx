@@ -1,18 +1,16 @@
-import React, { FunctionComponent } from 'react';
-import { createSelector } from 'reselect';
-import { connect } from 'react-redux';
-import { FieldArrayFieldsProps } from 'redux-form';
-import { injectIntl, WrappedComponentProps } from 'react-intl';
-
 import { InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-redux-legacy';
-import { parseCurrencyInput } from '@navikt/ft-utils';
-import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
-
+import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
+import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { parseCurrencyInput } from '@navikt/ft-utils';
+import React, { FunctionComponent } from 'react';
+import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
+import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt, getSkalRedigereInntektskategori } from './BgFaktaUtils';
-
 import styles from './inntektFieldArray.less';
+import VurderFaktaContext from './VurderFaktaContext';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
   const headerCodes = [];
@@ -36,21 +34,23 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
     </option>
   ));
 
+export const getInntektskategorierAlfabetiskSortert = alleKodeverk =>
+  alleKodeverk[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
+
 type OwnProps = {
   readOnly: boolean;
-  fields: FieldArrayFieldsProps<any>;
-  inntektskategoriKoder: KodeverkMedNavn[];
+  fields: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>[];
   isAksjonspunktClosed: boolean;
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
-  kanRedigereInntekt: boolean;
-  skalRedigereInntektskategori: boolean;
   andelElementFieldId: string;
   removeAndel: (...args: any[]) => any;
   index: number;
   // eslint-disable-next-line react/no-unused-prop-types
   alleKodeverk: AlleKodeverk;
+  updateKanRedigereInntekt: (index: number, kanRedigereInntekt: boolean) => void;
+  beregningsgrunnlag: Beregningsgrunnlag;
 };
 
 /**
@@ -58,23 +58,33 @@ type OwnProps = {
  *
  * Presentasjonskomponent: Viser en rad korresponderende til ein andel i beregning.
  */
-export const AndelRowImpl: FunctionComponent<OwnProps & WrappedComponentProps> = ({
+const AndelRow: FunctionComponent<OwnProps> = ({
   fields,
   index,
-  intl,
   skalVisePeriode,
   skalViseRefusjon,
   skalViseSletteknapp,
-  kanRedigereInntekt,
-  skalRedigereInntektskategori,
   andelElementFieldId,
-  inntektskategoriKoder,
   readOnly,
   isAksjonspunktClosed,
   removeAndel,
+  updateKanRedigereInntekt,
+  beregningsgrunnlag,
+  alleKodeverk,
 }) => {
-  const field = fields.get(index);
-  field.kanRedigereInntekt = kanRedigereInntekt;
+  const field = fields.at(index);
+  const intl = useIntl();
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const allFormValues = getValues();
+  const currentFormValues =
+    allFormValues.vurderFaktaBeregningForm[aktivtBeregningsgrunnlagIndeks].inntektFieldArray[index];
+  const kanRedigereInntekt = getKanRedigereInntekt(currentFormValues, beregningsgrunnlag)(field);
+  updateKanRedigereInntekt(index, kanRedigereInntekt);
+
+  const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
+  const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
+
   return (
     <TableRow>
       <TableColumn>
@@ -116,7 +126,7 @@ export const AndelRowImpl: FunctionComponent<OwnProps & WrappedComponentProps> =
           name={`${andelElementFieldId}.inntektskategori`}
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          value={fields.get(index).inntektskategori}
+          value={fields.at(index).inntektskategori}
           readOnly={readOnly || !skalRedigereInntektskategori}
         />
       </TableColumn>
@@ -134,23 +144,4 @@ export const AndelRowImpl: FunctionComponent<OwnProps & WrappedComponentProps> =
   );
 };
 
-export const getInntektskategorierAlfabetiskSortert = createSelector(
-  [(ownProps: OwnProps) => ownProps.alleKodeverk[KodeverkType.INNTEKTSKATEGORI]],
-  kodeverkListe => kodeverkListe.slice().sort((a, b) => a.navn.localeCompare(b.navn)),
-);
-
-export const mapStateToProps = (state, ownProps) => {
-  const field = ownProps.fields.get(ownProps.index);
-  // @ts-ignore FIX reselect
-  const kanRedigereInntekt = getKanRedigereInntekt(state, ownProps)(field);
-  // @ts-ignore FIX reselect
-  const skalRedigereInntektskategori = getSkalRedigereInntektskategori(state, ownProps)(field);
-  return {
-    kanRedigereInntekt,
-    skalRedigereInntektskategori,
-    inntektskategoriKoder: getInntektskategorierAlfabetiskSortert(ownProps),
-  };
-};
-
-// @ts-ignore Ta vekk denny og any når redux-form blir fjerna
-export const AndelRow = connect(mapStateToProps)(injectIntl(AndelRowImpl)) as any;
+export default AndelRow;

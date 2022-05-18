@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Element } from 'nav-frontend-typografi';
-import { FieldArray } from 'redux-form';
 import { BorderBox } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { AlleKodeverk } from '@navikt/ft-types';
@@ -35,9 +34,8 @@ const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
         </Element>
       </Column>
     </Row>
-    <FieldArray
+    <BrukersAndelFieldArray
       name={brukersAndelFieldArrayName}
-      component={BrukersAndelFieldArray}
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
       alleKodeverk={alleKodeverk}

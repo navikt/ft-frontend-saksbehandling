@@ -122,6 +122,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         beregningsgrunnlag={beregningsgrunnlag[0]}
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
       />
     </div>
   );

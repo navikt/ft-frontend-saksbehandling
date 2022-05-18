@@ -1,21 +1,18 @@
-import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Column, Row } from 'nav-frontend-grid';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
 import { required } from '@navikt/ft-form-validators';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { Aksjonspunkt, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
-import { getFormValuesForBeregning } from '../../BeregningFormUtils';
-
-import styles from '../kunYtelse/kunYtelseBesteberegningPanel.less';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Column, Row } from 'nav-frontend-grid';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
+import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
+import styles from '../kunYtelse/kunYtelseBesteberegningPanel.less';
 
 export const besteberegningField = 'vurderbesteberegningField';
 
@@ -200,8 +197,4 @@ export const vurderBesteberegningTransform =
     };
   };
 
-const mapStateToProps = state => ({
-  erBesteberegning: getFormValuesForBeregning(state)[besteberegningField],
-});
-
-export default connect(mapStateToProps)(VurderBesteberegningPanelImpl);
+export default VurderBesteberegningPanelImpl;

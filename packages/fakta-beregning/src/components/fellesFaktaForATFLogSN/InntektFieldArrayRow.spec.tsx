@@ -13,7 +13,7 @@ import { InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-redu
 
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
-import { AndelRowImpl, mapStateToProps } from './InntektFieldArrayRow';
+import AndelRow from './InntektFieldArrayRow';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import messages from '../../../i18n/nb_NO.json';
 
@@ -105,11 +105,11 @@ const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(
   initial,
   initial,
 );
-const props = mapStateToProps(state, ownProps);
+const props = state; // mapStateToProps(state, ownProps);
 
 it('skal vise komponent med arbeidsperiode og refusjonskrav', () => {
   const wrapper = shallowWithIntl(
-    <AndelRowImpl
+    <AndelRow
       intl={intlMock}
       fields={fields}
       readOnly={false}
@@ -155,7 +155,7 @@ it('skal vise komponent uten arbeidsperiode og refusjonskrav', () => {
   const fields2 = new MockFieldsWithContent('fieldArrayName', [andelField2]);
 
   const wrapper = shallowWithIntl(
-    <AndelRowImpl
+    <AndelRow
       intl={intlMock}
       fields={fields2}
       readOnly={false}
@@ -203,7 +203,7 @@ it('skal vise komponent med readOnly beløp', () => {
   const fields2 = new MockFieldsWithContent('fieldArrayName', [andelField2]);
 
   const wrapper = shallowWithIntl(
-    <AndelRowImpl
+    <AndelRow
       intl={intlMock}
       fields={fields2}
       readOnly={false}
@@ -250,7 +250,7 @@ it('skal vise komponent med sletteknapp', () => {
   const fields2 = new MockFieldsWithContent('fieldArrayName', [andelField2]);
 
   const wrapper = shallowWithIntl(
-    <AndelRowImpl
+    <AndelRow
       intl={intlMock}
       fields={fields2}
       readOnly={false}
