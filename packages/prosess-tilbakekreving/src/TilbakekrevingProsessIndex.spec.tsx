@@ -252,7 +252,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
     });
   });
 
-  it.skip('skal vurdere at totalbeløpet er over 4 rettsgebyr, og ved bruk av 6.ledd må alle periodene behandles likt', async () => {
+  it('skal vurdere at totalbeløpet er over 4 rettsgebyr, og ved bruk av 6.ledd må alle periodene behandles likt', async () => {
     const lagre = jest.fn(() => Promise.resolve());
 
     const utils = render(<MedToPerioder submitCallback={lagre} />);
@@ -263,7 +263,9 @@ describe('<TilbakekrevingProsessIndex>', () => {
       utils.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
       'Dette er en vurdering',
     );
-    userEvent.click(screen.getByText('Forsto eller burde forstått'));
+    userEvent.click(
+      screen.getByText('Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)'),
+    );
     userEvent.type(
       utils.getByLabelText('Vurder i hvilken grad mottaker har handlet uaktsomt'),
       'Dette er en vurdering a god tro',
@@ -294,11 +296,13 @@ describe('<TilbakekrevingProsessIndex>', () => {
       utils.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
       'Dette er en vurdering',
     );
-    userEvent.click(screen.getByText('God tro'));
+    userEvent.click(screen.getByText('Nei, mottaker har mottatt beløpet i god tro (1. ledd)'));
     userEvent.type(utils.getByLabelText('Begrunn hvorfor mottaker er i god tro'), 'Begrunnelse for god tro');
     userEvent.click(screen.getByText('Nei'));
 
     userEvent.click(screen.getByText('Oppdater'));
+
+    await waitFor(() => expect(screen.queryByText('Oppdater')).not.toBeInTheDocument());
 
     expect(
       screen.getByText(
@@ -308,11 +312,14 @@ describe('<TilbakekrevingProsessIndex>', () => {
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
 
     userEvent.click(screen.getByAltText('Åpne info om første periode'));
+
     expect(await screen.findByText('13 uker')).toBeInTheDocument();
     const nestePeriodeKnapp = screen.getByAltText('Neste periode');
     userEvent.click(nestePeriodeKnapp);
 
-    userEvent.click(screen.getByText('Forsto eller burde forstått'));
+    userEvent.click(
+      screen.getByText('Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)'),
+    );
     userEvent.type(
       utils.getByLabelText('Vurder i hvilken grad mottaker har handlet uaktsomt'),
       'Dette er en vurdering a god tro',
@@ -326,13 +333,13 @@ describe('<TilbakekrevingProsessIndex>', () => {
 
     userEvent.click(screen.getByText('Oppdater'));
 
-    await waitFor(() =>
-      expect(
-        screen.queryByText(
-          'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
-        ),
-      ).not.toBeInTheDocument(),
-    );
+    expect(
+      await screen.findByText(
+        'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
+      ),
+    ).toBeInTheDocument();
+
+    userEvent.click(screen.getByText('OK'));
     expect(screen.getByText('Bekreft og fortsett')).toBeEnabled();
 
     userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -350,16 +357,35 @@ describe('<TilbakekrevingProsessIndex>', () => {
             '@type': 'annet',
             aktsomhet: 'SIMPEL_UAKTSOM',
             aktsomhetInfo: {
-              andelTilbakekreves: 30,
               annetBegrunnelse: undefined,
-              harGrunnerTilReduksjon: true,
+              harGrunnerTilReduksjon: undefined,
               ileggRenter: undefined,
-              sarligGrunner: ['GRAD_AV_UAKTSOMHET'],
-              sarligGrunnerBegrunnelse: 'Begrunnelse for særlige grunner',
-              tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: true,
+              sarligGrunner: undefined,
+              sarligGrunnerBegrunnelse: undefined,
               tilbakekrevesBelop: undefined,
+              tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: false,
             },
             begrunnelse: 'Dette er en vurdering a god tro',
+          },
+        },
+        {
+          begrunnelse: 'Dette er en vurdering',
+          fom: '2019-04-01',
+          tom: '2019-10-01',
+          vilkarResultat: 'FORSTO_BURDE_FORSTAATT',
+          vilkarResultatInfo: {
+            '@type': 'annet',
+            aktsomhet: 'SIMPEL_UAKTSOM',
+            aktsomhetInfo: {
+              annetBegrunnelse: undefined,
+              harGrunnerTilReduksjon: undefined,
+              ileggRenter: undefined,
+              sarligGrunner: undefined,
+              sarligGrunnerBegrunnelse: undefined,
+              tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: false,
+              tilbakekrevesBelop: undefined,
+            },
+            begrunnelse: 'Begrunnelse for god troDette er en vurdering a god tro',
           },
         },
       ],
