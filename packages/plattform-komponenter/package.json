@@ -65,6 +65,7 @@
     }
   },
   "devDependencies": {
+    "@storybook/react": "6.5.0",
     "classnames": "^2.3.1",
     "dayjs": "^1.11.2",
     "lodash.throttle": "^4.1.1",
