@@ -35,7 +35,7 @@
     "@babel/runtime": "7.17.9",
     "@formatjs/intl-datetimeformat": "5.0.2",
     "@formatjs/intl-numberformat": "7.4.3",
-    "@storybook/addon-essentials": "6.5.0",
+    "@storybook/addon-essentials": "6.5.4",
     "@storybook/addon-links": "6.5.0",
     "@storybook/addons": "6.5.0",
     "@storybook/builder-webpack5": "6.5.0",
