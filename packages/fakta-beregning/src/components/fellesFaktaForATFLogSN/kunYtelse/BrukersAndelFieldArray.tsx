@@ -1,4 +1,4 @@
-import { InputField, NavFieldGroup, SelectField } from '@navikt/ft-form-redux-legacy';
+import { formHooks, InputField, SelectField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
@@ -13,7 +13,6 @@ import {
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
 import { FormattedMessage, injectIntl, IntlShape, WrappedComponentProps } from 'react-intl';
 import addCircleIcon from '../../../images/add-circle.svg';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
@@ -44,24 +43,24 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
 const summerFordeling = fields => {
   let sum = 0;
   fields.forEach((andelElementFieldId, index) => {
-    sum += fields.get(index).fastsattBelop ? removeSpacesFromNumber(fields.get(index).fastsattBelop) : 0;
+    sum += fields.at(index).fastsattBelop ? removeSpacesFromNumber(fields.at(index).fastsattBelop) : 0;
   });
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-const renderMessage = (intl, error) => (error[0] && error[0].id ? intl.formatMessage(...error) : error);
+// const renderMessage = (intl, error) => (error[0] && error[0].id ? intl.formatMessage(...error) : error);
 
-const getErrorMessage = (errors, intl, isBeregningFormDirty, isSubmitSuccessful) =>
-  errors && isBeregningFormDirty && !isSubmitSuccessful ? renderMessage(intl, errors) : null;
+// const getErrorMessage = (errors, intl, isBeregningFormDirty, isSubmitSuccessful) =>
+//   errors && isBeregningFormDirty && !isSubmitSuccessful ? renderMessage(intl, errors) : null;
 
 function skalViseSletteknapp(index, fields, readOnly) {
-  return (fields.get(index).nyAndel || fields.get(index).lagtTilAvSaksbehandler) && !readOnly;
+  return (fields.at(index).nyAndel || fields.at(index).lagtTilAvSaksbehandler) && !readOnly;
 }
 const onKeyDown =
-  (fields, aktivitetStatuser, alleKodeverk) =>
+  (append, aktivitetStatuser, alleKodeverk) =>
   ({ key }) => {
     if (key === 'Enter') {
-      fields.push(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
+      append(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
     }
   };
 
@@ -71,15 +70,17 @@ const createAndelerTableRows = (
   readOnly,
   inntektskategoriKoder: KodeverkMedNavn[],
   intl,
+  fieldArrayName,
+  remove,
 ) =>
-  fields.map((andelElementFieldId, index) => (
-    <TableRow key={andelElementFieldId}>
+  fields.map((field, index) => (
+    <TableRow key={field.id}>
       <TableColumn>
         <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
       </TableColumn>
       <TableColumn className={styles.rightAlignInput}>
         <InputField
-          name={`${andelElementFieldId}.fastsattBelop`}
+          name={`${fieldArrayName}.${index}.fastsattBelop`}
           bredde="M"
           parse={parseCurrencyInput}
           readOnly={readOnly}
@@ -89,10 +90,9 @@ const createAndelerTableRows = (
       <TableColumn className={styles.rightAlign}>
         <SelectField
           label=""
-          name={`${andelElementFieldId}.inntektskategori`}
+          name={`${fieldArrayName}.${index}.inntektskategori`}
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          value={fields.get(index).inntektskategori}
           readOnly={readOnly}
         />
       </TableColumn>
@@ -102,7 +102,7 @@ const createAndelerTableRows = (
             className={styles.buttonRemove}
             type="button"
             onClick={() => {
-              fields.remove(index);
+              remove(index);
             }}
             title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.FjernAndel' })}
           />
@@ -155,20 +155,30 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
   isAksjonspunktClosed,
   alleKodeverk,
 }) => {
-  const { formState } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { control } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const fieldArrayName = `${formNameVurderFaktaBeregning}.${aktivtBeregningsgrunnlagIndeks}.${name}`;
-  const { fields, append } = useFieldArray({
-    name: fieldArrayName,
+  const { fields, append, remove } = formHooks.useFieldArray({
+    control,
+    name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
   });
-  const { isDirty, errors, isSubmitSuccessful } = formState;
   const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS]?.map(kodeverk => kodeverk.kode);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
   const sumFordeling = summerFordeling(fields) || 0;
-  const tablerows = createAndelerTableRows(fields, isAksjonspunktClosed, readOnly, inntektskategoriKoder, intl);
+  const tablerows = createAndelerTableRows(
+    fields,
+    isAksjonspunktClosed,
+    readOnly,
+    inntektskategoriKoder,
+    intl,
+    fieldArrayName,
+    remove,
+  );
   tablerows.push(createBruttoBGSummaryRow(sumFordeling));
   return (
-    <NavFieldGroup errorMessage={getErrorMessage(errors, intl, isDirty, isSubmitSuccessful)}>
+    // <NavFieldGroup errorMessage={getErrorMessage(errors, intl, isDirty, isSubmitSuccessful)}>
+    // <SkjemaGruppeMedFeilviser name={name} validate={[]}>
+    <>
       <Table headerTextCodes={getHeaderTextCodes()} noHover classNameTable={styles.inntektTable}>
         {tablerows}
       </Table>
@@ -183,7 +193,7 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
               onClick={() => {
                 append(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
               }}
-              onKeyDown={onKeyDown(fields, aktivitetStatuser, alleKodeverk)}
+              onKeyDown={onKeyDown(append, aktivitetStatuser, alleKodeverk)}
               className={styles.addPeriode}
               role="button"
               tabIndex={0}
@@ -198,7 +208,9 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
         </Row>
       )}
       <VerticalSpacer eightPx />
-    </NavFieldGroup>
+    </>
+    // </SkjemaGruppeMedFeilviser>
+    // </NavFieldGroup>
   );
 };
 

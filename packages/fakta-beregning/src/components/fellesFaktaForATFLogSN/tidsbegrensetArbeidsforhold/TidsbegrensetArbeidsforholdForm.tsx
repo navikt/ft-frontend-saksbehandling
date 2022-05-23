@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -16,6 +16,7 @@ import {
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 
@@ -58,6 +59,8 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
   arbeidsgiverOpplysningerPerId,
 }) => {
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+
   return (
     <div>
       {andelsliste.map(andel => (
@@ -76,12 +79,16 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
           </Normaltekst>
           <VerticalSpacer eightPx />
           <RadioGroupField
-            name={`tidsbegrensetValues.${createArbeidsforholdRadioKey(andel)}`}
+            name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
+              andel,
+            )}`}
             validate={[required]}
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
           >
+            {/* @ts-ignore */}
             <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+            {/* @ts-ignore */}
             <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
           </RadioGroupField>
         </div>

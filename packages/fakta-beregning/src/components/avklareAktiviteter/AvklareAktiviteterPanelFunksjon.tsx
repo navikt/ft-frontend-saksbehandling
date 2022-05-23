@@ -176,7 +176,6 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   return (
     <>
       <Form<AvklarAktiviteterFormValues>
-        // @ts-ignore
         formMethods={formMethods}
         onSubmit={values => losAvklaringsbehov(values)}
         setDataOnUnmount={setFormData}

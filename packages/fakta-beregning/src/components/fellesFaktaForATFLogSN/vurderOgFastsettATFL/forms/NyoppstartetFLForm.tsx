@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { required } from '@navikt/ft-form-validators';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -9,6 +9,7 @@ import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
+import VurderFaktaContext from '../../VurderFaktaContext';
 
 /**
  * NyOppstartetFLForm
@@ -36,24 +37,29 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
-  <div>
-    <Normaltekst>
-      <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
-    </Normaltekst>
-    <VerticalSpacer eightPx />
-    <RadioGroupField
-      name={erNyoppstartetFLField}
-      validate={[required]}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
-  </div>
-);
+const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
 
+  return (
+    <div>
+      <Normaltekst>
+        <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
+      </Normaltekst>
+      <VerticalSpacer eightPx />
+      <RadioGroupField
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.erNyoppstartetFLField`}
+        validate={[required]}
+        readOnly={readOnly}
+        isEdited={isAksjonspunktClosed}
+      >
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
+      </RadioGroupField>
+    </div>
+  );
+};
 NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyoppstartetFLValues => {
   const initialValues = {};
   if (beregningsgrunnlag === undefined || beregningsgrunnlag.beregningsgrunnlagPeriode === undefined) {

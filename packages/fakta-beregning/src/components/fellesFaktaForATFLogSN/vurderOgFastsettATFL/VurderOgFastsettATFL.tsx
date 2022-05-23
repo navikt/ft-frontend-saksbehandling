@@ -1,3 +1,4 @@
+import { formHooks } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
@@ -8,7 +9,6 @@ import {
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 import React, { FunctionComponent, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { IntlShape } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { InntektTransformed } from '../../../typer/FieldValues';
@@ -94,7 +94,8 @@ export const skalFastsettInntektForArbeidstaker = (
   values: FaktaOmBeregningAksjonspunktValues,
   beregningsgrunnlag: Beregningsgrunnlag,
 ) => {
-  const skalFastsette = getKanRedigereInntekt(values, beregningsgrunnlag);
+  const skalFastsette = andel => getKanRedigereInntekt(values, beregningsgrunnlag)(andel);
+
   const fields = values[INNTEKT_FIELD_ARRAY_NAME];
   if (!fields) {
     return false;
@@ -109,7 +110,7 @@ export const skalFastsettInntektForFrilans = (
   values: FaktaOmBeregningAksjonspunktValues,
   beregningsgrunnlag: Beregningsgrunnlag,
 ) => {
-  const skalFastsette = getKanRedigereInntekt(values, beregningsgrunnlag);
+  const skalFastsette = andel => getKanRedigereInntekt(values, beregningsgrunnlag)(andel);
 
   const fields = values[INNTEKT_FIELD_ARRAY_NAME];
   if (!fields) {
@@ -230,7 +231,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
 }) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const allFormValues = getValues();
   const currentFormValues = allFormValues.vurderFaktaBeregningForm[aktivtBeregningsgrunnlagIndeks];
@@ -246,7 +247,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     () => skalFastsettInntektForFrilans(currentFormValues, beregningsgrunnlag),
     [currentFormValues, beregningsgrunnlag],
   );
-  const skalHaBesteberegning = currentFormValues[besteberegningField] === true;
+  const skalHaBesteberegning = currentFormValues[besteberegningField] === 'true';
   const manglerInntektsmelding = useMemo(() => getManglerInntektsmelding(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
   const harKunstigArbeid = useMemo(
@@ -271,6 +272,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         erOverstyrer={erOverstyrer}
         aksjonspunkter={aksjonspunkter}
         updateOverstyring={updateOverstyring}
+        erOverstyrt={erOverstyrt}
       >
         <ATFLSammeOrgTekst beregningsgrunnlag={beregningsgrunnlag} manglerInntektsmelding={manglerInntektsmelding} />
         {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING) && (
@@ -417,7 +419,7 @@ const transformValuesForAksjonspunkt = (
   if (tilfeller.length > 0) {
     // Besteberegning
     transformed = concatTilfeller(transformed, vurderBesteberegningTransform(faktaOmBeregning)(values, inntektVerdier));
-    const allInntektErFastsatt = values[besteberegningField] === true;
+    const allInntektErFastsatt = values[besteberegningField] === 'true';
     // Nyoppstartet FL
     transformed = concatTilfeller(
       transformed,

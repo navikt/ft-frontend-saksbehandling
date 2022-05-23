@@ -1,10 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
 import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 /**
  * VurderMilitær
@@ -24,22 +25,28 @@ interface StaticFunctions {
   transformValues: (values: any) => any;
 }
 
-const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
-  <div>
-    <Normaltekst>
-      <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
-    </Normaltekst>
-    <RadioGroupField
-      name={vurderMilitaerField}
-      validate={[required]}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
-  </div>
-);
+const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+
+  return (
+    <div>
+      <Normaltekst>
+        <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
+      </Normaltekst>
+      <RadioGroupField
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${vurderMilitaerField}`}
+        validate={[required]}
+        readOnly={readOnly}
+        isEdited={isAksjonspunktClosed}
+      >
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
+      </RadioGroupField>
+    </div>
+  );
+};
 
 VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): VurderMilitærValues => {
   const initialValues = {};

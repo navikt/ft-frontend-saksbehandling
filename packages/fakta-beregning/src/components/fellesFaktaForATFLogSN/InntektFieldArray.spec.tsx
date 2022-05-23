@@ -1,27 +1,23 @@
-import React from 'react';
-import { FaktaOmBeregningTilfelle, AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
 import { isRequiredMessage } from '@navikt/ft-form-validators';
-import { getIntlMock, shallowWithIntl, metaMock, MockFieldsWithContent } from '@navikt/ft-utils-test';
+import { AktivitetStatus as aktivitetStatuser, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
+import { AlleKodeverk, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { Table } from '@navikt/ft-ui-komponenter';
-import { AlleKodeverk, FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
-
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
-import { lagStateMedAksjonspunkterOgBeregningsgrunnlag } from '../beregning-test-helper';
-import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { AndelRow } from './InntektFieldArrayRow';
-import SummaryRow from './SummaryRow';
-import { InntektFieldArray, leggTilDagpengerOmBesteberegning, mapStateToProps } from './InntektFieldArray';
-import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
+import { getIntlMock, MockFieldsWithContent, shallowWithIntl } from '@navikt/ft-utils-test';
+import React from 'react';
 import messages from '../../../i18n/nb_NO.json';
+import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { InntektFieldArray, leggTilDagpengerOmBesteberegning } from './InntektFieldArray';
+import InntektFieldArrayAndelRow from './InntektFieldArrayRow';
+import SummaryRow from './SummaryRow';
 
 const intlMock = getIntlMock(messages);
 
-const aksjonspunkter = [
-  {
-    definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-    status: 'OPPR',
-  },
-];
+// const aksjonspunkter = [
+//   {
+//     definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+//     status: 'OPPR',
+//   },
+// ];
 
 const behandlingUuid = '1000051';
 const behandlingVersjon = 1;
@@ -92,38 +88,38 @@ jest.mock('redux-form', () => {
 });
 
 describe('<InntektFieldArray>', () => {
-  it('skal mappe state til props for ikkje kun ytelse', () => {
-    const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
+  // it('skal mappe state til props for ikkje kun ytelse', () => {
+  //   const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
 
-    const faktaOmBeregning = {
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
-    };
-    const bg = {
-      beregningsgrunnlagPeriode: [{}],
-      faktaOmBeregning,
-    };
+  //   const faktaOmBeregning = {
+  //     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
+  //   };
+  //   const bg = {
+  //     beregningsgrunnlagPeriode: [{}],
+  //     faktaOmBeregning,
+  //   };
 
-    const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(aksjonspunkter, bg, formNameVurderFaktaBeregning);
-    const props = mapStateToProps(state, { ...ownProps, beregningsgrunnlag: bg, fields });
-    expect(props.isBeregningFormDirty).toEqual(false);
-    expect(props.erKunYtelse).toEqual(false);
-  });
+  //   // const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(aksjonspunkter, bg, formNameVurderFaktaBeregning);
+  //   const props = { ...ownProps, beregningsgrunnlag: bg, fields };
+  //   // expect(props.isBeregningFormDirty).toEqual(false);
+  //   // expect(props.erKunYtelse).toEqual(false);
+  // });
 
-  it('skal mappe state til props for kun ytelse', () => {
-    const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
+  // it('skal mappe state til props for kun ytelse', () => {
+  //   const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
 
-    const faktaOmBeregning = {
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE],
-      andelerForFaktaOmBeregning: [],
-    };
-    const bg = {
-      beregningsgrunnlagPeriode: [{}],
-      faktaOmBeregning,
-    };
-    const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(aksjonspunkter, bg, formNameVurderFaktaBeregning);
-    const props = mapStateToProps(state, { ...ownProps, beregningsgrunnlag: bg, fields });
-    expect(props.erKunYtelse).toEqual(true);
-  });
+  //   const faktaOmBeregning = {
+  //     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE],
+  //     andelerForFaktaOmBeregning: [],
+  //   };
+  //   const bg = {
+  //     beregningsgrunnlagPeriode: [{}],
+  //     faktaOmBeregning,
+  //   };
+  //   const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(aksjonspunkter, bg, formNameVurderFaktaBeregning);
+  //   const props = { ...ownProps, beregningsgrunnlag: bg, fields };
+  //   expect(props.erKunYtelse).toEqual(true);
+  // });
 
   const faktaOmBeregning = {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
@@ -133,40 +129,33 @@ describe('<InntektFieldArray>', () => {
     fieldArrayName: null,
   };
   initial.fieldArrayName = [andelField];
-  initial[besteberegningField] = true;
+  initial[besteberegningField] = 'true';
   const bg = {
     beregningsgrunnlagPeriode: [{}],
     faktaOmBeregning,
   } as Beregningsgrunnlag;
-  const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(
-    aksjonspunkter,
-    bg,
-    formNameVurderFaktaBeregning,
-    initial,
-    initial,
-  );
-  const props = mapStateToProps(state, {
+  // const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(
+  //   aksjonspunkter,
+  //   bg,
+  //   formNameVurderFaktaBeregning,
+  //   initial,
+  //   initial,
+  // );
+  const props = {
     ...ownProps,
     beregningsgrunnlag: bg,
     fields: new MockFieldsWithContent('fieldArrayName', [andelField]),
-  });
+  };
 
   it('skal vise komponent', () => {
     const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
     const wrapper = shallowWithIntl(
-      <InntektFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={false}
-        beregningsgrunnlag={bg}
-        {...ownProps}
-        {...props}
-      />,
+      <InntektFieldArray fields={fields} readOnly={false} beregningsgrunnlag={bg} {...ownProps} {...props} />,
       messages,
     );
     const table = wrapper.find(Table);
     expect(table.length).toEqual(1);
-    const andelRows = table.find(AndelRow);
+    const andelRows = table.find(InntektFieldArrayAndelRow);
     expect(andelRows.length).toEqual(1);
     const summaryRow = table.find(SummaryRow);
     expect(summaryRow.length).toEqual(1);
@@ -183,19 +172,12 @@ describe('<InntektFieldArray>', () => {
     };
     const fields = new MockFieldsWithContent('fieldArrayName', [andelField, SNandel]);
     const wrapper = shallowWithIntl(
-      <InntektFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={false}
-        beregningsgrunnlag={bg}
-        {...ownProps}
-        {...props}
-      />,
+      <InntektFieldArray fields={fields} readOnly={false} beregningsgrunnlag={bg} {...ownProps} {...props} />,
       messages,
     );
     const table = wrapper.find(Table);
     expect(table.length).toEqual(1);
-    const andelRows = table.find(AndelRow);
+    const andelRows = table.find(InntektFieldArrayAndelRow);
     expect(andelRows.length).toEqual(2);
     const summaryRow = table.find(SummaryRow);
     expect(summaryRow.length).toEqual(1);
@@ -212,19 +194,12 @@ describe('<InntektFieldArray>', () => {
     };
     const fields = new MockFieldsWithContent('fieldArrayName', [andelField, SNandel]);
     const wrapper = shallowWithIntl(
-      <InntektFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={false}
-        beregningsgrunnlag={bg}
-        {...props}
-        {...ownProps}
-      />,
+      <InntektFieldArray fields={fields} readOnly={false} beregningsgrunnlag={bg} {...props} {...ownProps} />,
       messages,
     );
     const table = wrapper.find(Table);
     expect(table.length).toEqual(1);
-    const andelRows = table.find(AndelRow);
+    const andelRows = table.find(InntektFieldArrayAndelRow);
     expect(andelRows.length).toEqual(2);
     const summaryRow = table.find(SummaryRow);
     expect(summaryRow.length).toEqual(1);
@@ -236,23 +211,16 @@ describe('<InntektFieldArray>', () => {
       faktaOmBeregning,
     } as Beregningsgrunnlag;
     const fields = new MockFieldsWithContent('fieldArrayName', [andelField]);
-    const values = { [besteberegningField]: true };
-    const newstate = lagStateMedAksjonspunkterOgBeregningsgrunnlag(
-      aksjonspunkter,
-      newbg,
-      formNameVurderFaktaBeregning,
-      values,
-    );
-    const newprops = mapStateToProps(newstate, { ...ownProps, beregningsgrunnlag: newbg, fields });
+    // const values = { [besteberegningField]: true };
+    // const newstate = lagStateMedAksjonspunkterOgBeregningsgrunnlag(
+    //   aksjonspunkter,
+    //   newbg,
+    //   formNameVurderFaktaBeregning,
+    //   values,
+    // );
+    const newprops = { ...ownProps, beregningsgrunnlag: newbg, fields };
     const wrapper = shallowWithIntl(
-      <InntektFieldArray
-        fields={fields}
-        meta={metaMock}
-        readOnly={false}
-        beregningsgrunnlag={newbg}
-        {...ownProps}
-        {...newprops}
-      />,
+      <InntektFieldArray fields={fields} readOnly={false} beregningsgrunnlag={newbg} {...ownProps} {...newprops} />,
       messages,
     );
     const table = wrapper.find(Table);
@@ -269,7 +237,14 @@ describe('<InntektFieldArray>', () => {
     const newfields = new MockFieldsWithContent('fieldArrayName', [
       { aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: true },
     ]);
-    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[KodeverkType.AKTIVITET_STATUS], false);
+    leggTilDagpengerOmBesteberegning(
+      newfields as any,
+      false,
+      alleKodeverk[KodeverkType.AKTIVITET_STATUS],
+      false,
+      jest.fn(),
+      jest.fn(),
+    );
     expect(newfields.length).toBe(0);
   });
 
@@ -277,7 +252,14 @@ describe('<InntektFieldArray>', () => {
     const newfields = new MockFieldsWithContent('fieldArrayName', [
       { aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false },
     ]);
-    leggTilDagpengerOmBesteberegning(newfields, false, alleKodeverk[KodeverkType.AKTIVITET_STATUS], false);
+    leggTilDagpengerOmBesteberegning(
+      newfields as any,
+      false,
+      alleKodeverk[KodeverkType.AKTIVITET_STATUS],
+      false,
+      jest.fn(),
+      jest.fn(),
+    );
     expect(newfields.length).toBe(1);
   });
 

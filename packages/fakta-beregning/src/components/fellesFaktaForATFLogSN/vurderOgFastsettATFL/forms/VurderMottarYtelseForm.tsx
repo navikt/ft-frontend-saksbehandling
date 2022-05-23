@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { required } from '@navikt/ft-form-validators';
 import { KodeverkType, FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
@@ -27,6 +27,7 @@ import {
 import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
+import VurderFaktaContext from '../../VurderFaktaContext';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -58,6 +59,7 @@ const mottarYtelseArbeidsforholdRadio = (
   isAksjonspunktClosed: boolean,
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  aktivtBeregningsgrunnlagIndeks: number,
 ): React.ReactNode => (
   <div key={utledArbeidsforholdFieldName(andel)}>
     <div>
@@ -67,11 +69,15 @@ const mottarYtelseArbeidsforholdRadio = (
     </div>
     <VerticalSpacer eightPx />
     <RadioGroupField
-      name={`vurderMottarYtelseValues.${utledArbeidsforholdFieldName(andel)}`}
+      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
+        andel,
+      )}`}
       readOnly={readOnly}
       isEdited={isAksjonspunktClosed}
     >
+      {/* @ts-ignore */}
       <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+      {/* @ts-ignore */}
       <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
     </RadioGroupField>
   </div>
@@ -123,6 +129,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
 }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
     : undefined;
@@ -142,11 +149,13 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           </div>
           <VerticalSpacer eightPx />
           <RadioGroupField
-            name={`vurderMottarYtelseValues.${finnFrilansFieldName()}`}
+            name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
           >
+            {/* @ts-ignore */}
             <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+            {/* @ts-ignore */}
             <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
           </RadioGroupField>
         </div>
@@ -158,6 +167,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           isAksjonspunktClosed,
           alleKodeverk,
           arbeidsgiverOpplysningerPerId,
+          aktivtBeregningsgrunnlagIndeks,
         ),
       )}
     </div>

@@ -8,10 +8,9 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
+import { UseFormGetValues } from 'react-hook-form';
 import { IntlShape } from 'react-intl';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import {
   FaktaOmBeregningAksjonspunktValues,
   FaktaOmBeregningValues,
@@ -23,8 +22,9 @@ import {
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { erInitialOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
+import { erInitialOverstyringAvBeregningsgrunnlag, erOverstyring } from './BgFaktaUtils';
 import {
   buildInitialValuesKunYtelse,
   getKunYtelseValidation,
@@ -43,41 +43,22 @@ import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
 
-export const getFaktaOmBeregning = createSelector(
-  [(ownProps: OwnProps) => ownProps.beregningsgrunnlag],
-  beregningsgrunnlag => (beregningsgrunnlag ? beregningsgrunnlag.faktaOmBeregning : undefined),
-);
-export const getKortvarigeArbeidsforhold = createSelector(
-  [(ownProps: OwnProps) => getFaktaOmBeregning(ownProps)],
-  (faktaOmBeregning = {} as FaktaOmBeregning) =>
-    faktaOmBeregning ? faktaOmBeregning.kortvarigeArbeidsforhold : undefined,
-);
-export const getKunYtelse = createSelector(
-  [(ownProps: OwnProps) => getFaktaOmBeregning(ownProps)],
-  (faktaOmBeregning = {} as FaktaOmBeregning) => (faktaOmBeregning ? faktaOmBeregning.kunYtelse : undefined),
-);
-export const getFaktaOmBeregningTilfellerKoder = createSelector(
-  [(ownProps: OwnProps) => getFaktaOmBeregning(ownProps)],
-  (faktaOmBeregning = {} as FaktaOmBeregning) =>
-    faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [],
-);
-export const getVurderMottarYtelse = createSelector(
-  [getFaktaOmBeregning],
-  (faktaOmBeregning = {} as FaktaOmBeregning) => (faktaOmBeregning ? faktaOmBeregning.vurderMottarYtelse : undefined),
-);
-export const getVurderBesteberegning = createSelector(
-  [getFaktaOmBeregning],
-  (faktaOmBeregning = {} as FaktaOmBeregning) => (faktaOmBeregning ? faktaOmBeregning.vurderBesteberegning : undefined),
-);
-export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = createSelector(
-  [getFaktaOmBeregning],
-  (faktaOmBeregning = {} as FaktaOmBeregning) => {
-    if (faktaOmBeregning && faktaOmBeregning.refusjonskravSomKommerForSentListe) {
-      return faktaOmBeregning.refusjonskravSomKommerForSentListe;
-    }
-    return [];
-  },
-);
+export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning =>
+  beregningsgrunnlag.faktaOmBeregning;
+export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold || undefined;
+
+export const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse || undefined;
+export const getFaktaOmBeregningTilfellerKoder = (beregningsgrunnlag: Beregningsgrunnlag): string[] =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller || [];
+
+export const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.vurderMottarYtelse || undefined;
+export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.vurderBesteberegning || undefined;
+export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe || [];
 
 export const validationForVurderFakta = (values: FaktaOmBeregningAksjonspunktValues, intl: IntlShape): any => {
   if (!values) {
@@ -93,6 +74,27 @@ export const validationForVurderFakta = (values: FaktaOmBeregningAksjonspunktVal
     ...VurderBesteberegningForm.validate(values, tilfeller),
     ...VurderOgFastsettATFL.validate(values, tilfeller, faktaOmBeregning, beregningsgrunnlag, intl),
   };
+};
+
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
+  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+
+export const validateVurderFaktaBeregning = (
+  getValues: UseFormGetValues<VurderFaktaBeregningFormValues>,
+  index: number,
+  intl: IntlShape,
+) => {
+  const values = getValues(`vurderFaktaBeregningForm.${index}`);
+  const { aksjonspunkter } = values;
+  if (
+    values &&
+    ((aksjonspunkter && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)) || erOverstyring(values))
+  ) {
+    return {
+      ...validationForVurderFakta(values, intl),
+    };
+  }
+  return null;
 };
 
 const spacer = hasShownPanel => {
@@ -170,7 +172,6 @@ const getFaktaPanels = (
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
         tilfeller={tilfeller}
-        faktaOmBeregning={faktaOmBeregning}
         beregningsgrunnlag={beregningsgrunnlag}
         alleKodeverk={alleKodeverk}
         erOverstyrer={erOverstyrer}
@@ -185,8 +186,6 @@ const getFaktaPanels = (
 
 type OwnProps = {
   readOnly: boolean;
-  aktivePaneler: string[];
-  faktaOmBeregning: FaktaOmBeregning;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
@@ -194,11 +193,7 @@ type OwnProps = {
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
-};
-
-type MappedOwnProps = {
-  faktaOmBeregning: FaktaOmBeregning;
-  aktivePaneler: string[];
+  // index: number;
 };
 
 /**
@@ -206,33 +201,49 @@ type MappedOwnProps = {
  *
  * Container komponent.. Inneholder paneler for felles faktaavklaring for aksjonspunktet Vurder fakta for arbeidstaker, frilans og selvstendig næringsdrivende
  */
-export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps & MappedOwnProps> = ({
+export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   readOnly,
-  aktivePaneler,
   isAksjonspunktClosed,
-  faktaOmBeregning,
   beregningsgrunnlag,
   alleKodeverk,
   aksjonspunkter,
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
-}) => (
-  <div>
-    {getFaktaPanels(
-      readOnly,
-      aktivePaneler,
-      isAksjonspunktClosed,
-      faktaOmBeregning,
-      beregningsgrunnlag,
-      alleKodeverk,
-      aksjonspunkter,
-      erOverstyrer,
-      arbeidsgiverOpplysningerPerId,
-      updateOverstyring,
-    ).map(panelOrSpacer => panelOrSpacer)}
-  </div>
-);
+}) => {
+  const faktaOmBeregning: FaktaOmBeregning = useMemo(
+    () => getFaktaOmBeregning(beregningsgrunnlag),
+    [beregningsgrunnlag],
+  );
+  const aktivePaneler = useMemo(
+    () => getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag) || [],
+    [beregningsgrunnlag],
+  );
+  // const { getValues } = formHooks.useFormContext();
+  // const validate = [validateVurderFaktaBeregning(getValues, index, intl)];
+
+  return (
+    // <SkjemaGruppeMedFeilviser
+    //   name={`vurderFaktaBeregningForm.${index}`}
+    //   // validate={validate}
+    // >
+    <div>
+      {getFaktaPanels(
+        readOnly,
+        aktivePaneler,
+        isAksjonspunktClosed,
+        faktaOmBeregning,
+        beregningsgrunnlag,
+        alleKodeverk,
+        aksjonspunkter,
+        erOverstyrer,
+        arbeidsgiverOpplysningerPerId,
+        updateOverstyring,
+      ).map(panelOrSpacer => panelOrSpacer)}
+    </div>
+    // </SkjemaGruppeMedFeilviser>
+  );
+};
 
 const kunYtelseTransform =
   (faktaOmBeregning: FaktaOmBeregning, aktivePaneler: string[]) =>
@@ -339,9 +350,8 @@ export const transformValuesFaktaForATFLOgSN = (
   return setValuesForVurderFakta(tilfeller, values, kortvarigeArbeidsforhold, faktaOmBeregning, beregningsgrunnlag);
 };
 
-const getVurderFaktaAksjonspunkt = createSelector([(ownProps: OwnProps) => ownProps.aksjonspunkter], aksjonspunkter =>
-  aksjonspunkter ? aksjonspunkter.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN) : undefined,
-);
+const getVurderFaktaAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]) =>
+  aksjonspunkter ? aksjonspunkter.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN) : undefined;
 
 const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues => ({
   tidsbegrensetValues: TidsbegrensetArbeidsforholdForm.buildInitialValues(props.kortvarigeArbeidsforhold),
@@ -378,17 +388,17 @@ const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues
 
 const mapStateToBuildInitialValuesProps = (ownProps: OwnProps) => ({
   beregningsgrunnlag: ownProps.beregningsgrunnlag,
-  kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(ownProps),
-  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps),
-  kunYtelse: getKunYtelse(ownProps),
-  tilfeller: getFaktaOmBeregningTilfellerKoder(ownProps),
-  vurderMottarYtelse: getVurderMottarYtelse(ownProps),
-  vurderBesteberegning: getVurderBesteberegning(ownProps),
+  kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(ownProps.beregningsgrunnlag),
+  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps.aksjonspunkter),
+  kunYtelse: getKunYtelse(ownProps.beregningsgrunnlag),
+  tilfeller: getFaktaOmBeregningTilfellerKoder(ownProps.beregningsgrunnlag),
+  vurderMottarYtelse: getVurderMottarYtelse(ownProps.beregningsgrunnlag),
+  vurderBesteberegning: getVurderBesteberegning(ownProps.beregningsgrunnlag),
   alleKodeverk: ownProps.alleKodeverk,
   aksjonspunkter: ownProps.aksjonspunkter,
-  faktaOmBeregning: getFaktaOmBeregning(ownProps),
+  faktaOmBeregning: getFaktaOmBeregning(ownProps.beregningsgrunnlag),
   arbeidsgiverOpplysningerPerId: ownProps.arbeidsgiverOpplysningerPerId,
-  refusjonskravSomKommerForSentListe: getArbeidsgiverInfoForRefusjonskravSomKommerForSent(ownProps),
+  refusjonskravSomKommerForSentListe: getArbeidsgiverInfoForRefusjonskravSomKommerForSent(ownProps.beregningsgrunnlag),
   erOverstyrt: erInitialOverstyringAvBeregningsgrunnlag(ownProps),
 });
 
@@ -405,11 +415,9 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (props: OwnProps): FaktaOmB
   };
 };
 
-const emptyArray = [];
+// const mapStateToProps = (state, ownProps) => ({
+//   faktaOmBeregning: getFaktaOmBeregning(ownProps),
+//   aktivePaneler: getFaktaOmBeregningTilfellerKoder(ownProps) ? getFaktaOmBeregningTilfellerKoder(ownProps) : emptyArray,
+// });
 
-const mapStateToProps = (state, ownProps) => ({
-  faktaOmBeregning: getFaktaOmBeregning(ownProps),
-  aktivePaneler: getFaktaOmBeregningTilfellerKoder(ownProps) ? getFaktaOmBeregningTilfellerKoder(ownProps) : emptyArray,
-});
-
-export default connect(mapStateToProps)(FaktaForATFLOgSNPanelImpl);
+export default FaktaForATFLOgSNPanelImpl;

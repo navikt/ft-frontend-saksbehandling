@@ -27,7 +27,7 @@ describe('<VurderBesteberegning>', () => {
       [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
       false,
     );
-    expect(initialValues[besteberegningField]).toBe(false);
+    expect(initialValues[besteberegningField]).toBe('false');
   });
 
   it('skal bygge initial values med overstyrt aksjonspunkt', () => {
@@ -47,7 +47,7 @@ describe('<VurderBesteberegning>', () => {
       [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
       false,
     );
-    expect(initialValues[besteberegningField]).toBe(false);
+    expect(initialValues[besteberegningField]).toBe('false');
   });
 
   it('skal bygge initial values om det er overstyrt', () => {
@@ -61,12 +61,12 @@ describe('<VurderBesteberegning>', () => {
       [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
       true,
     );
-    expect(initialValues[besteberegningField]).toBe(false);
+    expect(initialValues[besteberegningField]).toBe('false');
   });
 
   it('skal transform values', () => {
     const values = {};
-    values[besteberegningField] = false;
+    values[besteberegningField] = 'false';
     const transformed = VurderBesteberegningForm.transformValues(
       values,
       { vurderBesteberegning: {}, andelerForFaktaOmBeregning: [] },
@@ -77,7 +77,7 @@ describe('<VurderBesteberegning>', () => {
 
   it('skal transform values om besteberegning', () => {
     const values = {};
-    values[besteberegningField] = true;
+    values[besteberegningField] = 'true';
     const inntektPrMnd = [
       { andelsnr: 1, fastsattBelop: 10000, inntektskategori: 'ARBEIDSTAKER' },
       {

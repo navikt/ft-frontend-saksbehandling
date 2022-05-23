@@ -118,7 +118,8 @@ const erNyoppstartetFrilanser = (field: AndelFieldIdentifikator, values: any): b
 
 // Besteberegning
 
-const skalHaBesteberegning = (values: FaktaOmBeregningAksjonspunktValues): boolean => values[besteberegningField];
+const skalHaBesteberegning = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
+  values[besteberegningField] === 'true';
 
 // export const skalHaBesteberegningSelector = createSelector([getFormValuesForBeregning], skalHaBesteberegning);
 
@@ -274,8 +275,8 @@ export const skalFastsetteInntektForAndel =
 export const kanRedigereInntektForAndel = (values, faktaOmBeregning, beregningsgrunnlag) => andel =>
   erOverstyring(values) || skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
-export const getKanRedigereInntekt = (values, beregningsgrunnlag) =>
-  kanRedigereInntektForAndel(values, beregningsgrunnlag.faktaOmBeregning, beregningsgrunnlag);
+export const getKanRedigereInntekt = (values, beregningsgrunnlag) => andel =>
+  kanRedigereInntektForAndel(values, beregningsgrunnlag.faktaOmBeregning, beregningsgrunnlag)(andel);
 
 // Skal redigere inntektskategori
 export const skalRedigereInntektskategoriForAndel = beregningsgrunnlag => andel =>

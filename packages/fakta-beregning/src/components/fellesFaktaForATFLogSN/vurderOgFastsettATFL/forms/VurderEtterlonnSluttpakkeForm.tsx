@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { isAksjonspunktOpen, FaktaOmBeregningTilfelle, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import 'core-js/features/array/flat-map';
@@ -14,6 +14,7 @@ import {
   FaktaOmBeregningAksjonspunktValues,
   VurderEtterlønnSluttpakkeValues,
 } from '../../../../typer/FaktaBeregningTypes';
+import VurderFaktaContext from '../../VurderFaktaContext';
 
 /**
  * VurderEtterlønnSluttpakkeForm
@@ -44,24 +45,29 @@ interface StaticFunctions {
 const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   isAksjonspunktClosed,
-}) => (
-  <div>
-    <Normaltekst>
-      <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
-    </Normaltekst>
-    <VerticalSpacer eightPx />
-    <RadioGroupField
-      name={harEtterlonnSluttpakkeField}
-      validate={[required]}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
-  </div>
-);
+}) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
 
+  return (
+    <div>
+      <Normaltekst>
+        <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
+      </Normaltekst>
+      <VerticalSpacer eightPx />
+      <RadioGroupField
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.harEtterlonnSluttpakkeField`}
+        validate={[required]}
+        readOnly={readOnly}
+        isEdited={isAksjonspunktClosed}
+      >
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
+      </RadioGroupField>
+    </div>
+  );
+};
 VurderEtterlonnSluttpakkeForm.buildInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag,
   faktaAksjonspunkt: Aksjonspunkt,

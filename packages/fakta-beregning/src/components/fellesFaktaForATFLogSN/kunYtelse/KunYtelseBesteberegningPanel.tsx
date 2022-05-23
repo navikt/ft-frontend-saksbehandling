@@ -1,4 +1,4 @@
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { formHooks, RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
@@ -7,7 +7,6 @@ import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
@@ -49,20 +48,21 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
   skalViseInntektstabell,
   alleKodeverk,
 }) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const formValues = getValues(`${formNameVurderFaktaBeregning}.${aktivtBeregningsgrunnlagIndeks}`);
   const erBesteberegning = formValues[besteberegningField]; // TODO: Sjekk at fungerer
-
   return (
     <div>
       <RadioGroupField
-        name={besteberegningField}
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.besteberegningField`}
         readOnly={readOnly}
         isEdited={isAksjonspunktClosed}
         label={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
       >
+        {/* @ts-ignore */}
         <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+        {/* @ts-ignore */}
         <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
       </RadioGroupField>
       {erBesteberegning !== undefined && erBesteberegning !== null && (

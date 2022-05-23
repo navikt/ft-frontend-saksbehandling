@@ -1,10 +1,10 @@
-import { InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-redux-legacy';
+import { formHooks, InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-hooks';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
-import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { FieldArrayWithId } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
@@ -39,18 +39,17 @@ export const getInntektskategorierAlfabetiskSortert = alleKodeverk =>
 
 type OwnProps = {
   readOnly: boolean;
-  fields: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>[];
+  field: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>;
   isAksjonspunktClosed: boolean;
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
-  andelElementFieldId: string;
   removeAndel: (...args: any[]) => any;
-  index: number;
   // eslint-disable-next-line react/no-unused-prop-types
   alleKodeverk: AlleKodeverk;
-  updateKanRedigereInntekt: (index: number, kanRedigereInntekt: boolean) => void;
+  // updateKanRedigereInntekt: (index: number, kanRedigereInntekt: boolean) => void;
   beregningsgrunnlag: Beregningsgrunnlag;
+  rowName: string;
 };
 
 /**
@@ -58,42 +57,38 @@ type OwnProps = {
  *
  * Presentasjonskomponent: Viser en rad korresponderende til ein andel i beregning.
  */
-const AndelRow: FunctionComponent<OwnProps> = ({
-  fields,
-  index,
+const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
+  field,
   skalVisePeriode,
   skalViseRefusjon,
   skalViseSletteknapp,
-  andelElementFieldId,
   readOnly,
   isAksjonspunktClosed,
   removeAndel,
-  updateKanRedigereInntekt,
+  // updateKanRedigereInntekt,
   beregningsgrunnlag,
   alleKodeverk,
+  rowName,
 }) => {
-  const field = fields.at(index);
   const intl = useIntl();
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const allFormValues = getValues();
-  const currentFormValues =
-    allFormValues.vurderFaktaBeregningForm[aktivtBeregningsgrunnlagIndeks].inntektFieldArray[index];
+  const currentFormValues = allFormValues.vurderFaktaBeregningForm[aktivtBeregningsgrunnlagIndeks];
   const kanRedigereInntekt = getKanRedigereInntekt(currentFormValues, beregningsgrunnlag)(field);
-  updateKanRedigereInntekt(index, kanRedigereInntekt);
+  // updateKanRedigereInntekt(index, kanRedigereInntekt);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
-
   return (
     <TableRow>
       <TableColumn>
-        <InputField name={`${andelElementFieldId}.andel`} bredde="L" readOnly />
+        <InputField name={`${rowName}.andel`} bredde="L" readOnly />
       </TableColumn>
       {skalVisePeriode && (
         <TableColumn>
           <PeriodpickerField
-            names={[`${andelElementFieldId}.arbeidsperiodeFom`, `${andelElementFieldId}.arbeidsperiodeTom`]}
+            names={[`${rowName}.arbeidsperiodeFom`, `${rowName}.arbeidsperiodeTom`]}
             readOnly
             renderIfMissingDateOnReadOnly
           />
@@ -102,7 +97,7 @@ const AndelRow: FunctionComponent<OwnProps> = ({
       {kanRedigereInntekt && (
         <TableColumn className={styles.rightAlignInput}>
           <InputField
-            name={`${andelElementFieldId}.fastsattBelop`}
+            name={`${rowName}.fastsattBelop`}
             bredde="M"
             parse={parseCurrencyInput}
             readOnly={readOnly}
@@ -112,21 +107,21 @@ const AndelRow: FunctionComponent<OwnProps> = ({
       )}
       {!kanRedigereInntekt && (
         <TableColumn className={styles.rightAlign}>
-          <InputField name={`${andelElementFieldId}.belopReadOnly`} bredde="M" parse={parseCurrencyInput} readOnly />
+          <InputField name={`${rowName}.belopReadOnly`} bredde="M" parse={parseCurrencyInput} readOnly />
         </TableColumn>
       )}
       {skalViseRefusjon && (
         <TableColumn className={styles.rightAlign}>
-          <InputField name={`${andelElementFieldId}.refusjonskrav`} bredde="XS" readOnly parse={parseCurrencyInput} />
+          <InputField name={`${rowName}.refusjonskrav`} bredde="XS" readOnly parse={parseCurrencyInput} />
         </TableColumn>
       )}
       <TableColumn className={styles.rightAlign}>
         <SelectField
           label=""
-          name={`${andelElementFieldId}.inntektskategori`}
+          name={`${rowName}.inntektskategori`}
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          value={fields.at(index).inntektskategori}
+          // value={field.inntektskategori}
           readOnly={readOnly || !skalRedigereInntektskategori}
         />
       </TableColumn>
@@ -144,4 +139,4 @@ const AndelRow: FunctionComponent<OwnProps> = ({
   );
 };
 
-export default AndelRow;
+export default InntektFieldArrayAndelRow;

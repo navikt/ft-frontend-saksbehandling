@@ -4,22 +4,21 @@ import { Aksjonspunkt, AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgr
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { ReactElement } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FormattedMessage, IntlShape } from 'react-intl';
-import FaktaBegrunnelseTextField from '../../legacy/FaktaBegrunnelseTextField';
-import FaktaSubmitButton from '../../legacy/FaktaSubmitButton';
+import { FormattedMessage } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
-import { erOverstyring } from './BgFaktaUtils';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
+import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
+import SubmitButton from '../felles/SubmitButton';
+import { erOverstyring } from './BgFaktaUtils';
 import FaktaForATFLOgSNPanel, {
   getBuildInitialValuesFaktaForATFLOgSN,
   transformValuesFaktaForATFLOgSN,
-  validationForVurderFakta,
 } from './FaktaForATFLOgSNPanel';
-import VurderFaktaContext from './VurderFaktaContext';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
+import VurderFaktaContext from './VurderFaktaContext';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
@@ -76,7 +75,7 @@ const hasOpenAksjonspunkt = (kode: string, aksjonspunkter: Aksjonspunkt[]): bool
 type VurderFaktaBeregningPanelProps = {
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlag: Beregningsgrunnlag;
+  beregningsgrunnlag: Beregningsgrunnlag[];
   aksjonspunkter: Aksjonspunkt[];
   alleKodeverk: AlleKodeverk;
   erOverstyrer: boolean;
@@ -104,6 +103,21 @@ export const buildInitialValuesVurderFaktaBeregning = (
     ...getBuildInitialValuesFaktaForATFLOgSN({ ...props, beregningsgrunnlag: bg }),
   })),
 });
+
+// export const validateVurderFaktaBeregning =
+//   (getValues: UseFormGetValues<FaktaOmBeregningAksjonspunktValues>, fieldId: number, intl: IntlShape) => () => {
+//     const values = getValues(`vurderFaktaBeregningForm.${fieldId}`);
+//     const { aksjonspunkter } = values;
+//     if (
+//       values &&
+//       ((aksjonspunkter && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)) || erOverstyring(values))
+//     ) {
+//       return {
+//         ...validationForVurderFakta(values, intl),
+//       };
+//     }
+//     return null;
+//   };
 
 /**
  * VurderFaktaBeregningPanel
@@ -141,6 +155,8 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
     });
   };
 
+  // const validate = fieldId => [validateVurderFaktaBeregning(getValues, fieldId, intl)];
+
   if (
     !(
       hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) ||
@@ -149,7 +165,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
   ) {
     return (
       <VurderFaktaContext.Provider value={aktivtBeregningsgrunnlagIndeks}>
-        <Form<VurderFaktaBeregningFormValues> formMethods={formMethods} onSubmit={values => console.log(values)}>
+        <Form formMethods={formMethods} onSubmit={values => console.log(values)}>
           {fields.map(
             (field, index) =>
               aktivtBeregningsgrunnlagIndeks === index && (
@@ -161,11 +177,12 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
                   )}
                   <VerticalSpacer twentyPx />
                   {/* @ts-ignore */}
+
                   <FaktaForATFLOgSNPanel
                     readOnly={readOnly}
                     isAksjonspunktClosed={isAksjonspunktClosed(aksjonspunkter)}
                     aksjonspunkter={aksjonspunkter}
-                    beregningsgrunnlag={beregningsgrunnlag}
+                    beregningsgrunnlag={beregningsgrunnlag[index]}
                     alleKodeverk={alleKodeverk}
                     erOverstyrer={erOverstyrer}
                     arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -175,20 +192,23 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
                   {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) || erOverstyrt) && (
                     <>
                       <FaktaBegrunnelseTextField
-                        name={BEGRUNNELSE_FAKTA_TILFELLER_NAME}
+                        name={`${formNameVurderFaktaBeregning}.${index}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
                         isSubmittable={submittable}
                         isReadOnly={readOnly}
                         hasBegrunnelse={hasBegrunnelse}
                       />
                       <VerticalSpacer twentyPx />
                       {/* @ts-ignore */}
-                      <FaktaSubmitButton
+                      <SubmitButton
                         isSubmittable={
                           submittable &&
-                          harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, aksjonspunkter)
+                          harIkkeEndringerIAvklarMedFlereAksjonspunkter(
+                            verdiForAvklarAktivitetErEndret,
+                            aksjonspunkter,
+                          ) &&
+                          isAksjonspunktClosed(aksjonspunkter)
                         }
                         isReadOnly={readOnly}
-                        hasOpenAksjonspunkter={!isAksjonspunktClosed(aksjonspunkter)}
                       />
                     </>
                   )}
@@ -213,19 +233,6 @@ export const transformValuesVurderFaktaBeregning = (
       kode: erOverstyring(values) ? OVERSTYRING_AV_BEREGNINGSGRUNNLAG : VURDER_FAKTA_FOR_ATFL_SN,
       begrunnelse: beg === undefined ? null : beg,
       ...transformValuesFaktaForATFLOgSN(faktaBeregningValues),
-    };
-  }
-  return null;
-};
-
-export const validateVurderFaktaBeregning = (values: FaktaOmBeregningAksjonspunktValues, intl: IntlShape): any => {
-  const { aksjonspunkter } = values;
-  if (
-    values &&
-    ((aksjonspunkter && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)) || erOverstyring(values))
-  ) {
-    return {
-      ...validationForVurderFakta(values, intl),
     };
   }
   return null;

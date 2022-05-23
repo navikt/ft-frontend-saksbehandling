@@ -119,7 +119,6 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
           </div>
         )}
         <BeregningInfoPanel
-          intl={intl}
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
           beregningsgrunnlag={beregningsgrunnlag}
           alleKodeverk={alleKodeverk}

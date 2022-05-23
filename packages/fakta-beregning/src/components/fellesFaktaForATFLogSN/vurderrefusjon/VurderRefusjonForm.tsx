@@ -1,12 +1,13 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
 import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
@@ -19,6 +20,7 @@ const lagRefusjonskravRadios = (
   readOnly: boolean,
   isAksjonspunktClosed: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  aktivtBeregningsgrunnlagIndeks: number,
 ): ReactElement[] =>
   senRefusjonkravListe.map((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe) => {
     const { arbeidsgiverIdent } = kravPerArbeidsgiver;
@@ -35,12 +37,16 @@ const lagRefusjonskravRadios = (
         />
         <VerticalSpacer eightPx />
         <RadioGroupField
-          name={`vurderRefusjonValues.${lagFieldName(arbeidsgiverIdent)}`}
+          name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
+            arbeidsgiverIdent,
+          )}`}
           validate={[required]}
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
         >
+          {/* @ts-ignore */}
           <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+          {/* @ts-ignore */}
           <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
         </RadioGroupField>
       </React.Fragment>
@@ -73,9 +79,18 @@ export const VurderRefusjonForm: FunctionComponent<OwnProps> & StaticFunctions =
   faktaOmBeregning,
   arbeidsgiverOpplysningerPerId,
 }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
   return (
-    <>{lagRefusjonskravRadios(senRefusjonkravListe, readOnly, isAksjonspunktClosed, arbeidsgiverOpplysningerPerId)}</>
+    <>
+      {lagRefusjonskravRadios(
+        senRefusjonkravListe,
+        readOnly,
+        isAksjonspunktClosed,
+        arbeidsgiverOpplysningerPerId,
+        aktivtBeregningsgrunnlagIndeks,
+      )}
+    </>
   );
 };
 

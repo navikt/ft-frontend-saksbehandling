@@ -19,7 +19,8 @@ describe('<InntektstabellPanel>', () => {
         aksjonspunkter={[]}
         readOnly={false}
         erOverstyrer={false}
-        reduxFormChange={() => undefined}
+        updateOverstyring={jest.fn()}
+        erOverstyrt={false}
       >
         <span>test1</span>
         <span>test2</span>
@@ -45,7 +46,8 @@ describe('<InntektstabellPanel>', () => {
         ]}
         readOnly={false}
         erOverstyrer={false}
-        reduxFormChange={() => undefined}
+        updateOverstyring={jest.fn()}
+        erOverstyrt={false}
       >
         <span>test1</span>
         <span>test2</span>

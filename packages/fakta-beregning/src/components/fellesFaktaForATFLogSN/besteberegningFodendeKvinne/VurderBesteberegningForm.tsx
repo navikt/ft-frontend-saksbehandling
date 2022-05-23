@@ -1,4 +1,4 @@
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
@@ -13,6 +13,7 @@ import { InntektTransformed } from '../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.less';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 export const besteberegningField = 'vurderbesteberegningField';
 
@@ -50,32 +51,43 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
   readOnly,
   isAksjonspunktClosed,
   erOverstyrt,
-}) => (
-  <div>
-    <Row>
-      <Column xs="9">
-        <Normaltekst>
-          <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
-        </Normaltekst>
-        <VerticalSpacer eightPx />
-        <RadioGroupField name={besteberegningField} readOnly={readOnly || erOverstyrt} isEdited={isAksjonspunktClosed}>
-          <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-          <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-        </RadioGroupField>
-      </Column>
-      <Column xs="3">
-        <a
-          className={styles.navetLink}
-          href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-        </a>
-      </Column>
-    </Row>
-  </div>
-);
+}) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+
+  return (
+    <div>
+      <Row>
+        <Column xs="9">
+          <Normaltekst>
+            <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
+          </Normaltekst>
+          <VerticalSpacer eightPx />
+
+          <RadioGroupField
+            name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${besteberegningField}`}
+            readOnly={readOnly || erOverstyrt}
+            isEdited={isAksjonspunktClosed}
+          >
+            {/* @ts-ignore */}
+            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+            {/* @ts-ignore */}
+            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
+          </RadioGroupField>
+        </Column>
+        <Column xs="3">
+          <a
+            className={styles.navetLink}
+            href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+          </a>
+        </Column>
+      </Row>
+    </div>
+  );
+};
 
 VurderBesteberegningPanelImpl.buildInitialValues = (
   aksjonspunkter: Aksjonspunkt[],
@@ -98,7 +110,7 @@ VurderBesteberegningPanelImpl.buildInitialValues = (
     aksjonspunkter.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) !== undefined || erOverstyrt;
   if (erOverstyring) {
     return {
-      [besteberegningField]: false,
+      [besteberegningField]: 'false',
     };
   }
   return {

@@ -10,3 +10,4 @@ export { default as Form } from './src/Form';
 export { default as SkjemaGruppeMedFeilviser } from './src/SkjemaGruppeMedFeilviser';
 export { default as PeriodFieldArray } from './src/PeriodFieldArray';
 export { default as formHooks } from './src/formHooksWrapper';
+export { default as PeriodpickerField } from './src/PeriodpickerField';

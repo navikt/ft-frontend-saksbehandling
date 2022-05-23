@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { required } from '@navikt/ft-form-validators';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import Beregningsgrunnlag from '@navikt/ft-types/src/beregningsgrunnlagTsType';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 /**
  * NyIArbeidslivetSNForm
@@ -33,23 +34,29 @@ interface StaticFunctions {
   transformValues: (values: any) => TansformedProps;
 }
 
-const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
-  <div>
-    <Normaltekst>
-      <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
-    </Normaltekst>
-    <VerticalSpacer eightPx />
-    <RadioGroupField
-      name={radioGroupFieldName}
-      validate={[required]}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
-  </div>
-);
+const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+
+  return (
+    <div>
+      <Normaltekst>
+        <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
+      </Normaltekst>
+      <VerticalSpacer eightPx />
+      <RadioGroupField
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.radioGroupFieldName`}
+        validate={[required]}
+        readOnly={readOnly}
+        isEdited={isAksjonspunktClosed}
+      >
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
+        {/* @ts-ignore */}
+        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
+      </RadioGroupField>
+    </div>
+  );
+};
 
 NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyIArbeidslivetValues => {
   const initialValues = {};

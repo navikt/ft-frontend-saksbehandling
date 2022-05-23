@@ -1,15 +1,20 @@
-import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { IntlShape } from 'react-intl';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import {
+  AlleKodeverk,
+  AndelForFaktaOmBeregning,
+  ArbeidsgiverOpplysningerPerId,
+  FaktaOmBeregning,
+  KunYtelse,
+} from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, AlleKodeverk, KunYtelse } from '@navikt/ft-types';
+import React, { FunctionComponent } from 'react';
+import { IntlShape } from 'react-intl';
+import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import { setGenerellAndelsinfo } from '../BgFaktaUtils';
 import { BrukersAndelFieldArrayImpl } from './BrukersAndelFieldArray';
 import KunYtelseBesteberegningPanel from './KunYtelseBesteberegningPanel';
 import KunYtelseUtenBesteberegningPanel from './KunYtelseUtenBesteberegningPanel';
-import { setGenerellAndelsinfo } from '../BgFaktaUtils';
-import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 
 export const brukersAndelFieldArrayName = 'brukersAndelBG';
 
@@ -19,6 +24,7 @@ type OwnProps = {
   skalSjekkeBesteberegning: boolean;
   skalViseInntektstabell?: boolean;
   alleKodeverk: AlleKodeverk;
+  faktaOmBeregning: FaktaOmBeregning;
 };
 
 interface StaticFunctions {
@@ -49,33 +55,37 @@ interface StaticFunctions {
 
 const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  skalSjekkeBesteberegning,
+  faktaOmBeregning,
   isAksjonspunktClosed,
   skalViseInntektstabell,
   alleKodeverk,
-}) => (
-  <div>
-    {skalSjekkeBesteberegning && (
-      /* @ts-ignore */
-      <KunYtelseBesteberegningPanel
-        readOnly={readOnly}
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        brukersAndelFieldArrayName={brukersAndelFieldArrayName}
-        skalViseInntektstabell={skalViseInntektstabell}
-        alleKodeverk={alleKodeverk}
-      />
-    )}
-    {!skalSjekkeBesteberegning && skalViseInntektstabell && (
-      <KunYtelseUtenBesteberegningPanel
-        readOnly={readOnly}
-        brukersAndelFieldArrayName={brukersAndelFieldArrayName}
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        alleKodeverk={alleKodeverk}
-      />
-    )}
-  </div>
-);
+}) => {
+  const { kunYtelse } = faktaOmBeregning;
+  const skalSjekkeBesteberegning = kunYtelse.fodendeKvinneMedDP;
 
+  return (
+    <div>
+      {skalSjekkeBesteberegning && (
+        /* @ts-ignore */
+        <KunYtelseBesteberegningPanel
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          brukersAndelFieldArrayName={brukersAndelFieldArrayName}
+          skalViseInntektstabell={skalViseInntektstabell}
+          alleKodeverk={alleKodeverk}
+        />
+      )}
+      {!skalSjekkeBesteberegning && skalViseInntektstabell && (
+        <KunYtelseUtenBesteberegningPanel
+          readOnly={readOnly}
+          brukersAndelFieldArrayName={brukersAndelFieldArrayName}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          alleKodeverk={alleKodeverk}
+        />
+      )}
+    </div>
+  );
+};
 KunYtelsePanel.defaultProps = {
   skalViseInntektstabell: true,
 };
@@ -150,11 +160,11 @@ KunYtelsePanel.validate = (
   return errors;
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { kunYtelse } = ownProps.faktaOmBeregning;
-  return {
-    skalSjekkeBesteberegning: kunYtelse.fodendeKvinneMedDP,
-  };
-};
+// const mapStateToProps = (state, ownProps) => {
+//   const { kunYtelse } = ownProps.faktaOmBeregning;
+//   return {
+//     skalSjekkeBesteberegning: kunYtelse.fodendeKvinneMedDP,
+//   };
+// };
 
-export default connect(mapStateToProps)(KunYtelsePanel);
+export default KunYtelsePanel;

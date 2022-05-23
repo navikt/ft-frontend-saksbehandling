@@ -3,7 +3,7 @@ import { Aksjonspunkt } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Knapp } from 'nav-frontend-knapper';
 import { Element } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useCallback, useState } from 'react';
+import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
@@ -30,6 +30,7 @@ type OwnProps = {
   aksjonspunkter: Aksjonspunkt[];
   erOverstyrer: boolean;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
+  erOverstyrt: boolean;
 };
 
 interface StaticFunctions {
@@ -50,18 +51,19 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   aksjonspunkter,
   updateOverstyring,
   erOverstyrer,
+  erOverstyrt,
 }) => {
-  const [erOverstyrt, setOverstyring] = useState(false);
+  const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
   const aktivtBeregningsgrunnlagIndeks = React.useContext(VurderFaktaContext);
-  const kanOverstyre = useCallback(
+  const kanOverstyre = useMemo(
     () => getSkalKunneOverstyre(erOverstyrer, aksjonspunkter),
     [erOverstyrer, aksjonspunkter],
   );
 
   const toggleOverstyring = useCallback(() => {
-    setOverstyring(!erOverstyrt);
-    updateOverstyring(aktivtBeregningsgrunnlagIndeks, !erOverstyrt);
-  }, [erOverstyrt]);
+    setOverstyring(!erTabellOverstyrt);
+    updateOverstyring(aktivtBeregningsgrunnlagIndeks, !erTabellOverstyrt);
+  }, [erTabellOverstyrt]);
   return (
     <>
       {children}
@@ -76,12 +78,14 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
                     <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
                   </Element>
                 </FlexColumn>
-                {(kanOverstyre || erOverstyrt) && (
+                {(kanOverstyre || erTabellOverstyrt) && (
                   <FlexColumn>
                     <OverstyringKnapp
                       onClick={toggleOverstyring}
                       erOverstyrt={
-                        erOverstyrt || hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter) || readOnly
+                        erTabellOverstyrt ||
+                        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter) ||
+                        readOnly
                       }
                     />
                   </FlexColumn>
@@ -95,7 +99,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
               </Element>
             )}
             {tabell}
-            {erOverstyrt && (
+            {erTabellOverstyrt && (
               <Knapp htmlType="button" onClick={toggleOverstyring} mini>
                 <FormattedMessage id="InntektstabellPanel.Avbryt" />
               </Knapp>
