@@ -72,6 +72,9 @@ const lagHelpTextsForFakta = (): ReactElement[] => {
 const hasOpenAksjonspunkt = (kode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
   aksjonspunkter.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
 
+export const erSubmittable = (submittable: boolean, submitEnabled: boolean, hasErrors: boolean): boolean =>
+  submittable && submitEnabled && !hasErrors;
+
 type VurderFaktaBeregningPanelProps = {
   readOnly: boolean;
   submittable: boolean;
@@ -141,11 +144,14 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
     defaultValues: buildInitialValuesVurderFaktaBeregning(aksjonspunkter, props),
   });
-  const { control, getValues } = formMethods;
+  const { control, getValues, formState } = formMethods;
   const { fields, update } = useFieldArray({
     name: formNameVurderFaktaBeregning,
     control,
   });
+  const { isDirty, isSubmitting, errors } = formState;
+
+  const finnesFeilForBegrunnelse = fieldId => !!errors.vurderFaktaBeregningForm?.[fieldId]?.begrunnelseFaktaTilfeller;
 
   const updateOverstyring = (index: number, skalOverstyre: boolean): void => {
     const currVal = getValues(`${formNameVurderFaktaBeregning}.${index}`);
@@ -156,7 +162,6 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
   };
 
   // const validate = fieldId => [validateVurderFaktaBeregning(getValues, fieldId, intl)];
-
   if (
     !(
       hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) ||
@@ -200,15 +205,20 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
                       <VerticalSpacer twentyPx />
                       {/* @ts-ignore */}
                       <SubmitButton
-                        isSubmittable={
+                        isSubmittable={erSubmittable(
                           submittable &&
-                          harIkkeEndringerIAvklarMedFlereAksjonspunkter(
-                            verdiForAvklarAktivitetErEndret,
-                            aksjonspunkter,
-                          ) &&
-                          isAksjonspunktClosed(aksjonspunkter)
-                        }
+                            harIkkeEndringerIAvklarMedFlereAksjonspunkter(
+                              verdiForAvklarAktivitetErEndret,
+                              aksjonspunkter,
+                            ) &&
+                            !isAksjonspunktClosed(aksjonspunkter),
+                          true,
+                          finnesFeilForBegrunnelse(index),
+                        )}
                         isReadOnly={readOnly}
+                        isDirty={isDirty}
+                        isSubmitting={isSubmitting}
+                        hasEmptyRequiredFields={finnesFeilForBegrunnelse(index)}
                       />
                     </>
                   )}
@@ -261,14 +271,4 @@ export const transformValuesVurderFaktaBeregning = (
 //     };
 //   };
 // };
-
-// export default connect(mapStateToPropsFactory)(
-//   reduxForm({
-//     form: formNameVurderFaktaBeregning,
-//     enableReinitialize: true,
-//     destroyOnUnmount: false,
-//     keepDirtyOnReinitialize: true,
-//   })(VurderFaktaBeregningPanelImpl),
-// );
-
 export default VurderFaktaBeregningPanelImpl;
