@@ -73,9 +73,8 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const intl = useIntl();
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const allFormValues = getValues();
-  const currentFormValues = allFormValues.vurderFaktaBeregningForm[aktivtBeregningsgrunnlagIndeks];
-  const kanRedigereInntekt = getKanRedigereInntekt(currentFormValues, beregningsgrunnlag)(field);
+  const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
+  const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
   // updateKanRedigereInntekt(index, kanRedigereInntekt);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);

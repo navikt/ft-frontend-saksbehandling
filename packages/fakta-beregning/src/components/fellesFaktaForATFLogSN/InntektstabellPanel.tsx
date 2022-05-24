@@ -25,7 +25,6 @@ type OwnProps = {
   tabell: React.ReactNode;
   hjelpeTekstId?: string;
   skalViseTabell?: boolean;
-  kanOverstyre: boolean;
   readOnly: boolean;
   aksjonspunkter: Aksjonspunkt[];
   erOverstyrer: boolean;

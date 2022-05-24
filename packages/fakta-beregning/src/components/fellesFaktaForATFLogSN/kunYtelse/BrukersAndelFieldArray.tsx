@@ -248,14 +248,4 @@ BrukersAndelFieldArrayImpl.validate = (values: BrukersAndelValues[], intl: IntlS
   return null;
 };
 
-// const mapStateToProps = (state, ownProps) => {
-//   const isBeregningFormDirty = isFormDirty(state);
-//   const aktivitetStatuser = ownProps.alleKodeverk[KodeverkType.AKTIVITET_STATUS];
-//   return {
-//     isBeregningFormDirty,
-//     aktivitetStatuser,
-//     inntektskategoriKoder: getInntektskategorierAlfabetiskSortert(ownProps),
-//   };
-// };
-
 export default BrukersAndelFieldArray;

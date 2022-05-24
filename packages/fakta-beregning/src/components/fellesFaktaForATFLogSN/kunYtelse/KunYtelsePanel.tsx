@@ -160,11 +160,4 @@ KunYtelsePanel.validate = (
   return errors;
 };
 
-// const mapStateToProps = (state, ownProps) => {
-//   const { kunYtelse } = ownProps.faktaOmBeregning;
-//   return {
-//     skalSjekkeBesteberegning: kunYtelse.fodendeKvinneMedDP,
-//   };
-// };
-
 export default KunYtelsePanel;

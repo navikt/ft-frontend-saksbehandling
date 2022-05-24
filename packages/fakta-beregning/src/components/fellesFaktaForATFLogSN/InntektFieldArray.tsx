@@ -75,7 +75,7 @@ const skalVisePeriode = fields => {
   return skalVise;
 };
 
-const removeAndel = (fields, index, remove) => () => {
+const removeAndel = (index, remove) => () => {
   remove(index);
 };
 
@@ -96,10 +96,8 @@ const createAndelerTableRows = (
       skalVisePeriode={skalVisePeriode(fields)}
       skalViseRefusjon={skalViseRefusjon(fields)}
       skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
-      andelElementFieldId={field.id}
       readOnly={readOnly}
-      removeAndel={removeAndel(fields, index, remove)}
-      index={index}
+      removeAndel={removeAndel(index, remove)}
       beregningsgrunnlag={beregningsgrunnlag}
       isAksjonspunktClosed={isAksjonspunktClosed}
       alleKodeverk={alleKodeverk}
@@ -399,28 +397,4 @@ InntektFieldArray.buildInitialValues = (
   return andeler.map(a => mapAndelToField(a, arbeidsgiverOpplysningerPerId, alleKodeverk));
 };
 
-// export const mapStateToProps = (state, ownProps) => {
-//   const isBeregningFormDirty = isFormDirty(state);
-//   const aktivitetStatuser = ownProps.alleKodeverk[KodeverkType.AKTIVITET_STATUS];
-//   // @ts-ignore
-//   const skalHaBesteberegning = skalHaBesteberegningSelector(state) === true;
-//   const skalHaMilitær = getFormValuesForBeregning(state)[vurderMilitaerField];
-//   const tilfeller = ownProps.beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller
-//     ? ownProps.beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller.map(kode => kode)
-//     : [];
-//   fjernEllerLeggTilMilitær(ownProps.fields, skalHaMilitær, aktivitetStatuser);
-//   leggTilDagpengerOmBesteberegning(
-//     ownProps.fields,
-//     skalHaBesteberegning,
-//     aktivitetStatuser,
-//     ownProps.skalKunneLeggeTilDagpengerManuelt,
-//   );
-//   return {
-//     isBeregningFormDirty,
-//     skalHaBesteberegning,
-//     skalHaMilitær,
-//     erKunYtelse: tilfeller && tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE),
-//   };
-// };
-// export default connect(mapStateToProps)(InntektFieldArray);
 export default InntektFieldArray;

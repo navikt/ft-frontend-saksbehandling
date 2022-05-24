@@ -233,21 +233,20 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
 }) => {
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const allFormValues = getValues();
-  const currentFormValues = allFormValues.vurderFaktaBeregningForm[aktivtBeregningsgrunnlagIndeks];
+  const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
   const erOverstyrt = useMemo(
-    () => erOverstyringAvBeregningsgrunnlag(currentFormValues, beregningsgrunnlag, aksjonspunkter),
-    [currentFormValues, beregningsgrunnlag, aksjonspunkter],
+    () => erOverstyringAvBeregningsgrunnlag(formValues, beregningsgrunnlag, aksjonspunkter),
+    [formValues, beregningsgrunnlag, aksjonspunkter],
   );
   const skalFastsetteAT = useMemo(
-    () => skalFastsettInntektForArbeidstaker(currentFormValues, beregningsgrunnlag),
-    [currentFormValues, beregningsgrunnlag],
+    () => skalFastsettInntektForArbeidstaker(formValues, beregningsgrunnlag),
+    [formValues, beregningsgrunnlag],
   );
   const skalFastsetteFL = useMemo(
-    () => skalFastsettInntektForFrilans(currentFormValues, beregningsgrunnlag),
-    [currentFormValues, beregningsgrunnlag],
+    () => skalFastsettInntektForFrilans(formValues, beregningsgrunnlag),
+    [formValues, beregningsgrunnlag],
   );
-  const skalHaBesteberegning = currentFormValues[besteberegningField] === 'true';
+  const skalHaBesteberegning = formValues[besteberegningField] === 'true';
   const manglerInntektsmelding = useMemo(() => getManglerInntektsmelding(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
   const harKunstigArbeid = useMemo(
@@ -257,7 +256,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
 
   return (
     <div>
-      {/* @ts-ignore */}
       <InntektstabellPanel
         key="inntektstabell"
         tabell={finnInntektstabell(readOnly, beregningsgrunnlag, isAksjonspunktClosed, alleKodeverk, erOverstyrt)}

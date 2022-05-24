@@ -415,9 +415,4 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (props: OwnProps): FaktaOmB
   };
 };
 
-// const mapStateToProps = (state, ownProps) => ({
-//   faktaOmBeregning: getFaktaOmBeregning(ownProps),
-//   aktivePaneler: getFaktaOmBeregningTilfellerKoder(ownProps) ? getFaktaOmBeregningTilfellerKoder(ownProps) : emptyArray,
-// });
-
 export default FaktaForATFLOgSNPanelImpl;
