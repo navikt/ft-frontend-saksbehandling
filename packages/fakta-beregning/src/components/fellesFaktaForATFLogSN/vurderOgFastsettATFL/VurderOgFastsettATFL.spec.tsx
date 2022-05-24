@@ -183,11 +183,11 @@ describe('<VurderOgFastsettATFL>', () => {
         skalViseTabell={false}
         skalFastsetteAT
         skalFastsetteFL={false}
-        skalHaBesteberegning={false}
+        skalHaBesteberegning="false"
         harKunstigArbeid={false}
         manglerInntektsmelding
         alleKodeverk={{} as AlleKodeverk}
-        aksjonspunkter={[]}
+        avklaringsbehov={[]}
         erOverstyrer={false}
         beregningsgrunnlag={beregningsgrunnlag}
         erOverstyrt={false}

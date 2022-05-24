@@ -111,7 +111,6 @@ it('skal vise komponent med arbeidsperiode og refusjonskrav', () => {
       skalVisePeriode
       skalViseRefusjon
       skalViseSletteknapp={false}
-      andelElementFieldId="fieldArrayName[0]"
       removeAndel={() => {}}
       index={0}
       field={fields[0]}
@@ -157,7 +156,6 @@ it('skal vise komponent uten arbeidsperiode og refusjonskrav', () => {
       skalVisePeriode={false}
       skalViseSletteknapp={false}
       skalViseRefusjon={false}
-      andelElementFieldId="fieldArrayName[0]"
       removeAndel={() => {}}
       index={0}
       isAksjonspunktClosed={false}
@@ -203,7 +201,6 @@ it('skal vise komponent med readOnly beløp', () => {
       skalVisePeriode={false}
       skalViseSletteknapp={false}
       skalViseRefusjon={false}
-      andelElementFieldId="fieldArrayName[0]"
       removeAndel={() => {}}
       index={0}
       isAksjonspunktClosed={false}
@@ -248,7 +245,6 @@ it('skal vise komponent med sletteknapp', () => {
       skalVisePeriode={false}
       skalViseSletteknapp
       skalViseRefusjon={false}
-      andelElementFieldId="fieldArrayName[0]"
       removeAndel={() => {}}
       index={0}
       field={fields[0]}

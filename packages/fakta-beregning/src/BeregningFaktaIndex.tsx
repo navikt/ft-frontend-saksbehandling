@@ -122,7 +122,6 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
           beregningsgrunnlag={beregningsgrunnlag}
           alleKodeverk={alleKodeverk}
-          aksjonspunkter={aksjonspunkter}
           avklaringsbehov={aktiveAvklaringsBehov}
           submitCallback={submitCallback}
           readOnly={readOnly}

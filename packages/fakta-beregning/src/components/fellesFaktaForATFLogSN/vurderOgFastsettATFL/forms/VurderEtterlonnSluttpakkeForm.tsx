@@ -7,7 +7,7 @@ import 'core-js/features/array/flat-map';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { Normaltekst } from 'nav-frontend-typografi';
-import { Beregningsgrunnlag, FaktaOmBeregning, Aksjonspunkt } from '@navikt/ft-types';
+import { Beregningsgrunnlag, FaktaOmBeregning, Aksjonspunkt, BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import {
@@ -32,7 +32,7 @@ type OwnProps = {
 interface StaticFunctions {
   buildInitialValues: (
     beregningsgrunnlag: Beregningsgrunnlag,
-    faktaAksjonspunkt: Aksjonspunkt,
+    faktaAksjonspunkt: BeregningAvklaringsbehov,
   ) => VurderEtterlønnSluttpakkeValues;
   transformValues: (
     values: FaktaOmBeregningAksjonspunktValues,

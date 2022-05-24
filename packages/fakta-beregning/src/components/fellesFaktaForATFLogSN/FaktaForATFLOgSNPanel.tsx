@@ -1,8 +1,8 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   KortvarigAndel,
@@ -76,8 +76,8 @@ export const validationForVurderFakta = (values: FaktaOmBeregningAksjonspunktVal
   };
 };
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
 export const validateVurderFaktaBeregning = (
   getValues: UseFormGetValues<VurderFaktaBeregningFormValues>,
@@ -85,10 +85,10 @@ export const validateVurderFaktaBeregning = (
   intl: IntlShape,
 ) => {
   const values = getValues(`vurderFaktaBeregningForm.${index}`);
-  const { aksjonspunkter } = values;
+  const { avklaringsbehov } = values;
   if (
     values &&
-    ((aksjonspunkter && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter)) || erOverstyring(values))
+    ((avklaringsbehov && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov)) || erOverstyring(values))
   ) {
     return {
       ...validationForVurderFakta(values, intl),
@@ -111,7 +111,7 @@ const getFaktaPanels = (
   faktaOmBeregning,
   beregningsgrunnlag,
   alleKodeverk,
-  aksjonspunkter,
+  avklaringsbehov: BeregningAvklaringsbehov[],
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
   updateOverstyring: (index: number, skalOverstyre: boolean) => void,
@@ -175,7 +175,7 @@ const getFaktaPanels = (
         beregningsgrunnlag={beregningsgrunnlag}
         alleKodeverk={alleKodeverk}
         erOverstyrer={erOverstyrer}
-        aksjonspunkter={aksjonspunkter}
+        avklaringsbehov={avklaringsbehov}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         updateOverstyring={updateOverstyring}
       />
@@ -189,7 +189,7 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
@@ -206,7 +206,7 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   isAksjonspunktClosed,
   beregningsgrunnlag,
   alleKodeverk,
-  aksjonspunkter,
+  avklaringsbehov,
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
@@ -235,7 +235,7 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
         faktaOmBeregning,
         beregningsgrunnlag,
         alleKodeverk,
-        aksjonspunkter,
+        avklaringsbehov,
         erOverstyrer,
         arbeidsgiverOpplysningerPerId,
         updateOverstyring,
@@ -350,8 +350,8 @@ export const transformValuesFaktaForATFLOgSN = (
   return setValuesForVurderFakta(tilfeller, values, kortvarigeArbeidsforhold, faktaOmBeregning, beregningsgrunnlag);
 };
 
-const getVurderFaktaAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]) =>
-  aksjonspunkter ? aksjonspunkter.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN) : undefined;
+const getVurderFaktaAksjonspunkt = (avklaringsbehov: BeregningAvklaringsbehov[]) =>
+  avklaringsbehov ? avklaringsbehov.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN) : undefined;
 
 const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues => ({
   tidsbegrensetValues: TidsbegrensetArbeidsforholdForm.buildInitialValues(props.kortvarigeArbeidsforhold),
@@ -366,7 +366,7 @@ const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues
   ...NyoppstartetFLForm.buildInitialValues(props.beregningsgrunnlag),
   ...VurderEtterlonnSluttpakkeForm.buildInitialValues(props.beregningsgrunnlag, props.vurderFaktaAP),
   ...VurderBesteberegningForm.buildInitialValues(
-    props.aksjonspunkter,
+    props.avklaringsbehov,
     props.vurderBesteberegning,
     props.tilfeller,
     props.erOverstyrt,
@@ -389,13 +389,13 @@ const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues
 const mapStateToBuildInitialValuesProps = (ownProps: OwnProps) => ({
   beregningsgrunnlag: ownProps.beregningsgrunnlag,
   kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(ownProps.beregningsgrunnlag),
-  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps.aksjonspunkter),
+  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps.avklaringsbehov),
   kunYtelse: getKunYtelse(ownProps.beregningsgrunnlag),
   tilfeller: getFaktaOmBeregningTilfellerKoder(ownProps.beregningsgrunnlag),
   vurderMottarYtelse: getVurderMottarYtelse(ownProps.beregningsgrunnlag),
   vurderBesteberegning: getVurderBesteberegning(ownProps.beregningsgrunnlag),
   alleKodeverk: ownProps.alleKodeverk,
-  aksjonspunkter: ownProps.aksjonspunkter,
+  avklaringsbehov: ownProps.avklaringsbehov,
   faktaOmBeregning: getFaktaOmBeregning(ownProps.beregningsgrunnlag),
   arbeidsgiverOpplysningerPerId: ownProps.arbeidsgiverOpplysningerPerId,
   refusjonskravSomKommerForSentListe: getArbeidsgiverInfoForRefusjonskravSomKommerForSent(ownProps.beregningsgrunnlag),

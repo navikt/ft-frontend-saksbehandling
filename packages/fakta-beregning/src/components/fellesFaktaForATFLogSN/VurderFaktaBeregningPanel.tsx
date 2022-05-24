@@ -1,6 +1,11 @@
 import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import {
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+} from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { ReactElement } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
@@ -27,33 +32,33 @@ const {
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
 } = FaktaBeregningAksjonspunktCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
-const findAksjonspunktMedBegrunnelse = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt => {
-  if (aksjonspunkter.some(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG)) {
-    return aksjonspunkter.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG && ap.begrunnelse !== null);
+const findAvklaringsbehovMedBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
+  if (avklaringsbehov.some(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG)) {
+    return avklaringsbehov.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG && ap.begrunnelse !== null);
   }
-  return aksjonspunkter.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.begrunnelse !== null);
+  return avklaringsbehov.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.begrunnelse !== null);
 };
 
 export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
 
 export const harIkkeEndringerIAvklarMedFlereAksjonspunkter = (
   verdiForAvklarAktivitetErEndret: boolean,
-  aksjonspunkter: Aksjonspunkt[],
+  avklaringsbehov: BeregningAvklaringsbehov[],
 ): boolean => {
   if (
-    hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) ||
-    hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter)
+    hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ||
+    hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
   ) {
     return !verdiForAvklarAktivitetErEndret;
   }
   return true;
 };
 
-const isAksjonspunktClosed = (alleAp: Aksjonspunkt[]): boolean => {
-  const relevantAp = alleAp.filter(
+const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
+  const relevantAp = avklaringsbehov.filter(
     ap =>
       ap.definisjon === FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN ||
       ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
@@ -69,8 +74,8 @@ const lagHelpTextsForFakta = (): ReactElement[] => {
   return helpTexts;
 };
 
-const hasOpenAksjonspunkt = (kode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
+const hasOpenAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
 
 export const erSubmittable = (submittable: boolean, submitEnabled: boolean, hasErrors: boolean): boolean =>
   submittable && submitEnabled && !hasErrors;
@@ -79,7 +84,6 @@ type VurderFaktaBeregningPanelProps = {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag[];
-  aksjonspunkter: Aksjonspunkt[];
   alleKodeverk: AlleKodeverk;
   erOverstyrer: boolean;
   // submitCallback: (aksjonspunktData: BeregningFaktaOgOverstyringAP) => Promise<void>;
@@ -94,16 +98,16 @@ type MappedOwnProps = {
 };
 
 export const buildInitialValuesVurderFaktaBeregning = (
-  aksjonspunkter: Aksjonspunkt[],
-  props, // TODO: Finn ut av typing her
+  props,
+  avklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderFaktaBeregningFormValues => ({
   [formNameVurderFaktaBeregning]: props.beregningsgrunnlag.map(bg => ({
-    aksjonspunkter,
+    avklaringsbehov,
     ...FaktaBegrunnelseTextField.buildInitialValues(
-      findAksjonspunktMedBegrunnelse(aksjonspunkter)?.begrunnelse,
+      findAvklaringsbehovMedBegrunnelse(bg.avklaringsbehov)?.begrunnelse,
       BEGRUNNELSE_FAKTA_TILFELLER_NAME,
     ),
-    ...getBuildInitialValuesFaktaForATFLOgSN({ ...props, beregningsgrunnlag: bg }),
+    ...getBuildInitialValuesFaktaForATFLOgSN({ ...props, avklaringsbehov, beregningsgrunnlag: bg }),
   })),
 });
 
@@ -134,15 +138,15 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
     readOnly,
     submittable,
     hasBegrunnelse,
-    aksjonspunkter,
     erOverstyrt,
     alleKodeverk,
     erOverstyrer,
     arbeidsgiverOpplysningerPerId,
     aktivtBeregningsgrunnlagIndeks,
   } = props;
+  const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
-    defaultValues: buildInitialValuesVurderFaktaBeregning(aksjonspunkter, props),
+    defaultValues: buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov),
   });
   const { control, getValues, formState } = formMethods;
   const { fields, update } = useFieldArray({
@@ -164,8 +168,8 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
   // const validate = fieldId => [validateVurderFaktaBeregning(getValues, fieldId, intl)];
   if (
     !(
-      hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, aksjonspunkter) ||
-      hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, aksjonspunkter)
+      hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) ||
+      hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)
     )
   ) {
     return (
@@ -175,9 +179,9 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
             (field, index) =>
               aktivtBeregningsgrunnlagIndeks === index && (
                 <React.Fragment key={field.id}>
-                  {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) && (
+                  {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) && (
                     <AksjonspunktHelpTextHTML>
-                      {!isAksjonspunktClosed(aksjonspunkter) ? lagHelpTextsForFakta() : null}
+                      {!isAksjonspunktClosed(avklaringsbehov) ? lagHelpTextsForFakta() : null}
                     </AksjonspunktHelpTextHTML>
                   )}
                   <VerticalSpacer twentyPx />
@@ -185,8 +189,8 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
 
                   <FaktaForATFLOgSNPanel
                     readOnly={readOnly}
-                    isAksjonspunktClosed={isAksjonspunktClosed(aksjonspunkter)}
-                    aksjonspunkter={aksjonspunkter}
+                    isAksjonspunktClosed={isAksjonspunktClosed(avklaringsbehov)}
+                    avklaringsbehov={avklaringsbehov}
                     beregningsgrunnlag={beregningsgrunnlag[index]}
                     alleKodeverk={alleKodeverk}
                     erOverstyrer={erOverstyrer}
@@ -194,7 +198,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
                     updateOverstyring={updateOverstyring}
                   />
                   <VerticalSpacer twentyPx />
-                  {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) || erOverstyrt) && (
+                  {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) || erOverstyrt) && (
                     <>
                       <FaktaBegrunnelseTextField
                         name={`${formNameVurderFaktaBeregning}.${index}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
@@ -209,9 +213,9 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
                           submittable &&
                             harIkkeEndringerIAvklarMedFlereAksjonspunkter(
                               verdiForAvklarAktivitetErEndret,
-                              aksjonspunkter,
+                              avklaringsbehov,
                             ) &&
-                            !isAksjonspunktClosed(aksjonspunkter),
+                            !isAksjonspunktClosed(avklaringsbehov),
                           true,
                           finnesFeilForBegrunnelse(index),
                         )}
@@ -235,8 +239,8 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps & M
 export const transformValuesVurderFaktaBeregning = (
   values: FaktaOmBeregningAksjonspunktValues,
 ): BeregningFaktaOgOverstyringAP => {
-  const { aksjonspunkter } = values;
-  if (hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aksjonspunkter) || erOverstyring(values)) {
+  const { avklaringsbehov } = values;
+  if (hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) || erOverstyring(values)) {
     const faktaBeregningValues = values;
     const beg = faktaBeregningValues[BEGRUNNELSE_FAKTA_TILFELLER_NAME];
     return {

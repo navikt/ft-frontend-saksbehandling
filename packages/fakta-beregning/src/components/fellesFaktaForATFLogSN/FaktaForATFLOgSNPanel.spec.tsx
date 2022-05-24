@@ -21,7 +21,7 @@ import VurderOgFastsettATFL from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
 
-const aksjonspunkter = [
+const avklaringsbehov = [
   {
     definisjon: VURDER_FAKTA_FOR_ATFL_SN,
     status: 'OPPR',
@@ -55,11 +55,10 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         // faktaOmBeregning={{} as FaktaOmBeregning}
         beregningsgrunnlag={{} as Beregningsgrunnlag}
         alleKodeverk={{} as AlleKodeverk}
-        aksjonspunkter={aksjonspunkter}
+        avklaringsbehov={avklaringsbehov}
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
-        index={0}
       />,
     );
     const tidsbegrensetArbeidsforhold = wrapper.find(TidsbegrensetArbeidsforholdForm);
@@ -76,11 +75,10 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         // faktaOmBeregning={{} as FaktaOmBeregning}
         beregningsgrunnlag={{} as Beregningsgrunnlag}
         alleKodeverk={{} as AlleKodeverk}
-        aksjonspunkter={aksjonspunkter}
+        avklaringsbehov={avklaringsbehov}
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
-        index={0}
       />,
     );
     const nyIArbeidslivet = wrapper.find(NyIArbeidslivetSNForm);
@@ -97,11 +95,10 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         // faktaOmBeregning={{} as FaktaOmBeregning}
         beregningsgrunnlag={{} as Beregningsgrunnlag}
         alleKodeverk={{} as AlleKodeverk}
-        aksjonspunkter={aksjonspunkter}
+        avklaringsbehov={avklaringsbehov}
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
-        index={0}
       />,
     );
     const vurderATFL = wrapper.find(VurderOgFastsettATFL);
@@ -116,7 +113,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: aktivePaneler,
       besteberegningAndeler: [andel1, andel2],
-      vurderBesteberegning: { skalHaBesteberegning: true },
+      vurderBesteberegning: { skalHaBesteberegning: 'true' },
     };
     const beregningsgrunnlag = {
       skjaeringstidspunktBeregning: null,

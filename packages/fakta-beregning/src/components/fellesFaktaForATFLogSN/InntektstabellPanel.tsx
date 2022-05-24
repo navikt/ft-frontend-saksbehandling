@@ -1,5 +1,5 @@
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Knapp } from 'nav-frontend-knapper';
 import { Element } from 'nav-frontend-typografi';
@@ -14,11 +14,11 @@ export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringR
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
-const getSkalKunneOverstyre = (erOverstyrer, aksjonspunkter) =>
-  erOverstyrer && !aksjonspunkter.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
+const getSkalKunneOverstyre = (erOverstyrer, avklaringsbehov: BeregningAvklaringsbehov[]) =>
+  erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
 
 type OwnProps = {
   children: React.ReactNode | React.ReactNode[];
@@ -26,7 +26,7 @@ type OwnProps = {
   hjelpeTekstId?: string;
   skalViseTabell?: boolean;
   readOnly: boolean;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   erOverstyrt: boolean;
@@ -47,7 +47,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   children,
   skalViseTabell,
   readOnly,
-  aksjonspunkter,
+  avklaringsbehov,
   updateOverstyring,
   erOverstyrer,
   erOverstyrt,
@@ -55,8 +55,8 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
   const aktivtBeregningsgrunnlagIndeks = React.useContext(VurderFaktaContext);
   const kanOverstyre = useMemo(
-    () => getSkalKunneOverstyre(erOverstyrer, aksjonspunkter),
-    [erOverstyrer, aksjonspunkter],
+    () => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov),
+    [erOverstyrer, avklaringsbehov],
   );
 
   const toggleOverstyring = useCallback(() => {
@@ -83,7 +83,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
                       onClick={toggleOverstyring}
                       erOverstyrt={
                         erTabellOverstyrt ||
-                        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter) ||
+                        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) ||
                         readOnly
                       }
                     />

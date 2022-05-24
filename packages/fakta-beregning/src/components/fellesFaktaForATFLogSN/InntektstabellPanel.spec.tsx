@@ -15,8 +15,7 @@ describe('<InntektstabellPanel>', () => {
         key="inntektstabell"
         hjelpeTekstId="hjelpetekst"
         tabell={<span> tabell </span>}
-        kanOverstyre
-        aksjonspunkter={[]}
+        avklaringsbehov={[]}
         readOnly={false}
         erOverstyrer={false}
         updateOverstyring={jest.fn()}
@@ -35,12 +34,10 @@ describe('<InntektstabellPanel>', () => {
         key="inntektstabell"
         hjelpeTekstId="hjelpetekst"
         tabell={<span> tabell </span>}
-        kanOverstyre
-        aksjonspunkter={[
+        avklaringsbehov={[
           {
             definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
             status: 'OPPR',
-            erAktivt: true,
             kanLoses: true,
           },
         ]}

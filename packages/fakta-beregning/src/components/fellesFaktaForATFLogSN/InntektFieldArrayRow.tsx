@@ -1,7 +1,7 @@
-import { formHooks, InputField, PeriodpickerField, SelectField } from '@navikt/ft-form-hooks';
+import { formHooks, InputField, SelectField } from '@navikt/ft-form-hooks';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
-import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FieldArrayWithId } from 'react-hook-form';
@@ -86,11 +86,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       </TableColumn>
       {skalVisePeriode && (
         <TableColumn>
-          <PeriodpickerField
-            names={[`${rowName}.arbeidsperiodeFom`, `${rowName}.arbeidsperiodeTom`]}
-            readOnly
-            renderIfMissingDateOnReadOnly
-          />
+          <PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />
         </TableColumn>
       )}
       {kanRedigereInntekt && (

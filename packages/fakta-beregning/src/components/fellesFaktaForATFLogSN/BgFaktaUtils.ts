@@ -7,11 +7,11 @@ import {
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
 } from '@navikt/ft-types';
@@ -249,18 +249,18 @@ const skalKunneEndreTotaltBeregningsgrunnlag =
 export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
   !!values && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true;
 
-export const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean =>
-  aksjonspuntker &&
-  aksjonspuntker.some(ap => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+export const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov &&
+  avklaringsbehov.some(ap => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
 export const erOverstyringAvBeregningsgrunnlag = (
   values: FaktaOmBeregningAksjonspunktValues,
   beregningsgrunnlag: Beregningsgrunnlag,
-  aksjonspunkter: Aksjonspunkt[],
-) => erOverstyring(values) || beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(aksjonspunkter);
+  avklaringsbehov: BeregningAvklaringsbehov[],
+) => erOverstyring(values) || beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(avklaringsbehov);
 
-export const erInitialOverstyringAvBeregningsgrunnlag = ({ beregningsgrunnlag, aksjonspunkter }) =>
-  beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(aksjonspunkter);
+export const erInitialOverstyringAvBeregningsgrunnlag = ({ beregningsgrunnlag, avklaringsbehov }) =>
+  beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(avklaringsbehov);
 
 export const skalFastsetteInntektForAndel =
   (

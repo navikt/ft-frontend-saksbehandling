@@ -1,9 +1,9 @@
 import { formHooks } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   VurderMottarYtelse,
@@ -146,7 +146,7 @@ export const findInstruksjonForFastsetting = (
   if (harKunstigArbeid) {
     return 'BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold';
   }
-  if (skalHaBesteberegning) {
+  if (skalHaBesteberegning === 'true') {
     return 'KunYtelsePanel.OverskriftBesteberegning';
   }
   if (skalFastsetteFL) {
@@ -178,12 +178,12 @@ type OwnProps = {
   manglerInntektsmelding: boolean;
   skalFastsetteAT: boolean;
   skalFastsetteFL: boolean;
-  skalHaBesteberegning: boolean;
+  skalHaBesteberegning: string;
   harKunstigArbeid: boolean;
   skalViseTabell: boolean;
   alleKodeverk: AlleKodeverk;
   erOverstyrer: boolean;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   beregningsgrunnlag: Beregningsgrunnlag;
   erOverstyrt: boolean;
   skalHaMilitær: boolean;
@@ -225,7 +225,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   isAksjonspunktClosed,
   tilfeller,
   beregningsgrunnlag,
-  aksjonspunkter,
+  avklaringsbehov,
   alleKodeverk,
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
@@ -235,8 +235,8 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
   const erOverstyrt = useMemo(
-    () => erOverstyringAvBeregningsgrunnlag(formValues, beregningsgrunnlag, aksjonspunkter),
-    [formValues, beregningsgrunnlag, aksjonspunkter],
+    () => erOverstyringAvBeregningsgrunnlag(formValues, beregningsgrunnlag, avklaringsbehov),
+    [formValues, beregningsgrunnlag, avklaringsbehov],
   );
   const skalFastsetteAT = useMemo(
     () => skalFastsettInntektForArbeidstaker(formValues, beregningsgrunnlag),
@@ -268,7 +268,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         )}
         readOnly={readOnly}
         erOverstyrer={erOverstyrer}
-        aksjonspunkter={aksjonspunkter}
+        avklaringsbehov={avklaringsbehov}
         updateOverstyring={updateOverstyring}
         erOverstyrt={erOverstyrt}
       >

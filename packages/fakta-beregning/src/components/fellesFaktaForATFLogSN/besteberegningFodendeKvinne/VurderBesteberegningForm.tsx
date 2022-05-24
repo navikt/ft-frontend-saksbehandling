@@ -2,7 +2,7 @@ import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
-import { Aksjonspunkt, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -27,7 +27,7 @@ type OwnProps = {
 
 interface StaticFunctions {
   buildInitialValues: (
-    aksjonspunkter: Aksjonspunkt[],
+    avklaringsbehov: BeregningAvklaringsbehov[],
     vurderBesteberegning: VurderBesteberegning,
     faktaOmBeregningTilfeller: string[],
     erOverstyrt: boolean,
@@ -90,7 +90,7 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
 };
 
 VurderBesteberegningPanelImpl.buildInitialValues = (
-  aksjonspunkter: Aksjonspunkt[],
+  avklaringsbehov: BeregningAvklaringsbehov[],
   vurderBesteberegning: VurderBesteberegning,
   faktaOmBeregningTilfeller: string[],
   erOverstyrt: boolean,
@@ -107,7 +107,7 @@ VurderBesteberegningPanelImpl.buildInitialValues = (
     return {};
   }
   const erOverstyring =
-    aksjonspunkter.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) !== undefined || erOverstyrt;
+    avklaringsbehov.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) !== undefined || erOverstyrt;
   if (erOverstyring) {
     return {
       [besteberegningField]: 'false',
@@ -145,7 +145,7 @@ VurderBesteberegningPanelImpl.transformValues = (
     return {};
   }
   const skalHaBesteberegning = values[besteberegningField];
-  if (!skalHaBesteberegning || !inntektPrAndel) {
+  if (skalHaBesteberegning !== 'true' || !inntektPrAndel) {
     return {
       besteberegningAndeler: {
         besteberegningAndelListe: [],

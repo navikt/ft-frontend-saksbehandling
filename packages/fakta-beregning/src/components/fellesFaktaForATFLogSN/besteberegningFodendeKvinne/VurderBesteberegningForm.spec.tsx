@@ -18,7 +18,7 @@ describe('<VurderBesteberegning>', () => {
 
   it('skal bygge initial values', () => {
     const vurderBesteberegning = {
-      skalHaBesteberegning: false,
+      skalHaBesteberegning: 'false',
       andeler: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
     };
     const initialValues = VurderBesteberegningForm.buildInitialValues(

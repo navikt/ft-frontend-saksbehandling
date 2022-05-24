@@ -1,5 +1,4 @@
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -45,7 +44,6 @@ type OwnProps = {
   ) => Promise<void>;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
-  aksjonspunkter: Aksjonspunkt[];
   vilkar: Vilkar;
   submittable: boolean;
   erOverstyrer: boolean;
@@ -65,7 +63,6 @@ type OwnProps = {
 const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   readOnly,
   avklaringsbehov,
-  aksjonspunkter,
   submittable,
   submitCallback,
   aktivtBeregningsgrunnlagIndeks,
@@ -112,7 +109,6 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         readOnly={avklarFaktaBeregningReadOnly}
         // submitCallback={submitCallback}
         submittable={submittable}
-        aksjonspunkter={aksjonspunkter}
         alleKodeverk={alleKodeverk}
         beregningsgrunnlag={beregningsgrunnlag}
         erOverstyrer={erOverstyrer}
