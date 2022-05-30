@@ -23,6 +23,7 @@ interface OwnProps {
   isEdited?: boolean;
   maxLength?: number;
   autoComplete?: boolean;
+  disabled?: boolean;
 }
 
 const InputField: FunctionComponent<OwnProps> = ({
@@ -43,6 +44,7 @@ const InputField: FunctionComponent<OwnProps> = ({
   isEdited,
   maxLength,
   autoComplete = false,
+  disabled,
 }) => {
   const {
     formState: { errors },
@@ -71,6 +73,7 @@ const InputField: FunctionComponent<OwnProps> = ({
       autoFocus={autoFocus}
       autoComplete={autoComplete ? undefined : 'off'}
       maxLength={maxLength}
+      disabled={disabled}
       onChange={event => {
         const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : undefined;
         if (onChange) {
