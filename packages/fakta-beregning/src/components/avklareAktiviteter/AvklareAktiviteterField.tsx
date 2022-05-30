@@ -132,7 +132,7 @@ const validate =
     ) {
       return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
     }
-    return [];
+    return true;
   };
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
@@ -190,7 +190,6 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 
   const valideringer = [validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl)];
-
   return (
     <>
       <FlexContainer>

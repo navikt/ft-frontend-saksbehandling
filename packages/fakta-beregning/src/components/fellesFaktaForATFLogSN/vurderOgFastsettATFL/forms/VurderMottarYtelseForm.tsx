@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import { RadioGroupField, RadioGroupPanel, RadioOption } from '@navikt/ft-form-hooks';
 import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { required } from '@navikt/ft-form-validators';
 import { KodeverkType, FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
@@ -28,6 +28,7 @@ import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import VurderFaktaContext from '../../VurderFaktaContext';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -60,6 +61,7 @@ const mottarYtelseArbeidsforholdRadio = (
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
+  intl: IntlShape,
 ): React.ReactNode => (
   <div key={utledArbeidsforholdFieldName(andel)}>
     <div>
@@ -68,18 +70,18 @@ const mottarYtelseArbeidsforholdRadio = (
       </Normaltekst>
     </div>
     <VerticalSpacer eightPx />
-    <RadioGroupField
+    <RadioGroupPanel
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
         andel,
       )}`}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      {/* @ts-ignore */}
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      {/* @ts-ignore */}
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
+      isReadOnly={readOnly}
+      radios={[
+        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+      ]}
+      parse={parseStringToBoolean}
+      isHorizontal
+    />
   </div>
 );
 
@@ -138,6 +140,8 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
     vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
       ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
       : [];
+  const intl = useIntl();
+
   return (
     <div>
       {erFrilans && (
@@ -148,16 +152,16 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
             </Normaltekst>
           </div>
           <VerticalSpacer eightPx />
-          <RadioGroupField
+          <RadioGroupPanel
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
-            readOnly={readOnly}
-            isEdited={isAksjonspunktClosed}
-          >
-            {/* @ts-ignore */}
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-            {/* @ts-ignore */}
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-          </RadioGroupField>
+            isReadOnly={readOnly}
+            radios={[
+              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+            ]}
+            parse={parseStringToBoolean}
+            isHorizontal
+          />
         </div>
       )}
       {arbeidsforholdUtenIM.map(andel =>
@@ -168,6 +172,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           alleKodeverk,
           arbeidsgiverOpplysningerPerId,
           aktivtBeregningsgrunnlagIndeks,
+          intl,
         ),
       )}
     </div>

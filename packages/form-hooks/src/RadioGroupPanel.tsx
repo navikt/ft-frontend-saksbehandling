@@ -25,10 +25,6 @@ const RadioOption: FunctionComponent<RadioOption> = ({ name, field, radio, parse
   const parsedValue = parse ? parse(radio.value) : radio.value;
   const isChecked = parsedValue === field.value;
 
-  if (isReadOnly && !isChecked) {
-    return <div />;
-  }
-
   return (
     <>
       <Radio

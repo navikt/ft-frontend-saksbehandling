@@ -17,7 +17,7 @@ export type TidsbegrensetandelValues = {
 };
 
 export type VurderMilitærValues = {
-  vurderMilitær?: string;
+  vurderMilitær?: boolean;
 };
 
 export type NyIArbeidslivetValues = {
@@ -36,7 +36,7 @@ export type VurderBesteberegningMedKunYtelseValues = {
 };
 
 export type VurderBesteberegningValues = {
-  vurderbesteberegningField?: string;
+  vurderbesteberegningField?: boolean;
 };
 
 export type VurderEtterlønnSluttpakkeValues = {

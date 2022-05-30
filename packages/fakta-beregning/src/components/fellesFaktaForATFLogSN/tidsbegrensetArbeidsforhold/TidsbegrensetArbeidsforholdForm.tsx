@@ -1,21 +1,21 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import moment from 'moment';
-import { Normaltekst } from 'nav-frontend-typografi';
-
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import moment from 'moment';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
-import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import VurderFaktaContext from '../VurderFaktaContext';
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
@@ -60,6 +60,7 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
 }) => {
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const intl = useIntl();
 
   return (
     <div>
@@ -78,19 +79,19 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
             />
           </Normaltekst>
           <VerticalSpacer eightPx />
-          <RadioGroupField
+          <RadioGroupPanel
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
               andel,
             )}`}
+            isReadOnly={readOnly}
+            radios={[
+              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+            ]}
             validate={[required]}
-            readOnly={readOnly}
-            isEdited={isAksjonspunktClosed}
-          >
-            {/* @ts-ignore */}
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-            {/* @ts-ignore */}
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-          </RadioGroupField>
+            parse={parseStringToBoolean}
+            isHorizontal
+          />
         </div>
       ))}
     </div>

@@ -29,7 +29,7 @@ type VurderMilitaer = Readonly<{
 }>;
 
 export type VurderBesteberegning = Readonly<{
-  skalHaBesteberegning?: string;
+  skalHaBesteberegning?: boolean;
 }>;
 
 export type BeregningAktivitet = Readonly<{

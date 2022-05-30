@@ -1,4 +1,4 @@
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
@@ -7,12 +7,13 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.less';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import VurderFaktaContext from '../VurderFaktaContext';
 
 export const besteberegningField = 'vurderbesteberegningField';
@@ -53,7 +54,8 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
   erOverstyrt,
 }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-
+  const intl = useIntl();
+  const isReadOnly = readOnly || erOverstyrt;
   return (
     <div>
       <Row>
@@ -63,16 +65,17 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
           </Normaltekst>
           <VerticalSpacer eightPx />
 
-          <RadioGroupField
+          <RadioGroupPanel
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${besteberegningField}`}
-            readOnly={readOnly || erOverstyrt}
-            isEdited={isAksjonspunktClosed}
-          >
-            {/* @ts-ignore */}
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-            {/* @ts-ignore */}
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-          </RadioGroupField>
+            isReadOnly={isReadOnly}
+            validate={isReadOnly ? [] : [required]}
+            radios={[
+              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+            ]}
+            parse={parseStringToBoolean}
+            isHorizontal
+          />
         </Column>
         <Column xs="3">
           <a
@@ -110,7 +113,7 @@ VurderBesteberegningPanelImpl.buildInitialValues = (
     avklaringsbehov.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) !== undefined || erOverstyrt;
   if (erOverstyring) {
     return {
-      [besteberegningField]: 'false',
+      [besteberegningField]: false,
     };
   }
   return {
@@ -145,7 +148,7 @@ VurderBesteberegningPanelImpl.transformValues = (
     return {};
   }
   const skalHaBesteberegning = values[besteberegningField];
-  if (skalHaBesteberegning !== 'true' || !inntektPrAndel) {
+  if (!skalHaBesteberegning || !inntektPrAndel) {
     return {
       besteberegningAndeler: {
         besteberegningAndelListe: [],

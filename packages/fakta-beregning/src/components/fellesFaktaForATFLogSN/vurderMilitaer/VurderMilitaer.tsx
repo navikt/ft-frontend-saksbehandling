@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import VurderFaktaContext from '../VurderFaktaContext';
 
 /**
@@ -27,23 +28,24 @@ interface StaticFunctions {
 
 const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const intl = useIntl();
 
   return (
     <div>
       <Normaltekst>
         <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
       </Normaltekst>
-      <RadioGroupField
+      <RadioGroupPanel
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${vurderMilitaerField}`}
+        isReadOnly={readOnly}
+        radios={[
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        ]}
         validate={[required]}
-        readOnly={readOnly}
-        isEdited={isAksjonspunktClosed}
-      >
-        {/* @ts-ignore */}
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-        {/* @ts-ignore */}
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-      </RadioGroupField>
+        parse={parseStringToBoolean}
+        isHorizontal
+      />
     </div>
   );
 };

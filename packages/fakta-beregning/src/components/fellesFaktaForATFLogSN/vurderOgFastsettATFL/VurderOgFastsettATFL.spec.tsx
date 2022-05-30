@@ -73,7 +73,7 @@ const lagAndelValues = (
 describe('<VurderOgFastsettATFL>', () => {
   it('skal transform values om besteberegning', () => {
     const values = {};
-    values[besteberegningField] = 'true';
+    values[besteberegningField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [
       lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
       lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
@@ -99,7 +99,7 @@ describe('<VurderOgFastsettATFL>', () => {
 
   it('skal ikkje transform inntekt for nyoppstartetFL og lønnsendring når man har besteberegning', () => {
     const values = {};
-    values[besteberegningField] = 'true';
+    values[besteberegningField] = true;
     values[lonnsendringField] = true;
     values[erNyoppstartetFLField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [

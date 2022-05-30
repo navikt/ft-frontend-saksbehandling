@@ -1,9 +1,10 @@
 import { formHooks, InputField, SelectField } from '@navikt/ft-form-hooks';
+import { required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { FieldArrayWithId } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
@@ -45,9 +46,7 @@ type OwnProps = {
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
   removeAndel: (...args: any[]) => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   alleKodeverk: AlleKodeverk;
-  // updateKanRedigereInntekt: (index: number, kanRedigereInntekt: boolean) => void;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
 };
@@ -65,7 +64,6 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   readOnly,
   isAksjonspunktClosed,
   removeAndel,
-  // updateKanRedigereInntekt,
   beregningsgrunnlag,
   alleKodeverk,
   rowName,
@@ -75,20 +73,20 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
-  // updateKanRedigereInntekt(index, kanRedigereInntekt);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
+  const harPeriode = field.arbeidsperiodeFom || field.arbeidsperiodeTom;
   return (
     <TableRow>
       <TableColumn>
         <InputField name={`${rowName}.andel`} bredde="L" readOnly />
       </TableColumn>
-      {skalVisePeriode && (
-        <TableColumn>
+      <TableColumn>
+        {skalVisePeriode && harPeriode && (
           <PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />
-        </TableColumn>
-      )}
+        )}
+      </TableColumn>
       {kanRedigereInntekt && (
         <TableColumn className={styles.rightAlignInput}>
           <InputField
@@ -97,6 +95,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
             parse={parseCurrencyInput}
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
+            validate={[required]}
           />
         </TableColumn>
       )}

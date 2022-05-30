@@ -1,19 +1,19 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { isAksjonspunktOpen, FaktaOmBeregningTilfelle, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
-import 'core-js/features/array/flat-map';
+import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt, BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
+import 'core-js/features/array/flat-map';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { Beregningsgrunnlag, FaktaOmBeregning, Aksjonspunkt, BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { InntektTransformed } from '../../../../typer/FieldValues';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
   VurderEtterlønnSluttpakkeValues,
 } from '../../../../typer/FaktaBeregningTypes';
+import { InntektTransformed } from '../../../../typer/FieldValues';
+import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import VurderFaktaContext from '../../VurderFaktaContext';
 
 /**
@@ -47,6 +47,7 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
   isAksjonspunktClosed,
 }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const intl = useIntl();
 
   return (
     <div>
@@ -54,17 +55,17 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
         <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
       </Normaltekst>
       <VerticalSpacer eightPx />
-      <RadioGroupField
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.harEtterlonnSluttpakkeField`}
+      <RadioGroupPanel
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         validate={[required]}
-        readOnly={readOnly}
-        isEdited={isAksjonspunktClosed}
-      >
-        {/* @ts-ignore */}
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-        {/* @ts-ignore */}
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-      </RadioGroupField>
+        isReadOnly={readOnly}
+        radios={[
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        ]}
+        parse={parseStringToBoolean}
+        isHorizontal
+      />
     </div>
   );
 };

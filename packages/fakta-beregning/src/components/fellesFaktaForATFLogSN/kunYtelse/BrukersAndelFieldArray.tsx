@@ -42,8 +42,8 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
 
 const summerFordeling = fields => {
   let sum = 0;
-  fields.forEach((andelElementFieldId, index) => {
-    sum += fields.at(index).fastsattBelop ? removeSpacesFromNumber(fields.at(index).fastsattBelop) : 0;
+  fields.forEach(field => {
+    sum += field.fastsattBelop ? removeSpacesFromNumber(field.fastsattBelop) : 0;
   });
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
@@ -85,6 +85,7 @@ const createAndelerTableRows = (
           parse={parseCurrencyInput}
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
+          validate={[required]}
         />
       </TableColumn>
       <TableColumn className={styles.rightAlign}>
@@ -164,7 +165,11 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
   });
   const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS]?.map(kodeverk => kodeverk.kode);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
-  const sumFordeling = summerFordeling(fields) || 0;
+  const fieldArrayValues = formHooks.useWatch({
+    name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
+    control,
+  });
+  const sumFordeling = summerFordeling(fieldArrayValues) || 0;
   const tablerows = createAndelerTableRows(
     fields,
     isAksjonspunktClosed,

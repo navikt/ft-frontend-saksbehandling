@@ -59,6 +59,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
+        fieldId={0}
       />,
     );
     const tidsbegrensetArbeidsforhold = wrapper.find(TidsbegrensetArbeidsforholdForm);
@@ -79,6 +80,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
+        fieldId={0}
       />,
     );
     const nyIArbeidslivet = wrapper.find(NyIArbeidslivetSNForm);
@@ -99,6 +101,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
+        fieldId={0}
       />,
     );
     const vurderATFL = wrapper.find(VurderOgFastsettATFL);
@@ -113,7 +116,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: aktivePaneler,
       besteberegningAndeler: [andel1, andel2],
-      vurderBesteberegning: { skalHaBesteberegning: 'true' },
+      vurderBesteberegning: { skalHaBesteberegning: true },
     };
     const beregningsgrunnlag = {
       skjaeringstidspunktBeregning: null,
@@ -132,7 +135,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       faktaOmBeregning,
       beregningsgrunnlag,
     };
-    values[besteberegningField] = 'true';
+    values[besteberegningField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [
       {
         fastsattBelop: '10 000',

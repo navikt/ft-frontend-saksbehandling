@@ -5,14 +5,14 @@ import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
+import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.less';
 import VurderFaktaContext from './VurderFaktaContext';
 
 const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {
   let sum = 0;
-  fields.forEach((andelElementFieldId, index) => {
-    const field = fields.at(index);
+  fields.forEach(field => {
     const belop = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field)
       ? field.fastsattBelop
       : field.belopReadOnly;
@@ -26,24 +26,26 @@ type OwnProps = {
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  fields: any[];
 };
 
 const SummaryRow: FunctionComponent<OwnProps> = ({
   skalVisePeriode,
   skalViseRefusjon,
   readOnly,
-  fields,
   beregningsgrunnlag,
 }) => {
-  const { getValues } = formHooks.useFormContext();
+  const { control, getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
+  const fields = formHooks.useWatch({
+    control,
+    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.inntektFieldArray`,
+  });
 
   const sumBeregnet = summerBeregnet(fields, formValues, beregningsgrunnlag) || 0;
 
   return (
-    <TableRow key="bruttoBGSummaryRow">
+    <TableRow>
       <TableColumn>
         <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
       </TableColumn>

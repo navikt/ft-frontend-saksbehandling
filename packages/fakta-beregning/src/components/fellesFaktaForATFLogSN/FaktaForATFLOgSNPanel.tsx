@@ -9,7 +9,6 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, useMemo } from 'react';
-import { UseFormGetValues } from 'react-hook-form';
 import { IntlShape } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
@@ -22,9 +21,8 @@ import {
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { erInitialOverstyringAvBeregningsgrunnlag, erOverstyring } from './BgFaktaUtils';
+import { erInitialOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import {
   buildInitialValuesKunYtelse,
   getKunYtelseValidation,
@@ -78,24 +76,6 @@ export const validationForVurderFakta = (values: FaktaOmBeregningAksjonspunktVal
 
 const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
-
-export const validateVurderFaktaBeregning = (
-  getValues: UseFormGetValues<VurderFaktaBeregningFormValues>,
-  index: number,
-  intl: IntlShape,
-) => {
-  const values = getValues(`vurderFaktaBeregningForm.${index}`);
-  const { avklaringsbehov } = values;
-  if (
-    values &&
-    ((avklaringsbehov && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov)) || erOverstyring(values))
-  ) {
-    return {
-      ...validationForVurderFakta(values, intl),
-    };
-  }
-  return null;
-};
 
 const spacer = hasShownPanel => {
   if (hasShownPanel) {
@@ -193,7 +173,6 @@ type OwnProps = {
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
-  // index: number;
 };
 
 /**
@@ -219,14 +198,8 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
     () => getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag) || [],
     [beregningsgrunnlag],
   );
-  // const { getValues } = formHooks.useFormContext();
-  // const validate = [validateVurderFaktaBeregning(getValues, index, intl)];
 
   return (
-    // <SkjemaGruppeMedFeilviser
-    //   name={`vurderFaktaBeregningForm.${index}`}
-    //   // validate={validate}
-    // >
     <div>
       {getFaktaPanels(
         readOnly,
@@ -241,7 +214,6 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
         updateOverstyring,
       ).map(panelOrSpacer => panelOrSpacer)}
     </div>
-    // </SkjemaGruppeMedFeilviser>
   );
 };
 

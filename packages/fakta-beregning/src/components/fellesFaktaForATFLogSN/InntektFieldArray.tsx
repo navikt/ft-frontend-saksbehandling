@@ -17,7 +17,7 @@ import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import AddDagpengerAndelButton from './AddDagpengerAndelButton';
-import { mapAndelToField } from './BgFaktaUtils';
+import { getKanRedigereInntekt, mapAndelToField } from './BgFaktaUtils';
 import styles from './inntektFieldArray.less';
 import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
 import SummaryRow from './SummaryRow';
@@ -85,7 +85,6 @@ const createAndelerTableRows = (
   beregningsgrunnlag,
   isAksjonspunktClosed,
   alleKodeverk,
-  updateKanRedigereInntekt: (index: number, kanRedigereInntekt: boolean) => void,
   fieldArrayName: string,
   remove: UseFieldArrayRemove,
 ) =>
@@ -101,19 +100,15 @@ const createAndelerTableRows = (
       beregningsgrunnlag={beregningsgrunnlag}
       isAksjonspunktClosed={isAksjonspunktClosed}
       alleKodeverk={alleKodeverk}
-      // updateKanRedigereInntekt={updateKanRedigereInntekt}
       rowName={`${fieldArrayName}.${index}`}
     />
   ));
 
 const createBruttoBGSummaryRow = (fields, readOnly, beregningsgrunnlag) => (
-  /* @ts-ignore */
   <SummaryRow
     readOnly={readOnly}
-    key="summaryRow"
     skalVisePeriode={skalVisePeriode(fields)}
     skalViseRefusjon={skalViseRefusjon(fields)}
-    fields={fields}
     beregningsgrunnlag={beregningsgrunnlag}
   />
 );
@@ -246,17 +241,15 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   // const tilfeller = beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller
   // ? beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller.map(kode => kode)
   // : [];
-  const skalHaBesteberegning =
-    formHooks.useWatch({
-      control,
-      name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderbesteberegningField`,
-    }) === 'true';
+  const skalHaBesteberegning = formHooks.useWatch({
+    control,
+    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderbesteberegningField`,
+  });
 
-  const skalHaMilitær =
-    formHooks.useWatch({
-      control,
-      name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMilitær`,
-    }) === 'true';
+  const skalHaMilitær = formHooks.useWatch({
+    control,
+    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMilitær`,
+  });
 
   useEffect(() => {
     const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
@@ -281,13 +274,25 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
     });
   };
 
+  useEffect(() => {
+    fields.forEach((field, index) => {
+      const currentKanRedigereInntekt = field.kanRedigereInntekt;
+      const kanRedigereInntekt = getKanRedigereInntekt(
+        formValues.vurderFaktaBeregningForm[aktivtBeregningsgrunnlagIndeks],
+        beregningsgrunnlag,
+      )(field);
+      if (currentKanRedigereInntekt !== kanRedigereInntekt) {
+        updateKanRedigereInntekt(index, kanRedigereInntekt);
+      }
+    });
+  }, [skalHaBesteberegning, skalHaMilitær, fields, skalKunneLeggeTilDagpengerManuelt]);
+
   const tablerows = createAndelerTableRows(
     fields,
     readOnly,
     beregningsgrunnlag,
     isAksjonspunktClosed,
     alleKodeverk,
-    updateKanRedigereInntekt,
     fieldArrayName,
     remove,
   );

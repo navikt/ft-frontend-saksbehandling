@@ -239,7 +239,7 @@ export const ArbeidOgDagpenger: Story = () => (
 export const IkkeOverstyrerOgIngenAksjonspunkt: Story = () => (
   <BeregningFaktaIndex
     behandling={behandling}
-    beregningsgrunnlag={bgMedArbeidOgDagpenger}
+    beregningsgrunnlag={[{ ...bgMedArbeidOgDagpenger[0], avklaringsbehov: [] }]}
     aksjonspunkter={[]}
     erOverstyrer={false}
     alleKodeverk={alleKodeverkMock as any}
@@ -453,7 +453,17 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
     vurderBesteberegning,
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
 
   return (
     <BeregningFaktaIndex
@@ -505,7 +515,17 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
     vurderBesteberegning,
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}
@@ -561,7 +581,17 @@ export const FrilansOgArbeidsforholdISammeOrganisasjon = () => {
     vurderMottarYtelse,
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}
@@ -603,7 +633,17 @@ export const VurderingAvMilitær = () => {
     faktaOmBeregningTilfeller: [VURDER_MILITÆR_SIVILTJENESTE],
     andelerForFaktaOmBeregning,
   };
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}
@@ -663,7 +703,17 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon = () => {
     vurderMottarYtelse,
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}
@@ -707,7 +757,17 @@ export const KunTidsbegrensetArbeidsforhold = () => {
     kortvarigeArbeidsforhold: [arbeidstakerBeregningsgrunnlagAndel],
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}
@@ -797,7 +857,17 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
     andelerForFaktaOmBeregning,
     kunYtelse,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}
@@ -1111,7 +1181,17 @@ export const OverstyringAvInntekt = () => {
       skjæringstidspunkt: '',
     },
   };
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
 
   return (
     <BeregningFaktaIndex
@@ -1159,7 +1239,17 @@ export const VurderKunYtelseBesteberegning = () => {
     andelerForFaktaOmBeregning,
     kunYtelse,
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const beregningsgrunnlag = {
+    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
+    avklaringsbehov: [
+      {
+        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}

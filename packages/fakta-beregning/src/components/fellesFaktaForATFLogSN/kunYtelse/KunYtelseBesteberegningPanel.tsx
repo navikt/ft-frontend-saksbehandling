@@ -1,4 +1,4 @@
-import { formHooks, RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import { formHooks, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
@@ -7,13 +7,14 @@ import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
   VurderBesteberegningMedKunYtelseValues,
 } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import VurderFaktaContext from '../VurderFaktaContext';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
 import styles from './kunYtelseBesteberegningPanel.less';
@@ -51,20 +52,23 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const formValues = getValues(`${formNameVurderFaktaBeregning}.${aktivtBeregningsgrunnlagIndeks}`);
-  const erBesteberegning = formValues[besteberegningField]; // TODO: Sjekk at fungerer
+  const erBesteberegning = formValues[besteberegningField];
+  const intl = useIntl();
   return (
     <div>
-      <RadioGroupField
+      <RadioGroupPanel
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.besteberegningField`}
-        readOnly={readOnly}
-        isEdited={isAksjonspunktClosed}
+        isReadOnly={readOnly}
         label={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
-      >
-        {/* @ts-ignore */}
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-        {/* @ts-ignore */}
-        <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-      </RadioGroupField>
+        radios={[
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        ]}
+        validate={[required]}
+        parse={parseStringToBoolean}
+        isHorizontal
+      />
+
       {erBesteberegning !== undefined && erBesteberegning !== null && (
         <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
           <Row>

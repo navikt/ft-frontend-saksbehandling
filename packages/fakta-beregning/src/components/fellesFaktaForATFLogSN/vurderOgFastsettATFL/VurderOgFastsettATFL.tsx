@@ -146,7 +146,7 @@ export const findInstruksjonForFastsetting = (
   if (harKunstigArbeid) {
     return 'BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold';
   }
-  if (skalHaBesteberegning === 'true') {
+  if (skalHaBesteberegning) {
     return 'KunYtelsePanel.OverskriftBesteberegning';
   }
   if (skalFastsetteFL) {
@@ -246,7 +246,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     () => skalFastsettInntektForFrilans(formValues, beregningsgrunnlag),
     [formValues, beregningsgrunnlag],
   );
-  const skalHaBesteberegning = formValues[besteberegningField] === 'true';
+  const skalHaBesteberegning = formValues[besteberegningField] === true;
   const manglerInntektsmelding = useMemo(() => getManglerInntektsmelding(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
   const harKunstigArbeid = useMemo(
@@ -417,7 +417,7 @@ const transformValuesForAksjonspunkt = (
   if (tilfeller.length > 0) {
     // Besteberegning
     transformed = concatTilfeller(transformed, vurderBesteberegningTransform(faktaOmBeregning)(values, inntektVerdier));
-    const allInntektErFastsatt = values[besteberegningField] === 'true';
+    const allInntektErFastsatt = values[besteberegningField] === true;
     // Nyoppstartet FL
     transformed = concatTilfeller(
       transformed,

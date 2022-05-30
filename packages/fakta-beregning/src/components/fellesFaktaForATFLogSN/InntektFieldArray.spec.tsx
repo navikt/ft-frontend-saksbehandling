@@ -129,7 +129,7 @@ describe('<InntektFieldArray>', () => {
     fieldArrayName: null,
   };
   initial.fieldArrayName = [andelField];
-  initial[besteberegningField] = 'true';
+  initial[besteberegningField] = true;
   const bg = {
     beregningsgrunnlagPeriode: [{}],
     faktaOmBeregning,

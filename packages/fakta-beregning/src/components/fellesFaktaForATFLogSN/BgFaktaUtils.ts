@@ -118,8 +118,7 @@ const erNyoppstartetFrilanser = (field: AndelFieldIdentifikator, values: any): b
 
 // Besteberegning
 
-const skalHaBesteberegning = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
-  values[besteberegningField] === 'true';
+const skalHaBesteberegning = (values: FaktaOmBeregningAksjonspunktValues): boolean => values[besteberegningField];
 
 // export const skalHaBesteberegningSelector = createSelector([getFormValuesForBeregning], skalHaBesteberegning);
 
