@@ -316,8 +316,12 @@ const finnFastsattBeløpForStatus = (
   statuser: string[],
 ): number =>
   fields
-    .filter(v => statuser.includes(v.aktivitetStatus))
-    .map((field, index) => mapToBelop(field, fieldname, getValues, index))
+    .map((field, index) => {
+      if (!statuser.includes(field.aktivitetStatus)) {
+        return 0;
+      }
+      return mapToBelop(field, fieldname, getValues, index);
+    })
     .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
 
 const validateSumFastsattArbeidstaker = (
