@@ -4,7 +4,6 @@ import {
   fodselsnummerPattern,
   isValidFodselsnummer,
   DDMMYYYY_DATE_FORMAT,
-  ISO_DATE_FORMAT,
 } from '@navikt/ft-utils';
 
 import {
@@ -242,69 +241,6 @@ export const arrayMinLength =
 export const dateIsAfter = (date: string, checkAgainsDate: string): boolean => moment(date).isAfter(checkAgainsDate);
 export const isDatesEqual = (date1: string, date2: string): FormValidationResult =>
   date1 !== date2 ? datesNotEqual(moment(date2).format(DDMMYYYY_DATE_FORMAT)) : null;
-
-const validateDate = (
-  dateAsText: string,
-  date: moment.Moment,
-  earliestDate: moment.Moment | string | null,
-  latestDate: moment.Moment | string | null,
-): FormValidationResult => {
-  const error = required(dateAsText) || hasValidDate(dateAsText);
-  if (!error && earliestDate) {
-    return dateAfterOrEqual(earliestDate)(date);
-  }
-  if (!error && latestDate) {
-    return dateBeforeOrEqual(latestDate)(date);
-  }
-  return error;
-};
-
-export type Options = {
-  todayOrBefore?: boolean;
-  todayOrAfter?: boolean;
-  tidligstDato?: string;
-};
-
-export const hasValidPeriodIncludingOtherErrors = (
-  values: { periodeFom: string; periodeTom: string }[],
-  otherErrors: Record<number, any> = [{}],
-  options: Options = {},
-): { periodeFom: string; periodeTom: string }[] | { _error: FormValidationResult } | null => {
-  const today = moment().format(ISO_DATE_FORMAT);
-  let earliestDate = options.todayOrAfter ? today : null;
-  if (options.tidligstDato) {
-    earliestDate = options.tidligstDato;
-  }
-  const latestDate = options.todayOrBefore ? today : null;
-  if (!values || !values.length) {
-    return { _error: isRequiredMessage() };
-  }
-  const arrayErrors = values.map(({ periodeFom, periodeTom }, index) => {
-    const periodeFomDate = moment(periodeFom, ISO_DATE_FORMAT);
-    const periodeTomDate = moment(periodeTom, ISO_DATE_FORMAT);
-    const periodeFomError = validateDate(periodeFom, periodeFomDate, earliestDate, latestDate);
-    let periodeTomError = validateDate(periodeTom, periodeTomDate, earliestDate, latestDate);
-    if (!periodeFomError) {
-      periodeTomError = periodeTomError || dateAfterOrEqual(periodeFomDate)(periodeTomDate);
-    }
-    if (periodeFomError || periodeTomError || otherErrors[index] !== null) {
-      return {
-        periodeFom: periodeFomError,
-        periodeTom: periodeTomError,
-        ...otherErrors[index],
-      };
-    }
-    return null;
-  });
-  if (arrayErrors.some(errors => errors !== null)) {
-    return arrayErrors;
-  }
-  const overlapError = dateRangesNotOverlapping(values.map(({ periodeFom, periodeTom }) => [periodeFom, periodeTom]));
-  if (overlapError) {
-    return { _error: overlapError };
-  }
-  return null;
-};
 
 export const validPeriodeFomTom = (fomDate: string, tomDate: string): FormValidationResult => {
   if (isEmpty(fomDate) && isEmpty(tomDate)) {
