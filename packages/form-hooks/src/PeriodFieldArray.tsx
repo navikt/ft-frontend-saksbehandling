@@ -2,11 +2,10 @@ import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
 import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
-import addCircleIcon from './images/add-circle.svg';
 
-import SkjemaGruppeMedFeilviser from './SkjemaGruppeMedFeilviser';
+import addCircleIcon from './images/add-circle.svg';
 
 import styles from './periodFieldArray.less';
 
@@ -80,7 +79,7 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
   remove,
   append,
 }: OwnProps<PERIOD_TYPE>) => (
-  <SkjemaGruppeMedFeilviser name="dummy" description={titleText}>
+  <SkjemaGruppe description={titleText}>
     {fields.map((field, index) => children(field, index, getRemoveButton(index, remove)))}
     {shouldShowAddButton && (
       <Row>
@@ -111,7 +110,7 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
         </Column>
       </Row>
     )}
-  </SkjemaGruppeMedFeilviser>
+  </SkjemaGruppe>
 );
 
 export default PeriodFieldArray;
