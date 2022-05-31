@@ -1,22 +1,26 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
-
-import { RadioGroupField, RadioGroupPanel, RadioOption } from '@navikt/ft-form-hooks';
-import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KodeverkType, FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
 import {
+  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
   ArbeidstakerUtenIMAndel,
+  Beregningsgrunnlag,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
-  AlleKodeverk,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
+import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import VurderFaktaContext from '../../VurderFaktaContext';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,
@@ -24,11 +28,6 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
-import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
-import VurderFaktaContext from '../../VurderFaktaContext';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,

@@ -25,7 +25,6 @@ export const lonnsendringField = 'lonnsendringField';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -36,7 +35,7 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
+const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const intl = useIntl();
 

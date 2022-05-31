@@ -4,7 +4,7 @@ import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import { FieldArrayWithId } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';

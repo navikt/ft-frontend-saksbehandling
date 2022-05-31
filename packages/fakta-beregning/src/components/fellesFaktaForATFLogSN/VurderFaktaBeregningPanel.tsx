@@ -7,7 +7,7 @@ import {
   Beregningsgrunnlag,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { ReactElement, useEffect, useMemo } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useFieldArray, useForm, UseFormGetValues } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
@@ -23,7 +23,7 @@ import FaktaForATFLOgSNPanel, {
   validationForVurderFakta,
 } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import { transformValuesVurderFaktaBeregning } from './vurderFaktaBeregningHjelpefunksjoner';
+import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
 import VurderFaktaContext from './VurderFaktaContext';
 
 const {

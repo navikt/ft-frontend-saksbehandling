@@ -35,7 +35,6 @@ const lagVisningsnavn = (
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
@@ -55,7 +54,6 @@ interface StaticFunctions {
 export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   faktaOmBeregning,
-  isAksjonspunktClosed,
   arbeidsgiverOpplysningerPerId,
 }) => {
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;

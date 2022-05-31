@@ -273,14 +273,12 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         erOverstyrt={erOverstyrt}
       >
         <ATFLSammeOrgTekst beregningsgrunnlag={beregningsgrunnlag} manglerInntektsmelding={manglerInntektsmelding} />
-        {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING) && (
-          <LonnsendringForm readOnly={readOnly} isAksjonspunktClosed={isAksjonspunktClosed} />
-        )}
+        {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING) && <LonnsendringForm readOnly={readOnly} />}
         {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE) && (
-          <VurderEtterlonnSluttpakkeForm readOnly={readOnly} isAksjonspunktClosed={isAksjonspunktClosed} />
+          <VurderEtterlonnSluttpakkeForm readOnly={readOnly} />
         )}
         {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL) && (
-          <NyoppstartetFLForm readOnly={readOnly} isAksjonspunktClosed={isAksjonspunktClosed} />
+          <NyoppstartetFLForm readOnly={readOnly} />
         )}
         {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) && (
           <VurderMottarYtelseForm

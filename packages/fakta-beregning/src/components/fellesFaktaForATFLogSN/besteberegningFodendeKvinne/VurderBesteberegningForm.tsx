@@ -22,7 +22,6 @@ const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
   erOverstyrt: boolean;
 };
 
@@ -48,11 +47,7 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly,
-  isAksjonspunktClosed,
-  erOverstyrt,
-}) => {
+const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;

@@ -21,7 +21,6 @@ const radioGroupFieldName = 'erSNNyIArbeidslivet';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 type TansformedProps = {
@@ -35,7 +34,7 @@ interface StaticFunctions {
   transformValues: (values: any) => TansformedProps;
 }
 
-const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
+const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const intl = useIntl();
 

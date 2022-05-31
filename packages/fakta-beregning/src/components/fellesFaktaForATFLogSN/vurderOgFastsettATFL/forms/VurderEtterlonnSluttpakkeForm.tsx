@@ -26,7 +26,6 @@ export const harEtterlonnSluttpakkeField = 'vurderEtterlønnSluttpakke';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -42,10 +41,7 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly,
-  isAksjonspunktClosed,
-}) => {
+const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const intl = useIntl();
 

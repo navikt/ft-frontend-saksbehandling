@@ -5,7 +5,7 @@ import {
   harIkkeEndringerIAvklarMedFlereAksjonspunkter,
 } from './VurderFaktaBeregningPanel';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
-import { transformValuesVurderFaktaBeregning } from './vurderFaktaBeregningHjelpefunksjoner';
+import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
 
 const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
 

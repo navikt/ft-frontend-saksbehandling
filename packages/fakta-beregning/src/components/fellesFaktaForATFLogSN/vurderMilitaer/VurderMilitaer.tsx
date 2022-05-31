@@ -18,7 +18,6 @@ export const vurderMilitaerField = 'vurderMilitær';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -26,7 +25,7 @@ interface StaticFunctions {
   transformValues: (values: any) => any;
 }
 
-const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
+const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const intl = useIntl();
 

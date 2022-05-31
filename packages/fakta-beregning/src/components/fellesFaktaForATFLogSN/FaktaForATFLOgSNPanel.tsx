@@ -74,9 +74,6 @@ export const validationForVurderFakta = (values: FaktaOmBeregningAksjonspunktVal
   };
 };
 
-const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
-
 const spacer = hasShownPanel => {
   if (hasShownPanel) {
     return <VerticalSpacer twentyPx />;
@@ -105,7 +102,6 @@ const getFaktaPanels = (
         <React.Fragment key={tilfelle}>
           <TidsbegrensetArbeidsforholdForm
             readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
             faktaOmBeregning={faktaOmBeregning}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
@@ -117,7 +113,7 @@ const getFaktaPanels = (
       faktaPanels.push(
         <React.Fragment key={tilfelle}>
           {spacer(hasShownPanel)}
-          <NyIArbeidslivetSNForm readOnly={readOnly} isAksjonspunktClosed={isAksjonspunktClosed} />
+          <NyIArbeidslivetSNForm readOnly={readOnly} />
         </React.Fragment>,
       );
     }
@@ -125,7 +121,7 @@ const getFaktaPanels = (
       hasShownPanel = true;
       faktaPanels.push(
         <React.Fragment key={tilfelle}>
-          <VurderMilitaer readOnly={readOnly} isAksjonspunktClosed={isAksjonspunktClosed} />
+          <VurderMilitaer readOnly={readOnly} />
         </React.Fragment>,
       );
     }

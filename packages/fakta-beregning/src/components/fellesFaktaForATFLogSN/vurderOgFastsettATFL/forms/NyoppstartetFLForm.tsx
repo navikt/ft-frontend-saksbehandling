@@ -25,7 +25,6 @@ export const erNyoppstartetFLField = 'NyoppstartetFLField';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -38,7 +37,7 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => {
+const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const intl = useIntl();
 
