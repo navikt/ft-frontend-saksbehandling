@@ -152,5 +152,6 @@
 
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
   "Malform.Beskrivelse": "Foretrukket språk",
-  "Behandling.EditedField": "Saksbehandler har endret feltets verdi"
+  "Behandling.EditedField": "Saksbehandler har endret feltets verdi",
+  "Sidemeny.Beregningsgrunnlag": "Beregningsgrunnlag"
 }

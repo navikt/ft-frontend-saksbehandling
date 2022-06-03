@@ -1,11 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
-import { Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useEffect } from 'react';
+import { Form } from '@navikt/ft-form-hooks';
 
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  VilkarType,
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
   isStatusDagpengerOrAAP,
@@ -16,19 +12,23 @@ import {
   isStatusTilstotendeYtelse,
 } from '@navikt/ft-kodeverk';
 import {
-  Vilkar,
-  Beregningsgrunnlag,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
-  Aksjonspunkt,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  Vilkar,
+  Vilkarperiode,
 } from '@navikt/ft-types';
-import BeregningsgrunnlagResultatAP from '../types/interface/BeregningsgrunnlagAP';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
-import BeregningForm from './beregningForm/BeregningForm';
+import BeregningForm, { buildInitialValues, transformValues } from './beregningForm/BeregningForm';
 import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
-import BeregningsgrunnlagValues from '../types/BeregningsgrunnlagAksjonspunktTsType';
+import { BeregningsgrunnlagValues } from '../types/BeregningsgrunnlagAksjonspunktTsType';
+
+import BeregningFormValues from '../types/BeregningFormValues';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -39,27 +39,10 @@ const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
 ];
 
-const visningForManglendeBG = () => (
-  <>
-    <Undertittel>
-      <FormattedMessage id="Beregningsgrunnlag.Title" />
-    </Undertittel>
-    <VerticalSpacer eightPx />
-    <Row>
-      <Column xs="6">
-        <FormattedMessage id="Beregningsgrunnlag.HarIkkeBeregningsregler" />
-      </Column>
-    </Row>
-    <Row>
-      <Column xs="6">
-        <FormattedMessage id="Beregningsgrunnlag.SakTilInfo" />
-      </Column>
-    </Row>
-  </>
-);
+const formName = 'BeregningForm';
 
-const getAksjonspunkterForBeregning = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt[] =>
-  aksjonspunkter ? aksjonspunkter.filter(ap => beregningAksjonspunkter.some(a => a === ap.definisjon)) : [];
+const finnAvklaringsbehov = (beregningsgrunnlag: Beregningsgrunnlag) =>
+  beregningsgrunnlag.avklaringsbehov.filter(ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon));
 
 const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
   isArbeidstaker: statuser.some(kode => isStatusArbeidstakerOrKombinasjon(kode)),
@@ -74,27 +57,107 @@ const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
   isMilitaer: statuser.some(kode => isStatusMilitaer(kode)),
 });
 
-const getBGVilkar = (vilkar: Vilkar[]): Vilkar | undefined =>
-  vilkar ? vilkar.find(v => v.vilkarType && v.vilkarType === VilkarType.BEREGNINGSGRUNNLAGVILKARET) : undefined;
-
-const getAksjonspunktForGraderingPaaAndelUtenBG = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined =>
-  aksjonspunkter
-    ? aksjonspunkter.find(
+const getAvklaringsbehovForGraderingPaaAndelUtenBG = (
+  avklaringsbehov: BeregningAvklaringsbehov[],
+): BeregningAvklaringsbehov | undefined =>
+  avklaringsbehov
+    ? avklaringsbehov.find(
         ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
       )
     : undefined;
 
 type OwnProps = {
-  submitCallback: (aksjonspunktData: BeregningsgrunnlagResultatAP[]) => Promise<void>;
+  submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   readOnly: boolean;
   readOnlySubmitButton: boolean;
-  aksjonspunkter: Aksjonspunkt[];
   alleKodeverk: AlleKodeverk;
-  beregningsgrunnlag?: Beregningsgrunnlag;
-  vilkar: Vilkar[];
+  aktivtBeregningsgrunnlagIndeks: number;
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  vilkar: Vilkar;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  formData?: BeregningsgrunnlagValues;
-  setFormData: (data: BeregningsgrunnlagValues) => void;
+  formData?: BeregningFormValues;
+  setFormData: (data: BeregningFormValues) => void;
+};
+
+const finnVilkårperiode = (vilkår: Vilkar, vilkårperiodeFom: string): Vilkarperiode =>
+  // @ts-ignore
+  vilkår.perioder.find(({ periode }) => periode.fom === vilkårperiodeFom);
+
+const buildFieldInitialValue = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  alleKodeverk: AlleKodeverk,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  vilkårsperiode: Vilkarperiode,
+): BeregningsgrunnlagValues => ({
+  ...buildInitialValues(beregningsgrunnlag),
+  periode: vilkårsperiode.periode,
+  erTilVurdering: vilkårsperiode.vurderesIBehandlingen,
+  // @ts-ignore
+  relevanteStatuser: getRelevanteStatuser(beregningsgrunnlag.aktivitetStatus),
+  gjeldendeAvklaringsbehov: finnAvklaringsbehov(beregningsgrunnlag),
+  skjæringstidspunkt: beregningsgrunnlag.skjaeringstidspunktBeregning,
+  allePerioder: beregningsgrunnlag.beregningsgrunnlagPeriode,
+});
+
+const buildFormInitialValues = (
+  beregningsgrunnlag: Beregningsgrunnlag[],
+  alleKodeverk: AlleKodeverk,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  vilkår: Vilkar,
+): BeregningFormValues => ({
+  [formName]: beregningsgrunnlag.map(bg =>
+    buildFieldInitialValue(
+      bg,
+      alleKodeverk,
+      arbeidsgiverOpplysningerPerId,
+      finnVilkårperiode(vilkår, bg.skjaeringstidspunktBeregning),
+    ),
+  ),
+});
+
+type AksjonspunktDataMedPeriode = {
+  periode: {
+    fom: string;
+    tom: string;
+  };
+  aksjonspunkter: GruppertAksjonspunktData[];
+};
+
+const grupperPåKode = (
+  gruppert: BeregningAksjonspunktSubmitType[],
+  curr: AksjonspunktDataMedPeriode,
+): BeregningAksjonspunktSubmitType[] => {
+  curr.aksjonspunkter.forEach(ap => {
+    const eksisterende = gruppert.find(gruppertAp => gruppertAp.kode === ap.kode);
+    if (eksisterende !== undefined) {
+      eksisterende.grunnlag.push({
+        periode: curr.periode,
+        ...ap.aksjonspunktData,
+      });
+      eksisterende.begrunnelse = `${eksisterende.begrunnelse} ${ap.aksjonspunktData.begrunnelse}`;
+    } else {
+      gruppert.push({
+        kode: ap.kode,
+        begrunnelse: ap.aksjonspunktData.begrunnelse,
+        grunnlag: [
+          {
+            periode: curr.periode,
+            ...ap.aksjonspunktData,
+          },
+        ],
+      });
+    }
+  });
+  return gruppert;
+};
+
+const transformFields = (values: BeregningFormValues) => {
+  const fields = values[formName];
+  const aksjonspunktLister = fields.map(field => ({
+    periode: field.periode,
+    aksjonspunkter: transformValues(field),
+  }));
+  return aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
 };
 
 /**
@@ -104,8 +167,8 @@ type OwnProps = {
  * Finner det gjeldende aksjonspunktet hvis vi har et.
  */
 const BeregningFP: FunctionComponent<OwnProps> = ({
-  beregningsgrunnlag,
-  aksjonspunkter,
+  aktivtBeregningsgrunnlagIndeks,
+  beregningsgrunnlagListe,
   submitCallback,
   readOnly,
   readOnlySubmitButton,
@@ -115,31 +178,64 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
 }) => {
-  if (!beregningsgrunnlag || !beregningsgrunnlag.aktivitetStatus) {
-    return visningForManglendeBG();
-  }
-  const gjeldendeAksjonspunkter = getAksjonspunkterForBeregning(aksjonspunkter);
-  const relevanteStatuser = getRelevanteStatuser(beregningsgrunnlag.aktivitetStatus);
-  const vilkaarBG = getBGVilkar(vilkar);
-  const aksjonspunktGraderingPaaAndelUtenBG = getAksjonspunktForGraderingPaaAndelUtenBG(aksjonspunkter);
+  const aktivtBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
+  // @ts-ignore
+  const relevanteStatuser = getRelevanteStatuser(aktivtBeregningsgrunnlag.aktivitetStatus);
+  const aksjonspunktGraderingPaaAndelUtenBG = getAvklaringsbehovForGraderingPaaAndelUtenBG(
+    aktivtBeregningsgrunnlag.avklaringsbehov,
+  );
+  const formMethods = useForm<BeregningFormValues>({
+    defaultValues:
+      formData || buildFormInitialValues(beregningsgrunnlagListe, alleKodeverk, arbeidsgiverOpplysningerPerId, vilkar),
+  });
+
+  const {
+    formState: { dirtyFields, isSubmitted },
+    control,
+    trigger,
+  } = formMethods;
+
+  useEffect(() => {
+    if (isSubmitted && dirtyFields[formName]?.[aktivtBeregningsgrunnlagIndeks]) {
+      trigger();
+    }
+  }, [aktivtBeregningsgrunnlagIndeks]);
+
+  const { fields } = useFieldArray({
+    name: formName,
+    control,
+  });
+
   return (
     <>
-      <BeregningForm
-        readOnly={readOnly}
-        beregningsgrunnlag={beregningsgrunnlag}
-        gjeldendeAksjonspunkter={gjeldendeAksjonspunkter}
-        relevanteStatuser={relevanteStatuser}
-        submitCallback={submitCallback}
-        readOnlySubmitButton={readOnlySubmitButton}
-        alleKodeverk={alleKodeverk}
-        vilkaarBG={vilkaarBG}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        setFormData={setFormData}
-        formData={formData}
-      />
+      <Form
+        formMethods={formMethods}
+        onSubmit={values => submitCallback(transformFields(values))}
+        setDataOnUnmount={setFormData}
+      >
+        {fields.map(
+          (field, index) =>
+            aktivtBeregningsgrunnlagIndeks === index && (
+              <BeregningForm
+                key={field.id}
+                readOnly={readOnly}
+                beregningsgrunnlag={beregningsgrunnlagListe[index]}
+                gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[index])}
+                relevanteStatuser={relevanteStatuser}
+                readOnlySubmitButton={readOnlySubmitButton}
+                alleKodeverk={alleKodeverk}
+                vilkaarBG={vilkar}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                isSubmitting={formMethods.formState.isSubmitting}
+                isDirty={formMethods.formState.isDirty}
+                fieldIndex={index}
+              />
+            ),
+        )}
+      </Form>
 
       {aksjonspunktGraderingPaaAndelUtenBG && (
-        <GraderingUtenBGReadOnly aksjonspunkt={aksjonspunktGraderingPaaAndelUtenBG} />
+        <GraderingUtenBGReadOnly avklaringsbehov={aksjonspunktGraderingPaaAndelUtenBG} />
       )}
     </>
   );
