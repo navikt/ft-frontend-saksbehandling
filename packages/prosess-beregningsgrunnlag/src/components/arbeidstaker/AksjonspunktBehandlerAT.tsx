@@ -39,6 +39,7 @@ const createRows = (
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   readOnly: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  fieldIndex: number,
 ): ReactElement[] =>
   relevanteAndelerAT.map((andel, index) => (
     <Row key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
@@ -48,7 +49,7 @@ const createRows = (
       <Column xs="5">
         <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
           <InputField
-            name={`inntekt${index}`}
+            name={`BeregningForm.${fieldIndex}.inntekt${index}`}
             validate={[required]}
             readOnly={readOnly}
             parse={parseCurrencyInput}
@@ -72,16 +73,18 @@ type OwnProps = {
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
   alleKodeverk: AlleKodeverk;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldIndex: number;
 };
 const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   alleAndelerIForstePeriode,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
+  fieldIndex,
 }) => {
   const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
-  return <>{createRows(relevanteAndelerAT, getKodeverknavn, readOnly, arbeidsgiverOpplysningerPerId)}</>;
+  return <>{createRows(relevanteAndelerAT, getKodeverknavn, readOnly, arbeidsgiverOpplysningerPerId, fieldIndex)}</>;
 };
 
 AksjonspunktBehandlerAT.transformValues = (

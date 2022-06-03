@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import {
   NyIArbeidslivetruttoNæringResultatAP,
   VurderVarigEndretNyoppstartetResultatAP,
@@ -17,20 +17,20 @@ const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+const hasAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === kode);
 
-const skalFastsetteSN = (aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter &&
-  aksjonspunkter.some(
+const skalFastsetteSN = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov &&
+  avklaringsbehov.some(
     ap =>
       ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   );
 
-const finnSnAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined =>
-  aksjonspunkter &&
-  aksjonspunkter.find(
+const finnSnAksjonspunkt = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov | undefined =>
+  avklaringsbehov &&
+  avklaringsbehov.find(
     ap =>
       ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
@@ -38,42 +38,45 @@ const finnSnAksjonspunkt = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | unde
 
 type OwnProps = {
   readOnly: boolean;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   erNyArbLivet?: boolean;
   erVarigEndring?: boolean;
   erNyoppstartet?: boolean;
+  fieldIndex: number;
 };
 
 interface StaticFunctions {
   buildInitialValues: (
     relevanteAndeler: BeregningsgrunnlagAndel[],
-    gjeldendeAksjonspunkter: Aksjonspunkt[],
+    avklaringsbehov: BeregningAvklaringsbehov[],
   ) => VurderOgFastsettValues | NyIArbeidslivetValues;
   transformValues: (
     values: VurderOgFastsettValues | NyIArbeidslivetValues,
-    gjeldendeAksjonspunkter: Aksjonspunkt[],
+    gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
   ) => VurderVarigEndretNyoppstartetResultatAP | NyIArbeidslivetruttoNæringResultatAP;
 }
 
 const AksjonspunktsbehandlerSN: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  aksjonspunkter,
+  avklaringsbehov,
   erNyArbLivet,
   erVarigEndring,
   erNyoppstartet,
+  fieldIndex,
 }) => {
-  if (!skalFastsetteSN(aksjonspunkter)) {
+  if (!skalFastsetteSN(avklaringsbehov)) {
     return null;
   }
-  const aksjonspunkt = finnSnAksjonspunkt(aksjonspunkter);
+  const aksjonspunkt = finnSnAksjonspunkt(avklaringsbehov);
   const isAksjonspunktClosed = aksjonspunkt ? !isAksjonspunktOpen(aksjonspunkt.status) : false;
   if (erNyArbLivet) {
     return (
       <FastsettSNNyIArbeid
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
-        gjeldendeAksjonspunkter={aksjonspunkter}
+        avklaringsbehov={avklaringsbehov}
         erNyArbLivet={erNyArbLivet}
+        fieldIndex={fieldIndex}
       />
     );
   }
@@ -82,6 +85,7 @@ const AksjonspunktsbehandlerSN: FunctionComponent<OwnProps> & StaticFunctions = 
       readOnly={readOnly}
       erVarigEndring={erVarigEndring}
       erNyoppstartet={erNyoppstartet}
+      fieldIndex={fieldIndex}
     />
   );
 };
@@ -94,21 +98,21 @@ AksjonspunktsbehandlerSN.defaultProps = {
 
 AksjonspunktsbehandlerSN.buildInitialValues = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
+  avklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderOgFastsettValues | NyIArbeidslivetValues => {
-  if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAksjonspunkter)) {
-    return FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet(relevanteAndeler, gjeldendeAksjonspunkter);
+  if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, avklaringsbehov)) {
+    return FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet(relevanteAndeler, avklaringsbehov);
   }
   return {
-    ...VurderVarigEndretEllerNyoppstartetSN.buildInitialValues(relevanteAndeler, gjeldendeAksjonspunkter),
+    ...VurderVarigEndretEllerNyoppstartetSN.buildInitialValues(relevanteAndeler, avklaringsbehov),
   };
 };
 
 AksjonspunktsbehandlerSN.transformValues = (
   values: VurderOgFastsettValues | NyIArbeidslivetValues,
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
+  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderVarigEndretNyoppstartetResultatAP | NyIArbeidslivetruttoNæringResultatAP => {
-  if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAksjonspunkter)) {
+  if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAvklaringsbehov)) {
     return FastsettSNNyIArbeid.transformValuesNyIArbeidslivet(values as Required<NyIArbeidslivetValues>);
   }
   return VurderVarigEndretEllerNyoppstartetSN.transformValues(values as Required<VurderOgFastsettValues>);

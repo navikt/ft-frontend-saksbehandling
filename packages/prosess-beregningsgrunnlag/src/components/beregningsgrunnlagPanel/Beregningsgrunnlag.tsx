@@ -2,12 +2,12 @@ import React, { FunctionComponent, ReactElement } from 'react';
 
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
-  ArbeidsgiverOpplysningerPerId,
-  BeregningsgrunnlagPeriodeProp,
-  BeregningsgrunnlagAndel,
-  Inntektsgrunnlag,
   AlleKodeverk,
-  Aksjonspunkt,
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  BeregningsgrunnlagAndel,
+  BeregningsgrunnlagPeriodeProp,
+  Inntektsgrunnlag,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import {
@@ -40,9 +40,11 @@ import {
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   ProsessBeregningsgrunnlagAksjonspunktCode;
 
-const finnAksjonspunktForATFL = (gjeldendeAksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined =>
-  gjeldendeAksjonspunkter &&
-  gjeldendeAksjonspunkter.find(
+const finnAksjonspunktForATFL = (
+  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
+): BeregningAvklaringsbehov | undefined =>
+  gjeldendeAvklaringsbehov &&
+  gjeldendeAvklaringsbehov.find(
     ap =>
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
@@ -109,7 +111,7 @@ const createRelevantePaneler = (
 );
 
 interface StaticFunctions {
-  buildInitialValues: (gjeldendeAksjonspunkter: Aksjonspunkt[]) => ATFLDekningsgradBegrunnelseValues;
+  buildInitialValues: (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]) => ATFLDekningsgradBegrunnelseValues;
   transformATFLValues: (
     values: ATFLValues,
     relevanteStatuser: RelevanteStatuserProp,
@@ -171,9 +173,9 @@ Beregningsgrunnlag.defaultProps = {
 };
 
 Beregningsgrunnlag.buildInitialValues = (
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
+  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
 ): ATFLDekningsgradBegrunnelseValues => {
-  const aksjonspunktATFL = finnAksjonspunktForATFL(gjeldendeAksjonspunkter);
+  const aksjonspunktATFL = finnAksjonspunktForATFL(gjeldendeAvklaringsbehov);
   return {
     ATFLVurdering: aksjonspunktATFL && aksjonspunktATFL.begrunnelse ? aksjonspunktATFL.begrunnelse : '',
   };
@@ -184,7 +186,6 @@ Beregningsgrunnlag.transformATFLValues = (
   relevanteStatuser: RelevanteStatuserProp,
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
 ): FastsettAvvikATFLResultatAP => ({
-  kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   begrunnelse: values.ATFLVurdering,
   inntektPrAndelList: AksjonspunktBehandlerAT.transformValues(values, relevanteStatuser, alleAndelerIFørstePeriode),
   inntektFrilanser: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,
@@ -194,7 +195,6 @@ Beregningsgrunnlag.transformATFLTidsbegrensetValues = (
   values: ATFLTidsbegrensetValues,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
 ): FastsettAvvikATFLTidsbegrensetResultatAP => ({
-  kode: FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   begrunnelse: values.ATFLVurdering,
   fastsatteTidsbegrensedePerioder: AksjonspunktBehandlerTidsbegrenset.transformValues(values, allePerioder),
   frilansInntekt: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,

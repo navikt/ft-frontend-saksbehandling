@@ -1,23 +1,21 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useForm } from 'react-hook-form';
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertittel } from 'nav-frontend-typografi';
 
-import { FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { AvsnittSkiller, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagPeriodeProp,
   FaktaOmBeregning,
   Vilkar,
   YtelseGrunnlag,
 } from '@navikt/ft-types';
-import { Form } from '@navikt/ft-form-hooks';
-import BeregningsgrunnlagResultatAP from '../../types/interface/BeregningsgrunnlagAP';
+import BeregningsgrunnlagResultatAP, { GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
@@ -31,9 +29,8 @@ import AksjonspunktBehandler from '../fellesPaneler/AksjonspunktBehandler';
 import BeregningsresultatTable from '../beregningsresultatPanel/BeregningsresultatTable';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
-import BeregningsgrunnlagValues from '../../types/BeregningsgrunnlagAksjonspunktTsType';
+import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
-import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktTittel from '../fellesPaneler/AksjonspunktTittel';
 import DekningsgradAksjonspunktPanel from '../fellesPaneler/DekningsgradAksjonspunktPanel';
@@ -65,10 +62,7 @@ const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning):
 const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag?: YtelseGrunnlag): boolean =>
   !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
 
-export const buildInitialValues = (
-  beregningsgrunnlag: BeregningsgrunnlagProp,
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
-): BeregningsgrunnlagValues => {
+export const buildInitialValues = (beregningsgrunnlag: BeregningsgrunnlagProp): AksjonspunktDataValues => {
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
     return {};
   }
@@ -85,26 +79,22 @@ export const buildInitialValues = (
     andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
   return {
-    ...Beregningsgrunnlag.buildInitialValues(gjeldendeAksjonspunkter),
+    ...Beregningsgrunnlag.buildInitialValues(beregningsgrunnlag.avklaringsbehov),
     ...AksjonspunktBehandlerTidsbegrenset.buildInitialValues(allePerioder),
     ...AksjonspunktBehandlerFL.buildInitialValues(frilanserAndeler),
-    ...AksjonspunktBehandlerSN.buildInitialValues(selvstendigNaeringAndeler, gjeldendeAksjonspunkter),
+    ...AksjonspunktBehandlerSN.buildInitialValues(selvstendigNaeringAndeler, beregningsgrunnlag.avklaringsbehov),
     ...GrunnlagForAarsinntektPanelAT.buildInitialValues(arbeidstakerAndeler),
-    ...DekningsgradAksjonspunktPanel.buildInitialValues(beregningsgrunnlag, gjeldendeAksjonspunkter),
+    ...DekningsgradAksjonspunktPanel.buildInitialValues(beregningsgrunnlag),
   };
 };
 
-const harAksjonspunkt = (aksjonspunktKode: string, gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean =>
-  gjeldendeAksjonspunkter !== undefined &&
-  gjeldendeAksjonspunkter !== null &&
-  gjeldendeAksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+const harAksjonspunkt = (aksjonspunktKode: string, gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  gjeldendeAvklaringsbehov !== undefined &&
+  gjeldendeAvklaringsbehov !== null &&
+  gjeldendeAvklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
-export const transformValues = (
-  values: BeregningsgrunnlagValues,
-  relevanteStatuser: RelevanteStatuserProp,
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-): BeregningsgrunnlagResultatAP[] => {
+export const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunktData[] => {
+  const {allePerioder} = values;
   if (allePerioder.length < 1) {
     throw new Error('Ingen beregningsgrunnlagperioder, ugyldig tilstand');
   }
@@ -115,33 +105,54 @@ export const transformValues = (
     return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
   });
   const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
-
   const aksjonspunkter = [] as BeregningsgrunnlagResultatAP[];
-  if (harAksjonspunkt(VURDER_DEKNINGSGRAD, gjeldendeAksjonspunkter)) {
+  const grupperteAksjonspunkter = [] as GruppertAksjonspunktData[];
+  if (harAksjonspunkt(VURDER_DEKNINGSGRAD, values.gjeldendeAvklaringsbehov)) {
+    grupperteAksjonspunkter.push({
+      kode: VURDER_DEKNINGSGRAD,
+      aksjonspunktData: DekningsgradAksjonspunktPanel.transformValues(values as Required<DekningsgradValues>),
+    });
     aksjonspunkter.push(DekningsgradAksjonspunktPanel.transformValues(values as Required<DekningsgradValues>));
   }
-  if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, gjeldendeAksjonspunkter)) {
-    return aksjonspunkter.concat(
-      Beregningsgrunnlag.transformATFLValues(values as ATFLValues, relevanteStatuser, alleAndelerIFørstePeriode),
-    );
+  if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, values.gjeldendeAvklaringsbehov)) {
+    grupperteAksjonspunkter.push({
+      kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+      aksjonspunktData: Beregningsgrunnlag.transformATFLValues(
+        values as ATFLValues,
+        values.relevanteStatuser,
+        alleAndelerIFørstePeriode,
+      ),
+    });
+    return grupperteAksjonspunkter;
   }
   if (
     harAksjonspunkt(
       VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-      gjeldendeAksjonspunkter,
+      values.gjeldendeAvklaringsbehov,
     ) ||
-    harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAksjonspunkter)
+    harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)
   ) {
-    return aksjonspunkter.concat([
-      AksjonspunktBehandlerSN.transformValues(values as VurderOgFastsettValues, gjeldendeAksjonspunkter),
-    ]);
+    grupperteAksjonspunkter.push({
+      kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+      aksjonspunktData: Beregningsgrunnlag.transformATFLValues(
+        values as ATFLValues,
+        values.relevanteStatuser,
+        alleAndelerIFørstePeriode,
+      ),
+    });
+    return grupperteAksjonspunkter;
   }
-  if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD, gjeldendeAksjonspunkter)) {
-    return aksjonspunkter.concat(
-      Beregningsgrunnlag.transformATFLTidsbegrensetValues(values as ATFLTidsbegrensetValues, allePerioder),
-    );
+  if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD, values.gjeldendeAvklaringsbehov)) {
+    grupperteAksjonspunkter.push({
+      kode: FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+      aksjonspunktData: Beregningsgrunnlag.transformATFLTidsbegrensetValues(
+        values as ATFLTidsbegrensetValues,
+        allePerioder,
+      ),
+    });
+    return grupperteAksjonspunkter;
   }
-  return aksjonspunkter;
+  return grupperteAksjonspunkter;
 };
 
 const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): string[] =>
@@ -153,16 +164,16 @@ const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp
 
 type OwnProps = {
   readOnly: boolean;
-  gjeldendeAksjonspunkter: Aksjonspunkt[];
   relevanteStatuser: RelevanteStatuserProp;
-  submitCallback: (aksjonspunktData: BeregningsgrunnlagResultatAP[]) => Promise<void>;
   readOnlySubmitButton: boolean;
   beregningsgrunnlag: BeregningsgrunnlagProp;
   alleKodeverk: AlleKodeverk;
   vilkaarBG?: Vilkar;
-  formData?: BeregningsgrunnlagValues;
-  setFormData: (data: BeregningsgrunnlagValues) => void;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[];
+  isSubmitting: boolean;
+  isDirty: boolean;
+  fieldIndex: number;
 };
 
 // ------------------------------------------------------------------------------------------ //
@@ -179,15 +190,15 @@ type OwnProps = {
 const BeregningForm: FunctionComponent<OwnProps> = ({
   readOnly,
   beregningsgrunnlag,
-  gjeldendeAksjonspunkter,
   relevanteStatuser,
   readOnlySubmitButton,
   alleKodeverk,
   vilkaarBG,
-  formData,
-  setFormData,
-  submitCallback,
   arbeidsgiverOpplysningerPerId,
+  gjeldendeAvklaringsbehov,
+  isSubmitting,
+  isDirty,
+  fieldIndex,
 }) => {
   const {
     dekningsgrad,
@@ -196,34 +207,18 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
     faktaOmBeregning,
     ytelsesspesifiktGrunnlag,
   } = beregningsgrunnlag;
-  const formMethods = useForm<BeregningsgrunnlagValues>({
-    defaultValues: formData || buildInitialValues(beregningsgrunnlag, gjeldendeAksjonspunkter),
-  });
 
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
 
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
-  const harAksjonspunkter = gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.length > 0;
+  const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
   return (
-    <Form
-      formMethods={formMethods}
-      onSubmit={values =>
-        submitCallback(
-          transformValues(
-            values,
-            relevanteStatuser,
-            gjeldendeAksjonspunkter,
-            beregningsgrunnlag.beregningsgrunnlagPeriode,
-          ),
-        )
-      }
-      setDataOnUnmount={setFormData}
-    >
+    <>
       {harAksjonspunkter && (
         <>
           <VerticalSpacer eightPx />
-          <AksjonspunktTittel aksjonspunkter={gjeldendeAksjonspunkter} beregningsgrunnlag={beregningsgrunnlag} />
+          <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={beregningsgrunnlag} />
         </>
       )}
       <Row>
@@ -281,11 +276,12 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
                 formName={formName}
                 allePerioder={beregningsgrunnlagPeriode}
                 alleKodeverk={alleKodeverk}
-                aksjonspunkter={gjeldendeAksjonspunkter}
+                avklaringsbehov={gjeldendeAvklaringsbehov}
                 relevanteStatuser={relevanteStatuser}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                isSubmitting={formMethods.formState.isSubmitting}
-                isDirty={formMethods.formState.isDirty}
+                isSubmitting={isSubmitting}
+                isDirty={isDirty}
+                fieldIndex={fieldIndex}
               />
             </>
           )}
@@ -304,7 +300,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           </>
         </Column>
       </Row>
-    </Form>
+    </>
   );
 };
 

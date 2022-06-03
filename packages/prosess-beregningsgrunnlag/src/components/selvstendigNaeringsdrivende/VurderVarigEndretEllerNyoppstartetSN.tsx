@@ -4,17 +4,17 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { parseCurrencyInput, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel, Aksjonspunkt } from '@navikt/ft-types';
-import { InputField, RadioGroupPanel, TextAreaField, formHooks } from '@navikt/ft-form-hooks';
+import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { formHooks, InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
-import BeregningsgrunnlagValues from '../../types/BeregningsgrunnlagAksjonspunktTsType';
+import BeregningFormValues from '../../types/BeregningFormValues';
 
 const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
@@ -30,12 +30,13 @@ type OwnProps = {
   erVarigEndring?: boolean;
   erNyoppstartet?: boolean;
   erVarigEndretNaering?: boolean;
+  fieldIndex: number;
 };
 
 interface StaticFunctions {
   buildInitialValues: (
     relevanteAndeler: BeregningsgrunnlagAndel[],
-    gjeldendeAksjonspunkter: Aksjonspunkt[],
+    avklaringsbehov: BeregningAvklaringsbehov[],
   ) => VurderOgFastsettValues;
   transformValues: (values: Required<VurderOgFastsettValues>) => VurderVarigEndretNyoppstartetResultatAP;
 }
@@ -52,6 +53,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
   readOnly,
   erVarigEndring,
   erNyoppstartet,
+  fieldIndex,
 }) => {
   let radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IngenEndring" />;
   let radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.EndretNaering" />;
@@ -64,8 +66,9 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
     radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndring" />;
   }
   const intl = useIntl();
-  const formMethods = formHooks.useFormContext<BeregningsgrunnlagValues>();
-  const erVarigEndretNaering = formMethods.watch('erVarigEndretNaering');
+  const formMethods = formHooks.useFormContext<BeregningFormValues>();
+  const varigEndringValues = formMethods.watch('BeregningForm')[fieldIndex] as VurderOgFastsettValues;
+  const {erVarigEndretNaering} = varigEndringValues;
   const radioknapper = [
     {
       value: 'false',
@@ -157,12 +160,12 @@ VurderVarigEndretEllerNyoppstartetSN.defaultProps = {
 
 VurderVarigEndretEllerNyoppstartetSN.buildInitialValues = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
+  avklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderOgFastsettValues => {
   const snAndel = relevanteAndeler.find(
     andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
-  const varigEndretNaeringAP = gjeldendeAksjonspunkter.find(
+  const varigEndretNaeringAP = avklaringsbehov.find(
     ap => ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   );
   if (varigEndretNaeringAP) {
@@ -182,7 +185,6 @@ VurderVarigEndretEllerNyoppstartetSN.transformValues = (
 ): VurderVarigEndretNyoppstartetResultatAP => {
   const erVarigEndring = values[varigEndringRadioname];
   return {
-    kode: VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
     begrunnelse: values[begrunnelseFieldname],
     erVarigEndretNaering: erVarigEndring,
     bruttoBeregningsgrunnlag: erVarigEndring ? removeSpacesFromNumber(values[fastsettInntektFieldname]) : undefined,
