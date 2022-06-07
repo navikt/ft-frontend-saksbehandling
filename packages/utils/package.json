@@ -23,14 +23,14 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "^1.0.6",
     "@navikt/ft-types": "^1.0.9",
-    "dayjs": "1.11.2",
+    "dayjs": "1.11.3",
     "moment": "2.29.3",
     "react-intl": "5.24.8"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "^1.0.4",
     "@navikt/ft-types": "^1.0.7",
-    "dayjs": "1.11.2",
+    "dayjs": "1.11.3",
     "moment": "2.29.3",
     "react-intl": "5.24.8"
   },
