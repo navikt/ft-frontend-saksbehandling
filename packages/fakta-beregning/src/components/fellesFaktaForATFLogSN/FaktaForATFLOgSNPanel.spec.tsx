@@ -59,7 +59,6 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
-        fieldId={0}
       />,
     );
     const tidsbegrensetArbeidsforhold = wrapper.find(TidsbegrensetArbeidsforholdForm);
@@ -80,7 +79,6 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
-        fieldId={0}
       />,
     );
     const nyIArbeidslivet = wrapper.find(NyIArbeidslivetSNForm);
@@ -101,7 +99,6 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         erOverstyrer={false}
         arbeidsgiverOpplysningerPerId={{}}
         updateOverstyring={jest.fn()}
-        fieldId={0}
       />,
     );
     const vurderATFL = wrapper.find(VurderOgFastsettATFL);

@@ -56,7 +56,6 @@ const utledArbeidsforholdUtenIMRadioTekst = (
 const mottarYtelseArbeidsforholdRadio = (
   andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
-  isAksjonspunktClosed: boolean,
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
@@ -79,6 +78,7 @@ const mottarYtelseArbeidsforholdRadio = (
         { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
       ]}
       parse={parseStringToBoolean}
+      validate={readOnly ? [] : [required]}
       isHorizontal
     />
   </div>
@@ -105,7 +105,6 @@ type OwnProps = {
 };
 
 interface StaticFunctions {
-  validate: (values: FaktaOmBeregningAksjonspunktValues, vurderMottarYtelse: VurderMottarYtelse) => any;
   transformValues: (
     values: FaktaOmBeregningAksjonspunktValues,
     inntektVerdier: InntektTransformed[],
@@ -124,7 +123,6 @@ interface StaticFunctions {
  */
 const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  isAksjonspunktClosed,
   beregningsgrunnlag,
   tilfeller,
   alleKodeverk,
@@ -159,6 +157,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
               { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
             ]}
             parse={parseStringToBoolean}
+            validate={readOnly ? [] : [required]}
             isHorizontal
           />
         </div>
@@ -167,7 +166,6 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
         mottarYtelseArbeidsforholdRadio(
           andel,
           readOnly,
-          isAksjonspunktClosed,
           alleKodeverk,
           arbeidsgiverOpplysningerPerId,
           aktivtBeregningsgrunnlagIndeks,
@@ -310,28 +308,6 @@ VurderMottarYtelseForm.transformValues = (
     ...transformValuesFrilans(values, inntektVerdier, beregningsgrunnlag, fastsatteAndelsnr, faktaOmBeregningTilfeller),
     faktaOmBeregningTilfeller,
   };
-};
-
-VurderMottarYtelseForm.validate = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  vurderMottarYtelse: VurderMottarYtelse,
-): any => {
-  const errors = {};
-  if (!vurderMottarYtelse) {
-    return null;
-  }
-  if (vurderMottarYtelse.erFrilans) {
-    errors[finnFrilansFieldName()] = required(values.vurderMottarYtelseValues[finnFrilansFieldName()]);
-  }
-  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    : [];
-  ATAndelerUtenIM.forEach(andel => {
-    errors[utledArbeidsforholdFieldName(andel)] = required(
-      values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
-    );
-  });
-  return errors;
 };
 
 export default VurderMottarYtelseForm;

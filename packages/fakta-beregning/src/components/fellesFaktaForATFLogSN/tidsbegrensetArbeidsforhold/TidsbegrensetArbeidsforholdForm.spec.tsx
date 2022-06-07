@@ -49,7 +49,6 @@ describe('<TidsbegrensetArbeidsforholdForm>', () => {
       <TidsbegrensetArbeidsforholdForm
         readOnly={false}
         faktaOmBeregning={{ kortvarigeArbeidsforhold: andeler, andelerForFaktaOmBeregning: [] }}
-        isAksjonspunktClosed={false}
         arbeidsgiverOpplysningerPerId={agOpplysning}
       />,
       messages,
@@ -62,7 +61,6 @@ describe('<TidsbegrensetArbeidsforholdForm>', () => {
       <TidsbegrensetArbeidsforholdForm
         readOnly={false}
         faktaOmBeregning={{ kortvarigeArbeidsforhold: andeler, andelerForFaktaOmBeregning: [] }}
-        isAksjonspunktClosed={false}
         arbeidsgiverOpplysningerPerId={agOpplysning}
       />,
       messages,

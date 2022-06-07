@@ -6,12 +6,10 @@ import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
-  VurderMottarYtelse,
 } from '@navikt/ft-types';
 import React, { FunctionComponent, useMemo } from 'react';
-import { IntlShape } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
-import AndelFieldValue, { InntektTransformed } from '../../../typer/FieldValues';
+import { InntektTransformed } from '../../../typer/FieldValues';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
@@ -26,69 +24,17 @@ import {
   erOverstyringAvBeregningsgrunnlag,
   getKanRedigereInntekt,
   INNTEKT_FIELD_ARRAY_NAME,
-  mapAndelFieldIdentifikator,
-  skalFastsetteInntektForAndel,
 } from '../BgFaktaUtils';
 import InntektFieldArray, { InntektFieldArray as InntektFieldArrayImpl } from '../InntektFieldArray';
 import InntektstabellPanel from '../InntektstabellPanel';
-import { validateMinstEnFastsatt } from '../ValidateAndelerUtils';
 import VurderFaktaContext from '../VurderFaktaContext';
 import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
 import { ATFLSammeOrgTekst, transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import { harKunstigArbeidsforhold } from './forms/KunstigArbeidsforhold';
-import LonnsendringForm, { lonnsendringField } from './forms/LonnsendringForm';
-import NyoppstartetFLForm, { erNyoppstartetFLField } from './forms/NyoppstartetFLForm';
+import LonnsendringForm from './forms/LonnsendringForm';
+import NyoppstartetFLForm from './forms/NyoppstartetFLForm';
 import VurderEtterlonnSluttpakkeForm from './forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './forms/VurderMottarYtelseForm';
-import { harVurdertMottarYtelse } from './forms/VurderMottarYtelseUtils';
-
-const lonnsendringErVurdertEllerIkkjeTilstede = (
-  tilfeller: string[],
-  values: FaktaOmBeregningAksjonspunktValues,
-): boolean =>
-  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING) ||
-  (values[lonnsendringField] !== undefined && values[lonnsendringField] !== null);
-
-const nyoppstartetFLErVurdertEllerIkkjeTilstede = (
-  tilfeller: string[],
-  values: FaktaOmBeregningAksjonspunktValues,
-): boolean =>
-  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL) ||
-  (values[erNyoppstartetFLField] !== undefined && values[erNyoppstartetFLField] !== null);
-
-const besteberegningErVurdertEllerIkkjeTilstede = (
-  tilfeller: string[],
-  values: FaktaOmBeregningAksjonspunktValues,
-): boolean =>
-  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-  (values[besteberegningField] !== undefined && values[besteberegningField] !== null);
-
-const mottarYtelseErVurdertEllerIkkjeTilstede = (
-  tilfeller: string[],
-  vurderMottarYtelse: VurderMottarYtelse,
-  values: FaktaOmBeregningAksjonspunktValues,
-): boolean =>
-  !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) ||
-  harVurdertMottarYtelse(values, vurderMottarYtelse);
-
-const harVurdert = (
-  tilfeller: string[],
-  values: FaktaOmBeregningAksjonspunktValues,
-  faktaOmBeregning: FaktaOmBeregning,
-): boolean =>
-  lonnsendringErVurdertEllerIkkjeTilstede(tilfeller, values) &&
-  nyoppstartetFLErVurdertEllerIkkjeTilstede(tilfeller, values) &&
-  mottarYtelseErVurdertEllerIkkjeTilstede(tilfeller, faktaOmBeregning.vurderMottarYtelse, values) &&
-  besteberegningErVurdertEllerIkkjeTilstede(tilfeller, values);
-
-const skalFastsetteInntekt = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  faktaOmBeregning: FaktaOmBeregning,
-  beregningsgrunnlag: Beregningsgrunnlag,
-) =>
-  faktaOmBeregning.andelerForFaktaOmBeregning
-    .map(andel => mapAndelFieldIdentifikator(andel))
-    .find(skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)) !== undefined;
 
 export const skalFastsettInntektForArbeidstaker = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -198,13 +144,6 @@ interface StaticFunctions {
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
     alleKodeverk: AlleKodeverk,
   ) => VurderOgFastsettATFLValues;
-  validate: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    tilfeller: string[],
-    faktaOmBeregning: FaktaOmBeregning,
-    beregningsgrunnlag: Beregningsgrunnlag,
-    intl: IntlShape,
-  ) => any;
   transformValues: (
     faktaOmBeregning: FaktaOmBeregning,
     beregningsgrunnlag: Beregningsgrunnlag,
@@ -293,11 +232,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) &&
           !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) && (
             /* @ts-ignore */
-            <VurderBesteberegningForm
-              readOnly={readOnly}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              erOverstyrt={erOverstyrt}
-            />
+            <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
           )}
       </InntektstabellPanel>
     </div>
@@ -325,39 +260,6 @@ VurderOgFastsettATFL.buildInitialValues = (
     ),
     ...InntektstabellPanel.buildInitialValues(erOverstyrt),
   };
-};
-
-const validateEnFastsattVedOverstyring = (values: AndelFieldValue[], intl: IntlShape): any => {
-  const minstEnFastsattFeilmelding = validateMinstEnFastsatt(values, intl);
-  if (minstEnFastsattFeilmelding != null) {
-    return { _error: minstEnFastsattFeilmelding };
-  }
-  return null;
-};
-
-VurderOgFastsettATFL.validate = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  tilfeller: string[],
-  faktaOmBeregning: FaktaOmBeregning,
-  beregningsgrunnlag: Beregningsgrunnlag,
-  intl: IntlShape,
-): any => {
-  const errors = {};
-  if (
-    harVurdert(tilfeller, values, faktaOmBeregning) &&
-    skalFastsetteInntekt(values, faktaOmBeregning, beregningsgrunnlag)
-  ) {
-    errors[INNTEKT_FIELD_ARRAY_NAME] = InntektFieldArrayImpl.validate(
-      values[INNTEKT_FIELD_ARRAY_NAME],
-      false,
-      skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag),
-      intl,
-    );
-  }
-  if (!errors[INNTEKT_FIELD_ARRAY_NAME] && erOverstyring(values)) {
-    errors[INNTEKT_FIELD_ARRAY_NAME] = validateEnFastsattVedOverstyring(values[INNTEKT_FIELD_ARRAY_NAME], intl);
-  }
-  return errors;
 };
 
 const concatTilfeller = (

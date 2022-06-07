@@ -1,4 +1,4 @@
-import { Form, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
@@ -8,8 +8,8 @@ import {
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { ReactElement, useEffect } from 'react';
-import { useFieldArray, useForm, UseFormGetValues } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
@@ -17,11 +17,8 @@ import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpef
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
-import { erOverstyring, erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
-import FaktaForATFLOgSNPanel, {
-  getBuildInitialValuesFaktaForATFLOgSN,
-  validationForVurderFakta,
-} from './FaktaForATFLOgSNPanel';
+import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
+import FaktaForATFLOgSNPanel, { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
 import VurderFaktaContext from './VurderFaktaContext';
@@ -106,21 +103,6 @@ export const buildInitialValuesVurderFaktaBeregning = (
   })),
 });
 
-export const validateVurderFaktaBeregning =
-  (getValues: UseFormGetValues<VurderFaktaBeregningFormValues>, fieldId: number, intl: IntlShape) => () => {
-    const values = getValues(`vurderFaktaBeregningForm.${fieldId}`);
-    const { avklaringsbehov } = values;
-    if (
-      values &&
-      ((avklaringsbehov && hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov)) || erOverstyring(values))
-    ) {
-      return {
-        ...validationForVurderFakta(values, intl),
-      };
-    }
-    return null;
-  };
-
 /**
  * VurderFaktaBeregningPanel
  *
@@ -143,7 +125,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
     defaultValues: buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov),
   });
-  const { control, getValues, formState, watch, trigger } = formMethods;
+  const { control, getValues, formState, trigger } = formMethods;
   const { fields, update } = useFieldArray({
     name: formNameVurderFaktaBeregning,
     control,
@@ -161,8 +143,6 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     return erOverstyringAvBeregningsgrunnlag(formValue, beregningsgrunnlag[index], avklaringsbehov);
   };
 
-  const intl = useIntl();
-
   const finnesFeilForBegrunnelse = fieldId => !!errors.vurderFaktaBeregningForm?.[fieldId]?.begrunnelseFaktaTilfeller;
 
   const updateOverstyring = (index: number, skalOverstyre: boolean): void => {
@@ -179,7 +159,6 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     }
   };
 
-  const validate = fieldId => [validateVurderFaktaBeregning(watch, fieldId, intl)];
   if (
     !(
       hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) ||
@@ -205,22 +184,17 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
                     </AksjonspunktHelpTextHTML>
                   )}
                   <VerticalSpacer twentyPx />
-                  {/* @ts-ignore */}
-                  <SkjemaGruppeMedFeilviser
-                    name={`vurderFaktaBeregningForm.${index}.skjemagruppe`}
-                    validate={validate(index)}
-                  >
-                    <FaktaForATFLOgSNPanel
-                      readOnly={readOnly}
-                      isAksjonspunktClosed={isAksjonspunktClosed(avklaringsbehov)}
-                      avklaringsbehov={avklaringsbehov}
-                      beregningsgrunnlag={beregningsgrunnlag[index]}
-                      alleKodeverk={alleKodeverk}
-                      erOverstyrer={erOverstyrer}
-                      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                      updateOverstyring={updateOverstyring}
-                    />
-                  </SkjemaGruppeMedFeilviser>
+
+                  <FaktaForATFLOgSNPanel
+                    readOnly={readOnly}
+                    isAksjonspunktClosed={isAksjonspunktClosed(avklaringsbehov)}
+                    avklaringsbehov={avklaringsbehov}
+                    beregningsgrunnlag={beregningsgrunnlag[index]}
+                    alleKodeverk={alleKodeverk}
+                    erOverstyrer={erOverstyrer}
+                    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                    updateOverstyring={updateOverstyring}
+                  />
                   <VerticalSpacer twentyPx />
                   {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) || erOverstyrt(index)) && (
                     <>

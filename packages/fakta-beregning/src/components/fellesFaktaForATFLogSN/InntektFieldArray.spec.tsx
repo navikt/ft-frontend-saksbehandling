@@ -1,16 +1,13 @@
-import { isRequiredMessage } from '@navikt/ft-form-validators';
 import { AktivitetStatus as aktivitetStatuser, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { Table } from '@navikt/ft-ui-komponenter';
-import { getIntlMock, MockFieldsWithContent, shallowWithIntl } from '@navikt/ft-utils-test';
+import { MockFieldsWithContent, shallowWithIntl } from '@navikt/ft-utils-test';
 import React from 'react';
 import messages from '../../../i18n/nb_NO.json';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { InntektFieldArray, leggTilDagpengerOmBesteberegning } from './InntektFieldArray';
 import InntektFieldArrayAndelRow from './InntektFieldArrayRow';
 import SummaryRow from './SummaryRow';
-
-const intlMock = getIntlMock(messages);
 
 // const aksjonspunkter = [
 //   {
@@ -263,80 +260,80 @@ describe('<InntektFieldArray>', () => {
     expect(newfields.length).toBe(1);
   });
 
-  it('skal validere eksisterende andeler uten errors', () => {
-    const skalFastsetteInntekt = () => true;
-    const values = [];
-    const andel2 = {
-      fastsattBelop: '10 000',
-      aktivitetstatus: 'ARBEIDSTAKER',
-      andel: 'Visningsnavn for virksomhet',
-      inntektskategori: 'ARBEIDSTAKER',
-    };
-    values.push(andel2);
-    const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
-    expect(errors).toBe(null);
-  });
+  // it('skal validere eksisterende andeler uten errors', () => {
+  //   const skalFastsetteInntekt = () => true;
+  //   const values = [];
+  //   const andel2 = {
+  //     fastsattBelop: '10 000',
+  //     aktivitetstatus: 'ARBEIDSTAKER',
+  //     andel: 'Visningsnavn for virksomhet',
+  //     inntektskategori: 'ARBEIDSTAKER',
+  //   };
+  //   values.push(andel2);
+  //   const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
+  //   expect(errors).toBe(null);
+  // });
 
-  it('skal returnerer errors for fastsattbeløp når ikkje oppgitt', () => {
-    const skalFastsetteInntekt = () => true;
-    const values = [];
-    const andel2 = {
-      refusjonskrav: '10 000',
-      fastsattBelop: '',
-      aktivitetstatus: 'ARBEIDSTAKER',
-      andel: 'Visningsnavn for virksomhet',
-      inntektskategori: 'ARBEIDSTAKER',
-    };
-    values.push(andel2);
-    const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
-    expect(errors[0].fastsattBelop).toBe(isRequiredMessage());
-  });
+  // it('skal returnerer errors for fastsattbeløp når ikkje oppgitt', () => {
+  //   const skalFastsetteInntekt = () => true;
+  //   const values = [];
+  //   const andel2 = {
+  //     refusjonskrav: '10 000',
+  //     fastsattBelop: '',
+  //     aktivitetstatus: 'ARBEIDSTAKER',
+  //     andel: 'Visningsnavn for virksomhet',
+  //     inntektskategori: 'ARBEIDSTAKER',
+  //   };
+  //   values.push(andel2);
+  //   const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
+  //   expect(errors[0].fastsattBelop).toBe(isRequiredMessage());
+  // });
 
-  it('skal ikkje returnerer errors når man ikkje skal redigere inntekt', () => {
-    const skalFastsetteInntekt = () => false;
-    const values = [];
-    const andel2 = {
-      refusjonskrav: '10 000',
-      fastsattBelop: '',
-      aktivitetstatus: 'ARBEIDSTAKER',
-      andel: 'Visningsnavn for virksomhet',
-      inntektskategori: 'ARBEIDSTAKER',
-    };
-    values.push(andel2);
-    const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
-    expect(errors).toBe(null);
-  });
+  // it('skal ikkje returnerer errors når man ikkje skal redigere inntekt', () => {
+  //   const skalFastsetteInntekt = () => false;
+  //   const values = [];
+  //   const andel2 = {
+  //     refusjonskrav: '10 000',
+  //     fastsattBelop: '',
+  //     aktivitetstatus: 'ARBEIDSTAKER',
+  //     andel: 'Visningsnavn for virksomhet',
+  //     inntektskategori: 'ARBEIDSTAKER',
+  //   };
+  //   values.push(andel2);
+  //   const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
+  //   expect(errors).toBe(null);
+  // });
 
-  it('skal gi error om inntektkategori ikkje er oppgitt', () => {
-    const skalFastsetteInntekt = () => true;
-    const values = [];
-    const andel2 = {
-      refusjonskrav: '10 000',
-      fastsattBelop: '100 000',
-      aktivitetstatus: 'ARBEIDSTAKER',
-      andel: 'Visningsnavn for virksomhet',
-      inntektskategori: '',
-    };
-    values.push(andel2);
-    const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
-    expect(errors[0].inntektskategori).toBe(isRequiredMessage());
-  });
+  // it('skal gi error om inntektkategori ikkje er oppgitt', () => {
+  //   const skalFastsetteInntekt = () => true;
+  //   const values = [];
+  //   const andel2 = {
+  //     refusjonskrav: '10 000',
+  //     fastsattBelop: '100 000',
+  //     aktivitetstatus: 'ARBEIDSTAKER',
+  //     andel: 'Visningsnavn for virksomhet',
+  //     inntektskategori: '',
+  //   };
+  //   values.push(andel2);
+  //   const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
+  //   expect(errors[0].inntektskategori).toBe(isRequiredMessage());
+  // });
 
-  it('skal gi error om andel ikkje er valgt for nye andeler', () => {
-    const skalFastsetteInntekt = () => true;
-    const values = [];
-    const andel2 = {
-      refusjonskrav: '10 000',
-      fastsattBelop: '100 000',
-      aktivitetstatus: 'ARBEIDSTAKER',
-      andel: '',
-      inntektskategori: 'ARBEIDSTAKER',
-      nyAndel: true,
-    };
-    values.push(andel2);
-    const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
-    expect(errors[0].andel).toBe(isRequiredMessage());
-  });
+  // it('skal gi error om andel ikkje er valgt for nye andeler', () => {
+  //   const skalFastsetteInntekt = () => true;
+  //   const values = [];
+  //   const andel2 = {
+  //     refusjonskrav: '10 000',
+  //     fastsattBelop: '100 000',
+  //     aktivitetstatus: 'ARBEIDSTAKER',
+  //     andel: '',
+  //     inntektskategori: 'ARBEIDSTAKER',
+  //     nyAndel: true,
+  //   };
+  //   values.push(andel2);
+  //   const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
+  //   expect(errors[0].andel).toBe(isRequiredMessage());
+  // });
 
   it('skal ikkje bygge initial values om ingen andeler', () => {
     const iv = InntektFieldArray.buildInitialValues([], {}, {} as AlleKodeverk);

@@ -32,7 +32,6 @@ type OwnProps = {
 
 interface StaticFunctions {
   buildInitialValues: (kunYtelse: KunYtelse) => VurderBesteberegningMedKunYtelseValues;
-  validate: (values: FaktaOmBeregningAksjonspunktValues) => any;
   transformValues: (values: FaktaOmBeregningAksjonspunktValues) => boolean;
 }
 
@@ -64,7 +63,7 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
           { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
           { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
         ]}
-        validate={[required]}
+        validate={readOnly ? [] : [required]}
         parse={parseStringToBoolean}
         isHorizontal
       />
@@ -116,12 +115,6 @@ KunYtelseBesteberegningImpl.defaultProps = {
 KunYtelseBesteberegningImpl.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({
   [besteberegningField]: kunYtelse.erBesteberegning,
 });
-
-KunYtelseBesteberegningImpl.validate = (values: FaktaOmBeregningAksjonspunktValues): any => {
-  const errors = {};
-  errors[besteberegningField] = required(values[besteberegningField]);
-  return errors;
-};
 
 KunYtelseBesteberegningImpl.transformValues = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
   values[besteberegningField];

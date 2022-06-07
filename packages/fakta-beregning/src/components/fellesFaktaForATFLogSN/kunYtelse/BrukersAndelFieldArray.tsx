@@ -1,15 +1,9 @@
-import { formHooks, InputField, SelectField } from '@navikt/ft-form-hooks';
+import { formHooks, InputField, SelectField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
 import { Image, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import {
-  formatCurrencyNoKr,
-  getKodeverknavnFn,
-  isArrayEmpty,
-  parseCurrencyInput,
-  removeSpacesFromNumber,
-} from '@navikt/ft-utils';
+import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
@@ -85,7 +79,7 @@ const createAndelerTableRows = (
           parse={parseCurrencyInput}
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
-          validate={[required]}
+          validate={readOnly ? [] : [required]}
         />
       </TableColumn>
       <TableColumn className={styles.rightAlign}>
@@ -95,6 +89,7 @@ const createAndelerTableRows = (
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           readOnly={readOnly}
+          validate={readOnly ? [] : [required]}
         />
       </TableColumn>
       <TableColumn>
@@ -139,9 +134,18 @@ type OwnProps = {
   alleKodeverk: AlleKodeverk;
 };
 
-interface StaticFunction {
-  validate: (values: BrukersAndelValues[], intl: IntlShape) => any;
-}
+const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInfo => {
+  const { andel, inntektskategori } = value;
+  return { andelsinfo: andel, inntektskategori };
+};
+
+const validate = (values: BrukersAndelValues[], intl: IntlShape) => () => {
+  const ulikeAndelerFeilmelding = validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl);
+  if (ulikeAndelerFeilmelding) {
+    return ulikeAndelerFeilmelding;
+  }
+  return null;
+};
 
 /**
  *  BrukersAndelFieldArray
@@ -149,7 +153,7 @@ interface StaticFunction {
  * Presentasjonskomponent: Viser fordeling for brukers andel ved kun ytelse
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedComponentProps> & StaticFunction = ({
+export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedComponentProps> = ({
   name,
   intl,
   readOnly,
@@ -180,19 +184,15 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
     remove,
   );
   tablerows.push(createBruttoBGSummaryRow(sumFordeling));
+  const validators = [validate(fieldArrayValues, intl)];
   return (
-    // <NavFieldGroup errorMessage={getErrorMessage(errors, intl, isDirty, isSubmitSuccessful)}>
-    // <SkjemaGruppeMedFeilviser name={name} validate={[]}>
-    <>
+    <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
       <Table headerTextCodes={getHeaderTextCodes()} noHover classNameTable={styles.inntektTable}>
         {tablerows}
       </Table>
       {!readOnly && (
         <Row className={styles.buttonRow}>
           <Column xs="3">
-            {
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            }
             <div
               id="leggTilAndelDiv"
               onClick={() => {
@@ -213,44 +213,10 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
         </Row>
       )}
       <VerticalSpacer eightPx />
-    </>
-    // </SkjemaGruppeMedFeilviser>
-    // </NavFieldGroup>
+    </SkjemaGruppeMedFeilviser>
   );
 };
 
 const BrukersAndelFieldArray = injectIntl(BrukersAndelFieldArrayImpl);
-
-const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInfo => {
-  const { andel, inntektskategori } = value;
-  return { andelsinfo: andel, inntektskategori };
-};
-
-BrukersAndelFieldArrayImpl.validate = (values: BrukersAndelValues[], intl: IntlShape) => {
-  if (!values) {
-    return null;
-  }
-  // eslint-disable-next-line react/destructuring-assignment
-  const arrayErrors = values.map(({ fastsattBelop, inntektskategori }) => {
-    const fieldErrors = {
-      fastsattBelop: null,
-      inntektskategori: null,
-    };
-    fieldErrors.fastsattBelop = required(fastsattBelop);
-    fieldErrors.inntektskategori = required(inntektskategori);
-    return fieldErrors.fastsattBelop || fieldErrors.inntektskategori ? fieldErrors : null;
-  });
-  if (arrayErrors.some(errors => errors !== null)) {
-    return arrayErrors;
-  }
-  if (isArrayEmpty(values)) {
-    return null;
-  }
-  const ulikeAndelerFeilmelding = validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl);
-  if (ulikeAndelerFeilmelding) {
-    return { _error: ulikeAndelerFeilmelding };
-  }
-  return null;
-};
 
 export default BrukersAndelFieldArray;

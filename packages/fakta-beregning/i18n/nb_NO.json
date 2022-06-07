@@ -39,6 +39,7 @@
   "BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel": "Legg til dagpenger",
   "BeregningInfoPanel.FordelingBG.FjernDagpenger": "Fjern dagpenger",
   "BeregningInfoPanel.FordelingBG.Ytelse": "Ytelse",
+  "BeregningInfoPanel.FordelingBG.FjernAndel": "Fjern aktivitet",
 
   "AvklareAktiviteter.OverstyrerAktivitetAdvarsel": "Overstyr hvilke aktiviteter og eventuelle inntektsmeldinger som skal benyttes i beregning.",
   "VurderAktiviteterTabell.Header.Aktivitet": "Aktivitet",

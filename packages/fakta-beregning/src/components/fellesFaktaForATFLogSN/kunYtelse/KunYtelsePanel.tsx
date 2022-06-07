@@ -1,4 +1,3 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   AndelForFaktaOmBeregning,
@@ -8,11 +7,9 @@ import {
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
-import { IntlShape } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
-import { BrukersAndelFieldArrayImpl } from './BrukersAndelFieldArray';
 import KunYtelseBesteberegningPanel from './KunYtelseBesteberegningPanel';
 import KunYtelseUtenBesteberegningPanel from './KunYtelseUtenBesteberegningPanel';
 
@@ -39,12 +36,6 @@ interface StaticFunctions {
     values: FaktaOmBeregningAksjonspunktValues,
     kunYtelse: KunYtelse,
   ) => FaktaBeregningTransformedValues;
-  validate: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    aktivertePaneler: string[],
-    kunYtelse: KunYtelse,
-    intl: IntlShape,
-  ) => any;
 }
 
 /**
@@ -139,25 +130,5 @@ KunYtelsePanel.transformValues = (
     skalBrukeBesteberegning: kunYtelse.fodendeKvinneMedDP ? KunYtelseBesteberegningPanel.transformValues(values) : null,
   },
 });
-
-KunYtelsePanel.validate = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  aktivertePaneler: string[],
-  kunYtelse: KunYtelse,
-  intl: IntlShape,
-): any => {
-  if (!values || !aktivertePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
-    return {};
-  }
-  const errors = {};
-  errors[brukersAndelFieldArrayName] = BrukersAndelFieldArrayImpl.validate(values[brukersAndelFieldArrayName], intl);
-  if (kunYtelse.fodendeKvinneMedDP) {
-    return {
-      ...errors,
-      ...KunYtelseBesteberegningPanel.validate(values),
-    };
-  }
-  return errors;
-};
 
 export default KunYtelsePanel;

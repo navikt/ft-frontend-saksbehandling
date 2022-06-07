@@ -8,10 +8,7 @@ import messages from '../../../../../i18n/nb_NO.json';
 
 describe('<VurderEtterlonnSluttpakkeForm>', () => {
   it('Skal teste at komponenten vises korrekt', () => {
-    const wrapper = shallowWithIntl(
-      <VurderEtterlonnSluttpakkeForm readOnly={false} isAksjonspunktClosed={false} />,
-      messages,
-    );
+    const wrapper = shallowWithIntl(<VurderEtterlonnSluttpakkeForm readOnly={false} />, messages);
     const radios = wrapper.find('RadioOption');
     expect(radios).toHaveLength(2);
   });

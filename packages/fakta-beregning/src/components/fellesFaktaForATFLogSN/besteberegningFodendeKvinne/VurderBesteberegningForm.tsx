@@ -37,7 +37,6 @@ interface StaticFunctions {
     faktaOmBeregning: FaktaOmBeregning,
     inntektPrAndel: InntektTransformed[],
   ) => FaktaBeregningTransformedValues;
-  validate: (values: FaktaOmBeregningAksjonspunktValues, aktivertePaneler: string[]) => any;
 }
 
 /**
@@ -114,24 +113,6 @@ VurderBesteberegningPanelImpl.buildInitialValues = (
   return {
     [besteberegningField]: vurderBesteberegning.skalHaBesteberegning,
   };
-};
-
-VurderBesteberegningPanelImpl.validate = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  aktivertePaneler: string[],
-): any => {
-  if (
-    !values ||
-    !(
-      aktivertePaneler.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-      aktivertePaneler.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
-    )
-  ) {
-    return {};
-  }
-  const errors = {};
-  errors[besteberegningField] = required(values[besteberegningField]);
-  return errors;
 };
 
 VurderBesteberegningPanelImpl.transformValues = (

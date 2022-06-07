@@ -6,7 +6,7 @@ import LonnsendringForm, { lonnsendringField } from './LonnsendringForm';
 
 describe('<LonnsendringForm>', () => {
   it('skal teste at korrekt antall radioknapper vises med korrekte props', () => {
-    const wrapper = shallow(<LonnsendringForm readOnly={false} isAksjonspunktClosed={false} />);
+    const wrapper = shallow(<LonnsendringForm readOnly={false} />);
     const radios = wrapper.find('RadioOption');
     expect(radios).toHaveLength(2);
     expect(radios.last().prop('disabled')).toEqual(false);

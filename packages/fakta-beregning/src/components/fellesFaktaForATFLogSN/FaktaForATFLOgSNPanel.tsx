@@ -9,7 +9,6 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, useMemo } from 'react';
-import { IntlShape } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
   FaktaOmBeregningValues,
@@ -25,7 +24,6 @@ import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteb
 import { erInitialOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import {
   buildInitialValuesKunYtelse,
-  getKunYtelseValidation,
   setFaktaPanelForKunYtelse,
   transformValuesForKunYtelse,
 } from './kunYtelse/FastsettBgKunYtelse';
@@ -57,22 +55,6 @@ export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) 
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderBesteberegning || undefined;
 export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe || [];
-
-export const validationForVurderFakta = (values: FaktaOmBeregningAksjonspunktValues, intl: IntlShape): any => {
-  if (!values) {
-    return {};
-  }
-  const { faktaOmBeregning, beregningsgrunnlag, tilfeller, kunYtelse, vurderMottarYtelse } = values;
-  if (!faktaOmBeregning || !beregningsgrunnlag || !tilfeller) {
-    return {};
-  }
-  return {
-    ...getKunYtelseValidation(values, kunYtelse, tilfeller, intl),
-    ...VurderMottarYtelseForm.validate(values, vurderMottarYtelse),
-    ...VurderBesteberegningForm.validate(values, tilfeller),
-    ...VurderOgFastsettATFL.validate(values, tilfeller, faktaOmBeregning, beregningsgrunnlag, intl),
-  };
-};
 
 const spacer = hasShownPanel => {
   if (hasShownPanel) {

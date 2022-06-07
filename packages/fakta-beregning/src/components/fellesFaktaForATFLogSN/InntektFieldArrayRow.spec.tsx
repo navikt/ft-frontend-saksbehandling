@@ -115,6 +115,7 @@ it('skal vise komponent med arbeidsperiode og refusjonskrav', () => {
       index={0}
       field={fields[0]}
       rowName=""
+      skalFastsetteInntektForAndel={jest.fn()}
       {...ownProps}
       {...props}
     />,
@@ -161,6 +162,7 @@ it('skal vise komponent uten arbeidsperiode og refusjonskrav', () => {
       isAksjonspunktClosed={false}
       field={fields[0]}
       rowName=""
+      skalFastsetteInntektForAndel={jest.fn()}
       {...ownProps}
     />,
     messages,
@@ -206,6 +208,7 @@ it('skal vise komponent med readOnly beløp', () => {
       isAksjonspunktClosed={false}
       field={fields[0]}
       rowName=""
+      skalFastsetteInntektForAndel={jest.fn()}
       {...ownProps}
     />,
     messages,
@@ -249,6 +252,7 @@ it('skal vise komponent med sletteknapp', () => {
       index={0}
       field={fields[0]}
       rowName=""
+      skalFastsetteInntektForAndel={jest.fn()}
       {...ownProps}
       {...props}
     />,

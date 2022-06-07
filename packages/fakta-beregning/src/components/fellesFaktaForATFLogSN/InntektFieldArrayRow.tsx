@@ -49,6 +49,7 @@ type OwnProps = {
   alleKodeverk: AlleKodeverk;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
+  skalFastsetteInntektForAndel: (andel) => boolean;
 };
 
 /**
@@ -67,6 +68,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   alleKodeverk,
   rowName,
+  skalFastsetteInntektForAndel,
 }) => {
   const intl = useIntl();
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
@@ -95,7 +97,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
             parse={parseCurrencyInput}
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
-            validate={[required]}
+            validate={skalFastsetteInntektForAndel(field) ? [required] : []}
           />
         </TableColumn>
       )}
@@ -115,7 +117,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
           name={`${rowName}.inntektskategori`}
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          // value={field.inntektskategori}
+          validate={readOnly ? [] : [required]}
           readOnly={readOnly || !skalRedigereInntektskategori}
         />
       </TableColumn>
