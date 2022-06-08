@@ -129,6 +129,7 @@ const fjernEllerLeggTilAktivitetStatus = (
   skalHaAndelMedAktivitetstatus: boolean,
   skalFjerne: (field: AndelFieldValue) => boolean,
   nyStatusAndel: AndelFieldValue,
+  getKanRedigereInntektCallback,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -143,7 +144,10 @@ const fjernEllerLeggTilAktivitetStatus = (
     return;
   }
   if (skalHaAndelMedAktivitetstatus) {
-    append(nyStatusAndel);
+    append({
+      ...nyStatusAndel,
+      kanRedigereInntekt: getKanRedigereInntektCallback()(nyStatusAndel),
+    });
   }
 };
 
@@ -152,6 +156,7 @@ export const leggTilDagpengerOmBesteberegning = (
   skalHaBesteberegning: boolean,
   aktivitetStatuser: KodeverkMedNavn[],
   skalKunneLeggeTilDagpenger: boolean,
+  getKanRedigereInntektCallback: () => void,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -161,6 +166,7 @@ export const leggTilDagpengerOmBesteberegning = (
     skalHaBesteberegning,
     (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && andel.lagtTilAvSaksbehandler,
     dagpenger(aktivitetStatuser),
+    getKanRedigereInntektCallback,
     remove,
     append,
   );
@@ -170,6 +176,7 @@ const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
   skalHaMilitær: boolean,
   aktivitetStatuser: KodeverkMedNavn[],
+  getKanRedigereInntektCallback: () => void,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -179,6 +186,7 @@ const fjernEllerLeggTilMilitær = (
     skalHaMilitær === true,
     () => skalHaMilitær === false,
     lagNyMS(aktivitetStatuser),
+    getKanRedigereInntektCallback,
     remove,
     append,
   );
@@ -251,9 +259,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.inntektFieldArray',
   });
-  // const tilfeller = beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller
-  // ? beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller.map(kode => kode)
-  // : [];
+
   const formValues = formHooks.useWatch({
     control,
     name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}` as 'vurderFaktaBeregningForm.0',
@@ -268,15 +274,28 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   });
   const intl = useIntl();
 
+  const getKanRedigereInntektCallback = useCallback(
+    () => getKanRedigereInntekt(formValues, beregningsgrunnlag),
+    [formValues, beregningsgrunnlag],
+  );
+
   useEffect(() => {
     const currentFields = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.inntektFieldArray`);
     const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
-    fjernEllerLeggTilMilitær(currentFields, skalHaMilitær, aktivitetStatuser, remove, append);
+    fjernEllerLeggTilMilitær(
+      currentFields,
+      skalHaMilitær,
+      aktivitetStatuser,
+      getKanRedigereInntektCallback,
+      remove,
+      append,
+    );
     leggTilDagpengerOmBesteberegning(
       currentFields,
       skalHaBesteberegning,
       aktivitetStatuser,
       skalKunneLeggeTilDagpengerManuelt,
+      getKanRedigereInntektCallback,
       remove,
       append,
     );
@@ -293,11 +312,13 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
     fields.forEach((field, index) => {
       const currentKanRedigereInntekt = field.kanRedigereInntekt;
       const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
-      if (currentKanRedigereInntekt !== kanRedigereInntekt) {
+      const erNyAndelSomSkalFjernes =
+        !skalHaBesteberegning && !skalKunneLeggeTilDagpengerManuelt && field.lagtTilAvSaksbehandler;
+      if (!erNyAndelSomSkalFjernes && currentKanRedigereInntekt !== kanRedigereInntekt) {
         updateKanRedigereInntekt(index, kanRedigereInntekt);
       }
     });
-  }, [skalHaBesteberegning, skalHaMilitær, fields, skalKunneLeggeTilDagpengerManuelt]);
+  }, [skalHaBesteberegning, skalHaMilitær, skalKunneLeggeTilDagpengerManuelt]);
 
   const inntektFieldArrayErrors = errors?.vurderFaktaBeregningForm?.[aktivtBeregningsgrunnlagIndeks]?.inntektFieldArray;
 
