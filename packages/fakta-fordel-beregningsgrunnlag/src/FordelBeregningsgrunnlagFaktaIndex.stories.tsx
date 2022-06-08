@@ -104,7 +104,7 @@ const fordelAP = [
 ];
 
 export default {
-  title: 'fakta/fakta-fordel-beregningsgrunnlag',
+  title: 'fakta-fordel-beregningsgrunnlag',
   component: FordelBeregningsgrunnlagFaktaIndex,
 };
 

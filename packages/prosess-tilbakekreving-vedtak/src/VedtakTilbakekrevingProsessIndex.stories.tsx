@@ -183,7 +183,7 @@ const beregningsresultat = {
 const alleKodeverk = alleTilbakekrevingKodeverk as AlleKodeverkTilbakekreving;
 
 export default {
-  title: 'prosess/prosess-vedtak-tilbakekreving',
+  title: 'prosess-vedtak-tilbakekreving',
   component: VedtakTilbakekrevingProsessIndex,
 };
 
