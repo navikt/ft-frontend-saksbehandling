@@ -46,7 +46,7 @@
     "nav-frontend-skjema-style": "3.0.2",
     "nav-frontend-typografi": "4.0.1",
     "nav-frontend-typografi-style": "2.0.1",
-    "react": "17.0.2",
+    "react": "18.1.0",
     "react-hook-form": "7.31.3"
   },
   "peerDependencies": {
@@ -72,7 +72,7 @@
     "nav-frontend-skjema-style": "3.0.2",
     "nav-frontend-typografi": "4.0.1",
     "nav-frontend-typografi-style": "2.0.1",
-    "react": "17.0.2"
+    "react": "18.1.0"
   },
   "devDependencies": {
     "@navikt/ft-utils-test": "^1.0.7",
