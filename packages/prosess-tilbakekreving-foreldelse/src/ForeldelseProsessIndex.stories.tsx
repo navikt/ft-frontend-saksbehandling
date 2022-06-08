@@ -72,7 +72,7 @@ const alleKodeverk = {
 } as AlleKodeverkTilbakekreving;
 
 export default {
-  title: 'prosess/prosess-foreldelse',
+  title: 'prosess-foreldelse',
   component: ForeldelseProsessIndex,
 };
 

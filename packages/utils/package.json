@@ -23,22 +23,22 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "^1.0.6",
     "@navikt/ft-types": "^1.0.9",
-    "dayjs": "1.11.2",
+    "dayjs": "1.11.3",
     "moment": "2.29.3",
-    "react-intl": "5.24.8"
+    "react-intl": "6.0.4"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "^1.0.4",
-    "@navikt/ft-types": "^1.0.7",
-    "dayjs": "1.11.2",
+    "@navikt/ft-kodeverk": "^1.0.6",
+    "@navikt/ft-types": "^1.0.9",
+    "dayjs": "1.11.3",
     "moment": "2.29.3",
-    "react-intl": "5.24.8"
+    "react-intl": "6.0.4"
   },
   "devDependencies": {
     "clean-webpack-plugin": "4.0.0",
     "cross-env": "7.0.3",
-    "typescript": "4.7.2",
-    "webpack": "5.72.1",
+    "typescript": "4.7.3",
+    "webpack": "5.73.0",
     "webpack-cli": "4.9.2",
     "webpack-node-externals": "3.0.0"
   },

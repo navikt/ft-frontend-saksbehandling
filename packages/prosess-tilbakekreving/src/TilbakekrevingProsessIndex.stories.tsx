@@ -67,7 +67,7 @@ const vilkarvurdering = {
 const alleKodeverk = alleTilbakekrevingKodeverk as AlleKodeverkTilbakekreving;
 
 export default {
-  title: 'prosess/prosess-tilbakekreving',
+  title: 'prosess-tilbakekreving',
   component: TilbakekrevingProsessIndex,
 };
 
