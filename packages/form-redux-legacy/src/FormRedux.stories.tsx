@@ -3,15 +3,7 @@ import { reduxForm } from 'redux-form';
 import { IntlProvider } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import ReduxWrapper from './ReduxWrapper';
-import {
-  RadioOption,
-  TextAreaField,
-  SelectField,
-  RadioGroupField,
-  DecimalField,
-  CheckboxField,
-  InputField,
-} from '../index';
+import { RadioOption, TextAreaField, SelectField, RadioGroupField, CheckboxField, InputField } from '../index';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
@@ -32,7 +24,6 @@ export const visFormkomponenter = () => (
         <VerticalSpacer sixteenPx />
         <CheckboxField label="CheckboxField" name="testcheckbox" />
         <VerticalSpacer sixteenPx />
-        <DecimalField label="DecimalField" name="testdecimalField" />
         <VerticalSpacer sixteenPx />
         <RadioGroupField label="RadioGroupField" name="testRadioField">
           <RadioOption label="Dette er en test 1" value="test1" />

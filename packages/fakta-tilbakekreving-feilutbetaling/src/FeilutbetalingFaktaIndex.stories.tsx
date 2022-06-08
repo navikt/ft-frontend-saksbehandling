@@ -81,7 +81,7 @@ const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as AlleKodeverkT
 const fpSakAlleKodeverk = alleKodeverk as any;
 
 export default {
-  title: 'fakta/fakta-feilutbetaling',
+  title: 'fakta-feilutbetaling',
   component: FeilutbetalingFaktaIndex,
 };
 
