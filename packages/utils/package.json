@@ -28,8 +28,8 @@
     "react-intl": "6.0.4"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "^1.0.4",
-    "@navikt/ft-types": "^1.0.7",
+    "@navikt/ft-kodeverk": "^1.0.6",
+    "@navikt/ft-types": "^1.0.9",
     "dayjs": "1.11.3",
     "moment": "2.29.3",
     "react-intl": "6.0.4"
