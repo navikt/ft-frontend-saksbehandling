@@ -190,7 +190,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   });
 
   const {
-    formState: { dirtyFields, isSubmitted },
+    formState: { dirtyFields, isSubmitted, errors },
     control,
     trigger,
   } = formMethods;
@@ -206,32 +206,33 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
     control,
   });
 
+  const losAvklaringsbehov = (values: BeregningFormValues) => {
+    if (Object.keys(errors).length === 0) {
+      submitCallback(transformFields(values));
+    }
+  };
+
   return (
     <>
-      <Form
-        formMethods={formMethods}
-        onSubmit={values => submitCallback(transformFields(values))}
-        setDataOnUnmount={setFormData}
-      >
-        {fields.map(
-          (field, index) =>
-            aktivtBeregningsgrunnlagIndeks === index && (
-              <BeregningForm
-                key={field.id}
-                readOnly={readOnly}
-                beregningsgrunnlag={beregningsgrunnlagListe[index]}
-                gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[index])}
-                relevanteStatuser={relevanteStatuser}
-                readOnlySubmitButton={readOnlySubmitButton}
-                alleKodeverk={alleKodeverk}
-                vilkaarBG={vilkar}
-                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                isSubmitting={formMethods.formState.isSubmitting}
-                isDirty={formMethods.formState.isDirty}
-                fieldIndex={index}
-              />
-            ),
-        )}
+      <Form formMethods={formMethods} onSubmit={values => losAvklaringsbehov(values)} setDataOnUnmount={setFormData}>
+        {fields.map((field, index) => (
+          <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
+            <BeregningForm
+              key={field.id}
+              readOnly={readOnly}
+              beregningsgrunnlag={beregningsgrunnlagListe[index]}
+              gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[index])}
+              relevanteStatuser={relevanteStatuser}
+              readOnlySubmitButton={readOnlySubmitButton}
+              alleKodeverk={alleKodeverk}
+              vilkaarBG={vilkar}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              isSubmitting={formMethods.formState.isSubmitting}
+              isDirty={formMethods.formState.isDirty}
+              fieldIndex={index}
+            />
+          </div>
+        ))}
       </Form>
 
       {aksjonspunktGraderingPaaAndelUtenBG && (
