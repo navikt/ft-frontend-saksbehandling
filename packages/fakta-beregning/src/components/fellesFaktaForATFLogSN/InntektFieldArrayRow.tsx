@@ -92,6 +92,12 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       {kanRedigereInntekt && (
         <TableColumn className={styles.rightAlignInput}>
           <InputField
+            label={intl.formatMessage(
+              {
+                id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
+              },
+              { andel: field.andel },
+            )}
             name={`${rowName}.fastsattBelop`}
             bredde="M"
             parse={parseCurrencyInput}
@@ -113,7 +119,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       )}
       <TableColumn className={styles.rightAlign}>
         <SelectField
-          label=""
+          label={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Inntektskategori' })}
           name={`${rowName}.inntektskategori`}
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}

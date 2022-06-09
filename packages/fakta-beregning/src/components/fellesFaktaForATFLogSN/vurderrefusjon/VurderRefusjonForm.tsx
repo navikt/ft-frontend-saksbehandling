@@ -32,14 +32,15 @@ const lagRefusjonskravRadios = (
     return (
       <React.Fragment key={arbeidsgiverIdent}>
         <VerticalSpacer twentyPx />
-        <FormattedMessage
-          id="VurderRefusjonForm.ErRefusjonskravGyldig"
-          values={{
-            arbeidsgiverVisningsnavn,
-          }}
-        />
-        <VerticalSpacer eightPx />
         <RadioGroupPanel
+          label={
+            <FormattedMessage
+              id="VurderRefusjonForm.ErRefusjonskravGyldig"
+              values={{
+                arbeidsgiverVisningsnavn,
+              }}
+            />
+          }
           name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
             arbeidsgiverIdent,
           )}`}

@@ -2,7 +2,6 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -41,11 +40,12 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readO
 
   return (
     <div>
-      <Normaltekst>
-        <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring" />
-      </Normaltekst>
-      <VerticalSpacer eightPx />
       <RadioGroupPanel
+        label={
+          <Normaltekst>
+            <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring" />
+          </Normaltekst>
+        }
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.lonnsendringField`}
         isReadOnly={readOnly}
         radios={[

@@ -46,12 +46,11 @@ const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
 // const getErrorMessage = (error, isBeregningFormDirty, isSubmitSuccessful) =>
 //   error && isBeregningFormDirty && !isSubmitSuccessful ? error : null;
 
-const skalViseSletteknapp = (index, fields, readOnly) => fields.at(index).skalKunneEndreAktivitet === true && !readOnly;
+const skalViseSletteknapp = (index, fields, readOnly) => fields[index].skalKunneEndreAktivitet === true && !readOnly;
 
 const skalViseRefusjon = fields => {
   let skalVise = false;
-  fields.forEach((id, index) => {
-    const field = fields.at(index);
+  fields.forEach(field => {
     if (field.refusjonskrav !== '' && field.refusjonskrav !== null && field.refusjonskrav !== undefined) {
       skalVise = true;
     }
@@ -61,8 +60,7 @@ const skalViseRefusjon = fields => {
 
 const skalVisePeriode = fields => {
   let skalVise = false;
-  fields.forEach((id, index) => {
-    const field = fields.at(index);
+  fields.forEach(field => {
     if (field.arbeidsgiverId !== '') {
       skalVise = true;
     }
@@ -103,6 +101,7 @@ const createAndelerTableRows = (
 
 const createBruttoBGSummaryRow = (fields, readOnly, beregningsgrunnlag) => (
   <SummaryRow
+    key="summaryRow"
     readOnly={readOnly}
     skalVisePeriode={skalVisePeriode(fields)}
     skalViseRefusjon={skalViseRefusjon(fields)}
@@ -112,8 +111,7 @@ const createBruttoBGSummaryRow = (fields, readOnly, beregningsgrunnlag) => (
 
 const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) => {
   let index = -1;
-  fields.forEach((id, nyIndex) => {
-    const field = fields.at(nyIndex);
+  fields.forEach((field, nyIndex) => {
     if (field.aktivitetStatus === aktivitetStatusKode) {
       index = nyIndex;
     }

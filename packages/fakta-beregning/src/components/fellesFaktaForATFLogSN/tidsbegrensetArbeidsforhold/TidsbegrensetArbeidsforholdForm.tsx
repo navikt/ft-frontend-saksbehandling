@@ -6,7 +6,6 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -66,18 +65,19 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
         <div
           key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)}`}
         >
-          <Normaltekst>
-            <FormattedMessage
-              id={kortvarigStringId}
-              values={{
-                navn: lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId),
-                fom: moment(andel.arbeidsforhold.startdato).format(DDMMYYYY_DATE_FORMAT),
-                tom: moment(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
-              }}
-            />
-          </Normaltekst>
-          <VerticalSpacer eightPx />
           <RadioGroupPanel
+            label={
+              <Normaltekst>
+                <FormattedMessage
+                  id={kortvarigStringId}
+                  values={{
+                    navn: lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId),
+                    fom: moment(andel.arbeidsforhold.startdato).format(DDMMYYYY_DATE_FORMAT),
+                    tom: moment(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
+                  }}
+                />
+              </Normaltekst>
+            }
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
               andel,
             )}`}

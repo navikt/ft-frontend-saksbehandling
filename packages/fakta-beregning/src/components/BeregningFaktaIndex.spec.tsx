@@ -90,4 +90,25 @@ describe('<BeregningFaktaIndexSpec', () => {
     render(<ArbeidOgAAPMedUtførtAksjonspunkt />);
     expect(screen.queryByTestId('editedIcon')).not.toBeInTheDocument();
   });
+
+  it('skal ikke få sende inn vurder fakta uten å ha fylt ut felter', async () => {
+    render(<ArbeidOgDagpenger />);
+    const radioJa = screen.getByLabelText('Ja');
+    userEvent.click(radioJa);
+    expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Månedsinntekt for Dagpenger')).toBeInTheDocument();
+    userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+    const valideringsmeldinger = await screen.findAllByText('Feltet må fylles ut');
+    expect(valideringsmeldinger.length).toBe(3);
+  });
+
+  it('skal måtte overstyre inntekt for minst én aktivitet', async () => {
+    render(<ArbeidOgDagpenger />);
+    const secondOverstyrknapp = screen.getAllByTestId('overstyringsknapp')[1];
+    userEvent.click(secondOverstyrknapp);
+    expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
+    userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+    const valideringsmelding = await screen.findByText('Må ha overstyrt inntekt for minst én aktivitet.');
+    expect(valideringsmelding).toBeInTheDocument();
+  });
 });

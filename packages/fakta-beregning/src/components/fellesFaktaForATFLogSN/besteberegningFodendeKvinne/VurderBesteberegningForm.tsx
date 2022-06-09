@@ -3,7 +3,6 @@ import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
@@ -54,12 +53,12 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
     <div>
       <Row>
         <Column xs="9">
-          <Normaltekst>
-            <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
-          </Normaltekst>
-          <VerticalSpacer eightPx />
-
           <RadioGroupPanel
+            label={
+              <Normaltekst>
+                <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
+              </Normaltekst>
+            }
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${besteberegningField}`}
             isReadOnly={isReadOnly}
             validate={isReadOnly ? [] : [required]}

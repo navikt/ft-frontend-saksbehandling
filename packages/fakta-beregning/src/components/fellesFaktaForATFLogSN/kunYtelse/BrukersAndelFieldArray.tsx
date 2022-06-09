@@ -48,7 +48,7 @@ const summerFordeling = fields => {
 //   errors && isBeregningFormDirty && !isSubmitSuccessful ? renderMessage(intl, errors) : null;
 
 function skalViseSletteknapp(index, fields, readOnly) {
-  return (fields.at(index).nyAndel || fields.at(index).lagtTilAvSaksbehandler) && !readOnly;
+  return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
 const onKeyDown =
   (append, aktivitetStatuser, alleKodeverk) =>

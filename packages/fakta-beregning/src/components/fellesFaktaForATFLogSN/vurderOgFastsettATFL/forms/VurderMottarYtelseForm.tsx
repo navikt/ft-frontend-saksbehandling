@@ -10,7 +10,6 @@ import {
   FaktaOmBeregning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
@@ -62,13 +61,12 @@ const mottarYtelseArbeidsforholdRadio = (
   intl: IntlShape,
 ): React.ReactNode => (
   <div key={utledArbeidsforholdFieldName(andel)}>
-    <div>
-      <Normaltekst>
-        {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
-      </Normaltekst>
-    </div>
-    <VerticalSpacer eightPx />
     <RadioGroupPanel
+      label={
+        <Normaltekst>
+          {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
+        </Normaltekst>
+      }
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
         andel,
       )}`}
@@ -143,13 +141,14 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
     <div>
       {erFrilans && (
         <div>
-          <div key={finnFrilansFieldName()}>
-            <Normaltekst>
-              <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-            </Normaltekst>
-          </div>
-          <VerticalSpacer eightPx />
           <RadioGroupPanel
+            label={
+              <div key={finnFrilansFieldName()}>
+                <Normaltekst>
+                  <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
+                </Normaltekst>
+              </div>
+            }
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
             isReadOnly={readOnly}
             radios={[

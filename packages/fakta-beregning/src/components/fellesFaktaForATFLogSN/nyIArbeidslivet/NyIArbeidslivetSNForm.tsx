@@ -2,7 +2,6 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import Beregningsgrunnlag from '@navikt/ft-types/src/beregningsgrunnlagTsType';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -40,11 +39,12 @@ const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ 
 
   return (
     <div>
-      <Normaltekst>
-        <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
-      </Normaltekst>
-      <VerticalSpacer eightPx />
       <RadioGroupPanel
+        label={
+          <Normaltekst>
+            <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
+          </Normaltekst>
+        }
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${radioGroupFieldName}`}
         validate={[required]}
         isReadOnly={readOnly}
