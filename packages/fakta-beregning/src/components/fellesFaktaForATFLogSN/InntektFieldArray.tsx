@@ -43,9 +43,6 @@ const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   lagtTilAvSaksbehandler: true,
 });
 
-// const getErrorMessage = (error, isBeregningFormDirty, isSubmitSuccessful) =>
-//   error && isBeregningFormDirty && !isSubmitSuccessful ? error : null;
-
 const skalViseSletteknapp = (index, fields, readOnly) => fields[index].skalKunneEndreAktivitet === true && !readOnly;
 
 const skalViseRefusjon = fields => {
@@ -243,7 +240,6 @@ interface StaticFunctions {
  */
 export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  // isBeregningFormDirty,
   skalKunneLeggeTilDagpengerManuelt,
   beregningsgrunnlag,
   isAksjonspunktClosed,

@@ -20,14 +20,6 @@ const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
   lagtTilAvSaksbehandler: true,
 });
 
-const onKeyDown =
-  (leggTilAndel, aktivitetStatuser) =>
-  ({ key }) => {
-    if (key === 'Enter') {
-      leggTilAndel(dagpenger(aktivitetStatuser));
-    }
-  };
-
 type OwnProps = {
   leggTilAndel: UseFieldArrayAppend<AndelFieldValue>;
   alleKodeverk: AlleKodeverk;
@@ -46,15 +38,13 @@ export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedCo
         {
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         }
-        <div
+        <button
           id="leggTilAndelDiv"
           onClick={() => {
             leggTilAndel(dagpenger(aktivitetStatuser));
           }}
-          onKeyDown={onKeyDown(leggTilAndel, aktivitetStatuser)}
           className={styles.addPeriode}
-          role="button"
-          tabIndex={0}
+          type="button"
         >
           <Image
             className={styles.addCircleIcon}
@@ -64,7 +54,7 @@ export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedCo
           <Undertekst className={styles.imageText}>
             <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel" />
           </Undertekst>
-        </div>
+        </button>
       </Column>
     </Row>
   );

@@ -26,12 +26,6 @@ const isDisabled = (
 };
 
 interface PureOwnProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  // formNames?: string[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  // formName?: string;
-  // eslint-disable-next-line react/no-unused-prop-types
-  // doNotCheckForRequiredFields?: boolean;
   buttonText?: string;
   isReadOnly: boolean;
   isSubmittable: boolean;
@@ -69,16 +63,5 @@ const FaktaSubmitButton: FunctionComponent<PureOwnProps> = ({
     </RawIntlProvider>
   );
 };
-// const mapStateToProps = (state, ownProps: PureOwnProps): MappedOwnProps => {
-//   const fNames = ownProps.formNames ? ownProps.formNames : [ownProps.formName];
-//   const formNames = fNames.map(f => (f.includes('.') ? f.substr(f.lastIndexOf('.') + 1) : f));
-//   return {
-//     isSubmitting: formNames.some(formName => reduxIsSubmitting(formName)(state)),
-//     isDirty: formNames.some(formName => reduxIsDirty(formName)(state)),
-//     hasEmptyRequiredFields: ownProps.doNotCheckForRequiredFields
-//       ? // @ts-ignore
-//         false
-//       : formNames.some(formName => hasBehandlingFormErrorsOfType(formName, isRequiredMessage())(state as never)), // TODO: Finn ut hva som er galt her
-//   };
-// };
+
 export default FaktaSubmitButton;

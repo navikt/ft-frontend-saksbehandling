@@ -13,19 +13,12 @@ const harAvklaringsbehovSomKanLøses = (
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): boolean => avklaringsbehov.some(ap => ap.definisjon === avklaringsbehovCode && ap.kanLoses);
 
-const skalKunneLoseAvklaringsbehov = (
-  skalOverstyre: boolean,
-  avklaringsbehov: BeregningAvklaringsbehov[],
-  // erTilVurdering: boolean,
-) => skalOverstyre || harAvklaringsbehovSomKanLøses(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov);
+const skalKunneLoseAvklaringsbehov = (skalOverstyre: boolean, avklaringsbehov: BeregningAvklaringsbehov[]) =>
+  skalOverstyre || harAvklaringsbehovSomKanLøses(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov);
 
 const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues) => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD];
-  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(
-    skalOverstyre,
-    values.avklaringsbehov,
-    // values.erTilVurdering,
-  );
+  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov);
 
   if (!skalLoseAvklaringsbehov) {
     return null;

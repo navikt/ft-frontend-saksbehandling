@@ -42,21 +42,9 @@ const summerFordeling = fields => {
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-// const renderMessage = (intl, error) => (error[0] && error[0].id ? intl.formatMessage(...error) : error);
-
-// const getErrorMessage = (errors, intl, isBeregningFormDirty, isSubmitSuccessful) =>
-//   errors && isBeregningFormDirty && !isSubmitSuccessful ? renderMessage(intl, errors) : null;
-
 function skalViseSletteknapp(index, fields, readOnly) {
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
-const onKeyDown =
-  (append, aktivitetStatuser, alleKodeverk) =>
-  ({ key }) => {
-    if (key === 'Enter') {
-      append(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
-    }
-  };
 
 const createAndelerTableRows = (
   fields,
@@ -193,22 +181,20 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
       {!readOnly && (
         <Row className={styles.buttonRow}>
           <Column xs="3">
-            <div
+            <button
               id="leggTilAndelDiv"
               onClick={() => {
                 append(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
               }}
-              onKeyDown={onKeyDown(append, aktivitetStatuser, alleKodeverk)}
               className={styles.addPeriode}
-              role="button"
-              tabIndex={0}
+              type="button"
               title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.LeggTilAndel' })}
             >
               <Image className={styles.addCircleIcon} src={addCircleIcon} />
               <Undertekst className={styles.imageText}>
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
               </Undertekst>
-            </div>
+            </button>
           </Column>
         </Row>
       )}
