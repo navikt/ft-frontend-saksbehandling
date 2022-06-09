@@ -2979,10 +2979,22 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@navikt/ds-css@^0.16.15":
+  version "0.16.21"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/0.16.21/d8f34cfa67882eddd09a7f05170f3d1d173fe45fa11c143f857319b6a57f00f2#b793f900f3148a048180423052480c04be239e68"
+  integrity sha512-kV9fLtnZoOIectWGZFg/aLzgp4gRi2sBjgq5VzoprNQlzSOnSxwR0QVLClpmjJe+oKZYUc5RndqDc0QAMawqkA==
+
 "@navikt/ds-css@^0.18.1":
   version "0.18.1"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-css/0.18.1/4b801963f20dc32e9dd99a7a4658214f5290bacc2bd60483246b7f9dad268779#9d45ac1ade4437ed727213971941d472fc3f3542"
   integrity sha512-NMgw5JiqHPaoi2keOJbQKgQxzGRGrYD0tIqMHeFqm1ij5ZLoo5yzSYyGvw3ZwOy8uhFSzVO+6EYknb6Uq4c7zQ==
+
+"@navikt/ds-icons@^0.8.11", "@navikt/ds-icons@^0.8.7":
+  version "0.8.17"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/0.8.17/359dd97bac9bd3c41fcb5fd2d3bb3f853e356894eef75ee09c7369225802eea4#ddf124687e158a988d6be70f653ae3239aba90ad"
+  integrity sha512-CR1h9t0MZprEvTqlrlLd3cHhoYmriFWkETikPprUNl3AMJMSCDovVYzXtOgIyVeFbtwTPzGtShw5mgxlVWAEDg==
+  dependencies:
+    uuid "^8.3.2"
 
 "@navikt/ds-icons@^0.8.13":
   version "0.8.13"
