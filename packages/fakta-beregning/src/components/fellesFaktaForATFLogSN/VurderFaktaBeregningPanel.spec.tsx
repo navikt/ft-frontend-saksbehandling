@@ -34,13 +34,13 @@ describe('<VurderFaktaBeregningPanel>', () => {
     const values = {
       vurderFaktaBeregningForm: [
         {
-          aksjonspunkter: [avklarAktiviteterAp],
+          avklaringsbehov: [avklarAktiviteterAp],
           faktaOmBeregning,
         },
       ],
     };
     const transformed = transformValuesVurderFaktaBeregning(values);
-    expect(transformed).toBeNull();
+    expect(transformed.length).toBe(0);
   });
 
   it('skal transformValues med aksjonspunkt', () => {
@@ -52,7 +52,7 @@ describe('<VurderFaktaBeregningPanel>', () => {
       vurderFaktaBeregningForm: [
         {
           [BEGRUNNELSE_FAKTA_TILFELLER_NAME]: 'begrunnelse',
-          aksjonspunkter,
+          avklaringsbehov: aksjonspunkter,
           faktaOmBeregning,
           tilfeller,
         },

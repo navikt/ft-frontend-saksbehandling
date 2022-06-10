@@ -1,13 +1,12 @@
-import React from 'react';
-import { action } from '@storybook/addon-actions';
-
+import '@navikt/ft-form-redux-legacy/dist/style.css';
 import {
   AksjonspunktStatus,
   AktivitetStatus as aktivitetStatuser,
   FaktaOmBeregningTilfelle,
-  AktivitetStatus,
+  Inntektskategori,
   OpptjeningAktivitetType,
 } from '@navikt/ft-kodeverk';
+import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 import {
   AndelForFaktaOmBeregning,
   Behandling,
@@ -16,38 +15,32 @@ import {
   FaktaOmBeregningAndel,
   Vilkar,
 } from '@navikt/ft-types';
-import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
+import '@navikt/ft-ui-komponenter/dist/style.css';
+import { action } from '@storybook/addon-actions';
 import type { Story } from '@storybook/react';
-
 import dayjs from 'dayjs';
-import BeregningFaktaIndex from './BeregningFaktaIndex';
-import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
-import {
-  aksjonspunkt as aksjonspunktArbeidOgDagpenger,
-  beregningsgrunnlag as bgMedArbeidOgDagpenger,
-  vilkar as vilkarArbeidOgDagpenger,
-} from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
-
+import React from 'react';
 import {
   aksjonspunkt as aksjonspunktArbeidOgAAP,
   beregningsgrunnlag as bgArbeidOgAAP,
   vilkar as vilkarArbeidOgAAP,
 } from '../testdata/ArbeidMedAAPPåSkjæringstidspunktet';
-
 import {
   aksjonspunkt as aksjonspunktArbeidOgAAPLøstAksjonspunkt,
   beregningsgrunnlag as bgArbeidOgAAPLøstAksjonspunkt,
 } from '../testdata/ArbeidMedAAPPåSkjæringstidspunktetLøstAksjonspunkt';
-
+import {
+  aksjonspunkt as aksjonspunktArbeidOgDagpenger,
+  beregningsgrunnlag as bgMedArbeidOgDagpenger,
+  vilkar as vilkarArbeidOgDagpenger,
+} from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
+import agOpplysninger from '../testdata/arbeidsgiverOpplysninger';
 import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
-
-import agOpplysninger from '../testdata/arbeidsgiverOpplysninger';
-
-import '@navikt/ft-ui-komponenter/dist/style.css';
-import '@navikt/ft-form-redux-legacy/dist/style.css';
+import BeregningFaktaIndex from './BeregningFaktaIndex';
+import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
 
 const behandling = {
   uuid: '1',
@@ -103,7 +96,7 @@ const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: s
 });
 
 const standardFaktaArbeidstakerAndel = {
-  ...lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, AktivitetStatus.ARBEIDSTAKER),
+  ...lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -115,7 +108,7 @@ const standardFaktaArbeidstakerAndel = {
   },
 };
 const standardFaktaArbeidstakerAndel2 = {
-  ...lagAndel(4, aktivitetStatuser.ARBEIDSTAKER, AktivitetStatus.ARBEIDSTAKER),
+  ...lagAndel(4, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -128,7 +121,7 @@ const standardFaktaArbeidstakerAndel2 = {
   },
 };
 const tidsbegrensetFaktaArbeidstakerAndel = {
-  ...lagAndel(6, aktivitetStatuser.ARBEIDSTAKER, AktivitetStatus.ARBEIDSTAKER),
+  ...lagAndel(6, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -141,7 +134,7 @@ const tidsbegrensetFaktaArbeidstakerAndel = {
   },
 };
 const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
-  ...lagAndel(7, aktivitetStatuser.ARBEIDSTAKER, AktivitetStatus.ARBEIDSTAKER),
+  ...lagAndel(7, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -153,32 +146,32 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
   },
 };
 const standardFaktaDagpengerAndel = {
-  ...lagAndel(3, aktivitetStatuser.DAGPENGER, AktivitetStatus.DAGPENGER),
+  ...lagAndel(3, aktivitetStatuser.DAGPENGER, Inntektskategori.DAGPENGER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaFrilansAndel = {
-  ...lagAndel(2, aktivitetStatuser.FRILANSER, AktivitetStatus.FRILANSER),
+  ...lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaMilitærAndel = {
-  ...lagAndel(5, aktivitetStatuser.MILITAER_ELLER_SIVIL, AktivitetStatus.ARBEIDSTAKER),
+  ...lagAndel(5, aktivitetStatuser.MILITAER_ELLER_SIVIL, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaYtelseAndel = {
-  ...lagAndel(8, aktivitetStatuser.KUN_YTELSE, AktivitetStatus.UDEFINERT),
+  ...lagAndel(8, aktivitetStatuser.KUN_YTELSE, Inntektskategori.UDEFINERT),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaNæringAndel = {
-  ...lagAndel(9, aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE, AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE),
+  ...lagAndel(9, aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE, Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaAAPAndel = {
-  ...lagAndel(10, aktivitetStatuser.ARBEIDSAVKLARINGSPENGER, AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
+  ...lagAndel(10, aktivitetStatuser.ARBEIDSAVKLARINGSPENGER, Inntektskategori.ARBEIDSAVKLARINGSPENGER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };

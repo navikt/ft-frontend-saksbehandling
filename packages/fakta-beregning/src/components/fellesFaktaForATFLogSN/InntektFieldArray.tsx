@@ -312,7 +312,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
         updateKanRedigereInntekt(index, kanRedigereInntekt);
       }
     });
-  }, [skalHaBesteberegning, skalHaMilitær, skalKunneLeggeTilDagpengerManuelt]);
+  }, [formValues]);
 
   const inntektFieldArrayErrors = errors?.vurderFaktaBeregningForm?.[aktivtBeregningsgrunnlagIndeks]?.inntektFieldArray;
 

@@ -241,6 +241,7 @@ describe('<InntektFieldArray>', () => {
       false,
       jest.fn(),
       jest.fn(),
+      jest.fn(),
     );
     expect(newfields.length).toBe(0);
   });
@@ -254,6 +255,7 @@ describe('<InntektFieldArray>', () => {
       false,
       alleKodeverk[KodeverkType.AKTIVITET_STATUS],
       false,
+      jest.fn(),
       jest.fn(),
       jest.fn(),
     );
@@ -317,22 +319,6 @@ describe('<InntektFieldArray>', () => {
   //   values.push(andel2);
   //   const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
   //   expect(errors[0].inntektskategori).toBe(isRequiredMessage());
-  // });
-
-  // it('skal gi error om andel ikkje er valgt for nye andeler', () => {
-  //   const skalFastsetteInntekt = () => true;
-  //   const values = [];
-  //   const andel2 = {
-  //     refusjonskrav: '10 000',
-  //     fastsattBelop: '100 000',
-  //     aktivitetstatus: 'ARBEIDSTAKER',
-  //     andel: '',
-  //     inntektskategori: 'ARBEIDSTAKER',
-  //     nyAndel: true,
-  //   };
-  //   values.push(andel2);
-  //   const errors = InntektFieldArray.validate(values, false, skalFastsetteInntekt, intlMock);
-  //   expect(errors[0].andel).toBe(isRequiredMessage());
   // });
 
   it('skal ikkje bygge initial values om ingen andeler', () => {
