@@ -243,9 +243,9 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
               allePerioder={beregningsgrunnlagPeriode}
               gjelderBesteberegning={gjelderBesteberegning}
               alleKodeverk={alleKodeverk}
-              skjeringstidspunktDato={skjaeringstidspunktBeregning}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
               sammenligningsGrunnlagInntekter={beregningsgrunnlag.inntektsgrunnlag}
+              sammenligningsgrunnlag={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
             />
           )}
           <VerticalSpacer twentyPx />
