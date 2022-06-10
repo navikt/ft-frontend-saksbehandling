@@ -8,6 +8,7 @@ import {
   Inntektsgrunnlag,
   AlleKodeverk,
   Aksjonspunkt,
+  SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import {
   FastsettAvvikATFLResultatAP,
@@ -60,8 +61,8 @@ const createRelevantePaneler = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   gjelderBesteberegning: boolean,
   alleKodeverk: AlleKodeverk,
-  skjeringstidspunktDato: string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  sammenligningsgrunnlag?: SammenligningsgrunlagProp[],
   sammenligningsGrunnlagInntekter?: Inntektsgrunnlag,
 ): ReactElement => ( // NOSONAR TODO splitte i flere komponenter?
   <div className={beregningStyles.panelLeft}>
@@ -97,11 +98,11 @@ const createRelevantePaneler = (
     )}
     {!relevanteStatuser.isSelvstendigNaeringsdrivende &&
       sammenligningsGrunnlagInntekter &&
-      skjeringstidspunktDato &&
+      sammenligningsgrunnlag &&
       (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
         <SammenlignsgrunnlagAOrdningen
           sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
-          skjeringstidspunktDato={skjeringstidspunktDato}
+          sammenligningsgrunnlag={sammenligningsgrunnlag}
         />
       )}
   </div>
@@ -126,8 +127,8 @@ type OwnProps = {
   gjelderBesteberegning: boolean;
   alleKodeverk: AlleKodeverk;
   sammenligningsGrunnlagInntekter?: Inntektsgrunnlag;
-  skjeringstidspunktDato: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  sammenligningsgrunnlag?: SammenligningsgrunlagProp[];
 };
 
 // ------------------------------------------------------------------------------------------ //
@@ -145,8 +146,8 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
   gjelderBesteberegning,
   alleKodeverk,
   sammenligningsGrunnlagInntekter,
-  skjeringstidspunktDato,
   arbeidsgiverOpplysningerPerId,
+  sammenligningsgrunnlag,
 }) => {
   if (!allePerioder) {
     return null;
@@ -158,8 +159,8 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
     allePerioder,
     gjelderBesteberegning,
     alleKodeverk,
-    skjeringstidspunktDato,
     arbeidsgiverOpplysningerPerId,
+    sammenligningsgrunnlag,
     sammenligningsGrunnlagInntekter,
   );
 };
@@ -167,7 +168,6 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
 Beregningsgrunnlag.defaultProps = {
   allePerioder: undefined,
   sammenligningsGrunnlagInntekter: undefined,
-  skjeringstidspunktDato: undefined,
 };
 
 Beregningsgrunnlag.buildInitialValues = (

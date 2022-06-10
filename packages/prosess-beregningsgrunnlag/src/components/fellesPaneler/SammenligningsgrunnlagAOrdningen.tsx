@@ -6,7 +6,12 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
-import { Inntektsgrunnlag, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
+import {
+  Inntektsgrunnlag,
+  InntektsgrunnlagInntekt,
+  InntektsgrunnlagMåned,
+  SammenligningsgrunlagProp,
+} from '@navikt/ft-types';
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
@@ -100,10 +105,10 @@ const finnInntektForStatus = (andeler: InntektsgrunnlagInntekt[], status?: strin
   return andeler.reduce((acc, atAndel) => acc + atAndel.beløp, 0);
 };
 
-const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], skjeringstidspunktDato: string, inntektAType?: string) => {
+const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], sammenligningsgrunnlagFom: string, inntektAType?: string) => {
   const data = [];
-  for (let step = 1; step <= 12; step += 1) {
-    const dato = dayjs(skjeringstidspunktDato, ISO_DATE_FORMAT).subtract(step, 'M');
+  for (let step = 0; step < 12; step += 1) {
+    const dato = dayjs(sammenligningsgrunnlagFom, ISO_DATE_FORMAT).add(step, 'M');
     const aarMaaned = dato.format('YYYYMM');
     const månedMedInntekter = andeler.find(andel => dayjs(andel.fom, ISO_DATE_FORMAT).format('YYYYMM') === aarMaaned);
     const beløp = finnInntektForStatus(månedMedInntekter?.inntekter || [], inntektAType);
@@ -135,7 +140,7 @@ const finnesInntektAvType = (måneder: InntektsgrunnlagMåned[], status: string)
 
 type OwnProps = {
   sammenligningsGrunnlagInntekter: Inntektsgrunnlag;
-  skjeringstidspunktDato: string;
+  sammenligningsgrunnlag: SammenligningsgrunlagProp[];
 };
 
 type Inntektstyper = {
@@ -146,11 +151,11 @@ type Inntektstyper = {
 
 const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
   sammenligningsGrunnlagInntekter,
-  skjeringstidspunktDato,
+  sammenligningsgrunnlag,
 }) => {
   const intl = useIntl();
   const måneder = sammenligningsGrunnlagInntekter?.måneder;
-  if (!måneder || måneder.length === 0 || !skjeringstidspunktDato) {
+  if (!måneder || måneder.length === 0 || !sammenligningsgrunnlag || sammenligningsgrunnlag.length < 1) {
     return null;
   }
   const relevanteStatuser = {
@@ -162,27 +167,27 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
   const arbeidTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid' });
   const frilansTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans' });
   const ytelseTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse' });
-
+  const { sammenligningsgrunnlagFom } = sammenligningsgrunnlag[0];
   const dataForArbeid = useMemo(
     () =>
       relevanteStatuser.harArbeidsinntekt
-        ? finnDataForIAT(måneder, skjeringstidspunktDato, InntektAktivitetType.ARBEID)
+        ? finnDataForIAT(måneder, sammenligningsgrunnlagFom, InntektAktivitetType.ARBEID)
         : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, skjeringstidspunktDato],
+    [relevanteStatuser.harArbeidsinntekt, måneder, sammenligningsgrunnlagFom],
   );
   const dataForFrilans = useMemo(
     () =>
       relevanteStatuser.harFrilansinntekt
-        ? finnDataForIAT(måneder, skjeringstidspunktDato, InntektAktivitetType.FRILANS)
+        ? finnDataForIAT(måneder, sammenligningsgrunnlagFom, InntektAktivitetType.FRILANS)
         : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, skjeringstidspunktDato],
+    [relevanteStatuser.harArbeidsinntekt, måneder, sammenligningsgrunnlagFom],
   );
   const dataForYtelse = useMemo(
     () =>
       relevanteStatuser.harYtelseinntekt
-        ? finnDataForIAT(måneder, skjeringstidspunktDato, InntektAktivitetType.YTELSE)
+        ? finnDataForIAT(måneder, sammenligningsgrunnlagFom, InntektAktivitetType.YTELSE)
         : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, skjeringstidspunktDato],
+    [relevanteStatuser.harArbeidsinntekt, måneder, sammenligningsgrunnlagFom],
   );
 
   const barFormatter = useCallback(params => {

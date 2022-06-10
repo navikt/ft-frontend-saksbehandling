@@ -258,8 +258,8 @@ const lagSammenligningsGrunnlag = (
   avvikProsent: number,
   differanse: number,
 ): SammenligningsgrunlagProp => ({
-  sammenligningsgrunnlagFom: førSTP(365),
-  sammenligningsgrunnlagTom: førSTP(1),
+  sammenligningsgrunnlagFom: '2020-01-01',
+  sammenligningsgrunnlagTom: '2020-12-31',
   rapportertPrAar,
   avvikPromille: avvikProsent ? avvikProsent * 10 : 0,
   avvikProsent,
