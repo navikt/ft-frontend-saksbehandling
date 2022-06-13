@@ -65,6 +65,7 @@ const lagBeregningsgrunnlag = (
   andeler: FaktaOmBeregningAndel[],
   faktaOmBeregning: FaktaOmBeregning,
   stp = '2022-03-02',
+  avklaringsbehov = [],
 ): Beregningsgrunnlag =>
   ({
     vilkårperiodeFom: stp,
@@ -72,13 +73,15 @@ const lagBeregningsgrunnlag = (
       fom: stp,
       tom: dayjs(stp).subtract(-10, 'days'),
     },
-    avklaringsbehov: [],
+    avklaringsbehov,
     skjaeringstidspunktBeregning: stp,
     dekningsgrad: null,
     grunnbeløp: null,
     erOverstyrtInntekt: null,
     beregningsgrunnlagPeriode: [
       {
+        beregningsgrunnlagPeriodeFom: stp,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({
           andelsnr: andel.andelsnr,
           aktivitetStatus: andel.aktivitetStatus,
@@ -229,26 +232,6 @@ export const ArbeidOgDagpenger: Story = () => (
   />
 );
 
-export const IkkeOverstyrerOgIngenAksjonspunkt: Story = () => (
-  <BeregningFaktaIndex
-    behandling={behandling}
-    beregningsgrunnlag={[{ ...bgMedArbeidOgDagpenger[0], avklaringsbehov: [] }]}
-    aksjonspunkter={[]}
-    erOverstyrer={false}
-    alleKodeverk={alleKodeverkMock as any}
-    alleMerknaderFraBeslutter={{
-      [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-    }}
-    submitCallback={action('button-click') as (data: any) => Promise<any>}
-    readOnly={false}
-    harApneAksjonspunkter={false}
-    submittable
-    arbeidsgiverOpplysningerPerId={agOpplysninger}
-    setFormData={() => undefined}
-    vilkar={vilkarArbeidOgDagpenger}
-  />
-);
-
 export const IkkeOverstyrerOgHarOverstyringsaksjonspunkt: Story = () => {
   const overstyringAPBeregningsaktiviteter = {
     id: 1,
@@ -319,7 +302,7 @@ export const ToArbeidsforholdIOpptjeningsperioden = () => (
 );
 
 /**
- * Arbeid og AAP med uført aksjonspunkt
+ * Arbeid og AAP med opprettet aksjonspunkt
  *
  * Dersom bruker har både arbeid og full AAP på skjæringstidspunktet blir det opprettet aksjonspunkt 5052.
  * I dette scenarioet setter opp panelet i situasjonen der saksbehandler ser aksjonspunktet for første gang.
@@ -1097,27 +1080,25 @@ export const KombinasjonstestForFaktapanel = () => {
       skjæringstidspunkt: '',
     },
   } as FaktaOmBeregning;
-  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
+  const avklaringsbehov = [
+    {
+      definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
+      status: AksjonspunktStatus.UTFORT,
+      begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
+      kanLoses: true,
+    },
+    {
+      definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+      status: AksjonspunktStatus.OPPRETTET,
+      begrunnelse: undefined,
+      kanLoses: true,
+    },
+  ];
+  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', avklaringsbehov);
   return (
     <BeregningFaktaIndex
       behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
-      aksjonspunkter={[
-        {
-          definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
-          status: AksjonspunktStatus.UTFORT,
-          begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
-          kanLoses: true,
-          erAktivt: true,
-        },
-        {
-          definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-          status: AksjonspunktStatus.OPPRETTET,
-          begrunnelse: undefined,
-          kanLoses: true,
-          erAktivt: true,
-        },
-      ]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
       alleMerknaderFraBeslutter={{

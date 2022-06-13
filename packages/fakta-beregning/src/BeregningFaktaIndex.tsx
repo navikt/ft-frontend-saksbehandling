@@ -1,5 +1,4 @@
 import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
-import { VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps, Vilkar } from '@navikt/ft-types';
 import vilkarperiodeTsType from '@navikt/ft-types/src/vilkarperiodeTsType';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
@@ -45,7 +44,7 @@ type Aksjonspunkter =
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
 const lagLabel = (bg, vilkårsperioder) => {
-  const stpOpptjening = bg.faktaOmBeregning.avklarAktiviteter.skjæringstidspunkt;
+  const stpOpptjening = bg.vilkårperiodeFom;
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;
@@ -78,7 +77,6 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsT
 const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<Aksjonspunkter>> = ({
   beregningsgrunnlag,
   alleKodeverk,
-  aksjonspunkter,
   submitCallback,
   readOnly,
   submittable,
@@ -88,17 +86,12 @@ const BeregningFaktaIndex: FunctionComponent<OwnProps & StandardFaktaPanelProps<
   setFormData,
   vilkar,
 }) => {
+  if (beregningsgrunnlag.length === 0 || !vilkar) {
+    return <>Har ikke beregningsgrunnlag.</>;
+  }
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
-  const beregningErBehandlet = vilkar.vilkarStatus !== VilkarUtfallType.IKKE_VURDERT;
-  if (beregningErBehandlet === false && !aksjonspunkter.length) {
-    return <>Beregningssteget er ikke behandlet.</>;
-  }
-
-  if ((!aktivtBeregningsgrunnlag || !vilkar) && !aksjonspunkter.length) {
-    return <>Har ikke beregningsgrunnlag.</>;
-  }
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
   const vilkårsperioder = vilkar.perioder;

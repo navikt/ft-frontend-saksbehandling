@@ -151,8 +151,10 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     resetField,
     watch,
     getValues,
-    formState: { isDirty, isSubmitting, errors },
+    formState: { isSubmitting, errors, dirtyFields },
   } = formHooks.useFormContext<AvklarAktiviteterFormValues>();
+
+  const fieldIsDirty = Object.keys(dirtyFields).length > 0;
 
   const harOverstyrAvklaringsbehov = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
   const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
@@ -177,7 +179,8 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     }
 
     updateOverstyring(fieldId, skalOverstyre);
-    resetField(`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`);
+    resetField(`avklarAktiviteterForm.${fieldId}`, { keepDirty: false });
+    resetField(`vurderAktiviteterSkjema.${fieldId}`, { keepDirty: false });
   };
 
   const isAvklaringsbehovClosed: boolean =
@@ -266,13 +269,13 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                           : 'AvklarAktivitetPanel.ButtonText',
                       })}
                       isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
-                      isDirty={isDirty}
+                      isDirty={fieldIsDirty}
                       isSubmitting={isSubmitting}
-                      isReadOnly={readOnly || (isAvklaringsbehovClosed && !isDirty)}
+                      isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
                       hasEmptyRequiredFields={finnesFeilForBegrunnelse}
                     />
                   </FlexColumn>
-                  {isDirty && (
+                  {!!dirtyFields && fieldIsDirty && (
                     <FlexColumn>
                       <Knapp
                         htmlType="button"
