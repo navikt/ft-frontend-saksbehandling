@@ -68,7 +68,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
   const intl = useIntl();
   const formMethods = formHooks.useFormContext<BeregningFormValues>();
   const varigEndringValues = formMethods.watch('BeregningForm')[fieldIndex] as VurderOgFastsettValues;
-  const {erVarigEndretNaering} = varigEndringValues;
+  const { erVarigEndretNaering } = varigEndringValues;
   const radioknapper = [
     {
       value: 'false',
@@ -85,7 +85,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
         <Row>
           <Column xs="12">
             <RadioGroupPanel
-              name={varigEndringRadioname}
+              name={`BeregningForm.${fieldIndex}.${varigEndringRadioname}`}
               validate={[required]}
               isHorizontal={false}
               isReadOnly={readOnly}
@@ -123,7 +123,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
             <Column xs="5">
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
-                  name={fastsettInntektFieldname}
+                  name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
                   bredde="XS"
                   validate={[required]}
                   parse={parseCurrencyInput}
@@ -139,7 +139,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
       <Row>
         <Column xs="12">
           <TextAreaField
-            name={begrunnelseFieldname}
+            name={`BeregningForm.${fieldIndex}.${begrunnelseFieldname}`}
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}

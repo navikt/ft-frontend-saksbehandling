@@ -6,13 +6,13 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import {
   dateFormat,
   formatCurrencyNoKr,
+  getKodeverknavnFn,
   parseCurrencyInput,
   removeSpacesFromNumber,
-  getKodeverknavnFn,
 } from '@navikt/ft-utils';
 import { required } from '@navikt/ft-form-validators';
 import { formHooks, InputField } from '@navikt/ft-form-hooks';
-import { AktivitetStatus, KodeverkType, PeriodeAarsak, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, isAksjonspunktOpen, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -35,9 +35,9 @@ import {
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
 } from '../../types/ATFLAksjonspunktTsType';
-import { BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import BeregningFormValues from '../../types/BeregningFormValues';
 
 const formPrefix = 'inntektField';
 
@@ -322,7 +322,8 @@ type BruttoPrPeriode = {
 
 const lagBruttoPrPeriodeListe = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  formMethods: UseFormReturn<BeregningsgrunnlagValues>,
+  formMethods: UseFormReturn<BeregningFormValues>,
+  fieldIndex: number,
 ): BruttoPrPeriode[] => {
   const bruttoPrPeriodeList = [] as BruttoPrPeriode[];
   if (allePerioder.length < 1) {
@@ -347,7 +348,7 @@ const lagBruttoPrPeriodeListe = (
       : [];
     const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
       const inputFieldKey = createInputFieldKey(andel, periode);
-      const fastsattInntekt = formMethods.watch(inputFieldKey);
+      const fastsattInntekt = formMethods.watch(`BeregningForm.${fieldIndex}.${inputFieldKey}`);
       return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
     });
     const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
@@ -379,8 +380,8 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
 }) => {
   const tabellData = createTableData(allePerioder, alleKodeverk, arbeidsgiverOpplysningerPerId);
   const isAvklaringsbehovClosed = getIsAksjonspunktClosed(avklaringsbehov);
-  const formMethods = formHooks.useFormContext<BeregningsgrunnlagValues>();
-  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods);
+  const formMethods = formHooks.useFormContext<BeregningFormValues>();
+  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex);
   const perioder = bruttoPrPeriodeList.slice(1);
   return (
     <table className={styles.inntektTableTB}>

@@ -74,13 +74,22 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
         begrunnelse: 'Min begrunnelse for inntekt',
-        inntektPrAndelList: [
+        grunnlag: [
           {
-            andelsnr: 1,
-            inntekt: 260000,
+            periode: {
+              fom: '2021-01-01',
+              tom: '9999-12-31',
+            },
+            begrunnelse: 'Min begrunnelse for inntekt',
+            inntektPrAndelList: [
+              {
+                andelsnr: 1,
+                inntekt: 260000,
+              },
+            ],
+            inntektFrilanser: null,
           },
         ],
-        inntektFrilanser: null,
         kode: '5038',
       },
     ]);
@@ -134,8 +143,17 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
         begrunnelse: 'Min begrunnelse for vurdering av varig endring',
-        bruttoBeregningsgrunnlag: 260000,
-        erVarigEndretNaering: true,
+        grunnlag: [
+          {
+            periode: {
+              fom: '2021-01-01',
+              tom: '9999-12-31',
+            },
+            begrunnelse: 'Min begrunnelse for vurdering av varig endring',
+            bruttoBeregningsgrunnlag: 260000,
+            erVarigEndretNaering: true,
+          },
+        ],
         kode: '5039',
       },
     ]);
@@ -174,7 +192,16 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
         begrunnelse: 'Min begrunnelse for inntekt',
-        bruttoBeregningsgrunnlag: 500000,
+        grunnlag: [
+          {
+            periode: {
+              fom: '2021-01-01',
+              tom: '9999-12-31',
+            },
+            begrunnelse: 'Min begrunnelse for inntekt',
+            bruttoBeregningsgrunnlag: 500000,
+          },
+        ],
         kode: '5049',
       },
     ]);
@@ -234,30 +261,39 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        fastsatteTidsbegrensedePerioder: [
+        grunnlag: [
           {
-            periodeFom: '2021-01-01',
-            periodeTom: '2021-01-21',
-            fastsatteTidsbegrensedeAndeler: [
+            periode: {
+              fom: '2021-01-01',
+              tom: '9999-12-31',
+            },
+            fastsatteTidsbegrensedePerioder: [
               {
-                andelsnr: 1,
-                bruttoFastsattInntekt: 222000,
+                periodeFom: '2021-01-01',
+                periodeTom: '2021-01-21',
+                fastsatteTidsbegrensedeAndeler: [
+                  {
+                    andelsnr: 1,
+                    bruttoFastsattInntekt: 222000,
+                  },
+                ],
+              },
+              {
+                periodeFom: '2021-01-22',
+                periodeTom: '2021-02-05',
+                fastsatteTidsbegrensedeAndeler: [
+                  {
+                    andelsnr: 1,
+                    bruttoFastsattInntekt: 333000,
+                  },
+                ],
               },
             ],
-          },
-          {
-            periodeFom: '2021-01-22',
-            periodeTom: '2021-02-05',
-            fastsatteTidsbegrensedeAndeler: [
-              {
-                andelsnr: 1,
-                bruttoFastsattInntekt: 333000,
-              },
-            ],
+            frilansInntekt: null,
+            begrunnelse: 'Min begrunnelse for tidsbegrenset inntekt',
           },
         ],
         begrunnelse: 'Min begrunnelse for tidsbegrenset inntekt',
-        frilansInntekt: null,
         kode: '5047',
       },
     ]);

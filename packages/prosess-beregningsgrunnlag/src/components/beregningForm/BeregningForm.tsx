@@ -35,6 +35,7 @@ import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktTittel from '../fellesPaneler/AksjonspunktTittel';
 import DekningsgradAksjonspunktPanel from '../fellesPaneler/DekningsgradAksjonspunktPanel';
 import DekningsgradValues from '../../types/DekningsgradAksjonspunktTsType';
+import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 
 // ------------------------------------------------------------------------------------------ //
 // Variables
@@ -94,7 +95,7 @@ const harAksjonspunkt = (aksjonspunktKode: string, gjeldendeAvklaringsbehov: Ber
   gjeldendeAvklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
 export const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunktData[] => {
-  const {allePerioder} = values;
+  const { allePerioder } = values;
   if (allePerioder.length < 1) {
     throw new Error('Ingen beregningsgrunnlagperioder, ugyldig tilstand');
   }
@@ -133,11 +134,12 @@ export const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjo
     harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)
   ) {
     grupperteAksjonspunkter.push({
-      kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-      aksjonspunktData: Beregningsgrunnlag.transformATFLValues(
-        values as ATFLValues,
-        values.relevanteStatuser,
-        alleAndelerIFørstePeriode,
+      kode: harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)
+        ? FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET
+        : VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+      aksjonspunktData: AksjonspunktBehandlerSN.transformValues(
+        values as VurderOgFastsettValues,
+        values.gjeldendeAvklaringsbehov,
       ),
     });
     return grupperteAksjonspunkter;
