@@ -10,6 +10,7 @@ const {
   IkkeOverstyrerOgIngenAksjonspunkt,
   IkkeOverstyrerOgHarOverstyringsaksjonspunkt,
   ArbeidOgAAPMedUtførtAksjonspunkt,
+  FastsettingAvBeregningsgrunnlagForKunYtelse,
 } = composeStories(stories);
 
 describe('<BeregningFaktaIndexSpec', () => {
@@ -110,5 +111,19 @@ describe('<BeregningFaktaIndexSpec', () => {
     userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     const valideringsmelding = await screen.findByText('Må ha overstyrt inntekt for minst én aktivitet.');
     expect(valideringsmelding).toBeInTheDocument();
+  });
+
+  it('skal kunne fastsette inntekt for kun ytelse', async () => {
+    render(<FastsettingAvBeregningsgrunnlagForKunYtelse />);
+    // TODO: fullfør test
+    // Legg inn inntekt
+    // Sett inntektskategori lik ARBEIDSTAKER
+    // Legg til andel
+    // Sett inntekt og inntektskategori ARBEIDSTAKER for ny andel
+    // Trykk på submit
+    // Sjekk: Skal validere at man ikke kan submitte flere andeler med samme inntektskategori
+    // Endre inntektskategori til FRILANS for ein av andelene
+    // Submit og sjekk respons
+    // Kode: 5058, FaktaOmBeregninTilfeller: [ FASTSETT_BG_KUN_YTELSE ]
   });
 });

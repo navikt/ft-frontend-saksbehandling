@@ -351,6 +351,26 @@ export const ArbeidOgAAPMedUtførtAksjonspunkt: Story = () => (
   />
 );
 
+/**
+ * Opprettet aksjonspunkt i 5058, ingen aksjonspunkt i 5052. Skal ikke vise komponent.
+ */
+export const IkkeOverstyrerOgIngenAksjonspunkt: Story = () => (
+  <BeregningFaktaIndex
+    behandling={behandling}
+    beregningsgrunnlag={bgMedArbeidOgDagpenger}
+    aksjonspunkter={[]}
+    erOverstyrer={false}
+    alleKodeverk={alleKodeverkMock as any}
+    submitCallback={action('button-click') as (data: any) => Promise<any>}
+    readOnly={false}
+    harApneAksjonspunkter={false}
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vilkarArbeidOgDagpenger}
+  />
+);
+
 export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet = () => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
@@ -523,6 +543,55 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
       harApneAksjonspunkter
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={vilkar}
+    />
+  );
+};
+
+/**
+ * Bruker har direkte overgang fra annen ytelse uten andre aktiviteter på skjæringstidspunktet.
+ *
+ * I slike saker blir saksehandler bedt om å fastsette inntekt og inntektskategori fra ytelse.
+ * Det skal også vere mulig å legge til flere andeler med ulike inntektskategorier, men ikke samme inntektskategori flere ganger.
+ *
+ */
+export const FastsettingAvBeregningsgrunnlagForKunYtelse: Story = () => {
+  const beregningsgrunnlagYtelseAndel = {
+    andelsnr: standardFaktaYtelseAndel.andelsnr,
+    aktivitetStatus: standardFaktaYtelseAndel.aktivitetStatus,
+    inntektskategori: standardFaktaYtelseAndel.inntektskategori,
+  };
+  const andeler = [beregningsgrunnlagYtelseAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaYtelseAndel];
+  const kunYtelse = {
+    fodendeKvinneMedDP: false,
+    andeler,
+  };
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [FASTSETT_BG_KUN_YTELSE],
+    andelerForFaktaOmBeregning,
+    kunYtelse,
+  } as FaktaOmBeregning;
+  const avklaringsbehov = [
+    {
+      definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+      status: AksjonspunktStatus.OPPRETTET,
+      begrunnelse: undefined,
+      kanLoses: true,
+    },
+  ];
+  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', avklaringsbehov);
+  return (
+    <BeregningFaktaIndex
+      behandling={behandling}
+      beregningsgrunnlag={[beregningsgrunnlag]}
+      erOverstyrer={false}
+      alleKodeverk={alleKodeverkMock as any}
+      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      readOnly={false}
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
@@ -787,63 +856,6 @@ export const VurderingAvEtterlønnSluttpakke = () => {
     andelerForFaktaOmBeregning,
   };
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning);
-  return (
-    <BeregningFaktaIndex
-      behandling={behandling}
-      beregningsgrunnlag={[beregningsgrunnlag]}
-      aksjonspunkter={[
-        {
-          definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-          status: AksjonspunktStatus.OPPRETTET,
-          begrunnelse: undefined,
-          kanLoses: true,
-          erAktivt: true,
-        },
-      ]}
-      erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
-      alleMerknaderFraBeslutter={{
-        [FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN]: merknaderFraBeslutter,
-      }}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
-      readOnly={false}
-      harApneAksjonspunkter
-      submittable
-      arbeidsgiverOpplysningerPerId={agOpplysninger}
-      setFormData={() => undefined}
-      vilkar={vilkar}
-    />
-  );
-};
-
-export const FastsettingAvBeregningsgrunnlagForKunYtelse = () => {
-  const beregningsgrunnlagYtelseAndel = {
-    andelsnr: standardFaktaYtelseAndel.andelsnr,
-    aktivitetStatus: standardFaktaYtelseAndel.aktivitetStatus,
-    inntektskategori: standardFaktaYtelseAndel.inntektskategori,
-  };
-  const andeler = [beregningsgrunnlagYtelseAndel];
-  const andelerForFaktaOmBeregning = [standardFaktaYtelseAndel];
-  const kunYtelse = {
-    fodendeKvinneMedDP: false,
-    andeler,
-  };
-  const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [FASTSETT_BG_KUN_YTELSE],
-    andelerForFaktaOmBeregning,
-    kunYtelse,
-  } as FaktaOmBeregning;
-  const beregningsgrunnlag = {
-    ...lagBeregningsgrunnlag(andeler, faktaOmBeregning),
-    avklaringsbehov: [
-      {
-        definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
-        status: AksjonspunktStatus.OPPRETTET,
-        begrunnelse: undefined,
-        kanLoses: true,
-      },
-    ],
-  };
   return (
     <BeregningFaktaIndex
       behandling={behandling}
