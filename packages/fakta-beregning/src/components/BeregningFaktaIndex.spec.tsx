@@ -7,8 +7,8 @@ import * as stories from '../BeregningFaktaIndex.stories';
 const {
   ArbeidOgDagpenger,
   ArbeidOgAAP,
-  IkkeOverstyrerOgIngenAksjonspunkt,
-  IkkeOverstyrerOgHarOverstyringsaksjonspunkt,
+  VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden,
+  VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet,
   ArbeidOgAAPMedUtførtAksjonspunkt,
   FastsettingAvBeregningsgrunnlagForKunYtelse,
 } = composeStories(stories);
@@ -77,12 +77,12 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal ikke vise panel for å avklare aktiviterer dersom ikke overstyrer og ingen aksjonspunkt', () => {
-    render(<IkkeOverstyrerOgIngenAksjonspunkt />);
+    render(<VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden />);
     expect(screen.queryByTestId('avklareAktiviteterHeading')).not.toBeInTheDocument();
   });
 
   it('skal vise read only dersom ikke overstyrer men har overstyringsaksjonspunkt', () => {
-    render(<IkkeOverstyrerOgHarOverstyringsaksjonspunkt />);
+    render(<VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet />);
     expect(screen.getAllByTestId('overstyringsknapp')[0]).toHaveAttribute('aria-disabled', 'true');
     expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
   });

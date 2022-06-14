@@ -164,7 +164,7 @@ const standardFaktaMilitærAndel = {
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaYtelseAndel = {
-  ...lagAndel(8, aktivitetStatuser.KUN_YTELSE, Inntektskategori.UDEFINERT),
+  ...lagAndel(8, aktivitetStatuser.BRUKERS_ANDEL, Inntektskategori.UDEFINERT),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
@@ -232,7 +232,11 @@ export const ArbeidOgDagpenger: Story = () => (
   />
 );
 
-export const IkkeOverstyrerOgHarOverstyringsaksjonspunkt: Story = () => {
+/**
+ * Aktiviteter i beregning er overstyrt og aksjonspunktet er i status OPPRETTET.
+ * Saksbehandler er ikke overstyrer. Får ikke lov til å redigere.
+ */
+export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story = () => {
   const overstyringAPBeregningsaktiviteter = {
     id: 1,
     definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
@@ -352,9 +356,16 @@ export const ArbeidOgAAPMedUtførtAksjonspunkt: Story = () => (
 );
 
 /**
- * Opprettet aksjonspunkt i 5058, ingen aksjonspunkt i 5052. Skal ikke vise komponent.
+ * Opprettet aksjonspunkt i 5058, ingen aksjonspunkt i 5052.
+ *
+ * Ikke overstyringsrettighet.
+ * Bruker har ikke dagpenger på stp, men dagpenger i opptjeningsperioden.
+ * Aksjonspunkt for vurdering av om bruker skal beregnes etter besteberegning.
+ * Dersom bruker beregnes etter besteberegning skal det legges til en andel for Dagpenger og både Arbeid og Dagpenger skal kunne redigeres.
+ *
+ * Skal ikke vise liste over aktiviteter, kun vurder fakta med vurdering av besteberegning
  */
-export const IkkeOverstyrerOgIngenAksjonspunkt: Story = () => (
+export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden: Story = () => (
   <BeregningFaktaIndex
     behandling={behandling}
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
