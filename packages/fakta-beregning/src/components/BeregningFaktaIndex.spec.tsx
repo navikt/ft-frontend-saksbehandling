@@ -185,4 +185,11 @@ describe('<BeregningFaktaIndexSpec', () => {
       expect(screen.queryByLabelText('Månedsinntekt for Dagpenger')).not.toBeInTheDocument();
     });
   });
+
+  it('skal håndtere at aktiviteter i beregning er overstyrt og SB ikke er overstyrer', () => {
+    render(<VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet />);
+    expect(screen.queryByTestId('overstyringsknapp')).toHaveAttribute('aria-disabled', 'true');
+    expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
+    expect(screen.getByLabelText('Benytt Dagpenger 03.02.2019 til 11.11.2019')).toBeDisabled();
+  });
 });
