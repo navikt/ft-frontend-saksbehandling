@@ -569,7 +569,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
  * Det skal også vere mulig å legge til flere andeler med ulike inntektskategorier, men ikke samme inntektskategori flere ganger.
  *
  */
-export const FastsettingAvBeregningsgrunnlagForKunYtelse: Story = () => {
+export const FastsettingAvBeregningsgrunnlagForKunYtelse: Story = ({ submitCallback }) => {
   const beregningsgrunnlagYtelseAndel = {
     andelsnr: standardFaktaYtelseAndel.andelsnr,
     aktivitetStatus: standardFaktaYtelseAndel.aktivitetStatus,
@@ -601,7 +601,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse: Story = () => {
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      submitCallback={submitCallback || (action('button-click') as (data: any) => Promise<any>)}
       readOnly={false}
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}

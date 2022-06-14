@@ -1,5 +1,5 @@
 import { composeStories } from '@storybook/testing-react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import * as stories from '../BeregningFaktaIndex.stories';
@@ -114,16 +114,75 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne fastsette inntekt for kun ytelse', async () => {
-    render(<FastsettingAvBeregningsgrunnlagForKunYtelse />);
-    // TODO: fullfør test
-    // Legg inn inntekt
-    // Sett inntektskategori lik ARBEIDSTAKER
-    // Legg til andel
-    // Sett inntekt og inntektskategori ARBEIDSTAKER for ny andel
-    // Trykk på submit
-    // Sjekk: Skal validere at man ikke kan submitte flere andeler med samme inntektskategori
-    // Endre inntektskategori til FRILANS for ein av andelene
-    // Submit og sjekk respons
-    // Kode: 5058, FaktaOmBeregninTilfeller: [ FASTSETT_BG_KUN_YTELSE ]
+    const lagre = jest.fn();
+    render(<FastsettingAvBeregningsgrunnlagForKunYtelse submitCallback={lagre} />);
+    userEvent.type(screen.getByLabelText('Månedsinntekt for ytelse 1'), '1234');
+    await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 1'), 'Arbeidstaker');
+    expect(screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[0].selected).toBe(true);
+    userEvent.click(screen.getByRole('button', { name: 'Legg til aktivitet' }));
+    userEvent.type(screen.getByLabelText('Månedsinntekt for ytelse 2'), '5678');
+    await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 2'), 'Arbeidstaker');
+    expect(screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[1].selected).toBe(true);
+    userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+    const forventetFeilmelding = await screen.findByText('Andeler for samme aktivitet må ha ulik inntektskategori');
+    expect(forventetFeilmelding).toBeInTheDocument();
+    await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 2'), 'Frilans');
+    await waitFor(() => {
+      expect(screen.queryByText('Andeler for samme aktivitet må ha ulik inntektskategori')).not.toBeInTheDocument();
+    });
+    userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        kode: '5058',
+        begrunnelse: 'test',
+        grunnlag: [
+          {
+            fakta: {
+              faktaOmBeregningTilfeller: ['FASTSETT_BG_KUN_YTELSE'],
+              kunYtelseFordeling: {
+                andeler: [
+                  {
+                    andelsnr: 8,
+                    fastsattBeløp: 1234,
+                    inntektskategori: 'ARBEIDSTAKER',
+                    nyAndel: false,
+                    lagtTilAvSaksbehandler: false,
+                  },
+                  {
+                    fastsattBeløp: 5678,
+                    inntektskategori: 'FRILANSER',
+                    nyAndel: true,
+                    lagtTilAvSaksbehandler: true,
+                  },
+                ],
+                skalBrukeBesteberegning: null,
+              },
+            },
+            begrunnelse: 'test',
+          },
+        ],
+      },
+    ]);
+  });
+
+  it('skal håndtere vurdering av besteberegning med dagpenger i opptjeningsperioden', async () => {
+    render(<VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden />);
+    expect(screen.queryByTestId('overstyringsknapp')).not.toBeInTheDocument();
+    expect(screen.queryByText('Dagpenger')).not.toBeInTheDocument();
+    expect(screen.queryByText('Aktiviteter i beregningsgrunnlaget')).not.toBeInTheDocument();
+    userEvent.click(screen.getByLabelText('Ja'));
+    await waitFor(() => {
+      expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
+      expect(screen.getByLabelText('Månedsinntekt for Dagpenger')).toBeInTheDocument();
+    });
+    userEvent.type(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)'), '10');
+    userEvent.type(screen.getByLabelText('Månedsinntekt for Dagpenger'), '20');
+    expect(screen.getByTestId('sum').innerHTML).toBe('30');
+    userEvent.click(screen.getByLabelText('Nei'));
+    await waitFor(() => {
+      expect(screen.queryByLabelText('Månedsinntekt for Dagpenger')).not.toBeInTheDocument();
+    });
   });
 });

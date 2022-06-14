@@ -38,8 +38,8 @@ type OwnProps = {
     aksjonspunktData:
       | AvklarBeregningsaktiviteterAP
       | OverstyrBeregningsaktiviteterAP
-      | BeregningFaktaAP
-      | BeregningOverstyringAP
+      | BeregningFaktaAP[]
+      | BeregningOverstyringAP[]
       | SubmitBeregningType[],
   ) => Promise<void>;
   readOnly: boolean;
@@ -107,7 +107,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
       {/* @ts-ignore */}
       <VurderFaktaBeregningPanel
         readOnly={avklarFaktaBeregningReadOnly}
-        // submitCallback={submitCallback}
+        submitCallback={submitCallback}
         submittable={submittable}
         alleKodeverk={alleKodeverk}
         beregningsgrunnlag={beregningsgrunnlag}

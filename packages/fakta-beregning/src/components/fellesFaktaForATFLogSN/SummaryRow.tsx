@@ -52,7 +52,7 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
       {skalVisePeriode && <TableColumn />}
       <TableColumn className={styles.rightAlign}>
         <div className={styles.readOnlyContainer}>
-          <Normaltekst className={readOnly ? styles.readOnlyContent : ''}>
+          <Normaltekst data-testid="sum" className={readOnly ? styles.readOnlyContent : ''}>
             {formatCurrencyNoKr(sumBeregnet)}
           </Normaltekst>
         </div>

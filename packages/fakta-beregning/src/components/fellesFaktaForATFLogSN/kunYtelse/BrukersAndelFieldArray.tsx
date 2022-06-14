@@ -56,7 +56,7 @@ const createAndelerTableRows = (
   remove,
 ) =>
   fields.map((field, index) => (
-    <TableRow key={field.id}>
+    <TableRow className={styles.row} key={field.id}>
       <TableColumn>
         <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
       </TableColumn>
@@ -68,11 +68,22 @@ const createAndelerTableRows = (
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
           validate={readOnly ? [] : [required]}
+          label={intl.formatMessage(
+            {
+              id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
+            },
+            { andel: `ytelse ${index + 1}` },
+          )}
         />
       </TableColumn>
       <TableColumn className={styles.rightAlign}>
         <SelectField
-          label=""
+          label={intl.formatMessage(
+            {
+              id: 'BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn',
+            },
+            { andel: `ytelse ${index + 1}` },
+          )}
           name={`${fieldArrayName}.${index}.inntektskategori`}
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
