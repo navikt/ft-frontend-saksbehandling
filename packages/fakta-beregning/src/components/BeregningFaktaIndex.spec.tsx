@@ -11,6 +11,10 @@ const {
   VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet,
   ArbeidOgAAPMedUtførtAksjonspunkt,
   FastsettingAvBeregningsgrunnlagForKunYtelse,
+  FrilansOgArbeidstakerISammeOrganisasjon,
+  VurderOmBrukerMottarYtelseForFrilans,
+  VurderingAvMilitær,
+  TidsbegrensetArbeidsforhold,
 } = composeStories(stories);
 
 describe('<BeregningFaktaIndexSpec', () => {
@@ -191,5 +195,58 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(screen.queryByTestId('overstyringsknapp')).toHaveAttribute('aria-disabled', 'true');
     expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
     expect(screen.getByLabelText('Benytt Dagpenger 03.02.2019 til 11.11.2019')).toBeDisabled();
+  });
+
+  it('skal kunne fastsette inntekt for arbeidstaker og frilanser i samme organisasjon', async () => {
+    render(<FrilansOgArbeidstakerISammeOrganisasjon />);
+    // TODO: Fullfør test
+    // Verifiser at informasjonstekst for atfl i samme org vises
+    // Verifiser at inntektsfelter for det ene arbeidsforholdet og frilansaktiviteten er redigerbare
+    // Det andre arbeidsforholdet skal ikke vere redigerbart
+    // Verifiser at man kan legge inn inntekt og at output er riktig, tilfelle VURDER_AT_OG_FL_I_SAMME_ORGANISASJON
+  });
+
+  it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet', async () => {
+    render(<VurderOmBrukerMottarYtelseForFrilans />);
+    // TODO: Fullfør test
+    // Verifiser at en radioknapp med riktig tekst vises
+    // Verifiser at inntektfelt for frilans er readonly ved ingen valg
+    // Sett radio til false og verifiser at inntekt ikke er redigerbar
+    // Submit og sjekk at output er riktig, tilfelle VURDER_MOTTAR_YTELSE
+  });
+
+  it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet og fastsette inntekt', async () => {
+    render(<VurderOmBrukerMottarYtelseForFrilans />);
+    // TODO: Fullfør test
+    // Verifiser at en radioknapp med riktig tekst vises
+    // Sett radio til true og sjekk at inntekt kan redigeres
+    // Sett inn inntekt for frilans
+    // Submit og verifiser ouput, tilfeller FASTSETT_MAANEDSINNTEKT_FL og VURDER_MOTTAR_YTELSE
+  });
+
+  it('skal kunne sette at bruker har miliærtjeneste', async () => {
+    render(<VurderingAvMilitær />);
+    // TODO: Fullfør test
+    // Verifiser at en radioknapp med riktig tekst vises
+    // Sett radio til true
+    // Verifiser at andel for militærtjeneste fortsatt er synlig
+    // Submit og verifiser ouput, tilfeller VURDER_MILITÆR_SIVILTJENESTE
+  });
+
+  it('skal kunne sette at bruker ikke har miliærtjeneste', async () => {
+    render(<VurderingAvMilitær />);
+    // TODO: Fullfør test
+    // Verifiser at en radioknapp med riktig tekst vises
+    // Sett radio til false
+    // Verifiser at andel for militærtjeneste forsvinner
+    // Submit og verifiser ouput, tilfeller VURDER_MILITÆR_SIVILTJENESTE
+  });
+
+  it('skal kunne sette at arbeidsforhold er tidsbegrenset', async () => {
+    render(<TidsbegrensetArbeidsforhold />);
+    // TODO: Fullfør test
+    // Verifiser at en radioknapp med riktig tekst vises
+    // Sett radio til false
+    // Submit og verifiser ouput, tilfeller VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD
   });
 });
