@@ -78,6 +78,5 @@ export const transformValuesVurderFaktaBeregning = (values: VurderFaktaBeregning
     apDataTilSubmit.push(data);
   }
 
-  console.log(apDataTilSubmit);
   return apDataTilSubmit;
 };

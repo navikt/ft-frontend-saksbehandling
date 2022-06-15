@@ -170,7 +170,6 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
         <Form
           formMethods={formMethods}
           onSubmit={values => {
-            console.log(values);
             losAvklaringsbehov(values);
           }}
         >
