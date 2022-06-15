@@ -2,10 +2,19 @@ import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
+import {
+  Aksjonspunkt,
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  StandardProsessPanelProps,
+  Vilkar,
+} from '@navikt/ft-types';
 
 import BeregningsgrunnlagResultatAP from './types/interface/BeregningsgrunnlagAP';
 import BeregningFP from './components/BeregningFP';
+import BeregningsgrunnlagValues from './types/BeregningsgrunnlagAksjonspunktTsType';
+
 import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
@@ -13,10 +22,14 @@ const intl = createIntl(messages);
 type OwnProps = {
   beregningsgrunnlag?: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  aksjonspunkter: Aksjonspunkt[];
+  vilkar: Vilkar[];
+  readOnlySubmitButton: boolean;
+  alleKodeverk: AlleKodeverk;
 };
 
 const BeregningsgrunnlagProsessIndex: FunctionComponent<
-  OwnProps & StandardProsessPanelProps<BeregningsgrunnlagResultatAP[]>
+  OwnProps & StandardProsessPanelProps<BeregningsgrunnlagResultatAP[], BeregningsgrunnlagValues>
 > = ({
   beregningsgrunnlag,
   aksjonspunkter,

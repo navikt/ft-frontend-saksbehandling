@@ -7,7 +7,7 @@ import * as stories from './FeilutbetalingFaktaIndex.stories';
 const { AksjonspunktForFeilutbetaling } = composeStories(stories);
 
 describe('<FeilutbetalingFaktaIndex>', () => {
-  it.skip('skal legge til hendelse for alle perioder og så lagre', async () => {
+  it('skal legge til hendelse for alle perioder og så lagre', async () => {
     const lagre = jest.fn();
 
     const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
@@ -62,7 +62,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
     });
   });
 
-  it.skip('skal legge til hendelse-undertype for perioder og så lagre', async () => {
+  it('skal legge til hendelse-undertype for perioder og så lagre', async () => {
     const lagre = jest.fn();
 
     const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
@@ -118,7 +118,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
     });
   });
 
-  it.skip('skal behandle alle perioder samlet', async () => {
+  it('skal behandle alle perioder samlet', async () => {
     const lagre = jest.fn();
 
     const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);

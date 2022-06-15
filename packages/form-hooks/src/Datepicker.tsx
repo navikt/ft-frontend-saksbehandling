@@ -22,6 +22,7 @@ export interface DatepickerProps {
   disabled?: boolean;
   isReadOnly?: boolean;
   parse?: (value: string) => string;
+  format?: (value: string) => string;
   onChange?: (value: any) => void;
   disabledDays?: {
     before: Date;
@@ -42,6 +43,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   disabled = false,
   isReadOnly = false,
   parse = value => value,
+  format = value => value,
   onChange,
   disabledDays,
   initialMonth,
@@ -78,7 +80,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
         }
         return field.onChange(verdi);
       }}
-      value={field.value || undefined}
+      value={field.value ? format(field.value) : undefined}
       errorMessage={error || getError(errors, name)}
       limitations={limitations}
       ariaLabel={ariaLabel}

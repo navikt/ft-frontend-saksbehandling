@@ -7,16 +7,14 @@ import { createIntl } from '@navikt/ft-utils';
 import {
   Behandling,
   AlleKodeverkTilbakekreving,
-  Aksjonspunkt,
   FeilutbetalingPerioderWrapper,
   DetaljerteFeilutbetalingsperioder,
 } from '@navikt/ft-types';
-import { AksjonspunktStatus, NavBrukerKjonn, ForeldelseVurderingType, BehandlingStatus } from '@navikt/ft-kodeverk';
+import { NavBrukerKjonn, ForeldelseVurderingType, BehandlingStatus } from '@navikt/ft-kodeverk';
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
 import TilbakekrevingProsessIndex from './TilbakekrevingProsessIndex';
 
 import messages from '../i18n/nb_NO.json';
-import TilbakekrevingAksjonspunktCodes from './TilbakekrevingAksjonspunktCodes';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
@@ -69,15 +67,14 @@ const vilkarvurdering = {
 const alleKodeverk = alleTilbakekrevingKodeverk as AlleKodeverkTilbakekreving;
 
 export default {
-  title: 'prosess/prosess-tilbakekreving',
+  title: 'prosess-tilbakekreving',
   component: TilbakekrevingProsessIndex,
 };
 
 const Template: Story<{
   submitCallback: (aksjonspunktData: any) => Promise<void>;
-  aksjonspunkter?: Aksjonspunkt[];
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
-}> = ({ submitCallback, aksjonspunkter = [], vilkarvurderingsperioder }) => (
+}> = ({ submitCallback, vilkarvurderingsperioder }) => (
   <RawIntlProvider value={intl}>
     <TilbakekrevingProsessIndex
       behandling={
@@ -92,17 +89,11 @@ const Template: Story<{
       setFormData={() => undefined}
       submitCallback={submitCallback}
       perioderForeldelse={perioderForeldelse}
-      aksjonspunkter={aksjonspunkter}
       navBrukerKjonn={NavBrukerKjonn.KVINNE}
       vilkarvurderingsperioder={vilkarvurderingsperioder}
       vilkarvurdering={vilkarvurdering}
       beregnBelop={(params?: any) => Promise.resolve(params)}
-      alleKodeverk={{} as any}
       alleMerknaderFraBeslutter={{}}
-      status=""
-      readOnlySubmitButton={false}
-      vilkar={[]}
-      isAksjonspunktOpen
     />
   </RawIntlProvider>
 );
@@ -110,30 +101,12 @@ const Template: Story<{
 export const Default = Template.bind({});
 Default.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
-  aksjonspunkter: [
-    {
-      definisjon: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
-      status: AksjonspunktStatus.OPPRETTET,
-      begrunnelse: undefined,
-      kanLoses: true,
-      erAktivt: true,
-    },
-  ],
   vilkarvurderingsperioder: defaultVilkarvurderingsperioder,
 };
 
 export const MedToPerioder = Template.bind({});
 MedToPerioder.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
-  aksjonspunkter: [
-    {
-      definisjon: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
-      status: AksjonspunktStatus.OPPRETTET,
-      begrunnelse: undefined,
-      kanLoses: true,
-      erAktivt: true,
-    },
-  ],
   vilkarvurderingsperioder: {
     perioder: [
       defaultVilkarvurderingsperioder.perioder[0],

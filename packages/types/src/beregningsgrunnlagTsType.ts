@@ -94,7 +94,7 @@ export type SammenligningsgrunlagProp = Readonly<{
 export type BeregningsgrunnlagPeriodeProp = Readonly<{
   avkortetPrAar?: number;
   beregnetPrAar?: number;
-  beregningsgrunnlagPeriodeFom?: string;
+  beregningsgrunnlagPeriodeFom: string;
   beregningsgrunnlagPeriodeTom?: string;
   bruttoInkludertBortfaltNaturalytelsePrAar?: number;
   bruttoPrAar?: number;

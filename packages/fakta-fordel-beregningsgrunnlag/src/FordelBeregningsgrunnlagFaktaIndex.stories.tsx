@@ -104,7 +104,7 @@ const fordelAP = [
 ];
 
 export default {
-  title: 'fakta/fakta-fordel-beregningsgrunnlag',
+  title: 'fakta-fordel-beregningsgrunnlag',
   component: FordelBeregningsgrunnlagFaktaIndex,
 };
 
@@ -122,9 +122,7 @@ const Template: Story<{
     readOnly={readOnly}
     alleKodeverk={alleKodeverk as any}
     arbeidsgiverOpplysningerPerId={agOpplysninger}
-    alleMerknaderFraBeslutter={{}}
     setFormData={() => undefined}
-    harApneAksjonspunkter={!!aksjonspunkter}
     submittable
   />
 );

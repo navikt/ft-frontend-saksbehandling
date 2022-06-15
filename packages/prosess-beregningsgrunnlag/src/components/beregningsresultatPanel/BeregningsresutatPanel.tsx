@@ -24,8 +24,10 @@ import styles from './beregningsresultatTable.less';
 const lagSpesialRaderRad = (
   visningsObjekt: BruttoRadType | AvkortetRadType | RedusertRadType,
   radNøkkel: string,
-): ReactElement => {
-  if (!visningsObjekt || !visningsObjekt.verdi || visningsObjekt.display === false) return null;
+): ReactElement | null => {
+  if (!visningsObjekt || !visningsObjekt.verdi || visningsObjekt.display === false) {
+    return null;
+  }
   return (
     <Row key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
       <Column xs="10">
@@ -38,8 +40,10 @@ const lagSpesialRaderRad = (
   );
 };
 
-const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactElement => {
-  if (!dagsatsRad.grunnlag) return null;
+const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactElement | null => {
+  if (!dagsatsRad.grunnlag) {
+    return null;
+  }
   return (
     <React.Fragment key="beregningOppsummeringWrapper">
       <Row key="DagsatsSeparator">
@@ -54,7 +58,7 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
               {!ikkeVurdert && (
                 <FormattedMessage
                   id="Beregningsgrunnlag.BeregningTable.DagsatsNy"
-                  values={{ dagSats: dagsatsRad.grunnlag, b: chunks => <b>{chunks}</b> }}
+                  values={{ dagSats: dagsatsRad.grunnlag, b: (chunks: any) => <b>{chunks}</b> }}
                 />
               )}
               {ikkeVurdert && <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Dagsats.ikkeFastsatt" />}
@@ -119,23 +123,35 @@ const lagAndelerRader = (listofAndeler: BeregningsresultatAndelElementType[], ik
 
 const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVurdert: boolean): ReactElement[] => {
   const { rowsAndeler, avkortetRad, redusertRad, bruttoRad, dagsatser, rowsForklaringer } = periodeData;
-  const rows = [];
+  let rows = [] as ReactElement[];
   if (rowsForklaringer && rowsForklaringer.length > 0) {
-    rows.push(lagForklaringer(rowsForklaringer));
+    rows = rows.concat(lagForklaringer(rowsForklaringer));
   }
   if (rowsAndeler && rowsAndeler.length > 0) {
-    rows.push(lagAndelerRader(rowsAndeler, ikkeVurdert));
+    rows = rows.concat(lagAndelerRader(rowsAndeler, ikkeVurdert));
   }
   if (!ikkeVurdert) {
     if (rowsAndeler.length > 1) {
       rows.push(lineRad('andelLinje'));
-      rows.push(lagSpesialRaderRad(bruttoRad, 'brutto'));
+      const bruttoRadKomponent = lagSpesialRaderRad(bruttoRad, 'brutto');
+      if (bruttoRadKomponent) {
+        rows.push(bruttoRadKomponent);
+      }
     }
-    rows.push(lagSpesialRaderRad(avkortetRad, 'avkortet'));
-    rows.push(lagSpesialRaderRad(redusertRad, 'redusert'));
+    const avkortetRadKomponent = lagSpesialRaderRad(avkortetRad, 'avkortet');
+    if (avkortetRadKomponent) {
+      rows.push(avkortetRadKomponent);
+    }
+    const redusertRadKomponent = lagSpesialRaderRad(redusertRad, 'redusert');
+    if (redusertRadKomponent) {
+      rows.push(redusertRadKomponent);
+    }
   }
-  rows.push(lagDagsatsRad(dagsatser, ikkeVurdert));
-  return rows;
+  const dagsatsRadKomponent = lagDagsatsRad(dagsatser, ikkeVurdert);
+  if (dagsatsRadKomponent) {
+    rows.push(dagsatsRadKomponent);
+  }
+  return rows as ReactElement[];
 };
 
 const lagTabellRaderIkkeOppfylt = (
@@ -156,7 +172,7 @@ const lagTabellRaderIkkeOppfylt = (
       />
       <FormattedMessage
         id="Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2"
-        values={{ halvG: formatCurrencyNoKr(halvGVerdi), b: chunks => <b>{chunks}</b> }}
+        values={{ halvG: formatCurrencyNoKr(halvGVerdi), b: (chunks: any) => <b>{chunks}</b> }}
       />
     </Normaltekst>
   </React.Fragment>

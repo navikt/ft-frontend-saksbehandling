@@ -1,40 +1,48 @@
-import React, {
-  FunctionComponent,
-} from 'react';
+import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
 import {
-  DetaljerteFeilutbetalingsperioder, VilkarsVurdertePerioderWrapper, FeilutbetalingPerioderWrapper, AlleKodeverkTilbakekreving, StandardProsessPanelProps,
+  DetaljerteFeilutbetalingsperioder,
+  VilkarsVurdertePerioderWrapper,
+  FeilutbetalingPerioderWrapper,
+  AlleKodeverkTilbakekreving,
+  Behandling,
+  StandardProsessPanelProps,
 } from '@navikt/ft-types';
 
 import TilbakekrevingForm from './components/TilbakekrevingForm';
 import VilkarsVurderingAp from './types/VilkarsVurderingAp';
+import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
 
 import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
 interface OwnProps {
+  behandling: Behandling;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
-  navBrukerKjonn: string;
-  tilbakekrevingKodeverk: AlleKodeverkTilbakekreving;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   vilkarvurdering: VilkarsVurdertePerioderWrapper;
-  beregnBelop: (params?: any, keepData?: boolean) => Promise<any>
+  beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
+  navBrukerKjonn: string;
+  tilbakekrevingKodeverk: AlleKodeverkTilbakekreving;
+  alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
 }
 
-const TilbakekrevingProsessIndex: FunctionComponent<OwnProps & StandardProsessPanelProps<VilkarsVurderingAp>> = ({
+const TilbakekrevingProsessIndex: FunctionComponent<
+  OwnProps & StandardProsessPanelProps<VilkarsVurderingAp, CustomVilkarsVurdertePeriode[]>
+> = ({
   behandling,
   perioderForeldelse,
   vilkarvurderingsperioder,
   vilkarvurdering,
+  beregnBelop,
   navBrukerKjonn,
   tilbakekrevingKodeverk,
   submitCallback,
   alleMerknaderFraBeslutter,
   isReadOnly,
-  beregnBelop,
   formData,
   setFormData,
 }) => (

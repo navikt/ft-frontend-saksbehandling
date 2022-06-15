@@ -3,16 +3,16 @@ import { Story } from '@storybook/react'; // eslint-disable-line import/no-extra
 import { action } from '@storybook/addon-actions';
 
 import {
-  BehandlingResultatType, BehandlingArsakType, KonsekvensForYtelsen, TilbakekrevingVidereBehandling,
-  BehandlingStatus, AksjonspunktStatus, FagsakYtelseType,
+  BehandlingResultatType,
+  BehandlingArsakType,
+  KonsekvensForYtelsen,
+  TilbakekrevingVidereBehandling,
+  FagsakYtelseType,
 } from '@navikt/ft-kodeverk';
 import { alleTilbakekrevingKodeverk, alleKodeverk } from '@navikt/ft-storybook-utils';
-import {
-  AlleKodeverkTilbakekreving, Behandling, FeilutbetalingFakta, FeilutbetalingAarsak,
-} from '@navikt/ft-types';
+import { AlleKodeverkTilbakekreving, FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
 import FeilutbetalingFaktaIndex from './FeilutbetalingFaktaIndex';
-import FeilutbetalingAksjonspunktCode from './FeilutbetalingAksjonspunktCode';
 import AvklartFaktaFeilutbetalingAp from './types/AvklartFaktaFeilutbetalingAp';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -20,26 +20,32 @@ import '@navikt/ft-form-hooks/dist/style.css';
 
 const feilutbetalingFakta = {
   behandlingFakta: {
-    perioder: [{
-      fom: '2018-01-01',
-      tom: '2018-01-31',
-      belop: 1000,
-    }, {
-      fom: '2018-02-01',
-      tom: '2018-02-28',
-      belop: 5000,
-    }, {
-      fom: '2018-03-01',
-      tom: '2018-03-15',
-      belop: 100,
-    }],
+    perioder: [
+      {
+        fom: '2018-01-01',
+        tom: '2018-01-31',
+        belop: 1000,
+      },
+      {
+        fom: '2018-02-01',
+        tom: '2018-02-28',
+        belop: 5000,
+      },
+      {
+        fom: '2018-03-01',
+        tom: '2018-03-15',
+        belop: 100,
+      },
+    ],
     totalPeriodeFom: '2019-01-01',
     totalPeriodeTom: '2019-01-02',
     aktuellFeilUtbetaltBeløp: 10000,
     tidligereVarseltBeløp: 5000,
-    behandlingÅrsaker: [{
-      behandlingArsakType: BehandlingArsakType.FEIL_I_LOVANDVENDELSE,
-    }],
+    behandlingÅrsaker: [
+      {
+        behandlingArsakType: BehandlingArsakType.FEIL_I_LOVANDVENDELSE,
+      },
+    ],
     behandlingsresultat: {
       type: BehandlingResultatType.INNVILGET,
       konsekvenserForYtelsen: [KonsekvensForYtelsen.FORELDREPENGER_OPPHØRER, KonsekvensForYtelsen.ENDRING_I_BEREGNING],
@@ -51,56 +57,47 @@ const feilutbetalingFakta = {
   },
 };
 
-const feilutbetalingAarsak = [{
-  ytelseType: FagsakYtelseType.FORELDREPENGER,
-  hendelseTyper: [{
-    hendelseType: 'MEDLEMSKAP',
-    hendelseUndertyper: [],
-  }, {
-    hendelseType: 'OKONOMI_FEIL',
-    hendelseUndertyper: ['OKONOMI_FEIL_TREKK'],
-  }, {
-    hendelseType: 'BEREGNING_TYPE',
-    hendelseUndertyper: ['IKKE_BOSATT'],
-  }],
-}] as FeilutbetalingAarsak[];
+const feilutbetalingAarsak = [
+  {
+    ytelseType: FagsakYtelseType.FORELDREPENGER,
+    hendelseTyper: [
+      {
+        hendelseType: 'MEDLEMSKAP',
+        hendelseUndertyper: [],
+      },
+      {
+        hendelseType: 'OKONOMI_FEIL',
+        hendelseUndertyper: ['OKONOMI_FEIL_TREKK'],
+      },
+      {
+        hendelseType: 'BEREGNING_TYPE',
+        hendelseUndertyper: ['IKKE_BOSATT'],
+      },
+    ],
+  },
+] as FeilutbetalingAarsak[];
 
 const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as AlleKodeverkTilbakekreving;
 const fpSakAlleKodeverk = alleKodeverk as any;
 
 export default {
-  title: 'fakta/fakta-feilutbetaling',
+  title: 'fakta-feilutbetaling',
   component: FeilutbetalingFaktaIndex,
 };
 
 const Template: Story<{
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
-}> = ({
-  submitCallback,
-}) => (
+}> = ({ submitCallback }) => (
   <FeilutbetalingFaktaIndex
-    behandling={{
-      status: BehandlingStatus.BEHANDLING_UTREDES,
-    } as Behandling}
     submitCallback={submitCallback}
     isReadOnly={false}
     setFormData={() => undefined}
     feilutbetalingFakta={feilutbetalingFakta as FeilutbetalingFakta}
     feilutbetalingAarsak={feilutbetalingAarsak}
-    aksjonspunkter={[{
-      definisjon: FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING,
-      status: AksjonspunktStatus.OPPRETTET,
-      begrunnelse: undefined,
-      kanLoses: true,
-      erAktivt: true,
-    }]}
     alleKodeverk={fpSakAlleKodeverk}
     tilbakekrevingKodeverk={fpTilbakekrevingAlleKodeverk}
     fagsakYtelseTypeKode={FagsakYtelseType.FORELDREPENGER}
     alleMerknaderFraBeslutter={{}}
-    status=""
-    readOnlySubmitButton={false}
-    vilkar={[]}
     isAksjonspunktOpen
   />
 );

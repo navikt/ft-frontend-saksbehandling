@@ -58,11 +58,6 @@ const lagPeriodeStreng = (perioder: PerioderMedGraderingEllerRefusjon[]): string
   return byggListeSomStreng(listeMedPeriodeStrenger);
 };
 
-type ArbeidsforholdInfo = {
-  navnOgOrgnr: string;
-  dato: string;
-};
-
 const finnVisningsnavn = (
   arbeidsforhold: ArbeidsforholdTilFordeling,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -82,7 +77,7 @@ export const createFordelArbeidsforholdString = (
   mTextCase: string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-): string | ArbeidsforholdInfo => {
+): string => {
   const listOfStrings = listOfArbeidsforhold.map(arbeidsforhold => {
     const visningsnavn = finnVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId, getKodeverknavn);
     if (mTextCase === textCase.GRADERING) {

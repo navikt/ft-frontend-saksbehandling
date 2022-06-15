@@ -5,7 +5,6 @@ export {
   isUkerOgDagerVidNullUtbetalningsgrad,
   isWithinOpptjeningsperiode,
   hasValidPeriod,
-  hasValidPeriodIncludingOtherErrors,
   validPeriodeFomTom,
   isDatesEqual,
   dateIsAfter,
@@ -47,7 +46,6 @@ export {
   hasNoWhiteSpace,
   hasValidPosOrNegInteger,
 } from './src/validators';
-export type { Options } from './src/validators';
 
 export {
   isRequiredMessage,
