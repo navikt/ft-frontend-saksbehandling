@@ -177,10 +177,9 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     } else if (!skalOverstyre && erOverstyrtKnappTrykket) {
       setErOverstyrtKnappTrykket(false);
     }
-
-    updateOverstyring(fieldId, skalOverstyre);
     resetField(`avklarAktiviteterForm.${fieldId}`, { keepDirty: false });
     resetField(`vurderAktiviteterSkjema.${fieldId}`, { keepDirty: false });
+    updateOverstyring(fieldId, skalOverstyre);
   };
 
   const isAvklaringsbehovClosed: boolean =

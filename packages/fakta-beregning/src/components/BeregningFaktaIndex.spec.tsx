@@ -28,7 +28,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(feltetMåFyllesUtfeilmelding).not.toBeInTheDocument();
   });
 
-  it.skip('skal vise feilmelding dersom ingen benyttede aktiviteter', async () => {
+  it('skal vise feilmelding dersom ingen benyttede aktiviteter', async () => {
     render(<ArbeidOgDagpenger />);
     userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
@@ -43,7 +43,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(feltetMåFyllesUtfeilmelding).toBeInTheDocument();
   });
 
-  it.skip('skal beholde feilmelding dersom man bytter tab', async () => {
+  it('skal beholde feilmelding dersom man bytter tab', async () => {
     render(<ArbeidOgDagpenger />);
     // TODO: Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
     userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
@@ -58,7 +58,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(feltetMåFyllesUtfeilmeldingFørBytteAvTab).toBeInTheDocument();
 
     // Bytter tab
-    userEvent.click(screen.getByRole('tab', { name: '13.02.2020' }));
+    userEvent.click(screen.getByRole('tab', { name: '13.02.2022 - 20.02.2022' }));
     expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
     userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
@@ -71,7 +71,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(feltetMåFyllesUtfeilmeldingNyTab).not.toBeInTheDocument();
 
     // Byttet tab tilbake til første
-    userEvent.click(screen.getByRole('tab', { name: '13.01.2020' }));
+    userEvent.click(screen.getByRole('tab', { name: '13.01.2022 - 20.01.2022' }));
     const måHaAktivitetFeilmeldingEtterBytteAvTab = await screen.findByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
     );
@@ -205,9 +205,15 @@ describe('<BeregningFaktaIndexSpec', () => {
         'Søker er arbeidstaker og frilanser i samme virksomhet og det er ikke mottatt inntektsmelding(er).',
       ),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?',
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByLabelText('Månedsinntekt for Bedriften (12345678)')).toBeInTheDocument();
     expect(screen.getByLabelText('Månedsinntekt for Frilanser')).toBeInTheDocument();
     expect(screen.queryByLabelText('Månedsinntekt for Bedriften2 (12345679)')).not.toBeInTheDocument();
+    userEvent.click(screen.getByLabelText('Ja'));
     userEvent.type(screen.getByLabelText('Månedsinntekt for Bedriften (12345678)'), '10');
     userEvent.type(screen.getByLabelText('Månedsinntekt for Frilanser'), '20');
     userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
