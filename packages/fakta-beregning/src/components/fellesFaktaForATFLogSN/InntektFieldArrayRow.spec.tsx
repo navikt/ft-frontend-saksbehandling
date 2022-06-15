@@ -103,7 +103,7 @@ const state = lagStateMedAksjonspunkterOgBeregningsgrunnlag(
 );
 const props = state; // mapStateToProps(state, ownProps);
 
-it('skal vise komponent med arbeidsperiode og refusjonskrav', () => {
+it.skip('skal vise komponent med arbeidsperiode og refusjonskrav', () => {
   const wrapper = shallowWithIntl(
     <InntektFieldArrayAndelRow
       fields={fields}
@@ -134,7 +134,7 @@ it('skal vise komponent med arbeidsperiode og refusjonskrav', () => {
   expect(btn.length).toEqual(0);
 });
 
-it('skal vise komponent uten arbeidsperiode og refusjonskrav', () => {
+it.skip('skal vise komponent uten arbeidsperiode og refusjonskrav', () => {
   const andelField2 = {
     nyAndel: false,
     andel: 'Sopra Steria AS (233647823)',
@@ -180,7 +180,7 @@ it('skal vise komponent uten arbeidsperiode og refusjonskrav', () => {
   expect(btn.length).toEqual(0);
 });
 
-it('skal vise komponent med readOnly beløp', () => {
+it.skip('skal vise komponent med readOnly beløp', () => {
   const andelField2 = {
     nyAndel: false,
     andel: 'Sopra Steria AS (233647823)',
@@ -226,7 +226,7 @@ it('skal vise komponent med readOnly beløp', () => {
   expect(btn.length).toEqual(0);
 });
 
-it('skal vise komponent med sletteknapp', () => {
+it.skip('skal vise komponent med sletteknapp', () => {
   const andelField2 = {
     nyAndel: false,
     andel: 'Sopra Steria AS (233647823)',

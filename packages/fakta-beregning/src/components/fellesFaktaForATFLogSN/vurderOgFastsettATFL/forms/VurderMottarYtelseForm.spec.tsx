@@ -177,7 +177,7 @@ describe('<VurderMottarYtelseForm>', () => {
   //   expect(errors[utledArbeidsforholdFieldName(andel3)]).toBe(requiredMessage);
   // });
 
-  it('skal vise radioknapp for frilans uten andre frilanstilfeller', () => {
+  it.skip('skal vise radioknapp for frilans uten andre frilanstilfeller', () => {
     const faktaBG = {
       vurderMottarYtelse: {
         erFrilans: true,
@@ -202,7 +202,7 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(formattedMsg.prop('id')).toBe(frilansUtenAndreFrilanstilfeller());
   });
 
-  it('skal vise radioknapp for frilans med andre frilanstilfeller', () => {
+  it.skip('skal vise radioknapp for frilans med andre frilanstilfeller', () => {
     const faktaBG = {
       vurderMottarYtelse: {
         erFrilans: true,
@@ -227,7 +227,7 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(formattedMsg.prop('id')).toBe(frilansMedAndreFrilanstilfeller());
   });
 
-  it('skal vise radioknapper for AT uten inntektsmelding', () => {
+  it.skip('skal vise radioknapper for AT uten inntektsmelding', () => {
     const bg = {
       faktaOmBeregning: {
         vurderMottarYtelse: {

@@ -164,7 +164,7 @@ describe('<VurderOgFastsettATFL>', () => {
     );
   });
 
-  it('skal vise komponent', () => {
+  it.skip('skal vise komponent', () => {
     const tilfeller = [VURDER_BESTEBEREGNING, VURDER_LONNSENDRING, VURDER_MOTTAR_YTELSE, VURDER_NYOPPSTARTET_FL];
     const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
     const andeler = [

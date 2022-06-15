@@ -45,7 +45,7 @@ const lagBeregningsgrunnlag = andeler =>
   } as Beregningsgrunnlag);
 
 describe('<FaktaForATFLOgSNPanel>', () => {
-  it('skal vise TidsbegrensetArbeidsforholdForm', () => {
+  it.skip('skal vise TidsbegrensetArbeidsforholdForm', () => {
     // const aktivertePaneler = [FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD];
     const wrapper = shallow(
       <FaktaForATFLOgSNPanelImpl
@@ -65,7 +65,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     expect(tidsbegrensetArbeidsforhold).toHaveLength(1);
   });
 
-  it('skal vise NyIArbeidslivetSNForm', () => {
+  it.skip('skal vise NyIArbeidslivetSNForm', () => {
     // const aktivertePaneler = [FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET];
     const wrapper = shallow(
       <FaktaForATFLOgSNPanelImpl
@@ -85,7 +85,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     expect(nyIArbeidslivet).toHaveLength(1);
   });
 
-  it('skal vise NyoppstartetFLForm', () => {
+  it.skip('skal vise NyoppstartetFLForm', () => {
     // const aktivertePaneler = [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL];
     const wrapper = shallow(
       <FaktaForATFLOgSNPanelImpl
