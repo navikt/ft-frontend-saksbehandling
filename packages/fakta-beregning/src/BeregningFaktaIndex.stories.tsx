@@ -575,10 +575,16 @@ export const FrilansOgArbeidstakerISammeOrganisasjon: Story = ({ submitCallback 
     standardFaktaArbeidstakerAndel2,
     standardFaktaFrilansAndel,
   ];
+  const vurderMottarYtelse = {
+    erFrilans: true,
+    frilansInntektPrMnd: 20000,
+    arbeidstakerAndelerUtenIM: [],
+  };
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [VURDER_AT_OG_FL_I_SAMME_ORGANISASJON],
+    faktaOmBeregningTilfeller: [VURDER_AT_OG_FL_I_SAMME_ORGANISASJON, VURDER_MOTTAR_YTELSE],
     arbeidstakerOgFrilanserISammeOrganisasjonListe: [arbeidstakerBeregningsgrunnlagAndel],
     andelerForFaktaOmBeregning,
+    vurderMottarYtelse,
   } as FaktaOmBeregning;
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', [opprettetVurderFakta]);
   return (
