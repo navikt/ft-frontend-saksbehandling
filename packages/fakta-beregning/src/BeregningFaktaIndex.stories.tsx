@@ -25,7 +25,6 @@ import {
 } from '../testdata/ArbeidMedAAPPåSkjæringstidspunktet';
 import { beregningsgrunnlag as bgArbeidOgAAPLøstAksjonspunkt } from '../testdata/ArbeidMedAAPPåSkjæringstidspunktetLøstAksjonspunkt';
 import {
-  aksjonspunkt as aksjonspunktArbeidOgDagpenger,
   beregningsgrunnlag as bgMedArbeidOgDagpenger,
   vilkar as vilkarArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
@@ -36,11 +35,6 @@ import {
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
-
-const behandling = {
-  uuid: '1',
-  versjon: 1,
-} as Behandling;
 
 const opprettetVurderFakta = {
   definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
@@ -214,7 +208,6 @@ export default {
 export const ArbeidOgDagpenger: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
-    aksjonspunkter={aksjonspunktArbeidOgDagpenger}
     erOverstyrer
     alleKodeverk={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
@@ -256,7 +249,6 @@ export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story
 
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
@@ -344,7 +336,6 @@ export const ArbeidOgAAPMedUtførtAksjonspunkt: Story = () => (
  */
 export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden: Story = () => (
   <BeregningFaktaIndex
-    behandling={behandling}
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
     erOverstyrer={false}
     alleKodeverk={alleKodeverkMock as any}
@@ -511,7 +502,6 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse: Story = ({ submitCallb
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', [opprettetVurderFakta]);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
@@ -574,7 +564,6 @@ export const FrilansOgArbeidstakerISammeOrganisasjon: Story = ({ submitCallback 
   const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', [opprettetVurderFakta]);
   return (
     <BeregningFaktaIndex
-      behandling={behandling}
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}

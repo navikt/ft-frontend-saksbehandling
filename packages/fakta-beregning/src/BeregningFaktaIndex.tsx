@@ -71,8 +71,8 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsT
 type AksjonspunktDataDef =
   | AvklarBeregningsaktiviteterAP
   | OverstyrBeregningsaktiviteterAP
-  | BeregningFaktaAP
-  | BeregningOverstyringAP
+  | BeregningFaktaAP[]
+  | BeregningOverstyringAP[]
   | SubmitBeregningType[];
 
 const BeregningFaktaIndex: FunctionComponent<
