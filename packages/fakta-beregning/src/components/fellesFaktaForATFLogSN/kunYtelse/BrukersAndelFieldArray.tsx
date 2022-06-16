@@ -7,7 +7,7 @@ import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpaces
 import { Column, Row } from 'nav-frontend-grid';
 import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage, injectIntl, IntlShape, WrappedComponentProps } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import addCircleIcon from '../../../images/add-circle.svg';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
@@ -152,13 +152,13 @@ const validate = (values: BrukersAndelValues[], intl: IntlShape) => () => {
  * Presentasjonskomponent: Viser fordeling for brukers andel ved kun ytelse
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedComponentProps> = ({
+export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
   name,
-  intl,
   readOnly,
   isAksjonspunktClosed,
   alleKodeverk,
 }) => {
+  const intl = useIntl();
   const { control } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const fieldArrayName = `${formNameVurderFaktaBeregning}.${aktivtBeregningsgrunnlagIndeks}.${name}`;
@@ -213,7 +213,5 @@ export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedCom
     </SkjemaGruppeMedFeilviser>
   );
 };
-
-const BrukersAndelFieldArray = injectIntl(BrukersAndelFieldArrayImpl);
 
 export default BrukersAndelFieldArray;

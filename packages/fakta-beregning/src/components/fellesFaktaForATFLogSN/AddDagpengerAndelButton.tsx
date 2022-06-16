@@ -5,10 +5,10 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { UseFieldArrayAppend } from 'react-hook-form';
-import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import addCircleIcon from '../../images/add-circle.svg';
-import styles from './addAndelButton.less';
 import AndelFieldValue from '../../typer/FieldValues';
+import styles from './addAndelButton.less';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
   andel: aktivitetStatuser.filter(({ kode }) => kode === AktivitetStatus.DAGPENGER)[0].navn,
@@ -25,13 +25,9 @@ type OwnProps = {
   alleKodeverk: AlleKodeverk;
 };
 
-export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedComponentProps> = ({
-  intl,
-  leggTilAndel,
-  alleKodeverk,
-}) => {
+export const AddDagpengerAndelButton: FunctionComponent<OwnProps> = ({ leggTilAndel, alleKodeverk }) => {
   const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
-
+  const intl = useIntl();
   return (
     <Row className={styles.buttonRow}>
       <Column xs="3">
@@ -59,7 +55,5 @@ export const AddDagpengerAndelButtonImpl: FunctionComponent<OwnProps & WrappedCo
     </Row>
   );
 };
-
-const AddDagpengerAndelButton = injectIntl(AddDagpengerAndelButtonImpl);
 
 export default AddDagpengerAndelButton;
