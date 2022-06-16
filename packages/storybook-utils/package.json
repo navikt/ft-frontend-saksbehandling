@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-storybook-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "module": "index.jsx",
   "license": "MIT",
   "private": true,
