@@ -9,7 +9,7 @@ import {
   Vilkar,
 } from '@navikt/ft-types';
 
-import { SideMenu } from '@navikt/k9-react-components';
+import { SideMenu } from '@navikt/ft-plattform-komponenter';
 
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
