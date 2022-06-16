@@ -23,6 +23,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
+      - name: Lerna bootstrap
+        run: yarn bootstrap
+
       - name: Typescript and linting
         run: yarn less:lint && yarn eslint:changed && yarn tsc:changed
 

@@ -18,6 +18,7 @@
     "eslint:changed": "lerna run eslint --stream --parallel --since origin/main",
     "less:lint": "lerna run less:lint --stream --parallel",
     "build": "lerna run build --stream",
+    "bootstrap": "lerna bootstrap",
     "lerna-publish": "lerna publish",
     "storybook-all": "lerna run storybook --parallel -- --ci",
     "storybook": "cross-env start-storybook -p 7000",
