@@ -8,7 +8,7 @@ import { parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '
 import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Aksjonspunkt, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -29,13 +29,14 @@ type OwnProps = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   erNyArbLivet: boolean;
-  gjeldendeAksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
+  fieldIndex: number;
 };
 
 interface StaticFunctions {
   buildInitialValuesNyIArbeidslivet: (
     relevanteAndeler: BeregningsgrunnlagAndel[],
-    gjeldendeAksjonspunkter: Aksjonspunkt[],
+    avklaringsbehov: BeregningAvklaringsbehov[],
   ) => NyIArbeidslivetValues;
   transformValuesNyIArbeidslivet: (values: Required<NyIArbeidslivetValues>) => NyIArbeidslivetruttoNæringResultatAP;
 }
@@ -51,16 +52,15 @@ interface StaticFunctions {
 const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   isAksjonspunktClosed,
-  gjeldendeAksjonspunkter,
+  avklaringsbehov,
   erNyArbLivet,
+  fieldIndex,
 }) => {
-  const harGammeltAPFastsettBrutto = gjeldendeAksjonspunkter
-    ? gjeldendeAksjonspunkter.find(
-        ap => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-      )
+  const harGammeltAPFastsettBrutto = avklaringsbehov
+    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)
     : false;
-  const harAPSNNyiArbLiv = gjeldendeAksjonspunkter
-    ? gjeldendeAksjonspunkter.find(ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
+  const harAPSNNyiArbLiv = avklaringsbehov
+    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
     : false;
   const intl = useIntl();
 
@@ -77,7 +77,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
             <Column xs="5">
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
-                  name={fastsettInntektFieldname}
+                  name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
                   bredde="XS"
                   validate={[required]}
                   parse={parseCurrencyInput}
@@ -99,7 +99,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
             <Column xs="12" className={styles.marginTop}>
               <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>
                 <TextAreaField
-                  name={begrunnelseFieldname}
+                  name={`BeregningForm.${fieldIndex}.${begrunnelseFieldname}`}
                   label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
                   validate={[required, maxLength1500, minLength3, hasValidText]}
                   maxLength={1500}
@@ -119,12 +119,12 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
 
 FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
+  avklaringsbehov: BeregningAvklaringsbehov[],
 ): NyIArbeidslivetValues => {
   const snAndel = relevanteAndeler.find(
     andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
-  const nyIArbeidslivetAP = gjeldendeAksjonspunkter.find(
+  const nyIArbeidslivetAP = avklaringsbehov.find(
     ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   );
   return {
@@ -137,7 +137,6 @@ FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
 FastsettSNNyIArbeid.transformValuesNyIArbeidslivet = (
   values: Required<NyIArbeidslivetValues>,
 ): NyIArbeidslivetruttoNæringResultatAP => ({
-  kode: FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   begrunnelse: values[begrunnelseFieldname],
   bruttoBeregningsgrunnlag: removeSpacesFromNumber(values[fastsettInntektFieldname]),
 });

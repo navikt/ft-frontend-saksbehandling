@@ -4,7 +4,7 @@ import { Column, Row } from 'nav-frontend-grid';
 
 import { isAksjonspunktOpen, Dekningsgrad } from '@navikt/ft-kodeverk';
 
-import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { DekningsgradResultatAp } from '../../types/interface/BeregningsgrunnlagAP';
@@ -22,12 +22,13 @@ const maxLength1500 = maxLength(1500);
 const stringTilNumberParser = (value: string): number => (value === 'HUNDRE' ? Dekningsgrad.HUNDRE : Dekningsgrad.ATTI);
 
 interface StaticFunctions {
-  buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag, aksjonspunkter: Aksjonspunkt[]) => DekningsgradValues;
+  buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => DekningsgradValues;
   transformValues: (values: Required<DekningsgradValues>) => DekningsgradResultatAp;
 }
 
 type OwnProps = {
   readOnly: boolean;
+  fieldIndex: number;
 };
 
 /**
@@ -35,7 +36,7 @@ type OwnProps = {
  *
  * Viser skjæringstidspunkt for beregningen og en liste med aktivitetsstatuser.
  */
-const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, fieldIndex }) => {
   const intl = useIntl();
   const radioknapper = [
     {
@@ -50,7 +51,7 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
   return (
     <>
       <RadioGroupPanel
-        name={RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN}
+        name={`BeregningForm.${fieldIndex}.${RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN}`}
         isReadOnly={readOnly}
         validate={[required]}
         radios={radioknapper}
@@ -59,7 +60,7 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
       <Row>
         <Column xs="12">
           <TextAreaField
-            name={TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING}
+            name={`BeregningForm.${fieldIndex}.${TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING}`}
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
@@ -73,16 +74,15 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
   );
 };
 
-DekningsgradAksjonspunktPanel.buildInitialValues = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  aksjonspunter: Aksjonspunkt[],
-): DekningsgradValues => {
-  const aksjonspunkt =
-    aksjonspunter &&
-    aksjonspunter.find(ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD);
-  const begrunnelse = aksjonspunkt && aksjonspunkt.begrunnelse ? aksjonspunkt.begrunnelse : null;
+DekningsgradAksjonspunktPanel.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): DekningsgradValues => {
+  const avklaringsbehov =
+    beregningsgrunnlag.avklaringsbehov &&
+    beregningsgrunnlag.avklaringsbehov.find(
+      ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
+    );
+  const begrunnelse = avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : null;
   const initialDekningsgrad =
-    aksjonspunkt && !isAksjonspunktOpen(aksjonspunkt.status) ? beregningsgrunnlag.dekningsgrad : null;
+    avklaringsbehov && !isAksjonspunktOpen(avklaringsbehov.status) ? beregningsgrunnlag.dekningsgrad : null;
   if (initialDekningsgrad && begrunnelse) {
     return {
       [RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN]: initialDekningsgrad,
@@ -93,7 +93,6 @@ DekningsgradAksjonspunktPanel.buildInitialValues = (
 };
 
 DekningsgradAksjonspunktPanel.transformValues = (values: Required<DekningsgradValues>): DekningsgradResultatAp => ({
-  kode: ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
   begrunnelse: values[TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING],
   dekningsgrad: values[RADIO_GROUP_FIELD_DEKNINGSGRAD_NAVN],
 });
