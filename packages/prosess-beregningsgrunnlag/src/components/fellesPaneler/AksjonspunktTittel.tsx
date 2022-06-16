@@ -7,7 +7,7 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
-  Aksjonspunkt,
+  BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
@@ -39,19 +39,22 @@ const APTekster = {
   [VURDER_DEKNINGSGRAD]: 'Beregningsgrunnlag.Helptext.BarnetHarDødDeFørsteSeksUkene',
 } as Record<string, string>;
 
-const findAksjonspunktHelpTekst = (gjeldendeAksjonspunkt: Aksjonspunkt, erVarigEndring: boolean): string => {
+const findAksjonspunktHelpTekst = (
+  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov,
+  erVarigEndring: boolean,
+): string => {
   if (
-    gjeldendeAksjonspunkt.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE
+    gjeldendeAvklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE
   ) {
     return erVarigEndring
       ? 'Beregningsgrunnlag.Helptext.SelvstendigNaeringsdrivende.VarigEndring'
       : 'Beregningsgrunnlag.Helptext.SelvstendigNaeringsdrivende.Nyoppstartet';
   }
-  return APTekster[gjeldendeAksjonspunkt.definisjon];
+  return APTekster[gjeldendeAvklaringsbehov.definisjon];
 };
 
 const lagAksjonspunktHelpText = (
-  åpneAksjonspunkter: Aksjonspunkt[],
+  åpneAvklaringsbehov: BeregningAvklaringsbehov[],
   avvikProsent: number,
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ReactElement => {
@@ -62,7 +65,7 @@ const lagAksjonspunktHelpText = (
   return (
     <div>
       <AksjonspunktHelpTextHTML>
-        {åpneAksjonspunkter.map(ap => (
+        {åpneAvklaringsbehov.map(ap => (
           <FormattedMessage
             key={ap.definisjon}
             id={findAksjonspunktHelpTekst(ap, erVarigEndring)}
@@ -76,11 +79,11 @@ const lagAksjonspunktHelpText = (
 };
 
 type OwnProps = {
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const AksjonspunktTittel: FunctionComponent<OwnProps> = ({ aksjonspunkter, beregningsgrunnlag }) => {
+const AksjonspunktTittel: FunctionComponent<OwnProps> = ({ avklaringsbehov, beregningsgrunnlag }) => {
   const førstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode
     ? beregningsgrunnlag.beregningsgrunnlagPeriode[0]
     : undefined;
@@ -88,7 +91,7 @@ const AksjonspunktTittel: FunctionComponent<OwnProps> = ({ aksjonspunkter, bereg
     førstePeriode && førstePeriode.beregningsgrunnlagPrStatusOgAndel
       ? førstePeriode.beregningsgrunnlagPrStatusOgAndel
       : [];
-  const åpneAksjonspunkter = aksjonspunkter.filter(ap => isAksjonspunktOpen(ap.status));
+  const åpneAksjonspunkter = avklaringsbehov.filter(ap => isAksjonspunktOpen(ap.status));
   const harGrunnTilÅViseKomponent = definertOgIkkeTom(åpneAksjonspunkter) && definertOgIkkeTom(andelerIFørstePeriode);
   if (!harGrunnTilÅViseKomponent) {
     return null;

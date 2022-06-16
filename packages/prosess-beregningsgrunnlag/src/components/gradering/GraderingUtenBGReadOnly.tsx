@@ -2,13 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 
-import { Aksjonspunkt } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { AvsnittSkiller, VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './graderingUtenBGReadOnly.less';
 
 type OwnProps = {
-  aksjonspunkt: Aksjonspunkt;
+  avklaringsbehov: BeregningAvklaringsbehov;
 };
 
 /**
@@ -16,8 +16,8 @@ type OwnProps = {
  * Vil ikke lenger oppstå men vi må kunne vise begrunnelsen som ble
  * oppgitt av saksbehandler og en kort beskrivelse av aksjonspunktet.
  */
-const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ aksjonspunkt }) => {
-  if (!aksjonspunkt || !aksjonspunkt.begrunnelse) {
+const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ avklaringsbehov }) => {
+  if (!avklaringsbehov || !avklaringsbehov.begrunnelse) {
     return null;
   }
   return (
@@ -28,7 +28,7 @@ const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ aksjonspunkt }) 
       </Element>
       <VerticalSpacer sixteenPx />
       <Normaltekst className={styles.readOnlyBlokk}>
-        {aksjonspunkt.begrunnelse} <EditedIcon />
+        {avklaringsbehov.begrunnelse} <EditedIcon />
       </Normaltekst>
     </>
   );

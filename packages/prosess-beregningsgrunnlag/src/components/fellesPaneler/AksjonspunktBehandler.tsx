@@ -14,7 +14,7 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
-  Aksjonspunkt,
+  BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -48,10 +48,10 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
   }
   return [];
 };
-const harFlereAksjonspunkter = (gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean =>
-  !!gjeldendeAksjonspunkter && gjeldendeAksjonspunkter.length > 1;
-const finnATFLVurderingLabel = (gjeldendeAksjonspunkter: Aksjonspunkt[]): ReactElement => {
-  if (harFlereAksjonspunkter(gjeldendeAksjonspunkter)) {
+const harFlereAksjonspunkter = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  !!avklaringsbehov && avklaringsbehov.length > 1;
+const finnATFLVurderingLabel = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): ReactElement => {
+  if (harFlereAksjonspunkter(gjeldendeAvklaringsbehov)) {
     return <FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />;
   }
   return <FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />;
@@ -66,7 +66,8 @@ const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: Beregningsgrunnlag
 const settOppKomponenterForNæring = (
   readOnly: boolean,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  aksjonspunkter: Aksjonspunkt[],
+  avklaringsbehov: BeregningAvklaringsbehov[],
+  fieldIndex: number,
 ): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
@@ -101,23 +102,25 @@ const settOppKomponenterForNæring = (
       <VerticalSpacer eightPx />
       <AksjonspunktBehandlerSN
         readOnly={readOnly}
-        aksjonspunkter={aksjonspunkter}
+        avklaringsbehov={avklaringsbehov}
         erNyArbLivet={erNyArbLivet}
         erVarigEndring={erVarigEndring}
         erNyoppstartet={erNyoppstartet}
+        fieldIndex={fieldIndex}
       />
     </>
   );
 };
 
 const settOppKomponenterForATFL = (
-  aksjonspunkter: Aksjonspunkt[],
+  avklaringsbehov: BeregningAvklaringsbehov[],
   alleKodeverk: AlleKodeverk,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   readOnly: boolean,
   formName: string,
   intl: IntlShape,
+  fieldIndex: number,
 ): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
@@ -138,8 +141,9 @@ const settOppKomponenterForATFL = (
           formName={formName}
           allePerioder={allePerioder}
           alleKodeverk={alleKodeverk}
-          aksjonspunkter={aksjonspunkter}
+          avklaringsbehov={avklaringsbehov}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          fieldIndex={fieldIndex}
         />
       )}
       {!erTidsbegrenset && visAT && (
@@ -148,6 +152,7 @@ const settOppKomponenterForATFL = (
           alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
           alleKodeverk={alleKodeverk}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          fieldIndex={fieldIndex}
         />
       )}
       {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} />}
@@ -155,8 +160,8 @@ const settOppKomponenterForATFL = (
       <Row>
         <Column xs="12">
           <TextAreaField
-            name="ATFLVurdering"
-            label={finnATFLVurderingLabel(aksjonspunkter)}
+            name={`BeregningForm.${fieldIndex}.ATFLVurdering`}
+            label={finnATFLVurderingLabel(avklaringsbehov)}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
             readOnly={readOnly}
@@ -174,7 +179,7 @@ const settOppKomponenterForATFL = (
 
 type OwnProps = {
   readOnly: boolean;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   alleKodeverk: AlleKodeverk;
   formName: string;
   readOnlySubmitButton: boolean;
@@ -183,11 +188,12 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   isSubmitting: boolean;
   isDirty: boolean;
+  fieldIndex: number;
 };
 
 const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   readOnly,
-  aksjonspunkter,
+  avklaringsbehov,
   formName,
   readOnlySubmitButton,
   allePerioder,
@@ -196,9 +202,10 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   isDirty,
   isSubmitting,
+  fieldIndex,
 }) => {
   const intl = useIntl();
-  if (!aksjonspunkter || aksjonspunkter.length === 0 || !allePerioder) {
+  if (!avklaringsbehov || avklaringsbehov.length === 0 || !allePerioder) {
     return null;
   }
   const submittKnapp = (
@@ -217,7 +224,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     return (
       <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
         <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-          {settOppKomponenterForNæring(readOnly, allePerioder, aksjonspunkter)}
+          {settOppKomponenterForNæring(readOnly, allePerioder, avklaringsbehov, fieldIndex)}
           <VerticalSpacer sixteenPx />
           {submittKnapp}
           <VerticalSpacer sixteenPx />
@@ -230,8 +237,8 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   ] as string[];
 
-  const harATFLAP = aksjonspunkter.some(ap => atflAPKoder.includes(ap.definisjon));
-  const harDekningsgradAP = aksjonspunkter.some(
+  const harATFLAP = avklaringsbehov.some(ap => atflAPKoder.includes(ap.definisjon));
+  const harDekningsgradAP = avklaringsbehov.some(
     ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
   );
   return (
@@ -239,13 +246,14 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
         {harATFLAP &&
           settOppKomponenterForATFL(
-            aksjonspunkter,
+            avklaringsbehov,
             alleKodeverk,
             allePerioder,
             arbeidsgiverOpplysningerPerId,
             readOnly,
             formName,
             intl,
+            fieldIndex,
           )}
         {harDekningsgradAP && (
           <>
@@ -259,7 +267,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
             <VerticalSpacer eightPx />
             <Row>
               <Column xs="12">
-                <DekningsgradAksjonspunktPanel readOnly={readOnly} />
+                <DekningsgradAksjonspunktPanel readOnly={readOnly} fieldIndex={fieldIndex} />
               </Column>
             </Row>
             <VerticalSpacer sixteenPx />

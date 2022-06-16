@@ -2979,16 +2979,46 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@navikt/ds-css@^0.16.15":
+  version "0.16.21"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/0.16.21/d8f34cfa67882eddd09a7f05170f3d1d173fe45fa11c143f857319b6a57f00f2#b793f900f3148a048180423052480c04be239e68"
+  integrity sha512-kV9fLtnZoOIectWGZFg/aLzgp4gRi2sBjgq5VzoprNQlzSOnSxwR0QVLClpmjJe+oKZYUc5RndqDc0QAMawqkA==
+
 "@navikt/ds-css@^0.18.1":
   version "0.18.1"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-css/0.18.1/4b801963f20dc32e9dd99a7a4658214f5290bacc2bd60483246b7f9dad268779#9d45ac1ade4437ed727213971941d472fc3f3542"
   integrity sha512-NMgw5JiqHPaoi2keOJbQKgQxzGRGrYD0tIqMHeFqm1ij5ZLoo5yzSYyGvw3ZwOy8uhFSzVO+6EYknb6Uq4c7zQ==
+
+"@navikt/ds-icons@^0.8.11", "@navikt/ds-icons@^0.8.7":
+  version "0.8.17"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/0.8.17/359dd97bac9bd3c41fcb5fd2d3bb3f853e356894eef75ee09c7369225802eea4#ddf124687e158a988d6be70f653ae3239aba90ad"
+  integrity sha512-CR1h9t0MZprEvTqlrlLd3cHhoYmriFWkETikPprUNl3AMJMSCDovVYzXtOgIyVeFbtwTPzGtShw5mgxlVWAEDg==
+  dependencies:
+    uuid "^8.3.2"
 
 "@navikt/ds-icons@^0.8.13":
   version "0.8.13"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/0.8.13/f504398905b0915d000b48911f378dfbd912fd1901ed1ac52c3e8d828f5b9c95#f37beef04f48d4bbc1d9b7ad3426c5534b9afc5e"
   integrity sha512-S77/6KGdcn3760QugBHCBw8dzqLvMpFJJCQCqsz0Y96PvGFwyE4bM7lImSxvTo7ToI8ckVUU+C6+37T0SfKYIQ==
   dependencies:
+    uuid "^8.3.2"
+
+"@navikt/ds-react@^0.17.19":
+  version "0.17.27"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-react/0.17.27/cadcae82d4fb79e1628615597583f09184424cffb63e24eec0e50c899c16a8a6#d826baf51bb8693b30ce0f84de041eb97bb6eeed"
+  integrity sha512-AIB2z+SdK8d/NSsEhuhEsMV1sPFn5em+LcWPdm4nmrPJ3Son7RckKcW2smRkMfrPaaJGzSlqvYTLDkK9z+W3BA==
+  dependencies:
+    "@floating-ui/react-dom" "0.6.0"
+    "@material-ui/core" "^4.12.3"
+    "@navikt/ds-icons" "^0.8.11"
+    "@popperjs/core" "^2.10.1"
+    "@radix-ui/react-tabs" "0.1.5"
+    "@radix-ui/react-toggle-group" "0.1.5"
+    classnames "^2.2.6"
+    react-collapse "^5.1.0"
+    react-merge-refs "^1.1.0"
+    react-modal "3.14.3"
+    react-popper "^2.2.5"
     uuid "^8.3.2"
 
 "@navikt/ds-react@^0.19.1":
@@ -3013,6 +3043,41 @@
   version "1.3.0"
   resolved "https://npm.pkg.github.com/download/@navikt/fnrvalidator/1.3.0/57e0b0b2bfe6ba79ad3c33dc6529c51ca8d573ca8cdd4c4dd3d3aa59446fe56f#8cea6bae592f772d07efebe9a5ab7179552e1d6f"
   integrity sha512-k1MEZ8xwxtmY570gB+BF38kr9Xta1KIcx0yUExHQZWIsD1PNGSVagoriRTxqGyyTTkt4ajk1Z18WPfWX7rtpgQ==
+
+"@navikt/k9-array-utils@^0.0.1":
+  version "0.0.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-array-utils/0.0.1/98bc78a50527f6c229ca570b290fa3f05392dcaed647dabda3954f75fef2805e#5f1fd9b78afcc5fe1d73b67d93fc1d5c4377d9d1"
+  integrity sha512-43FAkBgT/LB4MgU5s18pe+4svmxXojKu5ypyNdxIPSCY+4y80ZZ58/yZTgmQw3XZxLACHMePRdP6PRkTrk9j2g==
+
+"@navikt/k9-bem-utils@^1.0.1":
+  version "1.0.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-bem-utils/1.0.1/1c8b370a7f8e822ffffeff6fa566af9a025692ae3fd258c7a4e4c0d67cd52ea1#451f330cbf3636c6406468c157468ea07dfb3b10"
+  integrity sha512-DRV0rm6NDyAIosWGeMk0RlfUciUNIdD4AxpnGYOpqJCTIoCJHxLtzwRa1Zv15LEX5BHDWbiDYF5ZxDFhfE4yBg==
+
+"@navikt/k9-date-utils@^0.0.7":
+  version "0.0.7"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-date-utils/0.0.7/688e8bc182d7a9e51fe38fe8e581d612afb68fc28b851c8362a964a9459c941d#6746de030c07a9ca51f6b32ee13db0318cf2e104"
+  integrity sha512-285HkuHGp4qTCRSx95uXq3shOae8MqifZ1l1AZ/WZQmzotcBUPEa7QQVNSE8lvf4zk0xkfyoA/XACX8JCHW5Uw==
+
+"@navikt/k9-period-utils@^0.0.10":
+  version "0.0.10"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-period-utils/0.0.10/517957a0412ddd4c41a44160da697e102aa793b40403e9be272cb57257686506#3d223937e0798dbffb972bc267133f21b054b3a8"
+  integrity sha512-0Q3MG50hk5kG264+AOxTWOGmU97uRPdOZwvhburSY1b9Bw+MvJ5nTJj5Wy8PXbCsgcOt1EoGWoPkNGK+WfaQlg==
+  dependencies:
+    "@navikt/k9-array-utils" "^0.0.1"
+    "@navikt/k9-date-utils" "^0.0.7"
+
+"@navikt/k9-react-components@^0.1.21":
+  version "0.1.21"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-react-components/0.1.21/189271809bca759438fffe292c17ee51438209ec1781d54d54037f72ca97d2ea#438b48336d78cd2aa412c2e01bcaa867c3b0957c"
+  integrity sha512-93w6iBgbKxLlItROakGr0yGDCVuS1EMl/X8sz6BTzZ3lTvuImS3FLJiMlOgym82w7gukIWQLBOrBPxvKKTe++w==
+  dependencies:
+    "@navikt/ds-css" "^0.16.15"
+    "@navikt/ds-icons" "^0.8.7"
+    "@navikt/ds-react" "^0.17.19"
+    "@navikt/k9-bem-utils" "^1.0.1"
+    "@navikt/k9-date-utils" "^0.0.7"
+    "@navikt/k9-period-utils" "^0.0.10"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
