@@ -132,7 +132,7 @@ const validate =
     ) {
       return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
     }
-    return [];
+    return true;
   };
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
@@ -151,8 +151,10 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     resetField,
     watch,
     getValues,
-    formState: { isDirty, isSubmitting, errors },
+    formState: { isSubmitting, errors, dirtyFields },
   } = formHooks.useFormContext<AvklarAktiviteterFormValues>();
+
+  const fieldIsDirty = Object.keys(dirtyFields).length > 0;
 
   const harOverstyrAvklaringsbehov = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
   const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
@@ -175,9 +177,10 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     } else if (!skalOverstyre && erOverstyrtKnappTrykket) {
       setErOverstyrtKnappTrykket(false);
     }
-
+    resetField(`avklarAktiviteterForm.${fieldId}`, { keepDirty: false });
+    /* @ts-ignore */
+    resetField(`vurderAktiviteterSkjema.${fieldId}`, { keepDirty: false });
     updateOverstyring(fieldId, skalOverstyre);
-    resetField(`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`);
   };
 
   const isAvklaringsbehovClosed: boolean =
@@ -190,7 +193,6 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 
   const valideringer = [validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl)];
-
   return (
     <>
       <FlexContainer>
@@ -267,13 +269,13 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                           : 'AvklarAktivitetPanel.ButtonText',
                       })}
                       isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
-                      isDirty={isDirty}
+                      isDirty={fieldIsDirty}
                       isSubmitting={isSubmitting}
-                      isReadOnly={readOnly || (isAvklaringsbehovClosed && !isDirty)}
+                      isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
                       hasEmptyRequiredFields={finnesFeilForBegrunnelse}
                     />
                   </FlexColumn>
-                  {isDirty && (
+                  {!!dirtyFields && fieldIsDirty && (
                     <FlexColumn>
                       <Knapp
                         htmlType="button"

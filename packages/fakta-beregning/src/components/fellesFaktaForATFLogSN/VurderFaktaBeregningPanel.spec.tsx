@@ -3,9 +3,9 @@ import { Aksjonspunkt } from '@navikt/ft-types';
 import {
   BEGRUNNELSE_FAKTA_TILFELLER_NAME,
   harIkkeEndringerIAvklarMedFlereAksjonspunkter,
-  transformValuesVurderFaktaBeregning,
 } from './VurderFaktaBeregningPanel';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
 
 const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
 
@@ -32,11 +32,15 @@ describe('<VurderFaktaBeregningPanel>', () => {
       andelerForFaktaOmBeregning: [],
     };
     const values = {
-      aksjonspunkter: [avklarAktiviteterAp],
-      faktaOmBeregning,
+      vurderFaktaBeregningForm: [
+        {
+          avklaringsbehov: [avklarAktiviteterAp],
+          faktaOmBeregning,
+        },
+      ],
     };
     const transformed = transformValuesVurderFaktaBeregning(values);
-    expect(transformed).toBeNull();
+    expect(transformed.length).toBe(0);
   });
 
   it('skal transformValues med aksjonspunkt', () => {
@@ -45,14 +49,18 @@ describe('<VurderFaktaBeregningPanel>', () => {
     };
     const tilfeller = [];
     const values = {
-      [BEGRUNNELSE_FAKTA_TILFELLER_NAME]: 'begrunnelse',
-      aksjonspunkter,
-      faktaOmBeregning,
-      tilfeller,
+      vurderFaktaBeregningForm: [
+        {
+          [BEGRUNNELSE_FAKTA_TILFELLER_NAME]: 'begrunnelse',
+          avklaringsbehov: aksjonspunkter,
+          faktaOmBeregning,
+          tilfeller,
+        },
+      ],
     };
     const transformed = transformValuesVurderFaktaBeregning(values);
-    expect(transformed.begrunnelse).toBe('begrunnelse');
-    expect(transformed.kode).toBe(VURDER_FAKTA_FOR_ATFL_SN);
+    expect(transformed[0].begrunnelse).toBe('begrunnelse');
+    expect(transformed[0].kode).toBe(VURDER_FAKTA_FOR_ATFL_SN);
   });
 
   it('skal returnere true for endring i avklar med kun avklar aksjonspunkt', () => {

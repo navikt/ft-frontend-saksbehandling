@@ -1,21 +1,21 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import moment from 'moment';
-import { Normaltekst } from 'nav-frontend-typografi';
-
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import moment from 'moment';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
-import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 
@@ -34,7 +34,6 @@ const lagVisningsnavn = (
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
@@ -54,36 +53,43 @@ interface StaticFunctions {
 export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   faktaOmBeregning,
-  isAksjonspunktClosed,
   arbeidsgiverOpplysningerPerId,
 }) => {
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const intl = useIntl();
+
   return (
     <div>
       {andelsliste.map(andel => (
         <div
           key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)}`}
         >
-          <Normaltekst>
-            <FormattedMessage
-              id={kortvarigStringId}
-              values={{
-                navn: lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId),
-                fom: moment(andel.arbeidsforhold.startdato).format(DDMMYYYY_DATE_FORMAT),
-                tom: moment(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
-              }}
-            />
-          </Normaltekst>
-          <VerticalSpacer eightPx />
-          <RadioGroupField
-            name={`tidsbegrensetValues.${createArbeidsforholdRadioKey(andel)}`}
+          <RadioGroupPanel
+            label={
+              <Normaltekst>
+                <FormattedMessage
+                  id={kortvarigStringId}
+                  values={{
+                    navn: lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId),
+                    fom: moment(andel.arbeidsforhold.startdato).format(DDMMYYYY_DATE_FORMAT),
+                    tom: moment(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
+                  }}
+                />
+              </Normaltekst>
+            }
+            name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
+              andel,
+            )}`}
+            isReadOnly={readOnly}
+            radios={[
+              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+            ]}
             validate={[required]}
-            readOnly={readOnly}
-            isEdited={isAksjonspunktClosed}
-          >
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-          </RadioGroupField>
+            parse={parseStringToBoolean}
+            isHorizontal
+          />
         </div>
       ))}
     </div>

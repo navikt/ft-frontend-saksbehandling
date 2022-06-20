@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 /**
  * VurderMilitær
@@ -16,7 +18,6 @@ export const vurderMilitaerField = 'vurderMilitær';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -24,22 +25,31 @@ interface StaticFunctions {
   transformValues: (values: any) => any;
 }
 
-const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
-  <div>
-    <Normaltekst>
-      <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
-    </Normaltekst>
-    <RadioGroupField
-      name={vurderMilitaerField}
-      validate={[required]}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
-  </div>
-);
+const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const intl = useIntl();
+
+  return (
+    <div>
+      <RadioGroupPanel
+        label={
+          <Normaltekst>
+            <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
+          </Normaltekst>
+        }
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${vurderMilitaerField}`}
+        isReadOnly={readOnly}
+        radios={[
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        ]}
+        validate={[required]}
+        parse={parseStringToBoolean}
+        isHorizontal
+      />
+    </div>
+  );
+};
 
 VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): VurderMilitærValues => {
   const initialValues = {};

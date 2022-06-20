@@ -1,58 +1,59 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { shallow } from 'enzyme';
-
-import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
-
-import { InntektstabellPanelImpl } from './InntektstabellPanel';
+import { IntlProvider } from 'react-intl';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import { InntektstabellPanelImpl } from './InntektstabellPanel';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 
 describe('<InntektstabellPanel>', () => {
   it('skal vise checkbox for overstyring', () => {
-    const wrapper = shallow(
-      <InntektstabellPanelImpl
-        key="inntektstabell"
-        hjelpeTekstId="hjelpetekst"
-        tabell={<span> tabell </span>}
-        kanOverstyre
-        aksjonspunkter={[]}
-        readOnly={false}
-        erOverstyrer={false}
-        reduxFormChange={() => undefined}
-      >
-        <span>test1</span>
-        <span>test2</span>
-      </InntektstabellPanelImpl>,
+    render(
+      <IntlProvider locale="nb-NO" messages={{}}>
+        <InntektstabellPanelImpl
+          key="inntektstabell"
+          hjelpeTekstId="hjelpetekst"
+          tabell={<span> tabell </span>}
+          avklaringsbehov={[]}
+          readOnly={false}
+          erOverstyrer
+          updateOverstyring={jest.fn()}
+          erOverstyrt={false}
+        >
+          <span>test1</span>
+          <span>test2</span>
+        </InntektstabellPanelImpl>
+      </IntlProvider>,
     );
-    expect(wrapper.find(OverstyringKnapp)).toHaveLength(1);
+    expect(screen.getByTestId('overstyringsknapp')).toBeInTheDocument();
   });
 
   it('checkbox skal vere readOnly når man har overstyring aksjonspunkt', () => {
-    const wrapper = shallow(
-      <InntektstabellPanelImpl
-        key="inntektstabell"
-        hjelpeTekstId="hjelpetekst"
-        tabell={<span> tabell </span>}
-        kanOverstyre
-        aksjonspunkter={[
-          {
-            definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-            status: 'OPPR',
-            erAktivt: true,
-            kanLoses: true,
-          },
-        ]}
-        readOnly={false}
-        erOverstyrer={false}
-        reduxFormChange={() => undefined}
-      >
-        <span>test1</span>
-        <span>test2</span>
-      </InntektstabellPanelImpl>,
+    render(
+      <IntlProvider locale="nb-NO" messages={{}}>
+        <InntektstabellPanelImpl
+          key="inntektstabell"
+          hjelpeTekstId="hjelpetekst"
+          tabell={<span> tabell </span>}
+          avklaringsbehov={[
+            {
+              definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+              status: 'OPPR',
+              kanLoses: true,
+            },
+          ]}
+          readOnly={false}
+          erOverstyrer
+          updateOverstyring={jest.fn()}
+          erOverstyrt={false}
+        >
+          <span>test1</span>
+          <span>test2</span>
+        </InntektstabellPanelImpl>
+      </IntlProvider>,
     );
-    const knapp = wrapper.find(OverstyringKnapp);
-    expect(knapp).toHaveLength(1);
-    expect(knapp.first().prop('erOverstyrt')).toBe(true);
+    const overstyringsknapp = screen.getByTestId('overstyringsknapp');
+    expect(overstyringsknapp).toBeInTheDocument();
+    expect(overstyringsknapp).toHaveAttribute('aria-disabled', 'true');
   });
 });

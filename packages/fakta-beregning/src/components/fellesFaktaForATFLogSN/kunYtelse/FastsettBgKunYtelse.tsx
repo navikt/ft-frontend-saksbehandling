@@ -1,10 +1,9 @@
-import React from 'react';
-import { IntlShape } from 'react-intl';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, AlleKodeverk, KunYtelse } from '@navikt/ft-types';
+import { AlleKodeverk, AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, KunYtelse } from '@navikt/ft-types';
+import React from 'react';
+import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import KunYtelsePanel from './KunYtelsePanel';
-import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 
 const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
 
@@ -46,18 +45,6 @@ export const transformValuesForKunYtelse = (
       faktaOmBeregningTilfeller,
       ...kunYtelseTransformedValues,
     };
-  }
-  return {};
-};
-
-export const getKunYtelseValidation = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  kunYtelse: KunYtelse,
-  aktivertePaneler: string[],
-  intl: IntlShape,
-): any => {
-  if (aktivertePaneler.includes(FASTSETT_BG_KUN_YTELSE)) {
-    return KunYtelsePanel.validate(values, aktivertePaneler, kunYtelse, intl);
   }
   return {};
 };

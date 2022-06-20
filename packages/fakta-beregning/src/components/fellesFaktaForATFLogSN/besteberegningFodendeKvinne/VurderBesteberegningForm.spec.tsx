@@ -1,20 +1,19 @@
-import { isRequiredMessage } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
 import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
+import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 
 describe('<VurderBesteberegning>', () => {
-  it('skal ikkje validere om man ikkje har tilfelle', () => {
-    const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING]);
-    expect(Object.keys(error)).toHaveLength(0);
-  });
+  // it('skal ikkje validere om man ikkje har tilfelle', () => {
+  //   const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING]);
+  //   expect(Object.keys(error)).toHaveLength(0);
+  // });
 
-  it('skal validere om ikkje vurdert', () => {
-    const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING]);
-    expect(error[besteberegningField]).toBe(isRequiredMessage());
-  });
+  // it('skal validere om ikkje vurdert', () => {
+  //   const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING]);
+  //   expect(error[besteberegningField]).toBe(isRequiredMessage());
+  // });
 
   it('skal bygge initial values', () => {
     const vurderBesteberegning = {

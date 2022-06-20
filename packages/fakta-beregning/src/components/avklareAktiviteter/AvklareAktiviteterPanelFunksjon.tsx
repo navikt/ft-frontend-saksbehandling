@@ -140,6 +140,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     control,
     getValues,
     trigger,
+    setValue,
   } = formMethods;
 
   useEffect(() => {
@@ -150,17 +151,21 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
 
-  const { fields, update } = useFieldArray({
+  const { fields } = useFieldArray({
     name: formNameAvklarAktiviteter,
     control,
   });
 
   const updateOverstyring = (index: number, skalOverstyre: boolean): void => {
     const currVal = getValues(`avklarAktiviteterForm.${index}`);
-    update(index, {
-      ...currVal,
-      manuellOverstyringBeregningAktiviteter: skalOverstyre,
-    });
+    setValue(
+      `${formNameAvklarAktiviteter}.${index}`,
+      {
+        ...currVal,
+        manuellOverstyringBeregningAktiviteter: skalOverstyre,
+      },
+      { shouldDirty: true },
+    );
   };
 
   if (skalSkjuleKomponent(avklaringsbehov, erOverstyrer)) {
@@ -176,7 +181,6 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   return (
     <>
       <Form<AvklarAktiviteterFormValues>
-        // @ts-ignore
         formMethods={formMethods}
         onSubmit={values => losAvklaringsbehov(values)}
         setDataOnUnmount={setFormData}

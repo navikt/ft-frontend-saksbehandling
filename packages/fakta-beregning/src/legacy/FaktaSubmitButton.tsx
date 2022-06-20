@@ -1,13 +1,9 @@
-import React, { FunctionComponent } from 'react';
-import { RawIntlProvider, FormattedMessage } from 'react-intl';
-import { isDirty as reduxIsDirty, isSubmitting as reduxIsSubmitting } from 'redux-form';
-import { connect } from 'react-redux';
-import { Hovedknapp } from 'nav-frontend-knapper';
-
+import { ariaCheck } from '@navikt/ft-form-validators';
 import { createIntl } from '@navikt/ft-utils';
-import { ariaCheck, isRequiredMessage } from '@navikt/ft-form-validators';
-import { hasBehandlingFormErrorsOfType } from '@navikt/ft-form-redux-legacy';
-
+import { Hovedknapp } from 'nav-frontend-knapper';
+import React, { FunctionComponent } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import messages from '../../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
@@ -30,12 +26,6 @@ const isDisabled = (
 };
 
 interface PureOwnProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  formNames?: string[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  formName?: string;
-  // eslint-disable-next-line react/no-unused-prop-types
-  doNotCheckForRequiredFields?: boolean;
   buttonText?: string;
   isReadOnly: boolean;
   isSubmittable: boolean;
@@ -43,52 +33,35 @@ interface PureOwnProps {
   onClick?: (event: React.MouseEvent) => void;
 }
 
-interface MappedOwnProps {
-  isSubmitting: boolean;
-  isDirty: boolean;
-  hasEmptyRequiredFields: boolean;
-}
-
 /**
  * FaktaSubmitButton
  */
-export const FaktaSubmitButton: FunctionComponent<PureOwnProps & MappedOwnProps> = ({
+const FaktaSubmitButton: FunctionComponent<PureOwnProps> = ({
   isReadOnly,
   isSubmittable,
-  isSubmitting,
-  isDirty,
-  hasEmptyRequiredFields,
   hasOpenAksjonspunkter,
   buttonText,
   onClick,
-}) => (
-  <RawIntlProvider value={intl}>
-    {!isReadOnly && (
-      <Hovedknapp
-        mini
-        spinner={isSubmitting}
-        disabled={isDisabled(isDirty, isSubmitting, isSubmittable, hasEmptyRequiredFields, hasOpenAksjonspunkter)}
-        onClick={onClick || ariaCheck}
-        htmlType={onClick ? 'button' : 'submit'}
-      >
-        {!!buttonText && buttonText}
-        {!buttonText && <FormattedMessage id="SubmitButton.ConfirmInformation" />}
-      </Hovedknapp>
-    )}
-  </RawIntlProvider>
-);
+}) => {
+  const { formState } = useFormContext();
+  const { isSubmitting, isDirty, isValid } = formState;
 
-const mapStateToProps = (state, ownProps: PureOwnProps): MappedOwnProps => {
-  const fNames = ownProps.formNames ? ownProps.formNames : [ownProps.formName];
-  const formNames = fNames.map(f => (f.includes('.') ? f.substr(f.lastIndexOf('.') + 1) : f));
-  return {
-    isSubmitting: formNames.some(formName => reduxIsSubmitting(formName)(state)),
-    isDirty: formNames.some(formName => reduxIsDirty(formName)(state)),
-    hasEmptyRequiredFields: ownProps.doNotCheckForRequiredFields
-      ? // @ts-ignore
-        false
-      : formNames.some(formName => hasBehandlingFormErrorsOfType(formName, isRequiredMessage())(state as never)), // TODO: Finn ut hva som er galt her
-  };
+  return (
+    <RawIntlProvider value={intl}>
+      {!isReadOnly && (
+        <Hovedknapp
+          mini
+          spinner={isSubmitting}
+          disabled={isDisabled(isDirty, isSubmitting, isSubmittable, isValid, hasOpenAksjonspunkter)}
+          onClick={onClick || ariaCheck}
+          htmlType={onClick ? 'button' : 'submit'}
+        >
+          {!!buttonText && buttonText}
+          {!buttonText && <FormattedMessage id="SubmitButton.ConfirmInformation" />}
+        </Hovedknapp>
+      )}
+    </RawIntlProvider>
+  );
 };
 
-export default connect(mapStateToProps)(FaktaSubmitButton);
+export default FaktaSubmitButton;

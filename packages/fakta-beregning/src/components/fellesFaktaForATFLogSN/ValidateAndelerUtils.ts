@@ -70,7 +70,7 @@ const minstEnFastsattErrorMessage = (intl: IntlShape): string =>
 
 export const validateMinstEnFastsatt = (andelList: AndelFieldValue[], intl: IntlShape): string => {
   const harAndelMedFastsattInntekt = andelList.some(
-    ({ fastsattBelop }) => fastsattBelop !== null && fastsattBelop !== '',
+    ({ fastsattBelop }) => fastsattBelop !== null && fastsattBelop !== '' && fastsattBelop !== undefined,
   );
   if (!harAndelMedFastsattInntekt) {
     return minstEnFastsattErrorMessage(intl);

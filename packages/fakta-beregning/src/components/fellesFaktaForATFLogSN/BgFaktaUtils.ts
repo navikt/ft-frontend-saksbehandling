@@ -1,34 +1,32 @@
 import {
-  Inntektskategori,
   AktivitetStatus,
-  Organisasjonstype as organisasjonstyper,
-  OpptjeningAktivitetType as OAType,
   FaktaOmBeregningTilfelle,
+  Inntektskategori,
   KodeverkType,
+  OpptjeningAktivitetType as OAType,
+  Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
-import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { createSelector } from 'reselect';
 import {
-  AndelForFaktaOmBeregning,
-  FaktaOmBeregning,
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  ATFLSammeOrgAndel,
   AlleKodeverk,
-  Aksjonspunkt,
+  AndelForFaktaOmBeregning,
+  ArbeidsgiverOpplysningerPerId,
+  ATFLSammeOrgAndel,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  FaktaOmBeregning,
 } from '@navikt/ft-types';
+import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typer/FaktaBeregningTypes';
+import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
+import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
+import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
-import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
-import { getFormValuesForBeregning } from '../BeregningFormUtils';
-import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
-import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
-import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typer/FaktaBeregningTypes';
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
@@ -122,7 +120,7 @@ const erNyoppstartetFrilanser = (field: AndelFieldIdentifikator, values: any): b
 
 const skalHaBesteberegning = (values: FaktaOmBeregningAksjonspunktValues): boolean => values[besteberegningField];
 
-export const skalHaBesteberegningSelector = createSelector([getFormValuesForBeregning], skalHaBesteberegning);
+// export const skalHaBesteberegningSelector = createSelector([getFormValuesForBeregning], skalHaBesteberegning);
 
 // Lonnsendring
 
@@ -250,27 +248,18 @@ const skalKunneEndreTotaltBeregningsgrunnlag =
 export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
   !!values && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true;
 
-export const harOverstyringsAP = (aksjonspuntker: Aksjonspunkt[]): boolean =>
-  aksjonspuntker &&
-  aksjonspuntker.some(ap => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+export const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov &&
+  avklaringsbehov.some(ap => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
-export const erOverstyringAvBeregningsgrunnlag = createSelector<any, any>(
-  [
-    getFormValuesForBeregning,
-    (state, ownProps) => ownProps.beregningsgrunnlag,
-    (state, ownProps) => ownProps.aksjonspunkter,
-  ],
-  (
-    values: FaktaOmBeregningAksjonspunktValues,
-    beregningsgrunnlag: Beregningsgrunnlag,
-    aksjonspunkter: Aksjonspunkt[],
-  ) => erOverstyring(values) || beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(aksjonspunkter),
-);
+export const erOverstyringAvBeregningsgrunnlag = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  beregningsgrunnlag: Beregningsgrunnlag,
+  avklaringsbehov: BeregningAvklaringsbehov[],
+) => erOverstyring(values) || beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(avklaringsbehov);
 
-export const erInitialOverstyringAvBeregningsgrunnlag = createSelector(
-  [(state, ownProps) => ownProps.beregningsgrunnlag, (state, ownProps) => ownProps.aksjonspunkter],
-  (beregningsgrunnlag, aksjonspunkter) => beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(aksjonspunkter),
-);
+export const erInitialOverstyringAvBeregningsgrunnlag = ({ beregningsgrunnlag, avklaringsbehov }) =>
+  beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(avklaringsbehov);
 
 export const skalFastsetteInntektForAndel =
   (
@@ -285,23 +274,15 @@ export const skalFastsetteInntektForAndel =
 export const kanRedigereInntektForAndel = (values, faktaOmBeregning, beregningsgrunnlag) => andel =>
   erOverstyring(values) || skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
-export const getKanRedigereInntekt = createSelector<any, any>(
-  [
-    getFormValuesForBeregning,
-    (state, ownProps) => ownProps.beregningsgrunnlag.faktaOmBeregning,
-    (state, ownProps) => ownProps.beregningsgrunnlag,
-  ],
-  kanRedigereInntektForAndel,
-);
+export const getKanRedigereInntekt = (values, beregningsgrunnlag) => andel =>
+  kanRedigereInntektForAndel(values, beregningsgrunnlag.faktaOmBeregning, beregningsgrunnlag)(andel);
 
 // Skal redigere inntektskategori
 export const skalRedigereInntektskategoriForAndel = beregningsgrunnlag => andel =>
   erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag);
 
-export const getSkalRedigereInntektskategori = createSelector<any, any>(
-  [(state, ownProps) => ownProps.beregningsgrunnlag],
-  skalRedigereInntektskategoriForAndel,
-);
+export const getSkalRedigereInntektskategori = beregningsgrunnlag =>
+  skalRedigereInntektskategoriForAndel(beregningsgrunnlag);
 
 export const mapToBelop = skalRedigereInntekt => andel => {
   const { fastsattBelop, readOnlyBelop } = andel;
