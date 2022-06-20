@@ -60,7 +60,7 @@
     "react-intl": "6.0.4"
   },
   "peerDependencies": {
-    "@navikt/ft-form-hooks": "^1.0.18",
+    "@navikt/ft-form-hooks": "^1.0.21",
     "@navikt/ft-form-validators": "^1.0.8",
     "@navikt/ft-kodeverk": "^1.0.6",
     "@navikt/ft-plattform-komponenter": "1.0.13",
