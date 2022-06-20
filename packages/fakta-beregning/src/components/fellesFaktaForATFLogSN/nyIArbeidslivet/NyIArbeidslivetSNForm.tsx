@@ -1,12 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import Beregningsgrunnlag from '@navikt/ft-types/src/beregningsgrunnlagTsType';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import VurderFaktaContext from '../VurderFaktaContext';
 
 /**
  * NyIArbeidslivetSNForm
@@ -19,7 +20,6 @@ const radioGroupFieldName = 'erSNNyIArbeidslivet';
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 type TansformedProps = {
@@ -33,23 +33,31 @@ interface StaticFunctions {
   transformValues: (values: any) => TansformedProps;
 }
 
-const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, isAksjonspunktClosed }) => (
-  <div>
-    <Normaltekst>
-      <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
-    </Normaltekst>
-    <VerticalSpacer eightPx />
-    <RadioGroupField
-      name={radioGroupFieldName}
-      validate={[required]}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
-  </div>
-);
+const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const intl = useIntl();
+
+  return (
+    <div>
+      <RadioGroupPanel
+        label={
+          <Normaltekst>
+            <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
+          </Normaltekst>
+        }
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${radioGroupFieldName}`}
+        validate={[required]}
+        isReadOnly={readOnly}
+        radios={[
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        ]}
+        parse={parseStringToBoolean}
+        isHorizontal
+      />
+    </div>
+  );
+};
 
 NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyIArbeidslivetValues => {
   const initialValues = {};

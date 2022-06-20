@@ -1,29 +1,19 @@
-import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { FormattedMessage, injectIntl, IntlShape, WrappedComponentProps } from 'react-intl';
-import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
-import { createSelector } from 'reselect';
-import { Undertekst } from 'nav-frontend-typografi';
-import { Column, Row } from 'nav-frontend-grid';
-
-import { InputField, NavFieldGroup, SelectField } from '@navikt/ft-form-redux-legacy';
-import {
-  formatCurrencyNoKr,
-  isArrayEmpty,
-  parseCurrencyInput,
-  removeSpacesFromNumber,
-  getKodeverknavnFn,
-} from '@navikt/ft-utils';
+import { formHooks, InputField, SelectField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Table, TableColumn, TableRow, VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
+import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
-
+import { Image, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { Column, Row } from 'nav-frontend-grid';
+import { Undertekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import addCircleIcon from '../../../images/add-circle.svg';
-import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
-import { isBeregningFormDirty as isFormDirty } from '../../BeregningFormUtils';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
-
+import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
+import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
+import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
+import VurderFaktaContext from '../VurderFaktaContext';
 import styles from './brukersAndelFieldArray.less';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], alleKodeverk) => ({
@@ -46,29 +36,15 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
 
 const summerFordeling = fields => {
   let sum = 0;
-  fields.forEach((andelElementFieldId, index) => {
-    sum += fields.get(index).fastsattBelop ? removeSpacesFromNumber(fields.get(index).fastsattBelop) : 0;
+  fields.forEach(field => {
+    sum += field.fastsattBelop ? removeSpacesFromNumber(field.fastsattBelop) : 0;
   });
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-const isDirty = (meta, isBeregningFormDirty) => meta.dirty || isBeregningFormDirty;
-
-const renderMessage = (intl, error) => (error[0] && error[0].id ? intl.formatMessage(...error) : error);
-
-const getErrorMessage = (meta, intl, isBeregningFormDirty) =>
-  meta.error && isDirty(meta, isBeregningFormDirty) && meta.submitFailed ? renderMessage(intl, meta.error) : null;
-
 function skalViseSletteknapp(index, fields, readOnly) {
-  return (fields.get(index).nyAndel || fields.get(index).lagtTilAvSaksbehandler) && !readOnly;
+  return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
-const onKeyDown =
-  (fields, aktivitetStatuser, alleKodeverk) =>
-  ({ key }) => {
-    if (key === 'Enter') {
-      fields.push(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
-    }
-  };
 
 const createAndelerTableRows = (
   fields,
@@ -76,29 +52,43 @@ const createAndelerTableRows = (
   readOnly,
   inntektskategoriKoder: KodeverkMedNavn[],
   intl,
+  fieldArrayName,
+  remove,
 ) =>
-  fields.map((andelElementFieldId, index) => (
-    <TableRow key={andelElementFieldId}>
+  fields.map((field, index) => (
+    <TableRow className={styles.row} key={field.id}>
       <TableColumn>
         <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
       </TableColumn>
       <TableColumn className={styles.rightAlignInput}>
         <InputField
-          name={`${andelElementFieldId}.fastsattBelop`}
+          name={`${fieldArrayName}.${index}.fastsattBelop`}
           bredde="M"
           parse={parseCurrencyInput}
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
+          validate={readOnly ? [] : [required]}
+          label={intl.formatMessage(
+            {
+              id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
+            },
+            { andel: `ytelse ${index + 1}` },
+          )}
         />
       </TableColumn>
       <TableColumn className={styles.rightAlign}>
         <SelectField
-          label=""
-          name={`${andelElementFieldId}.inntektskategori`}
+          label={intl.formatMessage(
+            {
+              id: 'BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn',
+            },
+            { andel: `ytelse ${index + 1}` },
+          )}
+          name={`${fieldArrayName}.${index}.inntektskategori`}
           bredde="l"
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          value={fields.get(index).inntektskategori}
           readOnly={readOnly}
+          validate={readOnly ? [] : [required]}
         />
       </TableColumn>
       <TableColumn>
@@ -107,7 +97,7 @@ const createAndelerTableRows = (
             className={styles.buttonRemove}
             type="button"
             onClick={() => {
-              fields.remove(index);
+              remove(index);
             }}
             title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.FjernAndel' })}
           />
@@ -133,20 +123,28 @@ const getHeaderTextCodes = () => [
   'BeregningInfoPanel.FordelingBG.Inntektskategori',
 ];
 
+const getInntektskategorierAlfabetiskSortert = (alleKodeverk: AlleKodeverk) =>
+  alleKodeverk[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
+
 type OwnProps = {
+  name: string;
   readOnly: boolean;
-  fields: FieldArrayFieldsProps<any>;
-  meta?: FieldArrayMetaProps;
-  inntektskategoriKoder: KodeverkMedNavn[];
-  aktivitetStatuser: string[];
   isAksjonspunktClosed: boolean;
-  isBeregningFormDirty: boolean;
   alleKodeverk: AlleKodeverk;
 };
 
-interface StaticFunction {
-  validate: (values: BrukersAndelValues[], intl: IntlShape) => any;
-}
+const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInfo => {
+  const { andel, inntektskategori } = value;
+  return { andelsinfo: andel, inntektskategori };
+};
+
+const validate = (values: BrukersAndelValues[], intl: IntlShape) => () => {
+  const ulikeAndelerFeilmelding = validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl);
+  if (ulikeAndelerFeilmelding) {
+    return ulikeAndelerFeilmelding;
+  }
+  return null;
+};
 
 /**
  *  BrukersAndelFieldArray
@@ -154,103 +152,66 @@ interface StaticFunction {
  * Presentasjonskomponent: Viser fordeling for brukers andel ved kun ytelse
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-export const BrukersAndelFieldArrayImpl: FunctionComponent<OwnProps & WrappedComponentProps> & StaticFunction = ({
-  fields,
-  meta,
-  intl,
-  inntektskategoriKoder,
-  aktivitetStatuser,
+export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
+  name,
   readOnly,
   isAksjonspunktClosed,
-  isBeregningFormDirty,
   alleKodeverk,
 }) => {
-  const sumFordeling = summerFordeling(fields) || 0;
-  const tablerows = createAndelerTableRows(fields, isAksjonspunktClosed, readOnly, inntektskategoriKoder, intl);
+  const intl = useIntl();
+  const { control } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const fieldArrayName = `${formNameVurderFaktaBeregning}.${aktivtBeregningsgrunnlagIndeks}.${name}`;
+  const { fields, append, remove } = formHooks.useFieldArray({
+    control,
+    name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
+  });
+  const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS]?.map(kodeverk => kodeverk.kode);
+  const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
+  const fieldArrayValues = formHooks.useWatch({
+    name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
+    control,
+  });
+  const sumFordeling = summerFordeling(fieldArrayValues) || 0;
+  const tablerows = createAndelerTableRows(
+    fields,
+    isAksjonspunktClosed,
+    readOnly,
+    inntektskategoriKoder,
+    intl,
+    fieldArrayName,
+    remove,
+  );
   tablerows.push(createBruttoBGSummaryRow(sumFordeling));
+  const validators = [validate(fieldArrayValues, intl)];
   return (
-    <NavFieldGroup errorMessage={getErrorMessage(meta, intl, isBeregningFormDirty)}>
+    <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
       <Table headerTextCodes={getHeaderTextCodes()} noHover classNameTable={styles.inntektTable}>
         {tablerows}
       </Table>
       {!readOnly && (
         <Row className={styles.buttonRow}>
           <Column xs="3">
-            {
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            }
-            <div
+            <button
               id="leggTilAndelDiv"
               onClick={() => {
-                fields.push(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
+                append(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
               }}
-              onKeyDown={onKeyDown(fields, aktivitetStatuser, alleKodeverk)}
               className={styles.addPeriode}
-              role="button"
-              tabIndex={0}
+              type="button"
               title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.LeggTilAndel' })}
             >
               <Image className={styles.addCircleIcon} src={addCircleIcon} />
               <Undertekst className={styles.imageText}>
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
               </Undertekst>
-            </div>
+            </button>
           </Column>
         </Row>
       )}
       <VerticalSpacer eightPx />
-    </NavFieldGroup>
+    </SkjemaGruppeMedFeilviser>
   );
 };
 
-const BrukersAndelFieldArray = injectIntl(BrukersAndelFieldArrayImpl);
-
-const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInfo => {
-  const { andel, inntektskategori } = value;
-  return { andelsinfo: andel, inntektskategori };
-};
-
-BrukersAndelFieldArrayImpl.validate = (values: BrukersAndelValues[], intl: IntlShape) => {
-  if (!values) {
-    return null;
-  }
-  // eslint-disable-next-line react/destructuring-assignment
-  const arrayErrors = values.map(({ fastsattBelop, inntektskategori }) => {
-    const fieldErrors = {
-      fastsattBelop: null,
-      inntektskategori: null,
-    };
-    fieldErrors.fastsattBelop = required(fastsattBelop);
-    fieldErrors.inntektskategori = required(inntektskategori);
-    return fieldErrors.fastsattBelop || fieldErrors.inntektskategori ? fieldErrors : null;
-  });
-  if (arrayErrors.some(errors => errors !== null)) {
-    return arrayErrors;
-  }
-  if (isArrayEmpty(values)) {
-    return null;
-  }
-  const ulikeAndelerFeilmelding = validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl);
-  if (ulikeAndelerFeilmelding) {
-    return { _error: ulikeAndelerFeilmelding };
-  }
-  return null;
-};
-
-const getInntektskategorierAlfabetiskSortert = createSelector(
-  [(ownProps: OwnProps) => ownProps.alleKodeverk[KodeverkType.INNTEKTSKATEGORI]],
-  kodeverkListe => kodeverkListe.slice().sort((a, b) => a.navn.localeCompare(b.navn)),
-);
-
-const mapStateToProps = (state, ownProps) => {
-  const isBeregningFormDirty = isFormDirty(state);
-  const aktivitetStatuser = ownProps.alleKodeverk[KodeverkType.AKTIVITET_STATUS];
-  return {
-    isBeregningFormDirty,
-    aktivitetStatuser,
-    inntektskategoriKoder: getInntektskategorierAlfabetiskSortert(ownProps),
-  };
-};
-
-// @ts-ignore Ta vekk denny og any når redux-form blir fjerna
-export default connect(mapStateToProps)(BrukersAndelFieldArray) as any;
+export default BrukersAndelFieldArray;

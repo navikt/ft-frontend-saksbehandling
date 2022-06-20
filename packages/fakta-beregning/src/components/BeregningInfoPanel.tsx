@@ -1,26 +1,23 @@
-import React, { FunctionComponent } from 'react';
-import { IntlShape } from 'react-intl';
-
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   Vilkar,
 } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import React, { FunctionComponent } from 'react';
+import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
+import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
 import BeregningFaktaAP, {
   AvklarBeregningsaktiviteterAP,
   BeregningOverstyringAP,
 } from '../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
-import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
-import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
-import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
-import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
 import SubmitBeregningType from '../typer/SubmitBeregningTsType';
+import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
 import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
+import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
@@ -37,18 +34,16 @@ const relevanteKoder = [
 ];
 
 type OwnProps = {
-  intl: IntlShape;
   submitCallback: (
     aksjonspunktData:
       | AvklarBeregningsaktiviteterAP
       | OverstyrBeregningsaktiviteterAP
-      | BeregningFaktaAP
-      | BeregningOverstyringAP
+      | BeregningFaktaAP[]
+      | BeregningOverstyringAP[]
       | SubmitBeregningType[],
   ) => Promise<void>;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
-  aksjonspunkter: Aksjonspunkt[];
   vilkar: Vilkar;
   submittable: boolean;
   erOverstyrer: boolean;
@@ -66,10 +61,8 @@ type OwnProps = {
  * Container komponent.. Har ansvar for å sette opp Redux Formen for "avklar fakta om beregning" panel.
  */
 const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
-  intl,
   readOnly,
   avklaringsbehov,
-  aksjonspunkter,
   submittable,
   submitCallback,
   aktivtBeregningsgrunnlagIndeks,
@@ -113,15 +106,14 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
       <VerticalSpacer thirtyTwoPx />
       {/* @ts-ignore */}
       <VurderFaktaBeregningPanel
-        intl={intl}
         readOnly={avklarFaktaBeregningReadOnly}
         submitCallback={submitCallback}
         submittable={submittable}
-        aksjonspunkter={aksjonspunkter}
         alleKodeverk={alleKodeverk}
-        beregningsgrunnlag={beregningsgrunnlag[0]}
+        beregningsgrunnlag={beregningsgrunnlag}
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
       />
     </div>
   );

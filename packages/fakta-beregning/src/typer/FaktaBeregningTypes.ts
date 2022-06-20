@@ -1,7 +1,7 @@
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   KortvarigAndel,
@@ -101,20 +101,20 @@ export type FaktaOmBeregningValues = TilfellerValues & {
 };
 
 export type FaktaOmBeregningAksjonspunktValues = FaktaOmBeregningValues & {
-  aksjonspunkter?: Aksjonspunkt[];
+  avklaringsbehov?: BeregningAvklaringsbehov[];
   begrunnelseFaktaTilfeller?: string;
 };
 
 export type FaktaStateProps = {
   beregningsgrunnlag: Beregningsgrunnlag;
   kortvarigeArbeidsforhold: KortvarigAndel[];
-  vurderFaktaAP: Aksjonspunkt;
+  vurderFaktaAP: BeregningAvklaringsbehov;
   kunYtelse: KunYtelse;
   tilfeller: string[];
   vurderMottarYtelse: VurderMottarYtelse;
   vurderBesteberegning: VurderBesteberegning;
   alleKodeverk: AlleKodeverk;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   refusjonskravSomKommerForSentListe: RefusjonskravSomKommerForSentListe[];

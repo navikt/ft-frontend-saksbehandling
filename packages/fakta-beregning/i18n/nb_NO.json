@@ -35,10 +35,13 @@
   "BeregningInfoPanel.FordelingBG.Arbeidsperiode": "Arbeidsperiode",
   "BeregningInfoPanel.FordelingBG.Refusjonskrav": "Refusjonskrav",
   "BeregningInfoPanel.FordelingBG.Fordeling": "Månedsinntekt",
+  "BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn": "Månedsinntekt for {andel}",
+  "BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn": "Inntektskategori for {andel}",
   "BeregningInfoPanel.FordelingBG.Inntektskategori": "Inntektskategori",
   "BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel": "Legg til dagpenger",
   "BeregningInfoPanel.FordelingBG.FjernDagpenger": "Fjern dagpenger",
   "BeregningInfoPanel.FordelingBG.Ytelse": "Ytelse",
+  "BeregningInfoPanel.FordelingBG.FjernAndel": "Fjern aktivitet",
 
   "AvklareAktiviteter.OverstyrerAktivitetAdvarsel": "Overstyr hvilke aktiviteter og eventuelle inntektsmeldinger som skal benyttes i beregning.",
   "VurderAktiviteterTabell.Header.Aktivitet": "Aktivitet",

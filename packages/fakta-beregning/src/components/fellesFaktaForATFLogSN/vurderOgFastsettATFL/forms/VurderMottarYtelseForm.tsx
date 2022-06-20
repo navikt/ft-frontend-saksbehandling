@@ -1,22 +1,25 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
-
-import { RadioGroupField, RadioOption } from '@navikt/ft-form-redux-legacy';
-import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KodeverkType, FaktaOmBeregningTilfelle, AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
 import {
+  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
   ArbeidstakerUtenIMAndel,
+  Beregningsgrunnlag,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
-  AlleKodeverk,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
+import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
+import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import VurderFaktaContext from '../../VurderFaktaContext';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,
@@ -24,9 +27,6 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
-import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -55,25 +55,30 @@ const utledArbeidsforholdUtenIMRadioTekst = (
 const mottarYtelseArbeidsforholdRadio = (
   andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
-  isAksjonspunktClosed: boolean,
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  aktivtBeregningsgrunnlagIndeks: number,
+  intl: IntlShape,
 ): React.ReactNode => (
   <div key={utledArbeidsforholdFieldName(andel)}>
-    <div>
-      <Normaltekst>
-        {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
-      </Normaltekst>
-    </div>
-    <VerticalSpacer eightPx />
-    <RadioGroupField
-      name={`vurderMottarYtelseValues.${utledArbeidsforholdFieldName(andel)}`}
-      readOnly={readOnly}
-      isEdited={isAksjonspunktClosed}
-    >
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-      <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-    </RadioGroupField>
+    <RadioGroupPanel
+      label={
+        <Normaltekst>
+          {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
+        </Normaltekst>
+      }
+      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
+        andel,
+      )}`}
+      isReadOnly={readOnly}
+      radios={[
+        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+      ]}
+      parse={parseStringToBoolean}
+      validate={readOnly ? [] : [required]}
+      isHorizontal
+    />
   </div>
 );
 
@@ -98,7 +103,6 @@ type OwnProps = {
 };
 
 interface StaticFunctions {
-  validate: (values: FaktaOmBeregningAksjonspunktValues, vurderMottarYtelse: VurderMottarYtelse) => any;
   transformValues: (
     values: FaktaOmBeregningAksjonspunktValues,
     inntektVerdier: InntektTransformed[],
@@ -117,12 +121,12 @@ interface StaticFunctions {
  */
 const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  isAksjonspunktClosed,
   beregningsgrunnlag,
   tilfeller,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
 }) => {
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
     : undefined;
@@ -131,33 +135,40 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
     vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
       ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
       : [];
+  const intl = useIntl();
+
   return (
     <div>
       {erFrilans && (
         <div>
-          <div key={finnFrilansFieldName()}>
-            <Normaltekst>
-              <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-            </Normaltekst>
-          </div>
-          <VerticalSpacer eightPx />
-          <RadioGroupField
-            name={`vurderMottarYtelseValues.${finnFrilansFieldName()}`}
-            readOnly={readOnly}
-            isEdited={isAksjonspunktClosed}
-          >
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />} value />
-            <RadioOption label={<FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />} value={false} />
-          </RadioGroupField>
+          <RadioGroupPanel
+            label={
+              <div key={finnFrilansFieldName()}>
+                <Normaltekst>
+                  <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
+                </Normaltekst>
+              </div>
+            }
+            name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
+            isReadOnly={readOnly}
+            radios={[
+              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+            ]}
+            parse={parseStringToBoolean}
+            validate={readOnly ? [] : [required]}
+            isHorizontal
+          />
         </div>
       )}
       {arbeidsforholdUtenIM.map(andel =>
         mottarYtelseArbeidsforholdRadio(
           andel,
           readOnly,
-          isAksjonspunktClosed,
           alleKodeverk,
           arbeidsgiverOpplysningerPerId,
+          aktivtBeregningsgrunnlagIndeks,
+          intl,
         ),
       )}
     </div>
@@ -296,28 +307,6 @@ VurderMottarYtelseForm.transformValues = (
     ...transformValuesFrilans(values, inntektVerdier, beregningsgrunnlag, fastsatteAndelsnr, faktaOmBeregningTilfeller),
     faktaOmBeregningTilfeller,
   };
-};
-
-VurderMottarYtelseForm.validate = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  vurderMottarYtelse: VurderMottarYtelse,
-): any => {
-  const errors = {};
-  if (!vurderMottarYtelse) {
-    return null;
-  }
-  if (vurderMottarYtelse.erFrilans) {
-    errors[finnFrilansFieldName()] = required(values.vurderMottarYtelseValues[finnFrilansFieldName()]);
-  }
-  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    : [];
-  ATAndelerUtenIM.forEach(andel => {
-    errors[utledArbeidsforholdFieldName(andel)] = required(
-      values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
-    );
-  });
-  return errors;
 };
 
 export default VurderMottarYtelseForm;

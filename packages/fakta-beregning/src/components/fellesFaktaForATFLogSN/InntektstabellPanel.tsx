@@ -1,48 +1,37 @@
-import React, { useState, useCallback, FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createSelector } from 'reselect';
-import { bindActionCreators } from 'redux';
-import { change, FormAction } from 'redux-form';
+import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Knapp } from 'nav-frontend-knapper';
 import { Element } from 'nav-frontend-typografi';
-
-import { VerticalSpacer, OverstyringKnapp, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt } from '@navikt/ft-types';
-
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
-
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import styles from './InntektstabellPanel.less';
+import VurderFaktaContext from './VurderFaktaContext';
 
 export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringRapportertInntekt';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
+
+const getSkalKunneOverstyre = (erOverstyrer, avklaringsbehov: BeregningAvklaringsbehov[]) =>
+  erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
 
 type OwnProps = {
   children: React.ReactNode | React.ReactNode[];
   tabell: React.ReactNode;
   hjelpeTekstId?: string;
   skalViseTabell?: boolean;
-  kanOverstyre: boolean;
   readOnly: boolean;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
+  updateOverstyring: (index: number, skalOverstyre: boolean) => void;
+  erOverstyrt: boolean;
 };
 
-interface DispatchProps {
-  reduxFormChange: (
-    form: string,
-    field: string,
-    value: any,
-    touch?: boolean,
-    persistentSubmitErrors?: boolean,
-  ) => FormAction;
-}
 interface StaticFunctions {
   buildInitialValues: (erOverstyrt: boolean) => ErOverstyringValues;
 }
@@ -52,21 +41,28 @@ interface StaticFunctions {
  *
  *
  */
-export const InntektstabellPanelImpl: FunctionComponent<OwnProps & DispatchProps> & StaticFunctions = ({
+export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
   tabell,
   hjelpeTekstId,
   children,
   skalViseTabell,
-  kanOverstyre,
   readOnly,
-  aksjonspunkter,
-  reduxFormChange,
+  avklaringsbehov,
+  updateOverstyring,
+  erOverstyrer,
+  erOverstyrt,
 }) => {
-  const [erOverstyrt, setOverstyring] = useState(false);
+  const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
+  const aktivtBeregningsgrunnlagIndeks = React.useContext(VurderFaktaContext);
+  const kanOverstyre = useMemo(
+    () => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov),
+    [erOverstyrer, avklaringsbehov],
+  );
+
   const toggleOverstyring = useCallback(() => {
-    setOverstyring(!erOverstyrt);
-    reduxFormChange('vurderFaktaBeregningForm', MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD, !erOverstyrt);
-  }, [erOverstyrt]);
+    setOverstyring(!erTabellOverstyrt);
+    updateOverstyring(aktivtBeregningsgrunnlagIndeks, !erTabellOverstyrt);
+  }, [erTabellOverstyrt]);
   return (
     <>
       {children}
@@ -81,12 +77,14 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps & DispatchProps
                     <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
                   </Element>
                 </FlexColumn>
-                {(kanOverstyre || erOverstyrt) && (
+                {(kanOverstyre || erTabellOverstyrt) && (
                   <FlexColumn>
                     <OverstyringKnapp
                       onClick={toggleOverstyring}
                       erOverstyrt={
-                        erOverstyrt || hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aksjonspunkter) || readOnly
+                        erTabellOverstyrt ||
+                        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) ||
+                        readOnly
                       }
                     />
                   </FlexColumn>
@@ -100,7 +98,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps & DispatchProps
               </Element>
             )}
             {tabell}
-            {erOverstyrt && (
+            {erTabellOverstyrt && (
               <Knapp htmlType="button" onClick={toggleOverstyring} mini>
                 <FormattedMessage id="InntektstabellPanel.Avbryt" />
               </Knapp>
@@ -122,23 +120,4 @@ InntektstabellPanelImpl.defaultProps = {
   skalViseTabell: true,
 };
 
-const getSkalKunneOverstyre = createSelector(
-  [(ownProps: OwnProps) => ownProps.erOverstyrer, ownProps => ownProps.aksjonspunkter],
-  (erOverstyrer, aksjonspunkter) =>
-    erOverstyrer && !aksjonspunkter.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status)),
-);
-
-const mapStateToProps = (state, ownProps) => ({
-  kanOverstyre: getSkalKunneOverstyre(ownProps),
-});
-
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(
-    {
-      reduxFormChange: change,
-    },
-    dispatch,
-  ),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(InntektstabellPanelImpl);
+export default InntektstabellPanelImpl;

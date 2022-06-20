@@ -176,11 +176,17 @@ export type BeregningFaktaTransformedValues = {
   overstyrteAndeler?: FastsettBeregningsgrunnlagAndelTransformedValues[];
 };
 
-export type BeregningFaktaAP = BeregningFaktaTransformedValues &
-  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN>;
+export type BeregningFaktaAP = {
+  kode: string;
+  begrunnelse: string;
+  grunnlag: BeregningFaktaTransformedValues;
+};
 
-export type BeregningOverstyringAP = BeregningFaktaTransformedValues &
-  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG>;
+export type BeregningOverstyringAP = {
+  kode: string;
+  begrunnelse: string;
+  grunnlag: BeregningFaktaTransformedValues;
+};
 
 export type BeregningFaktaOgOverstyringAP = BeregningFaktaAP | BeregningOverstyringAP;
 

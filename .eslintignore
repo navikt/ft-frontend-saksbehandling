@@ -1,3 +1,4 @@
 webpack/*
 **/jest.config.js
 **/webpack.dev.js
+node_modules

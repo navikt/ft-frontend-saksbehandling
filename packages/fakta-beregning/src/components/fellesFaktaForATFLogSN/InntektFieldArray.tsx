@@ -1,35 +1,27 @@
-import React, { FunctionComponent } from 'react';
-import { IntlShape } from 'react-intl';
-import { FieldArrayFieldsProps, FieldArrayMetaProps } from 'redux-form';
-import { connect } from 'react-redux';
-
-import { NavFieldGroup } from '@navikt/ft-form-redux-legacy';
-import { isArrayEmpty, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { required } from '@navikt/ft-form-validators';
-import { Inntektskategori, KodeverkType, AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { Table, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formHooks, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import {
+  AlleKodeverk,
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
-  KodeverkMedNavn,
-  AlleKodeverk,
   Beregningsgrunnlag,
+  KodeverkMedNavn,
 } from '@navikt/ft-types';
-
-import { mapAndelToField, skalHaBesteberegningSelector } from './BgFaktaUtils';
-import {
-  SortedAndelInfo,
-  validateUlikeAndeler,
-  validateUlikeAndelerWithGroupingFunction,
-} from './ValidateAndelerUtils';
-import { getFormValuesForBeregning, isBeregningFormDirty as isFormDirty } from '../BeregningFormUtils';
-import { AndelRow, getHeaderTextCodes } from './InntektFieldArrayRow';
-import AddDagpengerAndelButton from './AddDagpengerAndelButton';
-import SummaryRow from './SummaryRow';
+import { Table, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import React, { FunctionComponent, useCallback, useEffect } from 'react';
+import { FieldArrayWithId, UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
+import { IntlShape, useIntl } from 'react-intl';
+import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
-import { vurderMilitaerField } from './vurderMilitaer/VurderMilitaer';
-
+import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
+import AddDagpengerAndelButton from './AddDagpengerAndelButton';
+import { erOverstyring, getKanRedigereInntekt, mapAndelToField, skalFastsetteInntektForAndel } from './BgFaktaUtils';
 import styles from './inntektFieldArray.less';
+import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
+import SummaryRow from './SummaryRow';
+import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
+import VurderFaktaContext from './VurderFaktaContext';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
@@ -51,18 +43,11 @@ const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   lagtTilAvSaksbehandler: true,
 });
 
-const isDirty = (meta, isBeregningFormDirty) => meta.dirty || isBeregningFormDirty;
-
-const getErrorMessage = (meta, isBeregningFormDirty) =>
-  meta.error && isDirty(meta, isBeregningFormDirty) && meta.submitFailed ? meta.error : null;
-
-const skalViseSletteknapp = (index, fields, readOnly) =>
-  fields.get(index).skalKunneEndreAktivitet === true && !readOnly;
+const skalViseSletteknapp = (index, fields, readOnly) => fields[index].skalKunneEndreAktivitet === true && !readOnly;
 
 const skalViseRefusjon = fields => {
   let skalVise = false;
-  fields.forEach((id, index) => {
-    const field = fields.get(index);
+  fields.forEach(field => {
     if (field.refusjonskrav !== '' && field.refusjonskrav !== null && field.refusjonskrav !== undefined) {
       skalVise = true;
     }
@@ -72,8 +57,7 @@ const skalViseRefusjon = fields => {
 
 const skalVisePeriode = fields => {
   let skalVise = false;
-  fields.forEach((id, index) => {
-    const field = fields.get(index);
+  fields.forEach(field => {
     if (field.arbeidsgiverId !== '') {
       skalVise = true;
     }
@@ -81,44 +65,50 @@ const skalVisePeriode = fields => {
   return skalVise;
 };
 
-const removeAndel = (fields, index) => () => {
-  fields.remove(index);
+const removeAndel = (index, remove) => () => {
+  remove(index);
 };
 
-const createAndelerTableRows = (fields, readOnly, beregningsgrunnlag, isAksjonspunktClosed, alleKodeverk) =>
-  fields.map((andelElementFieldId, index) => (
-    <AndelRow
-      key={andelElementFieldId}
-      fields={fields}
+const createAndelerTableRows = (
+  fields: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>[],
+  readOnly,
+  beregningsgrunnlag,
+  isAksjonspunktClosed,
+  alleKodeverk,
+  fieldArrayName: string,
+  remove: UseFieldArrayRemove,
+  skalFastsetteInntektForAndelFunc,
+) =>
+  fields.map((field, index) => (
+    <InntektFieldArrayAndelRow
+      key={field.id}
+      field={field}
       skalVisePeriode={skalVisePeriode(fields)}
       skalViseRefusjon={skalViseRefusjon(fields)}
       skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
-      andelElementFieldId={andelElementFieldId}
       readOnly={readOnly}
-      removeAndel={removeAndel(fields, index)}
-      index={index}
+      removeAndel={removeAndel(index, remove)}
       beregningsgrunnlag={beregningsgrunnlag}
       isAksjonspunktClosed={isAksjonspunktClosed}
       alleKodeverk={alleKodeverk}
+      rowName={`${fieldArrayName}.${index}`}
+      skalFastsetteInntektForAndel={skalFastsetteInntektForAndelFunc}
     />
   ));
 
 const createBruttoBGSummaryRow = (fields, readOnly, beregningsgrunnlag) => (
-  /* @ts-ignore */
   <SummaryRow
-    readOnly={readOnly}
     key="summaryRow"
+    readOnly={readOnly}
     skalVisePeriode={skalVisePeriode(fields)}
     skalViseRefusjon={skalViseRefusjon(fields)}
-    fields={fields}
     beregningsgrunnlag={beregningsgrunnlag}
   />
 );
 
-const findAktivitetStatusIndex = (fields: FieldArrayFieldsProps<AndelFieldValue>, aktivitetStatusKode: string) => {
+const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) => {
   let index = -1;
-  fields.forEach((id, nyIndex) => {
-    const field = fields.get(nyIndex);
+  fields.forEach((field, nyIndex) => {
     if (field.aktivitetStatus === aktivitetStatusKode) {
       index = nyIndex;
     }
@@ -126,36 +116,44 @@ const findAktivitetStatusIndex = (fields: FieldArrayFieldsProps<AndelFieldValue>
   return index;
 };
 
-const harDagpenger = (fields: FieldArrayFieldsProps<AndelFieldValue>) =>
-  findAktivitetStatusIndex(fields, AktivitetStatus.DAGPENGER) !== -1;
+const harDagpenger = (fields: AndelFieldValue[]) => findAktivitetStatusIndex(fields, AktivitetStatus.DAGPENGER) !== -1;
 
 const fjernEllerLeggTilAktivitetStatus = (
-  fields: FieldArrayFieldsProps<AndelFieldValue>,
+  fields: AndelFieldValue[],
   aktivitetStatusKode: string,
   skalHaAndelMedAktivitetstatus: boolean,
   skalFjerne: (field: AndelFieldValue) => boolean,
   nyStatusAndel: AndelFieldValue,
+  getKanRedigereInntektCallback,
+  remove: UseFieldArrayRemove,
+  append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
   const statusIndex = findAktivitetStatusIndex(fields, aktivitetStatusKode);
   if (statusIndex !== -1) {
-    const field = fields.get(statusIndex);
+    const field = fields[statusIndex];
     if (skalFjerne(field)) {
-      fields.remove(statusIndex);
+      remove(statusIndex);
     }
   }
   if (statusIndex !== -1) {
     return;
   }
   if (skalHaAndelMedAktivitetstatus) {
-    fields.push(nyStatusAndel);
+    append({
+      ...nyStatusAndel,
+      kanRedigereInntekt: getKanRedigereInntektCallback()(nyStatusAndel),
+    });
   }
 };
 
 export const leggTilDagpengerOmBesteberegning = (
-  fields: FieldArrayFieldsProps<AndelFieldValue>,
+  fields: AndelFieldValue[],
   skalHaBesteberegning: boolean,
   aktivitetStatuser: KodeverkMedNavn[],
   skalKunneLeggeTilDagpenger: boolean,
+  getKanRedigereInntektCallback: () => void,
+  remove: UseFieldArrayRemove,
+  append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
@@ -163,13 +161,19 @@ export const leggTilDagpengerOmBesteberegning = (
     skalHaBesteberegning,
     (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && andel.lagtTilAvSaksbehandler,
     dagpenger(aktivitetStatuser),
+    getKanRedigereInntektCallback,
+    remove,
+    append,
   );
 };
 
 const fjernEllerLeggTilMilitær = (
-  fields: FieldArrayFieldsProps<AndelFieldValue>,
+  fields: AndelFieldValue[],
   skalHaMilitær: boolean,
   aktivitetStatuser: KodeverkMedNavn[],
+  getKanRedigereInntektCallback: () => void,
+  remove: UseFieldArrayRemove,
+  append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
@@ -177,16 +181,42 @@ const fjernEllerLeggTilMilitær = (
     skalHaMilitær === true,
     () => skalHaMilitær === false,
     lagNyMS(aktivitetStatuser),
+    getKanRedigereInntektCallback,
+    remove,
+    append,
   );
+};
+
+const validateEnFastsattVedOverstyring = (values: AndelFieldValue[], intl: IntlShape): any => {
+  const minstEnFastsattFeilmelding = validateMinstEnFastsatt(values, intl);
+  if (minstEnFastsattFeilmelding != null) {
+    return minstEnFastsattFeilmelding;
+  }
+  return null;
+};
+
+const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors, intl) => () => {
+  const harFeltFeil = errors && errors.length > 0;
+  if (harFeltFeil) {
+    return null;
+  }
+
+  const ulikeAndelerError = validateUlikeAndeler(formValues.inntektFieldArray, intl);
+
+  if (ulikeAndelerError) {
+    return ulikeAndelerError;
+  }
+
+  if (erOverstyring(formValues)) {
+    return validateEnFastsattVedOverstyring(formValues.inntektFieldArray, intl);
+  }
+
+  return null;
 };
 
 type OwnProps = {
   readOnly: boolean;
-  fields: FieldArrayFieldsProps<AndelFieldValue>;
-  meta: FieldArrayMetaProps;
-  isBeregningFormDirty: boolean;
   skalKunneLeggeTilDagpengerManuelt: boolean;
-  skalHaBesteberegning: boolean;
   skalHaMilitær?: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
@@ -194,12 +224,6 @@ type OwnProps = {
 };
 
 interface StaticFunctions {
-  validate: (
-    values: AndelFieldValue[],
-    erKunYtelse: boolean,
-    skalFastsetteInntekt: (andel) => boolean,
-    intl: IntlShape,
-  ) => any;
   buildInitialValues: (
     andeler: AndelForFaktaOmBeregning[],
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -215,44 +239,132 @@ interface StaticFunctions {
  * Komponenten må rendres som komponenten til et FieldArray.
  */
 export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = ({
-  fields,
-  meta,
   readOnly,
-  isBeregningFormDirty,
   skalKunneLeggeTilDagpengerManuelt,
   beregningsgrunnlag,
   isAksjonspunktClosed,
   alleKodeverk,
 }) => {
-  const tablerows = createAndelerTableRows(fields, readOnly, beregningsgrunnlag, isAksjonspunktClosed, alleKodeverk);
+  const { getValues, control, formState } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const { errors } = formState;
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const fieldArrayName = `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.inntektFieldArray`;
+  const { fields, remove, append, update } = formHooks.useFieldArray({
+    control,
+    name: fieldArrayName as 'vurderFaktaBeregningForm.0.inntektFieldArray',
+  });
+
+  const formValues = formHooks.useWatch({
+    control,
+    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}` as 'vurderFaktaBeregningForm.0',
+  });
+  const skalHaBesteberegning = formHooks.useWatch({
+    control,
+    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderbesteberegningField`,
+  });
+  const skalHaMilitær = formHooks.useWatch({
+    control,
+    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMilitær`,
+  });
+  const intl = useIntl();
+
+  const getKanRedigereInntektCallback = useCallback(
+    () => getKanRedigereInntekt(formValues, beregningsgrunnlag),
+    [formValues, beregningsgrunnlag],
+  );
+
+  useEffect(() => {
+    const currentFields = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.inntektFieldArray`);
+    const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
+    fjernEllerLeggTilMilitær(
+      currentFields,
+      skalHaMilitær,
+      aktivitetStatuser,
+      getKanRedigereInntektCallback,
+      remove,
+      append,
+    );
+    leggTilDagpengerOmBesteberegning(
+      currentFields,
+      skalHaBesteberegning,
+      aktivitetStatuser,
+      skalKunneLeggeTilDagpengerManuelt,
+      getKanRedigereInntektCallback,
+      remove,
+      append,
+    );
+  }, [skalHaBesteberegning, skalHaMilitær, skalKunneLeggeTilDagpengerManuelt]);
+
+  const updateKanRedigereInntekt = (index: number, kanRedigereInntekt: boolean): void => {
+    update(index, {
+      ...fields[index],
+      kanRedigereInntekt,
+    });
+  };
+
+  useEffect(() => {
+    fields.forEach((field, index) => {
+      const currentKanRedigereInntekt = field.kanRedigereInntekt;
+      const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
+      const erNyAndelSomSkalFjernes =
+        !skalHaBesteberegning && !skalKunneLeggeTilDagpengerManuelt && field.lagtTilAvSaksbehandler;
+      if (!erNyAndelSomSkalFjernes && currentKanRedigereInntekt !== kanRedigereInntekt) {
+        updateKanRedigereInntekt(index, kanRedigereInntekt);
+      }
+    });
+  }, [formValues]);
+
+  const inntektFieldArrayErrors = errors?.vurderFaktaBeregningForm?.[aktivtBeregningsgrunnlagIndeks]?.inntektFieldArray;
+
+  const validators = [validate(formValues, inntektFieldArrayErrors, intl)];
+
+  const skalFastsetteInntektForAndelFunc = useCallback(
+    () => skalFastsetteInntektForAndel(formValues, beregningsgrunnlag.faktaOmBeregning, beregningsgrunnlag),
+    [formValues, beregningsgrunnlag],
+  );
+
+  const tablerows = createAndelerTableRows(
+    fields,
+    readOnly,
+    beregningsgrunnlag,
+    isAksjonspunktClosed,
+    alleKodeverk,
+    fieldArrayName,
+    remove,
+    skalFastsetteInntektForAndelFunc,
+  );
   if (tablerows.length === 0) {
     if (skalKunneLeggeTilDagpengerManuelt) {
       return (
-        <NavFieldGroup errorMessage={getErrorMessage(meta, isBeregningFormDirty)}>
-          {!readOnly && !harDagpenger(fields) && (
-            <AddDagpengerAndelButton fields={fields} alleKodeverk={alleKodeverk} />
-          )}
-          <VerticalSpacer eightPx />
-        </NavFieldGroup>
+        <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
+          <>
+            {!readOnly && !harDagpenger(fields) && (
+              <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
+            )}
+            <VerticalSpacer eightPx />
+          </>
+        </SkjemaGruppeMedFeilviser>
       );
     }
     return null;
   }
   tablerows.push(createBruttoBGSummaryRow(fields, readOnly, beregningsgrunnlag));
   return (
-    <NavFieldGroup errorMessage={getErrorMessage(meta, isBeregningFormDirty)}>
-      <Table
-        headerTextCodes={getHeaderTextCodes(skalVisePeriode(fields), skalViseRefusjon(fields))}
-        noHover
-        classNameTable={styles.inntektTable}
-      >
-        {tablerows}
-      </Table>
-      {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
-        <AddDagpengerAndelButton fields={fields} alleKodeverk={alleKodeverk} />
-      )}
-      <VerticalSpacer eightPx />
-    </NavFieldGroup>
+    <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
+      <>
+        <Table
+          headerTextCodes={getHeaderTextCodes(skalVisePeriode(fields), skalViseRefusjon(fields))}
+          noHover
+          classNameTable={styles.inntektTable}
+        >
+          {tablerows}
+        </Table>
+        {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
+          <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
+        )}
+        <VerticalSpacer eightPx />
+      </>
+    </SkjemaGruppeMedFeilviser>
   );
 };
 
@@ -277,41 +389,6 @@ InntektFieldArray.transformValues = (values: AndelFieldValue[]): InntektTransfor
         }))
     : null;
 
-const mapAndelToSortedObject = (value: AndelFieldValue): SortedAndelInfo => {
-  const { andel, inntektskategori, arbeidsforholdId } = value;
-  return { andelsinfo: andel, arbeidsforholdId, inntektskategori };
-};
-
-InntektFieldArray.validate = (values: AndelFieldValue[], erKunYtelse, skalFastsetteInntekt, intl: IntlShape) => {
-  // eslint-disable-next-line react/destructuring-assignment
-  const arrayErrors = values.map(andelFieldValues => {
-    const fieldErrors = {
-      andel: null,
-      fastsattBelop: null,
-      inntektskategori: null,
-    };
-    fieldErrors.andel = required(andelFieldValues.andel);
-    fieldErrors.fastsattBelop = skalFastsetteInntekt(andelFieldValues)
-      ? required(andelFieldValues.fastsattBelop)
-      : null;
-    fieldErrors.inntektskategori = required(andelFieldValues.inntektskategori);
-    return fieldErrors.andel || fieldErrors.fastsattBelop || fieldErrors.inntektskategori ? fieldErrors : null;
-  });
-  if (arrayErrors.some(errors => errors !== null)) {
-    return arrayErrors;
-  }
-  if (isArrayEmpty(values)) {
-    return null;
-  }
-  const ulikeAndelerError = erKunYtelse
-    ? validateUlikeAndelerWithGroupingFunction(values, mapAndelToSortedObject, intl)
-    : validateUlikeAndeler(values, intl);
-  if (ulikeAndelerError) {
-    return { _error: ulikeAndelerError };
-  }
-  return null;
-};
-
 InntektFieldArray.buildInitialValues = (
   andeler: AndelForFaktaOmBeregning[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -323,27 +400,4 @@ InntektFieldArray.buildInitialValues = (
   return andeler.map(a => mapAndelToField(a, arbeidsgiverOpplysningerPerId, alleKodeverk));
 };
 
-export const mapStateToProps = (state, ownProps) => {
-  const isBeregningFormDirty = isFormDirty(state);
-  const aktivitetStatuser = ownProps.alleKodeverk[KodeverkType.AKTIVITET_STATUS];
-  // @ts-ignore
-  const skalHaBesteberegning = skalHaBesteberegningSelector(state) === true;
-  const skalHaMilitær = getFormValuesForBeregning(state)[vurderMilitaerField];
-  const tilfeller = ownProps.beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller
-    ? ownProps.beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller.map(kode => kode)
-    : [];
-  fjernEllerLeggTilMilitær(ownProps.fields, skalHaMilitær, aktivitetStatuser);
-  leggTilDagpengerOmBesteberegning(
-    ownProps.fields,
-    skalHaBesteberegning,
-    aktivitetStatuser,
-    ownProps.skalKunneLeggeTilDagpengerManuelt,
-  );
-  return {
-    isBeregningFormDirty,
-    skalHaBesteberegning,
-    skalHaMilitær,
-    erKunYtelse: tilfeller && tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE),
-  };
-};
-export default connect(mapStateToProps)(InntektFieldArray);
+export default InntektFieldArray;
