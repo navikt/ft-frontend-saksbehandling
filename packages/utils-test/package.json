@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils-test",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "license": "MIT",
   "private": true,
   "main": "./dist/index.js",
@@ -16,12 +16,12 @@
     "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
     "build-webpack": "cross-env webpack --config webpack.config.js",
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --target esnext --declaration --emitDeclarationOnly --downlevelIteration --moduleResolution node --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
-    "build": "yarn build-webpack & yarn build-ts-declarations",
+    "build": "yarn build-webpack && yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
     "@commercetools/enzyme-extensions": "5.0.0",
-    "@navikt/ft-kodeverk": "^1.0.7",
+    "@navikt/ft-kodeverk": "^1.0.10",
     "@testing-library/jest-dom": "5.16.4",
     "@wojtekmaj/enzyme-adapter-react-17": "0.6.7",
     "axios-mock-adapter": "1.21.1",

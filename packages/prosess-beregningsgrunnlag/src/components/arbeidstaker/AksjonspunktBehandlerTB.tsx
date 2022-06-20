@@ -6,17 +6,17 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import {
   dateFormat,
   formatCurrencyNoKr,
+  getKodeverknavnFn,
   parseCurrencyInput,
   removeSpacesFromNumber,
-  getKodeverknavnFn,
 } from '@navikt/ft-utils';
 import { required } from '@navikt/ft-form-validators';
 import { formHooks, InputField } from '@navikt/ft-form-hooks';
-import { AktivitetStatus, KodeverkType, PeriodeAarsak, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, isAksjonspunktOpen, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
-  Aksjonspunkt,
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
@@ -35,9 +35,9 @@ import {
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
 } from '../../types/ATFLAksjonspunktTsType';
-import BeregningsgrunnlagValues from '../../types/BeregningsgrunnlagAksjonspunktTsType';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import BeregningFormValues from '../../types/BeregningFormValues';
 
 const formPrefix = 'inntektField';
 
@@ -45,10 +45,10 @@ const { FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD, FASTSETT_BEREG
   ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const finnAksjonspunktForFastsettBgTidsbegrensetAT = (
-  gjeldendeAksjonspunkter: Aksjonspunkt[],
-): Aksjonspunkt | undefined =>
-  gjeldendeAksjonspunkter &&
-  gjeldendeAksjonspunkter.find(
+  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
+): BeregningAvklaringsbehov | undefined =>
+  gjeldendeAvklaringsbehov &&
+  gjeldendeAvklaringsbehov.find(
     ap =>
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD ||
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
@@ -236,6 +236,7 @@ const createRows = (
   readOnly: boolean,
   isAksjonspunktClosed: boolean,
   perioder: BruttoPrPeriode[],
+  fieldIndex: number,
 ): ReactElement[] => {
   const rows = [];
   rows.push(createPerioderRow(perioder));
@@ -274,7 +275,7 @@ const createRows = (
               <td key={`Col-${element.inputfieldKey}`} colSpan={2}>
                 <div className={isAksjonspunktClosed && readOnly ? styles.adjustedField : undefined}>
                   <InputField
-                    name={element.inputfieldKey}
+                    name={`BeregningForm.${fieldIndex}.${element.inputfieldKey}`}
                     validate={[required]}
                     readOnly={readOnly}
                     parse={parseCurrencyInput}
@@ -299,9 +300,9 @@ const createRows = (
   return rows;
 };
 
-const getIsAksjonspunktClosed = (gjeldendeAksjonspunkter: Aksjonspunkt[]): boolean => {
-  const aksjonspunkt = finnAksjonspunktForFastsettBgTidsbegrensetAT(gjeldendeAksjonspunkter);
-  return aksjonspunkt ? !isAksjonspunktOpen(aksjonspunkt.status) : false;
+const getIsAksjonspunktClosed = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
+  const avklaringsbehov = finnAksjonspunktForFastsettBgTidsbegrensetAT(gjeldendeAvklaringsbehov);
+  return avklaringsbehov ? !isAksjonspunktOpen(avklaringsbehov.status) : false;
 };
 
 const undefinedTil0 = (beløp: number | undefined): number => beløp || 0;
@@ -321,7 +322,8 @@ type BruttoPrPeriode = {
 
 const lagBruttoPrPeriodeListe = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  formMethods: UseFormReturn<BeregningsgrunnlagValues>,
+  formMethods: UseFormReturn<BeregningFormValues>,
+  fieldIndex: number,
 ): BruttoPrPeriode[] => {
   const bruttoPrPeriodeList = [] as BruttoPrPeriode[];
   if (allePerioder.length < 1) {
@@ -346,7 +348,7 @@ const lagBruttoPrPeriodeListe = (
       : [];
     const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
       const inputFieldKey = createInputFieldKey(andel, periode);
-      const fastsattInntekt = formMethods.watch(inputFieldKey);
+      const fastsattInntekt = formMethods.watch(`BeregningForm.${fieldIndex}.${inputFieldKey}`);
       return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
     });
     const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
@@ -362,26 +364,28 @@ type OwnProps = {
   readOnly: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
-  aksjonspunkter: Aksjonspunkt[];
+  avklaringsbehov: BeregningAvklaringsbehov[];
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   alleKodeverk: AlleKodeverk;
+  fieldIndex: number;
 };
 
 const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   allePerioder,
-  aksjonspunkter,
+  avklaringsbehov,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
+  fieldIndex,
 }) => {
   const tabellData = createTableData(allePerioder, alleKodeverk, arbeidsgiverOpplysningerPerId);
-  const isAksjonspunktClosed = getIsAksjonspunktClosed(aksjonspunkter);
-  const formMethods = formHooks.useFormContext<BeregningsgrunnlagValues>();
-  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods);
+  const isAvklaringsbehovClosed = getIsAksjonspunktClosed(avklaringsbehov);
+  const formMethods = formHooks.useFormContext<BeregningFormValues>();
+  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex);
   const perioder = bruttoPrPeriodeList.slice(1);
   return (
     <table className={styles.inntektTableTB}>
-      <tbody>{createRows(tabellData, readOnly, isAksjonspunktClosed, perioder)}</tbody>
+      <tbody>{createRows(tabellData, readOnly, isAvklaringsbehovClosed, perioder, fieldIndex)}</tbody>
     </table>
   );
 };

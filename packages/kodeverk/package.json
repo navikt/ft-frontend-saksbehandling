@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-kodeverk",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,7 +15,7 @@
     "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
     "build-webpack": "cross-env webpack --config webpack.config.js",
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
-    "build": "yarn build-webpack & yarn build-ts-declarations",
+    "build": "yarn build-webpack && yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "devDependencies": {

@@ -1,9 +1,10 @@
-import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
-import ProsessBeregningsgrunnlagAksjonspunktCode from './ProsessBeregningsgrunnlagAksjonspunktCode';
+type Begrunnelse = {
+  begrunnelse: string;
+};
 
 export type DekningsgradResultatAp = {
   dekningsgrad: number;
-} & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD>;
+} & Begrunnelse;
 
 export type ArbeidsinntektResultat = {
   andelsnr: number;
@@ -13,7 +14,7 @@ export type ArbeidsinntektResultat = {
 export type FastsettAvvikATFLResultatAP = {
   inntektPrAndelList: ArbeidsinntektResultat[];
   inntektFrilanser: number | null;
-} & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS>;
+} & Begrunnelse;
 
 export type TidsbegrensetArbeidsforholdInntektResultat = {
   andelsnr: number;
@@ -29,16 +30,16 @@ export type TidsbegrensetArbeidsforholdPeriodeResultat = {
 export type FastsettAvvikATFLTidsbegrensetResultatAP = {
   fastsatteTidsbegrensedePerioder: TidsbegrensetArbeidsforholdPeriodeResultat[];
   frilansInntekt: number | null;
-} & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD>;
+} & Begrunnelse;
 
 export type VurderVarigEndretNyoppstartetResultatAP = {
   erVarigEndretNaering: boolean;
   bruttoBeregningsgrunnlag?: number;
-} & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE>;
+} & Begrunnelse;
 
 export type NyIArbeidslivetruttoNæringResultatAP = {
   bruttoBeregningsgrunnlag: number;
-} & AksjonspunktTilBekreftelse<ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET>;
+} & Begrunnelse;
 
 type BeregningsgrunnlagResultatAP =
   | NyIArbeidslivetruttoNæringResultatAP
@@ -46,5 +47,24 @@ type BeregningsgrunnlagResultatAP =
   | FastsettAvvikATFLTidsbegrensetResultatAP
   | FastsettAvvikATFLResultatAP
   | DekningsgradResultatAp;
+
+type BeregningsgrunnlagValuesSubmitType = {
+  periode: {
+    fom: string;
+    tom: string;
+  };
+  begrunnelse: string;
+};
+
+export type BeregningAksjonspunktSubmitType = {
+  kode: string;
+  begrunnelse: string;
+  grunnlag: BeregningsgrunnlagValuesSubmitType[];
+};
+
+export type GruppertAksjonspunktData = {
+  kode: string;
+  aksjonspunktData: BeregningsgrunnlagResultatAP;
+};
 
 export default BeregningsgrunnlagResultatAP;
