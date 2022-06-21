@@ -155,7 +155,7 @@ const settOppKomponenterForATFL = (
           fieldIndex={fieldIndex}
         />
       )}
-      {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} />}
+      {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} fieldIndex={fieldIndex} />}
       <VerticalSpacer sixteenPx />
       <Row>
         <Column xs="12">

@@ -17,9 +17,10 @@ interface StaticFunctions {
 
 type OwnProps = {
   readOnly: boolean;
+  fieldIndex: number;
 };
 
-const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => (
+const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, fieldIndex }) => (
   <Row className={styles.verticalAlignMiddle}>
     <Column xs="7">
       <Normaltekst>
@@ -29,7 +30,7 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
     <Column xs="5">
       <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
         <InputField
-          name="inntektFrilanser"
+          name={`BeregningForm.${fieldIndex}.inntektFrilanser`}
           validate={[required]}
           readOnly={readOnly}
           parse={parseCurrencyInput}
