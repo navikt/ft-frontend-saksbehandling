@@ -12,8 +12,8 @@ import {
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagPeriodeProp,
   FaktaOmBeregning,
-  Vilkar,
   YtelseGrunnlag,
+  Vilkarperiode,
 } from '@navikt/ft-types';
 import BeregningsgrunnlagResultatAP, { GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
@@ -170,7 +170,7 @@ type OwnProps = {
   readOnlySubmitButton: boolean;
   beregningsgrunnlag: BeregningsgrunnlagProp;
   alleKodeverk: AlleKodeverk;
-  vilkaarBG?: Vilkar;
+  vilkarPeriode?: Vilkarperiode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[];
   isSubmitting: boolean;
@@ -195,7 +195,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   relevanteStatuser,
   readOnlySubmitButton,
   alleKodeverk,
-  vilkaarBG,
+  vilkarPeriode,
   arbeidsgiverOpplysningerPerId,
   gjeldendeAvklaringsbehov,
   isSubmitting,
@@ -289,11 +289,11 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           )}
           <>
             <AvsnittSkiller spaceAbove spaceUnder rightPanel />
-            {vilkaarBG && (
+            {vilkarPeriode && (
               <BeregningsresultatTable
                 beregningsgrunnlagPerioder={beregningsgrunnlag.beregningsgrunnlagPeriode}
                 dekningsgrad={dekningsgrad}
-                vilkaarBG={vilkaarBG}
+                vilkarPeriode={vilkarPeriode}
                 aktivitetStatusList={aktivitetStatusList}
                 grunnbelop={beregningsgrunnlag.grunnbeløp}
                 ytelseGrunnlag={beregningsgrunnlag.ytelsesspesifiktGrunnlag}

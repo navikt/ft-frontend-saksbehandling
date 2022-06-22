@@ -109,7 +109,7 @@ export type BeregningsgrunnlagPeriodeProp = Readonly<{
 }>;
 
 type Beregningsgrunnlag = Readonly<{
-  vilkårperiodeFom: string;
+  vilkårsperiodeFom: string;
   avklaringsbehov: BeregningAvklaringsbehov[];
   skjaeringstidspunktBeregning: string;
   dekningsgrad: number;
