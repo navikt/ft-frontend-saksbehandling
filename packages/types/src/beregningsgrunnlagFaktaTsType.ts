@@ -83,7 +83,19 @@ export interface ATFLSammeOrgAndel extends FaktaOmBeregningAndel {
   inntektPrMnd?: number;
 }
 
+type SaksopplysningArbeidsforhold = Readonly<{
+  andelsnr: number;
+  arbeidsgiverIdent: string;
+  arbeidsforholdId: string;
+}>;
+
+export type Saksopplysninger = Readonly<{
+  arbeidsforholdMedLønnsendring: SaksopplysningArbeidsforhold[];
+  kortvarigeArbeidsforhold: SaksopplysningArbeidsforhold[];
+}>;
+
 export type FaktaOmBeregning = Readonly<{
+  saksopplysninger?: Saksopplysninger;
   beregningsgrunnlagArbeidsforhold?: (BeregningsgrunnlagArbeidsforhold & {
     erTidsbegrensetArbeidsforhold?: boolean;
   })[];

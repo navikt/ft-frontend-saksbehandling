@@ -109,7 +109,6 @@ const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Beregni
 const vilkarMedUtfall = (kode: string): Vilkar =>
   ({
     vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
-    vilkarStatus: kode,
     perioder: [
       {
         periode: {

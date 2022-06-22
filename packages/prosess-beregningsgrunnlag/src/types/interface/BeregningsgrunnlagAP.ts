@@ -48,13 +48,15 @@ type BeregningsgrunnlagResultatAP =
   | FastsettAvvikATFLResultatAP
   | DekningsgradResultatAp;
 
-type BeregningsgrunnlagValuesSubmitType = {
+type PeriodeOgBegrunnelseType = {
   periode: {
     fom: string;
     tom: string;
   };
   begrunnelse: string;
 };
+
+type BeregningsgrunnlagValuesSubmitType = PeriodeOgBegrunnelseType & BeregningsgrunnlagResultatAP;
 
 export type BeregningAksjonspunktSubmitType = {
   kode: string;

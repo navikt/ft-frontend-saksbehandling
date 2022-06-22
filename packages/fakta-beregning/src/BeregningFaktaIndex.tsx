@@ -38,7 +38,7 @@ type OwnProps = {
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
 const lagLabel = (bg, vilkårsperioder) => {
-  const stpOpptjening = bg.vilkårperiodeFom;
+  const stpOpptjening = bg.vilkårsperiodeFom;
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;

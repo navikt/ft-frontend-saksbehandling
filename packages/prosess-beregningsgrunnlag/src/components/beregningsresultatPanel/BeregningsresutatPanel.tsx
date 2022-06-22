@@ -6,8 +6,8 @@ import Panel from 'nav-frontend-paneler';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { VilkarUtfallType } from '@navikt/ft-kodeverk';
-import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
-import { Vilkar } from '@navikt/ft-types';
+import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Vilkarperiode } from '@navikt/ft-types';
 
 import avslaatIkonUrl from '../../images/avslaatt_mini.svg';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -106,7 +106,7 @@ const lagAndelerRader = (listofAndeler: BeregningsresultatAndelElementType[], ik
           <Normaltekst>{formatCurrencyNoKr(entry.verdi)}</Normaltekst>
         </Column>
       )}
-      {ikkeVurdert && entry.skalFastsetteGrunnlag === true && (
+      {ikkeVurdert && entry.skalFastsetteGrunnlag && (
         <Column xs="3" key={`indexAf2${index + 2}`} className={styles.maaFastsettes}>
           <Normaltekst className={beregningStyles.redError}>
             <FormattedMessage id="Beregningsgrunnlag.BeregningTable.MåFastsettes" />
@@ -193,7 +193,7 @@ const lagKeyForPeriode = (header: ReactElement): string => {
 };
 
 const createPeriodeResultat = (
-  vilkaarBG: Vilkar,
+  vilkarPeriode: Vilkarperiode,
   periodeData: BeregningsresultatPeriodeTabellType,
   lagPeriodeHeaders: boolean,
   intl: IntlShape,
@@ -201,8 +201,8 @@ const createPeriodeResultat = (
   periodeIndex: number,
 ): ReactElement => {
   const key = lagKeyForPeriode(periodeData.headers[0]);
-  const ikkeOppfylt = !!(vilkaarBG && vilkaarBG.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT);
-  const ikkeVurdert = !!(vilkaarBG && vilkaarBG.vilkarStatus === VilkarUtfallType.IKKE_VURDERT);
+  const ikkeOppfylt = vilkarPeriode && vilkarPeriode.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT;
+  const ikkeVurdert = vilkarPeriode && vilkarPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT;
   const halvG = Math.round(grunnbeløp / 2);
   return (
     <React.Fragment key={`Wr${key}`}>
@@ -215,10 +215,14 @@ const createPeriodeResultat = (
 
 type OwnProps = {
   grunnbeløp: number;
-  vilkaarBG: Vilkar;
+  vilkarPeriode: Vilkarperiode;
   periodeResultatTabeller: BeregningsresultatPeriodeTabellType[];
 };
-const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({ vilkaarBG, periodeResultatTabeller, grunnbeløp }) => {
+const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
+  vilkarPeriode,
+  periodeResultatTabeller,
+  grunnbeløp,
+}) => {
   const intl = useIntl();
   const skalLagePeriodeHeaders = periodeResultatTabeller.length > 1;
   return (
@@ -228,7 +232,7 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({ vilkaarBG, period
       </Element>
       <VerticalSpacer eightPx />
       {periodeResultatTabeller.map((periodeData, index) =>
-        createPeriodeResultat(vilkaarBG, periodeData, skalLagePeriodeHeaders, intl, grunnbeløp, index),
+        createPeriodeResultat(vilkarPeriode, periodeData, skalLagePeriodeHeaders, intl, grunnbeløp, index),
       )}
     </Panel>
   );
