@@ -67,7 +67,7 @@ export type BeregningsgrunnlagAndel = Readonly<{
   erNyIArbeidslivet?: boolean;
   erTidsbegrensetArbeidsforhold?: boolean;
   erNyoppstartet?: boolean;
-  andelsnr?: number;
+  andelsnr: number;
   lonnsendringIBeregningsperioden?: boolean;
   besteberegningPrAar?: number;
   skalFastsetteGrunnlag?: boolean;
@@ -95,7 +95,7 @@ export type BeregningsgrunnlagPeriodeProp = Readonly<{
   avkortetPrAar?: number;
   beregnetPrAar?: number;
   beregningsgrunnlagPeriodeFom: string;
-  beregningsgrunnlagPeriodeTom?: string;
+  beregningsgrunnlagPeriodeTom: string;
   bruttoInkludertBortfaltNaturalytelsePrAar?: number;
   bruttoPrAar?: number;
   dagsats?: number;

@@ -243,7 +243,7 @@ const lagPeriode = (
   dagsats?: number,
 ): BeregningsgrunnlagPeriodeProp => ({
   beregningsgrunnlagPeriodeFom: fom,
-  beregningsgrunnlagPeriodeTom: tom,
+  beregningsgrunnlagPeriodeTom: tom || '31-12-9999',
   beregnetPrAar: 360000,
   bruttoPrAar: 360000,
   bruttoInkludertBortfaltNaturalytelsePrAar: 360000,
@@ -408,6 +408,7 @@ const lagBG = (
   const beregningsgrunnlag = {
     avklaringsbehov: avklaringsbehov || [],
     skjaeringstidspunktBeregning: STP,
+    vilkårsperiodeFom: STP,
     aktivitetStatus: statuser,
     beregningsgrunnlagPeriode: perioder,
     dekningsgrad: 80,
@@ -775,6 +776,7 @@ NaturalYtelse.args = {
       ],
       sammenligningsgrunnlag: malSGGrunnlag(),
       skjaeringstidspunktBeregning: STP,
+      vilkårsperiodeFom: STP,
       dekningsgrad: 100,
       aktivitetStatus: ['AT'],
     },
