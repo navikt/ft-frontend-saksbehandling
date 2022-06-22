@@ -27,7 +27,7 @@ export type TidsbegrenseArbeidsforholdInntektMap = {
 export type TidsbegrenseArbeidsforholdTabellCelle = {
   erTidsbegrenset: boolean;
   isEditable: boolean;
-  tabellInnhold: string;
+  tabellInnhold: string | undefined;
   inputfieldKey: string;
 };
 

@@ -27,10 +27,9 @@ import {
 } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
-import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
+import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import {
-  TidsbegrenseArbeidsforholdInntektMap,
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
@@ -58,6 +57,18 @@ const harPeriodeArbeidsforholdAvsluttet = (periode: BeregningsgrunnlagPeriodePro
   !!periode.periodeAarsaker &&
   periode.periodeAarsaker.map(kode => kode).includes(PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET);
 
+// Finner sammenslått periode etter opphør av tidsbegrenset arbeid
+const finnPeriodeEtterOpphørAvTidsbegrensetArbeid = (allePerioder: BeregningsgrunnlagPeriodeProp[]) => {
+  let k = 0;
+  while (k < allePerioder.length && !harPeriodeArbeidsforholdAvsluttet(allePerioder[k])) {
+    k += 1;
+  }
+  const periodeUtenKortvarigArbeid = { ...allePerioder[k] };
+  periodeUtenKortvarigArbeid.beregningsgrunnlagPeriodeTom =
+    allePerioder[allePerioder.length - 1].beregningsgrunnlagPeriodeTom;
+  return periodeUtenKortvarigArbeid;
+};
+
 // Kombinerer perioder mellom avsluttede arbeidsforhold
 const finnPerioderMedAvsluttetArbeidsforhold = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
@@ -84,47 +95,44 @@ const createInputFieldKey = (andel: BeregningsgrunnlagAndel, periode: Beregnings
   return `${formPrefix}_${andel.arbeidsforhold.arbeidsforholdId}_${andel.andelsnr}_${periode.beregningsgrunnlagPeriodeFom}`;
 };
 
-const findRelevanteArbeidstakerAndeler = (periode: BeregningsgrunnlagPeriodeProp): BeregningsgrunnlagAndel[] =>
+const findArbeidstakerAndeler = (periode: BeregningsgrunnlagPeriodeProp): BeregningsgrunnlagAndel[] =>
   !periode.beregningsgrunnlagPrStatusOgAndel
     ? []
-    : periode.beregningsgrunnlagPrStatusOgAndel
-        .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
-        .filter(andel => !andel.erTilkommetAndel);
+    : periode.beregningsgrunnlagPrStatusOgAndel.filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
 
-const createArbeidsforholdMapKey = (
-  arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): string => {
-  const arbeidsforholdInformasjon = arbeidsforhold.arbeidsgiverIdent
-    ? arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]
-    : undefined;
-  if (!arbeidsforholdInformasjon) {
-    return arbeidsforhold.arbeidsforholdType ? arbeidsforhold.arbeidsforholdType : '';
-  }
-  return `${arbeidsforholdInformasjon.navn}${arbeidsforhold.arbeidsforholdId}`;
+const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsforhold): string =>
+  !arbeidsforhold
+    ? ''
+    : `${arbeidsforhold.arbeidsgiverIdent}${arbeidsforhold.arbeidsforholdId ? arbeidsforhold.arbeidsforholdId : ''}`;
+
+type InntektMapType = {
+  [key: string]: string | undefined;
 };
 
 // Finner beregnetPrAar for alle andeler, basert på data fra den første perioden
-const createBeregnetInntektForAlleAndeler = (
-  perioder: BeregningsgrunnlagPeriodeProp[],
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): TidsbegrenseArbeidsforholdInntektMap => {
-  const mapMedInnteker = {} as TidsbegrenseArbeidsforholdInntektMap;
-  const arbeidstakerAndeler =
-    perioder.length > 0
-      ? perioder[0].beregningsgrunnlagPrStatusOgAndel?.filter(
-          andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-        )
-      : [];
-  if (arbeidstakerAndeler) {
-    arbeidstakerAndeler.forEach(andel => {
-      if (andel.arbeidsforhold) {
-        mapMedInnteker[createArbeidsforholdMapKey(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)] =
-          formatCurrencyNoKr(andel.beregnetPrAar) || '';
-      }
-    });
-  }
+const createBeregnetInntektForAlleAndeler = (periode: BeregningsgrunnlagPeriodeProp): InntektMapType => {
+  const mapMedInnteker = {} as InntektMapType;
+  const arbeidstakerAndeler = findArbeidstakerAndeler(periode);
+  arbeidstakerAndeler.forEach(andel => {
+    mapMedInnteker[createArbeidsforholdMapKey(andel.arbeidsforhold)] = formatCurrencyNoKr(andel.beregnetPrAar);
+  });
   return mapMedInnteker;
+};
+
+const lagVisningsnavnForAktivitet = (
+  arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+) => {
+  const arbeidsforholdInfo = arbeidsforhold.arbeidsgiverIdent
+    ? arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]
+    : null;
+  if (!arbeidsforholdInfo) {
+    return arbeidsforhold.arbeidsforholdType
+      ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      : '';
+  }
+  return createVisningsnavnForAktivitet(arbeidsforholdInfo, arbeidsforhold.eksternArbeidsforholdId);
 };
 
 // Dette er objektet hver key i mappen vil ha en liste med
@@ -139,30 +147,35 @@ const createMapValueObject = (): TidsbegrenseArbeidsforholdTabellCelle => ({
 // Dette innebærer at første kolonne i raden skal inneholde andelsnavn og andre kolonne skal inneholde beregnetPrAar.
 // Vi antar at alle andeler ligger i alle perioder, henter derfor kun ut andeler fra den første perioden.
 const initializeMap = (
-  perioder: BeregningsgrunnlagPeriodeProp[],
+  periode: BeregningsgrunnlagPeriodeProp,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
-  const inntektMap = createBeregnetInntektForAlleAndeler(perioder, arbeidsgiverOpplysningerPerId);
-  const alleAndeler = findRelevanteArbeidstakerAndeler(perioder[0]);
+  const inntektMap = createBeregnetInntektForAlleAndeler(periode);
+  const alleAndeler = findArbeidstakerAndeler(periode);
   const mapMedAndeler = {} as TidsbegrenseArbeidsforholdTabellData;
   alleAndeler.forEach(andel => {
-    const andelMapNavn = andel.arbeidsforhold
-      ? createArbeidsforholdMapKey(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)
-      : '';
+    if (!andel.arbeidsforhold) {
+      return;
+    }
+
+    // Første kolonne er arbeidsgivernavn og orgnr
+    const andelMapNavn = createArbeidsforholdMapKey(andel.arbeidsforhold);
     const mapValueMedAndelNavn = createMapValueObject();
-    mapValueMedAndelNavn.tabellInnhold = createVisningsnavnForAndel(
-      andel,
-      arbeidsgiverOpplysningerPerId,
+    mapValueMedAndelNavn.tabellInnhold = lagVisningsnavnForAktivitet(
+      andel.arbeidsforhold,
       getKodeverknavn,
+      arbeidsgiverOpplysningerPerId,
     );
     mapValueMedAndelNavn.erTidsbegrenset =
       andel.erTidsbegrensetArbeidsforhold !== undefined ? andel.erTidsbegrensetArbeidsforhold : false;
+    mapMedAndeler[andelMapNavn] = [mapValueMedAndelNavn];
 
+    // Andre kolonne er read-only visning av grunnlag
     const mapValueMedBeregnetForstePeriode = createMapValueObject();
     mapValueMedBeregnetForstePeriode.erTidsbegrenset = false;
-    mapValueMedBeregnetForstePeriode.tabellInnhold = inntektMap[andelMapNavn];
-    mapMedAndeler[andelMapNavn] = [mapValueMedAndelNavn];
+    mapValueMedBeregnetForstePeriode.tabellInnhold = inntektMap[andelMapNavn] || '';
+    mapMedAndeler[andelMapNavn].push(mapValueMedBeregnetForstePeriode);
   });
   return mapMedAndeler;
 };
@@ -173,31 +186,27 @@ const createTableData = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
-  const kopiAvPerioder = relevantePerioder.slice(0);
+  const relevantPeriode = finnPeriodeEtterOpphørAvTidsbegrensetArbeid(allePerioder);
+  const kopiAvPeriode = { ...relevantPeriode };
   const arbeidsforholdPeriodeMap = initializeMap(
-    kopiAvPerioder,
+    allePerioder[0],
     getKodeverknavnFn(alleKodeverk),
     arbeidsgiverOpplysningerPerId,
   );
-  // Etter å ha initialiser mappet med faste bokser kan vi fjerne første element fra lista, da
-  // denne ikke skal være en av de redigerbare feltene i tabellen, og det er disse vi skal lage nå
-  kopiAvPerioder.forEach(periode => {
-    const arbeidstakerAndeler = findRelevanteArbeidstakerAndeler(periode);
-    arbeidstakerAndeler.forEach(andel => {
-      const mapKey = andel.arbeidsforhold
-        ? createArbeidsforholdMapKey(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)
+
+  // Oppretter element for redigerbar periode
+  const arbeidstakerAndeler = findArbeidstakerAndeler(kopiAvPeriode);
+  arbeidstakerAndeler.forEach(andel => {
+    const mapKey = createArbeidsforholdMapKey(andel.arbeidsforhold);
+    const newMapValue = createMapValueObject();
+    newMapValue.tabellInnhold =
+      andel.overstyrtPrAar !== undefined && andel.overstyrtPrAar !== null
+        ? formatCurrencyNoKr(andel.overstyrtPrAar)
         : '';
-      const mapValue = arbeidsforholdPeriodeMap[mapKey];
-      const newMapValue = createMapValueObject();
-      const ovsterstyrt = formatCurrencyNoKr(andel.overstyrtPrAar);
-      newMapValue.tabellInnhold = ovsterstyrt || '';
-      newMapValue.erTidsbegrenset = false;
-      newMapValue.isEditable = true;
-      newMapValue.inputfieldKey = createInputFieldKey(andel, periode);
-      mapValue.push(newMapValue);
-      arbeidsforholdPeriodeMap[mapKey] = mapValue;
-    });
+    newMapValue.erTidsbegrenset = false;
+    newMapValue.isEditable = true;
+    newMapValue.inputfieldKey = createInputFieldKey(andel, kopiAvPeriode);
+    arbeidsforholdPeriodeMap[mapKey].push(newMapValue);
   });
   return arbeidsforholdPeriodeMap;
 };
@@ -210,7 +219,7 @@ const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactE
       </Normaltekst>
     </td>
     {listOfBruttoPrPeriode.map(element => (
-      <td key={element.periode} colSpan={2}>
+      <td key={element.periodeFom} colSpan={2}>
         <Normaltekst className={beregningStyles.semiBoldText}>{formatCurrencyNoKr(element.brutto)}</Normaltekst>
       </td>
     ))}
@@ -221,7 +230,7 @@ const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement =
   <tr key="PeriodeHeaderRad">
     <td />
     {relevantePerioder.map(element => {
-      const fraDato = element.periode.split('_')[0];
+      const fraDato = element.periodeFom;
       return (
         <td key={`periodeittel${fraDato}`} colSpan={2}>
           <Undertekst>{dateFormat(fraDato)}</Undertekst>
@@ -245,11 +254,11 @@ const createRows = (
       <td key="ombergenetAarBlank" colSpan={2} />
       {perioder.map((element, index) => (
         <React.Fragment key={`PeriodeWrapper${index + 1}`}>
-          <td key={`Col_Tittel_${element.periode}`} colSpan={2}>
+          <td key={`Col_Tittel_${element.periodeFom}`} colSpan={2}>
             <Undertekst>
               <FormattedMessage
                 id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.OmberegnetAar"
-                key={`Tittel_${element.periode}`}
+                key={`Tittel_${element.periodeFom}`}
               />
             </Undertekst>
           </td>
@@ -305,8 +314,6 @@ const getIsAksjonspunktClosed = (gjeldendeAvklaringsbehov: BeregningAvklaringsbe
   return avklaringsbehov ? !isAksjonspunktOpen(avklaringsbehov.status) : false;
 };
 
-const undefinedTil0 = (beløp: number | undefined): number => beløp || 0;
-
 interface StaticFunctions {
   buildInitialValues: (allePerioder: BeregningsgrunnlagPeriodeProp[]) => TidsbegrenseArbeidsforholdValues;
   transformValues: (
@@ -317,7 +324,23 @@ interface StaticFunctions {
 
 type BruttoPrPeriode = {
   brutto: number;
-  periode: string;
+  periodeFom: string;
+  periodeTom: string;
+};
+
+const lagSummeringsdataForFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BruttoPrPeriode => {
+  const førstePeriode = allePerioder[0];
+  const forstePeriodeATInntekt = !førstePeriode.beregningsgrunnlagPrStatusOgAndel
+    ? []
+    : (førstePeriode.beregningsgrunnlagPrStatusOgAndel
+        .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
+        .map(andel => andel.beregnetPrAar) as number[]);
+  const forstePeriodeInntekt = forstePeriodeATInntekt.reduce((a, b) => a + b);
+  return {
+    brutto: forstePeriodeInntekt,
+    periodeFom: førstePeriode.beregningsgrunnlagPeriodeFom,
+    periodeTom: førstePeriode.beregningsgrunnlagPeriodeTom,
+  };
 };
 
 const lagBruttoPrPeriodeListe = (
@@ -329,33 +352,19 @@ const lagBruttoPrPeriodeListe = (
   if (allePerioder.length < 1) {
     return bruttoPrPeriodeList;
   }
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
-  const forstePeriodeATInntekt = relevantePerioder[0].beregningsgrunnlagPrStatusOgAndel
-    ? relevantePerioder[0].beregningsgrunnlagPrStatusOgAndel
-        .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
-        .map(andel => andel.beregnetPrAar)
-    : [];
-  const forstePeriodeInntekt = forstePeriodeATInntekt.reduce((a, b) => undefinedTil0(a) + undefinedTil0(b));
-  bruttoPrPeriodeList.push({
-    brutto: forstePeriodeInntekt || 0,
-    periode: `beregnetInntekt_${relevantePerioder[0].beregningsgrunnlagPeriodeFom}_${relevantePerioder[0].beregningsgrunnlagPeriodeTom}`,
+  const relevantPeriode = finnPeriodeEtterOpphørAvTidsbegrensetArbeid(allePerioder);
+  bruttoPrPeriodeList.push(lagSummeringsdataForFørstePeriode(allePerioder));
+  const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
+  const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
+    const inputFieldKey = createInputFieldKey(andel, relevantPeriode);
+    const fastsattInntekt = formMethods.watch(`BeregningForm.${fieldIndex}.${inputFieldKey}`);
+    return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
   });
-  relevantePerioder.forEach(periode => {
-    const arbeidstakerAndeler = periode.beregningsgrunnlagPrStatusOgAndel
-      ? periode.beregningsgrunnlagPrStatusOgAndel.filter(
-          andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-        )
-      : [];
-    const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
-      const inputFieldKey = createInputFieldKey(andel, periode);
-      const fastsattInntekt = formMethods.watch(`BeregningForm.${fieldIndex}.${inputFieldKey}`);
-      return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
-    });
-    const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
-    bruttoPrPeriodeList.push({
-      brutto: samletBruttoForPeriode,
-      periode: `${periode.beregningsgrunnlagPeriodeFom}_${periode.beregningsgrunnlagPeriodeTom}`,
-    });
+  const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
+  bruttoPrPeriodeList.push({
+    brutto: samletBruttoForPeriode,
+    periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,
+    periodeTom: relevantPeriode.beregningsgrunnlagPeriodeTom,
   });
   return bruttoPrPeriodeList;
 };
@@ -382,10 +391,9 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
   const isAvklaringsbehovClosed = getIsAksjonspunktClosed(avklaringsbehov);
   const formMethods = formHooks.useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex);
-  const perioder = bruttoPrPeriodeList.slice(1);
   return (
     <table className={styles.inntektTableTB}>
-      <tbody>{createRows(tabellData, readOnly, isAvklaringsbehovClosed, perioder, fieldIndex)}</tbody>
+      <tbody>{createRows(tabellData, readOnly, isAvklaringsbehovClosed, bruttoPrPeriodeList, fieldIndex)}</tbody>
     </table>
   );
 };
@@ -413,31 +421,25 @@ AksjonspunktBehandlerTidsbegrenset.transformValues = (
   values: TidsbegrenseArbeidsforholdValues,
   perioder: BeregningsgrunnlagPeriodeProp[],
 ): TidsbegrensetArbeidsforholdPeriodeResultat[] => {
-  const fastsattePerioder = [] as TidsbegrensetArbeidsforholdPeriodeResultat[];
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(perioder);
-  relevantePerioder.forEach(periode => {
-    const arbeidstakerAndeler = findRelevanteArbeidstakerAndeler(periode);
-    const fastsatteTidsbegrensedeAndeler = [] as TidsbegrensetArbeidsforholdInntektResultat[];
-    arbeidstakerAndeler.forEach(andel => {
-      if (!andel.andelsnr) {
-        throw new Error('Forventer andelsnr på andeler som skal fastsettes');
-      }
-      const overstyrtInntekt = removeSpacesFromNumber(values[createInputFieldKey(andel, periode)]);
-      fastsatteTidsbegrensedeAndeler.push({
-        andelsnr: andel.andelsnr,
-        bruttoFastsattInntekt: overstyrtInntekt,
-      });
-    });
-    if (!periode.beregningsgrunnlagPeriodeFom || !periode.beregningsgrunnlagPeriodeTom) {
-      throw new Error('Forventer en definert periode');
-    }
-    fastsattePerioder.push({
-      periodeFom: periode.beregningsgrunnlagPeriodeFom,
-      periodeTom: periode.beregningsgrunnlagPeriodeTom,
-      fastsatteTidsbegrensedeAndeler,
+  const relevantPeriode = finnPeriodeEtterOpphørAvTidsbegrensetArbeid(perioder);
+  const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
+
+  const fastsatteTidsbegrensedeAndeler = [] as TidsbegrensetArbeidsforholdInntektResultat[];
+  arbeidstakerAndeler.forEach(andel => {
+    const overstyrtInntekt = removeSpacesFromNumber(values[createInputFieldKey(andel, relevantPeriode)]);
+    fastsatteTidsbegrensedeAndeler.push({
+      andelsnr: andel.andelsnr,
+      bruttoFastsattInntekt: overstyrtInntekt,
     });
   });
-  return fastsattePerioder;
+
+  return [
+    {
+      periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,
+      periodeTom: relevantPeriode.beregningsgrunnlagPeriodeTom,
+      fastsatteTidsbegrensedeAndeler,
+    },
+  ];
 };
 
 export default AksjonspunktBehandlerTidsbegrenset;
