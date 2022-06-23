@@ -22,8 +22,8 @@ const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregn
 
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårperiodeFom: string): Vilkarperiode =>
-  vilkår.perioder.find(({ periode }) => periode.fom === vilkårperiodeFom);
+const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
+  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOverstyrer: boolean): boolean =>
   !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) &&
@@ -105,7 +105,7 @@ const buildFormInitialValues = (
       bg.faktaOmBeregning.avklarAktiviteter,
       alleKodeverk,
       arbeidsgiverOpplysningerPerId,
-      finnVilkårperiode(vilkår, bg.vilkårperiodeFom),
+      finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),
     ),
   ),
 });

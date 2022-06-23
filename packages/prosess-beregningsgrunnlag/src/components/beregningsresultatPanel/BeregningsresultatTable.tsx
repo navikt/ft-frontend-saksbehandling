@@ -9,7 +9,12 @@ import {
   VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Vilkar, YtelseGrunnlag } from '@navikt/ft-types';
+import {
+  BeregningsgrunnlagAndel,
+  BeregningsgrunnlagPeriodeProp,
+  Vilkarperiode,
+  YtelseGrunnlag,
+} from '@navikt/ft-types';
 
 import dayjs from 'dayjs';
 import { andelErIkkeTilkommetEllerLagtTilAvSBH } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
@@ -427,7 +432,7 @@ const createBeregningTableData = (
   aktivitetStatusList: string[],
   dekningsgrad: number,
   grunnbelop: number,
-  vilkar: Vilkar,
+  vilkarPeriode: Vilkarperiode,
   ytelseGrunnlag?: YtelseGrunnlag,
 ): BeregningsresultatPeriodeTabellType[] => {
   const perioderSomSkalVises = allePerioder.filter(periode =>
@@ -477,19 +482,19 @@ const createBeregningTableData = (
     const aktivitetStatusKodeKombo = aktivitetStatusList.map(andelKode => andelKode).join('_');
     switch (aktivitetStatusKodeKombo) {
       case 'AT_SN': {
-        settVisningsRaderForATSN(periode, rowsAndeler, rowsForklaringer, vilkar.vilkarStatus);
+        settVisningsRaderForATSN(periode, rowsAndeler, rowsForklaringer, vilkarPeriode.vilkarStatus);
         break;
       }
       case 'AT_FL_SN': {
-        settVisningsRaderForATFLSN(periode, rowsAndeler, rowsForklaringer, vilkar.vilkarStatus);
+        settVisningsRaderForATFLSN(periode, rowsAndeler, rowsForklaringer, vilkarPeriode.vilkarStatus);
         break;
       }
       case 'DP_FL_SN': {
-        settVisningsRaderForDPFLSN(periode, rowsAndeler, rowsForklaringer, vilkar.vilkarStatus);
+        settVisningsRaderForDPFLSN(periode, rowsAndeler, rowsForklaringer, vilkarPeriode.vilkarStatus);
         break;
       }
       case 'AT_DP_SN': {
-        settVisningsRaderForATDPSN(periode, rowsAndeler, rowsForklaringer, vilkar.vilkarStatus);
+        settVisningsRaderForATDPSN(periode, rowsAndeler, rowsForklaringer, vilkarPeriode.vilkarStatus);
         break;
       }
       default: {
@@ -497,7 +502,7 @@ const createBeregningTableData = (
           periode,
           rowsAndeler,
           rowsForklaringer,
-          vilkar.vilkarStatus,
+          vilkarPeriode.vilkarStatus,
           harBortfallNaturalYtelse,
         );
       }
@@ -530,7 +535,7 @@ const createBeregningTableData = (
 };
 
 type OwnProps = {
-  vilkaarBG: Vilkar;
+  vilkarPeriode: Vilkarperiode;
   beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[];
   aktivitetStatusList: string[];
   dekningsgrad: number;
@@ -546,7 +551,7 @@ type OwnProps = {
  * Dersom vilkåret ble avslått vil grunnen til dette vises istedenfor tabellen
  */
 const BeregningsresultatTable: FunctionComponent<OwnProps> = ({
-  vilkaarBG,
+  vilkarPeriode,
   beregningsgrunnlagPerioder,
   aktivitetStatusList,
   grunnbelop,
@@ -558,14 +563,14 @@ const BeregningsresultatTable: FunctionComponent<OwnProps> = ({
     aktivitetStatusList,
     dekningsgrad,
     grunnbelop,
-    vilkaarBG,
+    vilkarPeriode,
     ytelseGrunnlag,
   );
   return (
     <BeregningsresutatPanel
       grunnbeløp={grunnbelop}
       periodeResultatTabeller={periodeResultatTabeller}
-      vilkaarBG={vilkaarBG}
+      vilkarPeriode={vilkarPeriode}
     />
   );
 };
