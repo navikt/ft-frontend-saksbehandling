@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,7 +22,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-utils": "^1.0.18",
+    "@navikt/ft-utils": "^1.0.19",
     "moment": "2.29.3"
   },
   "peerDependencies": {
