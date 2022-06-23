@@ -64,7 +64,7 @@ const lagBeregningsgrunnlag = (
   avklaringsbehov = [],
 ): Beregningsgrunnlag =>
   ({
-    vilkårperiodeFom: stp,
+    vilkårsperiodeFom: stp,
     periode: {
       fom: stp,
       tom: dayjs(stp).subtract(-10, 'days'),
@@ -177,9 +177,6 @@ const standardFaktaAAPAndel = {
 
 const vilkar: Vilkar = {
   vilkarType: '',
-  vilkarStatus: '',
-  merknadParametere: {},
-  avslagKode: '',
   overstyrbar: true,
   perioder: [
     {

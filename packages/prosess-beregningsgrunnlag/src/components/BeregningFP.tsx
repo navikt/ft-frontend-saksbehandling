@@ -79,9 +79,9 @@ type OwnProps = {
   setFormData: (data: BeregningFormValues) => void;
 };
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårperiodeFom: string): Vilkarperiode =>
+const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
   // @ts-ignore
-  vilkår.perioder.find(({ periode }) => periode.fom === vilkårperiodeFom);
+  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 const buildFieldInitialValue = (
   beregningsgrunnlag: Beregningsgrunnlag,
@@ -225,7 +225,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
               relevanteStatuser={relevanteStatuser}
               readOnlySubmitButton={readOnlySubmitButton}
               alleKodeverk={alleKodeverk}
-              vilkaarBG={vilkar}
+              vilkarPeriode={finnVilkårperiode(vilkar, beregningsgrunnlagListe[index].vilkårsperiodeFom)}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
               isSubmitting={formMethods.formState.isSubmitting}
               isDirty={formMethods.formState.isDirty}

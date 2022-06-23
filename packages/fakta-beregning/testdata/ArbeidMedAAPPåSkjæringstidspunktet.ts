@@ -11,7 +11,7 @@ export const beregningsgrunnlag = [
         kanLoses: true,
       },
     ],
-    vilkårperiodeFom: '2022-01-13',
+    vilkårsperiodeFom: '2022-01-13',
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPeriodeFom: '2020-01-13',
@@ -102,9 +102,6 @@ export const beregningsgrunnlag = [
 
 export const vilkar: Vilkar = {
   vilkarType: '',
-  vilkarStatus: '',
-  merknadParametere: {},
-  avslagKode: '',
   overstyrbar: true,
   perioder: [
     {
