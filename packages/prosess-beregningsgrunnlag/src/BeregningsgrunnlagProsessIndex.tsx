@@ -11,6 +11,7 @@ import {
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
