@@ -1,83 +1,69 @@
-import React, { FunctionComponent } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { FunctionComponent, useEffect } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { Form } from '@navikt/ft-form-hooks';
-import { getKodeverknavnFn } from '@navikt/ft-utils';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, AlleKodeverk, Beregningsgrunnlag, Aksjonspunkt } from '@navikt/ft-types';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
 
 import FordelBeregningsgrunnlagAP from '../../types/interface/FordelBeregningsgrunnlagAP';
-import FordelingHelpText from './FordelingHelpText';
-import FastsettFordeltBeregningsgrunnlag from './FastsettFordeltBeregningsgrunnlag';
-import { FordelBeregningsgrunnlagMedAksjonspunktValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
-import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
-import FaktaSubmitButton from '../felles/FaktaSubmitButton';
+import FordelingField, {
+  buildFieldInitialValuesFordelBeregning,
+  transformFieldValuesFordelBeregning,
+} from './FordelingField';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
-  aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
+export const FORM_NAME = 'FORDEL_BEREGNING_FORM';
 
-const findAksjonspunktMedBegrunnelse = (aksjonspunkter: Aksjonspunkt[]): Aksjonspunkt | undefined =>
-  aksjonspunkter.find(ap => ap.definisjon === FORDEL_BEREGNINGSGRUNNLAG && ap.begrunnelse !== null);
+const finnBeregningsgrunnlag = (
+  vilkårsperiodeFom: string,
+  beregninsgrunnlagListe: Beregningsgrunnlag[],
+): Beregningsgrunnlag => beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
 
-export const BEGRUNNELSE_FORDELING_NAME = 'begrunnelse';
-
-export const transformValuesFordelBeregning = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  aksjonspunkter: Aksjonspunkt[],
-  values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+const transformValues = (
+  values: FordelBeregningsgrunnlagFormValues,
+  beregninsgrunnlagListe: Beregningsgrunnlag[],
 ): FordelBeregningsgrunnlagAP => {
-  const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
-  const fordelBGPerioder =
-    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
-  if (hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, aksjonspunkter)) {
-    return {
-      kode: FORDEL_BEREGNINGSGRUNNLAG,
-      begrunnelse: values.begrunnelse,
-      ...FastsettFordeltBeregningsgrunnlag.transformValues(values, fordelBGPerioder, bgPerioder),
-    };
-  }
-  return null;
-};
-
-const buildInitialValuesFordelBeregning = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
-  aksjonspunkter: Aksjonspunkt[],
-): null | FordelBeregningsgrunnlagMedAksjonspunktValues => {
-  const fordelBGPerioder =
-    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
-  if (!hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, aksjonspunkter)) {
-    return null;
-  }
+  const fields = values[FORM_NAME];
+  const grunnlag = fields.map(field =>
+    transformFieldValuesFordelBeregning(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)),
+  );
+  const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
   return {
-    ...FaktaBegrunnelseTextField.buildInitialValues(
-      findAksjonspunktMedBegrunnelse(aksjonspunkter),
-      BEGRUNNELSE_FORDELING_NAME,
-    ),
-    ...FastsettFordeltBeregningsgrunnlag.buildInitialValues(
-      fordelBGPerioder,
-      beregningsgrunnlag,
-      getKodeverknavnFn(alleKodeverk),
-      arbeidsgiverOpplysningerPerId,
-    ),
+    begrunnelse,
+    grunnlag,
+    kode: FORDEL_BEREGNINGSGRUNNLAG,
   };
 };
 
+const buildInitialValues = (
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  vilkårsperioder: Vilkarperiode[],
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  alleKodeverk: AlleKodeverk,
+): FordelBeregningsgrunnlagFormValues => ({
+  [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
+    buildFieldInitialValuesFordelBeregning(
+      bg,
+      vilkårsperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom),
+      arbeidsgiverOpplysningerPerId,
+      alleKodeverk,
+    ),
+  ),
+});
+
 interface PureOwnProps {
+  aktivtBeregningsgrunnlagIndeks: number;
   submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlag: Beregningsgrunnlag;
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  vilkårsperioder: Vilkarperiode[];
   alleKodeverk: AlleKodeverk;
   behandlingType: string;
-  aksjonspunkter: Aksjonspunkt[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  formData?: FordelBeregningsgrunnlagMedAksjonspunktValues;
-  setFormData: (data: FordelBeregningsgrunnlagMedAksjonspunktValues) => void;
+  formData?: FordelBeregningsgrunnlagFormValues;
+  setFormData: (data: FordelBeregningsgrunnlagFormValues) => void;
 }
 
 /**
@@ -86,61 +72,64 @@ interface PureOwnProps {
  * Container komponent. Har ansvar for å sette opp Redux Formen for "avklar fakta om fordeling" panel.
  */
 const FordelingForm: FunctionComponent<PureOwnProps> = ({
+  aktivtBeregningsgrunnlagIndeks,
   readOnly,
   submittable,
   submitCallback,
-  beregningsgrunnlag,
+  beregningsgrunnlagListe,
+  vilkårsperioder,
   alleKodeverk,
   behandlingType,
-  aksjonspunkter,
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
 }) => {
-  const formMethods = useForm<FordelBeregningsgrunnlagMedAksjonspunktValues>({
+  const formMethods = useForm<FordelBeregningsgrunnlagFormValues>({
     defaultValues:
       formData ||
-      buildInitialValuesFordelBeregning(
-        beregningsgrunnlag,
-        arbeidsgiverOpplysningerPerId,
-        alleKodeverk,
-        aksjonspunkter,
-      ),
+      buildInitialValues(beregningsgrunnlagListe, vilkårsperioder, arbeidsgiverOpplysningerPerId, alleKodeverk),
   });
-  const begrunnelse = formMethods.watch('begrunnelse');
-  const relevantAp = aksjonspunkter.find(ap => ap.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
-  const isAksjonspunktClosed = !isAksjonspunktOpen(relevantAp.status);
+
+  const {
+    formState: { dirtyFields, isSubmitted, errors },
+    control,
+    trigger,
+  } = formMethods;
+
+  useEffect(() => {
+    if (isSubmitted && dirtyFields[FORM_NAME]?.[aktivtBeregningsgrunnlagIndeks]) {
+      trigger();
+    }
+  }, [aktivtBeregningsgrunnlagIndeks]);
+
+  const { fields } = useFieldArray({
+    name: FORM_NAME,
+    control,
+  });
+
   return (
     <Form
       formMethods={formMethods}
-      onSubmit={values => submitCallback(transformValuesFordelBeregning(beregningsgrunnlag, aksjonspunkter, values))}
+      onSubmit={values => {
+        if (Object.keys(errors).length === 0) {
+          submitCallback(transformValues(values, beregningsgrunnlagListe));
+        }
+      }}
       setDataOnUnmount={setFormData}
     >
-      <FordelingHelpText
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        alleKodeverk={alleKodeverk}
-        aksjonspunkter={aksjonspunkter}
-        beregningsgrunnlag={beregningsgrunnlag}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
-      <VerticalSpacer twentyPx />
-      <FastsettFordeltBeregningsgrunnlag
-        readOnly={readOnly}
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        beregningsgrunnlag={beregningsgrunnlag}
-        alleKodeverk={alleKodeverk}
-        behandlingType={behandlingType}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
-      <VerticalSpacer twentyPx />
-      <FaktaBegrunnelseTextField isSubmittable={submittable} isReadOnly={readOnly} hasBegrunnelse={!!begrunnelse} />
-      <VerticalSpacer twentyPx />
-      <FaktaSubmitButton
-        isSubmittable={submittable}
-        isReadOnly={readOnly}
-        isSubmitting={formMethods.formState.isSubmitting}
-        isDirty={formMethods.formState.isDirty}
-      />
+      {fields.map((field, index) => (
+        <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
+          <FordelingField
+            submittable={submittable}
+            readOnly={readOnly}
+            beregningsgrunnlag={beregningsgrunnlagListe[index]}
+            behandlingType={behandlingType}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            alleKodeverk={alleKodeverk}
+            fieldIndex={index}
+          />
+        </div>
+      ))}
     </Form>
   );
 };

@@ -175,6 +175,7 @@ type OwnProps = {
   alleKodeverk: AlleKodeverk;
   behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldIndex;
 };
 
 interface OwnState {
@@ -250,6 +251,7 @@ export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> 
       alleKodeverk,
       behandlingType,
       arbeidsgiverOpplysningerPerId,
+      fieldIndex,
     } = this.props;
     const { openPanels } = this.state;
     return (
@@ -268,6 +270,7 @@ export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> 
               alleKodeverk={alleKodeverk}
               behandlingType={behandlingType}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              fieldIndex={fieldIndex}
             />
             <VerticalSpacer eightPx />
           </React.Fragment>

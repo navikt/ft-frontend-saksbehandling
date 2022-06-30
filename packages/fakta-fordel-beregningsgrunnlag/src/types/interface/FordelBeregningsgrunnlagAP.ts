@@ -1,4 +1,4 @@
-import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
+import AvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
 import FaktaFordelBeregningAksjonspunktCode from './FaktaFordelBeregningAksjonspunktCode';
 
 export type FordelBeregningsgrunnlagFastsatteVerdierTransformedValues = {
@@ -34,7 +34,9 @@ export type FordelBeregningsgrunnlagPerioderTransformedValues = {
   endretBeregningsgrunnlagPerioder: FordelBeregningsgrunnlagPeriodeTransformedValues[];
 };
 
-type FordelBeregningsgrunnlagAP = FordelBeregningsgrunnlagPerioderTransformedValues &
-  AksjonspunktTilBekreftelse<FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG>;
+type FordelBeregningsgrunnlagAP = AvklaringsbehovTilBekreftelse<
+  FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+  FordelBeregningsgrunnlagPerioderTransformedValues
+>;
 
 export default FordelBeregningsgrunnlagAP;

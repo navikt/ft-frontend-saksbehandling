@@ -4,24 +4,24 @@ import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Element } from 'nav-frontend-typografi';
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import {
+  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
-  AlleKodeverk,
-  Beregningsgrunnlag,
 } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import {
-  settAndelIArbeid,
-  setGenerellAndelsinfo,
-  setArbeidsforholdInitialValues,
-  settFastsattBelop,
   finnFastsattPrAar,
+  setArbeidsforholdInitialValues,
+  setGenerellAndelsinfo,
+  settAndelIArbeid,
+  settFastsattBelop,
 } from './BgFordelingUtils';
 import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import FordelPeriodeFieldArray from './FordelPeriodeFieldArray';
@@ -44,7 +44,10 @@ const renderDateHeading = (fom: string, tom: string): ReactElement => {
     <Element>
       <FormattedMessage
         id="BeregningInfoPanel.FordelBG.PeriodeFomOgTom"
-        values={{ fom: formatDate(fom), tom: formatDate(tom) }}
+        values={{
+          fom: formatDate(fom),
+          tom: formatDate(tom),
+        }}
       />
     </Element>
   );
@@ -66,6 +69,7 @@ type OwnProps = {
   behandlingType: string;
   fordelingsperiode: FordelBeregningsgrunnlagPeriode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldIndex: number;
 };
 
 interface StaticFunctions {
@@ -96,6 +100,7 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   arbeidsgiverOpplysningerPerId,
   fordelBGFieldArrayName,
   fordelingsperiode,
+  fieldIndex,
 }) => (
   <EkspanderbartpanelBase
     className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
@@ -115,6 +120,7 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
       beregningsgrunnlag={beregningsgrunnlag}
       behandlingType={behandlingType}
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+      vilkårperiodeFieldIndex={fieldIndex}
     />
   </EkspanderbartpanelBase>
 );

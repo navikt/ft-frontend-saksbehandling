@@ -2,32 +2,32 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, getKodeverknavnFn } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { required } from '@navikt/ft-form-validators';
-import { Table, TableColumn, TableRow, Image } from '@navikt/ft-ui-komponenter';
+import { Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
-  BeregningsgrunnlagAndelType,
-  BehandlingType as bt,
-  KodeverkType,
   AktivitetStatus,
+  BehandlingType as bt,
+  BeregningsgrunnlagAndelType,
   Inntektskategori,
   isSelvstendigNæringsdrivende,
+  KodeverkType,
 } from '@navikt/ft-kodeverk';
-import { InputField, SelectField, SkjemaGruppeMedFeilviser, formHooks } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn, AlleKodeverk } from '@navikt/ft-types';
+import { formHooks, InputField, SelectField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import {
   validateSumFastsattBelop,
+  validateSumFastsattForUgraderteAktiviteter,
+  validateSumRefusjon,
   validateTotalRefusjonPrArbeidsforhold,
   validateUlikeAndeler,
-  validateSumRefusjon,
-  validateSumFastsattForUgraderteAktiviteter,
   validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import {
   BGFordelArbeidsforhold,
   FordelBeregningsgrunnlagAndelValues,
-  FordelBeregningsgrunnlagMedAksjonspunktValues,
+  FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
 import addCircleIcon from '../../images/add-circle.svg';
@@ -115,17 +115,34 @@ const summerFordelingForrigeBehandlingFraFields = (fields: FordelBeregningsgrunn
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-const summerFordeling = (fieldname: string, fields: FordelBeregningsgrunnlagAndelValues[], watch: any): string => {
+const summerFordeling = (
+  vilkårperiodeFieldIndex: number,
+  fieldname: string,
+  fields: FordelBeregningsgrunnlagAndelValues[],
+  watch: any,
+): string => {
   let sum = 0;
   let index = 0;
   for (index; index < fields.length; index += 1) {
     const field = fields[index];
     if (field.skalRedigereInntekt) {
-      sum += watch(`${fieldname}.${index}.fastsattBelop`)
-        ? Number(removeSpacesFromNumber(watch(`${fieldname}.${index}.fastsattBelop`)))
+      sum += watch(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`)
+        ? Number(
+            removeSpacesFromNumber(
+              watch(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}
+        .${fieldname}.${index}.fastsattBelop`),
+            ),
+          )
         : 0;
     } else {
-      sum += field.readOnlyBelop ? Number(removeSpacesFromNumber(watch(`${fieldname}.${index}.fastsattBelop`))) : 0;
+      sum += field.readOnlyBelop
+        ? Number(
+            removeSpacesFromNumber(
+              watch(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.
+      ${fieldname}.${index}.fastsattBelop`),
+            ),
+          )
+        : 0;
     }
   }
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
@@ -198,6 +215,7 @@ const setArbeidsforholdInfo = (
 };
 
 const arbeidsforholdReadOnlyOrSelect = (
+  vilkårperiodeFieldIndex: number,
   fields: FordelBeregningsgrunnlagAndelValues[],
   index: number,
   fieldname: string,
@@ -207,10 +225,16 @@ const arbeidsforholdReadOnlyOrSelect = (
   updateFieldMethod: any,
 ): ReactElement => (
   <>
-    {!fields[index].nyAndel && <InputField name={`${fieldname}.${index}.andel`} bredde="L" readOnly />}
+    {!fields[index].nyAndel && (
+      <InputField
+        name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
+        bredde="L"
+        readOnly
+      />
+    )}
     {fields[index].nyAndel && (
       <SelectField
-        name={`${fieldname}.${index}.andel`}
+        name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
         bredde="l"
         label=""
         selectValues={selectVals}
@@ -225,6 +249,7 @@ const arbeidsforholdReadOnlyOrSelect = (
 );
 
 export const lagBelopKolonne = (
+  vilkårperiodeFieldIndex: number,
   fieldname: string,
   index: number,
   readOnly: boolean,
@@ -235,7 +260,7 @@ export const lagBelopKolonne = (
     return (
       <TableColumn>
         <InputField
-          name={`${fieldname}.${index}.readOnlyBelop`}
+          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.readOnlyBelop`}
           bredde="S"
           parse={parseCurrencyInput}
           readOnly
@@ -247,7 +272,7 @@ export const lagBelopKolonne = (
   return (
     <TableColumn className={styles.rightAlignInput}>
       <InputField
-        name={`${fieldname}.${index}.fastsattBelop`}
+        name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
         bredde="XS"
         parse={parseCurrencyInput}
         readOnly={readOnly}
@@ -265,6 +290,7 @@ const skalViseSletteknapp = (
 ): boolean => (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 
 const createAndelerTableRows = (
+  vilkårperiodeFieldIndex: number,
   fields: FordelBeregningsgrunnlagAndelValues[],
   isAksjonspunktClosed: boolean,
   readOnly: boolean,
@@ -282,6 +308,7 @@ const createAndelerTableRows = (
     <TableRow key={field.id}>
       <TableColumn>
         {arbeidsforholdReadOnlyOrSelect(
+          vilkårperiodeFieldIndex,
           fields,
           index,
           fieldname,
@@ -293,7 +320,8 @@ const createAndelerTableRows = (
         {!isSelvstendigOrFrilanser(fields[index]) && (
           <div className={styles.wordwrap}>
             <InputField
-              name={`${fieldname}.${index}.arbeidsperiodeFom - ${fieldname}.${index}.arbeidsperiodeTom`}
+              name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.arbeidsperiodeFom -
+              FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.arbeidsperiodeTom`}
               readOnly
             />
           </div>
@@ -302,7 +330,7 @@ const createAndelerTableRows = (
       {erRevurdering && (
         <TableColumn>
           <InputField
-            name={`${fieldname}.${index}.fordelingForrigeBehandling`}
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fordelingForrigeBehandling`}
             bredde="S"
             readOnly
             parse={parseCurrencyInput}
@@ -311,7 +339,7 @@ const createAndelerTableRows = (
       )}
       <TableColumn>
         <InputField
-          name={`${fieldname}.${index}.andelIArbeid`}
+          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andelIArbeid`}
           readOnly
           bredde="S"
           // @ts-ignore Fiks
@@ -322,7 +350,7 @@ const createAndelerTableRows = (
         className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
       >
         <InputField
-          name={`${fieldname}.${index}.refusjonskrav`}
+          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`}
           bredde="XS"
           readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
           parse={parseCurrencyInput}
@@ -331,17 +359,24 @@ const createAndelerTableRows = (
       </TableColumn>
       <TableColumn>
         <InputField
-          name={`${fieldname}.${index}.beregningsgrunnlagPrAar`}
+          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.beregningsgrunnlagPrAar`}
           bredde="S"
           readOnly
           parse={parseCurrencyInput}
         />
       </TableColumn>
-      {lagBelopKolonne(fieldname, index, readOnly, skalIkkeRedigereInntekt, isAksjonspunktClosed)}
+      {lagBelopKolonne(
+        vilkårperiodeFieldIndex,
+        fieldname,
+        index,
+        readOnly,
+        skalIkkeRedigereInntekt,
+        isAksjonspunktClosed,
+      )}
       <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
         <SelectField
           label=""
-          name={`${fieldname}.${index}.inntektskategori`}
+          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.inntektskategori`}
           bredde="s"
           validate={[required]}
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
@@ -411,6 +446,7 @@ type OwnProps = {
   skalKunneEndreRefusjon: boolean;
   sumIPeriode: number;
   periodeFom: string;
+  vilkårperiodeFieldIndex: number;
 };
 
 /**
@@ -431,16 +467,17 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   skalKunneEndreRefusjon,
   sumIPeriode,
   periodeFom,
+  vilkårperiodeFieldIndex,
 }) => {
-  const { control, watch, getValues } = formHooks.useFormContext<FordelBeregningsgrunnlagMedAksjonspunktValues>();
+  const { control, watch, getValues } = formHooks.useFormContext<FordelBeregningsgrunnlagFormValues>();
   const { fields, append, remove, update } = formHooks.useFieldArray({
     control,
-    name: fieldName,
+    name: `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`,
   });
   const harKunYtelse = beregningsgrunnlag.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
   const sumFordelingForrigeBehandling = summerFordelingForrigeBehandlingFraFields(fields);
-  const sumFordeling = summerFordeling(fieldName, fields, watch);
+  const sumFordeling = summerFordeling(vilkårperiodeFieldIndex, fieldName, fields, watch);
   const sumBeregningsgrunnlagPrAar = summerBeregningsgrunnlagPrAar(fields);
   const erRevurdering = behandlingType ? behandlingType === bt.REVURDERING : false;
   const inntektskategoriKoder = alleKodeverk[KodeverkType.INNTEKTSKATEGORI];
@@ -450,6 +487,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     ? arbeidsgiverSelectValuesForKunYtelse(arbeidsforholdList, intl, getKodeverknavn, arbeidsgiverOpplysningerPerId)
     : arbeidsgiverSelectValues(arbeidsforholdList, getKodeverknavn, arbeidsgiverOpplysningerPerId);
   const tablerows = createAndelerTableRows(
+    vilkårperiodeFieldIndex,
     fields,
     isAksjonspunktClosed,
     readOnly,
@@ -470,9 +508,10 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   const valideringer = [];
   const fieldsMåValideres = fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
   if (fieldsMåValideres) {
-    valideringer.push(validateUlikeAndeler(getValues, fieldName, fields, intl));
+    valideringer.push(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
     valideringer.push(
       validateSumFastsattForUgraderteAktiviteter(
+        vilkårperiodeFieldIndex,
         getValues,
         fieldName,
         fields,
@@ -481,12 +520,19 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
         getKodeverknavn,
       ),
     );
-    valideringer.push(validateSumFastsattBelop(getValues, fieldName, fields, sumIPeriode, intl));
-    valideringer.push(validerBGGraderteAndeler(getValues, fieldName, fields, periodeFom, intl));
+    valideringer.push(
+      validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl),
+    );
+    valideringer.push(
+      validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl),
+    );
     if (skalKunneEndreRefusjon) {
-      valideringer.push(validateSumRefusjon(fields, fieldName, getValues, beregningsgrunnlag.grunnbeløp, intl));
+      valideringer.push(
+        validateSumRefusjon(vilkårperiodeFieldIndex, fields, fieldName, getValues, beregningsgrunnlag.grunnbeløp, intl),
+      );
       valideringer.push(
         validateTotalRefusjonPrArbeidsforhold(
+          vilkårperiodeFieldIndex,
           fields,
           fieldName,
           getValues,
@@ -499,7 +545,11 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   }
 
   return (
-    <SkjemaGruppeMedFeilviser className={styles.dividerTop} name={`${fieldName}.skjemagruppe`} validate={valideringer}>
+    <SkjemaGruppeMedFeilviser
+      className={styles.dividerTop}
+      name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.skjemagruppe`}
+      validate={valideringer}
+    >
       <Table headerTextCodes={getHeaderTextCodes(erRevurdering)} noHover classNameTable={styles.inntektTable}>
         {tablerows}
       </Table>

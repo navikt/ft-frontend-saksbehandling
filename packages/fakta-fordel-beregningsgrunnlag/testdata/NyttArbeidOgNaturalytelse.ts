@@ -1,8 +1,21 @@
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
+import {
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+  FordelBeregningsgrunnlagAndel,
+} from '@navikt/ft-types';
 
 // @ts-ignore
 export const beregningsgrunnlag = {
+  avklaringsbehov: [
+    {
+      definisjon: '5046',
+      status: 'OPPR',
+      kanLoses: true,
+    },
+  ] as BeregningAvklaringsbehov[],
   skjaeringstidspunktBeregning: '2019-12-14',
+  vilkårsperiodeFom: '2019-12-14',
   skjæringstidspunkt: '2019-12-14',
   aktivitetStatus: ['AT_FL'],
   beregningsgrunnlagPeriode: [
