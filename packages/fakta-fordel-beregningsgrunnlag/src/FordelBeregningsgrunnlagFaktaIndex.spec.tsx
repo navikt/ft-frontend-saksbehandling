@@ -6,6 +6,7 @@ import * as stories from './FordelBeregningsgrunnlagFaktaIndex.stories';
 
 const {
   AapOgRefusjon,
+  AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering,
   ViseVurderTilkommetRefusjonskrav,
   SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon,
   FordelingFlereBeregningsgrunnlagKanEndreRefusjonskrav,
@@ -107,6 +108,109 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                 },
               ],
               fom: '2019-11-27',
+              tom: undefined,
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  it('skal kunne løse aksjonspunkt for nytt refusjonskrav med flere beregningsgrunnlag og kun en til vurdering', async () => {
+    const lagre = jest.fn();
+
+    const utils = render(<AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering submitCallback={lagre} />);
+
+    // Første periode
+    expect(screen.getByText('Gjeldende 05.08.2019 - 26.11.2019')).toBeInTheDocument();
+
+    // Andre periode
+    expect(screen.getByText('Gjeldende f.o.m. 27.11.2019')).toBeInTheDocument();
+
+    // Andre skjæringstidspunkt
+
+    expect(
+      await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+
+    userEvent.click(screen.getByText('01.01.2020 - 05.02.2020'));
+
+    // Første periode - andre stp
+    expect(screen.getByText('Gjeldende 01.01.2020 - 26.01.2020')).toBeInTheDocument();
+
+    // Andre periode - andre stp
+    expect(screen.getByText('Gjeldende f.o.m. 27.11.2019')).toBeInTheDocument();
+
+    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    expect(alleInputfelt).toHaveLength(3);
+    const fordelingAAP = alleInputfelt[0];
+    const fordelingAT = alleInputfelt[1];
+    const begrunnelseFelt = alleInputfelt[2];
+
+    userEvent.paste(fordelingAAP, '100 000');
+    userEvent.paste(fordelingAT, '200 000');
+    userEvent.paste(begrunnelseFelt, 'Begrunnelse for fordeling');
+
+    expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
+    userEvent.click(screen.getByText('Bekreft og fortsett'));
+
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(lagre).toHaveBeenNthCalledWith(1, {
+      begrunnelse: 'Begrunnelse for fordeling',
+      kode: '5046',
+      grunnlag: [
+        {
+          periode: {
+            fom: '2020-01-01',
+            tom: '2020-02-05',
+          },
+          begrunnelse: 'Begrunnelse for fordeling',
+          endretBeregningsgrunnlagPerioder: [
+            {
+              andeler: [
+                {
+                  aktivitetStatus: 'AAP',
+                  andelsnr: 2,
+                  arbeidsforholdId: null,
+                  arbeidsforholdType: '-',
+                  arbeidsgiverId: null,
+                  beregningsperiodeFom: '2019-06-01',
+                  beregningsperiodeTom: '2019-08-31',
+                  fastsatteVerdier: {
+                    fastsattÅrsbeløpInklNaturalytelse: 100000,
+                    inntektskategori: 'ARBEIDSAVKLARINGSPENGER',
+                    refusjonPrÅr: null,
+                  },
+                  forrigeArbeidsinntektPrÅr: 0,
+                  forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
+                  forrigeRefusjonPrÅr: 0,
+                  kilde: null,
+                  lagtTilAvSaksbehandler: false,
+                  nyAndel: false,
+                },
+                {
+                  aktivitetStatus: 'AT',
+                  andelsnr: 1,
+                  arbeidsforholdId: 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF',
+                  arbeidsforholdType: '-',
+                  arbeidsgiverId: '999999999',
+                  beregningsperiodeFom: '2019-06-01',
+                  beregningsperiodeTom: '2019-08-31',
+                  fastsatteVerdier: {
+                    fastsattÅrsbeløpInklNaturalytelse: 200000,
+                    inntektskategori: 'ARBEIDSTAKER',
+                    refusjonPrÅr: null,
+                  },
+                  forrigeArbeidsinntektPrÅr: 0,
+                  forrigeInntektskategori: 'ARBEIDSTAKER',
+                  forrigeRefusjonPrÅr: 300000,
+                  kilde: null,
+                  lagtTilAvSaksbehandler: false,
+                  nyAndel: false,
+                },
+              ],
+              fom: '2020-01-27',
               tom: undefined,
             },
           ],
