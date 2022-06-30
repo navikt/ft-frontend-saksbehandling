@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { decodeHtmlEntity, createIntl } from '@navikt/ft-utils';
+import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { TextAreaField } from '@navikt/ft-form-hooks';
-import { Aksjonspunkt } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 import styles from './faktaBegrunnelseTextField.less';
 
@@ -33,7 +33,10 @@ type TransformedValues = {
 };
 
 interface StaticFunctions {
-  buildInitialValues: (aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt, begrunnelseFieldName?: string) => FormValues;
+  buildInitialValues: (
+    aksjonspunkt: BeregningAvklaringsbehov[] | BeregningAvklaringsbehov,
+    begrunnelseFieldName?: string,
+  ) => FormValues;
   transformValues: (values: FormValues, name?: string) => TransformedValues;
 }
 
@@ -73,18 +76,18 @@ FaktaBegrunnelseTextField.defaultProps = {
   hasVurderingText: false,
 };
 
-const getBegrunnelse = (aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt): string => {
-  if (aksjonspunkt && Array.isArray(aksjonspunkt)) {
-    return aksjonspunkt.length > 0 ? aksjonspunkt[0].begrunnelse : '';
+const getBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[] | BeregningAvklaringsbehov): string => {
+  if (avklaringsbehov && Array.isArray(avklaringsbehov)) {
+    return avklaringsbehov.length > 0 ? avklaringsbehov[0].begrunnelse : '';
   }
-  return aksjonspunkt && !Array.isArray(aksjonspunkt) ? aksjonspunkt.begrunnelse : '';
+  return avklaringsbehov && !Array.isArray(avklaringsbehov) ? avklaringsbehov.begrunnelse : '';
 };
 
 FaktaBegrunnelseTextField.buildInitialValues = (
-  aksjonspunkt: Aksjonspunkt[] | Aksjonspunkt,
+  avklaringsbehov: BeregningAvklaringsbehov[] | BeregningAvklaringsbehov,
   begrunnelseFieldName = 'begrunnelse',
 ): FormValues => ({
-  [begrunnelseFieldName]: decodeHtmlEntity(getBegrunnelse(aksjonspunkt)),
+  [begrunnelseFieldName]: decodeHtmlEntity(getBegrunnelse(avklaringsbehov)),
 });
 
 FaktaBegrunnelseTextField.transformValues = (values: FormValues, name = 'begrunnelse'): TransformedValues => ({

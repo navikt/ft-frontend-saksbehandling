@@ -62,6 +62,10 @@ export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenere
 
 export type AksjonspunktValues = {
   begrunnelse?: string;
+  periode: {
+    fom: string;
+    tom: string;
+  };
 };
 
 export type FordelErrorMessageLabel = {
@@ -76,6 +80,10 @@ export type FordelBeregningsgrunnlagValues = {
 
 export type FordelBeregningsgrunnlagMedAksjonspunktValues = AksjonspunktValues & FordelBeregningsgrunnlagValues;
 
+export type FordelBeregningsgrunnlagFormValues = {
+  FORDEL_BEREGNING_FORM: FordelBeregningsgrunnlagMedAksjonspunktValues[];
+};
+
 export type FordelingFieldError = {
   refusjonskrav?: string;
   fastsattBelop?: string;
@@ -87,6 +95,18 @@ export type VurderRefusjonValues = {
   [key: string]: string;
 };
 
-type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonValues;
+export type VurderRefusjonFieldValues = VurderRefusjonValues & {
+  VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE: string;
+  periode: {
+    fom: string;
+    tom: string;
+  };
+};
+
+export type VurderRefusjonFormValues = {
+  VURDER_REFUSJON_BERGRUNN_FORM: VurderRefusjonFieldValues[];
+};
+
+type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonFormValues;
 
 export default FormValues;
