@@ -105,8 +105,9 @@ export default {
 const lagVilkår = (perioder): Vilkar => ({
   vilkarType: 'VK_41',
   overstyrbar: false,
-  perioder: perioder.map(periode => ({
-    periode,
+  perioder: perioder.map(p => ({
+    periode: { fom: p.fom, tom: p.tom },
+    vurderesIBehandlingen: p.vurderesIBehandlingen,
     merknadParametere: {},
     vilkarStatus: 'OPPFYLT',
   })),
@@ -127,6 +128,7 @@ const Template: Story<{
         beregningsgrunnlagListe.map(bg => ({
           fom: bg.vilkårsperiodeFom,
           tom: '9999-12-31',
+          vurderesIBehandlingen: true,
         })),
     )}
     submitCallback={submitCallback}
@@ -249,7 +251,7 @@ const lagFordelingsandel = (
   andelsnr: number,
   status: string,
   ref: number,
-  fordelt: number,
+  fordelt?: number,
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold,
 ): FordelBeregningsgrunnlagAndel => ({
   aktivitetStatus: status,
@@ -574,4 +576,103 @@ FordelingFlereBeregningsgrunnlagKanEndreRefusjonskrav.args = {
     ),
   ],
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+};
+
+export const AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering = Template.bind({});
+AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(
+      [
+        lagBGPeriode([lagBGAndel(1, 'AAP', 300000)], [], '2019-08-05', '2019-11-26'),
+        lagBGPeriode(
+          [
+            lagBGAndel(2, 'AAP', 300000),
+            lagBGAndel(1, 'AT', null, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+          ],
+          [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+          '2019-11-27',
+        ),
+      ],
+      lagFaktaOmFordeling(
+        [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
+        [
+          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, null)], false, false, '2019-08-05', '2019-11-26'),
+          lagFordelPeriode(
+            [
+              lagFordelingsandel(2, 'AAP', 0, 100000),
+              lagFordelingsandel(
+                1,
+                'AT',
+                300000,
+                200000,
+                lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
+              ),
+            ],
+            true,
+            false,
+            '2019-11-27',
+          ),
+        ],
+      ),
+      [
+        {
+          definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+          status: 'UTFO',
+          kanLoses: true,
+          begrunnelse: 'En god begrunnelse.',
+        },
+      ],
+      '2019-08-05',
+    ),
+    lagBG(
+      [
+        lagBGPeriode([lagBGAndel(1, 'AAP', 300000)], [], '2020-01-01', '2020-01-26'),
+        lagBGPeriode(
+          [
+            lagBGAndel(2, 'AAP', 300000),
+            lagBGAndel(1, 'AT', null, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+          ],
+          [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+          '2020-01-27',
+        ),
+      ],
+      lagFaktaOmFordeling(
+        [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2020-01-27')],
+        [
+          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, 0)], false, false, '2020-01-01', '2020-01-26'),
+          lagFordelPeriode(
+            [
+              lagFordelingsandel(2, 'AAP', 0, 0),
+              lagFordelingsandel(
+                1,
+                'AT',
+                300000,
+                0,
+                lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
+              ),
+            ],
+            true,
+            false,
+            '2020-01-27',
+          ),
+        ],
+      ),
+      fordelAP,
+      '2020-01-01',
+    ),
+  ],
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+  vilkårsperioder: [
+    {
+      fom: '2019-08-05',
+      tom: '2019-10-05',
+      vurderesIBehandlingen: false,
+    },
+    {
+      fom: '2020-01-01',
+      tom: '2020-02-05',
+      vurderesIBehandlingen: true,
+    },
+  ],
 };

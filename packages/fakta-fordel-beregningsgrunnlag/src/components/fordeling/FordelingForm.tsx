@@ -20,14 +20,25 @@ const finnBeregningsgrunnlag = (
   beregninsgrunnlagListe: Beregningsgrunnlag[],
 ): Beregningsgrunnlag => beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
 
+function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
+  return vilkårsperioder.find(p => p.periode.fom === vilkårsperiodeFom);
+}
+
+function vurderesIBehandlingen(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
+  return finnVilkårsperiode(vilkårsperioder, vilkårsperiodeFom).vurderesIBehandlingen;
+}
+
 const transformValues = (
   values: FordelBeregningsgrunnlagFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
+  vilkårsperioder: Vilkarperiode[],
 ): FordelBeregningsgrunnlagAP => {
   const fields = values[FORM_NAME];
-  const grunnlag = fields.map(field =>
-    transformFieldValuesFordelBeregning(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)),
-  );
+  const grunnlag = fields
+    .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
+    .map(field =>
+      transformFieldValuesFordelBeregning(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)),
+    );
   const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
   return {
     begrunnelse,
@@ -112,7 +123,7 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
       formMethods={formMethods}
       onSubmit={values => {
         if (Object.keys(errors).length === 0) {
-          submitCallback(transformValues(values, beregningsgrunnlagListe));
+          submitCallback(transformValues(values, beregningsgrunnlagListe, vilkårsperioder));
         }
       }}
       setDataOnUnmount={setFormData}
@@ -121,7 +132,9 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
         <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
           <FordelingField
             submittable={submittable}
-            readOnly={readOnly}
+            readOnly={
+              readOnly || !vurderesIBehandlingen(vilkårsperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
+            }
             beregningsgrunnlag={beregningsgrunnlagListe[index]}
             behandlingType={behandlingType}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

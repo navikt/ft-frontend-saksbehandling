@@ -256,7 +256,7 @@ export const lagBelopKolonne = (
   skalIkkeRedigereInntekt: boolean,
   isAksjonspunktClosed: boolean,
 ): ReactElement => {
-  if (!readOnly && skalIkkeRedigereInntekt) {
+  if (skalIkkeRedigereInntekt) {
     return (
       <TableColumn>
         <InputField
