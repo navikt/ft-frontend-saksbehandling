@@ -72,6 +72,7 @@ describe('<ValidateAndelerUtils>', () => {
     const getValues = jest.fn();
 
     const ulikeAndelerError = validateUlikeAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -107,6 +108,7 @@ describe('<ValidateAndelerUtils>', () => {
     const getValues = jest.fn(() => 'ARBEIDSTAKER') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -142,6 +144,7 @@ describe('<ValidateAndelerUtils>', () => {
     const getValues = jest.fn((): string => 'DAGPENGER') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -183,6 +186,7 @@ describe('<ValidateAndelerUtils>', () => {
     const getValues = jest.fn((): string => 'FRILANS') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -237,11 +241,11 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): string => {
       switch (x) {
-        case 'feltnavn.1.inntektskategori':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.inntektskategori':
           return 'DAGPENGER';
-        case 'feltnavn.2.inntektskategori':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.2.inntektskategori':
           return 'FRILANS';
-        case 'feltnavn.3.inntektskategori':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.3.inntektskategori':
           return 'FRILANS';
         default:
           return null;
@@ -249,6 +253,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const ulikeAndelerError = validateUlikeAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -281,7 +286,7 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.refusjonskrav':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
           return 250000;
         default:
           return null;
@@ -289,6 +294,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
+      0,
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
       getValues,
@@ -323,7 +329,7 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.refusjonskrav':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
           return 250001;
         default:
           return null;
@@ -331,6 +337,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
+      0,
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
       getValues,
@@ -355,6 +362,7 @@ describe('<ValidateAndelerUtils>', () => {
     ];
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
+      0,
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
       jest.fn(),
@@ -391,9 +399,9 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 300000;
-        case 'feltnavn.1.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 200000;
         default:
           return null;
@@ -401,6 +409,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const validateFastsattBeløp = validateSumFastsattBelop(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -436,9 +445,9 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 300000;
-        case 'feltnavn.1.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 300000;
         default:
           return null;
@@ -446,6 +455,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const validateFastsattBeløp = validateSumFastsattBelop(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -483,9 +493,9 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 1;
-        case 'feltnavn.1.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 499999;
         default:
           return null;
@@ -493,6 +503,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -530,9 +541,9 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
-        case 'feltnavn.1.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 500000;
         default:
           return null;
@@ -540,6 +551,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -577,9 +589,9 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
-        case 'feltnavn.1.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 500000;
         default:
           return null;
@@ -587,6 +599,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
@@ -624,9 +637,9 @@ describe('<ValidateAndelerUtils>', () => {
 
     const getValues = jest.fn((x: string): number => {
       switch (x) {
-        case 'feltnavn.0.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
-        case 'feltnavn.1.fastsattBelop':
+        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 500000;
         default:
           return null;
@@ -634,6 +647,7 @@ describe('<ValidateAndelerUtils>', () => {
     }) as any;
 
     const verifiserGraderteAndeler = validerBGGraderteAndeler(
+      0,
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],

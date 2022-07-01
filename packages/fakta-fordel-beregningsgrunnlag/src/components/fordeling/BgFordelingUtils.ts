@@ -1,13 +1,13 @@
 import { UseFormGetValues } from 'react-hook-form';
-import { KodeverkType, AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagArbeidAndelValues,
+  FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagGenerellAndelValues,
-  FordelBeregningsgrunnlagMedAksjonspunktValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
@@ -106,13 +106,16 @@ export const setGenerellAndelsinfo = (
 });
 
 export const mapToBelop = (
+  vilkårperiodeFieldIndex: number,
   field: FordelBeregningsgrunnlagAndelValues,
   fieldname: string,
-  getValues: UseFormGetValues<FordelBeregningsgrunnlagMedAksjonspunktValues>,
+  getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
   index: number,
 ): number => {
   if (field.skalRedigereInntekt) {
-    const fastsattBeløp = getValues(`${fieldname}.${index}.fastsattBelop`);
+    const fastsattBeløp = getValues(
+      `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`,
+    );
     return fastsattBeløp ? removeSpacesFromNumber(fastsattBeløp) : 0;
   }
   return field.readOnlyBelop ? removeSpacesFromNumber(field.readOnlyBelop) : 0;
