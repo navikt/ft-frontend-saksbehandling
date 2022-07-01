@@ -15,7 +15,7 @@ import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navik
 
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
-import { VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 import styles from './vurderEndringRefusjonRad.less';
 
@@ -48,6 +48,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   skjæringstidspunkt: string;
   formName: string;
+  vilkårperiodeFieldIndex: number;
 };
 
 interface StaticFunctions {
@@ -65,6 +66,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   erAksjonspunktÅpent,
   arbeidsgiverOpplysningerPerId,
   skjæringstidspunkt,
+  vilkårperiodeFieldIndex,
 }) => {
   if (!refusjonAndel) {
     return null;
@@ -73,8 +75,10 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   const andelTekst = refusjonAndel.skalKunneFastsetteDelvisRefusjon
     ? 'BeregningInfoPanel.RefusjonBG.TidligereRefusjon'
     : 'BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon';
-  const formMethods = formHooks.useFormContext<VurderRefusjonValues>();
-  const valgtStartdato = formMethods.watch(lagNøkkelRefusjonsstart(refusjonAndel));
+  const formMethods = formHooks.useFormContext<VurderRefusjonFormValues>();
+  const valgtStartdato = formMethods.watch(
+    `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
+  );
   const erRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
   const boldTransformator = useCallback(chunks => <b>{chunks}</b>, []);
   return (
@@ -99,7 +103,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
         </Column>
         <Column xs="4">
           <Datepicker
-            name={lagNøkkelRefusjonsstart(refusjonAndel)}
+            name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
             isReadOnly={readOnly}
             validate={[required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]}
             isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
@@ -115,7 +119,9 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
           </Column>
           <Column xs="4">
             <InputField
-              name={lagNøkkelDelvisRefusjon(refusjonAndel)}
+              name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(
+                refusjonAndel,
+              )}`}
               bredde="S"
               validate={[
                 required,

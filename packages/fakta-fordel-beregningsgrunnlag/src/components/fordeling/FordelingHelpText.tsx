@@ -5,11 +5,11 @@ import { KodeverkType } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT, getKodeverknavnFn, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { AksjonspunktHelpTextTemp } from '@navikt/ft-ui-komponenter';
 import {
-  Aksjonspunkt,
-  Beregningsgrunnlag,
   AlleKodeverk,
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
@@ -17,7 +17,7 @@ import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFor
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: Aksjonspunkt[]): boolean =>
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: BeregningAvklaringsbehov[]): boolean =>
   aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
 
 export const textCase = {
@@ -224,11 +224,10 @@ export const getHelpTextsFordelBG = (
   beregningsgrunnlag: Beregningsgrunnlag,
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  aksjonspunkter: Aksjonspunkt[],
 ): ReactElement[] => {
   const fordelBG = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag;
   const endredeArbeidsforhold = fordelBG ? fordelBG.arbeidsforholdTilFordeling : [];
-  return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, aksjonspunkter)
+  return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)
     ? lagHelpTextsFordelBG(endredeArbeidsforhold, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId)
     : [];
 };
@@ -237,7 +236,6 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  aksjonspunkter: Aksjonspunkt[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
@@ -245,15 +243,9 @@ const FordelingHelpText: FunctionComponent<OwnProps> = ({
   isAksjonspunktClosed,
   beregningsgrunnlag,
   alleKodeverk,
-  aksjonspunkter,
   arbeidsgiverOpplysningerPerId,
 }) => {
-  const helpText = getHelpTextsFordelBG(
-    beregningsgrunnlag,
-    alleKodeverk,
-    arbeidsgiverOpplysningerPerId,
-    aksjonspunkter,
-  );
+  const helpText = getHelpTextsFordelBG(beregningsgrunnlag, alleKodeverk, arbeidsgiverOpplysningerPerId);
   return <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAksjonspunktClosed}>{helpText}</AksjonspunktHelpTextTemp>;
 };
 

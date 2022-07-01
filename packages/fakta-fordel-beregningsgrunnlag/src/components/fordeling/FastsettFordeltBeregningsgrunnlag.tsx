@@ -32,6 +32,7 @@ type OwnProps = {
   alleKodeverk: AlleKodeverk;
   behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  fieldIndex: number;
 };
 
 interface StaticFunctions {
@@ -55,6 +56,7 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
   alleKodeverk,
   behandlingType,
   arbeidsgiverOpplysningerPerId,
+  fieldIndex,
 }) => {
   const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   const perioder = getFordelPerioder(beregningsgrunnlag);
@@ -68,6 +70,7 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
       alleKodeverk={alleKodeverk}
       behandlingType={behandlingType}
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+      fieldIndex={fieldIndex}
     />
   );
 };

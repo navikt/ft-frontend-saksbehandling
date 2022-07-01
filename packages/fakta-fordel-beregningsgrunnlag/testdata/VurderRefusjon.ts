@@ -1,12 +1,20 @@
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 // @ts-ignore
 export const bgUtenDelvisRefusjon = {
+  avklaringsbehov: [
+    {
+      definisjon: '5059',
+      status: 'OPPR',
+      kanLoses: true,
+    },
+  ] as BeregningAvklaringsbehov[],
   skjaeringstidspunktBeregning: '2020-05-15',
   dekningsgrad: null,
   grunnbeløp: null,
   erOverstyrtInntekt: null,
   skjæringstidspunkt: '2020-05-15',
+  vilkårsperiodeFom: '2020-06-01',
   beregningsgrunnlagPeriode: [],
   refusjonTilVurdering: {
     andeler: [
@@ -32,7 +40,15 @@ export const bgUtenDelvisRefusjon = {
 
 // @ts-ignore
 export const bgMedDelvisRefusjon = {
+  avklaringsbehov: [
+    {
+      definisjon: '5059',
+      status: 'OPPR',
+      kanLoses: true,
+    },
+  ] as BeregningAvklaringsbehov[],
   skjaeringstidspunktBeregning: '2020-06-01',
+  vilkårsperiodeFom: '2020-06-01',
   skjæringstidspunkt: '2020-06-01',
   dekningsgrad: null,
   grunnbeløp: null,
