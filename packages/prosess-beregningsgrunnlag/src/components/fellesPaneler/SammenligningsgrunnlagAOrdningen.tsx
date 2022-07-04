@@ -15,6 +15,8 @@ import {
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
+import norskFormat from 'dayjs/locale/nb';
+
 import Lesmerpanel from 'nav-frontend-lesmerpanel';
 import { CallbackDataParams } from 'echarts/types/dist/shared';
 import { OptionDataValue } from 'echarts/types/src/util/types';
@@ -214,7 +216,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
                 const castedSeries = series as CallbackDataParams[];
                 const data = castedSeries[0].data as OptionDataValue[];
                 const date = dayjs(data[1]);
-                const maanedNavn = date.format('MMM');
+                const maanedNavn = date.locale(norskFormat).format('MMM');
                 const aar = date.format('YYYY');
                 const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1);
                 const overskrift = `${formattedMaaned} ${aar}`;
@@ -266,7 +268,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
                 formatter: (value: any) => {
                   const date = dayjs(value);
                   const erIJanuar = date.format('MM') === '01' || date.format('MM') === '12';
-                  const maanedNavn = date.format('MMM');
+                  const maanedNavn = date.locale(norskFormat).format('MMM');
                   const aar = date.format('YYYY');
                   const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1, 3);
                   return erIJanuar ? `${formattedMaaned}\n${aar}` : formattedMaaned;
