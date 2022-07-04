@@ -21,13 +21,11 @@ const isKvinne = (kode: string): boolean => kode === NavBrukerKjonn.KVINNE;
  *
  * Presentationskomponent. Viser korrekt ikon for soker/medsoker
  */
-const TimeLineSokerEnsamSoker: FunctionComponent<{ hovedsokerKjonnKode: Kjønnkode }> = ({
-  hovedsokerKjonnKode,
-}) => (
+const TimeLineSokerEnsamSoker: FunctionComponent<{ hovedsokerKjonnKode: Kjønnkode }> = ({ hovedsokerKjonnKode }) => (
   <div className={styles.timelineSokerContatinerEnsamSoker}>
     <Row>
       <Image
-        className={styles.iconMedsoker}
+        className={styles.iconHovedsoker}
         src={isKvinne(hovedsokerKjonnKode) ? urlKvinne : urlMann}
         alt={intl.formatMessage({ id: 'Person.ImageText' })}
         tooltip={intl.formatMessage({ id: isKvinne(hovedsokerKjonnKode) ? 'Person.Woman' : 'Person.Man' })}
