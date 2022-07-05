@@ -6,7 +6,6 @@ import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   Vilkar,
-  Vilkarperiode,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { ReactElement, useEffect } from 'react';
@@ -19,6 +18,7 @@ import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpef
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
+import { finnVilkårperiode } from '../felles/vilkarutils';
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import FaktaForATFLOgSNPanel, { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
@@ -41,9 +41,6 @@ const findAvklaringsbehovMedBegrunnelse = (avklaringsbehov: BeregningAvklaringsb
   }
   return avklaringsbehov.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.begrunnelse !== null);
 };
-
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
-  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
 
