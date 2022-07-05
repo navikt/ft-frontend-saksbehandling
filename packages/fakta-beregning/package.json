@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-beregning",
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -49,8 +49,8 @@
     "nav-frontend-typografi-style": "2.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-intl": "6.0.4",
-    "react-hook-form": "7.33.1"
+    "react-hook-form": "7.33.1",
+    "react-intl": "6.0.4"
   },
   "peerDependencies": {
     "@navikt/ft-form-hooks": "^1.0.26",
