@@ -87,6 +87,8 @@ type VurderFaktaBeregningPanelProps = {
   submitCallback: (aksjonspunktData: BeregningFaktaOgOverstyringAP[]) => Promise<void>;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   aktivtBeregningsgrunnlagIndeks: number;
+  setFormData: (data: VurderFaktaBeregningFormValues) => void;
+  formData: VurderFaktaBeregningFormValues;
 };
 
 export const buildInitialValuesVurderFaktaBeregning = (
@@ -118,12 +120,14 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     arbeidsgiverOpplysningerPerId,
     aktivtBeregningsgrunnlagIndeks,
     submitCallback,
+    setFormData,
+    formData,
   } = props;
   const verdiForAvklarAktivitetErEndret = false;
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
-    defaultValues: buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov),
+    defaultValues: formData || buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov),
   });
   const { control, getValues, formState, trigger } = formMethods;
   const { fields, update } = useFieldArray({
@@ -172,6 +176,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
           onSubmit={values => {
             losAvklaringsbehov(values);
           }}
+          setDataOnUnmount={setFormData}
         >
           {fields.map(
             (field, index) =>

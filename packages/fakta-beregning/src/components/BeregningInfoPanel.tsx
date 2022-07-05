@@ -15,7 +15,9 @@ import BeregningFaktaAP, {
 } from '../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
 import SubmitBeregningType from '../typer/SubmitBeregningTsType';
+import VurderFaktaBeregningFormValues from '../typer/VurderFaktaBeregningFormValues';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
+import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from './BeregningFormUtils';
 import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 
@@ -52,7 +54,7 @@ type OwnProps = {
   aktivtBeregningsgrunnlagIndeks: number;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   setFormData: (data: any) => void;
-  formData: AvklarAktiviteterFormValues;
+  formData: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
 };
 
 /**
@@ -100,7 +102,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         beregningsgrunnlag={beregningsgrunnlag}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         setFormData={setFormData}
-        formData={formData}
+        formData={formData && formNameAvklarAktiviteter in formData ? formData : undefined}
         vilkår={vilkar}
       />
       <VerticalSpacer thirtyTwoPx />
@@ -114,6 +116,8 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+        setFormData={setFormData}
+        formData={formData && formNameVurderFaktaBeregning in formData ? formData : undefined}
       />
     </div>
   );
