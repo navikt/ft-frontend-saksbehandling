@@ -55,7 +55,7 @@
     "@types/react-responsive": "8.0.5",
     "@types/sinon": "10.0.12",
     "@typescript-eslint/eslint-plugin": "5.30.4",
-    "@typescript-eslint/parser": "5.30.4",
+    "@typescript-eslint/parser": "5.30.5",
     "@wojtekmaj/enzyme-adapter-react-17": "0.6.7",
     "axios-mock-adapter": "1.21.1",
     "babel-jest": "28.1.2",
@@ -113,6 +113,7 @@
     "webpack-merge": "5.8.0"
   },
   "resolutions": {
+    "@types/react": "17.0.40",
     "glob-parent": "6.0.2",
     "got": "11.8.5",
     "prismjs": "1.28.0",
