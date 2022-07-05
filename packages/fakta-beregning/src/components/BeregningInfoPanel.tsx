@@ -118,6 +118,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
         setFormData={setFormData}
         formData={formData && formNameVurderFaktaBeregning in formData ? formData : undefined}
+        vilkår={vilkar}
       />
     </div>
   );

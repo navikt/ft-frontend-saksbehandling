@@ -103,6 +103,7 @@ export type FaktaOmBeregningValues = TilfellerValues & {
 export type FaktaOmBeregningAksjonspunktValues = FaktaOmBeregningValues & {
   avklaringsbehov?: BeregningAvklaringsbehov[];
   begrunnelseFaktaTilfeller?: string;
+  periode?: { fom: string; tom: string };
 };
 
 export type FaktaStateProps = {
