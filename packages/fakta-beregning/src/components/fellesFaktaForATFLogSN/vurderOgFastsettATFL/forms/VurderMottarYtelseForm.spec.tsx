@@ -1,22 +1,7 @@
-import { RadioGroupField } from '@navikt/ft-form-redux-legacy';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
-  AlleKodeverk,
-  ArbeidstakerUtenIMAndel,
-  Beregningsgrunnlag,
-  BeregningsgrunnlagArbeidsforhold,
-  FaktaOmBeregning,
-} from '@navikt/ft-types';
-import { shallow } from 'enzyme';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
-import VurderMottarYtelseForm, {
-  frilansMedAndreFrilanstilfeller,
-  frilansUtenAndreFrilanstilfeller,
-  mottarYtelseForArbeidMsg,
-} from './VurderMottarYtelseForm';
+import VurderMottarYtelseForm from './VurderMottarYtelseForm';
 import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 
 const beregningsgrunnlag = {
@@ -79,21 +64,6 @@ const arbeidstakerAndelerUtenIM = [
   { ...andel2, mottarYtelse: false } as ArbeidstakerUtenIMAndel,
   { ...andel3, mottarYtelse: true } as ArbeidstakerUtenIMAndel,
 ];
-
-const agOpplysninger = {
-  843597943435: {
-    navn: 'Virksomheten2',
-    identifikator: '843597943435',
-    erPrivatPerson: false,
-  },
-  3284788923: {
-    navn: 'Virksomheten',
-    identifikator: '3284788923',
-    erPrivatPerson: false,
-  },
-};
-
-const alleKodeverk = {} as AlleKodeverk;
 
 describe('<VurderMottarYtelseForm>', () => {
   it('skal teste at initial values bygges korrekt uten dto til stede', () => {
@@ -176,95 +146,6 @@ describe('<VurderMottarYtelseForm>', () => {
   //   expect(errors[utledArbeidsforholdFieldName(andel2)]).toBe(requiredMessage);
   //   expect(errors[utledArbeidsforholdFieldName(andel3)]).toBe(requiredMessage);
   // });
-
-  it.skip('skal vise radioknapp for frilans uten andre frilanstilfeller', () => {
-    const faktaBG = {
-      vurderMottarYtelse: {
-        erFrilans: true,
-      },
-      andelerForFaktaOmBeregning: [],
-    } as FaktaOmBeregning;
-    const wrapper = shallow(
-      <VurderMottarYtelseForm
-        readOnly={false}
-        isAksjonspunktClosed={false}
-        tilfeller={[]}
-        alleKodeverk={alleKodeverk}
-        beregningsgrunnlag={{ faktaOmBeregning: faktaBG } as Beregningsgrunnlag}
-        arbeidsgiverOpplysningerPerId={agOpplysninger}
-      />,
-    );
-    const flRadio = wrapper.find(RadioGroupField);
-    expect(flRadio).toHaveLength(1);
-    expect(flRadio.prop('name')).toBe(`vurderMottarYtelseValues.${finnFrilansFieldName()}`);
-    const formattedMsg = wrapper.find(FormattedMessage);
-    expect(formattedMsg).toHaveLength(1);
-    expect(formattedMsg.prop('id')).toBe(frilansUtenAndreFrilanstilfeller());
-  });
-
-  it.skip('skal vise radioknapp for frilans med andre frilanstilfeller', () => {
-    const faktaBG = {
-      vurderMottarYtelse: {
-        erFrilans: true,
-      },
-      andelerForFaktaOmBeregning: [],
-    } as FaktaOmBeregning;
-    const wrapper = shallow(
-      <VurderMottarYtelseForm
-        readOnly={false}
-        isAksjonspunktClosed={false}
-        tilfeller={[FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL]}
-        beregningsgrunnlag={{ faktaOmBeregning: faktaBG } as Beregningsgrunnlag}
-        alleKodeverk={alleKodeverk}
-        arbeidsgiverOpplysningerPerId={agOpplysninger}
-      />,
-    );
-    const flRadio = wrapper.find(RadioGroupField);
-    expect(flRadio).toHaveLength(1);
-    expect(flRadio.prop('name')).toBe(`vurderMottarYtelseValues.${finnFrilansFieldName()}`);
-    const formattedMsg = wrapper.find(FormattedMessage);
-    expect(formattedMsg).toHaveLength(1);
-    expect(formattedMsg.prop('id')).toBe(frilansMedAndreFrilanstilfeller());
-  });
-
-  it.skip('skal vise radioknapper for AT uten inntektsmelding', () => {
-    const bg = {
-      faktaOmBeregning: {
-        vurderMottarYtelse: {
-          arbeidstakerAndelerUtenIM,
-        },
-        andelerForFaktaOmBeregning: [],
-      },
-    };
-    const wrapper = shallow(
-      <VurderMottarYtelseForm
-        readOnly={false}
-        isAksjonspunktClosed={false}
-        tilfeller={[FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL]}
-        beregningsgrunnlag={bg as Beregningsgrunnlag}
-        alleKodeverk={alleKodeverk}
-        arbeidsgiverOpplysningerPerId={agOpplysninger}
-      />,
-    );
-    const atRadio = wrapper.find(RadioGroupField);
-    expect(atRadio).toHaveLength(3);
-    atRadio.forEach((radio, index) =>
-      expect(radio.prop('name')).toBe(
-        `vurderMottarYtelseValues.${utledArbeidsforholdFieldName(arbeidstakerAndelerUtenIM[index])}`,
-      ),
-    );
-    const formattedMsg = wrapper.find(FormattedMessage);
-    expect(formattedMsg).toHaveLength(3);
-    formattedMsg.forEach((msg, index) => {
-      expect(msg.prop('id')).toBe(mottarYtelseForArbeidMsg());
-      expect(msg.prop('values')).toEqual({
-        arbeid: createVisningsnavnFakta(
-          agOpplysninger[arbeidstakerAndelerUtenIM[index].arbeidsforhold.arbeidsgiverIdent],
-          arbeidstakerAndelerUtenIM[index].arbeidsforhold.eksternArbeidsforholdId,
-        ),
-      });
-    });
-  });
 
   it('skal transform values og sende ned FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING ved mottar ytelse for AT uten inntektsmelding', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING, FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
