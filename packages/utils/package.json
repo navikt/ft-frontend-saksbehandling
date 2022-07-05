@@ -25,14 +25,14 @@
     "@navikt/ft-types": "^1.0.17",
     "dayjs": "1.11.3",
     "moment": "2.29.3",
-    "react-intl": "6.0.4"
+    "react-intl": "6.0.5"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "^1.0.6",
     "@navikt/ft-types": "^1.0.9",
     "dayjs": "1.11.3",
     "moment": "2.29.3",
-    "react-intl": "6.0.4"
+    "react-intl": "6.0.5"
   },
   "devDependencies": {
     "clean-webpack-plugin": "4.0.0",
