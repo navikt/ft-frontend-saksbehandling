@@ -1,4 +1,3 @@
-import '@navikt/ft-form-redux-legacy/dist/style.css';
 import {
   AksjonspunktStatus,
   AktivitetStatus as aktivitetStatuser,

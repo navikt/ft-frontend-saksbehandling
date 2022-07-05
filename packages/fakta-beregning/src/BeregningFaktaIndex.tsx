@@ -1,4 +1,3 @@
-import { ReduxWrapper } from '@navikt/ft-form-redux-legacy';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -101,34 +100,32 @@ const BeregningFaktaIndex: FunctionComponent<
 
   return (
     <RawIntlProvider value={intl}>
-      <ReduxWrapper formName="BeregningFaktaIndex" formData={formData} setFormData={setFormData}>
-        {skalBrukeTabs && (
-          <div className={styles.tabsContainer}>
-            <TabsPure
-              tabs={beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
-                aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
-                label: lagLabel(currentBeregningsgrunnlag, vilkårsperioder),
-                className: skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : '',
-              }))}
-              onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
-            />
-          </div>
-        )}
-        <BeregningInfoPanel
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          beregningsgrunnlag={beregningsgrunnlag}
-          alleKodeverk={alleKodeverk}
-          avklaringsbehov={aktiveAvklaringsBehov}
-          submitCallback={submitCallback}
-          readOnly={readOnly}
-          submittable={submittable}
-          erOverstyrer={erOverstyrer}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          setFormData={setFormData}
-          formData={formData}
-          vilkar={vilkar}
-        />
-      </ReduxWrapper>
+      {skalBrukeTabs && (
+        <div className={styles.tabsContainer}>
+          <TabsPure
+            tabs={beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
+              aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
+              label: lagLabel(currentBeregningsgrunnlag, vilkårsperioder),
+              className: skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : '',
+            }))}
+            onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
+          />
+        </div>
+      )}
+      <BeregningInfoPanel
+        aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+        beregningsgrunnlag={beregningsgrunnlag}
+        alleKodeverk={alleKodeverk}
+        avklaringsbehov={aktiveAvklaringsBehov}
+        submitCallback={submitCallback}
+        readOnly={readOnly}
+        submittable={submittable}
+        erOverstyrer={erOverstyrer}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        setFormData={setFormData}
+        formData={formData}
+        vilkar={vilkar}
+      />
     </RawIntlProvider>
   );
 };
