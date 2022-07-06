@@ -1,0 +1,2888 @@
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+:export {
+  navRod: #c30000;
+  navOransje: #ff9100;
+  navLimeGronn: #a2ad00;
+  navGronn: #06893a;
+  navLilla: #634689;
+  navDypBla: #005b82;
+  navBla: #0067c5;
+  navLysBla: #66cbec;
+  navMorkGra: #262626;
+  navGra80: #4f4f4f;
+  navGra60: #6a6a6a;
+  navGra40: #a0a0a0;
+  navGra20: #c9c9c9;
+  navLysGra: #f1f1f1;
+  navBakgrunn: #ffffff;
+  navGraBakgrunn: #f1f1f1;
+  fokusFarge: #00347d;
+  redError: #ba3a26;
+  white: #fff;
+  grayBackground: #f1f1f1;
+  grayIcon: #a0a0a0;
+  grayModia: #333333;
+  grayInactive: #6a6a6a;
+  pinkErrorBg: #f3e3e3;
+  navGronnLighten80: #ccf1d6;
+  navGronnLighten60: #99dead;
+  navGronnLighten40: #66c786;
+  navGronnLighten20: #33aa5f;
+  navGronnDarken20: #007c2e;
+  navGronnDarken40: #006a23;
+  navGronnDarken60: #005519;
+  navGronnDarken80: #003b0f;
+  navLimeGronnLighten80: #f9fccc;
+  navLimeGronnLighten60: #ecf399;
+  navLimeGronnLighten40: #d9e366;
+  navLimeGronnLighten20: #c1cb33;
+  navLimeGronnDarken20: #939e00;
+  navLimeGronnDarken40: #7f8900;
+  navLimeGronnDarken60: #666e00;
+  navLimeGronnDarken80: #474e00;
+  navLysBlaLighten80: #d8f9ff;
+  navLysBlaLighten60: #b5f1ff;
+  navLysBlaLighten40: #97e6ff;
+  navLysBlaLighten20: #7cdaf8;
+  navLysBlaDarken20: #4cadcd;
+  navLysBlaDarken40: #368da8;
+  navLysBlaDarken60: #236b7d;
+  navLysBlaDarken80: #134852;
+  navBlaLighten80: #cce1ff;
+  navBlaLighten60: #99c3ff;
+  navBlaLighten40: #66a5f4;
+  navBlaLighten20: #3386e0;
+  navBlaDarken20: #0056b4;
+  navBlaDarken40: #00459c;
+  navBlaDarken60: #00347d;
+  navBlaDarken80: #002252;
+  navDypBlaLighten80: #cce2f0;
+  navDypBlaLighten60: #99c4dd;
+  navDypBlaLighten40: #66a3c4;
+  navDypBlaLighten20: #3380a5;
+  navDypBlaDarken20: #005077;
+  navDypBlaDarken40: #004367;
+  navDypBlaDarken60: #003453;
+  navDypBlaDarken80: #00243a;
+  navLillaLighten80: #e0d8e9;
+  navLillaLighten60: #c0b2d2;
+  navLillaLighten40: #a18dbb;
+  navLillaLighten20: #8269a2;
+  navLillaDarken20: #523874;
+  navLillaDarken40: #412b5d;
+  navLillaDarken60: #301f46;
+  navLillaDarken80: #1f142f;
+  redErrorLighten80: #f9d2cc;
+  redErrorLighten60: #efa89d;
+  redErrorLighten40: #e18071;
+  redErrorLighten20: #d05c4a;
+  redErrorDarken20: #a32a17;
+  redErrorDarken40: #881d0c;
+  redErrorDarken60: #6a1204;
+  redErrorDarken80: #480900;
+  navOransjeLighten80: #ffeccc;
+  navOransjeLighten60: #ffd799;
+  navOransjeLighten40: #ffc166;
+  navOransjeLighten20: #ffaa33;
+  navOransjeDarken20: #d47b00;
+  navOransjeDarken40: #a86400;
+  navOransjeDarken60: #7d4c00;
+  navOransjeDarken80: #523300;
+  screenSm: 768px;
+  screenSmMin: 768px;
+  screenTablet: 768px;
+  screenMd: 992px;
+  screenMdMin: 992px;
+  screenDesktop: 992px;
+  screenLg: 1200px;
+  screenLgMin: 1200px;
+  screenLgDesktop: 1200px;
+  screenXsMax: 767px;
+  screenSmMax: 991px;
+  screenMdMax: 1199px;
+  containerTablet: 736px;
+  containerSm: 736px;
+  containerDesktop: 956px;
+  containerMd: 956px;
+  containerLargeDesktop: 1156px;
+  containerLg: 1156px;
+  gridColumns: 12;
+  gridGutterWidth: 16px;
+  gridFloatBreakpoint: 768px;
+  gridFloatBreakpointMax: 767px;
+  paddingBaseVertical: 6px;
+  paddingBaseHorizontal: 12px;
+  paddingLargeVertical: 10px;
+  paddingLargeHorizontal: 16px;
+  paddingSmallVertical: 5px;
+  paddingSmallHorizontal: 10px;
+  paddingXsVertical: 1px;
+  paddingXsHorizontal: 5px;
+  lineHeightLarge: 1.3333333;
+  lineHeightSmall: 1.5;
+  borderRadiusSmall: 2px;
+  borderRadiusBase: 4px;
+  borderRadiusLarge: 6px;
+}
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+/*
+-------------
+CLEARFIX
+-------------
+*/
+/* stylelint-disable */
+/* stylelint-enable */
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  font-family: sans-serif;
+  /* 3 */
+}
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0;
+}
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block;
+}
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
+}
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  font-size: 100%;
+  font-family: sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+figure {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+}
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.img-rounded {
+  border-radius: 6px;
+}
+.img-circle {
+  border-radius: 50%;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+[role="button"] {
+  cursor: pointer;
+}
+body .clearfix::before,
+body .clearfix::after {
+  content: " ";
+  display: table;
+}
+body .clearfix::after {
+  clear: both;
+}
+body .center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+body .pull-right {
+  float: right !important;
+}
+body .pull-left {
+  float: left !important;
+}
+body .hide {
+  display: none !important;
+}
+body .show {
+  display: block !important;
+}
+body .hidden {
+  display: none !important;
+}
+body .invisible {
+  visibility: hidden;
+}
+body .text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+body .ustilet {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body .blokk {
+  margin-bottom: 2rem;
+}
+body .blokk-null {
+  margin-bottom: 0;
+}
+body .blokk-xxxs {
+  margin-bottom: 4px;
+}
+body .blokk-xxs {
+  margin-bottom: 0.5rem;
+}
+body .blokk-xs {
+  margin-bottom: 1rem;
+}
+body .blokk-s {
+  margin-bottom: 20px;
+}
+body .blokk-m {
+  margin-bottom: 2rem;
+}
+body .blokk-l {
+  margin-bottom: 2.5rem;
+}
+body .blokk-xl {
+  margin-bottom: 4rem;
+}
+@-ms-viewport {
+  width: device-width;
+}
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+html {
+  height: 100%;
+}
+body {
+  background-color: #fff;
+  color: #262626;
+  height: 100%;
+  line-height: 1.42857143;
+  margin: 0;
+}
+:global(#app) {
+  height: 100%;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.aksjonspunktBox_aksjonspunkt_bBkrD {
+  padding: 20px;
+}
+.aksjonspunktBox_aksjonspunkt_bBkrD.aksjonspunktBox_erAksjonspunktApent_SxtX5 {
+  border: 3px solid #ffaa33;
+  border-radius: 4px;
+}
+.aksjonspunktBox_aksjonspunkt_bBkrD.aksjonspunktBox_erIkkeGodkjentAvBeslutter_BuFat {
+  border: 3px solid #ba3a26;
+  border-radius: 4px;
+}
+
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+/*
+-------------
+CLEARFIX
+-------------
+*/
+/* stylelint-disable */
+/* stylelint-enable */
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  font-family: sans-serif;
+  /* 3 */
+}
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0;
+}
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block;
+}
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
+}
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  font-size: 100%;
+  font-family: sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+figure {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+}
+.tooltip_img-responsive_QtITP {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.tooltip_img-rounded_KWLUt {
+  border-radius: 6px;
+}
+.tooltip_img-circle_NMrXS {
+  border-radius: 50%;
+}
+.tooltip_sr-only_MUTlu {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+.tooltip_sr-only-focusable_mL4wD:active,
+.tooltip_sr-only-focusable_mL4wD:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+[role="button"] {
+  cursor: pointer;
+}
+body .tooltip_clearfix__5M6O::before,
+body .tooltip_clearfix__5M6O::after {
+  content: " ";
+  display: table;
+}
+body .tooltip_clearfix__5M6O::after {
+  clear: both;
+}
+body .tooltip_center-block_s_MJO {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+body .tooltip_pull-right_Fohn_ {
+  float: right !important;
+}
+body .tooltip_pull-left_VFQ38 {
+  float: left !important;
+}
+body .tooltip_hide_jsLzC {
+  display: none !important;
+}
+body .tooltip_show_bsOx7 {
+  display: block !important;
+}
+body .tooltip_hidden_amYm5 {
+  display: none !important;
+}
+body .tooltip_invisible_ltaRh {
+  visibility: hidden;
+}
+body .tooltip_text-hide_EwpQP {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+body .tooltip_ustilet_NOnXQ {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body .tooltip_blokk_f2WiZ {
+  margin-bottom: 2rem;
+}
+body .tooltip_blokk-null_uzOMy {
+  margin-bottom: 0;
+}
+body .tooltip_blokk-xxxs_yzJZ0 {
+  margin-bottom: 4px;
+}
+body .tooltip_blokk-xxs_U9FmI {
+  margin-bottom: 0.5rem;
+}
+body .tooltip_blokk-xs_lkprA {
+  margin-bottom: 1rem;
+}
+body .tooltip_blokk-s_HzR0b {
+  margin-bottom: 20px;
+}
+body .tooltip_blokk-m_znzOS {
+  margin-bottom: 2rem;
+}
+body .tooltip_blokk-l__Ghua {
+  margin-bottom: 2.5rem;
+}
+body .tooltip_blokk-xl_C0Phm {
+  margin-bottom: 4rem;
+}
+@-ms-viewport {
+  width: device-width;
+}
+@media (max-width: 767px) {
+  .tooltip_hidden-xs_FjZbM {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .tooltip_hidden-sm_UNHj2 {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .tooltip_hidden-md_etO1V {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .tooltip_hidden-lg_ZU6PJ {
+    display: none !important;
+  }
+}
+.tooltip_tooltip_RMTOG {
+  display: inline-block;
+  position: relative;
+}
+/* Tooltip text */
+.tooltip_tooltip_RMTOG .tooltip_tooltiptext_thMny {
+  background-color: #fff2e0;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px 0 #a0a0a0;
+  color: #262626;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  max-width: 200px;
+  opacity: 0;
+  padding: 2px 8px 0 8px;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  width: max-content;
+  z-index: 1;
+}
+.tooltip_left_oQJIe {
+  bottom: auto;
+  right: 110%;
+  top: -5px;
+}
+.tooltip_top_V3ePs {
+  bottom: 125%;
+}
+.tooltip_right_tbdhi {
+  left: 110%;
+  top: -5px;
+}
+.tooltip_bottom_wyE_6 {
+  top: 135%;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip_tooltip_RMTOG:hover .tooltip_tooltiptext_thMny {
+  animation-delay: 0.4s;
+  animation-duration: 0.1s;
+  animation-fill-mode: forwards;
+  animation-name: tooltip_showTooltip_HZbDl;
+}
+@keyframes tooltip_showTooltip_HZbDl {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.flexColumn_flexColumnNew_Aq8K2 {
+  box-sizing: border-box;
+  flex: 0 1 auto;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flexContainer_flexContainer_IUqrM {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+}
+.flexContainer_flexContainer_IUqrM.flexContainer_fluid_W1a5D {
+  width: 100%;
+}
+.flexContainer_flexContainer_IUqrM.flexContainer_fullHeight_CxjtX {
+  height: 100%;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .flexContainer_flexContainer_IUqrM {
+    flex-direction: row;
+  }
+  .flexContainer_flexContainer_IUqrM.flexContainer_flexWrap__8_0x {
+    flex-wrap: wrap;
+  }
+}
+
+.flexRow_flexRow_nvW_o {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 100%;
+  flex-flow: row nowrap;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.flexRow_spaceBetween_jXiis {
+  justify-content: space-between;
+}
+.flexRow_alignItemsToBaseline_Au_oH {
+  align-items: baseline;
+}
+.flexRow_alignItemsToFlexEnd_Ual4r {
+  align-items: flex-end;
+}
+.flexRow_justifyItemsToFlexEnd_b5QGV {
+  justify-content: flex-end;
+}
+.flexRow_wrap_ifw_m {
+  flex-flow: row wrap;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.aksjonspunktHelpTextHTML_container_VwBZH {
+  background-color: #ffeccc;
+  border: 1px solid #d47b00;
+  border-radius: 4px;
+}
+.aksjonspunktHelpTextHTML_divider_K7ALF {
+  border-left: 1px solid #a0a0a0;
+  border-right: 0 solid #a0a0a0;
+  height: 100%;
+  margin-bottom: 3px;
+  margin-left: 5px;
+  margin-top: 3px;
+}
+.aksjonspunktHelpTextHTML_image_d3HdZ {
+  margin-left: 10px;
+  margin-top: 8px;
+}
+.aksjonspunktHelpTextHTML_oneElement_zPzpD {
+  margin-bottom: 9px;
+  margin-left: 0;
+  margin-top: 9px;
+}
+.aksjonspunktHelpTextHTML_severalElements_RpEtL {
+  margin-left: 0;
+  margin-top: 0;
+}
+.aksjonspunktHelpTextHTML_aksjonspunktText_K3_Vc {
+  max-width: 100%;
+  padding-right: 20px;
+}
+.aksjonspunktHelpTextHTML_wordwrap_Sfatz {
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.AksjonspunktHelpTextTemp_wordwrap_nnQJc {
+  word-wrap: break-word;
+}
+
+.verticalSpacer_fourPx_OoxKR {
+  margin-bottom: 4px;
+}
+.verticalSpacer_eightPx_n3MMS {
+  margin-bottom: 8px;
+}
+.verticalSpacer_sixteenPx_FfIkZ {
+  margin-bottom: 16px;
+}
+.verticalSpacer_twentyPx_UWINW {
+  margin-bottom: 20px;
+}
+.verticalSpacer_thirtyTwoPx_We9or {
+  margin-bottom: 32px;
+}
+.verticalSpacer_fourtyPx_nXwov {
+  margin-bottom: 40px;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.avsnittSkiller_divider_j20Yx {
+  background-image: linear-gradient(to right, #262626 10%, rgba(255, 255, 255, 0) 0%);
+  background-position: top;
+  background-repeat: repeat-x;
+  background-size: 8px 1px;
+  padding: 1px 1px;
+}
+.avsnittSkiller_dividerParagraf_L9PvU {
+  border-top: 1px solid #c9c9c9;
+}
+.avsnittSkiller_leftPanel_VmPtu {
+  padding: 0 40px 0 0;
+}
+.avsnittSkiller_rightPanel_g7n3A {
+  padding: 0 0 0 40px;
+}
+@media (max-width: 992px) {
+  .avsnittSkiller_rightPanel_g7n3A {
+    padding: 0;
+  }
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.borderBox_borderbox_W_FtW {
+  margin-top: 16px;
+}
+.borderBox_error_TnbWs {
+  border: 2px solid #ba3a26;
+}
+.borderBox_warning_ttOYb {
+  border: 2px solid #ffc166;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.dataFetchPendingModal_divider_cGgEP {
+  border-left: 1px solid #a0a0a0;
+  border-right: 0 solid #a0a0a0;
+  display: inline;
+  float: right;
+  height: 40px;
+  margin-left: 10px;
+  position: absolute;
+}
+.dataFetchPendingModal_modal_XwuxA {
+  width: 500px;
+}
+.dataFetchPendingModal_messageRow_DwT03 {
+  padding-top: 7px;
+}
+.dataFetchPendingModal_modalText_jT6jM {
+  padding-top: 8px;
+}
+
+.editedIcon_editedIcon_Lmcm9 {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+.editedIcon_editedIcon_Lmcm9 img {
+  height: 24px;
+  width: 25px;
+}
+
+.fadingPanel_container_gvKE7 {
+  animation-duration: 300ms;
+  animation-name: fadingPanel_fadein_gxXPL;
+  animation-timing-function: ease-out;
+  padding: 40px;
+}
+@keyframes fadingPanel_fadein_gxXPL {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.floatRight_floatRight_YcWyW {
+  float: right;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.warningModal_divider_z9Ix1 {
+  border-left: 1px solid #a0a0a0;
+  border-right: 0 solid #a0a0a0;
+  display: inline;
+  float: right;
+  height: 67px;
+  margin-left: 17px;
+  position: absolute;
+  top: 5px;
+}
+.warningModal_image_nFlEm {
+  height: 35px;
+  margin-top: 10px;
+  width: 35px;
+}
+.warningModal_modal_HEB0i {
+  width: 630px;
+}
+.warningModal_text_G01cL {
+  margin-left: 20px;
+  margin-top: 8px;
+}
+.warningModal_submitButton_XjQij {
+  margin-top: 30px;
+}
+
+.labelWithHeader_container_UFoag {
+  margin-top: 5px;
+}
+.labelWithHeader_text_yth4s {
+  margin-top: 10px;
+}
+
+.loadingPanel_container_nWJaY {
+  text-align: center;
+}
+
+.okAvbrytModal_modal_X28yU {
+  max-width: 600px;
+  min-width: 400px;
+  padding: 50px 45px 30px 45px;
+}
+
+.overstyringKnapp_key_x6ZXC {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+.overstyringKnapp_keyWithoutCursor_D1Q14 {
+  height: 20px;
+  width: 20px;
+}
+.overstyringKnapp_button_B9XO1 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+:export {
+  navRod: #c30000;
+  navOransje: #ff9100;
+  navLimeGronn: #a2ad00;
+  navGronn: #06893a;
+  navLilla: #634689;
+  navDypBla: #005b82;
+  navBla: #0067c5;
+  navLysBla: #66cbec;
+  navMorkGra: #262626;
+  navGra80: #4f4f4f;
+  navGra60: #6a6a6a;
+  navGra40: #a0a0a0;
+  navGra20: #c9c9c9;
+  navLysGra: #f1f1f1;
+  navBakgrunn: #ffffff;
+  navGraBakgrunn: #f1f1f1;
+  fokusFarge: #00347d;
+  redError: #ba3a26;
+  white: #fff;
+  grayBackground: #f1f1f1;
+  grayIcon: #a0a0a0;
+  grayModia: #333333;
+  grayInactive: #6a6a6a;
+  pinkErrorBg: #f3e3e3;
+  navGronnLighten80: #ccf1d6;
+  navGronnLighten60: #99dead;
+  navGronnLighten40: #66c786;
+  navGronnLighten20: #33aa5f;
+  navGronnDarken20: #007c2e;
+  navGronnDarken40: #006a23;
+  navGronnDarken60: #005519;
+  navGronnDarken80: #003b0f;
+  navLimeGronnLighten80: #f9fccc;
+  navLimeGronnLighten60: #ecf399;
+  navLimeGronnLighten40: #d9e366;
+  navLimeGronnLighten20: #c1cb33;
+  navLimeGronnDarken20: #939e00;
+  navLimeGronnDarken40: #7f8900;
+  navLimeGronnDarken60: #666e00;
+  navLimeGronnDarken80: #474e00;
+  navLysBlaLighten80: #d8f9ff;
+  navLysBlaLighten60: #b5f1ff;
+  navLysBlaLighten40: #97e6ff;
+  navLysBlaLighten20: #7cdaf8;
+  navLysBlaDarken20: #4cadcd;
+  navLysBlaDarken40: #368da8;
+  navLysBlaDarken60: #236b7d;
+  navLysBlaDarken80: #134852;
+  navBlaLighten80: #cce1ff;
+  navBlaLighten60: #99c3ff;
+  navBlaLighten40: #66a5f4;
+  navBlaLighten20: #3386e0;
+  navBlaDarken20: #0056b4;
+  navBlaDarken40: #00459c;
+  navBlaDarken60: #00347d;
+  navBlaDarken80: #002252;
+  navDypBlaLighten80: #cce2f0;
+  navDypBlaLighten60: #99c4dd;
+  navDypBlaLighten40: #66a3c4;
+  navDypBlaLighten20: #3380a5;
+  navDypBlaDarken20: #005077;
+  navDypBlaDarken40: #004367;
+  navDypBlaDarken60: #003453;
+  navDypBlaDarken80: #00243a;
+  navLillaLighten80: #e0d8e9;
+  navLillaLighten60: #c0b2d2;
+  navLillaLighten40: #a18dbb;
+  navLillaLighten20: #8269a2;
+  navLillaDarken20: #523874;
+  navLillaDarken40: #412b5d;
+  navLillaDarken60: #301f46;
+  navLillaDarken80: #1f142f;
+  redErrorLighten80: #f9d2cc;
+  redErrorLighten60: #efa89d;
+  redErrorLighten40: #e18071;
+  redErrorLighten20: #d05c4a;
+  redErrorDarken20: #a32a17;
+  redErrorDarken40: #881d0c;
+  redErrorDarken60: #6a1204;
+  redErrorDarken80: #480900;
+  navOransjeLighten80: #ffeccc;
+  navOransjeLighten60: #ffd799;
+  navOransjeLighten40: #ffc166;
+  navOransjeLighten20: #ffaa33;
+  navOransjeDarken20: #d47b00;
+  navOransjeDarken40: #a86400;
+  navOransjeDarken60: #7d4c00;
+  navOransjeDarken80: #523300;
+  screenSm: 768px;
+  screenSmMin: 768px;
+  screenTablet: 768px;
+  screenMd: 992px;
+  screenMdMin: 992px;
+  screenDesktop: 992px;
+  screenLg: 1200px;
+  screenLgMin: 1200px;
+  screenLgDesktop: 1200px;
+  screenXsMax: 767px;
+  screenSmMax: 991px;
+  screenMdMax: 1199px;
+  containerTablet: 736px;
+  containerSm: 736px;
+  containerDesktop: 956px;
+  containerMd: 956px;
+  containerLargeDesktop: 1156px;
+  containerLg: 1156px;
+  gridColumns: 12;
+  gridGutterWidth: 16px;
+  gridFloatBreakpoint: 768px;
+  gridFloatBreakpointMax: 767px;
+  paddingBaseVertical: 6px;
+  paddingBaseHorizontal: 12px;
+  paddingLargeVertical: 10px;
+  paddingLargeHorizontal: 16px;
+  paddingSmallVertical: 5px;
+  paddingSmallHorizontal: 10px;
+  paddingXsVertical: 1px;
+  paddingXsHorizontal: 5px;
+  lineHeightLarge: 1.3333333;
+  lineHeightSmall: 1.5;
+  borderRadiusSmall: 2px;
+  borderRadiusBase: 4px;
+  borderRadiusLarge: 6px;
+}
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.DayPickerInput-OverlayWrapper {
+  height: 0;
+  position: relative;
+  top: -12px;
+  width: 0;
+}
+.DayPickerInput-Overlay {
+  background: #fff;
+  border: 1px solid #a0a0a0;
+  border-radius: 4px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 1010;
+}
+.calendarWrapper {
+  background: #fff;
+  border: 1px solid #a0a0a0;
+  border-radius: 4px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 302px;
+}
+.calendarWrapper.calendarWrapper--2 {
+  width: 610px;
+}
+.calendarWrapper.calendarWrapper--3 {
+  width: 915px;
+}
+.calendarWrapper:focus {
+  outline: none;
+}
+.DayPicker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem 0;
+  position: relative;
+  user-select: none;
+}
+.DayPicker:focus {
+  box-shadow: 0 0 0 3px #ffc166;
+  outline: none;
+}
+.DayPicker-Months {
+  display: flex;
+}
+.DayPicker-Month {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: table;
+  margin: 1rem 1em 0;
+  user-select: none;
+}
+.DayPicker-NavBar {
+  left: 0;
+  padding: 0 0.5em;
+  position: absolute;
+  right: 0;
+}
+.DayPicker-NavButton {
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5LjE5IDE2LjgzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6bm9uZTtzdHJva2U6I2I3YjFhOTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2Utd2lkdGg6MnB4O308L3N0eWxlPjwvZGVmcz48dGl0bGU+cGlsLXZpZGVyZS1ncmFhPC90aXRsZT48cG9seWxpbmUgY2xhc3M9ImNscy0xIiBwb2ludHM9IjEgMSA3LjgzIDguNDIgMSAxNS44MyIvPjwvc3ZnPg==) no-repeat center;
+  background-size: 1.25em 1.25em;
+  border: 0;
+  cursor: pointer;
+  height: 2em;
+  position: absolute;
+  width: 2em;
+}
+.DayPicker-NavButton:focus {
+  box-shadow: 0 0 0 3px #ffc166;
+  outline: none;
+}
+.DayPicker-NavButton:focus,
+.DayPicker-NavButton:hover {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5LjE5IDE2LjgzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6bm9uZTtzdHJva2U6IzAwNjdjNTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2Utd2lkdGg6MnB4O308L3N0eWxlPjwvZGVmcz48dGl0bGU+cGlsLXZpZGVyZS1ibGFhPC90aXRsZT48cG9seWxpbmUgY2xhc3M9ImNscy0xIiBwb2ludHM9IjEgMSA3LjgzIDguNDIgMSAxNS44MyIvPjwvc3ZnPg==);
+}
+.DayPicker-NavButton--prev {
+  left: 1em;
+  transform: rotate(180deg);
+}
+.DayPicker-NavButton--next {
+  right: 1em;
+}
+.DayPicker-Caption {
+  display: table-caption;
+  font-size: 1.25rem;
+  font-weight: 600;
+  height: 2em;
+  line-height: 2em;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.DayPicker-Weekdays {
+  border-top: 1px solid #a0a0a0;
+  display: table-header-group;
+}
+.DayPicker-WeekdaysRow {
+  display: table-row;
+}
+.DayPicker-Weekday {
+  display: table-cell;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.375rem;
+  margin: 0;
+  padding: 0.5em;
+  text-align: center;
+}
+.DayPicker-Weekday abbr {
+  text-decoration: none;
+}
+.DayPicker-Body {
+  display: table-row-group;
+}
+.DayPicker-Week {
+  display: table-row;
+}
+.DayPicker-Day {
+  cursor: pointer;
+  display: table-cell;
+  font-weight: 600;
+  padding: 0.5em;
+  text-align: center;
+  vertical-align: middle;
+}
+.DayPicker-Day:focus {
+  background-color: #ffc166;
+  outline: none;
+}
+.DayPicker-Day:hover {
+  background-color: #f1f1f1;
+}
+.DayPicker-Day:empty:hover {
+  background-color: transparent;
+}
+.DayPicker-Day:last-child {
+  color: #c30000;
+}
+.DayPicker--interactionDisabled .DayPicker-Day {
+  cursor: default;
+}
+/* Default modifiers */
+.DayPicker-Day--disabled,
+.DayPicker-Day--disabled:last-child {
+  color: #a0a0a0;
+  cursor: default;
+  font-weight: normal;
+}
+.DayPicker-Day--disabled:focus,
+.DayPicker-Day--disabled:last-child:focus {
+  color: #6a6a6a;
+}
+.DayPicker-Day--disabled:hover {
+  background-color: transparent;
+}
+.DayPicker-Day--outside {
+  color: #6a6a6a;
+  cursor: default;
+}
+.DayPicker-Day--sunday {
+  background-color: #f1f1f1;
+}
+.DayPicker-Day--today {
+  border: 1px solid #a0a0a0;
+}
+.DayPicker-Day--sunday:not(.DayPicker-Day--today) {
+  color: #c30000;
+}
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  background-color: #005b82;
+  color: #fff;
+}
+
+.periodpicker_checkboks_Il5Wx,
+.periodpicker_radioknapp_I_qL9 {
+  position: absolute;
+  opacity: 0;
+}
+.periodpicker_checkboks_Il5Wx + .periodpicker_skjemaelement__label_ZnxjT,
+.periodpicker_radioknapp_I_qL9 + .periodpicker_skjemaelement__label_ZnxjT {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  padding-left: 32px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 0;
+  line-height: 24px;
+}
+.periodpicker_checkboks_Il5Wx + .periodpicker_skjemaelement__label_ZnxjT::before,
+.periodpicker_radioknapp_I_qL9 + .periodpicker_skjemaelement__label_ZnxjT::before {
+  content: "";
+  position: absolute;
+  display: block;
+  text-align: center;
+  background-color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1px solid #6a6a6a;
+  width: 24px;
+  height: 24px;
+  left: 0;
+  top: 0;
+}
+.periodpicker_checkboks_Il5Wx:hover + .periodpicker_skjemaelement__label_ZnxjT,
+.periodpicker_radioknapp_I_qL9:hover + .periodpicker_skjemaelement__label_ZnxjT {
+  color: #0067c5;
+}
+.periodpicker_checkboks_Il5Wx:hover + .periodpicker_skjemaelement__label_ZnxjT::before,
+.periodpicker_radioknapp_I_qL9:hover + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-color: #0067c5;
+  background-color: #cce1ff;
+}
+.periodpicker_checkboks_Il5Wx:disabled + .periodpicker_skjemaelement__label_ZnxjT,
+.periodpicker_radioknapp_I_qL9:disabled + .periodpicker_skjemaelement__label_ZnxjT {
+  color: #6a6a6a;
+}
+.periodpicker_checkboks_Il5Wx:disabled + .periodpicker_skjemaelement__label_ZnxjT:hover,
+.periodpicker_radioknapp_I_qL9:disabled + .periodpicker_skjemaelement__label_ZnxjT:hover {
+  cursor: not-allowed;
+}
+.periodpicker_checkboks_Il5Wx:disabled + .periodpicker_skjemaelement__label_ZnxjT::before,
+.periodpicker_radioknapp_I_qL9:disabled + .periodpicker_skjemaelement__label_ZnxjT::before {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+}
+.periodpicker_checkboks--mork_Hbdcs + .periodpicker_skjemaelement__label_ZnxjT::before,
+.periodpicker_radioknapp--mork_Wpi4b + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-color: #6a6a6a;
+}
+.periodpicker_checkboks_Il5Wx {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  position: absolute;
+  opacity: 0;
+}
+.periodpicker_checkboks_Il5Wx:focus + .periodpicker_skjemaelement__label_ZnxjT::before {
+  box-shadow: 0 0 0 3px #00347d;
+}
+.periodpicker_checkboks_Il5Wx + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-radius: 4px;
+}
+.periodpicker_checkboks_Il5Wx:checked:disabled + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-color: #a0a0a0;
+  background-color: #a0a0a0;
+}
+.periodpicker_checkboks_Il5Wx:checked:focus + .periodpicker_skjemaelement__label_ZnxjT::before {
+  background-color: white;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjMDA2N0M1IiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.periodpicker_checkboks_Il5Wx:checked + .periodpicker_skjemaelement__label_ZnxjT::before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75%;
+  border-color: #0067c5;
+  border-width: 2px;
+  background-color: #0067c5;
+}
+.periodpicker_radioknapp_I_qL9 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+.periodpicker_radioknapp_I_qL9 + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-radius: 50%;
+}
+.periodpicker_radioknapp_I_qL9:checked + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border: 2px solid #0067c5;
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+}
+.periodpicker_radioknapp_I_qL9:disabled:checked + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border: 2px solid #a0a0a0;
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #a0a0a0 inset;
+}
+.periodpicker_radioknapp_I_qL9:focus + .periodpicker_skjemaelement__label_ZnxjT::before {
+  box-shadow: 0 0 0 3px #00347d, 0 0 0 12px #fff inset;
+}
+.periodpicker_radioknapp_I_qL9:checked:focus + .periodpicker_skjemaelement__label_ZnxjT::before {
+  transition: box-shadow 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  box-shadow: 0 0 0 3px #00347d, 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+}
+.periodpicker_textarea--medMeta_EffcB {
+  resize: none;
+  width: 100%;
+  overflow: hidden;
+  min-height: 4rem;
+  transition: height 0.1s ease-out;
+  display: block;
+}
+.periodpicker_textarea--medMeta__wrapper_JvvcY {
+  width: 100%;
+  position: relative;
+}
+.periodpicker_textarea--medMeta__teller_TzWT4 {
+  pointer-events: none;
+  color: #6a6a6a;
+  font-style: italic;
+  position: absolute;
+  text-align: right;
+  left: 32px;
+  right: 12px;
+  bottom: 10px;
+  margin: 0;
+  padding: 0;
+}
+.periodpicker_textarea--medMeta__teller_TzWT4 .periodpicker_teller-tekst--overflow_iY4uw {
+  color: #ba3a26;
+  font-weight: bold;
+}
+.periodpicker_textareamirror_OY2q8 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  appearance: none;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #6a6a6a;
+  box-sizing: border-box;
+  line-height: 1.375rem;
+  white-space: pre-wrap;
+  display: inline-block;
+  width: 100%;
+  word-wrap: break-word;
+  position: absolute;
+  left: -99999px;
+  top: 0;
+}
+.periodpicker_textareamirror_OY2q8:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.periodpicker_textareamirror_OY2q8:hover {
+  border-color: #0067c5;
+}
+.periodpicker_textareamirror_OY2q8:disabled,
+.periodpicker_textareamirror_OY2q8[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.periodpicker_textareamirror_OY2q8:disabled:hover,
+.periodpicker_textareamirror_OY2q8[readonly]:hover {
+  cursor: not-allowed;
+}
+.periodpicker_textareamirror--mini_E1WZ_ {
+  padding: 0.25rem;
+}
+.periodpicker_textareamirror_OY2q8:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.periodpicker_textareamirror_OY2q8:hover {
+  border-color: #0067c5;
+}
+.periodpicker_textareamirror_OY2q8:disabled,
+.periodpicker_textareamirror_OY2q8[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.periodpicker_textareamirror_OY2q8:disabled:hover,
+.periodpicker_textareamirror_OY2q8[readonly]:hover {
+  cursor: not-allowed;
+}
+.periodpicker_textareamirror--mini_E1WZ_ {
+  padding: 0.25rem;
+}
+.periodpicker_textarea__container_s7ZYF {
+  position: relative;
+}
+.periodpicker_selectContainer_qDuQ5 {
+  position: relative;
+  display: inline-block;
+}
+.periodpicker_selectContainer_qDuQ5 select {
+  padding-right: 1.5em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  width: 100%;
+}
+.periodpicker_selectContainer_qDuQ5 select::-ms-expand {
+  display: none;
+}
+.periodpicker_selectContainer_qDuQ5::before {
+  pointer-events: none;
+  content: "";
+  background: #262626;
+  height: 2px;
+  width: 10px;
+  border-radius: 10px;
+  right: 0.75rem;
+  top: 50%;
+  z-index: 4;
+  position: absolute;
+  transform: translateX(3px) rotate(-45deg);
+}
+.periodpicker_selectContainer_qDuQ5::after {
+  pointer-events: none;
+  content: "";
+  background: #262626;
+  height: 2px;
+  width: 10px;
+  border-radius: 10px;
+  right: 0.75rem;
+  top: 50%;
+  z-index: 4;
+  position: absolute;
+  transform: translateX(-3px) rotate(45deg);
+}
+.periodpicker_input--xxs_K3voI {
+  width: 35px;
+}
+.periodpicker_input--xs_Q0hXR {
+  width: 70px;
+}
+.periodpicker_input--s_ECD64 {
+  width: 140px;
+}
+.periodpicker_input--m_PWYjV {
+  width: 100%;
+  max-width: 210px;
+}
+.periodpicker_input--l_uQYuO {
+  width: 100%;
+  max-width: 280px;
+}
+.periodpicker_input--xl_PsA0Y {
+  width: 100%;
+  max-width: 350px;
+}
+.periodpicker_input--xxl__O1Tg {
+  width: 100%;
+  max-width: 420px;
+}
+.periodpicker_input--fullbredde_hTqjw {
+  width: 100%;
+}
+.periodpicker_skjemaelement__input_Q4KRY {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  appearance: none;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #6a6a6a;
+  box-sizing: border-box;
+  line-height: 1.375rem;
+}
+.periodpicker_skjemaelement__input_Q4KRY:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.periodpicker_skjemaelement__input_Q4KRY:hover {
+  border-color: #0067c5;
+}
+.periodpicker_skjemaelement__input_Q4KRY:disabled,
+.periodpicker_skjemaelement__input_Q4KRY[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.periodpicker_skjemaelement__input_Q4KRY:disabled:hover,
+.periodpicker_skjemaelement__input_Q4KRY[readonly]:hover {
+  cursor: not-allowed;
+}
+.periodpicker_skjemaelement__input--mini_tx_P2 {
+  padding: 0.25rem;
+}
+.periodpicker_skjemaelement__input-fodselsnr_TfoAM::-webkit-outer-spin-button,
+.periodpicker_skjemaelement__input-fodselsnr_TfoAM::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.periodpicker_skjemaelement__input-fodselsnr_TfoAM [type="number"] {
+  -moz-appearance: textfield;
+}
+.periodpicker_skjemagruppe--feil_Xiomr .periodpicker_skjemaelement__input_Q4KRY:not(:focus):not(:hover):not(:active):not(:checked) {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.periodpicker_skjemagruppe--feil_Xiomr .periodpicker_skjemaelement__input_Q4KRY:not(:focus):not(:hover):not(:active):not(:checked).periodpicker_checkboks_Il5Wx + .periodpicker_skjemaelement__label_ZnxjT::before,
+.periodpicker_skjemagruppe--feil_Xiomr .periodpicker_skjemaelement__input_Q4KRY:not(:focus):not(:hover):not(:active):not(:checked).periodpicker_radioknapp_I_qL9 + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.periodpicker_skjemagruppe--feil_Xiomr .periodpicker_inputPanel_YH0Vt:not(.periodpicker_inputPanel--focused_nkmSJ):not(.periodpicker_inputPanel--checked_VPz89):not(.periodpicker_inputPanel--disabled_sxgnG) {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.periodpicker_skjemaelement__feilmelding_TxuYI {
+  margin-top: 0.5rem;
+}
+.periodpicker_skjemaelement__feilmelding_TxuYI:empty {
+  margin: 0;
+}
+.periodpicker_skjemaelement__input--harFeil_sk_5d:not(:focus):not(:hover):not(:active):not(.periodpicker_inputPanel--focused_nkmSJ) {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.periodpicker_skjemaelement__input--harFeil_sk_5d:not(:focus):not(:hover):not(:active):not(.periodpicker_inputPanel--focused_nkmSJ).periodpicker_checkboks_Il5Wx:not(:checked) + .periodpicker_skjemaelement__label_ZnxjT::before,
+.periodpicker_skjemaelement__input--harFeil_sk_5d:not(:focus):not(:hover):not(:active):not(.periodpicker_inputPanel--focused_nkmSJ).periodpicker_radio_K7T1B:not(:checked) + .periodpicker_skjemaelement__label_ZnxjT::before,
+.periodpicker_skjemaelement__input--harFeil_sk_5d:not(:focus):not(:hover):not(:active):not(.periodpicker_inputPanel--focused_nkmSJ).periodpicker_radioknapp_I_qL9:not(:checked) + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.periodpicker_toggle_wq28F {
+  display: flex;
+}
+.periodpicker_toggle_wq28F > :first-child .periodpicker_toggle__label_Qn7ba {
+  border-radius: 2px 0 0 2px;
+}
+.periodpicker_toggle_wq28F > :last-child .periodpicker_toggle__label_Qn7ba {
+  border-radius: 0 2px 2px 0;
+  border-right: 1px solid #262626;
+  margin-left: -1px;
+}
+.periodpicker_toggle__label_Qn7ba {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #262626;
+  border-right: 0;
+  color: #262626;
+  cursor: pointer;
+  min-width: 6.25rem;
+  height: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0;
+}
+.periodpicker_toggle__label_Qn7ba:hover {
+  border-color: #0067c5;
+  color: #0067c5;
+}
+.periodpicker_toggle__input_JVSFp:checked + label {
+  background-color: #005b82;
+  color: #fff;
+  border-color: #005b82;
+}
+.periodpicker_toggle__input_JVSFp:focus + label {
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 0 0 3px #ffc166;
+}
+.periodpicker_inputPanelGruppe__inner_mB7Nz + div > .periodpicker_skjemaelement__feilmelding_TxuYI {
+  margin-top: 0.5rem;
+}
+.periodpicker_inputPanelGruppe_y_USj .periodpicker_inputPanel_YH0Vt:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.periodpicker_inputPanel_YH0Vt {
+  background-color: #fff;
+  border: 1px solid #6a6a6a;
+  border-radius: 0.25rem;
+  display: block;
+  padding: 1rem 1rem 1rem 3rem;
+  position: relative;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+.periodpicker_inputPanel__field_Dmhxo {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  position: absolute;
+  width: 0;
+  height: 1px;
+  opacity: 0;
+}
+.periodpicker_inputPanel__field_Dmhxo:checked + .periodpicker_inputPanel__label_t8ru9::before {
+  border: 1px solid #0067c5;
+  background-color: #0067c5;
+}
+.periodpicker_inputPanel__field_Dmhxo:disabled + .periodpicker_inputPanel__label_t8ru9::before {
+  background-color: #f1f1f1;
+}
+.periodpicker_inputPanel__label_t8ru9 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  line-height: 24px;
+}
+.periodpicker_inputPanel__label_t8ru9::before {
+  border: 1px solid #6a6a6a;
+  border-radius: 50%;
+  background-color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75%;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.periodpicker_inputPanel__subtext_JvscG {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  display: block;
+  margin-top: 0.5rem;
+}
+.periodpicker_inputPanel--checked_VPz89 {
+  background-color: #cce1ff;
+  border: 1px solid transparent;
+}
+.periodpicker_inputPanel--disabled_sxgnG {
+  background-color: #f1f1f1;
+  box-shadow: none;
+}
+.periodpicker_inputPanel--disabled_sxgnG:hover,
+.periodpicker_inputPanel--disabled_sxgnG .periodpicker_inputPanel__field_Dmhxo:hover,
+.periodpicker_inputPanel--disabled_sxgnG + .periodpicker_inputPanel__label_t8ru9:hover {
+  cursor: not-allowed;
+}
+.periodpicker_inputPanel--focused_nkmSJ {
+  box-shadow: 0 0 0 3px #00347d;
+  border: 1px solid transparent;
+}
+.periodpicker_inputPanel_YH0Vt:active:not(.periodpicker_inputPanel--disabled_sxgnG):not(.periodpicker_bekreftCheckboksPanel_j7huc) {
+  background-color: #cce1ff;
+}
+.periodpicker_inputPanel_YH0Vt:hover:not(.periodpicker_inputPanel--disabled_sxgnG):not(.periodpicker_bekreftCheckboksPanel_j7huc) {
+  border: 1px solid #0067c5;
+  box-shadow: #a0a0a0 0 2px 1px 0;
+  cursor: pointer;
+}
+.periodpicker_inputPanel_YH0Vt:hover:not(.periodpicker_inputPanel--disabled_sxgnG):not(.periodpicker_bekreftCheckboksPanel_j7huc):not(.periodpicker_inputPanel--checked_VPz89) .periodpicker_inputPanel__field_Dmhxo + .periodpicker_inputPanel__label_t8ru9::before {
+  background-color: #99c3ff;
+  border: 0;
+}
+.periodpicker_inputPanel_YH0Vt:hover:not(.periodpicker_inputPanel--disabled_sxgnG):not(.periodpicker_bekreftCheckboksPanel_j7huc) .periodpicker_inputPanel__label_t8ru9 {
+  color: #0067c5;
+}
+.periodpicker_checkboksPanel_U3wFA .periodpicker_inputPanel__label_t8ru9::before {
+  border-radius: 4px;
+}
+.periodpicker_checkboksPanel_U3wFA .periodpicker_inputPanel__field_Dmhxo:checked + .periodpicker_inputPanel__label_t8ru9::before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.periodpicker_radioPanel_VZMil.periodpicker_inputPanel--checked_VPz89 .periodpicker_inputPanel__label_t8ru9::before {
+  border: 2px solid #0067c5;
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+  border-radius: 50%;
+}
+.periodpicker_radioPanel_VZMil.periodpicker_inputPanel--checked_VPz89.periodpicker_inputPanel--focused_nkmSJ .periodpicker_inputPanel__label_t8ru9::before {
+  transition: box-shadow 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+}
+.periodpicker_bekreftCheckboksPanel_j7huc {
+  background-color: #fff;
+  display: block;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 4px;
+  background-color: #ffeccc;
+  border-color: #ffeccc;
+  cursor: unset;
+  transition: background-color linear 100ms;
+}
+.periodpicker_bekreftCheckboksPanel_j7huc:focus,
+.periodpicker_bekreftCheckboksPanel--focus_oYqZc {
+  box-shadow: 0 0 0 3px #00347d;
+  outline: none;
+}
+.periodpicker_bekreftCheckboksPanel_j7huc .periodpicker_bekreftCheckboksPanel__innhold_aSu3z {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  max-width: 80ch;
+  margin-bottom: 1rem;
+}
+.periodpicker_bekreftCheckboksPanel_j7huc .periodpicker_skjemaelement_eAeZu {
+  margin-bottom: 0;
+}
+.periodpicker_bekreftCheckboksPanel_j7huc .periodpicker_checkboks_Il5Wx:hover + .periodpicker_skjemaelement__label_ZnxjT {
+  text-decoration: underline;
+}
+.periodpicker_bekreftCheckboksPanel--checked_a0AEp {
+  background-color: #ccf1d6;
+  border-color: #ccf1d6;
+}
+.periodpicker_bekreftCheckboksPanel--checked_a0AEp .periodpicker_bekreftCheckboksPanel__innhold_aSu3z .periodpicker_lenke_fMoDA:not(:focus) {
+  color: #262626;
+}
+.periodpicker_bekreftCheckboksPanel--checked_a0AEp .periodpicker_checkboks_Il5Wx + .periodpicker_skjemaelement__label_ZnxjT::before {
+  transition: none;
+  background-color: #06893a;
+  border-color: #06893a;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.periodpicker_bekreftCheckboksPanel--checked_a0AEp .periodpicker_checkboks_Il5Wx + .periodpicker_skjemaelement__label_ZnxjT:hover {
+  color: #262626;
+}
+.periodpicker_bekreftCheckboksPanel--checked_a0AEp .periodpicker_checkboks_Il5Wx + .periodpicker_skjemaelement__label_ZnxjT:hover::before {
+  background-color: #006a23;
+  border-color: #006a23;
+}
+.periodpicker_bekreftCheckboksPanel--checked_a0AEp .periodpicker_checkboks_Il5Wx:focus + .periodpicker_skjemaelement__label_ZnxjT::before {
+  border-color: #00347d;
+}
+.periodpicker_bekreftCheckboksPanel--checked_a0AEp .periodpicker_checkboks_Il5Wx:focus + .periodpicker_skjemaelement__label_ZnxjT:hover::before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.periodpicker_bekreftCheckboksPanel--error_fZoUO {
+  background-color: #f3e3e3;
+  border: 1px solid transparent;
+}
+.periodpicker_feiloppsummering_AmwkW {
+  background-color: #fff;
+  display: block;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 4px;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  border-radius: 0;
+  border: 4px solid #ba3a26;
+}
+.periodpicker_feiloppsummering_AmwkW:focus,
+.periodpicker_feiloppsummering--focus_T8XId {
+  box-shadow: 0 0 0 3px #00347d;
+  outline: none;
+}
+.periodpicker_feiloppsummering__liste_mkwmm {
+  margin: 1rem 0;
+}
+.periodpicker_feiloppsummering__liste_mkwmm li {
+  margin-bottom: 0.25rem;
+}
+.periodpicker_skjemagruppe_BvUYA,
+.periodpicker_skjemagruppe_BvUYA fieldset,
+.periodpicker_skjemagruppe__fieldset_FwCco {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.periodpicker_skjemagruppe_BvUYA .periodpicker_skjemaelement_eAeZu,
+.periodpicker_skjemagruppe_BvUYA fieldset .periodpicker_skjemaelement_eAeZu,
+.periodpicker_skjemagruppe__fieldset_FwCco .periodpicker_skjemaelement_eAeZu {
+  margin-bottom: 1rem;
+}
+.periodpicker_skjemagruppe_BvUYA .periodpicker_skjemagruppe_BvUYA.periodpicker_inputPanelGruppe_y_USj,
+.periodpicker_skjemagruppe_BvUYA fieldset .periodpicker_skjemagruppe_BvUYA.periodpicker_inputPanelGruppe_y_USj,
+.periodpicker_skjemagruppe__fieldset_FwCco .periodpicker_skjemagruppe_BvUYA.periodpicker_inputPanelGruppe_y_USj,
+.periodpicker_skjemagruppe_BvUYA .periodpicker_skjemagruppe_BvUYA.periodpicker_radiogruppe_yNLzy,
+.periodpicker_skjemagruppe_BvUYA fieldset .periodpicker_skjemagruppe_BvUYA.periodpicker_radiogruppe_yNLzy,
+.periodpicker_skjemagruppe__fieldset_FwCco .periodpicker_skjemagruppe_BvUYA.periodpicker_radiogruppe_yNLzy,
+.periodpicker_skjemagruppe_BvUYA .periodpicker_skjemagruppe_BvUYA.periodpicker_checkboxgruppe_W_ldo,
+.periodpicker_skjemagruppe_BvUYA fieldset .periodpicker_skjemagruppe_BvUYA.periodpicker_checkboxgruppe_W_ldo,
+.periodpicker_skjemagruppe__fieldset_FwCco .periodpicker_skjemagruppe_BvUYA.periodpicker_checkboxgruppe_W_ldo {
+  margin-bottom: 1rem;
+}
+.periodpicker_skjemagruppe__description_vt1N8 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.periodpicker_skjemagruppe_BvUYA legend,
+.periodpicker_skjemagruppe__legend_anWVq {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+@media (min-width: 30em) {
+  .periodpicker_skjemagruppe_BvUYA legend,
+  .periodpicker_skjemagruppe__legend_anWVq {
+    font-size: 1.25rem;
+    line-height: 1.625rem;
+  }
+}
+.periodpicker_skjemagruppe_BvUYA.periodpicker_inputPanelGruppe_y_USj .periodpicker_skjemaelement_eAeZu,
+.periodpicker_skjemagruppe_BvUYA.periodpicker_radiogruppe_yNLzy .periodpicker_skjemaelement_eAeZu,
+.periodpicker_skjemagruppe_BvUYA.periodpicker_checkboxgruppe_W_ldo .periodpicker_skjemaelement_eAeZu {
+  margin-bottom: 1rem;
+}
+.periodpicker_skjemagruppe_BvUYA.periodpicker_inputPanelGruppe_y_USj legend,
+.periodpicker_skjemagruppe_BvUYA.periodpicker_radiogruppe_yNLzy legend,
+.periodpicker_skjemagruppe_BvUYA.periodpicker_checkboxgruppe_W_ldo legend,
+.periodpicker_skjemagruppe_BvUYA.periodpicker_inputPanelGruppe_y_USj .periodpicker_skjemagruppe__legend_anWVq,
+.periodpicker_skjemagruppe_BvUYA.periodpicker_radiogruppe_yNLzy .periodpicker_skjemagruppe__legend_anWVq,
+.periodpicker_skjemagruppe_BvUYA.periodpicker_checkboxgruppe_W_ldo .periodpicker_skjemagruppe__legend_anWVq {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+[autocomplete="off"]::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+.periodpicker_skjemaelement_eAeZu {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  position: relative;
+}
+.periodpicker_skjemaelement__label_ZnxjT {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+  display: block;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+.periodpicker_skjemaelement__label_ZnxjT + .periodpicker_skjemaelement__description_ghXx0 {
+  margin-top: -0.25rem;
+}
+.periodpicker_skjemaelement__description_ghXx0 {
+  margin-bottom: 0.5rem;
+}
+.periodpicker_inputWrapper_BEqmB {
+  display: block;
+  position: relative;
+}
+.periodpicker_dateInput_I9dix {
+  display: inline-block;
+  width: 228px;
+}
+.periodpicker_calendarToggleButton_WvMLz {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  appearance: none;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #6a6a6a;
+  box-sizing: border-box;
+  line-height: 1.375rem;
+  background: transparent;
+  border: 1px solid transparent;
+  box-sizing: content-box;
+  cursor: pointer;
+  display: inline-block;
+  height: 22px;
+  left: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  width: 22px;
+}
+.periodpicker_calendarToggleButton_WvMLz:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.periodpicker_calendarToggleButton_WvMLz:hover {
+  border-color: #0067c5;
+}
+.periodpicker_calendarToggleButton_WvMLz:disabled,
+.periodpicker_calendarToggleButton_WvMLz[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.periodpicker_calendarToggleButton_WvMLz:disabled:hover,
+.periodpicker_calendarToggleButton_WvMLz[readonly]:hover {
+  cursor: not-allowed;
+}
+.periodpicker_calendarToggleButton--mini_cX9Zf {
+  padding: 0.25rem;
+}
+.periodpicker_calendarToggleButton_WvMLz:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.periodpicker_calendarToggleButton_WvMLz:hover {
+  border-color: #0067c5;
+}
+.periodpicker_calendarToggleButton_WvMLz:disabled,
+.periodpicker_calendarToggleButton_WvMLz[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.periodpicker_calendarToggleButton_WvMLz:disabled:hover,
+.periodpicker_calendarToggleButton_WvMLz[readonly]:hover {
+  cursor: not-allowed;
+}
+.periodpicker_calendarToggleButton--mini_cX9Zf {
+  padding: 0.25rem;
+}
+.periodpicker_calendarToggleButton_WvMLz:after {
+  content: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8dGl0bGU+DQogICAgICAgIEthbGVuZGVyaWtvbg0KICAgIDwvdGl0bGU+DQogICAgPGcgc3Ryb2tlPSIjM0UzODMyIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+DQogICAgICAgIDxwYXRoIGQ9Ik00Ljc1IDMuMDgzSDEuNDE3djE3LjVoMTkuMTY2di0xNy41SDE3LjI1Ii8+DQogICAgICAgIDxwYXRoIGQ9Ik03LjI1IDQuNzVoLTIuNVYxLjQxN2gyLjV6TTE3LjI1IDQuNzVoLTIuNVYxLjQxN2gyLjV6TTcuMjUgMy4wODNoNy41TTEuNDE3IDcuMjVoMTkuMTY2Ii8+DQogICAgPC9nPg0KPC9zdmc+DQo=);
+}
+.periodpicker_calendarToggleButton_WvMLz:hover,
+.periodpicker_calendarToggleButton_WvMLz:focus {
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+.periodpicker_calendarToggleButton_WvMLz:hover:after,
+.periodpicker_calendarToggleButton_WvMLz:focus:after {
+  content: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8dGl0bGU+DQogICAgICAgIEthbGVuZGVyaWtvbg0KICAgIDwvdGl0bGU+DQogICAgPGcgc3Ryb2tlPSIjMDA2N0M1IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+DQogICAgICAgIDxwYXRoIGQ9Ik00Ljc1IDMuMDgzSDEuNDE3djE3LjVoMTkuMTY2di0xNy41SDE3LjI1Ii8+DQogICAgICAgIDxwYXRoIGQ9Ik03LjI1IDQuNzVoLTIuNVYxLjQxN2gyLjV6TTE3LjI1IDQuNzVoLTIuNVYxLjQxN2gyLjV6TTcuMjUgMy4wODNoNy41TTEuNDE3IDcuMjVoMTkuMTY2Ii8+DQogICAgPC9nPg0KPC9zdmc+DQogICAg);
+}
+.periodpicker_calendarToggleButton_WvMLz:disabled {
+  background: transparent;
+  border-color: transparent;
+  cursor: initial;
+}
+.periodpicker_calendarToggleButton_WvMLz:disabled:after {
+  content: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8dGl0bGU+DQogICAgICAgIEthbGVuZGVyaWtvbg0KICAgIDwvdGl0bGU+DQogICAgPGcgc3Ryb2tlPSIjYjdiMWE5IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+DQogICAgICAgIDxwYXRoIGQ9Ik00Ljc1IDMuMDgzSDEuNDE3djE3LjVoMTkuMTY2di0xNy41SDE3LjI1Ii8+DQogICAgICAgIDxwYXRoIGQ9Ik03LjI1IDQuNzVoLTIuNVYxLjQxN2gyLjV6TTE3LjI1IDQuNzVoLTIuNVYxLjQxN2gyLjV6TTcuMjUgMy4wODNoNy41TTEuNDE3IDcuMjVoMTkuMTY2Ii8+DQogICAgPC9nPg0KPC9zdmc+DQo=);
+}
+.periodpicker_calendarRoot_ETaEw {
+  height: 0;
+  position: relative;
+  top: 0;
+  width: 0;
+  z-index: 1000;
+}
+.periodpicker_calendarRoot_ETaEw:focus {
+  outline: none;
+}
+.periodpicker_calendarWrapper_GVZHG {
+  background: #fff;
+  border: 1px solid #a0a0a0;
+  border-radius: 4px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 610px;
+}
+.periodpicker_calendarWrapper_GVZHG:focus {
+  outline: none;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.tableRow_row_HZOtE {
+  border-bottom: 1px solid #c4c4c4;
+}
+.tableRow_harHover_weJ87:hover {
+  background-color: #cce2f0;
+}
+.tableRow_rowHeader_gYGlE {
+  cursor: default;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-weight: 600;
+}
+.tableRow_grayHeader_j8NNb {
+  background-color: #f1f1f1;
+}
+.tableRow_rowContent_ZwXC3 {
+  cursor: pointer;
+}
+.tableRow_selected_ibGYY {
+  background-color: #f7f7f7;
+  cursor: default;
+}
+.tableRow_bold_E2aIP {
+  font-weight: bold;
+}
+.tableRow_dashedBottomBorder_yy2H5 {
+  border-bottom: dashed 1px #a0a0a0;
+}
+.tableRow_solidBottomBorder_l1mcb {
+  border-bottom: solid 1px #a0a0a0;
+}
+.tableRow_apLeftBorder_xUZrH {
+  border-left: solid 5px #ffaa33;
+}
+.tableRow_noBottomBorder_RAOke {
+  border-bottom: dashed 0;
+}
+
+.tableColumn_columnStyle_fa9iV {
+  line-height: 1.42857143;
+  padding: 8px 8px 8px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.table_table_P6i3t {
+  background-color: transparent;
+  border-bottom: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 1rem;
+  max-width: 100%;
+  width: 100%;
+}
+.table_table_P6i3t thead {
+  display: table-header-group;
+}
+.table_table_P6i3t caption {
+  color: #6a6a6a;
+  left: -3000px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  position: absolute;
+  text-align: left;
+}
+.table_table_P6i3t tbody tr:first-child th,
+.table_table_P6i3t tbody tr:first-child td {
+  border-top: 1px solid #a0a0a0;
+}
+.table_table_P6i3t.table_rowHover_wNVYj tbody tr:hover {
+  background-color: #cce2f0;
+}
+
+
+/*# sourceMappingURL=stylemain.css.map*/

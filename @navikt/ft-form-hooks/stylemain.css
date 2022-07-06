@@ -1,0 +1,1549 @@
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+:export {
+  navRod: #c30000;
+  navOransje: #ff9100;
+  navLimeGronn: #a2ad00;
+  navGronn: #06893a;
+  navLilla: #634689;
+  navDypBla: #005b82;
+  navBla: #0067c5;
+  navLysBla: #66cbec;
+  navMorkGra: #262626;
+  navGra80: #4f4f4f;
+  navGra60: #6a6a6a;
+  navGra40: #a0a0a0;
+  navGra20: #c9c9c9;
+  navLysGra: #f1f1f1;
+  navBakgrunn: #ffffff;
+  navGraBakgrunn: #f1f1f1;
+  fokusFarge: #00347d;
+  redError: #ba3a26;
+  white: #fff;
+  grayBackground: #f1f1f1;
+  grayIcon: #a0a0a0;
+  grayModia: #333333;
+  grayInactive: #6a6a6a;
+  pinkErrorBg: #f3e3e3;
+  navGronnLighten80: #ccf1d6;
+  navGronnLighten60: #99dead;
+  navGronnLighten40: #66c786;
+  navGronnLighten20: #33aa5f;
+  navGronnDarken20: #007c2e;
+  navGronnDarken40: #006a23;
+  navGronnDarken60: #005519;
+  navGronnDarken80: #003b0f;
+  navLimeGronnLighten80: #f9fccc;
+  navLimeGronnLighten60: #ecf399;
+  navLimeGronnLighten40: #d9e366;
+  navLimeGronnLighten20: #c1cb33;
+  navLimeGronnDarken20: #939e00;
+  navLimeGronnDarken40: #7f8900;
+  navLimeGronnDarken60: #666e00;
+  navLimeGronnDarken80: #474e00;
+  navLysBlaLighten80: #d8f9ff;
+  navLysBlaLighten60: #b5f1ff;
+  navLysBlaLighten40: #97e6ff;
+  navLysBlaLighten20: #7cdaf8;
+  navLysBlaDarken20: #4cadcd;
+  navLysBlaDarken40: #368da8;
+  navLysBlaDarken60: #236b7d;
+  navLysBlaDarken80: #134852;
+  navBlaLighten80: #cce1ff;
+  navBlaLighten60: #99c3ff;
+  navBlaLighten40: #66a5f4;
+  navBlaLighten20: #3386e0;
+  navBlaDarken20: #0056b4;
+  navBlaDarken40: #00459c;
+  navBlaDarken60: #00347d;
+  navBlaDarken80: #002252;
+  navDypBlaLighten80: #cce2f0;
+  navDypBlaLighten60: #99c4dd;
+  navDypBlaLighten40: #66a3c4;
+  navDypBlaLighten20: #3380a5;
+  navDypBlaDarken20: #005077;
+  navDypBlaDarken40: #004367;
+  navDypBlaDarken60: #003453;
+  navDypBlaDarken80: #00243a;
+  navLillaLighten80: #e0d8e9;
+  navLillaLighten60: #c0b2d2;
+  navLillaLighten40: #a18dbb;
+  navLillaLighten20: #8269a2;
+  navLillaDarken20: #523874;
+  navLillaDarken40: #412b5d;
+  navLillaDarken60: #301f46;
+  navLillaDarken80: #1f142f;
+  redErrorLighten80: #f9d2cc;
+  redErrorLighten60: #efa89d;
+  redErrorLighten40: #e18071;
+  redErrorLighten20: #d05c4a;
+  redErrorDarken20: #a32a17;
+  redErrorDarken40: #881d0c;
+  redErrorDarken60: #6a1204;
+  redErrorDarken80: #480900;
+  navOransjeLighten80: #ffeccc;
+  navOransjeLighten60: #ffd799;
+  navOransjeLighten40: #ffc166;
+  navOransjeLighten20: #ffaa33;
+  navOransjeDarken20: #d47b00;
+  navOransjeDarken40: #a86400;
+  navOransjeDarken60: #7d4c00;
+  navOransjeDarken80: #523300;
+  screenSm: 768px;
+  screenSmMin: 768px;
+  screenTablet: 768px;
+  screenMd: 992px;
+  screenMdMin: 992px;
+  screenDesktop: 992px;
+  screenLg: 1200px;
+  screenLgMin: 1200px;
+  screenLgDesktop: 1200px;
+  screenXsMax: 767px;
+  screenSmMax: 991px;
+  screenMdMax: 1199px;
+  containerTablet: 736px;
+  containerSm: 736px;
+  containerDesktop: 956px;
+  containerMd: 956px;
+  containerLargeDesktop: 1156px;
+  containerLg: 1156px;
+  gridColumns: 12;
+  gridGutterWidth: 16px;
+  gridFloatBreakpoint: 768px;
+  gridFloatBreakpointMax: 767px;
+  paddingBaseVertical: 6px;
+  paddingBaseHorizontal: 12px;
+  paddingLargeVertical: 10px;
+  paddingLargeHorizontal: 16px;
+  paddingSmallVertical: 5px;
+  paddingSmallHorizontal: 10px;
+  paddingXsVertical: 1px;
+  paddingXsHorizontal: 5px;
+  lineHeightLarge: 1.3333333;
+  lineHeightSmall: 1.5;
+  borderRadiusSmall: 2px;
+  borderRadiusBase: 4px;
+  borderRadiusLarge: 6px;
+}
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+/*
+-------------
+CLEARFIX
+-------------
+*/
+/* stylelint-disable */
+/* stylelint-enable */
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  font-family: sans-serif;
+  /* 3 */
+}
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0;
+}
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block;
+}
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
+}
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  font-size: 100%;
+  font-family: sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+figure {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+}
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.img-rounded {
+  border-radius: 6px;
+}
+.img-circle {
+  border-radius: 50%;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+[role="button"] {
+  cursor: pointer;
+}
+body .clearfix::before,
+body .clearfix::after {
+  content: " ";
+  display: table;
+}
+body .clearfix::after {
+  clear: both;
+}
+body .center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+body .pull-right {
+  float: right !important;
+}
+body .pull-left {
+  float: left !important;
+}
+body .hide {
+  display: none !important;
+}
+body .show {
+  display: block !important;
+}
+body .hidden {
+  display: none !important;
+}
+body .invisible {
+  visibility: hidden;
+}
+body .text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+body .ustilet {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body .blokk {
+  margin-bottom: 2rem;
+}
+body .blokk-null {
+  margin-bottom: 0;
+}
+body .blokk-xxxs {
+  margin-bottom: 4px;
+}
+body .blokk-xxs {
+  margin-bottom: 0.5rem;
+}
+body .blokk-xs {
+  margin-bottom: 1rem;
+}
+body .blokk-s {
+  margin-bottom: 20px;
+}
+body .blokk-m {
+  margin-bottom: 2rem;
+}
+body .blokk-l {
+  margin-bottom: 2.5rem;
+}
+body .blokk-xl {
+  margin-bottom: 4rem;
+}
+@-ms-viewport {
+  width: device-width;
+}
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+html {
+  height: 100%;
+}
+body {
+  background-color: #fff;
+  color: #262626;
+  height: 100%;
+  line-height: 1.42857143;
+  margin: 0;
+}
+:global(#app) {
+  height: 100%;
+}
+
+.fieldError_fieldError_t8Czh {
+  color: #ba3a26;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.375rem;
+  margin: 0.5rem 0 0;
+}
+
+.datepicker_datepicker_BBx8D {
+  display: flex;
+  flex-direction: column;
+}
+
+.label_labelWrapper_BsrvK > .label_label_S52FS {
+  line-height: 1.15rem;
+}
+.label_readOnly_tI5Bs {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.readOnlyField_readOnlyContainer_sx6im {
+  display: inline-block;
+}
+.readOnlyField_readOnlyContainer_sx6im .readOnlyField_readOnlyContent_Q3ffX {
+  margin-bottom: 4px;
+  padding-bottom: 0.45rem;
+  white-space: pre-wrap;
+}
+.readOnlyField_readOnlyContainer_sx6im .readOnlyField_readOnlyContentCenter_S5reU {
+  float: right;
+  padding-bottom: 0.45rem;
+  white-space: pre-wrap;
+}
+.readOnlyField_textarea_z55eT {
+  border-left: 4px solid #c9c9c9;
+  padding-left: 7px;
+}
+.readOnlyField_space_MrAlO {
+  margin-left: 5px;
+}
+
+.optionGrid_fullBreddeIE_OvlmT {
+  width: 100%;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.radioGroupField_radioGroup_fqgER.radioGroupField_readOnly_rvBE4 {
+  width: auto;
+}
+.radioGroupField_radioGroupLabel_EfTad {
+  display: inline-block;
+}
+.radioGroupField_checkboks_vW8AW,
+.radioGroupField_radioknapp_j5ius {
+  position: absolute;
+  opacity: 0;
+}
+.radioGroupField_checkboks_vW8AW + .radioGroupField_skjemaelement__label_jaHuj,
+.radioGroupField_radioknapp_j5ius + .radioGroupField_skjemaelement__label_jaHuj {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  padding-left: 32px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 0;
+  line-height: 24px;
+}
+.radioGroupField_checkboks_vW8AW + .radioGroupField_skjemaelement__label_jaHuj::before,
+.radioGroupField_radioknapp_j5ius + .radioGroupField_skjemaelement__label_jaHuj::before {
+  content: "";
+  position: absolute;
+  display: block;
+  text-align: center;
+  background-color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1px solid #6a6a6a;
+  width: 24px;
+  height: 24px;
+  left: 0;
+  top: 0;
+}
+.radioGroupField_checkboks_vW8AW:hover + .radioGroupField_skjemaelement__label_jaHuj,
+.radioGroupField_radioknapp_j5ius:hover + .radioGroupField_skjemaelement__label_jaHuj {
+  color: #0067c5;
+}
+.radioGroupField_checkboks_vW8AW:hover + .radioGroupField_skjemaelement__label_jaHuj::before,
+.radioGroupField_radioknapp_j5ius:hover + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-color: #0067c5;
+  background-color: #cce1ff;
+}
+.radioGroupField_checkboks_vW8AW:disabled + .radioGroupField_skjemaelement__label_jaHuj,
+.radioGroupField_radioknapp_j5ius:disabled + .radioGroupField_skjemaelement__label_jaHuj {
+  color: #6a6a6a;
+}
+.radioGroupField_checkboks_vW8AW:disabled + .radioGroupField_skjemaelement__label_jaHuj:hover,
+.radioGroupField_radioknapp_j5ius:disabled + .radioGroupField_skjemaelement__label_jaHuj:hover {
+  cursor: not-allowed;
+}
+.radioGroupField_checkboks_vW8AW:disabled + .radioGroupField_skjemaelement__label_jaHuj::before,
+.radioGroupField_radioknapp_j5ius:disabled + .radioGroupField_skjemaelement__label_jaHuj::before {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+}
+.radioGroupField_checkboks--mork_UqV7P + .radioGroupField_skjemaelement__label_jaHuj::before,
+.radioGroupField_radioknapp--mork_xtFyf + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-color: #6a6a6a;
+}
+.radioGroupField_checkboks_vW8AW {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  position: absolute;
+  opacity: 0;
+}
+.radioGroupField_checkboks_vW8AW:focus + .radioGroupField_skjemaelement__label_jaHuj::before {
+  box-shadow: 0 0 0 3px #00347d;
+}
+.radioGroupField_checkboks_vW8AW + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-radius: 4px;
+}
+.radioGroupField_checkboks_vW8AW:checked:disabled + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-color: #a0a0a0;
+  background-color: #a0a0a0;
+}
+.radioGroupField_checkboks_vW8AW:checked:focus + .radioGroupField_skjemaelement__label_jaHuj::before {
+  background-color: white;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjMDA2N0M1IiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.radioGroupField_checkboks_vW8AW:checked + .radioGroupField_skjemaelement__label_jaHuj::before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75%;
+  border-color: #0067c5;
+  border-width: 2px;
+  background-color: #0067c5;
+}
+.radioGroupField_radioknapp_j5ius {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+.radioGroupField_radioknapp_j5ius + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-radius: 50%;
+}
+.radioGroupField_radioknapp_j5ius:checked + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border: 2px solid #0067c5;
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+}
+.radioGroupField_radioknapp_j5ius:disabled:checked + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border: 2px solid #a0a0a0;
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #a0a0a0 inset;
+}
+.radioGroupField_radioknapp_j5ius:focus + .radioGroupField_skjemaelement__label_jaHuj::before {
+  box-shadow: 0 0 0 3px #00347d, 0 0 0 12px #fff inset;
+}
+.radioGroupField_radioknapp_j5ius:checked:focus + .radioGroupField_skjemaelement__label_jaHuj::before {
+  transition: box-shadow 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  box-shadow: 0 0 0 3px #00347d, 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+}
+.radioGroupField_textarea--medMeta_I0oNc {
+  resize: none;
+  width: 100%;
+  overflow: hidden;
+  min-height: 4rem;
+  transition: height 0.1s ease-out;
+  display: block;
+}
+.radioGroupField_textarea--medMeta__wrapper_c4gfG {
+  width: 100%;
+  position: relative;
+}
+.radioGroupField_textarea--medMeta__teller_Lcr7v {
+  pointer-events: none;
+  color: #6a6a6a;
+  font-style: italic;
+  position: absolute;
+  text-align: right;
+  left: 32px;
+  right: 12px;
+  bottom: 10px;
+  margin: 0;
+  padding: 0;
+}
+.radioGroupField_textarea--medMeta__teller_Lcr7v .radioGroupField_teller-tekst--overflow_MmOXY {
+  color: #ba3a26;
+  font-weight: bold;
+}
+.radioGroupField_textareamirror_TIpda {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  appearance: none;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #6a6a6a;
+  box-sizing: border-box;
+  line-height: 1.375rem;
+  white-space: pre-wrap;
+  display: inline-block;
+  width: 100%;
+  word-wrap: break-word;
+  position: absolute;
+  left: -99999px;
+  top: 0;
+}
+.radioGroupField_textareamirror_TIpda:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.radioGroupField_textareamirror_TIpda:hover {
+  border-color: #0067c5;
+}
+.radioGroupField_textareamirror_TIpda:disabled,
+.radioGroupField_textareamirror_TIpda[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.radioGroupField_textareamirror_TIpda:disabled:hover,
+.radioGroupField_textareamirror_TIpda[readonly]:hover {
+  cursor: not-allowed;
+}
+.radioGroupField_textareamirror--mini_QFB2E {
+  padding: 0.25rem;
+}
+.radioGroupField_textareamirror_TIpda:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.radioGroupField_textareamirror_TIpda:hover {
+  border-color: #0067c5;
+}
+.radioGroupField_textareamirror_TIpda:disabled,
+.radioGroupField_textareamirror_TIpda[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.radioGroupField_textareamirror_TIpda:disabled:hover,
+.radioGroupField_textareamirror_TIpda[readonly]:hover {
+  cursor: not-allowed;
+}
+.radioGroupField_textareamirror--mini_QFB2E {
+  padding: 0.25rem;
+}
+.radioGroupField_textarea__container_aXzSI {
+  position: relative;
+}
+.radioGroupField_selectContainer_kS1XQ {
+  position: relative;
+  display: inline-block;
+}
+.radioGroupField_selectContainer_kS1XQ select {
+  padding-right: 1.5em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  width: 100%;
+}
+.radioGroupField_selectContainer_kS1XQ select::-ms-expand {
+  display: none;
+}
+.radioGroupField_selectContainer_kS1XQ::before {
+  pointer-events: none;
+  content: "";
+  background: #262626;
+  height: 2px;
+  width: 10px;
+  border-radius: 10px;
+  right: 0.75rem;
+  top: 50%;
+  z-index: 4;
+  position: absolute;
+  transform: translateX(3px) rotate(-45deg);
+}
+.radioGroupField_selectContainer_kS1XQ::after {
+  pointer-events: none;
+  content: "";
+  background: #262626;
+  height: 2px;
+  width: 10px;
+  border-radius: 10px;
+  right: 0.75rem;
+  top: 50%;
+  z-index: 4;
+  position: absolute;
+  transform: translateX(-3px) rotate(45deg);
+}
+.radioGroupField_input--xxs_y8DDa {
+  width: 35px;
+}
+.radioGroupField_input--xs_fJbR0 {
+  width: 70px;
+}
+.radioGroupField_input--s_egSuE {
+  width: 140px;
+}
+.radioGroupField_input--m_Pvd6p {
+  width: 100%;
+  max-width: 210px;
+}
+.radioGroupField_input--l_iQviV {
+  width: 100%;
+  max-width: 280px;
+}
+.radioGroupField_input--xl_pfaCG {
+  width: 100%;
+  max-width: 350px;
+}
+.radioGroupField_input--xxl_yJNnJ {
+  width: 100%;
+  max-width: 420px;
+}
+.radioGroupField_input--fullbredde_xFccQ {
+  width: 100%;
+}
+.radioGroupField_skjemaelement__input_tjMq8 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  appearance: none;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #6a6a6a;
+  box-sizing: border-box;
+  line-height: 1.375rem;
+}
+.radioGroupField_skjemaelement__input_tjMq8:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #00347d;
+}
+.radioGroupField_skjemaelement__input_tjMq8:hover {
+  border-color: #0067c5;
+}
+.radioGroupField_skjemaelement__input_tjMq8:disabled,
+.radioGroupField_skjemaelement__input_tjMq8[readonly] {
+  background-color: #f1f1f1;
+  border-color: #6a6a6a;
+  box-shadow: none;
+  color: #262626;
+}
+.radioGroupField_skjemaelement__input_tjMq8:disabled:hover,
+.radioGroupField_skjemaelement__input_tjMq8[readonly]:hover {
+  cursor: not-allowed;
+}
+.radioGroupField_skjemaelement__input--mini_jZ_86 {
+  padding: 0.25rem;
+}
+.radioGroupField_skjemaelement__input-fodselsnr_Iq11F::-webkit-outer-spin-button,
+.radioGroupField_skjemaelement__input-fodselsnr_Iq11F::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.radioGroupField_skjemaelement__input-fodselsnr_Iq11F [type="number"] {
+  -moz-appearance: textfield;
+}
+.radioGroupField_skjemagruppe--feil_nUlDB .radioGroupField_skjemaelement__input_tjMq8:not(:focus):not(:hover):not(:active):not(:checked) {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.radioGroupField_skjemagruppe--feil_nUlDB .radioGroupField_skjemaelement__input_tjMq8:not(:focus):not(:hover):not(:active):not(:checked).radioGroupField_checkboks_vW8AW + .radioGroupField_skjemaelement__label_jaHuj::before,
+.radioGroupField_skjemagruppe--feil_nUlDB .radioGroupField_skjemaelement__input_tjMq8:not(:focus):not(:hover):not(:active):not(:checked).radioGroupField_radioknapp_j5ius + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.radioGroupField_skjemagruppe--feil_nUlDB .radioGroupField_inputPanel_DlQLz:not(.radioGroupField_inputPanel--focused_OVhC_):not(.radioGroupField_inputPanel--checked_qKKM2):not(.radioGroupField_inputPanel--disabled_Y_QMu) {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.radioGroupField_skjemaelement__feilmelding_e6wor {
+  margin-top: 0.5rem;
+}
+.radioGroupField_skjemaelement__feilmelding_e6wor:empty {
+  margin: 0;
+}
+.radioGroupField_skjemaelement__input--harFeil_X70ts:not(:focus):not(:hover):not(:active):not(.radioGroupField_inputPanel--focused_OVhC_) {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.radioGroupField_skjemaelement__input--harFeil_X70ts:not(:focus):not(:hover):not(:active):not(.radioGroupField_inputPanel--focused_OVhC_).radioGroupField_checkboks_vW8AW:not(:checked) + .radioGroupField_skjemaelement__label_jaHuj::before,
+.radioGroupField_skjemaelement__input--harFeil_X70ts:not(:focus):not(:hover):not(:active):not(.radioGroupField_inputPanel--focused_OVhC_).radioGroupField_radio_d8mKC:not(:checked) + .radioGroupField_skjemaelement__label_jaHuj::before,
+.radioGroupField_skjemaelement__input--harFeil_X70ts:not(:focus):not(:hover):not(:active):not(.radioGroupField_inputPanel--focused_OVhC_).radioGroupField_radioknapp_j5ius:not(:checked) + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
+.radioGroupField_toggle_HoFw4 {
+  display: flex;
+}
+.radioGroupField_toggle_HoFw4 > :first-child .radioGroupField_toggle__label_ai3jB {
+  border-radius: 2px 0 0 2px;
+}
+.radioGroupField_toggle_HoFw4 > :last-child .radioGroupField_toggle__label_ai3jB {
+  border-radius: 0 2px 2px 0;
+  border-right: 1px solid #262626;
+  margin-left: -1px;
+}
+.radioGroupField_toggle__label_ai3jB {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #262626;
+  border-right: 0;
+  color: #262626;
+  cursor: pointer;
+  min-width: 6.25rem;
+  height: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0;
+}
+.radioGroupField_toggle__label_ai3jB:hover {
+  border-color: #0067c5;
+  color: #0067c5;
+}
+.radioGroupField_toggle__input_N_2Wf:checked + label {
+  background-color: #005b82;
+  color: #fff;
+  border-color: #005b82;
+}
+.radioGroupField_toggle__input_N_2Wf:focus + label {
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 0 0 3px #ffc166;
+}
+.radioGroupField_inputPanelGruppe__inner_V5xZ4 + div > .radioGroupField_skjemaelement__feilmelding_e6wor {
+  margin-top: 0.5rem;
+}
+.radioGroupField_inputPanelGruppe_DeYNA .radioGroupField_inputPanel_DlQLz:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.radioGroupField_inputPanel_DlQLz {
+  background-color: #fff;
+  border: 1px solid #6a6a6a;
+  border-radius: 0.25rem;
+  display: block;
+  padding: 1rem 1rem 1rem 3rem;
+  position: relative;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+.radioGroupField_inputPanel__field_GFdiw {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  position: absolute;
+  width: 0;
+  height: 1px;
+  opacity: 0;
+}
+.radioGroupField_inputPanel__field_GFdiw:checked + .radioGroupField_inputPanel__label_DCGO2::before {
+  border: 1px solid #0067c5;
+  background-color: #0067c5;
+}
+.radioGroupField_inputPanel__field_GFdiw:disabled + .radioGroupField_inputPanel__label_DCGO2::before {
+  background-color: #f1f1f1;
+}
+.radioGroupField_inputPanel__label_DCGO2 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  line-height: 24px;
+}
+.radioGroupField_inputPanel__label_DCGO2::before {
+  border: 1px solid #6a6a6a;
+  border-radius: 50%;
+  background-color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75%;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.radioGroupField_inputPanel__subtext_gCPJ3 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  display: block;
+  margin-top: 0.5rem;
+}
+.radioGroupField_inputPanel--checked_qKKM2 {
+  background-color: #cce1ff;
+  border: 1px solid transparent;
+}
+.radioGroupField_inputPanel--disabled_Y_QMu {
+  background-color: #f1f1f1;
+  box-shadow: none;
+}
+.radioGroupField_inputPanel--disabled_Y_QMu:hover,
+.radioGroupField_inputPanel--disabled_Y_QMu .radioGroupField_inputPanel__field_GFdiw:hover,
+.radioGroupField_inputPanel--disabled_Y_QMu + .radioGroupField_inputPanel__label_DCGO2:hover {
+  cursor: not-allowed;
+}
+.radioGroupField_inputPanel--focused_OVhC_ {
+  box-shadow: 0 0 0 3px #00347d;
+  border: 1px solid transparent;
+}
+.radioGroupField_inputPanel_DlQLz:active:not(.radioGroupField_inputPanel--disabled_Y_QMu):not(.radioGroupField_bekreftCheckboksPanel_vMgYu) {
+  background-color: #cce1ff;
+}
+.radioGroupField_inputPanel_DlQLz:hover:not(.radioGroupField_inputPanel--disabled_Y_QMu):not(.radioGroupField_bekreftCheckboksPanel_vMgYu) {
+  border: 1px solid #0067c5;
+  box-shadow: #a0a0a0 0 2px 1px 0;
+  cursor: pointer;
+}
+.radioGroupField_inputPanel_DlQLz:hover:not(.radioGroupField_inputPanel--disabled_Y_QMu):not(.radioGroupField_bekreftCheckboksPanel_vMgYu):not(.radioGroupField_inputPanel--checked_qKKM2) .radioGroupField_inputPanel__field_GFdiw + .radioGroupField_inputPanel__label_DCGO2::before {
+  background-color: #99c3ff;
+  border: 0;
+}
+.radioGroupField_inputPanel_DlQLz:hover:not(.radioGroupField_inputPanel--disabled_Y_QMu):not(.radioGroupField_bekreftCheckboksPanel_vMgYu) .radioGroupField_inputPanel__label_DCGO2 {
+  color: #0067c5;
+}
+.radioGroupField_checkboksPanel_yDtPp .radioGroupField_inputPanel__label_DCGO2::before {
+  border-radius: 4px;
+}
+.radioGroupField_checkboksPanel_yDtPp .radioGroupField_inputPanel__field_GFdiw:checked + .radioGroupField_inputPanel__label_DCGO2::before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.radioGroupField_radioPanel_DgI68.radioGroupField_inputPanel--checked_qKKM2 .radioGroupField_inputPanel__label_DCGO2::before {
+  border: 2px solid #0067c5;
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+  border-radius: 50%;
+}
+.radioGroupField_radioPanel_DgI68.radioGroupField_inputPanel--checked_qKKM2.radioGroupField_inputPanel--focused_OVhC_ .radioGroupField_inputPanel__label_DCGO2::before {
+  transition: box-shadow 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
+}
+.radioGroupField_bekreftCheckboksPanel_vMgYu {
+  background-color: #fff;
+  display: block;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 4px;
+  background-color: #ffeccc;
+  border-color: #ffeccc;
+  cursor: unset;
+  transition: background-color linear 100ms;
+}
+.radioGroupField_bekreftCheckboksPanel_vMgYu:focus,
+.radioGroupField_bekreftCheckboksPanel--focus_ON8Ui {
+  box-shadow: 0 0 0 3px #00347d;
+  outline: none;
+}
+.radioGroupField_bekreftCheckboksPanel_vMgYu .radioGroupField_bekreftCheckboksPanel__innhold_z6kx_ {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  max-width: 80ch;
+  margin-bottom: 1rem;
+}
+.radioGroupField_bekreftCheckboksPanel_vMgYu .radioGroupField_skjemaelement_lP0YN {
+  margin-bottom: 0;
+}
+.radioGroupField_bekreftCheckboksPanel_vMgYu .radioGroupField_checkboks_vW8AW:hover + .radioGroupField_skjemaelement__label_jaHuj {
+  text-decoration: underline;
+}
+.radioGroupField_bekreftCheckboksPanel--checked_kYmzK {
+  background-color: #ccf1d6;
+  border-color: #ccf1d6;
+}
+.radioGroupField_bekreftCheckboksPanel--checked_kYmzK .radioGroupField_bekreftCheckboksPanel__innhold_z6kx_ .radioGroupField_lenke_iz7rs:not(:focus) {
+  color: #262626;
+}
+.radioGroupField_bekreftCheckboksPanel--checked_kYmzK .radioGroupField_checkboks_vW8AW + .radioGroupField_skjemaelement__label_jaHuj::before {
+  transition: none;
+  background-color: #06893a;
+  border-color: #06893a;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.radioGroupField_bekreftCheckboksPanel--checked_kYmzK .radioGroupField_checkboks_vW8AW + .radioGroupField_skjemaelement__label_jaHuj:hover {
+  color: #262626;
+}
+.radioGroupField_bekreftCheckboksPanel--checked_kYmzK .radioGroupField_checkboks_vW8AW + .radioGroupField_skjemaelement__label_jaHuj:hover::before {
+  background-color: #006a23;
+  border-color: #006a23;
+}
+.radioGroupField_bekreftCheckboksPanel--checked_kYmzK .radioGroupField_checkboks_vW8AW:focus + .radioGroupField_skjemaelement__label_jaHuj::before {
+  border-color: #00347d;
+}
+.radioGroupField_bekreftCheckboksPanel--checked_kYmzK .radioGroupField_checkboks_vW8AW:focus + .radioGroupField_skjemaelement__label_jaHuj:hover::before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMyAxMCI+ICAgIDxnPiAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNCwxMGMtMC40LDAtMC44LTAuMS0xLjEtMC40TDAuNCw3LjFDMC4xLDYuOCwwLDYuNCwwLDZzMC4yLTAuOCwwLjUtMS4xQzEsNC40LDIsNC40LDIuNSw0LjlMNCw2LjRsNi40LTYgICAgQzEwLjgsMC4xLDExLjEsMCwxMS41LDBjMC40LDAsMC44LDAuMiwxLDAuNWMwLjYsMC42LDAuNSwxLjYtMC4xLDIuMXYwTDUsOS42QzQuNyw5LjksNC40LDEwLDQsMTB6IE0xMS44LDEuOUwxMS44LDEuOSAgICBDMTEuOCwxLjksMTEuOCwxLjksMTEuOCwxLjl6IE0xMS4yLDEuMUMxMS4yLDEuMSwxMS4yLDEuMSwxMS4yLDEuMUwxMS4yLDEuMXoiLz4gICAgPC9nPjwvc3ZnPg==);
+}
+.radioGroupField_bekreftCheckboksPanel--error_gyGDk {
+  background-color: #f3e3e3;
+  border: 1px solid transparent;
+}
+.radioGroupField_feiloppsummering_aaKon {
+  background-color: #fff;
+  display: block;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 4px;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  border-radius: 0;
+  border: 4px solid #ba3a26;
+}
+.radioGroupField_feiloppsummering_aaKon:focus,
+.radioGroupField_feiloppsummering--focus_n9DG7 {
+  box-shadow: 0 0 0 3px #00347d;
+  outline: none;
+}
+.radioGroupField_feiloppsummering__liste_yYeaU {
+  margin: 1rem 0;
+}
+.radioGroupField_feiloppsummering__liste_yYeaU li {
+  margin-bottom: 0.25rem;
+}
+.radioGroupField_skjemagruppe_Esa9r,
+.radioGroupField_skjemagruppe_Esa9r fieldset,
+.radioGroupField_skjemagruppe__fieldset_ITCKj {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.radioGroupField_skjemagruppe_Esa9r .radioGroupField_skjemaelement_lP0YN,
+.radioGroupField_skjemagruppe_Esa9r fieldset .radioGroupField_skjemaelement_lP0YN,
+.radioGroupField_skjemagruppe__fieldset_ITCKj .radioGroupField_skjemaelement_lP0YN {
+  margin-bottom: 1rem;
+}
+.radioGroupField_skjemagruppe_Esa9r .radioGroupField_skjemagruppe_Esa9r.radioGroupField_inputPanelGruppe_DeYNA,
+.radioGroupField_skjemagruppe_Esa9r fieldset .radioGroupField_skjemagruppe_Esa9r.radioGroupField_inputPanelGruppe_DeYNA,
+.radioGroupField_skjemagruppe__fieldset_ITCKj .radioGroupField_skjemagruppe_Esa9r.radioGroupField_inputPanelGruppe_DeYNA,
+.radioGroupField_skjemagruppe_Esa9r .radioGroupField_skjemagruppe_Esa9r.radioGroupField_radiogruppe_i6ED7,
+.radioGroupField_skjemagruppe_Esa9r fieldset .radioGroupField_skjemagruppe_Esa9r.radioGroupField_radiogruppe_i6ED7,
+.radioGroupField_skjemagruppe__fieldset_ITCKj .radioGroupField_skjemagruppe_Esa9r.radioGroupField_radiogruppe_i6ED7,
+.radioGroupField_skjemagruppe_Esa9r .radioGroupField_skjemagruppe_Esa9r.radioGroupField_checkboxgruppe_lFa9v,
+.radioGroupField_skjemagruppe_Esa9r fieldset .radioGroupField_skjemagruppe_Esa9r.radioGroupField_checkboxgruppe_lFa9v,
+.radioGroupField_skjemagruppe__fieldset_ITCKj .radioGroupField_skjemagruppe_Esa9r.radioGroupField_checkboxgruppe_lFa9v {
+  margin-bottom: 1rem;
+}
+.radioGroupField_skjemagruppe__description_F1TUe {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.radioGroupField_skjemagruppe_Esa9r legend,
+.radioGroupField_skjemagruppe__legend_NoqEf {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+@media (min-width: 30em) {
+  .radioGroupField_skjemagruppe_Esa9r legend,
+  .radioGroupField_skjemagruppe__legend_NoqEf {
+    font-size: 1.25rem;
+    line-height: 1.625rem;
+  }
+}
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_inputPanelGruppe_DeYNA .radioGroupField_skjemaelement_lP0YN,
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_radiogruppe_i6ED7 .radioGroupField_skjemaelement_lP0YN,
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_checkboxgruppe_lFa9v .radioGroupField_skjemaelement_lP0YN {
+  margin-bottom: 1rem;
+}
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_inputPanelGruppe_DeYNA legend,
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_radiogruppe_i6ED7 legend,
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_checkboxgruppe_lFa9v legend,
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_inputPanelGruppe_DeYNA .radioGroupField_skjemagruppe__legend_NoqEf,
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_radiogruppe_i6ED7 .radioGroupField_skjemagruppe__legend_NoqEf,
+.radioGroupField_skjemagruppe_Esa9r.radioGroupField_checkboxgruppe_lFa9v .radioGroupField_skjemagruppe__legend_NoqEf {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+[autocomplete="off"]::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+.radioGroupField_skjemaelement_lP0YN {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  position: relative;
+}
+.radioGroupField_skjemaelement__label_jaHuj {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+  display: block;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+.radioGroupField_skjemaelement__label_jaHuj + .radioGroupField_skjemaelement__description_c5AML {
+  margin-top: -0.25rem;
+}
+.radioGroupField_skjemaelement__description_c5AML {
+  margin-bottom: 0.5rem;
+}
+
+.selectField_navSelect_wygv_ select {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.selectField_navSelect_wygv_ select:required:invalid {
+  color: gray;
+}
+.selectField_navSelect_wygv_ option {
+  color: black;
+}
+.selectField_navSelect_wygv_ option[disabled] {
+  color: gray;
+}
+.selectField_navSelect_wygv_ select:disabled {
+  background: none;
+  background-color: #e9e7e7;
+  border: 0;
+  border-color: #b7b1a9;
+  box-shadow: none;
+  color: #3e3832;
+  padding-left: 0;
+  padding-right: 0;
+}
+.selectField_navSelectReadOnly_nz9qv > div:before,
+.selectField_navSelectReadOnly_nz9qv > div:after {
+  display: none;
+}
+
+.textAreaField_textAreaFieldWithBadges__8CyH {
+  position: relative;
+}
+.textAreaField_textAreaFieldWithBadges__8CyH .textAreaField_etikettWrapper_zT6yV {
+  position: absolute;
+  right: 0;
+  top: -4px;
+  z-index: 1;
+}
+.textAreaField_textAreaFieldWithBadges__8CyH label {
+  max-width: calc(100% - 100px);
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/*
+---------------
+FARGER
+---------------
+*/
+/*
+---------------
+BREKKPUNKTER
+---------------
+*/
+/*
+--------------
+CONTAINER
+--------------
+*/
+/*
+---------------
+GRID
+---------------
+*/
+.periodFieldArray_buttonRemove_xZQ9t {
+  background: #fff url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgd2lkdGg9IjEycHgiIGhlaWdodD0iMTBweCIgdmlld0JveD0iMCAwIDEyIDEwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPg0KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggNDQuMSAoNDE0NTUpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPg0KICAgIDx0aXRsZT5BZGQgQ29weTwvdGl0bGU+DQogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+DQogICAgPGRlZnM+PC9kZWZzPg0KICAgIDxnIGlkPSJSZWdpc3RyZXJlLXPDuGtuYWQtb2ctdmVyZ2UiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiPg0KICAgICAgICA8ZyBpZD0iUmVnaXN0cmVyLXPDuGtuYWQtaW5uaGVudC1pbmZvIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjExLjAwMDAwMCwgLTUyOC4wMDAwMDApIiBzdHJva2U9IiNCQTNBMjYiPg0KICAgICAgICAgICAgPGcgaWQ9Ik9wcGhvbGQtaS1Ob3JnZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjUuMDAwMDAwLCAyNjMuMDAwMDAwKSI+DQogICAgICAgICAgICAgICAgPGcgaWQ9IkxlZ2ctdGlsIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMi4wMDAwMDAsIDI1OC4wMDAwMDApIj4NCiAgICAgICAgICAgICAgICAgICAgPGcgaWQ9IkRlbGV0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTEyLjAwMDAwMCwgNC4wMDAwMDApIj4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik04LjI0Njc3NjcxLDAuOTMzMjM5NjkyIEw3Ljc1MzIyMzI5LDE1LjA2Njc2MDMiIGlkPSJMaW5lIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4LjAwMDAwMCwgOC4wMDAwMDApIHJvdGF0ZSg0My4wMDAwMDApIHRyYW5zbGF0ZSgtOC4wMDAwMDAsIC04LjAwMDAwMCkgIj48L3BhdGg+DQogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTUuMDY2NzYwMyw4LjI0Njc3NjcxIEwwLjkzMzIzOTY5Miw3Ljc1MzIyMzI5IiBpZD0iTGluZS1Db3B5LTkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDguMDAwMDAwLCA4LjAwMDAwMCkgcm90YXRlKDQzLjAwMDAwMCkgdHJhbnNsYXRlKC04LjAwMDAwMCwgLTguMDAwMDAwKSAiPjwvcGF0aD4NCiAgICAgICAgICAgICAgICAgICAgPC9nPg0KICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgIDwvZz4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg0K) no-repeat;
+  background-size: 100% 100%;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 17px;
+  margin-top: 20px;
+  padding: 0;
+  vertical-align: top;
+  width: 17px;
+}
+.periodFieldArray_buttonAdd_VVmJZ {
+  background: #fff url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgd2lkdGg9IjE4cHgiIGhlaWdodD0iMThweCIgdmlld0JveD0iMCAwIDE4IDE4IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPg0KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggNDYuMiAoNDQ0OTYpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPg0KICAgIDx0aXRsZT4xOS1pbnRlcmZhY2UtYWRkLWNpcmNsZTwvdGl0bGU+DQogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+DQogICAgPGRlZnM+PC9kZWZzPg0KICAgIDxnIGlkPSJSZWdpc3RyZXJlLXPDuGtuYWQtb2ctdmVyZ2UiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+DQogICAgICAgIDxnIGlkPSJMZWdnLXRpbC1vcHBob2xkLWFsdCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU3LjAwMDAwMCwgLTUzNy4wMDAwMDApIiBzdHJva2U9IiMwMDY3QzUiPg0KICAgICAgICAgICAgPGcgaWQ9IjE5LWludGVyZmFjZS1hZGQtY2lyY2xlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1OC4wMDAwMDAsIDUzOC4wMDAwMDApIj4NCiAgICAgICAgICAgICAgICA8ZyBpZD0iU3Ryb2tlLTEiPg0KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOCwwLjM0NzgyNjA4NyBDMTIuMjI2MDg3LDAuMzQ3ODI2MDg3IDE1LjY1MjE3MzksMy43NzM5MTMwNCAxNS42NTIxNzM5LDggQzE1LjY1MjE3MzksMTIuMjI2MDg3IDEyLjIyNjA4NywxNS42NTIxNzM5IDgsMTUuNjUyMTczOSBDMy43NzM5MTMwNCwxNS42NTIxNzM5IDAuMzQ3ODI2MDg3LDEyLjIyNjA4NyAwLjM0NzgyNjA4Nyw4IEMwLjM0NzgyNjA4NywzLjc3MzkxMzA0IDMuNzczOTEzMDQsMC4zNDc4MjYwODcgOCwwLjM0NzgyNjA4NyBaIj48L3BhdGg+DQogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik04LDMuODI2MDg2OTYgTDgsMTIuMTczOTEzIiBpZD0iU3Ryb2tlLTMiPjwvcGF0aD4NCiAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTEyLjE3MzkxMyw4IEwzLjgyNjA4Njk2LDgiIGlkPSJTdHJva2UtNSI+PC9wYXRoPg0KICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgIDwvZz4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg0K) no-repeat;
+  background-size: contain;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 23px;
+  padding-left: 7px;
+  width: 100px;
+}
+.periodFieldArray_addCircleIcon_SZBpF,
+.periodFieldArray_imageText_bvwCu {
+  display: inline-block;
+  margin-right: 1ex;
+  vertical-align: text-bottom;
+}
+.periodFieldArray_addPeriode_xCopo {
+  cursor: pointer;
+}
+
+
+/*# sourceMappingURL=stylemain.css.map*/
