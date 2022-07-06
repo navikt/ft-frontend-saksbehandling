@@ -14,6 +14,7 @@ const ExpandableLabel = ({ helptext, labelText, labelFor }: HelptextProps): JSX.
   return (
     <div className={styles.expandableLabel}>
       <label htmlFor={labelFor}>{labelText}</label>
+      {/* @ts-ignore */}
       <Collapse isOpened={open}>
         <p className={styles.expandableLabel__helptext}>{helptext}</p>
       </Collapse>
