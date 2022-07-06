@@ -28,6 +28,7 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues) => {
 
   return {
     ...vurderAktiviteterTransformed,
+    periode: values.periode,
     begrunnelse: values.begrunnelseFaktaTilfeller,
   };
 };

@@ -5,6 +5,7 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
+  Vilkar,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { ReactElement, useEffect } from 'react';
@@ -17,6 +18,7 @@ import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpef
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
+import { finnVilkårperiode } from '../felles/vilkarutils';
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import FaktaForATFLOgSNPanel, { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
@@ -89,11 +91,13 @@ type VurderFaktaBeregningPanelProps = {
   aktivtBeregningsgrunnlagIndeks: number;
   setFormData: (data: VurderFaktaBeregningFormValues) => void;
   formData: VurderFaktaBeregningFormValues;
+  vilkår: Vilkar;
 };
 
 export const buildInitialValuesVurderFaktaBeregning = (
   props,
   avklaringsbehov: BeregningAvklaringsbehov[],
+  vilkår: Vilkar,
 ): VurderFaktaBeregningFormValues => ({
   [formNameVurderFaktaBeregning]: props.beregningsgrunnlag.map(bg => ({
     avklaringsbehov,
@@ -102,6 +106,7 @@ export const buildInitialValuesVurderFaktaBeregning = (
       BEGRUNNELSE_FAKTA_TILFELLER_NAME,
     ),
     ...getBuildInitialValuesFaktaForATFLOgSN({ ...props, avklaringsbehov, beregningsgrunnlag: bg }),
+    periode: finnVilkårperiode(vilkår, bg.vilkårsperiodeFom)?.periode,
   })),
 });
 
@@ -122,12 +127,13 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     submitCallback,
     setFormData,
     formData,
+    vilkår,
   } = props;
   const verdiForAvklarAktivitetErEndret = false;
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
-    defaultValues: formData || buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov),
+    defaultValues: formData || buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov, vilkår),
   });
   const { control, getValues, formState, trigger } = formMethods;
   const { fields, update } = useFieldArray({

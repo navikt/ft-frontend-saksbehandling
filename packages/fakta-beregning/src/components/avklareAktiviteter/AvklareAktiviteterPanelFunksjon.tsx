@@ -1,29 +1,21 @@
 import React, { FunctionComponent, useEffect } from 'react';
 
-import { useFieldArray, useForm } from 'react-hook-form';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import {
-  AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  Vilkar,
-  Vilkarperiode,
-} from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
+import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkar } from '@navikt/ft-types';
 import BeregningAvklaringsbehov from '@navikt/ft-types/src/beregningAvklaringsbehovTsType';
-import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
-import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { useFieldArray, useForm } from 'react-hook-form';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
-import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
-import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
+import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
+import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import { finnVilkårperiode } from '../felles/vilkarutils';
+import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 
 const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
-
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
-  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOverstyrer: boolean): boolean =>
   !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) &&
