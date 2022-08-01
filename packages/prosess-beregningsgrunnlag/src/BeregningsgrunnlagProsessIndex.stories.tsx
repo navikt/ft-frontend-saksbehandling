@@ -405,11 +405,12 @@ const lagBG = (
   inntektsgrunnlag?: Inntektsgrunnlag,
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp,
   avklaringsbehov?: BeregningAvklaringsbehov[],
+  skjæringstidspunkt: string = STP,
 ): Beregningsgrunnlag => {
   const beregningsgrunnlag = {
     avklaringsbehov: avklaringsbehov || [],
-    skjaeringstidspunktBeregning: STP,
-    vilkårsperiodeFom: STP,
+    skjaeringstidspunktBeregning: skjæringstidspunkt,
+    vilkårsperiodeFom: skjæringstidspunkt,
     aktivitetStatus: statuser,
     beregningsgrunnlagPeriode: perioder,
     dekningsgrad: 80,
@@ -533,6 +534,7 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlag.args = {
       undefined,
       malSGGrunnlagAvvik(),
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+      STP,
     ),
     lagBG(
       [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)])],
@@ -543,6 +545,58 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlag.args = {
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};
+
+export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurdering = Template.bind({});
+ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurdering.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(
+      [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, 200000, true, false)])],
+      ['AT'],
+      undefined,
+      malSGGrunnlagAvvik(),
+      [
+        lagAPMedKode(
+          ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+          'En begrunnelse',
+        ),
+      ],
+    ),
+    lagBG(
+      [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)])],
+      ['AT'],
+      undefined,
+      malSGGrunnlagAvvik(),
+      [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+      '2021-02-01',
+    ),
+  ],
+  vilkar: {
+    vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
+    overstyrbar: false,
+    perioder: [
+      {
+        periode: {
+          fom: STP,
+          tom: '2021-01-20',
+        },
+        vurderesIBehandlingen: false,
+        vilkarStatus: 'GODKJENT',
+        merknadParametere: {},
+      },
+      {
+        periode: {
+          fom: '2021-02-01',
+          tom: '2021-02-10',
+        },
+        vurderesIBehandlingen: true,
+        vilkarStatus: 'TIL_VURDERING',
+        merknadParametere: {},
+      },
+    ],
+  } as Vilkar,
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
@@ -644,6 +698,7 @@ MangeTidsbegrensetArbeidsforholdMedAvvik.args = {
       ],
       sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik()],
       skjaeringstidspunktBeregning: STP,
+      vilkårsperiodeFom: STP,
       dekningsgrad: 100,
       aktivitetStatus: ['AT_FL'],
     },
@@ -673,6 +728,7 @@ TidsbegrensetArbeidsforholdMedAvvik.args = {
       ],
       sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik()],
       skjaeringstidspunktBeregning: STP,
+      vilkårsperiodeFom: STP,
       dekningsgrad: 100,
       aktivitetStatus: ['AT'],
     },
