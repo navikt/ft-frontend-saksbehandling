@@ -282,6 +282,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       aktivitetStatuser,
       getKanRedigereInntektCallback,
       remove,
+      // @ts-ignore Fiks
       append,
     );
     leggTilDagpengerOmBesteberegning(
@@ -291,6 +292,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       skalKunneLeggeTilDagpengerManuelt,
       getKanRedigereInntektCallback,
       remove,
+      // @ts-ignore Fiks
       append,
     );
   }, [skalHaBesteberegning, skalHaMilitær, skalKunneLeggeTilDagpengerManuelt]);
@@ -339,6 +341,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
         <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
           <>
             {!readOnly && !harDagpenger(fields) && (
+              // @ts-ignore Fiks
               <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
             )}
             <VerticalSpacer eightPx />
@@ -360,6 +363,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
           {tablerows}
         </Table>
         {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
+          // @ts-ignore Fiks
           <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
         )}
         <VerticalSpacer eightPx />
