@@ -435,8 +435,11 @@ const createBeregningTableData = (
   vilkarPeriode: Vilkarperiode,
   ytelseGrunnlag?: YtelseGrunnlag,
 ): BeregningsresultatPeriodeTabellType[] => {
-  const perioderSomSkalVises = allePerioder.filter(periode =>
-    periodeHarAarsakSomTilsierVisning(periode.periodeAarsaker || []),
+  const perioderSomSkalVises = allePerioder.filter(
+    periode =>
+      periode.beregningsgrunnlagPeriodeFom >= vilkarPeriode.periode.fom &&
+      periode.beregningsgrunnlagPeriodeTom <= vilkarPeriode.periode.tom &&
+      periodeHarAarsakSomTilsierVisning(periode.periodeAarsaker || []),
   );
   if (perioderSomSkalVises.length < 1) {
     // Alle perioder har periodeårsak som egentlig ikke trengs vises, velger første periode som den eneste som blir vist.
