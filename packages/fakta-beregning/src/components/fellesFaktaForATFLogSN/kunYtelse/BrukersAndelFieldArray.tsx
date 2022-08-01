@@ -195,6 +195,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
             <button
               id="leggTilAndelDiv"
               onClick={() => {
+                // @ts-ignore Fiks
                 append(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
               }}
               className={styles.addPeriode}
