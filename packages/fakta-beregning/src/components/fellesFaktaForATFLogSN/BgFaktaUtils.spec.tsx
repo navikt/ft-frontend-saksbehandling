@@ -324,7 +324,11 @@ describe('<BgFaktaUtils>', () => {
     },
   };
 
-  const values = { vurderMottarYtelseValues: {} };
+  const values = {
+    vurderMottarYtelseValues: {},
+    erTilVurdering: true,
+    periode: { fom: '2022-01-01', tom: '2022-02-01' },
+  };
   values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(arbeidstakerAndel3)] = true;
   values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
   values[lonnsendringField] = true;

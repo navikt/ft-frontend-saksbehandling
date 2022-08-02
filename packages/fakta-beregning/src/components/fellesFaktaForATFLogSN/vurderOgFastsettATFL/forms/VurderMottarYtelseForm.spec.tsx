@@ -161,7 +161,11 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       andelerForFaktaOmBeregning: [],
     };
-    const values = { vurderMottarYtelseValues: {} };
+    const values = {
+      vurderMottarYtelseValues: {},
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+    };
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = true;
@@ -202,7 +206,11 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       andelerForFaktaOmBeregning: [],
     };
-    const values = { vurderMottarYtelseValues: {} };
+    const values = {
+      vurderMottarYtelseValues: {},
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+    };
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = true;
@@ -240,7 +248,11 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       andelerForFaktaOmBeregning: [],
     };
-    const values = { vurderMottarYtelseValues: {} };
+    const values = {
+      vurderMottarYtelseValues: {},
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+    };
     values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
     const fastsatteAndelsnr = [];
     const transformed = VurderMottarYtelseForm.transformValues(
@@ -279,7 +291,11 @@ describe('<VurderMottarYtelseForm>', () => {
       andelerForFaktaOmBeregning: [],
     };
     const fastsatteAndelsnr = [];
-    const values = { vurderMottarYtelseValues: {} };
+    const values = {
+      vurderMottarYtelseValues: {},
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+    };
     values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
@@ -328,7 +344,11 @@ describe('<VurderMottarYtelseForm>', () => {
       andelerForFaktaOmBeregning: [],
     };
     const fastsatteAndelsnr = [andel.andelsnr, andel3.andelsnr];
-    const values = { vurderMottarYtelseValues: {} };
+    const values = {
+      vurderMottarYtelseValues: {},
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+    };
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = true;
@@ -359,7 +379,11 @@ describe('<VurderMottarYtelseForm>', () => {
       andelerForFaktaOmBeregning: [],
     };
     const fastsatteAndelsnr = [4];
-    const values = { vurderMottarYtelseValues: {} };
+    const values = {
+      vurderMottarYtelseValues: {},
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+    };
     values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
     const transformed = VurderMottarYtelseForm.transformValues(
       values,

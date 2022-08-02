@@ -131,6 +131,8 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       vurderMottarYtelse: undefined,
       faktaOmBeregning,
       beregningsgrunnlag,
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
     };
     values[besteberegningField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [
@@ -223,6 +225,8 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       vurderMottarYtelse: undefined,
       faktaOmBeregning,
       beregningsgrunnlag,
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
     };
     values[lonnsendringField] = true;
     values[erNyoppstartetFLField] = true;
