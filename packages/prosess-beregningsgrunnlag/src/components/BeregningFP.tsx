@@ -51,7 +51,9 @@ const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
   harAndreTilstotendeYtelser: statuser.some(kode => isStatusTilstotendeYtelse(kode)),
   harDagpengerEllerAAP: statuser.some(kode => isStatusDagpengerOrAAP(kode)),
   isAAP: statuser.some(kode => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
-  isDagpenger: statuser.some(kode => kode === AktivitetStatus.DAGPENGER),
+  isDagpenger: statuser.some(
+    kode => kode === AktivitetStatus.DAGPENGER || kode === AktivitetStatus.SYKEPENGER_AV_DAGPENGER,
+  ),
   skalViseBeregningsgrunnlag: statuser.length > 0,
   isKombinasjonsstatus: statuser.some(kode => isStatusKombinasjon(kode)) || statuser.length > 1,
   isMilitaer: statuser.some(kode => isStatusMilitaer(kode)),
