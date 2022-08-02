@@ -918,6 +918,16 @@ Dagpenger.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
+export const SykepengerAvDagpenger = Template.bind({});
+SykepengerAvDagpenger.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.SYKEPENGER_AV_DAGPENGER, 300000)]), ['SP_AV_DP'], undefined),
+  ],
+  vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};
+
 export const GraderingPåBeregningsgrunnlagUtenPenger = Template.bind({});
 GraderingPåBeregningsgrunnlagUtenPenger.args = {
   readOnly: true,
