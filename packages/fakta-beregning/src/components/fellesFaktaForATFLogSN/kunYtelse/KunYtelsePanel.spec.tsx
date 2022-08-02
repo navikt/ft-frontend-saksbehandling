@@ -38,6 +38,8 @@ const alleKodeverk = {
 
 const faktaOmBeregningAndeler = [faktaOmBeregningAndel1, faktaOmBeregningAndel2];
 
+const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+
 describe('<KunYtelsePanel>', () => {
   it('skal transform values riktig', () => {
     const kunYtelse = { fodendeKvinneMedDP: false };
@@ -55,7 +57,7 @@ describe('<KunYtelsePanel>', () => {
       fastsattBelop: '20 000',
       inntektskategori: Inntektskategori.SJØMANN,
     };
-    const values = {};
+    const values = { ...emptyValues };
     values[`${brukersAndelFieldArrayName}`] = [andel1, andel2];
     const transformedValues = KunYtelsePanel.transformValues(values, kunYtelse);
     expect(transformedValues.kunYtelseFordeling.skalBrukeBesteberegning).toBe(null);
