@@ -9,6 +9,7 @@ export {
   default as AktivitetStatus,
   aktivitetstatusTilAndeltypeMap,
   isStatusArbeidstakerOrKombinasjon,
+  isStatusDagpenger,
   isStatusDagpengerOrAAP,
   isStatusFrilanserOrKombinasjon,
   isStatusKombinasjon,
