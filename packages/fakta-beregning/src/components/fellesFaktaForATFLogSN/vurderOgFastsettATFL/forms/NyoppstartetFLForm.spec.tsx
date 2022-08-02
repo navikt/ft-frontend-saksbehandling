@@ -5,6 +5,8 @@ import { Beregningsgrunnlag } from '@navikt/ft-types';
 import NyoppstartetFLForm, { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 
+const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+
 describe('<NyoppstartetFLForm>', () => {
   it.skip('skal teste at korrekt antall radioknapper vises med korrekte props', () => {
     const wrapper = shallow(<NyoppstartetFLForm readOnly={false} />);
@@ -19,7 +21,7 @@ describe('<NyoppstartetFLForm>', () => {
   };
 
   it('skal teste at transformValues gir korrekt output', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[erNyoppstartetFLField] = true;
     const transformedObject = NyoppstartetFLForm.transformValues(values, null, faktaOmBeregning, []);
     expect(transformedObject.vurderNyoppstartetFL.erNyoppstartetFL).toBe(true);
@@ -44,7 +46,7 @@ describe('<NyoppstartetFLForm>', () => {
   };
 
   it('skal teste transform values med inntekter', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[erNyoppstartetFLField] = true;
     const inntekterPrMnd = [frilansAndelInntekt as InntektTransformed, arbeidstakerInntekt as InntektTransformed];
     const fastsatteAndeler = [];
