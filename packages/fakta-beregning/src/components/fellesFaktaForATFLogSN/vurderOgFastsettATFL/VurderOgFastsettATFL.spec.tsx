@@ -19,8 +19,11 @@ const {
   FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
 } = FaktaOmBeregningTilfelle;
 
+const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+
 const lagBeregningsgrunnlag = andeler =>
   ({
+    vilkårsperiodeFom: '2022-01-01',
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({
@@ -72,7 +75,7 @@ const lagAndelValues = (
 
 describe('<VurderOgFastsettATFL>', () => {
   it('skal transform values om besteberegning', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[besteberegningField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [
       lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
@@ -98,7 +101,7 @@ describe('<VurderOgFastsettATFL>', () => {
   });
 
   it('skal ikkje transform inntekt for nyoppstartetFL og lønnsendring når man har besteberegning', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[besteberegningField] = true;
     values[lonnsendringField] = true;
     values[erNyoppstartetFLField] = true;
@@ -125,7 +128,7 @@ describe('<VurderOgFastsettATFL>', () => {
   });
 
   it('skal fastsette inntekt for nyoppstartetFL og arbeidstaker uten inntektsmelding med lønnendring', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[lonnsendringField] = true;
     values[erNyoppstartetFLField] = true;
     values[INNTEKT_FIELD_ARRAY_NAME] = [

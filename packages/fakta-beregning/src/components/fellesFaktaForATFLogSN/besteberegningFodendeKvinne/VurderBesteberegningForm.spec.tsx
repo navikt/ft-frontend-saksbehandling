@@ -4,6 +4,8 @@ import VurderBesteberegningForm, { besteberegningField } from './VurderBestebere
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 
+const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+
 describe('<VurderBesteberegning>', () => {
   // it('skal ikkje validere om man ikkje har tilfelle', () => {
   //   const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING]);
@@ -64,7 +66,7 @@ describe('<VurderBesteberegning>', () => {
   });
 
   it('skal transform values', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[besteberegningField] = false;
     const transformed = VurderBesteberegningForm.transformValues(
       values,
@@ -75,7 +77,7 @@ describe('<VurderBesteberegning>', () => {
   });
 
   it('skal transform values om besteberegning', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[besteberegningField] = true;
     const inntektPrMnd = [
       { andelsnr: 1, fastsattBelop: 10000, inntektskategori: 'ARBEIDSTAKER' },

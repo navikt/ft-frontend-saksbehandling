@@ -4,6 +4,8 @@ import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import LonnsendringForm, { lonnsendringField } from './LonnsendringForm';
 
+const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+
 describe('<LonnsendringForm>', () => {
   it.skip('skal teste at korrekt antall radioknapper vises med korrekte props', () => {
     const wrapper = shallow(<LonnsendringForm readOnly={false} />);
@@ -19,14 +21,14 @@ describe('<LonnsendringForm>', () => {
   };
 
   it('skal teste at transformValues gir korrekt output', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[lonnsendringField] = true;
     const transformedObject = LonnsendringForm.transformValues(values, faktaOmBeregning);
     expect(transformedObject.vurdertLonnsendring.erLønnsendringIBeregningsperioden).toBe(true);
   });
 
   it('skal ikkje submitte inntekt uten lønnsendring', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[lonnsendringField] = false;
     const transformedObject = LonnsendringForm.transformValues(values, faktaOmBeregning);
     expect(transformedObject.vurdertLonnsendring.erLønnsendringIBeregningsperioden).toBe(false);
