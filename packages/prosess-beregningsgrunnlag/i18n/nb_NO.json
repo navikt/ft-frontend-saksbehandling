@@ -99,6 +99,8 @@
   "Beregningsgrunnlag.TilstottendeYtelse.Tittel": "Tilstøtende ytelse",
   "Beregningsgrunnlag.TilstottendeYtelse.TittelNav": "Ytelser fra NAV",
   "Beregningsgrunnlag.TilstottendeYtelse.Dagpenger": "Dagpenger",
+  "Beregningsgrunnlag.TilstottendeYtelse.SykepengerAvDagpenger": "Sykepenger basert på dagpenger",
+  "Beregningsgrunnlag.TilstottendeYtelse.PleiepengerAvDagpenger": "Pleiepenger basert på dagpenger",
   "Beregningsgrunnlag.TilstottendeYtelse.AAP": "Arbeidsavklaringspenger",
   "Beregningsgrunnlag.TilstottendeYtelse.Besteberegning": "Satt ut fra besteberegning",
   "Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2": "Ytelse fra NAV",
