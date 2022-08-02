@@ -15,6 +15,12 @@ export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel):
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
     return 'Beregningsgrunnlag.TilstottendeYtelse.Dagpenger';
   }
+  if (andel.aktivitetStatus === AktivitetStatus.SYKEPENGER_AV_DAGPENGER) {
+    return 'Beregningsgrunnlag.TilstottendeYtelse.SykepengerAvDagpenger';
+  }
+  if (andel.aktivitetStatus === AktivitetStatus.PLEIEPENGER_AV_DAGPENGER) {
+    return 'Beregningsgrunnlag.TilstottendeYtelse.PleiepengerAvDagpenger';
+  }
   if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSAVKLARINGSPENGER) {
     return 'Beregningsgrunnlag.TilstottendeYtelse.AAP';
   }
