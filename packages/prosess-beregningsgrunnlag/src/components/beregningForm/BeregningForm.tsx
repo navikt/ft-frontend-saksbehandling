@@ -60,6 +60,10 @@ const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning):
       )
     : false;
 
+const sjekkErMidlertidigInaktiv = (beregningsgrunnlag: BeregningsgrunnlagProp): boolean =>
+  !!beregningsgrunnlag.aktivitetStatus &&
+  beregningsgrunnlag.aktivitetStatus.some(a => a === AktivitetStatus.MIDLERTIDIG_INAKTIV);
+
 const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag?: YtelseGrunnlag): boolean =>
   !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
 
@@ -212,6 +216,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
 
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
+  const erMidlertidigInaktiv = sjekkErMidlertidigInaktiv(beregningsgrunnlag);
 
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
@@ -297,6 +302,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
                 aktivitetStatusList={aktivitetStatusList}
                 grunnbelop={beregningsgrunnlag.grunnbeløp}
                 ytelseGrunnlag={beregningsgrunnlag.ytelsesspesifiktGrunnlag}
+                erMidlertidigInaktiv={erMidlertidigInaktiv}
               />
             )}
           </>
