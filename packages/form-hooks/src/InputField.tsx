@@ -75,7 +75,7 @@ const InputField: FunctionComponent<OwnProps> = ({
       maxLength={maxLength}
       disabled={disabled}
       onChange={event => {
-        const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : undefined;
+        const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : null;
         if (onChange) {
           onChange(verdi);
         }
@@ -92,7 +92,7 @@ const InputField: FunctionComponent<OwnProps> = ({
           onBlur(event?.target?.value);
         }
         if (normalizeOnBlur) {
-          field.onChange(event?.target?.value ? normalizeOnBlur(parse(event?.target?.value)) : undefined);
+          field.onChange(event?.target?.value ? normalizeOnBlur(parse(event?.target?.value)) : null);
         }
       }}
     />
