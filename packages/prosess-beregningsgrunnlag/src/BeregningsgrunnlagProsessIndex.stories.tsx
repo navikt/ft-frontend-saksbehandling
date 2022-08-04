@@ -170,6 +170,23 @@ const lagArbeidsforhold = (
 
 const malArbeidsorhold = (): BeregningsgrunnlagArbeidsforhold => lagArbeidsforhold('999999996', undefined, undefined);
 
+const lagBrukersAndel = (andelnr: number, beregnet: number): BeregningsgrunnlagAndel => ({
+  aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+  beregningsperiodeFom: undefined,
+  beregningsperiodeTom: undefined,
+  beregnetPrAar: beregnet,
+  overstyrtPrAar: undefined,
+  bruttoPrAar: beregnet,
+  avkortetPrAar: 360000,
+  redusertPrAar: 599000,
+  erTidsbegrensetArbeidsforhold: false,
+  skalFastsetteGrunnlag: false,
+  andelsnr: andelnr,
+  arbeidsforhold: undefined,
+  lagtTilAvSaksbehandler: false,
+  erTilkommetAndel: false,
+});
+
 const lagArbeidsandel = (
   andelnr: number,
   arbeid: BeregningsgrunnlagArbeidsforhold,
@@ -467,6 +484,26 @@ const Template: Story<{
     setFormData={() => undefined}
   />
 );
+
+export const MidlertidigInaktivOppfylt = Template.bind({});
+MidlertidigInaktivOppfylt.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(malPerioder([lagBrukersAndel(1, 200000)]), ['MIDL_INAKTIV'], lagInntektsgrunnlag(), malSGGrunnlagAvvik(), []),
+  ],
+  vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};
+
+export const MidlertidigInaktivAvslått = Template.bind({});
+MidlertidigInaktivAvslått.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(malPerioder([lagBrukersAndel(1, 20000)]), ['MIDL_INAKTIV'], lagInntektsgrunnlag(), malSGGrunnlagAvvik(), []),
+  ],
+  vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};
 
 export const JusterDekningsgradAP = Template.bind({});
 JusterDekningsgradAP.args = {

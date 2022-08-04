@@ -58,7 +58,10 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
               {!ikkeVurdert && (
                 <FormattedMessage
                   id="Beregningsgrunnlag.BeregningTable.DagsatsNy"
-                  values={{ dagSats: dagsatsRad.grunnlag, b: (chunks: any) => <b>{chunks}</b> }}
+                  values={{
+                    dagSats: dagsatsRad.grunnlag,
+                    b: (chunks: any) => <b>{chunks}</b>,
+                  }}
                 />
               )}
               {ikkeVurdert && <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Dagsats.ikkeFastsatt" />}
@@ -157,9 +160,10 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
 const lagTabellRaderIkkeOppfylt = (
   listofAndeler: BeregningsresultatAndelElementType[],
   intl: IntlShape,
-  halvGVerdi: number,
+  grunnbeløp: number,
   key: string,
   ikkeVurdert: boolean,
+  erMidlertidigInaktiv: boolean,
 ): ReactElement => (
   <React.Fragment key={`IVR2${key}`}>
     {lagAndelerRader(listofAndeler, ikkeVurdert)}
@@ -167,12 +171,26 @@ const lagTabellRaderIkkeOppfylt = (
     <Normaltekst className={beregningStyles.redError}>
       <Image
         className={styles.avslaat_icon}
-        alt={intl.formatMessage({ id: 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2' })}
+        alt={intl.formatMessage(
+          {
+            id: erMidlertidigInaktiv
+              ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
+              : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2',
+          },
+          { grunnbeløp: formatCurrencyNoKr(grunnbeløp) },
+        )}
         src={avslaatIkonUrl}
       />
       <FormattedMessage
-        id="Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2"
-        values={{ halvG: formatCurrencyNoKr(halvGVerdi), b: (chunks: any) => <b>{chunks}</b> }}
+        id={
+          erMidlertidigInaktiv
+            ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
+            : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2'
+        }
+        values={{
+          grunnbeløp: formatCurrencyNoKr(grunnbeløp),
+          b: chunks => <b>{chunks}</b>,
+        }}
       />
     </Normaltekst>
   </React.Fragment>
@@ -199,16 +217,17 @@ const createPeriodeResultat = (
   intl: IntlShape,
   grunnbeløp: number,
   periodeIndex: number,
+  erMidlertidigInaktiv: boolean,
 ): ReactElement => {
   const key = lagKeyForPeriode(periodeData.headers[0]);
   const ikkeOppfylt = vilkarPeriode && vilkarPeriode.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT;
   const ikkeVurdert = vilkarPeriode && vilkarPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT;
-  const halvG = Math.round(grunnbeløp / 2);
   return (
     <React.Fragment key={`Wr${key}`}>
       {periodeData && lagPeriodeHeaders && lagPeriodeOverskrift(periodeData.headers, periodeIndex)}
       {!ikkeOppfylt && lagTabellRader(periodeData, ikkeVurdert)}
-      {ikkeOppfylt && lagTabellRaderIkkeOppfylt(periodeData.rowsAndeler, intl, halvG, key, ikkeVurdert)}
+      {ikkeOppfylt &&
+        lagTabellRaderIkkeOppfylt(periodeData.rowsAndeler, intl, grunnbeløp, key, ikkeVurdert, erMidlertidigInaktiv)}
     </React.Fragment>
   );
 };
@@ -217,11 +236,13 @@ type OwnProps = {
   grunnbeløp: number;
   vilkarPeriode: Vilkarperiode;
   periodeResultatTabeller: BeregningsresultatPeriodeTabellType[];
+  erMidlertidigInaktiv: boolean;
 };
 const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
   vilkarPeriode,
   periodeResultatTabeller,
   grunnbeløp,
+  erMidlertidigInaktiv,
 }) => {
   const intl = useIntl();
   const skalLagePeriodeHeaders = periodeResultatTabeller.length > 1;
@@ -232,7 +253,15 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
       </Element>
       <VerticalSpacer eightPx />
       {periodeResultatTabeller.map((periodeData, index) =>
-        createPeriodeResultat(vilkarPeriode, periodeData, skalLagePeriodeHeaders, intl, grunnbeløp, index),
+        createPeriodeResultat(
+          vilkarPeriode,
+          periodeData,
+          skalLagePeriodeHeaders,
+          intl,
+          grunnbeløp,
+          index,
+          erMidlertidigInaktiv,
+        ),
       )}
     </Panel>
   );
