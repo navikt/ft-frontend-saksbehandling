@@ -69,9 +69,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
         autoComplete="off"
         feil={getError(errors, name)}
         {...field}
-        onChange={event =>
-          field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : undefined)
-        }
+        onChange={event => field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : null)}
         value={field.value ? field.value : ''}
         {...otherProps}
       />
