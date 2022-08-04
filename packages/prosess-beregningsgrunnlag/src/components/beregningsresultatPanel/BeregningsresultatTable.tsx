@@ -3,10 +3,10 @@ import { FormattedMessage } from 'react-intl';
 
 import {
   AktivitetStatus,
-  isStatusDagpenger,
-  PeriodeAarsak,
   Dekningsgrad as dekningsgradKode,
   FagsakYtelseType,
+  isStatusDagpenger,
+  PeriodeAarsak,
   VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -84,7 +84,10 @@ const lagPeriodeHeader = (fom: string, tom?: string): ReactElement => (
   <FormattedMessage
     id="Beregningsgrunnlag.BeregningTable.Periode"
     key={`fom-tom${fom}${tom}`}
-    values={{ fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT), tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '' }}
+    values={{
+      fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
+      tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
+    }}
   />
 );
 
@@ -557,6 +560,7 @@ type OwnProps = {
   dekningsgrad: number;
   grunnbelop: number;
   ytelseGrunnlag?: YtelseGrunnlag;
+  erMidlertidigInaktiv: boolean;
 };
 
 /**
@@ -573,6 +577,7 @@ const BeregningsresultatTable: FunctionComponent<OwnProps> = ({
   grunnbelop,
   dekningsgrad,
   ytelseGrunnlag,
+  erMidlertidigInaktiv,
 }) => {
   const periodeResultatTabeller = createBeregningTableData(
     beregningsgrunnlagPerioder,
@@ -587,6 +592,7 @@ const BeregningsresultatTable: FunctionComponent<OwnProps> = ({
       grunnbeløp={grunnbelop}
       periodeResultatTabeller={periodeResultatTabeller}
       vilkarPeriode={vilkarPeriode}
+      erMidlertidigInaktiv={erMidlertidigInaktiv}
     />
   );
 };

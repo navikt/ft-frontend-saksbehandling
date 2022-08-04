@@ -1,6 +1,7 @@
 import beregningsgrunnlagAndeltyper from './beregningsgrunnlagAndelType';
 
 enum AktivitetStatus {
+  MIDLERTIDIG_INAKTIV = 'MIDL_INAKTIV',
   KUN_YTELSE = 'KUN_YTELSE',
   ARBEIDSTAKER = 'AT',
   FRILANSER = 'FL',
