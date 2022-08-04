@@ -64,6 +64,11 @@
   text-align: left;
 }
 
+.inntektTableTB > tbody > tr:first-child > td:not(:first-child) {
+  padding-left: 20px;
+  text-align: right;
+}
+
 .inntektTableTB > tbody > tr > td {
   border-bottom: 0;
   border-right: 1px solid @navGra40;
@@ -72,6 +77,11 @@
   text-align: center;
   top: -1px;
   vertical-align: middle;
+}
+
+.inntektTableTB > tbody > tr:not(:first-child) > td:not(:first-child) {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .inntektTableTB > tbody > tr > td:last-child {
