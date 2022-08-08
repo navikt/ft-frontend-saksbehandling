@@ -105,7 +105,6 @@ export type FaktaOmBeregningAksjonspunktValues = FaktaOmBeregningValues & {
   erTilVurdering: boolean;
   periode: { fom: string; tom: string };
   begrunnelseFaktaTilfeller?: string;
-  periode?: { fom: string; tom: string };
 };
 
 export type FaktaStateProps = {

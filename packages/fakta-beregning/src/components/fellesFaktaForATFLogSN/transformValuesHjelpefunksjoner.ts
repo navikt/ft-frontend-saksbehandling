@@ -30,7 +30,6 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues) => {
     ...vurderAktiviteterTransformed,
     periode: values.periode,
     begrunnelse: values.begrunnelseFaktaTilfeller,
-    periode: values.periode,
   };
 };
 
