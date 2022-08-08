@@ -1,6 +1,7 @@
 import beregningsgrunnlagAndeltyper from './beregningsgrunnlagAndelType';
 
 enum AktivitetStatus {
+  MIDLERTIDIG_INAKTIV = 'MIDL_INAKTIV',
   KUN_YTELSE = 'KUN_YTELSE',
   ARBEIDSTAKER = 'AT',
   FRILANSER = 'FL',
@@ -11,6 +12,8 @@ enum AktivitetStatus {
   KOMBINERT_AT_FL_SN = 'AT_FL_SN',
   DAGPENGER = 'DP',
   ARBEIDSAVKLARINGSPENGER = 'AAP',
+  SYKEPENGER_AV_DAGPENGER = 'SP_AV_DP',
+  PLEIEPENGER_AV_DAGPENGER = 'PSB_AV_DP',
   MILITAER_ELLER_SIVIL = 'MS',
   BRUKERS_ANDEL = 'BA',
   UDEFINERT = '-',
@@ -47,12 +50,26 @@ const kombinasjonsstatuser = [
   AktivitetStatus.KOMBINERT_FL_SN,
   AktivitetStatus.KOMBINERT_AT_SN,
 ];
-const statuserSomStotterDagpengerEllerAAP = [AktivitetStatus.DAGPENGER, AktivitetStatus.ARBEIDSAVKLARINGSPENGER];
+
+const statuserSomStotterDagpenger = [
+  AktivitetStatus.DAGPENGER,
+  AktivitetStatus.SYKEPENGER_AV_DAGPENGER,
+  AktivitetStatus.PLEIEPENGER_AV_DAGPENGER,
+];
+
+const statuserSomStotterDagpengerEllerAAP = [
+  AktivitetStatus.DAGPENGER,
+  AktivitetStatus.SYKEPENGER_AV_DAGPENGER,
+  AktivitetStatus.PLEIEPENGER_AV_DAGPENGER,
+  AktivitetStatus.ARBEIDSAVKLARINGSPENGER,
+];
 const statuserSomStotterTilstottendeYtelser = [AktivitetStatus.KUN_YTELSE];
 const statuserSomStotterMilitaer = [AktivitetStatus.MILITAER_ELLER_SIVIL];
 
 export const isStatusDagpengerOrAAP = (status: string): boolean =>
   statuserSomStotterDagpengerEllerAAP.some(s => s === status);
+
+export const isStatusDagpenger = (status: string): boolean => statuserSomStotterDagpenger.some(s => s === status);
 
 export const isStatusTilstotendeYtelse = (status: string): boolean =>
   statuserSomStotterTilstottendeYtelser.some(s => s === status);

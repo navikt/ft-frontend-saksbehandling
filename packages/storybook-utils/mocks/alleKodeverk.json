@@ -1021,6 +1021,21 @@
   ],
   "AktivitetStatus": [
     {
+      "kode": "MIDL_INAKTIV",
+      "navn": "Midlertidig inaktiv",
+      "kodeverk": "AKTIVITET_STATUS"
+    },
+    {
+      "kode": "PSB_AV_DP",
+      "navn": "Pleiepenger basert på dagpenger",
+      "kodeverk": "AKTIVITET_STATUS"
+    },
+    {
+      "kode": "SP_AV_DP",
+      "navn": "Sykepenger basert på dagpenger",
+      "kodeverk": "AKTIVITET_STATUS"
+    },
+    {
       "kode": "FL",
       "navn": "Frilanser",
       "kodeverk": "AKTIVITET_STATUS"

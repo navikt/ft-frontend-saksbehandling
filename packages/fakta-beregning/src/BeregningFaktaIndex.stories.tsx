@@ -190,6 +190,20 @@ const vilkar: Vilkar = {
   ],
 };
 
+const lagVilkar = perioder => ({
+  vilkarType: '',
+  overstyrbar: true,
+  perioder: perioder.map(p => ({
+    vurderesIBehandlingen: p.vurderesIBehandlingen,
+    merknadParametere: { name: '' },
+    periode: {
+      fom: p.fom,
+      tom: p.tom,
+    },
+    vilkarStatus: 'IKKE_VURDERT',
+  })),
+});
+
 export default {
   title: 'fakta-beregning',
   component: BeregningFaktaIndex,
@@ -382,17 +396,22 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet: Story = ({ su
   const beregningsgrunnlag1 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', [opprettetVurderFakta]);
   const beregningsgrunnlag2 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-15', [opprettetVurderFakta]);
 
+  const callback = submitCallback || (action('button-click') as (data: any) => Promise<any>);
+
   return (
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag1, beregningsgrunnlag2]}
       erOverstyrer={false}
       alleKodeverk={alleKodeverkMock as any}
-      submitCallback={submitCallback}
+      submitCallback={callback}
       readOnly={false}
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
-      vilkar={vilkar}
+      vilkar={lagVilkar([
+        { fom: '2022-03-02', tom: '2022-03-10', vurderesIBehandlingen: false },
+        { fom: '2022-03-15', tom: '2022-04-02', vurderesIBehandlingen: true },
+      ])}
     />
   );
 };

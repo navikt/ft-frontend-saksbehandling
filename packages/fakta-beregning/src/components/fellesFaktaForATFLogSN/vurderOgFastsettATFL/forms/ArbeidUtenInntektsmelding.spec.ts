@@ -3,6 +3,8 @@ import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { lonnsendringField } from './LonnsendringForm';
 import transformValues from './ArbeidUtenInntektsmelding';
 
+const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+
 describe('<ArbeidUtenInntektsmelding>', () => {
   it('skal ikke transform values uten tilfelle', () => {
     const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000 }];
@@ -10,7 +12,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
     };
-    const transformed = transformValues({}, inntektVerdier, faktaOmBeregning, {} as Beregningsgrunnlag, []);
+    const transformed = transformValues(emptyValues, inntektVerdier, faktaOmBeregning, {} as Beregningsgrunnlag, []);
     expect(Object.keys(transformed)).toHaveLength(0);
   });
 
@@ -22,7 +24,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       ],
     };
-    const transformed = transformValues({}, null, faktaOmBeregning, {} as Beregningsgrunnlag, []);
+    const transformed = transformValues(emptyValues, null, faktaOmBeregning, {} as Beregningsgrunnlag, []);
     expect(Object.keys(transformed)).toHaveLength(0);
   });
 
@@ -49,7 +51,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
     };
     const fastsatteAndeler = [1];
     const transformed = transformValues(
-      {},
+      emptyValues,
       inntektVerdier,
       faktaOmBeregning,
       bg as Beregningsgrunnlag,
@@ -81,7 +83,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
     };
     const fastsatteAndeler = [];
     const transformed = transformValues(
-      {},
+      emptyValues,
       inntektVerdier,
       faktaOmBeregning,
       bg as Beregningsgrunnlag,
@@ -97,7 +99,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
   });
 
   it('skal teste at transformValues gir korrekt output når lønnsendring', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[lonnsendringField] = true;
     const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1 }];
     const faktaOmBeregning = {
@@ -119,7 +121,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
   });
 
   it('skal ikkje submitte inntekt uten lønnsendring', () => {
-    const values = {};
+    const values = { ...emptyValues };
     values[lonnsendringField] = false;
     const inntektVerdier = [{ fastsattBelop: null, andelsnr: 1 }];
     const faktaOmBeregning = {
@@ -142,7 +144,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
     'skal transform values når ved avsluttet arbeidsforhold dagen før skjæringstidspunktet ' +
       'og et annet løpende i samme virksomhet der det er mottatt inntektsmelding',
     () => {
-      const values = {};
+      const values = { ...emptyValues };
       const inntektVerdier = [
         {
           fastsattBelop: 10000,

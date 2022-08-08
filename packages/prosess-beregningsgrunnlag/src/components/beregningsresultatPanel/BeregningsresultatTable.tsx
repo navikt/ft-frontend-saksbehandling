@@ -3,9 +3,10 @@ import { FormattedMessage } from 'react-intl';
 
 import {
   AktivitetStatus,
-  PeriodeAarsak,
   Dekningsgrad as dekningsgradKode,
   FagsakYtelseType,
+  isStatusDagpenger,
+  PeriodeAarsak,
   VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -41,15 +42,11 @@ const periodeHarAarsakSomTilsierVisning = (aarsaker: string[]): boolean => {
   return aarsaker.filter(aarsak => aarsakerSomTilsierMuligEndringIDagsats.some(a => a === aarsak)).length > 0;
 };
 
-const setTekstStrengKeyPavilkaarUtfallType = (vilkarStatus: string, skalFastsetteGrunnlag: boolean): string => {
-  if (!vilkarStatus) return 'Fastsatt';
-  if (vilkarStatus === VilkarUtfallType.OPPFYLT && !skalFastsetteGrunnlag) {
-    return 'Omberegnet';
+const setTekstStrengKeyPavilkaarUtfallType = (skalFastsetteGrunnlag: boolean): string => {
+  if (skalFastsetteGrunnlag) {
+    return 'Fastsatt';
   }
-  if (vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT) {
-    return 'Omberegnet';
-  }
-  return 'Fastsatt';
+  return 'Omberegnet';
 };
 
 const erVilkaarOppfyltForEnAvAndelene = (vilkarStatus: string, andeler: any[]): boolean => {
@@ -71,18 +68,26 @@ const erVilkaarOppfyltForEnAvAndelene = (vilkarStatus: string, andeler: any[]): 
 
 const beløpEller0 = (beløp?: number): number => beløp || 0;
 
-const hentAndelFraPeriode = (periode: BeregningsgrunnlagPeriodeProp, andelType: string): BeregningsgrunnlagAndel[] =>
-  periode && periode.beregningsgrunnlagPrStatusOgAndel
-    ? periode.beregningsgrunnlagPrStatusOgAndel
-        .filter(andel => andel.aktivitetStatus === andelType)
-        .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel))
-    : [];
+const hentAndelFraPeriode = (periode: BeregningsgrunnlagPeriodeProp, andelType: string): BeregningsgrunnlagAndel[] => {
+  if (!periode || !periode.beregningsgrunnlagPrStatusOgAndel) {
+    return [];
+  }
+  if (isStatusDagpenger(andelType)) {
+    return periode.beregningsgrunnlagPrStatusOgAndel.filter(andel => isStatusDagpenger(andel.aktivitetStatus));
+  }
+  return periode.beregningsgrunnlagPrStatusOgAndel
+    .filter(andel => andel.aktivitetStatus === andelType)
+    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
+};
 
 const lagPeriodeHeader = (fom: string, tom?: string): ReactElement => (
   <FormattedMessage
     id="Beregningsgrunnlag.BeregningTable.Periode"
     key={`fom-tom${fom}${tom}`}
-    values={{ fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT), tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '' }}
+    values={{
+      fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
+      tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
+    }}
   />
 );
 
@@ -204,7 +209,7 @@ const opprettAndelElement = (
   if ((andelElement.inntekt || andelElement.inntekt === 0) && andelElement.inntekt !== -1) {
     andelElement.verdi = Number(andelElement.inntekt);
   }
-  const strKey = setTekstStrengKeyPavilkaarUtfallType(vilkarStatus, andelElement.skalFastsetteGrunnlag);
+  const strKey = setTekstStrengKeyPavilkaarUtfallType(andelElement.skalFastsetteGrunnlag);
   andelElement.ledetekst = <FormattedMessage id={`Beregningsgrunnlag.BeregningTable.${strKey}.${andelType}`} />;
   return andelElement;
 };
@@ -232,24 +237,19 @@ const settVisningsRaderForATSN = (
   const atElement = opprettAndelElement(periode, AktivitetStatus.ARBEIDSTAKER, vilkarStatus);
   const snElement = opprettAndelElement(periode, AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, vilkarStatus);
   // legger til regler for særtilfeller
-  const erOppfylt = erVilkaarOppfyltForEnAvAndelene(vilkarStatus, [atElement, snElement]);
-  if (hentVerdiFraAndel(atElement) < hentPGIFraSNAndel(snElement) && !erOppfylt) {
-    snElement.verdi = snElement.pgiSnitt;
-    rowsAndeler.push(snElement);
-    return;
-  }
-  if (hentVerdiFraAndel(atElement) > hentPGIFraSNAndel(snElement)) {
+  if (hentVerdiFraAndel(snElement) === 0 && hentPGIFraSNAndel(snElement) > 0 && snElement.erOverstyrt !== true) {
+    // Dersom verdi for SN er 0, men pgi er større enn 0 betyr det at det er arbeid som har tatt alt
     rowsForklaringer.push(
       <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Omberegnet.ForklaringAToverstigerSN" />,
     );
-    if (!erOppfylt) {
-      atElement.ledetekst = <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Omberegnet.AT" />;
-    }
-    rowsAndeler.push(atElement);
-    return;
+  } else {
+    rowsAndeler.push(snElement);
+  }
+
+  if (atElement.erOverstyrt !== true) {
+    atElement.ledetekst = <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Omberegnet.AT" />;
   }
   rowsAndeler.push(atElement);
-  rowsAndeler.push(snElement);
 };
 const settVisningsRaderForATFLSN = (
   periode: BeregningsgrunnlagPeriodeProp,
@@ -427,6 +427,22 @@ const sjekkHarBortfaltNaturalYtelse = (periode: BeregningsgrunnlagPeriodeProp): 
 
 const beløpEllerBlankString = (beløp?: number): string => formatCurrencyNoKr(beløp) || '';
 
+const finnAktivitetStatusCombo = (aktivitetStatusList: string[]) => {
+  const resultList = [] as string[];
+  aktivitetStatusList
+    .sort((a, b) => (a > b ? 1 : -1))
+    .forEach(statuskode => {
+      if (!resultList.includes(statuskode)) {
+        if (isStatusDagpenger(statuskode)) {
+          resultList.push(AktivitetStatus.DAGPENGER);
+        } else {
+          resultList.push(statuskode);
+        }
+      }
+    }); // sorter alfabetisk
+  return resultList.join('_');
+};
+
 const createBeregningTableData = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   aktivitetStatusList: string[],
@@ -435,8 +451,11 @@ const createBeregningTableData = (
   vilkarPeriode: Vilkarperiode,
   ytelseGrunnlag?: YtelseGrunnlag,
 ): BeregningsresultatPeriodeTabellType[] => {
-  const perioderSomSkalVises = allePerioder.filter(periode =>
-    periodeHarAarsakSomTilsierVisning(periode.periodeAarsaker || []),
+  const perioderSomSkalVises = allePerioder.filter(
+    periode =>
+      periode.beregningsgrunnlagPeriodeFom >= vilkarPeriode.periode.fom &&
+      periode.beregningsgrunnlagPeriodeTom <= vilkarPeriode.periode.tom &&
+      periodeHarAarsakSomTilsierVisning(periode.periodeAarsaker || []),
   );
   if (perioderSomSkalVises.length < 1) {
     // Alle perioder har periodeårsak som egentlig ikke trengs vises, velger første periode som den eneste som blir vist.
@@ -479,7 +498,7 @@ const createBeregningTableData = (
     const rowsAndeler = [] as BeregningsresultatAndelElementType[];
     const rowsForklaringer = [] as ReactElement[];
     aktivitetStatusList.sort((a, b) => (a > b ? 1 : -1)); // sorter alfabetisk
-    const aktivitetStatusKodeKombo = aktivitetStatusList.map(andelKode => andelKode).join('_');
+    const aktivitetStatusKodeKombo = finnAktivitetStatusCombo(aktivitetStatusList);
     switch (aktivitetStatusKodeKombo) {
       case 'AT_SN': {
         settVisningsRaderForATSN(periode, rowsAndeler, rowsForklaringer, vilkarPeriode.vilkarStatus);
@@ -541,6 +560,7 @@ type OwnProps = {
   dekningsgrad: number;
   grunnbelop: number;
   ytelseGrunnlag?: YtelseGrunnlag;
+  erMidlertidigInaktiv: boolean;
 };
 
 /**
@@ -557,6 +577,7 @@ const BeregningsresultatTable: FunctionComponent<OwnProps> = ({
   grunnbelop,
   dekningsgrad,
   ytelseGrunnlag,
+  erMidlertidigInaktiv,
 }) => {
   const periodeResultatTabeller = createBeregningTableData(
     beregningsgrunnlagPerioder,
@@ -571,6 +592,7 @@ const BeregningsresultatTable: FunctionComponent<OwnProps> = ({
       grunnbeløp={grunnbelop}
       periodeResultatTabeller={periodeResultatTabeller}
       vilkarPeriode={vilkarPeriode}
+      erMidlertidigInaktiv={erMidlertidigInaktiv}
     />
   );
 };

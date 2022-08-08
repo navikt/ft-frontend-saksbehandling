@@ -11,6 +11,7 @@ const {
   SelvstendigNæringsdrivendNyIArbeidslivet,
   NaturalYtelse,
   TidsbegrensetArbeidsforholdMedAvvik,
+  MangeTidsbegrensetArbeidsforholdMedAvvikFastsatt,
 } = composeStories(stories);
 
 describe('<BeregningsgrunnlagProsessIndex>', () => {
@@ -78,7 +79,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           {
             periode: {
               fom: '2021-01-01',
-              tom: '9999-12-31',
+              tom: '2021-01-21',
             },
             begrunnelse: 'Min begrunnelse for inntekt',
             inntektPrAndelList: [
@@ -147,7 +148,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           {
             periode: {
               fom: '2021-01-01',
-              tom: '9999-12-31',
+              tom: '2021-01-21',
             },
             begrunnelse: 'Min begrunnelse for vurdering av varig endring',
             bruttoBeregningsgrunnlag: 260000,
@@ -196,7 +197,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           {
             periode: {
               fom: '2021-01-01',
-              tom: '9999-12-31',
+              tom: '2021-01-21',
             },
             begrunnelse: 'Min begrunnelse for inntekt',
             bruttoBeregningsgrunnlag: 500000,
@@ -263,7 +264,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           {
             periode: {
               fom: '2021-01-01',
-              tom: '9999-12-31',
+              tom: '2021-01-21',
             },
             fastsatteTidsbegrensedePerioder: [
               {
@@ -285,5 +286,30 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
         kode: '5047',
       },
     ]);
+  });
+
+  it('skal verifisere at fasatt grunnlag med perioder tidsbegrenset perioder utenfor vilkårsperiode vises riktig', async () => {
+    const lagre = jest.fn();
+
+    render(<MangeTidsbegrensetArbeidsforholdMedAvvikFastsatt submitCallback={lagre} />);
+
+    expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
+    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+
+    // Årsgrunnlag arbeid
+    expect(screen.getAllByText('Andeby bank (999999999)')).toHaveLength(2);
+    expect(screen.getAllByText('Gardslien transport og Gardiner AS (999999998)')).toHaveLength(2);
+    expect(screen.getAllByText('Svaneby sykehjem (999999997)')).toHaveLength(2);
+
+    // Aksjonspunkt
+    expect(screen.getAllByText('5 000')).toHaveLength(2);
+    expect(screen.getAllByText('250 000')).toHaveLength(2);
+    expect(screen.getAllByText('100 000')).toHaveLength(2);
+    expect(screen.getAllByText('355 000')).toHaveLength(5);
+    expect(screen.getAllByText('4 500')).toHaveLength(3);
+
+    expect(await screen.findByText('Beregning av dagsats')).toBeInTheDocument();
+    expect(await screen.findByText('Periode 01.01.2021 - 16.01.2021')).toBeInTheDocument();
+    expect(await screen.findByText('Periode 17.01.2021 - 21.01.2021')).toBeInTheDocument();
   });
 });

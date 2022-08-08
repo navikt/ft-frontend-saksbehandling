@@ -28,6 +28,7 @@ const ExpandablePanel: React.FunctionComponent<ExpandablePanelProps> = ({
       <button className={styles[expandablePanelCls.element('button')]} type="button" onClick={onClick}>
         {renderHeader()}
       </button>
+      {/* @ts-ignore Fiks */}
       <Collapse isOpened={isOpen}>
         <div className={styles[expandablePanelCls.element('expandedContent')]}>{children}</div>
       </Collapse>

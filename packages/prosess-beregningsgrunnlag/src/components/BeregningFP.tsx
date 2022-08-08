@@ -51,7 +51,9 @@ const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
   harAndreTilstotendeYtelser: statuser.some(kode => isStatusTilstotendeYtelse(kode)),
   harDagpengerEllerAAP: statuser.some(kode => isStatusDagpengerOrAAP(kode)),
   isAAP: statuser.some(kode => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
-  isDagpenger: statuser.some(kode => kode === AktivitetStatus.DAGPENGER),
+  isDagpenger: statuser.some(
+    kode => kode === AktivitetStatus.DAGPENGER || kode === AktivitetStatus.SYKEPENGER_AV_DAGPENGER,
+  ),
   skalViseBeregningsgrunnlag: statuser.length > 0,
   isKombinasjonsstatus: statuser.some(kode => isStatusKombinasjon(kode)) || statuser.length > 1,
   isMilitaer: statuser.some(kode => isStatusMilitaer(kode)),
@@ -91,7 +93,7 @@ const buildFieldInitialValue = (
 ): BeregningsgrunnlagValues => ({
   ...buildInitialValues(beregningsgrunnlag),
   periode: vilkårsperiode.periode,
-  erTilVurdering: vilkårsperiode.vurderesIBehandlingen,
+  erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
   // @ts-ignore
   relevanteStatuser: getRelevanteStatuser(beregningsgrunnlag.aktivitetStatus),
   gjeldendeAvklaringsbehov: finnAvklaringsbehov(beregningsgrunnlag),
@@ -153,10 +155,12 @@ const grupperPåKode = (
 
 const transformFields = (values: BeregningFormValues) => {
   const fields = values[formName];
-  const aksjonspunktLister = fields.map(field => ({
-    periode: field.periode,
-    aksjonspunkter: transformValues(field),
-  }));
+  const aksjonspunktLister = fields
+    .filter(f => f.erTilVurdering)
+    .map(field => ({
+      periode: field.periode,
+      aksjonspunkter: transformValues(field),
+    }));
   return aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
 };
 
@@ -219,7 +223,10 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
           <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
             <BeregningForm
               key={field.id}
-              readOnly={readOnly}
+              readOnly={
+                readOnly ||
+                !finnVilkårperiode(vilkar, beregningsgrunnlagListe[index].vilkårsperiodeFom).vurderesIBehandlingen
+              }
               beregningsgrunnlag={beregningsgrunnlagListe[index]}
               gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[index])}
               relevanteStatuser={relevanteStatuser}

@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "1.0.21",
+  "version": "1.0.28",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,14 +24,14 @@
     "storybook": "cross-env start-storybook -p 7007"
   },
   "dependencies": {
-    "@navikt/ds-css": "^0.18.25",
-    "@navikt/ds-icons": "^0.8.18",
-    "@navikt/ds-react": "^0.19.18",
-    "@navikt/ft-utils": "^1.0.21"
+    "@navikt/ds-css": "^0.18.27",
+    "@navikt/ds-icons": "^0.8.20",
+    "@navikt/ds-react": "^0.19.25",
+    "@navikt/ft-utils": "^1.0.28"
   },
   "peerDependencies": {
     "classnames": "2.3.1",
-    "dayjs": "1.11.3",
+    "dayjs": "1.11.4",
     "lodash.throttle": "4.1.1",
     "nav-frontend-alertstriper": "^4.0.1",
     "nav-frontend-alertstriper-style": "^3.0.1",
@@ -70,7 +70,7 @@
     "@testing-library/react": "12.1.4",
     "@testing-library/user-event": "13.5.0",
     "classnames": "^2.3.1",
-    "dayjs": "^1.11.3",
+    "dayjs": "^1.11.4",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-alertstriper": "^4.0.1",
     "nav-frontend-alertstriper-style": "^3.0.1",

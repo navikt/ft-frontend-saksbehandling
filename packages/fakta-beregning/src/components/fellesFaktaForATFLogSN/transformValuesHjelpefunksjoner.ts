@@ -30,6 +30,7 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues) => {
     ...vurderAktiviteterTransformed,
     periode: values.periode,
     begrunnelse: values.begrunnelseFaktaTilfeller,
+    periode: values.periode,
   };
 };
 
@@ -37,10 +38,12 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues) => {
 export const transformValuesVurderFaktaBeregning = (values: VurderFaktaBeregningFormValues) => {
   const fieldArrayList = values[formNameVurderFaktaBeregning];
   const overstyrteGrunnlag = fieldArrayList
+    .filter(v => v.erTilVurdering)
     .filter(v => v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD])
     .map(transformFieldValue)
     .filter(v => v);
   const avklarGrunnlag = fieldArrayList
+    .filter(v => v.erTilVurdering)
     .filter(v => !v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD])
     .map(transformFieldValue)
     .filter(v => v);
