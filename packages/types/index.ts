@@ -53,7 +53,7 @@ export type { default as StandardFaktaPanelProps } from './src/standardFaktaPane
 export type { default as StandardProsessPanelProps } from './src/standardProsessPanelPropsTsType';
 export type { default as AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
 export type { default as Vilkar } from './src/vilkarTsType';
-export type { default as Behandling } from './src/behandlingTsType';
+export type { default as Behandling, BehandlingAppKontekst } from './src/behandlingTsType';
 export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/besteberegningTsTypes';
 export type { default as BeregningAvklaringsbehov } from './src/beregningAvklaringsbehovTsType';
 export type {
