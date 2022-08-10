@@ -1,0 +1,107 @@
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Column, Row } from 'nav-frontend-grid';
+import { Element } from 'nav-frontend-typografi';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import dayjs from 'dayjs';
+import BeregningsresultatPeriode from './BeregningsresultatPeriode';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import {
+  erSøktForAndelISøknadsperiode,
+  finnBruttoForStatusIPeriode,
+  finnFrisinnperioderSomSkalVises,
+  FrisinnGrunnlag,
+  FrisinnPeriode,
+} from './FrisinnUtils';
+
+const finnInntektstak = (bg: Beregningsgrunnlag) => (bg.grunnbeløp ? bg.grunnbeløp * 6 : 0);
+
+const finnBGFrilans = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriodeProp): number => {
+  if (
+    !erSøktForAndelISøknadsperiode(AktivitetStatus.FRILANSER, periode, bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag)
+  ) {
+    return 0;
+  }
+  let inntektstak = finnInntektstak(bg);
+  const atBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, bg, periode);
+  inntektstak -= atBrutto;
+  if (
+    !erSøktForAndelISøknadsperiode(
+      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      periode,
+      bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
+    )
+  ) {
+    const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bg, periode);
+    inntektstak -= snBrutto;
+  }
+  const frilansBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, periode);
+  return frilansBrutto > inntektstak ? inntektstak : frilansBrutto;
+};
+
+const finnBGNæring = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriodeProp): number => {
+  if (
+    !erSøktForAndelISøknadsperiode(
+      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      periode,
+      bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
+    )
+  ) {
+    return 0;
+  }
+  let inntektstak = finnInntektstak(bg);
+  const atBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, bg, periode);
+  inntektstak -= atBrutto;
+  const flBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, periode);
+  inntektstak -= flBrutto;
+  const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bg, periode);
+  return snBrutto > inntektstak ? inntektstak : snBrutto;
+};
+
+const overlapperMedFrisinnPeriode = (bgPeriode: BeregningsgrunnlagPeriodeProp, frisinnPerioder: FrisinnPeriode[]) => {
+  const bgFom = dayjs(bgPeriode.beregningsgrunnlagPeriodeFom);
+  const bgTom = dayjs(bgPeriode.beregningsgrunnlagPeriodeTom);
+  return (
+    Array.isArray(frisinnPerioder) &&
+    frisinnPerioder.some(p => !dayjs(p.fom).isBefore(bgFom) && !dayjs(p.tom).isAfter(bgTom))
+  );
+};
+
+type OwnProps = {
+  beregningsgrunnlag: Beregningsgrunnlag;
+};
+
+const Beregningsresultat: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
+  const frisinnPerioderSomSkalVises = finnFrisinnperioderSomSkalVises(
+    beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
+  );
+  const bgPerioderSomSkalVises = Array.isArray(beregningsgrunnlag.beregningsgrunnlagPeriode)
+    ? beregningsgrunnlag.beregningsgrunnlagPeriode.filter(p =>
+        overlapperMedFrisinnPeriode(p, frisinnPerioderSomSkalVises),
+      )
+    : [];
+  return (
+    <div>
+      <Row>
+        <Column xs="12">
+          <Element className={beregningStyles.avsnittOverskrift}>
+            <FormattedMessage id="Beregningsgrunnlag.Frisinn.Resultat" />
+          </Element>
+        </Column>
+      </Row>
+      {bgPerioderSomSkalVises.map(periode => (
+        <div key={periode.beregningsgrunnlagPeriodeFom}>
+          <BeregningsresultatPeriode
+            bgperiode={periode}
+            ytelsegrunnlag={beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag}
+            frilansGrunnlag={finnBGFrilans(beregningsgrunnlag, periode)}
+            næringGrunnlag={finnBGNæring(beregningsgrunnlag, periode)}
+            key={periode.beregningsgrunnlagPeriodeFom}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+export default Beregningsresultat;

@@ -12,8 +12,8 @@ import {
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagPeriodeProp,
   FaktaOmBeregning,
-  YtelseGrunnlag,
   Vilkarperiode,
+  YtelseGrunnlag,
 } from '@navikt/ft-types';
 import BeregningsgrunnlagResultatAP, { GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
@@ -36,6 +36,7 @@ import AksjonspunktTittel from '../fellesPaneler/AksjonspunktTittel';
 import DekningsgradAksjonspunktPanel from '../fellesPaneler/DekningsgradAksjonspunktPanel';
 import DekningsgradValues from '../../types/DekningsgradAksjonspunktTsType';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
+import YtelsegrunnlagPanel from '../frisinn/YtelsegrunnlagPanel';
 
 // ------------------------------------------------------------------------------------------ //
 // Variables
@@ -292,6 +293,10 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
               />
             </>
           )}
+          <>
+            <AvsnittSkiller spaceAbove spaceUnder rightPanel />
+            <YtelsegrunnlagPanel beregningsgrunnlag={beregningsgrunnlag} />
+          </>
           <>
             <AvsnittSkiller spaceAbove spaceUnder rightPanel />
             {vilkarPeriode && (
