@@ -108,7 +108,6 @@
   "Beregningsgrunnlag.BeregningTable.Periode": "Periode {fom} - {tom}",
   "Beregningsgrunnlag.BeregningTable.BruttoTotalt": "Beregningsgrunnlag - total årsinntekt",
   "Beregningsgrunnlag.BeregningTable.Avkortet6g": "Redusert til 6G på skjæringstidspkt.",
-
   "Beregningsgrunnlag.BeregningTable.RedusertProsent": "Redusert til {redusert}% dekningsgrad",
   "Beregningsgrunnlag.BeregningTable.Naturalytelser": "Naturalytelser",
   "Beregningsgrunnlag.BeregningTable.DagsatsNy": "<b>Dagsats</b> ({dagSats}/260 dager)",
@@ -144,7 +143,6 @@
   "Beregningsgrunnlag.BeregningTable.Omberegnet.ForklaringDP_FLoverstigerSN": "Ettersom beregnet årsinntekt for frilans og dagpenger overstiger pensjonsgivende inntekt, er det kun denne som brukes som beregningsgrunnlag. Næringsinntekten blir satt til 0 kroner.",
   "Beregningsgrunnlag.BeregningTable.Omberegnet.ForklaringAT_DPoverstigerSN": "Ettersom beregnet årsinntekt for arbeidstaker og dagpenger overstiger pensjonsgivende inntekt, er det kun denne som brukes som beregningsgrunnlag. Næringsinntekten blir satt til 0 kroner.",
   "Beregningsgrunnlag.Gradering.Beskrivelse": "Saksbehandler har tidligere vurdert om fordeling av inntekt er korrekt grunnet en andel uten utbetaling som skal graderes.",
-
   "Besteberegning.ResultatGrunnlag.BruttoBeregningsgrunnlag": "Beregnet",
   "Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning": "§14-7, 3. ledd",
   "Besteberegning.ResultatGrunnlag.BrukerOmfattesAvBesteberegning": "Søker omfattes av §14-7, 3. ledd.",
@@ -152,9 +150,27 @@
   "Besteberegning.ResultatGrunnlag.Overskrift": "Beregnet etter §14-7, 3. ledd",
   "Besteberegning.ResultatGrunnlag.Kap1473GirBesteBeregning": "Beregning etter §14-7, 3. ledd gir beste beregning.",
   "Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning": "Beregning etter §14-7, 1. ledd gir beste beregning.",
-
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
   "Malform.Beskrivelse": "Foretrukket språk",
   "Behandling.EditedField": "Saksbehandler har endret feltets verdi",
-  "Sidemeny.Beregningsgrunnlag": "Beregningsgrunnlag"
+  "Sidemeny.Beregningsgrunnlag": "Beregningsgrunnlag",
+  "Beregningsgrunnlag.Frisinn.Resultat": "Grunnlag for dagsats",
+  "Beregningsgrunnlag.Frisinn.SamletAT": "Samlet arbeidstakerinntekt",
+  "Beregningsgrunnlag.Frisinn.SamletFL": "Samlet frilansinntekt i søknadsperioden",
+  "Beregningsgrunnlag.Frisinn.SamletSN": "Samlet næringsinntekt i søknadsperioden",
+  "Beregningsgrunnlag.Frisinn.Inntektstak": "Inntektstak ({grenseverdi} - {annenInntekt})",
+  "Beregningsgrunnlag.Frisinn.InntektstakTrukket": "Inntektstak fratrukket annen inntekt",
+  "Beregningsgrunnlag.Frisinn.BeregningsgrunnlagFL": "Beregningsgrunnlag frilans",
+  "Beregningsgrunnlag.Frisinn.BeregningsgrunnlagSN": "Beregningsgrunnlag næring",
+  "Beregningsgrunnlag.Frisinn.OppgittArbeidsinntekt": "Oppgitt arbeidsinntekt i søknadsperioden",
+  "Beregningsgrunnlag.Frisinn.BeregningsgrunnlagRedusertFL": "Redusert til {grad}% beregningsgrunnlag frilans",
+  "Beregningsgrunnlag.Frisinn.BeregningsgrunnlagRedusertSN": "Redusert til {grad}% beregningsgrunnlag næring",
+  "Beregningsgrunnlag.Frisinn.Tittel": "FRISINN",
+  "Beregningsgrunnlag.Frisinn.InntektFL": "Frilansinntekt",
+  "Beregningsgrunnlag.Frisinn.InntektSN": "Næringsinntekt",
+  "Beregningsgrunnlag.Frisinn.InntektAT": "Arbeidstakerinntekt",
+  "Beregningsgrunnlag.Søknad.Inntektsopplysninger": "Opplysninger om inntekt",
+  "Beregningsgrunnlag.Resultat.Dagsats": "Dagsats",
+  "Beregningsgrunnlag.Frisinn.InntektstakOpplysninger": "Opplysninger om inntektstak",
+  "Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode": "Opplysninger om inntektstak i perioden {fom} - {tom}"
 }
