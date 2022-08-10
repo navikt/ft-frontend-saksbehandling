@@ -76,10 +76,14 @@ export type BeregningsgrunnlagAndel = Readonly<{
   næringer?: Næring[];
 }>;
 
-export type YtelseGrunnlag = Readonly<{
-  ytelsetype: string;
+export type ForeldrepengerGrunnlag = Readonly<{
   besteberegninggrunnlag?: Besteberegninggrunnlag;
 }>;
+
+export type YtelseGrunnlag = Readonly<{
+  ytelsetype: string;
+}> &
+  ForeldrepengerGrunnlag;
 
 export type SammenligningsgrunlagProp = Readonly<{
   sammenligningsgrunnlagType: string;
