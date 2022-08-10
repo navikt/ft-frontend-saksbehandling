@@ -115,43 +115,47 @@ const finnArbeidsforholdRefusjonsinfoListe = (
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
 ): Refusjonsinfo[] => {
-  const andelerMedArbeidsforhold = fields.filter(field => field.arbeidsforholdId !== '');
   const arbeidsforholdRefusjonsbelop = [];
-  andelerMedArbeidsforhold.forEach((field, index) => {
-    const infoIndex = arbeidsforholdRefusjonsbelop.findIndex(
-      ({ arbeidsforholdId, arbeidsgiverId }) =>
-        arbeidsforholdId === field.arbeidsforholdId && arbeidsgiverId === field.arbeidsgiverId,
-    );
-    const refusjon = getValues(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`);
-    if (infoIndex >= 0) {
-      const belopsInfo = arbeidsforholdRefusjonsbelop[infoIndex];
-      if (belopsInfo.refusjonskravFraInntektsmelding < field.refusjonskravFraInntektsmelding) {
-        arbeidsforholdRefusjonsbelop[infoIndex].refusjonskravFraInntektsmelding = field.refusjonskravFraInntektsmelding;
+  fields.forEach((field, index) => {
+    if (field.arbeidsforholdId !== '') {
+      const infoIndex = arbeidsforholdRefusjonsbelop.findIndex(
+        ({ arbeidsforholdId, arbeidsgiverId }) =>
+          arbeidsforholdId === field.arbeidsforholdId && arbeidsgiverId === field.arbeidsgiverId,
+      );
+      const refusjon = getValues(
+        `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`,
+      );
+      if (infoIndex >= 0) {
+        const belopsInfo = arbeidsforholdRefusjonsbelop[infoIndex];
+        if (belopsInfo.refusjonskravFraInntektsmelding < field.refusjonskravFraInntektsmelding) {
+          arbeidsforholdRefusjonsbelop[infoIndex].refusjonskravFraInntektsmelding =
+            field.refusjonskravFraInntektsmelding;
+        }
+        if (refusjon !== null && refusjon !== undefined) {
+          arbeidsforholdRefusjonsbelop[infoIndex].totalRefusjon =
+            belopsInfo.totalRefusjon + Number(removeSpacesFromNumber(refusjon));
+        }
+      } else {
+        const {
+          refusjonskravFraInntektsmelding,
+          arbeidsforholdId,
+          arbeidsgiverNavn,
+          arbeidsgiverId,
+          eksternArbeidsforholdId,
+        } = field;
+        let totalRefusjon = 0;
+        if (refusjon !== null && refusjon !== undefined) {
+          totalRefusjon = Number(removeSpacesFromNumber(refusjon));
+        }
+        arbeidsforholdRefusjonsbelop.push({
+          arbeidsforholdId,
+          eksternArbeidsforholdId,
+          arbeidsgiverNavn,
+          arbeidsgiverId,
+          refusjonskravFraInntektsmelding,
+          totalRefusjon,
+        });
       }
-      if (refusjon !== null && refusjon !== undefined) {
-        arbeidsforholdRefusjonsbelop[infoIndex].totalRefusjon =
-          belopsInfo.totalRefusjon + Number(removeSpacesFromNumber(refusjon));
-      }
-    } else {
-      const {
-        refusjonskravFraInntektsmelding,
-        arbeidsforholdId,
-        arbeidsgiverNavn,
-        arbeidsgiverId,
-        eksternArbeidsforholdId,
-      } = field;
-      let totalRefusjon = 0;
-      if (refusjon !== null && refusjon !== undefined) {
-        totalRefusjon = Number(removeSpacesFromNumber(refusjon));
-      }
-      arbeidsforholdRefusjonsbelop.push({
-        arbeidsforholdId,
-        eksternArbeidsforholdId,
-        arbeidsgiverNavn,
-        arbeidsgiverId,
-        refusjonskravFraInntektsmelding,
-        totalRefusjon,
-      });
     }
   });
   return arbeidsforholdRefusjonsbelop;
