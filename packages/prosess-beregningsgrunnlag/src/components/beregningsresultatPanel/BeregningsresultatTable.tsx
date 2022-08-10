@@ -401,11 +401,11 @@ const finnDagsatsGrunnlag = (
   return null;
 };
 
-const harSVPGrunnlag = (ytelseGrunnlag?: YtelseGrunnlag): boolean =>
-  ytelseGrunnlag?.ytelsetype === FagsakYtelseType.SVANGERSKAPSPENGER;
+const erIkkeForeldrepenger = (ytelseGrunnlag?: YtelseGrunnlag): boolean =>
+  ytelseGrunnlag?.ytelsetype !== FagsakYtelseType.FORELDREPENGER;
 
 const finnDagsats = (periode: BeregningsgrunnlagPeriodeProp, ytelseGrunnlag?: YtelseGrunnlag): number => {
-  if (harSVPGrunnlag(ytelseGrunnlag) && periode.avkortetPrAar) {
+  if (erIkkeForeldrepenger(ytelseGrunnlag) && periode.avkortetPrAar) {
     return Math.round(periode.avkortetPrAar / VIRKEDAGER_PR_AAR);
   }
   return periode.dagsats || 0;
