@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import moment from 'moment';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
   BeregningAktivitet,
 } from '@navikt/ft-types';
+import dayjs from 'dayjs';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import {
   buildInitialValues as buildInitialValuesForTabell,
@@ -30,7 +30,7 @@ export const finnPlasseringIListe = (gjeldendeTomDatoMapping: AvklarBeregningAkt
   let i = 0;
   while (
     i < gjeldendeTomDatoMapping.length &&
-    moment(dato).isBefore(gjeldendeTomDatoMapping[i].tom === undefined ? null : gjeldendeTomDatoMapping[i].tom)
+    dayjs(dato).isBefore(gjeldendeTomDatoMapping[i].tom === undefined ? null : gjeldendeTomDatoMapping[i].tom)
   ) {
     i += 1;
   }
@@ -70,10 +70,13 @@ const lagTomDatoMapping = (values: AvklarAktiviteterValues): AvklarBeregningAkti
       if (!!tomDato && tomDato !== nyAktivitet.tom) {
         nyAktivitet.tom = tomDato;
       }
-      if (moment(tomDato).isSameOrAfter(moment(stpOpptjening).subtract(1, 'days'))) {
+      if (
+        dayjs(tomDato).isSame(dayjs(stpOpptjening).subtract(1, 'days')) ||
+        dayjs(tomDato).isAfter(dayjs(stpOpptjening).subtract(1, 'days'))
+      ) {
         leggTilAktivitet(gjeldendeTomDatoMapping, nyAktivitet, stpOpptjening);
       } else {
-        leggTilAktivitet(gjeldendeTomDatoMapping, nyAktivitet, moment(tomDato).add(1, 'days').format('YYYY-MM-DD'));
+        leggTilAktivitet(gjeldendeTomDatoMapping, nyAktivitet, dayjs(tomDato).add(1, 'days').format('YYYY-MM-DD'));
       }
     });
   return gjeldendeTomDatoMapping;
@@ -224,7 +227,8 @@ VurderAktiviteterPanel.harIngenAktiviteter = (values, aktiviteterTomDatoMapping,
   return !harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt;
 };
 
-const erLikEllerFør = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));
+const erLikEllerFør = (dato1: string, dato2: string): boolean =>
+  dayjs(dato1).isSame(dayjs(dato2)) || dayjs(dato1).isBefore(dayjs(dato2));
 
 VurderAktiviteterPanel.transformValues = (
   values: AvklarAktiviteterValues,

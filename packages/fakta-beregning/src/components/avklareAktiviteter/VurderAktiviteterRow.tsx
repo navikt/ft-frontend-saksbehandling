@@ -4,9 +4,9 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { DateLabel, EditedIcon, PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { required } from '@navikt/ft-form-validators';
 import { getKodeverknavnFn, prettifyDateString } from '@navikt/ft-utils';
-import moment from 'moment';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Datepicker, RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import dayjs from 'dayjs';
 import styles from './vurderAktiviteterTabell.less';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
@@ -25,7 +25,8 @@ type OwnProps = {
   fieldId: number;
 };
 
-const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));
+const isSameOrBefore = (dato1: string, dato2: string): boolean =>
+  dayjs(dato1).isSame(dayjs(dato2)) || dayjs(dato1).isBefore(dayjs(dato2));
 
 const lagVisningsnavn = (
   aktivitet: BeregningAktivitet,
