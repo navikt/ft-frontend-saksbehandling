@@ -49,6 +49,7 @@ type VurderFaktaBeregningPanelProps = {
   setFormData: (data: VurderFaktaBeregningFormValues) => void;
   formData: VurderFaktaBeregningFormValues;
   vilkar: Vilkar;
+  avklarAktiviteterErEndret: boolean;
 };
 
 export const buildInitialValuesVurderFaktaBeregning = (
@@ -93,9 +94,9 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     setFormData,
     formData,
     vilkar,
+    avklarAktiviteterErEndret,
   } = props;
-  // TODO: Endre til å bruke toggle på toppnivå
-  const verdiForAvklarAktivitetErEndret = false;
+  const verdiForAvklarAktivitetErEndret = avklarAktiviteterErEndret;
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
   const formMethods = useForm<VurderFaktaBeregningFormValues>({

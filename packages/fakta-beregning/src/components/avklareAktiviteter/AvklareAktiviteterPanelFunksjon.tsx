@@ -43,6 +43,7 @@ type OwnProps = {
   vilkår: Vilkar;
   setFormData: (data: AvklarAktiviteterFormValues) => void;
   formData?: AvklarAktiviteterFormValues;
+  setAvklarAktiviteterErEndret: (value: boolean) => void;
 };
 
 const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningType[] => {
@@ -129,6 +130,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   vilkår,
   setFormData,
   formData,
+  setAvklarAktiviteterErEndret,
 }) => {
   const formMethods = useForm<AvklarAktiviteterFormValues>({
     defaultValues:
@@ -142,6 +144,12 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     trigger,
     setValue,
   } = formMethods;
+
+  if (dirtyFields.avklarAktiviteterForm?.some(isDirty => !!isDirty)) {
+    setAvklarAktiviteterErEndret(true);
+  } else {
+    setAvklarAktiviteterErEndret(false);
+  }
 
   useEffect(() => {
     if (isSubmitted && dirtyFields.avklarAktiviteterForm?.[aktivtBeregningsgrunnlagIndeks]) {
