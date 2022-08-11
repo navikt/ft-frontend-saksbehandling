@@ -39,11 +39,10 @@ const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
     </div>
   );
 };
-
+//
 type OwnProps = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
-
 const Søknadsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
   const ytelsegrunnlag = beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag;
   const { frisinnPerioder } = ytelsegrunnlag;
