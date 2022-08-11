@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
@@ -7,7 +8,6 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -72,8 +72,8 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
                   id={kortvarigStringId}
                   values={{
                     navn: lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId),
-                    fom: moment(andel.arbeidsforhold.startdato).format(DDMMYYYY_DATE_FORMAT),
-                    tom: moment(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
+                    fom: dayjs(andel.arbeidsforhold.startdato).format(DDMMYYYY_DATE_FORMAT),
+                    tom: dayjs(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
                   }}
                 />
               </Normaltekst>

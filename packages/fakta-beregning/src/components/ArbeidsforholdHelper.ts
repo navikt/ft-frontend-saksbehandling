@@ -1,5 +1,4 @@
-import moment from 'moment';
-
+import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysninger } from '@navikt/ft-types';
 
@@ -11,7 +10,7 @@ export const createVisningsnavnFakta = (
 ): string => {
   if (agOpplysning.erPrivatPerson) {
     if (agOpplysning.fødselsdato) {
-      return `${agOpplysning.navn} (${moment(agOpplysning.fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(
+      return `${agOpplysning.navn} (${dayjs(agOpplysning.fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(
         eksternArbeidsforholdId,
       )}`;
     }
