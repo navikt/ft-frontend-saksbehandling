@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from 'react';
+import dayjs from 'dayjs';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { Element } from 'nav-frontend-typografi';
 import { Table } from '@navikt/ft-ui-komponenter';
 import { hasValidDate } from '@navikt/ft-form-validators';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import moment from 'moment';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { FormattedMessage } from 'react-intl';
 import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
   const datoFeil = hasValidDate(skjaeringstidspunkt);
-  const formatertStp = datoFeil ? '' : moment(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
+  const formatertStp = datoFeil ? '' : dayjs(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
   if (erOverstyrt) {
     return (
       <FormattedMessage
