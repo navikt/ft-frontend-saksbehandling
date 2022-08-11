@@ -1,7 +1,7 @@
+import dayjs from 'dayjs';
 import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { getKodeverknavnFn } from '@navikt/ft-utils';
-import moment from 'moment';
 import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
@@ -104,7 +104,8 @@ const lagVisningsnavn = (
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
 };
 
-const isSameOrBefore = (dato1: string, dato2: string): boolean => moment(dato1).isSameOrBefore(moment(dato2));
+const isSameOrBefore = (dato1: string, dato2: string): boolean =>
+  dayjs(dato1).isSame(dayjs(dato2)) || dayjs(dato1).isBefore(dayjs(dato2));
 
 const skalBrukesPretufylling = (
   aktivitet: BeregningAktivitet,
