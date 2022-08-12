@@ -131,6 +131,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
           <VerticalSpacer twentyPx />
           {/* @ts-ignore */}
           <SubmitButton
+            isDisabled={!!verdiForAvklarAktivitetErEndret}
             isSubmittable={erSubmittable(
               submittable &&
                 harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, avklaringsbehov) &&

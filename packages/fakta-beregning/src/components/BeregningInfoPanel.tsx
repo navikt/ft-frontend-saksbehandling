@@ -6,7 +6,7 @@ import {
   Vilkar,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
 import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
 import BeregningFaktaAP, {
@@ -89,6 +89,8 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
     ((relevanteLøsbareAvklaringsbehov.length === 0 ||
       hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)) &&
       !erOverstyrer);
+  const [avklarAktiviteterErEndret, setAvklarAktiviteterErEndret] = useState<boolean>(false);
+
   return (
     <div>
       <AvklareAktiviteterPanel
@@ -104,6 +106,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         setFormData={setFormData}
         formData={formData && formNameAvklarAktiviteter in formData ? formData : undefined}
         vilkår={vilkar}
+        setAvklarAktiviteterErEndret={setAvklarAktiviteterErEndret}
       />
       <VerticalSpacer thirtyTwoPx />
       {/* @ts-ignore */}
@@ -119,6 +122,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         setFormData={setFormData}
         formData={formData && formNameVurderFaktaBeregning in formData ? formData : undefined}
         vilkar={vilkar}
+        avklarAktiviteterErEndret={avklarAktiviteterErEndret}
       />
     </div>
   );
