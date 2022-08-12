@@ -1,5 +1,4 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Element } from 'nav-frontend-typografi';
@@ -16,6 +15,7 @@ import {
 } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
+import dayjs from 'dayjs';
 import {
   finnFastsattPrAar,
   setArbeidsforholdInitialValues,
@@ -30,7 +30,7 @@ import styles from './fordelBeregningsgrunnlagPeriodePanel.less';
 
 const classNames = classnames.bind(styles);
 
-const formatDate = (date: string): string => (date ? moment(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
+const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
 const renderDateHeading = (fom: string, tom: string): ReactElement => {
   if (!tom) {
@@ -138,7 +138,7 @@ const starterPaaEllerEtterStp = (bgAndel: BeregningsgrunnlagAndel, skjaeringstid
   bgAndel &&
   bgAndel.arbeidsforhold &&
   bgAndel.arbeidsforhold.startdato &&
-  !moment(bgAndel.arbeidsforhold.startdato).isBefore(moment(skjaeringstidspunktBeregning));
+  !dayjs(bgAndel.arbeidsforhold.startdato).isBefore(dayjs(skjaeringstidspunktBeregning));
 
 const finnBeregningsgrunnlagPrAar = (bgAndel: BeregningsgrunnlagAndel): string | undefined => {
   if (!bgAndel) {
