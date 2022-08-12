@@ -28,6 +28,7 @@ const intl = createIntl(messages);
 type OwnProps = {
   beregningsgrunnlag?: Beregningsgrunnlag[];
   erOverstyrer: boolean;
+  skalKunneOverstyreAktiviteter?: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vilkar: Vilkar;
   alleKodeverk: AlleKodeverk;
@@ -83,6 +84,7 @@ const BeregningFaktaIndex: FunctionComponent<
   readOnly,
   submittable,
   erOverstyrer,
+  skalKunneOverstyreAktiviteter = true,
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
@@ -121,6 +123,7 @@ const BeregningFaktaIndex: FunctionComponent<
         readOnly={readOnly}
         submittable={submittable}
         erOverstyrer={erOverstyrer}
+        skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         setFormData={setFormData}
         formData={formData}
