@@ -8,7 +8,7 @@ import messages from '../../../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-const isDisabled = (
+const isDisabledFn = (
   isDirty: boolean,
   isSubmitting: boolean,
   isSubmittable: boolean,
@@ -31,6 +31,7 @@ interface OwnProps {
   text?: string;
   onClick?: (event: React.MouseEvent) => void;
   hasEmptyRequiredFields?: boolean;
+  isDisabled?: boolean;
 }
 
 /**
@@ -44,13 +45,14 @@ const SubmitButton: FunctionComponent<OwnProps> = ({
   text,
   onClick,
   hasEmptyRequiredFields,
+  isDisabled,
 }) => {
   if (!isReadOnly) {
     return (
       <Hovedknapp
         mini
         spinner={isSubmitting}
-        disabled={isDisabled(isDirty, isSubmitting, isSubmittable, hasEmptyRequiredFields)}
+        disabled={isDisabledFn(isDirty, isSubmitting, isSubmittable, hasEmptyRequiredFields) || !!isDisabled}
         onClick={onClick || ariaCheck}
         htmlType={onClick ? 'button' : 'submit'}
       >
