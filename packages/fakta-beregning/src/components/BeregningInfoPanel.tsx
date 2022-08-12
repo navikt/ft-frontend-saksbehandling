@@ -49,6 +49,7 @@ type OwnProps = {
   vilkar: Vilkar;
   submittable: boolean;
   erOverstyrer: boolean;
+  skalKunneOverstyreAktiviteter: boolean;
   alleKodeverk: AlleKodeverk;
   beregningsgrunnlag?: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
@@ -70,6 +71,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   aktivtBeregningsgrunnlagIndeks,
   beregningsgrunnlag,
   erOverstyrer,
+  skalKunneOverstyreAktiviteter,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
   setFormData,
@@ -98,7 +100,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         harAndreAvklaringsbehovIPanel={hasAvklaringsbehov(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov)}
         submitCallback={submitCallback}
         submittable={submittable}
-        erOverstyrer={erOverstyrer}
+        erOverstyrer={erOverstyrer && skalKunneOverstyreAktiviteter}
         alleKodeverk={alleKodeverk}
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
         beregningsgrunnlag={beregningsgrunnlag}
