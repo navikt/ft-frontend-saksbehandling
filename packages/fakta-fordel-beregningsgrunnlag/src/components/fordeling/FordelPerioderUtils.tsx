@@ -4,8 +4,8 @@ import {
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
 import { PeriodeAarsak } from '@navikt/ft-kodeverk';
-import moment from 'moment';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagValues,
@@ -154,8 +154,8 @@ const sjekkOmPeriodeSkalLeggesTil =
 const inkludererPeriode =
   (periode: FordelBeregningsgrunnlagPeriode) =>
   ({ fom, tom }: FordelBeregningsgrunnlagPeriode): boolean =>
-    moment(fom).isSameOrAfter(moment(periode.fom)) &&
-    (periode.tom === null || moment(tom).isSameOrBefore(moment(periode.tom)));
+    (dayjs(fom).isSame(dayjs(periode.fom)) || dayjs(fom).isAfter(periode.fom)) &&
+    (periode.tom === null || dayjs(tom).isSame(dayjs(periode.tom)) || dayjs(tom).isAfter(dayjs(periode.tom)));
 
 const getAndelsnr = (aktivitet: FordelBeregningsgrunnlagAndelValues): number | string => {
   if (aktivitet.nyAndel === true) {

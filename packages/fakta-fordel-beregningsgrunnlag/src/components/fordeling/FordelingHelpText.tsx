@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT, getKodeverknavnFn, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { AksjonspunktHelpTextTemp } from '@navikt/ft-ui-komponenter';
@@ -27,7 +27,7 @@ export const textCase = {
   ENDRING_YTELSE: 'ENDRING_YTELSE',
 };
 
-const formatDate = (date: string): string => (date ? moment(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
+const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
 const byggListeSomStreng = (listeMedStrenger: string[]): string => {
   if (listeMedStrenger.length === 0) {
