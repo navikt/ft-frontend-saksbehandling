@@ -17,7 +17,8 @@ const getKodeverkMedNavn = (
     behandlingType === BehandlingType.TILBAKEKREVING || behandlingType === BehandlingType.TILBAKEKREVING_REVURDERING
       ? // @ts-ignore Fiks
         (alleKodeverk[kodeverk] as KodeverkMedNavn[])
-      : (alleKodeverk[kodeverk] as KodeverkMedNavn[]);
+      : // @ts-ignore Fiks
+        (alleKodeverk[kodeverk] as KodeverkMedNavn[]);
   if (!kodeverkForType || kodeverkForType.length === 0) {
     throw Error(`Det finnes ingen kodeverk for type ${kodeverk} med kode ${kode}`);
   }

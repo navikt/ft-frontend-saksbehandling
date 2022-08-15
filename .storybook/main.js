@@ -56,6 +56,38 @@ module.exports = {
           title: 'prosess-tilbakekreving-vedtak',
           url: 'http://localhost:7011',
       },
+      'sak-behandling-velger': {
+          title: 'sak-behandling-velger',
+          url: 'http://localhost:7012',
+      },
+      'sak-aktor': {
+          title: 'sak-aktor',
+          url: 'http://localhost:7013',
+      },
+      'sak-visittkort': {
+          title: 'sak-visittkort',
+          url: 'http://localhost:7014',
+      },
+      'sak-dekorator': {
+          title: 'sak-dekorator',
+          url: 'http://localhost:7015',
+      },
+      'sak-support-meny': {
+          title: 'sak-support-meny',
+          url: 'http://localhost:7016',
+      },
+      'sak-dokumenter': {
+          title: 'sak-dokumenter',
+          url: 'http://localhost:7017',
+      },
+      'sak-fagsak-profil': {
+          title: 'sak-fagsak-profil',
+          url: 'http://localhost:7018',
+      },
+      'sak-risikoklassifisering': {
+          title: 'sak-risikoklassifisering',
+          url: 'http://localhost:7019',
+      },
   },
   webpackFinal: async (config, { configType }) => {
 
