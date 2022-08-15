@@ -13077,11 +13077,6 @@ nav-frontend-etiketter@^3.0.2:
   resolved "https://registry.yarnpkg.com/nav-frontend-etiketter/-/nav-frontend-etiketter-3.0.3.tgz#c328bd5d37a005ccdf37ab05db4c7726b3f14f3f"
   integrity sha512-gyAgEgoQyC/pwO5r1l7tHsaehxQlzykIif2CQQ+THcx0Lw1Use/wwyyP7Xm8J4caE/VvTloWPM0zoclKvHvqKQ==
 
-nav-frontend-grid-style@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/nav-frontend-grid-style/-/nav-frontend-grid-style-1.0.1.tgz#335500e51c08149e141214432014de698a1ac471"
-  integrity sha512-/C3cMtFdf5tD4EODfLuru+0mSyYZu58qt5h7Gl7tttap7EgxVSyvLc8yJAv5nw+rXb5L41pssy82VlQOTNmQ+A==
-
 nav-frontend-grid-style@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-grid-style/-/nav-frontend-grid-style-1.0.2.tgz#f0b05032686c5479af17a7707637188928a3c830"
@@ -13246,7 +13241,7 @@ nav-frontend-typografi-style@2.0.1:
   dependencies:
     nav-frontend-core "^6.0.1"
 
-nav-frontend-typografi-style@2.0.2, nav-frontend-typografi-style@^2.0.1:
+nav-frontend-typografi-style@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-typografi-style/-/nav-frontend-typografi-style-2.0.2.tgz#03d39354b9c5af483a76672bb98761c432579496"
   integrity sha512-/vKawzUV29g2iDxAEBA535l0WdUGKcCF4dzoqAKdcTv6M8Y7ypJiV1U7d2PieRKgCINH7bINoBAKEOXQw1Kl2Q==
