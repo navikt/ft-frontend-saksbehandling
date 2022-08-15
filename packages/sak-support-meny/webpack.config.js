@@ -15,7 +15,26 @@ const config = {
     },
   },
   module: {
-    rules: prodConfig.module.rules.concat([styleModulesRule(SRC_DIR)]),
+    rules: prodConfig.module.rules.concat([
+      styleModulesRule(SRC_DIR),
+      {
+        test: /\.(svg)$/,
+        issuer: /\.(tsx)?$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+          },
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+              name: '[name]_[contenthash].[ext]',
+            },
+          },
+        ],
+        type: 'javascript/auto',
+      },
+    ]),
   },
 };
 

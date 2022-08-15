@@ -4,6 +4,8 @@ import { Story } from '@storybook/react'; // eslint-disable-line import/no-extra
 import SupportMenySakIndex from './SupportMenySakIndex';
 import SupportTabs from './supportTabs';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+
 export default {
   title: 'sak/sak-support-meny',
   component: SupportMenySakIndex,
