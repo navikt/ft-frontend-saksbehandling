@@ -45,4 +45,6 @@ type Behandling = {
   };
 };
 
+export type BehandlingAppKontekst = Omit<Behandling, 'taskStatus'>;
+
 export default Behandling;

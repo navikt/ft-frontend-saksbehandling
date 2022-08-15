@@ -53,7 +53,8 @@ export type { default as StandardFaktaPanelProps } from './src/standardFaktaPane
 export type { default as StandardProsessPanelProps } from './src/standardProsessPanelPropsTsType';
 export type { default as AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
 export type { default as Vilkar } from './src/vilkarTsType';
-export type { default as Behandling } from './src/behandlingTsType';
+export type { default as Dokument } from './src/dokumentTsType';
+export type { default as Behandling, BehandlingAppKontekst } from './src/behandlingTsType';
 export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/besteberegningTsTypes';
 export type { default as BeregningAvklaringsbehov } from './src/beregningAvklaringsbehovTsType';
 export type {
@@ -64,8 +65,12 @@ export type { default as Vilkarperiode } from './src/vilkarperiodeTsType';
 export type { default as FeilutbetalingFakta } from './src/feilutbetalingFaktaTsType';
 export type { default as FeilutbetalingAarsak } from './src/feilutbetalingAarsakTsType';
 export type { Kjønnkode } from './src/Kjonnkode';
+export { KjønnkodeEnum } from './src/Kjonnkode';
 export type { default as Vedtaksbrev } from './src/vedtaksbrevTsType';
 export type { default as VedtaksbrevAvsnitt } from './src/vedtaksbrevAvsnittTsType';
+export type { default as Aktor } from './src/aktorTsType';
+export type { default as Risikoklassifisering } from './src/risikoklassifiseringTsType';
+export type { default as FagsakPersoner, FagsakHendelse, FagsakPerson } from './src/fagsakPersonerTsType';
 export type {
   default as BeregningsresultatTilbakekreving,
   BeregningResultatPeriode,
