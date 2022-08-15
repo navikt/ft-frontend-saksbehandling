@@ -15,6 +15,7 @@ import {
 } from '@navikt/ft-kodeverk';
 import { formHooks, InputField, SelectField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
+import { UseFormGetValues } from 'react-hook-form';
 import {
   validateSumFastsattBelop,
   validateSumFastsattForUgraderteAktiviteter,
@@ -119,30 +120,19 @@ const summerFordeling = (
   vilkårperiodeFieldIndex: number,
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
-  watch: any,
+  getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
 ): string => {
   let sum = 0;
   let index = 0;
   for (index; index < fields.length; index += 1) {
     const field = fields[index];
+    const fastsattBeløp = removeSpacesFromNumber(
+      getValues(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`),
+    );
     if (field.skalRedigereInntekt) {
-      sum += watch(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`)
-        ? Number(
-            removeSpacesFromNumber(
-              watch(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}
-        .${fieldname}.${index}.fastsattBelop`),
-            ),
-          )
-        : 0;
+      sum += fastsattBeløp || 0;
     } else {
-      sum += field.readOnlyBelop
-        ? Number(
-            removeSpacesFromNumber(
-              watch(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.
-      ${fieldname}.${index}.fastsattBelop`),
-            ),
-          )
-        : 0;
+      sum += field.readOnlyBelop ? fastsattBeløp : 0;
     }
   }
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
