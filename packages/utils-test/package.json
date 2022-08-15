@@ -22,7 +22,7 @@
   "dependencies": {
     "@commercetools/enzyme-extensions": "5.0.0",
     "@navikt/ft-kodeverk": "^1.0.15",
-    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/jest-dom": "5.16.5",
     "@wojtekmaj/enzyme-adapter-react-17": "0.6.7",
     "axios-mock-adapter": "1.21.1",
     "clean-webpack-plugin": "4.0.0",
