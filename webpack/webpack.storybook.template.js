@@ -4,7 +4,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const styleModulesRule = require('./rules/style-modules-rule');
 const styleRule = require('./rules/style-rule');
 
-module.exports = (config, srcDir) => {
+module.exports = (config, srcDir, additionalStyleRule = {}) => {
   //Fjern default svg-loader
   config.module.rules = config.module.rules.map( data => {
     if (/svg\|/.test(String(data.test))) {
@@ -25,7 +25,8 @@ module.exports = (config, srcDir) => {
       type: 'asset/inline',
     },
     styleModulesRule(srcDir),
-    styleRule(srcDir));
+    styleRule(srcDir),
+    additionalStyleRule);
 
     config.resolve.extensions.push('.ts', '.tsx', '.less');
 

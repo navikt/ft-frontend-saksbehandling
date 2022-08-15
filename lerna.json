@@ -4,7 +4,16 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "registry": "https://npm.pkg.github.com"
+      "registry": "https://npm.pkg.github.com",
+      "ignoreChanges": [
+        "**/*.md",
+        "**/*.spec.tsx",
+        "**/*.stories.tsx",
+        "**/jest.config.js",
+        "**/tsconfig.json",
+        "**/dist/**",
+        "**/node_modules/**"
+      ]
     },
     "bootstrap": {
       "npmClientArgs": [

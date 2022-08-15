@@ -19,6 +19,7 @@
     "less:lint": "lerna run less:lint --stream --parallel",
     "build": "lerna run build --stream",
     "lerna-publish": "lerna publish",
+    "lerna-changed": "lerna changed",
     "storybook-all": "lerna run storybook --parallel -- --ci",
     "storybook": "cross-env start-storybook -p 7000",
     "deploy-storybook": "storybook-to-ghpages -o .storybook-static-build --packages packages",
