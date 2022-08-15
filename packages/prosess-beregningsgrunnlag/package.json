@@ -33,7 +33,7 @@
     "@navikt/ft-ui-komponenter": "^1.0.32",
     "@navikt/ft-utils": "^1.0.29",
     "classnames": "2.3.1",
-    "dayjs": "1.11.4",
+    "dayjs": "1.11.5",
     "echarts": "5.3.3",
     "nav-frontend-chevron": "1.0.30",
     "nav-frontend-chevron-style": "1.0.4",
