@@ -13057,12 +13057,7 @@ nav-frontend-ekspanderbartpanel@4.0.3:
   resolved "https://registry.yarnpkg.com/nav-frontend-ekspanderbartpanel/-/nav-frontend-ekspanderbartpanel-4.0.3.tgz#bc123763fd1036e2480a19773b8e3842ff6650ad"
   integrity sha512-ftV8/G8WyrAUT2Hu4ohJKJwVx3XQkCCnPw6vVcwBmOu+jaiMVgj5WGn94ES+BDLHDWOeSzuZod7T72M1vKKkuQ==
 
-nav-frontend-etiketter-style@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-etiketter-style/-/nav-frontend-etiketter-style-2.0.2.tgz#8049b62ffdf303f1055f099df46c3148f6497a77"
-  integrity sha512-dlRyx2ekYYdQbqbVWhsSbwYtykdx5ncd6wkD3I68JuuNWwi6mljnPQE0NAzbIf4fbFp3H8Xsnwm3h4yGuca1VA==
-
-nav-frontend-etiketter-style@^2.0.2:
+nav-frontend-etiketter-style@2.0.3, nav-frontend-etiketter-style@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/nav-frontend-etiketter-style/-/nav-frontend-etiketter-style-2.0.3.tgz#f20451104d03f6e5aabb7856f75d04346f5674b8"
   integrity sha512-QB/Xud1GysgSCIyIpGvbjv7xoi8E6YFEYZ63DkJNKKFcidX9NGoEDbaJmhoHVxFypbKgw7NXc6eBsuqRgjFkNg==
