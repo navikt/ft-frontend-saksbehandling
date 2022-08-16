@@ -50,6 +50,7 @@ type VurderFaktaBeregningPanelProps = {
   formData: VurderFaktaBeregningFormValues;
   vilkar: Vilkar;
   avklarAktiviteterErEndret: boolean;
+  skalKunneAvbryteOverstyring: boolean;
 };
 
 export const buildInitialValuesVurderFaktaBeregning = (
@@ -95,6 +96,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     formData,
     vilkar,
     avklarAktiviteterErEndret,
+    skalKunneAvbryteOverstyring,
   } = props;
   const verdiForAvklarAktivitetErEndret = avklarAktiviteterErEndret;
 
@@ -125,7 +127,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
 
   const losAvklaringsbehov = values => {
     if (Object.keys(errors).length === 0) {
-      submitCallback(transformValuesVurderFaktaBeregning(values));
+      submitCallback(transformValuesVurderFaktaBeregning(values, skalKunneAvbryteOverstyring));
     }
   };
 
@@ -163,7 +165,6 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
                 />
               ),
           )}
-          ,
         </Form>
       </VurderFaktaContext.Provider>
     );

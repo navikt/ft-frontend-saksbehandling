@@ -56,6 +56,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   setFormData: (data: any) => void;
   formData: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
+  skalKunneAvbryteOverstyring: boolean;
 };
 
 /**
@@ -77,6 +78,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   setFormData,
   formData,
   vilkar,
+  skalKunneAvbryteOverstyring,
 }) => {
   const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter(
     ap => relevanteKoder.some(kode => kode === ap.definisjon) && ap.kanLoses !== false,
@@ -125,6 +127,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         formData={formData && formNameVurderFaktaBeregning in formData ? formData : undefined}
         vilkar={vilkar}
         avklarAktiviteterErEndret={avklarAktiviteterErEndret}
+        skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
     </div>
   );
