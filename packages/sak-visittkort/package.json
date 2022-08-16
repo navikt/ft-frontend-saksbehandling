@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-visittkort",
   "description": "Komponent som viser informasjon om søker, annen part og barn",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "module": "index.jsx",
   "main": "./dist/index.js",
