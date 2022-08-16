@@ -14,7 +14,7 @@ interface OwnProps {
     person: FagsakPerson;
   };
   alleKodeverk: AlleKodeverk;
-  renderSomLenke: (className: string | undefined, fagsakKomponent: ReactNode) => ReactElement;
+  renderSomLenke: (className: string | undefined, fagsakKomponent: ReactNode, saksnummer: string) => ReactElement;
 }
 
 const AktoerGrid: FunctionComponent<OwnProps> = ({ aktorInfo, alleKodeverk, renderSomLenke }) => {
@@ -34,7 +34,7 @@ const AktoerGrid: FunctionComponent<OwnProps> = ({ aktorInfo, alleKodeverk, rend
         {aktorInfo.fagsaker.length ? (
           aktorInfo.fagsaker.map(fagsak => (
             <Lenkepanel
-              linkCreator={props => renderSomLenke(props.className, props.children)}
+              linkCreator={props => renderSomLenke(props.className, props.children, fagsak.saksnummer)}
               key={fagsak.saksnummer}
               href="#"
               tittelProps="normaltekst"
