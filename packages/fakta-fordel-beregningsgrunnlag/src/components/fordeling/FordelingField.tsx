@@ -11,7 +11,7 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 
-import { GrunnlagTilBekreftelse } from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
+import BeregningsgrunnlagTilBekreftelse from '@navikt/ft-types/src/BeregningsgrunnlagTilBekreftelse';
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelingHelpText from './FordelingHelpText';
 import FastsettFordeltBeregningsgrunnlag from './FastsettFordeltBeregningsgrunnlag';
@@ -38,7 +38,7 @@ export const BEGRUNNELSE_FORDELING_NAME = 'begrunnelse';
 export const transformFieldValuesFordelBeregning = (
   values: FordelBeregningsgrunnlagMedAksjonspunktValues,
   beregningsgrunnlag: Beregningsgrunnlag,
-): GrunnlagTilBekreftelse<FordelBeregningsgrunnlagPerioderTransformedValues> => {
+): BeregningsgrunnlagTilBekreftelse<FordelBeregningsgrunnlagPerioderTransformedValues> => {
   const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   const fordelBGPerioder =
     beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;

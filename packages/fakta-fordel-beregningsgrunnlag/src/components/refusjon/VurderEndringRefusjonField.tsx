@@ -9,10 +9,10 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  GrunnlagTilBekreftelse,
   RefusjonTilVurderingAndel,
   Vilkarperiode,
 } from '@navikt/ft-types';
+import BeregningsgrunnlagTilBekreftelse from '@navikt/ft-types/src/BeregningsgrunnlagTilBekreftelse';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -58,7 +58,7 @@ export const buildFieldInitialValues = (
 export const transformFieldValues = (
   values: VurderRefusjonFieldValues,
   bg: Beregningsgrunnlag,
-): GrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
+): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
   const { andeler } = bg.refusjonTilVurdering;
   const transformedAndeler = andeler.map(andel =>
     VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),

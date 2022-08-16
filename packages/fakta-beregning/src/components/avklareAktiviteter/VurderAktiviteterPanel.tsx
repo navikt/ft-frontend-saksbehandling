@@ -6,7 +6,7 @@ import {
   BeregningAktivitet,
 } from '@navikt/ft-types';
 import dayjs from 'dayjs';
-import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import {
   buildInitialValues as buildInitialValuesForTabell,
   lagAktivitetFieldId,
@@ -153,7 +153,7 @@ interface StaticFunctions {
     values: AvklarAktiviteterValues,
     aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
     erOverstyrt: boolean,
-  ) => BeregningAktiviteterTransformedValues;
+  ) => BeregningAktivitetTransformedValues[];
   harIngenAktiviteter: (
     values: AvklarAktiviteterValues,
     aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
@@ -234,14 +234,12 @@ VurderAktiviteterPanel.transformValues = (
   values: AvklarAktiviteterValues,
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
   erOverstyrt: boolean,
-): BeregningAktiviteterTransformedValues => {
+): BeregningAktivitetTransformedValues[] => {
   const listerSomVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listerSomVurderes);
-  return {
-    beregningsaktivitetLagreDtoList: listerSomVurderes.flatMap(liste =>
-      transformValuesForTabell(values, liste.aktiviteter, gjeldendeSkjæringstidspunkt, liste.tom),
-    ),
-  };
+  return listerSomVurderes.flatMap(liste =>
+    transformValuesForTabell(values, liste.aktiviteter, gjeldendeSkjæringstidspunkt, liste.tom),
+  );
 };
 
 /**
