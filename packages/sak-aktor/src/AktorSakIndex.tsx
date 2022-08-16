@@ -13,7 +13,7 @@ interface OwnProps {
   valgtAktorId: string;
   aktorInfo?: Aktor;
   alleKodeverk: AlleKodeverk;
-  renderSomLenke: (className: string | undefined, fagsakKomponent: ReactNode) => ReactElement;
+  renderSomLenke: (className: string | undefined, fagsakKomponent: ReactNode, saksnummer: string) => ReactElement;
 }
 
 const AktorSakIndex: FunctionComponent<OwnProps> = ({ valgtAktorId, aktorInfo, alleKodeverk, renderSomLenke }) => (

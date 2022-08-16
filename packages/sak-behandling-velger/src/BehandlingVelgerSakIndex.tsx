@@ -14,7 +14,7 @@ interface OwnProps {
   behandlingUuid?: string;
   skalViseAlleBehandlinger: boolean;
   toggleVisAlleBehandlinger: () => void;
-  renderRadSomLenke: (className: string, behandlingInfoKomponent: ReactElement) => ReactElement;
+  renderRadSomLenke: (className: string, behandlingInfoKomponent: ReactElement, uuid: string) => ReactElement;
   getKodeverkMedNavn: (kode: string, kodeverk: KodeverkType, behandlingType?: string) => KodeverkMedNavn | undefined;
 }
 

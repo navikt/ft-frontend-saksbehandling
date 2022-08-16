@@ -12,7 +12,7 @@ interface OwnProps {
   erAktiv: boolean;
   skalViseAlleBehandlinger: boolean;
   toggleVisAlleBehandlinger: () => void;
-  renderRadSomLenke: (className: string, behandlingInfoKomponent: ReactElement) => ReactElement;
+  renderRadSomLenke: (className: string, behandlingInfoKomponent: ReactElement, uuid: string) => ReactElement;
   getKodeverkMedNavn: (kode: string, kodeverk: KodeverkType, behandlingType?: string) => KodeverkMedNavn | undefined;
 }
 
@@ -44,6 +44,7 @@ const BehandlingListeRad: FunctionComponent<OwnProps> = ({
         withChevronUp={skalViseAlleBehandlinger && erAktiv}
         getKodeverkMedNavn={getKodeverkMedNavn}
       />,
+      behandling.uuid,
     );
   }
   if (erAktiv) {

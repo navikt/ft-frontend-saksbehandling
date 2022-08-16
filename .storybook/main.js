@@ -88,6 +88,14 @@ module.exports = {
           title: 'sak-risikoklassifisering',
           url: 'http://localhost:7019',
       },
+      'sak-infosider': {
+          title: 'sak-infosider',
+          url: 'http://localhost:7020',
+      },
+      'sak-meny': {
+          title: 'sak-meny',
+          url: 'http://localhost:7021',
+      },
   },
   webpackFinal: async (config, { configType }) => {
 
