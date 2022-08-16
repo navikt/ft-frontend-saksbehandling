@@ -9,6 +9,8 @@ type BeregningsaktivitetLagreType = {
 };
 
 type AvklarAktiviteterSubmitValuesTsType = {
+  periode: { fom: string; tom: string };
+  begrunnelse: string;
   beregningsaktivitetLagreDtoList: BeregningsaktivitetLagreType[];
 };
 

@@ -252,11 +252,7 @@ export const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): 
   avklaringsbehov &&
   avklaringsbehov.some(ap => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
-export const erOverstyringAvBeregningsgrunnlag = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  beregningsgrunnlag: Beregningsgrunnlag,
-  avklaringsbehov: BeregningAvklaringsbehov[],
-) => erOverstyring(values) || beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(avklaringsbehov);
+export const erOverstyringAvBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues) => erOverstyring(values);
 
 export const erInitialOverstyringAvBeregningsgrunnlag = ({ beregningsgrunnlag, avklaringsbehov }) =>
   beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(avklaringsbehov);
