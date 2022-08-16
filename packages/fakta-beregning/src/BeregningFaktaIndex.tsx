@@ -16,7 +16,7 @@ import styles from './beregningFaktaIndex.less';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
-import SubmitBeregningType from './typer/SubmitBeregningTsType';
+import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
 
 const intl = createIntl(messages);
 
@@ -28,7 +28,7 @@ type OwnProps = {
   vilkar: Vilkar;
   alleKodeverk: AlleKodeverk;
   submittable: boolean;
-  skalKunneAvbryteOverstyring: boolean;
+  skalKunneAvbryteOverstyring?: boolean;
 };
 
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;

@@ -21,6 +21,7 @@ import {
 } from '@navikt/ft-types';
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
 import { formHooks, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { BeregningsgrunnlagTilBekreftelse } from '@navikt/ft-types/index';
 import { UseFormGetValues } from 'react-hook-form';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
@@ -36,6 +37,7 @@ import SubmitButton from '../felles/SubmitButton';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
@@ -75,7 +77,9 @@ export const buildInitialValues = (
   };
 };
 
-export const transformFieldValue = (values: AvklarAktiviteterValues) => {
+export const transformFieldValue = (
+  values: AvklarAktiviteterValues,
+): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
   const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(
     skalOverstyre,
@@ -88,14 +92,14 @@ export const transformFieldValue = (values: AvklarAktiviteterValues) => {
     return null;
   }
 
-  const vurderAktiviteterTransformed = VurderAktiviteterPanel.transformValues(
+  const aktivitetListe = VurderAktiviteterPanel.transformValues(
     values,
     avklarAktiviteter.aktiviteterTomDatoMapping,
     skalOverstyre,
   );
 
   return {
-    ...vurderAktiviteterTransformed,
+    beregningsaktivitetLagreDtoList: aktivitetListe,
     periode: values.periode,
     begrunnelse: values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME],
   };

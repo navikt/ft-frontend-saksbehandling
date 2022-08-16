@@ -1,15 +1,9 @@
-export type GrunnlagTilBekreftelse<T> = T & {
-  periode: {
-    fom: string;
-    tom: string;
-  };
-  begrunnelse?: string;
-};
+import BeregningsgrunnlagTilBekreftelse from './BeregningsgrunnlagTilBekreftelse';
 
-export type AvklaringsbehovTilBekreftelse<T, V> = {
+export type BeregningAvklaringsbehovTilBekreftelse<T, V> = {
   kode: T;
   begrunnelse?: string;
-  grunnlag: GrunnlagTilBekreftelse<V>[];
+  grunnlag: BeregningsgrunnlagTilBekreftelse<V>[];
 };
 
-export default AvklaringsbehovTilBekreftelse;
+export default BeregningAvklaringsbehovTilBekreftelse;

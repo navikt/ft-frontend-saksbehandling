@@ -1,4 +1,4 @@
-import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
+import BeregningAvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
 import FaktaBeregningAksjonspunktCode from './FaktaBeregningAksjonspunktCode';
 
 export type BeregningAktivitetTransformedValues = {
@@ -15,11 +15,15 @@ export type BeregningAktiviteterTransformedValues = {
   beregningsaktivitetLagreDtoList: BeregningAktivitetTransformedValues[];
 };
 
-export type OverstyrBeregningsaktiviteterAP = BeregningAktiviteterTransformedValues &
-  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER>;
+export type OverstyrBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
+  FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+  BeregningAktiviteterTransformedValues
+>;
 
-export type AvklarBeregningsaktiviteterAP = BeregningAktiviteterTransformedValues &
-  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER>;
+export type AvklarBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
+  FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
+  BeregningAktiviteterTransformedValues
+>;
 
 export type NyoppstartetFLTransformedValues = {
   erNyoppstartetFL: boolean;
@@ -176,17 +180,15 @@ export type BeregningFaktaTransformedValues = {
   overstyrteAndeler?: FastsettBeregningsgrunnlagAndelTransformedValues[];
 };
 
-export type BeregningFaktaAP = {
-  kode: string;
-  begrunnelse: string;
-  grunnlag: BeregningFaktaTransformedValues;
-};
+export type BeregningFaktaAP = BeregningAvklaringsbehovTilBekreftelse<
+  FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+  BeregningFaktaTransformedValues
+>;
 
-export type BeregningOverstyringAP = {
-  kode: string;
-  begrunnelse: string;
-  grunnlag: BeregningFaktaTransformedValues;
-};
+export type BeregningOverstyringAP = BeregningAvklaringsbehovTilBekreftelse<
+  FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+  BeregningFaktaTransformedValues
+>;
 
 export type BeregningFaktaOgOverstyringAP = BeregningFaktaAP | BeregningOverstyringAP;
 

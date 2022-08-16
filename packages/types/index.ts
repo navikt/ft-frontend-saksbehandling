@@ -57,10 +57,8 @@ export type { default as Dokument } from './src/dokumentTsType';
 export type { default as Behandling, BehandlingAppKontekst } from './src/behandlingTsType';
 export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/besteberegningTsTypes';
 export type { default as BeregningAvklaringsbehov } from './src/beregningAvklaringsbehovTsType';
-export type {
-  default as AvklaringsbehovTilBekreftelse,
-  GrunnlagTilBekreftelse,
-} from './src/BeregningAvklaringsbehovTilBekreftelse';
+export type { default as AvklaringsbehovTilBekreftelse } from './src/BeregningAvklaringsbehovTilBekreftelse';
+export type { default as BeregningsgrunnlagTilBekreftelse } from './src/BeregningsgrunnlagTilBekreftelse';
 export type { default as Vilkarperiode } from './src/vilkarperiodeTsType';
 export type { default as FeilutbetalingFakta } from './src/feilutbetalingFaktaTsType';
 export type { default as FeilutbetalingAarsak } from './src/feilutbetalingAarsakTsType';
