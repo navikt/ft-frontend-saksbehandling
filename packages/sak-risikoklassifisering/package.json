@@ -1,5 +1,6 @@
 {
   "name": "@navikt/ft-sak-risikoklassifisering",
+  "description": "Viser risikoklassifisering for valgt behandling. Viser en av tre komponenter avhengig av: Om ingen klassifisering er utført, om klassifisering er utført og ingen faresignaler er funnet og om klassifisering er utført og faresignaler er funnet",
   "version": "1.0.1",
   "module": "index.jsx",
   "license": "MIT",

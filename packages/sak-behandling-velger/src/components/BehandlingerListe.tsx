@@ -25,7 +25,7 @@ const sorterBehandlinger = (behandlinger: BehandlingAppKontekst[]): BehandlingAp
 
 interface OwnProps {
   behandlinger: BehandlingAppKontekst[];
-  renderRadSomLenke: (className: string, behandlingInfoKomponent: ReactElement) => ReactElement;
+  renderRadSomLenke: (className: string, behandlingInfoKomponent: ReactElement, uuid: string) => ReactElement;
   behandlingUuid?: string;
   skalViseAlleBehandlinger: boolean;
   toggleVisAlleBehandlinger: () => void;
