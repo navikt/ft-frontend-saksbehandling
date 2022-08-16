@@ -68,6 +68,10 @@ function erPeriodeKunHelg(periode: BeregningsgrunnlagPeriodeProp) {
   return starterLørdag && slutterSøndag;
 }
 
+function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
+  return forrigeAndelIArbeid.sort().join('_') !== andelIArbeid.sort().join('-');
+}
+
 const harIngenRelevantEndringForFordeling = (
   fordelPeriode: FordelBeregningsgrunnlagPeriode,
   forrigeEndringPeriode: FordelBeregningsgrunnlagPeriode,
@@ -100,7 +104,7 @@ const harIngenRelevantEndringForFordeling = (
     if (andelFraForrige === undefined) {
       return false;
     }
-    if (andelFraForrige.andelIArbeid !== andelIPeriode.andelIArbeid) {
+    if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
       return false;
     }
     if (!kanSlåSammenOverHelg && andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
