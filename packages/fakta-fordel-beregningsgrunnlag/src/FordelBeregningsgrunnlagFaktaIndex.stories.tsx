@@ -26,6 +26,8 @@ import {
 import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaIndex';
 import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
 import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
+import bgFlerePerioderMedHelg from '../testdata/FlerePerioderMedHelg';
+
 import { FaktaFordelBeregningAksjonspunktCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
@@ -294,6 +296,12 @@ const lagArbeidsforhold = (
   refusjonPrAar: refKrav,
   organisasjonstype: 'VIRKSOMHET',
 });
+export const FlerePerioderMedHelg = Template.bind({});
+FlerePerioderMedHelg.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: bgFlerePerioderMedHelg,
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+};
 
 export const ArbeidOgGradertNæringUtenBeregningsgrunnlag = Template.bind({});
 ArbeidOgGradertNæringUtenBeregningsgrunnlag.args = {

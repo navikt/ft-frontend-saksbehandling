@@ -59,6 +59,19 @@ const erArbeidsforholdLike = (andel1: FordelBeregningsgrunnlagAndel, andel2: For
   return false;
 };
 
+function erPeriodeKunHelg(periode: BeregningsgrunnlagPeriodeProp) {
+  const starterLørdag = dayjs(periode.beregningsgrunnlagPeriodeFom).day() === 6;
+  const slutterSøndag =
+    starterLørdag &&
+    !!periode.beregningsgrunnlagPeriodeTom &&
+    dayjs(periode.beregningsgrunnlagPeriodeFom).add(1, 'days').isSame(dayjs(periode.beregningsgrunnlagPeriodeTom));
+  return starterLørdag && slutterSøndag;
+}
+
+function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
+  return forrigeAndelIArbeid.sort().join('_') !== andelIArbeid.sort().join('-');
+}
+
 const harIngenRelevantEndringForFordeling = (
   fordelPeriode: FordelBeregningsgrunnlagPeriode,
   forrigeEndringPeriode: FordelBeregningsgrunnlagPeriode,
@@ -76,6 +89,10 @@ const harIngenRelevantEndringForFordeling = (
   if (periode.bruttoPrAar !== forrigePeriode.bruttoPrAar) {
     return false;
   }
+  const erKunHelg = erPeriodeKunHelg(periode);
+  const erForrigeKunHelg = erPeriodeKunHelg(forrigePeriode);
+  const skalKunneEndreRefusjon = fordelPeriode.skalKunneEndreRefusjon || forrigeEndringPeriode.skalKunneEndreRefusjon;
+  const kanSlåSammenOverHelg = (erKunHelg || erForrigeKunHelg) && !skalKunneEndreRefusjon;
   for (let i = 0; i < fordelPeriode.fordelBeregningsgrunnlagAndeler.length; i += 1) {
     const andelIPeriode = fordelPeriode.fordelBeregningsgrunnlagAndeler[i];
     const andelFraForrige = forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler.find(
@@ -87,10 +104,10 @@ const harIngenRelevantEndringForFordeling = (
     if (andelFraForrige === undefined) {
       return false;
     }
-    if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
+    if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
       return false;
     }
-    if (andelFraForrige.andelIArbeid !== andelIPeriode.andelIArbeid) {
+    if (!kanSlåSammenOverHelg && andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
       return false;
     }
   }
