@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl';
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { PersonCard, EmptyPersonCard, Gender } from '@navikt/ft-plattform-komponenter';
-import { Fagsak, KjønnkodeEnum, FagsakPersoner } from '@navikt/ft-types';
+import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
 import { RelasjonsRolleType, NavBrukerKjonn } from '@navikt/ft-kodeverk';
 
 import VisittkortLabels from './VisittkortLabels';
@@ -41,7 +41,7 @@ const VisittkortPanel: FunctionComponent<OwnProps & WrappedComponentProps> = ({
         <PersonCard
           name={fagsakPerson.navn}
           fodselsnummer={fagsakPerson.fødselsnummer}
-          gender={fagsakPerson.kjønn === KjønnkodeEnum.KVINNE ? Gender.female : Gender.male}
+          gender={fagsakPerson.kjønn === NavBrukerKjonn.KVINNE ? Gender.female : Gender.male}
           renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={fagsakPerson} harVerge={harVerge} />}
         />
       </div>

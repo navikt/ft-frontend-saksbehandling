@@ -2,7 +2,6 @@
   "name": "@navikt/ft-sak-dekorator",
   "description": "Dekorator for applikasjon",
   "version": "1.0.1",
-  "module": "index.jsx",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
