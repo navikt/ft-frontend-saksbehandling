@@ -33,12 +33,12 @@
     "react-intl": "6.0.5"
   },
   "peerDependencies": {
-    "@navikt/ft-utils": "1.0.30",
-    "nav-frontend-alertstriper": "4.0.2",
-    "nav-frontend-alertstriper-style": "3.0.2",
-    "nav-frontend-typografi": "4.0.2",
-    "nav-frontend-typografi-style": "2.0.2",
-    "react": "17.0.2",
+    "@navikt/ft-utils": "1.x",
+    "nav-frontend-alertstriper": "4.x",
+    "nav-frontend-alertstriper-style": "3.x",
+    "nav-frontend-typografi": "4.x",
+    "nav-frontend-typografi-style": "2.x",
+    "react": "17.x",
     "react-intl": "6.0.5"
   },
   "devDependencies": {
