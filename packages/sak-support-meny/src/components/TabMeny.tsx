@@ -1,6 +1,10 @@
 import React, { FunctionComponent, useRef, useEffect } from 'react';
 import classnames from 'classnames/bind';
-import { FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
+
+// TODO Importer fra ui-komponenter. Dette er ein midlertidig fiks av problem med rekkefølgen på lasting av style
+import FlexContainer from './flexGrid/FlexContainer';
+import FlexRow from './flexGrid/FlexRow';
+import FlexColumn from './flexGrid/FlexColumn';
 
 import styles from './tabMeny.less';
 

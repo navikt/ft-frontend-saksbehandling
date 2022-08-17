@@ -2,7 +2,6 @@
   "name": "@navikt/ft-sak-dokumenter",
   "description": "Viser en dokumentoversikt. Saksbehandler kan velge å åpne en eller flere dokumenter.",
   "version": "1.0.1",
-  "module": "index.jsx",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
