@@ -8,13 +8,8 @@ import {
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, useState } from 'react';
 import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
-import { OverstyrBeregningsaktiviteterAP } from '../typer/interface/BeregningAktivitetAP';
-import BeregningFaktaAP, {
-  AvklarBeregningsaktiviteterAP,
-  BeregningOverstyringAP,
-} from '../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
-import SubmitBeregningType from '../typer/SubmitBeregningTsType';
+import SubmitBeregningType from '../typer/interface/SubmitBeregningTsType';
 import VurderFaktaBeregningFormValues from '../typer/VurderFaktaBeregningFormValues';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
 import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from './BeregningFormUtils';
@@ -36,14 +31,7 @@ const relevanteKoder = [
 ];
 
 type OwnProps = {
-  submitCallback: (
-    aksjonspunktData:
-      | AvklarBeregningsaktiviteterAP
-      | OverstyrBeregningsaktiviteterAP
-      | BeregningFaktaAP[]
-      | BeregningOverstyringAP[]
-      | SubmitBeregningType[],
-  ) => Promise<void>;
+  submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
   vilkar: Vilkar;
@@ -56,6 +44,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   setFormData: (data: any) => void;
   formData: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
+  skalKunneAvbryteOverstyring: boolean;
 };
 
 /**
@@ -77,6 +66,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   setFormData,
   formData,
   vilkar,
+  skalKunneAvbryteOverstyring,
 }) => {
   const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter(
     ap => relevanteKoder.some(kode => kode === ap.definisjon) && ap.kanLoses !== false,
@@ -125,6 +115,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         formData={formData && formNameVurderFaktaBeregning in formData ? formData : undefined}
         vilkar={vilkar}
         avklarAktiviteterErEndret={avklarAktiviteterErEndret}
+        skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
     </div>
   );

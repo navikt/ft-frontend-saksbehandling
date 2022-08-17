@@ -16,10 +16,21 @@ const harAvklaringsbehovSomKanLøses = (
 const skalKunneLoseAvklaringsbehov = (skalOverstyre: boolean, avklaringsbehov: BeregningAvklaringsbehov[]) =>
   skalOverstyre || harAvklaringsbehovSomKanLøses(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov);
 
-const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues) => {
+const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues, transformForOverstyring: boolean) => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD];
-  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov);
+  if (
+    transformForOverstyring &&
+    !skalOverstyre &&
+    harAvklaringsbehovSomKanLøses(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, values.avklaringsbehov)
+  ) {
+    return {
+      periode: values.periode,
+      avbrutt: true,
+      begrunnelse: null,
+    };
+  }
 
+  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov);
   if (!skalLoseAvklaringsbehov) {
     return null;
   }
@@ -34,23 +45,35 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues) => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const transformValuesVurderFaktaBeregning = (values: VurderFaktaBeregningFormValues) => {
+export const transformValuesVurderFaktaBeregning = (
+  values: VurderFaktaBeregningFormValues,
+  skalKunneAvbryteOverstyring = true,
+) => {
   const fieldArrayList = values[formNameVurderFaktaBeregning];
   const overstyrteGrunnlag = fieldArrayList
     .filter(v => v.erTilVurdering)
-    .filter(v => v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD])
-    .map(transformFieldValue)
+    .filter(
+      v =>
+        v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] ||
+        harAvklaringsbehovSomKanLøses(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, v.avklaringsbehov),
+    )
+    .map(v => transformFieldValue(v, true))
     .filter(v => v);
   const avklarGrunnlag = fieldArrayList
     .filter(v => v.erTilVurdering)
-    .filter(v => !v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD])
-    .map(transformFieldValue)
+    .filter(
+      v =>
+        (!v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] || skalKunneAvbryteOverstyring) &&
+        harAvklaringsbehovSomKanLøses(VURDER_FAKTA_FOR_ATFL_SN, v.avklaringsbehov),
+    )
+    .map(v => transformFieldValue(v, false))
     .filter(v => v);
 
   const apDataTilSubmit = [];
 
   if (overstyrteGrunnlag.length > 0) {
     const beg = overstyrteGrunnlag
+      .filter(({ begrunnelse }) => begrunnelse !== null)
       .map(({ begrunnelse }) => begrunnelse)
       .reduce(
         (samletBegrunnelse, begrunnelse) =>
@@ -59,7 +82,7 @@ export const transformValuesVurderFaktaBeregning = (values: VurderFaktaBeregning
       );
     const data = {
       kode: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-      begrunnelse: beg,
+      begrunnelse: beg !== '' ? beg : null,
       grunnlag: overstyrteGrunnlag,
     };
     apDataTilSubmit.push(data);

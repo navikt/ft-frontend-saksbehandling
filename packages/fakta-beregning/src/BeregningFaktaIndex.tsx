@@ -15,13 +15,8 @@ import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.less';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
-import { OverstyrBeregningsaktiviteterAP } from './typer/interface/BeregningAktivitetAP';
-import BeregningFaktaAP, {
-  AvklarBeregningsaktiviteterAP,
-  BeregningOverstyringAP,
-} from './typer/interface/BeregningFaktaAP';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
-import SubmitBeregningType from './typer/SubmitBeregningTsType';
+import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
 
 const intl = createIntl(messages);
 
@@ -33,6 +28,7 @@ type OwnProps = {
   vilkar: Vilkar;
   alleKodeverk: AlleKodeverk;
   submittable: boolean;
+  skalKunneAvbryteOverstyring?: boolean;
 };
 
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
@@ -68,12 +64,7 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsT
   harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
   vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning).vurderesIBehandlingen;
 
-type AksjonspunktDataDef =
-  | AvklarBeregningsaktiviteterAP
-  | OverstyrBeregningsaktiviteterAP
-  | BeregningFaktaAP[]
-  | BeregningOverstyringAP[]
-  | SubmitBeregningType[];
+type AksjonspunktDataDef = SubmitBeregningType[];
 
 const BeregningFaktaIndex: FunctionComponent<
   OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>
@@ -89,6 +80,7 @@ const BeregningFaktaIndex: FunctionComponent<
   formData,
   setFormData,
   vilkar,
+  skalKunneAvbryteOverstyring = false,
 }) => {
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
@@ -128,6 +120,7 @@ const BeregningFaktaIndex: FunctionComponent<
         setFormData={setFormData}
         formData={formData}
         vilkar={vilkar}
+        skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
     </RawIntlProvider>
   );
