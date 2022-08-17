@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-hooks",
   "description": "Overbygg over react-hook-form. Tilbyr form-komponenter som radioknapp og textarea",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,10 +24,10 @@
     "storybook": "cross-env start-storybook -p 7003"
   },
   "dependencies": {
-    "@navikt/ft-form-validators": "^1.0.25",
-    "@navikt/ft-types": "^1.0.24",
-    "@navikt/ft-ui-komponenter": "^1.0.33",
-    "@navikt/ft-utils": "^1.0.30",
+    "@navikt/ft-form-validators": "^1.0.26",
+    "@navikt/ft-types": "^1.0.25",
+    "@navikt/ft-ui-komponenter": "^1.0.34",
+    "@navikt/ft-utils": "^1.0.31",
     "classnames": "2.3.1",
     "dayjs": "1.11.5",
     "lodash.throttle": "4.1.1",
