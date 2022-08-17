@@ -18,7 +18,7 @@ type WeekAndDay = {
 };
 
 export const initializeDate = (
-  dateString: string | Dayjs | Date,
+  dateString?: string | Dayjs | Date,
   dateStringFormat?: string | string[],
   strict?: boolean,
 ) => {
@@ -113,7 +113,7 @@ export const calcDaysAndWeeksWithWeekends = (fraDatoPeriode: string, tilDatoPeri
   return checkDays(weeks, days);
 };
 
-export const dateFormat = (date: Date | string): string => initializeDate(date).format(DDMMYYYY_DATE_FORMAT);
+export const dateFormat = (date?: Date | string): string => initializeDate(date).format(DDMMYYYY_DATE_FORMAT);
 
 export const timeFormat = (date: string): string => dayjs(date).utc(true).format(HHMM_TIME_FORMAT);
 // Skal ikke legge til dag når dato er tidenes ende
