@@ -1,8 +1,14 @@
 import React from 'react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
-import { FagsakStatus, PersonstatusType, FagsakYtelseType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { KjønnkodeEnum, Fagsak, FagsakPersoner } from '@navikt/ft-types';
+import {
+  NavBrukerKjonn,
+  FagsakStatus,
+  PersonstatusType,
+  FagsakYtelseType,
+  RelasjonsRolleType,
+} from '@navikt/ft-kodeverk';
+import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
 import VisittkortSakIndex from './VisittkortSakIndex';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -25,7 +31,7 @@ const fagsakPerson = {
   navn: 'Espen Utvikler',
   fødselsdato: '1979-01-01',
   fødselsnummer: '1234567',
-  kjønn: KjønnkodeEnum.MANN,
+  kjønn: NavBrukerKjonn.MANN,
   aktørId: '234',
   personstatusType: PersonstatusType.BOSATT,
 };
@@ -34,7 +40,7 @@ const fagsakPersonAnnenPart = {
   navn: 'Klara Ku',
   fødselsdato: '1980-01-01',
   fødselsnummer: '6565656',
-  kjønn: KjønnkodeEnum.KVINNE,
+  kjønn: NavBrukerKjonn.KVINNE,
   personstatusType: PersonstatusType.BOSATT,
   aktørId: 'test',
 };
@@ -43,7 +49,7 @@ const fagsakPersonAnnenPartUkjent = {
   navn: 'Klara Ku',
   fødselsdato: '1980-01-01',
   fødselsnummer: '6565656',
-  kjønn: KjønnkodeEnum.KVINNE,
+  kjønn: NavBrukerKjonn.KVINNE,
   personstatusType: PersonstatusType.BOSATT,
 };
 
