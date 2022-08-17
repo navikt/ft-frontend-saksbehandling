@@ -82,9 +82,9 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
                     <OverstyringKnapp
                       onClick={toggleOverstyring}
                       erOverstyrt={
+                        readOnly ||
                         erTabellOverstyrt ||
-                        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) ||
-                        readOnly
+                        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
                       }
                     />
                   </FlexColumn>

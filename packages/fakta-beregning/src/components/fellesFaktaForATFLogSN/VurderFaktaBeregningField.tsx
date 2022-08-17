@@ -14,11 +14,11 @@ import { UseFormGetValues } from 'react-hook-form';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
-import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpefunksjoner';
 import SubmitButton from '../felles/SubmitButton';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
+import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpefunksjoner';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
 
@@ -73,9 +73,9 @@ const lagHelpTextsForFakta = (): ReactElement[] => {
   return helpTexts;
 };
 
-const erOverstyrt = (index: number, getValues: UseFormGetValues<any>, beregningsgrunnlag: Beregningsgrunnlag) => {
+const erOverstyrt = (index: number, getValues: UseFormGetValues<any>) => {
   const formValue = getValues(`${formNameVurderFaktaBeregning}.${index}`);
-  return erOverstyringAvBeregningsgrunnlag(formValue, beregningsgrunnlag, beregningsgrunnlag.avklaringsbehov);
+  return erOverstyringAvBeregningsgrunnlag(formValue);
 };
 
 const finnesFeilForBegrunnelse = (fieldId, errors) =>
@@ -120,14 +120,17 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
       />
       <VerticalSpacer twentyPx />
       {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ||
-        erOverstyrt(fieldId, getValues, beregningsgrunnlag)) && (
+        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) ||
+        erOverstyrt(fieldId, getValues)) && (
         <>
-          <FaktaBegrunnelseTextField
-            name={`${formNameVurderFaktaBeregning}.${fieldId}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
-            isSubmittable={submittable}
-            isReadOnly={readOnly || !skalVurderes}
-            hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== null}
-          />
+          {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) || erOverstyrt(fieldId, getValues)) && (
+            <FaktaBegrunnelseTextField
+              name={`${formNameVurderFaktaBeregning}.${fieldId}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
+              isSubmittable={submittable}
+              isReadOnly={readOnly || !skalVurderes}
+              hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== null}
+            />
+          )}
           <VerticalSpacer twentyPx />
           {/* @ts-ignore */}
           <SubmitButton

@@ -14,7 +14,7 @@ import BeregningAvklaringsbehov from '@navikt/ft-types/src/beregningAvklaringsbe
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
-import SubmitBeregningType from '../../typer/SubmitBeregningTsType';
+import SubmitBeregningType from '../../typer/interface/SubmitBeregningTsType';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 

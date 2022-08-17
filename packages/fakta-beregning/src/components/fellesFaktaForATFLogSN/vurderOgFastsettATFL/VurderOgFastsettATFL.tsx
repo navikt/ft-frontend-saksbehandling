@@ -174,7 +174,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
   const erOverstyrt = useMemo(
-    () => erOverstyringAvBeregningsgrunnlag(formValues, beregningsgrunnlag, avklaringsbehov),
+    () => erOverstyringAvBeregningsgrunnlag(formValues),
     [formValues, beregningsgrunnlag, avklaringsbehov],
   );
   const skalFastsetteAT = useMemo(
