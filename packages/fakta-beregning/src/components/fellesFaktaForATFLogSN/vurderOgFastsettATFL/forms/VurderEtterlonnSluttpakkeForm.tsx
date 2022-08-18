@@ -1,7 +1,7 @@
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import 'core-js/features/array/flat-map';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
@@ -67,7 +67,7 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
 };
 VurderEtterlonnSluttpakkeForm.buildInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag,
-  faktaAksjonspunkt: Aksjonspunkt,
+  faktaAksjonspunkt: BeregningAvklaringsbehov,
 ): VurderEtterlønnSluttpakkeValues => {
   const initialValues = {};
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode || !faktaAksjonspunkt) {

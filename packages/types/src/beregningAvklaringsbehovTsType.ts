@@ -3,6 +3,7 @@ type BeregningAvklaringsbehov = Readonly<{
   status: string;
   begrunnelse?: string;
   kanLoses: boolean;
+  erTrukket: boolean;
 }>;
 
 export default BeregningAvklaringsbehov;
