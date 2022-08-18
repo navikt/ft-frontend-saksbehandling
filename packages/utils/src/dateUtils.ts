@@ -6,8 +6,8 @@ import 'dayjs/locale/nb';
 import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
 
 dayjs.extend(utc);
-dayjs.extend(duration);
 dayjs.extend(isoWeek);
+dayjs.extend(duration);
 
 export const TIDENES_ENDE = '9999-12-31';
 
