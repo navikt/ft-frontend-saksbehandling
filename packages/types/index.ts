@@ -63,7 +63,6 @@ export type { default as Vilkarperiode } from './src/vilkarperiodeTsType';
 export type { default as FeilutbetalingFakta } from './src/feilutbetalingFaktaTsType';
 export type { default as FeilutbetalingAarsak } from './src/feilutbetalingAarsakTsType';
 export type { Kjønnkode } from './src/Kjonnkode';
-export { KjønnkodeEnum } from './src/Kjonnkode';
 export type { default as Vedtaksbrev } from './src/vedtaksbrevTsType';
 export type { default as VedtaksbrevAvsnitt } from './src/vedtaksbrevAvsnittTsType';
 export type { default as Aktor } from './src/aktorTsType';

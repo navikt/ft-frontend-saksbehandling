@@ -1,8 +1,7 @@
 {
   "name": "@navikt/ft-sak-dokumenter",
   "description": "Viser en dokumentoversikt. Saksbehandler kan velge å åpne en eller flere dokumenter.",
-  "version": "1.0.1",
-  "module": "index.jsx",
+  "version": "1.0.2",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,9 +25,9 @@
   },
   "dependencies": {
     "@navikt/ft-kodeverk": "^1.0.16",
-    "@navikt/ft-types": "^1.0.24",
-    "@navikt/ft-ui-komponenter": "^1.0.33",
-    "@navikt/ft-utils": "^1.0.30",
+    "@navikt/ft-types": "^1.0.25",
+    "@navikt/ft-ui-komponenter": "^1.0.34",
+    "@navikt/ft-utils": "^1.0.31",
     "nav-frontend-core": "6.0.1",
     "nav-frontend-typografi": "4.0.2",
     "nav-frontend-typografi-style": "2.0.2",
@@ -36,14 +35,14 @@
     "react-intl": "6.0.5"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "^1.0.15",
-    "@navikt/ft-types": "^1.0.23",
-    "@navikt/ft-ui-komponenter": "1.0.32",
-    "@navikt/ft-utils": "1.0.29",
-    "nav-frontend-core": "6.0.1",
-    "nav-frontend-typografi": "4.0.2",
-    "nav-frontend-typografi-style": "2.0.2",
-    "react": "17.0.2",
+    "@navikt/ft-kodeverk": "^1.x",
+    "@navikt/ft-types": "^1.x",
+    "@navikt/ft-ui-komponenter": "1.x",
+    "@navikt/ft-utils": "1.x",
+    "nav-frontend-core": "6.x",
+    "nav-frontend-typografi": "4.x",
+    "nav-frontend-typografi-style": "2.x",
+    "react": "17.x",
     "react-intl": "6.0.5"
   },
   "devDependencies": {

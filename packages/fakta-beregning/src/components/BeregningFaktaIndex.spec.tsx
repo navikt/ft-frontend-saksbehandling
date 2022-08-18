@@ -5,21 +5,21 @@ import React from 'react';
 import * as stories from '../BeregningFaktaIndex.stories';
 
 const {
-  ArbeidOgDagpenger,
-  ArbeidOgAAP,
-  VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden,
+  ArbeidOgDagpengerAp5058,
+  ArbeidOgAAPAp5052,
+  VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058,
   VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet,
-  ArbeidOgAAPMedUtførtAksjonspunkt,
-  FastsettingAvBeregningsgrunnlagForKunYtelse,
-  FrilansOgArbeidstakerISammeOrganisasjon,
-  VurderOmBrukerMottarYtelseForFrilans,
-  VurderingAvMilitær,
-  TidsbegrensetArbeidsforhold,
+  ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058,
+  FastsettingAvBeregningsgrunnlagForKunYtelseAp5058,
+  FrilansOgArbeidstakerISammeOrganisasjonAp5058,
+  VurderOmBrukerMottarYtelseForFrilansAp5058,
+  VurderingAvMilitærAp5058,
+  TidsbegrensetArbeidsforholdAp5058,
 } = composeStories(stories);
 
 describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne løse aksjonspunkt for Arbeid og full AAP', () => {
-    render(<ArbeidOgAAP />);
+    render(<ArbeidOgAAPAp5052 />);
     // TODO: Valider på at AAP ikkje skal kunne endres
     userEvent.click(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 01.04.2020'));
     userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
@@ -29,7 +29,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal vise feilmelding dersom ingen benyttede aktiviteter', async () => {
-    render(<ArbeidOgDagpenger />);
+    render(<ArbeidOgDagpengerAp5058 />);
     userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
     userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
@@ -44,7 +44,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal beholde feilmelding dersom man bytter tab', async () => {
-    render(<ArbeidOgDagpenger />);
+    render(<ArbeidOgDagpengerAp5058 />);
     // TODO: Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
     userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
@@ -81,7 +81,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal ikke vise panel for å avklare aktiviterer dersom ikke overstyrer og ingen aksjonspunkt', () => {
-    render(<VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden />);
+    render(<VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058 />);
     expect(screen.queryByTestId('avklareAktiviteterHeading')).not.toBeInTheDocument();
   });
 
@@ -92,12 +92,12 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal ikke vise redigertikon dersom arbeid og AAP med utført aksjonspunkt', () => {
-    render(<ArbeidOgAAPMedUtførtAksjonspunkt />);
+    render(<ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058 />);
     expect(screen.queryByTestId('editedIcon')).not.toBeInTheDocument();
   });
 
   it('skal ikke få sende inn vurder fakta uten å ha fylt ut felter', async () => {
-    render(<ArbeidOgDagpenger />);
+    render(<ArbeidOgDagpengerAp5058 />);
     const radioJa = screen.getByLabelText('Ja');
     userEvent.click(radioJa);
     expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
@@ -108,7 +108,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal måtte overstyre inntekt for minst én aktivitet', async () => {
-    render(<ArbeidOgDagpenger />);
+    render(<ArbeidOgDagpengerAp5058 />);
     const secondOverstyrknapp = screen.getAllByTestId('overstyringsknapp')[1];
     userEvent.click(secondOverstyrknapp);
     expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
@@ -119,7 +119,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal kunne fastsette inntekt for kun ytelse', async () => {
     const lagre = jest.fn();
-    render(<FastsettingAvBeregningsgrunnlagForKunYtelse submitCallback={lagre} />);
+    render(<FastsettingAvBeregningsgrunnlagForKunYtelseAp5058 submitCallback={lagre} />);
     userEvent.type(screen.getByLabelText('Månedsinntekt for ytelse 1'), '1234');
     await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 1'), 'Arbeidstaker');
     expect(screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[0].selected).toBe(true);
@@ -176,7 +176,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal håndtere vurdering av besteberegning med dagpenger i opptjeningsperioden', async () => {
-    render(<VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden />);
+    render(<VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058 />);
     expect(screen.queryByTestId('overstyringsknapp')).not.toBeInTheDocument();
     expect(screen.queryByText('Dagpenger')).not.toBeInTheDocument();
     expect(screen.queryByText('Aktiviteter i beregningsgrunnlaget')).not.toBeInTheDocument();
@@ -203,7 +203,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal kunne fastsette inntekt for arbeidstaker og frilanser i samme organisasjon', async () => {
     const lagre = jest.fn();
-    render(<FrilansOgArbeidstakerISammeOrganisasjon submitCallback={lagre} />);
+    render(<FrilansOgArbeidstakerISammeOrganisasjonAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
         'Søker er arbeidstaker og frilanser i samme virksomhet og det er ikke mottatt inntektsmelding(er).',
@@ -264,7 +264,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet', async () => {
     const lagre = jest.fn();
-    render(<VurderOmBrukerMottarYtelseForFrilans submitCallback={lagre} />);
+    render(<VurderOmBrukerMottarYtelseForFrilansAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
         'Søker er frilanser. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?',
@@ -307,7 +307,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet og fastsette inntekt', async () => {
     const lagre = jest.fn();
-    render(<VurderOmBrukerMottarYtelseForFrilans submitCallback={lagre} />);
+    render(<VurderOmBrukerMottarYtelseForFrilansAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
         'Søker er frilanser. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?',
@@ -348,7 +348,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal kunne sette at bruker har miliærtjeneste', async () => {
     const lagre = jest.fn();
-    render(<VurderingAvMilitær submitCallback={lagre} />);
+    render(<VurderingAvMilitærAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText('Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?'),
     ).toBeInTheDocument();
@@ -383,7 +383,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal kunne sette at bruker ikke har miliærtjeneste', async () => {
     const lagre = jest.fn();
-    render(<VurderingAvMilitær submitCallback={lagre} />);
+    render(<VurderingAvMilitærAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText('Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?'),
     ).toBeInTheDocument();
@@ -420,7 +420,7 @@ describe('<BeregningFaktaIndexSpec', () => {
 
   it('skal kunne sette at arbeidsforhold er tidsbegrenset', async () => {
     const lagre = jest.fn();
-    render(<TidsbegrensetArbeidsforhold submitCallback={lagre} />);
+    render(<TidsbegrensetArbeidsforholdAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
         'Er arbeidsforholdet i Bedriften3 (12345671) med varighet 09.01.2019 - 01.01.2020 tidsbegrenset?',

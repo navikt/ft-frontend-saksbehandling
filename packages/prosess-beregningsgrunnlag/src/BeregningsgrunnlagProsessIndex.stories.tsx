@@ -505,8 +505,8 @@ MidlertidigInaktivAvslått.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const JusterDekningsgradAP = Template.bind({});
-JusterDekningsgradAP.args = {
+export const JusterDekningsgradAp5038Ap5087 = Template.bind({});
+JusterDekningsgradAp5038Ap5087.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -555,8 +555,8 @@ BrukersAndelUtenAvvik.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const ArbeidstakerMedAvvik = Template.bind({});
-ArbeidstakerMedAvvik.args = {
+export const ArbeidstakerMedAvvikAp5038 = Template.bind({});
+ArbeidstakerMedAvvikAp5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -571,8 +571,8 @@ ArbeidstakerMedAvvik.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlag = Template.bind({});
-ArbeidstakerMedAvvikOgFlereBeregningsgrunnlag.args = {
+export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038 = Template.bind({});
+ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -595,8 +595,8 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlag.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurdering = Template.bind({});
-ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurdering.args = {
+export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038 = Template.bind({});
+ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -647,8 +647,8 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurdering.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const ArbeidstakerFrilansMedAvvik = Template.bind({});
-ArbeidstakerFrilansMedAvvik.args = {
+export const ArbeidstakerFrilansMedAvvikAp5038 = Template.bind({});
+ArbeidstakerFrilansMedAvvikAp5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -676,8 +676,8 @@ Militær.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const SelvstendigNæringsdrivendeMedAksjonspunkt = Template.bind({});
-SelvstendigNæringsdrivendeMedAksjonspunkt.args = {
+export const SelvstendigNæringsdrivendeMedAksjonspunktAp5039 = Template.bind({});
+SelvstendigNæringsdrivendeMedAksjonspunktAp5039.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -696,8 +696,8 @@ SelvstendigNæringsdrivendeMedAksjonspunkt.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const MangeTidsbegrensetArbeidsforholdMedAvvik = Template.bind({});
-MangeTidsbegrensetArbeidsforholdMedAvvik.args = {
+export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047 = Template.bind({});
+MangeTidsbegrensetArbeidsforholdMedAvvikAp5047.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     {
@@ -752,8 +752,8 @@ MangeTidsbegrensetArbeidsforholdMedAvvik.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsatt = Template.bind({});
-MangeTidsbegrensetArbeidsforholdMedAvvikFastsatt.args = {
+export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047 = Template.bind({});
+MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     {
@@ -812,8 +812,8 @@ MangeTidsbegrensetArbeidsforholdMedAvvikFastsatt.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const TidsbegrensetArbeidsforholdMedAvvik = Template.bind({});
-TidsbegrensetArbeidsforholdMedAvvik.args = {
+export const TidsbegrensetArbeidsforholdMedAvvikAp5047 = Template.bind({});
+TidsbegrensetArbeidsforholdMedAvvikAp5047.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     {
@@ -842,8 +842,8 @@ TidsbegrensetArbeidsforholdMedAvvik.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const ArbeidstakerFrilanserOgSelvstendigNæringsdrivende = Template.bind({});
-ArbeidstakerFrilanserOgSelvstendigNæringsdrivende.args = {
+export const ArbeidstakerFrilanserOgSelvstendigNæringsdrivendeAp5039 = Template.bind({});
+ArbeidstakerFrilanserOgSelvstendigNæringsdrivendeAp5039.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -1077,8 +1077,8 @@ ArbeidstakerMedAksjonspunktBehandlet.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const FrilansMedAvvik = Template.bind({});
-FrilansMedAvvik.args = {
+export const FrilansMedAvvikAp5038 = Template.bind({});
+FrilansMedAvvikAp5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(malPerioder([lagFrilansandel(1, 200000, undefined, true)]), ['FL'], undefined, malSGGrunnlagAvvik(), [
@@ -1104,8 +1104,8 @@ SelvstendigNæringsdrivendeUtenAksjonspunkt.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt = Template.bind({});
-SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt.args = {
+export const SelvstendigNæringsdrivendeNyoppstartetAksjonspunktAp5039 = Template.bind({});
+SelvstendigNæringsdrivendeNyoppstartetAksjonspunktAp5039.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -1124,8 +1124,8 @@ SelvstendigNæringsdrivendeNyoppstartetAksjonspunkt.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const SelvstendigNæringsdrivendNyIArbeidslivet = Template.bind({});
-SelvstendigNæringsdrivendNyIArbeidslivet.args = {
+export const SelvstendigNæringsdrivendNyIArbeidslivetAp5049 = Template.bind({});
+SelvstendigNæringsdrivendNyIArbeidslivetAp5049.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -1175,8 +1175,8 @@ YtelseFraNav.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const ArbeidstakerOgAAPMedAksjonspunkt = Template.bind({});
-ArbeidstakerOgAAPMedAksjonspunkt.args = {
+export const ArbeidstakerOgAAPMedAksjonspunktAp5038 = Template.bind({});
+ArbeidstakerOgAAPMedAksjonspunktAp5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -1196,8 +1196,8 @@ ArbeidstakerOgAAPMedAksjonspunkt.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const FrilansDagpengerOgSelvstendigNæringsdrivende = Template.bind({});
-FrilansDagpengerOgSelvstendigNæringsdrivende.args = {
+export const FrilansDagpengerOgSelvstendigNæringsdrivendeAp5039 = Template.bind({});
+FrilansDagpengerOgSelvstendigNæringsdrivendeAp5039.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(

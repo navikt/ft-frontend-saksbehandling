@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
-import { Aktor, KjønnkodeEnum } from '@navikt/ft-types';
-import { FagsakStatus, RelasjonsRolleType, FagsakYtelseType } from '@navikt/ft-kodeverk';
+import { Aktor } from '@navikt/ft-types';
+import { NavBrukerKjonn, FagsakStatus, RelasjonsRolleType, FagsakYtelseType } from '@navikt/ft-kodeverk';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
 import AktorSakIndex from './AktorSakIndex';
@@ -56,7 +56,7 @@ Default.args = {
     ],
     person: {
       navn: 'Espen Utvikler',
-      kjønn: KjønnkodeEnum.MANN,
+      kjønn: NavBrukerKjonn.MANN,
       fødselsdato: '1979-01-01',
       fødselsnummer: '123456233',
       aktørId: '2323',

@@ -24,10 +24,6 @@ module.exports = {
           title: 'ft-form-hooks',
           url: 'http://localhost:7003',
       },
-      'ft-form-redux-legacy': {
-          title: 'ft-form-redux-legacy',
-          url: 'http://localhost:7004',
-      },
       'prosess-beregningsgrunnlag': {
           title: 'prosess-beregningsgrunnlag',
           url: 'http://localhost:7005',
