@@ -33,12 +33,12 @@
     "react-intl": "6.0.5"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "^1.0.15",
-    "@navikt/ft-types": "^1.0.23",
-    "@navikt/ft-ui-komponenter": "1.0.32",
-    "@navikt/ft-utils": "1.0.29",
-    "classnames": "2.3.1",
-    "react": "17.0.2",
+    "@navikt/ft-kodeverk": "^1.x",
+    "@navikt/ft-types": "^1.x",
+    "@navikt/ft-ui-komponenter": "1.x",
+    "@navikt/ft-utils": "1.x",
+    "classnames": "2.x",
+    "react": "17.x",
     "react-intl": "6.0.5"
   },
   "devDependencies": {
