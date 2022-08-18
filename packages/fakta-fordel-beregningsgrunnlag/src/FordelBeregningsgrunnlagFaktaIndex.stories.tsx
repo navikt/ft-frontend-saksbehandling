@@ -303,36 +303,36 @@ FlerePerioderMedHelg.args = {
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const ArbeidOgGradertNæringUtenBeregningsgrunnlag = Template.bind({});
-ArbeidOgGradertNæringUtenBeregningsgrunnlag.args = {
+export const ArbeidOgGradertNæringUtenBeregningsgrunnlagAp5046 = Template.bind({});
+ArbeidOgGradertNæringUtenBeregningsgrunnlagAp5046.args = {
   readOnly: false,
   beregningsgrunnlagListe: [bgArbeidOgGradertNæring],
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const TilkommetArbeidMedFlyttingAvNaturalytelse = Template.bind({});
-TilkommetArbeidMedFlyttingAvNaturalytelse.args = {
+export const TilkommetArbeidMedFlyttingAvNaturalytelseAp5046 = Template.bind({});
+TilkommetArbeidMedFlyttingAvNaturalytelseAp5046.args = {
   readOnly: false,
   beregningsgrunnlagListe: [bgMedNaturalytelse],
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const ViseVurderTilkommetRefusjonskrav = Template.bind({});
-ViseVurderTilkommetRefusjonskrav.args = {
+export const ViseVurderTilkommetRefusjonskravAp5059 = Template.bind({});
+ViseVurderTilkommetRefusjonskravAp5059.args = {
   readOnly: false,
   beregningsgrunnlagListe: [vurderRefusjonBG],
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon = Template.bind({});
-SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon.args = {
+export const SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059 = Template.bind({});
+SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059.args = {
   readOnly: false,
   beregningsgrunnlagListe: [vurderDelvisRefBG],
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const AapOgRefusjon = Template.bind({});
-AapOgRefusjon.args = {
+export const AapOgRefusjonAp5046 = Template.bind({});
+AapOgRefusjonAp5046.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -374,8 +374,8 @@ AapOgRefusjon.args = {
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const FordelingKanEndreRefusjonskrav = Template.bind({});
-FordelingKanEndreRefusjonskrav.args = {
+export const FordelingKanEndreRefusjonskravAp5046 = Template.bind({});
+FordelingKanEndreRefusjonskravAp5046.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -417,8 +417,8 @@ FordelingKanEndreRefusjonskrav.args = {
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const SkalSlåSammenNaturalytelseperioder = Template.bind({});
-SkalSlåSammenNaturalytelseperioder.args = {
+export const SkalSlåSammenNaturalytelseperioderAp5046 = Template.bind({});
+SkalSlåSammenNaturalytelseperioderAp5046.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -506,8 +506,8 @@ SkalSlåSammenNaturalytelseperioder.args = {
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const FordelingFlereBeregningsgrunnlagKanEndreRefusjonskrav = Template.bind({});
-FordelingFlereBeregningsgrunnlagKanEndreRefusjonskrav.args = {
+export const FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 = Template.bind({});
+FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
@@ -586,8 +586,8 @@ FordelingFlereBeregningsgrunnlagKanEndreRefusjonskrav.args = {
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 
-export const AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering = Template.bind({});
-AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering.args = {
+export const AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046 = Template.bind({});
+AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(

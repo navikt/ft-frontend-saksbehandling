@@ -215,7 +215,7 @@ export default {
  * Her er det ingen aksjonspunkt, men panelet skal vere synlig siden saksbehandler har overstyringsrolle
  *
  */
-export const ArbeidOgDagpenger: Story = () => (
+export const ArbeidOgDagpengerAp5058: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
     erOverstyrer
@@ -299,7 +299,7 @@ export const ToArbeidsforholdIOpptjeningsperioden = () => (
  * I dette scenarioet setter opp panelet i situasjonen der saksbehandler ser aksjonspunktet for første gang.
  *
  */
-export const ArbeidOgAAP: Story = () => (
+export const ArbeidOgAAPAp5052: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgArbeidOgAAP}
     erOverstyrer
@@ -320,7 +320,7 @@ export const ArbeidOgAAP: Story = () => (
  * I dette scenarioet setter opp panelet i situasjonen der saksbehandler har løst aksjonspunktet 5052 og gått videre.
  *
  */
-export const ArbeidOgAAPMedUtførtAksjonspunkt: Story = () => (
+export const ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgArbeidOgAAPLøstAksjonspunkt}
     erOverstyrer
@@ -344,7 +344,7 @@ export const ArbeidOgAAPMedUtførtAksjonspunkt: Story = () => (
  *
  * Skal ikke vise liste over aktiviteter, kun vurder fakta med vurdering av besteberegning
  */
-export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden: Story = () => (
+export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
     erOverstyrer={false}
@@ -368,7 +368,7 @@ export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperioden: Story = 
  * - Vurdering av om frilansaktivitet er nyoppstartet
  *
  */
-export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet: Story = ({ submitCallback }) => {
+export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -416,7 +416,7 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartet: Story = ({ su
   );
 };
 
-export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
+export const DagpengerOgArbeidstakerMedVurderingAvBesteberegningAP5058 = () => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -453,7 +453,7 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegning = () => {
   );
 };
 
-export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
+export const KunArbeidstakerMedVurderingAvBesteberegningAp5058 = () => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -497,7 +497,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegning = () => {
  * Det skal også vere mulig å legge til flere andeler med ulike inntektskategorier, men ikke samme inntektskategori flere ganger.
  *
  */
-export const FastsettingAvBeregningsgrunnlagForKunYtelse: Story = ({ submitCallback }) => {
+export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: Story = ({ submitCallback }) => {
   const beregningsgrunnlagYtelseAndel = {
     andelsnr: standardFaktaYtelseAndel.andelsnr,
     aktivitetStatus: standardFaktaYtelseAndel.aktivitetStatus,
@@ -536,7 +536,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelse: Story = ({ submitCallb
  * I dette tilfellet må saksbehandler fastsette inntekt for arbeidsforholdet og frilansaktiviteten manuelt
  *
  */
-export const FrilansOgArbeidstakerISammeOrganisasjon: Story = ({ submitCallback }) => {
+export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -596,7 +596,7 @@ export const FrilansOgArbeidstakerISammeOrganisasjon: Story = ({ submitCallback 
  * Vurder om bruker mottar ytelse for frilansaktivitet
  *
  */
-export const VurderOmBrukerMottarYtelseForFrilans: Story = ({ submitCallback }) => {
+export const VurderOmBrukerMottarYtelseForFrilansAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -641,7 +641,7 @@ export const VurderOmBrukerMottarYtelseForFrilans: Story = ({ submitCallback }) 
  * Vurder om bruker har militærtjeneste
  *
  */
-export const VurderingAvMilitær: Story = ({ submitCallback }) => {
+export const VurderingAvMilitærAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerMilitærAndel = {
     andelsnr: standardFaktaMilitærAndel.andelsnr,
     aktivitetStatus: standardFaktaMilitærAndel.aktivitetStatus,
@@ -676,7 +676,7 @@ export const VurderingAvMilitær: Story = ({ submitCallback }) => {
  * - Bruker har arbeid og frilansaktivitet for samme organisasjon
  *
  */
-export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon: Story = ({ submitCallback }) => {
+export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjonAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: tidsbegrensetFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: tidsbegrensetFaktaArbeidstakerAndel.aktivitetStatus,
@@ -726,7 +726,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjon: Story = ({ 
  * Vurder om arbeidsforholdet er tidsbegrenset
  *
  */
-export const TidsbegrensetArbeidsforhold: Story = ({ submitCallback }) => {
+export const TidsbegrensetArbeidsforholdAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: tidsbegrensetFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: tidsbegrensetFaktaArbeidstakerAndel.aktivitetStatus,
@@ -760,7 +760,7 @@ export const TidsbegrensetArbeidsforhold: Story = ({ submitCallback }) => {
  * Vurder om bruker mottar etterlønn eller sluttpakke
  *
  */
-export const VurderingAvEtterlønnSluttpakke: Story = ({ submitCallback }) => {
+export const VurderingAvEtterlønnSluttpakkeAp5058: Story = ({ submitCallback }) => {
   const etterlønnSluttpakkeBeregningsgrunnlagAndel = {
     andelsnr: etterlønnSluttpakkeFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: etterlønnSluttpakkeFaktaArbeidstakerAndel.aktivitetStatus,
@@ -793,7 +793,7 @@ export const VurderingAvEtterlønnSluttpakke: Story = ({ submitCallback }) => {
  * Vurder om søker er ny i arbeidslivet
  *
  */
-export const SelvstendigNæringNyIArbeidslivet: Story = ({ submitCallback }) => {
+export const SelvstendigNæringNyIArbeidslivetAp5058: Story = ({ submitCallback }) => {
   const beregningsgrunnlagNæringAndel = {
     andelsnr: standardFaktaNæringAndel.andelsnr,
     aktivitetStatus: standardFaktaNæringAndel.aktivitetStatus,
@@ -821,7 +821,7 @@ export const SelvstendigNæringNyIArbeidslivet: Story = ({ submitCallback }) => 
   );
 };
 
-export const KombinasjonstestForFaktapanel = () => {
+export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
   const aapAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.AAP,
     fom: '01-01-2019',
@@ -1022,7 +1022,7 @@ export const KombinasjonstestForFaktapanel = () => {
  * 2 Arbeidstakerandeler uten tilfeller i fakta om beregning
  *
  */
-export const OverstyringAvInntektMedÅpentAksjonspunkt: Story = ({ submitCallback }) => {
+export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: Story = ({ submitCallback }) => {
   const arbeidsAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
     fom: '01-01-2019',
@@ -1094,7 +1094,7 @@ export const OverstyringAvInntektMedÅpentAksjonspunkt: Story = ({ submitCallbac
  * Dersom bruker skal beregnes ved besteberegning skal det vises ein link til regneark.
  *
  */
-export const VurderKunYtelseBesteberegning: Story = ({ submitCallback }) => {
+export const VurderKunYtelseBesteberegningAp5058: Story = ({ submitCallback }) => {
   const beregningsgrunnlagYtelseAndel = {
     andelsnr: standardFaktaYtelseAndel.andelsnr,
     aktivitetStatus: standardFaktaYtelseAndel.aktivitetStatus,

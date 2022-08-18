@@ -5,13 +5,13 @@ import userEvent from '@testing-library/user-event';
 import * as stories from './BeregningsgrunnlagProsessIndex.stories';
 
 const {
-  ArbeidstakerMedAvvik,
+  ArbeidstakerMedAvvikAp5038,
   ArbeidstakerUtenAvvik,
-  SelvstendigNæringsdrivendeMedAksjonspunkt,
-  SelvstendigNæringsdrivendNyIArbeidslivet,
+  SelvstendigNæringsdrivendeMedAksjonspunktAp5039,
+  SelvstendigNæringsdrivendNyIArbeidslivetAp5049,
   NaturalYtelse,
-  TidsbegrensetArbeidsforholdMedAvvik,
-  MangeTidsbegrensetArbeidsforholdMedAvvikFastsatt,
+  TidsbegrensetArbeidsforholdMedAvvikAp5047,
+  MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047,
 } = composeStories(stories);
 
 describe('<BeregningsgrunnlagProsessIndex>', () => {
@@ -48,7 +48,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   it('skal bekrefte aksjonspunkt for avvik', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<ArbeidstakerMedAvvik submitCallback={lagre} />);
+    const utils = render(<ArbeidstakerMedAvvikAp5038 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
@@ -99,7 +99,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   it('skal bekrefte aksjonspunkt for vurder varig endring selvstendig næringsdrivende', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<SelvstendigNæringsdrivendeMedAksjonspunkt submitCallback={lagre} />);
+    const utils = render(<SelvstendigNæringsdrivendeMedAksjonspunktAp5039 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
@@ -163,7 +163,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   it('skal bekrefte aksjonspunkt for ny i arbeidslivet selvstendig næringsdrivende', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<SelvstendigNæringsdrivendNyIArbeidslivet submitCallback={lagre} />);
+    const utils = render(<SelvstendigNæringsdrivendNyIArbeidslivetAp5049 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
@@ -233,7 +233,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   it('skal bekrefte aksjonspunkt for avvik ved tidsbegrenset arbeidsforhold', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<TidsbegrensetArbeidsforholdMedAvvik submitCallback={lagre} />);
+    const utils = render(<TidsbegrensetArbeidsforholdMedAvvikAp5047 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
@@ -291,7 +291,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   it('skal verifisere at fasatt grunnlag med perioder tidsbegrenset perioder utenfor vilkårsperiode vises riktig', async () => {
     const lagre = jest.fn();
 
-    render(<MangeTidsbegrensetArbeidsforholdMedAvvikFastsatt submitCallback={lagre} />);
+    render(<MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
