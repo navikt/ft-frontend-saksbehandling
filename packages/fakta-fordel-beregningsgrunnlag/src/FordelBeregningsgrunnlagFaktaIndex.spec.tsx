@@ -5,18 +5,18 @@ import userEvent from '@testing-library/user-event';
 import * as stories from './FordelBeregningsgrunnlagFaktaIndex.stories';
 
 const {
-  AapOgRefusjon,
-  AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering,
-  ViseVurderTilkommetRefusjonskrav,
-  SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon,
-  FordelingFlereBeregningsgrunnlagKanEndreRefusjonskrav,
+  AapOgRefusjonAp5046,
+  AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046,
+  ViseVurderTilkommetRefusjonskravAp5059,
+  SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059,
+  FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046,
 } = composeStories(stories);
 
 describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<AapOgRefusjon submitCallback={lagre} />);
+    const utils = render(<AapOgRefusjonAp5046 submitCallback={lagre} />);
 
     expect(
       await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
@@ -119,7 +119,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt for nytt refusjonskrav med flere beregningsgrunnlag og kun en til vurdering', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurdering submitCallback={lagre} />);
+    const utils = render(<AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046 submitCallback={lagre} />);
 
     // Første periode
     expect(screen.getByText('Gjeldende 05.08.2019 - 26.11.2019')).toBeInTheDocument();
@@ -222,7 +222,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt med fastsetting av fordeling og refusjonskrav for flere beregningsgrunnlag', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskrav submitCallback={lagre} />);
+    const utils = render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 submitCallback={lagre} />);
 
     expect(
       await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
@@ -419,7 +419,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<ViseVurderTilkommetRefusjonskrav submitCallback={lagre} />);
+    const utils = render(<ViseVurderTilkommetRefusjonskravAp5059 submitCallback={lagre} />);
 
     expect(
       await screen.findByText(
@@ -470,7 +470,9 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav med delvis refusjon', async () => {
     const lagre = jest.fn();
 
-    const utils = render(<SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon submitCallback={lagre} />);
+    const utils = render(
+      <SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059 submitCallback={lagre} />,
+    );
 
     expect(
       await screen.findByText(
