@@ -34,6 +34,9 @@ const ReactECharts: FunctionComponent<OwnProps> = ({ option, style, height }): J
       const chart = getInstanceByDom(chartRef.current);
       if (chart) {
         chart.setOption(option);
+        if (chart?.getWidth() === 0) {
+          chart?.resize();
+        }
       }
     }
   }, [chartRef.current, option]);
