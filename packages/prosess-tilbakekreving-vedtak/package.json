@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving-vedtak",
   "description": "Vedtaksbilde hvor saksbehandler ferdigstiller vedtaksbrev, med mulighet for å legge til utdypende tekst. I noen tilfeller vil utdypende tekst være obligatorisk, for eksempel ved revurderingsbehandling.",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,12 +25,12 @@
     "storybook": "cross-env start-storybook -p 7011"
   },
   "dependencies": {
-    "@navikt/ft-form-hooks": "^1.0.37",
-    "@navikt/ft-form-validators": "^1.0.26",
+    "@navikt/ft-form-hooks": "^1.0.38",
+    "@navikt/ft-form-validators": "^1.0.27",
     "@navikt/ft-kodeverk": "^1.0.16",
-    "@navikt/ft-types": "^1.0.25",
-    "@navikt/ft-ui-komponenter": "^1.0.34",
-    "@navikt/ft-utils": "^1.0.31",
+    "@navikt/ft-types": "^1.0.26",
+    "@navikt/ft-ui-komponenter": "^1.0.35",
+    "@navikt/ft-utils": "^1.0.32",
     "classnames": "2.3.1",
     "nav-frontend-core": "6.0.1",
     "nav-frontend-ekspanderbartpanel": "4.0.4",
