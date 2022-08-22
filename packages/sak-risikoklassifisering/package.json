@@ -42,7 +42,7 @@
     "react": "17.0.2",
     "react-collapse": "5.1.1",
     "react-hook-form": "7.34.1",
-    "react-intl": "6.0.5"
+    "react-intl": "6.0.8"
   },
   "peerDependencies": {
     "@navikt/ft-form-hooks": "1.x",
@@ -63,7 +63,7 @@
     "react": "17.x",
     "react-collapse": "5.x",
     "react-hook-form": "7.x",
-    "react-intl": "6.0.5"
+    "react-intl": "6.0.8"
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^1.0.7",
