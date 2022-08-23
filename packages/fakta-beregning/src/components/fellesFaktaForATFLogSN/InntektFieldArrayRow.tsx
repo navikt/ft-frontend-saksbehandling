@@ -1,5 +1,5 @@
 import { formHooks, InputField, SelectField } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-form-validators';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
@@ -103,7 +103,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
             parse={parseCurrencyInput}
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
-            validate={skalFastsetteInntektForAndel(field) ? [required] : []}
+            validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
           />
         </TableColumn>
       )}

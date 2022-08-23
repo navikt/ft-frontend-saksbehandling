@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
-import { required } from '@navikt/ft-form-validators';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
@@ -31,7 +31,7 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
       <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
         <InputField
           name={`BeregningForm.${fieldIndex}.inntektFrilanser`}
-          validate={[required]}
+          validate={[required, maxValueFormatted(178956970)]}
           readOnly={readOnly}
           parse={parseCurrencyInput}
           bredde="XS"

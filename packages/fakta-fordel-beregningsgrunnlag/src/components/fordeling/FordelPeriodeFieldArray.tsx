@@ -3,7 +3,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { required } from '@navikt/ft-form-validators';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
@@ -266,7 +266,7 @@ export const lagBelopKolonne = (
         bredde="XS"
         parse={parseCurrencyInput}
         readOnly={readOnly}
-        validate={[required]}
+        validate={[required, maxValueFormatted(178956970)]}
         isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
       />
     </TableColumn>
@@ -344,7 +344,7 @@ const createAndelerTableRows = (
           bredde="XS"
           readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
           parse={parseCurrencyInput}
-          validate={fields[index].skalKunneEndreRefusjon ? [required] : []}
+          validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
         />
       </TableColumn>
       <TableColumn>
