@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
@@ -125,7 +125,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
                 <InputField
                   name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
                   bredde="XS"
-                  validate={[required]}
+                  validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
                   className={styles['input--xs']}
                   readOnly={readOnly}

@@ -1,5 +1,5 @@
 import { formHooks, InputField, SelectField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-form-validators';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
 import { Image, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -67,7 +67,7 @@ const createAndelerTableRows = (
           parse={parseCurrencyInput}
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
-          validate={readOnly ? [] : [required]}
+          validate={readOnly ? [] : [required, maxValueFormatted(178956970)]}
           label={intl.formatMessage(
             {
               id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
