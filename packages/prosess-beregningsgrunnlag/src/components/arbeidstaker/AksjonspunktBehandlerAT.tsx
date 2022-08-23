@@ -4,7 +4,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { required } from '@navikt/ft-form-validators';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -50,7 +50,7 @@ const createRows = (
         <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
           <InputField
             name={`BeregningForm.${fieldIndex}.inntekt${index}`}
-            validate={[required]}
+            validate={[required, maxValueFormatted(178956970)]}
             readOnly={readOnly}
             parse={parseCurrencyInput}
             bredde="XS"

@@ -10,7 +10,7 @@ import {
   parseCurrencyInput,
   removeSpacesFromNumber,
 } from '@navikt/ft-utils';
-import { required } from '@navikt/ft-form-validators';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { formHooks, InputField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, isAksjonspunktOpen, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
@@ -285,7 +285,7 @@ const createRows = (
                 <div className={isAksjonspunktClosed && readOnly ? styles.adjustedField : undefined}>
                   <InputField
                     name={`BeregningForm.${fieldIndex}.${element.inputfieldKey}`}
-                    validate={[required]}
+                    validate={[required, maxValueFormatted(178956970)]}
                     readOnly={readOnly}
                     parse={parseCurrencyInput}
                     bredde="XS"
