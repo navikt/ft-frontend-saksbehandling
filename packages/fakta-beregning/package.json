@@ -32,7 +32,7 @@
     "@navikt/ft-types": "^1.0.26",
     "@navikt/ft-ui-komponenter": "^1.0.35",
     "@navikt/ft-utils": "^1.0.32",
-    "core-js": "3.24.1",
+    "core-js": "3.25.0",
     "dayjs": "1.11.5",
     "nav-frontend-alertstriper": "4.0.2",
     "nav-frontend-alertstriper-style": "3.0.2",

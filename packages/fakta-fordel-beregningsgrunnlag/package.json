@@ -32,7 +32,7 @@
     "@navikt/ft-ui-komponenter": "^1.0.35",
     "@navikt/ft-utils": "^1.0.32",
     "classnames": "2.3.1",
-    "core-js": "3.24.1",
+    "core-js": "3.25.0",
     "dayjs": "1.11.5",
     "nav-frontend-core": "6.0.1",
     "nav-frontend-ekspanderbartpanel": "4.0.4",
