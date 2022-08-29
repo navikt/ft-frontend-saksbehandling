@@ -42,7 +42,7 @@
     "nav-frontend-typografi": "4.0.2",
     "nav-frontend-typografi-style": "2.0.2",
     "react": "17.0.2",
-    "react-intl": "6.0.5"
+    "react-intl": "6.1.0"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "^1.x",
@@ -63,7 +63,7 @@
     "nav-frontend-typografi": "4.x",
     "nav-frontend-typografi-style": "2.x",
     "react": "17.x",
-    "react-intl": "6.0.5"
+    "react-intl": "6.1.0"
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^1.0.7",
