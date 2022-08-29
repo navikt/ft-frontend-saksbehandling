@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
-import { FormProvider, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from 'react-hook-form';
 
-interface OwnProps<FormValues> {
+interface OwnProps<FormValues extends FieldValues> {
   formMethods: UseFormReturn<FormValues>;
   onSubmit?: SubmitHandler<FormValues>;
   children: ReactNode;
@@ -9,7 +9,13 @@ interface OwnProps<FormValues> {
   setDataOnUnmount?: (data?: any) => void;
 }
 
-const Form = <FormValues,>({ formMethods, onSubmit, children, className, setDataOnUnmount }: OwnProps<FormValues>) => {
+const Form = <FormValues extends FieldValues>({
+  formMethods,
+  onSubmit,
+  children,
+  className,
+  setDataOnUnmount,
+}: OwnProps<FormValues>) => {
   const { handleSubmit, getValues } = formMethods;
 
   useEffect(
