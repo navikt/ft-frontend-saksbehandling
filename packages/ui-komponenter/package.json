@@ -49,7 +49,7 @@
     "nav-frontend-spinner-style": "1.0.2",
     "nav-frontend-typografi": "4.0.2",
     "nav-frontend-typografi-style": "2.0.2",
-    "react": "17.0.2",
+    "react": "18.2.0",
     "react-day-picker": "7.4.10",
     "react-intl": "6.1.0",
     "react-modal": "3.15.1"
@@ -102,7 +102,7 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "react": "17.0.2",
+    "react": "18.2.0",
     "react-dom": "17.0.2",
     "react-test-renderer": "17.0.2"
   },
