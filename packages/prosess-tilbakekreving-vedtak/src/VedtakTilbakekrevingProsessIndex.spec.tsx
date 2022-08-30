@@ -7,6 +7,8 @@ import * as stories from './VedtakTilbakekrevingProsessIndex.stories';
 const { Default } = composeStories(stories);
 
 describe('<VedtakTilbakekrevingProsessIndex>', () => {
+  jest.setTimeout(15000);
+
   it('skal fylle ut to obligatoriske felter for periode og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
 

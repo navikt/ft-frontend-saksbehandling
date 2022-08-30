@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import Modal from 'nav-frontend-modal';
@@ -8,6 +8,8 @@ import * as stories from './TilbakekrevingProsessIndex.stories';
 const { Default, MedToPerioder } = composeStories(stories);
 
 describe('<TilbakekrevingProsessIndex>', () => {
+  jest.setTimeout(20000);
+
   Modal.setAppElement('body');
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
@@ -189,14 +191,12 @@ describe('<TilbakekrevingProsessIndex>', () => {
 
     const datoForFørstePeriodeInput = utils.getByLabelText('Angi t.o.m. dato for første periode');
     await userEvent.type(datoForFørstePeriodeInput, '11.03.2018');
-    fireEvent.blur(datoForFørstePeriodeInput);
 
     await userEvent.click(screen.getByText('Ok'));
 
     expect(await screen.findByText('Dato må være innenfor perioden')).toBeInTheDocument();
 
     await userEvent.type(datoForFørstePeriodeInput, '{backspace}9');
-    fireEvent.blur(datoForFørstePeriodeInput);
 
     await userEvent.click(screen.getByText('Ok'));
 
@@ -334,16 +334,13 @@ describe('<TilbakekrevingProsessIndex>', () => {
     expect(
       await screen.findByText('Totalbeløpet er under 4 rettsgebyr (6. ledd). Skal det tilbakekreves?'),
     ).toBeInTheDocument();
+
     await userEvent.click(screen.getByText('Nei'));
     expect(await screen.findByText('Når 6. ledd anvendes må alle perioder behandles likt')).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('Oppdater'));
 
-    expect(
-      await screen.findByText(
-        'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
-      ),
-    ).toBeInTheDocument();
+    expect(await screen.findByText('OK')).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('OK'));
     expect(screen.getByText('Bekreft og fortsett')).toBeEnabled();

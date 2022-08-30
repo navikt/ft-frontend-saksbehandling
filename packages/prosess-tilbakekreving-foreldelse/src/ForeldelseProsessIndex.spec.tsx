@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import Modal from 'nav-frontend-modal';
@@ -8,6 +8,8 @@ import * as stories from './ForeldelseProsessIndex.stories';
 const { Default, UtenAksjonspunkt } = composeStories(stories);
 
 describe('<ForeldelseProsessIndex>', () => {
+  jest.setTimeout(15000);
+
   Modal.setAppElement('body');
   it('skal vurdere to perioder og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
@@ -29,7 +31,6 @@ describe('<ForeldelseProsessIndex>', () => {
 
     const foreldelsesfristInput = utils.getByLabelText('Foreldelsesfrist');
     await userEvent.type(foreldelsesfristInput, '14.09.2021');
-    fireEvent.blur(foreldelsesfristInput);
 
     await userEvent.click(screen.getByText('Oppdater'));
 
@@ -45,11 +46,9 @@ describe('<ForeldelseProsessIndex>', () => {
 
     const foreldelsesfristInputV2 = utils.getByLabelText('Foreldelsesfrist');
     await userEvent.type(foreldelsesfristInputV2, '14.10.2021');
-    fireEvent.blur(foreldelsesfristInputV2);
 
     const datoNårOppdagetInput = utils.getByLabelText('Dato for når feilutbetaling ble oppdaget');
     await userEvent.type(datoNårOppdagetInput, '16.10.2021');
-    fireEvent.blur(datoNårOppdagetInput);
 
     await userEvent.click(screen.getByText('Oppdater'));
 
@@ -113,7 +112,6 @@ describe('<ForeldelseProsessIndex>', () => {
 
     const foreldelsesfristInput = utils.getByLabelText('Foreldelsesfrist');
     await userEvent.type(foreldelsesfristInput, '14.09.2021');
-    fireEvent.blur(foreldelsesfristInput);
 
     await userEvent.click(screen.getByText('Oppdater'));
 
@@ -125,14 +123,12 @@ describe('<ForeldelseProsessIndex>', () => {
 
     const datoForFørstePeriodeInput = utils.getByLabelText('Angi t.o.m. dato for første periode');
     await userEvent.type(datoForFørstePeriodeInput, '11.04.2018');
-    fireEvent.blur(datoForFørstePeriodeInput);
 
     await userEvent.click(screen.getByText('Ok'));
 
     expect(await screen.findByText('Dato må være innenfor perioden')).toBeInTheDocument();
 
     await userEvent.type(datoForFørstePeriodeInput, '{backspace}9');
-    fireEvent.blur(datoForFørstePeriodeInput);
 
     await userEvent.click(screen.getByText('Ok'));
 
