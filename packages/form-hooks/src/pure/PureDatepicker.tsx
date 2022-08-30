@@ -38,7 +38,7 @@ const PureDatepicker: FunctionComponent<PureDatepickerProps & DatepickerProps> =
   disabledDays,
 }): JSX.Element => {
   const dayPickerProps = {
-    initialMonth: initialMonth ? new Date(initialMonth) : undefined,
+    defaultMonth: initialMonth ? new Date(initialMonth) : undefined,
     disabledDays,
   };
 

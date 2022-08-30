@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DayPicker, { AfterModifier, BeforeModifier, Modifier } from 'react-day-picker';
+import DayPicker, { Modifier } from 'react-day-picker';
 import moment from 'moment';
 
 import { getRelatedTargetIE11, isIE11, createIntl } from '@navikt/ft-utils';
@@ -76,11 +76,11 @@ class PeriodCalendarOverlay extends Component<OwnProps> {
     let isSelectable = true;
     const { disabledDays, onDayChange } = this.props;
     if (disabledDays) {
-      const { before: intervalStart } = disabledDays as BeforeModifier; // NOSONAR
+      const { before: intervalStart } = disabledDays as any; // NOSONAR
       if (intervalStart) {
         isSelectable = moment(selectedDate).isSameOrAfter(moment(intervalStart).startOf('day'));
       }
-      const { after: intervalEnd } = disabledDays as AfterModifier; // NOSONAR
+      const { after: intervalEnd } = disabledDays as any; // NOSONAR
       if (isSelectable && intervalEnd) {
         isSelectable = moment(selectedDate).isSameOrBefore(moment(intervalEnd).endOf('day'));
       }

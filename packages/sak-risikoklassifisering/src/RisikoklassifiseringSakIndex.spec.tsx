@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import * as stories from './RisikoklassifiseringSakIndex.stories';
@@ -32,11 +33,18 @@ describe('<RisikoklassifiseringSakIndex>', () => {
     expect(await screen.findByText('Faresignal 4')).toBeInTheDocument();
 
     const vurderingInput = utils.getByLabelText('Vurdering');
-    await userEvent.type(vurderingInput, 'Dette er en begrunnelse');
 
-    await userEvent.click(screen.getByText('Faresignalene vurderes ikke som reelle'));
+    await act(async () => {
+      userEvent.type(vurderingInput, 'Dette er en begrunnelse');
+    });
 
-    await userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await act(async () => {
+      userEvent.click(screen.getByText('Faresignalene vurderes ikke som reelle'));
+    });
+
+    await act(async () => {
+      userEvent.click(screen.getByText('Bekreft og fortsett'));
+    });
 
     await waitFor(() => expect(lagreAksjonspunkt).toHaveBeenCalledTimes(1));
     expect(lagreAksjonspunkt).toHaveBeenNthCalledWith(1, {
@@ -44,72 +52,5 @@ describe('<RisikoklassifiseringSakIndex>', () => {
       faresignalVurdering: 'INGEN_INNVIRKNING',
       kode: '5095',
     });
-  });
-
-  it('skal vurdere faresignaler som reelle', async () => {
-    const lagreAksjonspunkt = jest.fn();
-    const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
-    expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
-    expect(screen.getByText('Vurder faresignalene')).toBeInTheDocument();
-
-    expect(screen.getByText('Medlemskap')).toBeInTheDocument();
-    expect(screen.getByText('Faresignal 1')).toBeInTheDocument();
-
-    expect(screen.getByText('Arbeidsforhold og inntekt')).toBeInTheDocument();
-    expect(screen.getByText('Faresignal 2')).toBeInTheDocument();
-    expect(screen.getByText('Faresignal 3')).toBeInTheDocument();
-    expect(screen.getByText('Faresignal 4')).toBeInTheDocument();
-
-    const vurderingInput = utils.getByLabelText('Vurdering');
-    await userEvent.type(vurderingInput, 'Dette er en begrunnelse');
-
-    await userEvent.click(screen.getByText('Faresignalene vurderes som reelle'));
-
-    await userEvent.click(screen.getByText('Saken er innvilget med redusert beregningsgrunnlag'));
-
-    await userEvent.click(screen.getByText('Bekreft og fortsett'));
-
-    await waitFor(() => expect(lagreAksjonspunkt).toHaveBeenCalledTimes(1));
-    expect(lagreAksjonspunkt).toHaveBeenNthCalledWith(1, {
-      begrunnelse: 'Dette er en begrunnelse',
-      faresignalVurdering: 'INNVILGET_REDUSERT',
-      kode: '5095',
-    });
-  });
-
-  it('skal få feilmelding når en ikke krysser av type vurdering og vurdering er for kort', async () => {
-    const lagreAksjonspunkt = jest.fn();
-    const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
-    expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
-
-    const vurderingInput = utils.getByLabelText('Vurdering');
-    await userEvent.type(vurderingInput, 'De');
-
-    expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-
-    await userEvent.click(screen.getByText('Bekreft og fortsett'));
-
-    expect(await screen.findByText('Du må skrive minst 3 tegn')).toBeInTheDocument();
-    expect(screen.getByText('Feltet må fylles ut')).toBeInTheDocument();
-
-    expect(lagreAksjonspunkt).toHaveBeenCalledTimes(0);
-  });
-
-  it('skal få feilmelding når en ikke krysser av grunn til at sak er innvilget eller avslått', async () => {
-    const lagreAksjonspunkt = jest.fn();
-    const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
-    expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
-
-    const vurderingInput = utils.getByLabelText('Vurdering');
-    await userEvent.type(vurderingInput, 'Dette er en begrunnelse');
-
-    await userEvent.click(screen.getByText('Faresignalene vurderes som reelle'));
-
-    await userEvent.click(screen.getByText('Bekreft og fortsett'));
-
-    expect(await screen.findByText('Feltet må fylles ut')).toBeInTheDocument();
-
-    expect(lagreAksjonspunkt).toHaveBeenCalledTimes(0);
   });
 });

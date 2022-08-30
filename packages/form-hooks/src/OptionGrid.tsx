@@ -1,4 +1,4 @@
-import React, { ElementType, FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import { range } from '@navikt/ft-utils';
 import { EditedIcon, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 import styles from './optionGrid.less';
@@ -7,21 +7,14 @@ export type Direction = 'horizontal' | 'vertical';
 
 interface OwnProps {
   columns?: number;
-  options: ElementType[];
+  options: ReactNode[];
   spaceBetween?: boolean;
   isEdited?: boolean;
   direction?: Direction;
   rows?: number;
 }
 
-export const OptionGrid: FunctionComponent<OwnProps> = ({
-  columns,
-  rows,
-  options,
-  spaceBetween,
-  isEdited,
-  direction,
-}) => {
+const OptionGrid: FunctionComponent<OwnProps> = ({ columns, rows, options, spaceBetween, isEdited, direction }) => {
   if (direction === 'vertical') {
     const numRows = rows || options.length;
     return (

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
-import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { EtikettInfo } from 'nav-frontend-etiketter';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { FlexColumn } from '@navikt/ft-ui-komponenter';
@@ -52,10 +52,8 @@ interface OwnProps {
   familiehendelse: FagsakHendelse;
 }
 
-const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps & WrappedComponentProps> = ({
-  intl,
-  familiehendelse,
-}) => {
+const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps> = ({ familiehendelse }) => {
+  const intl = useIntl();
   const { hendelseType, hendelseDato, antallBarn, dødfødsel } = familiehendelse;
 
   const visFødselsdato = hendelseType === FamilieHendelseType.FODSEL;
@@ -95,4 +93,4 @@ const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps & WrappedCompone
   );
 };
 
-export default injectIntl(VisittkortBarnInfoFodselPanel);
+export default VisittkortBarnInfoFodselPanel;

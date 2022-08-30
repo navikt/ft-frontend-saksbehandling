@@ -33,7 +33,7 @@
     "nav-frontend-grid-style": "1.0.3",
     "nav-frontend-ikoner-assets": "3.0.1",
     "nav-frontend-js-utils": "1.0.20",
-    "react": "17.0.2",
+    "react": "18.2.0",
     "react-intl": "6.1.0",
     "vis-data": "7.1.4",
     "vis-timeline": "7.7.0"
@@ -49,7 +49,7 @@
     "nav-frontend-grid-style": "1.x",
     "nav-frontend-ikoner-assets": "3.x",
     "nav-frontend-js-utils": "1.x",
-    "react": "17.x",
+    "react": "18.x",
     "react-intl": "6.x",
     "vis-data": "7.x",
     "vis-timeline": "7.x"
@@ -63,9 +63,9 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-test-renderer": "17.0.2"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-test-renderer": "18.2.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

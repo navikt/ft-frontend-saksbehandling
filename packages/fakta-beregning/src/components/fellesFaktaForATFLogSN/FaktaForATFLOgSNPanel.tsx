@@ -93,6 +93,7 @@ const getFaktaPanels = (
     if (tilfelle === FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET) {
       hasShownPanel = true;
       faktaPanels.push(
+        // @ts-ignore Fiks
         <React.Fragment key={tilfelle}>
           {spacer(hasShownPanel)}
           <NyIArbeidslivetSNForm readOnly={readOnly} />
@@ -123,6 +124,7 @@ const getFaktaPanels = (
   });
   setFaktaPanelForKunYtelse(faktaPanels, tilfeller, readOnly, isAksjonspunktClosed, faktaOmBeregning, alleKodeverk);
   faktaPanels.push(
+    // @ts-ignore Fiks
     <React.Fragment key="VurderOgFastsettATFL">
       {spacer(true)}
       {/* @ts-ignore */}

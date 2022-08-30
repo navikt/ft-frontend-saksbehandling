@@ -36,21 +36,21 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const fordelingAT = alleInputfelt[1];
     const begrunnelseFelt = alleInputfelt[2];
 
-    userEvent.paste(fordelingAAP, '200 000');
-    userEvent.paste(fordelingAT, '300 000');
-    userEvent.paste(begrunnelseFelt, 'Begrunnelse for fordeling');
+    await userEvent.type(fordelingAAP, '200 000');
+    await userEvent.type(fordelingAT, '300 000');
+    await userEvent.type(begrunnelseFelt, 'Begrunnelse for fordeling');
     expect(screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     // Forventer at validering slår til
     expect(await screen.findByText('Summen må være lik 400 000')).toBeInTheDocument();
     userEvent.clear(fordelingAAP);
-    userEvent.paste(fordelingAAP, '100 000');
+    await userEvent.type(fordelingAAP, '100 000');
     expect(await screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
@@ -134,7 +134,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
 
-    userEvent.click(screen.getByText('01.01.2020 - 05.02.2020'));
+    await userEvent.click(screen.getByText('01.01.2020 - 05.02.2020'));
 
     // Første periode - andre stp
     expect(screen.getByText('Gjeldende 01.01.2020 - 26.01.2020')).toBeInTheDocument();
@@ -148,12 +148,12 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const fordelingAT = alleInputfelt[1];
     const begrunnelseFelt = alleInputfelt[2];
 
-    userEvent.paste(fordelingAAP, '100 000');
-    userEvent.paste(fordelingAT, '200 000');
-    userEvent.paste(begrunnelseFelt, 'Begrunnelse for fordeling');
+    await userEvent.type(fordelingAAP, '100 000');
+    await userEvent.type(fordelingAT, '200 000');
+    await userEvent.type(begrunnelseFelt, 'Begrunnelse for fordeling');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
@@ -251,32 +251,32 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const fordelingAT = alleInputfelt[2];
     const begrunnelseFelt = alleInputfelt[3];
 
-    userEvent.paste(fordelingAAP, '200 000');
+    await userEvent.type(fordelingAAP, '200 000');
     userEvent.clear(refkravAT);
     // @ts-ignore
     refkravAT.setSelectionRange(0, 6);
-    userEvent.type(refkravAT, `{backspace}`);
-    userEvent.paste(refkravAT, '200 000');
-    userEvent.paste(fordelingAT, '300 000');
-    userEvent.paste(begrunnelseFelt, 'Begrunnelse for fordeling');
+    await userEvent.type(refkravAT, `{backspace}`);
+    await userEvent.type(refkravAT, '200 000');
+    await userEvent.type(fordelingAT, '300 000');
+    await userEvent.type(begrunnelseFelt, 'Begrunnelse for fordeling');
     expect(screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
 
     expect(await screen.getAllByText('Bekreft og fortsett')[0]).toBeEnabled();
-    userEvent.click(screen.getAllByText('Bekreft og fortsett')[0]);
+    await userEvent.click(screen.getAllByText('Bekreft og fortsett')[0]);
 
     // Forventer at validering slår til
     const inntektValideringer = await screen.findAllByText('Summen må være lik 400 000');
     expect(inntektValideringer).toHaveLength(2);
     userEvent.clear(fordelingAAP);
-    userEvent.paste(fordelingAAP, '100 000');
+    await userEvent.type(fordelingAAP, '100 000');
     expect(await screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByText('Bekreft og fortsett')[0]);
+    await userEvent.click(screen.getAllByText('Bekreft og fortsett')[0]);
 
     expect(lagre).toHaveBeenCalledTimes(0);
 
     // Bytter fane
-    userEvent.click(screen.getByText('01.01.2020 - 31.12.9999'));
+    await userEvent.click(screen.getByText('01.01.2020 - 31.12.9999'));
 
     // Skal sjekke at valideringer vises fra submit i den andre fanen
     expect(await screen.findByText('Summen må være lik 400 000')).toBeInTheDocument();
@@ -287,15 +287,15 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const fordelingAT2 = alleInputfelt[6];
     const begrunnelseFelt2 = alleInputfelt[7];
 
-    userEvent.paste(fordelingAAP2, '200 000');
+    await userEvent.type(fordelingAAP2, '200 000');
     // @ts-ignore
     refkravAT2.setSelectionRange(0, 6);
-    userEvent.type(refkravAT2, `{backspace}`);
-    userEvent.paste(refkravAT2, '200 000');
-    userEvent.paste(fordelingAT2, '200 000');
-    userEvent.paste(begrunnelseFelt2, 'En helt annen begrunnelse for fordeling');
+    await userEvent.type(refkravAT2, `{backspace}`);
+    await userEvent.type(refkravAT2, '200 000');
+    await userEvent.type(fordelingAT2, '200 000');
+    await userEvent.type(begrunnelseFelt2, 'En helt annen begrunnelse for fordeling');
 
-    userEvent.click(screen.getAllByText('Bekreft og fortsett')[1]);
+    await userEvent.click(screen.getAllByText('Bekreft og fortsett')[1]);
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
@@ -436,11 +436,11 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const datofelt = alleInputfelt[0];
     const begrunnelsefelt = alleInputfelt[1];
 
-    userEvent.paste(datofelt, '01.07.2020');
-    userEvent.paste(begrunnelsefelt, 'Begrunnelse for refusjonsdato');
+    await userEvent.type(datofelt, '01.07.2020');
+    await userEvent.type(begrunnelsefelt, 'Begrunnelse for refusjonsdato');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
@@ -493,12 +493,12 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const delvisRefFelt = alleInputfelt[1];
     const begrunnelsefelt = alleInputfelt[2];
 
-    userEvent.paste(datofelt, '01.07.2020');
-    userEvent.paste(delvisRefFelt, '12 000');
-    userEvent.paste(begrunnelsefelt, 'Begrunnelse for refusjonsdato');
+    await userEvent.type(datofelt, '01.07.2020');
+    await userEvent.type(delvisRefFelt, '12 000');
+    await userEvent.type(begrunnelsefelt, 'Begrunnelse for refusjonsdato');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for refusjonsdato',

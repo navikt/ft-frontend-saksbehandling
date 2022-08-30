@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'nav-frontend-modal';
+import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { composeStories } from '@storybook/testing-react';
@@ -21,7 +22,9 @@ describe('<Image>', () => {
 
     expect(await screen.findByRole('img', { hidden: true })).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole('img', { hidden: true }));
+    await act(async () => {
+      userEvent.click(screen.getByRole('img', { hidden: true }));
+    });
 
     expect(await screen.findByText('OK')).toBeInTheDocument();
   });

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { PersonCard, EmptyPersonCard, Gender } from '@navikt/ft-plattform-komponenter';
 import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
@@ -25,14 +25,15 @@ interface OwnProps {
   erTilbakekreving: boolean;
 }
 
-const VisittkortPanel: FunctionComponent<OwnProps & WrappedComponentProps> = ({
-  intl,
+const VisittkortPanel: FunctionComponent<OwnProps> = ({
   fagsak,
   fagsakPersoner,
   lenkeTilAnnenPart,
   harVerge,
   erTilbakekreving,
 }) => {
+  const intl = useIntl();
+
   const fagsakPerson = fagsakPersoner.bruker;
   const erMor = fagsak.relasjonsRolleType === RelasjonsRolleType.MOR;
   if (erTilbakekreving && harVerge) {
@@ -99,4 +100,4 @@ const VisittkortPanel: FunctionComponent<OwnProps & WrappedComponentProps> = ({
   );
 };
 
-export default injectIntl(VisittkortPanel);
+export default VisittkortPanel;

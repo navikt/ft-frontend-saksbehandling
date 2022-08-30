@@ -2,7 +2,7 @@ import { DDMMYYYY_DATE_FORMAT, haystack } from '@navikt/ft-utils';
 import moment from 'moment';
 import { Input } from 'nav-frontend-skjema';
 import React, { Component, ReactNode } from 'react';
-import { DateUtils, Modifier } from 'react-day-picker';
+import { addToRange, Modifier } from 'react-day-picker';
 import CalendarToggleButton from './CalendarToggleButton';
 import PeriodCalendarOverlay from './PeriodCalendarOverlay';
 import styles from './periodpicker.less';
@@ -109,8 +109,11 @@ class Periodpicker extends Component<OwnProps, StateProps> {
         to: moment(currentEndDate, DDMMYYYY_DATE_FORMAT).toDate(),
       };
 
-      // @ts-ignore https://github.com/gpbl/react-day-picker/issues/1009
-      const newRange = DateUtils.addDayToRange(selectedDay, range);
+      const newRange = addToRange(selectedDay, range);
+      if (!newRange) {
+        return;
+      }
+
       const period = createPeriod(newRange.from, newRange.to);
       this.setState({ period });
 
