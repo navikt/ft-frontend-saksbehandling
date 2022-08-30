@@ -17,7 +17,7 @@ const Template: Story<{
   isBold: boolean;
   isApLeftBorder: boolean;
 }> = ({ noHover, isDashedBottomBorder, isSelected, isBold, isApLeftBorder }) => (
-  <Table headerColumnContent={[<div>Navn</div>, <div>Alder</div>]} noHover={noHover}>
+  <Table headerColumnContent={[<div key="1">Navn</div>, <div key="2">Alder</div>]} noHover={noHover}>
     <TableRow isDashedBottomBorder={isDashedBottomBorder} isSelected={isSelected}>
       <TableColumn>Espen Utvikler</TableColumn>
       <TableColumn>41</TableColumn>
