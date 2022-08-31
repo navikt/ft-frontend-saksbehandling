@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Element } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
 
@@ -114,7 +114,6 @@ interface OwnProps {
   alleKodeverk: AlleKodeverk;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
-  intl: any;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
 }
 
@@ -148,9 +147,9 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   submittable,
   fieldId,
-  intl,
   updateOverstyring,
 }) => {
+  const intl = useIntl();
   const {
     resetField,
     watch,
@@ -302,4 +301,4 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   );
 };
 
-export default injectIntl(AvklareAktiviteterField) as any;
+export default AvklareAktiviteterField;

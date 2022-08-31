@@ -192,7 +192,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
     [relevanteStatuser.harArbeidsinntekt, måneder, sammenligningsgrunnlagFom],
   );
 
-  const barFormatter = useCallback(params => {
+  const barFormatter = useCallback((params: any) => {
     if (params.value[0] > 5000) {
       return formatCurrencyNoKr(params.value[0]) || '';
     }

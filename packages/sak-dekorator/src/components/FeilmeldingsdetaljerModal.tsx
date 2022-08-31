@@ -55,6 +55,7 @@ const FeilmeldingsdetaljerModal: FunctionComponent<OwnProps> = ({ skalViseModal,
               <React.Fragment key={edKey}>
                 <Undertekst>{`${capitalizeFirstLetters(edKey)}:`}</Undertekst>
                 <div className={styles.detail}>
+                  {/* @ts-ignore Fiks */}
                   <Normaltekst>{feilmeldingsdetaljer[edKey]}</Normaltekst>
                 </div>
                 <VerticalSpacer eightPx />

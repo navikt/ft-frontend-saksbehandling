@@ -189,7 +189,7 @@ const lagTabellRaderIkkeOppfylt = (
         }
         values={{
           grunnbeløp: formatCurrencyNoKr(grunnbeløp),
-          b: chunks => <b>{chunks}</b>,
+          b: (chunks: any) => <b>{chunks}</b>,
         }}
       />
     </Normaltekst>

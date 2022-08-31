@@ -20,14 +20,14 @@ describe('<FeilutbetalingFaktaIndex>', () => {
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
 
     const selects = utils.getAllByRole('combobox', { hidden: true });
-    userEvent.selectOptions(selects[0], 'MEDLEMSKAP');
-    userEvent.selectOptions(selects[1], 'MEDLEMSKAP');
-    userEvent.selectOptions(selects[2], 'MEDLEMSKAP');
+    await userEvent.selectOptions(selects[0], 'MEDLEMSKAP');
+    await userEvent.selectOptions(selects[1], 'MEDLEMSKAP');
+    await userEvent.selectOptions(selects[2], 'MEDLEMSKAP');
 
     const begrunnValgInput = utils.getByLabelText('Forklar årsaken(e) til feilutbetalingen');
-    userEvent.type(begrunnValgInput, 'Dette er en forklaring');
+    await userEvent.type(begrunnValgInput, 'Dette er en forklaring');
 
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
@@ -74,16 +74,16 @@ describe('<FeilutbetalingFaktaIndex>', () => {
 
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
 
-    userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[0], 'MEDLEMSKAP');
-    userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[1], 'OKONOMI_FEIL');
-    userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[2], 'OKONOMI_FEIL_TREKK');
-    userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[3], 'BEREGNING_TYPE');
-    userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[4], 'IKKE_BOSATT');
+    await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[0], 'MEDLEMSKAP');
+    await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[1], 'OKONOMI_FEIL');
+    await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[2], 'OKONOMI_FEIL_TREKK');
+    await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[3], 'BEREGNING_TYPE');
+    await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[4], 'IKKE_BOSATT');
 
     const begrunnValgInput = utils.getByLabelText('Forklar årsaken(e) til feilutbetalingen');
-    userEvent.type(begrunnValgInput, 'Dette er en forklaring');
+    await userEvent.type(begrunnValgInput, 'Dette er en forklaring');
 
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
@@ -130,15 +130,15 @@ describe('<FeilutbetalingFaktaIndex>', () => {
 
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
 
-    userEvent.click(screen.getByText('Behandle alle perioder samlet'));
+    await userEvent.click(screen.getByText('Behandle alle perioder samlet'));
 
-    userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[0], 'BEREGNING_TYPE');
-    userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[1], 'IKKE_BOSATT');
+    await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[0], 'BEREGNING_TYPE');
+    await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[1], 'IKKE_BOSATT');
 
     const begrunnValgInput = utils.getByLabelText('Forklar årsaken(e) til feilutbetalingen');
-    userEvent.type(begrunnValgInput, 'Dette er en forklaring');
+    await userEvent.type(begrunnValgInput, 'Dette er en forklaring');
 
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {

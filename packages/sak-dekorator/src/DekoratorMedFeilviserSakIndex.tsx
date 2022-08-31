@@ -22,7 +22,7 @@ const useOutsideClickEvent = (
 ): RefObject<HTMLDivElement> => {
   const wrapperRef = useRef<any>(null);
   const handleClickOutside = useCallback(
-    event => {
+    (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setLenkePanelApent(false);
       }
@@ -117,6 +117,7 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
   );
 
   const referencePropsChildren = useCallback(
+    // @ts-ignore Fiks
     ({ ref }) => (
       <div ref={ref}>
         <SystemButton

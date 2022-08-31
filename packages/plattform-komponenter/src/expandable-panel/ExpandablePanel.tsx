@@ -9,7 +9,7 @@ type ExpandablePanelTheme = 'success' | 'warn' | 'neutral';
 
 export interface ExpandablePanelProps {
   theme?: ExpandablePanelTheme;
-  children: React.ReactChild | React.ReactChildren;
+  children: React.ReactNode | React.ReactNode[];
   renderHeader: () => React.ReactNode;
   isOpen: boolean;
   onClick: () => void;

@@ -65,11 +65,11 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
-    userEvent.paste(bruttoFelt, '260 000');
-    userEvent.paste(begrunnelseFelt, 'Min begrunnelse for inntekt');
+    await userEvent.type(bruttoFelt, '260 000');
+    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for inntekt');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -127,18 +127,18 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
 
     // Aksjonspunkt
     expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
-    userEvent.click(screen.getByLabelText('Ingen varig endring'));
+    await userEvent.click(screen.getByLabelText('Ingen varig endring'));
     await waitFor(() => expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument());
-    userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes.'));
+    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes.'));
     expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
-    userEvent.paste(bruttoFelt, '260 000');
-    userEvent.paste(begrunnelseFelt, 'Min begrunnelse for vurdering av varig endring');
+    await userEvent.type(bruttoFelt, '260 000');
+    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for vurdering av varig endring');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -183,11 +183,11 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
-    userEvent.paste(bruttoFelt, '500 000');
-    userEvent.paste(begrunnelseFelt, 'Min begrunnelse for inntekt');
+    await userEvent.type(bruttoFelt, '500 000');
+    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for inntekt');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -247,15 +247,15 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
 
     const begrunnelseFelt = alleInputfelt[1];
 
-    userEvent.paste(bruttoFeltAg1P1, '222 000');
+    await userEvent.type(bruttoFeltAg1P1, '222 000');
 
-    userEvent.paste(begrunnelseFelt, 'Min begrunnelse for tidsbegrenset inntekt');
+    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for tidsbegrenset inntekt');
 
     expect(await screen.findByText('222 000')).toBeInTheDocument();
     expect(screen.getAllByText('100 000')).toHaveLength(4);
 
     expect(screen.getByText('Bekreft og fortsett')).toBeEnabled();
-    userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [

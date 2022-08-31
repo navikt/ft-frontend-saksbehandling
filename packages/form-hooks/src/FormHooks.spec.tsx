@@ -12,20 +12,20 @@ describe('<FormHooks>', () => {
 
     expect(await screen.findByText('Dette er et inputfelt')).toBeInTheDocument();
 
-    userEvent.paste(utils.getByLabelText('Dette er et inputfelt'), 'Dette er en vurdering');
+    await userEvent.type(utils.getByLabelText('Dette er et inputfelt'), 'Dette er en vurdering');
 
     expect(screen.getByLabelText('Dette er en checkbox')).not.toBeChecked();
-    userEvent.click(screen.getByText('Dette er en checkbox'));
+    await userEvent.click(screen.getByText('Dette er en checkbox'));
     expect(await screen.getByLabelText('Dette er en checkbox')).toBeChecked();
 
-    userEvent.click(screen.getByText('Dette er en radioknapp'));
+    await userEvent.click(screen.getByText('Dette er en radioknapp'));
 
-    userEvent.selectOptions(utils.getByLabelText('Dette er en dropdown'), 'value');
+    await userEvent.selectOptions(utils.getByLabelText('Dette er en dropdown'), 'value');
     // @ts-ignore
     expect(await screen.getByRole('option', { name: 'Test' }).selected).toBe(true);
 
-    userEvent.paste(utils.getByLabelText('Dette er et tekstfelt'), 'Dette er en vurdering');
+    await userEvent.type(utils.getByLabelText('Dette er et tekstfelt'), 'Dette er en vurdering');
 
-    userEvent.paste(utils.getByLabelText('Dette er en label'), '10.10.2022');
+    await userEvent.type(utils.getByLabelText('Dette er en label'), '10.10.2022');
   });
 });
