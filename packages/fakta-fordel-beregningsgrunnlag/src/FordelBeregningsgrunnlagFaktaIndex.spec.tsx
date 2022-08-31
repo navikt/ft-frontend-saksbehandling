@@ -13,8 +13,6 @@ const {
 } = composeStories(stories);
 
 describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
-  jest.setTimeout(15000);
-
   it.skip('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
     const lagre = jest.fn();
 
