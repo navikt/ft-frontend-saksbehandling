@@ -90,13 +90,7 @@ const RadioGroupField: FunctionComponent<OwnProps> = ({
       className={classNames(`input--${bredde}`, 'radioGroup', { readOnly })}
     >
       {label && <span className={classNames('radioGroupLabel', { readOnly })}>{label}</span>}
-      <OptionGrid
-        direction={direction}
-        isEdited={readOnly && isEdited}
-        // @ts-ignore Fiks
-        options={options}
-        spaceBetween={spaceBetween}
-      />
+      <OptionGrid direction={direction} isEdited={readOnly && isEdited} options={options} spaceBetween={spaceBetween} />
     </NavSkjemaGruppe>
   );
 };

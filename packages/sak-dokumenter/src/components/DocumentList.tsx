@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
-import { FormattedMessage, injectIntl, WrappedComponentProps } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Normaltekst } from 'nav-frontend-typografi';
 
 import { DateTimeLabel, Table, TableColumn, TableRow, Image, Tooltip } from '@navikt/ft-ui-komponenter';
@@ -84,12 +84,9 @@ type Timeout = ReturnType<typeof setTimeout>;
  * trigget når saksbehandler velger et dokument. Finnes ingen dokumenter blir det kun vist en label
  * som viser at ingen dokumenter finnes på fagsak.
  */
-const DocumentList: FunctionComponent<OwnProps & WrappedComponentProps> = ({
-  intl,
-  documents,
-  behandlingUuid,
-  selectDocumentCallback,
-}) => {
+const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, selectDocumentCallback }) => {
+  const intl = useIntl();
+
   const [isShiftPressed, setShiftPressed] = useState(false);
   const [valgteDokumentIder, setValgteDokumentIder] = useState<string[]>([]);
   const timeoutMapRef = React.useRef<Record<string, Timeout | undefined>>({});
@@ -230,4 +227,4 @@ const DocumentList: FunctionComponent<OwnProps & WrappedComponentProps> = ({
   );
 };
 
-export default injectIntl(DocumentList);
+export default DocumentList;

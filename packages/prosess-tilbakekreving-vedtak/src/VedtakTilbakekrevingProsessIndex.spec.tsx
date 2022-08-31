@@ -7,6 +7,8 @@ import * as stories from './VedtakTilbakekrevingProsessIndex.stories';
 const { Default } = composeStories(stories);
 
 describe('<VedtakTilbakekrevingProsessIndex>', () => {
+  jest.setTimeout(15000);
+
   it('skal fylle ut to obligatoriske felter for periode og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
 
@@ -34,10 +36,10 @@ describe('<VedtakTilbakekrevingProsessIndex>', () => {
     expect(screen.getByText('Til godkjenning')).toBeDisabled();
 
     const tekstInput = utils.getAllByLabelText('Utdypende tekst');
-    userEvent.type(tekstInput[0], 'Dette er en utdypende tekst');
-    userEvent.type(tekstInput[1], 'Dette er en annen utdypende tekst');
+    await userEvent.type(tekstInput[0], 'Dette er en utdypende tekst');
+    await userEvent.type(tekstInput[1], 'Dette er en annen utdypende tekst');
 
-    userEvent.click(screen.getByText('Til godkjenning'));
+    await userEvent.click(screen.getByText('Til godkjenning'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
 

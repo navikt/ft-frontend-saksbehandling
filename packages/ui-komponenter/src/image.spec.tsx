@@ -21,7 +21,7 @@ describe('<Image>', () => {
 
     expect(await screen.findByRole('img', { hidden: true })).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole('img', { hidden: true }));
+    await userEvent.click(screen.getByRole('img', { hidden: true }));
 
     expect(await screen.findByText('OK')).toBeInTheDocument();
   });
