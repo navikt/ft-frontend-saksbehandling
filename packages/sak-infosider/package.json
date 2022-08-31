@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-infosider",
   "description": "Diverse info- og feil-sider",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,7 +24,7 @@
     "storybook": "cross-env start-storybook -p 7020"
   },
   "dependencies": {
-    "@navikt/ft-utils": "^1.0.32",
+    "@navikt/ft-utils": "^1.0.33",
     "nav-frontend-alertstriper": "4.0.2",
     "nav-frontend-alertstriper-style": "3.0.2",
     "nav-frontend-typografi": "4.0.2",
