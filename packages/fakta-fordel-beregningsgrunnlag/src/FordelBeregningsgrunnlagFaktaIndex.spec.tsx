@@ -13,7 +13,7 @@ const {
 } = composeStories(stories);
 
 describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
-  it.skip('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
+  it('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
     const lagre = jest.fn();
 
     const utils = render(<AapOgRefusjonAp5046 submitCallback={lagre} />);
@@ -219,7 +219,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     });
   });
 
-  it.skip('skal kunne løse aksjonspunkt med fastsetting av fordeling og refusjonskrav for flere beregningsgrunnlag', async () => {
+  it('skal kunne løse aksjonspunkt med fastsetting av fordeling og refusjonskrav for flere beregningsgrunnlag', async () => {
     const lagre = jest.fn();
 
     const utils = render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 submitCallback={lagre} />);
@@ -290,11 +290,13 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await userEvent.type(fordelingAAP2, '200 000');
     // @ts-ignore
     refkravAT2.setSelectionRange(0, 6);
-    await userEvent.type(refkravAT2, `{backspace}`);
+    await userEvent.clear(refkravAT2);
     await userEvent.type(refkravAT2, '200 000');
+
     await userEvent.type(fordelingAT2, '200 000');
     await userEvent.type(begrunnelseFelt2, 'En helt annen begrunnelse for fordeling');
 
+    expect(await screen.getAllByText('Bekreft og fortsett')[1]).toBeEnabled();
     await userEvent.click(screen.getAllByText('Bekreft og fortsett')[1]);
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
