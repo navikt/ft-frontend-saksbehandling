@@ -279,7 +279,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await userEvent.click(screen.getByText('01.01.2020 - 31.12.9999'));
 
     // Skal sjekke at valideringer vises fra submit i den andre fanen
-    expect(await screen.findByText('Summen må være lik 400 000')).toBeInTheDocument();
+    expect(await screen.getAllByText('Summen må være lik 400 000')).toHaveLength(2);
     expect(screen.getByText('Feltet må fylles ut')).toBeInTheDocument();
 
     const fordelingAAP2 = alleInputfelt[4];
@@ -429,7 +429,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
       ),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
-    expect(screen.getAllByText('JENS MAGNE (01.01.2000)')).toHaveLength(2);
+    expect(screen.getAllByText('JENS MAGNE (01.01.2000)'));
     expect(screen.getByText('krever refusjon fra og med 01.06.2020')).toBeInTheDocument();
     expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
 
