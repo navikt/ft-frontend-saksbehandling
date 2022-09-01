@@ -4,62 +4,7 @@ import VurderRefusjonForm, { lagFieldName } from './VurderRefusjonForm';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
-// const agOpplysninger = {
-//   8279312213: {
-//     identifikator: '8279312213',
-//     navn: 'Arbeidsgiveren AS',
-//     erPrivatPerson: false,
-//   },
-//   45345345345: {
-//     identifikator: '45345345345',
-//     navn: 'ArbeidsgiverTo AS',
-//     erPrivatPerson: false,
-//   },
-// };
-
 describe('<VurderRefusjonForm>', () => {
-  // it.skip('skal vise eitt sett med radioknapper om ein arbeidsgiver', () => {
-  //   const senRefusjonkravListe = [{ arbeidsgiverIdent: '8279312213' }];
-  //   const fakta = {
-  //     andelerForFaktaOmBeregning: [],
-  //     refusjonskravSomKommerForSentListe: senRefusjonkravListe,
-  //   } as FaktaOmBeregning;
-  //   const wrapper = shallow(
-  //     <VurderRefusjonForm
-  //       readOnly={false}
-  //       arbeidsgiverOpplysningerPerId={agOpplysninger}
-  //       isAksjonspunktClosed={false}
-  //       faktaOmBeregning={fakta}
-  //     />,
-  //   );
-  //   const formattedMessage = wrapper.find(FormattedMessage);
-  //   expect(formattedMessage).toHaveLength(1);
-  //   const radioGroup = wrapper.find(RadioGroupField);
-  //   expect(radioGroup).toHaveLength(1);
-  //   const buttons = radioGroup.find(RadioOption);
-  //   expect(buttons).toHaveLength(2);
-  // });
-
-  // it.skip('skal vise to sett med radioknapper om to arbeidsgivere', () => {
-  //   const senRefusjonkravListe = [{ arbeidsgiverIdent: '8279312213' }, { arbeidsgiverIdent: '45345345345' }];
-  //   const fakta = {
-  //     andelerForFaktaOmBeregning: [],
-  //     refusjonskravSomKommerForSentListe: senRefusjonkravListe,
-  //   } as FaktaOmBeregning;
-  //   const wrapper = shallow(
-  //     <VurderRefusjonForm
-  //       readOnly={false}
-  //       arbeidsgiverOpplysningerPerId={agOpplysninger}
-  //       isAksjonspunktClosed={false}
-  //       faktaOmBeregning={fakta}
-  //     />,
-  //   );
-  //   const formattedMessage = wrapper.find(FormattedMessage);
-  //   expect(formattedMessage).toHaveLength(2);
-  //   const radioGroup = wrapper.find(RadioGroupField);
-  //   expect(radioGroup).toHaveLength(2);
-  // });
-
   it('skal bygge initial values', () => {
     const senRefusjonkravListe = [
       { erRefusjonskravGyldig: true, arbeidsgiverIdent: '8279312213' },

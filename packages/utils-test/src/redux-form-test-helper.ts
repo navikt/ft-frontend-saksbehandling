@@ -1,7 +1,5 @@
-import React from 'react';
-import sinon from 'sinon';
 import { FieldArrayFieldsProps } from 'redux-form';
-import { getIntlMock, mountWithIntl } from './intl-enzyme-test-helper';
+import sinon from 'sinon';
 
 function noop() {
   return undefined;
@@ -35,18 +33,6 @@ export const metaMock = {
   visited: false,
   warning: null,
 };
-
-export function mountFieldComponent(node: any, input = {}, meta = {}, label = 'field') {
-  return mountWithIntl(
-    React.cloneElement(node, {
-      input: { ...inputMock, ...input },
-      meta: { ...metaMock, ...meta },
-      intl: getIntlMock({}),
-      label,
-    }),
-    {},
-  );
-}
 
 /* Lagt til for a hindre warnings i tester */
 export const reduxFormPropsMock = Object.assign(metaMock, {

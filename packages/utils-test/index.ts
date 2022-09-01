@@ -1,8 +1,7 @@
-export { shallowWithIntl, mountWithIntl, getIntlMock } from './src/intl-enzyme-test-helper';
+export { default as getIntlMock } from './src/intl-test-helper';
 export {
   inputMock,
   metaMock,
-  mountFieldComponent,
   reduxFormPropsMock,
   MockFields,
   MockFieldsWithContent,
