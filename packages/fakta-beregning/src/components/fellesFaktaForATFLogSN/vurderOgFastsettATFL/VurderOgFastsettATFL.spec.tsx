@@ -1,17 +1,12 @@
 import { AktivitetStatus as aktivitetStatuser, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
-import { shallow } from 'enzyme';
-import React from 'react';
-import VurderBesteberegningForm, { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
-import InntektstabellPanel from '../InntektstabellPanel';
-import LonnsendringForm, { lonnsendringField } from './forms/LonnsendringForm';
-import NyoppstartetFLForm, { erNyoppstartetFLField } from './forms/NyoppstartetFLForm';
-import VurderMottarYtelseForm from './forms/VurderMottarYtelseForm';
+import { lonnsendringField } from './forms/LonnsendringForm';
+import { erNyoppstartetFLField } from './forms/NyoppstartetFLForm';
 import VurderOgFastsettATFL from './VurderOgFastsettATFL';
 
 const {
-  VURDER_MOTTAR_YTELSE,
   VURDER_BESTEBEREGNING,
   VURDER_LONNSENDRING,
   VURDER_NYOPPSTARTET_FL,
@@ -165,52 +160,6 @@ describe('<VurderOgFastsettATFL>', () => {
     expect(transformed.faktaOmBeregningTilfeller.includes(FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toBe(
       true,
     );
-  });
-
-  it.skip('skal vise komponent', () => {
-    const tilfeller = [VURDER_BESTEBEREGNING, VURDER_LONNSENDRING, VURDER_MOTTAR_YTELSE, VURDER_NYOPPSTARTET_FL];
-    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
-    const andeler = [
-      andelMedLonnsendring,
-      {
-        ...lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
-        erNyoppstartet: true,
-      },
-    ];
-    const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
-    const wrapper = shallow(
-      <VurderOgFastsettATFL
-        readOnly={false}
-        isAksjonspunktClosed={false}
-        tilfeller={tilfeller}
-        skalViseTabell={false}
-        skalFastsetteAT
-        skalFastsetteFL={false}
-        skalHaBesteberegning="false"
-        harKunstigArbeid={false}
-        manglerInntektsmelding
-        alleKodeverk={{} as AlleKodeverk}
-        avklaringsbehov={[]}
-        erOverstyrer={false}
-        beregningsgrunnlag={beregningsgrunnlag}
-        erOverstyrt={false}
-        skalHaMilitær={null}
-        arbeidsgiverOpplysningerPerId={{}}
-        updateOverstyring={jest.fn()}
-      />,
-    );
-    const inntektstabellPanel = wrapper.find(InntektstabellPanel);
-    const lonnsendringForm = inntektstabellPanel.find(LonnsendringForm);
-    expect(lonnsendringForm.length).toBe(1);
-
-    const besteberegningForm = inntektstabellPanel.find(VurderBesteberegningForm);
-    expect(besteberegningForm.length).toBe(1);
-
-    const nyoppstartetFLForm = inntektstabellPanel.find(NyoppstartetFLForm);
-    expect(nyoppstartetFLForm.length).toBe(1);
-
-    const vurderMottarYtelseForm = inntektstabellPanel.find(VurderMottarYtelseForm);
-    expect(vurderMottarYtelseForm.length).toBe(1);
   });
 
   // it('skal returnere true for fastsetting av FL-inntekt når FL-inntekt skal fastsettes', () => {

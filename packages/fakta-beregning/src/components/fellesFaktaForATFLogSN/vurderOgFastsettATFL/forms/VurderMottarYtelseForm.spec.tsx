@@ -111,42 +111,6 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(initialValues[utledArbeidsforholdFieldName(andel3)]).toBe(true);
   });
 
-  // it('skal ikkje returnere errors', () => {
-  //   const mottarYtelse = {
-  //     erFrilans: true,
-  //     frilansMottarYtelse: false,
-  //     arbeidstakerAndelerUtenIM,
-  //   };
-  //   const values = { vurderMottarYtelseValues: {} };
-  //   values.vurderMottarYtelseValues[finnFrilansFieldName()] = false;
-  //   values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = false;
-  //   values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-  //   values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = false;
-  //   const errors = VurderMottarYtelseForm.validate(values, mottarYtelse);
-  //   expect(errors[finnFrilansFieldName()]).toBeUndefined();
-  //   expect(errors[utledArbeidsforholdFieldName(andel)]).toBeUndefined();
-  //   expect(errors[utledArbeidsforholdFieldName(andel2)]).toBeUndefined();
-  //   expect(errors[utledArbeidsforholdFieldName(andel3)]).toBeUndefined();
-  // });
-
-  // it('skal returnere required errors', () => {
-  //   const mottarYtelse = {
-  //     erFrilans: true,
-  //     frilansMottarYtelse: false,
-  //     arbeidstakerAndelerUtenIM,
-  //   };
-  //   const values = { vurderMottarYtelseValues: {} };
-  //   values.vurderMottarYtelseValues[finnFrilansFieldName()] = null;
-  //   values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = null;
-  //   values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = null;
-  //   values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = null;
-  //   const errors = VurderMottarYtelseForm.validate(values, mottarYtelse);
-  //   expect(errors[finnFrilansFieldName()]).toBe(requiredMessage);
-  //   expect(errors[utledArbeidsforholdFieldName(andel)]).toBe(requiredMessage);
-  //   expect(errors[utledArbeidsforholdFieldName(andel2)]).toBe(requiredMessage);
-  //   expect(errors[utledArbeidsforholdFieldName(andel3)]).toBe(requiredMessage);
-  // });
-
   it('skal transform values og sende ned FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING ved mottar ytelse for AT uten inntektsmelding', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING, FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const inntektPrMnd = [

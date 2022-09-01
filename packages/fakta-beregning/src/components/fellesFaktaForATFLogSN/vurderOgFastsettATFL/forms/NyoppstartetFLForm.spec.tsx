@@ -1,20 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { Inntektskategori, AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import NyoppstartetFLForm, { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { InntektTransformed } from '../../../../typer/FieldValues';
+import NyoppstartetFLForm, { erNyoppstartetFLField } from './NyoppstartetFLForm';
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 
 describe('<NyoppstartetFLForm>', () => {
-  it.skip('skal teste at korrekt antall radioknapper vises med korrekte props', () => {
-    const wrapper = shallow(<NyoppstartetFLForm readOnly={false} />);
-    const radios = wrapper.find('RadioOption');
-    expect(radios).toHaveLength(2);
-    expect(radios.last().prop('disabled')).toEqual(false);
-  });
-
   const faktaOmBeregning = {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
     andelerForFaktaOmBeregning: [],

@@ -53,7 +53,7 @@ export const skalFastsettInntektForArbeidstaker = (
 };
 
 export const skalFastsettInntektForFrilans = (
-  values: FaktaOmBeregningAksjonspunktValues,
+  values: Partial<FaktaOmBeregningAksjonspunktValues>,
   beregningsgrunnlag: Beregningsgrunnlag,
 ) => {
   const skalFastsette = andel => getKanRedigereInntekt(values, beregningsgrunnlag)(andel);
