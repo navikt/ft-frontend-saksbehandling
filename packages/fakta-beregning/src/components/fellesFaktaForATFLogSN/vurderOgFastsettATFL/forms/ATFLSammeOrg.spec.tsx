@@ -1,27 +1,17 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { FormattedMessage } from 'react-intl';
-import { Inntektskategori, AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { FaktaOmBeregning, BeregningsgrunnlagArbeidsforhold, Beregningsgrunnlag } from '@navikt/ft-types';
-import { ATFLSammeOrgTekst, transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
+import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning } from '@navikt/ft-types';
+import { harRiktigTilfelle, transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
 
 describe('<ATFLSammeOrg>', () => {
   it('skal ikke vise tekst når man ikke har tilfelle', () => {
-    const wrapper = shallow(
-      <ATFLSammeOrgTekst
-        beregningsgrunnlag={
-          {
-            faktaOmBeregning: {
-              faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
-              andelerForFaktaOmBeregning: [],
-            },
-          } as Beregningsgrunnlag
-        }
-        manglerInntektsmelding
-      />,
-    );
-    expect(wrapper.find(Normaltekst).length).toBe(0);
+    const beregningsgrunnlag = {
+      faktaOmBeregning: {
+        faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
+        andelerForFaktaOmBeregning: [],
+      },
+    };
+
+    expect(harRiktigTilfelle(beregningsgrunnlag)).toBe(false);
   });
 
   it('skal vise tekst når man har tilfelle uten inntektsmelding', () => {
@@ -34,12 +24,7 @@ describe('<ATFLSammeOrg>', () => {
         andelerForFaktaOmBeregning: [],
       },
     };
-    const wrapper = shallow(
-      <ATFLSammeOrgTekst beregningsgrunnlag={beregningsgrunnlag as Beregningsgrunnlag} manglerInntektsmelding />,
-    );
-    const msg = wrapper.find(FormattedMessage);
-    expect(msg.length).toBe(1);
-    expect(msg.prop('id')).toBe('BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM');
+    expect(harRiktigTilfelle(beregningsgrunnlag)).toBe(true);
   });
 
   it('skal vise tekst når man har tilfelle med inntektsmelding', () => {
@@ -52,15 +37,7 @@ describe('<ATFLSammeOrg>', () => {
         andelerForFaktaOmBeregning: [],
       },
     };
-    const wrapper = shallow(
-      <ATFLSammeOrgTekst
-        beregningsgrunnlag={beregningsgrunnlag as Beregningsgrunnlag}
-        manglerInntektsmelding={false}
-      />,
-    );
-    const msg = wrapper.find(FormattedMessage);
-    expect(msg.length).toBe(1);
-    expect(msg.prop('id')).toBe('BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg');
+    expect(harRiktigTilfelle(beregningsgrunnlag)).toBe(true);
   });
 
   const arbeidsforhold = {

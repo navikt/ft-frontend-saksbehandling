@@ -46,7 +46,7 @@ export const transformValuesForATFLISammeOrg = (
   return { faktaOmBeregningTilfeller: [] };
 };
 
-const harRiktigTilfelle = beregningsgrunnlag =>
+export const harRiktigTilfelle = beregningsgrunnlag =>
   beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller
     ? beregningsgrunnlag.faktaOmBeregning.faktaOmBeregningTilfeller
         .map(kode => kode)

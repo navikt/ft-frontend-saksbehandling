@@ -7,16 +7,6 @@ const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 
 describe('<VurderBesteberegning>', () => {
-  // it('skal ikkje validere om man ikkje har tilfelle', () => {
-  //   const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING]);
-  //   expect(Object.keys(error)).toHaveLength(0);
-  // });
-
-  // it('skal validere om ikkje vurdert', () => {
-  //   const error = VurderBesteberegningForm.validate({}, [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING]);
-  //   expect(error[besteberegningField]).toBe(isRequiredMessage());
-  // });
-
   it('skal bygge initial values', () => {
     const vurderBesteberegning = {
       skalHaBesteberegning: false,

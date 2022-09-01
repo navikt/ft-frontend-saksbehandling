@@ -1,10 +1,6 @@
-import React from 'react';
-
 import { FaktaOmBeregning } from '@navikt/ft-types';
-import { shallowWithIntl } from '@navikt/ft-utils-test';
 
 import VurderMilitaer, { vurderMilitaerField } from './VurderMilitaer';
-import messages from '../../../../i18n/nb_NO.json';
 
 const mockBGMedStatus = mili => ({
   vurderMilitaer: {
@@ -13,12 +9,6 @@ const mockBGMedStatus = mili => ({
 });
 
 describe('<VurderMilitaer>', () => {
-  it.skip('Skal teste at komponenten vises korrekt med radioknapper', () => {
-    const wrapper = shallowWithIntl(<VurderMilitaer readOnly={false} />, messages);
-    const radios = wrapper.find('RadioOption');
-    expect(radios).toHaveLength(2);
-  });
-
   it('Skal teste at buildInitialvalues bygges korrekt når vi ikke har satt verdi i fakta om beregning', () => {
     const faktaBg = {
       vurderMilitaer: null,

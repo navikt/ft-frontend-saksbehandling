@@ -1,17 +1,7 @@
-import React from 'react';
-
-import { shallowWithIntl } from '@navikt/ft-utils-test';
-
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import VurderEtterlonnSluttpakkeForm from './VurderEtterlonnSluttpakkeForm';
-import messages from '../../../../../i18n/nb_NO.json';
 
 describe('<VurderEtterlonnSluttpakkeForm>', () => {
-  it.skip('Skal teste at komponenten vises korrekt', () => {
-    const wrapper = shallowWithIntl(<VurderEtterlonnSluttpakkeForm readOnly={false} />, messages);
-    const radios = wrapper.find('RadioOption');
-    expect(radios).toHaveLength(2);
-  });
   it('Skal teste at buildInitialvalues bygges korrekt når det er tidligere fastsatt etterlønn eller sluttpakke', () => {
     const ap = {
       status: 'OPPRETTET',
