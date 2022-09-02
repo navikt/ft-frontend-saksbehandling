@@ -25,7 +25,7 @@ const Template: Story = () => {
       testinputpre: 'Hei hei',
       testcheckboxpre: true,
       radiopre: true,
-      testSelectFieldpre: 'value1',
+      testSelectFieldpre: 'value3',
       testTextAreaFieldPre: 'Dette er en begrunnelse',
     },
   });
@@ -95,11 +95,11 @@ const Template: Story = () => {
         className={styles.bredde}
         placeholder="Velg verdi"
         selectValues={[
-          <option value="value1" key="1">
-            Test 1
+          <option value="value3" key="1">
+            Test 3
           </option>,
-          <option value="value2" key="2">
-            Test 2
+          <option value="value4" key="2">
+            Test 4
           </option>,
         ]}
       />
