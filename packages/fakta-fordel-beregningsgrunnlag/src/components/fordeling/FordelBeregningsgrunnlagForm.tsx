@@ -106,7 +106,9 @@ export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> 
   constructor(props: OwnProps) {
     super(props);
     this.state = {
-      openPanels: props.perioder.map(periode => periode.fom),
+      openPanels: props.perioder
+        .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
+        .map(periode => periode.fom),
     };
     this.showPanel = this.showPanel.bind(this);
   }
