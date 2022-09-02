@@ -263,11 +263,12 @@ export const lagBelopKolonne = (
     <TableColumn className={styles.rightAlignInput}>
       <InputField
         name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
-        bredde="XS"
+        bredde="S"
         parse={parseCurrencyInput}
         readOnly={readOnly}
         validate={[required, maxValueFormatted(178956970)]}
         isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
+        className={styles.fastsattBeløp}
       />
     </TableColumn>
   );
