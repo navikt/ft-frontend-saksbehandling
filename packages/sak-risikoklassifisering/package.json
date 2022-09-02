@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-risikoklassifisering",
   "description": "Viser risikoklassifisering for valgt behandling. Viser en av tre komponenter avhengig av: Om ingen klassifisering er utført, om klassifisering er utført og ingen faresignaler er funnet og om klassifisering er utført og faresignaler er funnet",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,11 +24,11 @@
     "storybook": "cross-env start-storybook -p 7019"
   },
   "dependencies": {
-    "@navikt/ft-form-hooks": "^1.0.39",
+    "@navikt/ft-form-hooks": "^1.0.40",
     "@navikt/ft-form-validators": "^1.0.28",
     "@navikt/ft-kodeverk": "^1.0.17",
     "@navikt/ft-types": "^1.0.27",
-    "@navikt/ft-ui-komponenter": "^1.0.36",
+    "@navikt/ft-ui-komponenter": "^1.0.37",
     "@navikt/ft-utils": "^1.0.33",
     "nav-frontend-core": "6.0.1",
     "nav-frontend-ekspanderbartpanel": "4.0.4",
