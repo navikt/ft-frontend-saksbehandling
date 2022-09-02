@@ -74,6 +74,9 @@ const lagPGIVerdier = () => [
   },
 ];
 
+const lagPGISnitt = () =>
+  lagPGIVerdier().reduce((total, nesteVerdi) => total + nesteVerdi.beløp, 0) / lagPGIVerdier().length;
+
 const lagSNMedPGI = (
   andelnr: number,
   beregnet: number,
@@ -96,6 +99,7 @@ const lagSNMedPGI = (
     andelsnr: andelnr,
     lagtTilAvSaksbehandler: false,
     erTilkommetAndel: false,
+    pgiSnitt: lagPGISnitt(),
     pgiVerdier: lagPGIVerdier(),
     næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
   } as BeregningsgrunnlagAndel);
