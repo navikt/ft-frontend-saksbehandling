@@ -63,7 +63,7 @@ const createAndelerTableRows = (
       <TableColumn className={styles.rightAlignInput}>
         <InputField
           name={`${fieldArrayName}.${index}.fastsattBelop`}
-          bredde="M"
+          className={styles.mediumBredde}
           parse={parseCurrencyInput}
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
@@ -85,7 +85,7 @@ const createAndelerTableRows = (
             { andel: `ytelse ${index + 1}` },
           )}
           name={`${fieldArrayName}.${index}.inntektskategori`}
-          bredde="l"
+          className={styles.storBredde}
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           readOnly={readOnly}
           validate={readOnly ? [] : [required]}

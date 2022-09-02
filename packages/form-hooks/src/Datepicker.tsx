@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import { DatepickerLimitations } from 'nav-datovelger';
 import { useFormContext, useController } from 'react-hook-form';
 import dayjs from 'dayjs';
@@ -6,13 +6,12 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import PureDatepicker from './pure/PureDatepicker';
 import { getError, getValidationRules } from './formUtils';
-import Label, { LabelType } from './Label';
 import ReadOnlyField from './ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
 export interface DatepickerProps {
-  label?: LabelType;
+  label?: string | ReactNode;
   name: string;
   validate?: ((value: string) => any)[];
   ariaLabel?: string;
@@ -63,7 +62,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   if (isReadOnly) {
     return (
       <ReadOnlyField
-        label={<Label input={label} readOnly />}
+        label={label}
         value={field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined}
         isEdited={isEdited}
       />

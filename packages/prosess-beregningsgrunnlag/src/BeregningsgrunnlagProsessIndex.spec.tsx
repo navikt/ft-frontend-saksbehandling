@@ -15,6 +15,8 @@ const {
 } = composeStories(stories);
 
 describe('<BeregningsgrunnlagProsessIndex>', () => {
+  jest.setTimeout(15000);
+
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvik />);
     expect(await screen.findByText('Skjæringstidspunkt for beregning')).toBeInTheDocument();

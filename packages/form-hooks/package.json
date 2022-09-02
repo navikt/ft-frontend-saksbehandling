@@ -24,6 +24,8 @@
     "storybook": "cross-env start-storybook -p 7003"
   },
   "dependencies": {
+    "@navikt/ds-css": "^1.2.4",
+    "@navikt/ds-react": "^1.2.4",
     "@navikt/ft-form-validators": "^1.0.28",
     "@navikt/ft-types": "^1.0.27",
     "@navikt/ft-ui-komponenter": "^1.0.37",
@@ -42,8 +44,6 @@
     "nav-frontend-lukknapp-style": "2.0.2",
     "nav-frontend-paneler": "3.0.2",
     "nav-frontend-paneler-style": "2.0.2",
-    "nav-frontend-skjema": "4.0.6",
-    "nav-frontend-skjema-style": "3.0.3",
     "nav-frontend-typografi": "4.0.2",
     "nav-frontend-typografi-style": "2.0.2",
     "react": "18.2.0",

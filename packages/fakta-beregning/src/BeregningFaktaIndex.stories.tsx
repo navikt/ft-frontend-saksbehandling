@@ -35,6 +35,8 @@ import {
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
 
+import '@navikt/ds-css';
+
 const opprettetVurderFakta = {
   definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
   status: AksjonspunktStatus.OPPRETTET,

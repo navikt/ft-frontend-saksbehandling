@@ -78,9 +78,9 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
                   name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
-                  bredde="S"
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
+                  className={styles.bredde}
                   isEdited={isAksjonspunktClosed}
                   readOnly={readOnly}
                 />
@@ -103,7 +103,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
                   validate={[required, maxLength1500, minLength3, hasValidText]}
                   maxLength={1500}
                   readOnly={readOnly}
-                  placeholder={intl.formatMessage({
+                  description={intl.formatMessage({
                     id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
                   })}
                 />

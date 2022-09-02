@@ -5,7 +5,7 @@ import { DateLabel, EditedIcon, PeriodLabel, TableColumn, TableRow } from '@navi
 import { required } from '@navikt/ft-form-validators';
 import { getKodeverknavnFn, prettifyDateString } from '@navikt/ft-utils';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { Datepicker, RadioGroupField, RadioOption } from '@navikt/ft-form-hooks';
+import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import dayjs from 'dayjs';
 import styles from './vurderAktiviteterTabell.less';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
@@ -89,10 +89,11 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
         )}
       </TableColumn>
       <TableColumn className={styles.radios}>
-        <RadioGroupField
-          validate={[required]}
+        <RadioGroupPanel
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
-          readOnly={
+          validate={[required]}
+          isHorizontal
+          isReadOnly={
             readOnly ||
             !skalVurdereAktivitet(
               aktivitet,
@@ -102,20 +103,17 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
               ingenAktiviterErBrukt,
             )
           }
-        >
-          {[
-            <RadioOption
-              label={lagLabel(true)}
-              key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.bruk`}
-              value="true"
-            />,
-            <RadioOption
-              label={lagLabel(false)}
-              key={`lagAktivitetFieldId.${lagAktivitetFieldId(aktivitet)}.ikkeBruk`}
-              value="false"
-            />,
+          radios={[
+            {
+              value: 'true',
+              label: lagLabel(true),
+            },
+            {
+              value: 'false',
+              label: lagLabel(false),
+            },
           ]}
-        </RadioGroupField>
+        />
       </TableColumn>
       {isAvklaringsbehovClosed && readOnly && (
         <TableColumn>

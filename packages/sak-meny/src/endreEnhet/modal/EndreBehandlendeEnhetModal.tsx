@@ -93,7 +93,6 @@ const EndreBehandlendeEnhetModal: FunctionComponent<OwnProps> = ({
               validate={[required]}
               placeholder={`${gjeldendeBehandlendeEnhetId} ${gjeldendeBehandlendeEnhetNavn}`}
               selectValues={selectOptions()}
-              bredde="xl"
             />
           </Column>
         </Row>

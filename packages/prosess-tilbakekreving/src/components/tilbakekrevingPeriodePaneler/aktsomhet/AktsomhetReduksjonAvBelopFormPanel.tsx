@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
@@ -58,11 +59,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
           <VerticalSpacer eightPx />
           <RadioGroupPanel
             name={`${name}.harGrunnerTilReduksjon`}
-            label={
-              <Undertekst>
-                <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />
-              </Undertekst>
-            }
+            label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
             validate={[required]}
             radios={[
               {
@@ -75,20 +72,21 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
               },
             ]}
             isReadOnly={readOnly}
-            parse={(value: string) => value === 'true'}
+            isTrueOrFalseSelection
             isHorizontal
           />
         </Column>
       </Row>
+      <VerticalSpacer eightPx />
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
           <Row>
             <Column md="6">
               {!harMerEnnEnYtelse && andelSomTilbakekreves !== EGENDEFINERT && (
                 <>
-                  <Undertekst>
+                  <Label size="small">
                     <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
-                  </Undertekst>
+                  </Label>
                   <FlexRow>
                     <FlexColumn>
                       <SelectField
@@ -100,7 +98,6 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                             {andel}
                           </option>
                         ))}
-                        bredde="s"
                       />
                     </FlexColumn>
                     <FlexColumn className={styles.suffix}>%</FlexColumn>
@@ -109,9 +106,9 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
               )}
               {!harMerEnnEnYtelse && andelSomTilbakekreves === EGENDEFINERT && (
                 <>
-                  <Undertekst>
+                  <Label size="small">
                     <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
-                  </Undertekst>
+                  </Label>
                   <FlexRow>
                     <FlexColumn>
                       <InputField
@@ -123,7 +120,6 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                         }
                         format={(value: string | number) => value.toString().replace('.', ',')}
                         parse={(value: string | number) => value.toString().replace(',', '.')}
-                        bredde="S"
                       />
                     </FlexColumn>
                     <FlexColumn
@@ -145,7 +141,6 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                   // @ts-ignore Fiks
                   format={formatCurrencyNoKr}
                   parse={parseCurrencyInput}
-                  bredde="S"
                 />
               )}
             </Column>
@@ -183,11 +178,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
               <Column md="6">
                 <RadioGroupPanel
                   name={`${name}.skalDetTilleggesRenter`}
-                  label={
-                    <Undertekst>
-                      <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
-                    </Undertekst>
-                  }
+                  label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
                   validate={[required]}
                   radios={[
                     {
@@ -200,7 +191,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                     },
                   ]}
                   isReadOnly={readOnly}
-                  parse={(value: string) => value === 'true'}
+                  isTrueOrFalseSelection
                   isHorizontal
                 />
               </Column>

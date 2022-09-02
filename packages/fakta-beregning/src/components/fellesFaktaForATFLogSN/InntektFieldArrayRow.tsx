@@ -82,7 +82,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   return (
     <TableRow>
       <TableColumn>
-        <InputField name={`${rowName}.andel`} bredde="L" readOnly />
+        <InputField name={`${rowName}.andel`} className={styles.storBredde} readOnly />
       </TableColumn>
       <TableColumn>
         {skalVisePeriode && harPeriode && (
@@ -99,8 +99,8 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
               { andel: field.andel },
             )}
             name={`${rowName}.fastsattBelop`}
-            bredde="M"
             parse={parseCurrencyInput}
+            className={styles.mediumBredde}
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
             validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
@@ -109,19 +109,29 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       )}
       {!kanRedigereInntekt && (
         <TableColumn className={styles.rightAlign}>
-          <InputField name={`${rowName}.belopReadOnly`} bredde="M" parse={parseCurrencyInput} readOnly />
+          <InputField
+            name={`${rowName}.belopReadOnly`}
+            className={styles.mediumBredde}
+            parse={parseCurrencyInput}
+            readOnly
+          />
         </TableColumn>
       )}
       {skalViseRefusjon && (
         <TableColumn className={styles.rightAlign}>
-          <InputField name={`${rowName}.refusjonskrav`} bredde="XS" readOnly parse={parseCurrencyInput} />
+          <InputField
+            name={`${rowName}.refusjonskrav`}
+            className={styles.litenBredde}
+            readOnly
+            parse={parseCurrencyInput}
+          />
         </TableColumn>
       )}
       <TableColumn className={styles.rightAlign}>
         <SelectField
           label={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Inntektskategori' })}
           name={`${rowName}.inntektskategori`}
-          bredde="l"
+          className={styles.storBredde}
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           validate={readOnly ? [] : [required]}
           readOnly={readOnly || !skalRedigereInntektskategori}

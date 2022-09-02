@@ -218,14 +218,14 @@ const arbeidsforholdReadOnlyOrSelect = (
     {!fields[index].nyAndel && (
       <InputField
         name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
-        bredde="L"
+        className={styles.storBredde}
         readOnly
       />
     )}
     {fields[index].nyAndel && (
       <SelectField
         name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
-        bredde="l"
+        className={styles.storBredde}
         label=""
         selectValues={selectVals}
         readOnly={isReadOnly}
@@ -251,7 +251,7 @@ export const lagBelopKolonne = (
       <TableColumn>
         <InputField
           name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.readOnlyBelop`}
-          bredde="S"
+          className={styles.litenBredde}
           parse={parseCurrencyInput}
           readOnly
           isEdited={false}
@@ -263,7 +263,6 @@ export const lagBelopKolonne = (
     <TableColumn className={styles.rightAlignInput}>
       <InputField
         name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
-        bredde="S"
         parse={parseCurrencyInput}
         readOnly={readOnly}
         validate={[required, maxValueFormatted(178956970)]}
@@ -322,8 +321,8 @@ const createAndelerTableRows = (
         <TableColumn>
           <InputField
             name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fordelingForrigeBehandling`}
-            bredde="S"
             readOnly
+            className={styles.litenBredde}
             parse={parseCurrencyInput}
           />
         </TableColumn>
@@ -332,7 +331,7 @@ const createAndelerTableRows = (
         <InputField
           name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andelIArbeid`}
           readOnly
-          bredde="S"
+          className={styles.litenBredde}
           // @ts-ignore Fiks
           normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value).toFixed(2))}
         />
@@ -342,7 +341,6 @@ const createAndelerTableRows = (
       >
         <InputField
           name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`}
-          bredde="XS"
           readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
           parse={parseCurrencyInput}
           validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
@@ -351,7 +349,7 @@ const createAndelerTableRows = (
       <TableColumn>
         <InputField
           name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.beregningsgrunnlagPrAar`}
-          bredde="S"
+          className={styles.litenBredde}
           readOnly
           parse={parseCurrencyInput}
         />
@@ -368,7 +366,7 @@ const createAndelerTableRows = (
         <SelectField
           label=""
           name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.inntektskategori`}
-          bredde="s"
+          className={styles.storBredde}
           validate={[required]}
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           readOnly={skalIkkeEndres}

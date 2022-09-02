@@ -1,26 +1,21 @@
 import React, { useMemo, FunctionComponent, ReactNode } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import classnames from 'classnames/bind';
+import { Select as NavSelect } from '@navikt/ds-react';
 
-import { LabelType } from './Label';
-import CustomNavSelect from './CustomNavSelect';
-import styles from './selectField.less';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
-const classNames = classnames.bind(styles);
-
 interface OwnProps {
   name: string;
-  label: LabelType;
+  label: string | ReactNode;
   onClick?: (event: any) => void;
   onChange?: (event: any) => void;
   validate?: ((value: string) => any)[];
   readOnly?: boolean;
   selectValues: React.ReactElement[];
-  placeholder?: ReactNode;
+  placeholder?: string;
+  description?: ReactNode;
   hideValueOnDisable?: boolean;
-  bredde?: 'fullbredde' | 'xxl' | 'xl' | 'l' | 'm' | 's' | 'xs';
   disabled?: boolean;
   className?: string;
 }
@@ -31,10 +26,11 @@ const SelectField: FunctionComponent<OwnProps> = ({
   selectValues,
   validate = [],
   readOnly = false,
-  placeholder = ' ',
+  placeholder,
+  description,
   hideValueOnDisable = false,
-  bredde,
   onChange,
+  disabled,
   className,
   ...otherProps
 }) => {
@@ -56,23 +52,28 @@ const SelectField: FunctionComponent<OwnProps> = ({
   }
 
   return (
-    <CustomNavSelect
-      selectValues={selectValues}
-      placeholder={placeholder}
-      hideValueOnDisable={hideValueOnDisable}
-      className={classNames('navSelect', className, { navSelectReadOnly: readOnly })}
+    <NavSelect
+      size="small"
+      className={className}
+      error={getError(errors, name)}
       label={label}
-      feil={getError(errors, name)}
-      bredde={bredde}
-      {...field}
+      description={description}
+      value={hideValueOnDisable && disabled ? '' : field.value}
+      disabled={disabled}
       onChange={evt => {
         if (onChange) {
           onChange(evt);
         }
         field.onChange(evt);
       }}
-      {...otherProps}
-    />
+    >
+      {placeholder && (
+        <option selected disabled>
+          {placeholder}
+        </option>
+      )}
+      {!placeholder && <option style={{ display: 'none' }} />},{selectValues}
+    </NavSelect>
   );
 };
 

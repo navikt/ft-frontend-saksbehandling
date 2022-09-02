@@ -20,9 +20,9 @@ describe('<FormHooks>', () => {
 
     await userEvent.click(screen.getByText('Dette er en radioknapp'));
 
-    await userEvent.selectOptions(utils.getByLabelText('Dette er en dropdown'), 'value');
+    await userEvent.selectOptions(utils.getByLabelText('Dette er en dropdown'), 'value1');
     // @ts-ignore
-    expect(await screen.getByRole('option', { name: 'Test' }).selected).toBe(true);
+    expect(await screen.getByRole('option', { name: 'Test 1' }).selected).toBe(true);
 
     await userEvent.type(utils.getByLabelText('Dette er et tekstfelt'), 'Dette er en vurdering');
 

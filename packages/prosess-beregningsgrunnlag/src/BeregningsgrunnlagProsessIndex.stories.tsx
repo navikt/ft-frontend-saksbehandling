@@ -28,6 +28,8 @@ import { BeregningAksjonspunktSubmitType } from './types/interface/Beregningsgru
 import ProsessBeregningsgrunnlagAksjonspunktCode from './types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';
 
+import '@navikt/ds-css';
+
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';

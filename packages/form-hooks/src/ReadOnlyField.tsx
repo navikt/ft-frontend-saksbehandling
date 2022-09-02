@@ -1,15 +1,14 @@
-import React, { FunctionComponent } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { EditedIcon } from '@navikt/ft-ui-komponenter';
+import React, { FunctionComponent, ReactNode } from 'react';
+import { BodyLong, Label } from '@navikt/ds-react';
 
-import Label, { LabelType } from './Label';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './readOnlyField.less';
 
 const hasValue = (value: any): boolean => value !== undefined && value !== null && value !== '';
 
 interface OwnProps {
-  label?: LabelType;
+  label?: string | ReactNode;
   isEdited?: boolean;
   value?: string;
   type?: string;
@@ -21,12 +20,12 @@ export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdi
   }
   return (
     <div className={styles.readOnlyContainer}>
-      <Label input={label} readOnly />
+      <Label>{label}</Label>
       <div className={type === 'textarea' ? styles.textarea : ''}>
-        <Normaltekst className={styles.readOnlyContent}>
+        <BodyLong className={styles.readOnlyContent}>
           {value}
           {isEdited && <EditedIcon className={styles.space} />}
-        </Normaltekst>
+        </BodyLong>
       </div>
     </div>
   );
