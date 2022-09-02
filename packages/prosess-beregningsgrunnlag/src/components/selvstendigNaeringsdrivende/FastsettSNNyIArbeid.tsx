@@ -78,10 +78,9 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
                   name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
-                  bredde="XS"
+                  bredde="S"
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
-                  className={styles['input--xs']}
                   isEdited={isAksjonspunktClosed}
                   readOnly={readOnly}
                 />

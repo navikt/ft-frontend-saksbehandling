@@ -53,7 +53,7 @@ const createRows = (
             validate={[required, maxValueFormatted(178956970)]}
             readOnly={readOnly}
             parse={parseCurrencyInput}
-            bredde="XS"
+            bredde="S"
           />
         </div>
       </Column>
