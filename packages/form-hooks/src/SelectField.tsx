@@ -16,6 +16,7 @@ interface OwnProps {
   hideValueOnDisable?: boolean;
   disabled?: boolean;
   className?: string;
+  hideLabel?: boolean;
 }
 
 const SelectField: FunctionComponent<OwnProps> = ({
@@ -29,6 +30,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   onChange,
   disabled,
   className,
+  hideLabel,
 }) => {
   const {
     formState: { errors },
@@ -44,7 +46,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   if (readOnly) {
     const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
-    return <ReadOnlyField value={value} label={label} />;
+    return <ReadOnlyField value={value} label={label} hideLabel={hideLabel} />;
   }
 
   const n = field.value || '';
@@ -69,6 +71,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
         }
         field.onChange(evt);
       }}
+      hideLabel={hideLabel}
     >
       <option style={{ display: 'none' }} />,{selectValues}
     </NavSelect>

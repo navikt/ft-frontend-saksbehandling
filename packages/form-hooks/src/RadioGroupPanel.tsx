@@ -3,6 +3,7 @@ import { useFormContext, useController } from 'react-hook-form';
 import { RadioGroup, Radio } from '@navikt/ds-react';
 import { FlexContainer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
+import styles from './radioGroupPanel.less';
 
 interface RadioProps {
   value: string;
@@ -21,6 +22,8 @@ interface RadioGroupPanelProps {
   isHorizontal?: boolean;
   parse?: (value: string) => any;
   isTrueOrFalseSelection?: boolean;
+  hideLegend?: boolean;
+  hideRadioLabels?: boolean;
 }
 
 const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
@@ -34,6 +37,8 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
   isHorizontal = false,
   parse = value => value,
   isTrueOrFalseSelection = false,
+  hideLegend = false,
+  hideRadioLabels = false,
 }) => {
   const {
     formState: { errors },
@@ -60,6 +65,8 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
       size="small"
       legend={label}
       error={getError(errors, name)}
+      className={hideRadioLabels ? styles.hideRadioLabels : ''}
+      hideLegend={hideLegend}
     >
       {!isHorizontal &&
         radios

@@ -14,6 +14,7 @@ import {
   Vilkar,
 } from '@navikt/ft-types';
 import '@navikt/ft-ui-komponenter/dist/style.css';
+import '@navikt/ft-form-hooks/dist/style.css';
 import { action } from '@storybook/addon-actions';
 import type { Story } from '@storybook/react';
 import dayjs from 'dayjs';

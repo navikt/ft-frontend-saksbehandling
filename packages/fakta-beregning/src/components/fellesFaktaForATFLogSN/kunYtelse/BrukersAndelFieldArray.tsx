@@ -74,6 +74,7 @@ const createAndelerTableRows = (
             },
             { andel: `ytelse ${index + 1}` },
           )}
+          hideLabel
         />
       </TableColumn>
       <TableColumn className={styles.rightAlign}>
@@ -89,6 +90,7 @@ const createAndelerTableRows = (
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           readOnly={readOnly}
           validate={readOnly ? [] : [required]}
+          hideLabel
         />
       </TableColumn>
       <TableColumn>

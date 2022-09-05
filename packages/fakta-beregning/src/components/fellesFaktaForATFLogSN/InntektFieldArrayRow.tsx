@@ -1,4 +1,4 @@
-import { formHooks, InputField, SelectField } from '@navikt/ft-form-hooks';
+import { formHooks, InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
@@ -86,7 +86,9 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       </TableColumn>
       <TableColumn>
         {skalVisePeriode && harPeriode && (
-          <PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />
+          <ReadOnlyField
+            value={<PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />}
+          />
         )}
       </TableColumn>
       {kanRedigereInntekt && (
@@ -104,6 +106,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
             validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
+            hideLabel
           />
         </TableColumn>
       )}
@@ -135,6 +138,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           validate={readOnly ? [] : [required]}
           readOnly={readOnly || !skalRedigereInntektskategori}
+          hideLabel
         />
       </TableColumn>
       <TableColumn>
