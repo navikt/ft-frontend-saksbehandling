@@ -69,7 +69,7 @@ export const buildInitialValues = (
   return {
     [MANUELL_OVERSTYRING_FIELD]: erOverstyrt,
     periode: vilkårsperiode.periode,
-    erTilVurdering: vilkårsperiode.vurderesIBehandlingen,
+    erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
     avklaringsbehov,
     avklarAktiviteter,
     aktiviteterValues,

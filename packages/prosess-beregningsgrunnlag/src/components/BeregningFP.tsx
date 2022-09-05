@@ -216,6 +216,11 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
     }
   };
 
+  function skalVurderes(index: number) {
+    const periode = finnVilkårperiode(vilkar, beregningsgrunnlagListe[index].vilkårsperiodeFom);
+    return periode.vurderesIBehandlingen && !periode.erForlengelse;
+  }
+
   return (
     <>
       <Form formMethods={formMethods} onSubmit={values => losAvklaringsbehov(values)} setDataOnUnmount={setFormData}>
@@ -223,10 +228,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
           <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
             <BeregningForm
               key={field.id}
-              readOnly={
-                readOnly ||
-                !finnVilkårperiode(vilkar, beregningsgrunnlagListe[index].vilkårsperiodeFom).vurderesIBehandlingen
-              }
+              readOnly={readOnly || !skalVurderes(index)}
               beregningsgrunnlag={beregningsgrunnlagListe[index]}
               gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[index])}
               relevanteStatuser={relevanteStatuser}

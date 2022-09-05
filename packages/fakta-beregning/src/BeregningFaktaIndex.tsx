@@ -60,9 +60,14 @@ const harAvklaringsbehovIPanel = avklaringsbehov => {
   return false;
 };
 
-const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsType[]) =>
-  harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
-  vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning).vurderesIBehandlingen;
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsType[]) => {
+  const aktuellPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning);
+  return (
+    harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
+    aktuellPeriode.vurderesIBehandlingen &&
+    !aktuellPeriode.erForlengelse
+  );
+};
 
 type AksjonspunktDataDef = SubmitBeregningType[];
 

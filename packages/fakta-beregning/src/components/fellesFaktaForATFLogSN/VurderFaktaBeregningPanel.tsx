@@ -62,7 +62,7 @@ export const buildInitialValuesVurderFaktaBeregning = (
     const vilkarsperiode = vilkar.perioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
     return {
       avklaringsbehov: bg.avklaringsbehov,
-      erTilVurdering: vilkarsperiode.vurderesIBehandlingen,
+      erTilVurdering: vilkarsperiode.vurderesIBehandlingen && !vilkarsperiode.erForlengelse,
       periode: vilkarsperiode.periode,
       ...FaktaBegrunnelseTextField.buildInitialValues(
         findAvklaringsbehovMedBegrunnelse(bg.avklaringsbehov)?.begrunnelse,
