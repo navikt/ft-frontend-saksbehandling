@@ -12,7 +12,6 @@ interface OwnProps {
   validate?: ((value: string) => any)[];
   readOnly?: boolean;
   selectValues: React.ReactElement[];
-  placeholder?: string;
   description?: ReactNode;
   hideValueOnDisable?: boolean;
   disabled?: boolean;
@@ -25,7 +24,6 @@ const SelectField: FunctionComponent<OwnProps> = ({
   selectValues,
   validate = [],
   readOnly = false,
-  placeholder,
   description,
   hideValueOnDisable = false,
   onChange,
@@ -72,12 +70,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
         field.onChange(evt);
       }}
     >
-      {placeholder && (
-        <option value="" selected={!field.value} disabled>
-          {placeholder}
-        </option>
-      )}
-      {!placeholder && <option style={{ display: 'none' }} />},{selectValues}
+      <option style={{ display: 'none' }} />,{selectValues}
     </NavSelect>
   );
 };
