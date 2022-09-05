@@ -78,6 +78,7 @@ const Template: Story = () => {
         label="Dette er en dropdown"
         name="testSelectField"
         className={styles.bredde}
+        description="Dette er en nærmere beskrivelse"
         placeholder="Velg verdi"
         selectValues={[
           <option value="value1" key="1">

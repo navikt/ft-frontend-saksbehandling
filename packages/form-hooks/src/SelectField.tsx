@@ -8,7 +8,6 @@ import { getError, getValidationRules } from './formUtils';
 interface OwnProps {
   name: string;
   label: string | ReactNode;
-  onClick?: (event: any) => void;
   onChange?: (event: any) => void;
   validate?: ((value: string) => any)[];
   readOnly?: boolean;
@@ -32,7 +31,6 @@ const SelectField: FunctionComponent<OwnProps> = ({
   onChange,
   disabled,
   className,
-  ...otherProps
 }) => {
   const {
     formState: { errors },
@@ -48,7 +46,14 @@ const SelectField: FunctionComponent<OwnProps> = ({
   if (readOnly) {
     const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
-    return <ReadOnlyField value={value} {...otherProps} />;
+    return <ReadOnlyField value={value} label={label} />;
+  }
+
+  const n = field.value || '';
+  const noCorrespondingOptionFound = !selectValues.map(option => option.props.value).includes(n) && n !== '';
+  if (noCorrespondingOptionFound) {
+    // eslint-disable-next-line no-console
+    console.warn(`No corresponding option found for value '${n}'`); // NOSONAR Viser ikke sensitiv info
   }
 
   return (
@@ -58,7 +63,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
       error={getError(errors, name)}
       label={label}
       description={description}
-      value={hideValueOnDisable && disabled ? '' : field.value}
+      value={(hideValueOnDisable && disabled) || noCorrespondingOptionFound ? '' : field.value}
       disabled={disabled}
       onChange={evt => {
         if (onChange) {
@@ -68,7 +73,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
       }}
     >
       {placeholder && (
-        <option selected disabled>
+        <option value="" selected={!field.value} disabled>
           {placeholder}
         </option>
       )}
