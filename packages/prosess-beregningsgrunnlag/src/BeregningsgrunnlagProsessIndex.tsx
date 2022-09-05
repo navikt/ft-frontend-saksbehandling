@@ -73,7 +73,9 @@ type MenyProp = {
 const erBGTilVurdering = (bgVilkar: Vilkar, beregningsgrunnlag: Beregningsgrunnlag) => {
   const vilårsperiodeFom = beregningsgrunnlag.skjaeringstidspunktBeregning;
   const perioderTilVurdering =
-    bgVilkar && bgVilkar.perioder ? bgVilkar.perioder.filter(periode => periode.vurderesIBehandlingen) : [];
+    bgVilkar && bgVilkar.perioder
+      ? bgVilkar.perioder.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse)
+      : [];
   return perioderTilVurdering.some(vkp => vkp.periode.fom === vilårsperiodeFom);
 };
 
