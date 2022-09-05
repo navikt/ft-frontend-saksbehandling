@@ -4,7 +4,7 @@ import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
   BehandlingType as bt,
@@ -249,26 +249,30 @@ export const lagBelopKolonne = (
   if (skalIkkeRedigereInntekt) {
     return (
       <TableColumn>
-        <InputField
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.readOnlyBelop`}
-          className={styles.litenBredde}
-          parse={parseCurrencyInput}
-          readOnly
-          isEdited={false}
-        />
+        <FloatRight>
+          <InputField
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.readOnlyBelop`}
+            className={styles.litenBredde}
+            parse={parseCurrencyInput}
+            readOnly
+            isEdited={false}
+          />
+        </FloatRight>
       </TableColumn>
     );
   }
   return (
     <TableColumn className={styles.rightAlignInput}>
-      <InputField
-        name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
-        parse={parseCurrencyInput}
-        readOnly={readOnly}
-        validate={[required, maxValueFormatted(178956970)]}
-        isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
-        className={styles.fastsattBeløp}
-      />
+      <FloatRight>
+        <InputField
+          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
+          parse={parseCurrencyInput}
+          readOnly={readOnly}
+          validate={[required, maxValueFormatted(178956970)]}
+          isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
+          className={styles.litenBredde}
+        />
+      </FloatRight>
     </TableColumn>
   );
 };
@@ -339,12 +343,15 @@ const createAndelerTableRows = (
       <TableColumn
         className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
       >
-        <InputField
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`}
-          readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
-          parse={parseCurrencyInput}
-          validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
-        />
+        <FloatRight>
+          <InputField
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`}
+            readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
+            parse={parseCurrencyInput}
+            className={styles.litenBredde}
+            validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
+          />
+        </FloatRight>
       </TableColumn>
       <TableColumn>
         <InputField
@@ -363,14 +370,16 @@ const createAndelerTableRows = (
         isAksjonspunktClosed,
       )}
       <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
-        <SelectField
-          label=""
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.inntektskategori`}
-          className={styles.storBredde}
-          validate={[required]}
-          selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          readOnly={skalIkkeEndres}
-        />
+        <FloatRight>
+          <SelectField
+            label=""
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.inntektskategori`}
+            className={styles.storBredde}
+            validate={[required]}
+            selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
+            readOnly={skalIkkeEndres}
+          />
+        </FloatRight>
       </TableColumn>
       <TableColumn>
         {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
