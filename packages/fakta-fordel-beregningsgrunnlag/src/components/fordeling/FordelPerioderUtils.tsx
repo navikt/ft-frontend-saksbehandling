@@ -172,7 +172,7 @@ const inkludererPeriode =
   (periode: FordelBeregningsgrunnlagPeriode) =>
   ({ fom, tom }: FordelBeregningsgrunnlagPeriode): boolean =>
     (dayjs(fom).isSame(dayjs(periode.fom)) || dayjs(fom).isAfter(periode.fom)) &&
-    (periode.tom === null || dayjs(tom).isSame(dayjs(periode.tom)) || dayjs(tom).isAfter(dayjs(periode.tom)));
+    (periode.tom === null || dayjs(tom).isSame(dayjs(periode.tom)) || dayjs(tom).isBefore(dayjs(periode.tom)));
 
 const getAndelsnr = (aktivitet: FordelBeregningsgrunnlagAndelValues): number | string => {
   if (aktivitet.nyAndel === true) {
