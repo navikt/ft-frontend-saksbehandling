@@ -4,6 +4,8 @@ import { action } from '@storybook/addon-actions';
 
 import MenyEndreBehandlendeEnhetIndex from './MenyEndreBehandlendeEnhetIndex';
 
+import '@navikt/ds-css';
+
 export default {
   title: 'sak/sak-meny-endre-enhet',
   component: MenyEndreBehandlendeEnhetIndex,

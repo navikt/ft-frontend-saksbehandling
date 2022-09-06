@@ -1,32 +1,32 @@
-import React, { FunctionComponent } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { EditedIcon } from '@navikt/ft-ui-komponenter';
+import React, { FunctionComponent, ReactNode } from 'react';
+import { BodyLong, Label } from '@navikt/ds-react';
 
-import Label, { LabelType } from './Label';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './readOnlyField.less';
 
 const hasValue = (value: any): boolean => value !== undefined && value !== null && value !== '';
 
 interface OwnProps {
-  label?: LabelType;
+  label?: string | ReactNode;
   isEdited?: boolean;
-  value?: string;
+  value?: string | ReactNode;
   type?: string;
+  hideLabel?: boolean;
 }
 
-export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdited, type }) => {
+export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdited, type, hideLabel }) => {
   if (!hasValue(value)) {
     return null;
   }
   return (
-    <div className={styles.readOnlyContainer}>
-      <Label input={label} readOnly />
+    <div className={`${styles.readOnlyContainer} ${hideLabel ? styles.hideLabel : ''}`}>
+      {label && <Label>{label}</Label>}
       <div className={type === 'textarea' ? styles.textarea : ''}>
-        <Normaltekst className={styles.readOnlyContent}>
+        <BodyLong className={styles.readOnlyContent}>
           {value}
           {isEdited && <EditedIcon className={styles.space} />}
-        </Normaltekst>
+        </BodyLong>
       </div>
     </div>
   );

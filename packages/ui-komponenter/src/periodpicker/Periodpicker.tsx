@@ -177,7 +177,6 @@ class Periodpicker extends Component<OwnProps, StateProps> {
             className={styles.dateInput}
             inputRef={this.handleInputRef}
             autoComplete="off"
-            bredde="L"
             placeholder={placeholder}
             label={label}
             value={period}

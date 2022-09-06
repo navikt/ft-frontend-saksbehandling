@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Undertekst, Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 import { minValue, required } from '@navikt/ft-form-validators';
 import { removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
-import { ArrowBox } from '@navikt/ft-ui-komponenter';
+import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 
 import styles from './belopetMottattIGodTroFormPanel.less';
@@ -60,11 +60,7 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
     <>
       <RadioGroupPanel
         name={`${name}.erBelopetIBehold`}
-        label={
-          <Undertekst>
-            <FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />
-          </Undertekst>
-        }
+        label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
         validate={[required]}
         radios={[
           {
@@ -77,8 +73,10 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
           },
         ]}
         isReadOnly={readOnly}
-        parse={(value: string) => value === 'true'}
+        isTrueOrFalseSelection
+        isHorizontal
       />
+      <VerticalSpacer eightPx />
       <div className={styles.arrowbox}>
         {erBelopetIBehold === true && (
           <ArrowBox alignOffset={25}>
@@ -87,10 +85,10 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
               label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.AngiBelop" />}
               validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
               readOnly={readOnly}
+              className={styles.tilbakekrevdBelopInput}
               // @ts-ignore Fiks
               format={formatCurrencyNoKr}
               parse={parseCurrencyInput}
-              bredde="S"
             />
           </ArrowBox>
         )}

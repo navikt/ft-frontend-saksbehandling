@@ -45,12 +45,17 @@ const EndreBehandlendeEnhetModal: FunctionComponent<OwnProps> = ({
   gjeldendeBehandlendeEnhetId,
   gjeldendeBehandlendeEnhetNavn,
 }) => {
-  const selectOptions = () =>
-    behandlendeEnheter.map((enhet, index) => (
-      <option value={`${index}`} key={enhet.enhetId}>
-        {`${enhet.enhetId} ${enhet.enhetNavn}`}
-      </option>
-    ));
+  const options = behandlendeEnheter.map((enhet, index) => (
+    <option key={enhet.enhetId} value={`${index}`}>
+      {`${enhet.enhetId} ${enhet.enhetNavn}`}
+    </option>
+  ));
+
+  const selectOptions = [
+    <option key={gjeldendeBehandlendeEnhetId} disabled>
+      {`${gjeldendeBehandlendeEnhetId} ${gjeldendeBehandlendeEnhetNavn}`}
+    </option>,
+  ].concat(options);
 
   const intl = useIntl();
 
@@ -91,9 +96,7 @@ const EndreBehandlendeEnhetModal: FunctionComponent<OwnProps> = ({
               name="nyEnhet"
               label={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.NyEnhetField' })}
               validate={[required]}
-              placeholder={`${gjeldendeBehandlendeEnhetId} ${gjeldendeBehandlendeEnhetNavn}`}
-              selectValues={selectOptions()}
-              bredde="xl"
+              selectValues={selectOptions}
             />
           </Column>
         </Row>

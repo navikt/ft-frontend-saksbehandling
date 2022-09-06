@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 
@@ -231,7 +231,6 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                   );
                 })}
                 onChange={event => onEndrePeriodeForKopi(event, vurdertePerioder)}
-                bredde="m"
                 label=""
               />
             </Column>
@@ -259,17 +258,13 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                   validate={[required, minLength3, maxLength1500, hasValidText]}
                   maxLength={1500}
                   readOnly={readOnly}
-                  textareaClass={styles.explanationTextarea}
-                  placeholder={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
+                  className={styles.explanationTextarea}
+                  description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
                 />
                 <VerticalSpacer twentyPx />
                 <RadioGroupPanel
                   name="valgtVilkarResultatType"
-                  label={
-                    <Undertekst>
-                      <FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />
-                    </Undertekst>
-                  }
+                  label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
                   validate={[required]}
                   radios={vilkarResultatTyper.map(vrt => ({
                     label: vrt.navn,

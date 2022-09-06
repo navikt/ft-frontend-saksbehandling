@@ -1,28 +1,22 @@
 import React, { useMemo, FunctionComponent, ReactNode } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import classnames from 'classnames/bind';
+import { Select as NavSelect } from '@navikt/ds-react';
 
-import { LabelType } from './Label';
-import CustomNavSelect from './CustomNavSelect';
-import styles from './selectField.less';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
-const classNames = classnames.bind(styles);
-
 interface OwnProps {
   name: string;
-  label: LabelType;
-  onClick?: (event: any) => void;
+  label: string | ReactNode;
   onChange?: (event: any) => void;
   validate?: ((value: string) => any)[];
   readOnly?: boolean;
   selectValues: React.ReactElement[];
-  placeholder?: ReactNode;
+  description?: ReactNode;
   hideValueOnDisable?: boolean;
-  bredde?: 'fullbredde' | 'xxl' | 'xl' | 'l' | 'm' | 's' | 'xs';
   disabled?: boolean;
   className?: string;
+  hideLabel?: boolean;
 }
 
 const SelectField: FunctionComponent<OwnProps> = ({
@@ -31,12 +25,12 @@ const SelectField: FunctionComponent<OwnProps> = ({
   selectValues,
   validate = [],
   readOnly = false,
-  placeholder = ' ',
+  description,
   hideValueOnDisable = false,
-  bredde,
   onChange,
+  disabled,
   className,
-  ...otherProps
+  hideLabel,
 }) => {
   const {
     formState: { errors },
@@ -52,27 +46,35 @@ const SelectField: FunctionComponent<OwnProps> = ({
   if (readOnly) {
     const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
-    return <ReadOnlyField value={value} {...otherProps} />;
+    return <ReadOnlyField value={value} label={label} hideLabel={hideLabel} />;
+  }
+
+  const n = field.value || '';
+  const noCorrespondingOptionFound = !selectValues.map(option => option.props.value).includes(n) && n !== '';
+  if (noCorrespondingOptionFound) {
+    // eslint-disable-next-line no-console
+    console.warn(`No corresponding option found for value '${n}'`); // NOSONAR Viser ikke sensitiv info
   }
 
   return (
-    <CustomNavSelect
-      selectValues={selectValues}
-      placeholder={placeholder}
-      hideValueOnDisable={hideValueOnDisable}
-      className={classNames('navSelect', className, { navSelectReadOnly: readOnly })}
+    <NavSelect
+      size="small"
+      className={className}
+      error={getError(errors, name)}
       label={label}
-      feil={getError(errors, name)}
-      bredde={bredde}
-      {...field}
+      description={description}
+      value={(hideValueOnDisable && disabled) || noCorrespondingOptionFound ? '' : field.value}
+      disabled={disabled}
       onChange={evt => {
         if (onChange) {
           onChange(evt);
         }
         field.onChange(evt);
       }}
-      {...otherProps}
-    />
+      hideLabel={hideLabel}
+    >
+      <option style={{ display: 'none' }} />,{selectValues}
+    </NavSelect>
   );
 };
 

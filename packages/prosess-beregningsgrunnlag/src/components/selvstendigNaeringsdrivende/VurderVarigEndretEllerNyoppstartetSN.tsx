@@ -124,9 +124,9 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
                   name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
-                  bredde="S"
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
+                  className={styles.bredde}
                   readOnly={readOnly}
                 />
               </div>
@@ -143,7 +143,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
             readOnly={readOnly}
-            placeholder={intl.formatMessage({
+            description={intl.formatMessage({
               id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
             })}
           />

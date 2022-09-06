@@ -9,6 +9,8 @@ import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
 import aktsomhet from './kodeverk/aktsomhet';
 import VedtakTilbakekrevingProsessIndex from './VedtakTilbakekrevingProsessIndex';
 
+import '@navikt/ds-css';
+
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 

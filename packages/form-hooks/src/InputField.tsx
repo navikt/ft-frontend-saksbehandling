@@ -1,29 +1,30 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { Input as NavInput } from 'nav-frontend-skjema';
-import Label, { LabelType } from './Label';
+import { TextField as NavInput } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
+import styles from './inputField.less';
 
 interface OwnProps {
   name: string;
-  label?: LabelType;
-  bredde?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
+  label?: string | ReactNode;
   validate?: ((value: string) => any)[] | ((value: number) => any)[];
   readOnly?: boolean;
-  className?: string;
-  placeholder?: string;
+  description?: string;
   onBlur?: (value: any) => void;
   onChange?: (value: any) => void;
   shouldValidateOnBlur?: boolean;
   autoFocus?: boolean;
   parse?: (value: string | number) => string | number;
-  format?: (value: string | number) => string | number;
+  format?: (value: string) => string;
   normalizeOnBlur?: (value: string | number) => string | number;
   isEdited?: boolean;
   maxLength?: number;
   autoComplete?: boolean;
   disabled?: boolean;
+  type?: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
+  className?: string;
+  hideLabel?: boolean;
 }
 
 const InputField: FunctionComponent<OwnProps> = ({
@@ -31,12 +32,11 @@ const InputField: FunctionComponent<OwnProps> = ({
   label,
   validate = [],
   readOnly = false,
-  bredde,
+  type,
   shouldValidateOnBlur = false,
   onBlur,
   onChange,
-  className,
-  placeholder,
+  description,
   autoFocus,
   parse = value => value,
   format = value => value,
@@ -45,6 +45,8 @@ const InputField: FunctionComponent<OwnProps> = ({
   maxLength,
   autoComplete = false,
   disabled,
+  className,
+  hideLabel,
 }) => {
   const {
     formState: { errors },
@@ -61,19 +63,22 @@ const InputField: FunctionComponent<OwnProps> = ({
     return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} />;
   }
 
+  const navInputClassNames = `${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`;
+
   return (
     <NavInput
-      className={className}
-      placeholder={placeholder}
-      label={<Label input={label} readOnly={false} />}
-      feil={getError(errors, name)}
-      bredde={bredde}
+      size="small"
+      description={description}
+      label={label}
+      error={getError(errors, name)}
       {...field}
       value={field.value ? format(field.value) : ''}
       autoFocus={autoFocus}
       autoComplete={autoComplete ? undefined : 'off'}
       maxLength={maxLength}
       disabled={disabled}
+      type={type}
+      className={navInputClassNames}
       onChange={event => {
         const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : null;
         if (onChange) {

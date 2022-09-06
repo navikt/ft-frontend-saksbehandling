@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useCallback, useEffect } from 'reac
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Undertittel } from 'nav-frontend-typografi';
-import AlertStripe from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 
 import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
@@ -418,9 +418,9 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
       {valideringsmeldingId && (
         <>
-          <AlertStripe type="feil">
+          <Alert variant="error">
             <FormattedMessage id={valideringsmeldingId} />
-          </AlertStripe>
+          </Alert>
           <VerticalSpacer twentyPx />
         </>
       )}

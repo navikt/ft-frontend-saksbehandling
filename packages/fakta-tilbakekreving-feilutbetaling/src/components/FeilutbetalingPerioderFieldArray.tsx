@@ -97,7 +97,6 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
                   validate={[required]}
                   disabled={readOnly}
                   onChange={event => settAndreFelter(event.target.value, index)}
-                  bredde="m"
                   label=""
                 />
                 {hendelseUndertyper && (
@@ -111,7 +110,6 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
                     validate={[required]}
                     disabled={readOnly}
                     onChange={event => settAndreFelter(event.target.value, index, årsak)}
-                    bredde="m"
                     label=""
                   />
                 )}

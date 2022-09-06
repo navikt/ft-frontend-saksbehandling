@@ -24,8 +24,12 @@
 }
 
 .verticalAlignMiddle {
-  align-items: baseline;
+  align-items: center;
   display: flex;
+
+  &:not(:first-of-type) {
+    margin-top: 8px;
+  }
 
   .inputPadding > div > div > p {
     font-size: 16px;
@@ -34,6 +38,10 @@
     line-height: 22px;
     margin-bottom: 0;
     padding-bottom: 0;
+  }
+
+  :global(.navds-form-field) {
+    gap: initial;
   }
 }
 
@@ -112,4 +120,8 @@
 
 .textAreaStyle {
   min-height: 100px;
+}
+
+.bredde {
+  width: 70px;
 }

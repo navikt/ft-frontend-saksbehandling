@@ -143,7 +143,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(screen.getByText('Gjeldende f.o.m. 27.11.2019')).toBeInTheDocument();
 
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
-    expect(alleInputfelt).toHaveLength(3);
+    expect(alleInputfelt).toHaveLength(4);
     const fordelingAAP = alleInputfelt[0];
     const fordelingAT = alleInputfelt[1];
     const begrunnelseFelt = alleInputfelt[2];
@@ -432,7 +432,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
 
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
-    expect(alleInputfelt).toHaveLength(2);
+    expect(alleInputfelt).toHaveLength(3);
     const datofelt = alleInputfelt[0];
     const begrunnelsefelt = alleInputfelt[1];
 
@@ -488,7 +488,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(screen.getByText('Før denne datoen skal refusjonsbeløpet per måned være')).toBeInTheDocument();
 
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
-    expect(alleInputfelt).toHaveLength(3);
+    expect(alleInputfelt).toHaveLength(4);
     const datofelt = alleInputfelt[0];
     const delvisRefFelt = alleInputfelt[1];
     const begrunnelsefelt = alleInputfelt[2];

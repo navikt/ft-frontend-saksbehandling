@@ -1,53 +1,19 @@
-import React, { FunctionComponent, ReactElement, useMemo } from 'react';
-import { useFormContext, useController, ControllerRenderProps, FieldValues } from 'react-hook-form';
-import { RadioGruppe, Radio } from 'nav-frontend-skjema';
+import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
+import { useFormContext, useController } from 'react-hook-form';
+import { RadioGroup, Radio } from '@navikt/ds-react';
 import { FlexContainer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import { LabelType } from './Label';
 import { getError, getValidationRules } from './formUtils';
+import styles from './radioGroupPanel.less';
 
 interface RadioProps {
   value: string;
-  label: LabelType;
+  label: string | ReactNode;
   element?: ReactElement;
 }
 
-interface RadioOption {
-  name: string;
-  field: ControllerRenderProps<FieldValues, string>;
-  radio: RadioProps;
-  parse?: (value: string) => any;
-  onChange?: (value: any) => void;
-  disabled: boolean;
-  isReadOnly: boolean;
-}
-
-const RadioOption: FunctionComponent<RadioOption> = ({ name, field, radio, parse, onChange, disabled, isReadOnly }) => {
-  const parsedValue = parse ? parse(radio.value) : radio.value;
-  const isChecked = parsedValue === field.value;
-
-  return (
-    <>
-      <Radio
-        value={radio.value}
-        label={radio.label}
-        name={name}
-        onChange={() => {
-          if (onChange) {
-            onChange(radio.value);
-          }
-          field.onChange(parsedValue);
-        }}
-        checked={isChecked}
-        disabled={disabled || isReadOnly}
-      />
-      {isChecked && radio.element}
-    </>
-  );
-};
-
 interface RadioGroupPanelProps {
   name: string;
-  label?: LabelType;
+  label?: string | ReactNode;
   radios: RadioProps[];
   validate?: ((value: string | number) => any)[];
   onChange?: (value: any) => void;
@@ -55,6 +21,9 @@ interface RadioGroupPanelProps {
   isReadOnly?: boolean;
   isHorizontal?: boolean;
   parse?: (value: string) => any;
+  isTrueOrFalseSelection?: boolean;
+  hideLegend?: boolean;
+  hideRadioLabels?: boolean;
 }
 
 const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
@@ -67,6 +36,9 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
   isReadOnly = false,
   isHorizontal = false,
   parse = value => value,
+  isTrueOrFalseSelection = false,
+  hideLegend = false,
+  hideRadioLabels = false,
 }) => {
   const {
     formState: { errors },
@@ -78,41 +50,54 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
     },
   });
 
+  const parseValue = isTrueOrFalseSelection ? (value: string) => value === 'true' : parse;
+
   return (
-    <RadioGruppe legend={label} feil={getError(errors, name)}>
+    <RadioGroup
+      name={name}
+      value={field.value !== undefined ? field.value : null}
+      onChange={value => {
+        if (onChange) {
+          onChange(value);
+        }
+        field.onChange(value);
+      }}
+      size="small"
+      legend={label}
+      error={getError(errors, name)}
+      className={hideRadioLabels ? styles.hideRadioLabels : ''}
+      hideLegend={hideLegend}
+    >
       {!isHorizontal &&
-        radios.map(radio => (
-          <RadioOption
-            key={radio.value}
-            name={name}
-            field={field}
-            radio={radio}
-            parse={parse}
-            onChange={onChange}
-            disabled={disabled}
-            isReadOnly={isReadOnly}
-          />
-        ))}
+        radios
+          .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
+          .map(radio => (
+            <Fragment key={radio.value}>
+              <Radio value={parseValue(radio.value)} disabled={disabled || isReadOnly}>
+                {radio.label}
+              </Radio>
+              {field.value === parseValue(radio.value) && radio.element}
+            </Fragment>
+          ))}
       {isHorizontal && (
         <FlexContainer>
           <FlexRow>
-            {radios.map(radio => (
-              <FlexColumn key={radio.value}>
-                <RadioOption
-                  name={name}
-                  field={field}
-                  radio={radio}
-                  parse={parse}
-                  onChange={onChange}
-                  disabled={disabled}
-                  isReadOnly={isReadOnly}
-                />
-              </FlexColumn>
-            ))}
+            {radios
+              .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
+              .map(radio => (
+                <FlexColumn key={radio.value}>
+                  <>
+                    <Radio value={parseValue(radio.value)} disabled={disabled || isReadOnly}>
+                      {radio.label}
+                    </Radio>
+                    {field.value === parseValue(radio.value) && radio.element}
+                  </>
+                </FlexColumn>
+              ))}
           </FlexRow>
         </FlexContainer>
       )}
-    </RadioGruppe>
+    </RadioGroup>
   );
 };
 

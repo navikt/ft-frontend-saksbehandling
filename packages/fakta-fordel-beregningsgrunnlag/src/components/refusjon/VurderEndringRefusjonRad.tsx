@@ -122,7 +122,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
               name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(
                 refusjonAndel,
               )}`}
-              bredde="S"
+              className={styles.bredde}
               validate={[
                 required,
                 minValueFormatted(1),

@@ -3,10 +3,10 @@ import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment/moment';
 import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Alert } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import AlertStripe from 'nav-frontend-alertstriper';
 
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
@@ -111,9 +111,9 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
           />
         </div>
         {finnesBelopMed0Verdi && (
-          <AlertStripe type="feil">
+          <Alert variant="error">
             <FormattedMessage id="DelOppPeriodeModalImpl.BelopEr0" />
-          </AlertStripe>
+          </Alert>
         )}
         <Row className={styles.marginTop}>
           <Column>
