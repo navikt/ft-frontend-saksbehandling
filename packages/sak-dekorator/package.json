@@ -45,7 +45,7 @@
     "nav-frontend-typografi": "4.0.2",
     "nav-frontend-typografi-style": "2.0.2",
     "react": "18.2.0",
-    "react-intl": "6.1.0"
+    "react-intl": "6.1.1"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "^1.x",
@@ -69,7 +69,7 @@
     "nav-frontend-typografi": "4.x",
     "nav-frontend-typografi-style": "2.x",
     "react": "18.x",
-    "react-intl": "6.1.0"
+    "react-intl": "6.1.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "6.5.10",
