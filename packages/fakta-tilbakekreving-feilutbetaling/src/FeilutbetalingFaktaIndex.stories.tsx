@@ -15,6 +15,8 @@ import { AlleKodeverkTilbakekreving, FeilutbetalingFakta, FeilutbetalingAarsak }
 import FeilutbetalingFaktaIndex from './FeilutbetalingFaktaIndex';
 import AvklartFaktaFeilutbetalingAp from './types/AvklartFaktaFeilutbetalingAp';
 
+import '@navikt/ds-css';
+
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 

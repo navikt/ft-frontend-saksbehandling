@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Element, Undertekst } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
@@ -27,8 +27,8 @@ const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: Intl
       validate={[required, minLength3, maxLength1500, hasValidText]}
       maxLength={1500}
       readOnly={readOnly}
-      textareaClass={styles.explanationTextarea}
-      placeholder={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner.Hjelpetekst' })}
+      className={styles.explanationTextarea}
+      description={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner.Hjelpetekst' })}
     />
     <VerticalSpacer twentyPx />
   </div>
@@ -69,13 +69,9 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
         <>
           <RadioGroupPanel
             name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
-            label={
-              <Undertekst>
-                <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />
-              </Undertekst>
-            }
+            label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
             validate={[required]}
-            parse={(value: string) => value === 'true'}
+            isTrueOrFalseSelection
             isHorizontal
             isReadOnly={readOnly}
             radios={[
@@ -84,6 +80,7 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
                 value: 'true',
                 element: (
                   <>
+                    <VerticalSpacer eightPx />
                     {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
                     <AktsomhetSarligeGrunnerFormPanel
                       name={name}
@@ -103,9 +100,12 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
                 label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
                 value: 'false',
                 element: (
-                  <ArrowBox alignOffset={20}>
-                    <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
-                  </ArrowBox>
+                  <>
+                    <VerticalSpacer eightPx />
+                    <ArrowBox alignOffset={20}>
+                      <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+                    </ArrowBox>
+                  </>
                 ),
               },
             ]}

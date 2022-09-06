@@ -1,43 +1,41 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { Textarea as NavTextarea } from 'nav-frontend-skjema';
-import EtikettFokus from 'nav-frontend-etiketter';
+import { Textarea as NavTextarea, Tag } from '@navikt/ds-react';
 
-import Label, { LabelType } from './Label';
-
-import styles from './textAreaField.less';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
-type BadgesType = 'suksess' | 'info' | 'advarsel' | 'fokus';
+import styles from './textAreaField.less';
+
+type BadgesType = 'success' | 'info' | 'error' | 'warning';
 
 interface Badges {
-  text: string;
   type: BadgesType;
   titleText: string;
 }
 
 interface OwnProps {
   name: string;
-  label: LabelType;
+  label: string | ReactNode;
   readOnly?: boolean;
   maxLength?: number;
   badges?: Badges[];
   validate?: ((value: string) => any)[];
-  textareaClass?: string;
-  placeholder?: string;
   parse?: (value: string | number) => string | number;
-  autoFocus?: boolean;
+  className?: string;
+  description?: string;
 }
 
 const TextAreaField: FunctionComponent<OwnProps> = ({
   name,
   label,
-  validate = [],
   readOnly,
+  maxLength,
   badges,
+  validate = [],
   parse = value => value,
-  ...otherProps
+  className,
+  description,
 }) => {
   const {
     formState: { errors },
@@ -57,21 +55,24 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
     <div className={badges ? styles.textAreaFieldWithBadges : null}>
       {badges && (
         <div className={styles.etikettWrapper}>
-          {badges.map(({ text, type, titleText }) => (
-            <EtikettFokus key={text} type={type} title={titleText}>
-              {text}
-            </EtikettFokus>
+          {badges.map(({ type, titleText }) => (
+            <Tag key={titleText} variant={type} size="small">
+              {titleText}
+            </Tag>
           ))}
         </div>
       )}
       <NavTextarea
-        label={<Label input={label} readOnly={false} />}
+        size="small"
+        label={label}
+        description={description}
+        className={className}
         autoComplete="off"
-        feil={getError(errors, name)}
         {...field}
         onChange={event => field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : null)}
         value={field.value ? field.value : ''}
-        {...otherProps}
+        error={getError(errors, name)}
+        maxLength={maxLength}
       />
     </div>
   );

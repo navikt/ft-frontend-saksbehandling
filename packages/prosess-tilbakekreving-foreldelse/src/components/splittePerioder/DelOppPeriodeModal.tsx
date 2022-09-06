@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import moment from 'moment/moment';
 import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import Modal from 'nav-frontend-modal';
+import { Alert } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import AlertStripe from 'nav-frontend-alertstriper';
 
 import { Datepicker, Form } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
@@ -111,9 +111,9 @@ const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
           />
         </div>
         {finnesBelopMed0Verdi && (
-          <AlertStripe type="feil">
+          <Alert variant="error">
             <FormattedMessage id="DelOppPeriodeModalImpl.BelopEr0" />
-          </AlertStripe>
+          </Alert>
         )}
         <Row className={styles.marginTop}>
           <Column>

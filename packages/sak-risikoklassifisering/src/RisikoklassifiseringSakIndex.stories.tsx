@@ -10,6 +10,8 @@ import kontrollresultatKode from './kodeverk/kontrollresultatKode';
 import RisikoklassifiseringSakIndex from './RisikoklassifiseringSakIndex';
 import RisikoklassifiseringAksjonspunktCode from './RisikoklassifiseringAksjonspunktCode';
 
+import '@navikt/ds-css';
+
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 

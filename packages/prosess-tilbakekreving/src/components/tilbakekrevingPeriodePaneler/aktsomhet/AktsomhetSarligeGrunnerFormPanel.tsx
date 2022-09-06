@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { UseFormGetValues } from 'react-hook-form';
 import { Column, Row } from 'nav-frontend-grid';
-import { Undertekst } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formHooks, CheckboxField, TextAreaField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
@@ -49,9 +49,9 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
   const { getValues } = formHooks.useFormContext();
   return (
     <div>
-      <Undertekst>
+      <Label size="small">
         <FormattedMessage id="AktsomhetSarligeGrunnerFormPanel.GrunnerTilReduksjon" />
-      </Undertekst>
+      </Label>
       <VerticalSpacer eightPx />
       <SkjemaGruppeMedFeilviser
         name={`${name}.reduksjonsgrunner`}

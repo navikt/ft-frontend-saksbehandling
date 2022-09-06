@@ -7,6 +7,7 @@ import { isAksjonspunktOpen, Dekningsgrad } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DekningsgradResultatAp } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -57,6 +58,7 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
         radios={radioknapper}
         parse={stringTilNumberParser}
       />
+      <VerticalSpacer sixteenPx />
       <Row>
         <Column xs="12">
           <TextAreaField
@@ -65,8 +67,8 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
             readOnly={readOnly}
-            textareaClass={styles.textAreaStyle}
-            placeholder={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.BegrunnEndringAvDekningsgrad' })}
+            className={styles.textAreaStyle}
+            description={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.BegrunnEndringAvDekningsgrad' })}
           />
         </Column>
       </Row>

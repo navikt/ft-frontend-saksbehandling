@@ -165,8 +165,8 @@ const settOppKomponenterForATFL = (
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
             readOnly={readOnly}
-            textareaClass={styles.textAreaStyle}
-            placeholder={intl.formatMessage({
+            className={styles.textAreaStyle}
+            description={intl.formatMessage({
               id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
             })}
           />

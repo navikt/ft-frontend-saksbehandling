@@ -13,6 +13,8 @@ import { AlleKodeverkTilbakekreving, Behandling, Aksjonspunkt, FeilutbetalingPer
 import ForeldelseProsessIndex from './ForeldelseProsessIndex';
 import ForeldelseAksjonspunktCodes from './ForeldelseAksjonspunktCodes';
 
+import '@navikt/ds-css';
+
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-tidslinje/dist/style.css';

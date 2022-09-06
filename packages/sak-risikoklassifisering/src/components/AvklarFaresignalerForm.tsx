@@ -6,8 +6,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ariaCheck, hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { RadioGroupField, RadioOption, TextAreaField, Form } from '@navikt/ft-form-hooks';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { RadioGroupPanel, TextAreaField, Form } from '@navikt/ft-form-hooks';
 import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 
 import faresignalVurdering from '../kodeverk/faresignalVurdering';
@@ -130,45 +129,45 @@ export const AvklarFaresignalerForm: FunctionComponent<OwnProps> = ({
         <VerticalSpacer eightPx />
         <FlexRow>
           <FlexColumn>
-            <RadioGroupField
+            <RadioGroupPanel
               name={VURDERING_HOVEDKATEGORI}
               validate={[required]}
-              direction="vertical"
-              readOnly={readOnly}
-              isEdited={!isAksjonspunktOpen(aksjonspunkt.status)}
-            >
-              <RadioOption
-                label={
-                  faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INNVIRKNING)?.navn ||
-                  ''
-                }
-                value={faresignalVurdering.INNVIRKNING}
-              >
-                <div>
-                  {harValgtReelle && (
-                    <ArrowBox alignOffset={20}>
-                      <RadioGroupField
-                        name={IKKE_REELLE_VURDERINGER_UNDERKATEGORI}
-                        validate={[required]}
-                        direction="vertical"
-                        readOnly={readOnly}
-                      >
-                        {underkategoriFaresignalVurderinger.map(vurdering => (
-                          <RadioOption key={vurdering.kode} label={vurdering.navn} value={vurdering.kode} />
-                        ))}
-                      </RadioGroupField>
-                    </ArrowBox>
-                  )}
-                </div>
-              </RadioOption>
-              <RadioOption
-                label={
-                  faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INGEN_INNVIRKNING)
-                    ?.navn || ''
-                }
-                value={faresignalVurdering.INGEN_INNVIRKNING}
-              />
-            </RadioGroupField>
+              isReadOnly={readOnly}
+              radios={[
+                {
+                  value: faresignalVurdering.INNVIRKNING,
+                  label:
+                    faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INNVIRKNING)?.navn ||
+                    '',
+                  element: (
+                    <div>
+                      {harValgtReelle && (
+                        <>
+                          <VerticalSpacer eightPx />
+                          <ArrowBox alignOffset={20}>
+                            <RadioGroupPanel
+                              name={IKKE_REELLE_VURDERINGER_UNDERKATEGORI}
+                              validate={[required]}
+                              isReadOnly={readOnly}
+                              radios={underkategoriFaresignalVurderinger.map(vurdering => ({
+                                value: vurdering.kode,
+                                label: vurdering.navn,
+                              }))}
+                            />
+                          </ArrowBox>
+                        </>
+                      )}
+                    </div>
+                  ),
+                },
+                {
+                  value: faresignalVurdering.INGEN_INNVIRKNING,
+                  label:
+                    faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INGEN_INNVIRKNING)
+                      ?.navn || '',
+                },
+              ]}
+            />
           </FlexColumn>
         </FlexRow>
         <VerticalSpacer sixteenPx />

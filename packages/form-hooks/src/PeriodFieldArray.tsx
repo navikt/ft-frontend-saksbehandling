@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
-import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
+import { Detail } from '@navikt/ds-react';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
 import addCircleIcon from './images/add-circle.svg';
@@ -94,7 +94,7 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
               tabIndex={0}
             >
               <Image className={styles.addCircleIcon} src={addCircleIcon} alt={bodyText} />
-              <Undertekst className={styles.imageText}>{bodyText}</Undertekst>
+              <Detail className={styles.imageText}>{bodyText}</Detail>
             </div>
           )}
           {createAddButtonInsteadOfImageLink && !readOnly && (

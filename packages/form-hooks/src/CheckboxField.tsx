@@ -1,13 +1,11 @@
-import React, { FunctionComponent, useMemo } from 'react';
-import { Checkbox as NavCheckbox } from 'nav-frontend-skjema';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react';
 import { useController, useFormContext } from 'react-hook-form';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { LabelType } from './Label';
 import { getError, getValidationRules } from './formUtils';
 
 interface OwnProps {
   name: string;
-  label: LabelType;
+  label: string | ReactNode;
   validate?: ((value: string) => any)[];
   readOnly?: boolean;
   onChange?: (isChecked: boolean) => void;
@@ -37,26 +35,33 @@ const CheckboxField: FunctionComponent<OwnProps> = ({
     },
   });
 
+  const error = getError(errors, name);
+
   return (
-    <NavCheckbox
-      label={<Normaltekst>{label}</Normaltekst>}
-      feil={getError(errors, name)}
-      disabled={disabled || readOnly}
-      checked={field.value === true}
-      className={className}
-      {...field}
-      onChange={event => {
-        field.onChange(event);
-        if (onChange) {
-          onChange(event.currentTarget.checked);
-        }
-      }}
-      onClick={() => {
-        if (onClick) {
-          onClick();
-        }
-      }}
-    />
+    <>
+      <NavCheckbox
+        size="small"
+        disabled={disabled || readOnly}
+        checked={field.value === true}
+        className={className}
+        error={!!error}
+        {...field}
+        onChange={event => {
+          field.onChange(event);
+          if (onChange) {
+            onChange(event.currentTarget.checked);
+          }
+        }}
+        onClick={() => {
+          if (onClick) {
+            onClick();
+          }
+        }}
+      >
+        {label}
+      </NavCheckbox>
+      {error && <ErrorMessage>{getError(errors, name)}</ErrorMessage>}
+    </>
   );
 };
 

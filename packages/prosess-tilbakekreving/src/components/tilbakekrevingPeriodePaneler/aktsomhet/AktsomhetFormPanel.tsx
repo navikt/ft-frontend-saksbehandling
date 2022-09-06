@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Undertekst } from 'nav-frontend-typografi';
 
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { KodeverkMedNavn, AktsomhetInfo } from '@navikt/ft-types';
 
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import Aktsomhet from '../../../kodeverk/aktsomhet';
 import AktsomhetGradFormPanel from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './AktsomhetReduksjonAvBelopFormPanel';
@@ -88,13 +88,10 @@ const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   name,
 }) => (
   <>
+    <VerticalSpacer sixteenPx />
     <RadioGroupPanel
       name={`${name}.handletUaktsomhetGrad`}
-      label={
-        <Undertekst>
-          <FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />
-        </Undertekst>
-      }
+      label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
       validate={[required]}
       radios={aktsomhetTyper.map(vrt => ({
         label: erValgtResultatTypeForstoBurdeForstaatt ? (

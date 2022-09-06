@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 import { KodeverkMedNavn } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import Aktsomhet from '../../../kodeverk/aktsomhet';
 import AktsomhetGradForsettFormPanel from './AktsomhetGradForsettFormPanel';
@@ -34,6 +35,7 @@ const AktsomhetGradFormPanel: FunctionComponent<OwnProps> = ({
   name,
 }) => (
   <>
+    <VerticalSpacer eightPx />
     {handletUaktsomhetGrad === Aktsomhet.FORSETT && (
       <AktsomhetGradForsettFormPanel
         name={name}

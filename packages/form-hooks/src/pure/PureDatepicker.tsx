@@ -1,15 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import { Datepicker } from 'nav-datovelger';
+import { Label } from '@navikt/ds-react';
 import { CalendarPlacement } from 'nav-datovelger/lib/types';
 import { DatepickerProps } from 'nav-datovelger/lib/Datepicker';
-import { Label } from 'nav-frontend-skjema';
-import { Undertekst } from 'nav-frontend-typografi';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import FieldError from './FieldError';
-import { LabelType } from '../Label';
+
 import './datepicker.less';
 
 interface PureDatepickerProps {
-  label?: LabelType;
+  label?: string | ReactNode;
   errorMessage?: string;
   ariaLabel?: string;
   inputId: string;
@@ -45,9 +46,12 @@ const PureDatepicker: FunctionComponent<PureDatepickerProps & DatepickerProps> =
   return (
     <div className="datepicker">
       {label && (
-        <Label htmlFor={inputId}>
-          <Undertekst>{label}</Undertekst>
-        </Label>
+        <>
+          <Label htmlFor={inputId} size="small">
+            {label}
+          </Label>
+          <VerticalSpacer fourPx />
+        </>
       )}
       <Datepicker
         onChange={onChange}

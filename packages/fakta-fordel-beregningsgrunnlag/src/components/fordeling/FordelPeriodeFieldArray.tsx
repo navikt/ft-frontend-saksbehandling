@@ -4,7 +4,7 @@ import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
   BehandlingType as bt,
@@ -218,14 +218,14 @@ const arbeidsforholdReadOnlyOrSelect = (
     {!fields[index].nyAndel && (
       <InputField
         name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
-        bredde="L"
+        className={styles.storBredde}
         readOnly
       />
     )}
     {fields[index].nyAndel && (
       <SelectField
         name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
-        bredde="l"
+        className={styles.storBredde}
         label=""
         selectValues={selectVals}
         readOnly={isReadOnly}
@@ -249,27 +249,30 @@ export const lagBelopKolonne = (
   if (skalIkkeRedigereInntekt) {
     return (
       <TableColumn>
-        <InputField
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.readOnlyBelop`}
-          bredde="S"
-          parse={parseCurrencyInput}
-          readOnly
-          isEdited={false}
-        />
+        <FloatRight>
+          <InputField
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.readOnlyBelop`}
+            className={styles.litenBredde}
+            parse={parseCurrencyInput}
+            readOnly
+            isEdited={false}
+          />
+        </FloatRight>
       </TableColumn>
     );
   }
   return (
     <TableColumn className={styles.rightAlignInput}>
-      <InputField
-        name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
-        bredde="S"
-        parse={parseCurrencyInput}
-        readOnly={readOnly}
-        validate={[required, maxValueFormatted(178956970)]}
-        isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
-        className={styles.fastsattBeløp}
-      />
+      <FloatRight>
+        <InputField
+          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
+          parse={parseCurrencyInput}
+          readOnly={readOnly}
+          validate={[required, maxValueFormatted(178956970)]}
+          isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
+          className={styles.litenBredde}
+        />
+      </FloatRight>
     </TableColumn>
   );
 };
@@ -322,8 +325,8 @@ const createAndelerTableRows = (
         <TableColumn>
           <InputField
             name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fordelingForrigeBehandling`}
-            bredde="S"
             readOnly
+            className={styles.litenBredde}
             parse={parseCurrencyInput}
           />
         </TableColumn>
@@ -332,7 +335,7 @@ const createAndelerTableRows = (
         <InputField
           name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andelIArbeid`}
           readOnly
-          bredde="S"
+          className={styles.litenBredde}
           // @ts-ignore Fiks
           normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value).toFixed(2))}
         />
@@ -340,18 +343,20 @@ const createAndelerTableRows = (
       <TableColumn
         className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
       >
-        <InputField
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`}
-          bredde="XS"
-          readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
-          parse={parseCurrencyInput}
-          validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
-        />
+        <FloatRight>
+          <InputField
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`}
+            readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
+            parse={parseCurrencyInput}
+            className={styles.litenBredde}
+            validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
+          />
+        </FloatRight>
       </TableColumn>
       <TableColumn>
         <InputField
           name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.beregningsgrunnlagPrAar`}
-          bredde="S"
+          className={styles.litenBredde}
           readOnly
           parse={parseCurrencyInput}
         />
@@ -365,14 +370,16 @@ const createAndelerTableRows = (
         isAksjonspunktClosed,
       )}
       <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
-        <SelectField
-          label=""
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.inntektskategori`}
-          bredde="s"
-          validate={[required]}
-          selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          readOnly={skalIkkeEndres}
-        />
+        <FloatRight>
+          <SelectField
+            label=""
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.inntektskategori`}
+            className={styles.storBredde}
+            validate={[required]}
+            selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
+            readOnly={skalIkkeEndres}
+          />
+        </FloatRight>
       </TableColumn>
       <TableColumn>
         {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
