@@ -25,8 +25,8 @@
     "storybook": "cross-env start-storybook -p 7001"
   },
   "dependencies": {
-    "@navikt/ds-css": "^1.2.5",
-    "@navikt/ds-react": "^1.2.5",
+    "@navikt/ds-css": "^1.2.6",
+    "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-form-hooks": "^2.0.0",
     "@navikt/ft-form-validators": "^1.0.29",
     "@navikt/ft-kodeverk": "^1.0.17",
@@ -34,7 +34,7 @@
     "@navikt/ft-types": "^1.0.27",
     "@navikt/ft-ui-komponenter": "^1.1.0",
     "@navikt/ft-utils": "^1.1.0",
-    "core-js": "3.25.0",
+    "core-js": "3.25.1",
     "dayjs": "1.11.5",
     "nav-frontend-alertstriper": "4.0.2",
     "nav-frontend-alertstriper-style": "3.0.2",
@@ -54,8 +54,8 @@
     "react-intl": "6.1.1"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "^1.2.5",
-    "@navikt/ds-react": "^1.2.5",
+    "@navikt/ds-css": "^1.2.6",
+    "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-form-hooks": "^1.x",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-kodeverk": "^1.x",
@@ -63,7 +63,7 @@
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "1.x",
     "@navikt/ft-utils": "^1.x",
-    "core-js": "3.x",
+    "core-js": "3.25.1",
     "dayjs": "1.x",
     "nav-frontend-alertstriper": "4.x",
     "nav-frontend-alertstriper-style": "3.x",
