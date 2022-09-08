@@ -24,6 +24,7 @@ interface OwnProps {
   parse?: (value: string | number) => string | number;
   className?: string;
   description?: string;
+  isEdited?: boolean;
 }
 
 const TextAreaField: FunctionComponent<OwnProps> = ({
@@ -36,6 +37,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
   parse = value => value,
   className,
   description,
+  isEdited,
 }) => {
   const {
     formState: { errors },
@@ -48,7 +50,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
   });
 
   if (readOnly) {
-    return <ReadOnlyField label={label} value={field.value} type="textarea" />;
+    return <ReadOnlyField label={label} value={field.value} type="textarea" isEdited={isEdited} />;
   }
 
   return (
