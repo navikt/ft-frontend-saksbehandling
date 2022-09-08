@@ -58,6 +58,8 @@ const Template: Story = () => {
       <RadioGroupPanel
         name="radiopre"
         label="Dette er en radioknapp der verdi er valgt"
+        isReadOnly
+        isEdited
         radios={[
           {
             label: 'Verdi 1',

@@ -17,6 +17,7 @@ interface OwnProps {
   disabled?: boolean;
   className?: string;
   hideLabel?: boolean;
+  isEdited?: boolean;
 }
 
 const SelectField: FunctionComponent<OwnProps> = ({
@@ -31,6 +32,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   disabled,
   className,
   hideLabel,
+  isEdited,
 }) => {
   const {
     formState: { errors },
@@ -46,7 +48,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   if (readOnly) {
     const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
-    return <ReadOnlyField value={value} label={label} hideLabel={hideLabel} />;
+    return <ReadOnlyField value={value} label={label} hideLabel={hideLabel} isEdited={isEdited} />;
   }
 
   const n = field.value || '';
