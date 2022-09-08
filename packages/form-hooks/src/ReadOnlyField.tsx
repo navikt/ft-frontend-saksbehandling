@@ -21,7 +21,7 @@ export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdi
   }
   return (
     <div className={`${styles.readOnlyContainer} ${hideLabel ? styles.hideLabel : ''}`}>
-      {label && <Label>{label}</Label>}
+      {label && <Label size="small">{label}</Label>}
       <div className={type === 'textarea' ? styles.textarea : ''}>
         <BodyLong className={styles.readOnlyContent}>
           {value}
