@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Label, Heading } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
@@ -37,9 +37,9 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
 }) => (
   <div className={styles.container}>
     <VerticalSpacer twentyPx />
-    <Undertittel>
+    <Heading size="small">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtaksbrev" />
-    </Undertittel>
+    </Heading>
     <VerticalSpacer eightPx />
     {vedtaksbrevAvsnitt.map(avsnitt => {
       const underavsnitter = avsnitt.underavsnittsliste;
@@ -62,8 +62,8 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
               <React.Fragment
                 key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
               >
-                {underavsnitt.overskrift && <Element>{underavsnitt.overskrift}</Element>}
-                {underavsnitt.brødtekst && <Normaltekst>{underavsnitt.brødtekst}</Normaltekst>}
+                {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
+                {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
                 {underavsnitt.fritekstTillatt && (
                   <>
                     <VerticalSpacer eightPx />

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { EtikettInfo } from 'nav-frontend-etiketter';
 import { FlexColumn, FlexContainer, FlexRow, Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
@@ -43,7 +43,7 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
           <FlexColumn>
             <FlexRow wrap>
               <FlexColumn>
-                <Systemtittel>{fagsakYtelseType.navn}</Systemtittel>
+                <Heading size="medium">{fagsakYtelseType.navn}</Heading>
               </FlexColumn>
               {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
                 <FlexColumn>
@@ -62,7 +62,7 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
         <VerticalSpacer eightPx />
         <FlexRow>
           <FlexColumn>
-            <Normaltekst>{`${saksnummer} - ${fagsakStatus.navn}`}</Normaltekst>
+            <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
           </FlexColumn>
         </FlexRow>
       </FlexContainer>

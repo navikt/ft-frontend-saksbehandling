@@ -1,7 +1,7 @@
 import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
@@ -212,9 +212,9 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <Undertittel>
+      <Heading size="small">
         <FormattedMessage id="ForeldelseForm.Foreldelse" />
-      </Undertittel>
+      </Heading>
       <VerticalSpacer twentyPx />
       {!aksjonspunkt && (
         <>

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 
@@ -23,9 +23,9 @@ interface OwnProps {
 const ErrorPageWrapper: FunctionComponent<OwnProps> = ({ children, titleCode }) => (
   <RawIntlProvider value={intl}>
     <div className={styles.pageContainer}>
-      <Innholdstittel>
+      <Heading size="large">
         <FormattedMessage id={titleCode} values={{ br: <br /> }} />
-      </Innholdstittel>
+      </Heading>
       <br />
       {children}
     </div>

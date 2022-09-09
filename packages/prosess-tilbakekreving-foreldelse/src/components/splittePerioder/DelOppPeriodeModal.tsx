@@ -2,9 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment/moment';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Detail, Label, BodyShort, Alert } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
-import { Alert } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 
@@ -88,18 +87,18 @@ const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
         formMethods={formMethods}
         onSubmit={(values: FormValues) => splitPeriod(transformValues(values, periodeData))}
       >
-        <Element className={styles.marginTop}>
+        <Label size="small" className={styles.marginTop}>
           <FormattedMessage id="DelOppPeriodeModalImpl.DelOppPerioden" />
-        </Element>
+        </Label>
         <div className={styles.marginTop}>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
-          </Undertekst>
-          <Normaltekst>
+          </Detail>
+          <BodyShort size="small">
             {`${moment(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
               periodeData.tom.toString(),
             ).format(DDMMYYYY_DATE_FORMAT)}`}
-          </Normaltekst>
+          </BodyShort>
         </div>
         <div className={styles.marginTop}>
           <Datepicker

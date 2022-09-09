@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Modal from 'nav-frontend-modal';
+import { BodyShort } from '@navikt/ds-react';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
 
 import { createIntl } from '@navikt/ft-utils';
 import FlexColumn from './flexGrid/FlexColumn';
@@ -37,7 +37,7 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
     onRequestClose={cancel}
     shouldCloseOnOverlayClick={false}
   >
-    <Normaltekst>{text}</Normaltekst>
+    <BodyShort size="small">{text}</BodyShort>
     <VerticalSpacer fourtyPx />
     <FlexContainer>
       <FlexRow>

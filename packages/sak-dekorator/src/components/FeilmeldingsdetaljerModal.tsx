@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Detail, Heading } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
@@ -41,9 +41,9 @@ const FeilmeldingsdetaljerModal: FunctionComponent<OwnProps> = ({ skalViseModal,
           <div className={styles.divider} />
         </Column>
         <Column xs="10" className={styles.text}>
-          <Undertittel>
+          <Heading size="small">
             <FormattedMessage id="FeilmeldingsdetaljerModal.ErrorDetails" />
-          </Undertittel>
+          </Heading>
         </Column>
       </Row>
       <VerticalSpacer sixteenPx />
@@ -53,10 +53,10 @@ const FeilmeldingsdetaljerModal: FunctionComponent<OwnProps> = ({ skalViseModal,
           {feilmeldingsdetaljer &&
             Object.keys(feilmeldingsdetaljer).map(edKey => (
               <React.Fragment key={edKey}>
-                <Undertekst>{`${capitalizeFirstLetters(edKey)}:`}</Undertekst>
+                <Detail size="small">{`${capitalizeFirstLetters(edKey)}:`}</Detail>
                 <div className={styles.detail}>
                   {/* @ts-ignore Fiks */}
-                  <Normaltekst>{feilmeldingsdetaljer[edKey]}</Normaltekst>
+                  <BodyShort size="small">{feilmeldingsdetaljer[edKey]}</BodyShort>
                 </div>
                 <VerticalSpacer eightPx />
               </React.Fragment>

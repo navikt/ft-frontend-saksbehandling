@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
-import { Label } from '@navikt/ds-react';
+import { BodyShort, Label, Detail } from '@navikt/ds-react';
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
@@ -146,12 +145,12 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
             </Column>
             {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
               <Column md="6">
-                <Undertekst>
+                <Detail size="small">
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
-                </Undertekst>
-                <Normaltekst className={styles.labelPadding}>
+                </Detail>
+                <BodyShort size="small" className={styles.labelPadding}>
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
-                </Normaltekst>
+                </BodyShort>
               </Column>
             )}
           </Row>
@@ -161,7 +160,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
         <ArrowBox alignOffset={90}>
           <Row>
             <Column md="6">
-              <Undertekst>
+              <Detail size="small">
                 <FormattedMessage
                   id={
                     harMerEnnEnYtelse
@@ -169,10 +168,10 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                       : 'AktsomhetReduksjonAvBelopFormPanel.andelSomTilbakekreves'
                   }
                 />
-              </Undertekst>
-              <Normaltekst className={styles.labelPadding}>
+              </Detail>
+              <BodyShort size="small" className={styles.labelPadding}>
                 {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
-              </Normaltekst>
+              </BodyShort>
             </Column>
             {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
               <Column md="6">

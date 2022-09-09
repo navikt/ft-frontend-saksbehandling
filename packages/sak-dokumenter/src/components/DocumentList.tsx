@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 
 import { DateTimeLabel, Table, TableColumn, TableRow, Image, Tooltip } from '@navikt/ft-ui-komponenter';
 import { Kommunikasjonsretning } from '@navikt/ft-kodeverk';
@@ -164,9 +164,9 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
 
   if (documents.length === 0) {
     return (
-      <Normaltekst className={styles.noDocuments}>
+      <BodyShort size="small" className={styles.noDocuments}>
         <FormattedMessage id="DocumentList.NoDocuments" />
-      </Normaltekst>
+      </BodyShort>
     );
   }
   return (
@@ -205,7 +205,7 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
             </TableColumn>
             <TableColumn>
               {document.gjelderFor && isTextMoreThan25char(document.gjelderFor) && (
-                <Tooltip content={<Normaltekst>{document.gjelderFor}</Normaltekst>} alignLeft>
+                <Tooltip content={<BodyShort size="small">{document.gjelderFor}</BodyShort>} alignLeft>
                   {trimText(document.gjelderFor)}
                 </Tooltip>
               )}
@@ -215,9 +215,9 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
               {document.tidspunkt ? (
                 <DateTimeLabel dateTimeString={document.tidspunkt} />
               ) : (
-                <Normaltekst>
+                <BodyShort size="small">
                   <FormattedMessage id="DocumentList.IProduksjon" />
-                </Normaltekst>
+                </BodyShort>
               )}
             </TableColumn>
           </TableRow>

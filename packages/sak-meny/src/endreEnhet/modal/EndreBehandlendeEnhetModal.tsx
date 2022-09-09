@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 
 import { SelectField, TextAreaField, Form } from '@navikt/ft-form-hooks';
@@ -84,9 +84,9 @@ const EndreBehandlendeEnhetModal: FunctionComponent<OwnProps> = ({
             <div className={styles.divider} />
           </Column>
           <Column xs="11">
-            <Normaltekst className={styles.infotekstBeskrivelse}>
+            <BodyShort size="small" className={styles.infotekstBeskrivelse}>
               <FormattedMessage id="EndreBehandlendeEnhetModal.EndreEnhet" />
-            </Normaltekst>
+            </BodyShort>
           </Column>
         </Row>
         <Row>

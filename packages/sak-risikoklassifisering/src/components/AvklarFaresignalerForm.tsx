@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
@@ -119,57 +118,45 @@ export const AvklarFaresignalerForm: FunctionComponent<OwnProps> = ({
           </FlexColumn>
         </FlexRow>
         <VerticalSpacer sixteenPx />
-        <FlexRow>
-          <FlexColumn>
-            <Normaltekst>
-              <FormattedMessage id="Risikopanel.Form.Resultat" />
-            </Normaltekst>
-          </FlexColumn>
-        </FlexRow>
-        <VerticalSpacer eightPx />
-        <FlexRow>
-          <FlexColumn>
-            <RadioGroupPanel
-              name={VURDERING_HOVEDKATEGORI}
-              validate={[required]}
-              isReadOnly={readOnly}
-              radios={[
-                {
-                  value: faresignalVurdering.INNVIRKNING,
-                  label:
-                    faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INNVIRKNING)?.navn ||
-                    '',
-                  element: (
-                    <div>
-                      {harValgtReelle && (
-                        <>
-                          <VerticalSpacer eightPx />
-                          <ArrowBox alignOffset={20}>
-                            <RadioGroupPanel
-                              name={IKKE_REELLE_VURDERINGER_UNDERKATEGORI}
-                              validate={[required]}
-                              isReadOnly={readOnly}
-                              radios={underkategoriFaresignalVurderinger.map(vurdering => ({
-                                value: vurdering.kode,
-                                label: vurdering.navn,
-                              }))}
-                            />
-                          </ArrowBox>
-                        </>
-                      )}
-                    </div>
-                  ),
-                },
-                {
-                  value: faresignalVurdering.INGEN_INNVIRKNING,
-                  label:
-                    faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INGEN_INNVIRKNING)
-                      ?.navn || '',
-                },
-              ]}
-            />
-          </FlexColumn>
-        </FlexRow>
+        <RadioGroupPanel
+          name={VURDERING_HOVEDKATEGORI}
+          label={<FormattedMessage id="Risikopanel.Form.Resultat" />}
+          validate={[required]}
+          isReadOnly={readOnly}
+          radios={[
+            {
+              value: faresignalVurdering.INNVIRKNING,
+              label:
+                faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INNVIRKNING)?.navn || '',
+              element: (
+                <div>
+                  {harValgtReelle && (
+                    <>
+                      <VerticalSpacer eightPx />
+                      <ArrowBox alignOffset={20}>
+                        <RadioGroupPanel
+                          name={IKKE_REELLE_VURDERINGER_UNDERKATEGORI}
+                          validate={[required]}
+                          isReadOnly={readOnly}
+                          radios={underkategoriFaresignalVurderinger.map(vurdering => ({
+                            value: vurdering.kode,
+                            label: vurdering.navn,
+                          }))}
+                        />
+                      </ArrowBox>
+                    </>
+                  )}
+                </div>
+              ),
+            },
+            {
+              value: faresignalVurdering.INGEN_INNVIRKNING,
+              label:
+                faresignalVurderinger.find(vurdering => vurdering.kode === faresignalVurdering.INGEN_INNVIRKNING)
+                  ?.navn || '',
+            },
+          ]}
+        />
         <VerticalSpacer sixteenPx />
         <FlexRow>
           <FlexColumn>

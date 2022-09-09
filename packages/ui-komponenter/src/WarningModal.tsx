@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 
 import advarselImageUrl from './images/advarsel.svg';
 import Image from './Image';
@@ -36,8 +36,8 @@ const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showM
         <div className={styles.divider} />
       </Column>
       <Column xs="8" className={styles.text}>
-        {headerText && <Undertittel>{headerText}</Undertittel>}
-        <Normaltekst>{bodyText}</Normaltekst>
+        {headerText && <Heading size="small">{headerText}</Heading>}
+        <BodyShort size="small">{bodyText}</BodyShort>
       </Column>
       <Column xs="2">
         <Hovedknapp className={styles.submitButton} mini htmlType="submit" onClick={submit} autoFocus>

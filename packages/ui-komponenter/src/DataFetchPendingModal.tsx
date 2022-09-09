@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 
 import { createIntl } from '@navikt/ft-utils';
@@ -76,9 +76,9 @@ export class DataFetchPendingModal extends Component<OwnProps, OwnState> {
             <div className={styles.divider} />
           </Column>
           <Column xs="10">
-            <Element className={styles.modalText}>
+            <Label size="small" className={styles.modalText}>
               {intl.formatMessage({ id: 'DataFetchPendingModal.LosningenJobberMedBehandlingen' })}
-            </Element>
+            </Label>
           </Column>
         </Row>
       </Modal>

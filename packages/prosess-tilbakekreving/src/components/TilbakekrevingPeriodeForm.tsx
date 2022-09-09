@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Label, BodyShort } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 
@@ -195,7 +195,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
       {reduserteBelop &&
         reduserteBelop.map(belop => (
           <React.Fragment key={belop.belop}>
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage
                 id={
                   belop.erTrekk
@@ -204,7 +204,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                 }
                 values={{ belop: formatCurrencyNoKr(belop.belop), b: transformToBold }}
               />
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer eightPx />
           </React.Fragment>
         ))}
@@ -214,9 +214,9 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
         <>
           <Row>
             <Column md="10">
-              <Element>
+              <Label size="small">
                 <FormattedMessage id="TilbakekrevingPeriodeForm.KopierVilkårsvurdering" />
-              </Element>
+              </Label>
               <SelectField
                 name="perioderForKopi"
                 selectValues={vurdertePerioder.map(per => {
@@ -248,9 +248,9 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
             )}
             {!data.erForeldet && (
               <Column md="10">
-                <Element>
+                <Label size="small">
                   <FormattedMessage id="TilbakekrevingPeriodeForm.VilkarForTilbakekreving" />
-                </Element>
+                </Label>
                 <VerticalSpacer eightPx />
                 <TextAreaField
                   name="begrunnelse"
@@ -282,7 +282,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
             <Column md="10">
               {valgtVilkarResultatType && (
                 <>
-                  <Element>
+                  <Label size="small">
                     <FormattedMessage
                       id={
                         valgtVilkarResultatType === VilkarResultat.GOD_TRO
@@ -290,7 +290,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                           : 'TilbakekrevingPeriodeForm.Aktsomhet'
                       }
                     />
-                  </Element>
+                  </Label>
                   <VerticalSpacer eightPx />
                   <TextAreaField
                     name="vurderingBegrunnelse"

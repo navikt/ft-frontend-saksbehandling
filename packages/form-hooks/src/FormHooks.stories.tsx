@@ -7,8 +7,6 @@ import { TextAreaField, SelectField, CheckboxField, InputField, Datepicker } fro
 import Form from './Form';
 import RadioGroupPanel from './RadioGroupPanel';
 
-import '@navikt/ds-css';
-
 import styles from './formHooks.stories.less';
 
 // TODO Kvifor feilar denne kun på Github?

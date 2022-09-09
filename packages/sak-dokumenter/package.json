@@ -24,24 +24,24 @@
     "storybook": "cross-env start-storybook -p 7017"
   },
   "dependencies": {
+    "@navikt/ds-css": "^1.2.6",
+    "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-kodeverk": "^1.0.17",
     "@navikt/ft-types": "^1.0.27",
     "@navikt/ft-ui-komponenter": "^1.1.1",
     "@navikt/ft-utils": "^1.1.0",
     "nav-frontend-core": "6.0.1",
-    "nav-frontend-typografi": "4.0.2",
-    "nav-frontend-typografi-style": "2.0.2",
     "react": "18.2.0",
     "react-intl": "6.1.1"
   },
   "peerDependencies": {
+    "@navikt/ds-css": "^1.2.6",
+    "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "1.x",
     "@navikt/ft-utils": "1.x",
     "nav-frontend-core": "6.x",
-    "nav-frontend-typografi": "4.x",
-    "nav-frontend-typografi-style": "2.x",
     "react": "18.x",
     "react-intl": "6.1.1"
   },

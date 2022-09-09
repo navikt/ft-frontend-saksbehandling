@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
@@ -17,9 +17,9 @@ const maxLength1500 = maxLength(1500);
 
 const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: IntlShape) => (
   <div>
-    <Element>
+    <Label size="small">
       <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.SærligGrunner" />
-    </Element>
+    </Label>
     <VerticalSpacer eightPx />
     <TextAreaField
       name={`${name}.sarligGrunnerBegrunnelse`}

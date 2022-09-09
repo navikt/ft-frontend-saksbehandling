@@ -24,6 +24,8 @@
     "storybook": "cross-env start-storybook -p 7012"
   },
   "dependencies": {
+    "@navikt/ds-css": "^1.2.6",
+    "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-kodeverk": "^1.0.17",
     "@navikt/ft-plattform-komponenter": "^1.1.1",
     "@navikt/ft-types": "^1.0.27",
@@ -39,12 +41,12 @@
     "nav-frontend-grid-style": "1.0.3",
     "nav-frontend-paneler": "3.0.2",
     "nav-frontend-paneler-style": "2.0.2",
-    "nav-frontend-typografi": "4.0.2",
-    "nav-frontend-typografi-style": "2.0.2",
     "react": "18.2.0",
     "react-intl": "6.1.1"
   },
   "peerDependencies": {
+    "@navikt/ds-css": "^1.2.6",
+    "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-plattform-komponenter": "1.x",
     "@navikt/ft-types": "^1.x",
@@ -60,8 +62,6 @@
     "nav-frontend-grid-style": "1.x",
     "nav-frontend-paneler": "3.x",
     "nav-frontend-paneler-style": "2.x",
-    "nav-frontend-typografi": "4.x",
-    "nav-frontend-typografi-style": "2.x",
     "react": "18.x",
     "react-intl": "6.1.1"
   },

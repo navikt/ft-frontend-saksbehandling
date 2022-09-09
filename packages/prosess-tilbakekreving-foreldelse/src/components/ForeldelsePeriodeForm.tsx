@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
-import { Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -83,11 +82,7 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
         <Column md="5">
           <RadioGroupPanel
             name="foreldet"
-            label={
-              <Undertekst>
-                <FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />
-              </Undertekst>
-            }
+            label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
             validate={[required]}
             radios={foreldelseVurderingTyper.map(type => ({
               label: type.navn,
