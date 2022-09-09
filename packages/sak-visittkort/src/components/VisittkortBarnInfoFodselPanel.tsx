@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EtikettInfo } from 'nav-frontend-etiketter';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { FlexColumn } from '@navikt/ft-ui-komponenter';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
@@ -61,7 +61,7 @@ const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps> = ({ familiehen
   return (
     <>
       <FlexColumn className={styles.text}>
-        <Normaltekst>
+        <BodyShort size="small">
           {visFødselsdato && !!hendelseDato && antallBarn > 0 && (
             <>
               <FormattedMessage
@@ -77,7 +77,7 @@ const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps> = ({ familiehen
           {!visFødselsdato && (
             <FormattedMessage id="VisittkortBarnInfoFodselPanel.Termin" values={{ dato: dateFormat(hendelseDato) }} />
           )}
-        </Normaltekst>
+        </BodyShort>
       </FlexColumn>
       {dødfødsel && (
         <FlexColumn>
