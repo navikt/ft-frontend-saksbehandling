@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Modal from 'nav-frontend-modal';
-import { BodyShort } from '@navikt/ds-react';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { BodyShort, Button } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 import FlexColumn from './flexGrid/FlexColumn';
@@ -26,7 +25,7 @@ interface OwnProps {
 /**
  * OkAvbrytModal
  *
- * Presentasjonskomponent. Modal som viser en valgfri tekst i tillegg til knappene OK og Avbryt.
+ * Modal som viser en valgfri tekst i tillegg til knappene OK og Avbryt.
  */
 const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showModal, cancel, submit }) => (
   <Modal
@@ -42,14 +41,14 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
     <FlexContainer>
       <FlexRow>
         <FlexColumn>
-          <Hovedknapp mini htmlType="submit" onClick={submit} autoFocus>
+          <Button variant="primary" size="small" onClick={submit} autoFocus>
             {okButtonText || intl.formatMessage({ id: 'OkAvbrytModal.Ok' })}
-          </Hovedknapp>
+          </Button>
         </FlexColumn>
         <FlexColumn>
-          <Knapp mini htmlType="reset" onClick={cancel}>
+          <Button variant="secondary" size="small" onClick={cancel}>
             {intl.formatMessage({ id: 'OkAvbrytModal.Avbryt' })}
-          </Knapp>
+          </Button>
         </FlexColumn>
       </FlexRow>
     </FlexContainer>

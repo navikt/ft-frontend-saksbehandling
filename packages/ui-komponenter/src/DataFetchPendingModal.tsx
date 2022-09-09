@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import NavFrontendSpinner from 'nav-frontend-spinner';
-import { Label } from '@navikt/ds-react';
+import { Label, Loader } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 
 import { createIntl } from '@navikt/ft-utils';
@@ -72,7 +71,7 @@ export class DataFetchPendingModal extends Component<OwnProps, OwnState> {
       >
         <Row>
           <Column xs="2">
-            <NavFrontendSpinner type="L" />
+            <Loader size="large" />
             <div className={styles.divider} />
           </Column>
           <Column xs="10">

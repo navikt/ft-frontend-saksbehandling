@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, Button } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
-import { Hovedknapp } from 'nav-frontend-knapper';
 
 import advarselImageUrl from './images/advarsel.svg';
 import Image from './Image';
+import FlexRow from './flexGrid/FlexRow';
+import FlexColumn from './flexGrid/FlexColumn';
 
 import styles from './warningModal.less';
 
@@ -30,21 +30,21 @@ const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showM
     onRequestClose={submit}
     shouldCloseOnOverlayClick={false}
   >
-    <Row>
-      <Column xs="1">
+    <FlexRow>
+      <FlexColumn>
         <Image className={styles.image} alt={bodyText} src={advarselImageUrl} />
         <div className={styles.divider} />
-      </Column>
-      <Column xs="8" className={styles.text}>
+      </FlexColumn>
+      <FlexColumn className={styles.text}>
         {headerText && <Heading size="small">{headerText}</Heading>}
         <BodyShort size="small">{bodyText}</BodyShort>
-      </Column>
-      <Column xs="2">
-        <Hovedknapp className={styles.submitButton} mini htmlType="submit" onClick={submit} autoFocus>
+      </FlexColumn>
+      <FlexColumn className={styles.knapp}>
+        <Button size="small" variant="primary" className={styles.submitButton} onClick={submit} autoFocus>
           OK
-        </Hovedknapp>
-      </Column>
-    </Row>
+        </Button>
+      </FlexColumn>
+    </FlexRow>
   </Modal>
 );
 
