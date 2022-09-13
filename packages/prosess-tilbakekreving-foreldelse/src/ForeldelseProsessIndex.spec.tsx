@@ -26,7 +26,7 @@ describe('<ForeldelseProsessIndex>', () => {
     expect(screen.getByText('4 uker 1 dag')).toBeInTheDocument();
     expect(screen.getByText('Feilutbetaling:')).toBeInTheDocument();
     expect(screen.getByText('3 000')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering');
 
@@ -41,7 +41,7 @@ describe('<ForeldelseProsessIndex>', () => {
     expect(screen.getByText('4 uker 2 dager')).toBeInTheDocument();
     expect(screen.getByText('Feilutbetaling:')).toBeInTheDocument();
     expect(screen.getByText('4 000')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering');
 

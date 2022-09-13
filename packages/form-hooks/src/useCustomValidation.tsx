@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { formHooks } from '@navikt/ft-form-hooks';
+
+import formHooks from './formHooksWrapper';
 
 type ErrorMessageType = {
   notRegisteredInput?: boolean;

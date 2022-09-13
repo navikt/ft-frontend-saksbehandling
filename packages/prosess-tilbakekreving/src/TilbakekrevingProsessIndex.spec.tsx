@@ -88,7 +88,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
     const utils = render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Tilbakekreving')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.type(
       utils.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
@@ -318,7 +318,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
         'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
       ),
     ).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.click(screen.getByAltText('Åpne info om første periode'));
 
@@ -346,7 +346,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
     expect(await screen.findByText('OK')).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('OK'));
-    expect(screen.getByText('Bekreft og fortsett')).toBeEnabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeEnabled();
 
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
