@@ -1,6 +1,6 @@
 import { DDMMYYYY_DATE_FORMAT, haystack } from '@navikt/ft-utils';
 import moment from 'moment';
-import { Input } from 'nav-frontend-skjema';
+import { TextField as NavInput } from '@navikt/ds-react';
 import React, { Component, ReactNode } from 'react';
 import { DateUtils, Modifier } from 'react-day-picker';
 import CalendarToggleButton from './CalendarToggleButton';
@@ -173,14 +173,14 @@ class Periodpicker extends Component<OwnProps, StateProps> {
     return (
       <>
         <div className={styles.inputWrapper}>
-          <Input
+          <NavInput
             className={styles.dateInput}
-            inputRef={this.handleInputRef}
+            ref={this.handleInputRef}
             autoComplete="off"
             placeholder={placeholder}
             label={label}
             value={period}
-            feil={feil}
+            error={feil}
             disabled={disabled}
             onBlur={this.onBlur}
             onChange={this.onChange}

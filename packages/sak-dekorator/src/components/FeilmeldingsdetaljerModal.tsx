@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
-import Modal from 'nav-frontend-modal';
+import { Modal, Button, BodyShort, Detail, Heading } from '@navikt/ds-react';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
 import infoImageUrl from '../images/behandle.svg';
@@ -29,47 +27,49 @@ const FeilmeldingsdetaljerModal: FunctionComponent<OwnProps> = ({ skalViseModal,
   return (
     <Modal
       className={styles.modal}
-      isOpen={skalViseModal}
+      open={skalViseModal}
       closeButton={false}
-      contentLabel={intl.formatMessage({ id: 'FeilmeldingsdetaljerModal.ErrorDetails' })}
-      onRequestClose={lukkModal}
+      aria-label={intl.formatMessage({ id: 'FeilmeldingsdetaljerModal.ErrorDetails' })}
+      onClose={lukkModal}
       shouldCloseOnOverlayClick={false}
     >
-      <Row>
-        <Column xs="1">
-          <Image className={styles.image} src={infoImageUrl} />
-          <div className={styles.divider} />
-        </Column>
-        <Column xs="10" className={styles.text}>
-          <Undertittel>
-            <FormattedMessage id="FeilmeldingsdetaljerModal.ErrorDetails" />
-          </Undertittel>
-        </Column>
-      </Row>
-      <VerticalSpacer sixteenPx />
-      <Row>
-        <Column xs="1" />
-        <Column xs="11">
-          {feilmeldingsdetaljer &&
-            Object.keys(feilmeldingsdetaljer).map(edKey => (
-              <React.Fragment key={edKey}>
-                <Undertekst>{`${capitalizeFirstLetters(edKey)}:`}</Undertekst>
-                <div className={styles.detail}>
-                  {/* @ts-ignore Fiks */}
-                  <Normaltekst>{feilmeldingsdetaljer[edKey]}</Normaltekst>
-                </div>
-                <VerticalSpacer eightPx />
-              </React.Fragment>
-            ))}
-        </Column>
-      </Row>
-      <Row>
-        <Column xs="12">
-          <Knapp className={styles.cancelButton} mini htmlType="reset" onClick={lukkModal}>
-            <FormattedMessage id="FeilmeldingsdetaljerModal.Close" />
-          </Knapp>
-        </Column>
-      </Row>
+      <Modal.Content>
+        <Row>
+          <Column xs="1">
+            <Image className={styles.image} src={infoImageUrl} />
+            <div className={styles.divider} />
+          </Column>
+          <Column xs="10" className={styles.text}>
+            <Heading size="small">
+              <FormattedMessage id="FeilmeldingsdetaljerModal.ErrorDetails" />
+            </Heading>
+          </Column>
+        </Row>
+        <VerticalSpacer sixteenPx />
+        <Row>
+          <Column xs="1" />
+          <Column xs="11">
+            {feilmeldingsdetaljer &&
+              Object.keys(feilmeldingsdetaljer).map(edKey => (
+                <React.Fragment key={edKey}>
+                  <Detail size="small">{`${capitalizeFirstLetters(edKey)}:`}</Detail>
+                  <div className={styles.detail}>
+                    {/* @ts-ignore Fiks */}
+                    <BodyShort size="small">{feilmeldingsdetaljer[edKey]}</BodyShort>
+                  </div>
+                  <VerticalSpacer eightPx />
+                </React.Fragment>
+              ))}
+          </Column>
+        </Row>
+        <Row>
+          <Column xs="12">
+            <Button size="small" variant="secondary" className={styles.cancelButton} onClick={lukkModal}>
+              <FormattedMessage id="FeilmeldingsdetaljerModal.Close" />
+            </Button>
+          </Column>
+        </Row>
+      </Modal.Content>
     </Modal>
   );
 };

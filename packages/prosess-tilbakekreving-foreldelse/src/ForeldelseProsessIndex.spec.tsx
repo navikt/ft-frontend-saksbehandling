@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
-import Modal from 'nav-frontend-modal';
+import { Modal } from '@navikt/ds-react';
 import * as stories from './ForeldelseProsessIndex.stories';
 
 const { Default, UtenAksjonspunkt } = composeStories(stories);
@@ -10,7 +10,10 @@ const { Default, UtenAksjonspunkt } = composeStories(stories);
 describe('<ForeldelseProsessIndex>', () => {
   jest.setTimeout(15000);
 
-  Modal.setAppElement('body');
+  if (Modal.setAppElement) {
+    Modal.setAppElement('body');
+  }
+
   it('skal vurdere to perioder og så bekrefte', async () => {
     const lagre = jest.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);
@@ -23,7 +26,7 @@ describe('<ForeldelseProsessIndex>', () => {
     expect(screen.getByText('4 uker 1 dag')).toBeInTheDocument();
     expect(screen.getByText('Feilutbetaling:')).toBeInTheDocument();
     expect(screen.getByText('3 000')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering');
 
@@ -38,7 +41,7 @@ describe('<ForeldelseProsessIndex>', () => {
     expect(screen.getByText('4 uker 2 dager')).toBeInTheDocument();
     expect(screen.getByText('Feilutbetaling:')).toBeInTheDocument();
     expect(screen.getByText('4 000')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering');
 

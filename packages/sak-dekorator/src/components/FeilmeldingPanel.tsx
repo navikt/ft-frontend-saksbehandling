@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState, useCallback } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Column, Row } from 'nav-frontend-grid';
-import { Undertekst } from 'nav-frontend-typografi';
-import Lukknapp from 'nav-frontend-lukknapp';
+import { Button, Detail } from '@navikt/ds-react';
+import { Close } from '@navikt/ds-icons';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import FeilmeldingsdetaljerModal from './FeilmeldingsdetaljerModal';
@@ -25,8 +25,6 @@ interface OwnProps {
  * Definerer hvordan feilmeldinger vises under header.
  */
 const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFeilmeldinger }) => {
-  const intl = useIntl();
-
   const [erModalÅpen, setModalTilÅpen] = useState(false);
   const [valgtFeilmeldingIndex, setValgtFeilmeldingIndex] = useState<number | undefined>(undefined);
 
@@ -61,9 +59,9 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
       {feilmeldinger.map((message, index) => (
         <Row key={message.melding}>
           <Column xs="11">
-            <Undertekst className={styles.wordWrap}>{`${decodeHtmlEntity(message.melding)} `}</Undertekst>
+            <Detail size="small" className={styles.wordWrap}>{`${decodeHtmlEntity(message.melding)} `}</Detail>
             {message.tilleggsInfo && (
-              <Undertekst>
+              <Detail size="small">
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a
                   href=""
@@ -73,15 +71,13 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
                 >
                   <FormattedMessage id="FeilmeldingPanel.ErrorDetails" />
                 </a>
-              </Undertekst>
+              </Detail>
             )}
           </Column>
         </Row>
       ))}
       <div className={styles.lukkContainer}>
-        <Lukknapp hvit onClick={fjernFeilmeldinger}>
-          {intl.formatMessage({ id: 'FeilmeldingPanel.Close' })}
-        </Lukknapp>
+        <Button variant="tertiary" icon={<Close color="white" />} onClick={fjernFeilmeldinger} />
       </div>
       {erModalÅpen && (
         <FeilmeldingsdetaljerModal

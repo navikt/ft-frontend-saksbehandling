@@ -1,6 +1,6 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
-import Panel from 'nav-frontend-paneler';
+import { Panel } from '@navikt/ds-react';
 
 import styles from './borderBox.less';
 

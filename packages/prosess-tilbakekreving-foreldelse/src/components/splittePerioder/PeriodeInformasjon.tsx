@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Label, BodyShort } from '@navikt/ds-react';
 
 import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -21,11 +21,7 @@ interface PureOwnProps {
  *
  * Presentationskomponent
  */
-const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({
-  fom,
-  tom,
-  feilutbetaling,
-}) => {
+const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({ fom, tom, feilutbetaling }) => {
   const daysAndWeeks = calcDaysAndWeeks(fom, tom);
   return (
     <Row>
@@ -33,12 +29,12 @@ const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({
         <div className={styles.infoSummary}>
           <Row>
             <Column xs="6">
-              <Element>
-                { `${moment(fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(tom).format(DDMMYYYY_DATE_FORMAT)}` }
-              </Element>
+              <Label size="small">
+                {`${moment(fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(tom).format(DDMMYYYY_DATE_FORMAT)}`}
+              </Label>
             </Column>
             <Column xs="6">
-              <Normaltekst>
+              <BodyShort size="small">
                 <FormattedMessage
                   id={daysAndWeeks.id}
                   values={{
@@ -46,17 +42,18 @@ const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({
                     days: daysAndWeeks.days,
                   }}
                 />
-              </Normaltekst>
+              </BodyShort>
             </Column>
           </Row>
           <div className={styles.resultSum}>
             <Row className={styles.redNumbers}>
               <Column xs="6">
-                <Normaltekst className={styles.resultName}>
-                  <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />
-                  :
-                  <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>{ formatCurrencyNoKr(feilutbetaling) }</span>
-                </Normaltekst>
+                <BodyShort size="small" className={styles.resultName}>
+                  <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
+                  <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>
+                    {formatCurrencyNoKr(feilutbetaling)}
+                  </span>
+                </BodyShort>
               </Column>
             </Row>
           </div>

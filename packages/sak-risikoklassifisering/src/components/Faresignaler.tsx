@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 import { Risikoklassifisering } from '@navikt/ft-types';
@@ -15,13 +15,13 @@ export const FarePanel: FunctionComponent<{
   <div>
     <FlexRow>
       <FlexColumn>
-        <Element>
+        <Label size="small">
           <FormattedMessage id={labelId} />
-        </Element>
+        </Label>
         <ul>
           {risikoFaresignaler.faresignaler.map(faresignal => (
             <li key={faresignal}>
-              <Normaltekst>{decodeHtmlEntity(faresignal)}</Normaltekst>
+              <BodyShort size="small">{decodeHtmlEntity(faresignal)}</BodyShort>
             </li>
           ))}
         </ul>

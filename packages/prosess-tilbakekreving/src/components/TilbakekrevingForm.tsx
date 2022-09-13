@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Undertittel } from 'nav-frontend-typografi';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
 
 import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
@@ -368,9 +367,9 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <Undertittel>
+      <Heading size="small">
         <FormattedMessage id="Behandlingspunkt.Tilbakekreving" />
-      </Undertittel>
+      </Heading>
       <VerticalSpacer twentyPx />
       <AksjonspunktHelpTextTemp isAksjonspunktOpen={isApOpen}>
         {[<FormattedMessage key="AksjonspunktHjelpetekst" id="TilbakekrevingForm.AksjonspunktHjelpetekst" />]}

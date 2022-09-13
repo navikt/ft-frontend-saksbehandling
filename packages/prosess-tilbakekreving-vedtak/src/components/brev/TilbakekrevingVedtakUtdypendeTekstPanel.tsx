@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Undertekst } from 'nav-frontend-typografi';
+import { Detail } from '@navikt/ds-react';
 import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { required, hasValidText, maxLength, minLength } from '@navikt/ft-form-validators';
@@ -58,9 +58,9 @@ const TilbakekrevingVedtakUtdypendeTekstPanel: FunctionComponent<OwnProps> = ({
               src={addCircleIcon}
               alt={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst' })}
             />
-            <Undertekst className={styles.imageText}>
+            <Detail size="small" className={styles.imageText}>
               <FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst" />
-            </Undertekst>
+            </Detail>
           </div>
         </>
       )}

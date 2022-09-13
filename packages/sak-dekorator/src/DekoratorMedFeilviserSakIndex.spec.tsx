@@ -2,13 +2,16 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
-import Modal from 'nav-frontend-modal';
+import { Modal } from '@navikt/ds-react';
 import * as stories from './DekoratorMedFeilviserSakIndex.stories';
 
 const { UtenFeilmeldinger, MedFeilmeldinger, MedFeilmeldingDetaljer } = composeStories(stories);
 
 describe('<DekoratorSakIndex>', () => {
-  Modal.setAppElement('body');
+  if (Modal.setAppElement) {
+    Modal.setAppElement('body');
+  }
+
   it('skal vise dekoratør uten feilmeldinger', async () => {
     render(<UtenFeilmeldinger />);
     expect(await screen.findByText('NAV')).toBeInTheDocument();
@@ -21,7 +24,7 @@ describe('<DekoratorSakIndex>', () => {
     expect(await screen.findByText('Feilmelding 1')).toBeInTheDocument();
     expect(screen.getByText('Spesialtegn-test: Høna & egget og "test1" og \'test2\'')).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText('Lukk'));
+    await userEvent.click(screen.getAllByRole('button')[1]);
 
     await waitFor(() => expect(screen.queryByText('Feilmelding 1')).not.toBeInTheDocument());
   });
@@ -36,6 +39,6 @@ describe('<DekoratorSakIndex>', () => {
 
     await userEvent.click(screen.getByText('Detaljert informasjon'));
 
-    expect(await screen.findAllByText('Lukk')).toHaveLength(2);
+    expect(await screen.findByText('Lukk')).toBeInTheDocument();
   });
 });

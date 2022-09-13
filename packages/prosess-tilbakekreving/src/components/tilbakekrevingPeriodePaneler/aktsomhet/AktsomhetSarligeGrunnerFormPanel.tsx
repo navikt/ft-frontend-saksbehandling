@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { UseFormGetValues } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Label } from '@navikt/ds-react';
+import { ErrorMessage, Label } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formHooks, CheckboxField, TextAreaField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { formHooks, CheckboxField, TextAreaField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 
@@ -13,14 +12,6 @@ import AktsomhetReduksjonAvBelopFormPanel from './AktsomhetReduksjonAvBelopFormP
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
-
-const validerAtMinstEnSærligGrunnErValgt =
-  (intl: IntlShape, getValues: UseFormGetValues<any>, name: string, sarligGrunnTyper: KodeverkMedNavn[]) => () => {
-    if (sarligGrunnTyper.some(sgt => !!getValues(`${name}.${sgt.kode}`))) {
-      return undefined;
-    }
-    return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.MaVelgeSarligGrunn' });
-  };
 
 interface OwnProps {
   harGrunnerTilReduksjon?: boolean;
@@ -46,38 +37,42 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
   andelSomTilbakekreves,
 }) => {
   const intl = useIntl();
-  const { getValues } = formHooks.useFormContext();
+  const { watch } = formHooks.useFormContext();
+
+  const hasError = !sarligGrunnTyper.some(sgt => !!watch(`${name}.${sgt.kode}`));
+  const errorMessage = useCustomValidation(
+    name,
+    hasError,
+    intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.MaVelgeSarligGrunn' }),
+  );
+
   return (
     <div>
       <Label size="small">
         <FormattedMessage id="AktsomhetSarligeGrunnerFormPanel.GrunnerTilReduksjon" />
       </Label>
       <VerticalSpacer eightPx />
-      <SkjemaGruppeMedFeilviser
-        name={`${name}.reduksjonsgrunner`}
-        validate={[validerAtMinstEnSærligGrunnErValgt(intl, getValues, name, sarligGrunnTyper)]}
-      >
-        {sarligGrunnTyper.map((sgt: KodeverkMedNavn) => (
-          <React.Fragment key={sgt.kode}>
-            <CheckboxField key={sgt.kode} name={`${name}.${sgt.kode}`} label={sgt.navn} readOnly={readOnly} />
-            <VerticalSpacer eightPx />
-          </React.Fragment>
-        ))}
-        {erSerligGrunnAnnetValgt && (
-          <Row>
-            <Column md="1" />
-            <Column md="10">
-              <TextAreaField
-                name={`${name}.annetBegrunnelse`}
-                label=""
-                validate={[required, minLength3, maxLength1500, hasValidText]}
-                maxLength={1500}
-                readOnly={readOnly}
-              />
-            </Column>
-          </Row>
-        )}
-      </SkjemaGruppeMedFeilviser>
+      {sarligGrunnTyper.map((sgt: KodeverkMedNavn) => (
+        <React.Fragment key={sgt.kode}>
+          <CheckboxField key={sgt.kode} name={`${name}.${sgt.kode}`} label={sgt.navn} readOnly={readOnly} />
+          <VerticalSpacer eightPx />
+        </React.Fragment>
+      ))}
+      {erSerligGrunnAnnetValgt && (
+        <Row>
+          <Column md="1" />
+          <Column md="10">
+            <TextAreaField
+              name={`${name}.annetBegrunnelse`}
+              label=""
+              validate={[required, minLength3, maxLength1500, hasValidText]}
+              maxLength={1500}
+              readOnly={readOnly}
+            />
+          </Column>
+        </Row>
+      )}
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       <AktsomhetReduksjonAvBelopFormPanel
         name={name}
         harGrunnerTilReduksjon={harGrunnerTilReduksjon}
