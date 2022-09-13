@@ -53,7 +53,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const utils = render(<ArbeidstakerMedAvvikAp5038 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Årsgrunnlag arbeid
     expect(screen.getByText('Arbeidsinntekt')).toBeInTheDocument();
@@ -104,7 +104,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const utils = render(<SelvstendigNæringsdrivendeMedAksjonspunktAp5039 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Årsgrunnlag næring
     expect(screen.getByText('3 siste ferdigliknede år fra skatteetaten')).toBeInTheDocument();
@@ -168,7 +168,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const utils = render(<SelvstendigNæringsdrivendNyIArbeidslivetAp5049 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Næringsopplysinger
     expect(screen.getByText('Ukjent bedriftsnavn')).toBeInTheDocument();
@@ -238,7 +238,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const utils = render(<TidsbegrensetArbeidsforholdMedAvvikAp5047 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Årsgrunnlag arbeid
     expect(screen.getAllByText('Andeby bank (999999999)')).toHaveLength(2);
@@ -256,7 +256,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(await screen.findByText('222 000')).toBeInTheDocument();
     expect(screen.getAllByText('100 000')).toHaveLength(4);
 
-    expect(screen.getByText('Bekreft og fortsett')).toBeEnabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
@@ -296,7 +296,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     render(<MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Årsgrunnlag arbeid
     expect(screen.getAllByText('Andeby bank (999999999)')).toHaveLength(2);
