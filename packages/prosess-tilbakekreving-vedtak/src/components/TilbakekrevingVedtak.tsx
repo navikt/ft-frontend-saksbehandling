@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Undertittel, Undertekst, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Heading, Detail } from '@navikt/ds-react';
 
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -44,14 +44,14 @@ const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
   const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
   return (
     <>
-      <Undertittel>
+      <Heading size="small">
         <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
-      </Undertittel>
+      </Heading>
       <VerticalSpacer twentyPx />
-      <Undertekst>
+      <Detail size="small">
         <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
-      </Undertekst>
-      <Normaltekst>{getKodeverknavn(resultat, KodeverkType.VEDTAK_RESULTAT_TYPE)}</Normaltekst>
+      </Detail>
+      <BodyShort size="small">{getKodeverknavn(resultat, KodeverkType.VEDTAK_RESULTAT_TYPE)}</BodyShort>
       <VerticalSpacer sixteenPx />
       <TilbakekrevingVedtakPeriodeTabell perioder={perioder} getKodeverknavn={getKodeverknavn} />
       <VerticalSpacer sixteenPx />

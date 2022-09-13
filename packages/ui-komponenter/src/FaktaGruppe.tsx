@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 
 import BorderBox from './BorderBox';
 import VerticalSpacer from './VerticalSpacer';
@@ -52,7 +52,7 @@ const FaktaGruppe: FunctionComponent<OwnPropsFaktaGruppe> = ({
     <Wrapper withoutBorder={withoutBorder && !error} error={error} className={className}>
       {title && (
         <>
-          <Element>{title}</Element>
+          <Label size="small">{title}</Label>
           <VerticalSpacer twentyPx />
         </>
       )}

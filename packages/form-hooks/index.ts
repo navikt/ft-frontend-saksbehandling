@@ -9,3 +9,4 @@ export { default as SkjemaGruppeMedFeilviser } from './src/SkjemaGruppeMedFeilvi
 export { default as PeriodFieldArray } from './src/PeriodFieldArray';
 export { default as formHooks } from './src/formHooksWrapper';
 export { default as ReadOnlyField } from './src/ReadOnlyField';
+export { default as useCustomValidation } from './src/useCustomValidation';

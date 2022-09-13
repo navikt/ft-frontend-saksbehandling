@@ -1,7 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import Modal from 'nav-frontend-modal';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Modal, BodyShort, Button } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 import FlexColumn from './flexGrid/FlexColumn';
@@ -26,33 +24,35 @@ interface OwnProps {
 /**
  * OkAvbrytModal
  *
- * Presentasjonskomponent. Modal som viser en valgfri tekst i tillegg til knappene OK og Avbryt.
+ * Modal som viser en valgfri tekst i tillegg til knappene OK og Avbryt.
  */
 const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showModal, cancel, submit }) => (
   <Modal
     className={styles.modal}
-    isOpen={showModal}
+    open={showModal}
     closeButton
-    contentLabel={text}
-    onRequestClose={cancel}
+    aria-label={text}
+    onClose={cancel}
     shouldCloseOnOverlayClick={false}
   >
-    <Normaltekst>{text}</Normaltekst>
-    <VerticalSpacer fourtyPx />
-    <FlexContainer>
-      <FlexRow>
-        <FlexColumn>
-          <Hovedknapp mini htmlType="submit" onClick={submit} autoFocus>
-            {okButtonText || intl.formatMessage({ id: 'OkAvbrytModal.Ok' })}
-          </Hovedknapp>
-        </FlexColumn>
-        <FlexColumn>
-          <Knapp mini htmlType="reset" onClick={cancel}>
-            {intl.formatMessage({ id: 'OkAvbrytModal.Avbryt' })}
-          </Knapp>
-        </FlexColumn>
-      </FlexRow>
-    </FlexContainer>
+    <Modal.Content>
+      <BodyShort size="small">{text}</BodyShort>
+      <VerticalSpacer fourtyPx />
+      <FlexContainer>
+        <FlexRow>
+          <FlexColumn>
+            <Button variant="primary" size="small" onClick={submit} autoFocus>
+              {okButtonText || intl.formatMessage({ id: 'OkAvbrytModal.Ok' })}
+            </Button>
+          </FlexColumn>
+          <FlexColumn>
+            <Button variant="secondary" size="small" onClick={cancel}>
+              {intl.formatMessage({ id: 'OkAvbrytModal.Avbryt' })}
+            </Button>
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
+    </Modal.Content>
   </Modal>
 );
 

@@ -1,22 +1,18 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
-
-.hoyRisikoPanelTittel {
-  background-color: mix(@navRod, #fff, 20%);
-  border: 1px solid mix(@navRod, #fff, 20%);
-  margin-bottom: 0;
-  margin-top: 16px;
-  width: 100%;
+.hoyRisikoPanel {
+  border: 1px solid;
+  border-radius: 2px;
 }
 
-.hoyRisikoPanelTittel > button {
-  background-color: mix(@navRod, #fff, 20%);
+.hoyRisikoPanelHeader {
+  background-color: #f3cccc;
 }
 
-.hoyRisikoPanelTittel > div {
-  background-color: white;
-  width: 100%;
+:global(.navds-accordion__header) {
+  /* stylelint-disable-next-line declaration-no-important */
+  border-bottom: 0 !important;
 }
 
-.hoyRisikoPanelTittel > div > div > article {
-  padding: 6px;
+:global(.navds-accordion__content) {
+  /* stylelint-disable-next-line declaration-no-important */
+  border-bottom: 0 !important;
 }

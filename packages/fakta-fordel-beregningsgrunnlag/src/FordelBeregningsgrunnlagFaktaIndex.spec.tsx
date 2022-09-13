@@ -21,7 +21,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(
       await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
     ).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Første periode
     expect(screen.getByText('Gjeldende 05.08.2019 - 26.11.2019')).toBeInTheDocument();
@@ -132,7 +132,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(
       await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
     ).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.click(screen.getByText('01.01.2020 - 05.02.2020'));
 
@@ -426,7 +426,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
         'Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.',
       ),
     ).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
     expect(screen.getAllByText('JENS MAGNE (01.01.2000)')).toHaveLength(2);
     expect(screen.getByText('krever refusjon fra og med 01.06.2020')).toBeInTheDocument();
     expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
@@ -479,7 +479,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
         'Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.',
       ),
     ).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
     expect(screen.getAllByText('KATOLSK KEBAB A/S (999999999)')).toHaveLength(3);
     expect(
       screen.getByText('krever refusjon fra og med 01.06.2020. Det er tidligere innvilget et lavere refusjonsbeløp'),

@@ -1,5 +1,5 @@
 import React from 'react';
-import NavFrontendSpinner from 'nav-frontend-spinner';
+import { Loader } from '@navikt/ds-react';
 
 import styles from './loadingPanel.less';
 
@@ -10,7 +10,7 @@ import styles from './loadingPanel.less';
  */
 const LoadingPanel = () => (
   <div className={styles.container}>
-    <NavFrontendSpinner type="XL" />
+    <Loader size="2xlarge" />
   </div>
 );
 

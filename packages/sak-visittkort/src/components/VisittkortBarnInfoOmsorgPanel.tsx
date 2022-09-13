@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { FlexColumn } from '@navikt/ft-ui-komponenter';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
@@ -27,12 +27,12 @@ const VisittkortBarnInfoOmsorgPanel: FunctionComponent<OwnProps> = ({ familiehen
 
   return (
     <FlexColumn className={styles.text}>
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage
           id={erAdopsjon ? adopsjonTekstkode : foreldreansvarTekstkode}
           values={{ antall: antallBarn, dato: moment(hendelseDato).format(DDMMYYYY_DATE_FORMAT) }}
         />
-      </Normaltekst>
+      </BodyShort>
     </FlexColumn>
   );
 };

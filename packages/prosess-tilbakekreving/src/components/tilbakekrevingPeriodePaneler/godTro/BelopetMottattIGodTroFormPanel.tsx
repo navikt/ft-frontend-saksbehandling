@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 
 import { minValue, required } from '@navikt/ft-form-validators';
 import { removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -94,9 +94,9 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
         )}
         {erBelopetIBehold === false && (
           <ArrowBox alignOffset={90}>
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id="BelopetMottattIGodTroFormPanel.IngenTilbakekreving" />
-            </Normaltekst>
+            </BodyShort>
           </ArrowBox>
         )}
       </div>

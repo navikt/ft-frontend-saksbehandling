@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
-import Modal from 'nav-frontend-modal';
+import { Modal } from '@navikt/ds-react';
 
 import MenySakIndex from './MenySakIndex';
 import MenyData from './MenyData';
@@ -18,24 +18,24 @@ const Template: Story = () => {
 
   const behandlingPåVentModal = () => (
     <Modal
-      isOpen={isOpen}
+      open={isOpen}
       closeButton
-      contentLabel="Sett behandling på vent"
-      onRequestClose={() => setOpen(false)}
+      aria-label="Sett behandling på vent"
+      onClose={() => setOpen(false)}
       shouldCloseOnOverlayClick={false}
     >
-      Sett behandling på vent
+      <Modal.Content>Sett behandling på vent</Modal.Content>
     </Modal>
   );
   const lagNyBehandling = () => (
     <Modal
-      isOpen={isOpen}
+      open={isOpen}
       closeButton
-      contentLabel="Sett behandling på vent"
-      onRequestClose={() => setOpen(false)}
+      aria-label="Sett behandling på vent"
+      onClose={() => setOpen(false)}
       shouldCloseOnOverlayClick={false}
     >
-      Lag ny behandling
+      <Modal.Content>Lag ny behandling</Modal.Content>
     </Modal>
   );
 

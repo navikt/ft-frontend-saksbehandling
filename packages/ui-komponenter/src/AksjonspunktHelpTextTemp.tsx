@@ -1,6 +1,5 @@
 import React, { ReactNode, FunctionComponent } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
-
+import { BodyShort } from '@navikt/ds-react';
 import { isObject, createIntl } from '@navikt/ft-utils';
 
 import AksjonspunktHelpTextHTML from './AksjonspunktHelpTextHTML';
@@ -28,10 +27,10 @@ const AksjonspunktHelpTextTemp: FunctionComponent<OwnProps> = ({ isAksjonspunktO
       <>
         {React.Children.map(children, child => (
           // @ts-ignore (Dette skal fjernast)
-          <Normaltekst key={isObject(child) ? child.key : child} className={styles.wordwrap}>
+          <BodyShort size="small" key={isObject(child) ? child.key : child} className={styles.wordwrap}>
             <strong>{intl.formatMessage({ id: 'HelpText.Aksjonspunkt.BehandletAksjonspunkt' })}</strong>
             {child}
-          </Normaltekst>
+          </BodyShort>
         ))}
       </>
     )}

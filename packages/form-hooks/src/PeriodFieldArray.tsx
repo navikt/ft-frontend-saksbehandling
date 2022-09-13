@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
 import { Column, Row } from 'nav-frontend-grid';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { Detail } from '@navikt/ds-react';
+import { Detail, Fieldset } from '@navikt/ds-react';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
 import addCircleIcon from './images/add-circle.svg';
@@ -62,7 +61,7 @@ interface OwnProps<PERIOD_TYPE> {
 /**
  * PeriodFieldArray
  *
- * Overbygg over FieldArray (Redux-form) som håndterer å legge til og fjerne perioder
+ * Håndterer å legge til og fjerne perioder
  */
 const PeriodFieldArray = <PERIOD_TYPE,>({
   fields,
@@ -79,7 +78,7 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
   remove,
   append,
 }: OwnProps<PERIOD_TYPE>) => (
-  <SkjemaGruppe description={titleText}>
+  <Fieldset legend={titleText}>
     {fields.map((field, index) => children(field, index, getRemoveButton(index, remove)))}
     {shouldShowAddButton && (
       <Row>
@@ -110,7 +109,7 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
         </Column>
       </Row>
     )}
-  </SkjemaGruppe>
+  </Fieldset>
 );
 
 export default PeriodFieldArray;

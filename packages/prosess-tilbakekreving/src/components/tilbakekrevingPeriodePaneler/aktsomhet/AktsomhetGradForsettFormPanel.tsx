@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
 
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
@@ -25,19 +25,17 @@ const AktsomhetGradForsettFormPanel: FunctionComponent<OwnProps> = ({
       {erValgtResultatTypeForstoBurdeForstaatt && (
         <Row>
           <Column md="6">
-            <Undertekst>
+            <Label size="small">
               <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
-            </Undertekst>
-            <Normaltekst className={styles.labelPadding}>100 %</Normaltekst>
+            </Label>
+            <BodyShort size="small" className={styles.labelPadding}>
+              100 %
+            </BodyShort>
           </Column>
           <Column md="6">
             <RadioGroupPanel
               name={`${name}.skalDetTilleggesRenter`}
-              label={
-                <Undertekst>
-                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
-                </Undertekst>
-              }
+              label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
               validate={[required]}
               radios={[
                 {
@@ -58,14 +56,14 @@ const AktsomhetGradForsettFormPanel: FunctionComponent<OwnProps> = ({
       )}
       {!erValgtResultatTypeForstoBurdeForstaatt && (
         <>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
-          </Undertekst>
-          <Normaltekst>100 %</Normaltekst>
+          </Detail>
+          <BodyShort size="small">100 %</BodyShort>
           <VerticalSpacer eightPx />
-          <Normaltekst>
+          <BodyShort size="small">
             <FormattedMessage id="AktsomhetGradForsettFormPanel.Renter" />
-          </Normaltekst>
+          </BodyShort>
         </>
       )}
     </ArrowBox>

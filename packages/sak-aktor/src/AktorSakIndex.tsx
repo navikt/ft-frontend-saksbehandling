@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react';
 import { RawIntlProvider, FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { Aktor, AlleKodeverk } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
@@ -20,9 +20,9 @@ const AktorSakIndex: FunctionComponent<OwnProps> = ({ valgtAktorId, aktorInfo, a
   <RawIntlProvider value={intl}>
     {aktorInfo && <AktoerGrid aktorInfo={aktorInfo} alleKodeverk={alleKodeverk} renderSomLenke={renderSomLenke} />}
     {!aktorInfo && (
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage id="AktorSakIndex.UgyldigAktorId" values={{ id: valgtAktorId }} />
-      </Normaltekst>
+      </BodyShort>
     )}
   </RawIntlProvider>
 );

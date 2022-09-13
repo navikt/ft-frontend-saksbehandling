@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
@@ -24,31 +24,32 @@ export default {
 };
 
 const Template: Story<{
-  isPanelOpen: boolean;
   risikoklassifisering?: Risikoklassifisering;
   aksjonspunkt?: Aksjonspunkt;
   submitAksjonspunkt: () => Promise<any>;
-}> = ({ isPanelOpen, risikoklassifisering, aksjonspunkt, submitAksjonspunkt }) => (
-  <RisikoklassifiseringSakIndex
-    risikoklassifisering={risikoklassifisering}
-    aksjonspunkt={aksjonspunkt}
-    isPanelOpen={isPanelOpen}
-    readOnly={false}
-    submitAksjonspunkt={submitAksjonspunkt}
-    toggleRiskPanel={action('button-click')}
-    alleKodeverk={alleKodeverk as any}
-  />
-);
+}> = ({ risikoklassifisering, aksjonspunkt, submitAksjonspunkt }) => {
+  const [isOpen, toggleOpen] = useState(true);
+
+  return (
+    <RisikoklassifiseringSakIndex
+      risikoklassifisering={risikoklassifisering}
+      aksjonspunkt={aksjonspunkt}
+      isPanelOpen={isOpen}
+      readOnly={false}
+      submitAksjonspunkt={submitAksjonspunkt}
+      toggleRiskPanel={() => toggleOpen(!isOpen)}
+      alleKodeverk={alleKodeverk as any}
+    />
+  );
+};
 
 export const IngenRisikoklassifisering = Template.bind({});
 IngenRisikoklassifisering.args = {
-  isPanelOpen: false,
   submitAksjonspunkt: action('button-click') as () => Promise<any>,
 };
 
 export const LavRisikoklassifisering = Template.bind({});
 LavRisikoklassifisering.args = {
-  isPanelOpen: false,
   risikoklassifisering: {
     kontrollresultat: kontrollresultatKode.IKKE_HOY,
   },
@@ -57,7 +58,6 @@ LavRisikoklassifisering.args = {
 
 export const HøyRisikoklassifisering = Template.bind({});
 HøyRisikoklassifisering.args = {
-  isPanelOpen: true,
   aksjonspunkt: {
     definisjon: RisikoklassifiseringAksjonspunktCode.VURDER_FARESIGNALER,
     status: AksjonspunktStatus.OPPRETTET,

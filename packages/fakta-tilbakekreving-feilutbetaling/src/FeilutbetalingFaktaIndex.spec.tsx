@@ -17,7 +17,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
     expect(await screen.findByText('10000')).toBeInTheDocument();
     expect(await screen.findAllByText('5000')).toHaveLength(2);
 
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     const selects = utils.getAllByRole('combobox', { hidden: true });
     await userEvent.selectOptions(selects[0], 'MEDLEMSKAP');
@@ -72,7 +72,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
     expect(await screen.findByText('10000')).toBeInTheDocument();
     expect(await screen.findAllByText('5000')).toHaveLength(2);
 
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[0], 'MEDLEMSKAP');
     await userEvent.selectOptions(utils.getAllByRole('combobox', { hidden: true })[1], 'OKONOMI_FEIL');
@@ -128,7 +128,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
     expect(await screen.findByText('10000')).toBeInTheDocument();
     expect(await screen.findAllByText('5000')).toHaveLength(2);
 
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.click(screen.getByText('Behandle alle perioder samlet'));
 

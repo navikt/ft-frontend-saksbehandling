@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, Image } from '@navikt/ft-ui-komponenter';
 
 import styles from './tittelMedDivider.less';
@@ -32,9 +32,9 @@ const TittelMedDivider: FunctionComponent<OwnProps> = ({ imageSrc, tittel }) => 
         </FlexColumn>
         <FlexColumn>
           <div className={styles.tekst}>
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id={tittel} />
-            </Normaltekst>
+            </BodyShort>
           </div>
         </FlexColumn>
       </FlexRow>

@@ -2,20 +2,22 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
-import Modal from 'nav-frontend-modal';
+import { Modal } from '@navikt/ds-react';
 import * as stories from './MenyEndreBehandlendeEnhetIndex.stories';
 
 const { Default } = composeStories(stories);
 
 describe('<MenyEndreBehandlendeEnhetIndex>', () => {
-  Modal.setAppElement('body');
+  if (Modal.setAppElement) {
+    Modal.setAppElement('body');
+  }
 
   it('skal velge og lagre ny enhet', async () => {
     const lagreNyBehandlendeEnhet = jest.fn();
     const lukkModal = jest.fn();
     const utils = render(<Default lagreNyBehandlendeEnhet={lagreNyBehandlendeEnhet} lukkModal={lukkModal} />);
     expect(await screen.findByText('Endre behandlende enhet for valgt behandling')).toBeInTheDocument();
-    expect(screen.getByText('OK')).toBeDisabled();
+    expect(screen.getByText('OK').closest('button')).toBeDisabled();
 
     const begrunnelseInput = utils.getByLabelText('Begrunnelse');
     await userEvent.type(begrunnelseInput, 'Dette er en begrunnelse');

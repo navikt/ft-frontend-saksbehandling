@@ -78,7 +78,7 @@ describe('<RisikoklassifiseringSakIndex>', () => {
     const lagreAksjonspunkt = jest.fn();
     const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
     expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett')).toBeDisabled();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     const vurderingInput = utils.getByLabelText('Vurdering');
 

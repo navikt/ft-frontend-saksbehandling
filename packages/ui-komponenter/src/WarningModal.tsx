@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
-import Modal from 'nav-frontend-modal';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading, Button, Modal } from '@navikt/ds-react';
 
 import advarselImageUrl from './images/advarsel.svg';
 import Image from './Image';
+import FlexRow from './flexGrid/FlexRow';
+import FlexColumn from './flexGrid/FlexColumn';
 
 import styles from './warningModal.less';
 
@@ -24,27 +23,28 @@ interface OwnProps {
 const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showModal, submit }) => (
   <Modal
     className={styles.modal}
-    isOpen={showModal}
+    open={showModal}
     closeButton={false}
-    contentLabel={bodyText}
-    onRequestClose={submit}
+    onClose={submit}
     shouldCloseOnOverlayClick={false}
   >
-    <Row>
-      <Column xs="1">
-        <Image className={styles.image} alt={bodyText} src={advarselImageUrl} />
-        <div className={styles.divider} />
-      </Column>
-      <Column xs="8" className={styles.text}>
-        {headerText && <Undertittel>{headerText}</Undertittel>}
-        <Normaltekst>{bodyText}</Normaltekst>
-      </Column>
-      <Column xs="2">
-        <Hovedknapp className={styles.submitButton} mini htmlType="submit" onClick={submit} autoFocus>
-          OK
-        </Hovedknapp>
-      </Column>
-    </Row>
+    <Modal.Content>
+      <FlexRow>
+        <FlexColumn>
+          <Image className={styles.image} alt={bodyText} src={advarselImageUrl} />
+          <div className={styles.divider} />
+        </FlexColumn>
+        <FlexColumn className={styles.text}>
+          {headerText && <Heading size="small">{headerText}</Heading>}
+          <BodyShort size="small">{bodyText}</BodyShort>
+        </FlexColumn>
+        <FlexColumn className={styles.knapp}>
+          <Button size="small" variant="primary" className={styles.submitButton} onClick={submit} autoFocus>
+            OK
+          </Button>
+        </FlexColumn>
+      </FlexRow>
+    </Modal.Content>
   </Modal>
 );
 

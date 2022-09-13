@@ -1,11 +1,12 @@
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
-import Lenkepanel from 'nav-frontend-lenkepanel';
+import { LinkPanel } from '@navikt/ds-react';
 import { getKodeverknavnFn } from '@navikt/ft-utils';
 import VisittkortSakIndex from '@navikt/ft-sak-visittkort';
 import { Fagsak, FagsakPerson, AlleKodeverk } from '@navikt/ft-types';
 import { KodeverkType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import styles from './aktoerGrid.less';
 
 interface OwnProps {
@@ -33,16 +34,19 @@ const AktoerGrid: FunctionComponent<OwnProps> = ({ aktorInfo, alleKodeverk, rend
       <div className={styles.list}>
         {aktorInfo.fagsaker.length ? (
           aktorInfo.fagsaker.map(fagsak => (
-            <Lenkepanel
-              linkCreator={props => renderSomLenke(props.className, props.children, fagsak.saksnummer)}
-              key={fagsak.saksnummer}
-              href="#"
-              tittelProps="normaltekst"
-            >
-              {getKodeverknavn(fagsak.fagsakYtelseType, KodeverkType.FAGSAK_YTELSE)}
-              {` (${fagsak.saksnummer}) `}
-              {getKodeverknavn(fagsak.status, KodeverkType.FAGSAK_STATUS)}
-            </Lenkepanel>
+            <React.Fragment key={fagsak.saksnummer}>
+              <LinkPanel href="#">
+                <LinkPanel.Title>
+                  {renderSomLenke(
+                    undefined,
+                    `${getKodeverknavn(fagsak.fagsakYtelseType, KodeverkType.FAGSAK_YTELSE)} (${fagsak.saksnummer})` +
+                      ` ${getKodeverknavn(fagsak.status, KodeverkType.FAGSAK_STATUS)}`,
+                    fagsak.saksnummer,
+                  )}
+                </LinkPanel.Title>
+              </LinkPanel>
+              <VerticalSpacer sixteenPx />
+            </React.Fragment>
           ))
         ) : (
           <FormattedMessage id="AktoerGrid.IngenFagsaker" />

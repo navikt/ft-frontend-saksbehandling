@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback, FunctionComponent } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import { Image } from '@navikt/ft-ui-komponenter';
 import { Popover, BoxedListWithSelection } from '@navikt/ft-plattform-komponenter';
 import { createIntl } from '@navikt/ft-utils';
@@ -69,12 +69,12 @@ const MenySakIndex: FunctionComponent<OwnProps> = ({ data }) => {
               // eslint-disable-next-line react/no-unstable-nested-components
               children: ({ ref }) => (
                 <div ref={ref}>
-                  <Knapp mini kompakt onClick={toggleMenyVisning}>
+                  <Button size="small" variant="primary" onClick={toggleMenyVisning}>
                     <FormattedMessage id="MenySakIndex.Behandlingsmeny" />
                     <span style={{ marginLeft: '5px' }}>
                       <Image src={visMenySomApen ? openImage : closedImage} />
                     </span>
-                  </Knapp>
+                  </Button>
                 </div>
               ),
             }}

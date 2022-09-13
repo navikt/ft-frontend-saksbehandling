@@ -33,7 +33,7 @@ describe('<VedtakTilbakekrevingProsessIndex>', () => {
     expect(screen.getByText('5 500')).toBeInTheDocument();
     expect(screen.getByText('4 400')).toBeInTheDocument();
 
-    expect(screen.getByText('Til godkjenning')).toBeDisabled();
+    expect(screen.getByText('Til godkjenning').closest('button')).toBeDisabled();
 
     const tekstInput = utils.getAllByLabelText('Utdypende tekst');
     await userEvent.type(tekstInput[0], 'Dette er en utdypende tekst');

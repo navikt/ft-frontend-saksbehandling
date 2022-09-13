@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { Image, EditedIcon, FloatRight } from '@navikt/ft-ui-komponenter';
 import { TimeLineButton } from '@navikt/ft-tidslinje';
@@ -135,10 +135,10 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
     return (
       <Row>
         <Column xs="3">
-          <Element>
+          <Label size="small">
             <FormattedMessage id="PeriodeController.Detaljer" />
             {isEdited && <EditedIcon />}
-          </Element>
+          </Label>
         </Column>
         <Column xs="7">
           {!readOnly && (

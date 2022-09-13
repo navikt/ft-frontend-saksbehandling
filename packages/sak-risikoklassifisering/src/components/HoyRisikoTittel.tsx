@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
+import { Accordion } from '@navikt/ds-react';
 
 import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 
@@ -34,21 +34,22 @@ const HoyRisikoTittel: FunctionComponent<OwnProps> = ({
   toggleRiskPanel,
   faresignalVurderinger,
 }) => (
-  <EkspanderbartpanelBase
-    className={styles.hoyRisikoPanelTittel}
-    apen={isRiskPanelOpen}
-    onClick={toggleRiskPanel}
-    tittel={<TittelMedDivider imageSrc={risikoIkon} tittel="Risikopanel.Tittel.Faresignaler" />}
-    border
-  >
-    <HoyRisikoPanel
-      risikoklassifisering={risikoklassifisering}
-      aksjonspunkt={aksjonspunkt}
-      readOnly={readOnly}
-      submitCallback={submitCallback}
-      faresignalVurderinger={faresignalVurderinger}
-    />
-  </EkspanderbartpanelBase>
+  <Accordion className={styles.hoyRisikoPanel}>
+    <Accordion.Item open={isRiskPanelOpen} className={isRiskPanelOpen ? undefined : styles.hoyRisikoPanelHeader}>
+      <Accordion.Header onClick={toggleRiskPanel}>
+        <TittelMedDivider imageSrc={risikoIkon} tittel="Risikopanel.Tittel.Faresignaler" />
+      </Accordion.Header>
+      <Accordion.Content>
+        <HoyRisikoPanel
+          risikoklassifisering={risikoklassifisering}
+          aksjonspunkt={aksjonspunkt}
+          readOnly={readOnly}
+          submitCallback={submitCallback}
+          faresignalVurderinger={faresignalVurderinger}
+        />
+      </Accordion.Content>
+    </Accordion.Item>
+  </Accordion>
 );
 
 export default HoyRisikoTittel;
