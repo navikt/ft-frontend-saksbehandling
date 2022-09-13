@@ -13,7 +13,7 @@ interface NavFieldGroupProps {
 }
 
 /**
- * @deprecated Bruk heller ErrorMessage-komponenten for å vise feil
+ * @deprecated Bruk heller useCustomValidation og ErrorMessage-komponenten for å vise feil som ikke er knyttet til ett felt
  */
 const SkjemaGruppeMedFeilviser: FunctionComponent<NavFieldGroupProps> = ({
   name,
