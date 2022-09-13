@@ -12,6 +12,9 @@ interface NavFieldGroupProps {
   validate?: ((value: string) => any)[];
 }
 
+/**
+ * @deprecated Bruk heller ErrorMessage-komponenten for å vise feil
+ */
 const SkjemaGruppeMedFeilviser: FunctionComponent<NavFieldGroupProps> = ({
   name,
   errorMessage,

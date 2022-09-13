@@ -27,8 +27,6 @@
     "@navikt/ds-css": "^1.2.6",
     "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-utils": "^1.1.0",
-    "nav-frontend-alertstriper": "4.0.2",
-    "nav-frontend-alertstriper-style": "3.0.2",
     "react": "18.2.0",
     "react-intl": "6.1.1"
   },
@@ -36,8 +34,6 @@
     "@navikt/ds-css": "^1.2.6",
     "@navikt/ds-react": "^1.2.6",
     "@navikt/ft-utils": "1.x",
-    "nav-frontend-alertstriper": "4.x",
-    "nav-frontend-alertstriper-style": "3.x",
     "react": "18.x",
     "react-intl": "6.1.1"
   },

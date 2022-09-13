@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Alert, BodyShort } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 
@@ -28,11 +27,11 @@ interface OwnProps {
 const IngenBehandlingValgtPanel: FunctionComponent<OwnProps> = ({ numBehandlinger }) => (
   <RawIntlProvider value={intl}>
     <div className={styles.noSelectedBehandlingPanel}>
-      <AlertStripeInfo>
+      <Alert variant="info">
         <BodyShort size="small">
           <FormattedMessage id={getMessage(numBehandlinger)} />
         </BodyShort>
-      </AlertStripeInfo>
+      </Alert>
     </div>
   </RawIntlProvider>
 );

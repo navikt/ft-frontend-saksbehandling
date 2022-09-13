@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState, useCallback } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Column, Row } from 'nav-frontend-grid';
-import { Detail } from '@navikt/ds-react';
-import Lukknapp from 'nav-frontend-lukknapp';
+import { Button, Detail } from '@navikt/ds-react';
+import { Close } from '@navikt/ds-icons';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import FeilmeldingsdetaljerModal from './FeilmeldingsdetaljerModal';
@@ -25,8 +25,6 @@ interface OwnProps {
  * Definerer hvordan feilmeldinger vises under header.
  */
 const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFeilmeldinger }) => {
-  const intl = useIntl();
-
   const [erModalÅpen, setModalTilÅpen] = useState(false);
   const [valgtFeilmeldingIndex, setValgtFeilmeldingIndex] = useState<number | undefined>(undefined);
 
@@ -79,9 +77,7 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
         </Row>
       ))}
       <div className={styles.lukkContainer}>
-        <Lukknapp hvit onClick={fjernFeilmeldinger}>
-          {intl.formatMessage({ id: 'FeilmeldingPanel.Close' })}
-        </Lukknapp>
+        <Button variant="tertiary" icon={<Close color="white" />} onClick={fjernFeilmeldinger} />
       </div>
       {erModalÅpen && (
         <FeilmeldingsdetaljerModal

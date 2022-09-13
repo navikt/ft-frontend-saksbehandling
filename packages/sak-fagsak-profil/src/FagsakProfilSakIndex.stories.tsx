@@ -1,5 +1,5 @@
 import React from 'react';
-import { Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { FagsakStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
@@ -26,7 +26,7 @@ const Template: Story = () => (
         navn: 'Foreldrepenger',
       }}
       fagsakStatus={{ kode: FagsakStatus.OPPRETTET, kodeverk: FAGSAK_STATUS_KODEVERK, navn: 'Opprettet' }}
-      renderBehandlingMeny={() => <Knapp>Meny (Placeholder)</Knapp>}
+      renderBehandlingMeny={() => <Button>Meny (Placeholder)</Button>}
       renderBehandlingVelger={() => <div>Liste (placeholder)</div>}
       dekningsgrad={100}
     />

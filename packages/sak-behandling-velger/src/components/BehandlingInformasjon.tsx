@@ -1,8 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import classNames from 'classnames';
-import { BodyShort, Label, Detail } from '@navikt/ds-react';
-import Panel from 'nav-frontend-paneler';
+import { Panel, BodyShort, Label, Detail } from '@navikt/ds-react';
 import {
   FlexContainer,
   FlexRow,

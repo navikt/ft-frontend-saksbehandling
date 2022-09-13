@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { BodyShort, Label, Heading } from '@navikt/ds-react';
+import { Accordion, BodyShort, Label, Heading } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
@@ -49,40 +48,43 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
         avsnitt.avsnittstype === underavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
-          <Ekspanderbartpanel
+          <Accordion
             className={harPeriodeSomManglerObligatoriskVerdi || visApen ? styles.panelMedGulmarkering : styles.panel}
-            tittel={
-              avsnitt.overskrift
-                ? avsnitt.overskrift
-                : intl.formatMessage({ id: 'TilbakekrevingEditerVedtaksbrevPanel.LovhjemlerOgKlagerettOverskrift' })
-            }
-            apen={harPeriodeSomManglerObligatoriskVerdi || visApen}
           >
-            {underavsnitter.map(underavsnitt => (
-              <React.Fragment
-                key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
-              >
-                {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
-                {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
-                {underavsnitt.fritekstTillatt && (
-                  <>
+            <Accordion.Item defaultOpen={harPeriodeSomManglerObligatoriskVerdi || visApen}>
+              <Accordion.Header>
+                {avsnitt.overskrift
+                  ? avsnitt.overskrift
+                  : intl.formatMessage({ id: 'TilbakekrevingEditerVedtaksbrevPanel.LovhjemlerOgKlagerettOverskrift' })}
+              </Accordion.Header>
+              <Accordion.Content>
+                {underavsnitter.map(underavsnitt => (
+                  <React.Fragment
+                    key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
+                  >
+                    {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
+                    {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
+                    {underavsnitt.fritekstTillatt && (
+                      <>
+                        <VerticalSpacer eightPx />
+                        <TilbakekrevingVedtakUtdypendeTekstPanel
+                          type={
+                            underavsnitt.underavsnittstype
+                              ? `${periode}.${underavsnitt.underavsnittstype}`
+                              : avsnitt.avsnittstype
+                          }
+                          readOnly={readOnly}
+                          fritekstPakrevet={underavsnitt.fritekstPåkrevet}
+                          maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
+                        />
+                      </>
+                    )}
                     <VerticalSpacer eightPx />
-                    <TilbakekrevingVedtakUtdypendeTekstPanel
-                      type={
-                        underavsnitt.underavsnittstype
-                          ? `${periode}.${underavsnitt.underavsnittstype}`
-                          : avsnitt.avsnittstype
-                      }
-                      readOnly={readOnly}
-                      fritekstPakrevet={underavsnitt.fritekstPåkrevet}
-                      maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
-                    />
-                  </>
-                )}
-                <VerticalSpacer eightPx />
-              </React.Fragment>
-            ))}
-          </Ekspanderbartpanel>
+                  </React.Fragment>
+                ))}
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion>
           <VerticalSpacer eightPx />
         </React.Fragment>
       );

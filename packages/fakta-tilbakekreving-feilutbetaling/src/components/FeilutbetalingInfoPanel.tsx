@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
 import { Column, Row } from 'nav-frontend-grid';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button, Label, BodyShort, Detail } from '@navikt/ds-react';
 
 import { VerticalSpacer, AksjonspunktHelpTextTemp, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
@@ -326,13 +325,14 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
         <VerticalSpacer eightPx />
         <Row>
           <Column md="6">
-            <Hovedknapp
-              mini
+            <Button
+              variant="primary"
+              size="small"
               disabled={readOnly || !formMethods.formState.isDirty || formMethods.formState.isSubmitting}
-              spinner={formMethods.formState.isSubmitting}
+              loading={formMethods.formState.isSubmitting}
             >
               <FormattedMessage id="FeilutbetalingInfoPanel.Confirm" />
-            </Hovedknapp>
+            </Button>
           </Column>
         </Row>
       </Form>

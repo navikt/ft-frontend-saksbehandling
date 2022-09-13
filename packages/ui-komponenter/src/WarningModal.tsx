@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort, Heading, Button } from '@navikt/ds-react';
-import Modal from 'nav-frontend-modal';
+import { BodyShort, Heading, Button, Modal } from '@navikt/ds-react';
 
 import advarselImageUrl from './images/advarsel.svg';
 import Image from './Image';
@@ -24,27 +23,28 @@ interface OwnProps {
 const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showModal, submit }) => (
   <Modal
     className={styles.modal}
-    isOpen={showModal}
+    open={showModal}
     closeButton={false}
-    contentLabel={bodyText}
-    onRequestClose={submit}
+    onClose={submit}
     shouldCloseOnOverlayClick={false}
   >
-    <FlexRow>
-      <FlexColumn>
-        <Image className={styles.image} alt={bodyText} src={advarselImageUrl} />
-        <div className={styles.divider} />
-      </FlexColumn>
-      <FlexColumn className={styles.text}>
-        {headerText && <Heading size="small">{headerText}</Heading>}
-        <BodyShort size="small">{bodyText}</BodyShort>
-      </FlexColumn>
-      <FlexColumn className={styles.knapp}>
-        <Button size="small" variant="primary" className={styles.submitButton} onClick={submit} autoFocus>
-          OK
-        </Button>
-      </FlexColumn>
-    </FlexRow>
+    <Modal.Content>
+      <FlexRow>
+        <FlexColumn>
+          <Image className={styles.image} alt={bodyText} src={advarselImageUrl} />
+          <div className={styles.divider} />
+        </FlexColumn>
+        <FlexColumn className={styles.text}>
+          {headerText && <Heading size="small">{headerText}</Heading>}
+          <BodyShort size="small">{bodyText}</BodyShort>
+        </FlexColumn>
+        <FlexColumn className={styles.knapp}>
+          <Button size="small" variant="primary" className={styles.submitButton} onClick={submit} autoFocus>
+            OK
+          </Button>
+        </FlexColumn>
+      </FlexRow>
+    </Modal.Content>
   </Modal>
 );
 

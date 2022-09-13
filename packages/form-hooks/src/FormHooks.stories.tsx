@@ -12,6 +12,7 @@ import styles from './formHooks.stories.less';
 // TODO Kvifor feilar denne kun på Github?
 // eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
+import CheckboxPanel from './CheckboxPanel';
 
 export default {
   title: 'FormHooks',
@@ -22,6 +23,7 @@ const Template: Story = () => {
     defaultValues: {
       testinputpre: 'Hei hei',
       testcheckboxpre: true,
+      checkboxpanelpre: ['verdi3', 'verdi5'],
       radiopre: true,
       testSelectFieldpre: 'value3',
       testTextAreaFieldPre: 'Dette er en begrunnelse',
@@ -37,6 +39,40 @@ const Template: Story = () => {
       <CheckboxField label="Dette er en checkbox" name="testcheckbox" />
       <VerticalSpacer sixteenPx />
       <CheckboxField label="Dette er en checkbox der verdi er valgt" name="testcheckboxpre" />
+      <VerticalSpacer sixteenPx />
+      <CheckboxPanel
+        name="checkboxpanel"
+        label="Dette er et checkboxpanel"
+        checkboxes={[
+          {
+            label: 'Verdi 1',
+            value: 'verdi1',
+          },
+          {
+            label: 'Verdi 2',
+            value: 'verdi2',
+          },
+        ]}
+      />
+      <VerticalSpacer sixteenPx />
+      <CheckboxPanel
+        name="checkboxpanelpre"
+        label="Dette er et checkboxpanel der en verdi er valgt"
+        checkboxes={[
+          {
+            label: 'Verdi 3',
+            value: 'verdi3',
+          },
+          {
+            label: 'Verdi 4',
+            value: 'verdi4',
+          },
+          {
+            label: 'Verdi 5',
+            value: 'verdi5',
+          },
+        ]}
+      />
       <VerticalSpacer sixteenPx />
       <RadioGroupPanel
         name="radio"

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ariaCheck, hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -160,14 +160,15 @@ export const AvklarFaresignalerForm: FunctionComponent<OwnProps> = ({
         <VerticalSpacer sixteenPx />
         <FlexRow>
           <FlexColumn>
-            <Hovedknapp
-              mini
-              spinner={formMethods.formState.isSubmitting}
+            <Button
+              size="small"
+              variant="primary"
+              loading={formMethods.formState.isSubmitting}
               disabled={!formMethods.formState.isDirty || readOnly || formMethods.formState.isSubmitting}
               onClick={ariaCheck}
             >
               <FormattedMessage id="Risikopanel.Form.Bekreft" />
-            </Hovedknapp>
+            </Button>
           </FlexColumn>
         </FlexRow>
       </Form>

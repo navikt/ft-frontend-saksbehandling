@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { EtikettInfo } from 'nav-frontend-etiketter';
-import { BodyShort } from '@navikt/ds-react';
+import { Tag, BodyShort } from '@navikt/ds-react';
 import { FlexColumn } from '@navikt/ft-ui-komponenter';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
@@ -81,12 +80,13 @@ const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps> = ({ familiehen
       </FlexColumn>
       {dødfødsel && (
         <FlexColumn>
-          <EtikettInfo
+          <Tag
+            variant="info"
             className={styles.etikett}
             title={intl.formatMessage({ id: 'VisittkortBarnInfoFodselPanel.DodTittel' })}
           >
             <FormattedMessage id="VisittkortBarnInfoFodselPanel.Dod" />
-          </EtikettInfo>
+          </Tag>
         </FlexColumn>
       )}
     </>

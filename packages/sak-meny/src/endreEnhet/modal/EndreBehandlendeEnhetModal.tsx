@@ -2,13 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { BodyShort } from '@navikt/ds-react';
-import Modal from 'nav-frontend-modal';
+import { Modal, BodyShort, Button } from '@navikt/ds-react';
 
 import { SelectField, TextAreaField, Form } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, required } from '@navikt/ft-form-validators';
-import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, Image, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 
 import innvilgetImageUrl from '../../images/innvilget_valgt.svg';
 
@@ -67,66 +65,81 @@ const EndreBehandlendeEnhetModal: FunctionComponent<OwnProps> = ({
   return (
     <Modal
       className={styles.modal}
-      isOpen
+      open
       closeButton={false}
-      contentLabel={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.ModalDescription' })}
-      onRequestClose={lukkModal}
+      aria-label={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.ModalDescription' })}
+      onClose={lukkModal}
       shouldCloseOnOverlayClick={false}
     >
-      <Form formMethods={formMethods} onSubmit={handleSubmit}>
-        <Row className={styles.infotekst}>
-          <Column xs="1">
-            <Image
-              className={styles.image}
-              alt={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.Endre' })}
-              src={innvilgetImageUrl}
-            />
-            <div className={styles.divider} />
-          </Column>
-          <Column xs="11">
-            <BodyShort size="small" className={styles.infotekstBeskrivelse}>
-              <FormattedMessage id="EndreBehandlendeEnhetModal.EndreEnhet" />
-            </BodyShort>
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="1" />
-          <Column xs="5">
-            <SelectField
-              name="nyEnhet"
-              label={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.NyEnhetField' })}
-              validate={[required]}
-              selectValues={selectOptions}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="1" />
-          <Column xs="8">
-            <VerticalSpacer eightPx />
-            <TextAreaField
-              name="begrunnelse"
-              label={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.BegrunnelseField' })}
-              validate={[required, maxLength400, hasValidText]}
-              maxLength={400}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="1" />
-          <Column xs="8">
-            <VerticalSpacer sixteenPx />
-            <div className={styles.floatButtons}>
-              <Hovedknapp mini className={styles.button} disabled={!(nyEnhet && begrunnelse)}>
-                {intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.Ok' })}
-              </Hovedknapp>
-              <Knapp htmlType="button" mini onClick={lukkModal}>
-                {intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.Avbryt' })}
-              </Knapp>
-            </div>
-          </Column>
-        </Row>
-      </Form>
+      <Modal.Content>
+        <Form formMethods={formMethods} onSubmit={handleSubmit}>
+          <Row className={styles.infotekst}>
+            <Column xs="1">
+              <Image
+                className={styles.image}
+                alt={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.Endre' })}
+                src={innvilgetImageUrl}
+              />
+              <div className={styles.divider} />
+            </Column>
+            <Column xs="11">
+              <BodyShort size="small" className={styles.infotekstBeskrivelse}>
+                <FormattedMessage id="EndreBehandlendeEnhetModal.EndreEnhet" />
+              </BodyShort>
+            </Column>
+          </Row>
+          <Row>
+            <Column xs="1" />
+            <Column xs="5">
+              <SelectField
+                name="nyEnhet"
+                label={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.NyEnhetField' })}
+                validate={[required]}
+                selectValues={selectOptions}
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column xs="1" />
+            <Column xs="8">
+              <VerticalSpacer eightPx />
+              <TextAreaField
+                name="begrunnelse"
+                label={intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.BegrunnelseField' })}
+                validate={[required, maxLength400, hasValidText]}
+                maxLength={400}
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column xs="1" />
+            <Column xs="8">
+              <VerticalSpacer sixteenPx />
+              <div className={styles.floatButtons}>
+                <FlexContainer>
+                  <FlexRow>
+                    <FlexColumn>
+                      <Button
+                        size="small"
+                        variant="primary"
+                        className={styles.button}
+                        disabled={!(nyEnhet && begrunnelse)}
+                      >
+                        {intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.Ok' })}
+                      </Button>
+                    </FlexColumn>
+                    <FlexColumn>
+                      <Button size="small" variant="secondary" onClick={lukkModal}>
+                        {intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.Avbryt' })}
+                      </Button>
+                    </FlexColumn>
+                  </FlexRow>
+                </FlexContainer>
+              </div>
+            </Column>
+          </Row>
+        </Form>
+      </Modal.Content>
     </Modal>
   );
 };

@@ -2,9 +2,8 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
-import { Label, BodyShort } from '@navikt/ds-react';
+import { Button, Label, BodyShort } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 
 import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { formatCurrencyNoKr, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
@@ -343,14 +342,14 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
       <FlexRow>
         <FlexColumn>
-          <Hovedknapp mini htmlType="submit" disabled={!formMethods.formState.isDirty || readOnly}>
+          <Button size="small" variant="primary" disabled={!formMethods.formState.isDirty || readOnly}>
             <FormattedMessage id="TilbakekrevingPeriodeForm.Oppdater" />
-          </Hovedknapp>
+          </Button>
         </FlexColumn>
         <FlexColumn>
-          <Knapp mini htmlType="button" onClick={skjulPeriode}>
+          <Button size="small" variant="secondary" onClick={skjulPeriode}>
             <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
-          </Knapp>
+          </Button>
         </FlexColumn>
       </FlexRow>
       {showModal && (

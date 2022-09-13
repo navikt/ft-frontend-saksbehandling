@@ -1,7 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { BodyShort, Heading } from '@navikt/ds-react';
-import { EtikettInfo } from 'nav-frontend-etiketter';
+import { Tag, BodyShort, Heading } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FagsakYtelseType } from '@navikt/ft-kodeverk';
@@ -51,7 +50,7 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
                     content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })}
                     alignBottom
                   >
-                    <EtikettInfo>{`${dekningsgrad}%`}</EtikettInfo>
+                    <Tag variant="info">{`${dekningsgrad}%`}</Tag>
                   </Tooltip>
                 </FlexColumn>
               )}
