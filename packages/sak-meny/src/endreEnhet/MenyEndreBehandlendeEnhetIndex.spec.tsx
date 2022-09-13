@@ -17,7 +17,7 @@ describe('<MenyEndreBehandlendeEnhetIndex>', () => {
     const lukkModal = jest.fn();
     const utils = render(<Default lagreNyBehandlendeEnhet={lagreNyBehandlendeEnhet} lukkModal={lukkModal} />);
     expect(await screen.findByText('Endre behandlende enhet for valgt behandling')).toBeInTheDocument();
-    expect(screen.getByText('OK')).toBeDisabled();
+    expect(screen.getByText('OK').closest('button')).toBeDisabled();
 
     const begrunnelseInput = utils.getByLabelText('Begrunnelse');
     await userEvent.type(begrunnelseInput, 'Dette er en begrunnelse');
