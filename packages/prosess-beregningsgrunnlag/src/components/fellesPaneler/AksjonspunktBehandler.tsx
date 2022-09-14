@@ -169,6 +169,7 @@ const settOppKomponenterForATFL = (
             description={intl.formatMessage({
               id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
             })}
+            parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
         </Column>
       </Row>

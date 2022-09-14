@@ -69,6 +69,7 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
             readOnly={readOnly}
             className={styles.textAreaStyle}
             description={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.BegrunnEndringAvDekningsgrad' })}
+            parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
         </Column>
       </Row>
