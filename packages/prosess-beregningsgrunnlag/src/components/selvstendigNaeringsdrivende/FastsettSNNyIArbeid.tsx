@@ -106,6 +106,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
                   description={intl.formatMessage({
                     id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
                   })}
+                  parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
                 />
               </div>
             </Column>
