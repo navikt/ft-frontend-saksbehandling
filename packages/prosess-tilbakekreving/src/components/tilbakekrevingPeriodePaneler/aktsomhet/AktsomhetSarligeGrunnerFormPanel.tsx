@@ -42,8 +42,7 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
   const hasError = !sarligGrunnTyper.some(sgt => !!watch(`${name}.${sgt.kode}`));
   const errorMessage = useCustomValidation(
     name,
-    hasError,
-    intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.MaVelgeSarligGrunn' }),
+    hasError ? intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.MaVelgeSarligGrunn' }) : undefined,
   );
 
   return (
