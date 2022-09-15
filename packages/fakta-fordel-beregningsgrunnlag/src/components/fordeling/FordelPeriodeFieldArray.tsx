@@ -1,5 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { ErrorMessage } from '@navikt/ds-react';
 import { Element, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -13,7 +14,7 @@ import {
   isSelvstendigNæringsdrivende,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
-import { formHooks, InputField, SelectField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { UseFormGetValues } from 'react-hook-form';
 import {
@@ -503,11 +504,11 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   );
 
   // Valideringer, fields settes også opp for perioder om ikke skal endres, disse trenger vi ikke validere.
-  const valideringer = [];
+  const valideringsresultat = [];
   const fieldsMåValideres = fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
   if (fieldsMåValideres) {
-    valideringer.push(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
-    valideringer.push(
+    valideringsresultat.push(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
+    valideringsresultat.push(
       validateSumFastsattForUgraderteAktiviteter(
         vilkårperiodeFieldIndex,
         getValues,
@@ -518,17 +519,17 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
         getKodeverknavn,
       ),
     );
-    valideringer.push(
+    valideringsresultat.push(
       validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl),
     );
-    valideringer.push(
+    valideringsresultat.push(
       validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl),
     );
     if (skalKunneEndreRefusjon) {
-      valideringer.push(
+      valideringsresultat.push(
         validateSumRefusjon(vilkårperiodeFieldIndex, fields, fieldName, getValues, beregningsgrunnlag.grunnbeløp, intl),
       );
-      valideringer.push(
+      valideringsresultat.push(
         validateTotalRefusjonPrArbeidsforhold(
           vilkårperiodeFieldIndex,
           fields,
@@ -541,13 +542,14 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
       );
     }
   }
+  const skjemaNavn = `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.skjemagruppe`;
+  const feilmeldinger = valideringsresultat.filter(fm => !!fm);
+  const feilmeldingSomSkalVises = feilmeldinger.length > 0 ? feilmeldinger[0] : undefined;
+
+  const errorMessage = useCustomValidation(skjemaNavn, feilmeldingSomSkalVises);
 
   return (
-    <SkjemaGruppeMedFeilviser
-      className={styles.dividerTop}
-      name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.skjemagruppe`}
-      validate={valideringer}
-    >
+    <div>
       <Table headerTextCodes={getHeaderTextCodes(erRevurdering)} noHover classNameTable={styles.inntektTable}>
         {tablerows}
       </Table>
@@ -573,7 +575,8 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
           </Column>
         </Row>
       )}
-    </SkjemaGruppeMedFeilviser>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+    </div>
   );
 };
 

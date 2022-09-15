@@ -78,7 +78,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(null);
+    expect(ulikeAndelerError).toBe(null);
   });
 
   it('skal gi feil om det er lagt til identisk andel', () => {
@@ -114,7 +114,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
+    expect(ulikeAndelerError).toBe(likeAndelerFeilmelding);
   });
 
   it('skal ikke gi feil om det er lagt til andel med ny inntektskategori', () => {
@@ -150,7 +150,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(null);
+    expect(ulikeAndelerError).toBe(null);
   });
 
   it('skal gi feil om det er lagt til andel med samme inntektskategori uten arbeid', () => {
@@ -192,7 +192,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
+    expect(ulikeAndelerError).toBe(likeAndelerFeilmelding);
   });
 
   it('skal gi feil om det er lagt til flere andeler men bare en av de er duplikat', () => {
@@ -259,7 +259,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(likeAndelerFeilmelding);
+    expect(ulikeAndelerError).toBe(likeAndelerFeilmelding);
   });
 
   it('skal ikke gi feil når total refusjon er lavere enn inntektsmeldingen', () => {
@@ -302,7 +302,7 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(null);
+    expect(ulikeAndelerError).toBe(null);
   });
 
   it('skal gi feil når total refusjon er høyere enn inntektsmeldingen', () => {
@@ -345,7 +345,7 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(refusjonHøyereEnnKravFeilmelding);
+    expect(ulikeAndelerError).toBe(refusjonHøyereEnnKravFeilmelding);
   });
 
   it('skal ikke validere andeler uten refusjon', () => {
@@ -370,7 +370,7 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError()).toBe(null);
+    expect(ulikeAndelerError).toBe(null);
   });
 
   it('skal validere at hele beløpet er fordelt', () => {
@@ -416,7 +416,7 @@ describe('<ValidateAndelerUtils>', () => {
       500000,
       intlMock,
     );
-    expect(validateFastsattBeløp()).toBe(null);
+    expect(validateFastsattBeløp).toBe(null);
   });
 
   it('skal gi feil når total fordeling er større enn tillatt beløp', () => {
@@ -462,7 +462,7 @@ describe('<ValidateAndelerUtils>', () => {
       500000,
       intlMock,
     );
-    expect(validateFastsattBeløp()).toBe('Summen må være lik 500 000');
+    expect(validateFastsattBeløp).toBe('Summen må være lik 500 000');
   });
 
   it('skal ikke gi feil når gradert andel har mer enn 0 i fordelt beløp', () => {
@@ -510,7 +510,7 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler()).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(null);
   });
 
   it('skal gi feil når gradert andel har 0 i fordelt beløp', () => {
@@ -558,7 +558,7 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler()).toBe(gradertAndelMåVæreFordeltMerEnn0Feilmelding);
+    expect(verifiserGraderteAndeler).toBe(gradertAndelMåVæreFordeltMerEnn0Feilmelding);
   });
 
   it('skal ikke gi feil når gradert andel har 0 i fordelt beløp men det er avsluttet', () => {
@@ -606,7 +606,7 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler()).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(null);
   });
 
   it('skal tillate 0 i fordeling på andeler som ikke skal graderes', () => {
@@ -654,6 +654,6 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler()).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(null);
   });
 });
