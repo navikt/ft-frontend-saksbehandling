@@ -9,8 +9,9 @@ type ErrorMessageType = {
 /**
  * Bruk denne når en må validere og vise feilmelding som ikke er knyttet til ett spesifikt felt.
  */
-const useCustomValidation = (stateName: string, hasError: boolean, message: string): string | undefined => {
+const useCustomValidation = (stateName: string, message?: string): string | undefined => {
   const { setError, clearErrors, formState } = formHooks.useFormContext<{ [key: string]: ErrorMessageType }>();
+  const hasError = !!message;
 
   useEffect(() => {
     if (hasError) {
