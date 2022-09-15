@@ -1,4 +1,4 @@
-import { formHooks, InputField, SelectField, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
@@ -8,6 +8,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { ErrorMessage } from '@navikt/ds-react';
 import addCircleIcon from '../../../images/add-circle.svg';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
@@ -140,7 +141,7 @@ const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInf
   return { andelsinfo: andel, inntektskategori };
 };
 
-const validate = (values: BrukersAndelValues[], intl: IntlShape) => () => {
+const validate = (values: BrukersAndelValues[], intl: IntlShape) => {
   const ulikeAndelerFeilmelding = validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl);
   if (ulikeAndelerFeilmelding) {
     return ulikeAndelerFeilmelding;
@@ -185,9 +186,12 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     remove,
   );
   tablerows.push(createBruttoBGSummaryRow(sumFordeling));
-  const validators = [validate(fieldArrayValues, intl)];
+  const feilmelding = validate(fieldArrayValues, intl);
+  const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
+  const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
+
   return (
-    <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
+    <div>
       <Table headerTextCodes={getHeaderTextCodes()} noHover classNameTable={styles.inntektTable}>
         {tablerows}
       </Table>
@@ -213,7 +217,8 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
         </Row>
       )}
       <VerticalSpacer eightPx />
-    </SkjemaGruppeMedFeilviser>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+    </div>
   );
 };
 

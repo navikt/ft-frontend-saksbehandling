@@ -1,4 +1,4 @@
-import { formHooks, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
@@ -12,6 +12,7 @@ import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent, useCallback, useEffect } from 'react';
 import { FieldArrayWithId, UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { IntlShape, useIntl } from 'react-intl';
+import { ErrorMessage } from '@navikt/ds-react';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
@@ -195,7 +196,7 @@ const validateEnFastsattVedOverstyring = (values: AndelFieldValue[], intl: IntlS
   return null;
 };
 
-const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors, intl) => () => {
+const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors, intl) => {
   const harFeltFeil = errors && errors.length > 0;
   if (harFeltFeil) {
     return null;
@@ -318,7 +319,9 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
 
   const inntektFieldArrayErrors = errors?.vurderFaktaBeregningForm?.[aktivtBeregningsgrunnlagIndeks]?.inntektFieldArray;
 
-  const validators = [validate(formValues, inntektFieldArrayErrors, intl)];
+  const feilmelding = validate(formValues, inntektFieldArrayErrors, intl);
+  const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
+  const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
   const skalFastsetteInntektForAndelFunc = useCallback(
     () => skalFastsetteInntektForAndel(formValues, beregningsgrunnlag.faktaOmBeregning, beregningsgrunnlag),
@@ -338,37 +341,35 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   if (tablerows.length === 0) {
     if (skalKunneLeggeTilDagpengerManuelt) {
       return (
-        <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
-          <>
-            {!readOnly && !harDagpenger(fields) && (
-              // @ts-ignore Fiks
-              <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
-            )}
-            <VerticalSpacer eightPx />
-          </>
-        </SkjemaGruppeMedFeilviser>
+        <div>
+          {!readOnly && !harDagpenger(fields) && (
+            // @ts-ignore Fiks
+            <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
+          )}
+          <VerticalSpacer eightPx />
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        </div>
       );
     }
     return null;
   }
   tablerows.push(createBruttoBGSummaryRow(fields, readOnly, beregningsgrunnlag));
   return (
-    <SkjemaGruppeMedFeilviser name={`${fieldArrayName}.skjemagruppe`} validate={validators}>
-      <>
-        <Table
-          headerTextCodes={getHeaderTextCodes(skalVisePeriode(fields), skalViseRefusjon(fields))}
-          noHover
-          classNameTable={styles.inntektTable}
-        >
-          {tablerows}
-        </Table>
-        {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
-          // @ts-ignore Fiks
-          <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
-        )}
-        <VerticalSpacer eightPx />
-      </>
-    </SkjemaGruppeMedFeilviser>
+    <div>
+      <Table
+        headerTextCodes={getHeaderTextCodes(skalVisePeriode(fields), skalViseRefusjon(fields))}
+        noHover
+        classNameTable={styles.inntektTable}
+      >
+        {tablerows}
+      </Table>
+      {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
+        // @ts-ignore Fiks
+        <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
+      )}
+      <VerticalSpacer eightPx />
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+    </div>
   );
 };
 
