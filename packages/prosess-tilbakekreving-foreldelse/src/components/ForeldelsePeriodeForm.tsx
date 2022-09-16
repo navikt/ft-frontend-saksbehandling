@@ -126,7 +126,7 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
           </Button>
         </FlexColumn>
         <FlexColumn>
-          <Button size="small" variant="secondary" onClick={skjulPeriode}>
+          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
             <FormattedMessage id="ForeldelsePeriodeForm.Avbryt" />
           </Button>
         </FlexColumn>
