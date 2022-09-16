@@ -129,7 +129,7 @@ const EndreBehandlendeEnhetModal: FunctionComponent<OwnProps> = ({
                       </Button>
                     </FlexColumn>
                     <FlexColumn>
-                      <Button size="small" variant="secondary" onClick={lukkModal}>
+                      <Button size="small" variant="secondary" onClick={lukkModal} type="button">
                         {intl.formatMessage({ id: 'EndreBehandlendeEnhetModal.Avbryt' })}
                       </Button>
                     </FlexColumn>

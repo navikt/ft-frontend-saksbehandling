@@ -347,7 +347,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
           </Button>
         </FlexColumn>
         <FlexColumn>
-          <Button size="small" variant="secondary" onClick={skjulPeriode}>
+          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
             <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
           </Button>
         </FlexColumn>

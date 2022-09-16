@@ -64,7 +64,7 @@ const FeilmeldingsdetaljerModal: FunctionComponent<OwnProps> = ({ skalViseModal,
         </Row>
         <Row>
           <Column xs="12">
-            <Button size="small" variant="secondary" className={styles.cancelButton} onClick={lukkModal}>
+            <Button size="small" variant="secondary" className={styles.cancelButton} onClick={lukkModal} type="button">
               <FormattedMessage id="FeilmeldingsdetaljerModal.Close" />
             </Button>
           </Column>

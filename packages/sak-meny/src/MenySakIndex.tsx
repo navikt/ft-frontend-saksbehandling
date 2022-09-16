@@ -69,7 +69,7 @@ const MenySakIndex: FunctionComponent<OwnProps> = ({ data }) => {
               // eslint-disable-next-line react/no-unstable-nested-components
               children: ({ ref }) => (
                 <div ref={ref}>
-                  <Button size="small" variant="primary" onClick={toggleMenyVisning}>
+                  <Button size="small" variant="primary" onClick={toggleMenyVisning} type="button">
                     <FormattedMessage id="MenySakIndex.Behandlingsmeny" />
                     <span style={{ marginLeft: '5px' }}>
                       <Image src={visMenySomApen ? openImage : closedImage} />

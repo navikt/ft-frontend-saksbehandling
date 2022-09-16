@@ -41,12 +41,12 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
       <FlexContainer>
         <FlexRow>
           <FlexColumn>
-            <Button variant="primary" size="small" onClick={submit} autoFocus>
+            <Button variant="primary" size="small" onClick={submit} autoFocus type="button">
               {okButtonText || intl.formatMessage({ id: 'OkAvbrytModal.Ok' })}
             </Button>
           </FlexColumn>
           <FlexColumn>
-            <Button variant="secondary" size="small" onClick={cancel}>
+            <Button variant="secondary" size="small" onClick={cancel} type="button">
               {intl.formatMessage({ id: 'OkAvbrytModal.Avbryt' })}
             </Button>
           </FlexColumn>

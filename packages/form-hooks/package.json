@@ -37,8 +37,6 @@
     "nav-frontend-core": "6.0.1",
     "nav-frontend-grid": "2.0.2",
     "nav-frontend-grid-style": "1.0.3",
-    "nav-frontend-skjema": "4.0.6",
-    "nav-frontend-skjema-style": "3.0.3",
     "react": "18.2.0",
     "react-hook-form": "7.35.0"
   },
@@ -56,8 +54,6 @@
     "nav-frontend-core": "6.x",
     "nav-frontend-grid": "2.x",
     "nav-frontend-grid-style": "1.x",
-    "nav-frontend-skjema": "4.x",
-    "nav-frontend-skjema-style": "3.x",
     "react": "18.x"
   },
   "devDependencies": {

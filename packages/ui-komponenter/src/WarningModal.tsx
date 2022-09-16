@@ -39,7 +39,14 @@ const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showM
           <BodyShort size="small">{bodyText}</BodyShort>
         </FlexColumn>
         <FlexColumn className={styles.knapp}>
-          <Button size="small" variant="primary" className={styles.submitButton} onClick={submit} autoFocus>
+          <Button
+            size="small"
+            variant="primary"
+            className={styles.submitButton}
+            onClick={submit}
+            autoFocus
+            type="button"
+          >
             OK
           </Button>
         </FlexColumn>
