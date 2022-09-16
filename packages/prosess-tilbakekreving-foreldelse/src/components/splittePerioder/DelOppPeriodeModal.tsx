@@ -127,7 +127,13 @@ const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
                 </Button>
               </FlexColumn>
               <FlexColumn>
-                <Button size="small" variant="secondary" onClick={cancelEvent} className={styles.cancelButton}>
+                <Button
+                  size="small"
+                  variant="secondary"
+                  onClick={cancelEvent}
+                  className={styles.cancelButton}
+                  type="button"
+                >
                   <FormattedMessage id="DelOppPeriodeModalImpl.Avbryt" />
                 </Button>
               </FlexColumn>

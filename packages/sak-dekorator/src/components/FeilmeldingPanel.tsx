@@ -77,7 +77,7 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
         </Row>
       ))}
       <div className={styles.lukkContainer}>
-        <Button variant="tertiary" icon={<Close color="white" />} onClick={fjernFeilmeldinger} />
+        <Button variant="tertiary" icon={<Close color="white" />} onClick={fjernFeilmeldinger} type="button" />
       </div>
       {erModalÅpen && (
         <FeilmeldingsdetaljerModal
