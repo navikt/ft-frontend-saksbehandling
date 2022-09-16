@@ -20,9 +20,10 @@ import {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
-import { formHooks, SkjemaGruppeMedFeilviser } from '@navikt/ft-form-hooks';
+import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
 import { BeregningsgrunnlagTilBekreftelse } from '@navikt/ft-types/index';
 import { UseFormGetValues } from 'react-hook-form';
+import { ErrorMessage } from '@navikt/ds-react';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import styles from './avklareAktiviteterPanel.less';
@@ -117,26 +118,24 @@ interface OwnProps {
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
 }
 
-const validate =
-  (
-    getValues: UseFormGetValues<any>,
-    fieldId: number,
-    aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-    erOverstyrt: boolean,
-    intl: any,
-  ) =>
-  () => {
-    if (
-      VurderAktiviteterPanel.harIngenAktiviteter(
-        getValues(`avklarAktiviteterForm.${fieldId}`),
-        aktiviteterTomDatoMapping,
-        erOverstyrt,
-      )
-    ) {
-      return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
-    }
-    return true;
-  };
+const validate = (
+  getValues: UseFormGetValues<any>,
+  fieldId: number,
+  aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
+  erOverstyrt: boolean,
+  intl: any,
+) => {
+  if (
+    VurderAktiviteterPanel.harIngenAktiviteter(
+      getValues(`avklarAktiviteterForm.${fieldId}`),
+      aktiviteterTomDatoMapping,
+      erOverstyrt,
+    )
+  ) {
+    return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
+  }
+  return null;
+};
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   avklarAktiviteter,
@@ -195,7 +194,10 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       )
       .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 
-  const valideringer = [validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl)];
+  const feilmelding = validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl);
+  const skjemaNavn = `vurderAktiviteterSkjema.${fieldId}`;
+  const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
+
   return (
     <>
       <FlexContainer>
@@ -235,7 +237,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
 
       {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <SkjemaGruppeMedFeilviser name={`vurderAktiviteterSkjema.${fieldId}`} validate={valideringer}>
+        <div>
           <VurderAktiviteterPanel
             aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
             readOnly={readOnly}
@@ -247,7 +249,8 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             fieldId={fieldId}
           />
-        </SkjemaGruppeMedFeilviser>
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        </div>
       )}
       <VerticalSpacer twentyPx />
 
