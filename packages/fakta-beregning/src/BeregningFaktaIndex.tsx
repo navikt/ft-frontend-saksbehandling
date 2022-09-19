@@ -50,10 +50,10 @@ const harAvklaringsbehovIPanel = avklaringsbehov => {
   const harBehovForAvklaring = !!avklaringsbehov;
   if (harBehovForAvklaring) {
     const harVurderFaktaAksjonspunkt = avklaringsbehov.some(
-      ap => ap.definisjon.kode === VURDER_FAKTA_FOR_ATFL_SN && ap.kanLoses !== false,
+      ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.kanLoses !== false,
     );
     const harAvklarAktiviteterAP = avklaringsbehov.some(
-      ap => ap.definisjon.kode === AVKLAR_AKTIVITETER && ap.kanLoses !== false,
+      ap => ap.definisjon === AVKLAR_AKTIVITETER && ap.kanLoses !== false,
     );
     return harVurderFaktaAksjonspunkt || harAvklarAktiviteterAP;
   }
