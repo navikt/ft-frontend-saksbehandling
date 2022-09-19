@@ -150,6 +150,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
             (field, index) =>
               aktivtBeregningsgrunnlagIndeks === index && (
                 <VurderFaktaBeregningField
+                  key={field.id}
                   vilkarsperiode={vilkar.perioder.find(
                     p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
                   )}
