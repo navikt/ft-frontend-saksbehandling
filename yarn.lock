@@ -7372,10 +7372,10 @@ core-js-pure@^3.20.2, core-js-pure@^3.8.1:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.25.0.tgz#f8d1f176ff29abbfeb610110de891d5ae5a361d4"
   integrity sha512-IeHpLwk3uoci37yoI2Laty59+YqH9x5uR65/yiA0ARAJrTrN4YU0rmauLWfvqOuk77SlNJXj2rM6oT/dBD87+A==
 
-core-js@3.25.1:
-  version "3.25.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.25.1.tgz#5818e09de0db8956e16bf10e2a7141e931b7c69c"
-  integrity sha512-sr0FY4lnO1hkQ4gLDr24K0DGnweGO1QwSj5BpfQjpSJPdqWalja4cTps29Y/PJVG/P7FYlPDkH3hO+Tr0CvDgQ==
+core-js@3.25.2:
+  version "3.25.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.25.2.tgz#2d3670c1455432b53fa780300a6fc1bd8304932c"
+  integrity sha512-YB4IAT1bjEfxTJ1XYy11hJAKskO+qmhuDBM8/guIfMz4JvdsAQAqvyb97zXX7JgSrfPLG5mRGFWJwJD39ruq2A==
 
 core-js@^3.0.4, core-js@^3.6.5, core-js@^3.8.2:
   version "3.25.0"
@@ -8986,6 +8986,17 @@ fast-glob@^3.2.11, fast-glob@^3.2.9:
   version "3.2.11"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.11.tgz#a1172ad95ceb8a16e20caa5c5e56480e5129c1d9"
   integrity sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==
+  dependencies:
+    "@nodelib/fs.stat" "^2.0.2"
+    "@nodelib/fs.walk" "^1.2.3"
+    glob-parent "^5.1.2"
+    merge2 "^1.3.0"
+    micromatch "^4.0.4"
+
+fast-glob@^3.2.12:
+  version "3.2.12"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.12.tgz#7f39ec99c2e6ab030337142da9e0c18f37afae80"
+  integrity sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
     "@nodelib/fs.walk" "^1.2.3"
@@ -13192,7 +13203,7 @@ normalize-range@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==
 
-normalize-url@^6.0.1, normalize-url@^6.1.0:
+normalize-url@^6.0.1:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-6.1.0.tgz#40d0885b535deffe3f3147bec877d05fe4c5668a"
   integrity sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==
@@ -13877,7 +13888,7 @@ parse-node-version@^1.0.1:
   resolved "https://registry.yarnpkg.com/parse-node-version/-/parse-node-version-1.0.1.tgz#e2b5dbede00e7fa9bc363607f53327e8b073189b"
   integrity sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==
 
-parse-path@5.0.0, parse-path@^4.0.0, parse-path@^5.0.0:
+parse-path@5.0.0, parse-path@^7.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/parse-path/-/parse-path-5.0.0.tgz#f933152f3c6d34f4cf36cfc3d07b138ac113649d"
   integrity sha512-qOpH55/+ZJ4jUu/oLO+ifUKjFPNZGfnPJtzvGzKN/4oLMil5m9OH4VpOj6++9/ytJcfks4kzH2hhi87GL/OU9A==
@@ -13889,25 +13900,12 @@ parse-repo@^1.0.4:
   resolved "https://registry.yarnpkg.com/parse-repo/-/parse-repo-1.0.4.tgz#74b91d2cb8675d11b99976a0065f6ce17fa1bcc8"
   integrity sha512-RdwYLh7cmxByP/BfeZX0QfIVfeNrH2fWgK1aLsGK+G6nCO4WTlCks4J7aW0O3Ap9BCPDF/e8rGTT50giQr10zg==
 
-parse-url@^6.0.0:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/parse-url/-/parse-url-6.0.5.tgz#4acab8982cef1846a0f8675fa686cef24b2f6f9b"
-  integrity sha512-e35AeLTSIlkw/5GFq70IN7po8fmDUjpDPY1rIK+VubRfsUvBonjQ+PBZG+vWMACnQSmNlvl524IucoDmcioMxA==
+parse-url@8.1.0, parse-url@^6.0.0, parse-url@^7.0.2:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/parse-url/-/parse-url-8.1.0.tgz#972e0827ed4b57fc85f0ea6b0d839f0d8a57a57d"
+  integrity sha512-xDvOoLU5XRrcOZvnI6b8zA6n9O9ejNk/GExuz1yBuWUGn9KA97GI6HTs6u02wKara1CeVmZhH+0TZFdWScR89w==
   dependencies:
-    is-ssh "^1.3.0"
-    normalize-url "^6.1.0"
-    parse-path "^4.0.0"
-    protocols "^1.4.0"
-
-parse-url@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/parse-url/-/parse-url-7.0.2.tgz#d21232417199b8d371c6aec0cedf1406fd6393f0"
-  integrity sha512-PqO4Z0eCiQ08Wj6QQmrmp5YTTxpYfONdOEamrtvK63AmzXpcavIVQubGHxOEwiIoDZFb8uDOoQFS0NCcjqIYQg==
-  dependencies:
-    is-ssh "^1.4.0"
-    normalize-url "^6.1.0"
-    parse-path "^5.0.0"
-    protocols "^2.0.1"
+    parse-path "^7.0.0"
 
 parse5@^6.0.0:
   version "6.0.1"
@@ -14650,11 +14648,6 @@ proto-list@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
   integrity sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==
-
-protocols@^1.4.0:
-  version "1.4.8"
-  resolved "https://registry.yarnpkg.com/protocols/-/protocols-1.4.8.tgz#48eea2d8f58d9644a4a32caae5d5db290a075ce8"
-  integrity sha512-IgjKyaUSjsROSO8/D49Ab7hP8mJgTYcqApOqdPhLoPxAplXmkp+zRvsrSQjFn5by0rhm4VH0GAUELIPpx7B1yg==
 
 protocols@^2.0.0, protocols@^2.0.1:
   version "2.0.1"
@@ -16512,10 +16505,10 @@ stylelint-order@5.0.0:
     postcss "^8.3.11"
     postcss-sorting "^7.0.1"
 
-stylelint@14.11.0:
-  version "14.11.0"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.11.0.tgz#e2ecb28bbacab05e1fbeb84cbba23883b27499cc"
-  integrity sha512-OTLjLPxpvGtojEfpESWM8Ir64Z01E89xsisaBMUP/ngOx1+4VG2DPRcUyCCiin9Rd3kPXPsh/uwHd9eqnvhsYA==
+stylelint@14.12.0:
+  version "14.12.0"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.12.0.tgz#86d5b60d0f30a6bd0b59e1d4c85a267f0caef97e"
+  integrity sha512-9Sa+IsT31PN9zf9q5ZVZNvhT6jMVu6YhpI38g3Akn7vONipGL0GNd9QCblwtJ3ysaoM80P/+9mOcFB1xnytiQQ==
   dependencies:
     "@csstools/selector-specificity" "^2.0.2"
     balanced-match "^2.0.0"
@@ -16523,7 +16516,7 @@ stylelint@14.11.0:
     cosmiconfig "^7.0.1"
     css-functions-list "^3.1.0"
     debug "^4.3.4"
-    fast-glob "^3.2.11"
+    fast-glob "^3.2.12"
     fastest-levenshtein "^1.0.16"
     file-entry-cache "^6.0.1"
     global-modules "^2.0.0"
@@ -16550,7 +16543,7 @@ stylelint@14.11.0:
     string-width "^4.2.3"
     strip-ansi "^6.0.1"
     style-search "^0.1.0"
-    supports-hyperlinks "^2.2.0"
+    supports-hyperlinks "^2.3.0"
     svg-tags "^1.0.0"
     table "^6.8.0"
     v8-compile-cache "^2.3.0"
@@ -16577,10 +16570,18 @@ supports-color@^8.0.0:
   dependencies:
     has-flag "^4.0.0"
 
-supports-hyperlinks@^2.0.0, supports-hyperlinks@^2.2.0:
+supports-hyperlinks@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/supports-hyperlinks/-/supports-hyperlinks-2.2.0.tgz#4f77b42488765891774b70c79babd87f9bd594bb"
   integrity sha512-6sXEzV5+I5j8Bmq9/vUphGRM/RJNT9SCURJLjwfOg51heRtguGWDzcaBlgAzKhQa0EVNpPEKzQuBwZ8S8WaCeQ==
+  dependencies:
+    has-flag "^4.0.0"
+    supports-color "^7.0.0"
+
+supports-hyperlinks@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/supports-hyperlinks/-/supports-hyperlinks-2.3.0.tgz#3943544347c1ff90b15effb03fc14ae45ec10624"
+  integrity sha512-RpsAZlpWcDwOPQA22aCH4J0t7L8JmAvsCxfOSEwm7cQs3LshN36QaTkwd70DnBOXDWGssw2eUoc8CaRWT0XunA==
   dependencies:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
