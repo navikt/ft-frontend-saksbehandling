@@ -1,78 +1,63 @@
-@import '@{coreModulePath}nav-frontend-skjema-style/src/index';
-
 .inputWrapper {
-  display: block;
-  position: relative;
+	 display: block;
+	 position: relative;
 }
-
-.dateInput {
-  display: inline-block;
-  width: 228px;
+ .dateInput {
+	 display: inline-block;
+	 width: 228px;
 }
-
-.calendarToggleButton {
-  .skjemaelement__input();
-
-  background: transparent;
-  border: 1px solid transparent;
-  box-sizing: content-box;
-  cursor: pointer;
-  display: inline-block;
-  height: 22px;
-  left: 0;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  width: 22px;
-
-  &:after {
-    content: url('../images/kalender.svg');
-  }
-
-  &:hover,
-  &:focus {
-    border-color: transparent;
-    box-shadow: none;
-    outline: none;
-
-    &:after {
-      content: url('../images/kalender_hover.svg');
-    }
-  }
-
-  &:disabled {
-    background: transparent;
-    border-color: transparent;
-    cursor: initial;
-
-    &:after {
-      content: url('../images/kalender_disabled.svg');
-    }
-  }
+ .calendarToggleButton {
+	 background: transparent;
+	 border: 1px solid transparent;
+	 box-sizing: content-box;
+	 cursor: pointer;
+	 display: inline-block;
+	 height: 22px;
+	 left: 0;
+	 margin: 0;
+	 position: absolute;
+	 top: 0;
+	 width: 22px;
 }
-
-.calendarRoot {
-  height: 0;
-  position: relative;
-  top: 0;
-  width: 0;
-  z-index: 1000;
-
-  &:focus {
-    outline: none;
-  }
+ .calendarToggleButton:after {
+	 content: url('../images/kalender.svg');
 }
-
-.calendarWrapper {
-  background: @white;
-  border: 1px solid @grayIcon;
-  border-radius: @border-radius-base;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 610px;
-
-  &:focus {
-    outline: none;
-  }
+ .calendarToggleButton:hover, .calendarToggleButton:focus {
+	 border-color: transparent;
+	 box-shadow: none;
+	 outline: none;
 }
+ .calendarToggleButton:hover:after, .calendarToggleButton:focus:after {
+	 content: url('../images/kalender_hover.svg');
+}
+ .calendarToggleButton:disabled {
+	 background: transparent;
+	 border-color: transparent;
+	 cursor: initial;
+}
+ .calendarToggleButton:disabled:after {
+	 content: url('../images/kalender_disabled.svg');
+}
+ .calendarRoot {
+	 height: 0;
+	 position: relative;
+	 top: 0;
+	 width: 0;
+	 z-index: 1000;
+}
+ .calendarRoot:focus {
+	 outline: none;
+}
+ .calendarWrapper {
+	 background: var(--navds-global-color-white);
+	 border: 1px solid var(--navds-global-color-gray-200);
+	 border-radius: 4px;
+	 left: 0;
+	 position: absolute;
+	 top: 0;
+	 width: 610px;
+}
+ .calendarWrapper:focus {
+	 outline: none;
+}
+ 
