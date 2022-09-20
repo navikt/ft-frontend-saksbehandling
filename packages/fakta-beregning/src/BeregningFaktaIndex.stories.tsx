@@ -1022,7 +1022,7 @@ export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
 /**
  * Overstyring av inntekt med åpent aksjonspunkt. Saksbehandler har overstyringsrettighet.
  *
- * 2 Arbeidstakerandeler uten tilfeller i fakta om beregning
+ * To Arbeidstakerandeler uten tilfeller i fakta om beregning
  *
  */
 export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: Story = ({ submitCallback }) => {
