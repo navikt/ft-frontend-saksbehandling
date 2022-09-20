@@ -48,7 +48,7 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ rea
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
           </Normaltekst>
         }
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.erNyoppstartetFLField`}
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
