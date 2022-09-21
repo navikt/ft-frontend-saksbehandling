@@ -2,9 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
-import { Column, Row } from 'nav-frontend-grid';
 import { Button } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField, Datepicker, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
@@ -18,6 +17,8 @@ import { TilbakekrevingKodeverkType, ForeldelseVurderingType } from '@navikt/ft-
 import { AlleKodeverkTilbakekreving } from '@navikt/ft-types';
 
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
+
+import styles from './foreldelsePeriodeForm.less';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -65,54 +66,52 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
   return (
     <Form formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
       <VerticalSpacer twentyPx />
-      <Row>
-        <Column md="8">
-          <TextAreaField
-            name="begrunnelse"
-            label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Vurdering' })}
-            validate={[required, minLength3, maxLength1500, hasValidText]}
-            maxLength={1500}
-            readOnly={readOnly}
-          />
-        </Column>
-      </Row>
+      <TextAreaField
+        name="begrunnelse"
+        label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Vurdering' })}
+        validate={[required, minLength3, maxLength1500, hasValidText]}
+        maxLength={1500}
+        readOnly={readOnly}
+      />
       <VerticalSpacer twentyPx />
-      <Row>
-        <Column md="5">
-          <RadioGroupPanel
-            name="foreldet"
-            label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
-            validate={[required]}
-            radios={foreldelseVurderingTyper.map(type => ({
-              label: type.navn,
-              value: type.kode,
-            }))}
-            isReadOnly={readOnly}
-          />
-        </Column>
-        <Column md="3">
-          {(erForeldet || erMedTilleggsfrist) && (
-            <Datepicker
-              name="foreldelsesfrist"
-              label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
-              validate={[required, hasValidDate]}
+      <FlexContainer>
+        <FlexRow>
+          <FlexColumn>
+            <RadioGroupPanel
+              name="foreldet"
+              label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
+              validate={[required]}
+              radios={foreldelseVurderingTyper.map(type => ({
+                label: type.navn,
+                value: type.kode,
+              }))}
               isReadOnly={readOnly}
             />
-          )}
-          {erMedTilleggsfrist && (
-            <>
-              <VerticalSpacer eightPx />
+          </FlexColumn>
+          <FlexColumn className={styles.rightCol}>
+            {(erForeldet || erMedTilleggsfrist) && (
               <Datepicker
-                name="oppdagelsesDato"
-                label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
-                validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
+                name="foreldelsesfrist"
+                label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
+                validate={[required, hasValidDate]}
                 isReadOnly={readOnly}
-                disabledDays={{ before: moment('1970-01-01').toDate(), after: moment(moment.now()).toDate() }}
               />
-            </>
-          )}
-        </Column>
-      </Row>
+            )}
+            {erMedTilleggsfrist && (
+              <>
+                <VerticalSpacer sixteenPx />
+                <Datepicker
+                  name="oppdagelsesDato"
+                  label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
+                  validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
+                  isReadOnly={readOnly}
+                  disabledDays={{ before: moment('1970-01-01').toDate(), after: moment(moment.now()).toDate() }}
+                />
+              </>
+            )}
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
       <VerticalSpacer twentyPx />
       <FlexRow>
         <FlexColumn>

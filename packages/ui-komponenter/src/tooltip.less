@@ -1,16 +1,13 @@
-@import '@{coreModulePath}nav-frontend-core/less/core';
-
 .tooltip {
   display: inline-block;
   position: relative;
 }
 
-/* Tooltip text */
 .tooltip .tooltiptext {
   background-color: #fff2e0;
   border-radius: 4px;
-  box-shadow: 0 1px 2px 0 @navGra40;
-  color: @navMorkGra;
+  box-shadow: 0 1px 2px 0 var(--navds-global-color-gray-200);
+  color: var(--navds-global-color-gray-900);
   font-family: 'Source Sans Pro', Arial, sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
@@ -43,7 +40,6 @@
   top: 135%;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   animation-delay: 0.4s;
   animation-duration: 0.1s;

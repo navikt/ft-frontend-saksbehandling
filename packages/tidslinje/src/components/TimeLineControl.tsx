@@ -1,12 +1,13 @@
-import React, {
-  FunctionComponent, ReactNode, MouseEvent, KeyboardEvent,
-} from 'react';
-import { useIntl } from 'react-intl';
-import { Row } from 'nav-frontend-grid';
+import React, { FunctionComponent, ReactNode, MouseEvent, KeyboardEvent } from 'react';
+import { createIntl } from '@navikt/ft-utils';
 
 import TimeLineButton from './TimeLineButton';
 
+import messages from '../../i18n/nb_NO.json';
+
 import styles from './timeLineControl.less';
+
+const intl = createIntl(messages);
 
 interface Periode {
   fom: string;
@@ -40,22 +41,22 @@ const TimeLineControl: FunctionComponent<TimeLineControlProps> = ({
   zoomInCallback,
   zoomOutCallback,
 }) => {
-  const intl = useIntl();
   const t = intl.formatMessage;
   return (
     <div>
-      <Row>
-        <div className={styles.scrollButtonContainer}>
-          {children}
-          <TimeLineButton inverted={(selectedPeriod !== undefined)} text={t({ id: 'Timeline.openData' })} type="openData" callback={openPeriodInfo} />
-          <span className={styles.buttonSpacing}>
-            <TimeLineButton text={t({ id: 'Timeline.zoomIn' })} type="zoomIn" callback={zoomInCallback} />
-            <TimeLineButton text={t({ id: 'Timeline.zoomOut' })} type="zoomOut" callback={zoomOutCallback} />
-          </span>
-          <TimeLineButton text={t({ id: 'Timeline.prevPeriod' })} type="prev" callback={goBackwardCallback} />
-          <TimeLineButton text={t({ id: 'Timeline.nextPeriod' })} type="next" callback={goForwardCallback} />
-        </div>
-      </Row>
+      {children}
+      <TimeLineButton
+        inverted={selectedPeriod !== undefined}
+        text={t({ id: 'Timeline.openData' })}
+        type="openData"
+        callback={openPeriodInfo}
+      />
+      <span className={styles.buttonSpacing}>
+        <TimeLineButton text={t({ id: 'Timeline.zoomIn' })} type="zoomIn" callback={zoomInCallback} />
+        <TimeLineButton text={t({ id: 'Timeline.zoomOut' })} type="zoomOut" callback={zoomOutCallback} />
+      </span>
+      <TimeLineButton text={t({ id: 'Timeline.prevPeriod' })} type="prev" callback={goBackwardCallback} />
+      <TimeLineButton text={t({ id: 'Timeline.nextPeriod' })} type="next" callback={goForwardCallback} />
     </div>
   );
 };

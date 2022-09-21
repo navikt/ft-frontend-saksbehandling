@@ -1,13 +1,9 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
-
 .row {
   border-bottom: 1px solid #c4c4c4;
 }
 
-.harHover {
-  &:hover {
-    background-color: @navDypBlaLighten80;
-  }
+.harHover:hover {
+  background-color: var(--navds-global-color-deepblue-100);
 }
 
 .rowHeader {
@@ -17,7 +13,7 @@
 }
 
 .grayHeader {
-  background-color: @navLysGra;
+  background-color: var(--navds-global-color-gray-100);
 }
 
 .rowContent {
@@ -34,15 +30,15 @@
 }
 
 .dashedBottomBorder {
-  border-bottom: dashed 1px @navGra40;
+  border-bottom: dashed 1px var(--navds-global-color-gray-200);
 }
 
 .solidBottomBorder {
-  border-bottom: solid 1px @navGra40;
+  border-bottom: solid 1px var(--navds-global-color-gray-200);
 }
 
 .apLeftBorder {
-  border-left: solid 5px @navOransjeLighten20;
+  border-left: solid 5px var(--navds-global-color-orange-400);
 }
 
 .noBottomBorder {

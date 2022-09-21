@@ -10,7 +10,7 @@ interface OwnProps {
 /*
  * FadingPanel
  *
- * Wrapper rundt Panel-komponenten fra nav-frontend. Animerer(fade-in) innholdet i panelet.
+ * Animerer(fade-in) innholdet i panelet.
  */
 const FadingPanel: FunctionComponent<OwnProps> = ({ withoutTopMargin = false, children }) => (
   <div className={withoutTopMargin ? styles.containerWithoutTopMargin : styles.container}>{children}</div>

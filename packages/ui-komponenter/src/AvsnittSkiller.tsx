@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
 import classnames from 'classnames/bind';
-import { Column, Row } from 'nav-frontend-grid';
 import VerticalSpacer from './VerticalSpacer';
 import styles from './avsnittSkiller.less';
 
@@ -26,18 +25,14 @@ const AvsnittSkiller: FunctionComponent<OwnProps> = ({
 }) => (
   <>
     {spaceAbove && <VerticalSpacer thirtyTwoPx />}
-    <Row>
-      <Column xs="12">
-        <div
-          className={classNames(className, {
-            leftPanel,
-            rightPanel,
-          })}
-        >
-          <div className={dividerParagraf ? styles.dividerParagraf : styles.divider} />
-        </div>
-      </Column>
-    </Row>
+    <div
+      className={classNames(className, {
+        leftPanel,
+        rightPanel,
+      })}
+    >
+      <div className={dividerParagraf ? styles.dividerParagraf : styles.divider} />
+    </div>
     {spaceUnder && <VerticalSpacer thirtyTwoPx />}
   </>
 );

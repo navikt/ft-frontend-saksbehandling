@@ -2,5 +2,11 @@
   "Person.ImageText": "Personinformasjon",
   "Person.Woman": "Kvinne",
   "Person.Man": "Mann",
-  "Person.Unknown": "Ukjent"
+  "Person.Unknown": "Ukjent",
+
+  "Timeline.nextPeriod": "Scroll til høyre",
+  "Timeline.prevPeriod": "Scroll til venstre",
+  "Timeline.openData": "Åpne info om første periode",
+  "Timeline.zoomIn": "Zoom inn",
+  "Timeline.zoomOut": "Zoom ut"
 }

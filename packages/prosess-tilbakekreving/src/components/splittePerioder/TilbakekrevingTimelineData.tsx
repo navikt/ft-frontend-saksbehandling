@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 
 import { AlleKodeverkTilbakekreving } from '@navikt/ft-types';
 import { getKodeverknavnFn } from '@navikt/ft-utils';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import PeriodeController from './PeriodeController';
 import PeriodeInformasjon from './PeriodeInformasjon';
 import DataForPeriode from '../../types/dataForPeriodeTsType';
@@ -31,26 +31,28 @@ const TilbakekrevingTimelineData: FunctionComponent<OwnProps> = ({
   beregnBelop,
   alleTilbakekrevingKodeverk,
 }) => (
-  <Row>
-    <Column xs="12">
-      <PeriodeController
-        callbackForward={callbackForward}
-        callbackBackward={callbackBackward}
-        periode={periode}
-        readOnly={readOnly}
-        oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-        behandlingUuid={behandlingUuid}
-        beregnBelop={beregnBelop}
-        intl={useIntl()}
-      />
-      <PeriodeInformasjon
-        feilutbetaling={periode.feilutbetaling}
-        fom={periode.fom}
-        tom={periode.tom}
-        arsakHendelseNavn={getKodeverknavnFn(alleTilbakekrevingKodeverk)(periode.årsak?.hendelseType, KodeverkType.HENDELSE_TYPE)}
-      />
-    </Column>
-  </Row>
+  <>
+    <PeriodeController
+      callbackForward={callbackForward}
+      callbackBackward={callbackBackward}
+      periode={periode}
+      readOnly={readOnly}
+      oppdaterSplittedePerioder={oppdaterSplittedePerioder}
+      behandlingUuid={behandlingUuid}
+      beregnBelop={beregnBelop}
+      intl={useIntl()}
+    />
+    <VerticalSpacer sixteenPx />
+    <PeriodeInformasjon
+      feilutbetaling={periode.feilutbetaling}
+      fom={periode.fom}
+      tom={periode.tom}
+      arsakHendelseNavn={getKodeverknavnFn(alleTilbakekrevingKodeverk)(
+        periode.årsak?.hendelseType,
+        KodeverkType.HENDELSE_TYPE,
+      )}
+    />
+  </>
 );
 
 export default TilbakekrevingTimelineData;

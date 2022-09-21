@@ -1,8 +1,6 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
-
 .divider {
-  border-left: 1px solid @navGra40;
-  border-right: 0 solid @navGra40;
+  border-left: 1px solid var(--navds-global-color-gray-200);
+  border-right: 0 solid var(--navds-global-color-gray-200);
   display: inline;
   margin-left: 25px;
   position: absolute;
@@ -16,7 +14,7 @@
 }
 
 .modal {
-  height: 850px;
+  height: auto;
   width: 900px;
 }
 
@@ -29,8 +27,6 @@
   overflow-y: auto;
 }
 
-.cancelButton {
-  float: right;
-  margin-right: 30px;
-  margin-top: 20px;
+.firstCol {
+  width: 50px;
 }

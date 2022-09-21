@@ -65,70 +65,72 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
   const grovUaktsomOffset = erValgtResultatTypeForstoBurdeForstaatt ? 180 : 200;
   return (
     <ArrowBox alignOffset={handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
-      {handletUaktsomhetGrad === aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
-        <>
-          <RadioGroupPanel
-            name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
-            label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
-            validate={[required]}
-            isTrueOrFalseSelection
-            isHorizontal
-            isReadOnly={readOnly}
-            radios={[
-              {
-                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                value: 'true',
-                element: (
-                  <>
-                    <VerticalSpacer eightPx />
-                    {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
-                    <AktsomhetSarligeGrunnerFormPanel
-                      name={name}
-                      harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-                      erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                      sarligGrunnTyper={sarligGrunnTyper}
-                      harMerEnnEnYtelse={harMerEnnEnYtelse}
-                      feilutbetalingBelop={feilutbetalingBelop}
-                      readOnly={readOnly}
-                      handletUaktsomhetGrad={handletUaktsomhetGrad}
-                      andelSomTilbakekreves={andelSomTilbakekreves}
-                    />
-                  </>
-                ),
-              },
-              {
-                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                value: 'false',
-                element: (
-                  <>
-                    <VerticalSpacer eightPx />
-                    <ArrowBox alignOffset={20}>
-                      <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
-                    </ArrowBox>
-                  </>
-                ),
-              },
-            ]}
-          />
-          <VerticalSpacer eightPx />
-        </>
-      )}
-      {(handletUaktsomhetGrad !== aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
-        <>
-          {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
-          <AktsomhetSarligeGrunnerFormPanel
-            name={name}
-            harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-            erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-            sarligGrunnTyper={sarligGrunnTyper}
-            harMerEnnEnYtelse={harMerEnnEnYtelse}
-            feilutbetalingBelop={feilutbetalingBelop}
-            readOnly={readOnly}
-            handletUaktsomhetGrad={handletUaktsomhetGrad}
-            andelSomTilbakekreves={andelSomTilbakekreves}
-          />
-        </>
-      )}
+      <div className={styles.panelWidth}>
+        {handletUaktsomhetGrad === aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
+          <>
+            <RadioGroupPanel
+              name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
+              label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
+              validate={[required]}
+              isTrueOrFalseSelection
+              isHorizontal
+              isReadOnly={readOnly}
+              radios={[
+                {
+                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                  value: 'true',
+                  element: (
+                    <>
+                      <VerticalSpacer eightPx />
+                      {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
+                      <AktsomhetSarligeGrunnerFormPanel
+                        name={name}
+                        harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+                        erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+                        sarligGrunnTyper={sarligGrunnTyper}
+                        harMerEnnEnYtelse={harMerEnnEnYtelse}
+                        feilutbetalingBelop={feilutbetalingBelop}
+                        readOnly={readOnly}
+                        handletUaktsomhetGrad={handletUaktsomhetGrad}
+                        andelSomTilbakekreves={andelSomTilbakekreves}
+                      />
+                    </>
+                  ),
+                },
+                {
+                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                  value: 'false',
+                  element: (
+                    <>
+                      <VerticalSpacer eightPx />
+                      <ArrowBox alignOffset={20}>
+                        <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+                      </ArrowBox>
+                    </>
+                  ),
+                },
+              ]}
+            />
+            <VerticalSpacer eightPx />
+          </>
+        )}
+        {(handletUaktsomhetGrad !== aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
+          <>
+            {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
+            <AktsomhetSarligeGrunnerFormPanel
+              name={name}
+              harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+              erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+              sarligGrunnTyper={sarligGrunnTyper}
+              harMerEnnEnYtelse={harMerEnnEnYtelse}
+              feilutbetalingBelop={feilutbetalingBelop}
+              readOnly={readOnly}
+              handletUaktsomhetGrad={handletUaktsomhetGrad}
+              andelSomTilbakekreves={andelSomTilbakekreves}
+            />
+          </>
+        )}
+      </div>
     </ArrowBox>
   );
 };

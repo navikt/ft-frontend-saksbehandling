@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import { Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import { Image, EditedIcon, FloatRight } from '@navikt/ft-ui-komponenter';
+import { Image, EditedIcon, FloatRight, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 import { TimeLineButton } from '@navikt/ft-tidslinje';
 
 import splitPeriodImageHoverUrl from '../../images/splitt_hover.svg';
@@ -133,53 +132,55 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
     const { showDelPeriodeModal, finnesBelopMed0Verdi } = this.state;
 
     return (
-      <Row>
-        <Column xs="3">
-          <Label size="small">
-            <FormattedMessage id="PeriodeController.Detaljer" />
-            {isEdited && <EditedIcon />}
-          </Label>
-        </Column>
-        <Column xs="7">
-          {!readOnly && (
-            <span className={styles.splitPeriodPosition}>
-              <Image
-                tabIndex={0}
-                className={styles.splitPeriodImage}
-                src={splitPeriodImageUrl}
-                srcHover={splitPeriodImageHoverUrl}
-                alt={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
-                onMouseDown={this.showModal}
-                onKeyDown={e => (e.key === 'Enter' ? this.showModal(e) : null)}
+      <FlexContainer>
+        <FlexRow spaceBetween>
+          <FlexColumn>
+            <Label size="small">
+              <FormattedMessage id="PeriodeController.Detaljer" />
+              {isEdited && <EditedIcon />}
+            </Label>
+          </FlexColumn>
+          <FlexColumn className={styles.leftMargin}>
+            {!readOnly && (
+              <span className={styles.splitPeriodPosition}>
+                <Image
+                  tabIndex={0}
+                  className={styles.splitPeriodImage}
+                  src={splitPeriodImageUrl}
+                  srcHover={splitPeriodImageHoverUrl}
+                  alt={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
+                  onMouseDown={this.showModal}
+                  onKeyDown={e => (e.key === 'Enter' ? this.showModal(e) : null)}
+                />
+                <FormattedMessage id="PeriodeController.DelOppPerioden" />
+              </span>
+            )}
+            {showDelPeriodeModal && (
+              <DelOppPeriodeModal
+                cancelEvent={this.hideModal}
+                showModal={showDelPeriodeModal}
+                periodeData={periode}
+                splitPeriod={this.splitPeriod}
+                finnesBelopMed0Verdi={finnesBelopMed0Verdi}
               />
-              <FormattedMessage id="PeriodeController.DelOppPerioden" />
-            </span>
-          )}
-          {showDelPeriodeModal && (
-            <DelOppPeriodeModal
-              cancelEvent={this.hideModal}
-              showModal={showDelPeriodeModal}
-              periodeData={periode}
-              splitPeriod={this.splitPeriod}
-              finnesBelopMed0Verdi={finnesBelopMed0Verdi}
-            />
-          )}
-        </Column>
-        <Column xs="2">
-          <FloatRight>
-            <TimeLineButton
-              text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })}
-              type="prev"
-              callback={callbackBackward}
-            />
-            <TimeLineButton
-              text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })}
-              type="next"
-              callback={callbackForward}
-            />
-          </FloatRight>
-        </Column>
-      </Row>
+            )}
+          </FlexColumn>
+          <FlexColumn>
+            <FloatRight>
+              <TimeLineButton
+                text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })}
+                type="prev"
+                callback={callbackBackward}
+              />
+              <TimeLineButton
+                text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })}
+                type="next"
+                callback={callbackForward}
+              />
+            </FloatRight>
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
     );
   }
 }

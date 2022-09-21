@@ -1,5 +1,3 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
-
 .linkToBehandling,
 .toggleShowAllButton {
   background: none;
@@ -16,10 +14,11 @@
 .toggleShowAllButton:hover {
   cursor: pointer;
   text-decoration: none;
+}
 
-  & > :first-child {
-    background: @navLysGra;
-  }
+.linkToBehandling:hover > :first-child,
+.toggleShowAllButton:hover > :first-child {
+  background: var(--navds-global-color-gray-100);
 }
 
 .linkToBehandling:visited {
