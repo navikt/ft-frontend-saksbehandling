@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import { Label, Loader, Modal } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
+
+import FlexRow from './flexGrid/FlexRow';
+import FlexContainer from './flexGrid/FlexContainer';
+import FlexColumn from './flexGrid/FlexColumn';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -27,9 +30,9 @@ interface OwnState {
 /**
  * DataFetchPendingModal
  *
- * Presentasjonskomponent. Denne modalen vises når det går mer enn to sekund å polle etter serverdata.
+ * Denne modalen vises når det går mer enn to sekund å polle etter serverdata.
  */
-export class DataFetchPendingModal extends Component<OwnProps, OwnState> {
+class DataFetchPendingModal extends Component<OwnProps, OwnState> {
   timer: ReturnType<typeof setTimeout>;
 
   constructor(props: OwnProps) {
@@ -69,17 +72,19 @@ export class DataFetchPendingModal extends Component<OwnProps, OwnState> {
         shouldCloseOnOverlayClick={false}
       >
         <Modal.Content>
-          <Row>
-            <Column xs="2">
-              <Loader size="large" />
-              <div className={styles.divider} />
-            </Column>
-            <Column xs="10">
-              <Label size="small" className={styles.modalText}>
-                {intl.formatMessage({ id: 'DataFetchPendingModal.LosningenJobberMedBehandlingen' })}
-              </Label>
-            </Column>
-          </Row>
+          <FlexContainer>
+            <FlexRow>
+              <FlexColumn>
+                <Loader size="large" />
+                <div className={styles.divider} />
+              </FlexColumn>
+              <FlexColumn className={styles.modalText}>
+                <Label size="small">
+                  {intl.formatMessage({ id: 'DataFetchPendingModal.LosningenJobberMedBehandlingen' })}
+                </Label>
+              </FlexColumn>
+            </FlexRow>
+          </FlexContainer>
         </Modal.Content>
       </Modal>
     );

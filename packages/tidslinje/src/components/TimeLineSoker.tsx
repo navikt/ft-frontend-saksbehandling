@@ -1,7 +1,6 @@
 import React from 'react';
-import { Row } from 'nav-frontend-grid';
 
-import { Image } from '@navikt/ft-ui-komponenter';
+import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { createIntl } from '@navikt/ft-utils';
 import { NavBrukerKjonn } from '@navikt/ft-kodeverk';
 import { Kjønnkode } from '@navikt/ft-types';
@@ -39,27 +38,21 @@ const getKjønn = (kode: string) => {
  *
  * Presentationskomponent. Viser korrekt ikon for soker/medsoker
  */
-const TimeLineSoker: React.FunctionComponent<TimeLineSokerProps> = ({
-  soker1KjonnKode,
-  soker2KjonnKode,
-}) => (
+const TimeLineSoker: React.FunctionComponent<TimeLineSokerProps> = ({ soker1KjonnKode, soker2KjonnKode }) => (
   <div className={styles.timelineSokerContatiner}>
-    <Row>
-      <Image
-        className={styles.iconHovedsoker}
-        src={getKjønn(soker1KjonnKode).src}
-        alt={intl.formatMessage({ id: 'Person.ImageText' })}
-        tooltip={intl.formatMessage({ id: getKjønn(soker1KjonnKode).title })}
-      />
-    </Row>
-    <Row>
-      <Image
-        className={styles.iconMedsoker}
-        src={getKjønn(soker2KjonnKode).src}
-        alt={intl.formatMessage({ id: 'Person.ImageText' })}
-        tooltip={intl.formatMessage({ id: getKjønn(soker2KjonnKode).title })}
-      />
-    </Row>
+    <Image
+      className={styles.iconHovedsoker}
+      src={getKjønn(soker1KjonnKode).src}
+      alt={intl.formatMessage({ id: 'Person.ImageText' })}
+      tooltip={intl.formatMessage({ id: getKjønn(soker1KjonnKode).title })}
+    />
+    <VerticalSpacer fourPx />
+    <Image
+      className={styles.iconMedsoker}
+      src={getKjønn(soker2KjonnKode).src}
+      alt={intl.formatMessage({ id: 'Person.ImageText' })}
+      tooltip={intl.formatMessage({ id: getKjønn(soker2KjonnKode).title })}
+    />
   </div>
 );
 

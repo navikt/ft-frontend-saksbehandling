@@ -2,13 +2,19 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
-import { Button, Label, BodyShort } from '@navikt/ds-react';
-import { Column, Row } from 'nav-frontend-grid';
+import { Button, BodyShort, Heading } from '@navikt/ds-react';
 
 import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { formatCurrencyNoKr, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { FlexColumn, FlexRow, WarningModal, VerticalSpacer, usePrevious } from '@navikt/ft-ui-komponenter';
+import {
+  FlexColumn,
+  FlexRow,
+  WarningModal,
+  VerticalSpacer,
+  usePrevious,
+  FlexContainer,
+} from '@navikt/ft-ui-komponenter';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import {
   KodeverkMedNavn,
@@ -211,46 +217,36 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
       {!readOnly && !data.erForeldet && vurdertePerioder.length > 0 && (
         <>
-          <Row>
-            <Column md="10">
-              <Label size="small">
-                <FormattedMessage id="TilbakekrevingPeriodeForm.KopierVilkårsvurdering" />
-              </Label>
-              <SelectField
-                name="perioderForKopi"
-                selectValues={vurdertePerioder.map(per => {
-                  const perId = `${per.fom}_${per.tom}`;
-                  const perValue = `${moment(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(per.tom).format(
-                    DDMMYYYY_DATE_FORMAT,
-                  )}`;
-                  return (
-                    <option key={perId} value={perId}>
-                      {perValue}
-                    </option>
-                  );
-                })}
-                onChange={event => onEndrePeriodeForKopi(event, vurdertePerioder)}
-                label=""
-              />
-            </Column>
-          </Row>
+          <SelectField
+            name="perioderForKopi"
+            selectValues={vurdertePerioder.map(per => {
+              const perId = `${per.fom}_${per.tom}`;
+              const perValue = `${moment(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(per.tom).format(
+                DDMMYYYY_DATE_FORMAT,
+              )}`;
+              return (
+                <option key={perId} value={perId}>
+                  {perValue}
+                </option>
+              );
+            })}
+            onChange={event => onEndrePeriodeForKopi(event, vurdertePerioder)}
+            className={styles.selectWidth}
+            label={<FormattedMessage id="TilbakekrevingPeriodeForm.KopierVilkårsvurdering" />}
+          />
           <VerticalSpacer twentyPx />
         </>
       )}
-      <Row>
-        <Column md={data.erForeldet ? '12' : '6'}>
-          <Row>
-            {data.erForeldet && (
-              <Column md="12">
-                <ForeldetFormPanel />
-              </Column>
-            )}
+      <FlexContainer>
+        <FlexRow wrap>
+          <FlexColumn className={styles.leftColumn}>
+            {data.erForeldet && <ForeldetFormPanel />}
             {!data.erForeldet && (
-              <Column md="10">
-                <Label size="small">
+              <>
+                <Heading size="small">
                   <FormattedMessage id="TilbakekrevingPeriodeForm.VilkarForTilbakekreving" />
-                </Label>
-                <VerticalSpacer eightPx />
+                </Heading>
+                <VerticalSpacer sixteenPx />
                 <TextAreaField
                   name="begrunnelse"
                   label={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering' })}
@@ -260,7 +256,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                   className={styles.explanationTextarea}
                   description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
                 />
-                <VerticalSpacer twentyPx />
+                <VerticalSpacer sixteenPx />
                 <RadioGroupPanel
                   name="valgtVilkarResultatType"
                   label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
@@ -272,73 +268,69 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                   isReadOnly={readOnly}
                   onChange={resetVilkarresultatType}
                 />
-              </Column>
+              </>
             )}
-          </Row>
-        </Column>
-        <Column md="6">
-          <Row>
-            <Column md="10">
-              {valgtVilkarResultatType && (
-                <>
-                  <Label size="small">
-                    <FormattedMessage
-                      id={
-                        valgtVilkarResultatType === VilkarResultat.GOD_TRO
-                          ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro'
-                          : 'TilbakekrevingPeriodeForm.Aktsomhet'
-                      }
-                    />
-                  </Label>
-                  <VerticalSpacer eightPx />
-                  <TextAreaField
-                    name="vurderingBegrunnelse"
-                    label={intl.formatMessage({
-                      id:
-                        valgtVilkarResultatType === VilkarResultat.GOD_TRO
-                          ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
-                          : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
-                    })}
-                    validate={[required, minLength3, maxLength1500, hasValidText]}
-                    maxLength={1500}
-                    readOnly={readOnly}
+          </FlexColumn>
+          <FlexColumn>
+            {valgtVilkarResultatType && (
+              <>
+                <Heading size="small">
+                  <FormattedMessage
+                    id={
+                      valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                        ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro'
+                        : 'TilbakekrevingPeriodeForm.Aktsomhet'
+                    }
                   />
-                  <VerticalSpacer eightPx />
-                  {valgtVilkarResultatType === VilkarResultat.GOD_TRO && (
-                    <BelopetMottattIGodTroFormPanel
-                      name={valgtVilkarResultatType}
-                      readOnly={readOnly}
-                      erBelopetIBehold={erBelopetIBehold}
-                      feilutbetalingBelop={data.feilutbetaling}
-                    />
-                  )}
-                  {valgtVilkarResultatType !== VilkarResultat.GOD_TRO && (
-                    <AktsomhetFormPanel
-                      key={valgtVilkarResultatType}
-                      name={valgtVilkarResultatType}
-                      harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-                      readOnly={readOnly}
-                      handletUaktsomhetGrad={handletUaktsomhetsgrad}
-                      resetFields={resetUtaktsomhetsgrad}
-                      erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                      erValgtResultatTypeForstoBurdeForstaatt={
-                        valgtVilkarResultatType === VilkarResultat.FORSTO_BURDE_FORSTAATT
-                      }
-                      // @ts-ignore Fiks
-                      aktsomhetTyper={aktsomhetTyper}
-                      sarligGrunnTyper={sarligGrunnTyper}
-                      antallYtelser={data.ytelser.length}
-                      feilutbetalingBelop={data.feilutbetaling}
-                      erTotalBelopUnder4Rettsgebyr={data.erTotalBelopUnder4Rettsgebyr}
-                      andelSomTilbakekreves={andelSomTilbakekreves}
-                    />
-                  )}
-                </>
-              )}
-            </Column>
-          </Row>
-        </Column>
-      </Row>
+                </Heading>
+                <VerticalSpacer sixteenPx />
+                <TextAreaField
+                  name="vurderingBegrunnelse"
+                  label={intl.formatMessage({
+                    id:
+                      valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                        ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
+                        : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
+                  })}
+                  validate={[required, minLength3, maxLength1500, hasValidText]}
+                  maxLength={1500}
+                  readOnly={readOnly}
+                />
+                <VerticalSpacer eightPx />
+                {valgtVilkarResultatType === VilkarResultat.GOD_TRO && (
+                  <BelopetMottattIGodTroFormPanel
+                    name={valgtVilkarResultatType}
+                    readOnly={readOnly}
+                    erBelopetIBehold={erBelopetIBehold}
+                    feilutbetalingBelop={data.feilutbetaling}
+                  />
+                )}
+                {valgtVilkarResultatType !== VilkarResultat.GOD_TRO && (
+                  <AktsomhetFormPanel
+                    key={valgtVilkarResultatType}
+                    name={valgtVilkarResultatType}
+                    harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+                    readOnly={readOnly}
+                    handletUaktsomhetGrad={handletUaktsomhetsgrad}
+                    resetFields={resetUtaktsomhetsgrad}
+                    erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+                    erValgtResultatTypeForstoBurdeForstaatt={
+                      valgtVilkarResultatType === VilkarResultat.FORSTO_BURDE_FORSTAATT
+                    }
+                    // @ts-ignore Fiks
+                    aktsomhetTyper={aktsomhetTyper}
+                    sarligGrunnTyper={sarligGrunnTyper}
+                    antallYtelser={data.ytelser.length}
+                    feilutbetalingBelop={data.feilutbetaling}
+                    erTotalBelopUnder4Rettsgebyr={data.erTotalBelopUnder4Rettsgebyr}
+                    andelSomTilbakekreves={andelSomTilbakekreves}
+                  />
+                )}
+              </>
+            )}
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
       <VerticalSpacer twentyPx />
       <FlexRow>
         <FlexColumn>

@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
-import { Column, Row } from 'nav-frontend-grid';
 import { Detail, Fieldset } from '@navikt/ds-react';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
@@ -81,33 +80,31 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
   <Fieldset legend={titleText}>
     {fields.map((field, index) => children(field, index, getRemoveButton(index, remove)))}
     {shouldShowAddButton && (
-      <Row>
-        <Column xs="12">
-          {!createAddButtonInsteadOfImageLink && !readOnly && (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            <div
-              onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-              onKeyDown={onKeyDown<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-              className={styles.addPeriode}
-              role="button"
-              tabIndex={0}
-            >
-              <Image className={styles.addCircleIcon} src={addCircleIcon} alt={bodyText} />
-              <Detail className={styles.imageText}>{bodyText}</Detail>
-            </div>
-          )}
-          {createAddButtonInsteadOfImageLink && !readOnly && (
-            <button
-              type="button"
-              onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-              className={styles.buttonAdd}
-            >
-              {bodyText}
-            </button>
-          )}
-          <VerticalSpacer sixteenPx />
-        </Column>
-      </Row>
+      <>
+        {!createAddButtonInsteadOfImageLink && !readOnly && (
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          <div
+            onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
+            onKeyDown={onKeyDown<PERIOD_TYPE>(append, emptyPeriodTemplate)}
+            className={styles.addPeriode}
+            role="button"
+            tabIndex={0}
+          >
+            <Image className={styles.addCircleIcon} src={addCircleIcon} alt={bodyText} />
+            <Detail className={styles.imageText}>{bodyText}</Detail>
+          </div>
+        )}
+        {createAddButtonInsteadOfImageLink && !readOnly && (
+          <button
+            type="button"
+            onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
+            className={styles.buttonAdd}
+          >
+            {bodyText}
+          </button>
+        )}
+        <VerticalSpacer sixteenPx />
+      </>
     )}
   </Fieldset>
 );

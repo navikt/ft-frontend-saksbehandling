@@ -1,16 +1,14 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
-
 .timeLineButton {
-  background-color: @white;
+  background-color: var(--navds-global-color-white);
   border: 0 solid;
   height: 26px;
   margin-left: 8px;
   width: 26px;
+}
 
-  &:focus {
-    box-shadow: 0 0 0 3px @navOransjeLighten40;
-    outline: none;
-  }
+.timeLineButton:focus {
+  box-shadow: 0 0 0 3px var(--navds-global-color-orange-300);
+  outline: none;
 }
 
 .timeLineButton img:last-child {
@@ -38,4 +36,8 @@
 
 .splitPeriodPosition {
   margin-left: -30px;
+}
+
+.leftMargin {
+  margin-left: 50px;
 }

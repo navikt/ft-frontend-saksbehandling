@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { Label, BodyShort } from '@navikt/ds-react';
+import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -18,48 +18,44 @@ interface PureOwnProps {
  * PeriodeInformasjon
  *
  * Tilbakekreving periode oppsummering
- *
- * Presentationskomponent
  */
 const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({ fom, tom, feilutbetaling }) => {
   const daysAndWeeks = calcDaysAndWeeks(fom, tom);
   return (
-    <Row>
-      <Column md="8">
-        <div className={styles.infoSummary}>
-          <Row>
-            <Column xs="6">
-              <Label size="small">
-                {`${moment(fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(tom).format(DDMMYYYY_DATE_FORMAT)}`}
-              </Label>
-            </Column>
-            <Column xs="6">
-              <BodyShort size="small">
-                <FormattedMessage
-                  id={daysAndWeeks.id}
-                  values={{
-                    weeks: daysAndWeeks.weeks,
-                    days: daysAndWeeks.days,
-                  }}
-                />
+    <div className={styles.infoSummary}>
+      <FlexContainer>
+        <FlexRow>
+          <FlexColumn>
+            <Label size="small">
+              {`${moment(fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(tom).format(DDMMYYYY_DATE_FORMAT)}`}
+            </Label>
+          </FlexColumn>
+          <FlexColumn className={styles.marginLeft}>
+            <BodyShort size="small">
+              <FormattedMessage
+                id={daysAndWeeks.id}
+                values={{
+                  weeks: daysAndWeeks.weeks,
+                  days: daysAndWeeks.days,
+                }}
+              />
+            </BodyShort>
+          </FlexColumn>
+        </FlexRow>
+        <div className={styles.resultSum}>
+          <FlexRow className={styles.redNumbers}>
+            <FlexColumn>
+              <BodyShort size="small" className={styles.resultName}>
+                <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
+                <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>
+                  {formatCurrencyNoKr(feilutbetaling)}
+                </span>
               </BodyShort>
-            </Column>
-          </Row>
-          <div className={styles.resultSum}>
-            <Row className={styles.redNumbers}>
-              <Column xs="6">
-                <BodyShort size="small" className={styles.resultName}>
-                  <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
-                  <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>
-                    {formatCurrencyNoKr(feilutbetaling)}
-                  </span>
-                </BodyShort>
-              </Column>
-            </Row>
-          </div>
+            </FlexColumn>
+          </FlexRow>
         </div>
-      </Column>
-    </Row>
+      </FlexContainer>
+    </div>
   );
 };
 

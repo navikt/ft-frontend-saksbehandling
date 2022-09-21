@@ -1,15 +1,9 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
-
-/* TODO (TOR) Fjern import av global.less etter refaktorering av timeline. Hack for å tving korrekt rekkefølge etter splitt av css */
-
 .vis-item.vis-dot {
   border-width: 1px;
 }
 
-/* our custom classes overrule the styles for selected events,
-   so lets define a new style for the selected events */
 .vis-item.vis-selected {
-  background-color: @white;
+  background-color: var(--navds-global-color-white);
   border-color: black;
   box-shadow: 0 0 10px gray;
   color: black;
@@ -23,7 +17,7 @@
   animation-duration: 400ms;
   animation-name: fadein;
   animation-timing-function: ease-out;
-  background-color: @white;
+  background-color: var(--navds-global-color-white);
   max-height: 1600px;
   position: relative;
   transition: all 400ms;
@@ -47,15 +41,15 @@
   border-right: 1px solid lightgrey;
   margin-left: -17px;
   padding-right: 0;
+}
 
-  &:before {
-    border-bottom: 1px solid lightgrey;
-    bottom: 0;
-    content: '';
-    left: -70px;
-    position: absolute;
-    width: 70px;
-  }
+.timeLineWrapper:before {
+  border-bottom: 1px solid lightgrey;
+  bottom: 0;
+  content: '';
+  left: -70px;
+  position: absolute;
+  width: 70px;
 }
 
 .sokerContainer {
