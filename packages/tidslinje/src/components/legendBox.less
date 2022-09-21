@@ -2,12 +2,14 @@
   display: flex;
   flex-wrap: wrap;
 }
+
 .legendBoxLegend {
   margin-bottom: 8px;
   width: 50%;
 }
+
 .legendBoxIcon {
-  background-color: var(--navds-global-color-white);;
+  background-color: var(--navds-global-color-white);
   border: 0 solid;
   height: 26px;
   margin-left: 8px;
@@ -15,22 +17,25 @@
   padding: 0;
   width: 26px;
 }
+
 .popUnder {
   margin-right: 20px;
   position: relative;
 }
+
 .popUnderContent {
-  background-color: var(--navds-global-color-white);;
+  background-color: var(--navds-global-color-white);
   border: 1px solid lightgrey;
   left: -40px;
   min-width: 560px;
   padding: 12px;
   position: absolute;
   top: 54px;
-  transform: translate(0,10px);
+  transform: translate(0, 10px);
   visibility: hidden;
   width: auto;
 }
+
 .popUnderContent:before {
   border-color: transparent transparent lightgrey;
   border-style: solid;
@@ -43,6 +48,7 @@
   transition-property: transform;
   z-index: -1;
 }
+
 .popUnderContent:after {
   border-color: transparent transparent var(--navds-global-color-white);
   border-style: solid;
@@ -55,13 +61,15 @@
   transition-property: transform;
   z-index: -1;
 }
+
 .popUnder:hover .popUnderContent {
   opacity: 1;
-  transform: translate(0,-20px);
+  transform: translate(0, -20px);
   transition: all 0.5s;
   visibility: visible;
   z-index: 10;
 }
+
 .popUnderContentAlignLeft {
   background-color: var(--navds-global-color-white);
   border: 1px solid lightgrey;
@@ -70,10 +78,11 @@
   padding: 12px;
   position: absolute;
   top: 54px;
-  transform: translate(0,10px);
+  transform: translate(0, 10px);
   visibility: hidden;
   width: auto;
 }
+
 .popUnderContentAlignLeft:before {
   border-color: transparent transparent lightgrey;
   border-style: solid;
@@ -86,6 +95,7 @@
   transition-property: transform;
   z-index: -1;
 }
+
 .popUnderContentAlignLeft:after {
   border-color: transparent transparent var(--navds-global-color-white);
   border-style: solid;
@@ -98,9 +108,10 @@
   transition-property: transform;
   z-index: -1;
 }
+
 .popUnder:hover .popUnderContentAlignLeft {
   opacity: 1;
-  transform: translate(0,-20px);
+  transform: translate(0, -20px);
   transition: all 0.5s;
   visibility: visible;
   z-index: 10;
