@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
-import { Column, Row } from 'nav-frontend-grid';
 import { Button, Detail } from '@navikt/ds-react';
 import { Close } from '@navikt/ds-icons';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
@@ -57,24 +56,22 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
   return (
     <div className={styles.container}>
       {feilmeldinger.map((message, index) => (
-        <Row key={message.melding}>
-          <Column xs="11">
-            <Detail size="small" className={styles.wordWrap}>{`${decodeHtmlEntity(message.melding)} `}</Detail>
-            {message.tilleggsInfo && (
-              <Detail size="small">
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a
-                  href=""
-                  onClick={event => toggleModalOnClick(event, index)}
-                  onKeyDown={event => toggleModalOnKeyDown(event, index)}
-                  className={classNames('link')}
-                >
-                  <FormattedMessage id="FeilmeldingPanel.ErrorDetails" />
-                </a>
-              </Detail>
-            )}
-          </Column>
-        </Row>
+        <React.Fragment key={message.melding}>
+          <Detail size="small" className={styles.wordWrap}>{`${decodeHtmlEntity(message.melding)} `}</Detail>
+          {message.tilleggsInfo && (
+            <Detail size="small">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                href=""
+                onClick={event => toggleModalOnClick(event, index)}
+                onKeyDown={event => toggleModalOnKeyDown(event, index)}
+                className={classNames('link')}
+              >
+                <FormattedMessage id="FeilmeldingPanel.ErrorDetails" />
+              </a>
+            </Detail>
+          )}
+        </React.Fragment>
       ))}
       <div className={styles.lukkContainer}>
         <Button variant="tertiary" icon={<Close color="white" />} onClick={fjernFeilmeldinger} type="button" />

@@ -1,8 +1,7 @@
 import React, { MouseEvent, KeyboardEvent, Component, RefObject } from 'react';
 import moment from 'moment';
-import { Column, Row } from 'nav-frontend-grid';
 import { IntlShape } from 'react-intl';
-import { Image } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexContainer, FlexRow, Image } from '@navikt/ft-ui-komponenter';
 
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { NavBrukerKjonn } from '@navikt/ft-kodeverk';
@@ -164,37 +163,33 @@ class TilbakekrevingTimeline extends Component<PureOwnProps> {
     const groups = formatGroups(newPerioder);
     const items = formatItems(newPerioder);
     return (
-      <div className={styles.timelineContainer}>
-        <Row>
-          <Column xs="1" className={styles.sokerContainer}>
-            <Row>
-              <Image
-                className={styles.iconMedsoker}
-                src={isKvinne(kjonn) ? urlKvinne : urlMann}
-                alt={intl.formatMessage({ id: 'TilbakekrevingTimeline.ImageText' })}
-                tooltip={intl.formatMessage({
-                  id: isKvinne(kjonn) ? 'TilbakekrevingTimeline.Woman' : 'TilbakekrevingTimeline.Man',
-                })}
-              />
-            </Row>
-          </Column>
-          <Column xs="11">
+      <FlexContainer>
+        <FlexRow className={styles.timelineContainer}>
+          <FlexColumn className={styles.sokerContainer}>
+            <Image
+              className={styles.iconMedsoker}
+              src={isKvinne(kjonn) ? urlKvinne : urlMann}
+              alt={intl.formatMessage({ id: 'TilbakekrevingTimeline.ImageText' })}
+              tooltip={intl.formatMessage({
+                id: isKvinne(kjonn) ? 'TilbakekrevingTimeline.Woman' : 'TilbakekrevingTimeline.Man',
+              })}
+            />
+          </FlexColumn>
+          <FlexColumn className={styles.timelineWidth}>
             <div className={styles.timeLineWrapper}>
-              <div className="uttakTimeline">
-                <Timeline
-                  ref={this.timelineRef}
-                  options={getOptions([...newPerioder].sort(sortByDate))}
-                  initialItems={items}
-                  initialGroups={groups}
-                  selectHandler={selectPeriodCallback}
-                  selection={selectedPeriod ? [selectedPeriod.id] : undefined}
-                />
-              </div>
+              <Timeline
+                ref={this.timelineRef}
+                options={getOptions([...newPerioder].sort(sortByDate))}
+                initialItems={items}
+                initialGroups={groups}
+                selectHandler={selectPeriodCallback}
+                selection={selectedPeriod ? [selectedPeriod.id] : undefined}
+              />
             </div>
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="12">
+          </FlexColumn>
+        </FlexRow>
+        <FlexRow>
+          <FlexColumn className={styles.ctrlCol}>
             <TimeLineControl
               goBackwardCallback={this.goBackward}
               goForwardCallback={this.goForward}
@@ -205,9 +200,9 @@ class TilbakekrevingTimeline extends Component<PureOwnProps> {
             >
               {hjelpetekstKomponent}
             </TimeLineControl>
-          </Column>
-        </Row>
-      </div>
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
     );
   }
 }

@@ -35,9 +35,6 @@
     "@navikt/ft-ui-komponenter": "^1.1.4",
     "@navikt/ft-utils": "^1.1.1",
     "moment": "2.29.4",
-    "nav-frontend-core": "6.0.1",
-    "nav-frontend-grid": "2.0.2",
-    "nav-frontend-grid-style": "1.0.3",
     "react": "18.2.0",
     "react-hook-form": "7.35.0",
     "react-intl": "6.1.1"
@@ -45,19 +42,16 @@
   "peerDependencies": {
     "@navikt/ds-css": "^1.3.0",
     "@navikt/ds-react": "^1.3.0",
-    "@navikt/ft-form-hooks": "^1.x",
+    "@navikt/ft-form-hooks": "^2.x",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-tidslinje": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "^1.x",
     "@navikt/ft-utils": "^1.x",
-    "moment": "2.x",
-    "nav-frontend-core": "6.x",
-    "nav-frontend-grid": "2.x",
-    "nav-frontend-grid-style": "1.x",
-    "react": "18.x",
-    "react-hook-form": "7.x",
+    "moment": "2.29.4",
+    "react": "18.2.0",
+    "react-hook-form": "7.35.0",
     "react-intl": "6.1.1"
   },
   "devDependencies": {

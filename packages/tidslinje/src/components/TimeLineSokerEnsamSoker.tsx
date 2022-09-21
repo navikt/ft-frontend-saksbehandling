@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { Row } from 'nav-frontend-grid';
 import { Image } from '@navikt/ft-ui-komponenter';
 
 import { Kjønnkode } from '@navikt/ft-types';
@@ -23,14 +22,12 @@ const isKvinne = (kode: string): boolean => kode === NavBrukerKjonn.KVINNE;
  */
 const TimeLineSokerEnsamSoker: FunctionComponent<{ hovedsokerKjonnKode: Kjønnkode }> = ({ hovedsokerKjonnKode }) => (
   <div className={styles.timelineSokerContatinerEnsamSoker}>
-    <Row>
-      <Image
-        className={styles.iconHovedsoker}
-        src={isKvinne(hovedsokerKjonnKode) ? urlKvinne : urlMann}
-        alt={intl.formatMessage({ id: 'Person.ImageText' })}
-        tooltip={intl.formatMessage({ id: isKvinne(hovedsokerKjonnKode) ? 'Person.Woman' : 'Person.Man' })}
-      />
-    </Row>
+    <Image
+      className={styles.iconHovedsoker}
+      src={isKvinne(hovedsokerKjonnKode) ? urlKvinne : urlMann}
+      alt={intl.formatMessage({ id: 'Person.ImageText' })}
+      tooltip={intl.formatMessage({ id: isKvinne(hovedsokerKjonnKode) ? 'Person.Woman' : 'Person.Man' })}
+    />
   </div>
 );
 

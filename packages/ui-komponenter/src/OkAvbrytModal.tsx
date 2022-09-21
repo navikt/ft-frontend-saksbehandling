@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Modal, BodyShort, Button } from '@navikt/ds-react';
+import { Modal, Heading, Button } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 import FlexColumn from './flexGrid/FlexColumn';
@@ -36,8 +36,8 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
     shouldCloseOnOverlayClick={false}
   >
     <Modal.Content>
-      <BodyShort size="small">{text}</BodyShort>
-      <VerticalSpacer fourtyPx />
+      <Heading size="small">{text}</Heading>
+      <VerticalSpacer thirtyTwoPx />
       <FlexContainer>
         <FlexRow>
           <FlexColumn>
@@ -51,6 +51,7 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
             </Button>
           </FlexColumn>
         </FlexRow>
+        <VerticalSpacer sixteenPx />
       </FlexContainer>
     </Modal.Content>
   </Modal>

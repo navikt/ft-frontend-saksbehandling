@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { ErrorMessage, Label } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -58,18 +57,13 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
         </React.Fragment>
       ))}
       {erSerligGrunnAnnetValgt && (
-        <Row>
-          <Column md="1" />
-          <Column md="10">
-            <TextAreaField
-              name={`${name}.annetBegrunnelse`}
-              label=""
-              validate={[required, minLength3, maxLength1500, hasValidText]}
-              maxLength={1500}
-              readOnly={readOnly}
-            />
-          </Column>
-        </Row>
+        <TextAreaField
+          name={`${name}.annetBegrunnelse`}
+          label=""
+          validate={[required, minLength3, maxLength1500, hasValidText]}
+          maxLength={1500}
+          readOnly={readOnly}
+        />
       )}
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       <AktsomhetReduksjonAvBelopFormPanel

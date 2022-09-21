@@ -1,9 +1,9 @@
 import React, { Component, MouseEvent, KeyboardEvent } from 'react';
 import moment from 'moment';
-import { Column, Row } from 'nav-frontend-grid';
 
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { Kjønnkode } from '@navikt/ft-types';
+import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import TimeLineControl from './components/TimeLineControl';
 import TimeLineSoker from './components/TimeLineSoker';
@@ -176,44 +176,46 @@ class Tidslinje extends Component<TidslinjeProps> {
 
     return (
       <div className={styles.timelineContainer}>
-        <Row>
-          <Column xs="1" className={styles.sokerContainer}>
-            {medsokerKjonnKode && (
-              <TimeLineSoker soker1KjonnKode={medsokerKjonnKode} soker2KjonnKode={hovedsokerKjonnKode} />
-            )}
-            {!medsokerKjonnKode && <TimeLineSokerEnsamSoker hovedsokerKjonnKode={hovedsokerKjonnKode} />}
-          </Column>
-          <Column xs="11">
-            <div className={styles.timeLineWrapper}>
-              <div className="uttakTimeline">
-                <Timeline
-                  ref={this.timelineRef}
-                  options={getOptions(customTimes, [...uttakPerioder].sort(sortByDate))}
-                  // @ts-ignore Fiks
-                  initialItems={items}
-                  initialGroups={groups}
-                  customTimes={customTimes}
-                  selectHandler={selectPeriodCallback}
-                  selection={selectedPeriod ? [selectedPeriod.id] : undefined}
-                />
+        <FlexContainer>
+          <FlexRow>
+            <FlexColumn className={styles.sokerContainer}>
+              {medsokerKjonnKode && (
+                <TimeLineSoker soker1KjonnKode={medsokerKjonnKode} soker2KjonnKode={hovedsokerKjonnKode} />
+              )}
+              {!medsokerKjonnKode && <TimeLineSokerEnsamSoker hovedsokerKjonnKode={hovedsokerKjonnKode} />}
+            </FlexColumn>
+            <FlexColumn>
+              <div className={styles.timeLineWrapper}>
+                <div className="uttakTimeline">
+                  <Timeline
+                    ref={this.timelineRef}
+                    options={getOptions(customTimes, [...uttakPerioder].sort(sortByDate))}
+                    // @ts-ignore Fiks
+                    initialItems={items}
+                    initialGroups={groups}
+                    customTimes={customTimes}
+                    selectHandler={selectPeriodCallback}
+                    selection={selectedPeriod ? [selectedPeriod.id] : undefined}
+                  />
+                </div>
               </div>
-            </div>
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="12">
-            <TimeLineControl
-              goBackwardCallback={this.goBackward}
-              goForwardCallback={this.goForward}
-              zoomInCallback={this.zoomIn}
-              zoomOutCallback={this.zoomOut}
-              openPeriodInfo={openPeriodInfo}
-              selectedPeriod={selectedPeriod}
-            >
-              {children}
-            </TimeLineControl>
-          </Column>
-        </Row>
+            </FlexColumn>
+          </FlexRow>
+          <FlexRow>
+            <FlexColumn>
+              <TimeLineControl
+                goBackwardCallback={this.goBackward}
+                goForwardCallback={this.goForward}
+                zoomInCallback={this.zoomIn}
+                zoomOutCallback={this.zoomOut}
+                openPeriodInfo={openPeriodInfo}
+                selectedPeriod={selectedPeriod}
+              >
+                {children}
+              </TimeLineControl>
+            </FlexColumn>
+          </FlexRow>
+        </FlexContainer>
       </div>
     );
   }

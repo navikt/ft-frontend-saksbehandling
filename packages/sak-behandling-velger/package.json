@@ -34,9 +34,6 @@
     "classnames": "2.3.2",
     "history": "5.3.0",
     "moment": "2.29.4",
-    "nav-frontend-core": "6.0.1",
-    "nav-frontend-grid": "2.0.2",
-    "nav-frontend-grid-style": "1.0.3",
     "react": "18.2.0",
     "react-intl": "6.1.1"
   },
@@ -48,13 +45,10 @@
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "1.x",
     "@navikt/ft-utils": "1.x",
-    "classnames": "2.x",
-    "history": "5.x",
-    "moment": "2.x",
-    "nav-frontend-core": "6.x",
-    "nav-frontend-grid": "2.x",
-    "nav-frontend-grid-style": "1.x",
-    "react": "18.x",
+    "classnames": "2.3.2",
+    "history": "5.3.0",
+    "moment": "2.29.4",
+    "react": "18.2.0",
     "react-intl": "6.1.1"
   },
   "devDependencies": {

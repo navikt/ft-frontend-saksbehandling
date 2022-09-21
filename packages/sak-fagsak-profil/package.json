@@ -29,8 +29,6 @@
     "@navikt/ft-types": "^1.0.28",
     "@navikt/ft-ui-komponenter": "^1.1.4",
     "@navikt/ft-utils": "^1.1.1",
-    "nav-frontend-grid": "2.0.2",
-    "nav-frontend-grid-style": "1.0.3",
     "react": "18.2.0",
     "react-intl": "6.1.1"
   },
@@ -41,9 +39,7 @@
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "1.x",
     "@navikt/ft-utils": "1.x",
-    "nav-frontend-grid": "2.x",
-    "nav-frontend-grid-style": "1.x",
-    "react": "18.x",
+    "react": "18.2.0",
     "react-intl": "6.1.1"
   },
   "devDependencies": {

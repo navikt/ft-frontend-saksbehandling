@@ -92,6 +92,10 @@ module.exports = {
           title: 'sak-meny',
           url: 'http://localhost:7021',
       },
+      'tidslinje': {
+          title: 'sak-meny',
+          url: 'http://localhost:7022',
+      },
   },
   webpackFinal: async (config, { configType }) => {
 

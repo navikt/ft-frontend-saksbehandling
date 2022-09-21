@@ -40,7 +40,7 @@
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "1.x",
     "@navikt/ft-utils": "1.x",
-    "react": "18.x",
+    "react": "18.2.0",
     "react-intl": "6.1.1"
   },
   "devDependencies": {

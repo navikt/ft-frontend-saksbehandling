@@ -34,9 +34,6 @@
     "dayjs": "1.11.5",
     "lodash.throttle": "4.1.1",
     "nav-datovelger": "12.6.0",
-    "nav-frontend-core": "6.0.1",
-    "nav-frontend-grid": "2.0.2",
-    "nav-frontend-grid-style": "1.0.3",
     "react": "18.2.0",
     "react-hook-form": "7.35.0"
   },
@@ -47,14 +44,12 @@
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "^1.x",
     "@navikt/ft-utils": "^1.x",
-    "classnames": "2.x",
-    "dayjs": "1.x",
-    "lodash.throttle": "4.x",
-    "nav-datovelger": "12.x",
-    "nav-frontend-core": "6.x",
-    "nav-frontend-grid": "2.x",
-    "nav-frontend-grid-style": "1.x",
-    "react": "18.x"
+    "classnames": "2.3.2",
+    "dayjs": "1.11.5",
+    "lodash.throttle": "4.1.1",
+    "nav-datovelger": "12.6.0",
+    "react": "18.2.0",
+    "react-hook-form": "7.35.0"
   },
   "devDependencies": {
     "@navikt/ft-utils-test": "^1.1.1",
