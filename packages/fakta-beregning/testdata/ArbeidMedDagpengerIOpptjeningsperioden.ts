@@ -2,7 +2,7 @@ import { Beregningsgrunnlag, BeregningsgrunnlagAndel, Vilkar } from '@navikt/ft-
 
 export const beregningsgrunnlag = [
   {
-    skjaeringstidspunktBeregning: '2020-01-13',
+    skjaeringstidspunktBeregning: '2022-01-13',
     aktivitetStatus: ['AT'],
     avklaringsbehov: [
       {
