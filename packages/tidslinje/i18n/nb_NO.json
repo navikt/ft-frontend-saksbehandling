@@ -4,9 +4,9 @@
   "Person.Man": "Mann",
   "Person.Unknown": "Ukjent",
 
+  "Timeline.nextPeriod": "Scroll til høyre",
+  "Timeline.prevPeriod": "Scroll til venstre",
   "Timeline.openData": "Åpne info om første periode",
-  "Timeline.nextPeriod": "Neste periode",
-  "Timeline.prevPeriod": "Forrige periode",
   "Timeline.zoomIn": "Zoom inn",
   "Timeline.zoomOut": "Zoom ut"
 }
