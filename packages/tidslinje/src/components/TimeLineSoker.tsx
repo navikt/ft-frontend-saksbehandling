@@ -36,7 +36,7 @@ const getKjønn = (kode: string) => {
 /**
  * TimeLineSoker
  *
- * Presentationskomponent. Viser korrekt ikon for soker/medsoker
+ * Viser korrekt ikon for soker/medsoker
  */
 const TimeLineSoker: React.FunctionComponent<TimeLineSokerProps> = ({ soker1KjonnKode, soker2KjonnKode }) => (
   <div className={styles.timelineSokerContatiner}>
