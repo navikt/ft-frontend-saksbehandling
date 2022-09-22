@@ -18,7 +18,7 @@ const isKvinne = (kode: string): boolean => kode === NavBrukerKjonn.KVINNE;
 /**
  * TimeLineSoker
  *
- * Presentationskomponent. Viser korrekt ikon for soker/medsoker
+ * Viser korrekt ikon for soker/medsoker
  */
 const TimeLineSokerEnsamSoker: FunctionComponent<{ hovedsokerKjonnKode: Kjønnkode }> = ({ hovedsokerKjonnKode }) => (
   <div className={styles.timelineSokerContatinerEnsamSoker}>
