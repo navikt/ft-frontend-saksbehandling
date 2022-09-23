@@ -278,7 +278,6 @@ const settVisningsRaderForATFLSN = (
     rowsAndeler.push(atElement);
     rowsAndeler.push(flElement);
     rowsAndeler.push(snElement);
-    rowsAndeler.push(snElement);
   }
 };
 const settVisningsRaderForDPFLSN = (
