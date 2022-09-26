@@ -121,7 +121,6 @@ type Beregningsgrunnlag = Readonly<{
   erOverstyrtInntekt: boolean;
   aktivitetStatus?: string[];
   beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];
-  sammenligningsgrunnlag?: SammenligningsgrunlagProp;
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
   faktaOmBeregning?: FaktaOmBeregning;
   faktaOmFordeling?: FaktaOmFordeling;

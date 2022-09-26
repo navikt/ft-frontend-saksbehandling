@@ -269,15 +269,6 @@ export const beregningsgrunnlag = {
       ],
     },
   ],
-  sammenligningsgrunnlag: {
-    sammenligningsgrunnlagFom: '2017-01-01',
-    sammenligningsgrunnlagTom: '2017-01-31',
-    rapportertPrAar: 687977.0,
-    avvikPromille: 704.7833284,
-    avvikProsent: 70.47833284,
-    sammenligningsgrunnlagType: 'SAMMENLIGNING_ATFL_SN',
-    differanseBeregnet: -284420.0,
-  },
   sammenligningsgrunnlagPrStatus: [
     {
       sammenligningsgrunnlagFom: '2017-01-01',
