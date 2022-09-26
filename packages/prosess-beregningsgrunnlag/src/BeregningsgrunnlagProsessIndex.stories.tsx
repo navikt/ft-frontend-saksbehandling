@@ -940,7 +940,7 @@ NaturalYtelse.args = {
           etterSTP(200),
         ),
       ],
-      sammenligningsgrunnlag: malSGGrunnlag(),
+      sammenligningsgrunnlagPrStatus: [malSGGrunnlag()],
       skjaeringstidspunktBeregning: STP,
       vilkårsperiodeFom: STP,
       dekningsgrad: 100,
