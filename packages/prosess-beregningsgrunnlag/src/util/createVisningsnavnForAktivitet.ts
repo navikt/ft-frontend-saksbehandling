@@ -1,5 +1,5 @@
 import { ArbeidsgiverOpplysninger, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
@@ -12,20 +12,25 @@ const createVisningsnavnForAktivitet = (
   const { navn, fødselsdato, erPrivatPerson, identifikator } = arbeidsgiverOpplysninger;
   if (erPrivatPerson) {
     return fødselsdato
-      ? `${navn} (${moment(fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(eksternReferanse)}`
+      ? `${navn} (${dayjs(fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(eksternReferanse)}`
       : navn;
   }
   return identifikator ? `${navn} (${identifikator})${getEndCharFromId(eksternReferanse)}` : navn;
 };
 
-const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string): string => (andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
-  ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OVERFOERING_AARSAK_TYPE)
-  : '');
+const lagVisningFraArbeidType = (
+  andel: BeregningsgrunnlagAndel,
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+): string =>
+  andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
+    ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OVERFOERING_AARSAK_TYPE)
+    : '';
 
-export const createVisningsnavnForAndel = (andel: BeregningsgrunnlagAndel,
+export const createVisningsnavnForAndel = (
+  andel: BeregningsgrunnlagAndel,
   arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string): string => {
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+): string => {
   if (andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverIdent) {
     const arbeidsforholdInfo = arbeidsgiverOpplysninger[andel.arbeidsforhold.arbeidsgiverIdent];
     return arbeidsforholdInfo

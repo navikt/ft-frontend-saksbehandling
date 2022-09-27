@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -21,8 +20,8 @@ const lagPeriodeHeader = (fom: string, originalTom: string) => {
       id="Beregningsgrunnlag.BeregningTable.Periode"
       key={`fom-tom${fom}${tom}`}
       values={{
-        fom: moment(fom).format(DDMMYYYY_DATE_FORMAT),
-        tom: tom ? moment(tom).format(DDMMYYYY_DATE_FORMAT) : '',
+        fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
+        tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
       }}
     />
   );
