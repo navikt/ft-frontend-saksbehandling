@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-import { DateLabel, VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { DateLabel, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
+import { Label, BodyShort, Detail } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {
@@ -32,51 +32,43 @@ const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndele
   const startDato = relevantAndel.arbeidsforhold?.startdato;
   return (
     <>
-      <>
-        <AvsnittSkiller spaceAbove spaceUnder />
-        <Element className={beregningStyles.avsnittOverskrift}>
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
-        </Element>
-        <VerticalSpacer eightPx />
-      </>
-      {startDato && (
-        <Row className={beregningStyles.rows}>
-          <Column xs="12">
-            <Normaltekst>
+      <Label size="medium" className={beregningStyles.avsnittOverskrift}>
+        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
+      </Label>
+      <VerticalSpacer eightPx />
+      <Row className={beregningStyles.rows}>
+        <Column xs="8">
+          {startDato && (
+            <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
               <span className={beregningStyles.semiBoldText}>
                 <DateLabel dateString={startDato} />
               </span>
-            </Normaltekst>
-          </Column>
-        </Row>
-      )}
-      <VerticalSpacer eightPx />
-      <Row className={beregningStyles.rows}>
-        <Column xs="7" />
+            </BodyShort>
+          )}
+        </Column>
         <Column xs="2" className={beregningStyles.colMaanedText}>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Undertekst>
+          </Detail>
         </Column>
         <Column xs="2" className={beregningStyles.colAarText}>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Undertekst>
+          </Detail>
         </Column>
-        <Column xs="1" className={beregningStyles.colLink} />
       </Row>
       <Row className={beregningStyles.rows}>
-        <Column xs="7">
-          <Normaltekst>
+        <Column xs="8">
+          <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.InnrapportertFrilans" />
-          </Normaltekst>
+          </BodyShort>
         </Column>
         <Column xs="2" className={beregningStyles.colMaanedText}>
-          <Normaltekst>{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</Normaltekst>
+          <BodyShort size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</BodyShort>
         </Column>
         <Column xs="2" className={beregningStyles.colAarText}>
-          <Element>{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Element>
+          <Label size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Label>
         </Column>
       </Row>
     </>

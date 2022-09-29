@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
@@ -50,44 +50,50 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
       <VerticalSpacer eightPx />
       <Row>
         <Column xs="12">
-          <Normaltekst className={beregningStyles.semiBoldText}>
+          <BodyShort size="small" className={beregningStyles.semiBoldText}>
             <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
-          </Normaltekst>
+          </BodyShort>
         </Column>
       </Row>
       {relevanteStatuser.harArbeidsinntekt && (
         <Row>
           <Column xs="1">
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
-            </Normaltekst>
+            </BodyShort>
           </Column>
           <Column xs="3">
-            <Normaltekst className={styles.rightAlign}>{formatCurrencyNoKr(sumATAndeler)}</Normaltekst>
+            <BodyShort size="small" className={styles.rightAlign}>
+              {formatCurrencyNoKr(sumATAndeler)}
+            </BodyShort>
           </Column>
         </Row>
       )}
       {relevanteStatuser.harFrilansinntekt && (
         <Row>
           <Column xs="1">
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
-            </Normaltekst>
+            </BodyShort>
           </Column>
           <Column xs="3">
-            <Normaltekst className={styles.rightAlign}>{formatCurrencyNoKr(sumFLAndeler)}</Normaltekst>
+            <BodyShort size="small" className={styles.rightAlign}>
+              {formatCurrencyNoKr(sumFLAndeler)}
+            </BodyShort>
           </Column>
         </Row>
       )}
       {relevanteStatuser.harYtelseinntekt && (
         <Row>
           <Column xs="1">
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
-            </Normaltekst>
+            </BodyShort>
           </Column>
           <Column xs="3">
-            <Normaltekst className={styles.rightAlign}>{formatCurrencyNoKr(sumYtelseAndeler)}</Normaltekst>
+            <BodyShort size="small" className={styles.rightAlign}>
+              {formatCurrencyNoKr(sumYtelseAndeler)}
+            </BodyShort>
           </Column>
         </Row>
       )}
@@ -123,9 +129,9 @@ const lagOverskrift = (): ReactElement => (
   <>
     <FlexRow key="SamenenligningsGrunnlagOverskrift">
       <FlexColumn>
-        <Element className={beregningStyles.avsnittOverskrift}>
+        <Label size="small" className={beregningStyles.avsnittOverskrift}>
           <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Tittel" />
-        </Element>
+        </Label>
       </FlexColumn>
     </FlexRow>
     <VerticalSpacer eightPx />

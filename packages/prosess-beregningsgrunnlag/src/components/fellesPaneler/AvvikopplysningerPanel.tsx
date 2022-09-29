@@ -1,9 +1,9 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import Panel from 'nav-frontend-paneler';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
+import { Label, BodyShort } from '@navikt/ds-react';
 
-import { FlexContainer, VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { FlexContainer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
@@ -46,14 +46,23 @@ const beløpEller0 = (beløp: number | undefined): number => {
   return beløp;
 };
 
-const beregnet = (andel : BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
+const beregnet = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
 
-const beregnAarsintektForAktivitetStatuser = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[], statuser: string[]): number => {
+const beregnAarsintektForAktivitetStatuser = (
+  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
+  statuser: string[],
+): number => {
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIForstePeriode, statuser);
   if (relevanteAndeler) {
     const brutto = relevanteAndeler.reduce((acc, andel) => acc + beregnet(andel), 0);
-    const bortfaltNaturalytelse = relevanteAndeler.reduce((acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseBortfaltPrÅr), 0);
-    const tilkommetNaturalytelse = relevanteAndeler.reduce((acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseTilkommetPrÅr), 0);
+    const bortfaltNaturalytelse = relevanteAndeler.reduce(
+      (acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseBortfaltPrÅr),
+      0,
+    );
+    const tilkommetNaturalytelse = relevanteAndeler.reduce(
+      (acc, andel) => acc + beløpEller0(andel?.arbeidsforhold?.naturalytelseTilkommetPrÅr),
+      0,
+    );
     return brutto + bortfaltNaturalytelse - tilkommetNaturalytelse;
   }
   return 0;
@@ -69,16 +78,16 @@ const lagRelevantePaneler = (
 ): ReactElement => {
   if (gjelderBesteberegning) {
     return (
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Besteberegning" />
-      </Normaltekst>
+      </BodyShort>
     );
   }
   if (relevanteStatuser.isMilitaer) {
     return (
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Miletar" />
-      </Normaltekst>
+      </BodyShort>
     );
   }
   return (
@@ -86,18 +95,18 @@ const lagRelevantePaneler = (
       {relevanteStatuser.isAAP && (
         <Row>
           <Column xs="12">
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AAP" />
-            </Normaltekst>
+            </BodyShort>
           </Column>
         </Row>
       )}
       {relevanteStatuser.isDagpenger && (
         <Row>
           <Column xs="12">
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Dagpenger" />
-            </Normaltekst>
+            </BodyShort>
           </Column>
         </Row>
       )}
@@ -143,11 +152,11 @@ const harRelevanteStatuserSatt = (statuser: RelevanteStatuserProp): boolean =>
   statuser.isMilitaer;
 
 type OwnProps = {
-    relevanteStatuser: RelevanteStatuserProp;
-    allePerioder?: BeregningsgrunnlagPeriodeProp[];
-    sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
-    harAksjonspunkter: boolean;
-    gjelderBesteberegning: boolean;
+  relevanteStatuser: RelevanteStatuserProp;
+  allePerioder?: BeregningsgrunnlagPeriodeProp[];
+  sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
+  harAksjonspunkter: boolean;
+  gjelderBesteberegning: boolean;
 };
 
 const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
@@ -163,17 +172,17 @@ const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   return (
     <Panel className={beregningStyles.panelRight}>
-      <AvsnittSkiller spaceUnder />
-      <Element className={beregningStyles.avsnittOverskrift}>
+      <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.ApplicationInformation" />
-      </Element>
-      <VerticalSpacer eightPx />
-      {
-        lagRelevantePaneler(
-          alleAndelerIForstePeriode, relevanteStatuser, allePerioder, harAksjonspunkter, sammenligningsgrunnlagPrStatus || [], gjelderBesteberegning,
-        )
-      }
-
+      </Label>
+      {lagRelevantePaneler(
+        alleAndelerIForstePeriode,
+        relevanteStatuser,
+        allePerioder,
+        harAksjonspunkter,
+        sammenligningsgrunnlagPrStatus || [],
+        gjelderBesteberegning,
+      )}
     </Panel>
   );
 };

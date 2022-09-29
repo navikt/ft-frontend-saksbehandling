@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Label, BodyShort, Detail } from '@navikt/ds-react';
+
 import { Column, Row } from 'nav-frontend-grid';
 
 import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
@@ -43,23 +44,23 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
       {relevanteStatuser.isKombinasjonsstatus && (
         <>
           <AvsnittSkiller spaceAbove spaceUnder />
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.TittelNav" />
-          </Element>
+          </Label>
           <VerticalSpacer eightPx />
         </>
       )}
       <Row>
         <Column xs="7" />
         <Column xs="2" className={beregningStyles.colMaanedText}>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Undertekst>
+          </Detail>
         </Column>
         <Column xs="2" className={beregningStyles.colAarText}>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Undertekst>
+          </Detail>
         </Column>
         <Column xs="2" />
       </Row>
@@ -69,27 +70,29 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
           <div key={andel.aktivitetStatus}>
             <Row>
               <Column xs="4">
-                <Element>
+                <Label size="small">
                   <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />
-                </Element>
+                </Label>
               </Column>
               <Column xs="3" />
               <Column xs="2" className={beregningStyles.colMaanedText}>
-                <Normaltekst>{formatCurrencyNoKr(andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0)}</Normaltekst>
+                <BodyShort size="small">
+                  {formatCurrencyNoKr(andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0)}
+                </BodyShort>
               </Column>
               <Column xs="2" className={beregningStyles.colAarText}>
-                <Normaltekst className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>
+                <BodyShort size="small" className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>
                   {formatCurrencyNoKr(andel.beregnetPrAar)}
-                </Normaltekst>
+                </BodyShort>
               </Column>
               <Column xs="2" />
             </Row>
             {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
               <Row>
                 <Column xs="12">
-                  <Normaltekst>
+                  <BodyShort size="small">
                     <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.Besteberegning" />
-                  </Normaltekst>
+                  </BodyShort>
                 </Column>
               </Row>
             )}

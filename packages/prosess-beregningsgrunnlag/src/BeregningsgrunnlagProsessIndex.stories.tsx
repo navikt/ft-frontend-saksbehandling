@@ -46,7 +46,7 @@ type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
 
 const lagNæring = (varigEndring: boolean, nyoppstartet: boolean): Næring => ({
   begrunnelse:
-    'Jeg utvidet virksomheten fra en ren frisørsalong til også å tilby hudpleie. ' +
+    'Jeg utvidet virksomheten fra en ren transportfirma til også å tilby gardiner. ' +
     'Jeg jobbet opprinnelig alene men har ansatt to stykker i løpet av det siste året',
   endringsdato: '2016-05-01',
   erNyoppstartet: nyoppstartet,
@@ -54,7 +54,7 @@ const lagNæring = (varigEndring: boolean, nyoppstartet: boolean): Næring => ({
   kanRegnskapsførerKontaktes: true,
   oppgittInntekt: 474257,
   oppstartsdato: '2015-11-01',
-  orgnr: '910909088',
+  orgnr: '999999998',
   regnskapsførerNavn: 'Regnskapsfører Regn S. Fører',
   regnskapsførerTlf: '99999999',
   utenlandskvirksomhetsnavn: undefined,
@@ -854,7 +854,7 @@ ArbeidstakerFrilanserOgSelvstendigNæringsdrivendeAp5039.args = {
   beregningsgrunnlagListe: [
     lagBG(
       malPerioder([
-        lagSNMedPGI(1, 200000, undefined, true),
+        lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false)),
         lagArbeidsandel(2, malArbeidsorhold(), 150000, undefined, false, false),
         lagFrilansandel(3, 200000, undefined, false),
       ]),

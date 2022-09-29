@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Label, BodyShort, Detail } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
@@ -23,37 +23,37 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
         <AvsnittSkiller spaceAbove spaceUnder />
         <Row>
           <Column xs="12">
-            <Element className={beregningStyles.avsnittOverskrift}>
+            <Label size="small" className={beregningStyles.avsnittOverskrift}>
               <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
-            </Element>
+            </Label>
             <VerticalSpacer eightPx />
           </Column>
         </Row>
         <Row>
           <Column xs="7" />
           <Column xs="2" className={beregningStyles.colMaanedText}>
-            <Undertekst>
+            <Detail size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-            </Undertekst>
+            </Detail>
           </Column>
           <Column xs="2" className={beregningStyles.colAarText}>
-            <Undertekst>
+            <Detail size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-            </Undertekst>
+            </Detail>
           </Column>
           <Column xs="2" />
         </Row>
         <Row>
           <Column xs="7">
-            <Normaltekst>
+            <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
-            </Normaltekst>
+            </BodyShort>
           </Column>
           <Column xs="2" className={beregningStyles.colMaanedText}>
-            <Normaltekst>{formatCurrencyNoKr(bruttoPrAar / 12)}</Normaltekst>
+            <BodyShort size="small">{formatCurrencyNoKr(bruttoPrAar / 12)}</BodyShort>
           </Column>
           <Column xs="2" className={beregningStyles.colAarText}>
-            <Element>{formatCurrencyNoKr(bruttoPrAar)}</Element>
+            <Label size="small">{formatCurrencyNoKr(bruttoPrAar)}</Label>
           </Column>
         </Row>
       </>

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Label, BodyShort } from '@navikt/ds-react';
 
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { AvsnittSkiller, VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';
@@ -23,13 +23,13 @@ const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ avklaringsbehov 
   return (
     <>
       <AvsnittSkiller spaceAbove spaceUnder leftPanel />
-      <Element>
+      <Label size="small">
         <FormattedMessage id="Beregningsgrunnlag.Gradering.Beskrivelse" />
-      </Element>
+      </Label>
       <VerticalSpacer sixteenPx />
-      <Normaltekst className={styles.readOnlyBlokk}>
+      <BodyShort size="small" className={styles.readOnlyBlokk}>
         {avklaringsbehov.begrunnelse} <EditedIcon />
-      </Normaltekst>
+      </BodyShort>
     </>
   );
 };

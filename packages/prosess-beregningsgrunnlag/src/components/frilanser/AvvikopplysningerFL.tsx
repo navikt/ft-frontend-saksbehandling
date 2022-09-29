@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { Column } from 'nav-frontend-grid';
 
 import { SammenligningType } from '@navikt/ft-kodeverk';
@@ -11,9 +11,9 @@ import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 type OwnProps = {
-    beregnetAarsinntekt?: number;
-    sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[];
-    relevanteStatuser: RelevanteStatuserProp;
+  beregnetAarsinntekt?: number;
+  sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[];
+  relevanteStatuser: RelevanteStatuserProp;
 };
 
 const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
@@ -32,9 +32,9 @@ const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
     return (
       <FlexRow>
         <Column xs="12">
-          <Normaltekst>
+          <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.FL.KobinasjonsStatusFLSN" />
-          </Normaltekst>
+          </BodyShort>
         </Column>
       </FlexRow>
     );

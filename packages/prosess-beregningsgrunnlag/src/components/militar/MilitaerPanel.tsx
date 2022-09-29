@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
@@ -27,15 +27,15 @@ const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
       <AvsnittSkiller spaceAbove spaceUnder />
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militær" />
-          </Element>
+          </Label>
         </Column>
       </Row>
       <VerticalSpacer eightPx />
       <Row>
         <Column xs="12">
-          <Element>{formatCurrencyNoKr(beregnetAarsinntekt)}</Element>
+          <Label size="small">{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
         </Column>
       </Row>
     </>

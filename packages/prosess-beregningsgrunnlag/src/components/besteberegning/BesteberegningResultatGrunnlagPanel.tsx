@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
+import { Label, BodyShort } from '@navikt/ds-react';
 
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -36,14 +36,14 @@ const girKap8Besteberegning = (kap8Beregning: number, kap1473Beregning: number):
 const headerColumnContent = [
   // For å lage tom kolonne først
   <div key="TomKolNøkkel" />,
-  <Element key="Kap8Nøkkel">
+  <Label size="small" key="Kap8Nøkkel">
     {' '}
     <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterKap8" />{' '}
-  </Element>,
-  <Element key="BBNøkkel">
+  </Label>,
+  <Label size="small" key="BBNøkkel">
     {' '}
     <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning" />{' '}
-  </Element>,
+  </Label>,
 ];
 
 /**
@@ -70,15 +70,15 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ peri
           <Table headerColumnContent={headerColumnContent} noHover>
             <TableRow>
               <TableColumn>
-                <Normaltekst>
+                <BodyShort size="small">
                   <FormattedMessage id="Besteberegning.ResultatGrunnlag.BruttoBeregningsgrunnlag" />
-                </Normaltekst>
+                </BodyShort>
               </TableColumn>
               <TableColumn>
-                <Normaltekst>{formatCurrencyNoKr(kap8Beregning)}</Normaltekst>
+                <BodyShort size="small">{formatCurrencyNoKr(kap8Beregning)}</BodyShort>
               </TableColumn>
               <TableColumn>
-                <Normaltekst>{formatCurrencyNoKr(besteberegnet)}</Normaltekst>
+                <BodyShort size="small">{formatCurrencyNoKr(besteberegnet)}</BodyShort>
               </TableColumn>
             </TableRow>
           </Table>
@@ -86,14 +86,14 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ peri
       </Row>
       <Row>
         <Column>
-          <Normaltekst>
+          <BodyShort size="small">
             {girKap8Besteberegning(kap8Beregning, besteberegnet) && (
               <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning" />
             )}
             {!girKap8Besteberegning(kap8Beregning, besteberegnet) && (
               <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1473GirBesteBeregning" />
             )}
-          </Normaltekst>
+          </BodyShort>
         </Column>
       </Row>
     </div>

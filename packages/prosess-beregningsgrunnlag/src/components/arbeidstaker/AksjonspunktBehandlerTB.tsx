@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { BodyShort, Detail } from '@navikt/ds-react';
 
 import {
   dateFormat,
@@ -214,13 +214,15 @@ const createTableData = (
 const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactElement => (
   <tr id="bruttoPrPeriodeRad" key="bruttoPrPeriodeRad">
     <td key="bruttoTittel" colSpan={2}>
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerTB.SumPeriode" />
-      </Normaltekst>
+      </BodyShort>
     </td>
     {listOfBruttoPrPeriode.map(element => (
       <td key={element.periodeFom} colSpan={2}>
-        <Normaltekst className={beregningStyles.semiBoldText}>{formatCurrencyNoKr(element.brutto)}</Normaltekst>
+        <BodyShort size="small" className={beregningStyles.semiBoldText}>
+          {formatCurrencyNoKr(element.brutto)}
+        </BodyShort>
       </td>
     ))}
   </tr>
@@ -233,7 +235,7 @@ const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement =
       const fraDato = element.periodeFom;
       return (
         <td key={`periodeittel${fraDato}`} colSpan={2}>
-          <Undertekst>{dateFormat(fraDato)}</Undertekst>
+          <Detail size="small">{dateFormat(fraDato)}</Detail>
         </td>
       );
     })}
@@ -255,12 +257,12 @@ const createRows = (
       {perioder.map((element, index) => (
         <React.Fragment key={`PeriodeWrapper${index + 1}`}>
           <td key={`Col_Tittel_${element.periodeFom}`} colSpan={2}>
-            <Undertekst>
+            <Detail size="small">
               <FormattedMessage
                 id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.OmberegnetAar"
                 key={`Tittel_${element.periodeFom}`}
               />
-            </Undertekst>
+            </Detail>
           </td>
         </React.Fragment>
       ))}
@@ -275,7 +277,7 @@ const createRows = (
           if (!element.isEditable) {
             return (
               <td key={element.tabellInnhold} colSpan={2}>
-                <Normaltekst>{element.tabellInnhold}</Normaltekst>
+                <BodyShort size="small">{element.tabellInnhold}</BodyShort>
               </td>
             );
           }

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -99,14 +99,14 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
         <>
           <Row>
             <Column xs="12">
-              <Normaltekst>
+              <BodyShort size="small">
                 {erNyoppstartet && (
                   <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.Nyoppstartet" />
                 )}
                 {erVarigEndring && (
                   <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndring" />
                 )}
-              </Normaltekst>
+              </BodyShort>
             </Column>
           </Row>
           <VerticalSpacer sixteenPx />
@@ -116,9 +116,9 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
         <>
           <Row className={styles.verticalAlignMiddle}>
             <Column className={styles.dynamiskKolonne}>
-              <Normaltekst>
+              <BodyShort size="small">
                 <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
-              </Normaltekst>
+              </BodyShort>
             </Column>
             <Column xs="5">
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>

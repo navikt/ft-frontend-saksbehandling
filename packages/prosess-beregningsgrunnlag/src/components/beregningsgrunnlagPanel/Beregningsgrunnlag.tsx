@@ -10,6 +10,7 @@ import {
   Inntektsgrunnlag,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   FastsettAvvikATFLResultatAP,
   FastsettAvvikATFLTidsbegrensetResultatAP,
@@ -76,7 +77,12 @@ const createRelevantePaneler = (
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
     )}
-    {relevanteStatuser.isFrilanser && <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />}
+    {relevanteStatuser.isFrilanser && (
+      <>
+        <VerticalSpacer thirtyTwoPx />
+        <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />
+      </>
+    )}
     {relevanteStatuser.harDagpengerEllerAAP && (
       <div>
         <TilstotendeYtelser
@@ -91,7 +97,9 @@ const createRelevantePaneler = (
 
     {relevanteStatuser.isSelvstendigNaeringsdrivende && (
       <>
+        <VerticalSpacer thirtyTwoPx />
         <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />
+        <VerticalSpacer thirtyTwoPx />
         <NaeringsopplysningsPanel
           alleAndelerIForstePeriode={alleAndelerIForstePeriode}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

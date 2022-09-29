@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
@@ -85,9 +85,9 @@ const Beregningsresultat: FunctionComponent<OwnProps> = ({ beregningsgrunnlag })
     <div>
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.Resultat" />
-          </Element>
+          </Label>
         </Column>
       </Row>
       {bgPerioderSomSkalVises.map(periode => (

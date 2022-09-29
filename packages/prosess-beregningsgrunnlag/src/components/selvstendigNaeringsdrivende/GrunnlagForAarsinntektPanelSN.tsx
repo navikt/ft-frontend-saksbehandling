@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
+import { Label, BodyShort, Detail } from '@navikt/ds-react';
 
-import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel, PgiVerdier } from '@navikt/ft-types';
@@ -13,14 +13,14 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 const createHeaderRow = (): React.ReactNode => (
   <Row key="SNInntektHeader">
     <Column xs="10">
-      <Undertekst className={beregningStyles.etikettLiten}>
+      <Detail size="small" className={beregningStyles.etikettLiten}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AarHeader" />
-      </Undertekst>
+      </Detail>
     </Column>
     <Column xs="2" className={beregningStyles.colAarText}>
-      <Undertekst className={beregningStyles.etikettLiten}>
+      <Detail size="small" className={beregningStyles.etikettLiten}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotalPensjonsGivende" />
-      </Undertekst>
+      </Detail>
     </Column>
   </Row>
 );
@@ -32,13 +32,13 @@ const createSumRow = (pgiSnitt: number): React.ReactNode => (
       </Column>
     </Row>
     <Row key="grunnlagAarsinntektSN">
-      <Column xs="10" className={beregningStyles.rightAlignTextInDiv}>
-        <Element>
+      <Column xs="10">
+        <Label size="small">
           <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SnittPensjonsGivende" />
-        </Element>
+        </Label>
       </Column>
       <Column xs="2" className={beregningStyles.colAarText}>
-        <Element>{formatCurrencyNoKr(pgiSnitt)}</Element>
+        <Label size="small">{formatCurrencyNoKr(pgiSnitt)}</Label>
       </Column>
     </Row>
   </>
@@ -48,10 +48,10 @@ const createInntektRows = (pgiVerdier: PgiVerdier[]): React.ReactNode => (
     {pgiVerdier.map(element => (
       <Row key={element.årstall}>
         <Column xs="7">
-          <Undertekst>{element.årstall}</Undertekst>
+          <Detail size="small">{element.årstall}</Detail>
         </Column>
         <Column xs="5" className={beregningStyles.colAarText}>
-          <Undertekst>{formatCurrencyNoKr(element.beløp)}</Undertekst>
+          <Detail size="small">{formatCurrencyNoKr(element.beløp)}</Detail>
         </Column>
       </Row>
     ))}
@@ -76,16 +76,14 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
   const { pgiVerdier, pgiSnitt } = snAndel;
   return (
     <>
-      <AvsnittSkiller spaceAbove spaceUnder />
-      <Element className={beregningStyles.avsnittOverskrift}>
+      <Label size="medium" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt" />
-      </Element>
-      <VerticalSpacer eightPx />
+      </Label>
       <Row key="SNInntektIngress">
         <Column xs="8">
-          <Normaltekst>
+          <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.sisteTreAar" />
-          </Normaltekst>
+          </BodyShort>
         </Column>
       </Row>
       <VerticalSpacer fourPx />
