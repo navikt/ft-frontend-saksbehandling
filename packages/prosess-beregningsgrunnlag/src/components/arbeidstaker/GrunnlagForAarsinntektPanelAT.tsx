@@ -137,12 +137,12 @@ const createArbeidsIntektRows = (
     const summaryRow = (
       <React.Fragment key="bruttoBeregningsgrunnlag">
         <Row>
-          <Column xs="11" className={beregningStyles.noPaddingRight}>
+          <Column xs="12" className={beregningStyles.noPaddingRight}>
             <div className={beregningStyles.colDevider} />
           </Column>
         </Row>
         <Row>
-          <Column xs="7">
+          <Column xs="8">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
           </Column>
           <Column key="ColBBgMnd" xs="2" className={beregningStyles.colMaanedText}>
@@ -151,7 +151,6 @@ const createArbeidsIntektRows = (
           <Column className={beregningStyles.colAarText} xs="2">
             <Label size="small">{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
           </Column>
-          <Column className={beregningStyles.colLink} />
         </Row>
       </React.Fragment>
     );
