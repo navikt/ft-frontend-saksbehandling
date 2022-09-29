@@ -4,7 +4,7 @@ import { Label, BodyShort, Detail } from '@navikt/ds-react';
 
 import { Column, Row } from 'nav-frontend-grid';
 
-import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -43,7 +43,7 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
     <>
       {relevanteStatuser.isKombinasjonsstatus && (
         <>
-          <AvsnittSkiller spaceAbove spaceUnder />
+          <VerticalSpacer eightPx />
           <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.TittelNav" />
           </Label>

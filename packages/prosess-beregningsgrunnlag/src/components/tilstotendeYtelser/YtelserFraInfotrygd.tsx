@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Label, BodyShort, Detail } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
@@ -20,7 +20,6 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
   if (bruttoPrAar || bruttoPrAar === 0) {
     return (
       <>
-        <AvsnittSkiller spaceAbove spaceUnder />
         <Row>
           <Column xs="12">
             <Label size="small" className={beregningStyles.avsnittOverskrift}>

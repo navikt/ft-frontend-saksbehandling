@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
+import { FormattedMessage } from 'react-intl';
+import { Label, BodyShort, Detail, ReadMore } from '@navikt/ds-react';
 
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
@@ -8,7 +8,6 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 
-import Lesmerpanel from 'nav-frontend-lesmerpanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './naeringsOpplysningsPanel.less';
 
@@ -61,19 +60,14 @@ const erNæringNyoppstartetEllerVarigEndret = (næring: Næring): boolean => {
   return !!erVarigEndret || !!erNyoppstartet;
 };
 
-const lagBeskrivelsePanel = (næringsAndel: Næring, intl: IntlShape): React.ReactNode => (
-  <Lesmerpanel
-    intro={lagIntroTilEndringspanel(næringsAndel)}
-    lukkTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.NaeringsOpplysningsPanel.SkjulBegrunnelse' })}
-    apneTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VisBegrunnelse' })}
-    defaultApen
-  >
+const lagBeskrivelsePanel = (næringsAndel: Næring): React.ReactNode => (
+  <ReadMore size="medium" header={lagIntroTilEndringspanel(næringsAndel)} defaultOpen>
     {næringsAndel.begrunnelse && næringsAndel.begrunnelse !== '' && (
       <BodyShort size="small" className={styles.merTekstBorder}>
         {næringsAndel.begrunnelse}
       </BodyShort>
     )}
-  </Lesmerpanel>
+  </ReadMore>
 );
 
 const søkerHarOppgittInntekt = (næring: Næring): boolean => !!næring.oppgittInntekt || næring.oppgittInntekt === 0;
@@ -87,7 +81,6 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
   alleAndelerIForstePeriode,
   arbeidsgiverOpplysningerPerId,
 }) => {
-  const intl = useIntl();
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
@@ -116,14 +109,14 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
       {snAndel.næringer.map(naring => (
         <React.Fragment key={`NaringsWrapper${naring.orgnr}`}>
           <Row key="SNInntektIngress">
-            <Column xs="3" className={beregningStyles.colAarText}>
+            <Column xs="1" className={beregningStyles.colAarText}>
               <Detail size="small" className={styles.naringsType}>
                 <FormattedMessage
                   id={`Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.${finnvirksomhetsTypeKode(naring)}`}
                 />
               </Detail>
             </Column>
-            <Column xs="7" />
+            <Column xs="9" />
             <Column xs="2" className={beregningStyles.colAarText}>
               {søkerHarOppgittInntekt(naring) && (
                 <Detail size="small">
@@ -162,7 +155,7 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
           {erNæringNyoppstartetEllerVarigEndret(naring) && (
             <>
               {skilleLinje}
-              <Row>{lagBeskrivelsePanel(naring, intl)}</Row>
+              <Row>{lagBeskrivelsePanel(naring)}</Row>
             </>
           )}
         </React.Fragment>

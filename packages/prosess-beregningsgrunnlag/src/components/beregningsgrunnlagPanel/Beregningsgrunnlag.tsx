@@ -110,10 +110,13 @@ const createRelevantePaneler = (
       sammenligningsGrunnlagInntekter &&
       sammenligningsgrunnlag &&
       (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
-        <SammenlignsgrunnlagAOrdningen
-          sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
-          sammenligningsgrunnlag={sammenligningsgrunnlag}
-        />
+        <>
+          <VerticalSpacer eightPx />
+          <SammenlignsgrunnlagAOrdningen
+            sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
+            sammenligningsgrunnlag={sammenligningsgrunnlag}
+          />
+        </>
       )}
   </div>
 );

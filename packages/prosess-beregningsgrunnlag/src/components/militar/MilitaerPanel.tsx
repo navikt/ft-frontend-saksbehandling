@@ -6,7 +6,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
@@ -24,7 +24,6 @@ const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
     <>
-      <AvsnittSkiller spaceAbove spaceUnder />
       <Row>
         <Column xs="12">
           <Label size="small" className={beregningStyles.avsnittOverskrift}>

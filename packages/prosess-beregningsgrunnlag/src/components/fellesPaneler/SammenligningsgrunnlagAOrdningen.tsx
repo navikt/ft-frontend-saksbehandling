@@ -1,10 +1,10 @@
 import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label, ReadMore } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import {
   Inntektsgrunnlag,
@@ -17,7 +17,6 @@ import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 
-import Lesmerpanel from 'nav-frontend-lesmerpanel';
 import { CallbackDataParams } from 'echarts/types/dist/shared';
 import { OptionDataValue } from 'echarts/types/src/util/types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -207,13 +206,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
 
   return (
     <>
-      <AvsnittSkiller spaceAbove spaceUnder />
-      <Lesmerpanel
-        intro={lagOverskrift()}
-        lukkTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SkjulGraf' })}
-        apneTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.VisGraf' })}
-        defaultApen
-      >
+      <ReadMore size="medium" header={lagOverskrift()} defaultOpen>
         <ReactECharts
           option={{
             tooltip: {
@@ -329,7 +322,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
           }}
           height={350}
         />
-      </Lesmerpanel>
+      </ReadMore>
       {lagSumRad(måneder, relevanteStatuser)}
     </>
   );

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Label, BodyShort } from '@navikt/ds-react';
 
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { AvsnittSkiller, VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './graderingUtenBGReadOnly.less';
 
@@ -22,7 +22,6 @@ const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ avklaringsbehov 
   }
   return (
     <>
-      <AvsnittSkiller spaceAbove spaceUnder leftPanel />
       <Label size="small">
         <FormattedMessage id="Beregningsgrunnlag.Gradering.Beskrivelse" />
       </Label>

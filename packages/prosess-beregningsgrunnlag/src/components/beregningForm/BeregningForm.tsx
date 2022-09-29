@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { AvsnittSkiller, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -260,9 +260,6 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           )}
         </FlexColumn>
         <FlexColumn className={beregningStyles.hoyreKolonne}>
-          <div className={beregningStyles.paragrafSkiller}>
-            <AvsnittSkiller spaceAbove spaceUnder dividerParagraf />
-          </div>
           <Heading size="medium" className={beregningStyles.panelRight}>
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
           </Heading>
@@ -293,7 +290,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             </>
           )}
           <>
-            <AvsnittSkiller spaceAbove spaceUnder rightPanel />
+            <VerticalSpacer sixteenPx />
             <YtelsegrunnlagPanel beregningsgrunnlag={beregningsgrunnlag} />
           </>
           {vilkarPeriode && (
