@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Form } from '@navikt/ft-form-hooks';
 
 import {
@@ -209,9 +209,11 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
     name: formName,
     control,
   });
+  const [isSubmitting, setSubmitting] = useState(false);
 
   const losAvklaringsbehov = (values: BeregningFormValues) => {
     if (Object.keys(errors).length === 0) {
+      setSubmitting(true);
       submitCallback(transformFields(values));
     }
   };
@@ -236,7 +238,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
               alleKodeverk={alleKodeverk}
               vilkarPeriode={finnVilkårperiode(vilkar, beregningsgrunnlagListe[index].vilkårsperiodeFom)}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              isSubmitting={formMethods.formState.isSubmitting}
+              isSubmitting={isSubmitting}
               isDirty={formMethods.formState.isDirty}
               fieldIndex={index}
             />
