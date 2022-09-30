@@ -239,7 +239,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             aktivitetStatusList={aktivitetStatusList}
             skjeringstidspunktDato={skjaeringstidspunktBeregning}
           />
-          <VerticalSpacer thirtyTwoPx />
+          <VerticalSpacer seventyTwoPx />
           {relevanteStatuser.skalViseBeregningsgrunnlag && (
             <Beregningsgrunnlag
               relevanteStatuser={relevanteStatuser}
