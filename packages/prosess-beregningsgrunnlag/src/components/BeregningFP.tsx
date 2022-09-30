@@ -194,7 +194,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   });
 
   const {
-    formState: { dirtyFields, isSubmitted, errors },
+    formState: { dirtyFields, isSubmitted },
     control,
     trigger,
   } = formMethods;
@@ -212,10 +212,8 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   const [isSubmitting, setSubmitting] = useState(false);
 
   const losAvklaringsbehov = (values: BeregningFormValues) => {
-    if (Object.keys(errors).length === 0) {
-      setSubmitting(true);
-      submitCallback(transformFields(values));
-    }
+    setSubmitting(true);
+    submitCallback(transformFields(values));
   };
 
   function skalVurderes(index: number) {
