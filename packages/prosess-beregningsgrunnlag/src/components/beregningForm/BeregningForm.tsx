@@ -230,7 +230,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
       )}
       <FlexRow>
         <FlexColumn className={beregningStyles.venstreKolonne}>
-          <Heading size="medium">
+          <Heading size="large">
             <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
           </Heading>
           <VerticalSpacer sixteenPx />
@@ -251,16 +251,18 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
               sammenligningsgrunnlag={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
             />
           )}
-          <VerticalSpacer twentyPx />
           {gjelderAutomatiskBesteberegning && (
-            <BesteberegningResultatGrunnlagPanel
-              besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
-              periode={beregningsgrunnlagPeriode[0]}
-            />
+            <>
+              <VerticalSpacer seventyTwoPx />
+              <BesteberegningResultatGrunnlagPanel
+                besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
+                periode={beregningsgrunnlagPeriode[0]}
+              />
+            </>
           )}
         </FlexColumn>
         <FlexColumn className={beregningStyles.hoyreKolonne}>
-          <Heading size="medium" className={beregningStyles.panelRight}>
+          <Heading size="large" className={beregningStyles.panelRight}>
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
           </Heading>
           <VerticalSpacer sixteenPx />
@@ -273,7 +275,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           />
           {harAksjonspunkter && (
             <>
-              <VerticalSpacer fourtyPx />
+              <VerticalSpacer seventyTwoPx />
               <AksjonspunktBehandler
                 readOnly={readOnly}
                 readOnlySubmitButton={readOnlySubmitButton}

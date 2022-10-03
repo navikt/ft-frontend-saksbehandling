@@ -7,7 +7,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {
@@ -32,10 +32,10 @@ const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndele
   const startDato = relevantAndel.arbeidsforhold?.startdato;
   return (
     <>
-      <Label size="medium" className={beregningStyles.avsnittOverskrift}>
+      <Heading size="medium">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
-      </Label>
-      <VerticalSpacer eightPx />
+      </Heading>
+      <VerticalSpacer fourPx />
       <Row className={beregningStyles.rows}>
         <Column xs="8">
           {startDato && (

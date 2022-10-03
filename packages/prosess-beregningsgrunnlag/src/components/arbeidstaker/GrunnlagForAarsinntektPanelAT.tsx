@@ -13,7 +13,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 
-import { Label, Detail, BodyShort } from '@navikt/ds-react';
+import { Label, Detail, BodyShort, Heading } from '@navikt/ds-react';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import NaturalytelsePanel from './NaturalytelsePanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -189,9 +189,9 @@ const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctio
     <>
       <FlexRow>
         <FlexColumn>
-          <Label size="medium">
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt" />
-          </Label>
+          </Heading>
         </FlexColumn>
       </FlexRow>
       <Row key="Header">

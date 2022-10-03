@@ -79,7 +79,7 @@ const createRelevantePaneler = (
     )}
     {relevanteStatuser.isFrilanser && (
       <>
-        <VerticalSpacer thirtyTwoPx />
+        <VerticalSpacer seventyTwoPx />
         <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />
       </>
     )}
@@ -97,9 +97,9 @@ const createRelevantePaneler = (
 
     {relevanteStatuser.isSelvstendigNaeringsdrivende && (
       <>
-        <VerticalSpacer thirtyTwoPx />
+        <VerticalSpacer seventyTwoPx />
         <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />
-        <VerticalSpacer thirtyTwoPx />
+        <VerticalSpacer seventyTwoPx />
         <NaeringsopplysningsPanel
           alleAndelerIForstePeriode={alleAndelerIForstePeriode}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -111,7 +111,7 @@ const createRelevantePaneler = (
       sammenligningsgrunnlag &&
       (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
         <>
-          <VerticalSpacer eightPx />
+          <VerticalSpacer seventyTwoPx />
           <SammenlignsgrunnlagAOrdningen
             sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
             sammenligningsgrunnlag={sammenligningsgrunnlag}

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, ReadMore } from '@navikt/ds-react';
+import { Label, BodyShort, Detail, ReadMore, Heading } from '@navikt/ds-react';
 
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
@@ -100,9 +100,9 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
     <>
       <FlexRow>
         <FlexColumn>
-          <Label size="medium" className={beregningStyles.avsnittOverskrift}>
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
-          </Label>
+          </Heading>
         </FlexColumn>
       </FlexRow>
       {skilleLinje}
@@ -110,7 +110,7 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
         <React.Fragment key={`NaringsWrapper${naring.orgnr}`}>
           <Row key="SNInntektIngress">
             <Column xs="1" className={beregningStyles.colAarText}>
-              <Detail size="small" className={styles.naringsType}>
+              <Detail className={styles.naringsType}>
                 <FormattedMessage
                   id={`Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.${finnvirksomhetsTypeKode(naring)}`}
                 />
@@ -119,7 +119,7 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
             <Column xs="9" />
             <Column xs="2" className={beregningStyles.colAarText}>
               {søkerHarOppgittInntekt(naring) && (
-                <Detail size="small">
+                <Detail>
                   <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
                 </Detail>
               )}
@@ -133,18 +133,16 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
             </Column>
             <Column xs="2" className={beregningStyles.colAarText}>
               {søkerHarOppgittInntekt(naring) && (
-                <BodyShort size="small" className={beregningStyles.semiBoldText}>
-                  {formatCurrencyNoKr(naring.oppgittInntekt)}
-                </BodyShort>
+                <Label size="small">{formatCurrencyNoKr(naring.oppgittInntekt)}</Label>
               )}
             </Column>
           </Row>
           <Row key={`NaringsDetaljer${naring.orgnr}`}>
             <Column xs="2">
-              <BodyShort>{naring && naring.orgnr ? naring.orgnr : ''}</BodyShort>
+              <BodyShort size="small">{naring && naring.orgnr ? naring.orgnr : ''}</BodyShort>
             </Column>
             <Column xs="4">
-              {virksomhetsDatoer(naring) && <Detail size="small">{virksomhetsDatoer(naring)}</Detail>}
+              {virksomhetsDatoer(naring) && <BodyShort size="small">{virksomhetsDatoer(naring)}</BodyShort>}
             </Column>
           </Row>
           <Row key={`RevisorRad${naring.orgnr}`}>

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import Panel from 'nav-frontend-paneler';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react';
+import { Heading, BodyShort } from '@navikt/ds-react';
 
 import { FlexContainer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
@@ -172,9 +172,9 @@ const AvviksopplysningerPanel: FunctionComponent<OwnProps> = ({
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   return (
     <Panel className={beregningStyles.panelRight}>
-      <Label size="small" className={beregningStyles.avsnittOverskrift}>
+      <Heading size="xsmall">
         <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.ApplicationInformation" />
-      </Label>
+      </Heading>
       {lagRelevantePaneler(
         alleAndelerIForstePeriode,
         relevanteStatuser,

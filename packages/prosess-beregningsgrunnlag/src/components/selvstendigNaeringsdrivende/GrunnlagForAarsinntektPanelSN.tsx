@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
@@ -13,12 +13,12 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 const createHeaderRow = (): React.ReactNode => (
   <Row key="SNInntektHeader">
     <Column xs="10">
-      <Detail size="small" className={beregningStyles.etikettLiten}>
+      <Detail className={beregningStyles.etikettLiten}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AarHeader" />
       </Detail>
     </Column>
     <Column xs="2" className={beregningStyles.colAarText}>
-      <Detail size="small" className={beregningStyles.etikettLiten}>
+      <Detail className={beregningStyles.etikettLiten}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotalPensjonsGivende" />
       </Detail>
     </Column>
@@ -48,10 +48,10 @@ const createInntektRows = (pgiVerdier: PgiVerdier[]): React.ReactNode => (
     {pgiVerdier.map(element => (
       <Row key={element.årstall}>
         <Column xs="7">
-          <Detail size="small">{element.årstall}</Detail>
+          <BodyShort size="small">{element.årstall}</BodyShort>
         </Column>
         <Column xs="5" className={beregningStyles.colAarText}>
-          <Detail size="small">{formatCurrencyNoKr(element.beløp)}</Detail>
+          <BodyShort size="small">{formatCurrencyNoKr(element.beløp)}</BodyShort>
         </Column>
       </Row>
     ))}
@@ -76,14 +76,14 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
   const { pgiVerdier, pgiSnitt } = snAndel;
   return (
     <>
-      <Label size="medium" className={beregningStyles.avsnittOverskrift}>
+      <Heading size="medium">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt" />
-      </Label>
+      </Heading>
       <Row key="SNInntektIngress">
         <Column xs="8">
-          <BodyShort size="small">
+          <Detail>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.sisteTreAar" />
-          </BodyShort>
+          </Detail>
         </Column>
       </Row>
       <VerticalSpacer fourPx />

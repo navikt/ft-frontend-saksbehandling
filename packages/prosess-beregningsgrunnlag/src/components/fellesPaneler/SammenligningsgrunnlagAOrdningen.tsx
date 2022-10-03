@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { BodyShort, Label, ReadMore } from '@navikt/ds-react';
+import { BodyShort, ReadMore, Heading } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
@@ -49,7 +49,7 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
       <VerticalSpacer eightPx />
       <Row>
         <Column xs="12">
-          <BodyShort size="small" className={beregningStyles.semiBoldText}>
+          <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
           </BodyShort>
         </Column>
@@ -128,9 +128,9 @@ const lagOverskrift = (): ReactElement => (
   <>
     <FlexRow key="SamenenligningsGrunnlagOverskrift">
       <FlexColumn>
-        <Label size="small" className={beregningStyles.avsnittOverskrift}>
+        <Heading size="small" className={beregningStyles.avsnittOverskrift}>
           <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Tittel" />
-        </Label>
+        </Heading>
       </FlexColumn>
     </FlexRow>
     <VerticalSpacer eightPx />
