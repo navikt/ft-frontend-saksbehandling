@@ -24,8 +24,8 @@
     "storybook": "cross-env start-storybook -p 7014"
   },
   "dependencies": {
-    "@navikt/ds-css": "^1.3.2",
-    "@navikt/ds-react": "^1.3.2",
+    "@navikt/ds-css": "^1.3.5",
+    "@navikt/ds-react": "^1.3.5",
     "@navikt/ft-kodeverk": "^1.0.18",
     "@navikt/ft-plattform-komponenter": "^1.1.5",
     "@navikt/ft-types": "^1.0.29",
@@ -33,11 +33,11 @@
     "@navikt/ft-utils": "^1.1.3",
     "moment": "2.29.4",
     "react": "18.2.0",
-    "react-intl": "6.1.1"
+    "react-intl": "6.1.2"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "^1.3.2",
-    "@navikt/ds-react": "^1.3.2",
+    "@navikt/ds-css": "^1.3.5",
+    "@navikt/ds-react": "^1.3.5",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-plattform-komponenter": "1.x",
     "@navikt/ft-types": "^1.x",
@@ -45,7 +45,7 @@
     "@navikt/ft-utils": "1.x",
     "moment": "2.29.4",
     "react": "18.2.0",
-    "react-intl": "6.1.1"
+    "react-intl": "6.1.2"
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^1.0.7",
