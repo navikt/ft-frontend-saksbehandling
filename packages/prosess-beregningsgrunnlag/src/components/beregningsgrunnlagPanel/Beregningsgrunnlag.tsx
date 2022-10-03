@@ -10,7 +10,6 @@ import {
   Inntektsgrunnlag,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   FastsettAvvikATFLResultatAP,
   FastsettAvvikATFLTidsbegrensetResultatAP,
@@ -58,6 +57,8 @@ const finnAlleAndelerIFørstePeriode = (allePerioder?: BeregningsgrunnlagPeriode
   return [];
 };
 
+const storSpacer = <div className={beregningStyles.storSpace} />;
+
 const createRelevantePaneler = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
   relevanteStatuser: RelevanteStatuserProp,
@@ -79,7 +80,7 @@ const createRelevantePaneler = (
     )}
     {relevanteStatuser.isFrilanser && (
       <>
-        <VerticalSpacer seventyTwoPx />
+        {storSpacer}
         <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />
       </>
     )}
@@ -97,9 +98,9 @@ const createRelevantePaneler = (
 
     {relevanteStatuser.isSelvstendigNaeringsdrivende && (
       <>
-        <VerticalSpacer seventyTwoPx />
+        {storSpacer}
         <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />
-        <VerticalSpacer seventyTwoPx />
+        {storSpacer}
         <NaeringsopplysningsPanel
           alleAndelerIForstePeriode={alleAndelerIForstePeriode}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -111,7 +112,7 @@ const createRelevantePaneler = (
       sammenligningsgrunnlag &&
       (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
         <>
-          <VerticalSpacer seventyTwoPx />
+          {storSpacer}
           <SammenlignsgrunnlagAOrdningen
             sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
             sammenligningsgrunnlag={sammenligningsgrunnlag}

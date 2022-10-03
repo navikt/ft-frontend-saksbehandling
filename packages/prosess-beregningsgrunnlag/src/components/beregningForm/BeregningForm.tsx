@@ -217,6 +217,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
   const erMidlertidigInaktiv = sjekkErMidlertidigInaktiv(beregningsgrunnlag);
+  const storSpacer = <div className={beregningStyles.storSpace} />;
 
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
@@ -239,7 +240,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             aktivitetStatusList={aktivitetStatusList}
             skjeringstidspunktDato={skjaeringstidspunktBeregning}
           />
-          <VerticalSpacer seventyTwoPx />
+          {storSpacer}
           {relevanteStatuser.skalViseBeregningsgrunnlag && (
             <Beregningsgrunnlag
               relevanteStatuser={relevanteStatuser}
@@ -253,7 +254,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           )}
           {gjelderAutomatiskBesteberegning && (
             <>
-              <VerticalSpacer seventyTwoPx />
+              {storSpacer}
               <BesteberegningResultatGrunnlagPanel
                 besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
                 periode={beregningsgrunnlagPeriode[0]}
@@ -275,7 +276,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           />
           {harAksjonspunkter && (
             <>
-              <VerticalSpacer seventyTwoPx />
+              {storSpacer}
               <AksjonspunktBehandler
                 readOnly={readOnly}
                 readOnlySubmitButton={readOnlySubmitButton}
