@@ -89,7 +89,7 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
   }
 
   const skilleLinje = (
-    <FlexRow>
+    <FlexRow className={beregningStyles.noPaddingRight}>
       <FlexColumn className={beregningStyles.heldekkendeKol}>
         <div className={beregningStyles.colDevider} />
       </FlexColumn>
@@ -104,27 +104,15 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
             <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
           </Heading>
         </FlexColumn>
+        <FlexColumn className={beregningStyles.hoyreOverskrift}>
+          <Detail>
+            <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
+          </Detail>
+        </FlexColumn>
       </FlexRow>
       {skilleLinje}
       {snAndel.næringer.map(naring => (
         <React.Fragment key={`NaringsWrapper${naring.orgnr}`}>
-          <Row key="SNInntektIngress">
-            <Column xs="1" className={beregningStyles.colAarText}>
-              <Detail className={styles.naringsType}>
-                <FormattedMessage
-                  id={`Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.${finnvirksomhetsTypeKode(naring)}`}
-                />
-              </Detail>
-            </Column>
-            <Column xs="9" />
-            <Column xs="2" className={beregningStyles.colAarText}>
-              {søkerHarOppgittInntekt(naring) && (
-                <Detail>
-                  <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
-                </Detail>
-              )}
-            </Column>
-          </Row>
           <Row key={`NaringsNavn${naring.orgnr}`}>
             <Column xs="10">
               <Label size="small" className={beregningStyles.semiBoldText}>
@@ -143,6 +131,15 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
             </Column>
             <Column xs="4">
               {virksomhetsDatoer(naring) && <BodyShort size="small">{virksomhetsDatoer(naring)}</BodyShort>}
+            </Column>
+          </Row>
+          <Row>
+            <Column xs="1" className={beregningStyles.colAarText}>
+              <BodyShort size="small">
+                <FormattedMessage
+                  id={`Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.${finnvirksomhetsTypeKode(naring)}`}
+                />
+              </BodyShort>
             </Column>
           </Row>
           <Row key={`RevisorRad${naring.orgnr}`}>

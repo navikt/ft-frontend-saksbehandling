@@ -131,16 +131,12 @@ const createArbeidsIntektRows = (
           <VerticalSpacer eightPx />
         </Row>
       )}
+      <div className={beregningStyles.heldekkende} />
     </React.Fragment>
   ));
   if (relevanteAndeler.length > 1) {
     const summaryRow = (
       <React.Fragment key="bruttoBeregningsgrunnlag">
-        <Row>
-          <Column xs="12" className={beregningStyles.noPaddingRight}>
-            <div className={beregningStyles.colDevider} />
-          </Column>
-        </Row>
         <Row>
           <Column xs="8">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
