@@ -1,10 +1,10 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Label, BodyShort, Detail } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
@@ -173,19 +173,19 @@ const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
     <div key={rad.nøkkel}>
       <Row>
         <Column xs="11" className={beregningStyles.noPaddingRight}>
-          <Element>{rad.visningsnavn}</Element>
+          <Label size="small">{rad.visningsnavn}</Label>
         </Column>
       </Row>
       {rad.naturalytelseEndringer.map(endring => (
         <Row key={rad.nøkkel + endring.fom}>
           <Column xs="7">
-            <Normaltekst>{lagPeriodeTekst(endring)}</Normaltekst>
+            <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
           </Column>
           <Column xs="2" className={beregningStyles.colMaanedText}>
-            <Normaltekst>{formatCurrencyNoKr(endring.beløpPrMåned)}</Normaltekst>
+            <BodyShort size="small">{formatCurrencyNoKr(endring.beløpPrMåned)}</BodyShort>
           </Column>
           <Column xs="2" className={beregningStyles.colAarText}>
-            <Element>{formatCurrencyNoKr(endring.beløpPrÅr)}</Element>
+            <Label size="small">{formatCurrencyNoKr(endring.beløpPrÅr)}</Label>
           </Column>
         </Row>
       ))}
@@ -208,22 +208,21 @@ const NaturalytelsePanel: FunctionComponent<OwnProps> = ({ allePerioder, arbeids
   }
   return (
     <>
-      <AvsnittSkiller spaceAbove spaceUnder />
-      <Element className={beregningStyles.avsnittOverskrift}>
+      <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
-      </Element>
+      </Label>
       <VerticalSpacer eightPx />
       <Row>
         <Column xs="7" key="ATempthy1" />
         <Column xs="2" className={beregningStyles.colMaanedText}>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Undertekst>
+          </Detail>
         </Column>
         <Column xs="2" className={beregningStyles.colAarText}>
-          <Undertekst>
+          <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Undertekst>
+          </Detail>
         </Column>
         <Column className={beregningStyles.colLink} />
       </Row>

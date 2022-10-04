@@ -1,10 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
-import { Undertittel } from 'nav-frontend-typografi';
 
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { AvsnittSkiller, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -15,6 +13,7 @@ import {
   Vilkarperiode,
   YtelseGrunnlag,
 } from '@navikt/ft-types';
+import { Heading } from '@navikt/ds-react';
 import BeregningsgrunnlagResultatAP, { GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -218,6 +217,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
   const erMidlertidigInaktiv = sjekkErMidlertidigInaktiv(beregningsgrunnlag);
+  const storSpacer = <div className={beregningStyles.storSpace} />;
 
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
@@ -229,17 +229,18 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={beregningsgrunnlag} />
         </>
       )}
-      <Row>
-        <Column xs="12" md="6">
-          <Undertittel className={beregningStyles.panelLeft}>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.venstreKolonne}>
+          <Heading size="large">
             <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
-          </Undertittel>
-          <VerticalSpacer twentyPx />
+          </Heading>
+          <VerticalSpacer sixteenPx />
           <SkjeringspunktOgStatusPanel
             alleKodeverk={alleKodeverk}
             aktivitetStatusList={aktivitetStatusList}
             skjeringstidspunktDato={skjaeringstidspunktBeregning}
           />
+          {storSpacer}
           {relevanteStatuser.skalViseBeregningsgrunnlag && (
             <Beregningsgrunnlag
               relevanteStatuser={relevanteStatuser}
@@ -251,23 +252,21 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
               sammenligningsgrunnlag={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
             />
           )}
-          <VerticalSpacer twentyPx />
           {gjelderAutomatiskBesteberegning && (
-            <BesteberegningResultatGrunnlagPanel
-              besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
-              periode={beregningsgrunnlagPeriode[0]}
-            />
+            <>
+              {storSpacer}
+              <BesteberegningResultatGrunnlagPanel
+                besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
+                periode={beregningsgrunnlagPeriode[0]}
+              />
+            </>
           )}
-        </Column>
-        <Column xs="12" md="6">
-          <div className={beregningStyles.paragrafSkiller}>
-            <AvsnittSkiller spaceAbove spaceUnder dividerParagraf />
-          </div>
-          <Undertittel className={beregningStyles.panelRight}>
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.hoyreKolonne}>
+          <Heading size="large" className={beregningStyles.panelRight}>
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
-          </Undertittel>
-          <VerticalSpacer twentyPx />
-
+          </Heading>
+          <VerticalSpacer sixteenPx />
           <AvviksopplysningerPanel
             sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
             relevanteStatuser={relevanteStatuser}
@@ -277,7 +276,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           />
           {harAksjonspunkter && (
             <>
-              <AvsnittSkiller spaceAbove spaceUnder rightPanel />
+              {storSpacer}
               <AksjonspunktBehandler
                 readOnly={readOnly}
                 readOnlySubmitButton={readOnlySubmitButton}
@@ -294,25 +293,22 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             </>
           )}
           <>
-            <AvsnittSkiller spaceAbove spaceUnder rightPanel />
+            <VerticalSpacer sixteenPx />
             <YtelsegrunnlagPanel beregningsgrunnlag={beregningsgrunnlag} />
           </>
-          <>
-            <AvsnittSkiller spaceAbove spaceUnder rightPanel />
-            {vilkarPeriode && (
-              <BeregningsresultatTable
-                beregningsgrunnlagPerioder={beregningsgrunnlag.beregningsgrunnlagPeriode}
-                dekningsgrad={dekningsgrad}
-                vilkarPeriode={vilkarPeriode}
-                aktivitetStatusList={aktivitetStatusList}
-                grunnbelop={beregningsgrunnlag.grunnbeløp}
-                ytelseGrunnlag={beregningsgrunnlag.ytelsesspesifiktGrunnlag}
-                erMidlertidigInaktiv={erMidlertidigInaktiv}
-              />
-            )}
-          </>
-        </Column>
-      </Row>
+          {vilkarPeriode && (
+            <BeregningsresultatTable
+              beregningsgrunnlagPerioder={beregningsgrunnlag.beregningsgrunnlagPeriode}
+              dekningsgrad={dekningsgrad}
+              vilkarPeriode={vilkarPeriode}
+              aktivitetStatusList={aktivitetStatusList}
+              grunnbelop={beregningsgrunnlag.grunnbeløp}
+              ytelseGrunnlag={beregningsgrunnlag.ytelsesspesifiktGrunnlag}
+              erMidlertidigInaktiv={erMidlertidigInaktiv}
+            />
+          )}
+        </FlexColumn>
+      </FlexRow>
     </>
   );
 };

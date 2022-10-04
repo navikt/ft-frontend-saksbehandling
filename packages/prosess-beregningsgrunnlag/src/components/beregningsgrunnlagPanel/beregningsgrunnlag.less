@@ -16,6 +16,21 @@
   padding: 0 20px 0 20px;
 }
 
+.venstreKolonne {
+  width: 50%;
+}
+
+.hoyreKolonne {
+  width: 50%;
+}
+
+.heldekkende {
+  border-top: 1px solid var(--navds-semantic-color-divider);
+  margin-top: 4px;
+  min-height: 8px;
+  width: 100%;
+}
+
 .panelLeft {
   padding: 0 40px 0 0;
 
@@ -31,6 +46,10 @@
   @media (max-width: 992px) {
     padding: 0;
   }
+}
+
+.storSpace {
+  margin-bottom: 72px;
 }
 
 .semiBoldText {
@@ -75,6 +94,14 @@
   text-overflow: ellipsis;
 }
 
+.hoyreOverskrift {
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-top: auto;
+  /* stylelint-disable-next-line declaration-no-important */
+  padding: 0 !important;
+}
+
 .colMaanedText {
   float: left;
   min-height: 1px;
@@ -94,8 +121,14 @@
   white-space: nowrap;
 }
 
+.heldekkendeKol {
+  /* stylelint-disable-next-line declaration-no-important */
+  padding: 0 !important;
+  width: 100%;
+}
+
 .colDevider {
-  border-top: 1px solid @navMorkGra;
+  border-top: 1px solid var(--navds-semantic-color-divider);
   margin-top: 4px;
   min-height: 8px;
 }

@@ -1,14 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element } from 'nav-frontend-typografi';
+import { Label, Heading } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer, AvsnittSkiller } from '@navikt/ft-ui-komponenter';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 type OwnProps = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -24,18 +22,17 @@ const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
     <>
-      <AvsnittSkiller spaceAbove spaceUnder />
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militær" />
-          </Element>
+          </Heading>
         </Column>
       </Row>
       <VerticalSpacer eightPx />
       <Row>
         <Column xs="12">
-          <Element>{formatCurrencyNoKr(beregnetAarsinntekt)}</Element>
+          <Label size="small">{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
         </Column>
       </Row>
     </>

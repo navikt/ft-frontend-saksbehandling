@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { Column } from 'nav-frontend-grid';
+import { BodyShort } from '@navikt/ds-react';
 
 import { SammenligningType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
@@ -13,9 +13,9 @@ import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 const ingenAvviksvurdering = (forklarendeTekst: string): ReactElement => (
   <FlexRow>
     <Column xs="12">
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage id={forklarendeTekst} />
-      </Normaltekst>
+      </BodyShort>
     </Column>
   </FlexRow>
 );

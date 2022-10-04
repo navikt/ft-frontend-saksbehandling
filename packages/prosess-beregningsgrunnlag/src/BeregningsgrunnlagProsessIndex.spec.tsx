@@ -116,13 +116,13 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('9 861 482')).toBeInTheDocument();
 
     // Næringsopplysinger
-    expect(screen.getByText('Ukjent bedriftsnavn')).toBeInTheDocument();
+    expect(screen.getByText('Gardslien transport og Gardiner AS')).toBeInTheDocument();
     expect(screen.getByText('Regnskapsfører Regn S. Fører-99999999')).toBeInTheDocument();
     expect(screen.getByText('Søker har oppgitt varig endring fra')).toBeInTheDocument();
     expect(screen.getByText('01.05.2016')).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Jeg utvidet virksomheten fra en ren frisørsalong til også å tilby hudpleie.' +
+        'Jeg utvidet virksomheten fra en ren transportfirma til også å tilby gardiner.' +
           ' Jeg jobbet opprinnelig alene men har ansatt to stykker i løpet av det siste året',
       ),
     ).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Næringsopplysinger
-    expect(screen.getByText('Ukjent bedriftsnavn')).toBeInTheDocument();
+    expect(screen.getByText('Gardslien transport og Gardiner AS')).toBeInTheDocument();
     expect(screen.getByText('Regnskapsfører Regn S. Fører-99999999')).toBeInTheDocument();
     expect(screen.getByText('01.11.2015-')).toBeInTheDocument();
 

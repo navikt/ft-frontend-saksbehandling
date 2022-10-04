@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Label, BodyShort } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
@@ -34,7 +34,7 @@ const lagGrenseveriPeriode = (
       />
     </Column>
     <Column xs="2">
-      <Normaltekst>{formatCurrencyNoKr(utregnetInntektstak)}</Normaltekst>
+      <BodyShort size="small">{formatCurrencyNoKr(utregnetInntektstak)}</BodyShort>
     </Column>
   </Row>
 );
@@ -107,7 +107,7 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
     <>
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage
               id="Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode"
               key={`fom-tom${fom}${tom}`}
@@ -116,7 +116,7 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
                 tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
               }}
             />
-          </Element>
+          </Label>
         </Column>
       </Row>
       <VerticalSpacer eightPx />
