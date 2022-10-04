@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -70,9 +70,9 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
         <>
           <Row className={styles.verticalAlignMiddle}>
             <Column className={styles.dynamiskKolonne}>
-              <Normaltekst>
+              <BodyShort size="small">
                 <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
-              </Normaltekst>
+              </BodyShort>
             </Column>
             <Column xs="5">
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>

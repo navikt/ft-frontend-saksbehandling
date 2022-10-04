@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Label, BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
 import { Beregningsgrunnlag } from '@navikt/ft-types';
@@ -14,7 +14,7 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
   <Row>
     <Column xs="12">
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage
           id={tekstId}
           values={{
@@ -22,7 +22,7 @@ const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
             tom: dayjs(tom).format(DDMMYYYY_DATE_FORMAT),
           }}
         />
-      </Normaltekst>
+      </BodyShort>
     </Column>
   </Row>
 );
@@ -50,9 +50,9 @@ const Søknadsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag 
     <div>
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.Søknad.Tittel" />
-          </Element>
+          </Label>
         </Column>
       </Row>
       <VerticalSpacer eightPx />

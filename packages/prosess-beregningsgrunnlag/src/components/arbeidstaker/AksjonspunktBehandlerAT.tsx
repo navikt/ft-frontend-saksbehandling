@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -44,7 +44,9 @@ const createRows = (
   relevanteAndelerAT.map((andel, index) => (
     <Row key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
       <Column xs="7">
-        <Normaltekst>{createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}</Normaltekst>
+        <BodyShort size="small">
+          {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
+        </BodyShort>
       </Column>
       <Column xs="5">
         <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>

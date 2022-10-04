@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from 'react';
-import { Element, Normaltekst, Undertekst } from 'nav-frontend-typografi';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { Label, BodyShort, Detail, ReadMore, Heading } from '@navikt/ds-react';
 
-import { VerticalSpacer, AvsnittSkiller, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 
-import Lesmerpanel from 'nav-frontend-lesmerpanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './naeringsOpplysningsPanel.less';
 
@@ -47,12 +46,12 @@ const lagIntroTilEndringspanel = (næring: Næring): React.ReactNode => {
     return null;
   }
   return (
-    <span>
+    <Label size="small" className={beregningStyles.semiBoldText}>
       <FormattedMessage
         id={hendelseTekst}
         values={{ dato: dateFormat(hendelseDato), b: (chunks: any) => <b>{chunks}</b> }}
       />
-    </span>
+    </Label>
   );
 };
 
@@ -61,20 +60,14 @@ const erNæringNyoppstartetEllerVarigEndret = (næring: Næring): boolean => {
   return !!erVarigEndret || !!erNyoppstartet;
 };
 
-const lagBeskrivelsePanel = (næringsAndel: Næring, intl: IntlShape): React.ReactNode => (
-  <>
-    <VerticalSpacer fourPx />
-    <Lesmerpanel
-      intro={lagIntroTilEndringspanel(næringsAndel)}
-      lukkTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.NaeringsOpplysningsPanel.SkjulBegrunnelse' })}
-      apneTekst={intl.formatMessage({ id: 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VisBegrunnelse' })}
-      defaultApen
-    >
-      {næringsAndel.begrunnelse && næringsAndel.begrunnelse !== '' && (
-        <Normaltekst className={styles.merTekstBorder}>{næringsAndel.begrunnelse}</Normaltekst>
-      )}
-    </Lesmerpanel>
-  </>
+const lagBeskrivelsePanel = (næringsAndel: Næring): React.ReactNode => (
+  <ReadMore size="medium" header={lagIntroTilEndringspanel(næringsAndel)} defaultOpen>
+    {næringsAndel.begrunnelse && næringsAndel.begrunnelse !== '' && (
+      <BodyShort size="small" className={styles.merTekstBorder}>
+        {næringsAndel.begrunnelse}
+      </BodyShort>
+    )}
+  </ReadMore>
 );
 
 const søkerHarOppgittInntekt = (næring: Næring): boolean => !!næring.oppgittInntekt || næring.oppgittInntekt === 0;
@@ -88,7 +81,6 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
   alleAndelerIForstePeriode,
   arbeidsgiverOpplysningerPerId,
 }) => {
-  const intl = useIntl();
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
@@ -96,61 +88,71 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
     return null;
   }
 
+  const skilleLinje = (
+    <FlexRow className={beregningStyles.noPaddingRight}>
+      <FlexColumn className={beregningStyles.heldekkendeKol}>
+        <div className={beregningStyles.colDevider} />
+      </FlexColumn>
+    </FlexRow>
+  );
+
   return (
     <>
-      <AvsnittSkiller spaceAbove spaceUnder />
-      <FlexRow key="SNNareingOverskrift">
+      <FlexRow>
         <FlexColumn>
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
-          </Element>
+          </Heading>
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.hoyreOverskrift}>
+          <Detail>
+            <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
+          </Detail>
         </FlexColumn>
       </FlexRow>
-      <VerticalSpacer eightPx />
+      {skilleLinje}
       {snAndel.næringer.map(naring => (
         <React.Fragment key={`NaringsWrapper${naring.orgnr}`}>
-          <Row key="SNInntektIngress">
-            <Column xs="9" />
-            <Column xs="3" className={beregningStyles.colAarText}>
-              {søkerHarOppgittInntekt(naring) && (
-                <Undertekst>
-                  <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
-                </Undertekst>
-              )}
-            </Column>
-          </Row>
           <Row key={`NaringsNavn${naring.orgnr}`}>
-            <Column xs="6">
-              <Normaltekst className={beregningStyles.semiBoldText}>
+            <Column xs="10">
+              <Label size="small" className={beregningStyles.semiBoldText}>
                 {finnBedriftsnavn(naring, arbeidsgiverOpplysningerPerId)}
-              </Normaltekst>
-            </Column>
-            <Column xs="4">
-              <Undertekst className={styles.naringsType}>
-                <FormattedMessage
-                  id={`Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.${finnvirksomhetsTypeKode(naring)}`}
-                />
-              </Undertekst>
+              </Label>
             </Column>
             <Column xs="2" className={beregningStyles.colAarText}>
               {søkerHarOppgittInntekt(naring) && (
-                <Normaltekst className={beregningStyles.semiBoldText}>
-                  {formatCurrencyNoKr(naring.oppgittInntekt)}
-                </Normaltekst>
+                <Label size="small">{formatCurrencyNoKr(naring.oppgittInntekt)}</Label>
               )}
             </Column>
           </Row>
           <Row key={`NaringsDetaljer${naring.orgnr}`}>
             <Column xs="2">
-              <Normaltekst>{naring && naring.orgnr ? naring.orgnr : ''}</Normaltekst>
+              <BodyShort size="small">{naring && naring.orgnr ? naring.orgnr : ''}</BodyShort>
             </Column>
-            <Column xs="4">{virksomhetsDatoer(naring) && <Undertekst>{virksomhetsDatoer(naring)}</Undertekst>}</Column>
+            <Column xs="4">
+              {virksomhetsDatoer(naring) && <BodyShort size="small">{virksomhetsDatoer(naring)}</BodyShort>}
+            </Column>
+          </Row>
+          <Row>
+            <Column xs="1" className={beregningStyles.colAarText}>
+              <BodyShort size="small">
+                <FormattedMessage
+                  id={`Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.${finnvirksomhetsTypeKode(naring)}`}
+                />
+              </BodyShort>
+            </Column>
           </Row>
           <Row key={`RevisorRad${naring.orgnr}`}>
-            <Column xs="10">{naring.regnskapsførerNavn && <Normaltekst>{revisorDetaljer(naring)}</Normaltekst>}</Column>
+            <Column xs="10">
+              {naring.regnskapsførerNavn && <BodyShort size="small">{revisorDetaljer(naring)}</BodyShort>}
+            </Column>
           </Row>
-          {erNæringNyoppstartetEllerVarigEndret(naring) && <Row>{lagBeskrivelsePanel(naring, intl)}</Row>}
-          <VerticalSpacer twentyPx />
+          {erNæringNyoppstartetEllerVarigEndret(naring) && (
+            <>
+              {skilleLinje}
+              <Row>{lagBeskrivelsePanel(naring)}</Row>
+            </>
+          )}
         </React.Fragment>
       ))}
     </>

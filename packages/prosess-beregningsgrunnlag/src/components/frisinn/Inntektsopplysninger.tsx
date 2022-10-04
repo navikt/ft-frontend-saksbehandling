@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { FormattedMessage } from 'react-intl';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -33,39 +33,39 @@ const Inntektsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag 
     <div>
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.Søknad.Inntektsopplysninger" />
-          </Element>
+          </Label>
         </Column>
       </Row>
       <Row>
         <Column xs="10">
-          <Normaltekst>
+          <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektAT" />
-          </Normaltekst>
+          </BodyShort>
         </Column>
         <Column xs="2">
-          <Element>{formatCurrencyNoKr(bruttoAT)}</Element>
+          <Label size="small">{formatCurrencyNoKr(bruttoAT)}</Label>
         </Column>
       </Row>
       <Row>
         <Column xs="10">
-          <Normaltekst>
+          <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektFL" />
-          </Normaltekst>
+          </BodyShort>
         </Column>
         <Column xs="2">
-          <Element>{formatCurrencyNoKr(bruttoFL)}</Element>
+          <Label size="small">{formatCurrencyNoKr(bruttoFL)}</Label>
         </Column>
       </Row>
       <Row>
         <Column xs="10">
-          <Normaltekst>
+          <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektSN" />
-          </Normaltekst>
+          </BodyShort>
         </Column>
         <Column xs="2">
-          <Element>{formatCurrencyNoKr(bruttoSN)}</Element>
+          <Label size="small">{formatCurrencyNoKr(bruttoSN)}</Label>
         </Column>
       </Row>
     </div>

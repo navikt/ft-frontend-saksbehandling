@@ -57,6 +57,8 @@ const finnAlleAndelerIFørstePeriode = (allePerioder?: BeregningsgrunnlagPeriode
   return [];
 };
 
+const storSpacer = <div className={beregningStyles.storSpace} />;
+
 const createRelevantePaneler = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
   relevanteStatuser: RelevanteStatuserProp,
@@ -76,9 +78,15 @@ const createRelevantePaneler = (
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
     )}
-    {relevanteStatuser.isFrilanser && <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />}
+    {relevanteStatuser.isFrilanser && (
+      <>
+        {storSpacer}
+        <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />
+      </>
+    )}
     {relevanteStatuser.harDagpengerEllerAAP && (
       <div>
+        {storSpacer}
         <TilstotendeYtelser
           alleAndeler={alleAndelerIForstePeriode}
           relevanteStatuser={relevanteStatuser}
@@ -86,12 +94,19 @@ const createRelevantePaneler = (
         />
       </div>
     )}
-    {relevanteStatuser.isMilitaer && <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />}
+    {relevanteStatuser.isMilitaer && (
+      <>
+        {storSpacer}
+        <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />
+      </>
+    )}
     {relevanteStatuser.harAndreTilstotendeYtelser && <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />}
 
     {relevanteStatuser.isSelvstendigNaeringsdrivende && (
       <>
+        {storSpacer}
         <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />
+        {storSpacer}
         <NaeringsopplysningsPanel
           alleAndelerIForstePeriode={alleAndelerIForstePeriode}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -102,10 +117,13 @@ const createRelevantePaneler = (
       sammenligningsGrunnlagInntekter &&
       sammenligningsgrunnlag &&
       (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
-        <SammenlignsgrunnlagAOrdningen
-          sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
-          sammenligningsgrunnlag={sammenligningsgrunnlag}
-        />
+        <>
+          {storSpacer}
+          <SammenlignsgrunnlagAOrdningen
+            sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
+            sammenligningsgrunnlag={sammenligningsgrunnlag}
+          />
+        </>
       )}
   </div>
 );

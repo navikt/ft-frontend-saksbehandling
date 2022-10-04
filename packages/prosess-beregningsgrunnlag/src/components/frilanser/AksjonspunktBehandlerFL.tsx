@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
 import { InputField } from '@navikt/ft-form-hooks';
@@ -23,9 +23,9 @@ type OwnProps = {
 const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, fieldIndex }) => (
   <Row className={styles.verticalAlignMiddle}>
     <Column xs="7">
-      <Normaltekst>
+      <BodyShort size="small">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerFL" />
-      </Normaltekst>
+      </BodyShort>
     </Column>
     <Column xs="5">
       <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>

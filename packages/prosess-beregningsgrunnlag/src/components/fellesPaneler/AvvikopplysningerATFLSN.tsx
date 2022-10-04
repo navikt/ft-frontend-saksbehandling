@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
 import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
@@ -16,7 +16,7 @@ const lagFormatertetekster = (
   isBold: boolean,
 ) => (
   <FlexColumn className={styles.colLable}>
-    <Normaltekst className={isBold ? beregningStyles.semiBoldText : ''}>
+    <BodyShort size="small" className={isBold ? beregningStyles.semiBoldText : ''}>
       {!relevanteStatuser.isKombinasjonsstatus && (
         <FormattedMessage id={`Beregningsgrunnlag.Avviksopplysninger.${kriterie}`} />
       )}
@@ -29,7 +29,7 @@ const lagFormatertetekster = (
       {relevanteStatuser.isKombinasjonsstatus && visPanel && visPanel.visSN && (
         <FormattedMessage id={`Beregningsgrunnlag.Avviksopplysninger.${kriterie}.Naring`} />
       )}
-    </Normaltekst>
+    </BodyShort>
   </FlexColumn>
 );
 
@@ -61,9 +61,9 @@ const AvvikopplysningerATFLSN: FunctionComponent<OwnProps> = ({
     <FlexRow>
       {lagFormatertetekster('OmregnetAarsinntekt', visPanel, relevanteStatuser, false)}
       <FlexColumn className={styles.colValue}>
-        <Normaltekst>
+        <BodyShort size="small">
           {beregnetAarsinntekt || beregnetAarsinntekt === 0 ? formatCurrencyNoKr(beregnetAarsinntekt) : '-'}
-        </Normaltekst>
+        </BodyShort>
       </FlexColumn>
       <FlexColumn className={styles.colAvvik} />
     </FlexRow>
@@ -71,7 +71,7 @@ const AvvikopplysningerATFLSN: FunctionComponent<OwnProps> = ({
     <FlexRow>
       {lagFormatertetekster('RapportertAarsinntekt', visPanel, relevanteStatuser, false)}
       <FlexColumn className={styles.colValue}>
-        <Normaltekst>{formatCurrencyNoKr(sammenligningsgrunnlagSum)}</Normaltekst>
+        <BodyShort size="small">{formatCurrencyNoKr(sammenligningsgrunnlagSum)}</BodyShort>
       </FlexColumn>
       <FlexColumn className={styles.colAvvik} />
     </FlexRow>
@@ -81,17 +81,20 @@ const AvvikopplysningerATFLSN: FunctionComponent<OwnProps> = ({
     <FlexRow>
       {lagFormatertetekster('BeregnetAvvik', visPanel, relevanteStatuser, true)}
       <FlexColumn className={styles.colValue}>
-        <Normaltekst>{formatCurrencyNoKr(differanseBeregnet === undefined ? 0 : differanseBeregnet)}</Normaltekst>
+        <BodyShort size="small">
+          {formatCurrencyNoKr(differanseBeregnet === undefined ? 0 : differanseBeregnet)}
+        </BodyShort>
       </FlexColumn>
       <FlexColumn className={styles.colAvvik}>
-        <Normaltekst
+        <BodyShort
+          size="small"
           className={`${avvikProsentAvrundet > 25 ? beregningStyles.redError : ''} ${beregningStyles.semiBoldText}`}
         >
           <FormattedMessage
             id="Beregningsgrunnlag.Avviksopplysninger.AvvikProsent"
             values={{ avvik: avvikProsentAvrundet }}
           />
-        </Normaltekst>
+        </BodyShort>
       </FlexColumn>
     </FlexRow>
   </>

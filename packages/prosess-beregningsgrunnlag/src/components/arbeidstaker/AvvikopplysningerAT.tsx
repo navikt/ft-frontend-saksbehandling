@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 import { Column } from 'nav-frontend-grid';
 
@@ -16,14 +16,14 @@ const viserIkkeAvviksvurdering = (
 ): ReactElement => (
   <FlexRow>
     <Column xs="12">
-      <Normaltekst>
+      <BodyShort size="small">
         {erKombinasjonsstatusATSN && (
           <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATSN" />
         )}
         {erKombinasjonsstatusATFLSN && (
           <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN" />
         )}
-      </Normaltekst>
+      </BodyShort>
     </Column>
   </FlexRow>
 );

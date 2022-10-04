@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Detail } from '@navikt/ds-react';
+
 import { FormattedMessage } from 'react-intl';
 import Panel from 'nav-frontend-paneler';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
@@ -20,9 +21,9 @@ type OwnProps = {
 const Frisinnpanel: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => (
   <div className={styles.aksjonspunktBehandlerContainer}>
     <Panel>
-      <Undertittel>
+      <Detail size="small">
         <FormattedMessage id="Beregningsgrunnlag.Frisinn.Tittel" />
-      </Undertittel>
+      </Detail>
       <VerticalSpacer sixteenPx />
       <Søknadsopplysninger beregningsgrunnlag={beregningsgrunnlag} />
       <VerticalSpacer sixteenPx />

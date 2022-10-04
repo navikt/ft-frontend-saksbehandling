@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -83,7 +83,7 @@ const settOppKomponenterForNæring = (
     <>
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
             {erNyArbLivet && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.NyIArbeidslivet" />
             )}
@@ -96,7 +96,7 @@ const settOppKomponenterForNæring = (
             {!erNyArbLivet && erNyoppstartet && erVarigEndring && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler" />
             )}
-          </Element>
+          </Heading>
         </Column>
       </Row>
       <VerticalSpacer eightPx />
@@ -129,9 +129,9 @@ const settOppKomponenterForATFL = (
     <>
       <Row>
         <Column xs="12">
-          <Element className={beregningStyles.avsnittOverskrift}>
+          <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler" />
-          </Element>
+          </Heading>
         </Column>
       </Row>
       <VerticalSpacer eightPx />
@@ -260,9 +260,9 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
           <>
             <Row>
               <Column xs="12">
-                <Element className={beregningStyles.avsnittOverskrift}>
+                <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
                   <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Dekningsgrad" />
-                </Element>
+                </Heading>
               </Column>
             </Row>
             <VerticalSpacer eightPx />

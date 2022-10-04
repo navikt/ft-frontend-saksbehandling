@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Label, BodyShort, Detail } from '@navikt/ds-react';
 import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
@@ -46,7 +46,7 @@ const lagBeskrivelseMedBeløpRad = (tekstId: string, beløp: number) => (
       <FormattedMessage id={tekstId} />
     </Column>
     <Column xs="2">
-      <Normaltekst>{formatCurrencyNoKr(beløp)}</Normaltekst>
+      <BodyShort size="small">{formatCurrencyNoKr(beløp)}</BodyShort>
     </Column>
   </Row>
 );
@@ -67,7 +67,7 @@ const lagRedusertBGRad = (
           <FormattedMessage id={tekstIdRedusert} values={{ grad: gjeldendeDekningsgrad }} />
         </Column>
         <Column xs="2">
-          <Normaltekst>{formatCurrencyNoKr(redusert)}</Normaltekst>
+          <BodyShort size="small">{formatCurrencyNoKr(redusert)}</BodyShort>
         </Column>
       </Row>
       {(løpendeBeløp || løpendeBeløp === 0) && (
@@ -76,7 +76,7 @@ const lagRedusertBGRad = (
             <FormattedMessage id={tekstIdLøpende} />
           </Column>
           <Column xs="2">
-            <Normaltekst>{formatCurrencyNoKr(løpendeBeløp)}</Normaltekst>
+            <BodyShort size="small">{formatCurrencyNoKr(løpendeBeløp)}</BodyShort>
           </Column>
         </Row>
       )}
@@ -149,12 +149,12 @@ const lagPeriodeblokk = (
       </Row>
       <Row>
         <Column xs="10">
-          <Undertittel>
+          <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.Resultat.Dagsats" />
-          </Undertittel>
+          </Detail>
         </Column>
         <Column xs="2">
-          <Normaltekst>{formatCurrencyNoKr(bgperiode.dagsats)}</Normaltekst>
+          <BodyShort size="small">{formatCurrencyNoKr(bgperiode.dagsats)}</BodyShort>
         </Column>
       </Row>
     </>
@@ -185,9 +185,9 @@ const BeregningsresultatPeriode: FunctionComponent<OwnProps> = ({
       <VerticalSpacer eightPx />
       <Row>
         <Column xs="10">
-          <Element>
+          <Label size="small">
             {lagPeriodeHeader(bgperiode.beregningsgrunnlagPeriodeFom, bgperiode.beregningsgrunnlagPeriodeTom)}
-          </Element>
+          </Label>
         </Column>
       </Row>
       {lagPeriodeblokk(bgperiode, ytelsegrunnlag, visningFrilans, visningNæring)}

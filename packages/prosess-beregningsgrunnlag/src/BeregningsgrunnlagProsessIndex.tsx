@@ -13,7 +13,7 @@ import { SideMenu } from '@navikt/ft-plattform-komponenter';
 
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Column, Row } from 'nav-frontend-grid';
 import styles from './beregningsgrunnlagProsessIndex.less';
@@ -39,9 +39,9 @@ const intl = createIntl(messages);
 
 const visningForManglendeBG = () => (
   <>
-    <Undertittel>
+    <Heading size="medium">
       <FormattedMessage id="Beregningsgrunnlag.Title" />
-    </Undertittel>
+    </Heading>
     <VerticalSpacer eightPx />
     <Row>
       <Column xs="6">
