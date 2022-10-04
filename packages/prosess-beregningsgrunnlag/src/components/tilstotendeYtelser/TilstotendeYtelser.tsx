@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 
 import { Column, Row } from 'nav-frontend-grid';
 
@@ -44,9 +44,9 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
       {relevanteStatuser.isKombinasjonsstatus && (
         <>
           <VerticalSpacer eightPx />
-          <Label size="small" className={beregningStyles.avsnittOverskrift}>
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.TittelNav" />
-          </Label>
+          </Heading>
           <VerticalSpacer eightPx />
         </>
       )}

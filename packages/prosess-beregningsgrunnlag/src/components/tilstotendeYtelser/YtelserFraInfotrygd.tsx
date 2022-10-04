@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -22,9 +22,9 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
       <>
         <Row>
           <Column xs="12">
-            <Label size="small" className={beregningStyles.avsnittOverskrift}>
+            <Heading size="medium">
               <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
-            </Label>
+            </Heading>
             <VerticalSpacer eightPx />
           </Column>
         </Row>

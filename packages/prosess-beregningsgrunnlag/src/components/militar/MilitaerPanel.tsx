@@ -1,14 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label } from '@navikt/ds-react';
+import { Label, Heading } from '@navikt/ds-react';
 import { Column, Row } from 'nav-frontend-grid';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 type OwnProps = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -26,9 +24,9 @@ const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
     <>
       <Row>
         <Column xs="12">
-          <Label size="small" className={beregningStyles.avsnittOverskrift}>
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militær" />
-          </Label>
+          </Heading>
         </Column>
       </Row>
       <VerticalSpacer eightPx />

@@ -86,6 +86,7 @@ const createRelevantePaneler = (
     )}
     {relevanteStatuser.harDagpengerEllerAAP && (
       <div>
+        {storSpacer}
         <TilstotendeYtelser
           alleAndeler={alleAndelerIForstePeriode}
           relevanteStatuser={relevanteStatuser}
@@ -93,7 +94,12 @@ const createRelevantePaneler = (
         />
       </div>
     )}
-    {relevanteStatuser.isMilitaer && <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />}
+    {relevanteStatuser.isMilitaer && (
+      <>
+        {storSpacer}
+        <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />
+      </>
+    )}
     {relevanteStatuser.harAndreTilstotendeYtelser && <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />}
 
     {relevanteStatuser.isSelvstendigNaeringsdrivende && (
