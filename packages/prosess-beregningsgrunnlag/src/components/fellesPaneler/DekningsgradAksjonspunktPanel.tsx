@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 
 import { isAksjonspunktOpen, Dekningsgrad } from '@navikt/ft-kodeverk';
 
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DekningsgradResultatAp } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -59,8 +58,8 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
         parse={stringTilNumberParser}
       />
       <VerticalSpacer sixteenPx />
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <TextAreaField
             name={`BeregningForm.${fieldIndex}.${TEKSTFELTNAVN_BEGRUNN_DEKNINGSGRAD_ENDRING}`}
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
@@ -71,8 +70,8 @@ const DekningsgradAksjonspunktPanel: FunctionComponent<OwnProps> & StaticFunctio
             description={intl.formatMessage({ id: 'Beregningsgrunnlag.Forms.BegrunnEndringAvDekningsgrad' })}
             parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </>
   );
 };

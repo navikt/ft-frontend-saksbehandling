@@ -2,9 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 
-import { Column, Row } from 'nav-frontend-grid';
-
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -50,51 +48,48 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
           <VerticalSpacer eightPx />
         </>
       )}
-      <Row>
-        <Column xs="7" />
-        <Column xs="2" className={beregningStyles.colMaanedText}>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.atflTabellAktivitet} />
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
           </Detail>
-        </Column>
-        <Column xs="2" className={beregningStyles.colAarText}>
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
           </Detail>
-        </Column>
-        <Column xs="2" />
-      </Row>
+        </FlexColumn>
+      </FlexRow>
 
       <>
         {relevanteAndeler.map((andel: BeregningsgrunnlagAndel) => (
           <div key={andel.aktivitetStatus}>
-            <Row>
-              <Column xs="4">
+            <FlexRow>
+              <FlexColumn className={beregningStyles.atflTabellAktivitet}>
                 <Label size="small">
                   <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />
                 </Label>
-              </Column>
-              <Column xs="3" />
-              <Column xs="2" className={beregningStyles.colMaanedText}>
+              </FlexColumn>
+              <FlexColumn className={beregningStyles.atflTabellInntekt}>
                 <BodyShort size="small">
                   {formatCurrencyNoKr(andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0)}
                 </BodyShort>
-              </Column>
-              <Column xs="2" className={beregningStyles.colAarText}>
+              </FlexColumn>
+              <FlexColumn className={beregningStyles.atflTabellInntekt}>
                 <BodyShort size="small" className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>
                   {formatCurrencyNoKr(andel.beregnetPrAar)}
                 </BodyShort>
-              </Column>
-              <Column xs="2" />
-            </Row>
+              </FlexColumn>
+            </FlexRow>
             {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
-              <Row>
-                <Column xs="12">
+              <FlexRow>
+                <FlexColumn>
                   <BodyShort size="small">
                     <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.Besteberegning" />
                   </BodyShort>
-                </Column>
-              </Row>
+                </FlexColumn>
+              </FlexRow>
             )}
           </div>
         ))}

@@ -1,12 +1,11 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { BodyShort, Label } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { VilkarUtfallType } from '@navikt/ft-kodeverk';
-import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Vilkarperiode } from '@navikt/ft-types';
 
 import avslaatIkonUrl from '../../images/avslaatt_mini.svg';
@@ -21,6 +20,14 @@ import BeregningsresultatPeriodeTabellType, {
 
 import styles from './beregningsresultatTable.less';
 
+const skilleLinje = (
+  <FlexRow className={beregningStyles.arbeidPanelSkille}>
+    <FlexColumn className={beregningStyles.heldekkendeKol}>
+      <div className={beregningStyles.colDevider} />
+    </FlexColumn>
+  </FlexRow>
+);
+
 const lagSpesialRaderRad = (
   visningsObjekt: BruttoRadType | AvkortetRadType | RedusertRadType,
   radNøkkel: string,
@@ -29,14 +36,14 @@ const lagSpesialRaderRad = (
     return null;
   }
   return (
-    <Row key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
-      <Column xs="10">
+    <FlexRow key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
+      <FlexColumn className={styles.beskrivelse}>
         <BodyShort size="small">{visningsObjekt.ledetekst}</BodyShort>
-      </Column>
-      <Column xs="2" className={beregningStyles.rightAlignElementNoWrap}>
+      </FlexColumn>
+      <FlexColumn className={styles.beløp}>
         <BodyShort size="small">{formatCurrencyNoKr(visningsObjekt.verdi)}</BodyShort>
-      </Column>
-    </Row>
+      </FlexColumn>
+    </FlexRow>
   );
 };
 
@@ -46,13 +53,9 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
   }
   return (
     <React.Fragment key="beregningOppsummeringWrapper">
-      <Row key="DagsatsSeparator">
-        <Column xs="12">
-          <div className={beregningStyles.colDevider} />
-        </Column>
-      </Row>
-      <Row key="beregningOppsummering">
-        <Column xs="9" key="beregningOppsummeringLedetekst">
+      {skilleLinje}
+      <FlexRow key="beregningOppsummering">
+        <FlexColumn className={styles.beskrivelse} key="beregningOppsummeringLedetekst">
           <BodyShort size="small">
             <span>
               {!ikkeVurdert && (
@@ -67,61 +70,53 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
               {ikkeVurdert && <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Dagsats.ikkeFastsatt" />}
             </span>
           </BodyShort>
-        </Column>
-        <Column xs="3" className={beregningStyles.rightAlignElement}>
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.beløp}>
           <BodyShort size="small" className={beregningStyles.semiBoldText}>
             {dagsatsRad.verdi || dagsatsRad.verdi === '0' ? dagsatsRad.verdi : '-'}
           </BodyShort>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </React.Fragment>
   );
 };
 
-const lineRad = (key: string): ReactElement => (
-  <Row key={key || 'separator'}>
-    <Column xs="12">
-      <div className={beregningStyles.colDevider} />
-    </Column>
-  </Row>
-);
-
 const lagForklaringer = (forklaringsListe: ReactElement[]): ReactElement[] =>
   forklaringsListe.map((forklaring, index) => (
     <React.Fragment key={`Forklaring${index + 1}`}>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <BodyShort size="small">{forklaring}</BodyShort>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer twentyPx />
     </React.Fragment>
   ));
 
 const lagAndelerRader = (listofAndeler: BeregningsresultatAndelElementType[], ikkeVurdert: boolean): ReactElement[] =>
   listofAndeler.map((entry, index) => (
-    <Row key={`indeAx${index + 1}`}>
-      <Column xs={ikkeVurdert ? '9' : '10'} key={`indexAl2${index + 1}`}>
+    <FlexRow key={`indeAx${index + 1}`}>
+      <FlexColumn className={styles.beskrivelse} key={`indexAl2${index + 1}`}>
         <BodyShort size="small">{entry.ledetekst ? entry.ledetekst : '-'}</BodyShort>
-      </Column>
+      </FlexColumn>
       {!ikkeVurdert && (
-        <Column xs="2" key={`indexAt2${index + 2}`} className={beregningStyles.rightAlignElementNoWrap}>
+        <FlexColumn key={`indexAt2${index + 2}`} className={beregningStyles.beløp}>
           <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
-        </Column>
+        </FlexColumn>
       )}
       {ikkeVurdert && entry.skalFastsetteGrunnlag && (
-        <Column xs="3" key={`indexAf2${index + 2}`} className={styles.maaFastsettes}>
+        <FlexColumn key={`indexAf2${index + 2}`} className={styles.beløp}>
           <BodyShort size="small" className={beregningStyles.redError}>
             <FormattedMessage id="Beregningsgrunnlag.BeregningTable.MåFastsettes" />
           </BodyShort>
-        </Column>
+        </FlexColumn>
       )}
       {ikkeVurdert && !entry.skalFastsetteGrunnlag && (
-        <Column xs="3" key={`indexAf2${index + 2}`} className={beregningStyles.rightAlignElementNoWrap}>
+        <FlexColumn key={`indexAf2${index + 2}`} className={beregningStyles.beløp}>
           <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
-        </Column>
+        </FlexColumn>
       )}
-    </Row>
+    </FlexRow>
   ));
 
 const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVurdert: boolean): ReactElement[] => {
@@ -135,7 +130,7 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
   }
   if (!ikkeVurdert) {
     if (rowsAndeler.length > 1) {
-      rows.push(lineRad('andelLinje'));
+      rows.push(skilleLinje);
       const bruttoRadKomponent = lagSpesialRaderRad(bruttoRad, 'brutto');
       if (bruttoRadKomponent) {
         rows.push(bruttoRadKomponent);

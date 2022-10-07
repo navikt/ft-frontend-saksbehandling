@@ -100,7 +100,12 @@ const createRelevantePaneler = (
         <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />
       </>
     )}
-    {relevanteStatuser.harAndreTilstotendeYtelser && <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />}
+    {relevanteStatuser.harAndreTilstotendeYtelser && (
+      <>
+        {storSpacer}
+        <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />
+      </>
+    )}
 
     {relevanteStatuser.isSelvstendigNaeringsdrivende && (
       <>

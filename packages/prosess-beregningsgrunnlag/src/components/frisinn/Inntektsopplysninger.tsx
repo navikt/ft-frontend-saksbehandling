@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import { BodyShort, Label } from '@navikt/ds-react';
 
 import { FormattedMessage } from 'react-intl';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
@@ -31,43 +31,43 @@ const Inntektsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag 
   const bruttoAT = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, beregningsgrunnlag, gjeldendePeriode);
   return (
     <div>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.Søknad.Inntektsopplysninger" />
           </Label>
-        </Column>
-      </Row>
-      <Row>
-        <Column xs="10">
+        </FlexColumn>
+      </FlexRow>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektAT" />
           </BodyShort>
-        </Column>
-        <Column xs="2">
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <Label size="small">{formatCurrencyNoKr(bruttoAT)}</Label>
-        </Column>
-      </Row>
-      <Row>
-        <Column xs="10">
+        </FlexColumn>
+      </FlexRow>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektFL" />
           </BodyShort>
-        </Column>
-        <Column xs="2">
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <Label size="small">{formatCurrencyNoKr(bruttoFL)}</Label>
-        </Column>
-      </Row>
-      <Row>
-        <Column xs="10">
+        </FlexColumn>
+      </FlexRow>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektSN" />
           </BodyShort>
-        </Column>
-        <Column xs="2">
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <Label size="small">{formatCurrencyNoKr(bruttoSN)}</Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </div>
   );
 };

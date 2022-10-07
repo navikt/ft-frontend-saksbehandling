@@ -3,8 +3,7 @@ import Panel from 'nav-frontend-paneler';
 import { FormattedMessage } from 'react-intl';
 import { Heading, BodyShort } from '@navikt/ds-react';
 
-import { FlexContainer } from '@navikt/ft-ui-komponenter';
-import { Column, Row } from 'nav-frontend-grid';
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, SammenligningsgrunlagProp } from '@navikt/ft-types';
@@ -93,42 +92,52 @@ const lagRelevantePaneler = (
   return (
     <FlexContainer>
       {relevanteStatuser.isAAP && (
-        <Row>
-          <Column xs="12">
+        <FlexRow>
+          <FlexColumn>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AAP" />
             </BodyShort>
-          </Column>
-        </Row>
+          </FlexColumn>
+          <VerticalSpacer eightPx />
+        </FlexRow>
       )}
       {relevanteStatuser.isDagpenger && (
-        <Row>
-          <Column xs="12">
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Dagpenger" />
-            </BodyShort>
-          </Column>
-        </Row>
+        <>
+          <FlexRow>
+            <FlexColumn>
+              <BodyShort size="small">
+                <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Dagpenger" />
+              </BodyShort>
+            </FlexColumn>
+          </FlexRow>
+          <VerticalSpacer eightPx />
+        </>
       )}
       {relevanteStatuser.isArbeidstaker && (
-        <AvviksopplysningerAT
-          beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [
-            AktivitetStatus.ARBEIDSTAKER,
-            AktivitetStatus.FRILANSER,
-          ])}
-          sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus}
-          relevanteStatuser={relevanteStatuser}
-        />
+        <>
+          <AvviksopplysningerAT
+            beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [
+              AktivitetStatus.ARBEIDSTAKER,
+              AktivitetStatus.FRILANSER,
+            ])}
+            sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus}
+            relevanteStatuser={relevanteStatuser}
+          />
+          <VerticalSpacer eightPx />
+        </>
       )}
       {relevanteStatuser.isFrilanser && (
-        <AvviksopplysningerFL
-          beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [
-            AktivitetStatus.ARBEIDSTAKER,
-            AktivitetStatus.FRILANSER,
-          ])}
-          sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus}
-          relevanteStatuser={relevanteStatuser}
-        />
+        <>
+          <AvviksopplysningerFL
+            beregnetAarsinntekt={beregnAarsintektForAktivitetStatuser(alleAndelerIForstePeriode, [
+              AktivitetStatus.ARBEIDSTAKER,
+              AktivitetStatus.FRILANSER,
+            ])}
+            sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus}
+            relevanteStatuser={relevanteStatuser}
+          />
+          <VerticalSpacer eightPx />
+        </>
       )}
       {relevanteStatuser.isSelvstendigNaeringsdrivende && (
         <AvviksopplysningerSN

@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { Label, BodyShort } from '@navikt/ds-react';
 
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, Table, TableColumn, TableRow, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 
 interface OwnProps {
   periode: BeregningsgrunnlagPeriodeProp;
@@ -59,14 +58,14 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ peri
   const besteberegnet = finnBesteberegnet(besteMåneder);
   return (
     <div>
-      <Row>
-        <Column>
+      <FlexRow>
+        <FlexColumn>
           <FormattedMessage id="Besteberegning.ResultatGrunnlag.BrukerOmfattesAvBesteberegning" />
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer twentyPx />
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Table headerColumnContent={headerColumnContent} noHover>
             <TableRow>
               <TableColumn>
@@ -82,10 +81,10 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ peri
               </TableColumn>
             </TableRow>
           </Table>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
+        </FlexColumn>
+      </FlexRow>
+      <FlexRow>
+        <FlexColumn>
           <BodyShort size="small">
             {girKap8Besteberegning(kap8Beregning, besteberegnet) && (
               <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning" />
@@ -94,8 +93,8 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ peri
               <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1473GirBesteBeregning" />
             )}
           </BodyShort>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </div>
   );
 };

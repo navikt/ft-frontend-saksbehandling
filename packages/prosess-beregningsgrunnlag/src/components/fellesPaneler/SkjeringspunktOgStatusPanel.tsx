@@ -28,6 +28,7 @@ const createStatusEtiketter = (
     statusList.push({ visningsNavn: statusName, kode: status, className: `statusFarge${status}` });
   });
   statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
+  // TODO Tag fungerer ikke med egen styling, må undersøke hvorfor
   return (
     <>
       {statusList.map(status => (

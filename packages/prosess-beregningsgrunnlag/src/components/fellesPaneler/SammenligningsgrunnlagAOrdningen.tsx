@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { BodyShort, ReadMore, Label, Heading } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
@@ -47,54 +46,54 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
   return (
     <>
       <VerticalSpacer eightPx />
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Label size="small">
             <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
           </Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       {relevanteStatuser.harArbeidsinntekt && (
-        <Row>
-          <Column xs="1">
+        <FlexRow>
+          <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
             </BodyShort>
-          </Column>
-          <Column xs="3">
+          </FlexColumn>
+          <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
             <BodyShort size="small" className={styles.rightAlign}>
               {formatCurrencyNoKr(sumATAndeler)}
             </BodyShort>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
       {relevanteStatuser.harFrilansinntekt && (
-        <Row>
-          <Column xs="1">
+        <FlexRow>
+          <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
             </BodyShort>
-          </Column>
-          <Column xs="3">
+          </FlexColumn>
+          <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
             <BodyShort size="small" className={styles.rightAlign}>
               {formatCurrencyNoKr(sumFLAndeler)}
             </BodyShort>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
       {relevanteStatuser.harYtelseinntekt && (
-        <Row>
-          <Column xs="1">
+        <FlexRow>
+          <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
             </BodyShort>
-          </Column>
-          <Column xs="3">
+          </FlexColumn>
+          <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
             <BodyShort size="small" className={styles.rightAlign}>
               {formatCurrencyNoKr(sumYtelseAndeler)}
             </BodyShort>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
     </>
   );

@@ -1,10 +1,9 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 
 import { getKodeverknavnFn, dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, FlexColumn, FlexRow, FlexContainer } from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -18,6 +17,14 @@ import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAkti
 import NaturalytelsePanel from './NaturalytelsePanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
+
+const skilleLinje = (
+  <FlexRow className={beregningStyles.arbeidPanelSkille}>
+    <FlexColumn className={beregningStyles.heldekkendeKol}>
+      <div className={beregningStyles.colDevider} />
+    </FlexColumn>
+  </FlexRow>
+);
 
 export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -68,7 +75,7 @@ const createArbeidsStillingsNavnOgProsent = (arbeidsforhold: BeregningsgrunnlagA
 
 const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
 
-const createArbeidsIntektRows = (
+const createArbeidsIntektFlexRows = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -81,74 +88,63 @@ const createArbeidsIntektRows = (
         index + 1
       }`}
     >
-      <Row key={`index${index + 1}`}>
-        <Column xs="8" key={`ColLable${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-          <Label size="small" key={`ColLableTxt${index + 1}`} className={beregningStyles.semiBoldText}>
-            {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
-          </Label>
-        </Column>
-
-        <Column
-          key={`ColBrgMnd${andel.arbeidsforhold?.arbeidsgiverIdent}`}
-          xs="2"
-          className={beregningStyles.colMaanedText}
-        >
-          <BodyShort key={`ColBrgMndTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-            {formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}
-          </BodyShort>
-        </Column>
-        <Column
-          key={`ColBrgAar${andel.arbeidsforhold?.arbeidsgiverIdent}`}
-          xs="2"
-          className={beregningStyles.colAarText}
-        >
-          <Label size="small" key={`ColBrgAarTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-            {formatCurrencyNoKr(andel.beregnetPrAar)}
-          </Label>
-        </Column>
-      </Row>
-      <FlexRow key={`indexD${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-        {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
-          <FlexColumn>
-            <BodyShort>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</BodyShort>
+      <FlexContainer>
+        <FlexRow>
+          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+            <Label size="small" key={`ColLableTxt${index + 1}`} className={beregningStyles.semiBoldText}>
+              {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
+            </Label>
           </FlexColumn>
-        )}
-        {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
-          <FlexColumn>
-            <Detail size="small">{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+            <BodyShort key={`ColBrgMndTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
+              {formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}
+            </BodyShort>
           </FlexColumn>
-        )}
-        {andel.erTidsbegrensetArbeidsforhold && (
-          <FlexColumn>
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
-            </Detail>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+            <Label key={`ColBrgAarTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
+              {formatCurrencyNoKr(andel.beregnetPrAar)}
+            </Label>
           </FlexColumn>
-        )}
-      </FlexRow>
-      {index < relevanteAndeler.length && (
-        <Row key={`indexSp${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-          <VerticalSpacer eightPx />
-        </Row>
-      )}
-      <div className={beregningStyles.heldekkende} />
+        </FlexRow>
+        <FlexRow key={`indexD${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
+          {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
+            <FlexColumn>
+              <BodyShort>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</BodyShort>
+            </FlexColumn>
+          )}
+          {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
+            <FlexColumn>
+              <Detail size="small">{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
+            </FlexColumn>
+          )}
+          {andel.erTidsbegrensetArbeidsforhold && (
+            <FlexColumn>
+              <Detail>
+                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
+              </Detail>
+            </FlexColumn>
+          )}
+        </FlexRow>
+      </FlexContainer>
+      <VerticalSpacer eightPx />
+      {skilleLinje}
     </React.Fragment>
   ));
   if (relevanteAndeler.length > 1) {
     const summaryRow = (
-      <React.Fragment key="bruttoBeregningsgrunnlag">
-        <Row>
-          <Column xs="8">
+      <FlexContainer>
+        <FlexRow>
+          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
-          </Column>
-          <Column key="ColBBgMnd" xs="2" className={beregningStyles.colMaanedText}>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <BodyShort>{formatCurrencyNoKr(beregnetMaanedsinntekt)}</BodyShort>
-          </Column>
-          <Column className={beregningStyles.colAarText} xs="2">
-            <Label size="small">{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
-          </Column>
-        </Row>
-      </React.Fragment>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+            <Label>{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
     );
     rows.push(summaryRow);
   }
@@ -190,21 +186,23 @@ const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctio
           </Heading>
         </FlexColumn>
       </FlexRow>
-      <Row key="Header">
-        <Column xs="8" key="ATempthy1" />
-        <Column key="ATMndHead" className={beregningStyles.colMaanedText} xs="2">
-          <Detail size="small">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Detail>
-        </Column>
-        <Column key="ATAarHead" className={beregningStyles.colAarText} xs="2">
-          <Detail size="small">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Detail>
-        </Column>
-        <Column className={beregningStyles.colLink} xs="1" />
-      </Row>
-      {createArbeidsIntektRows(relevanteAndeler, getKodeverknavn, arbeidsgiverOpplysningerPerId)}
+      <FlexContainer>
+        <FlexRow>
+          <FlexColumn className={beregningStyles.atflTabellAktivitet} />
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+            <Detail size="small">
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+            </Detail>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+            <Detail size="small">
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+            </Detail>
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
+      {skilleLinje}
+      {createArbeidsIntektFlexRows(relevanteAndeler, getKodeverknavn, arbeidsgiverOpplysningerPerId)}
       <NaturalytelsePanel allePerioder={allePerioder} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
     </>
   );

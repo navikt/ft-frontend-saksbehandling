@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { BodyShort } from '@navikt/ds-react';
-import { Column } from 'nav-frontend-grid';
 
 import { SammenligningType } from '@navikt/ft-kodeverk';
-import { FlexRow } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 
 import AvvikopplysningerATFL from '../fellesPaneler/AvvikopplysningerATFLSN';
@@ -31,11 +30,11 @@ const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
   if (kombinasjonsstatusFNSN) {
     return (
       <FlexRow>
-        <Column xs="12">
+        <FlexColumn>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.FL.KobinasjonsStatusFLSN" />
           </BodyShort>
-        </Column>
+        </FlexColumn>
       </FlexRow>
     );
   }

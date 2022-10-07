@@ -1,11 +1,10 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import Panel from 'nav-frontend-paneler';
-import { Column, Row } from 'nav-frontend-grid';
 import { Heading } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 
 import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
@@ -81,8 +80,8 @@ const settOppKomponenterForNæring = (
   const erNyoppstartet = snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
   return (
     <>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
             {erNyArbLivet && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.NyIArbeidslivet" />
@@ -97,8 +96,8 @@ const settOppKomponenterForNæring = (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler" />
             )}
           </Heading>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer eightPx />
       <AksjonspunktBehandlerSN
         readOnly={readOnly}
@@ -127,13 +126,13 @@ const settOppKomponenterForATFL = (
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
   return (
     <>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler" />
           </Heading>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer eightPx />
       {erTidsbegrenset && (
         <AksjonspunktBehandlerTB
@@ -157,8 +156,8 @@ const settOppKomponenterForATFL = (
       )}
       {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} fieldIndex={fieldIndex} />}
       <VerticalSpacer sixteenPx />
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <TextAreaField
             name={`BeregningForm.${fieldIndex}.ATFLVurdering`}
             label={finnATFLVurderingLabel(avklaringsbehov)}
@@ -171,8 +170,8 @@ const settOppKomponenterForATFL = (
             })}
             parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer sixteenPx />
     </>
   );
@@ -210,16 +209,16 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     return null;
   }
   const submittKnapp = (
-    <Row>
-      <Column xs="12">
+    <FlexRow>
+      <FlexColumn>
         <ProsessStegSubmitButton
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
           isDirty={isDirty}
           isSubmitting={isSubmitting}
         />
-      </Column>
-    </Row>
+      </FlexColumn>
+    </FlexRow>
   );
   if (relevanteStatuser.isSelvstendigNaeringsdrivende) {
     return (
@@ -258,19 +257,19 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
           )}
         {harDekningsgradAP && (
           <>
-            <Row>
-              <Column xs="12">
+            <FlexRow>
+              <FlexColumn>
                 <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
                   <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Dekningsgrad" />
                 </Heading>
-              </Column>
-            </Row>
+              </FlexColumn>
+            </FlexRow>
             <VerticalSpacer eightPx />
-            <Row>
-              <Column xs="12">
+            <FlexRow>
+              <FlexColumn>
                 <DekningsgradAksjonspunktPanel readOnly={readOnly} fieldIndex={fieldIndex} />
-              </Column>
-            </Row>
+              </FlexColumn>
+            </FlexRow>
             <VerticalSpacer sixteenPx />
           </>
         )}
