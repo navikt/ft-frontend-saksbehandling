@@ -48,7 +48,8 @@
     }
   }
 
-  &__label:global(.navds-body-short) {
+  &__label:global(.navds-body-short),
+  &__label:global(.navds-label) {
     align-items: center;
     color: #3e3832;
     display: flex;
@@ -58,12 +59,14 @@
     position: relative;
   }
 
-  &__label--active:global(.navds-body-short) {
+  &__label--active:global(.navds-body-short),
+  &__label--active:global(.navds-label) {
     background: #e7e9e9;
     font-weight: 600;
   }
 
-  &__label--with-icon:global(.navds-body-short) {
+  &__label--with-icon:global(.navds-body-short),
+  &__label--with-icon:global(.navds-label) {
     padding-right: 0.8125rem;
   }
 
