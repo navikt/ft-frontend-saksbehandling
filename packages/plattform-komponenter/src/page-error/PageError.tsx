@@ -1,10 +1,10 @@
 import React from 'react';
-import Alertstripe from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 
 interface PageErrorProps {
   message: string;
 }
 
-const PageError = ({ message }: PageErrorProps) => <Alertstripe type="feil">{message}</Alertstripe>;
+const PageError = ({ message }: PageErrorProps) => <Alert variant="error">{message}</Alert>;
 
 export default PageError;

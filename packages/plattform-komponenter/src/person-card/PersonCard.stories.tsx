@@ -5,7 +5,7 @@ import EmptyPersonCard from './EmptyPersonCard';
 import PersonCardComponent from './PersonCard';
 
 export default {
-  title: 'React Components',
+  title: 'Person card',
   component: PersonCardComponent,
 };
 

@@ -4,7 +4,7 @@ import { Story } from '@storybook/react';
 import PeriodList from './PeriodList';
 
 export default {
-  title: 'React Components',
+  title: 'Period list',
   component: PeriodList,
 };
 

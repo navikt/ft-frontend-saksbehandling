@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import TitleWithUnderlineComponent from './TitleWithUnderline';
 
 export default {
-  title: 'React Components',
+  title: 'Title with underline',
   component: TitleWithUnderlineComponent,
 };
 

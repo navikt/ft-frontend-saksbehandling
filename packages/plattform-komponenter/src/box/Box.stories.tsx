@@ -3,7 +3,7 @@ import React, { ComponentProps } from 'react';
 import Box, { Margin } from './Box';
 
 export default {
-  title: 'React Components',
+  title: 'Box',
   component: Box,
 };
 

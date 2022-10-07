@@ -63,12 +63,12 @@
     }
 
     &--active {
-      :global(.typo-normal) {
+      :global(.navds-body-short) {
         font-weight: 600;
       }
 
       &:hover {
-        :global(.typo-normal) {
+        :global(.navds-body-short) {
           font-weight: 400;
         }
       }
@@ -80,6 +80,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    :global(.navds-body-short) {
+      line-height: 1.375rem;
+    }
   }
 
   &__indicator {

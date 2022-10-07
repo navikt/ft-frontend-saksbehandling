@@ -4,7 +4,7 @@ import NavigationWithDetailView from './NavigationWithDetailView';
 import DetailView from '../detail-view/DetailView';
 
 export default {
-  title: 'React Components',
+  title: 'Navigation with detail',
   component: NavigationWithDetailView,
 };
 

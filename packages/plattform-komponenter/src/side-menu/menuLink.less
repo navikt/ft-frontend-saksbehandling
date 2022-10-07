@@ -48,7 +48,7 @@
     }
   }
 
-  &__label {
+  &__label:global(.navds-body-short) {
     align-items: center;
     color: #3e3832;
     display: flex;
@@ -56,15 +56,15 @@
     min-height: 1.625rem;
     padding: 0 1.75rem;
     position: relative;
+  }
 
-    &--active {
-      background: #e7e9e9;
-      font-weight: 600;
-    }
+  &__label--active:global(.navds-body-short) {
+    background: #e7e9e9;
+    font-weight: 600;
+  }
 
-    &--with-icon {
-      padding-right: 0.8125rem;
-    }
+  &__label--with-icon:global(.navds-body-short) {
+    padding-right: 0.8125rem;
   }
 
   &__icon {

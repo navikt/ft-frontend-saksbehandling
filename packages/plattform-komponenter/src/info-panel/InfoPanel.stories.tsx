@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import InfoPanelComponent from './InfoPanel';
 
 export default {
-  title: 'React Components',
+  title: 'Info panel',
   component: InfoPanelComponent,
 };
 

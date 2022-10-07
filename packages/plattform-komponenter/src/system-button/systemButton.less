@@ -7,15 +7,21 @@
 
 .systems__button {
   border: 3px solid transparent;
+  height: 2.5rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   width: 3rem;
+
+  :global(.navds-button__icon) {
+    display: flex;
+    width: 1rem;
+  }
 
   svg {
     fill: white;
   }
 
-  &:global(.knapp--flat:focus:not(:disabled)) {
+  &:global(.navds-button:focus:not(:disabled)) {
     border: 3px solid #ffa733;
     box-shadow: none;
   }
@@ -27,17 +33,19 @@
     outline: none;
 
     svg {
+      color: #3e3832;
       fill: #3e3832;
     }
   }
 
-  &[aria-expanded='true']:global(.knapp--flat:focus:not(:disabled)) {
+  &[aria-expanded='true']:global(.navds-button:focus:not(:disabled)) {
     background-color: white;
     border: 3px solid #ffa733;
     border-radius: 0;
     outline: none;
 
     svg {
+      color: #3e3832;
       fill: #3e3832;
     }
 
@@ -46,6 +54,7 @@
       border: 3px solid #ffa733;
 
       svg {
+        color: white;
         fill: white;
       }
     }
@@ -57,6 +66,7 @@
     border: 3px solid transparent;
 
     svg {
+      color: white;
       fill: white;
     }
   }

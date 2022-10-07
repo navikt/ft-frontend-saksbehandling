@@ -1,7 +1,7 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import classnames from 'classnames';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import StepIcon from './StepIcon';
 import StepType from './StepType';
 import styles from './step.less';
@@ -65,7 +65,9 @@ export const Step = React.memo(
         >
           <span className={styles[stepCls.element('text-icon-container')]}>
             <StepIcon type={type} isFinished={isFinished} usePartialStatus={usePartialStatus} />
-            <Normaltekst tag="span">{label}</Normaltekst>
+            <BodyShort size="small" as="span">
+              {label}
+            </BodyShort>
           </span>
           <span className={stepIndicatorCls} />
         </button>
