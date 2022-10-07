@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
