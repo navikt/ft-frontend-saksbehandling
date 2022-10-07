@@ -7,9 +7,6 @@ import { RETTSKILDE_URL } from '@navikt/ft-konstanter';
 import FeilmeldingPanel from './components/FeilmeldingPanel';
 import Feilmelding from './typer/feilmeldingTsType';
 
-import rettskildeneIkonUrl from './images/rettskildene.svg';
-import systemrutineIkonUrl from './images/rutine.svg';
-
 import messages from '../i18n/nb_NO.json';
 
 import styles from './dekoratorMedFeilviserSakIndex.less';
@@ -46,9 +43,12 @@ const useOutsideClickEvent = (
 
 interface OwnProps {
   tittel: string;
-  tittelLenke: string;
+  tittelLenke?: string;
+  visSaksbehandlerside?: (event: React.SyntheticEvent) => void;
+  visAvdelingslederside?: (event: React.SyntheticEvent) => void;
   navAnsattNavn?: string;
   systemrutineUrl: string;
+  kanOppgavestyre?: boolean;
   feilmeldinger: Feilmelding[];
   fjernFeilmeldinger: () => void;
   setSiteHeight: (height: number) => void;
@@ -64,8 +64,11 @@ interface OwnProps {
 const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
   tittel,
   tittelLenke,
+  visSaksbehandlerside,
+  visAvdelingslederside,
   navAnsattNavn = '',
   systemrutineUrl,
+  kanOppgavestyre,
   feilmeldinger,
   fjernFeilmeldinger,
   setSiteHeight,
@@ -78,38 +81,39 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
     setSiteHeight(fixedHeaderRef.current.clientHeight);
   }, [feilmeldinger.length]);
 
-  const ikonLenker = useMemo(
-    () => [
+  const lenkerFormatertForBoxedList = useMemo(() => {
+    const items = [
       {
-        url: RETTSKILDE_URL,
-        icon: rettskildeneIkonUrl,
-        text: intl.formatMessage({ id: 'DekoratorMedFeilviserSakIndex.Rettskilde' }),
-      },
-      {
-        url: systemrutineUrl,
-        icon: systemrutineIkonUrl,
-        text: intl.formatMessage({ id: 'DekoratorMedFeilviserSakIndex.Systemrutine' }),
-      },
-    ],
-    [],
-  );
-
-  const lenkerFormatertForBoxedList = useMemo(
-    () =>
-      ikonLenker.map(link => ({
-        name: link.text,
-        href: link.url,
+        name: intl.formatMessage({ id: 'DekoratorMedFeilviserSakIndex.Rettskilde' }),
+        href: RETTSKILDE_URL,
         isExternal: true,
-      })),
-    [],
-  );
+      },
+      {
+        name: intl.formatMessage({ id: 'DekoratorMedFeilviserSakIndex.Systemrutine' }),
+        href: systemrutineUrl,
+        isExternal: true,
+      },
+    ];
+    if (kanOppgavestyre) {
+      items.push({
+        name: intl.formatMessage({ id: 'DekoratorMedFeilviserSakIndex.Avdelingsleder' }),
+        href: '#',
+        isExternal: false,
+      });
+    }
+    return items;
+  }, [kanOppgavestyre, systemrutineUrl]);
 
   const popperPropsChildren = useCallback(
     () => (
       <BoxedListWithLinks
         items={lenkerFormatertForBoxedList}
-        onClick={() => {
+        onClick={(index, e) => {
           setLenkePanelApent(false);
+
+          if (index === 2 && visAvdelingslederside) {
+            visAvdelingslederside(e);
+          }
         }}
       />
     ),
@@ -135,7 +139,7 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
     <header ref={fixedHeaderRef} className={styles.container}>
       <RawIntlProvider value={intl}>
         <div ref={wrapperRef}>
-          <Header title={tittel} titleHref={tittelLenke}>
+          <Header title={tittel} titleHref={tittelLenke} changeLocation={visSaksbehandlerside}>
             <Popover
               popperIsVisible={erLenkepanelApent}
               renderArrowElement
