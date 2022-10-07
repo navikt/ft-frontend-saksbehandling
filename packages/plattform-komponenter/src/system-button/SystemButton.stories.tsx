@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import SystemButtonComponent from './SystemButton';
 
 export default {
-  title: 'React Components',
+  title: 'System button',
   component: SystemButtonComponent,
 };
 

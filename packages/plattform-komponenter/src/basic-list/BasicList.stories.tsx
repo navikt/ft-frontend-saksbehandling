@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import BasicListComponent from './BasicList';
 
 export default {
-  title: 'React Components',
+  title: 'BasicList',
   component: BasicListComponent,
 };
 

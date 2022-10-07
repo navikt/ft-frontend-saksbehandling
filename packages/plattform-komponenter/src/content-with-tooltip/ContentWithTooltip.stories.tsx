@@ -2,7 +2,7 @@ import React from 'react';
 import ContentWithTooltip from './ContentWithTooltip';
 
 export default {
-  title: 'React Components',
+  title: 'Content with tooltip',
   component: ContentWithTooltip,
 };
 

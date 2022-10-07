@@ -1,5 +1,5 @@
 import React from 'react';
-import { Undertittel as TitleComponent } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import styles from './titleWithUnderline.less';
 
 export interface TitleWithUnderlineProps {
@@ -11,7 +11,9 @@ export interface TitleWithUnderlineProps {
 const TitleWithUnderline = ({ children, titleClass, contentAfterTitleRenderer }: TitleWithUnderlineProps) => (
   <>
     <div className={styles.titleWithUnderline}>
-      <TitleComponent className={titleClass}>{children}</TitleComponent>
+      <Heading size="small" level="2" className={titleClass}>
+        {children}
+      </Heading>
       {contentAfterTitleRenderer && contentAfterTitleRenderer()}
     </div>
     <hr style={{ color: '#B7B1A9' }} />

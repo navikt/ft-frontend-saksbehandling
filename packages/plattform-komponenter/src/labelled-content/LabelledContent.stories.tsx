@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import LabelledContentComponent from './LabelledContent';
 
 export default {
-  title: 'React Components',
+  title: 'Labelled content',
   component: LabelledContentComponent,
 };
 

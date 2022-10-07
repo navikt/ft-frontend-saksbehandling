@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import Panel from 'nav-frontend-paneler';
+import { Panel } from '@navikt/ds-react';
 import styles from './infoPanel.less';
 
 interface InfoPanel {

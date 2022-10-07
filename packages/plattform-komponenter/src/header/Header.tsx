@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Sidetittel as PageTitle } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import { bemUtils } from '@navikt/ft-utils';
 import styles from './header.less';
 
@@ -20,16 +20,16 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title, titleHref,
           onClick={changeLocation || undefined}
           className={styles[headerCls.element('title-anchor')]}
         >
-          <PageTitle className={styles[headerCls.element('title')]}>
+          <Heading level="1" size="xlarge" className={styles[headerCls.element('title')]}>
             NAV
             <span className={styles[headerCls.element('subtitle')]}>{title}</span>
-          </PageTitle>
+          </Heading>
         </a>
       ) : (
-        <PageTitle className={styles[headerCls.element('title')]}>
+        <Heading level="1" size="xlarge" className={styles[headerCls.element('title')]}>
           NAV
           <span className={styles[headerCls.element('subtitle')]}>{title}</span>
-        </PageTitle>
+        </Heading>
       )}
     </div>
     <div className={styles[headerCls.element('column')]}>{children}</div>

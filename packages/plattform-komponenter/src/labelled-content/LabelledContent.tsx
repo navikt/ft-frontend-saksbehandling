@@ -1,4 +1,4 @@
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import React from 'react';
 import classNames from 'classnames';
 import styles from './labelledContent.less';
@@ -6,7 +6,7 @@ import styles from './labelledContent.less';
 export interface LabelledContentProps {
   label: string | React.ReactNode;
   content: React.ReactNode;
-  labelTag?: string;
+  labelTag?: React.ElementType;
   indentContent?: boolean;
 }
 
@@ -16,9 +16,9 @@ const LabelledContent = ({ label, content, labelTag, indentContent }: LabelledCo
   });
   return (
     <div className={styles.labelledContent}>
-      <Element className={styles.labelledContent__label} tag={labelTag || 'p'}>
+      <Label size="small" className={styles.labelledContent__label} as={labelTag || 'p'}>
         {label}
-      </Element>
+      </Label>
       <div className={cl}>
         <div>{content}</div>
       </div>

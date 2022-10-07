@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import styles from './form.less';
 import Box, { Margin } from '../box/Box';
 
@@ -27,18 +27,14 @@ const Form = ({
     {shouldShowSubmitButton !== false && (
       <Box marginTop={Margin.xxLarge}>
         <div className={styles.buttonContainer}>
-          <Hovedknapp
-            id="submitButton"
-            disabled={submitButtonDisabled === true}
-            spinner={submitButtonDisabled === true}
-          >
+          <Button id="submitButton" disabled={submitButtonDisabled === true} loading={submitButtonDisabled === true}>
             {buttonLabel}
-          </Hovedknapp>
+          </Button>
           {onAvbryt && (
             <div className={styles.buttonContainer__avbryt}>
-              <Knapp htmlType="button" onClick={onAvbryt} disabled={cancelButtonDisabled === true}>
+              <Button variant="secondary" onClick={onAvbryt} disabled={cancelButtonDisabled === true}>
                 Avbryt
-              </Knapp>
+              </Button>
             </div>
           )}
         </div>

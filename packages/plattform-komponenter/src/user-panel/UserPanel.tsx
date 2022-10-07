@@ -1,7 +1,8 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import { NedChevron, OppChevron } from 'nav-frontend-chevron';
-import { Normaltekst as Text } from 'nav-frontend-typografi';
+import { Collapse, Expand } from '@navikt/ds-icons';
+
+import { BodyShort } from '@navikt/ds-react';
 import styles from './userPanel.less';
 
 const userCls = bemUtils('user');
@@ -24,27 +25,33 @@ const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClic
         aria-expanded={isToggled}
       >
         <span>
-          <Text tag="span" className={styles[userCls.element('name')]}>
+          <BodyShort size="small" as="span" className={styles[userCls.element('name')]}>
             {name}
-          </Text>
+          </BodyShort>
           {unit && (
-            <Text tag="span" className={styles[userCls.element('unit')]}>
+            <BodyShort size="small" as="span" className={styles[userCls.element('unit')]}>
               {unit}
-            </Text>
+            </BodyShort>
           )}
         </span>
         {isToggled ? (
-          <OppChevron className={styles[userCls.element('chevron')]} />
+          <Collapse className={styles[userCls.element('chevron')]} />
         ) : (
-          <NedChevron className={styles[userCls.element('chevron')]} />
+          <Expand className={styles[userCls.element('chevron')]} />
         )}
       </button>
     );
   }
   return (
     <div className={styles[userCls.block]}>
-      <Text className={styles[userCls.element('name')]}>{name}</Text>
-      {unit && <Text className={styles[userCls.element('unit')]}>{unit}</Text>}
+      <BodyShort size="small" className={styles[userCls.element('name')]}>
+        {name}
+      </BodyShort>
+      {unit && (
+        <BodyShort size="small" className={styles[userCls.element('unit')]}>
+          {unit}
+        </BodyShort>
+      )}
     </div>
   );
 };

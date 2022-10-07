@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import AutocompleteComponent from './Autocomplete';
 
 export default {
-  title: 'React Components',
+  title: 'Autocomplete',
   component: AutocompleteComponent,
 };
 

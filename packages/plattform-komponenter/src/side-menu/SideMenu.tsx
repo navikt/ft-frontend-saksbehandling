@@ -1,5 +1,5 @@
 import { bemUtils } from '@navikt/ft-utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React from 'react';
 import classnames from 'classnames';
 import MenuLink from './MenuLink';
@@ -35,7 +35,11 @@ const SideMenu = ({ links, heading, onClick, theme }: SideMenuProps): JSX.Elemen
   return (
     <div className={sideMenuRootClassnames}>
       <nav className={styles[sideMenuCls.element('container')]}>
-        {heading && <Normaltekst className={styles[sideMenuCls.element('heading')]}>{heading}</Normaltekst>}
+        {heading && (
+          <BodyShort size="small" className={styles[sideMenuCls.element('heading')]}>
+            {heading}
+          </BodyShort>
+        )}
         <ul className={styles[sideMenuCls.element('link-list')]}>
           {links.map(({ label, active, iconSrc, iconAltText }, index) => (
             <MenuLink

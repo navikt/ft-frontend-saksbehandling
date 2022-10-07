@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import ExpandablePanelComponent from './ExpandablePanel';
 
 export default {
-  title: 'React Components',
+  title: 'Expandable panel',
   component: ExpandablePanelComponent,
 };
 
