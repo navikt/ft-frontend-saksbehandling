@@ -1,6 +1,7 @@
 import { bemUtils } from '@navikt/ft-utils';
 import classnames from 'classnames';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
+
 import React from 'react';
 import styles from './menuLink.less';
 
@@ -47,15 +48,15 @@ const MenuLink = ({ label, active, onClick, iconSrc, iconAltText, theme }: MenuL
         type="button"
       >
         {arrowTheme && active ? (
-          <Element tag="span" className={labelCls}>
+          <Label size="small" as="span" className={labelCls}>
             {label}
             {iconSrc && <img src={iconSrc} alt={iconAltText || ''} className={styles[menuLinkCls.element('icon')]} />}
-          </Element>
+          </Label>
         ) : (
-          <Normaltekst tag="span" className={labelCls}>
+          <BodyShort size="small" as="span" className={labelCls}>
             {label}
             {iconSrc && <img src={iconSrc} alt={iconAltText || ''} className={styles[menuLinkCls.element('icon')]} />}
-          </Normaltekst>
+          </BodyShort>
         )}
 
         {arrowTheme && active && <span className={styles[menuLinkCls.element('arrow-right')]} />}

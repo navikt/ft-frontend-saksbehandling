@@ -1,4 +1,4 @@
-import Spinner from 'nav-frontend-spinner';
+import { Loader } from '@navikt/ds-react';
 import React from 'react';
 import PageError from '../page-error/PageError';
 import styles from './pageContainer.less';
@@ -25,7 +25,7 @@ const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageCo
 
   return (
     <>
-      {isLoading && <Spinner />}
+      {isLoading && <Loader size="large" />}
       {hasError && <PageError message="Noe gikk galt, vennligst prøv igjen senere" />}
       {renderChildrenContent()}
     </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import BoxedList from '../boxed-list/BoxedList';
 import styles from './boxedListWithSelection.less';
 
@@ -36,7 +36,9 @@ const BoxedListWithSelection: React.FunctionComponent<BoxedListWithSelectionProp
           type="button"
           onClick={e => (onClick ? onClick(index, e) : undefined)}
         >
-          <Normaltekst tag="span">{name}</Normaltekst>
+          <BodyShort size="small" as="span">
+            {name}
+          </BodyShort>
         </button>
       </li>
     ))}

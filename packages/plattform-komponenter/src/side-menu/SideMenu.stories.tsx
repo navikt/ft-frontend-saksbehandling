@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import StatefulSideMenuComponent from './StatefulSideMenu';
 
 export default {
-  title: 'React Components',
+  title: 'Side menu',
   component: StatefulSideMenuComponent,
 };
 

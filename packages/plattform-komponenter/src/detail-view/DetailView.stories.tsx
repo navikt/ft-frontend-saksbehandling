@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import DetailViewComponent from './DetailView';
 
 export default {
-  title: 'React Components',
+  title: 'Detail view',
   component: DetailViewComponent,
 };
 

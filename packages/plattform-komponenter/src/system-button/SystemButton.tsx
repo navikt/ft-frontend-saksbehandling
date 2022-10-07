@@ -1,6 +1,7 @@
 import { bemUtils } from '@navikt/ft-utils';
 import React from 'react';
-import { Systemerknapp } from 'nav-frontend-ikonknapper';
+import { Button } from '@navikt/ds-react';
+import { SystemFilled } from '@navikt/ds-icons';
 import styles from './systemButton.less';
 
 const systemsCls = bemUtils('systems');
@@ -12,7 +13,9 @@ export interface SystemButtonProps {
 
 const SystemButton: React.FunctionComponent<SystemButtonProps> = ({ onClick, isToggled }) => (
   <div className={styles[systemsCls.block]}>
-    <Systemerknapp
+    <Button
+      variant="tertiary"
+      icon={<SystemFilled aria-hidden />}
       onClick={onClick}
       className={styles[systemsCls.element('button')]}
       aria-haspopup="dialog"

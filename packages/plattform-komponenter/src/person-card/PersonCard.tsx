@@ -1,5 +1,5 @@
 import { bemUtils } from '@navikt/ft-utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React from 'react';
 import Clipboard from '../clipboard/Clipboard';
 import Popover from '../popover/Popover';
@@ -57,8 +57,9 @@ const PersonCard = ({
     setIsMenuOpen(!isMenuOpen);
   };
   const userDetails = (
-    <Normaltekst
-      tag="span"
+    <BodyShort
+      size="small"
+      as="span"
       className={
         isActive
           ? `${styles.personCard__name} ${styles['personCard__name--active']}`
@@ -66,7 +67,7 @@ const PersonCard = ({
       }
     >
       {name}
-    </Normaltekst>
+    </BodyShort>
   );
 
   return (
@@ -91,16 +92,20 @@ const PersonCard = ({
         <div>
           {childAge && (
             <div className={styles[personCardCls.element('child-age')]}>
-              <Normaltekst tag="span">({childAge})</Normaltekst>
+              <BodyShort size="small" as="span">
+                ({childAge})
+              </BodyShort>
             </div>
           )}
         </div>
       ) : (
         <>
-          <Normaltekst tag="span">/</Normaltekst>
+          <BodyShort size="small" as="span">
+            /
+          </BodyShort>
           <div className={styles[personCardCls.element('container')]}>
             <Clipboard buttonLabel={`Kopier ${name}s fødselsnummer til utklippstavlen`}>
-              <Normaltekst>{fodselsnummer}</Normaltekst>
+              <BodyShort size="small">{fodselsnummer}</BodyShort>
             </Clipboard>
 
             {!!renderMenuContent && (

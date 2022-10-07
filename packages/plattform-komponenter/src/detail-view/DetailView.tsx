@@ -1,5 +1,5 @@
 import React from 'react';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import classnames from 'classnames';
 import styles from './detailView.less';
 
@@ -22,7 +22,9 @@ const DetailView = ({ title, children, contentAfterTitleRenderer, className }: D
   return (
     <div className={cls}>
       <div className={styles.detailView__titleContainer}>
-        <Undertittel>{title}</Undertittel>
+        <Heading size="small" level="2">
+          {title}
+        </Heading>
         {contentAfterTitleRenderer && (
           <div className={styles.detailView__nextToTitle}>{contentAfterTitleRenderer()}</div>
         )}

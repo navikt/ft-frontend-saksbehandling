@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import LinkButtonComponent from './LinkButton';
 
 export default {
-  title: 'React Components',
+  title: 'Link button',
   component: LinkButtonComponent,
 };
 

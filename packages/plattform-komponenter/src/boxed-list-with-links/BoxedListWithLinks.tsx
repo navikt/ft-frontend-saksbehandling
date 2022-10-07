@@ -1,6 +1,6 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import BoxedList from '../boxed-list/BoxedList';
 import styles from './boxedListWithLinks.less';
 
@@ -40,7 +40,7 @@ export const BoxedListWithLinks: React.FunctionComponent<BoxedListWithLinksProps
             if (onClick) onClick(index, e);
           }}
         >
-          <Normaltekst>{name}</Normaltekst>
+          <BodyShort size="small">{name}</BodyShort>
         </a>
       </li>
     ))}

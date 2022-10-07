@@ -1,6 +1,6 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import Card from './Card';
 import GenderIcon from './GenderIcon';
 import styles from './personCard.less';
@@ -15,9 +15,9 @@ const EmptyPersonCard: React.FC<EmptyPersonCard> = ({ namePlaceholder }) => (
   <Card>
     <div className={styles[personCardCls.element('container')]}>
       <GenderIcon />
-      <Normaltekst tag="p" className={styles[personCardCls.element('namePlaceholder')]}>
+      <BodyShort size="small" as="p" className={styles[personCardCls.element('namePlaceholder')]}>
         {namePlaceholder}
-      </Normaltekst>
+      </BodyShort>
     </div>
   </Card>
 );
