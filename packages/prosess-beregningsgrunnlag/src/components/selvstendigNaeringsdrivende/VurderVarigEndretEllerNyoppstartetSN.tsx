@@ -126,7 +126,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
                   name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
-                  className={styles.bredde}
+                  className={styles.breddeInntekt}
                   readOnly={readOnly}
                 />
               </div>
