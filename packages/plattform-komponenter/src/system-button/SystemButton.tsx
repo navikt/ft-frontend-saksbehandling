@@ -20,7 +20,9 @@ const SystemButton: React.FunctionComponent<SystemButtonProps> = ({ onClick, isT
       className={styles[systemsCls.element('button')]}
       aria-haspopup="dialog"
       aria-expanded={isToggled}
-    />
+    >
+      <span className="navds-sr-only">Systemer</span>
+    </Button>
   </div>
 );
 
