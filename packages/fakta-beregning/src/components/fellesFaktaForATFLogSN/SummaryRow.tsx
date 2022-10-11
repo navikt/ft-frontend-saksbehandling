@@ -2,7 +2,7 @@ import { formHooks } from '@navikt/ft-form-hooks';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
@@ -52,9 +52,9 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
       {skalVisePeriode && <TableColumn />}
       <TableColumn className={styles.rightAlign}>
         <div className={styles.readOnlyContainer}>
-          <Normaltekst data-testid="sum" className={readOnly ? styles.readOnlyContent : ''}>
+          <BodyShort data-testid="sum" className={readOnly ? styles.readOnlyContent : ''}>
             {formatCurrencyNoKr(sumBeregnet)}
-          </Normaltekst>
+          </BodyShort>
         </div>
       </TableColumn>
       {skalViseRefusjon && <TableColumn />}

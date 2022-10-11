@@ -5,7 +5,7 @@ import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from 
 import { DateLabel, EditedIcon, PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { getKodeverknavnFn, prettifyDateString } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
@@ -71,13 +71,13 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   return (
     <TableRow key={lagAktivitetFieldId(aktivitet)}>
       <TableColumn className={styles.navnKol}>
-        <Normaltekst>{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk)}</Normaltekst>
+        <BodyShort>{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk)}</BodyShort>
       </TableColumn>
       <TableColumn className={styles.rowalign}>
         {!erOverstyrt && (
-          <Normaltekst>
+          <BodyShort>
             <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
-          </Normaltekst>
+          </BodyShort>
         )}
         {erOverstyrt && (
           <div>

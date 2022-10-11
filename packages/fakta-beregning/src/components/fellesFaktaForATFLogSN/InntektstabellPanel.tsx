@@ -1,8 +1,7 @@
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Knapp } from 'nav-frontend-knapper';
-import { Element } from 'nav-frontend-typografi';
+import { Button, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
@@ -73,9 +72,9 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
             <FlexContainer>
               <FlexRow>
                 <FlexColumn>
-                  <Element className={styles.avsnittOverskrift}>
+                  <Label size="small" className={styles.avsnittOverskrift}>
                     <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
-                  </Element>
+                  </Label>
                 </FlexColumn>
                 {(kanOverstyre || erTabellOverstyrt) && (
                   <FlexColumn>
@@ -93,15 +92,15 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
             </FlexContainer>
             <VerticalSpacer sixteenPx />
             {hjelpeTekstId && (
-              <Element>
+              <Label size="small">
                 <FormattedMessage id={hjelpeTekstId} />
-              </Element>
+              </Label>
             )}
             {tabell}
             {erTabellOverstyrt && (
-              <Knapp htmlType="button" onClick={toggleOverstyring} mini>
+              <Button size="small" onClick={toggleOverstyring} variant="secondary">
                 <FormattedMessage id="InntektstabellPanel.Avbryt" />
-              </Knapp>
+              </Button>
             )}
           </>
         )}

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { InntektTransformed } from '../../../../typer/FieldValues';
@@ -64,14 +64,14 @@ export const ATFLSammeOrgTekst: FunctionComponent<OwnProps> = ({ beregningsgrunn
   }
   if (manglerInntektsmelding) {
     return (
-      <Normaltekst>
+      <BodyShort>
         <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM" />
-      </Normaltekst>
+      </BodyShort>
     );
   }
   return (
-    <Normaltekst>
+    <BodyShort>
       <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg" />
-    </Normaltekst>
+    </BodyShort>
   );
 };

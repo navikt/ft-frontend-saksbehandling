@@ -11,7 +11,7 @@ import {
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
@@ -63,9 +63,9 @@ const mottarYtelseArbeidsforholdRadio = (
   <div key={utledArbeidsforholdFieldName(andel)}>
     <RadioGroupPanel
       label={
-        <Normaltekst>
+        <BodyShort>
           {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
-        </Normaltekst>
+        </BodyShort>
       }
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
         andel,
@@ -144,9 +144,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           <RadioGroupPanel
             label={
               <div key={finnFrilansFieldName()}>
-                <Normaltekst>
+                <BodyShort>
                   <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-                </Normaltekst>
+                </BodyShort>
               </div>
             }
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
