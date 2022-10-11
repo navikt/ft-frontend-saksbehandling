@@ -231,7 +231,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
       )}
       <FlexRow>
         <FlexColumn className={beregningStyles.venstreKolonne}>
-          <Heading size="large">
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
           </Heading>
           <VerticalSpacer sixteenPx />
@@ -263,7 +263,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           )}
         </FlexColumn>
         <FlexColumn className={beregningStyles.hoyreKolonne}>
-          <Heading size="large" className={beregningStyles.panelRight}>
+          <Heading size="medium" className={beregningStyles.panelRight}>
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
           </Heading>
           <VerticalSpacer sixteenPx />
