@@ -1,10 +1,9 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
-import { Column } from 'nav-frontend-grid';
 
 import { SammenligningType } from '@navikt/ft-kodeverk';
-import { FlexRow } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
@@ -15,7 +14,7 @@ const viserIkkeAvviksvurdering = (
   erKombinasjonsstatusATFLSN: boolean,
 ): ReactElement => (
   <FlexRow>
-    <Column xs="12">
+    <FlexColumn>
       <BodyShort size="small">
         {erKombinasjonsstatusATSN && (
           <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATSN" />
@@ -24,7 +23,7 @@ const viserIkkeAvviksvurdering = (
           <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN" />
         )}
       </BodyShort>
-    </Column>
+    </FlexColumn>
   </FlexRow>
 );
 

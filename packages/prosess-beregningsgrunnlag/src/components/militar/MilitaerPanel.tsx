@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Label, Heading } from '@navikt/ds-react';
-import { Column, Row } from 'nav-frontend-grid';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 type OwnProps = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -22,19 +21,19 @@ const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
     <>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militær" />
           </Heading>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer eightPx />
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Label size="small">{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </>
   );
 };

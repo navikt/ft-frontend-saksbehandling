@@ -1,22 +1,21 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column } from 'nav-frontend-grid';
 import { BodyShort } from '@navikt/ds-react';
 
 import { SammenligningType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
-import { FlexRow } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import AvvikopplysningerATFLSN from '../fellesPaneler/AvvikopplysningerATFLSN';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 const ingenAvviksvurdering = (forklarendeTekst: string): ReactElement => (
   <FlexRow>
-    <Column xs="12">
+    <FlexColumn>
       <BodyShort size="small">
         <FormattedMessage id={forklarendeTekst} />
       </BodyShort>
-    </Column>
+    </FlexColumn>
   </FlexRow>
 );
 

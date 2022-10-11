@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { BodyShort } from '@navikt/ds-react';
 
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formHooks, InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
@@ -82,8 +81,8 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
   return (
     <>
       {!readOnly && (
-        <Row>
-          <Column xs="12">
+        <FlexRow>
+          <FlexColumn>
             <RadioGroupPanel
               name={`BeregningForm.${fieldIndex}.${varigEndringRadioname}`}
               validate={[required]}
@@ -92,13 +91,13 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
               parse={(value: string) => value === 'true'}
               radios={radioknapper}
             />
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
       {readOnly && (
         <>
-          <Row>
-            <Column xs="12">
+          <FlexRow>
+            <FlexColumn>
               <BodyShort size="small">
                 {erNyoppstartet && (
                   <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.Nyoppstartet" />
@@ -107,20 +106,20 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
                   <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndring" />
                 )}
               </BodyShort>
-            </Column>
-          </Row>
+            </FlexColumn>
+          </FlexRow>
           <VerticalSpacer sixteenPx />
         </>
       )}
       {erVarigEndretNaering && (
         <>
-          <Row className={styles.verticalAlignMiddle}>
-            <Column className={styles.dynamiskKolonne}>
+          <FlexRow className={styles.verticalAlignMiddle}>
+            <FlexColumn className={styles.dynamiskKolonne}>
               <BodyShort size="small">
                 <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
               </BodyShort>
-            </Column>
-            <Column xs="5">
+            </FlexColumn>
+            <FlexColumn>
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
                   name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
@@ -130,13 +129,13 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
                   readOnly={readOnly}
                 />
               </div>
-            </Column>
-          </Row>
+            </FlexColumn>
+          </FlexRow>
           <VerticalSpacer sixteenPx />
         </>
       )}
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <TextAreaField
             name={`BeregningForm.${fieldIndex}.${begrunnelseFieldname}`}
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
@@ -148,8 +147,8 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
             })}
             parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </>
   );
 };

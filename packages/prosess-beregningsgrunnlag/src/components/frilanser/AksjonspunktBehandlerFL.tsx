@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
@@ -8,6 +7,7 @@ import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { FrilansInntektValues } from '../../types/ATFLAksjonspunktTsType';
 
@@ -21,13 +21,13 @@ type OwnProps = {
 };
 
 const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, fieldIndex }) => (
-  <Row className={styles.verticalAlignMiddle}>
-    <Column xs="7">
+  <FlexRow>
+    <FlexColumn className={styles.atflAvvikAktivitet}>
       <BodyShort size="small">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerFL" />
       </BodyShort>
-    </Column>
-    <Column xs="5">
+    </FlexColumn>
+    <FlexColumn className={styles.atflAvvikInntekt}>
       <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
         <InputField
           name={`BeregningForm.${fieldIndex}.inntektFrilanser`}
@@ -37,8 +37,8 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
           className={styles.bredde}
         />
       </div>
-    </Column>
-  </Row>
+    </FlexColumn>
+  </FlexRow>
 );
 
 AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[]): FrilansInntektValues => {

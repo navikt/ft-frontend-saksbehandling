@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { BodyShort } from '@navikt/ds-react';
 
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
@@ -68,13 +67,13 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
     <>
       {erNyArbLivet && (
         <>
-          <Row className={styles.verticalAlignMiddle}>
-            <Column className={styles.dynamiskKolonne}>
+          <FlexRow className={styles.verticalAlignMiddle}>
+            <FlexColumn className={styles.dynamiskKolonne}>
               <BodyShort size="small">
                 <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
               </BodyShort>
-            </Column>
-            <Column xs="5">
+            </FlexColumn>
+            <FlexColumn>
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
                   name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
@@ -85,8 +84,8 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
                   readOnly={readOnly}
                 />
               </div>
-            </Column>
-          </Row>
+            </FlexColumn>
+          </FlexRow>
           <VerticalSpacer eightPx />
         </>
       )}
@@ -94,8 +93,8 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
       {(harGammeltAPFastsettBrutto || harAPSNNyiArbLiv) && (
         <>
           <VerticalSpacer sixteenPx />
-          <Row>
-            <Column xs="12" className={styles.marginTop}>
+          <FlexRow>
+            <FlexColumn>
               <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>
                 <TextAreaField
                   name={`BeregningForm.${fieldIndex}.${begrunnelseFieldname}`}
@@ -109,8 +108,8 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
                   parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
                 />
               </div>
-            </Column>
-          </Row>
+            </FlexColumn>
+          </FlexRow>
         </>
       )}
     </>

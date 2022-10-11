@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { Label } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import BeregningsresultatPeriode from './BeregningsresultatPeriode';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import {
@@ -83,13 +83,13 @@ const Beregningsresultat: FunctionComponent<OwnProps> = ({ beregningsgrunnlag })
     : [];
   return (
     <div>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.Resultat" />
           </Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       {bgPerioderSomSkalVises.map(periode => (
         <div key={periode.beregningsgrunnlagPeriodeFom}>
           <BeregningsresultatPeriode

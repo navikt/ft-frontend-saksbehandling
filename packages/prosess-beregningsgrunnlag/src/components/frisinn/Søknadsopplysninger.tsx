@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import { Label, BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,13 +6,13 @@ import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
 const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
-  <Row>
-    <Column xs="12">
+  <FlexRow>
+    <FlexColumn>
       <BodyShort size="small">
         <FormattedMessage
           id={tekstId}
@@ -23,8 +22,8 @@ const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
           }}
         />
       </BodyShort>
-    </Column>
-  </Row>
+    </FlexColumn>
+  </FlexRow>
 );
 
 const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
@@ -48,13 +47,13 @@ const Søknadsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag 
   const { frisinnPerioder } = ytelsegrunnlag;
   return (
     <div>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage id="Beregningsgrunnlag.Søknad.Tittel" />
           </Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer eightPx />
       {Array.isArray(frisinnPerioder) && frisinnPerioder.map(periode => lagSøktYtelseRadPeriode(periode))}
       <VerticalSpacer sixteenPx />

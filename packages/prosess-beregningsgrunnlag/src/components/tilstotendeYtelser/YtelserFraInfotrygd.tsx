@@ -1,9 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
-import { Column, Row } from 'nav-frontend-grid';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 
@@ -20,41 +19,40 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
   if (bruttoPrAar || bruttoPrAar === 0) {
     return (
       <>
-        <Row>
-          <Column xs="12">
+        <FlexRow>
+          <FlexColumn>
             <Heading size="medium">
               <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
             </Heading>
             <VerticalSpacer eightPx />
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="7" />
-          <Column xs="2" className={beregningStyles.colMaanedText}>
+          </FlexColumn>
+        </FlexRow>
+        <FlexRow>
+          <FlexColumn className={beregningStyles.atflTabellAktivitet} />
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <Detail size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
             </Detail>
-          </Column>
-          <Column xs="2" className={beregningStyles.colAarText}>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <Detail size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
             </Detail>
-          </Column>
-          <Column xs="2" />
-        </Row>
-        <Row>
-          <Column xs="7">
+          </FlexColumn>
+        </FlexRow>
+        <FlexRow>
+          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
             </BodyShort>
-          </Column>
-          <Column xs="2" className={beregningStyles.colMaanedText}>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <BodyShort size="small">{formatCurrencyNoKr(bruttoPrAar / 12)}</BodyShort>
-          </Column>
-          <Column xs="2" className={beregningStyles.colAarText}>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <Label size="small">{formatCurrencyNoKr(bruttoPrAar)}</Label>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       </>
     );
   }

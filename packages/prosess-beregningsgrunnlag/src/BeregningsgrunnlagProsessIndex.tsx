@@ -14,8 +14,7 @@ import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import { Heading } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Column, Row } from 'nav-frontend-grid';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import styles from './beregningsgrunnlagProsessIndex.less';
 import messages from '../i18n/nb_NO.json';
 import BeregningFP from './components/BeregningFP';
@@ -43,16 +42,16 @@ const visningForManglendeBG = () => (
       <FormattedMessage id="Beregningsgrunnlag.Title" />
     </Heading>
     <VerticalSpacer eightPx />
-    <Row>
-      <Column xs="6">
+    <FlexRow>
+      <FlexColumn>
         <FormattedMessage id="Beregningsgrunnlag.HarIkkeBeregningsregler" />
-      </Column>
-    </Row>
-    <Row>
-      <Column xs="6">
+      </FlexColumn>
+    </FlexRow>
+    <FlexRow>
+      <FlexColumn>
         <FormattedMessage id="Beregningsgrunnlag.SakTilInfo" />
-      </Column>
-    </Row>
+      </FlexColumn>
+    </FlexRow>
   </>
 );
 

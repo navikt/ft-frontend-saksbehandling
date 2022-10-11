@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
 import { Label, BodyShort, Detail } from '@navikt/ds-react';
 import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import { finnOppgittInntektForAndelIPeriode, FrisinnAndel, FrisinnGrunnlag } from './FrisinnUtils';
 
@@ -41,14 +40,14 @@ const statuserDetErSøktOmIPerioden = (
 };
 
 const lagBeskrivelseMedBeløpRad = (tekstId: string, beløp: number) => (
-  <Row>
-    <Column xs="10">
+  <FlexRow>
+    <FlexColumn className={beregningStyles.atflTabellAktivitet}>
       <FormattedMessage id={tekstId} />
-    </Column>
-    <Column xs="2">
+    </FlexColumn>
+    <FlexColumn className={beregningStyles.atflTabellInntekt}>
       <BodyShort size="small">{formatCurrencyNoKr(beløp)}</BodyShort>
-    </Column>
-  </Row>
+    </FlexColumn>
+  </FlexRow>
 );
 
 const lagRedusertBGRad = (
@@ -62,23 +61,23 @@ const lagRedusertBGRad = (
   const redusert = beløpÅRedusere * multiplikator;
   return (
     <>
-      <Row>
-        <Column xs="10">
+      <FlexRow>
+        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
           <FormattedMessage id={tekstIdRedusert} values={{ grad: gjeldendeDekningsgrad }} />
-        </Column>
-        <Column xs="2">
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <BodyShort size="small">{formatCurrencyNoKr(redusert)}</BodyShort>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       {(løpendeBeløp || løpendeBeløp === 0) && (
-        <Row>
-          <Column xs="10">
+        <FlexRow>
+          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
             <FormattedMessage id={tekstIdLøpende} />
-          </Column>
-          <Column xs="2">
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <BodyShort size="small">{formatCurrencyNoKr(løpendeBeløp)}</BodyShort>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
     </>
   );
@@ -142,21 +141,21 @@ const lagPeriodeblokk = (
           løpendeInntektSN,
           gjeldendeDekningsgrad,
         )}
-      <Row>
-        <Column xs="12" className={beregningStyles.noPaddingRight}>
+      <FlexRow>
+        <FlexColumn>
           <div className={beregningStyles.colDevider} />
-        </Column>
-      </Row>
-      <Row>
-        <Column xs="10">
+        </FlexColumn>
+      </FlexRow>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.Resultat.Dagsats" />
           </Detail>
-        </Column>
-        <Column xs="2">
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <BodyShort size="small">{formatCurrencyNoKr(bgperiode.dagsats)}</BodyShort>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </>
   );
 };
@@ -183,13 +182,13 @@ const BeregningsresultatPeriode: FunctionComponent<OwnProps> = ({
   return (
     <div>
       <VerticalSpacer eightPx />
-      <Row>
-        <Column xs="10">
+      <FlexRow>
+        <FlexColumn>
           <Label size="small">
             {lagPeriodeHeader(bgperiode.beregningsgrunnlagPeriodeFom, bgperiode.beregningsgrunnlagPeriodeTom)}
           </Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       {lagPeriodeblokk(bgperiode, ytelsegrunnlag, visningFrilans, visningNæring)}
     </div>
   );
