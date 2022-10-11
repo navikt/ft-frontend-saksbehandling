@@ -55,6 +55,7 @@ const AvvikopplysningerAT: FunctionComponent<OwnProps> = ({
     ? sammenligningsgrunnlagPrStatus.find(
         status =>
           status.sammenligningsgrunnlagType === SammenligningType.AT ||
+          status.sammenligningsgrunnlagType === SammenligningType.AT_FL ||
           status.sammenligningsgrunnlagType === SammenligningType.ATFLSN,
       )
     : undefined;

@@ -306,8 +306,8 @@ const lagSammenligningsGrunnlag = (
   differanseBeregnet: differanse,
 });
 
-const malSGGrunnlagAvvik = () => lagSammenligningsGrunnlag(SammenligningType.ATFLSN, 200000, 30, -150000);
-const malSGGrunnlag = () => lagSammenligningsGrunnlag(SammenligningType.ATFLSN, 200000, 0, 0);
+const malSGGrunnlagAvvik = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 30, -150000);
+const malSGGrunnlag = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 0, 0);
 
 type Inntekt = {
   inntektAktivitetType: string;
@@ -495,7 +495,13 @@ export const MidlertidigInaktivOppfylt = Template.bind({});
 MidlertidigInaktivOppfylt.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
-    lagBG(malPerioder([lagBrukersAndel(1, 200000)]), ['MIDL_INAKTIV'], lagInntektsgrunnlag(), malSGGrunnlagAvvik(), []),
+    lagBG(
+      malPerioder([lagBrukersAndel(1, 200000)]),
+      ['MIDL_INAKTIV'],
+      lagInntektsgrunnlag(),
+      malSGGrunnlagAvvik(SammenligningType.ATFLSN),
+      [],
+    ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
@@ -505,7 +511,13 @@ export const MidlertidigInaktivAvslått = Template.bind({});
 MidlertidigInaktivAvslått.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
-    lagBG(malPerioder([lagBrukersAndel(1, 20000)]), ['MIDL_INAKTIV'], lagInntektsgrunnlag(), malSGGrunnlagAvvik(), []),
+    lagBG(
+      malPerioder([lagBrukersAndel(1, 20000)]),
+      ['MIDL_INAKTIV'],
+      lagInntektsgrunnlag(),
+      malSGGrunnlagAvvik(SammenligningType.ATFLSN),
+      [],
+    ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
@@ -519,7 +531,7 @@ JusterDekningsgradAp5038Ap5087.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)]),
       ['AT'],
       lagInntektsgrunnlag(),
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [
         lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
         lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD),
@@ -538,7 +550,7 @@ ArbeidstakerUtenAvvik.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, false, false)]),
       ['AT'],
       undefined,
-      malSGGrunnlag(),
+      malSGGrunnlag(SammenligningType.AT_FL),
       [],
     ),
   ],
@@ -554,7 +566,7 @@ BrukersAndelUtenAvvik.args = {
       malPerioder([malArbeidsandel(), lagGenerellAndel(1, AktivitetStatus.BRUKERS_ANDEL, 200000)]),
       ['AT, BA'],
       undefined,
-      malSGGrunnlag(),
+      malSGGrunnlag(SammenligningType.ATFLSN),
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
@@ -569,7 +581,7 @@ ArbeidstakerMedAvvikAp5038.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)]),
       ['AT'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
     ),
   ],
@@ -585,7 +597,7 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)]),
       ['AT'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       STP,
     ),
@@ -593,7 +605,7 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038.args = {
       [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)])],
       ['AT'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
     ),
   ],
@@ -609,7 +621,7 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 200000, 200000, true, false)]),
       ['AT'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [
         lagAPMedKode(
           ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
@@ -621,7 +633,7 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)]),
       ['AT'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       '2021-02-01',
     ),
@@ -664,7 +676,7 @@ ArbeidstakerFrilansMedAvvikAp5038.args = {
       ]),
       ['AT_FL'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
     ),
   ],
@@ -690,7 +702,7 @@ SelvstendigNæringsdrivendeMedAksjonspunktAp5039.args = {
       malPerioder([lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false))]),
       ['SN'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.SN),
       [
         lagAPMedKode(
           ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -747,7 +759,7 @@ MangeTidsbegrensetArbeidsforholdMedAvvikAp5047.args = {
           etterSTP(40),
         ),
       ],
-      sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik()],
+      sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       skjaeringstidspunktBeregning: STP,
       vilkårsperiodeFom: STP,
       dekningsgrad: 100,
@@ -807,7 +819,7 @@ MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047.args = {
           0,
         ),
       ],
-      sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik()],
+      sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       skjaeringstidspunktBeregning: STP,
       vilkårsperiodeFom: STP,
       dekningsgrad: 100,
@@ -837,7 +849,7 @@ TidsbegrensetArbeidsforholdMedAvvikAp5047.args = {
           etterSTP(35),
         ),
       ],
-      sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik()],
+      sammenligningsgrunnlagPrStatus: [malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       skjaeringstidspunktBeregning: STP,
       vilkårsperiodeFom: STP,
       dekningsgrad: 100,
@@ -860,7 +872,7 @@ ArbeidstakerFrilanserOgSelvstendigNæringsdrivendeAp5039.args = {
       ]),
       ['AT_FL_SN'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.SN),
       [
         lagAPMedKode(
           ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -940,7 +952,7 @@ NaturalYtelse.args = {
           etterSTP(200),
         ),
       ],
-      sammenligningsgrunnlagPrStatus: [malSGGrunnlag()],
+      sammenligningsgrunnlagPrStatus: [malSGGrunnlag(SammenligningType.AT_FL)],
       skjaeringstidspunktBeregning: STP,
       vilkårsperiodeFom: STP,
       dekningsgrad: 100,
@@ -975,7 +987,7 @@ export const GraderingPåBeregningsgrunnlagUtenPenger = Template.bind({});
 GraderingPåBeregningsgrunnlagUtenPenger.args = {
   readOnly: true,
   beregningsgrunnlagListe: [
-    lagBG(malPerioder([malArbeidsandel()]), ['AT'], undefined, malSGGrunnlag(), [
+    lagBG(malPerioder([malArbeidsandel()]), ['AT'], undefined, malSGGrunnlag(SammenligningType.AT_FL), [
       {
         definisjon: ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
         status: 'UTFO',
@@ -1000,7 +1012,7 @@ ArbeidstakerDagpengerOgSelvstendigNæringsdrivendeUtenAksjonspunkt.args = {
       ]),
       ['AT_SN', 'DP'],
       undefined,
-      malSGGrunnlag(),
+      malSGGrunnlag(SammenligningType.SN),
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
@@ -1040,7 +1052,7 @@ ArbeidstakerMed3Arbeidsforhold2ISammeOrganisasjon.args = {
       ]),
       ['AT'],
       undefined,
-      malSGGrunnlag(),
+      malSGGrunnlag(SammenligningType.AT_FL),
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
@@ -1055,7 +1067,7 @@ ArbeidstakerAvslagHalvG.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 30000, undefined, false, false)]),
       ['AT'],
       undefined,
-      malSGGrunnlag(),
+      malSGGrunnlag(SammenligningType.AT_FL),
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
@@ -1070,7 +1082,7 @@ ArbeidstakerMedAksjonspunktBehandlet.args = {
       malPerioder([lagArbeidsandel(1, malArbeidsorhold(), 30000, 333333, true, false)]),
       ['AT'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [
         lagAPMedKode(
           ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
@@ -1087,9 +1099,13 @@ export const FrilansMedAvvikAp5038 = Template.bind({});
 FrilansMedAvvikAp5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
-    lagBG(malPerioder([lagFrilansandel(1, 200000, undefined, true)]), ['FL'], undefined, malSGGrunnlagAvvik(), [
-      lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS),
-    ]),
+    lagBG(
+      malPerioder([lagFrilansandel(1, 200000, undefined, true)]),
+      ['FL'],
+      undefined,
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
+      [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+    ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
@@ -1118,7 +1134,7 @@ SelvstendigNæringsdrivendeNyoppstartetAksjonspunktAp5039.args = {
       malPerioder([lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(false, true))]),
       ['SN'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.SN),
       [
         lagAPMedKode(
           ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -1194,7 +1210,7 @@ ArbeidstakerOgAAPMedAksjonspunktAp5038.args = {
       ],
       ['KUN_YTELSE', 'AT'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.AT_FL),
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
     ),
   ],
@@ -1216,7 +1232,7 @@ FrilansDagpengerOgSelvstendigNæringsdrivendeAp5039.args = {
       ],
       ['FL_SN', 'DP'],
       undefined,
-      malSGGrunnlagAvvik(),
+      malSGGrunnlagAvvik(SammenligningType.SN),
       [
         lagAPMedKode(
           ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
