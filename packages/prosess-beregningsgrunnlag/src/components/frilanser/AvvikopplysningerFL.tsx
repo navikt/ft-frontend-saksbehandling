@@ -42,6 +42,7 @@ const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
     ? sammenligningsgrunnlagPrStatus.find(
         status =>
           status.sammenligningsgrunnlagType === SammenligningType.FL ||
+          status.sammenligningsgrunnlagType === SammenligningType.AT_FL ||
           status.sammenligningsgrunnlagType === SammenligningType.ATFLSN,
       )
     : undefined;
@@ -50,7 +51,11 @@ const AvvikopplysningerFL: FunctionComponent<OwnProps> = ({
   }
   if (
     kombinasjonsstatusATFL &&
-    sammenligningsgrunnlagPrStatus.find(status => status.sammenligningsgrunnlagType === SammenligningType.ATFLSN)
+    sammenligningsgrunnlagPrStatus.find(
+      status =>
+        status.sammenligningsgrunnlagType === SammenligningType.ATFLSN ||
+        status.sammenligningsgrunnlagType === SammenligningType.AT_FL,
+    )
   ) {
     return null;
   }
