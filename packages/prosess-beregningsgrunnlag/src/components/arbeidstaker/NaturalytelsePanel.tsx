@@ -1,10 +1,9 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Label, BodyShort, Detail } from '@navikt/ds-react';
-import { Column, Row } from 'nav-frontend-grid';
 
 import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
@@ -171,23 +170,23 @@ const lagPeriodeTekst = (endring: NaturalytelseEndring): string => {
 const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
   data.rader.map(rad => (
     <div key={rad.nøkkel}>
-      <Row>
-        <Column xs="11" className={beregningStyles.noPaddingRight}>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.noPaddingRight}>
           <Label size="small">{rad.visningsnavn}</Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       {rad.naturalytelseEndringer.map(endring => (
-        <Row key={rad.nøkkel + endring.fom}>
-          <Column xs="7">
+        <FlexRow key={rad.nøkkel + endring.fom}>
+          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
             <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
-          </Column>
-          <Column xs="2" className={beregningStyles.colMaanedText}>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <BodyShort size="small">{formatCurrencyNoKr(endring.beløpPrMåned)}</BodyShort>
-          </Column>
-          <Column xs="2" className={beregningStyles.colAarText}>
+          </FlexColumn>
+          <FlexColumn className={beregningStyles.atflTabellInntekt}>
             <Label size="small">{formatCurrencyNoKr(endring.beløpPrÅr)}</Label>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       ))}
     </div>
   ));
@@ -208,24 +207,23 @@ const NaturalytelsePanel: FunctionComponent<OwnProps> = ({ allePerioder, arbeids
   }
   return (
     <>
+      <VerticalSpacer thirtyTwoPx />
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
       </Label>
-      <VerticalSpacer eightPx />
-      <Row>
-        <Column xs="7" key="ATempthy1" />
-        <Column xs="2" className={beregningStyles.colMaanedText}>
+      <FlexRow>
+        <FlexColumn className={beregningStyles.atflTabellAktivitet} />
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
           </Detail>
-        </Column>
-        <Column xs="2" className={beregningStyles.colAarText}>
+        </FlexColumn>
+        <FlexColumn className={beregningStyles.atflTabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
           </Detail>
-        </Column>
-        <Column className={beregningStyles.colLink} />
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       {lagTabell(tableData)}
     </>
   );

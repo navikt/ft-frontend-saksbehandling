@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Label, BodyShort } from '@navikt/ds-react';
-import { Column, Row } from 'nav-frontend-grid';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import {
   erSøktForAndelISøknadsperiode,
@@ -23,8 +22,8 @@ const lagGrenseveriPeriode = (
   annenInntektIkkeSøktFor: number,
   utregnetInntektstak: number,
 ) => (
-  <Row>
-    <Column xs="10">
+  <FlexRow>
+    <FlexColumn className={beregningStyles.atflTabellAktivitet}>
       <FormattedMessage
         id="Beregningsgrunnlag.Frisinn.Inntektstak"
         values={{
@@ -32,11 +31,11 @@ const lagGrenseveriPeriode = (
           annenInntekt: formatCurrencyNoKr(annenInntektIkkeSøktFor),
         }}
       />
-    </Column>
-    <Column xs="2">
+    </FlexColumn>
+    <FlexColumn className={beregningStyles.atflTabellInntekt}>
       <BodyShort size="small">{formatCurrencyNoKr(utregnetInntektstak)}</BodyShort>
-    </Column>
-  </Row>
+    </FlexColumn>
+  </FlexRow>
 );
 
 const overlapperMedFrisinnPeriode = (bgPeriode: BeregningsgrunnlagPeriodeProp, frisinnPerioder: FrisinnPeriode[]) => {
@@ -105,8 +104,8 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
   const fom = førstePeriodeISammeMåned ? førstePeriodeISammeMåned.fom : bgPeriode.beregningsgrunnlagPeriodeFom;
   return (
     <>
-      <Row>
-        <Column xs="12">
+      <FlexRow>
+        <FlexColumn>
           <Label size="small" className={beregningStyles.avsnittOverskrift}>
             <FormattedMessage
               id="Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode"
@@ -117,8 +116,8 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
               }}
             />
           </Label>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       <VerticalSpacer eightPx />
       {lagGrenseveriPeriode(originaltInntektstak, annenInntektIkkeSøktFor, utregnetInntektstak)}
       <VerticalSpacer sixteenPx />
