@@ -104,7 +104,7 @@ export const findInstruksjonForFastsetting = (
   if (skalFastsetteAT) {
     return 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettArbeidsinntekt';
   }
-  return ' ';
+  return '';
 };
 
 const finnInntektstabell = (readOnly, beregningsgrunnlag, isAksjonspunktClosed, alleKodeverk, erOverstyrt) => (

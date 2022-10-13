@@ -145,11 +145,13 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     setValue,
   } = formMethods;
 
-  if (dirtyFields.avklarAktiviteterForm?.some(isDirty => !!isDirty)) {
-    setAvklarAktiviteterErEndret(true);
-  } else {
-    setAvklarAktiviteterErEndret(false);
-  }
+  useEffect(() => {
+    if (dirtyFields.avklarAktiviteterForm?.some(isDirty => !!isDirty)) {
+      setAvklarAktiviteterErEndret(true);
+    } else {
+      setAvklarAktiviteterErEndret(false);
+    }
+  }, [dirtyFields]);
 
   useEffect(() => {
     if (isSubmitted && dirtyFields.avklarAktiviteterForm?.[aktivtBeregningsgrunnlagIndeks]) {
