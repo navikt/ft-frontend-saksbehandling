@@ -3,16 +3,17 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
 import { InntektstabellPanelImpl } from './InntektstabellPanel';
+import messages from '../../../i18n/nb_NO.json';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
 
 describe('<InntektstabellPanel>', () => {
   it('skal vise checkbox for overstyring', () => {
     render(
-      <IntlProvider locale="nb-NO" messages={{}}>
+      <IntlProvider locale="nb-NO" messages={messages}>
         <InntektstabellPanelImpl
           key="inntektstabell"
-          hjelpeTekstId="hjelpetekst"
+          hjelpeTekstId=""
           tabell={<span> tabell </span>}
           avklaringsbehov={[]}
           readOnly={false}
@@ -30,10 +31,10 @@ describe('<InntektstabellPanel>', () => {
 
   it('checkbox skal vere readOnly når man har overstyring aksjonspunkt', () => {
     render(
-      <IntlProvider locale="nb-NO" messages={{}}>
+      <IntlProvider locale="nb-NO" messages={messages}>
         <InntektstabellPanelImpl
           key="inntektstabell"
-          hjelpeTekstId="hjelpetekst"
+          hjelpeTekstId=""
           tabell={<span> tabell </span>}
           avklaringsbehov={[
             {
