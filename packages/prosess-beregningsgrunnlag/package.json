@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-beregningsgrunnlag",
   "description": "Oversikt over ulike andeler i beregningsgrunnlaget og hva disse er fastsatt til. Aksjonspunkter relatert til avvik for arbeid, frilans og næring",
-  "version": "2.4.18",
+  "version": "2.4.19",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -29,7 +29,7 @@
     "@navikt/ft-form-hooks": "^2.0.8",
     "@navikt/ft-form-validators": "^1.0.34",
     "@navikt/ft-kodeverk": "^1.0.20",
-    "@navikt/ft-plattform-komponenter": "^1.2.5",
+    "@navikt/ft-plattform-komponenter": "^1.2.6",
     "@navikt/ft-types": "^1.0.31",
     "@navikt/ft-ui-komponenter": "^1.1.8",
     "@navikt/ft-utils": "^1.1.5",
