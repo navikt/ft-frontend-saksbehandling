@@ -21,8 +21,6 @@ import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
 import AksjonspunktBehandlerSN from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSN';
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
-import DekningsgradAksjonspunktPanel from './DekningsgradAksjonspunktPanel';
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -30,6 +28,13 @@ import styles from './aksjonspunktBehandler.less';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
+
+const {
+  FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+  VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
   if (!allePerioder || allePerioder.length < 1) {
@@ -47,14 +52,6 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
   }
   return [];
 };
-const harFlereAksjonspunkter = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  !!avklaringsbehov && avklaringsbehov.length > 1;
-const finnATFLVurderingLabel = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): ReactElement => {
-  if (harFlereAksjonspunkter(gjeldendeAvklaringsbehov)) {
-    return <FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />;
-  }
-  return <FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />;
-};
 
 const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean =>
   allePerioder.some(
@@ -65,7 +62,7 @@ const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: Beregningsgrunnlag
 const settOppKomponenterForNæring = (
   readOnly: boolean,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  avklaringsbehov: BeregningAvklaringsbehov[],
+  avklaringsbehov: BeregningAvklaringsbehov,
   fieldIndex: number,
 ): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
@@ -112,7 +109,7 @@ const settOppKomponenterForNæring = (
 };
 
 const settOppKomponenterForATFL = (
-  avklaringsbehov: BeregningAvklaringsbehov[],
+  avklaringsbehov: BeregningAvklaringsbehov,
   alleKodeverk: AlleKodeverk,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -160,7 +157,7 @@ const settOppKomponenterForATFL = (
         <FlexColumn>
           <TextAreaField
             name={`BeregningForm.${fieldIndex}.ATFLVurdering`}
-            label={finnATFLVurderingLabel(avklaringsbehov)}
+            label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
             readOnly={readOnly}
@@ -179,12 +176,11 @@ const settOppKomponenterForATFL = (
 
 type OwnProps = {
   readOnly: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov[];
+  avklaringsbehov?: BeregningAvklaringsbehov;
   alleKodeverk: AlleKodeverk;
   formName: string;
   readOnlySubmitButton: boolean;
   allePerioder?: BeregningsgrunnlagPeriodeProp[];
-  relevanteStatuser: RelevanteStatuserProp;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   isSubmitting: boolean;
   isDirty: boolean;
@@ -198,16 +194,22 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   readOnlySubmitButton,
   allePerioder,
   alleKodeverk,
-  relevanteStatuser,
   arbeidsgiverOpplysningerPerId,
   isDirty,
   isSubmitting,
   fieldIndex,
 }) => {
   const intl = useIntl();
-  if (!avklaringsbehov || avklaringsbehov.length === 0 || !allePerioder) {
+  if (!avklaringsbehov || !allePerioder) {
     return null;
   }
+  const aksjonspunktGjelderNæring =
+    avklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
+    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET;
+  const aksjonspunktGjelderATFL =
+    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
+    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD;
+
   const submittKnapp = (
     <FlexRow>
       <FlexColumn>
@@ -220,9 +222,9 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       </FlexColumn>
     </FlexRow>
   );
-  if (relevanteStatuser.isSelvstendigNaeringsdrivende) {
+  if (aksjonspunktGjelderNæring) {
     return (
-      <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
+      <div>
         <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
           {settOppKomponenterForNæring(readOnly, allePerioder, avklaringsbehov, fieldIndex)}
           <VerticalSpacer sixteenPx />
@@ -232,19 +234,10 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       </div>
     );
   }
-  const atflAPKoder = [
-    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-  ] as string[];
-
-  const harATFLAP = avklaringsbehov.some(ap => atflAPKoder.includes(ap.definisjon));
-  const harDekningsgradAP = avklaringsbehov.some(
-    ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
-  );
   return (
-    <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
+    <div>
       <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-        {harATFLAP &&
+        {aksjonspunktGjelderATFL &&
           settOppKomponenterForATFL(
             avklaringsbehov,
             alleKodeverk,
@@ -255,24 +248,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
             intl,
             fieldIndex,
           )}
-        {harDekningsgradAP && (
-          <>
-            <FlexRow>
-              <FlexColumn>
-                <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Dekningsgrad" />
-                </Heading>
-              </FlexColumn>
-            </FlexRow>
-            <VerticalSpacer eightPx />
-            <FlexRow>
-              <FlexColumn>
-                <DekningsgradAksjonspunktPanel readOnly={readOnly} fieldIndex={fieldIndex} />
-              </FlexColumn>
-            </FlexRow>
-            <VerticalSpacer sixteenPx />
-          </>
-        )}
         {submittKnapp}
         <VerticalSpacer sixteenPx />
       </Panel>

@@ -18,17 +18,14 @@ const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
-const {
-  FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
   endretTekst?: React.ReactNode;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   erNyArbLivet: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov[];
+  avklaringsbehov: BeregningAvklaringsbehov;
   fieldIndex: number;
 };
 
@@ -55,12 +52,8 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
   erNyArbLivet,
   fieldIndex,
 }) => {
-  const harGammeltAPFastsettBrutto = avklaringsbehov
-    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)
-    : false;
-  const harAPSNNyiArbLiv = avklaringsbehov
-    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
-    : false;
+  const harAPSNNyiArbLiv =
+    avklaringsbehov && avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET;
   const intl = useIntl();
 
   return (
@@ -90,7 +83,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
         </>
       )}
 
-      {(harGammeltAPFastsettBrutto || harAPSNNyiArbLiv) && (
+      {harAPSNNyiArbLiv && (
         <>
           <VerticalSpacer sixteenPx />
           <FlexRow>

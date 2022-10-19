@@ -25,7 +25,6 @@ import {
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -39,19 +38,6 @@ import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import BeregningFormValues from '../../types/BeregningFormValues';
 
 const formPrefix = 'inntektField';
-
-const { FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD, FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS } =
-  ProsessBeregningsgrunnlagAksjonspunktCode;
-
-const finnAksjonspunktForFastsettBgTidsbegrensetAT = (
-  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
-): BeregningAvklaringsbehov | undefined =>
-  gjeldendeAvklaringsbehov &&
-  gjeldendeAvklaringsbehov.find(
-    ap =>
-      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD ||
-      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-  );
 
 const harPeriodeArbeidsforholdAvsluttet = (periode: BeregningsgrunnlagPeriodeProp): boolean =>
   !!periode.periodeAarsaker &&
@@ -311,10 +297,8 @@ const createRows = (
   return rows;
 };
 
-const getIsAksjonspunktClosed = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
-  const avklaringsbehov = finnAksjonspunktForFastsettBgTidsbegrensetAT(gjeldendeAvklaringsbehov);
-  return avklaringsbehov ? !isAksjonspunktOpen(avklaringsbehov.status) : false;
-};
+const getIsAksjonspunktClosed = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov): boolean =>
+  gjeldendeAvklaringsbehov ? !isAksjonspunktOpen(gjeldendeAvklaringsbehov.status) : false;
 
 interface StaticFunctions {
   buildInitialValues: (allePerioder: BeregningsgrunnlagPeriodeProp[]) => TidsbegrenseArbeidsforholdValues;
@@ -375,7 +359,7 @@ type OwnProps = {
   readOnly: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
-  avklaringsbehov: BeregningAvklaringsbehov[];
+  avklaringsbehov: BeregningAvklaringsbehov;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   alleKodeverk: AlleKodeverk;
   fieldIndex: number;

@@ -20,25 +20,14 @@ const {
 const hasAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === kode);
 
-const skalFastsetteSN = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov &&
-  avklaringsbehov.some(
-    ap =>
-      ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
-      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  );
-
-const finnSnAksjonspunkt = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov | undefined =>
-  avklaringsbehov &&
-  avklaringsbehov.find(
-    ap =>
-      ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
-      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  );
+const skalFastsetteSN = (ap: BeregningAvklaringsbehov): boolean =>
+  ap &&
+  (ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
+    ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET);
 
 type OwnProps = {
   readOnly: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov[];
+  avklaringsbehov: BeregningAvklaringsbehov;
   erNyArbLivet?: boolean;
   erVarigEndring?: boolean;
   erNyoppstartet?: boolean;
@@ -67,8 +56,7 @@ const AksjonspunktsbehandlerSN: FunctionComponent<OwnProps> & StaticFunctions = 
   if (!skalFastsetteSN(avklaringsbehov)) {
     return null;
   }
-  const aksjonspunkt = finnSnAksjonspunkt(avklaringsbehov);
-  const isAksjonspunktClosed = aksjonspunkt ? !isAksjonspunktOpen(aksjonspunkt.status) : false;
+  const isAksjonspunktClosed = avklaringsbehov ? !isAksjonspunktOpen(avklaringsbehov.status) : false;
   if (erNyArbLivet) {
     return (
       <FastsettSNNyIArbeid

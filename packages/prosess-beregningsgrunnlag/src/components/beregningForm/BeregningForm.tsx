@@ -18,13 +18,11 @@ import BeregningsgrunnlagResultatAP, { GruppertAksjonspunktData } from '../../ty
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
-import AvviksopplysningerPanel from '../fellesPaneler/AvvikopplysningerPanel';
 import SkjeringspunktOgStatusPanel from '../fellesPaneler/SkjeringspunktOgStatusPanel';
 import AksjonspunktBehandlerSN from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSN';
 import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import AksjonspunktBehandlerTidsbegrenset from '../arbeidstaker/AksjonspunktBehandlerTB';
 import Beregningsgrunnlag from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import AksjonspunktBehandler from '../fellesPaneler/AksjonspunktBehandler';
 import BeregningsresultatTable from '../beregningsresultatPanel/BeregningsresultatTable';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -36,6 +34,7 @@ import DekningsgradAksjonspunktPanel from '../fellesPaneler/DekningsgradAksjonsp
 import DekningsgradValues from '../../types/DekningsgradAksjonspunktTsType';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import YtelsegrunnlagPanel from '../frisinn/YtelsegrunnlagPanel';
+import SammenligningOgFastsettelsePanel from '../fellesPaneler/SammenligningOgFastsettelsePanel';
 
 // ------------------------------------------------------------------------------------------ //
 // Variables
@@ -267,31 +266,46 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
           </Heading>
           <VerticalSpacer sixteenPx />
-          <AvviksopplysningerPanel
-            sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
-            relevanteStatuser={relevanteStatuser}
+          <SammenligningOgFastsettelsePanel
+            readOnly={readOnly}
+            readOnlySubmitButton={readOnlySubmitButton}
+            formName={formName}
             allePerioder={beregningsgrunnlagPeriode}
-            harAksjonspunkter={harAksjonspunkter}
+            alleKodeverk={alleKodeverk}
+            avklaringsbehov={gjeldendeAvklaringsbehov}
+            relevanteStatuser={relevanteStatuser}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            isSubmitting={isSubmitting}
+            isDirty={isDirty}
+            fieldIndex={fieldIndex}
             gjelderBesteberegning={gjelderBesteberegning}
+            sammenligningsgrunnlag={beregningsgrunnlag.sammenligningsgrunnlagPrStatus || []}
           />
-          {harAksjonspunkter && (
-            <>
-              {storSpacer}
-              <AksjonspunktBehandler
-                readOnly={readOnly}
-                readOnlySubmitButton={readOnlySubmitButton}
-                formName={formName}
-                allePerioder={beregningsgrunnlagPeriode}
-                alleKodeverk={alleKodeverk}
-                avklaringsbehov={gjeldendeAvklaringsbehov}
-                relevanteStatuser={relevanteStatuser}
-                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                isSubmitting={isSubmitting}
-                isDirty={isDirty}
-                fieldIndex={fieldIndex}
-              />
-            </>
-          )}
+          {/* <AvviksopplysningerPanel */}
+          {/* sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus} */}
+          {/* relevanteStatuser={relevanteStatuser} */}
+          {/* allePerioder={beregningsgrunnlagPeriode} */}
+          {/* harAksjonspunkter={harAksjonspunkter} */}
+          {/* gjelderBesteberegning={gjelderBesteberegning} */}
+          {/* /> */}
+          {/* {harAksjonspunkter && ( */}
+          {/* <> */}
+          {/*   {storSpacer} */}
+          {/*   <AksjonspunktBehandler */}
+          {/*     readOnly={readOnly} */}
+          {/*     readOnlySubmitButton={readOnlySubmitButton} */}
+          {/*     formName={formName} */}
+          {/*     allePerioder={beregningsgrunnlagPeriode} */}
+          {/*     alleKodeverk={alleKodeverk} */}
+          {/*     avklaringsbehov={gjeldendeAvklaringsbehov} */}
+          {/*     relevanteStatuser={relevanteStatuser} */}
+          {/*     arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} */}
+          {/*     isSubmitting={isSubmitting} */}
+          {/*     isDirty={isDirty} */}
+          {/*     fieldIndex={fieldIndex} */}
+          {/*   /> */}
+          {/* </> */}
+          {/* )} */}
           <>
             <VerticalSpacer sixteenPx />
             <YtelsegrunnlagPanel beregningsgrunnlag={beregningsgrunnlag} />
