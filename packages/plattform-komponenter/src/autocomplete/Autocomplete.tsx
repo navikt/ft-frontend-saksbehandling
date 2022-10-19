@@ -15,6 +15,7 @@ export interface AutocompleteProps {
   name?: string;
   shouldFocusOnMount?: boolean;
   isLoading?: boolean;
+  onSearchButtonClick?: () => void;
 }
 
 interface State {
@@ -58,6 +59,7 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
     this.setSuggestionIndex = this.setSuggestionIndex.bind(this);
     this.avoidBlur = this.avoidBlur.bind(this);
     this.clearBlurDelay = this.clearBlurDelay.bind(this);
+    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -75,6 +77,14 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
       shouldShowSuggestions: true,
     });
     onChange(value);
+  }
+
+  onSearchButtonClick(event: React.FormEvent<HTMLButtonElement>) {
+    const { onSearchButtonClick } = this.props;
+    event.preventDefault();
+    if (onSearchButtonClick) {
+      onSearchButtonClick();
+    }
   }
 
   onKeyDown(event: React.KeyboardEvent) {
@@ -229,7 +239,7 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
           label={ariaLabel}
           hideLabel
         >
-          <Search.Button loading={isLoading} />
+          <Search.Button loading={isLoading} onClick={this.onSearchButtonClick} />
         </Search>
         <ul
           id={`${id}-suggestions`}
