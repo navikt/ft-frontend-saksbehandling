@@ -27,8 +27,11 @@ const Template: Story = () => {
       radiopre: true,
       testSelectFieldpre: 'value3',
       testTextAreaFieldPre: 'Dette er en begrunnelse',
+      datepickerFieldPre: '2022-10-22',
     },
   });
+
+  console.log(formMethods.watch());
 
   return (
     <Form formMethods={formMethods}>
@@ -164,8 +167,18 @@ const Template: Story = () => {
       />
       <VerticalSpacer sixteenPx />
       <Datepicker
-        label="Dette er en label"
-        name="reserverTil"
+        label="Dette er en datepicker"
+        name="datepickerField"
+        validate={[hasValidDate, dateAfterOrEqual(new Date()), dateBeforeOrEqual(new Date())]}
+        disabledDays={{
+          fromDate: new Date('2022-10-10'),
+          toDate: new Date('2022-10-14'),
+        }}
+      />
+      <VerticalSpacer sixteenPx />
+      <Datepicker
+        label="Dette er en datepicker der verdi er valgt"
+        name="datepickerFieldPre"
         validate={[hasValidDate, dateAfterOrEqual(new Date()), dateBeforeOrEqual(new Date())]}
       />
     </Form>
