@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
@@ -251,18 +251,23 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
       <VerticalSpacer eightPx />
       {panelerPrSg}
       {aksjonspunktUtenSammenligningsgrunnlag && (
-        <AksjonspunktBehandler
-          readOnly={readOnly}
-          avklaringsbehov={aksjonspunktUtenSammenligningsgrunnlag}
-          alleKodeverk={alleKodeverk}
-          formName={formName}
-          allePerioder={allePerioder}
-          readOnlySubmitButton={readOnlySubmitButton}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          isSubmitting={isSubmitting}
-          isDirty={isDirty}
-          fieldIndex={fieldIndex}
-        />
+        <>
+          <BodyShort size="small">
+            <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.SN.NyIArbeidslivet" />
+          </BodyShort>
+          <AksjonspunktBehandler
+            readOnly={readOnly}
+            avklaringsbehov={aksjonspunktUtenSammenligningsgrunnlag}
+            alleKodeverk={alleKodeverk}
+            formName={formName}
+            allePerioder={allePerioder}
+            readOnlySubmitButton={readOnlySubmitButton}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            isSubmitting={isSubmitting}
+            isDirty={isDirty}
+            fieldIndex={fieldIndex}
+          />
+        </>
       )}
     </div>
   );
