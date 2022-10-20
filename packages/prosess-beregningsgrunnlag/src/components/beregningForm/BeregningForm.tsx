@@ -14,7 +14,7 @@ import {
   YtelseGrunnlag,
 } from '@navikt/ft-types';
 import { Heading } from '@navikt/ds-react';
-import BeregningsgrunnlagResultatAP, { GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import { GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
@@ -30,8 +30,6 @@ import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/Be
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktTittel from '../fellesPaneler/AksjonspunktTittel';
-import DekningsgradAksjonspunktPanel from '../fellesPaneler/DekningsgradAksjonspunktPanel';
-import DekningsgradValues from '../../types/DekningsgradAksjonspunktTsType';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import YtelsegrunnlagPanel from '../frisinn/YtelsegrunnlagPanel';
 import SammenligningOgFastsettelsePanel from '../fellesPaneler/SammenligningOgFastsettelsePanel';
@@ -46,7 +44,6 @@ const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  VURDER_DEKNINGSGRAD,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 // ------------------------------------------------------------------------------------------ //
 // Methods
@@ -88,7 +85,6 @@ export const buildInitialValues = (beregningsgrunnlag: BeregningsgrunnlagProp): 
     ...AksjonspunktBehandlerFL.buildInitialValues(frilanserAndeler),
     ...AksjonspunktBehandlerSN.buildInitialValues(selvstendigNaeringAndeler, beregningsgrunnlag.avklaringsbehov),
     ...GrunnlagForAarsinntektPanelAT.buildInitialValues(arbeidstakerAndeler),
-    ...DekningsgradAksjonspunktPanel.buildInitialValues(beregningsgrunnlag),
   };
 };
 
@@ -109,15 +105,7 @@ export const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjo
     return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
   });
   const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
-  const aksjonspunkter = [] as BeregningsgrunnlagResultatAP[];
   const grupperteAksjonspunkter = [] as GruppertAksjonspunktData[];
-  if (harAksjonspunkt(VURDER_DEKNINGSGRAD, values.gjeldendeAvklaringsbehov)) {
-    grupperteAksjonspunkter.push({
-      kode: VURDER_DEKNINGSGRAD,
-      aksjonspunktData: DekningsgradAksjonspunktPanel.transformValues(values as Required<DekningsgradValues>),
-    });
-    aksjonspunkter.push(DekningsgradAksjonspunktPanel.transformValues(values as Required<DekningsgradValues>));
-  }
   if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, values.gjeldendeAvklaringsbehov)) {
     grupperteAksjonspunkter.push({
       kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,

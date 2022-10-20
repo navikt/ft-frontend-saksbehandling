@@ -10,7 +10,6 @@
   "Beregningsgrunnlag.Helptext.TidsbegrensetArbeidsforhold2": "<b>Tidsbegrenset arbeidsforhold og avvik {verdi}% avvik</b>{br}- Det er {verdi}% avvik mellom beregnet årsinntekt og sammenlikningsgrunnlaget og det er tidsbegrenset arbeidsforhold. Fastsett brutto beregningsgrunnlag.",
   "Beregningsgrunnlag.Helptext.NyIArbeidslivetSN": "Fastsett brutto næringsinntekt (årsinntekt)",
   "Beregningsgrunnlag.Helptext.NyIArbeidslivetSN2": "<b>Ny i arbeidslivet</b> - Søker har blitt yrkesaktiv i løpet av de siste tre årene. Fastsett brutto årsinntekt skjønnsmessig. ",
-  "Beregningsgrunnlag.Helptext.BarnetHarDødDeFørsteSeksUkene": "Barnet har dødd i løpet av de første seks leveuker. Søkeren har søkt 80% dekningsgrad. Fastsett ny dekningsgrad.",
   "Beregningsgrunnlag.Avviksopplysninger.ApplicationInformation": "Avviksberegning",
   "Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt": "Beregnet årsinntekt",
   "Beregningsgrunnlag.Avviksopplysninger.ATFL.Tittel": "Avviksberegning for arbeidstaker og frilans",

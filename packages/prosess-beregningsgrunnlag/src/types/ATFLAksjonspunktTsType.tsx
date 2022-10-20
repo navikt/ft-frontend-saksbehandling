@@ -39,7 +39,7 @@ export type ArbeidstakerFrilansValues = FrilansInntektValues & {
   ATFLVurdering?: string;
 };
 
-export type ATFLDekningsgradBegrunnelseValues = {
+export type ATFLBegrunnelseValues = {
   ATFLVurdering: string;
 };
 
