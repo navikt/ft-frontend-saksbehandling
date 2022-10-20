@@ -9,6 +9,14 @@ import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './avvikopplysningerPanel.less';
 
+const skilleLinje = (
+  <FlexRow>
+    <FlexColumn>
+      <div className={styles.linjeSkille} />
+    </FlexColumn>
+  </FlexRow>
+);
+
 type OwnProps = {
   beregnetAarsinntekt?: number;
   sammenligningsgrunnlag: SammenligningsgrunlagProp;
@@ -19,8 +27,9 @@ const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({ beregnetAars
   const avvikProsentAvrundet = parseFloat(avvikProsent.toFixed(1));
   return (
     <>
+      {skilleLinje}
       <FlexRow>
-        <FlexColumn>
+        <FlexColumn className={styles.colLable}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt" />
           </BodyShort>
@@ -32,8 +41,9 @@ const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({ beregnetAars
         </FlexColumn>
         <FlexColumn className={styles.colAvvik} />
       </FlexRow>
+      {skilleLinje}
       <FlexRow>
-        <FlexColumn>
+        <FlexColumn className={styles.colLable}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt" />
           </BodyShort>
@@ -47,7 +57,7 @@ const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({ beregnetAars
         <FlexColumn className={`${styles.colLine} ${styles.colBorderTop}`} />
       </FlexRow>
       <FlexRow>
-        <FlexColumn>
+        <FlexColumn className={styles.colLable}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.BeregnetAvvik" />
           </BodyShort>

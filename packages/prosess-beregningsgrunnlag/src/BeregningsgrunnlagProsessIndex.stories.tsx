@@ -523,8 +523,8 @@ MidlertidigInaktivAvslått.args = {
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
-export const JusterDekningsgradAp5038Ap5087 = Template.bind({});
-JusterDekningsgradAp5038Ap5087.args = {
+export const AvvikMedSammenligningsgraf5038 = Template.bind({});
+AvvikMedSammenligningsgraf5038.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(

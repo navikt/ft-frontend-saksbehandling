@@ -27,8 +27,12 @@ const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
+type SammenligningtypeRekkefølgeType = {
+  [key: string]: number;
+};
+
 // Lavere tall = høyere opp i skjermbildet
-const sammenligningRekkefølgeMap = {
+const sammenligningRekkefølgeMap: SammenligningtypeRekkefølgeType = {
   [SammenligningType.FL]: 1,
   [SammenligningType.AT]: 1,
   [SammenligningType.AT_FL]: 1,
@@ -43,8 +47,8 @@ const sorterSammenligningsgrunnlag = (
     if (sg1.sammenligningsgrunnlagType === sg2.sammenligningsgrunnlagType) {
       return 0;
     }
-    return sammenligningRekkefølgeMap[sg1.sammenligningsgrunnlagType] <
-      sammenligningRekkefølgeMap[sg2.sammenligningsgrunnlagType]
+    return sammenligningRekkefølgeMap[sg1.sammenligningsgrunnlagType as keyof SammenligningtypeRekkefølgeType] <
+      sammenligningRekkefølgeMap[sg2.sammenligningsgrunnlagType as keyof SammenligningtypeRekkefølgeType]
       ? -1
       : 1;
   });
@@ -148,11 +152,11 @@ const finnBeregnetInntekt = (
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
 ): number => {
   if (sg.sammenligningsgrunnlagType === SammenligningType.SN && næringsandel) {
-    return næringsandel.pgiSnitt;
+    return næringsandel.pgiSnitt || 0;
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
     return næringsandel
-      ? næringsandel.pgiSnitt
+      ? næringsandel.pgiSnitt || 0
       : beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
           AktivitetStatus.ARBEIDSTAKER,
           AktivitetStatus.FRILANSER,
@@ -218,7 +222,6 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
     return (
       <div key={sg.sammenligningsgrunnlagType}>
         <Heading size="xsmall">{tittel}</Heading>
-        <VerticalSpacer eightPx />
         <SammenligningsgrunnlagPanel
           sammenligningsgrunnlag={sg}
           beregnetAarsinntekt={finnBeregnetInntekt(sg, næringsandel, alleAndelerIFørstePeriode)}
