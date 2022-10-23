@@ -32,6 +32,7 @@ type OwnProps = {
   erVarigEndring?: boolean;
   erNyoppstartet?: boolean;
   fieldIndex: number;
+  formName: string;
 };
 
 interface StaticFunctions {
@@ -52,6 +53,7 @@ const AksjonspunktsbehandlerSN: FunctionComponent<OwnProps> & StaticFunctions = 
   erVarigEndring,
   erNyoppstartet,
   fieldIndex,
+  formName,
 }) => {
   if (!skalFastsetteSN(avklaringsbehov)) {
     return null;
@@ -65,6 +67,7 @@ const AksjonspunktsbehandlerSN: FunctionComponent<OwnProps> & StaticFunctions = 
         avklaringsbehov={avklaringsbehov}
         erNyArbLivet={erNyArbLivet}
         fieldIndex={fieldIndex}
+        formName={formName}
       />
     );
   }
@@ -74,6 +77,7 @@ const AksjonspunktsbehandlerSN: FunctionComponent<OwnProps> & StaticFunctions = 
       erVarigEndring={erVarigEndring}
       erNyoppstartet={erNyoppstartet}
       fieldIndex={fieldIndex}
+      formName={formName}
     />
   );
 };

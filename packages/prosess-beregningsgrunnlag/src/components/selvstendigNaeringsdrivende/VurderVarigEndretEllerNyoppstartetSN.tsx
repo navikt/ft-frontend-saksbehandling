@@ -30,6 +30,7 @@ type OwnProps = {
   erNyoppstartet?: boolean;
   erVarigEndretNaering?: boolean;
   fieldIndex: number;
+  formName: string;
 };
 
 interface StaticFunctions {
@@ -53,6 +54,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
   erVarigEndring,
   erNyoppstartet,
   fieldIndex,
+  formName,
 }) => {
   let radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IngenEndring" />;
   let radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.EndretNaering" />;
@@ -66,7 +68,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
   }
   const intl = useIntl();
   const formMethods = formHooks.useFormContext<BeregningFormValues>();
-  const varigEndringValues = formMethods.watch('BeregningForm')[fieldIndex] as VurderOgFastsettValues;
+  const varigEndringValues = formMethods.watch(formName)[fieldIndex] as VurderOgFastsettValues;
   const { erVarigEndretNaering } = varigEndringValues;
   const radioknapper = [
     {
@@ -84,7 +86,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
         <FlexRow>
           <FlexColumn>
             <RadioGroupPanel
-              name={`BeregningForm.${fieldIndex}.${varigEndringRadioname}`}
+              name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
               validate={[required]}
               isHorizontal={false}
               isReadOnly={readOnly}
@@ -122,7 +124,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
             <FlexColumn>
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
-                  name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
+                  name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
                   className={styles.breddeInntekt}
@@ -137,7 +139,7 @@ const VurderVarigEndretEllerNyoppstartetSN: FunctionComponent<OwnProps> & Static
       <FlexRow>
         <FlexColumn>
           <TextAreaField
-            name={`BeregningForm.${fieldIndex}.${begrunnelseFieldname}`}
+            name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}

@@ -8,10 +8,12 @@ import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
+import { Vilkar } from '@navikt/ft-types/index';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
@@ -19,6 +21,8 @@ import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/Pro
 import SammenligningForklaringPanel from './SammenligningForklaringPanel';
 import SammenligningsgrunnlagPanel from './SammenligningsgrunnlagPanel';
 import AksjonspunktBehandler from './AksjonspunktBehandler';
+import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
+import BeregningFormValues from '../../types/BeregningFormValues';
 
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
@@ -172,32 +176,36 @@ type OwnProps = {
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
   alleKodeverk: AlleKodeverk;
-  formName: string;
   readOnlySubmitButton: boolean;
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   relevanteStatuser: RelevanteStatuserProp;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  isSubmitting: boolean;
   gjelderBesteberegning: boolean;
-  isDirty: boolean;
-  fieldIndex: number;
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  vilkår: Vilkar;
+  submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
+  formData?: BeregningFormValues;
+  setFormData: (data: BeregningFormValues) => void;
+  aktivIndex: number;
 };
 
 const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   readOnly,
   avklaringsbehov,
-  formName,
   readOnlySubmitButton,
   allePerioder,
   alleKodeverk,
   relevanteStatuser,
   arbeidsgiverOpplysningerPerId,
-  isDirty,
-  isSubmitting,
   gjelderBesteberegning,
-  fieldIndex,
   sammenligningsgrunnlag,
+  beregningsgrunnlagListe,
+  vilkår,
+  submitCallback,
+  formData,
+  setFormData,
+  aktivIndex,
 }) => {
   const storSpacer = <div className={beregningStyles.storSpace} />;
   const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
@@ -205,6 +213,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   const aksjonspunktUtenSammenligningsgrunnlag = avklaringsbehov.find(
     ab => ab.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   );
+
   const panelForklaring = (
     <SammenligningForklaringPanel
       sammenligningsgrunnlag={sammenligningsgrunnlag}
@@ -232,13 +241,17 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
             readOnly={readOnly}
             avklaringsbehov={avklaring}
             alleKodeverk={alleKodeverk}
-            formName={formName}
             allePerioder={allePerioder}
             readOnlySubmitButton={readOnlySubmitButton}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            isSubmitting={isSubmitting}
-            isDirty={isDirty}
-            fieldIndex={fieldIndex}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            vilkår={vilkår}
+            submitCallback={submitCallback}
+            relevanteStatuser={relevanteStatuser}
+            formData={formData}
+            setFormData={setFormData}
+            aktivIndex={aktivIndex}
+            sammenligningsgrunnlag={sg}
           />
         )}
         {storSpacer}
@@ -259,13 +272,16 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
             readOnly={readOnly}
             avklaringsbehov={aksjonspunktUtenSammenligningsgrunnlag}
             alleKodeverk={alleKodeverk}
-            formName={formName}
             allePerioder={allePerioder}
             readOnlySubmitButton={readOnlySubmitButton}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            isSubmitting={isSubmitting}
-            isDirty={isDirty}
-            fieldIndex={fieldIndex}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            vilkår={vilkår}
+            submitCallback={submitCallback}
+            relevanteStatuser={relevanteStatuser}
+            formData={formData}
+            setFormData={setFormData}
+            aktivIndex={aktivIndex}
           />
         </>
       )}

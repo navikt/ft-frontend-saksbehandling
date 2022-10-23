@@ -283,8 +283,8 @@ const lagPeriode = (
   beregningsgrunnlagPrStatusOgAndel: andelsliste,
 });
 
-const malPeriode = (andelsliste: BeregningsgrunnlagAndel[]): BeregningsgrunnlagPeriodeProp =>
-  lagPeriode(andelsliste, [], STP, undefined, 999);
+const malPeriode = (andelsliste: BeregningsgrunnlagAndel[], fom: string = STP): BeregningsgrunnlagPeriodeProp =>
+  lagPeriode(andelsliste, [], fom, undefined, 999);
 
 const malPerioder = (andelsliste: BeregningsgrunnlagAndel[]): BeregningsgrunnlagPeriodeProp[] => [
   lagPeriode(andelsliste, [], STP, etterSTP(20), 999),
@@ -599,14 +599,38 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038.args = {
       STP,
     ),
     lagBG(
-      [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)])],
+      [malPeriode([lagArbeidsandel(1, malArbeidsorhold(), 200000, undefined, true, false)], '2021-02-01')],
       ['AT'],
       undefined,
       [malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+      '2021-02-01',
     ),
   ],
-  vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+  vilkar: {
+    vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
+    overstyrbar: false,
+    perioder: [
+      {
+        periode: {
+          fom: STP,
+          tom: '2021-01-20',
+        },
+        vurderesIBehandlingen: true,
+        vilkarStatus: 'TIL_VURDERING',
+        merknadParametere: {},
+      },
+      {
+        periode: {
+          fom: '2021-02-01',
+          tom: '2021-02-10',
+        },
+        vurderesIBehandlingen: true,
+        vilkarStatus: 'TIL_VURDERING',
+        merknadParametere: {},
+      },
+    ],
+  } as Vilkar,
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 

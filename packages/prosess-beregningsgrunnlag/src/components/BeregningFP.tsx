@@ -1,5 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Form } from '@navikt/ft-form-hooks';
+import React, { FunctionComponent } from 'react';
 
 import {
   AktivitetStatus,
@@ -19,14 +18,12 @@ import {
   Vilkar,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../types/interface/BeregningsgrunnlagAP';
+import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
-import BeregningForm, { buildInitialValues, transformValues } from './beregningForm/BeregningForm';
+import BeregningForm from './beregningForm/BeregningForm';
 import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
-import { BeregningsgrunnlagValues } from '../types/BeregningsgrunnlagAksjonspunktTsType';
 
 import BeregningFormValues from '../types/BeregningFormValues';
 
@@ -37,8 +34,6 @@ const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
 ];
-
-const formName = 'BeregningForm';
 
 const finnAvklaringsbehov = (beregningsgrunnlag: Beregningsgrunnlag) =>
   beregningsgrunnlag.avklaringsbehov.filter(ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon));
@@ -84,85 +79,6 @@ const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkar
   // @ts-ignore
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
-const buildFieldInitialValue = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  alleKodeverk: AlleKodeverk,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkårsperiode: Vilkarperiode,
-): BeregningsgrunnlagValues => ({
-  ...buildInitialValues(beregningsgrunnlag),
-  periode: vilkårsperiode.periode,
-  erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
-  // @ts-ignore
-  relevanteStatuser: getRelevanteStatuser(beregningsgrunnlag.aktivitetStatus),
-  gjeldendeAvklaringsbehov: finnAvklaringsbehov(beregningsgrunnlag),
-  skjæringstidspunkt: beregningsgrunnlag.skjaeringstidspunktBeregning,
-  allePerioder: beregningsgrunnlag.beregningsgrunnlagPeriode,
-});
-
-const buildFormInitialValues = (
-  beregningsgrunnlag: Beregningsgrunnlag[],
-  alleKodeverk: AlleKodeverk,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkår: Vilkar,
-): BeregningFormValues => ({
-  [formName]: beregningsgrunnlag.map(bg =>
-    buildFieldInitialValue(
-      bg,
-      alleKodeverk,
-      arbeidsgiverOpplysningerPerId,
-      finnVilkårperiode(vilkår, bg.skjaeringstidspunktBeregning),
-    ),
-  ),
-});
-
-type AksjonspunktDataMedPeriode = {
-  periode: {
-    fom: string;
-    tom: string;
-  };
-  aksjonspunkter: GruppertAksjonspunktData[];
-};
-
-const grupperPåKode = (
-  gruppert: BeregningAksjonspunktSubmitType[],
-  curr: AksjonspunktDataMedPeriode,
-): BeregningAksjonspunktSubmitType[] => {
-  curr.aksjonspunkter.forEach(ap => {
-    const eksisterende = gruppert.find(gruppertAp => gruppertAp.kode === ap.kode);
-    if (eksisterende !== undefined) {
-      eksisterende.grunnlag.push({
-        periode: curr.periode,
-        ...ap.aksjonspunktData,
-      });
-      eksisterende.begrunnelse = `${eksisterende.begrunnelse} ${ap.aksjonspunktData.begrunnelse}`;
-    } else {
-      gruppert.push({
-        kode: ap.kode,
-        begrunnelse: ap.aksjonspunktData.begrunnelse,
-        grunnlag: [
-          {
-            periode: curr.periode,
-            ...ap.aksjonspunktData,
-          },
-        ],
-      });
-    }
-  });
-  return gruppert;
-};
-
-const transformFields = (values: BeregningFormValues) => {
-  const fields = values[formName];
-  const aksjonspunktLister = fields
-    .filter(f => f.erTilVurdering)
-    .map(field => ({
-      periode: field.periode,
-      aksjonspunkter: transformValues(field),
-    }));
-  return aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
-};
-
 /**
  * BeregningFP
  *
@@ -187,61 +103,33 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   const aksjonspunktGraderingPaaAndelUtenBG = getAvklaringsbehovForGraderingPaaAndelUtenBG(
     aktivtBeregningsgrunnlag.avklaringsbehov,
   );
-  const formMethods = useForm<BeregningFormValues>({
-    defaultValues:
-      formData || buildFormInitialValues(beregningsgrunnlagListe, alleKodeverk, arbeidsgiverOpplysningerPerId, vilkar),
-  });
 
-  const {
-    formState: { dirtyFields, isSubmitted },
-    control,
-    trigger,
-  } = formMethods;
-
-  useEffect(() => {
-    if (isSubmitted && dirtyFields[formName]?.[aktivtBeregningsgrunnlagIndeks]) {
-      trigger();
-    }
-  }, [aktivtBeregningsgrunnlagIndeks]);
-
-  const { fields } = useFieldArray({
-    name: formName,
-    control,
-  });
-  const [isSubmitting, setSubmitting] = useState(false);
-
-  const losAvklaringsbehov = (values: BeregningFormValues) => {
-    setSubmitting(true);
-    submitCallback(transformFields(values));
-  };
-
-  function skalVurderes(index: number) {
-    const periode = finnVilkårperiode(vilkar, beregningsgrunnlagListe[index].vilkårsperiodeFom);
+  function skalVurderes(beregningsgrunnlag: Beregningsgrunnlag) {
+    const periode = finnVilkårperiode(vilkar, beregningsgrunnlag.vilkårsperiodeFom);
     return periode.vurderesIBehandlingen && !periode.erForlengelse;
   }
 
   return (
     <>
-      <Form formMethods={formMethods} onSubmit={values => losAvklaringsbehov(values)} setDataOnUnmount={setFormData}>
-        {fields.map((field, index) => (
-          <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
-            <BeregningForm
-              key={field.id}
-              readOnly={readOnly || !skalVurderes(index)}
-              beregningsgrunnlag={beregningsgrunnlagListe[index]}
-              gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[index])}
-              relevanteStatuser={relevanteStatuser}
-              readOnlySubmitButton={readOnlySubmitButton}
-              alleKodeverk={alleKodeverk}
-              vilkarPeriode={finnVilkårperiode(vilkar, beregningsgrunnlagListe[index].vilkårsperiodeFom)}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              isSubmitting={isSubmitting}
-              isDirty={formMethods.formState.isDirty}
-              fieldIndex={index}
-            />
-          </div>
-        ))}
-      </Form>
+      <BeregningForm
+        readOnly={readOnly || !skalVurderes(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks])}
+        valgtBeregningsgrunnlag={beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]}
+        gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks])}
+        relevanteStatuser={relevanteStatuser}
+        readOnlySubmitButton={readOnlySubmitButton}
+        alleKodeverk={alleKodeverk}
+        vilkarPeriode={finnVilkårperiode(
+          vilkar,
+          beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].vilkårsperiodeFom,
+        )}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        alleBeregningsgrunnlag={beregningsgrunnlagListe}
+        vilkår={vilkar}
+        submitCallback={submitCallback}
+        formData={formData}
+        setFormData={setFormData}
+        aktivIndex={aktivtBeregningsgrunnlagIndeks}
+      />
 
       {aksjonspunktGraderingPaaAndelUtenBG && (
         <GraderingUtenBGReadOnly avklaringsbehov={aksjonspunktGraderingPaaAndelUtenBG} />

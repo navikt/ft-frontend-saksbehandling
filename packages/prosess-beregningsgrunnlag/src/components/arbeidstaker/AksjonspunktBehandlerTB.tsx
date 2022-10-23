@@ -234,6 +234,7 @@ const createRows = (
   isAksjonspunktClosed: boolean,
   perioder: BruttoPrPeriode[],
   fieldIndex: number,
+  formName: string,
 ): ReactElement[] => {
   const rows = [];
   rows.push(createPerioderRow(perioder));
@@ -272,7 +273,7 @@ const createRows = (
               <td key={`Col-${element.inputfieldKey}`} colSpan={2}>
                 <div className={isAksjonspunktClosed && readOnly ? styles.adjustedField : undefined}>
                   <InputField
-                    name={`BeregningForm.${fieldIndex}.${element.inputfieldKey}`}
+                    name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
                     validate={[required, maxValueFormatted(178956970)]}
                     readOnly={readOnly}
                     parse={parseCurrencyInput}
@@ -333,6 +334,7 @@ const lagBruttoPrPeriodeListe = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   formMethods: UseFormReturn<BeregningFormValues>,
   fieldIndex: number,
+  formName: string,
 ): BruttoPrPeriode[] => {
   const bruttoPrPeriodeList = [] as BruttoPrPeriode[];
   if (allePerioder.length < 1) {
@@ -343,7 +345,7 @@ const lagBruttoPrPeriodeListe = (
   const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
   const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
     const inputFieldKey = createInputFieldKey(andel, relevantPeriode);
-    const fastsattInntekt = formMethods.watch(`BeregningForm.${fieldIndex}.${inputFieldKey}`);
+    const fastsattInntekt = formMethods.watch(`${formName}.${fieldIndex}.${inputFieldKey}`);
     return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
   });
   const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
@@ -372,14 +374,17 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
+  formName,
 }) => {
   const tabellData = createTableData(allePerioder, alleKodeverk, arbeidsgiverOpplysningerPerId);
   const isAvklaringsbehovClosed = getIsAksjonspunktClosed(avklaringsbehov);
   const formMethods = formHooks.useFormContext<BeregningFormValues>();
-  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex);
+  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
   return (
     <table className={styles.inntektTableTB}>
-      <tbody>{createRows(tabellData, readOnly, isAvklaringsbehovClosed, bruttoPrPeriodeList, fieldIndex)}</tbody>
+      <tbody>
+        {createRows(tabellData, readOnly, isAvklaringsbehovClosed, bruttoPrPeriodeList, fieldIndex, formName)}
+      </tbody>
     </table>
   );
 };
