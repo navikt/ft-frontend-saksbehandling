@@ -1277,11 +1277,9 @@ AvvikNæringEtterLøstAvvikArbeid5038Og5039.args = {
         lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false)),
         lagArbeidsandel(2, malArbeidsorhold(), 150000, 200000, true, false),
         lagGenerellAndel(4, AktivitetStatus.DAGPENGER, 100500),
-        lagGenerellAndel(5, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100500),
-        lagGenerellAndel(6, AktivitetStatus.MILITAER_ELLER_SIVIL, 300000),
         lagFrilansandel(3, 200000, 100000, true),
       ]),
-      ['AT_FL_SN', 'DP', 'MS', 'AAP'],
+      ['AT_FL_SN', 'DP'],
       undefined,
       [malSGGrunnlagAvvik(SammenligningType.SN), malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       [
