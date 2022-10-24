@@ -29,6 +29,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type SammenligningtypeRekkefølgeType = {
@@ -120,6 +121,8 @@ const matcherSammenligningsgrunnlag = (
       );
     case SammenligningType.SN:
       return avklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE;
+    case SammenligningType.MIDLERTIDIG_INAKTIV:
+      return avklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON;
     case SammenligningType.ATFLSN:
       return true; // Catch-all type som betyr at vi kun skal ha et aksjonspunkt, brukes til grunnlag er migrert til spesifikke typer
     default:
@@ -133,7 +136,7 @@ const finnAksjonspunktForSammenligningsgrunnlag = (
 ): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov.find(ab => matcherSammenligningsgrunnlag(sammenligningsgrunnlag, ab));
 
-const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, gjelderNæring: boolean): ReactNode => {
+const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, harPGIAndel: boolean): ReactNode => {
   const atflTittel = <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.ATFL.Tittel" />;
   const snTittel = <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.SN.Tittel" />;
   switch (sammenligningsgrunnlag.sammenligningsgrunnlagType) {
@@ -144,7 +147,9 @@ const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, gjelderN�
     case SammenligningType.SN:
       return snTittel;
     case SammenligningType.ATFLSN:
-      return gjelderNæring ? snTittel : atflTittel;
+      return harPGIAndel ? snTittel : atflTittel;
+    case SammenligningType.MIDLERTIDIG_INAKTIV:
+      return <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.MIDL.Tittel" />;
     default:
       throw new Error(`Ukjent sammenligningstype ${sammenligningsgrunnlag.sammenligningsgrunnlagType}`);
   }
@@ -152,15 +157,18 @@ const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, gjelderN�
 
 const finnBeregnetInntekt = (
   sg: SammenligningsgrunlagProp,
-  næringsandel: BeregningsgrunnlagAndel | undefined,
+  pgiAndel: BeregningsgrunnlagAndel | undefined,
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
 ): number => {
-  if (sg.sammenligningsgrunnlagType === SammenligningType.SN && næringsandel) {
-    return næringsandel.pgiSnitt || 0;
+  if (sg.sammenligningsgrunnlagType === SammenligningType.SN && pgiAndel) {
+    return pgiAndel.pgiSnitt || 0;
+  }
+  if (sg.sammenligningsgrunnlagType === SammenligningType.MIDLERTIDIG_INAKTIV && pgiAndel) {
+    return pgiAndel.pgiSnitt || 0;
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
-    return næringsandel
-      ? næringsandel.pgiSnitt || 0
+    return pgiAndel
+      ? pgiAndel.pgiSnitt || 0
       : beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
           AktivitetStatus.ARBEIDSTAKER,
           AktivitetStatus.FRILANSER,
@@ -222,18 +230,21 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
     />
   );
   const panelerPrSg = sorterteGrunnlag.map((sg: SammenligningsgrunlagProp) => {
-    const næringsandel = alleAndelerIFørstePeriode.find(
-      andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE && !andel.erTilkommetAndel,
+    const andelMedPGI = alleAndelerIFørstePeriode.find(
+      andel =>
+        (andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+          andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL) &&
+        !andel.erTilkommetAndel,
     );
 
     const avklaring = finnAksjonspunktForSammenligningsgrunnlag(sg, avklaringsbehov);
-    const tittel = finnTittel(sg, !!næringsandel);
+    const tittel = finnTittel(sg, !!andelMedPGI);
     return (
       <div key={sg.sammenligningsgrunnlagType}>
         <Heading size="xsmall">{tittel}</Heading>
         <SammenligningsgrunnlagPanel
           sammenligningsgrunnlag={sg}
-          beregnetAarsinntekt={finnBeregnetInntekt(sg, næringsandel, alleAndelerIFørstePeriode)}
+          beregnetAarsinntekt={finnBeregnetInntekt(sg, andelMedPGI, alleAndelerIFørstePeriode)}
         />
         {storSpacer}
         {avklaring && (

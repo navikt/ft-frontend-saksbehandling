@@ -10,13 +10,13 @@ import { AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-ko
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
-  BeregningsgrunnlagAndel,
-  BeregningsgrunnlagPeriodeProp,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  Vilkarperiode,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
+  BeregningsgrunnlagAndel,
+  BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
+  Vilkarperiode,
 } from '@navikt/ft-types';
 
 import { Vilkar } from '@navikt/ft-types/index';
@@ -26,7 +26,7 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
-import AksjonspunktBehandlerSN from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSN';
+import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
@@ -47,6 +47,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const defaultFormName = 'BeregningForm';
@@ -96,8 +97,10 @@ const buildInitialValues = (
   const frilanserAndeler = alleAndelerIForstePeriode.filter(
     andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
   );
-  const selvstendigNaeringAndeler = alleAndelerIForstePeriode.filter(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  const snEllerMidlertidigInaktivAndeler = alleAndelerIForstePeriode.filter(
+    andel =>
+      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const valuesATFL = {
     ...BeregningsgrunnlagPanel.buildInitialValues(beregningsgrunnlag.avklaringsbehov),
@@ -105,23 +108,39 @@ const buildInitialValues = (
     ...AksjonspunktBehandlerFL.buildInitialValues(frilanserAndeler),
     ...GrunnlagForAarsinntektPanelAT.buildInitialValues(arbeidstakerAndeler),
   };
-  const valuesSN = {
-    ...AksjonspunktBehandlerSN.buildInitialValues(selvstendigNaeringAndeler, beregningsgrunnlag.avklaringsbehov),
+  const valuesSNEllerMidlInaktiv = {
+    ...AksjonspunktBehandlerSNEllerMidlInakt.buildInitialValues(
+      snEllerMidlertidigInaktivAndeler,
+      beregningsgrunnlag.avklaringsbehov,
+    ),
   };
   if (!sammenligningsgrunnlag) {
     return {
-      ...valuesSN,
+      ...valuesSNEllerMidlInaktiv,
     };
   }
   if (sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
     return {
       ...valuesATFL,
-      ...valuesSN,
+      ...valuesSNEllerMidlInaktiv,
     };
   }
-  return sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.AT_FL
-    ? { ...valuesATFL }
-    : { ...valuesSN };
+  if (sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.AT_FL) {
+    return {
+      ...valuesATFL,
+    };
+  }
+  if (sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.SN) {
+    return {
+      ...valuesSNEllerMidlInaktiv,
+    };
+  }
+  if (sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.MIDLERTIDIG_INAKTIV) {
+    return {
+      ...valuesSNEllerMidlInaktiv,
+    };
+  }
+  return {};
 };
 
 const buildFieldInitialValue = (
@@ -176,12 +195,14 @@ const settOppKomponenterForNæring = (
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
-  if (!snAndel) {
+  const erNyArbLivet = snAndel && snAndel.erNyIArbeidslivet;
+  const erVarigEndring =
+    avklaringsbehov.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
+    (snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erVarigEndret === true));
+  const erNyoppstartet = snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
+  if (!erNyArbLivet && !erNyoppstartet && !erVarigEndring) {
     return null;
   }
-  const erNyArbLivet = snAndel.erNyIArbeidslivet;
-  const erVarigEndring = snAndel.næringer && snAndel.næringer.some(naring => naring.erVarigEndret === true);
-  const erNyoppstartet = snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
   return (
     <>
       <FlexRow>
@@ -203,7 +224,7 @@ const settOppKomponenterForNæring = (
         </FlexColumn>
       </FlexRow>
       <VerticalSpacer eightPx />
-      <AksjonspunktBehandlerSN
+      <AksjonspunktBehandlerSNEllerMidlInakt
         readOnly={readOnly}
         avklaringsbehov={avklaringsbehov}
         erNyArbLivet={erNyArbLivet}
@@ -335,47 +356,68 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
   });
   const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
-  const grupperteAksjonspunkter = [] as GruppertAksjonspunktData[];
   if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, values.gjeldendeAvklaringsbehov)) {
-    grupperteAksjonspunkter.push({
-      kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-      aksjonspunktData: BeregningsgrunnlagPanel.transformATFLValues(
-        values as ATFLValues,
-        values.relevanteStatuser,
-        alleAndelerIFørstePeriode,
-      ),
-    });
-    return grupperteAksjonspunkter;
+    return [
+      {
+        kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+        aksjonspunktData: BeregningsgrunnlagPanel.transformATFLValues(
+          values as ATFLValues,
+          values.relevanteStatuser,
+          alleAndelerIFørstePeriode,
+        ),
+      },
+    ];
   }
   if (
     harAksjonspunkt(
       VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
       values.gjeldendeAvklaringsbehov,
-    ) ||
-    harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)
+    )
   ) {
-    grupperteAksjonspunkter.push({
-      kode: harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)
-        ? FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET
-        : VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-      aksjonspunktData: AksjonspunktBehandlerSN.transformValues(
-        values as VurderOgFastsettValues,
-        values.gjeldendeAvklaringsbehov,
-      ),
-    });
-    return grupperteAksjonspunkter;
+    return [
+      {
+        kode: VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlInakt.transformValues(
+          values as VurderOgFastsettValues,
+          values.gjeldendeAvklaringsbehov,
+        ),
+      },
+    ];
+  }
+  if (harAksjonspunkt(VURDER_VARIG_ENDRET_ARBEIDSSITUASJON, values.gjeldendeAvklaringsbehov)) {
+    return [
+      {
+        kode: VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlInakt.transformValues(
+          values as VurderOgFastsettValues,
+          values.gjeldendeAvklaringsbehov,
+        ),
+      },
+    ];
+  }
+  if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)) {
+    return [
+      {
+        kode: FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlInakt.transformValues(
+          values as VurderOgFastsettValues,
+          values.gjeldendeAvklaringsbehov,
+        ),
+      },
+    ];
   }
   if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD, values.gjeldendeAvklaringsbehov)) {
-    grupperteAksjonspunkter.push({
-      kode: FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-      aksjonspunktData: BeregningsgrunnlagPanel.transformATFLTidsbegrensetValues(
-        values as ATFLTidsbegrensetValues,
-        allePerioder,
-      ),
-    });
-    return grupperteAksjonspunkter;
+    return [
+      {
+        kode: FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+        aksjonspunktData: BeregningsgrunnlagPanel.transformATFLTidsbegrensetValues(
+          values as ATFLTidsbegrensetValues,
+          allePerioder,
+        ),
+      },
+    ];
   }
-  return grupperteAksjonspunkter;
+  throw new Error('Må submitte et aksjonspunkt');
 };
 
 const transformFields = (values: BeregningFormValues, sg?: SammenligningsgrunlagProp) => {
