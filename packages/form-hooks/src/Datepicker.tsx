@@ -1,63 +1,80 @@
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
-import { DatepickerLimitations } from 'nav-datovelger';
+import React, { useState, FunctionComponent, ReactNode, useMemo, useCallback } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
-import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from 'dayjs';
+// eslint-disable-next-line camelcase
+import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import PureDatepicker from './pure/PureDatepicker';
+
 import { getError, getValidationRules } from './formUtils';
 import ReadOnlyField from './ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
 export interface DatepickerProps {
-  label?: string | ReactNode;
   name: string;
+  label?: string | ReactNode;
   validate?: ((value: string) => any)[];
-  ariaLabel?: string;
-  defaultValue?: string;
-  limitations?: DatepickerLimitations;
-  error?: string;
   disabled?: boolean;
   isReadOnly?: boolean;
-  parse?: (value: string) => string;
-  format?: (value: string) => string;
   onChange?: (value: any) => void;
   disabledDays?: {
-    before: Date;
-    after?: Date;
+    fromDate?: Date;
+    toDate?: Date;
   };
-  initialMonth?: Date;
   isEdited?: boolean;
 }
 
 const Datepicker: FunctionComponent<DatepickerProps> = ({
   name,
-  validate = [],
-  limitations,
   label,
-  ariaLabel,
-  defaultValue,
-  error,
+  validate = [],
   disabled = false,
   isReadOnly = false,
-  parse = value => value,
-  format = value => value,
   onChange,
   disabledDays,
-  initialMonth,
   isEdited,
 }): JSX.Element => {
   const {
     formState: { errors },
   } = useFormContext();
+
   const { field } = useController({
     name,
     rules: {
       validate: useMemo(() => getValidationRules(validate), [validate]),
     },
-    defaultValue,
   });
+
+  const defaultDate = field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : '';
+  const [fieldValue, setFieldValue] = useState<string>(defaultDate);
+
+  const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
+    onDateChange: date => {
+      if (date !== undefined) {
+        const verdi = dayjs(date).format(ISO_DATE_FORMAT);
+        if (onChange) {
+          onChange(verdi);
+        }
+        field.onChange(verdi);
+        setFieldValue(dayjs(verdi, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT));
+      }
+    },
+  });
+
+  const onChangeInput = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const verdi = dayjs(event.target.value, DDMMYYYY_DATE_FORMAT, true).format(ISO_DATE_FORMAT);
+      const validDate = verdi !== 'Invalid Date';
+
+      setFieldValue(event.target.value);
+      if (onChange) {
+        onChange(validDate ? verdi : event.target.value);
+      }
+      field.onChange(validDate ? verdi : event.target.value);
+    },
+    [setFieldValue, onChange, field],
+  );
 
   if (isReadOnly) {
     return (
@@ -69,25 +86,26 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
     );
   }
 
+  const dpProps = {
+    ...datepickerProps,
+    fromDate: disabledDays?.fromDate,
+    toDate: disabledDays?.toDate,
+  };
+
   return (
-    <PureDatepicker
-      label={label}
-      onChange={date => {
-        const verdi = parse(date);
-        if (onChange) {
-          onChange(verdi);
-        }
-        return field.onChange(verdi);
-      }}
-      value={field.value ? format(field.value) : undefined}
-      errorMessage={error || getError(errors, name)}
-      limitations={limitations}
-      ariaLabel={ariaLabel}
-      inputId={name}
-      disabled={disabled}
-      disabledDays={disabledDays}
-      initialMonth={initialMonth}
-    />
+    // eslint-disable-next-line react/jsx-pascal-case, camelcase
+    <UNSAFE_DatePicker {...dpProps}>
+      {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
+      <UNSAFE_DatePicker.Input
+        {...inputProps}
+        onChange={onChangeInput}
+        value={fieldValue}
+        size="small"
+        label={label}
+        disabled={disabled}
+        error={getError(errors, name)}
+      />
+    </UNSAFE_DatePicker>
   );
 };
 

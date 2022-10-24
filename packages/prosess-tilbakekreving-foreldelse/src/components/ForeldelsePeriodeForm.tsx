@@ -105,7 +105,7 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
                   label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
                   validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
                   isReadOnly={readOnly}
-                  disabledDays={{ before: moment('1970-01-01').toDate(), after: moment(moment.now()).toDate() }}
+                  disabledDays={{ fromDate: moment('1970-01-01').toDate(), toDate: moment(moment.now()).toDate() }}
                 />
               </>
             )}

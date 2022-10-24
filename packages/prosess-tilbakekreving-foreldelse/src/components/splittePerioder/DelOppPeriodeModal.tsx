@@ -104,8 +104,7 @@ const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
               name="forstePeriodeTomDato"
               label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
               validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
-              disabledDays={{ before: moment(periodeData.fom).toDate(), after: moment(periodeData.tom).toDate() }}
-              initialMonth={moment(periodeData.tom).toDate()}
+              disabledDays={{ fromDate: moment(periodeData.fom).toDate(), toDate: moment(periodeData.tom).toDate() }}
             />
           </div>
           {finnesBelopMed0Verdi && (

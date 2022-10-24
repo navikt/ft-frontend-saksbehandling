@@ -12,6 +12,14 @@ const {
   FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046,
 } = composeStories(stories);
 
+window.ResizeObserver =
+  window.ResizeObserver ||
+  jest.fn().mockImplementation(() => ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+  }));
+
 describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it.skip('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
     const lagre = jest.fn();
