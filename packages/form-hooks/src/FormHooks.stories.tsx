@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate } from '@navikt/ft-form-validators';
 import { TextAreaField, SelectField, CheckboxField, InputField, Datepicker } from '../index';
 import Form from './Form';
 import RadioGroupPanel from './RadioGroupPanel';
@@ -13,6 +12,7 @@ import styles from './formHooks.stories.less';
 // eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import CheckboxPanel from './CheckboxPanel';
+import Rangepicker from './Rangepicker';
 
 export default {
   title: 'FormHooks',
@@ -28,8 +28,12 @@ const Template: Story = () => {
       testSelectFieldpre: 'value3',
       testTextAreaFieldPre: 'Dette er en begrunnelse',
       datepickerFieldPre: '2022-10-22',
+      fomPre: '2022-10-22',
+      tomPre: '2022-10-27',
     },
   });
+
+  console.log(formMethods.watch());
 
   return (
     <Form formMethods={formMethods}>
@@ -167,18 +171,17 @@ const Template: Story = () => {
       <Datepicker
         label="Dette er en datepicker"
         name="datepickerField"
-        validate={[hasValidDate, dateAfterOrEqual(new Date()), dateBeforeOrEqual(new Date())]}
         disabledDays={{
           fromDate: new Date('2022-10-10'),
           toDate: new Date('2022-10-14'),
         }}
       />
       <VerticalSpacer sixteenPx />
-      <Datepicker
-        label="Dette er en datepicker der verdi er valgt"
-        name="datepickerFieldPre"
-        validate={[hasValidDate, dateAfterOrEqual(new Date()), dateBeforeOrEqual(new Date())]}
-      />
+      <Datepicker label="Dette er en datepicker der verdi er valgt" name="datepickerFieldPre" />
+      <VerticalSpacer sixteenPx />
+      <Rangepicker label="Periode" fomName="fom" tomName="tom" />
+      <VerticalSpacer sixteenPx />
+      <Rangepicker label="Periode der verdi er valgt" fomName="fomPre" tomName="tomPre" />
     </Form>
   );
 };

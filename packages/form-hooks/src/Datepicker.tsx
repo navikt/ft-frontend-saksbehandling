@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import React, { useState, FunctionComponent, ReactNode, useMemo, useCallback } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
@@ -12,13 +12,11 @@ import ReadOnlyField from './ReadOnlyField';
 dayjs.extend(customParseFormat);
 
 export interface DatepickerProps {
-  label?: string | ReactNode;
   name: string;
+  label?: string | ReactNode;
   validate?: ((value: string) => any)[];
   disabled?: boolean;
   isReadOnly?: boolean;
-  parse?: (value: string) => string;
-  format?: (value: string) => string;
   onChange?: (value: any) => void;
   disabledDays?: {
     fromDate?: Date;
@@ -29,12 +27,10 @@ export interface DatepickerProps {
 
 const Datepicker: FunctionComponent<DatepickerProps> = ({
   name,
-  validate = [],
   label,
+  validate = [],
   disabled = false,
   isReadOnly = false,
-  parse = value => value,
-  format = value => value,
   onChange,
   disabledDays,
   isEdited,
@@ -42,6 +38,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   const {
     formState: { errors },
   } = useFormContext();
+
   const { field } = useController({
     name,
     rules: {
@@ -49,15 +46,35 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
     },
   });
 
+  const defaultDate = field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : '';
+  const [fieldValue, setFieldValue] = useState<string>(defaultDate);
+
   const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
     onDateChange: date => {
-      const verdi = parse(dayjs(date).format(ISO_DATE_FORMAT));
-      if (onChange) {
-        onChange(verdi);
+      if (date !== undefined) {
+        const verdi = dayjs(date).format(ISO_DATE_FORMAT);
+        if (onChange) {
+          onChange(verdi);
+        }
+        field.onChange(verdi);
+        setFieldValue(dayjs(verdi, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT));
       }
-      return field.onChange(verdi);
     },
   });
+
+  const onChangeInput = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const verdi = dayjs(event.target.value, DDMMYYYY_DATE_FORMAT, true).format(ISO_DATE_FORMAT);
+      const validDate = verdi !== 'Invalid Date';
+
+      setFieldValue(event.target.value);
+      if (onChange) {
+        onChange(validDate ? verdi : event.target.value);
+      }
+      field.onChange(validDate ? verdi : event.target.value);
+    },
+    [setFieldValue, onChange, field],
+  );
 
   if (isReadOnly) {
     return (
@@ -81,7 +98,8 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
       {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
       <UNSAFE_DatePicker.Input
         {...inputProps}
-        value={field.value ? format(dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT)) : ''}
+        onChange={onChangeInput}
+        value={fieldValue}
         size="small"
         label={label}
         disabled={disabled}
