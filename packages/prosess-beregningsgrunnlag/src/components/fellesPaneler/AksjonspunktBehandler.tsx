@@ -278,7 +278,6 @@ const settOppKomponenterForATFL = (
           />
         </FlexColumn>
       </FlexRow>
-      <VerticalSpacer sixteenPx />
     </>
   );
 };
@@ -468,9 +467,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     }
   }, [aktivIndex]);
 
-  const aksjonspunktGjelderNæring =
-    avklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
-    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET;
   const aksjonspunktGjelderATFL =
     avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
     avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD;
@@ -487,26 +483,20 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       </FlexColumn>
     </FlexRow>
   );
-  if (aksjonspunktGjelderNæring) {
-    return (
-      <Form
-        formMethods={formMethods}
-        onSubmit={values => losAvklaringsbehov(values, sammenligningsgrunnlag)}
-        setDataOnUnmount={setFormData}
-      >
-        {fields.map((field, index) => (
-          <div key={field.id} style={{ display: index === aktivIndex ? 'block' : 'none' }}>
-            <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-              {settOppKomponenterForNæring(readOnly, allePerioder, avklaringsbehov, index, formName)}
-              <VerticalSpacer sixteenPx />
-              {submittKnapp}
-              <VerticalSpacer sixteenPx />
-            </Panel>
-          </div>
-        ))}
-      </Form>
-    );
-  }
+
+  const formKomponent = (index: number): ReactElement =>
+    aksjonspunktGjelderATFL
+      ? settOppKomponenterForATFL(
+          avklaringsbehov,
+          alleKodeverk,
+          allePerioder,
+          arbeidsgiverOpplysningerPerId,
+          readOnly,
+          intl,
+          index,
+          formName,
+        )
+      : settOppKomponenterForNæring(readOnly, allePerioder, avklaringsbehov, index, formName);
   return (
     <Form
       formMethods={formMethods}
@@ -516,17 +506,8 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       {fields.map((field, index) => (
         <div key={field.id} style={{ display: index === aktivIndex ? 'block' : 'none' }}>
           <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-            {aksjonspunktGjelderATFL &&
-              settOppKomponenterForATFL(
-                avklaringsbehov,
-                alleKodeverk,
-                allePerioder,
-                arbeidsgiverOpplysningerPerId,
-                readOnly,
-                intl,
-                index,
-                formName,
-              )}
+            {formKomponent(index)}
+            <VerticalSpacer sixteenPx />
             {submittKnapp}
             <VerticalSpacer sixteenPx />
           </Panel>
