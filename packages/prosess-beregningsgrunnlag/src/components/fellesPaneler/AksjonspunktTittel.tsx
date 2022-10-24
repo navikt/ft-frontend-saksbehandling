@@ -17,7 +17,6 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  VURDER_DEKNINGSGRAD,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const getAvviksprosent = (sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[]): number => {
@@ -36,7 +35,6 @@ const APTekster = {
   [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]:
     'Beregningsgrunnlag.Helptext.TidsbegrensetArbeidsforhold2',
   [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'Beregningsgrunnlag.Helptext.NyIArbeidslivetSN2',
-  [VURDER_DEKNINGSGRAD]: 'Beregningsgrunnlag.Helptext.BarnetHarDødDeFørsteSeksUkene',
 } as Record<string, string>;
 
 const findAksjonspunktHelpTekst = (

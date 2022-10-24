@@ -1,9 +1,7 @@
 import { BeregningsgrunnlagValues } from './BeregningsgrunnlagAksjonspunktTsType';
 
-const formName = 'BeregningForm';
-
 type BeregningFormValues = {
-  [formName]: BeregningsgrunnlagValues[];
+  [key: string]: BeregningsgrunnlagValues[];
 };
 
 export default BeregningFormValues;

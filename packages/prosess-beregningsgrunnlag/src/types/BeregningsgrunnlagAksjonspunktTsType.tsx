@@ -1,12 +1,6 @@
 import { BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
-import {
-  ATFLDekningsgradBegrunnelseValues,
-  ATFLTidsbegrensetValues,
-  ATFLValues,
-  FrilansInntektValues,
-} from './ATFLAksjonspunktTsType';
+import { ATFLTidsbegrensetValues, ATFLValues, FrilansInntektValues } from './ATFLAksjonspunktTsType';
 import { NyIArbeidslivetValues, VurderOgFastsettValues } from './NaringAksjonspunktTsType';
-import DekningsgradValues from './DekningsgradAksjonspunktTsType';
 import RelevanteStatuserProp from './RelevanteStatuserTsType';
 
 type VurderingValues = {
@@ -21,12 +15,10 @@ type VurderingValues = {
 };
 
 export type AksjonspunktDataValues =
-  | ATFLDekningsgradBegrunnelseValues
   | ATFLTidsbegrensetValues
   | FrilansInntektValues
   | VurderOgFastsettValues
   | NyIArbeidslivetValues
-  | ATFLValues
-  | DekningsgradValues;
+  | ATFLValues;
 
 export type BeregningsgrunnlagValues = VurderingValues & AksjonspunktDataValues;

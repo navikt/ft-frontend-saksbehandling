@@ -12,6 +12,7 @@ const {
   NaturalYtelse,
   TidsbegrensetArbeidsforholdMedAvvikAp5047,
   MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047,
+  AvvikNæringEtterLøstAvvikArbeid5038Og5039,
 } = composeStories(stories);
 
 describe('<BeregningsgrunnlagProsessIndex>', () => {
@@ -313,5 +314,85 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(await screen.findByText('Beregning av dagsats')).toBeInTheDocument();
     expect(await screen.findByText('Periode 01.01.2021 - 16.01.2021')).toBeInTheDocument();
     expect(await screen.findByText('Periode 17.01.2021 - 21.01.2021')).toBeInTheDocument();
+  });
+
+  it('skal bekrefte akjonspunkt for varig endring når avik atfl er løst', async () => {
+    const lagre = jest.fn();
+
+    const utils = render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
+
+    expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
+    const knappATFL = screen.getAllByText('Bekreft og fortsett')[0];
+    const knappNæring = screen.getAllByText('Bekreft og fortsett')[1];
+
+    expect(knappATFL).toBeDisabled();
+    expect(knappNæring).toBeDisabled();
+
+    // Årsgrunnlag arbeid
+    expect(screen.getAllByText('BEDRIFT AS (999999996)')).toHaveLength(2);
+
+    // Årgrunnlag næring
+    expect(screen.getByText('3 siste ferdigliknede år fra skatteetaten')).toBeInTheDocument();
+    expect(screen.getByText('2017')).toBeInTheDocument();
+    expect(screen.getByText('2016')).toBeInTheDocument();
+    expect(screen.getByText('2015')).toBeInTheDocument();
+    expect(screen.getByText('124 412')).toBeInTheDocument();
+    expect(screen.getByText('98 456')).toBeInTheDocument();
+    expect(screen.getByText('9 861 482')).toBeInTheDocument();
+
+    // Næringsopplysninger
+    expect(screen.getByText('Opplysninger om næring fra søknad')).toBeInTheDocument();
+
+    // Forklaring på manglende sammenligningsgrunnlag
+    expect(screen.getByText('Det foretas ikke avviksvurdering på Dagpenger')).toBeInTheDocument();
+
+    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+
+    // Avvik arbeid og frilans
+    expect(screen.getByText('Avviksberegning for arbeidstaker og frilans')).toBeInTheDocument();
+    expect(screen.getByText('Skjønnsmessig fastsettelse av årsinntekt ved avvik')).toBeInTheDocument();
+    const bruttoAG1 = alleInputfelt[0];
+    const bruttoFL1 = alleInputfelt[1];
+    const begrunnelseATFL = alleInputfelt[2];
+
+    expect(bruttoAG1).toHaveValue('200 000');
+    expect(bruttoFL1).toHaveValue('100 000');
+    expect(begrunnelseATFL).toHaveValue('Dette er løst');
+
+    expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText('Ingen varig endring'));
+    await waitFor(() => expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument());
+    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes.'));
+    expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
+
+    const alleInputfeltEtterKlikk = utils.getAllByRole('textbox', { hidden: true });
+    const bruttoNæringFelt = alleInputfeltEtterKlikk[4];
+    const begrunnelseNæringFelt = alleInputfeltEtterKlikk[5];
+    await userEvent.type(bruttoNæringFelt, '260 000');
+    await userEvent.type(begrunnelseNæringFelt, 'Min begrunnelse for vurdering av varig endring');
+    await expect(knappNæring).toBeEnabled();
+    await expect(knappATFL).toBeDisabled();
+
+    expect(screen.getAllByText('Bekreft og fortsett')[1]).toBeEnabled();
+    await userEvent.click(screen.getAllByText('Bekreft og fortsett')[1]);
+
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        grunnlag: [
+          {
+            periode: {
+              fom: '2021-01-01',
+              tom: '2021-01-21',
+            },
+            erVarigEndretNaering: true,
+            bruttoBeregningsgrunnlag: 260000,
+            begrunnelse: 'Min begrunnelse for vurdering av varig endring',
+          },
+        ],
+        begrunnelse: 'Min begrunnelse for vurdering av varig endring',
+        kode: '5039',
+      },
+    ]);
   });
 });

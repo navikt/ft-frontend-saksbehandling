@@ -1,35 +1,57 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement, useEffect, useState } from 'react';
 import Panel from 'nav-frontend-paneler';
 import { Heading } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { TextAreaField } from '@navikt/ft-form-hooks';
-
-import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
   BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  Vilkarperiode,
+  Beregningsgrunnlag as BeregningsgrunnlagProp,
+  SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 
+import { Vilkar } from '@navikt/ft-types/index';
+import { useFieldArray, useForm } from 'react-hook-form';
+import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
 import AksjonspunktBehandlerSN from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSN';
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
-import DekningsgradAksjonspunktPanel from './DekningsgradAksjonspunktPanel';
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 import styles from './aksjonspunktBehandler.less';
+import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import BeregningFormValues from '../../types/BeregningFormValues';
+import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';
+import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
+import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
+import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
+import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
+
+const {
+  FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+  VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+} = ProsessBeregningsgrunnlagAksjonspunktCode;
+
+const defaultFormName = 'BeregningForm';
+const finnFormName = (sammenligningsgrunnlag?: SammenligningsgrunlagProp): string =>
+  sammenligningsgrunnlag ? `${defaultFormName}_${sammenligningsgrunnlag.sammenligningsgrunnlagType}` : defaultFormName;
 
 const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
   if (!allePerioder || allePerioder.length < 1) {
@@ -47,14 +69,6 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
   }
   return [];
 };
-const harFlereAksjonspunkter = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  !!avklaringsbehov && avklaringsbehov.length > 1;
-const finnATFLVurderingLabel = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): ReactElement => {
-  if (harFlereAksjonspunkter(gjeldendeAvklaringsbehov)) {
-    return <FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />;
-  }
-  return <FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />;
-};
 
 const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean =>
   allePerioder.some(
@@ -62,11 +76,101 @@ const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: Beregningsgrunnlag
       periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET),
   );
 
+const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
+  // @ts-ignore
+  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
+
+const buildInitialValues = (
+  beregningsgrunnlag: BeregningsgrunnlagProp,
+  sammenligningsgrunnlag?: SammenligningsgrunlagProp,
+): AksjonspunktDataValues => {
+  if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
+    return {};
+  }
+  const allePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
+  const alleAndelerIForstePeriode =
+    beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+  const arbeidstakerAndeler = alleAndelerIForstePeriode.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  );
+  const frilanserAndeler = alleAndelerIForstePeriode.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+  );
+  const selvstendigNaeringAndeler = alleAndelerIForstePeriode.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  );
+  const valuesATFL = {
+    ...BeregningsgrunnlagPanel.buildInitialValues(beregningsgrunnlag.avklaringsbehov),
+    ...AksjonspunktBehandlerTB.buildInitialValues(allePerioder),
+    ...AksjonspunktBehandlerFL.buildInitialValues(frilanserAndeler),
+    ...GrunnlagForAarsinntektPanelAT.buildInitialValues(arbeidstakerAndeler),
+  };
+  const valuesSN = {
+    ...AksjonspunktBehandlerSN.buildInitialValues(selvstendigNaeringAndeler, beregningsgrunnlag.avklaringsbehov),
+  };
+  if (!sammenligningsgrunnlag) {
+    return {
+      ...valuesSN,
+    };
+  }
+  if (sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
+    return {
+      ...valuesATFL,
+      ...valuesSN,
+    };
+  }
+  return sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.AT_FL
+    ? { ...valuesATFL }
+    : { ...valuesSN };
+};
+
+const buildFieldInitialValue = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  alleKodeverk: AlleKodeverk,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  vilkårsperiode: Vilkarperiode,
+  relevanteStatuser: RelevanteStatuserProp,
+  avklaringsbehov: BeregningAvklaringsbehov,
+  sammenligningsgrunnlag?: SammenligningsgrunlagProp,
+): BeregningsgrunnlagValues => ({
+  ...buildInitialValues(beregningsgrunnlag, sammenligningsgrunnlag),
+  periode: vilkårsperiode.periode,
+  erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
+  relevanteStatuser,
+  gjeldendeAvklaringsbehov: [avklaringsbehov],
+  skjæringstidspunkt: beregningsgrunnlag.skjaeringstidspunktBeregning,
+  allePerioder: beregningsgrunnlag.beregningsgrunnlagPeriode,
+});
+
+const buildFormInitialValues = (
+  beregningsgrunnlag: Beregningsgrunnlag[],
+  alleKodeverk: AlleKodeverk,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  vilkår: Vilkar,
+  relevanteStatuser: RelevanteStatuserProp,
+  avklaringsbehov: BeregningAvklaringsbehov,
+  formName: string,
+  sammenligningsgrunnlag?: SammenligningsgrunlagProp,
+): BeregningFormValues => ({
+  [formName]: beregningsgrunnlag.map(bg =>
+    buildFieldInitialValue(
+      bg,
+      alleKodeverk,
+      arbeidsgiverOpplysningerPerId,
+      finnVilkårperiode(vilkår, bg.skjaeringstidspunktBeregning),
+      relevanteStatuser,
+      avklaringsbehov,
+      sammenligningsgrunnlag,
+    ),
+  ),
+});
+
 const settOppKomponenterForNæring = (
   readOnly: boolean,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  avklaringsbehov: BeregningAvklaringsbehov[],
+  avklaringsbehov: BeregningAvklaringsbehov,
   fieldIndex: number,
+  formName: string,
 ): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
@@ -106,20 +210,21 @@ const settOppKomponenterForNæring = (
         erVarigEndring={erVarigEndring}
         erNyoppstartet={erNyoppstartet}
         fieldIndex={fieldIndex}
+        formName={formName}
       />
     </>
   );
 };
 
 const settOppKomponenterForATFL = (
-  avklaringsbehov: BeregningAvklaringsbehov[],
+  avklaringsbehov: BeregningAvklaringsbehov,
   alleKodeverk: AlleKodeverk,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   readOnly: boolean,
-  formName: string,
   intl: IntlShape,
   fieldIndex: number,
+  formName: string,
 ): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
@@ -152,15 +257,16 @@ const settOppKomponenterForATFL = (
           alleKodeverk={alleKodeverk}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldIndex={fieldIndex}
+          formName={formName}
         />
       )}
-      {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} fieldIndex={fieldIndex} />}
+      {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} fieldIndex={fieldIndex} formName={formName} />}
       <VerticalSpacer sixteenPx />
       <FlexRow>
         <FlexColumn>
           <TextAreaField
-            name={`BeregningForm.${fieldIndex}.ATFLVurdering`}
-            label={finnATFLVurderingLabel(avklaringsbehov)}
+            name={`${formName}.${fieldIndex}.ATFLVurdering`}
+            label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
             readOnly={readOnly}
@@ -172,111 +278,242 @@ const settOppKomponenterForATFL = (
           />
         </FlexColumn>
       </FlexRow>
-      <VerticalSpacer sixteenPx />
     </>
   );
 };
 
+type AksjonspunktDataMedPeriode = {
+  periode: {
+    fom: string;
+    tom: string;
+  };
+  aksjonspunkter: GruppertAksjonspunktData[];
+};
+
+const grupperPåKode = (
+  gruppert: BeregningAksjonspunktSubmitType[],
+  curr: AksjonspunktDataMedPeriode,
+): BeregningAksjonspunktSubmitType[] => {
+  curr.aksjonspunkter.forEach(ap => {
+    const eksisterende = gruppert.find(gruppertAp => gruppertAp.kode === ap.kode);
+    if (eksisterende !== undefined) {
+      eksisterende.grunnlag.push({
+        periode: curr.periode,
+        ...ap.aksjonspunktData,
+      });
+      eksisterende.begrunnelse = `${eksisterende.begrunnelse} ${ap.aksjonspunktData.begrunnelse}`;
+    } else {
+      gruppert.push({
+        kode: ap.kode,
+        begrunnelse: ap.aksjonspunktData.begrunnelse,
+        grunnlag: [
+          {
+            periode: curr.periode,
+            ...ap.aksjonspunktData,
+          },
+        ],
+      });
+    }
+  });
+  return gruppert;
+};
+
+const harAksjonspunkt = (aksjonspunktKode: string, gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  gjeldendeAvklaringsbehov !== undefined &&
+  gjeldendeAvklaringsbehov !== null &&
+  gjeldendeAvklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
+
+const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunktData[] => {
+  const { allePerioder } = values;
+  if (allePerioder.length < 1) {
+    throw new Error('Ingen beregningsgrunnlagperioder, ugyldig tilstand');
+  }
+  allePerioder.sort((p1, p2) => {
+    if (!p1.beregningsgrunnlagPeriodeFom || !p2.beregningsgrunnlagPeriodeFom) {
+      return 0;
+    }
+    return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
+  });
+  const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
+  const grupperteAksjonspunkter = [] as GruppertAksjonspunktData[];
+  if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, values.gjeldendeAvklaringsbehov)) {
+    grupperteAksjonspunkter.push({
+      kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+      aksjonspunktData: BeregningsgrunnlagPanel.transformATFLValues(
+        values as ATFLValues,
+        values.relevanteStatuser,
+        alleAndelerIFørstePeriode,
+      ),
+    });
+    return grupperteAksjonspunkter;
+  }
+  if (
+    harAksjonspunkt(
+      VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+      values.gjeldendeAvklaringsbehov,
+    ) ||
+    harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)
+  ) {
+    grupperteAksjonspunkter.push({
+      kode: harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, values.gjeldendeAvklaringsbehov)
+        ? FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET
+        : VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+      aksjonspunktData: AksjonspunktBehandlerSN.transformValues(
+        values as VurderOgFastsettValues,
+        values.gjeldendeAvklaringsbehov,
+      ),
+    });
+    return grupperteAksjonspunkter;
+  }
+  if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD, values.gjeldendeAvklaringsbehov)) {
+    grupperteAksjonspunkter.push({
+      kode: FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+      aksjonspunktData: BeregningsgrunnlagPanel.transformATFLTidsbegrensetValues(
+        values as ATFLTidsbegrensetValues,
+        allePerioder,
+      ),
+    });
+    return grupperteAksjonspunkter;
+  }
+  return grupperteAksjonspunkter;
+};
+
+const transformFields = (values: BeregningFormValues, sg?: SammenligningsgrunlagProp) => {
+  const fields = values[finnFormName(sg)];
+  const aksjonspunktLister = fields
+    .filter(f => f.erTilVurdering)
+    .map(field => ({
+      periode: field.periode,
+      aksjonspunkter: transformValues(field),
+    }));
+  return aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
+};
+
 type OwnProps = {
   readOnly: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov[];
+  avklaringsbehov?: BeregningAvklaringsbehov;
   alleKodeverk: AlleKodeverk;
-  formName: string;
   readOnlySubmitButton: boolean;
   allePerioder?: BeregningsgrunnlagPeriodeProp[];
-  relevanteStatuser: RelevanteStatuserProp;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  isSubmitting: boolean;
-  isDirty: boolean;
-  fieldIndex: number;
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  vilkår: Vilkar;
+  submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
+  relevanteStatuser: RelevanteStatuserProp;
+  formData?: BeregningFormValues;
+  setFormData: (data: BeregningFormValues) => void;
+  aktivIndex: number;
+  sammenligningsgrunnlag?: SammenligningsgrunlagProp;
 };
 
 const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   readOnly,
   avklaringsbehov,
-  formName,
   readOnlySubmitButton,
   allePerioder,
   alleKodeverk,
-  relevanteStatuser,
   arbeidsgiverOpplysningerPerId,
-  isDirty,
-  isSubmitting,
-  fieldIndex,
+  beregningsgrunnlagListe,
+  vilkår,
+  submitCallback,
+  relevanteStatuser,
+  formData,
+  setFormData,
+  sammenligningsgrunnlag,
+  aktivIndex,
 }) => {
   const intl = useIntl();
-  if (!avklaringsbehov || avklaringsbehov.length === 0 || !allePerioder) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  if (!avklaringsbehov || !allePerioder) {
     return null;
   }
+
+  const losAvklaringsbehov = (values: BeregningFormValues, sg?: SammenligningsgrunlagProp) => {
+    setIsSubmitting(true);
+    submitCallback(transformFields(values, sg));
+  };
+
+  const formName = finnFormName(sammenligningsgrunnlag);
+  const formMethods = useForm<BeregningFormValues>({
+    defaultValues:
+      formData ||
+      buildFormInitialValues(
+        beregningsgrunnlagListe,
+        alleKodeverk,
+        arbeidsgiverOpplysningerPerId,
+        vilkår,
+        relevanteStatuser,
+        avklaringsbehov,
+        formName,
+        sammenligningsgrunnlag,
+      ),
+  });
+
+  const {
+    formState: { dirtyFields, isSubmitted },
+    control,
+    trigger,
+  } = formMethods;
+
+  const { fields } = useFieldArray({
+    name: formName,
+    control,
+  });
+
+  useEffect(() => {
+    if (isSubmitted && dirtyFields[formName]?.[aktivIndex]) {
+      trigger();
+    }
+  }, [aktivIndex]);
+
+  const aksjonspunktGjelderATFL =
+    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
+    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD;
+
   const submittKnapp = (
     <FlexRow>
       <FlexColumn>
         <ProsessStegSubmitButton
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
-          isDirty={isDirty}
+          isDirty={formMethods.formState.isDirty}
           isSubmitting={isSubmitting}
         />
       </FlexColumn>
     </FlexRow>
   );
-  if (relevanteStatuser.isSelvstendigNaeringsdrivende) {
-    return (
-      <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
-        <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-          {settOppKomponenterForNæring(readOnly, allePerioder, avklaringsbehov, fieldIndex)}
-          <VerticalSpacer sixteenPx />
-          {submittKnapp}
-          <VerticalSpacer sixteenPx />
-        </Panel>
-      </div>
-    );
-  }
-  const atflAPKoder = [
-    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-    ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-  ] as string[];
 
-  const harATFLAP = avklaringsbehov.some(ap => atflAPKoder.includes(ap.definisjon));
-  const harDekningsgradAP = avklaringsbehov.some(
-    ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
-  );
+  const formKomponent = (index: number): ReactElement | null =>
+    aksjonspunktGjelderATFL
+      ? settOppKomponenterForATFL(
+          avklaringsbehov,
+          alleKodeverk,
+          allePerioder,
+          arbeidsgiverOpplysningerPerId,
+          readOnly,
+          intl,
+          index,
+          formName,
+        )
+      : settOppKomponenterForNæring(readOnly, allePerioder, avklaringsbehov, index, formName);
   return (
-    <div className={readOnly ? '' : styles.aksjonspunktBehandlerContainer}>
-      <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-        {harATFLAP &&
-          settOppKomponenterForATFL(
-            avklaringsbehov,
-            alleKodeverk,
-            allePerioder,
-            arbeidsgiverOpplysningerPerId,
-            readOnly,
-            formName,
-            intl,
-            fieldIndex,
-          )}
-        {harDekningsgradAP && (
-          <>
-            <FlexRow>
-              <FlexColumn>
-                <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Dekningsgrad" />
-                </Heading>
-              </FlexColumn>
-            </FlexRow>
-            <VerticalSpacer eightPx />
-            <FlexRow>
-              <FlexColumn>
-                <DekningsgradAksjonspunktPanel readOnly={readOnly} fieldIndex={fieldIndex} />
-              </FlexColumn>
-            </FlexRow>
+    <Form
+      formMethods={formMethods}
+      onSubmit={values => losAvklaringsbehov(values, sammenligningsgrunnlag)}
+      setDataOnUnmount={setFormData}
+    >
+      {fields.map((field, index) => (
+        <div key={field.id} style={{ display: index === aktivIndex ? 'block' : 'none' }}>
+          <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
+            {formKomponent(index)}
             <VerticalSpacer sixteenPx />
-          </>
-        )}
-        {submittKnapp}
-        <VerticalSpacer sixteenPx />
-      </Panel>
-    </div>
+            {submittKnapp}
+            <VerticalSpacer sixteenPx />
+          </Panel>
+        </div>
+      ))}
+    </Form>
   );
 };
 
