@@ -18,18 +18,16 @@ const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
-const {
-  FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
   endretTekst?: React.ReactNode;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   erNyArbLivet: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov[];
+  avklaringsbehov: BeregningAvklaringsbehov;
   fieldIndex: number;
+  formName: string;
 };
 
 interface StaticFunctions {
@@ -54,13 +52,10 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
   avklaringsbehov,
   erNyArbLivet,
   fieldIndex,
+  formName,
 }) => {
-  const harGammeltAPFastsettBrutto = avklaringsbehov
-    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)
-    : false;
-  const harAPSNNyiArbLiv = avklaringsbehov
-    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
-    : false;
+  const harAPSNNyiArbLiv =
+    avklaringsbehov && avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET;
   const intl = useIntl();
 
   return (
@@ -76,7 +71,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
             <FlexColumn>
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
-                  name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
+                  name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
                   className={styles.breddeInntekt}
@@ -90,14 +85,14 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
         </>
       )}
 
-      {(harGammeltAPFastsettBrutto || harAPSNNyiArbLiv) && (
+      {harAPSNNyiArbLiv && (
         <>
           <VerticalSpacer sixteenPx />
           <FlexRow>
             <FlexColumn>
               <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>
                 <TextAreaField
-                  name={`BeregningForm.${fieldIndex}.${begrunnelseFieldname}`}
+                  name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
                   label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
                   validate={[required, maxLength1500, minLength3, hasValidText]}
                   maxLength={1500}

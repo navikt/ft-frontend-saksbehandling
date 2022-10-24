@@ -18,9 +18,10 @@ interface StaticFunctions {
 type OwnProps = {
   readOnly: boolean;
   fieldIndex: number;
+  formName: string;
 };
 
-const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, fieldIndex }) => (
+const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, fieldIndex, formName }) => (
   <FlexRow>
     <FlexColumn className={styles.atflAvvikAktivitet}>
       <BodyShort size="small">
@@ -30,7 +31,7 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
     <FlexColumn className={styles.atflAvvikInntekt}>
       <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
         <InputField
-          name={`BeregningForm.${fieldIndex}.inntektFrilanser`}
+          name={`${formName}.${fieldIndex}.inntektFrilanser`}
           validate={[required, maxValueFormatted(178956970)]}
           readOnly={readOnly}
           parse={parseCurrencyInput}
