@@ -103,7 +103,7 @@ const createRelevantePaneler = (
       </>
     )}
 
-    {relevanteStatuser.isSelvstendigNaeringsdrivende && (
+    {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
       <>
         {storSpacer}
         <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />

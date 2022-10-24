@@ -2,6 +2,7 @@ type RelevanteStatuserProp = Readonly<{
   isArbeidstaker: boolean;
   isFrilanser: boolean;
   isSelvstendigNaeringsdrivende: boolean;
+  isMidlertidigInaktiv: boolean;
   harAndreTilstotendeYtelser: boolean;
   harDagpengerEllerAAP: boolean;
   isAAP: boolean;
