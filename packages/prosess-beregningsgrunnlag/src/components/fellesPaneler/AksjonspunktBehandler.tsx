@@ -484,7 +484,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     </FlexRow>
   );
 
-  const formKomponent = (index: number): ReactElement =>
+  const formKomponent = (index: number): ReactElement | null =>
     aksjonspunktGjelderATFL
       ? settOppKomponenterForATFL(
           avklaringsbehov,
