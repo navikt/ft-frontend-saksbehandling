@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { TextAreaField, SelectField, CheckboxField, InputField, Datepicker } from '../index';
+import { TextAreaField, SelectField, CheckboxField, InputField } from '../index';
 import Form from './Form';
 import RadioGroupPanel from './RadioGroupPanel';
 
@@ -12,7 +12,6 @@ import styles from './formHooks.stories.less';
 // eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import CheckboxPanel from './CheckboxPanel';
-import Rangepicker from './Rangepicker';
 
 export default {
   title: 'FormHooks',
@@ -32,8 +31,6 @@ const Template: Story = () => {
       tomPre: '2022-10-27',
     },
   });
-
-  console.log(formMethods.watch());
 
   return (
     <Form formMethods={formMethods}>
@@ -168,7 +165,7 @@ const Template: Story = () => {
         ]}
       />
       <VerticalSpacer sixteenPx />
-      <Datepicker
+      {/* <Datepicker
         label="Dette er en datepicker"
         name="datepickerField"
         disabledDays={{
@@ -181,7 +178,7 @@ const Template: Story = () => {
       <VerticalSpacer sixteenPx />
       <Rangepicker label="Periode" fomName="fom" tomName="tom" />
       <VerticalSpacer sixteenPx />
-      <Rangepicker label="Periode der verdi er valgt" fomName="fomPre" tomName="tomPre" />
+      <Rangepicker label="Periode der verdi er valgt" fomName="fomPre" tomName="tomPre" />  */}
     </Form>
   );
 };

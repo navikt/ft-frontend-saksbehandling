@@ -6,6 +6,14 @@ import * as stories from './FormHooks.stories';
 
 const { VisFormkomponenter } = composeStories(stories);
 
+window.ResizeObserver =
+  window.ResizeObserver ||
+  jest.fn().mockImplementation(() => ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+  }));
+
 describe('<FormHooks>', () => {
   it('skal verifisere input-komponenter', async () => {
     const utils = render(<VisFormkomponenter />);
@@ -25,7 +33,5 @@ describe('<FormHooks>', () => {
     expect(await screen.getByRole('option', { name: 'Test 1' }).selected).toBe(true);
 
     await userEvent.type(utils.getByLabelText('Dette er et tekstfelt'), 'Dette er en vurdering');
-
-    await userEvent.type(utils.getByLabelText('Dette er en label'), '10.10.2022');
   });
 });
