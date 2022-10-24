@@ -2,8 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate } from '@navikt/ft-form-validators';
-import { TextAreaField, SelectField, CheckboxField, InputField, Datepicker } from '../index';
+import { TextAreaField, SelectField, CheckboxField, InputField } from '../index';
 import Form from './Form';
 import RadioGroupPanel from './RadioGroupPanel';
 
@@ -27,6 +26,9 @@ const Template: Story = () => {
       radiopre: true,
       testSelectFieldpre: 'value3',
       testTextAreaFieldPre: 'Dette er en begrunnelse',
+      datepickerFieldPre: '2022-10-22',
+      fomPre: '2022-10-22',
+      tomPre: '2022-10-27',
     },
   });
 
@@ -163,11 +165,20 @@ const Template: Story = () => {
         ]}
       />
       <VerticalSpacer sixteenPx />
-      <Datepicker
-        label="Dette er en label"
-        name="reserverTil"
-        validate={[hasValidDate, dateAfterOrEqual(new Date()), dateBeforeOrEqual(new Date())]}
+      {/* <Datepicker
+        label="Dette er en datepicker"
+        name="datepickerField"
+        disabledDays={{
+          fromDate: new Date('2022-10-10'),
+          toDate: new Date('2022-10-14'),
+        }}
       />
+      <VerticalSpacer sixteenPx />
+      <Datepicker label="Dette er en datepicker der verdi er valgt" name="datepickerFieldPre" />
+      <VerticalSpacer sixteenPx />
+      <Rangepicker label="Periode" fomName="fom" tomName="tom" />
+      <VerticalSpacer sixteenPx />
+      <Rangepicker label="Periode der verdi er valgt" fomName="fomPre" tomName="tomPre" />  */}
     </Form>
   );
 };

@@ -7,6 +7,14 @@ import * as stories from './ForeldelseProsessIndex.stories';
 
 const { Default, UtenAksjonspunkt } = composeStories(stories);
 
+window.ResizeObserver =
+  window.ResizeObserver ||
+  jest.fn().mockImplementation(() => ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+  }));
+
 describe('<ForeldelseProsessIndex>', () => {
   jest.setTimeout(15000);
 

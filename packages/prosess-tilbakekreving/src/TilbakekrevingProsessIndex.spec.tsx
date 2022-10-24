@@ -7,6 +7,14 @@ import * as stories from './TilbakekrevingProsessIndex.stories';
 
 const { Default, MedToPerioder } = composeStories(stories);
 
+window.ResizeObserver =
+  window.ResizeObserver ||
+  jest.fn().mockImplementation(() => ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+  }));
+
 describe('<TilbakekrevingProsessIndex>', () => {
   jest.setTimeout(20000);
 

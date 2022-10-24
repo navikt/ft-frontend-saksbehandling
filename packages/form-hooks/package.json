@@ -24,32 +24,30 @@
     "storybook": "cross-env start-storybook -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "^1.3.5",
-    "@navikt/ds-react": "^1.3.5",
+    "@navikt/ds-css": "^1.3.28",
+    "@navikt/ds-react": "^1.3.28",
     "@navikt/ft-form-validators": "^1.0.34",
     "@navikt/ft-types": "^1.0.31",
     "@navikt/ft-ui-komponenter": "^1.1.8",
     "@navikt/ft-utils": "^1.1.5",
     "classnames": "2.3.2",
-    "dayjs": "1.11.5",
+    "dayjs": "1.11.6",
     "lodash.throttle": "4.1.1",
-    "nav-datovelger": "12.6.0",
     "react": "18.2.0",
-    "react-hook-form": "7.36.1"
+    "react-hook-form": "7.38.0"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "^1.3.5",
-    "@navikt/ds-react": "^1.3.5",
+    "@navikt/ds-css": "^1.3.28",
+    "@navikt/ds-react": "^1.3.28",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "^1.x",
     "@navikt/ft-utils": "^1.x",
     "classnames": "2.3.2",
-    "dayjs": "1.11.5",
+    "dayjs": "1.11.6",
     "lodash.throttle": "4.1.1",
-    "nav-datovelger": "12.6.0",
     "react": "18.2.0",
-    "react-hook-form": "7.36.1"
+    "react-hook-form": "7.38.0"
   },
   "devDependencies": {
     "@navikt/ft-utils-test": "^1.1.3",
