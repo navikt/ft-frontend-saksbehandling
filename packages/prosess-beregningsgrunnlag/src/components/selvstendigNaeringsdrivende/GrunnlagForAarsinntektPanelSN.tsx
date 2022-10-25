@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
@@ -71,11 +71,15 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer selvstendig næringsdrivende.
  */
 const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const snAndel = alleAndeler.find(andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
-  if (!snAndel) {
+  const andel = alleAndeler.find(
+    a =>
+      a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      a.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
+  );
+  if (!andel) {
     return null;
   }
-  const { pgiVerdier, pgiSnitt } = snAndel;
+  const { pgiVerdier, pgiSnitt } = andel;
   return (
     <>
       <Heading size="medium">
