@@ -41,10 +41,10 @@ const statuserDetErSøktOmIPerioden = (
 
 const lagBeskrivelseMedBeløpRad = (tekstId: string, beløp: number) => (
   <FlexRow>
-    <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+    <FlexColumn className={beregningStyles.tabellAktivitet}>
       <FormattedMessage id={tekstId} />
     </FlexColumn>
-    <FlexColumn className={beregningStyles.atflTabellInntekt}>
+    <FlexColumn className={beregningStyles.tabellInntekt}>
       <BodyShort size="small">{formatCurrencyNoKr(beløp)}</BodyShort>
     </FlexColumn>
   </FlexRow>
@@ -62,19 +62,19 @@ const lagRedusertBGRad = (
   return (
     <>
       <FlexRow>
-        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+        <FlexColumn className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id={tekstIdRedusert} values={{ grad: gjeldendeDekningsgrad }} />
         </FlexColumn>
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <BodyShort size="small">{formatCurrencyNoKr(redusert)}</BodyShort>
         </FlexColumn>
       </FlexRow>
       {(løpendeBeløp || løpendeBeløp === 0) && (
         <FlexRow>
-          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+          <FlexColumn className={beregningStyles.tabellAktivitet}>
             <FormattedMessage id={tekstIdLøpende} />
           </FlexColumn>
-          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+          <FlexColumn className={beregningStyles.tabellInntekt}>
             <BodyShort size="small">{formatCurrencyNoKr(løpendeBeløp)}</BodyShort>
           </FlexColumn>
         </FlexRow>
@@ -147,12 +147,12 @@ const lagPeriodeblokk = (
         </FlexColumn>
       </FlexRow>
       <FlexRow>
-        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+        <FlexColumn className={beregningStyles.tabellAktivitet}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.Resultat.Dagsats" />
           </Detail>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <BodyShort size="small">{formatCurrencyNoKr(bgperiode.dagsats)}</BodyShort>
         </FlexColumn>
       </FlexRow>

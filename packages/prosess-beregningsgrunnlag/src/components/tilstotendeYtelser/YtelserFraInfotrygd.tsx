@@ -28,28 +28,28 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
           </FlexColumn>
         </FlexRow>
         <FlexRow>
-          <FlexColumn className={beregningStyles.atflTabellAktivitet} />
-          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+          <FlexColumn className={beregningStyles.tabellAktivitet} />
+          <FlexColumn className={beregningStyles.tabellInntekt}>
             <Detail size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
             </Detail>
           </FlexColumn>
-          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+          <FlexColumn className={beregningStyles.tabellInntekt}>
             <Detail size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
             </Detail>
           </FlexColumn>
         </FlexRow>
         <FlexRow>
-          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+          <FlexColumn className={beregningStyles.tabellAktivitet}>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
             </BodyShort>
           </FlexColumn>
-          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+          <FlexColumn className={beregningStyles.tabellInntekt}>
             <BodyShort size="small">{formatCurrencyNoKr(bruttoPrAar / 12)}</BodyShort>
           </FlexColumn>
-          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+          <FlexColumn className={beregningStyles.tabellInntekt}>
             <Label size="small">{formatCurrencyNoKr(bruttoPrAar)}</Label>
           </FlexColumn>
         </FlexRow>
