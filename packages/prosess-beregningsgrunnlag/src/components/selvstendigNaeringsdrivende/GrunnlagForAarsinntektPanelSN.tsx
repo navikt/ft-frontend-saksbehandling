@@ -8,6 +8,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel, PgiVerdier } from '@navikt/ft-types';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import Ledelinje from '../fellesPaneler/Ledelinje';
 
 const createHeaderRow = (): React.ReactNode => (
   <FlexRow>
@@ -23,16 +24,10 @@ const createHeaderRow = (): React.ReactNode => (
     </FlexColumn>
   </FlexRow>
 );
-const skilleLinje = (
-  <FlexRow className={beregningStyles.noPaddingRight}>
-    <FlexColumn className={beregningStyles.heldekkendeKol}>
-      <div className={beregningStyles.colDevider} />
-    </FlexColumn>
-  </FlexRow>
-);
+
 const createSumRow = (pgiSnitt: number): React.ReactNode => (
   <>
-    {skilleLinje}
+    <Ledelinje prosentBredde={55} />
     <FlexRow>
       <FlexColumn className={beregningStyles.næringTabellAktivitet}>
         <Label size="small">
@@ -90,6 +85,7 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
       </FlexRow>
       <VerticalSpacer fourPx />
       {createHeaderRow()}
+      <Ledelinje prosentBredde={55} />
       {!!pgiVerdier && <>{createInntektRows(pgiVerdier)}</>}
       {pgiSnitt !== undefined && <>{createSumRow(pgiSnitt)}</>}
     </>

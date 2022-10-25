@@ -1,14 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, ReadMore, Heading } from '@navikt/ds-react';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import styles from './naeringsOpplysningsPanel.less';
+import Ledelinje from '../fellesPaneler/Ledelinje';
 
 const finnvirksomhetsTypeKode = (næring: Næring): string => {
   const kode = næring?.virksomhetType;
@@ -59,15 +60,16 @@ const erNæringNyoppstartetEllerVarigEndret = (næring: Næring): boolean => {
   return !!erVarigEndret || !!erNyoppstartet;
 };
 
-const lagBeskrivelsePanel = (næringsAndel: Næring): React.ReactNode => (
-  <ReadMore size="medium" header={lagIntroTilEndringspanel(næringsAndel)} defaultOpen>
-    {næringsAndel.begrunnelse && næringsAndel.begrunnelse !== '' && (
+const lagBeskrivelsePanel = (næringsAndel: Næring): React.ReactNode => {
+  if (næringsAndel.begrunnelse && næringsAndel.begrunnelse !== '') {
+    return (
       <BodyShort size="small" className={styles.merTekstBorder}>
         {næringsAndel.begrunnelse}
       </BodyShort>
-    )}
-  </ReadMore>
-);
+    );
+  }
+  return null;
+};
 
 const søkerHarOppgittInntekt = (næring: Næring): boolean => !!næring.oppgittInntekt || næring.oppgittInntekt === 0;
 
@@ -87,29 +89,22 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
     return null;
   }
 
-  const skilleLinje = (
-    <FlexRow className={beregningStyles.noPaddingRight}>
-      <FlexColumn className={beregningStyles.heldekkendeKol}>
-        <div className={beregningStyles.colDevider} />
-      </FlexColumn>
-    </FlexRow>
-  );
-
   return (
     <>
       <FlexRow>
-        <FlexColumn>
+        <FlexColumn className={beregningStyles.tabellAktivitet}>
           <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
           </Heading>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.hoyreOverskrift}>
+        <FlexColumn className={beregningStyles.tabellAktivitet} />
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Detail>
             <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
           </Detail>
         </FlexColumn>
       </FlexRow>
-      {skilleLinje}
+      <Ledelinje prosentBredde={100} />
       {snAndel.næringer.map(naring => (
         <React.Fragment key={`NaringsWrapper${naring.orgnr}`}>
           <FlexRow>
@@ -148,8 +143,13 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
           </FlexRow>
           {erNæringNyoppstartetEllerVarigEndret(naring) && (
             <>
-              {skilleLinje}
-              <>{lagBeskrivelsePanel(naring)}</>
+              <Ledelinje prosentBredde={100} />
+              <VerticalSpacer twentyPx />
+              {lagIntroTilEndringspanel(naring)}
+              <VerticalSpacer eightPx />
+              <FlexRow className={beregningStyles.næringEndringBeskrivelse}>
+                <FlexColumn>{lagBeskrivelsePanel(naring)}</FlexColumn>
+              </FlexRow>
             </>
           )}
         </React.Fragment>

@@ -22,6 +22,7 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 import ReactECharts from '../echart/ReactECharts';
 
 import styles from './sammenligningsgrunnlagAOrdningen.less';
+import Ledelinje from './Ledelinje';
 
 const GRAF_FARGE_AT = '#99bdcd';
 const GRAF_FARGE_FL = '#c1b5d0';
@@ -45,7 +46,7 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
     .reduce((i1, i2) => i1 + i2, 0);
   return (
     <>
-      <VerticalSpacer eightPx />
+      <div className={beregningStyles.storSpace} />
       <FlexRow>
         <FlexColumn>
           <Label size="small">
@@ -54,46 +55,49 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
         </FlexColumn>
       </FlexRow>
       {relevanteStatuser.harArbeidsinntekt && (
-        <FlexRow>
-          <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
-            <BodyShort size="small" className={styles.rightAlign}>
-              {formatCurrencyNoKr(sumATAndeler)}
-            </BodyShort>
-          </FlexColumn>
-        </FlexRow>
+        <>
+          <FlexRow>
+            <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
+              <BodyShort size="small">
+                <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
+              </BodyShort>
+            </FlexColumn>
+            <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
+              <BodyShort size="small">{formatCurrencyNoKr(sumATAndeler)}</BodyShort>
+            </FlexColumn>
+          </FlexRow>
+          <Ledelinje prosentBredde={20} />
+        </>
       )}
       {relevanteStatuser.harFrilansinntekt && (
-        <FlexRow>
-          <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
-            <BodyShort size="small" className={styles.rightAlign}>
-              {formatCurrencyNoKr(sumFLAndeler)}
-            </BodyShort>
-          </FlexColumn>
-        </FlexRow>
+        <>
+          <FlexRow>
+            <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
+              <BodyShort size="small">
+                <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
+              </BodyShort>
+            </FlexColumn>
+            <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
+              <BodyShort size="small">{formatCurrencyNoKr(sumFLAndeler)}</BodyShort>
+            </FlexColumn>
+          </FlexRow>
+          <Ledelinje prosentBredde={20} />
+        </>
       )}
       {relevanteStatuser.harYtelseinntekt && (
-        <FlexRow>
-          <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
-            <BodyShort size="small" className={styles.rightAlign}>
-              {formatCurrencyNoKr(sumYtelseAndeler)}
-            </BodyShort>
-          </FlexColumn>
-        </FlexRow>
+        <>
+          <FlexRow>
+            <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
+              <BodyShort size="small">
+                <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
+              </BodyShort>
+            </FlexColumn>
+            <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
+              <BodyShort size="small">{formatCurrencyNoKr(sumYtelseAndeler)}</BodyShort>
+            </FlexColumn>
+          </FlexRow>
+          <Ledelinje prosentBredde={20} />
+        </>
       )}
     </>
   );
@@ -233,14 +237,6 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
               },
               axisPointer: {
                 type: 'shadow',
-              },
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {
-                  title: 'Lagre ',
-                  name: 'inntekt_og_ytelse',
-                },
               },
             },
             legend: {

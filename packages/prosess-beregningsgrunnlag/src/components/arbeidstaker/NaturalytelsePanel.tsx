@@ -177,13 +177,13 @@ const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
       </FlexRow>
       {rad.naturalytelseEndringer.map(endring => (
         <FlexRow key={rad.nøkkel + endring.fom}>
-          <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+          <FlexColumn className={beregningStyles.tabellAktivitet}>
             <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
           </FlexColumn>
-          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+          <FlexColumn className={beregningStyles.tabellInntekt}>
             <BodyShort size="small">{formatCurrencyNoKr(endring.beløpPrMåned)}</BodyShort>
           </FlexColumn>
-          <FlexColumn className={beregningStyles.atflTabellInntekt}>
+          <FlexColumn className={beregningStyles.tabellInntekt}>
             <Label size="small">{formatCurrencyNoKr(endring.beløpPrÅr)}</Label>
           </FlexColumn>
         </FlexRow>
@@ -212,13 +212,13 @@ const NaturalytelsePanel: FunctionComponent<OwnProps> = ({ allePerioder, arbeids
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
       </Label>
       <FlexRow>
-        <FlexColumn className={beregningStyles.atflTabellAktivitet} />
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellAktivitet} />
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
           </Detail>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
           </Detail>
