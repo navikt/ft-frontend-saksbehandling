@@ -30,6 +30,7 @@ export type FastsettAvvikATFLTidsbegrensetResultatAP = {
 
 export type VurderVarigEndretNyoppstartetResultatAP = {
   erVarigEndretNaering: boolean;
+  erVarigEndret: boolean;
   bruttoBeregningsgrunnlag?: number;
 } & Begrunnelse;
 

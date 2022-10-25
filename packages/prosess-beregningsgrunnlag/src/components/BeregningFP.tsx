@@ -29,6 +29,7 @@ import BeregningFormValues from '../types/BeregningFormValues';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
@@ -42,6 +43,7 @@ const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
   isArbeidstaker: statuser.some(kode => isStatusArbeidstakerOrKombinasjon(kode)),
   isFrilanser: statuser.some(kode => isStatusFrilanserOrKombinasjon(kode)),
   isSelvstendigNaeringsdrivende: statuser.some(kode => isStatusSNOrKombinasjon(kode)),
+  isMidlertidigInaktiv: statuser.some(kode => kode === AktivitetStatus.MIDLERTIDIG_INAKTIV),
   harAndreTilstotendeYtelser: statuser.some(kode => isStatusTilstotendeYtelse(kode)),
   harDagpengerEllerAAP: statuser.some(kode => isStatusDagpengerOrAAP(kode)),
   isAAP: statuser.some(kode => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),

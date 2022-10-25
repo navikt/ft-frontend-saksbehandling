@@ -4,7 +4,7 @@ export type NyIArbeidslivetValues = {
 };
 
 export type VurderOgFastsettValues = {
-  erVarigEndretNaering?: boolean;
+  erVarigEndret?: boolean;
   varigEndringNyoppstartetBegrunnelse?: string;
   bruttoBeregningsgrunnlag?: string;
 };

@@ -106,6 +106,29 @@ const lagSNMedPGI = (
     næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
   } as BeregningsgrunnlagAndel);
 
+const lagBrukersAndelMedPGI = (
+  andelnr: number,
+  beregnet: number,
+  overstyrt: number | undefined,
+  skalFastsettGrunnlag: boolean,
+): BeregningsgrunnlagAndel =>
+  ({
+    aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+    beregningsperiodeFom: '2019-01-01',
+    beregningsperiodeTom: '2021-12-31',
+    beregnetPrAar: beregnet,
+    overstyrtPrAar: overstyrt,
+    bruttoPrAar: overstyrt || beregnet,
+    avkortetPrAar: 360000,
+    redusertPrAar: 599000,
+    skalFastsetteGrunnlag: skalFastsettGrunnlag,
+    andelsnr: andelnr,
+    lagtTilAvSaksbehandler: false,
+    erTilkommetAndel: false,
+    pgiSnitt: lagPGISnitt(),
+    pgiVerdier: lagPGIVerdier(),
+  } as BeregningsgrunnlagAndel);
+
 const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<BeregningAvklaringsbehov> => ({
   definisjon: kode,
   status: begrunnelse ? 'UTFO' : 'OPPR',
@@ -729,6 +752,22 @@ SelvstendigNæringsdrivendeMedAksjonspunktAp5039.args = {
           ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
         ),
       ],
+    ),
+  ],
+  vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};
+
+export const MidlertidigInaktivMedAksjonspunktAp5054 = Template.bind({});
+MidlertidigInaktivMedAksjonspunktAp5054.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(
+      malPerioder([lagBrukersAndelMedPGI(1, 200000, undefined, true)]),
+      ['MIDL_INAKTIV'],
+      undefined,
+      [malSGGrunnlagAvvik(SammenligningType.MIDLERTIDIG_INAKTIV)],
+      [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)],
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),

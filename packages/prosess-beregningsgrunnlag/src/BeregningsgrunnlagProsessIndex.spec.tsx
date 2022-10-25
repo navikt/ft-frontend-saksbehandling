@@ -8,6 +8,7 @@ const {
   ArbeidstakerMedAvvikAp5038,
   ArbeidstakerUtenAvvik,
   SelvstendigNæringsdrivendeMedAksjonspunktAp5039,
+  MidlertidigInaktivMedAksjonspunktAp5054,
   SelvstendigNæringsdrivendNyIArbeidslivetAp5049,
   NaturalYtelse,
   TidsbegrensetArbeidsforholdMedAvvikAp5047,
@@ -156,9 +157,63 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             begrunnelse: 'Min begrunnelse for vurdering av varig endring',
             bruttoBeregningsgrunnlag: 260000,
             erVarigEndretNaering: true,
+            erVarigEndret: true,
           },
         ],
         kode: '5039',
+      },
+    ]);
+  });
+
+  it('skal bekrefte aksjonspunkt for vurder varig endret arbeidssituasjon', async () => {
+    const lagre = jest.fn();
+
+    const utils = render(<MidlertidigInaktivMedAksjonspunktAp5054 submitCallback={lagre} />);
+
+    expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
+
+    // Årsgrunnlag næring
+    expect(screen.getByText('3 siste ferdigliknede år fra skatteetaten')).toBeInTheDocument();
+    expect(screen.getByText('2017')).toBeInTheDocument();
+    expect(screen.getByText('2016')).toBeInTheDocument();
+    expect(screen.getByText('2015')).toBeInTheDocument();
+    expect(screen.getByText('124 412')).toBeInTheDocument();
+    expect(screen.getByText('98 456')).toBeInTheDocument();
+    expect(screen.getByText('9 861 482')).toBeInTheDocument();
+
+    // Aksjonspunkt
+    expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText('Ingen varig endring'));
+    await waitFor(() => expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument());
+    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes.'));
+    expect(await screen.findByText('Varig endret årsinntekt fastsettes til')).toBeInTheDocument();
+    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const bruttoFelt = alleInputfelt[0];
+    const begrunnelseFelt = alleInputfelt[1];
+    await userEvent.type(bruttoFelt, '260 000');
+    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for vurdering av varig endring');
+
+    expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
+
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        begrunnelse: 'Min begrunnelse for vurdering av varig endring',
+        grunnlag: [
+          {
+            periode: {
+              fom: '2021-01-01',
+              tom: '2021-01-21',
+            },
+            begrunnelse: 'Min begrunnelse for vurdering av varig endring',
+            bruttoBeregningsgrunnlag: 260000,
+            erVarigEndretNaering: true,
+            erVarigEndret: true,
+          },
+        ],
+        kode: '5054',
       },
     ]);
   });
@@ -386,6 +441,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
               tom: '2021-01-21',
             },
             erVarigEndretNaering: true,
+            erVarigEndret: true,
             bruttoBeregningsgrunnlag: 260000,
             begrunnelse: 'Min begrunnelse for vurdering av varig endring',
           },
