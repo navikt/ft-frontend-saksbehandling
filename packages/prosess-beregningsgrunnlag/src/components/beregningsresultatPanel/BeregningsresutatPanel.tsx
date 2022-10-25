@@ -19,14 +19,7 @@ import BeregningsresultatPeriodeTabellType, {
 } from '../../types/BeregningsresultatPeriodeTabellType';
 
 import styles from './beregningsresultatTable.less';
-
-const skilleLinje = (
-  <FlexRow className={beregningStyles.arbeidPanelSkille}>
-    <FlexColumn className={beregningStyles.heldekkendeKol}>
-      <div className={beregningStyles.colDevider} />
-    </FlexColumn>
-  </FlexRow>
-);
+import Ledelinje from '../fellesPaneler/Ledelinje';
 
 const lagSpesialRaderRad = (
   visningsObjekt: BruttoRadType | AvkortetRadType | RedusertRadType,
@@ -53,7 +46,7 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
   }
   return (
     <React.Fragment key="beregningOppsummeringWrapper">
-      {skilleLinje}
+      <Ledelinje prosentBredde={65} />
       <FlexRow key="beregningOppsummering">
         <FlexColumn className={styles.beskrivelse} key="beregningOppsummeringLedetekst">
           <BodyShort size="small">
@@ -71,7 +64,7 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
             </span>
           </BodyShort>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.beløp}>
+        <FlexColumn className={styles.beløp}>
           <BodyShort size="small" className={beregningStyles.semiBoldText}>
             {dagsatsRad.verdi || dagsatsRad.verdi === '0' ? dagsatsRad.verdi : '-'}
           </BodyShort>
@@ -100,7 +93,7 @@ const lagAndelerRader = (listofAndeler: BeregningsresultatAndelElementType[], ik
         <BodyShort size="small">{entry.ledetekst ? entry.ledetekst : '-'}</BodyShort>
       </FlexColumn>
       {!ikkeVurdert && (
-        <FlexColumn key={`indexAt2${index + 2}`} className={beregningStyles.beløp}>
+        <FlexColumn key={`indexAt2${index + 2}`} className={styles.beløp}>
           <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
         </FlexColumn>
       )}
@@ -112,7 +105,7 @@ const lagAndelerRader = (listofAndeler: BeregningsresultatAndelElementType[], ik
         </FlexColumn>
       )}
       {ikkeVurdert && !entry.skalFastsetteGrunnlag && (
-        <FlexColumn key={`indexAf2${index + 2}`} className={beregningStyles.beløp}>
+        <FlexColumn key={`indexAf2${index + 2}`} className={styles.beløp}>
           <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
         </FlexColumn>
       )}
@@ -130,7 +123,7 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
   }
   if (!ikkeVurdert) {
     if (rowsAndeler.length > 1) {
-      rows.push(skilleLinje);
+      rows.push(<Ledelinje prosentBredde={65} />);
       const bruttoRadKomponent = lagSpesialRaderRad(bruttoRad, 'brutto');
       if (bruttoRadKomponent) {
         rows.push(bruttoRadKomponent);

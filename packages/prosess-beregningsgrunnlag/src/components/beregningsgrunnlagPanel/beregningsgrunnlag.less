@@ -1,19 +1,8 @@
 @import '@{coreModulePath}nav-frontend-core/less/_variabler';
 // dette stylsheetet brukes av flere av komponentene unde prosess-beregningsgrunnlag
-.beregningsgrunnlagPanel {
-  max-width: 100%;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
 .avsnittOverskrift {
   font-size: 1.125rem;
   font-weight: 600;
-}
-
-.aksjonsPunktHjelpeTekst {
-  padding: 0 20px 0 20px;
 }
 
 .venstreKolonne {
@@ -22,13 +11,6 @@
 
 .hoyreKolonne {
   width: 50%;
-}
-
-.heldekkende {
-  border-top: 1px solid var(--navds-semantic-color-divider);
-  margin-top: 4px;
-  min-height: 8px;
-  width: 100%;
 }
 
 .panelLeft {
@@ -56,29 +38,8 @@
   font-weight: 600;
 }
 
-.rightAlignElement {
-  padding-left: 0;
-
-  && p {
-    text-align: right;
-  }
-}
-
-.rightAlignTextInDiv {
-  text-align: right;
-}
-
-.rightAlignElementNoWrap {
-  padding-left: 0;
-
-  && p {
-    text-align: right;
-    white-space: nowrap;
-  }
-}
-
-.setBoxHeight {
-  height: 230px;
+.næringEndringBeskrivelse {
+  width: 70%;
 }
 
 .redError {
@@ -89,47 +50,18 @@
   text-transform: none;
 }
 
-.tekstOverflow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.hoyreOverskrift {
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-top: auto;
-  /* stylelint-disable-next-line declaration-no-important */
-  padding: 0 !important;
-}
-
-.colMaanedText {
-  float: left;
-  min-height: 1px;
-  padding-left: 8px;
-  padding-right: 0;
-  position: relative;
-  text-align: right;
-}
-
-.maksBoks {
-  height: 16px;
-}
-
-.hoyreJustert {
-  /* stylelint-disable-next-line declaration-no-important */ // Trengs for å overstyre FlexRow sin margin setting
-  margin-left: auto !important;
-}
-
-.atflTabellAktivitet {
+.tabellAktivitet {
   width: 70%;
 }
 
-.atflTabellInntekt {
+.tabellInntekt {
+  display: flex;
+  justify-content: flex-end;
   width: 15%;
 }
 
 .næringTabellAktivitet {
-  width: 85%;
+  width: 40%;
 }
 
 .næringTabellInntekt {
@@ -150,17 +82,8 @@
   width: 20%;
 }
 
-.colAarText {
-  float: left;
-  min-height: 1px;
-  padding-left: 8px;
-  padding-right: 0;
-  position: relative;
-  text-align: right;
-  white-space: nowrap;
-}
-
 .heldekkendeKol {
+  height: 5px;
   /* stylelint-disable-next-line declaration-no-important */
   padding: 0 !important;
   width: 100%;
@@ -169,25 +92,6 @@
 .colDevider {
   border-top: 1px solid var(--navds-semantic-color-divider);
   margin-top: 4px;
-  min-height: 8px;
-}
-
-.colLink {
-  float: left;
-  min-height: 1px;
-  padding-left: 8px;
-  padding-right: 0;
-  position: relative;
-  text-align: right;
-}
-
-.colTidsbegrenset {
-  float: left;
-  min-height: 1px;
-  padding-left: 0;
-  padding-right: 0;
-  position: relative;
-  text-align: right;
 }
 
 .noPaddingRight {
@@ -196,12 +100,4 @@
 
 .arbeidPanelSkille {
   padding-left: 8px;
-}
-
-.paragrafSkiller {
-  display: none;
-
-  @media (max-width: 990px) {
-    display: inherit;
-  }
 }
