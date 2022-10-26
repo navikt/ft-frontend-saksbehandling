@@ -5,13 +5,15 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField, SelectField, CheckboxField, InputField } from '../index';
 import Form from './Form';
 import RadioGroupPanel from './RadioGroupPanel';
+import CheckboxPanel from './CheckboxPanel';
+import Rangepicker from './Rangepicker';
+import Datepicker from './Datepicker';
 
 import styles from './formHooks.stories.less';
 
 // TODO Kvifor feilar denne kun på Github?
 // eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
-import CheckboxPanel from './CheckboxPanel';
 
 export default {
   title: 'FormHooks',
@@ -165,7 +167,7 @@ const Template: Story = () => {
         ]}
       />
       <VerticalSpacer sixteenPx />
-      {/* <Datepicker
+      <Datepicker
         label="Dette er en datepicker"
         name="datepickerField"
         disabledDays={{
@@ -178,7 +180,7 @@ const Template: Story = () => {
       <VerticalSpacer sixteenPx />
       <Rangepicker label="Periode" fomName="fom" tomName="tom" />
       <VerticalSpacer sixteenPx />
-      <Rangepicker label="Periode der verdi er valgt" fomName="fomPre" tomName="tomPre" />  */}
+      <Rangepicker label="Periode der verdi er valgt" fomName="fomPre" tomName="tomPre" />
     </Form>
   );
 };

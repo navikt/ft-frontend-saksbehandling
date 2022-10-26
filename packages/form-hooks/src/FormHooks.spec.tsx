@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import * as stories from './FormHooks.stories';
@@ -33,5 +33,9 @@ describe('<FormHooks>', () => {
     expect(await screen.getByRole('option', { name: 'Test 1' }).selected).toBe(true);
 
     await userEvent.type(utils.getByLabelText('Dette er et tekstfelt'), 'Dette er en vurdering');
+
+    const datofelt = screen.getByText('Dette er en datepicker');
+    await userEvent.type(datofelt, '01.02.2020');
+    fireEvent.blur(datofelt);
   });
 });
