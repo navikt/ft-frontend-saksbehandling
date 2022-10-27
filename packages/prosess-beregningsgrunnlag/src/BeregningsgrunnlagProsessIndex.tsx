@@ -69,7 +69,7 @@ type MenyProp = {
 };
 
 const erBGTilVurdering = (bgVilkar: Vilkar, beregningsgrunnlag: Beregningsgrunnlag) => {
-  const vilårsperiodeFom = beregningsgrunnlag.skjaeringstidspunktBeregning;
+  const vilårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
   const perioderTilVurdering =
     bgVilkar && bgVilkar.perioder
       ? bgVilkar.perioder.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse)
