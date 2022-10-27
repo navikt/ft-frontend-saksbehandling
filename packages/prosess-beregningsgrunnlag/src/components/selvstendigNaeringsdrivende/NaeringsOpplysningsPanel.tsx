@@ -120,10 +120,10 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
             </FlexColumn>
           </FlexRow>
           <FlexRow key={`NaringsDetaljer${naring.orgnr}`}>
-            <FlexColumn className={beregningStyles.næringOpplysningOrgnrDato}>
+            <FlexColumn className={beregningStyles.næringOpplysningOrgnr}>
               <BodyShort size="small">{naring && naring.orgnr ? naring.orgnr : ''}</BodyShort>
             </FlexColumn>
-            <FlexColumn className={beregningStyles.næringOpplysningOrgnrDato}>
+            <FlexColumn className={beregningStyles.næringOpplysningDato}>
               {virksomhetsDatoer(naring) && <BodyShort size="small">{virksomhetsDatoer(naring)}</BodyShort>}
             </FlexColumn>
           </FlexRow>

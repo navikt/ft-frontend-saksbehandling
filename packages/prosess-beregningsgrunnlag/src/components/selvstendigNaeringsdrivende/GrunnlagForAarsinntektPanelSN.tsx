@@ -14,7 +14,7 @@ const createHeaderRow = (): React.ReactNode => (
   <FlexRow>
     <FlexColumn className={beregningStyles.næringTabellAktivitet}>
       <Detail className={beregningStyles.etikettLiten}>
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AarHeader" />
+        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.sisteTreAar" />
       </Detail>
     </FlexColumn>
     <FlexColumn className={beregningStyles.næringTabellInntekt}>
@@ -80,13 +80,6 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
       <Heading size="medium">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt" />
       </Heading>
-      <FlexRow key="SNInntektIngress">
-        <FlexColumn>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.sisteTreAar" />
-          </Detail>
-        </FlexColumn>
-      </FlexRow>
       <VerticalSpacer fourPx />
       {createHeaderRow()}
       <Ledelinje prosentBredde={55} />

@@ -54,6 +54,7 @@ const lagNæring = (varigEndring: boolean, nyoppstartet: boolean): Næring => ({
   kanRegnskapsførerKontaktes: true,
   oppgittInntekt: 474257,
   oppstartsdato: '2015-11-01',
+  opphørsdato: '2030-11-01',
   orgnr: '999999998',
   regnskapsførerNavn: 'Regnskapsfører Regn S. Fører',
   regnskapsførerTlf: '99999999',

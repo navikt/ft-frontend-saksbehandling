@@ -272,7 +272,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   return (
     <div className={beregningStyles.panelRight}>
       {panelForklaring}
-      <VerticalSpacer eightPx />
+      <VerticalSpacer twentyPx />
       {panelerPrSg}
       {aksjonspunktUtenSammenligningsgrunnlag && (
         <>
