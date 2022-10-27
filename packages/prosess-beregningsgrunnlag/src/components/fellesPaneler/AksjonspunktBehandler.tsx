@@ -176,7 +176,7 @@ const buildFormInitialValues = (
       bg,
       alleKodeverk,
       arbeidsgiverOpplysningerPerId,
-      finnVilkårperiode(vilkår, bg.skjaeringstidspunktBeregning),
+      finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),
       relevanteStatuser,
       avklaringsbehov,
       sammenligningsgrunnlag,
