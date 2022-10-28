@@ -77,9 +77,13 @@ const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: Beregningsgrunnlag
       periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET),
   );
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
-  // @ts-ignore
-  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
+const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode => {
+  const matchendePeriode = vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
+  if (!matchendePeriode) {
+    throw new TypeError(`Fant ikke forventet vilkårsperiode for fom ${vilkårsperiodeFom}`);
+  }
+  return matchendePeriode;
+};
 
 const buildInitialValues = (
   beregningsgrunnlag: BeregningsgrunnlagProp,
@@ -200,9 +204,6 @@ const settOppKomponenterForNæring = (
     avklaringsbehov.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
     (snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erVarigEndret === true));
   const erNyoppstartet = snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
-  if (!erNyArbLivet && !erNyoppstartet && !erVarigEndring) {
-    return null;
-  }
   return (
     <>
       <FlexRow>
@@ -211,14 +212,14 @@ const settOppKomponenterForNæring = (
             {erNyArbLivet && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.NyIArbeidslivet" />
             )}
-            {erNyoppstartet && !erVarigEndring && (
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Nyoppstartet" />
-            )}
-            {!erNyArbLivet && !erNyoppstartet && erVarigEndring && (
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.VarigEndring" />
-            )}
             {!erNyArbLivet && erNyoppstartet && erVarigEndring && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler" />
+            )}
+            {!erNyoppstartet && erNyoppstartet && (
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Nyoppstartet" />
+            )}
+            {!erNyArbLivet && erVarigEndring && (
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.VarigEndring" />
             )}
           </Heading>
         </FlexColumn>

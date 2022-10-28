@@ -1215,7 +1215,7 @@ SelvstendigNæringsdrivendNyIArbeidslivetAp5049.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
     lagBG(
-      malPerioder([lagSNMedPGI(1, 200000, undefined, true, true, lagNæring(false, false))]),
+      malPerioder([lagSNMedPGI(1, 200000, undefined, true, true, lagNæring(false, true))]),
       ['SN'],
       undefined,
       undefined,
