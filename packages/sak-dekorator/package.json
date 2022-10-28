@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-dekorator",
   "description": "Dekorator for applikasjon",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -31,7 +31,7 @@
     "@navikt/ft-konstanter": "^1.0.14",
     "@navikt/ft-plattform-komponenter": "^1.2.10",
     "@navikt/ft-types": "^1.0.32",
-    "@navikt/ft-ui-komponenter": "^1.1.12",
+    "@navikt/ft-ui-komponenter": "^1.1.13",
     "@navikt/ft-utils": "^1.1.7",
     "classnames": "2.3.2",
     "react": "18.2.0",
