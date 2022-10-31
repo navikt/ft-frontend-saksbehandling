@@ -66,7 +66,6 @@ const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProp
       <FastsettSNNyIArbeid
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
-        avklaringsbehov={avklaringsbehov}
         erNyArbLivet={erNyArbLivet}
         fieldIndex={fieldIndex}
         formName={formName}
