@@ -157,9 +157,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           <SammenligningOgFastsettelsePanel
             readOnly={readOnly}
             readOnlySubmitButton={readOnlySubmitButton}
-            allePerioder={beregningsgrunnlagPeriode}
             alleKodeverk={alleKodeverk}
-            avklaringsbehov={gjeldendeAvklaringsbehov}
             relevanteStatuser={relevanteStatuser}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             gjelderBesteberegning={gjelderBesteberegning}

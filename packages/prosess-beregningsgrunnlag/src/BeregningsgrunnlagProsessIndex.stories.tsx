@@ -37,7 +37,8 @@ import '@navikt/ft-plattform-komponenter/dist/style.css';
 const STP = '2021-01-01';
 
 const førSTP = (dager: number): string => dayjs(STP).subtract(dager, 'days').format(ISO_DATE_FORMAT);
-const etterSTP = (dager: number): string => dayjs(STP).add(dager, 'days').format(ISO_DATE_FORMAT);
+const etterDato = (dato: string, dager: number): string => dayjs(dato).add(dager, 'days').format(ISO_DATE_FORMAT);
+const etterSTP = (dager: number): string => etterDato(STP, dager);
 
 const bgpFom = '2022-03-01';
 const bgpTom = '2022-05-31';
@@ -78,6 +79,31 @@ const lagPGIVerdier = () => [
 
 const lagPGISnitt = () =>
   lagPGIVerdier().reduce((total, nesteVerdi) => total + nesteVerdi.beløp, 0) / lagPGIVerdier().length;
+
+const lagSNUtenPGI = (
+  andelnr: number,
+  beregnet: number | undefined,
+  overstyrt: number | undefined,
+  skalFastsettGrunnlag: boolean,
+  erNyIArbeidslivet?: boolean,
+  næring?: Næring,
+): BeregningsgrunnlagAndel =>
+  ({
+    aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    beregningsperiodeFom: '2019-01-01',
+    beregningsperiodeTom: '2021-12-31',
+    beregnetPrAar: beregnet,
+    overstyrtPrAar: overstyrt,
+    bruttoPrAar: overstyrt || beregnet,
+    avkortetPrAar: 360000,
+    redusertPrAar: 599000,
+    erNyIArbeidslivet,
+    skalFastsetteGrunnlag: skalFastsettGrunnlag,
+    andelsnr: andelnr,
+    lagtTilAvSaksbehandler: false,
+    erTilkommetAndel: false,
+    næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
+  } as BeregningsgrunnlagAndel);
 
 const lagSNMedPGI = (
   andelnr: number,
@@ -309,9 +335,13 @@ const lagPeriode = (
 const malPeriode = (andelsliste: BeregningsgrunnlagAndel[], fom: string = STP): BeregningsgrunnlagPeriodeProp =>
   lagPeriode(andelsliste, [], fom, undefined, 999);
 
-const malPerioder = (andelsliste: BeregningsgrunnlagAndel[]): BeregningsgrunnlagPeriodeProp[] => [
-  lagPeriode(andelsliste, [], STP, etterSTP(20), 999),
-  lagPeriode(andelsliste, [], etterSTP(21), undefined, 0),
+const malPerioder = (
+  andelsliste: BeregningsgrunnlagAndel[],
+  skjæringstidspunkt?: string,
+  dagerEtter?: number,
+): BeregningsgrunnlagPeriodeProp[] => [
+  lagPeriode(andelsliste, [], skjæringstidspunkt || STP, etterDato(skjæringstidspunkt || STP, dagerEtter || 20), 999),
+  lagPeriode(andelsliste, [], etterDato(skjæringstidspunkt || STP, dagerEtter ? dagerEtter + 1 : 21), undefined, 0),
 ];
 
 const lagSammenligningsGrunnlag = (
@@ -755,6 +785,90 @@ SelvstendigNæringsdrivendeMedAksjonspunktAp5039.args = {
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};
+
+export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039 = Template.bind({});
+MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(
+      malPerioder([lagBrukersAndelMedPGI(1, 200000, undefined, true)], '2021-01-01', 15),
+      ['MIDL_INAKTIV'],
+      undefined,
+      [malSGGrunnlagAvvik(SammenligningType.MIDLERTIDIG_INAKTIV)],
+      [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)],
+      '2021-01-01',
+    ),
+    lagBG(
+      malPerioder(
+        [
+          lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false)),
+          lagArbeidsandel(2, malArbeidsorhold(), 150000, 150000, true, false),
+          lagFrilansandel(3, 200000, 200000, true),
+        ],
+        '2021-02-01',
+        15,
+      ),
+      ['AT_FL_SN'],
+      undefined,
+      [malSGGrunnlagAvvik(SammenligningType.SN), malSGGrunnlagAvvik(SammenligningType.AT_FL)],
+      [
+        lagAPMedKode(
+          ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+          'En fin begrunnelse',
+        ),
+        lagAPMedKode(
+          ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+        ),
+      ],
+      '2021-02-01',
+    ),
+    lagBG(
+      malPerioder([lagSNUtenPGI(1, undefined, undefined, true, true, lagNæring(false, false))], '2021-03-01', 15),
+      ['SN'],
+      undefined,
+      [],
+      [lagAPMedKode(ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)],
+      '2021-03-01',
+    ),
+  ],
+  vilkar: {
+    overstyrbar: false,
+    vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
+    perioder: [
+      {
+        periode: {
+          fom: '2021-01-01',
+          tom: '2021-01-15',
+        },
+        vurderesIBehandlingen: true,
+        vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+        erForlengelse: false,
+        merknadParametere: {},
+      },
+      {
+        periode: {
+          fom: '2021-02-01',
+          tom: '2021-02-15',
+        },
+        vurderesIBehandlingen: true,
+        vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+        erForlengelse: false,
+        merknadParametere: {},
+      },
+      {
+        periode: {
+          fom: '2021-03-01',
+          tom: '2021-03-15',
+        },
+        vurderesIBehandlingen: true,
+        vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+        erForlengelse: false,
+        merknadParametere: {},
+      },
+    ],
+  },
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
