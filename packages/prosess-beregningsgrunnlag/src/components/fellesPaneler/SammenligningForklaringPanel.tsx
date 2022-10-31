@@ -13,6 +13,7 @@ type OwnProps = {
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];
   relevanteStatuser: RelevanteStatuserProp;
   erManueltBesteberegnet: boolean;
+  erNyIArbeidslivet: boolean;
 };
 
 /**
@@ -23,11 +24,21 @@ type OwnProps = {
 const SammenligningForklaringPanel: FunctionComponent<OwnProps> = ({
   relevanteStatuser,
   erManueltBesteberegnet,
+  erNyIArbeidslivet,
   sammenligningsgrunnlag,
 }) => {
+  if (erNyIArbeidslivet) {
+    return (
+      <BodyShort size="small">
+        <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.SN.NyIArbeidslivet" />
+      </BodyShort>
+    );
+  }
+
   if (!sammenligningsgrunnlag || sammenligningsgrunnlag.length < 1) {
     return null;
   }
+
   const erATFLSN =
     (relevanteStatuser.isArbeidstaker || relevanteStatuser.isFrilanser) &&
     relevanteStatuser.isSelvstendigNaeringsdrivende;

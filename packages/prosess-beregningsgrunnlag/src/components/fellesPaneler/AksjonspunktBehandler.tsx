@@ -38,6 +38,8 @@ import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
+import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -51,8 +53,16 @@ const {
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const defaultFormName = 'BeregningForm';
-const finnFormName = (sammenligningsgrunnlag?: SammenligningsgrunlagProp): string =>
-  sammenligningsgrunnlag ? `${defaultFormName}_${sammenligningsgrunnlag.sammenligningsgrunnlagType}` : defaultFormName;
+
+const gjelderForParagraf = (a: BeregningAvklaringsbehov, lovparagraf: LovParagraf) =>
+  mapAvklaringsbehovTilLovparagraf(a) === lovparagraf;
+
+const harAvklaringsbehovForLovparagraf = (
+  avklaringsbehov: BeregningAvklaringsbehov[],
+  lovparagraf: LovParagraf,
+): boolean => !!avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf));
+
+const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
 const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
   if (!allePerioder || allePerioder.length < 1) {
@@ -116,7 +126,10 @@ const buildInitialValues = (
   };
   if (!sammenligningsgrunnlag) {
     return {
-      ...valuesSNEllerMidlInaktiv,
+      ...FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet(
+        snEllerMidlertidigInaktivAndeler,
+        beregningsgrunnlag.avklaringsbehov,
+      ),
     };
   }
   if (sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
@@ -149,17 +162,23 @@ const buildFieldInitialValue = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
   relevanteStatuser: RelevanteStatuserProp,
-  avklaringsbehov: BeregningAvklaringsbehov,
+  avklaringsbehov?: BeregningAvklaringsbehov,
   sammenligningsgrunnlag?: SammenligningsgrunlagProp,
-): BeregningsgrunnlagValues => ({
-  ...buildInitialValues(beregningsgrunnlag, sammenligningsgrunnlag),
-  periode: vilkårsperiode.periode,
-  erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
-  relevanteStatuser,
-  gjeldendeAvklaringsbehov: [avklaringsbehov],
-  skjæringstidspunkt: beregningsgrunnlag.skjaeringstidspunktBeregning,
-  allePerioder: beregningsgrunnlag.beregningsgrunnlagPeriode,
-});
+): BeregningsgrunnlagValues => {
+  let initialValues = {};
+  if (avklaringsbehov) {
+    initialValues = buildInitialValues(beregningsgrunnlag, sammenligningsgrunnlag);
+  }
+  return {
+    ...initialValues,
+    periode: vilkårsperiode.periode,
+    erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
+    relevanteStatuser,
+    gjeldendeAvklaringsbehov: avklaringsbehov ? [avklaringsbehov] : [],
+    skjæringstidspunkt: beregningsgrunnlag.skjaeringstidspunktBeregning,
+    allePerioder: beregningsgrunnlag.beregningsgrunnlagPeriode,
+  };
+};
 
 const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
@@ -167,9 +186,8 @@ const buildFormInitialValues = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkår: Vilkar,
   relevanteStatuser: RelevanteStatuserProp,
-  avklaringsbehov: BeregningAvklaringsbehov,
   formName: string,
-  sammenligningsgrunnlag?: SammenligningsgrunlagProp,
+  lovparagraf: LovParagraf,
 ): BeregningFormValues => ({
   [formName]: beregningsgrunnlag.map(bg =>
     buildFieldInitialValue(
@@ -178,8 +196,10 @@ const buildFormInitialValues = (
       arbeidsgiverOpplysningerPerId,
       finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),
       relevanteStatuser,
-      avklaringsbehov,
-      sammenligningsgrunnlag,
+      bg.avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf)),
+      bg.sammenligningsgrunnlagPrStatus?.find(
+        s => mapSammenligningtypeTilLovparagraf(s.sammenligningsgrunnlagType, bg.aktivitetStatus) === lovparagraf,
+      ),
     ),
   ),
 });
@@ -420,8 +440,8 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
   throw new Error('Må submitte et aksjonspunkt');
 };
 
-const transformFields = (values: BeregningFormValues, sg?: SammenligningsgrunlagProp) => {
-  const fields = values[finnFormName(sg)];
+const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) => {
+  const fields = values[finnFormName(lovparagraf)];
   const aksjonspunktLister = fields
     .filter(f => f.erTilVurdering)
     .map(field => ({
@@ -433,10 +453,8 @@ const transformFields = (values: BeregningFormValues, sg?: Sammenligningsgrunlag
 
 type OwnProps = {
   readOnly: boolean;
-  avklaringsbehov?: BeregningAvklaringsbehov;
   alleKodeverk: AlleKodeverk;
   readOnlySubmitButton: boolean;
-  allePerioder?: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkår: Vilkar;
@@ -445,14 +463,12 @@ type OwnProps = {
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
   aktivIndex: number;
-  sammenligningsgrunnlag?: SammenligningsgrunlagProp;
+  lovparagraf: LovParagraf;
 };
 
 const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   readOnly,
-  avklaringsbehov,
   readOnlySubmitButton,
-  allePerioder,
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
   beregningsgrunnlagListe,
@@ -461,34 +477,32 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   relevanteStatuser,
   formData,
   setFormData,
-  sammenligningsgrunnlag,
   aktivIndex,
+  lovparagraf,
 }) => {
   const intl = useIntl();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  if (!avklaringsbehov || !allePerioder) {
-    return null;
-  }
-
-  const losAvklaringsbehov = (values: BeregningFormValues, sg?: SammenligningsgrunlagProp) => {
+  const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
     setIsSubmitting(true);
-    submitCallback(transformFields(values, sg));
+    submitCallback(transformFields(values, lp));
   };
 
-  const formName = finnFormName(sammenligningsgrunnlag);
+  const bgSomSkalVurderes = beregningsgrunnlagListe.filter(bg =>
+    harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf),
+  );
+  const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
     defaultValues:
       formData ||
       buildFormInitialValues(
-        beregningsgrunnlagListe,
+        bgSomSkalVurderes,
         alleKodeverk,
         arbeidsgiverOpplysningerPerId,
         vilkår,
         relevanteStatuser,
-        avklaringsbehov,
         formName,
-        sammenligningsgrunnlag,
+        lovparagraf,
       ),
   });
 
@@ -509,10 +523,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     }
   }, [aktivIndex]);
 
-  const aksjonspunktGjelderATFL =
-    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
-    avklaringsbehov.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD;
-
   const submittKnapp = (
     <FlexRow>
       <FlexColumn>
@@ -526,29 +536,47 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     </FlexRow>
   );
 
-  const formKomponent = (index: number): ReactElement | null =>
-    aksjonspunktGjelderATFL
-      ? settOppKomponenterForATFL(
-          avklaringsbehov,
-          alleKodeverk,
-          allePerioder,
-          arbeidsgiverOpplysningerPerId,
-          readOnly,
-          intl,
-          index,
-          formName,
-        )
-      : settOppKomponenterForNæring(readOnly, allePerioder, avklaringsbehov, index, formName);
+  const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement | null => {
+    const ab = avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTI && ab) {
+      return settOppKomponenterForATFL(
+        ab,
+        alleKodeverk,
+        bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
+        arbeidsgiverOpplysningerPerId,
+        readOnly,
+        intl,
+        index,
+        formName,
+      );
+    }
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && ab) {
+      return settOppKomponenterForNæring(
+        readOnly,
+        bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
+        ab,
+        index,
+        formName,
+      );
+    }
+    return null;
+  };
+
+  const aktivtStp = beregningsgrunnlagListe[aktivIndex].vilkårsperiodeFom;
+
   return (
     <Form
       formMethods={formMethods}
-      onSubmit={values => losAvklaringsbehov(values, sammenligningsgrunnlag)}
+      onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
       setDataOnUnmount={setFormData}
     >
       {fields.map((field, index) => (
-        <div key={field.id} style={{ display: index === aktivIndex ? 'block' : 'none' }}>
+        <div
+          key={field.id}
+          style={{ display: bgSomSkalVurderes[index].vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
+        >
           <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
-            {formKomponent(index)}
+            {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
             <VerticalSpacer sixteenPx />
             {submittKnapp}
             <VerticalSpacer sixteenPx />
@@ -557,10 +585,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       ))}
     </Form>
   );
-};
-
-AksjonspunktBehandler.defaultProps = {
-  allePerioder: [],
 };
 
 export default AksjonspunktBehandler;
