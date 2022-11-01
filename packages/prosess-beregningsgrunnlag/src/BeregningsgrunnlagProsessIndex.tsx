@@ -128,7 +128,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
               links={menyProps.map((menyProp, index) => ({
                 iconSrc: menyProp.skalVurderes && menyProp.harAvklaringsbehov ? advarsel : null,
                 active: aktivtBeregningsgrunnlagIndeks === index,
-                label: `${intl.formatMessage({ id: 'Sidemeny.Beregningsgrunnlag' })} ${menyProp.stp}`,
+                label: `${menyProp.stp}`,
               }))}
               onClick={setAktivtBeregningsgrunnlagIndeks}
               theme="arrow"
