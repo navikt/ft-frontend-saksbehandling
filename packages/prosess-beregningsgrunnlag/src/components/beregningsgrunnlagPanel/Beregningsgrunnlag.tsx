@@ -114,10 +114,9 @@ const createRelevantePaneler = (
         />
       </>
     )}
-    {!relevanteStatuser.isSelvstendigNaeringsdrivende &&
+    {(relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) &&
       sammenligningsGrunnlagInntekter &&
-      sammenligningsgrunnlag &&
-      (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
+      sammenligningsgrunnlag && (
         <>
           {storSpacer}
           <SammenlignsgrunnlagAOrdningen
