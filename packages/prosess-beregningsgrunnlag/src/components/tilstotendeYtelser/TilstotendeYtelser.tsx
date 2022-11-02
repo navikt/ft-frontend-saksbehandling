@@ -9,6 +9,7 @@ import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
+import Ledelinje from '../fellesPaneler/Ledelinje';
 
 export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
@@ -49,51 +50,50 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
         </>
       )}
       <FlexRow>
-        <FlexColumn className={beregningStyles.atflTabellAktivitet} />
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellAktivitet} />
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
           </Detail>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Detail size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
           </Detail>
         </FlexColumn>
       </FlexRow>
-
-      <>
-        {relevanteAndeler.map((andel: BeregningsgrunnlagAndel) => (
-          <div key={andel.aktivitetStatus}>
+      <Ledelinje prosentBredde={100} />
+      {relevanteAndeler.map((andel: BeregningsgrunnlagAndel) => (
+        <div key={andel.aktivitetStatus}>
+          <FlexRow>
+            <FlexColumn className={beregningStyles.tabellAktivitet}>
+              <Label size="small">
+                <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />
+              </Label>
+            </FlexColumn>
+            <FlexColumn className={beregningStyles.tabellInntekt}>
+              <BodyShort size="small">
+                {formatCurrencyNoKr(andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0)}
+              </BodyShort>
+            </FlexColumn>
+            <FlexColumn className={beregningStyles.tabellInntekt}>
+              <BodyShort size="small" className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>
+                {formatCurrencyNoKr(andel.beregnetPrAar)}
+              </BodyShort>
+            </FlexColumn>
+          </FlexRow>
+          <Ledelinje prosentBredde={100} />
+          {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
             <FlexRow>
-              <FlexColumn className={beregningStyles.atflTabellAktivitet}>
-                <Label size="small">
-                  <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />
-                </Label>
-              </FlexColumn>
-              <FlexColumn className={beregningStyles.atflTabellInntekt}>
+              <FlexColumn>
                 <BodyShort size="small">
-                  {formatCurrencyNoKr(andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0)}
-                </BodyShort>
-              </FlexColumn>
-              <FlexColumn className={beregningStyles.atflTabellInntekt}>
-                <BodyShort size="small" className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>
-                  {formatCurrencyNoKr(andel.beregnetPrAar)}
+                  <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.Besteberegning" />
                 </BodyShort>
               </FlexColumn>
             </FlexRow>
-            {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
-              <FlexRow>
-                <FlexColumn>
-                  <BodyShort size="small">
-                    <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.Besteberegning" />
-                  </BodyShort>
-                </FlexColumn>
-              </FlexRow>
-            )}
-          </div>
-        ))}
-      </>
+          )}
+        </div>
+      ))}
     </>
   );
 };

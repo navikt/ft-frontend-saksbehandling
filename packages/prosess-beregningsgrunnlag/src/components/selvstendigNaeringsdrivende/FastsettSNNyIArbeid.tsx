@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort } from '@navikt/ds-react';
 
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
-import { parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -18,18 +18,15 @@ const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
-const {
-  FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 type OwnProps = {
   endretTekst?: React.ReactNode;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   erNyArbLivet: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov[];
   fieldIndex: number;
+  formName: string;
 };
 
 interface StaticFunctions {
@@ -51,18 +48,11 @@ interface StaticFunctions {
 const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   isAksjonspunktClosed,
-  avklaringsbehov,
   erNyArbLivet,
   fieldIndex,
+  formName,
 }) => {
-  const harGammeltAPFastsettBrutto = avklaringsbehov
-    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE)
-    : false;
-  const harAPSNNyiArbLiv = avklaringsbehov
-    ? avklaringsbehov.find(ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)
-    : false;
   const intl = useIntl();
-
   return (
     <>
       {erNyArbLivet && (
@@ -76,7 +66,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
             <FlexColumn>
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
-                  name={`BeregningForm.${fieldIndex}.${fastsettInntektFieldname}`}
+                  name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
                   className={styles.breddeInntekt}
@@ -90,28 +80,24 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
         </>
       )}
 
-      {(harGammeltAPFastsettBrutto || harAPSNNyiArbLiv) && (
-        <>
-          <VerticalSpacer sixteenPx />
-          <FlexRow>
-            <FlexColumn>
-              <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>
-                <TextAreaField
-                  name={`BeregningForm.${fieldIndex}.${begrunnelseFieldname}`}
-                  label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
-                  validate={[required, maxLength1500, minLength3, hasValidText]}
-                  maxLength={1500}
-                  readOnly={readOnly}
-                  description={intl.formatMessage({
-                    id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
-                  })}
-                  parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
-                />
-              </div>
-            </FlexColumn>
-          </FlexRow>
-        </>
-      )}
+      <VerticalSpacer sixteenPx />
+      <FlexRow>
+        <FlexColumn>
+          <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>
+            <TextAreaField
+              name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+              label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
+              validate={[required, maxLength1500, minLength3, hasValidText]}
+              maxLength={1500}
+              readOnly={readOnly}
+              description={intl.formatMessage({
+                id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
+              })}
+              parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
+            />
+          </div>
+        </FlexColumn>
+      </FlexRow>
     </>
   );
 };

@@ -24,6 +24,7 @@ interface OwnProps {
   toggleContent: () => void;
   children: ReactNode | ReactNode[];
   isApLeftBorder?: boolean;
+  alignWithColumn?: number;
 }
 
 const ExpandableTableRow: FunctionComponent<OwnProps> = ({
@@ -32,6 +33,7 @@ const ExpandableTableRow: FunctionComponent<OwnProps> = ({
   toggleContent,
   children,
   isApLeftBorder = false,
+  alignWithColumn = 0,
 }) => (
   <>
     <TableRow
@@ -58,7 +60,9 @@ const ExpandableTableRow: FunctionComponent<OwnProps> = ({
       className={showContent ? styles.activeRow : styles.hidden}
       isSelected={showContent}
     >
-      <TableColumn className={showContent ? styles.active : styles.hidden} />
+      {[...Array(alignWithColumn)].map(() => (
+        <TableColumn className={showContent ? styles.active : styles.hidden} />
+      ))}
       <TableColumn colspanAll className={showContent ? styles.active : styles.hidden}>
         <div className={showContent ? styles.active : styles.hidden}>{content}</div>
       </TableColumn>

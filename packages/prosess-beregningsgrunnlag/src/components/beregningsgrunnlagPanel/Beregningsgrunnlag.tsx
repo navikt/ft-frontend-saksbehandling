@@ -31,11 +31,7 @@ import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntek
 
 import NaeringsopplysningsPanel from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import beregningStyles from './beregningsgrunnlag.less';
-import {
-  ATFLDekningsgradBegrunnelseValues,
-  ATFLTidsbegrensetValues,
-  ATFLValues,
-} from '../../types/ATFLAksjonspunktTsType';
+import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   ProsessBeregningsgrunnlagAksjonspunktCode;
@@ -107,7 +103,7 @@ const createRelevantePaneler = (
       </>
     )}
 
-    {relevanteStatuser.isSelvstendigNaeringsdrivende && (
+    {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
       <>
         {storSpacer}
         <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />
@@ -134,7 +130,7 @@ const createRelevantePaneler = (
 );
 
 interface StaticFunctions {
-  buildInitialValues: (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]) => ATFLDekningsgradBegrunnelseValues;
+  buildInitialValues: (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]) => ATFLBegrunnelseValues;
   transformATFLValues: (
     values: ATFLValues,
     relevanteStatuser: RelevanteStatuserProp,
@@ -197,7 +193,7 @@ Beregningsgrunnlag.defaultProps = {
 
 Beregningsgrunnlag.buildInitialValues = (
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
-): ATFLDekningsgradBegrunnelseValues => {
+): ATFLBegrunnelseValues => {
   const aksjonspunktATFL = finnAksjonspunktForATFL(gjeldendeAvklaringsbehov);
   return {
     ATFLVurdering: aksjonspunktATFL && aksjonspunktATFL.begrunnelse ? aksjonspunktATFL.begrunnelse : '',

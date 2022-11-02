@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
@@ -8,6 +8,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel, PgiVerdier } from '@navikt/ft-types';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import Ledelinje from '../fellesPaneler/Ledelinje';
 
 const createHeaderRow = (): React.ReactNode => (
   <FlexRow>
@@ -23,16 +24,10 @@ const createHeaderRow = (): React.ReactNode => (
     </FlexColumn>
   </FlexRow>
 );
-const skilleLinje = (
-  <FlexRow className={beregningStyles.noPaddingRight}>
-    <FlexColumn className={beregningStyles.heldekkendeKol}>
-      <div className={beregningStyles.colDevider} />
-    </FlexColumn>
-  </FlexRow>
-);
+
 const createSumRow = (pgiSnitt: number): React.ReactNode => (
   <>
-    {skilleLinje}
+    <Ledelinje prosentBredde={55} />
     <FlexRow>
       <FlexColumn className={beregningStyles.næringTabellAktivitet}>
         <Label size="small">
@@ -71,11 +66,15 @@ type OwnProps = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer selvstendig næringsdrivende.
  */
 const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
-  const snAndel = alleAndeler.find(andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
-  if (!snAndel) {
+  const andel = alleAndeler.find(
+    a =>
+      a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      a.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
+  );
+  if (!andel) {
     return null;
   }
-  const { pgiVerdier, pgiSnitt } = snAndel;
+  const { pgiVerdier, pgiSnitt } = andel;
   return (
     <>
       <Heading size="medium">
@@ -90,6 +89,7 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
       </FlexRow>
       <VerticalSpacer fourPx />
       {createHeaderRow()}
+      <Ledelinje prosentBredde={55} />
       {!!pgiVerdier && <>{createInntektRows(pgiVerdier)}</>}
       {pgiSnitt !== undefined && <>{createSumRow(pgiSnitt)}</>}
     </>

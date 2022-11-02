@@ -17,7 +17,6 @@ export { default as FlexRow } from './src/flexGrid/FlexRow';
 export { default as FlexContainer } from './src/flexGrid/FlexContainer';
 export { default as Tooltip } from './src/Tooltip';
 export { default as PeriodLabel } from './src/PeriodLabel';
-export { default as Periodpicker } from './src/periodpicker/Periodpicker';
 export { default as Table } from './src/table/Table';
 export { default as TableColumn } from './src/table/TableColumn';
 export { default as TableRow } from './src/table/TableRow';

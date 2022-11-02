@@ -1,4 +1,5 @@
 import React from 'react';
+import { Search } from '@navikt/ds-react';
 import { Suggestion } from './types/Suggestion';
 import AutocompleteSuggestion from './AutocompleteSuggestion';
 import styles from './autocomplete.less';
@@ -13,6 +14,8 @@ export interface AutocompleteProps {
   id: string;
   name?: string;
   shouldFocusOnMount?: boolean;
+  isLoading?: boolean;
+  onSearchButtonClick?: () => void;
 }
 
 interface State {
@@ -56,6 +59,7 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
     this.setSuggestionIndex = this.setSuggestionIndex.bind(this);
     this.avoidBlur = this.avoidBlur.bind(this);
     this.clearBlurDelay = this.clearBlurDelay.bind(this);
+    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -66,14 +70,21 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
     }
   }
 
-  onChange(event: React.ChangeEvent<HTMLInputElement>) {
+  onChange(value: string) {
     const { onChange } = this.props;
-    const { value } = event.target as any;
     this.setState({
       activeSuggestionIndex: -1,
       shouldShowSuggestions: true,
     });
     onChange(value);
+  }
+
+  onSearchButtonClick(event: React.FormEvent<HTMLButtonElement>) {
+    const { onSearchButtonClick } = this.props;
+    event.preventDefault();
+    if (onSearchButtonClick) {
+      onSearchButtonClick();
+    }
   }
 
   onKeyDown(event: React.KeyboardEvent) {
@@ -189,7 +200,7 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
   }
 
   render() {
-    const { suggestions, id, ariaLabel, placeholder, value, name, shouldFocusOnMount } = this.props;
+    const { suggestions, id, ariaLabel, placeholder, value, name, shouldFocusOnMount, isLoading } = this.props;
     const { activeSuggestionIndex, setAriaActiveDescendant, hasFocus, shouldShowSuggestions } = this.state;
 
     const showSuggestions = hasFocus && shouldShowSuggestions && suggestions.length > 0;
@@ -203,7 +214,8 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
         aria-owns={`${id}-suggestions`}
         aria-haspopup="listbox"
       >
-        <input
+        <Search
+          variant="primary"
           id={id}
           name={name}
           type="search"
@@ -224,7 +236,11 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
           className={`${styles.autocomplete__input} typo-normal`}
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={shouldFocusOnMount}
-        />
+          label={ariaLabel}
+          hideLabel
+        >
+          <Search.Button loading={isLoading} onClick={this.onSearchButtonClick} />
+        </Search>
         <ul
           id={`${id}-suggestions`}
           role="listbox"

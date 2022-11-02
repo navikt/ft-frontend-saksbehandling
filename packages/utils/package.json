@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "1.1.4",
+  "version": "1.1.7",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,16 +21,16 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^1.0.19",
-    "@navikt/ft-types": "^1.0.30",
-    "dayjs": "1.11.5",
-    "react-intl": "6.1.2"
+    "@navikt/ft-kodeverk": "^1.0.21",
+    "@navikt/ft-types": "^1.0.32",
+    "dayjs": "1.11.6",
+    "react-intl": "6.2.1"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-types": "^1.x",
-    "dayjs": "1.11.5",
-    "react-intl": "6.1.2"
+    "dayjs": "1.11.6",
+    "react-intl": "6.2.1"
   },
   "devDependencies": {
     "clean-webpack-plugin": "4.0.0",

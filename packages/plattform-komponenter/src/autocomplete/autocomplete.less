@@ -8,7 +8,7 @@
     border-radius: 8px;
     margin: 0;
     padding: 6px 0 6px 0;
-    width: 100%;
+    width: calc(100% - 64px);
     z-index: 1;
   }
 
@@ -27,33 +27,33 @@
   }
 }
 
-.autocomplete__input {
-  background-color: white;
-  border: 1px solid #b7b1a9;
-  border-radius: 8px;
-  box-sizing: border-box;
-  font-family: 'Source Sans Pro', Arial, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  height: 3rem;
-  line-height: 1.375rem;
-  margin: 0;
-  padding: 1rem;
-  width: 100%;
+// .autocomplete__input {
+//   background-color: white;
+//   border: 1px solid #b7b1a9;
+//   border-radius: 8px;
+//   box-sizing: border-box;
+//   font-family: 'Source Sans Pro', Arial, sans-serif;
+//   font-size: 1rem;
+//   font-weight: 400;
+//   height: 3rem;
+//   line-height: 1.375rem;
+//   margin: 0;
+//   padding: 1rem;
+//   width: 100%;
 
-  &:hover {
-    border-color: #0067c5;
-  }
+//   &:hover {
+//     border-color: #0067c5;
+//   }
 
-  &:focus {
-    box-shadow: 0 0 0 3px #ffbd66;
-    outline: none;
-  }
+//   &:focus {
+//     box-shadow: 0 0 0 3px #ffbd66;
+//     outline: none;
+//   }
 
-  &::-ms-clear {
-    display: none;
-  }
-}
+//   &::-ms-clear {
+//     display: none;
+//   }
+// }
 
 .autocomplete__suggestions {
   overflow-x: hidden;

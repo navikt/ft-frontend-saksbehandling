@@ -29,7 +29,7 @@ const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_DEKNINGSGRAD,
+  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ];
 
 const cx = classNames.bind(styles);
@@ -70,7 +70,7 @@ type MenyProp = {
 };
 
 const erBGTilVurdering = (bgVilkar: Vilkar, beregningsgrunnlag: Beregningsgrunnlag) => {
-  const vilårsperiodeFom = beregningsgrunnlag.skjaeringstidspunktBeregning;
+  const vilårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
   const perioderTilVurdering =
     bgVilkar && bgVilkar.perioder
       ? bgVilkar.perioder.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse)
@@ -128,7 +128,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
               links={menyProps.map((menyProp, index) => ({
                 iconSrc: menyProp.skalVurderes && menyProp.harAvklaringsbehov ? advarsel : null,
                 active: aktivtBeregningsgrunnlagIndeks === index,
-                label: `${intl.formatMessage({ id: 'Sidemeny.Beregningsgrunnlag' })} ${menyProp.stp}`,
+                label: `${menyProp.stp}`,
               }))}
               onClick={setAktivtBeregningsgrunnlagIndeks}
               theme="arrow"

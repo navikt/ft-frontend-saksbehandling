@@ -39,32 +39,32 @@ const Inntektsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag 
         </FlexColumn>
       </FlexRow>
       <FlexRow>
-        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+        <FlexColumn className={beregningStyles.tabellAktivitet}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektAT" />
           </BodyShort>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Label size="small">{formatCurrencyNoKr(bruttoAT)}</Label>
         </FlexColumn>
       </FlexRow>
       <FlexRow>
-        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+        <FlexColumn className={beregningStyles.tabellAktivitet}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektFL" />
           </BodyShort>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Label size="small">{formatCurrencyNoKr(bruttoFL)}</Label>
         </FlexColumn>
       </FlexRow>
       <FlexRow>
-        <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+        <FlexColumn className={beregningStyles.tabellAktivitet}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektSN" />
           </BodyShort>
         </FlexColumn>
-        <FlexColumn className={beregningStyles.atflTabellInntekt}>
+        <FlexColumn className={beregningStyles.tabellInntekt}>
           <Label size="small">{formatCurrencyNoKr(bruttoSN)}</Label>
         </FlexColumn>
       </FlexRow>

@@ -23,7 +23,7 @@ const lagGrenseveriPeriode = (
   utregnetInntektstak: number,
 ) => (
   <FlexRow>
-    <FlexColumn className={beregningStyles.atflTabellAktivitet}>
+    <FlexColumn className={beregningStyles.tabellAktivitet}>
       <FormattedMessage
         id="Beregningsgrunnlag.Frisinn.Inntektstak"
         values={{
@@ -32,7 +32,7 @@ const lagGrenseveriPeriode = (
         }}
       />
     </FlexColumn>
-    <FlexColumn className={beregningStyles.atflTabellInntekt}>
+    <FlexColumn className={beregningStyles.tabellInntekt}>
       <BodyShort size="small">{formatCurrencyNoKr(utregnetInntektstak)}</BodyShort>
     </FlexColumn>
   </FlexRow>

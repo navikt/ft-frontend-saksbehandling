@@ -14,10 +14,10 @@ import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/Pro
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  VURDER_DEKNINGSGRAD,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
 const getAvviksprosent = (sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[]): number => {
@@ -36,7 +36,7 @@ const APTekster = {
   [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]:
     'Beregningsgrunnlag.Helptext.TidsbegrensetArbeidsforhold2',
   [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'Beregningsgrunnlag.Helptext.NyIArbeidslivetSN2',
-  [VURDER_DEKNINGSGRAD]: 'Beregningsgrunnlag.Helptext.BarnetHarDødDeFørsteSeksUkene',
+  [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'Beregningsgrunnlag.Helptext.VarigEndretArbeidssituasjon',
 } as Record<string, string>;
 
 const findAksjonspunktHelpTekst = (
@@ -68,7 +68,7 @@ const lagAksjonspunktHelpText = (
         {åpneAvklaringsbehov.map(ap => (
           <FormattedMessage
             key={ap.definisjon}
-            id={findAksjonspunktHelpTekst(ap, erVarigEndring)}
+            id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
             values={{ verdi: avvikProsent, b: (chunks: any) => <b>{chunks}</b>, br: <br /> }}
           />
         ))}

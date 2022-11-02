@@ -2,10 +2,6 @@ type Begrunnelse = {
   begrunnelse: string;
 };
 
-export type DekningsgradResultatAp = {
-  dekningsgrad: number;
-} & Begrunnelse;
-
 export type ArbeidsinntektResultat = {
   andelsnr: number;
   inntekt: number;
@@ -34,6 +30,7 @@ export type FastsettAvvikATFLTidsbegrensetResultatAP = {
 
 export type VurderVarigEndretNyoppstartetResultatAP = {
   erVarigEndretNaering: boolean;
+  erVarigEndret: boolean;
   bruttoBeregningsgrunnlag?: number;
 } & Begrunnelse;
 
@@ -45,8 +42,7 @@ type BeregningsgrunnlagResultatAP =
   | NyIArbeidslivetruttoNæringResultatAP
   | VurderVarigEndretNyoppstartetResultatAP
   | FastsettAvvikATFLTidsbegrensetResultatAP
-  | FastsettAvvikATFLResultatAP
-  | DekningsgradResultatAp;
+  | FastsettAvvikATFLResultatAP;
 
 type PeriodeOgBegrunnelseType = {
   periode: {

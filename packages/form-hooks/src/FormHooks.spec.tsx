@@ -1,10 +1,18 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import userEvent from '@testing-library/user-event';
 import * as stories from './FormHooks.stories';
 
 const { VisFormkomponenter } = composeStories(stories);
+
+window.ResizeObserver =
+  window.ResizeObserver ||
+  jest.fn().mockImplementation(() => ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+  }));
 
 describe('<FormHooks>', () => {
   it('skal verifisere input-komponenter', async () => {
@@ -26,6 +34,8 @@ describe('<FormHooks>', () => {
 
     await userEvent.type(utils.getByLabelText('Dette er et tekstfelt'), 'Dette er en vurdering');
 
-    await userEvent.type(utils.getByLabelText('Dette er en label'), '10.10.2022');
+    const datofelt = screen.getByText('Dette er en datepicker');
+    await userEvent.type(datofelt, '01.02.2020');
+    fireEvent.blur(datofelt);
   });
 });
