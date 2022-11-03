@@ -1,7 +1,6 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
 // dette stylsheetet brukes også av AksjonspunktBehandlerAT, AksjonspunktBehandlerTB, AksjonspunktBehandlerFL, AksjonspunktBehandlerSN
 .aksjonspunktBehandlerBorder {
-  border: 3px solid @navOransje;
+  border: 3px solid var(--navds-global-color-orange-500);
   border-radius: 3px;
   padding: 10px 20px 10px 20px;
 }
@@ -15,7 +14,7 @@
 }
 
 .verticalLine > div > p {
-  border-left: 4px solid @navGra20;
+  border-left: 4px solid var(--navds-global-color-gray-300);
   padding-left: 16px;
 }
 
@@ -57,7 +56,7 @@
 
 .inntektTableTB > tbody > tr:last-child > td {
   border-right: 0;
-  border-top: 1px solid @navGra40;
+  border-top: 1px solid var(--navds-global-color-gray-300);
 }
 
 .inntektTableTB > tbody > tr > td:first-child {
@@ -66,7 +65,7 @@
 
 .inntektTableTB > tbody > tr > td {
   border-bottom: 0;
-  border-right: 1px solid @navGra40;
+  border-right: 1px solid var(--navds-global-color-gray-300);
   padding-bottom: 0;
   position: relative;
   text-align: center;

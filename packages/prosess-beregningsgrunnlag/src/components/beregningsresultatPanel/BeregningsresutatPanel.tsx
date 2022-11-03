@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import Panel from 'nav-frontend-paneler';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label, Heading } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
@@ -248,10 +247,10 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
   const intl = useIntl();
   const skalLagePeriodeHeaders = periodeResultatTabeller.length > 1;
   return (
-    <Panel className={beregningStyles.panelRight}>
-      <Label size="small" className={beregningStyles.avsnittOverskrift}>
+    <div className={beregningStyles.panelRight}>
+      <Heading size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
-      </Label>
+      </Heading>
       <VerticalSpacer eightPx />
       {periodeResultatTabeller.map((periodeData, index) =>
         createPeriodeResultat(
@@ -264,7 +263,7 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
           erMidlertidigInaktiv,
         ),
       )}
-    </Panel>
+    </div>
   );
 };
 export default BeregningsresutatPanel;

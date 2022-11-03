@@ -1,20 +1,38 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { EtikettInfo } from 'nav-frontend-etiketter';
 
 import { getKodeverknavnFn } from '@navikt/ft-utils';
 import { DateLabel, VerticalSpacer, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
-import { KodeverkType } from '@navikt/ft-kodeverk';
+import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AlleKodeverk } from '@navikt/ft-types';
 
-import { BodyShort } from '@navikt/ds-react';
-import styles from './skjeringspunktOgStatusPanel.less';
+import { BodyShort, Tag } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+
+enum TagType {
+  BLÅ = 'alt3',
+  LILLA = 'alt1',
+  GRØNN = 'alt2',
+  GRÅ = 'neutral',
+}
+
+const finnTagType = (status: string): TagType => {
+  switch (status) {
+    case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
+      return TagType.GRØNN;
+    case AktivitetStatus.FRILANSER:
+      return TagType.LILLA;
+    case AktivitetStatus.ARBEIDSTAKER:
+      return TagType.BLÅ;
+    default:
+      return TagType.GRÅ;
+  }
+};
 
 type statusObjekt = {
   visningsNavn: string;
   kode: string;
-  className: string;
+  tagType: TagType;
 };
 
 const createStatusEtiketter = (
@@ -25,18 +43,24 @@ const createStatusEtiketter = (
   const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex(t => t === status));
   unikeStatuser.forEach(status => {
     const statusName = getKodeverknavn(status, KodeverkType.AKTIVITET_STATUS);
-    statusList.push({ visningsNavn: statusName, kode: status, className: `statusFarge${status}` });
+    statusList.push({ visningsNavn: statusName, kode: status, tagType: finnTagType(status) });
   });
   statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
-  // TODO Tag fungerer ikke med egen styling, må undersøke hvorfor
   return (
-    <>
+    <FlexRow>
       {statusList.map(status => (
-        <EtikettInfo key={status.visningsNavn} className={styles[status.className]} title={status.visningsNavn}>
-          {status.visningsNavn}
-        </EtikettInfo>
+        <FlexColumn className={beregningStyles.tagRad}>
+          <Tag
+            key={status.visningsNavn}
+            variant={status.tagType}
+            title={status.visningsNavn}
+            className={beregningStyles.tagMargin}
+          >
+            {status.visningsNavn}
+          </Tag>
+        </FlexColumn>
       ))}
-    </>
+    </FlexRow>
   );
 };
 

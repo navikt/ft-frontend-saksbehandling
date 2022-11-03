@@ -1,5 +1,4 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
-import Panel from 'nav-frontend-paneler';
 import { Heading } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Form, TextAreaField } from '@navikt/ft-form-hooks';
@@ -578,12 +577,12 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
           key={field.id}
           style={{ display: bgSomSkalVurderes[index].vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
         >
-          <Panel className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
+          <div className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
             {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
             <VerticalSpacer sixteenPx />
             {submittKnapp}
             <VerticalSpacer sixteenPx />
-          </Panel>
+          </div>
         </div>
       ))}
     </Form>
