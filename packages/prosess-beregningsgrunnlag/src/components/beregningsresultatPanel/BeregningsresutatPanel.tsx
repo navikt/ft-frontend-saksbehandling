@@ -49,7 +49,7 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
       <Ledelinje prosentBredde={65} />
       <FlexRow key="beregningOppsummering">
         <FlexColumn className={styles.beskrivelse} key="beregningOppsummeringLedetekst">
-          <BodyShort size="small">
+          <Label size="small">
             <span>
               {!ikkeVurdert && (
                 <FormattedMessage
@@ -60,9 +60,13 @@ const lagDagsatsRad = (dagsatsRad: DagsatsRadType, ikkeVurdert: boolean): ReactE
                   }}
                 />
               )}
-              {ikkeVurdert && <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Dagsats.ikkeFastsatt" />}
+              {ikkeVurdert && (
+                <Label size="small">
+                  <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Dagsats.ikkeFastsatt" />{' '}
+                </Label>
+              )}
             </span>
-          </BodyShort>
+          </Label>
         </FlexColumn>
         <FlexColumn className={styles.beløp}>
           <BodyShort size="small" className={beregningStyles.semiBoldText}>
@@ -88,28 +92,33 @@ const lagForklaringer = (forklaringsListe: ReactElement[]): ReactElement[] =>
 
 const lagAndelerRader = (listofAndeler: BeregningsresultatAndelElementType[], ikkeVurdert: boolean): ReactElement[] =>
   listofAndeler.map((entry, index) => (
-    <FlexRow key={`indeAx${index + 1}`}>
-      <FlexColumn className={styles.beskrivelse} key={`indexAl2${index + 1}`}>
-        <BodyShort size="small">{entry.ledetekst ? entry.ledetekst : '-'}</BodyShort>
-      </FlexColumn>
-      {!ikkeVurdert && (
-        <FlexColumn key={`indexAt2${index + 2}`} className={styles.beløp}>
-          <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
+    <React.Fragment key={`indeAx${index + 1}`}>
+      <Ledelinje prosentBredde={65} />
+      <VerticalSpacer fourPx />
+      <FlexRow>
+        <FlexColumn className={styles.beskrivelse} key={`indexAl2${index + 1}`}>
+          <BodyShort size="small">{entry.ledetekst ? entry.ledetekst : '-'}</BodyShort>
         </FlexColumn>
-      )}
-      {ikkeVurdert && entry.skalFastsetteGrunnlag && (
-        <FlexColumn key={`indexAf2${index + 2}`} className={styles.beløp}>
-          <BodyShort size="small" className={beregningStyles.redError}>
-            <FormattedMessage id="Beregningsgrunnlag.BeregningTable.MåFastsettes" />
-          </BodyShort>
-        </FlexColumn>
-      )}
-      {ikkeVurdert && !entry.skalFastsetteGrunnlag && (
-        <FlexColumn key={`indexAf2${index + 2}`} className={styles.beløp}>
-          <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
-        </FlexColumn>
-      )}
-    </FlexRow>
+        {!ikkeVurdert && (
+          <FlexColumn key={`indexAt2${index + 2}`} className={styles.beløp}>
+            <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
+          </FlexColumn>
+        )}
+        {ikkeVurdert && entry.skalFastsetteGrunnlag && (
+          <FlexColumn key={`indexAf2${index + 2}`} className={styles.beløp}>
+            <BodyShort size="small" className={beregningStyles.redError}>
+              <FormattedMessage id="Beregningsgrunnlag.BeregningTable.MåFastsettes" />
+            </BodyShort>
+          </FlexColumn>
+        )}
+        {ikkeVurdert && !entry.skalFastsetteGrunnlag && (
+          <FlexColumn key={`indexAf2${index + 2}`} className={styles.beløp}>
+            <BodyShort size="small">{formatCurrencyNoKr(entry.verdi)}</BodyShort>
+          </FlexColumn>
+        )}
+      </FlexRow>
+      <VerticalSpacer fourPx />
+    </React.Fragment>
   ));
 
 const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVurdert: boolean): ReactElement[] => {
@@ -131,10 +140,12 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
     }
     const avkortetRadKomponent = lagSpesialRaderRad(avkortetRad, 'avkortet');
     if (avkortetRadKomponent) {
+      rows.push(<Ledelinje prosentBredde={65} />);
       rows.push(avkortetRadKomponent);
     }
     const redusertRadKomponent = lagSpesialRaderRad(redusertRad, 'redusert');
     if (redusertRadKomponent) {
+      rows.push(<Ledelinje prosentBredde={65} />);
       rows.push(redusertRadKomponent);
     }
   }

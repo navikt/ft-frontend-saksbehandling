@@ -20,18 +20,26 @@ const skilleLinje = (
 type OwnProps = {
   beregnetAarsinntekt?: number;
   sammenligningsgrunnlag: SammenligningsgrunlagProp;
+  erPGI: boolean;
 };
 
-const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({ beregnetAarsinntekt, sammenligningsgrunnlag }) => {
+const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
+  beregnetAarsinntekt,
+  sammenligningsgrunnlag,
+  erPGI,
+}) => {
   const { differanseBeregnet, rapportertPrAar, avvikProsent } = sammenligningsgrunnlag;
   const avvikProsentAvrundet = parseFloat(avvikProsent.toFixed(1));
+  const inntektTekst = erPGI
+    ? 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt.Naring'
+    : 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt';
   return (
     <>
       {skilleLinje}
       <FlexRow>
         <FlexColumn className={styles.colLable}>
           <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt" />
+            <FormattedMessage id={inntektTekst} />
           </BodyShort>
         </FlexColumn>
         <FlexColumn className={styles.colValue}>
