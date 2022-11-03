@@ -34,7 +34,6 @@ import styles from './aksjonspunktBehandler.less';
 import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
@@ -161,7 +160,6 @@ const buildFieldInitialValue = (
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
-  relevanteStatuser: RelevanteStatuserProp,
   avklaringsbehov?: BeregningAvklaringsbehov,
   sammenligningsgrunnlag?: SammenligningsgrunlagProp,
 ): BeregningsgrunnlagValues => {
@@ -173,7 +171,6 @@ const buildFieldInitialValue = (
     ...initialValues,
     periode: vilkårsperiode.periode,
     erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
-    relevanteStatuser,
     gjeldendeAvklaringsbehov: avklaringsbehov ? [avklaringsbehov] : [],
     skjæringstidspunkt: beregningsgrunnlag.skjaeringstidspunktBeregning,
     allePerioder: beregningsgrunnlag.beregningsgrunnlagPeriode,
@@ -185,7 +182,6 @@ const buildFormInitialValues = (
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkår: Vilkar,
-  relevanteStatuser: RelevanteStatuserProp,
   formName: string,
   lovparagraf: LovParagraf,
 ): BeregningFormValues => ({
@@ -195,7 +191,6 @@ const buildFormInitialValues = (
       alleKodeverk,
       arbeidsgiverOpplysningerPerId,
       finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),
-      relevanteStatuser,
       bg.avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf)),
       bg.sammenligningsgrunnlagPrStatus?.find(
         s => mapSammenligningtypeTilLovparagraf(s.sammenligningsgrunnlagType, bg.aktivitetStatus) === lovparagraf,
@@ -380,11 +375,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return [
       {
         kode: FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-        aksjonspunktData: BeregningsgrunnlagPanel.transformATFLValues(
-          values as ATFLValues,
-          values.relevanteStatuser,
-          alleAndelerIFørstePeriode,
-        ),
+        aksjonspunktData: BeregningsgrunnlagPanel.transformATFLValues(values as ATFLValues, alleAndelerIFørstePeriode),
       },
     ];
   }
@@ -459,7 +450,6 @@ type OwnProps = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkår: Vilkar;
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
-  relevanteStatuser: RelevanteStatuserProp;
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
   aktivIndex: number;
@@ -476,7 +466,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   beregningsgrunnlagListe,
   vilkår,
   submitCallback,
-  relevanteStatuser,
   formData,
   setFormData,
   aktivIndex,
@@ -503,7 +492,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
         alleKodeverk,
         arbeidsgiverOpplysningerPerId,
         vilkår,
-        relevanteStatuser,
         formName,
         lovparagraf,
       ),

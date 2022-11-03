@@ -1,7 +1,6 @@
 import { BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { ATFLTidsbegrensetValues, ATFLValues, FrilansInntektValues } from './ATFLAksjonspunktTsType';
 import { NyIArbeidslivetValues, VurderOgFastsettValues } from './NaringAksjonspunktTsType';
-import RelevanteStatuserProp from './RelevanteStatuserTsType';
 
 type VurderingValues = {
   periode: {
@@ -9,7 +8,6 @@ type VurderingValues = {
     tom: string;
   };
   erTilVurdering: boolean;
-  relevanteStatuser: RelevanteStatuserProp;
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[];
   allePerioder: BeregningsgrunnlagPeriodeProp[];
 };
