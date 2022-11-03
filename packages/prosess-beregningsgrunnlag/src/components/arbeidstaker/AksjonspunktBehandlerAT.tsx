@@ -4,13 +4,11 @@ import { BodyShort } from '@navikt/ds-react';
 import { InputField } from '@navikt/ft-form-hooks';
 import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
-
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
@@ -66,7 +64,6 @@ const createRows = (
 interface StaticFunctions {
   transformValues: (
     values: ArbeidstakerInntektValues,
-    relevanteStatuser: RelevanteStatuserProp,
     alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
   ) => ArbeidsinntektResultat[];
 }
@@ -98,11 +95,10 @@ const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = (
 
 AksjonspunktBehandlerAT.transformValues = (
   values: ArbeidstakerInntektValues,
-  relevanteStatuser: RelevanteStatuserProp,
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ArbeidsinntektResultat[] => {
   let inntektPrAndelList = [] as ArbeidsinntektResultat[];
-  if (relevanteStatuser.isArbeidstaker) {
+  if (alleAndelerIForstePeriode.find(a => a.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)) {
     inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode).map(({ andelsnr }, index) => {
       const overstyrtInntekt = values[`inntekt${index}`];
       if (!andelsnr) {

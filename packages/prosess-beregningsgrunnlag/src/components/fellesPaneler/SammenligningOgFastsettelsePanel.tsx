@@ -269,7 +269,6 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
                 beregningsgrunnlagListe={beregningsgrunnlagListe}
                 vilkår={vilkår}
                 submitCallback={submitCallback}
-                relevanteStatuser={relevanteStatuser}
                 formData={formData}
                 setFormData={setFormData}
                 aktivIndex={aktivIndex}
