@@ -49,13 +49,8 @@ const createStatusEtiketter = (
   return (
     <FlexRow>
       {statusList.map(status => (
-        <FlexColumn className={beregningStyles.tagRad}>
-          <Tag
-            key={status.visningsNavn}
-            variant={status.tagType}
-            title={status.visningsNavn}
-            className={beregningStyles.tagMargin}
-          >
+        <FlexColumn key={status.visningsNavn} className={beregningStyles.tagRad}>
+          <Tag variant={status.tagType} title={status.visningsNavn} className={beregningStyles.tagMargin}>
             {status.visningsNavn}
           </Tag>
         </FlexColumn>

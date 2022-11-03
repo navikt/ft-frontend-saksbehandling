@@ -131,7 +131,7 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
   }
   if (!ikkeVurdert) {
     if (rowsAndeler.length > 1) {
-      rows.push(<Ledelinje prosentBredde={65} />);
+      rows.push(<Ledelinje prosentBredde={65} key="ledeBrutto" />);
       const bruttoRadKomponent = lagSpesialRaderRad(bruttoRad, 'brutto');
       if (bruttoRadKomponent) {
         rows.push(bruttoRadKomponent);
@@ -139,12 +139,12 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
     }
     const avkortetRadKomponent = lagSpesialRaderRad(avkortetRad, 'avkortet');
     if (avkortetRadKomponent) {
-      rows.push(<Ledelinje prosentBredde={65} />);
+      rows.push(<Ledelinje prosentBredde={65} key="ledeAvkortet" />);
       rows.push(avkortetRadKomponent);
     }
     const redusertRadKomponent = lagSpesialRaderRad(redusertRad, 'redusert');
     if (redusertRadKomponent) {
-      rows.push(<Ledelinje prosentBredde={65} />);
+      rows.push(<Ledelinje prosentBredde={65} key="ledeRedusert" />);
       rows.push(redusertRadKomponent);
     }
   }

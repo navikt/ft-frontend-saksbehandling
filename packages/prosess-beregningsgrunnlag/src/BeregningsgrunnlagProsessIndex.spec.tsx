@@ -376,8 +376,8 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const utils = render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
 
     expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
-    const knappATFL = screen.getAllByText('Bekreft og fortsett')[0];
-    const knappNæring = screen.getAllByText('Bekreft og fortsett')[1];
+    const knappATFL = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[0];
+    const knappNæring = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[1];
 
     expect(knappATFL).toBeDisabled();
     expect(knappNæring).toBeDisabled();
