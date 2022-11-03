@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-meny",
   "description": "Meny som viser diverse handlinger en kan utføre på en fagsak",
-  "version": "1.1.22",
+  "version": "1.1.23",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
     "@navikt/ds-react": "^1.4.0",
     "@navikt/ft-form-hooks": "^3.0.5",
     "@navikt/ft-form-validators": "^1.0.36",
-    "@navikt/ft-plattform-komponenter": "^1.2.11",
+    "@navikt/ft-plattform-komponenter": "^1.2.12",
     "@navikt/ft-ui-komponenter": "^1.1.14",
     "@navikt/ft-utils": "^1.1.7",
     "react": "18.2.0",
