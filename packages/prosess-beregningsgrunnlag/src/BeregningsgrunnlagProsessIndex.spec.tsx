@@ -43,8 +43,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     // Beregningsresultat
     expect(screen.getByText('Beregningsgrunnlag - beregnet årsinntekt arbeid')).toBeInTheDocument();
     expect(screen.getByText('Redusert til 80% dekningsgrad')).toBeInTheDocument();
-    expect(screen.getByText('Dagsats')).toBeInTheDocument();
-    expect(screen.getByText('(360 000/260 dager)')).toBeInTheDocument();
+    expect(screen.getByText('Dagsats (360 000/260 dager)')).toBeInTheDocument();
     expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt frilans')).not.toBeInTheDocument();
     expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt næring')).not.toBeInTheDocument();
   });

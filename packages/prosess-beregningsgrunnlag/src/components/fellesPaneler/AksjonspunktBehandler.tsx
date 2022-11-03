@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement, useEffect, useState } from 'react';
+import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import Panel from 'nav-frontend-paneler';
 import { Heading } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
@@ -464,6 +464,8 @@ type OwnProps = {
   setFormData: (data: BeregningFormValues) => void;
   aktivIndex: number;
   lovparagraf: LovParagraf;
+  finnesFormSomSubmittes: boolean;
+  setSubmitting: (toggle: boolean) => void;
 };
 
 const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
@@ -479,12 +481,13 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   setFormData,
   aktivIndex,
   lovparagraf,
+  finnesFormSomSubmittes,
+  setSubmitting,
 }) => {
   const intl = useIntl();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
-    setIsSubmitting(true);
+    setSubmitting(true);
     submitCallback(transformFields(values, lp));
   };
 
@@ -530,7 +533,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
           isDirty={formMethods.formState.isDirty}
-          isSubmitting={isSubmitting}
+          isSubmitting={finnesFormSomSubmittes}
         />
       </FlexColumn>
     </FlexRow>
