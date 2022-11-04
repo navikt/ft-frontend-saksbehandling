@@ -1,4 +1,3 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
 // dette stylsheetet brukes av flere av komponentene unde prosess-beregningsgrunnlag
 .avsnittOverskrift {
   font-size: 1.125rem;
@@ -43,7 +42,7 @@
 }
 
 .redError {
-  color: @redError;
+  color: var(--navds-semantic-color-interaction-danger);
 }
 
 .etikettLiten {
@@ -91,6 +90,10 @@
   /* stylelint-disable-next-line declaration-no-important */
   padding: 0 !important;
   width: 100%;
+}
+
+.tagMargin {
+  margin: 8px;
 }
 
 .colDivider {
