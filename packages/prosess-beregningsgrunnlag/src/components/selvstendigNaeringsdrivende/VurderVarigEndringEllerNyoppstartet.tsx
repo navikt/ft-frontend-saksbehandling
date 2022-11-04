@@ -40,6 +40,7 @@ type OwnProps = {
   erNyoppstartet?: boolean;
   fieldIndex: number;
   formName: string;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -66,6 +67,7 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
   erNyoppstartet,
   fieldIndex,
   formName,
+  isAksjonspunktClosed,
 }) => {
   let radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IngenEndring" />;
   let radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.EndretNaering" />;
@@ -93,37 +95,19 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
   ];
   return (
     <>
-      {!readOnly && (
-        <FlexRow>
-          <FlexColumn>
-            <RadioGroupPanel
-              name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
-              validate={[required]}
-              isHorizontal={false}
-              isReadOnly={readOnly}
-              parse={(value: string) => value === 'true'}
-              radios={radioknapper}
-            />
-          </FlexColumn>
-        </FlexRow>
-      )}
-      {readOnly && (
-        <>
-          <FlexRow>
-            <FlexColumn>
-              <BodyShort size="small">
-                {erNyoppstartet && (
-                  <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.Nyoppstartet" />
-                )}
-                {erVarigEndring && (
-                  <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndring" />
-                )}
-              </BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <VerticalSpacer sixteenPx />
-        </>
-      )}
+      <FlexRow>
+        <FlexColumn>
+          <RadioGroupPanel
+            name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
+            validate={[required]}
+            isHorizontal
+            isReadOnly={readOnly}
+            isEdited={readOnly && isAksjonspunktClosed}
+            radios={radioknapper}
+            isTrueOrFalseSelection
+          />
+        </FlexColumn>
+      </FlexRow>
       {varigEndringBekreftetVerdi && (
         <>
           <FlexRow className={styles.verticalAlignMiddle}>
@@ -138,6 +122,7 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
                   parse={parseCurrencyInput}
                   className={styles.breddeInntekt}
                   readOnly={readOnly}
+                  isEdited={readOnly && isAksjonspunktClosed}
                 />
               </div>
             </FlexColumn>
@@ -179,10 +164,11 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
       ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
   );
   if (varigEndretNaeringAP) {
+    const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP.status)
+      ? undefined
+      : relevanteAndeler[0].overstyrtPrAar !== null && relevanteAndeler[0].overstyrtPrAar !== undefined;
     return {
-      [varigEndringRadioname]: isAksjonspunktOpen(varigEndretNaeringAP.status)
-        ? undefined
-        : relevanteAndeler[0].overstyrtPrAar !== null && relevanteAndeler[0].overstyrtPrAar !== undefined,
+      [varigEndringRadioname]: erVarigEndringValgt,
       [begrunnelseFieldname]: varigEndretNaeringAP.begrunnelse ? varigEndretNaeringAP.begrunnelse : '',
       [fastsettInntektFieldname]: varigEndretAndel ? formatCurrencyNoKr(varigEndretAndel.overstyrtPrAar) : undefined,
     };

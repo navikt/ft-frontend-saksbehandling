@@ -80,6 +80,7 @@ const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProp
       erNyoppstartet={erNyoppstartet}
       fieldIndex={fieldIndex}
       formName={formName}
+      isAksjonspunktClosed={isAksjonspunktClosed}
     />
   );
 };

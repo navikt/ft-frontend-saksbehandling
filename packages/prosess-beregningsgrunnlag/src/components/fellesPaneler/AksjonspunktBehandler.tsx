@@ -295,7 +295,14 @@ const settOppKomponenterForATFL = (
           formName={formName}
         />
       )}
-      {visFL && <AksjonspunktBehandlerFL readOnly={readOnly} fieldIndex={fieldIndex} formName={formName} />}
+      {visFL && (
+        <AksjonspunktBehandlerFL
+          readOnly={readOnly}
+          fieldIndex={fieldIndex}
+          formName={formName}
+          alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+        />
+      )}
       <VerticalSpacer sixteenPx />
       <FlexRow>
         <FlexColumn>
@@ -565,7 +572,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
           key={field.id}
           style={{ display: bgSomSkalVurderes[index].vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
         >
-          <div className={readOnly ? beregningStyles.panelRight : styles.aksjonspunktBehandlerBorder}>
+          <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder}>
             {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
             <VerticalSpacer sixteenPx />
             {submittKnapp}
