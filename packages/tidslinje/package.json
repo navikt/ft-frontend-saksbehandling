@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-tidslinje",
   "description": "Overbygg for vis-timeline",
-  "version": "1.1.15",
+  "version": "1.2.0",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,10 +24,10 @@
     "storybook": "cross-env start-storybook -p 7022"
   },
   "dependencies": {
-    "@navikt/ds-css": "^1.4.0",
+    "@navikt/ds-css": "^1.5.3",
     "@navikt/ft-kodeverk": "^1.0.21",
     "@navikt/ft-types": "^1.0.32",
-    "@navikt/ft-ui-komponenter": "^1.1.14",
+    "@navikt/ft-ui-komponenter": "^1.2.0",
     "@navikt/ft-utils": "^1.1.7",
     "moment": "2.29.4",
     "react": "18.2.0",
@@ -36,7 +36,7 @@
     "vis-timeline": "7.7.0"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "^1.4.0",
+    "@navikt/ds-css": "^1.5.3",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "^1.x",

@@ -43,8 +43,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     // Beregningsresultat
     expect(screen.getByText('Beregningsgrunnlag - beregnet årsinntekt arbeid')).toBeInTheDocument();
     expect(screen.getByText('Redusert til 80% dekningsgrad')).toBeInTheDocument();
-    expect(screen.getByText('Dagsats')).toBeInTheDocument();
-    expect(screen.getByText('(360 000/260 dager)')).toBeInTheDocument();
+    expect(screen.getByText('Dagsats (360 000/260 dager)')).toBeInTheDocument();
     expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt frilans')).not.toBeInTheDocument();
     expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt næring')).not.toBeInTheDocument();
   });
@@ -377,8 +376,8 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const utils = render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
 
     expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
-    const knappATFL = screen.getAllByText('Bekreft og fortsett')[0];
-    const knappNæring = screen.getAllByText('Bekreft og fortsett')[1];
+    const knappATFL = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[0];
+    const knappNæring = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[1];
 
     expect(knappATFL).toBeDisabled();
     expect(knappNæring).toBeDisabled();

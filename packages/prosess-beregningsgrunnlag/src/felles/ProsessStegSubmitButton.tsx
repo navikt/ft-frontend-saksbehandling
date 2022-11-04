@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 import { ariaCheck } from '@navikt/ft-form-validators';
@@ -47,15 +47,16 @@ const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
 }) => {
   if (!isReadOnly) {
     return (
-      <Hovedknapp
-        mini
-        spinner={isSubmitting}
+      <Button
+        variant="primary"
+        size="small"
+        loading={isSubmitting}
         disabled={isDisabled(isDirty, isSubmitting, isSubmittable, hasEmptyRequiredFields)}
         onClick={onClick || ariaCheck}
-        htmlType={onClick ? 'button' : 'submit'}
+        type={onClick ? 'button' : 'submit'}
       >
         {text || intl.formatMessage({ id: 'SubmitButton.ConfirmInformation' })}
-      </Hovedknapp>
+      </Button>
     );
   }
   return null;

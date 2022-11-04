@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent, ReactNode, useState } from 'react';
 import { Heading } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -89,10 +89,14 @@ const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, lovparagr
   }
 };
 
+type BeregnetInntektProp = {
+  inntekt: number;
+  erPGI: boolean;
+};
 const finnBeregnetInntekt = (
   sg: SammenligningsgrunlagProp,
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
-): number => {
+): BeregnetInntektProp => {
   const pgiAndel = alleAndelerIFørstePeriode.find(
     andel =>
       (andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
@@ -100,23 +104,38 @@ const finnBeregnetInntekt = (
       !andel.erTilkommetAndel,
   );
   if (sg.sammenligningsgrunnlagType === SammenligningType.SN && pgiAndel) {
-    return pgiAndel.pgiSnitt || 0;
+    return {
+      inntekt: pgiAndel.pgiSnitt || 0,
+      erPGI: true,
+    };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.MIDLERTIDIG_INAKTIV && pgiAndel) {
-    return pgiAndel.pgiSnitt || 0;
+    return {
+      inntekt: pgiAndel.pgiSnitt || 0,
+      erPGI: true,
+    };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
     return pgiAndel
-      ? pgiAndel.pgiSnitt || 0
-      : beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
-          AktivitetStatus.ARBEIDSTAKER,
-          AktivitetStatus.FRILANSER,
-        ]);
+      ? {
+          inntekt: pgiAndel.pgiSnitt || 0,
+          erPGI: true,
+        }
+      : {
+          inntekt: beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
+            AktivitetStatus.ARBEIDSTAKER,
+            AktivitetStatus.FRILANSER,
+          ]),
+          erPGI: false,
+        };
   }
-  return beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
-    AktivitetStatus.ARBEIDSTAKER,
-    AktivitetStatus.FRILANSER,
-  ]);
+  return {
+    inntekt: beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
+      AktivitetStatus.ARBEIDSTAKER,
+      AktivitetStatus.FRILANSER,
+    ]),
+    erPGI: false,
+  };
 };
 
 type OwnProps = {
@@ -189,6 +208,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   aktivIndex,
 }) => {
   const gruppertPrLovparagraf = grupperPrLovparagraf(beregningsgrunnlagListe);
+  const [finnesFormSomSubmittes, setSubmitting] = useState(false);
 
   const panelForklaring = (
     <SammenligningForklaringPanel
@@ -232,7 +252,8 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
               <Heading size="xsmall">{finnTittel(sg, lovparagraf)}</Heading>
               <SammenligningsgrunnlagPanel
                 sammenligningsgrunnlag={sg}
-                beregnetAarsinntekt={finnBeregnetInntekt(sg, andelerIFørstePeriode)}
+                beregnetAarsinntekt={finnBeregnetInntekt(sg, andelerIFørstePeriode).inntekt}
+                erPGI={finnBeregnetInntekt(sg, andelerIFørstePeriode).erPGI}
               />
               <div className={beregningStyles.storSpace} />
             </>
@@ -248,10 +269,11 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
                 beregningsgrunnlagListe={beregningsgrunnlagListe}
                 vilkår={vilkår}
                 submitCallback={submitCallback}
-                relevanteStatuser={relevanteStatuser}
                 formData={formData}
                 setFormData={setFormData}
                 aktivIndex={aktivIndex}
+                finnesFormSomSubmittes={finnesFormSomSubmittes}
+                setSubmitting={setSubmitting}
               />
               <div className={beregningStyles.storSpace} />
             </div>
@@ -265,7 +287,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   return (
     <div className={beregningStyles.panelRight}>
       {panelForklaring}
-      <VerticalSpacer eightPx />
+      <VerticalSpacer twentyPx />
       {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
       {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
     </div>

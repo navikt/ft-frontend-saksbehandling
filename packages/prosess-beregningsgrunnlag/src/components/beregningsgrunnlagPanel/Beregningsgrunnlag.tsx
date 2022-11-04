@@ -114,10 +114,9 @@ const createRelevantePaneler = (
         />
       </>
     )}
-    {!relevanteStatuser.isSelvstendigNaeringsdrivende &&
+    {(relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) &&
       sammenligningsGrunnlagInntekter &&
-      sammenligningsgrunnlag &&
-      (relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) && (
+      sammenligningsgrunnlag && (
         <>
           {storSpacer}
           <SammenlignsgrunnlagAOrdningen
@@ -133,7 +132,6 @@ interface StaticFunctions {
   buildInitialValues: (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]) => ATFLBegrunnelseValues;
   transformATFLValues: (
     values: ATFLValues,
-    relevanteStatuser: RelevanteStatuserProp,
     alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
   ) => FastsettAvvikATFLResultatAP;
   transformATFLTidsbegrensetValues: (
@@ -202,11 +200,10 @@ Beregningsgrunnlag.buildInitialValues = (
 
 Beregningsgrunnlag.transformATFLValues = (
   values: ATFLValues,
-  relevanteStatuser: RelevanteStatuserProp,
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
 ): FastsettAvvikATFLResultatAP => ({
   begrunnelse: values.ATFLVurdering,
-  inntektPrAndelList: AksjonspunktBehandlerAT.transformValues(values, relevanteStatuser, alleAndelerIFørstePeriode),
+  inntektPrAndelList: AksjonspunktBehandlerAT.transformValues(values, alleAndelerIFørstePeriode),
   inntektFrilanser: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,
 });
 

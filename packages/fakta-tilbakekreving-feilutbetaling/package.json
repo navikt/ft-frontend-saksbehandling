@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
-  "version": "1.1.14",
+  "version": "1.2.0",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,13 +25,13 @@
     "storybook": "cross-env start-storybook -p 7008"
   },
   "dependencies": {
-    "@navikt/ds-css": "^1.4.0",
-    "@navikt/ds-react": "^1.4.0",
-    "@navikt/ft-form-hooks": "^3.0.5",
+    "@navikt/ds-css": "^1.5.3",
+    "@navikt/ds-react": "^1.5.3",
+    "@navikt/ft-form-hooks": "^3.1.0",
     "@navikt/ft-form-validators": "^1.0.36",
     "@navikt/ft-kodeverk": "^1.0.21",
     "@navikt/ft-types": "^1.0.32",
-    "@navikt/ft-ui-komponenter": "^1.1.14",
+    "@navikt/ft-ui-komponenter": "^1.2.0",
     "@navikt/ft-utils": "^1.1.7",
     "moment": "2.29.4",
     "react": "18.2.0",
@@ -39,8 +39,8 @@
     "react-intl": "6.2.1"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "^1.4.0",
-    "@navikt/ds-react": "^1.4.0",
+    "@navikt/ds-css": "^1.5.3",
+    "@navikt/ds-react": "^1.5.3",
     "@navikt/ft-form-hooks": "^2.x",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-kodeverk": "^1.x",
