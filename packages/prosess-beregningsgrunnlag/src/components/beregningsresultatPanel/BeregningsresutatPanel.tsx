@@ -28,14 +28,17 @@ const lagSpesialRaderRad = (
     return null;
   }
   return (
-    <FlexRow key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
-      <FlexColumn className={styles.beskrivelse}>
-        <BodyShort size="small">{visningsObjekt.ledetekst}</BodyShort>
-      </FlexColumn>
-      <FlexColumn className={styles.beløp}>
-        <BodyShort size="small">{formatCurrencyNoKr(visningsObjekt.verdi)}</BodyShort>
-      </FlexColumn>
-    </FlexRow>
+    <>
+      <VerticalSpacer fourPx />
+      <FlexRow key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
+        <FlexColumn className={styles.beskrivelse}>
+          <BodyShort size="small">{visningsObjekt.ledetekst}</BodyShort>
+        </FlexColumn>
+        <FlexColumn className={styles.beløp}>
+          <BodyShort size="small">{formatCurrencyNoKr(visningsObjekt.verdi)}</BodyShort>
+        </FlexColumn>
+      </FlexRow>
+    </>
   );
 };
 
@@ -116,7 +119,6 @@ const lagAndelerRader = (listofAndeler: BeregningsresultatAndelElementType[], ik
           </FlexColumn>
         )}
       </FlexRow>
-      <VerticalSpacer fourPx />
     </React.Fragment>
   ));
 

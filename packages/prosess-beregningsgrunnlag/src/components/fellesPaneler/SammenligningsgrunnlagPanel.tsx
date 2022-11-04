@@ -61,8 +61,10 @@ const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
         </FlexColumn>
         <FlexColumn className={styles.colAvvik} />
       </FlexRow>
-      <FlexRow className={styles.avvikLinjeRad}>
-        <FlexColumn className={`${styles.colLine} ${styles.colBorderTop}`} />
+      <FlexRow>
+        <FlexColumn>
+          <div className={styles.linjeSkilleTykk} />
+        </FlexColumn>
       </FlexRow>
       <FlexRow>
         <FlexColumn className={styles.colLable}>
