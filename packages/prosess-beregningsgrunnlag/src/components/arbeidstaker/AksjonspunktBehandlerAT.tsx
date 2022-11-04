@@ -55,6 +55,7 @@ const createRows = (
             readOnly={readOnly}
             parse={parseCurrencyInput}
             className={styles.bredde}
+            isEdited={readOnly && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0)}
           />
         </div>
       </FlexColumn>

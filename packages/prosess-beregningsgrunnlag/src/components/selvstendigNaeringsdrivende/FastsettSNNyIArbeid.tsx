@@ -70,7 +70,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
                   validate={[required, maxValueFormatted(178956970)]}
                   parse={parseCurrencyInput}
                   className={styles.breddeInntekt}
-                  isEdited={isAksjonspunktClosed}
+                  isEdited={readOnly && isAksjonspunktClosed}
                   readOnly={readOnly}
                 />
               </div>
@@ -88,6 +88,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
               name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
               label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
               validate={[required, maxLength1500, minLength3, hasValidText]}
+              isEdited={readOnly && isAksjonspunktClosed}
               maxLength={1500}
               readOnly={readOnly}
               description={intl.formatMessage({

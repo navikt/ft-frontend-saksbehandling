@@ -8,8 +8,15 @@ import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { FrilansInntektValues } from '../../types/ATFLAksjonspunktTsType';
+
+const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): boolean =>
+  alleAndelerIForstePeriode.some(
+    andel =>
+      andel.aktivitetStatus === AktivitetStatus.FRILANSER && (andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
+  );
 
 interface StaticFunctions {
   buildInitialValues: (relevanteAndeler: BeregningsgrunnlagAndel[]) => FrilansInntektValues;
@@ -19,10 +26,16 @@ type OwnProps = {
   readOnly: boolean;
   fieldIndex: number;
   formName: string;
+  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
 };
 
-const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, fieldIndex, formName }) => (
-  <FlexRow>
+const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly,
+  fieldIndex,
+  formName,
+  alleAndelerIForstePeriode,
+}) => (
+  <FlexRow className={styles.verticalAlignMiddle}>
     <FlexColumn className={styles.atflAvvikAktivitet}>
       <BodyShort size="small">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerFL" />
@@ -36,6 +49,7 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
           readOnly={readOnly}
           parse={parseCurrencyInput}
           className={styles.bredde}
+          isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
         />
       </div>
     </FlexColumn>
