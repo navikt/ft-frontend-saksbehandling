@@ -125,7 +125,7 @@ const createArbeidinntektRows = (
   ));
   if (relevanteAndeler.length > 1) {
     const summaryRow = (
-      <FlexContainer>
+      <FlexContainer key="SummaryRow">
         <FlexRow>
           <FlexColumn className={beregningStyles.tabellAktivitet}>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />

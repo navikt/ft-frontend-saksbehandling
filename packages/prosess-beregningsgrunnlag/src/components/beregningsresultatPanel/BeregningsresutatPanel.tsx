@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import Panel from 'nav-frontend-paneler';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label, Heading } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
@@ -132,7 +131,7 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
   }
   if (!ikkeVurdert) {
     if (rowsAndeler.length > 1) {
-      rows.push(<Ledelinje prosentBredde={65} />);
+      rows.push(<Ledelinje prosentBredde={65} key="ledeBrutto" />);
       const bruttoRadKomponent = lagSpesialRaderRad(bruttoRad, 'brutto');
       if (bruttoRadKomponent) {
         rows.push(bruttoRadKomponent);
@@ -140,12 +139,12 @@ const lagTabellRader = (periodeData: BeregningsresultatPeriodeTabellType, ikkeVu
     }
     const avkortetRadKomponent = lagSpesialRaderRad(avkortetRad, 'avkortet');
     if (avkortetRadKomponent) {
-      rows.push(<Ledelinje prosentBredde={65} />);
+      rows.push(<Ledelinje prosentBredde={65} key="ledeAvkortet" />);
       rows.push(avkortetRadKomponent);
     }
     const redusertRadKomponent = lagSpesialRaderRad(redusertRad, 'redusert');
     if (redusertRadKomponent) {
-      rows.push(<Ledelinje prosentBredde={65} />);
+      rows.push(<Ledelinje prosentBredde={65} key="ledeRedusert" />);
       rows.push(redusertRadKomponent);
     }
   }
@@ -248,10 +247,10 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
   const intl = useIntl();
   const skalLagePeriodeHeaders = periodeResultatTabeller.length > 1;
   return (
-    <Panel className={beregningStyles.panelRight}>
-      <Label size="small" className={beregningStyles.avsnittOverskrift}>
+    <div className={beregningStyles.panelRight}>
+      <Heading size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
-      </Label>
+      </Heading>
       <VerticalSpacer eightPx />
       {periodeResultatTabeller.map((periodeData, index) =>
         createPeriodeResultat(
@@ -264,7 +263,7 @@ const BeregningsresutatPanel: FunctionComponent<OwnProps> = ({
           erMidlertidigInaktiv,
         ),
       )}
-    </Panel>
+    </div>
   );
 };
 export default BeregningsresutatPanel;
