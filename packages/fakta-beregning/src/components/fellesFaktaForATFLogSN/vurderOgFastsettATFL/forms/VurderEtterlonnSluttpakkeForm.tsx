@@ -3,7 +3,7 @@ import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import 'core-js/features/array/flat-map';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
@@ -48,9 +48,9 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
     <div>
       <RadioGroupPanel
         label={
-          <Normaltekst>
+          <BodyShort>
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
-          </Normaltekst>
+          </BodyShort>
         }
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         validate={[required]}

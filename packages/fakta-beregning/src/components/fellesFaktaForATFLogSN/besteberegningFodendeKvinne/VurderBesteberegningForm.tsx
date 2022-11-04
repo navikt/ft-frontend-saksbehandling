@@ -1,10 +1,10 @@
+import { BodyShort } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
-import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
@@ -51,13 +51,13 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
   const isReadOnly = readOnly || erOverstyrt;
   return (
     <div>
-      <Row>
-        <Column xs="9">
+      <FlexRow>
+        <FlexColumn className={styles.flexColumn9}>
           <RadioGroupPanel
             label={
-              <Normaltekst>
+              <BodyShort>
                 <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
-              </Normaltekst>
+              </BodyShort>
             }
             name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${besteberegningField}`}
             isReadOnly={isReadOnly}
@@ -69,8 +69,8 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
             parse={parseStringToBoolean}
             isHorizontal
           />
-        </Column>
-        <Column xs="3">
+        </FlexColumn>
+        <FlexColumn className={styles.flexColumn3}>
           <a
             className={styles.navetLink}
             href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
@@ -79,8 +79,8 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
           >
             <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
           </a>
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
     </div>
   );
 };

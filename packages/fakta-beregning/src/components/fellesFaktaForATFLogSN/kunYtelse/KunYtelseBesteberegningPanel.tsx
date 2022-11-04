@@ -2,10 +2,9 @@ import { formHooks, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
+import { Label } from '@navikt/ds-react';
 import { AlleKodeverk, KunYtelse } from '@navikt/ft-types';
-import { ArrowBox } from '@navikt/ft-ui-komponenter';
-import { Column, Row } from 'nav-frontend-grid';
-import { Element } from 'nav-frontend-typografi';
+import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
@@ -70,14 +69,14 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
 
       {erBesteberegning !== undefined && erBesteberegning !== null && (
         <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
-          <Row>
-            <Column xs="9">
-              <Element>
+          <FlexRow>
+            <FlexColumn className={styles.flexColumn9}>
+              <Label size="small">
                 <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
-              </Element>
-            </Column>
+              </Label>
+            </FlexColumn>
             {erBesteberegning && (
-              <Column xs="3">
+              <FlexColumn className={styles.flexColumn3}>
                 <a
                   className={styles.navetLink}
                   href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
@@ -86,20 +85,20 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
                 >
                   <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
                 </a>
-              </Column>
+              </FlexColumn>
             )}
-          </Row>
+          </FlexRow>
           {skalViseInntektstabell && (
-            <Row>
-              <Column xs="12">
+            <FlexRow>
+              <FlexColumn className={styles.flexColumn12}>
                 <BrukersAndelFieldArray
                   name={brukersAndelFieldArrayName}
                   readOnly={readOnly}
                   isAksjonspunktClosed={isAksjonspunktClosed}
                   alleKodeverk={alleKodeverk}
                 />
-              </Column>
-            </Row>
+              </FlexColumn>
+            </FlexRow>
           )}
         </ArrowBox>
       )}
