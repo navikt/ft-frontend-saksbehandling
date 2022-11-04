@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import dayjs from 'dayjs';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import { Table } from '@navikt/ft-ui-komponenter';
 import { hasValidDate } from '@navikt/ft-form-validators';
 
@@ -80,7 +80,7 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
   fieldId,
 }) => (
   <>
-    <Element>{finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}</Element>
+    <Label size="small">{finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}</Label>
     <Table headerTextCodes={getHeaderTextCodes()} noHover>
       {aktiviteter.map(aktivitet => (
         <VurderAktiviteterTabellRad

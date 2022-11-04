@@ -1,10 +1,10 @@
+import { Label } from '@navikt/ds-react';
+import { AlleKodeverk } from '@navikt/ft-types';
+import { BorderBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Element } from 'nav-frontend-typografi';
-import { BorderBox } from '@navikt/ft-ui-komponenter';
-import { Column, Row } from 'nav-frontend-grid';
-import { AlleKodeverk } from '@navikt/ft-types';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
+import styles from './kunYtelseUtenBesteberegningPanel.less';
 
 type OwnProps = {
   readOnly: boolean;
@@ -27,13 +27,13 @@ const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
   isAksjonspunktClosed,
 }) => (
   <BorderBox>
-    <Row>
-      <Column xs="9">
-        <Element>
+    <FlexRow>
+      <FlexColumn className={styles.flexColumn9}>
+        <Label size="small">
           <FormattedMessage id="KunYtelsePanel.Overskrift" />
-        </Element>
-      </Column>
-    </Row>
+        </Label>
+      </FlexColumn>
+    </FlexRow>
     <BrukersAndelFieldArray
       name={brukersAndelFieldArrayName}
       readOnly={readOnly}

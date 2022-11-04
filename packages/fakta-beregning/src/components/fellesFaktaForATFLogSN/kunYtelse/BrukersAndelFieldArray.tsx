@@ -1,14 +1,12 @@
+import { Detail, ErrorMessage } from '@navikt/ds-react';
 import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
-import { Image, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, Image, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { Column, Row } from 'nav-frontend-grid';
-import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { ErrorMessage } from '@navikt/ds-react';
 import addCircleIcon from '../../../images/add-circle.svg';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
@@ -114,7 +112,7 @@ const createBruttoBGSummaryRow = sumFordeling => (
       <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
     </TableColumn>
     <TableColumn className={styles.rightAlign}>
-      <Undertekst>{sumFordeling}</Undertekst>
+      <Detail>{sumFordeling}</Detail>
     </TableColumn>
     <TableColumn />
   </TableRow>
@@ -196,8 +194,8 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
         {tablerows}
       </Table>
       {!readOnly && (
-        <Row className={styles.buttonRow}>
-          <Column xs="3">
+        <FlexRow className={styles.buttonRow}>
+          <FlexColumn className={styles.flexColumn3}>
             <button
               id="leggTilAndelDiv"
               onClick={() => {
@@ -209,12 +207,12 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
               title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.LeggTilAndel' })}
             >
               <Image className={styles.addCircleIcon} src={addCircleIcon} />
-              <Undertekst className={styles.imageText}>
+              <Detail className={styles.imageText}>
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-              </Undertekst>
+              </Detail>
             </button>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
       <VerticalSpacer eightPx />
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

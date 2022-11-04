@@ -1,9 +1,17 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
+import { Button, ErrorMessage, Label } from '@navikt/ds-react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Element } from 'nav-frontend-typografi';
-import { Knapp } from 'nav-frontend-knapper';
-
+import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
+import {
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  AvklarBeregningAktiviteter,
+  AvklarBeregningAktiviteterMap,
+  BeregningAvklaringsbehov,
+} from '@navikt/ft-types';
+import { BeregningsgrunnlagTilBekreftelse } from '@navikt/ft-types/index';
+import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
 import {
   AksjonspunktHelpTextTemp,
   FlexColumn,
@@ -12,33 +20,22 @@ import {
   OverstyringKnapp,
   VerticalSpacer,
 } from '@navikt/ft-ui-komponenter';
-import {
-  AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
-  AvklarBeregningAktiviteter,
-  AvklarBeregningAktiviteterMap,
-  BeregningAvklaringsbehov,
-} from '@navikt/ft-types';
-import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
-import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
-import { BeregningsgrunnlagTilBekreftelse } from '@navikt/ft-types/index';
 import { UseFormGetValues } from 'react-hook-form';
-import { ErrorMessage } from '@navikt/ds-react';
+import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
-import VurderAktiviteterPanel from './VurderAktiviteterPanel';
-import styles from './avklareAktiviteterPanel.less';
+import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
+import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
+import SubmitButton from '../felles/SubmitButton';
 import {
   erSubmittable,
   findBegrunnelse,
   skalKunneLoseAvklaringsbehov,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
-import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
-import SubmitButton from '../felles/SubmitButton';
-import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
-import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
-import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import styles from './avklareAktiviteterPanel.less';
+import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAksjonspunktCode;
 
@@ -203,9 +200,9 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       <FlexContainer>
         <FlexRow>
           <FlexColumn>
-            <Element className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
+            <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
               <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
-            </Element>
+            </Label>
           </FlexColumn>
           {(erOverstyrer || harOverstyrAvklaringsbehov) && (
             <FlexColumn>
@@ -229,9 +226,9 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       )}
 
       {erOverstyrtKnappTrykket && (
-        <Element>
+        <Label size="small">
           <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
-        </Element>
+        </Label>
       )}
 
       <VerticalSpacer twentyPx />
@@ -283,15 +280,15 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                   </FlexColumn>
                   {!!dirtyFields && fieldIsDirty && (
                     <FlexColumn>
-                      <Knapp
-                        htmlType="button"
-                        spinner={isSubmitting}
+                      <Button
+                        variant="secondary"
+                        loading={isSubmitting}
                         disabled={isSubmitting}
                         onClick={() => initializeForm(false)}
-                        mini
+                        size="small"
                       >
                         <FormattedMessage id="AvklareAktiviteter.Avbryt" />
-                      </Knapp>
+                      </Button>
                     </FlexColumn>
                   )}
                 </FlexRow>

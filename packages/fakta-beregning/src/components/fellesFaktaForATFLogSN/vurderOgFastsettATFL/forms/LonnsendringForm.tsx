@@ -2,7 +2,7 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
@@ -42,9 +42,9 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readO
     <div>
       <RadioGroupPanel
         label={
-          <Normaltekst>
+          <BodyShort>
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring" />
-          </Normaltekst>
+          </BodyShort>
         }
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.lonnsendringField`}
         isReadOnly={readOnly}

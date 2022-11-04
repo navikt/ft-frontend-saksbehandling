@@ -1,8 +1,7 @@
+import { Detail } from '@navikt/ds-react';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
-import { Image } from '@navikt/ft-ui-komponenter';
-import { Column, Row } from 'nav-frontend-grid';
-import { Undertekst } from 'nav-frontend-typografi';
+import { FlexColumn, FlexRow, Image } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { UseFieldArrayAppend } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -29,8 +28,8 @@ export const AddDagpengerAndelButton: FunctionComponent<OwnProps> = ({ leggTilAn
   const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
   const intl = useIntl();
   return (
-    <Row className={styles.buttonRow}>
-      <Column xs="3">
+    <FlexRow className={styles.buttonRow}>
+      <FlexColumn className={styles.flexColumn}>
         {
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         }
@@ -47,12 +46,12 @@ export const AddDagpengerAndelButton: FunctionComponent<OwnProps> = ({ leggTilAn
             src={addCircleIcon}
             tooltip={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel' })}
           />
-          <Undertekst className={styles.imageText}>
+          <Detail className={styles.imageText}>
             <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilDagpengerAndel" />
-          </Undertekst>
+          </Detail>
         </button>
-      </Column>
-    </Row>
+      </FlexColumn>
+    </FlexRow>
   );
 };
 
