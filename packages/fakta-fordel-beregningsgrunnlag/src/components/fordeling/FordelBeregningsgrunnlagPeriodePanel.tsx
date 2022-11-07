@@ -53,9 +53,28 @@ const renderDateHeading = (fom: string, tom: string): ReactElement => {
   );
 };
 
+const finnBortfaltNaturalytelse = (andel: BeregningsgrunnlagAndel): number =>
+  andel.bortfaltNaturalytelse ? andel.bortfaltNaturalytelse : 0;
+
+const finnBeregnetPlussBortfaltNat = (andel: BeregningsgrunnlagAndel): number => {
+  const bortfaltNaturalytelse = finnBortfaltNaturalytelse(andel);
+  if (andel.besteberegningPrAar) {
+    return andel.besteberegningPrAar + bortfaltNaturalytelse;
+  }
+  if (andel.overstyrtPrAar) {
+    return andel.overstyrtPrAar + bortfaltNaturalytelse;
+  }
+  if (andel.beregnetPrAar) {
+    return andel.beregnetPrAar + bortfaltNaturalytelse;
+  }
+  return 0;
+};
+
 const finnSumIPeriode = (bgPerioder: BeregningsgrunnlagPeriodeProp[], fom: string): number => {
   const periode = bgPerioder.find(p => p.beregningsgrunnlagPeriodeFom === fom);
-  return periode.bruttoInkludertBortfaltNaturalytelsePrAar;
+  return periode.beregningsgrunnlagPrStatusOgAndel
+    .map(andel => finnBeregnetPlussBortfaltNat(andel))
+    .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
 };
 
 type OwnProps = {
