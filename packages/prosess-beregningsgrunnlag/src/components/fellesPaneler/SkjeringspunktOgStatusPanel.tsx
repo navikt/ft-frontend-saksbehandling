@@ -2,7 +2,14 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { getKodeverknavnFn } from '@navikt/ft-utils';
-import { DateLabel, VerticalSpacer, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
+import {
+  DateLabel,
+  VerticalSpacer,
+  FlexColumn,
+  FlexContainer,
+  FlexRow,
+  BlaBoksMedCheckmarkListe,
+} from '@navikt/ft-ui-komponenter';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AlleKodeverk } from '@navikt/ft-types';
 
@@ -63,6 +70,7 @@ type OwnProps = {
   skjeringstidspunktDato: string;
   aktivitetStatusList: string[];
   alleKodeverk: AlleKodeverk;
+  lonnsendringSisteTreMan: boolean;
 };
 
 /**
@@ -75,8 +83,13 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
   skjeringstidspunktDato,
   aktivitetStatusList,
   alleKodeverk,
+  lonnsendringSisteTreMan,
 }) => {
+  const textIdsTilBlaBoksMedCheckmarkListe = [];
   const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
+  if (lonnsendringSisteTreMan) {
+    textIdsTilBlaBoksMedCheckmarkListe.push('Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan');
+  }
   return (
     <div className={beregningStyles.panelLeft}>
       {createStatusEtiketter(aktivitetStatusList, getKodeverknavn)}
@@ -94,6 +107,16 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
             </BodyShort>
           </FlexColumn>
         </FlexRow>
+        {textIdsTilBlaBoksMedCheckmarkListe.length > 0 && (
+          <>
+            <VerticalSpacer sixteenPx />
+            <FlexRow>
+              <FlexColumn>
+                <BlaBoksMedCheckmarkListe textIds={textIdsTilBlaBoksMedCheckmarkListe} />
+              </FlexColumn>
+            </FlexRow>
+          </>
+        )}
       </FlexContainer>
     </div>
   );
