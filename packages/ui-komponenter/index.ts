@@ -29,3 +29,4 @@ export { default as EditedIcon } from './src/EditedIcon';
 export { default as WarningModal } from './src/WarningModal';
 export { default as LabelWithHeader } from './src/LabelWithHeader';
 export { default as usePrevious } from './src/hooks/usePrevious';
+export { default as BlaBoksMedCheckmarkListe } from './src/blaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe';

@@ -26,6 +26,7 @@
   "Beregningsgrunnlag.Avviksopplysninger.Miletar": "Det regnes ikke avvik ved militær- eller siviltjeneste.",
   "Beregningsgrunnlag.Avviksopplysninger.AvvikProsent": "{avvik}%",
   "Beregningsgrunnlag.Skjeringstidspunkt.SkjeringForBeregning": "Skjæringstidspunkt for beregning",
+  "Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan": "Søker har hatt lønnsendring i løpet av de siste tre månedene",
   "Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt": "Arbeidsinntekt",
   "Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt": "Pensjonsgivende inntekt",
   "Beregningsgrunnlag.AarsinntektPanel.SN.sisteTreAar": "3 siste ferdigliknede år fra skatteetaten",
