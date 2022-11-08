@@ -27,7 +27,7 @@ const createHeaderRow = (): React.ReactNode => (
 
 const createSumRow = (pgiSnitt: number): React.ReactNode => (
   <>
-    <Ledelinje prosentBredde={55} />
+    <Ledelinje prosentBredde={60} />
     <FlexRow>
       <FlexColumn className={beregningStyles.næringTabellAktivitet}>
         <Label size="small">
@@ -82,7 +82,7 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
       </Heading>
       <VerticalSpacer fourPx />
       {createHeaderRow()}
-      <Ledelinje prosentBredde={55} />
+      <Ledelinje prosentBredde={60} />
       {!!pgiVerdier && <>{createInntektRows(pgiVerdier)}</>}
       {pgiSnitt !== undefined && <>{createSumRow(pgiSnitt)}</>}
     </>
