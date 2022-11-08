@@ -21,6 +21,7 @@ import AksjonspunktBehandler from './AksjonspunktBehandler';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -179,10 +180,14 @@ const grupperPrLovparagraf = (beregningsgrunnlagListe: Beregningsgrunnlag[]) =>
     let nyGruppert = {
       ...gruppert,
     };
+
+    const harAvklaringUtenSG = bg.avklaringsbehov.find(
+      a => a.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+    );
+    if (harAvklaringUtenSG) {
+      nyGruppert = leggTilBeregningsgrunnlag(nyGruppert, LovParagraf.ÅTTE_TRETTIFEM, bg);
+    }
     if (!bg.sammenligningsgrunnlagPrStatus || bg.sammenligningsgrunnlagPrStatus.length === 0) {
-      if (bg.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === LovParagraf.ÅTTE_TRETTIFEM)) {
-        nyGruppert = leggTilBeregningsgrunnlag(nyGruppert, LovParagraf.ÅTTE_TRETTIFEM, bg);
-      }
       return nyGruppert;
     }
     bg.sammenligningsgrunnlagPrStatus.forEach(sg => {
