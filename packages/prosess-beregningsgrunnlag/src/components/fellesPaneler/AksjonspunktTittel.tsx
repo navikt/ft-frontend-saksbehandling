@@ -9,7 +9,7 @@ import {
   SammenligningsgrunlagProp,
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
-import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
 import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
 
 const {
@@ -20,9 +20,43 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
 } = ProsessBeregningsgrunnlagAksjonspunktCode;
 
-const getAvviksprosent = (sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[]): number => {
-  const avvikElem = sammenligningsgrunnlagPrStatus.find(status => status.avvikProsent > 25);
-  const avvikProsent = avvikElem && avvikElem.avvikProsent ? avvikElem.avvikProsent : 0;
+const getKorrektSammenligningsgrunnlagForAvklaringsbehov = (
+  avklaringsbehov: BeregningAvklaringsbehov,
+  sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[],
+): SammenligningsgrunlagProp | undefined => {
+  switch (avklaringsbehov.definisjon) {
+    case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
+      return sammenligningsgrunnlagPrStatus.find(
+        sg =>
+          sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN ||
+          sg.sammenligningsgrunnlagType === SammenligningType.SN,
+      );
+    case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
+      return sammenligningsgrunnlagPrStatus.find(
+        sg => sg.sammenligningsgrunnlagType === SammenligningType.MIDLERTIDIG_INAKTIV,
+      );
+    case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
+    case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
+      return sammenligningsgrunnlagPrStatus.find(
+        sg =>
+          sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN ||
+          sg.sammenligningsgrunnlagType === SammenligningType.AT_FL ||
+          sg.sammenligningsgrunnlagType === SammenligningType.AT ||
+          sg.sammenligningsgrunnlagType === SammenligningType.FL,
+      );
+    case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
+      return undefined;
+    default:
+      return undefined;
+  }
+};
+
+const getAvviksprosent = (
+  avklaringsbehov: BeregningAvklaringsbehov,
+  sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[],
+): number => {
+  const sg = getKorrektSammenligningsgrunnlagForAvklaringsbehov(avklaringsbehov, sammenligningsgrunnlagPrStatus);
+  const avvikProsent = sg && sg.avvikProsent ? sg.avvikProsent : 0;
   return Number(avvikProsent.toFixed(1));
 };
 
@@ -55,7 +89,7 @@ const findAksjonspunktHelpTekst = (
 
 const lagAksjonspunktHelpText = (
   åpneAvklaringsbehov: BeregningAvklaringsbehov[],
-  avvikProsent: number,
+  sammenligningsgrunnlag: SammenligningsgrunlagProp[],
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ReactElement => {
   const snAndel = alleAndelerIForstePeriode.find(
@@ -69,7 +103,11 @@ const lagAksjonspunktHelpText = (
           <FormattedMessage
             key={ap.definisjon}
             id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
-            values={{ verdi: avvikProsent, b: (chunks: any) => <b>{chunks}</b>, br: <br /> }}
+            values={{
+              verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
+              b: (chunks: any) => <b>{chunks}</b>,
+              br: <br />,
+            }}
           />
         ))}
       </AksjonspunktHelpTextHTML>
@@ -97,11 +135,10 @@ const AksjonspunktTittel: FunctionComponent<OwnProps> = ({ avklaringsbehov, bere
     return null;
   }
   const sammenligningGr = getSammenligningsgrunnlagsPrStatus(beregningsgrunnlag);
-  const avvikProsent = getAvviksprosent(sammenligningGr);
   return (
     <>
       <VerticalSpacer eightPx />
-      {lagAksjonspunktHelpText(åpneAksjonspunkter, avvikProsent, andelerIFørstePeriode)}
+      {lagAksjonspunktHelpText(åpneAksjonspunkter, sammenligningGr, andelerIFørstePeriode)}
     </>
   );
 };
