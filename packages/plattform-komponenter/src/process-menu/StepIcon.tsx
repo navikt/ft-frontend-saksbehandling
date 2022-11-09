@@ -19,12 +19,11 @@ const StepIcon = ({ type, isFinished, usePartialStatus }: StepIconProps): JSX.El
   const isWarning = type === StepType.warning;
   const isDanger = type === StepType.danger;
 
-  if (usePartialStatus) {
+  if (usePartialStatus && !isWarning) {
     return (
       <div
         className={classnames(`${styles[stepCls.element('icon')]} ${styles['step__icon--partial']}`, {
-          [styles['step__icon--success']]: !isWarning && !isDanger,
-          [styles['step__icon--warning']]: isWarning,
+          [styles['step__icon--success']]: !isDanger,
           [styles['step__icon--danger']]: isDanger,
         })}
       />
