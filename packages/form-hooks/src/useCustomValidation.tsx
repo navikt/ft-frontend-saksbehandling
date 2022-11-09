@@ -23,7 +23,7 @@ const useCustomValidation = (stateName: string, message?: string): string | unde
     if (!hasError) {
       clearErrors(`${stateName}.notRegisteredInput`);
     }
-  }, [hasError]);
+  }, [message]);
 
   if (!formState.isSubmitted) {
     return undefined;
