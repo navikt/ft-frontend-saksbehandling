@@ -46,30 +46,17 @@ const MenuLink = ({ label, active, onClick, iconSrc, iconAltText, theme }: MenuL
         }
         onClick={handleOnClick}
         type="button"
+        data-testid={active ? 'activeMenuItemButton' : undefined}
       >
         {arrowTheme && active ? (
           <Label size="small" as="span" className={labelCls}>
             {label}
-            {iconSrc && (
-              <img
-                src={iconSrc}
-                alt={iconAltText || ''}
-                className={styles[menuLinkCls.element('icon')]}
-                data-testid="selectedMenuItemImage"
-              />
-            )}
+            {iconSrc && <img src={iconSrc} alt={iconAltText || ''} className={styles[menuLinkCls.element('icon')]} />}
           </Label>
         ) : (
           <BodyShort size="small" as="span" className={labelCls}>
             {label}
-            {iconSrc && (
-              <img
-                src={iconSrc}
-                alt={iconAltText || ''}
-                className={styles[menuLinkCls.element('icon')]}
-                data-testid="selectedMenuItemImage"
-              />
-            )}
+            {iconSrc && <img src={iconSrc} alt={iconAltText || ''} className={styles[menuLinkCls.element('icon')]} />}
           </BodyShort>
         )}
 

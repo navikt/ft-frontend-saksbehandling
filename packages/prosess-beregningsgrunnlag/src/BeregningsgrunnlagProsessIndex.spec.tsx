@@ -457,10 +457,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const { getByTestId } = render(
       <ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038 submitCallback={lagre} />,
     );
-    const skjæringstidspunktSomSkalVæreValgt = screen.getByRole('button', { name: '01.02.2021' });
-    const skjæringstidspunktSomIkkeSkalVæreValgt = screen.getByRole('button', { name: '01.01.2021' });
-    const valgtSidemenyknappIndikator = getByTestId('selectedMenuItemImage');
-    expect(skjæringstidspunktSomSkalVæreValgt).toContainElement(valgtSidemenyknappIndikator);
-    expect(skjæringstidspunktSomIkkeSkalVæreValgt).not.toContainElement(valgtSidemenyknappIndikator);
+    expect(getByTestId('activeMenuItemButton')).toHaveTextContent('01.02.2021');
+    expect(getByTestId('activeMenuItemButton')).not.toHaveTextContent('01.01.2021');
   });
 });
