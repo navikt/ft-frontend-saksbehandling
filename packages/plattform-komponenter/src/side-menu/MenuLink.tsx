@@ -46,6 +46,7 @@ const MenuLink = ({ label, active, onClick, iconSrc, iconAltText, theme }: MenuL
         }
         onClick={handleOnClick}
         type="button"
+        data-testid={active ? 'activeMenuItemButton' : undefined}
       >
         {arrowTheme && active ? (
           <Label size="small" as="span" className={labelCls}>

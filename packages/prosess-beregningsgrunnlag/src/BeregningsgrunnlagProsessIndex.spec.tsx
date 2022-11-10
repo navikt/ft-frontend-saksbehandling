@@ -14,6 +14,7 @@ const {
   TidsbegrensetArbeidsforholdMedAvvikAp5047,
   MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047,
   AvvikNæringEtterLøstAvvikArbeid5038Og5039,
+  ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038,
 } = composeStories(stories);
 
 describe('<BeregningsgrunnlagProsessIndex>', () => {
@@ -449,5 +450,14 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
         kode: '5039',
       },
     ]);
+  });
+
+  it('skal sette første kronologiske skjæringstidspunkt med aksjonspunkt som aktiv', () => {
+    const lagre = jest.fn();
+    const { getByTestId } = render(
+      <ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038 submitCallback={lagre} />,
+    );
+    expect(getByTestId('activeMenuItemButton')).toHaveTextContent('01.02.2021');
+    expect(getByTestId('activeMenuItemButton')).not.toHaveTextContent('01.01.2021');
   });
 });

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import {
@@ -118,6 +118,15 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
 
   const menyProps = lagMenyProps(kronologiskeGrunnlag, beregningsgrunnlagsvilkar);
   const mainContainerClassnames = cx('mainContainer', { 'mainContainer--withSideMenu': skalBrukeSidemeny });
+
+  useEffect(() => {
+    const førsteSkjæringstidspunktMedAksjonspunktIndex = menyProps.findIndex(
+      menyProp => menyProp.skalVurderes && menyProp.harAvklaringsbehov,
+    );
+    if (førsteSkjæringstidspunktMedAksjonspunktIndex > -1) {
+      setAktivtBeregningsgrunnlagIndeks(førsteSkjæringstidspunktMedAksjonspunktIndex);
+    }
+  }, []);
 
   return (
     <RawIntlProvider value={intl}>
