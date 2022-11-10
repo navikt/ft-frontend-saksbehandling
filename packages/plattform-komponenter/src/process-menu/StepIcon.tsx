@@ -33,7 +33,7 @@ const StepIcon = ({ type, isFinished, usePartialStatus }: StepIconProps): JSX.El
     return <CheckIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--success']}`} />;
   }
   if (isWarning) {
-    return <WarningIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--warning']}`} />;
+    return <WarningIcon className={styles[stepCls.element('icon')]} />;
   }
   if (isDanger) {
     return <AvslåttValgIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--danger']}`} />;
