@@ -28,9 +28,9 @@ const lagSpesialRaderRad = (
     return null;
   }
   return (
-    <>
+    <React.Fragment key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
       <VerticalSpacer fourPx />
-      <FlexRow key={`SpesialRad_${radNøkkel}_${visningsObjekt.verdi}`}>
+      <FlexRow>
         <FlexColumn className={styles.beskrivelse}>
           <BodyShort size="small">{visningsObjekt.ledetekst}</BodyShort>
         </FlexColumn>
@@ -38,7 +38,7 @@ const lagSpesialRaderRad = (
           <BodyShort size="small">{formatCurrencyNoKr(visningsObjekt.verdi)}</BodyShort>
         </FlexColumn>
       </FlexRow>
-    </>
+    </React.Fragment>
   );
 };
 
