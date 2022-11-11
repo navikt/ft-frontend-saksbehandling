@@ -17,7 +17,7 @@ import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 import SammenligningForklaringPanel from './SammenligningForklaringPanel';
 import SammenligningsgrunnlagPanel from './SammenligningsgrunnlagPanel';
-import AksjonspunktBehandler from './AksjonspunktBehandler';
+import AksjonspunktBehandler, { finnFormName } from './AksjonspunktBehandler';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
@@ -250,6 +250,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
         !!aktivtGrunnlagForLovparagraf.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
       const andelerIFørstePeriode =
         aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+      const formName = finnFormName(lovparagraf);
       return (
         <div>
           {!!sg && (
@@ -274,7 +275,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
                 beregningsgrunnlagListe={beregningsgrunnlagListe}
                 vilkår={vilkår}
                 submitCallback={submitCallback}
-                formData={formData}
+                formData={formData && formName in formData ? formData : undefined}
                 setFormData={setFormData}
                 aktivIndex={aktivIndex}
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
