@@ -225,7 +225,7 @@ const settOppKomponenterForNæring = (
             {erNyArbLivet && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.NyIArbeidslivet" />
             )}
-            {erNyoppstartet && !erVarigEndring && (
+            {!erNyArbLivet && !erVarigEndring && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Nyoppstartet" />
             )}
             {!erNyArbLivet && !erNyoppstartet && erVarigEndring && (
