@@ -17,7 +17,7 @@ import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 import SammenligningForklaringPanel from './SammenligningForklaringPanel';
 import SammenligningsgrunnlagPanel from './SammenligningsgrunnlagPanel';
-import AksjonspunktBehandler from './AksjonspunktBehandler';
+import AksjonspunktBehandler, { finnFormName } from './AksjonspunktBehandler';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
@@ -151,7 +151,7 @@ type OwnProps = {
   vilkår: Vilkar;
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   formData?: BeregningFormValues;
-  setFormData: (data: BeregningFormValues) => void;
+  changeFormState: (data: BeregningFormValues) => void;
   aktivIndex: number;
 };
 
@@ -197,6 +197,16 @@ const grupperPrLovparagraf = (beregningsgrunnlagListe: Beregningsgrunnlag[]) =>
     return nyGruppert;
   }, {} as GruppertPrLovparagraf);
 
+const f1 = (formName: string, formData: BeregningFormValues | undefined): BeregningFormValues | undefined => {
+  debugger;
+  if (formData && formName in formData) {
+    debugger;
+    return formData;
+  }
+  debugger;
+  return undefined;
+};
+
 const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   readOnly,
   readOnlySubmitButton,
@@ -209,7 +219,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   vilkår,
   submitCallback,
   formData,
-  setFormData,
+  changeFormState,
   aktivIndex,
 }) => {
   const gruppertPrLovparagraf = grupperPrLovparagraf(beregningsgrunnlagListe);
@@ -250,6 +260,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
         !!aktivtGrunnlagForLovparagraf.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
       const andelerIFørstePeriode =
         aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+      const formName = finnFormName(lovparagraf);
       return (
         <div>
           {!!sg && (
@@ -274,8 +285,8 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
                 beregningsgrunnlagListe={beregningsgrunnlagListe}
                 vilkår={vilkår}
                 submitCallback={submitCallback}
-                formData={formData}
-                setFormData={setFormData}
+                formData={f1(formName, formData)}
+                changeFormState={changeFormState}
                 aktivIndex={aktivIndex}
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
                 setSubmitting={setSubmitting}

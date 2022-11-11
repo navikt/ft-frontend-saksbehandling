@@ -74,7 +74,7 @@ type OwnProps = {
   vilkar: Vilkar;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: BeregningFormValues;
-  setFormData: (data: BeregningFormValues) => void;
+  changeFormState: (data: BeregningFormValues) => void;
 };
 
 const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
@@ -97,7 +97,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
   formData,
-  setFormData,
+  changeFormState,
 }) => {
   const aktivtBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
   // @ts-ignore
@@ -129,7 +129,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
         vilkår={vilkar}
         submitCallback={submitCallback}
         formData={formData}
-        setFormData={setFormData}
+        changeFormState={changeFormState}
         aktivIndex={aktivtBeregningsgrunnlagIndeks}
       />
 

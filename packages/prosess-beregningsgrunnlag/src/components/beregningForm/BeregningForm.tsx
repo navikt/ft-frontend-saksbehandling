@@ -69,7 +69,7 @@ type OwnProps = {
   vilkår: Vilkar;
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   formData?: BeregningFormValues;
-  setFormData: (data: BeregningFormValues) => void;
+  changeFormState: (data: BeregningFormValues) => void;
   aktivIndex: number;
 };
 
@@ -97,7 +97,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   vilkår,
   submitCallback,
   formData,
-  setFormData,
+  changeFormState,
   aktivIndex,
 }) => {
   const {
@@ -175,7 +175,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             vilkår={vilkår}
             submitCallback={submitCallback}
             formData={formData}
-            setFormData={setFormData}
+            changeFormState={changeFormState}
             aktivIndex={aktivIndex}
           />
           <>

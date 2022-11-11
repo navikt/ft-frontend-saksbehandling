@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { FormattedMessage, RawIntlProvider } from 'react-intl';
+import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { RawIntlProvider } from 'react-intl';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   AlleKodeverk,
@@ -13,8 +13,6 @@ import { SideMenu } from '@navikt/ft-plattform-komponenter';
 
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
-import { Heading } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import styles from './beregningsgrunnlagProsessIndex.less';
 import messages from '../i18n/nb_NO.json';
 import BeregningFP from './components/BeregningFP';
@@ -35,25 +33,6 @@ const beregningAksjonspunkter = [
 const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
-
-const visningForManglendeBG = () => (
-  <>
-    <Heading size="medium">
-      <FormattedMessage id="Beregningsgrunnlag.Title" />
-    </Heading>
-    <VerticalSpacer eightPx />
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.HarIkkeBeregningsregler" />
-      </FlexColumn>
-    </FlexRow>
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.SakTilInfo" />
-      </FlexColumn>
-    </FlexRow>
-  </>
-);
 
 type OwnProps = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -103,13 +82,6 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   formData,
   setFormData,
 }) => {
-  if (
-    beregningsgrunnlagListe.length === 0 ||
-    (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
-  ) {
-    return visningForManglendeBG();
-  }
-
   const skalBrukeSidemeny = beregningsgrunnlagListe.length > 1;
   const kronologiskeGrunnlag = beregningsgrunnlagListe.sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
     a.skjaeringstidspunktBeregning.localeCompare(b.skjaeringstidspunktBeregning),
@@ -118,6 +90,24 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
 
   const menyProps = lagMenyProps(kronologiskeGrunnlag, beregningsgrunnlagsvilkar);
   const mainContainerClassnames = cx('mainContainer', { 'mainContainer--withSideMenu': skalBrukeSidemeny });
+
+  const [data, setData] = useState<BeregningFormValues>({});
+  const changeFormState = useCallback(
+    (d: BeregningFormValues) => {
+      const newObj = {
+        ...d,
+        ...data,
+      };
+      setData(newObj);
+    },
+    [data],
+  );
+  useEffect(
+    () => () => {
+      setFormData(data);
+    },
+    [],
+  );
 
   useEffect(() => {
     const førsteSkjæringstidspunktMedAksjonspunktIndex = menyProps.findIndex(
@@ -154,7 +144,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
             vilkar={beregningsgrunnlagsvilkar}
             alleKodeverk={alleKodeverk}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            setFormData={setFormData}
+            changeFormState={changeFormState}
             formData={formData}
           />
         </div>
