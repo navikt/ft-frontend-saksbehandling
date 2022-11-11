@@ -60,7 +60,7 @@ const harAvklaringsbehovForLovparagraf = (
   lovparagraf: LovParagraf,
 ): boolean => !!avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf));
 
-const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
+export const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
 const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
   if (!allePerioder || allePerioder.length < 1) {
@@ -225,7 +225,7 @@ const settOppKomponenterForNæring = (
             {erNyArbLivet && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.NyIArbeidslivet" />
             )}
-            {erNyoppstartet && !erVarigEndring && (
+            {!erNyArbLivet && !erVarigEndring && (
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Nyoppstartet" />
             )}
             {!erNyArbLivet && !erNyoppstartet && erVarigEndring && (
