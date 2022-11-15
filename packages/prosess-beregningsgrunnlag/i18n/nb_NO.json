@@ -19,7 +19,7 @@
   "Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt": "Sammenligningsgrunnlag",
   "Beregningsgrunnlag.Avviksopplysninger.BeregnetAvvik": "Beregnet avvik ",
   "Beregningsgrunnlag.Avviksopplysninger.SN.NyIArbeidslivet": "Søker er ny i arbeidslivet. Det foretas derfor ingen avviksvurdering.",
-  "Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN": "Det regnes ikke avvik på arbeids- og frilansinntekt for kombinasjonen arbeid, frilans og selvstendig næringsdrivende",
+  "Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN": "Det regnes ikke avvik på arbeids- og frilansinntekt for kombinasjonen arbeid, frilans og selvstendig næringsdrivende i beregningsgrunnlag der skjæringstidspunkt er før 01.01.2023",
   "Beregningsgrunnlag.Avviksopplysninger.AAP": "Det foretas ikke avviksvurdering på AAP",
   "Beregningsgrunnlag.Avviksopplysninger.Dagpenger": "Det foretas ikke avviksvurdering på Dagpenger",
   "Beregningsgrunnlag.Avviksopplysninger.Besteberegning": "Det foretas ingen avviksvurdering når søker har besteberegning på dagpenger",
