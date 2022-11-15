@@ -97,7 +97,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
               </Label>
             )}
             {tabell}
-            {erTabellOverstyrt && (
+            {erTabellOverstyrt && !readOnly && (
               <Button size="small" onClick={toggleOverstyring} variant="secondary">
                 <FormattedMessage id="InntektstabellPanel.Avbryt" />
               </Button>
