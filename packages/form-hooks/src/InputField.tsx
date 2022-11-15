@@ -60,7 +60,7 @@ const InputField: FunctionComponent<OwnProps> = ({
   });
 
   if (readOnly) {
-    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} />;
+    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} />;
   }
 
   const navInputClassNames = `${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`;

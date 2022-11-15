@@ -94,12 +94,19 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       {kanRedigereInntekt && (
         <TableColumn className={styles.rightAlignInput}>
           <InputField
+            label={intl.formatMessage(
+              {
+                id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
+              },
+              { andel: field.andel },
+            )}
             name={`${rowName}.fastsattBelop`}
             parse={parseCurrencyInput}
             className={styles.mediumBredde}
             readOnly={readOnly}
             isEdited={isAksjonspunktClosed}
             validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
+            hideLabel
           />
         </TableColumn>
       )}
