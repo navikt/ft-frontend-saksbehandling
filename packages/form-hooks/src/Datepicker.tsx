@@ -60,6 +60,8 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
         setFieldValue(dayjs(verdi, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT));
       }
     },
+    defaultSelected: field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).toDate() : undefined,
+    defaultMonth: !field.value && disabledDays?.toDate ? disabledDays.toDate : undefined,
   });
 
   const onChangeInput = useCallback(
