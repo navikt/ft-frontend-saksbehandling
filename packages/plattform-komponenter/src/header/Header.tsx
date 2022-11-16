@@ -18,6 +18,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title, titleHref,
         <a
           href={titleHref || '#'}
           onClick={changeLocation || undefined}
+          onContextMenu={changeLocation || undefined}
           className={styles[headerCls.element('title-anchor')]}
         >
           <Heading level="1" size="xlarge" className={styles[headerCls.element('title')]}>
