@@ -34,6 +34,8 @@ const Template: Story = () => {
     },
   });
 
+  console.log(formMethods.watch());
+
   return (
     <Form formMethods={formMethods}>
       <InputField label="Dette er et inputfelt" name="testinput" className={styles.bredde} />

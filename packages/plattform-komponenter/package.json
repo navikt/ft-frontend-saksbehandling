@@ -24,9 +24,9 @@
     "storybook": "cross-env start-storybook -p 7007"
   },
   "dependencies": {
-    "@navikt/ds-css": "^1.5.7",
-    "@navikt/ds-icons": "^1.5.7",
-    "@navikt/ds-react": "^1.5.7",
+    "@navikt/ds-css": "^1.5.8",
+    "@navikt/ds-icons": "^1.5.8",
+    "@navikt/ds-react": "^1.5.8",
     "@navikt/ft-utils": "^1.1.7"
   },
   "peerDependencies": {
