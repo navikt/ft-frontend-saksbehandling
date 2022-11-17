@@ -3078,17 +3078,17 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@navikt/ds-css@^1.5.8":
+"@navikt/ds-css@1.5.8":
   version "1.5.8"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-css/1.5.8/ed0dc2735ce0c967e2dc03285393a7ab89f185c3#ed0dc2735ce0c967e2dc03285393a7ab89f185c3"
   integrity sha512-N4VLWc1BR3nXkgEKAHTeN4QjIH976vOMmUpEtbyYqDQeOwRQAs9nP6RaDst0FZju3sCbwHXnHiH2uzqWaUzpiA==
 
-"@navikt/ds-icons@^1.5.8":
+"@navikt/ds-icons@1.5.8", "@navikt/ds-icons@^1.5.8":
   version "1.5.8"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/1.5.8/e2f8a761a434e6a583619066349689b393cc44a6#e2f8a761a434e6a583619066349689b393cc44a6"
   integrity sha512-xl+LtiqSoeeXE+7QnChfq1d3rVFeAEHNQQ65dpbeE8LjYTDpvHftDi5i8zBLkmzhMFz1bFYNsL9pvDlPSnMPnQ==
 
-"@navikt/ds-react@^1.5.8":
+"@navikt/ds-react@1.5.8":
   version "1.5.8"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-react/1.5.8/c8cd7726ef92680388bc8685414afe7013c8c336#c8cd7726ef92680388bc8685414afe7013c8c336"
   integrity sha512-xRytJL1PPjaolvWkScFMhvTLdt1qP08D/VXlPJL3/71PZQ/gBb+giwfufBWyVLGvgfRsbrqy0X3YyLBE3afR1Q==
