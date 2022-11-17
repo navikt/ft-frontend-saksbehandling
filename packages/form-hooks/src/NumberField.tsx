@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import React, { FunctionComponent, ReactNode, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { TextField as NavInput } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
@@ -36,6 +36,8 @@ const NumberField: FunctionComponent<OwnProps> = ({
   disabled,
   className,
 }) => {
+  const [hasFocus, setFocus] = useState(false);
+
   const {
     formState: { errors },
   } = useFormContext();
@@ -52,6 +54,16 @@ const NumberField: FunctionComponent<OwnProps> = ({
 
   const navInputClassNames = `${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`;
 
+  const value = field.value !== undefined ? field.value : null;
+
+  const formattedValue =
+    digitsAfterDecimalPoint && !Number.isNaN(field.value)
+      ? parseFloat(field.value).toFixed(digitsAfterDecimalPoint)
+      : value;
+
+  // eslint-disable-next-line prefer-regex-literals
+  const validNumber = new RegExp(/^\d*\.?\d*$/);
+
   return (
     <NavInput
       size="small"
@@ -59,7 +71,7 @@ const NumberField: FunctionComponent<OwnProps> = ({
       label={label}
       error={getError(errors, name)}
       {...field}
-      value={field.value !== undefined ? field.value : ''}
+      value={hasFocus ? value : formattedValue}
       autoFocus={autoFocus}
       autoComplete="off"
       min={minSize}
@@ -67,10 +79,22 @@ const NumberField: FunctionComponent<OwnProps> = ({
       disabled={disabled}
       type="number"
       className={navInputClassNames}
+      onChange={event => {
+        if (validNumber.test(event.currentTarget.value)) {
+          setFocus(true);
+          const verdi = parseFloat(event.currentTarget.value) || null;
+          return field.onChange(verdi);
+        }
+        return field.onChange(field.value);
+      }}
       onBlur={() => {
+        setFocus(false);
         field.onBlur();
         if (digitsAfterDecimalPoint && field.value !== '' && !Number.isNaN(field.value)) {
-          field.onChange(parseFloat(field.value).toFixed(digitsAfterDecimalPoint));
+          const numberParts = field.value.toString().split('.');
+          if (numberParts.length > 1 && numberParts[1].length > digitsAfterDecimalPoint) {
+            field.onChange(parseFloat(field.value.toFixed(digitsAfterDecimalPoint)));
+          }
         }
       }}
     />
