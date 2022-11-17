@@ -45,7 +45,7 @@
   "peerDependencies": {
     "@navikt/ds-css": "^1.5.8",
     "@navikt/ds-react": "^1.5.8",
-    "@navikt/ft-form-hooks": "^2.x",
+    "@navikt/ft-form-hooks": "^3.x",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-plattform-komponenter": "1.x",
