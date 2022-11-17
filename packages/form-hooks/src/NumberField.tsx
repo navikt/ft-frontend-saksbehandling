@@ -8,49 +8,36 @@ import styles from './inputField.less';
 interface OwnProps {
   name: string;
   label?: string | ReactNode;
+  hideLabel?: boolean;
   validate?: ((value: string) => any)[] | ((value: number) => any)[];
   readOnly?: boolean;
   description?: string;
-  onBlur?: (value: any) => void;
-  onChange?: (value: any) => void;
-  shouldValidateOnBlur?: boolean;
   autoFocus?: boolean;
-  parse?: (value: string | number) => string | number;
-  format?: (value: string) => string;
-  normalizeOnBlur?: (value: string | number) => string | number;
   isEdited?: boolean;
-  maxLength?: number;
-  autoComplete?: boolean;
+  minSize?: number;
+  maxSize?: number;
+  digitsAfterDecimalPoint?: number;
   disabled?: boolean;
-  type?: 'email' | 'password' | 'tel' | 'text' | 'url';
   className?: string;
-  hideLabel?: boolean;
 }
 
-const InputField: FunctionComponent<OwnProps> = ({
+const NumberField: FunctionComponent<OwnProps> = ({
   name,
   label,
+  hideLabel,
   validate = [],
   readOnly = false,
-  type,
-  shouldValidateOnBlur = false,
-  onBlur,
-  onChange,
   description,
   autoFocus,
-  parse = value => value,
-  format = value => value,
-  normalizeOnBlur,
   isEdited,
-  maxLength,
-  autoComplete = false,
+  minSize,
+  maxSize,
+  digitsAfterDecimalPoint,
   disabled,
   className,
-  hideLabel,
 }) => {
   const {
     formState: { errors },
-    trigger,
   } = useFormContext();
   const { field } = useController({
     name,
@@ -72,36 +59,22 @@ const InputField: FunctionComponent<OwnProps> = ({
       label={label}
       error={getError(errors, name)}
       {...field}
-      value={field.value ? format(field.value) : ''}
+      value={field.value !== undefined ? field.value : ''}
       autoFocus={autoFocus}
-      autoComplete={autoComplete ? undefined : 'off'}
-      maxLength={maxLength}
+      autoComplete="off"
+      min={minSize}
+      max={maxSize}
       disabled={disabled}
-      type={type}
+      type="number"
       className={navInputClassNames}
-      onChange={event => {
-        const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : null;
-        if (onChange) {
-          onChange(verdi);
-        }
-        return field.onChange(verdi);
-      }}
-      onBlur={async event => {
+      onBlur={() => {
         field.onBlur();
-        if (shouldValidateOnBlur) {
-          const isValidationOk = await trigger();
-          if (onBlur && isValidationOk) {
-            onBlur(event?.target?.value);
-          }
-        } else if (onBlur) {
-          onBlur(event?.target?.value);
-        }
-        if (normalizeOnBlur) {
-          field.onChange(event?.target?.value ? normalizeOnBlur(parse(event?.target?.value)) : null);
+        if (digitsAfterDecimalPoint && field.value !== '' && !Number.isNaN(field.value)) {
+          field.onChange(parseFloat(field.value).toFixed(digitsAfterDecimalPoint));
         }
       }}
     />
   );
 };
 
-export default InputField;
+export default NumberField;
