@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { TextField as NavInput } from '@navikt/ds-react';
+import { TextField } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 import styles from './inputField.less';
@@ -16,7 +16,7 @@ interface OwnProps {
   isEdited?: boolean;
   minSize?: number;
   maxSize?: number;
-  digitsAfterDecimalPoint?: number;
+  forceTwoDecimalDigits?: boolean;
   disabled?: boolean;
   className?: string;
 }
@@ -32,7 +32,7 @@ const NumberField: FunctionComponent<OwnProps> = ({
   isEdited,
   minSize,
   maxSize,
-  digitsAfterDecimalPoint,
+  forceTwoDecimalDigits = false,
   disabled,
   className,
 }) => {
@@ -54,47 +54,46 @@ const NumberField: FunctionComponent<OwnProps> = ({
 
   const navInputClassNames = `${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`;
 
-  const value = field.value !== undefined ? field.value : null;
+  const value = field.value !== undefined ? field.value.toString() : '';
+
+  const regex = forceTwoDecimalDigits ? /^(\d+[,]?(\d{1,2})?)$/ : /^(\d+[,]?(\d+)?)$/;
 
   const formattedValue =
-    digitsAfterDecimalPoint && !Number.isNaN(field.value)
-      ? parseFloat(field.value).toFixed(digitsAfterDecimalPoint)
-      : value;
-
-  // eslint-disable-next-line prefer-regex-literals
-  const validNumber = new RegExp(/^\d*\.?\d*$/);
+    !hasFocus && forceTwoDecimalDigits && value !== '' && !Number.isNaN(value) ? parseFloat(value).toFixed(2) : value;
 
   return (
-    <NavInput
+    <TextField
       size="small"
       description={description}
       label={label}
       error={getError(errors, name)}
       {...field}
-      value={hasFocus ? value : formattedValue}
+      value={formattedValue.replace('.', ',')}
       autoFocus={autoFocus}
       autoComplete="off"
       min={minSize}
       max={maxSize}
       disabled={disabled}
-      type="number"
+      type="text"
+      inputMode="decimal"
       className={navInputClassNames}
       onChange={event => {
-        if (validNumber.test(event.currentTarget.value)) {
-          setFocus(true);
-          const verdi = parseFloat(event.currentTarget.value) || null;
-          return field.onChange(verdi);
+        setFocus(true);
+        const newValue = event.currentTarget.value;
+        if (newValue === '') {
+          return field.onChange(newValue);
+        }
+        if (newValue.match(regex)) {
+          return field.onChange(newValue.replace(',', '.'));
         }
         return field.onChange(field.value);
       }}
       onBlur={() => {
         setFocus(false);
         field.onBlur();
-        if (digitsAfterDecimalPoint && field.value !== '' && !Number.isNaN(field.value)) {
-          const numberParts = field.value.toString().split('.');
-          if (numberParts.length > 1 && numberParts[1].length > digitsAfterDecimalPoint) {
-            field.onChange(parseFloat(field.value.toFixed(digitsAfterDecimalPoint)));
-          }
+
+        if (forceTwoDecimalDigits && value.slice(-1) === '.') {
+          field.onChange(value + 0);
         }
       }}
     />

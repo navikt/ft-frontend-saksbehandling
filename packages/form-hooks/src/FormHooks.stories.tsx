@@ -44,12 +44,7 @@ const Template: Story = () => {
       <VerticalSpacer sixteenPx />
       <InputField label="Dette er et inputfelt der verdi er valgt" name="testinputpre" className={styles.bredde} />
       <VerticalSpacer sixteenPx />
-      <NumberField
-        label="Dette er et numberfelt"
-        name="testnumber"
-        className={styles.bredde}
-        digitsAfterDecimalPoint={2}
-      />
+      <NumberField label="Dette er et numberfelt" name="testnumber" className={styles.bredde} forceTwoDecimalDigits />
       <VerticalSpacer sixteenPx />
       <NumberField label="Dette er et numberfelt der verdi er valgt" name="testnumberpre" className={styles.bredde} />
       <VerticalSpacer sixteenPx />
