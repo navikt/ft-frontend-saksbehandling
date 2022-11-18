@@ -17,11 +17,10 @@ interface OwnProps {
   description?: string;
   autoFocus?: boolean;
   isEdited?: boolean;
-  minSize?: number;
-  maxSize?: number;
   forceTwoDecimalDigits?: boolean;
   disabled?: boolean;
   className?: string;
+  onChange?: (value: any) => void;
 }
 
 const NumberField: FunctionComponent<OwnProps> = ({
@@ -33,11 +32,10 @@ const NumberField: FunctionComponent<OwnProps> = ({
   description,
   autoFocus,
   isEdited,
-  minSize,
-  maxSize,
   forceTwoDecimalDigits = false,
   disabled,
   className,
+  onChange,
 }) => {
   const [hasFocus, setFocus] = useState(false);
 
@@ -71,22 +69,26 @@ const NumberField: FunctionComponent<OwnProps> = ({
       value={formattedValue.replace('.', ',')}
       autoFocus={autoFocus}
       autoComplete="off"
-      min={minSize}
-      max={maxSize}
       disabled={disabled}
       type="text"
       inputMode="decimal"
       className={`${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`}
       onChange={event => {
         setFocus(true);
-        const newValue = event.currentTarget.value;
-        if (newValue === '') {
-          return field.onChange(newValue);
+        const targetValue = event.currentTarget.value;
+        let newValue;
+        if (targetValue === '') {
+          newValue = '';
+        } else if (targetValue.match(regex)) {
+          newValue = targetValue.replace(',', '.');
+        } else {
+          newValue = field.value;
         }
-        if (newValue.match(regex)) {
-          return field.onChange(newValue.replace(',', '.'));
+
+        if (onChange) {
+          onChange(newValue);
         }
-        return field.onChange(field.value);
+        return field.onChange(newValue);
       }}
       onBlur={() => {
         setFocus(false);
