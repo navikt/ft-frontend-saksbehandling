@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving",
   "description": "Saksbehandler vurderer om hovedvilkår for tilbakekreving er oppfylt, dvs om perioder med feilutbetaling kan kreves tilbake eller ikke, periode kan deles opp. Med to perioder: samme som over, men hvor flere perioder vurderes",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@navikt/ds-css": "1.5.9",
     "@navikt/ds-react": "1.5.9",
-    "@navikt/ft-form-hooks": "^3.1.6",
+    "@navikt/ft-form-hooks": "^3.1.7",
     "@navikt/ft-form-validators": "^1.0.38",
     "@navikt/ft-kodeverk": "^1.0.23",
     "@navikt/ft-tidslinje": "^1.2.5",
