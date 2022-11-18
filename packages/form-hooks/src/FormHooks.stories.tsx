@@ -14,6 +14,7 @@ import styles from './formHooks.stories.less';
 // TODO Kvifor feilar denne kun på Github?
 // eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
+import NumberField from './NumberField';
 
 export default {
   title: 'FormHooks',
@@ -23,6 +24,7 @@ const Template: Story = () => {
   const formMethods = useForm({
     defaultValues: {
       testinputpre: 'Hei hei',
+      testnumberpre: 45.1,
       testcheckboxpre: true,
       checkboxpanelpre: ['verdi3', 'verdi5'],
       radiopre: true,
@@ -39,6 +41,10 @@ const Template: Story = () => {
       <InputField label="Dette er et inputfelt" name="testinput" className={styles.bredde} />
       <VerticalSpacer sixteenPx />
       <InputField label="Dette er et inputfelt der verdi er valgt" name="testinputpre" className={styles.bredde} />
+      <VerticalSpacer sixteenPx />
+      <NumberField label="Dette er et numberfelt" name="testnumber" className={styles.bredde} forceTwoDecimalDigits />
+      <VerticalSpacer sixteenPx />
+      <NumberField label="Dette er et numberfelt der verdi er valgt" name="testnumberpre" className={styles.bredde} />
       <VerticalSpacer sixteenPx />
       <CheckboxField label="Dette er en checkbox" name="testcheckbox" />
       <VerticalSpacer sixteenPx />
