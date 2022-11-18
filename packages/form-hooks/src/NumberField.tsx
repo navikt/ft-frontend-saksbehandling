@@ -5,6 +5,9 @@ import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 import styles from './inputField.less';
 
+const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
+const DECIMAL_REGEXP = /^(\d+[,]?(\d+)?)$/;
+
 interface OwnProps {
   name: string;
   label?: string | ReactNode;
@@ -52,12 +55,9 @@ const NumberField: FunctionComponent<OwnProps> = ({
     return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} />;
   }
 
-  const navInputClassNames = `${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`;
+  const regex = forceTwoDecimalDigits ? TWO_DECIMALS_REGEXP : DECIMAL_REGEXP;
 
   const value = field.value !== undefined ? field.value.toString() : '';
-
-  const regex = forceTwoDecimalDigits ? /^(\d+[,]?(\d{1,2})?)$/ : /^(\d+[,]?(\d+)?)$/;
-
   const formattedValue =
     !hasFocus && forceTwoDecimalDigits && value !== '' && !Number.isNaN(value) ? parseFloat(value).toFixed(2) : value;
 
@@ -76,7 +76,7 @@ const NumberField: FunctionComponent<OwnProps> = ({
       disabled={disabled}
       type="text"
       inputMode="decimal"
-      className={navInputClassNames}
+      className={`${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`}
       onChange={event => {
         setFocus(true);
         const newValue = event.currentTarget.value;

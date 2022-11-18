@@ -24,8 +24,8 @@
     "storybook": "cross-env start-storybook -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "1.5.8",
-    "@navikt/ds-react": "1.5.8",
+    "@navikt/ds-css": "1.5.9",
+    "@navikt/ds-react": "1.5.9",
     "@navikt/ft-form-validators": "^1.0.37",
     "@navikt/ft-types": "^1.0.33",
     "@navikt/ft-ui-komponenter": "^1.2.4",
@@ -37,8 +37,8 @@
     "react-hook-form": "7.39.4"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "1.5.8",
-    "@navikt/ds-react": "1.5.8",
+    "@navikt/ds-css": "1.5.9",
+    "@navikt/ds-react": "1.5.9",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "^1.x",
@@ -58,7 +58,7 @@
     "cross-env": "7.0.3",
     "typescript": "4.9.3",
     "webpack": "5.75.0",
-    "webpack-cli": "4.10.0",
+    "webpack-cli": "5.0.0",
     "webpack-node-externals": "3.0.0"
   },
   "publishConfig": {
