@@ -22,7 +22,7 @@ interface OwnProps {
   maxLength?: number;
   autoComplete?: boolean;
   disabled?: boolean;
-  type?: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
+  type?: 'email' | 'password' | 'tel' | 'text' | 'url';
   className?: string;
   hideLabel?: boolean;
 }
