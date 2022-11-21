@@ -159,7 +159,7 @@ const lagResultatRader = (
       {skalViseAvkortetRad && (
         <>
           {skilleRad()}
-          <FlexRow className={harFlereAndeler ? styles.radBorderBunnOgTopp : styles.radBorderBunn}>
+          <FlexRow className={styles.radNoBorder}>
             <FlexColumn className={styles.kolBeskrivelse}>
               <BodyShort size="small">
                 <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Avkortet" />
@@ -175,7 +175,7 @@ const lagResultatRader = (
       {skalViseRedusertRad && (
         <>
           {!skalViseAvkortetRad && harFlereAndeler && <>{skilleRad()}</>}
-          <FlexRow className={styles.radBorderBunn}>
+          <FlexRow className={styles.radNoBorder}>
             <FlexColumn className={styles.kolBeskrivelse}>
               <BodyShort size="small">
                 <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Redusert" />
@@ -245,7 +245,7 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
       {tabellData.andeler.map((rad, index) => (
         <React.Fragment key={rad.status}>
           {index === 0 && <>{skilleRad()}</>}
-          <FlexRow className={styles.radBorderBunn}>
+          <FlexRow className={styles.radNoBorder}>
             <FlexColumn className={styles.kolBeskrivelse}>
               <BodyShort size="small">
                 <FormattedMessage id={finnStatusBeskrivelse(rad)} />
@@ -260,7 +260,7 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
           {!!rad.bortfaltNaturalytelse && (
             <>
               {skilleRad()}
-              <FlexRow className={styles.radBorderBunn}>
+              <FlexRow className={styles.radNoBorder}>
                 <FlexColumn className={styles.kolBeskrivelse}>
                   <BodyShort size="small">
                     <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
@@ -277,7 +277,7 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
       ))}
       {skalViseOppsummeringsrad && (
         <>
-          <FlexRow className={styles.radBorderBunn}>
+          <FlexRow className={styles.radNoBorder}>
             <FlexColumn className={styles.kolBeskrivelse}>
               <BodyShort size="small">
                 <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
