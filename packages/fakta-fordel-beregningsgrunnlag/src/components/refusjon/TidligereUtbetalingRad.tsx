@@ -1,8 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { Column, Row } from 'nav-frontend-grid';
-import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { BodyShort } from '@navikt/ds-react';
+import { FlexColumn, FlexRow, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
 
@@ -12,15 +11,18 @@ import styles from './tidligereUtbetalinger.less';
 
 const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement[] =>
   utbetalinger.map(utbetaling => (
-    <Row className={styles.correctPadding} key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
-      <Column>
+    <FlexRow
+      className={styles.correctPadding}
+      key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}
+    >
+      <FlexColumn>
         {utbetaling && utbetaling.erTildeltRefusjon ? (
-          <Normaltekst>{andelsnavn}</Normaltekst>
+          <BodyShort size="small">{andelsnavn}</BodyShort>
         ) : (
           <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Direkteutbetaling" />
         )}
-      </Column>
-    </Row>
+      </FlexColumn>
+    </FlexRow>
   ));
 
 const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined => {
@@ -38,9 +40,9 @@ const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined
 
 const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] =>
   utbetalinger.map(utbetaling => (
-    <Row className={styles.correctPadding} key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
-      <Column>{lagPeriode(utbetaling)}</Column>
-    </Row>
+    <FlexRow className={styles.correctPadding} key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
+      <FlexColumn>{lagPeriode(utbetaling)}</FlexColumn>
+    </FlexRow>
   ));
 
 type OwnProps = {

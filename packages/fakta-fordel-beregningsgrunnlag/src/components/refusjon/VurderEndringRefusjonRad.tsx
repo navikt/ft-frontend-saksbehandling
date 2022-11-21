@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
 import {
   hasValidDate,
   required,
@@ -13,6 +11,8 @@ import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyN
 import { Datepicker, InputField, formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
+import { BodyShort } from '@navikt/ds-react';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -83,8 +83,8 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   const boldTransformator = useCallback(chunks => <b>{chunks}</b>, []);
   return (
     <>
-      <Row>
-        <Column xs="8">
+      <FlexRow>
+        <FlexColumn className={styles.flexColumn9}>
           <FormattedMessage
             id={andelTekst}
             values={{
@@ -93,31 +93,31 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
               b: boldTransformator,
             }}
           />
-        </Column>
-      </Row>
-      <Row>
-        <Column xs="4">
-          <Normaltekst className={styles.marginTopp}>
+        </FlexColumn>
+      </FlexRow>
+      <FlexRow>
+        <FlexColumn className={styles.flexColumn3}>
+          <BodyShort size="small" className={styles.marginTopp}>
             <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
-          </Normaltekst>
-        </Column>
-        <Column xs="4">
+          </BodyShort>
+        </FlexColumn>
+        <FlexColumn className={styles.flexColumn3}>
           <Datepicker
             name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
             isReadOnly={readOnly}
             validate={[required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]}
             isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
           />
-        </Column>
-      </Row>
+        </FlexColumn>
+      </FlexRow>
       {refusjonAndel.skalKunneFastsetteDelvisRefusjon && !erRefusjonFraStart && (
-        <Row>
-          <Column xs="4">
-            <Normaltekst className={styles.marginTopp}>
+        <FlexRow>
+          <FlexColumn className={styles.flexColumn3}>
+            <BodyShort size="small" className={styles.marginTopp}>
               <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
-            </Normaltekst>
-          </Column>
-          <Column xs="4">
+            </BodyShort>
+          </FlexColumn>
+          <FlexColumn className={styles.flexColumn3}>
             <InputField
               name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(
                 refusjonAndel,
@@ -132,8 +132,8 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
               readOnly={readOnly}
               isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}
             />
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
     </>
   );

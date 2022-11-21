@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Undertittel } from 'nav-frontend-typografi';
 import { formHooks } from '@navikt/ft-form-hooks';
 
 import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -13,13 +12,14 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import BeregningsgrunnlagTilBekreftelse from '@navikt/ft-types/src/BeregningsgrunnlagTilBekreftelse';
+import { Heading } from '@navikt/ds-react';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
-import FaktaSubmitButton from '../felles/FaktaSubmitButton';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import SubmitButton from '../felles/SubmitButton';
 
 const BEGRUNNELSE_FIELD = 'VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE';
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
@@ -98,9 +98,9 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
         {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
       </AksjonspunktHelpTextTemp>
       <VerticalSpacer sixteenPx />
-      <Undertittel>
+      <Heading size="small">
         <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
-      </Undertittel>
+      </Heading>
       <VerticalSpacer sixteenPx />
       <TidligereUtbetalinger
         beregningsgrunnlag={beregningsgrunnlag}
@@ -126,7 +126,7 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
         hasBegrunnelse={!!begrunnelse}
       />
       <VerticalSpacer twentyPx />
-      <FaktaSubmitButton
+      <SubmitButton
         isSubmittable={submittable}
         isReadOnly={readOnly}
         isSubmitting={formMethods.formState.isSubmitting}

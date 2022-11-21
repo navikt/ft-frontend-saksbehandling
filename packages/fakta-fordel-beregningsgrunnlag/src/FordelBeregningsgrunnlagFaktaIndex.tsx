@@ -2,8 +2,8 @@ import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import dayjs from 'dayjs';
+import { Tabs } from '@navikt/ds-react';
 
-import { TabsPure } from 'nav-frontend-tabs';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -83,14 +83,19 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   return (
     <RawIntlProvider value={intl}>
       {skalBrukeTabs && (
-        <TabsPure
-          tabs={bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
-            aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
-            label: lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder),
-            className: kreverManuellBehandlingFn(currentBeregningsgrunnlag) ? 'harAksjonspunkt' : '',
-          }))}
-          onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
-        />
+        <Tabs
+          value={aktivtBeregningsgrunnlagIndeks.toString()}
+          onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+        >
+          <Tabs.List>
+            {bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+              <Tabs.Tab
+                value={currentBeregningsgrunnlagIndex.toString()}
+                label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
+              />
+            ))}
+          </Tabs.List>
+        </Tabs>
       )}
       <FordelBeregningsgrunnlagPanel
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
