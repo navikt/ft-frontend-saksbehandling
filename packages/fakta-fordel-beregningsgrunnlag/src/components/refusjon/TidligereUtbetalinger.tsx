@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
-import { Table } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, Table } from '@navikt/ft-ui-komponenter';
 import { Beregningsgrunnlag, RefusjonTilVurderingAndel, ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
 import TidligereUtbetalingRad from './TidligereUtbetalingRad';
@@ -25,8 +24,8 @@ export const TidligereUtbetalinger: FunctionComponent<OwnProps> = ({
 }) => {
   const { andeler } = beregningsgrunnlag.refusjonTilVurdering;
   return (
-    <Row>
-      <Column xs="8">
+    <FlexRow>
+      <FlexColumn className={styles.flexColumn9}>
         <Table
           headerTextCodes={[
             'BeregningInfoPanel.RefusjonBG.Aktivitet',
@@ -44,8 +43,8 @@ export const TidligereUtbetalinger: FunctionComponent<OwnProps> = ({
             />
           ))}
         </Table>
-      </Column>
-    </Row>
+      </FlexColumn>
+    </FlexRow>
   );
 };
 

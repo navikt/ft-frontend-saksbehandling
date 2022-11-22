@@ -2,8 +2,8 @@ import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import dayjs from 'dayjs';
+import { Tabs } from '@navikt/ds-react';
 
-import { TabsPure } from 'nav-frontend-tabs';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -14,6 +14,7 @@ import {
 } from '@navikt/ft-types';
 
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlagPanel';
@@ -83,15 +84,22 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   return (
     <RawIntlProvider value={intl}>
       {skalBrukeTabs && (
-        <TabsPure
-          tabs={bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
-            aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
-            label: lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder),
-            className: kreverManuellBehandlingFn(currentBeregningsgrunnlag) ? 'harAksjonspunkt' : '',
-          }))}
-          onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
-        />
+        <Tabs
+          value={aktivtBeregningsgrunnlagIndeks.toString()}
+          onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+        >
+          <Tabs.List>
+            {bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+              <Tabs.Tab
+                key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
+                value={currentBeregningsgrunnlagIndex.toString()}
+                label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
+              />
+            ))}
+          </Tabs.List>
+        </Tabs>
       )}
+      <VerticalSpacer eightPx />
       <FordelBeregningsgrunnlagPanel
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
         behandlingType={behandlingType}
