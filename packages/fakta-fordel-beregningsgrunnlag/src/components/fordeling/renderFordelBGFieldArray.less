@@ -1,5 +1,3 @@
-@import '@{coreModulePath}nav-frontend-core/less/_variabler';
-
 .container {
   margin-left: -8px;
   margin-right: -8px;
@@ -8,7 +6,7 @@
 @removeBtnSize: 17px;
 
 .buttonRemove {
-  background: @white url('../../images/remove.svg') no-repeat;
+  background: var(--a-white) url('../../images/remove.svg') no-repeat;
   background-size: 100% 100%;
   border: 0;
   cursor: pointer;
@@ -47,16 +45,16 @@
 }
 
 .notLastRow {
-  border-bottom: 1px solid @navGra40;
+  border-bottom: 1px solid var(--a-gray-400);
   margin-top: 10px;
 }
 
 .divider {
-  border-bottom: 1px solid @navGra40;
+  border-bottom: 1px solid var(--a-gray-400);
 }
 
 .dividerTop {
-  border-top: 1px solid @navGra40;
+  border-top: 1px solid var(--a-gray-400);
 }
 
 .sumRow {
@@ -90,7 +88,7 @@
 }
 
 .buttonAdd {
-  background: @white url('../../images/add-circle.svg') no-repeat;
+  background: var(--a-white) url('../../images/add-circle.svg') no-repeat;
   background-size: contain;
   border: 0;
   cursor: pointer;
@@ -185,4 +183,8 @@
 
 .storBredde {
   width: 200px;
+}
+
+.flexColumn3 {
+  width: 25%;
 }

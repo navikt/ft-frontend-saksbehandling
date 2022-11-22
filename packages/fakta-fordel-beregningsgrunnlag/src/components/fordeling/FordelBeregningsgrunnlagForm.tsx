@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
@@ -58,8 +58,18 @@ type OwnProps = {
   fieldIndex;
 };
 
-interface OwnState {
-  openPanels: string[];
+interface StaticFunctions {
+  buildInitialValues: (
+    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+    bg: Beregningsgrunnlag,
+    getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  ) => FordelBeregningsgrunnlagValues;
+  transformValues: (
+    values: FordelBeregningsgrunnlagValues,
+    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+    bgPerioder: BeregningsgrunnlagPeriodeProp[],
+  ) => FordelBeregningsgrunnlagPerioderTransformedValues;
 }
 
 /**
@@ -68,98 +78,91 @@ interface OwnState {
  * Container komponent.. Behandling av aksjonspunktet for fasetting av nytt/endret beregningsgrunnlag.
  */
 
-export class FordelBeregningsgrunnlagForm extends Component<OwnProps, OwnState> {
-  static transformValues = (
-    values: FordelBeregningsgrunnlagValues,
-    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-    bgPerioder: BeregningsgrunnlagPeriodeProp[],
-  ): FordelBeregningsgrunnlagPerioderTransformedValues => ({
-    endretBeregningsgrunnlagPerioder: transformPerioder(fordelBGPerioder, values, bgPerioder),
-  });
+const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly,
+  perioder,
+  isAksjonspunktClosed,
+  bgPerioder,
+  beregningsgrunnlag,
+  alleKodeverk,
+  behandlingType,
+  arbeidsgiverOpplysningerPerId,
+  fieldIndex,
+}) => {
+  const [openPanels, setOpenPanels] = useState<string[]>([]);
+  useEffect(() => {
+    const åpnePaneler = perioder
+      .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
+      .map(periode => periode.fom);
+    setOpenPanels(åpnePaneler);
+  }, [perioder]);
 
-  static buildInitialValues = (
-    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-    bg: Beregningsgrunnlag,
-    getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  ): FordelBeregningsgrunnlagValues => {
-    const initialValues = {} as FordelBeregningsgrunnlagValues;
-    if (!fordelBGPerioder) {
-      return initialValues;
-    }
-    const harKunYtelse = bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
-    const bgPerioder = bg.beregningsgrunnlagPeriode;
-    slaaSammenPerioder(fordelBGPerioder, bgPerioder).forEach((periode, index) => {
-      const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);
-      initialValues[getFieldNameKey(index)] = FordelBeregningsgrunnlagPeriodePanel.buildInitialValues(
-        periode,
-        bgPeriode,
-        bg.skjaeringstidspunktBeregning,
-        harKunYtelse,
-        getKodeverknavn,
-        arbeidsgiverOpplysningerPerId,
-      );
-    });
-    return initialValues;
-  };
-
-  constructor(props: OwnProps) {
-    super(props);
-    this.state = {
-      openPanels: props.perioder
-        .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
-        .map(periode => periode.fom),
-    };
-    this.showPanel = this.showPanel.bind(this);
-  }
-
-  showPanel(fom: string): void {
-    const { openPanels } = this.state;
+  const showPanel = (fom: string) => {
     if (openPanels.includes(fom)) {
-      this.setState({ openPanels: openPanels.filter(panel => panel !== fom) });
+      const oppdatertePaneler = openPanels.filter(panel => panel !== fom);
+      setOpenPanels(oppdatertePaneler);
     } else {
-      openPanels.push(fom);
-      this.setState({ openPanels });
+      const nyListe = openPanels.map(p => p);
+      nyListe.push(fom);
+      setOpenPanels(nyListe);
     }
-  }
+  };
+  return (
+    <BorderBox className={styles.lessPadding}>
+      {slaaSammenPerioder(perioder, bgPerioder).map((periode, index) => (
+        <React.Fragment key={fordelBGFieldArrayNamePrefix + periode.fom}>
+          <VerticalSpacer eightPx />
+          <FordelBeregningsgrunnlagPeriodePanel
+            readOnly={readOnly}
+            fordelingsperiode={periode}
+            fordelBGFieldArrayName={getFieldNameKey(index)}
+            open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            showPanel={showPanel}
+            beregningsgrunnlag={beregningsgrunnlag}
+            alleKodeverk={alleKodeverk}
+            behandlingType={behandlingType}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            fieldIndex={fieldIndex}
+          />
+          <VerticalSpacer eightPx />
+        </React.Fragment>
+      ))}
+    </BorderBox>
+  );
+};
 
-  render() {
-    const {
-      readOnly,
-      perioder,
-      isAksjonspunktClosed,
-      bgPerioder,
-      beregningsgrunnlag,
-      alleKodeverk,
-      behandlingType,
+FordelBeregningsgrunnlagForm.transformValues = (
+  values: FordelBeregningsgrunnlagValues,
+  fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+  bgPerioder: BeregningsgrunnlagPeriodeProp[],
+): FordelBeregningsgrunnlagPerioderTransformedValues => ({
+  endretBeregningsgrunnlagPerioder: transformPerioder(fordelBGPerioder, values, bgPerioder),
+});
+
+FordelBeregningsgrunnlagForm.buildInitialValues = (
+  fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
+  bg: Beregningsgrunnlag,
+  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): FordelBeregningsgrunnlagValues => {
+  const initialValues = {} as FordelBeregningsgrunnlagValues;
+  if (!fordelBGPerioder) {
+    return initialValues;
+  }
+  const harKunYtelse = bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
+  const bgPerioder = bg.beregningsgrunnlagPeriode;
+  slaaSammenPerioder(fordelBGPerioder, bgPerioder).forEach((periode, index) => {
+    const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);
+    initialValues[getFieldNameKey(index)] = FordelBeregningsgrunnlagPeriodePanel.buildInitialValues(
+      periode,
+      bgPeriode,
+      bg.skjaeringstidspunktBeregning,
+      harKunYtelse,
+      getKodeverknavn,
       arbeidsgiverOpplysningerPerId,
-      fieldIndex,
-    } = this.props;
-    const { openPanels } = this.state;
-    return (
-      <BorderBox className={styles.lessPadding}>
-        {slaaSammenPerioder(perioder, bgPerioder).map((periode, index) => (
-          <React.Fragment key={fordelBGFieldArrayNamePrefix + periode.fom}>
-            <VerticalSpacer eightPx />
-            <FordelBeregningsgrunnlagPeriodePanel
-              readOnly={readOnly}
-              fordelingsperiode={periode}
-              fordelBGFieldArrayName={getFieldNameKey(index)}
-              open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              showPanel={this.showPanel}
-              beregningsgrunnlag={beregningsgrunnlag}
-              alleKodeverk={alleKodeverk}
-              behandlingType={behandlingType}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              fieldIndex={fieldIndex}
-            />
-            <VerticalSpacer eightPx />
-          </React.Fragment>
-        ))}
-      </BorderBox>
     );
-  }
-}
-
+  });
+  return initialValues;
+};
 export default FordelBeregningsgrunnlagForm;

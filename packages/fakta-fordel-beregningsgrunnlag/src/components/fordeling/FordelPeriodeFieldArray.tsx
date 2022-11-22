@@ -1,11 +1,9 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { ErrorMessage } from '@navikt/ds-react';
-import { Element, Undertekst } from 'nav-frontend-typografi';
-import { Column, Row } from 'nav-frontend-grid';
+import { Detail, ErrorMessage, Label } from '@navikt/ds-react';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
   BehandlingType as bt,
@@ -403,16 +401,16 @@ const createBruttoBGSummaryRow = (
     </TableColumn>
     {erRevurdering && (
       <TableColumn>
-        <Element>{sumFordelingForrigeBehandling}</Element>
+        <Label size="small">{sumFordelingForrigeBehandling}</Label>
       </TableColumn>
     )}
     <TableColumn />
     <TableColumn />
     <TableColumn>
-      <Element>{sumBeregningsgrunnlagPrAar}</Element>
+      <Label size="small">{sumBeregningsgrunnlagPrAar}</Label>
     </TableColumn>
     <TableColumn>
-      <Element>{sumFordeling}</Element>
+      <Label size="small">{sumFordeling}</Label>
     </TableColumn>
     <TableColumn />
     <TableColumn />
@@ -554,8 +552,8 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
         {tablerows}
       </Table>
       {!readOnly && !skalIkkeRedigereInntekt && (
-        <Row className={styles.buttonRow}>
-          <Column xs="3">
+        <FlexRow className={styles.buttonRow}>
+          <FlexColumn className={styles.flexColumn3}>
             {
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             }
@@ -568,12 +566,12 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
               tabIndex={0}
             >
               <Image className={styles.addCircleIcon} src={addCircleIcon} />
-              <Undertekst className={styles.imageText}>
+              <Detail size="small" className={styles.imageText}>
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-              </Undertekst>
+              </Detail>
             </div>
-          </Column>
-        </Row>
+          </FlexColumn>
+        </FlexRow>
       )}
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>

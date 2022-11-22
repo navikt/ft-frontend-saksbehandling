@@ -1,8 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
-import { Element } from 'nav-frontend-typografi';
-import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   AlleKodeverk,
@@ -16,6 +14,7 @@ import {
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
+import { Label, Accordion } from '@navikt/ds-react';
 import {
   finnFastsattPrAar,
   setArbeidsforholdInitialValues,
@@ -35,13 +34,13 @@ const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT
 const renderDateHeading = (fom: string, tom: string): ReactElement => {
   if (!tom) {
     return (
-      <Element>
+      <Label size="small">
         <FormattedMessage id="BeregningInfoPanel.FordelBG.PeriodeFom" values={{ fom: formatDate(fom) }} />
-      </Element>
+      </Label>
     );
   }
   return (
-    <Element>
+    <Label size="small">
       <FormattedMessage
         id="BeregningInfoPanel.FordelBG.PeriodeFomOgTom"
         values={{
@@ -49,7 +48,7 @@ const renderDateHeading = (fom: string, tom: string): ReactElement => {
           tom: formatDate(tom),
         }}
       />
-    </Element>
+    </Label>
   );
 };
 
@@ -121,27 +120,31 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   fordelingsperiode,
   fieldIndex,
 }) => (
-  <EkspanderbartpanelBase
+  <Accordion
     className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
-    tittel={renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}
-    apen={open}
-    onClick={() => showPanel(fordelingsperiode.fom)}
   >
-    <FordelPeriodeFieldArray
-      fieldName={fordelBGFieldArrayName}
-      readOnly={readOnly}
-      sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
-      skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
-      skalKunneEndreRefusjon={fordelingsperiode.skalKunneEndreRefusjon}
-      periodeFom={fordelingsperiode.fom}
-      isAksjonspunktClosed={isAksjonspunktClosed}
-      alleKodeverk={alleKodeverk}
-      beregningsgrunnlag={beregningsgrunnlag}
-      behandlingType={behandlingType}
-      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      vilkårperiodeFieldIndex={fieldIndex}
-    />
-  </EkspanderbartpanelBase>
+    <Accordion.Item open={open}>
+      <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
+        {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}
+      </Accordion.Header>
+      <Accordion.Content>
+        <FordelPeriodeFieldArray
+          fieldName={fordelBGFieldArrayName}
+          readOnly={readOnly}
+          sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
+          skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
+          skalKunneEndreRefusjon={fordelingsperiode.skalKunneEndreRefusjon}
+          periodeFom={fordelingsperiode.fom}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          alleKodeverk={alleKodeverk}
+          beregningsgrunnlag={beregningsgrunnlag}
+          behandlingType={behandlingType}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          vilkårperiodeFieldIndex={fieldIndex}
+        />
+      </Accordion.Content>
+    </Accordion.Item>
+  </Accordion>
 );
 
 FordelBeregningsgrunnlagPeriodePanel.defaultProps = {

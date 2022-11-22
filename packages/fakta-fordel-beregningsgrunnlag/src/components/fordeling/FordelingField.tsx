@@ -21,7 +21,7 @@ import {
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
-import FaktaSubmitButton from '../felles/FaktaSubmitButton';
+import SubmitButton from '../felles/SubmitButton';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
 
@@ -129,7 +129,7 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
         hasBegrunnelse={!!begrunnelse}
       />
       <VerticalSpacer twentyPx />
-      <FaktaSubmitButton
+      <SubmitButton
         isSubmittable={submittable}
         isReadOnly={readOnly}
         isSubmitting={formMethods.formState.isSubmitting}
