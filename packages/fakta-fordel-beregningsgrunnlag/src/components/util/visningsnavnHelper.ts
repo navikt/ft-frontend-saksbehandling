@@ -21,11 +21,11 @@ export const createVisningsnavnForAktivitetRefusjon = (
   andel: RefusjonTilVurderingAndel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
-  const arbeidsgiverId = andel.arbeidsgiver.arbeidsgiverOrgnr || andel.arbeidsgiver.arbeidsgiverAktørId;
-  const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsgiverId];
-  if (!agOpplysning) {
+  const arbeidsgiverId = andel.arbeidsgiver?.arbeidsgiverOrgnr || andel.arbeidsgiver?.arbeidsgiverAktørId;
+  if (!arbeidsgiverId || !arbeidsgiverOpplysningerPerId[arbeidsgiverId]) {
     return '';
   }
+  const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsgiverId];
   if (agOpplysning.erPrivatPerson) {
     if (agOpplysning.fødselsdato) {
       return `${agOpplysning.navn} (${dayjs(agOpplysning.fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(
