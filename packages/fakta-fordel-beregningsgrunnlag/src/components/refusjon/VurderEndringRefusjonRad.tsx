@@ -23,6 +23,9 @@ const FIELD_KEY_REFUSJONSTART = 'REFUSJON_ENDRING_DATO';
 const FIELD_KEY_DELVIS_REF = 'DELVIS_REFUSJON_FØR_START_BELØP';
 
 const lagNøkkel = (prefix: string, andel: RefusjonTilVurderingAndel): string => {
+  if (!andel.arbeidsgiver) {
+    return `${prefix}${andel.aktivitetStatus}${andel.internArbeidsforholdRef})`;
+  }
   if (andel.arbeidsgiver.arbeidsgiverOrgnr) {
     return `${prefix}${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef}`;
   }
@@ -80,7 +83,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
     `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
   );
   const erRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
-  const boldTransformator = useCallback(chunks => <b>{chunks}</b>, []);
+  const boldTransformator = useCallback((chunks: any) => <b>{chunks}</b>, []);
   return (
     <>
       <FlexRow>
@@ -110,39 +113,42 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
           />
         </FlexColumn>
       </FlexRow>
-      {refusjonAndel.skalKunneFastsetteDelvisRefusjon && !erRefusjonFraStart && (
-        <FlexRow>
-          <FlexColumn className={styles.flexColumn3}>
-            <BodyShort size="small" className={styles.marginTopp}>
-              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn className={styles.flexColumn3}>
-            <InputField
-              name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(
-                refusjonAndel,
-              )}`}
-              className={styles.bredde}
-              validate={[
-                required,
-                minValueFormatted(1),
-                maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd),
-              ]}
-              parse={parseCurrencyInput}
-              readOnly={readOnly}
-              isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}
-            />
-          </FlexColumn>
-        </FlexRow>
-      )}
+      {refusjonAndel.skalKunneFastsetteDelvisRefusjon &&
+        !erRefusjonFraStart &&
+        refusjonAndel.maksTillattDelvisRefusjonPrMnd && (
+          <FlexRow>
+            <FlexColumn className={styles.flexColumn3}>
+              <BodyShort size="small" className={styles.marginTopp}>
+                <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
+              </BodyShort>
+            </FlexColumn>
+            <FlexColumn className={styles.flexColumn3}>
+              <InputField
+                name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(
+                  refusjonAndel,
+                )}`}
+                className={styles.bredde}
+                validate={[
+                  required,
+                  minValueFormatted(1),
+                  maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd),
+                ]}
+                parse={parseCurrencyInput}
+                readOnly={readOnly}
+                isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}
+              />
+            </FlexColumn>
+          </FlexRow>
+        )}
     </>
   );
 };
 
 VurderEndringRefusjonRad.buildInitialValues = (refusjonAndel: RefusjonTilVurderingAndel): VurderRefusjonValues => {
-  const initialValues = {};
-  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom;
-  initialValues[lagNøkkelDelvisRefusjon(refusjonAndel)] = formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd);
+  const initialValues: VurderRefusjonValues = {};
+  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom || '';
+  initialValues[lagNøkkelDelvisRefusjon(refusjonAndel)] =
+    formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd) || '';
   return initialValues;
 };
 
@@ -153,14 +159,14 @@ VurderEndringRefusjonRad.transformValues = (
 ): VurderRefusjonAndelTransformedValues => {
   const datoNøkkel = lagNøkkelRefusjonsstart(andel);
   const fastsattDato = values[datoNøkkel];
-  let delvisRefusjonPrMnd = null;
+  let delvisRefusjonPrMnd;
   if (andel.skalKunneFastsetteDelvisRefusjon && fastsattDato !== skjæringstidspunkt) {
     const delvisNøkkel = lagNøkkelDelvisRefusjon(andel);
     delvisRefusjonPrMnd = removeSpacesFromNumber(values[delvisNøkkel]);
   }
   return {
-    arbeidsgiverOrgnr: andel.arbeidsgiver.arbeidsgiverOrgnr,
-    arbeidsgiverAktoerId: andel.arbeidsgiver.arbeidsgiverAktørId,
+    arbeidsgiverOrgnr: andel.arbeidsgiver?.arbeidsgiverOrgnr,
+    arbeidsgiverAktoerId: andel.arbeidsgiver?.arbeidsgiverAktørId,
     internArbeidsforholdRef: andel.internArbeidsforholdRef,
     fastsattRefusjonFom: fastsattDato,
     delvisRefusjonPrMndFørStart: delvisRefusjonPrMnd,

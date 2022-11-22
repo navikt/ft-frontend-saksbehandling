@@ -18,10 +18,20 @@ export const FORM_NAME = 'FORDEL_BEREGNING_FORM';
 const finnBeregningsgrunnlag = (
   vilkårsperiodeFom: string,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
-): Beregningsgrunnlag => beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+): Beregningsgrunnlag => {
+  const matchetndeBG = beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+  if (!matchetndeBG) {
+    throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+  }
+  return matchetndeBG;
+};
 
-function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
-  return vilkårsperioder.find(p => p.periode.fom === vilkårsperiodeFom);
+function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string): Vilkarperiode {
+  const periode = vilkårsperioder.find(p => p.periode.fom === vilkårsperiodeFom);
+  if (!periode) {
+    throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+  }
+  return periode;
 }
 
 function vurderesIBehandlingen(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
@@ -56,7 +66,7 @@ const buildInitialValues = (
   [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
     buildFieldInitialValuesFordelBeregning(
       bg,
-      vilkårsperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom),
+      finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom),
       arbeidsgiverOpplysningerPerId,
       alleKodeverk,
     ),
