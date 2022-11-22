@@ -14,6 +14,7 @@ import {
 } from '@navikt/ft-types';
 
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlagPanel';
@@ -90,6 +91,7 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
           <Tabs.List>
             {bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
               <Tabs.Tab
+                key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
                 value={currentBeregningsgrunnlagIndex.toString()}
                 label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
               />
@@ -97,6 +99,7 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
           </Tabs.List>
         </Tabs>
       )}
+      <VerticalSpacer eightPx />
       <FordelBeregningsgrunnlagPanel
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
         behandlingType={behandlingType}
