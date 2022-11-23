@@ -12,7 +12,7 @@ import {
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 
-const nullOrUndefined = (value: number): boolean => value === null || value === undefined;
+const nullOrUndefined = (value?: number): boolean => value === null || value === undefined;
 
 export const settAndelIArbeid = (andelerIArbeid: number[]): string => {
   if (andelerIArbeid.length === 0) {
@@ -40,7 +40,9 @@ const createAndelnavn = (
     return '';
   }
   if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold) {
-    const agOpplysninger = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
+    const agOpplysninger = andel.arbeidsforhold.arbeidsgiverIdent
+      ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]
+      : undefined;
     if (!agOpplysninger) {
       return andel.arbeidsforhold.arbeidsforholdType
         ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
@@ -54,19 +56,22 @@ const createAndelnavn = (
   return getKodeverknavn(andel.aktivitetStatus, KodeverkType.AKTIVITET_STATUS);
 };
 
-export const finnFastsattPrAar = (fordeltPrAar: number): number | null =>
-  nullOrUndefined(fordeltPrAar) ? null : fordeltPrAar;
+export const finnFastsattPrAar = (fordeltPrAar?: number): number | undefined =>
+  nullOrUndefined(fordeltPrAar) ? undefined : fordeltPrAar;
+
+const formatertEllerTomTekst = (beløp?: number): string => formatCurrencyNoKr(beløp) || '';
 
 export const settFastsattBelop = (
-  fordeltPrAar: number,
-  bruttoPrAar: number,
+  fordeltPrAar: number | undefined,
+  bruttoPrAar: number | undefined,
   skalPreutfyllesMedBeregningsgrunnlag: boolean,
 ): string => {
-  const fastsatt = finnFastsattPrAar(fordeltPrAar);
-  if (fastsatt !== null) {
-    return formatCurrencyNoKr(fastsatt);
+  if (fordeltPrAar !== undefined) {
+    return formatertEllerTomTekst(fordeltPrAar);
   }
-  return skalPreutfyllesMedBeregningsgrunnlag && !nullOrUndefined(bruttoPrAar) ? formatCurrencyNoKr(bruttoPrAar) : '';
+  return skalPreutfyllesMedBeregningsgrunnlag && !nullOrUndefined(bruttoPrAar)
+    ? formatertEllerTomTekst(bruttoPrAar)
+    : '';
 };
 
 export const setArbeidsforholdInitialValues = (
@@ -98,11 +103,13 @@ export const setGenerellAndelsinfo = (
   aktivitetStatus: andel.aktivitetStatus,
   andelsnr: andel.andelsnr,
   nyAndel: false,
-  kilde: andel.kilde == null ? null : andel.kilde,
+  kilde: andel.kilde == null ? '' : andel.kilde,
   lagtTilAvSaksbehandler: andel.lagtTilAvSaksbehandler === true,
   inntektskategori: finnnInntektskategorikode(andel),
   forrigeInntektskategori:
-    !andel.inntektskategori || andel.inntektskategori === Inntektskategori.UDEFINERT ? null : andel.inntektskategori,
+    !andel.inntektskategori || andel.inntektskategori === Inntektskategori.UDEFINERT
+      ? undefined
+      : andel.inntektskategori,
 });
 
 export const mapToBelop = (

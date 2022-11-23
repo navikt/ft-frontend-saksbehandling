@@ -31,7 +31,7 @@ const classNames = classnames.bind(styles);
 
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
-const renderDateHeading = (fom: string, tom: string): ReactElement => {
+const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
   if (!tom) {
     return (
       <Label size="small">
@@ -70,8 +70,8 @@ const finnBeregnetPlussBortfaltNat = (andel: BeregningsgrunnlagAndel): number =>
 };
 
 const finnSumIPeriode = (bgPerioder: BeregningsgrunnlagPeriodeProp[], fom: string): number => {
-  const periode = bgPerioder.find(p => p.beregningsgrunnlagPeriodeFom === fom);
-  return periode.beregningsgrunnlagPrStatusOgAndel
+  const andeler = bgPerioder.find(p => p.beregningsgrunnlagPeriodeFom === fom)?.beregningsgrunnlagPrStatusOgAndel || [];
+  return andeler
     .map(andel => finnBeregnetPlussBortfaltNat(andel))
     .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
 };
@@ -119,52 +119,59 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   fordelBGFieldArrayName,
   fordelingsperiode,
   fieldIndex,
-}) => (
-  <Accordion
-    className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
-  >
-    <Accordion.Item open={open}>
-      <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
-        {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}
-      </Accordion.Header>
-      <Accordion.Content>
-        <FordelPeriodeFieldArray
-          fieldName={fordelBGFieldArrayName}
-          readOnly={readOnly}
-          sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
-          skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
-          skalKunneEndreRefusjon={fordelingsperiode.skalKunneEndreRefusjon}
-          periodeFom={fordelingsperiode.fom}
-          isAksjonspunktClosed={isAksjonspunktClosed}
-          alleKodeverk={alleKodeverk}
-          beregningsgrunnlag={beregningsgrunnlag}
-          behandlingType={behandlingType}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          vilkårperiodeFieldIndex={fieldIndex}
-        />
-      </Accordion.Content>
-    </Accordion.Item>
-  </Accordion>
-);
-
-FordelBeregningsgrunnlagPeriodePanel.defaultProps = {
-  open: null,
+}) => {
+  if (!fordelingsperiode.fom) {
+    return null;
+  }
+  return (
+    <Accordion
+      className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
+    >
+      <Accordion.Item open={open}>
+        <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
+          {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}
+        </Accordion.Header>
+        <Accordion.Content>
+          <FordelPeriodeFieldArray
+            fieldName={fordelBGFieldArrayName}
+            readOnly={readOnly}
+            sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
+            skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
+            skalKunneEndreRefusjon={!!fordelingsperiode.skalKunneEndreRefusjon}
+            periodeFom={fordelingsperiode.fom}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            alleKodeverk={alleKodeverk}
+            beregningsgrunnlag={beregningsgrunnlag}
+            behandlingType={behandlingType}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            vilkårperiodeFieldIndex={fieldIndex}
+          />
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion>
+  );
 };
 
 const finnRiktigAndel = (
   andel: FordelBeregningsgrunnlagAndel,
   bgPeriode: BeregningsgrunnlagPeriodeProp,
-): BeregningsgrunnlagAndel => bgPeriode.beregningsgrunnlagPrStatusOgAndel.find(a => a.andelsnr === andel.andelsnr);
+): BeregningsgrunnlagAndel => {
+  const andeler = bgPeriode.beregningsgrunnlagPrStatusOgAndel || [];
+  const matchetAndel = andeler.find(a => a.andelsnr === andel.andelsnr);
+  if (!matchetAndel) {
+    throw Error(`Finner ikke matchende andel med andelsnr ${andel.andelsnr}`);
+  }
+  return matchetAndel;
+};
 
-const starterPaaEllerEtterStp = (bgAndel: BeregningsgrunnlagAndel, skjaeringstidspunktBeregning: string): boolean =>
-  bgAndel &&
-  bgAndel.arbeidsforhold &&
-  bgAndel.arbeidsforhold.startdato &&
-  !dayjs(bgAndel.arbeidsforhold.startdato).isBefore(dayjs(skjaeringstidspunktBeregning));
+const starterPaaEllerEtterStp = (bgAndel: BeregningsgrunnlagAndel, skjaeringstidspunktBeregning: string): boolean => {
+  const startdato = bgAndel.arbeidsforhold?.startdato;
+  return !!startdato && !dayjs(startdato).isBefore(dayjs(skjaeringstidspunktBeregning));
+};
 
 const finnBeregningsgrunnlagPrAar = (bgAndel: BeregningsgrunnlagAndel): string | undefined => {
   if (!bgAndel) {
-    return null;
+    return undefined;
   }
   const bortfaltNaturalytelse =
     bgAndel.bortfaltNaturalytelse === null || bgAndel.bortfaltNaturalytelse === undefined
@@ -183,7 +190,15 @@ const finnBeregningsgrunnlagPrAar = (bgAndel: BeregningsgrunnlagAndel): string |
   if (bgAndel.beregnetPrAar || bgAndel.beregnetPrAar === 0) {
     return formatCurrencyNoKr(bgAndel.beregnetPrAar + bortfaltNaturalytelse - tilkommetNaturalytelse);
   }
-  return null;
+  return undefined;
+};
+
+const finnBeløpFraForrigeBehandling = (andel: FordelBeregningsgrunnlagAndel): string => {
+  const formatertBeløp =
+    andel.fordelingForrigeBehandlingPrAar || andel.fordelingForrigeBehandlingPrAar === 0
+      ? formatCurrencyNoKr(andel.fordelingForrigeBehandlingPrAar)
+      : '';
+  return formatertBeløp || '';
 };
 
 FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
@@ -202,15 +217,12 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
     return {
       ...setGenerellAndelsinfo(andel, harKunYtelse, getKodeverknavn, arbeidsgiverOpplysningerPerId),
       ...setArbeidsforholdInitialValues(andel),
-      andelIArbeid: settAndelIArbeid(andel.andelIArbeid),
-      fordelingForrigeBehandling:
-        andel.fordelingForrigeBehandlingPrAar || andel.fordelingForrigeBehandlingPrAar === 0
-          ? formatCurrencyNoKr(andel.fordelingForrigeBehandlingPrAar)
-          : '',
+      andelIArbeid: settAndelIArbeid(andel.andelIArbeid || []),
+      fordelingForrigeBehandling: finnBeløpFraForrigeBehandling(andel),
       fastsattBelop: settFastsattBelop(
         andel.fordeltPrAar,
         bgAndel.bruttoPrAar,
-        periode.skalPreutfyllesMedBeregningsgrunnlag,
+        !!periode.skalPreutfyllesMedBeregningsgrunnlag,
       ),
       readOnlyBelop: finnBeregningsgrunnlagPrAar(bgAndel),
       refusjonskrav:
@@ -222,7 +234,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
           ? periode.skalKunneEndreRefusjon
           : false,
       belopFraInntektsmelding: andel.belopFraInntektsmeldingPrAar,
-      skalRedigereInntekt: periode.skalRedigereInntekt,
+      skalRedigereInntekt: !!periode.skalRedigereInntekt,
       refusjonskravFraInntektsmelding: andel.refusjonskravFraInntektsmeldingPrAar,
       nyttArbeidsforhold: andel.nyttArbeidsforhold || starterPaaEllerEtterStp(bgAndel, skjaeringstidspunktBeregning),
       beregningsgrunnlagPrAar: finnBeregningsgrunnlagPrAar(bgAndel),

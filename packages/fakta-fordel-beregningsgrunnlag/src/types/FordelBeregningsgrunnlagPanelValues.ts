@@ -48,9 +48,9 @@ export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenere
     readOnlyBelop?: string;
     refusjonskrav?: string;
     skalKunneEndreRefusjon?: boolean;
-    belopFraInntektsmelding: number;
+    belopFraInntektsmelding?: number;
     skalRedigereInntekt: boolean;
-    refusjonskravFraInntektsmelding: number;
+    refusjonskravFraInntektsmelding?: number;
     nyttArbeidsforhold?: boolean;
     beregningsgrunnlagPrAar?: string;
     forrigeRefusjonPrAar?: number;

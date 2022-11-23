@@ -14,16 +14,8 @@ import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
-const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] => {
-  if (
-    beregningsgrunnlag &&
-    beregningsgrunnlag.faktaOmFordeling &&
-    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag
-  ) {
-    return beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
-  }
-  return [];
-};
+const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
+  beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
 
 type OwnProps = {
   readOnly: boolean;

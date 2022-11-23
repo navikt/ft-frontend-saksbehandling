@@ -27,7 +27,8 @@ export const textCase = {
   ENDRING_YTELSE: 'ENDRING_YTELSE',
 };
 
-const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
+const formatDate = (date: string | undefined): string =>
+  date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-';
 
 const byggListeSomStreng = (listeMedStrenger: string[]): string => {
   if (listeMedStrenger.length === 0) {
@@ -63,7 +64,9 @@ const finnVisningsnavn = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
 ): string => {
-  const agOpplysninger = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
+  const agOpplysninger = arbeidsforhold.arbeidsgiverIdent
+    ? arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]
+    : undefined;
   if (!agOpplysninger) {
     return arbeidsforhold.arbeidsforholdType
       ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
@@ -80,6 +83,9 @@ export const createFordelArbeidsforholdString = (
 ): string => {
   const listOfStrings = listOfArbeidsforhold.map(arbeidsforhold => {
     const visningsnavn = finnVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId, getKodeverknavn);
+    if (!arbeidsforhold.perioderMedGraderingEllerRefusjon) {
+      return '';
+    }
     if (mTextCase === textCase.GRADERING) {
       return (
         visningsnavn +
@@ -99,9 +105,9 @@ export const createFordelArbeidsforholdString = (
       );
     }
     if (mTextCase === textCase.PERMISJON) {
-      return visningsnavn.concat(` f.o.m ${formatDate(arbeidsforhold.permisjon.permisjonTom)}`);
+      return visningsnavn.concat(` f.o.m ${formatDate(arbeidsforhold.permisjon?.permisjonTom)}`);
     }
-    return null;
+    return 'Ukjent årsak';
   });
   return byggListeSomStreng(listOfStrings);
 };
@@ -199,16 +205,18 @@ const lagHelpTextsFordelBG = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
   const gradering = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
-    perioderMedGraderingEllerRefusjon.map(({ erGradering }) => erGradering).includes(true),
+    perioderMedGraderingEllerRefusjon?.map(({ erGradering }) => erGradering).includes(true),
   );
   const refusjon = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
-    perioderMedGraderingEllerRefusjon.map(({ erRefusjon }) => erRefusjon).includes(true),
+    perioderMedGraderingEllerRefusjon?.map(({ erRefusjon }) => erRefusjon).includes(true),
   );
   const permisjonMedGraderingEllerRefusjon = endredeArbeidsforhold
     .filter(({ permisjon }) => permisjon !== undefined && permisjon !== null)
-    .filter(({ perioderMedGraderingEllerRefusjon }) => harGraderingEllerRefusjon(perioderMedGraderingEllerRefusjon));
+    .filter(({ perioderMedGraderingEllerRefusjon }) =>
+      harGraderingEllerRefusjon(perioderMedGraderingEllerRefusjon || []),
+    );
   const endringYtelse = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
-    perioderMedGraderingEllerRefusjon.map(({ erSøktYtelse }) => erSøktYtelse).includes(true),
+    perioderMedGraderingEllerRefusjon?.map(({ erSøktYtelse }) => erSøktYtelse).includes(true),
   );
   return createGraderingOrRefusjonString(
     gradering,
@@ -225,8 +233,8 @@ export const getHelpTextsFordelBG = (
   alleKodeverk: AlleKodeverk,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
-  const fordelBG = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag;
-  const endredeArbeidsforhold = fordelBG ? fordelBG.arbeidsforholdTilFordeling : [];
+  const endredeArbeidsforhold =
+    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling || [];
   return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)
     ? lagHelpTextsFordelBG(endredeArbeidsforhold, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId)
     : [];
