@@ -78,7 +78,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi feil om det er lagt til identisk andel', () => {
@@ -150,7 +150,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi feil om det er lagt til andel med samme inntektskategori uten arbeid', () => {
@@ -302,7 +302,7 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi feil når total refusjon er høyere enn inntektsmeldingen', () => {
@@ -374,7 +374,7 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal validere at hele beløpet er fordelt', () => {
@@ -420,7 +420,7 @@ describe('<ValidateAndelerUtils>', () => {
       500000,
       intlMock,
     );
-    expect(validateFastsattBeløp).toBe(null);
+    expect(validateFastsattBeløp).toBe(undefined);
   });
 
   it('skal gi feil når total fordeling er større enn tillatt beløp', () => {
@@ -514,7 +514,7 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(undefined);
   });
 
   it('skal gi feil når gradert andel har 0 i fordelt beløp', () => {
@@ -610,7 +610,7 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(undefined);
   });
 
   it('skal tillate 0 i fordeling på andeler som ikke skal graderes', () => {
@@ -658,6 +658,6 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(undefined);
   });
 });

@@ -48,7 +48,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     const perioder = [
       {
         fom: '2019-01-01',
-        tom: undefined,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel as FordelBeregningsgrunnlagAndel],
         skalRedigereInntekt: true,
         skalKunneEndreRefusjon: false,
