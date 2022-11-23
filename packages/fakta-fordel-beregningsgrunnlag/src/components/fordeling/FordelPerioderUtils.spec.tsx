@@ -5,7 +5,7 @@ import { PeriodeAarsak } from '@navikt/ft-kodeverk';
 import { lagPerioderForSubmit, slaaSammenPerioder as slåSammenPerioder } from './FordelPerioderUtils';
 
 const arbeidsforhold1 = {
-  arbeidsforholdId: null,
+  arbeidsforholdId: undefined,
   arbeidsforholdType: 'ARBEID',
   arbeidsgiverIdent: '914555825',
   belopFraInntektsmeldingPrMnd: 41667,
@@ -48,7 +48,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     const perioder = [
       {
         fom: '2019-01-01',
-        tom: null,
+        tom: undefined,
         fordelBeregningsgrunnlagAndeler: [fordelAndel as FordelBeregningsgrunnlagAndel],
         skalRedigereInntekt: true,
         skalKunneEndreRefusjon: false,
@@ -58,14 +58,14 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     const bgPerioder = [
       {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
-    expect(nyePerioder[0].tom).toBe(null);
+    expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med en periode om andre periode har naturalytelse tilkommet', () => {
@@ -78,7 +78,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -91,14 +91,14 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.NATURALYTELSE_TILKOMMER],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
-    expect(nyePerioder[0].tom).toBe(null);
+    expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med en periode om andre periode har naturalytelse bortfalt', () => {
@@ -111,7 +111,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -124,14 +124,14 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.NATURALYTELSE_BORTFALT],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
-    expect(nyePerioder[0].tom).toBe(null);
+    expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med en periode om andre periode har avsluttet arbeidsforhold uten endring i bruttoPrÅr', () => {
@@ -144,7 +144,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -158,7 +158,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 120000,
         periodeAarsaker: [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
       },
@@ -166,7 +166,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
-    expect(nyePerioder[0].tom).toBe(null);
+    expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med to perioder om andre periode har avsluttet arbeidsforhold med endring i bruttoPrÅr', () => {
@@ -179,7 +179,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -193,7 +193,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 130000,
         periodeAarsaker: [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
       },
@@ -203,7 +203,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
     expect(nyePerioder[1].fom).toBe('2019-02-02');
-    expect(nyePerioder[1].tom).toBe(null);
+    expect(nyePerioder[1].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med to perioder om andre periode har opphør av refusjon', () => {
@@ -216,7 +216,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: false,
       },
@@ -230,7 +230,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 120000,
         periodeAarsaker: [PeriodeAarsak.REFUSJON_OPPHOERER],
       },
@@ -240,7 +240,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
     expect(nyePerioder[1].fom).toBe('2019-02-02');
-    expect(nyePerioder[1].tom).toBe(null);
+    expect(nyePerioder[1].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med to perioder om andre periode har endring i refusjon', () => {
@@ -253,7 +253,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -267,7 +267,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 120000,
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
       },
@@ -277,7 +277,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
     expect(nyePerioder[1].fom).toBe('2019-02-02');
-    expect(nyePerioder[1].tom).toBe(null);
+    expect(nyePerioder[1].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med en periode om andre periode har endring i søkt ytelse uten endring i refusjon eller brutto', () => {
@@ -290,7 +290,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -304,7 +304,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
@@ -312,7 +312,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
-    expect(nyePerioder[0].tom).toBe(null);
+    expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med to periode om andre periode har endring i søkt ytelse med endring i refusjon', () => {
@@ -325,7 +325,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [
           {
             ...fordelAndel,
@@ -344,7 +344,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
@@ -354,7 +354,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
     expect(nyePerioder[1].fom).toBe('2019-02-02');
-    expect(nyePerioder[1].tom).toBe(null);
+    expect(nyePerioder[1].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om siste periode ikke har utbetaling', () => {
@@ -634,7 +634,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -648,7 +648,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 200_000,
       },
@@ -658,7 +658,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
     expect(nyePerioder[1].fom).toBe('2019-02-02');
-    expect(nyePerioder[1].tom).toBe(null);
+    expect(nyePerioder[1].tom).toBe('9999-12-31');
   });
 
   it('skal returnere liste med to periode om andre periode har endring i søkt ytelse med ulikt antall andeler', () => {
@@ -671,7 +671,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
@@ -685,7 +685,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: null,
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
@@ -695,7 +695,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
     expect(nyePerioder[1].fom).toBe('2019-02-02');
-    expect(nyePerioder[1].tom).toBe(null);
+    expect(nyePerioder[1].tom).toBe('9999-12-31');
   });
 
   it('skal lage en periode for submit dersom ikke slått sammen', () => {
@@ -709,7 +709,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
         skalRedigereInntekt: true,
@@ -732,7 +732,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
         skalRedigereInntekt: true,
@@ -741,7 +741,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
 
     const kombinertPeriode = {
       fom: '2019-01-01',
-      tom: null,
+      tom: '9999-12-31',
       fordelBeregningsgrunnlagAndeler: [fordelAndel],
       harPeriodeAarsakGraderingEllerRefusjon: true,
     };
@@ -750,7 +750,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(submitPerioder[0].fom).toBe('2019-01-01');
     expect(submitPerioder[0].tom).toBe('2019-02-01');
     expect(submitPerioder[1].fom).toBe('2019-02-02');
-    expect(submitPerioder[1].tom).toBe(null);
+    expect(submitPerioder[1].tom).toBe('9999-12-31');
   });
 
   it('skal lage en periode for submit dersom slått sammen med siste periode men kun en er redigerbar', () => {

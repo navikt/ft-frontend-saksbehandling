@@ -21,7 +21,7 @@ type OwnProps = {
   hasBegrunnelse: boolean;
   label?: string;
   hasVurderingText?: boolean;
-  name?: string;
+  name: string;
 };
 
 export type FormValues = {
@@ -33,10 +33,7 @@ type TransformedValues = {
 };
 
 interface StaticFunctions {
-  buildInitialValues: (
-    aksjonspunkt: BeregningAvklaringsbehov[] | BeregningAvklaringsbehov,
-    begrunnelseFieldName?: string,
-  ) => FormValues;
+  buildInitialValues: (aksjonspunkt: BeregningAvklaringsbehov, begrunnelseFieldName?: string) => FormValues;
   transformValues: (values: FormValues, name?: string) => TransformedValues;
 }
 
@@ -76,15 +73,11 @@ FaktaBegrunnelseTextField.defaultProps = {
   hasVurderingText: false,
 };
 
-const getBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[] | BeregningAvklaringsbehov): string => {
-  if (avklaringsbehov && Array.isArray(avklaringsbehov)) {
-    return avklaringsbehov.length > 0 ? avklaringsbehov[0].begrunnelse : '';
-  }
-  return avklaringsbehov && !Array.isArray(avklaringsbehov) ? avklaringsbehov.begrunnelse : '';
-};
+const getBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov): string =>
+  avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '';
 
 FaktaBegrunnelseTextField.buildInitialValues = (
-  avklaringsbehov: BeregningAvklaringsbehov[] | BeregningAvklaringsbehov,
+  avklaringsbehov: BeregningAvklaringsbehov,
   begrunnelseFieldName = 'begrunnelse',
 ): FormValues => ({
   [begrunnelseFieldName]: decodeHtmlEntity(getBegrunnelse(avklaringsbehov)),

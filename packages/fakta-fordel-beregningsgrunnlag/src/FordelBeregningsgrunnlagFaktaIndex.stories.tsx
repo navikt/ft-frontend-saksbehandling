@@ -15,6 +15,7 @@ import {
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
   Vilkar,
+  Vilkarperiode,
 } from '@navikt/ft-types';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
@@ -99,11 +100,11 @@ export default {
   component: FordelBeregningsgrunnlagFaktaIndex,
 };
 
-const lagVilkår = (perioder): Vilkar => ({
+const lagVilkår = (perioder: Vilkarperiode[]): Vilkar => ({
   vilkarType: 'VK_41',
   overstyrbar: false,
   perioder: perioder.map(p => ({
-    periode: { fom: p.fom, tom: p.tom },
+    periode: { fom: p.periode.fom, tom: p.periode.tom },
     vurderesIBehandlingen: p.vurderesIBehandlingen,
     merknadParametere: {},
     vilkarStatus: 'OPPFYLT',
@@ -139,7 +140,7 @@ const Template: Story<{
 const lagBGAndel = (
   andelsnr: number,
   aktivitetstatuskode: string,
-  beregnet: number,
+  beregnet?: number,
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold,
 ): BeregningsgrunnlagAndel => ({
   aktivitetStatus: aktivitetstatuskode,
@@ -161,7 +162,7 @@ const lagBGPeriode = (
   const sum = andelsliste.reduce((acc, andel) => acc + (andel.beregnetPrAar ? andel.beregnetPrAar : 0), 0);
   return {
     beregningsgrunnlagPeriodeFom: fom,
-    beregningsgrunnlagPeriodeTom: tom,
+    beregningsgrunnlagPeriodeTom: tom || '9999-12-31',
     beregnetPrAar: sum,
     bruttoPrAar: sum,
     bruttoInkludertBortfaltNaturalytelsePrAar: sum,
@@ -590,7 +591,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
         lagBGPeriode(
           [
             lagBGAndel(2, 'AAP', 300000),
-            lagBGAndel(1, 'AT', null, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+            lagBGAndel(1, 'AT', undefined, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
           ],
           [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
           '2019-11-27',
@@ -599,7 +600,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
       lagFaktaOmFordeling(
         [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
         [
-          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, null)], false, false, '2019-08-05', '2019-11-26'),
+          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, undefined)], false, false, '2019-08-05', '2019-11-26'),
           lagFordelPeriode(
             [
               lagFordelingsandel(2, 'AAP', 0, 100000),
@@ -633,7 +634,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
         lagBGPeriode(
           [
             lagBGAndel(2, 'AAP', 300000),
-            lagBGAndel(1, 'AT', null, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+            lagBGAndel(1, 'AT', undefined, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
           ],
           [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
           '2020-01-27',

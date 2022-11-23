@@ -51,13 +51,15 @@ const lagVisningsnavn = (
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
-  const agOpplysninger = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
-  if (!agOpplysninger) {
+  if (!arbeidsforhold.arbeidsgiverIdent || !arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]) {
     return arbeidsforhold.arbeidsforholdType
       ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
       : '';
   }
-  return createVisningsnavnForAktivitetFordeling(agOpplysninger, arbeidsforhold.eksternArbeidsforholdId);
+  return createVisningsnavnForAktivitetFordeling(
+    arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent],
+    arbeidsforhold.eksternArbeidsforholdId,
+  );
 };
 
 const arbeidsgiverSelectValues = (
@@ -97,6 +99,13 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactEleme
     </option>
   ));
 
+const sumEllerTomString = (sum: number): string => {
+  if (sum > 0) {
+    return formatCurrencyNoKr(sum) || '';
+  }
+  return '';
+};
+
 const summerFordeling = (
   vilkårperiodeFieldIndex: number,
   fieldname: string,
@@ -116,7 +125,7 @@ const summerFordeling = (
       sum += field.readOnlyBelop ? fastsattBeløp : 0;
     }
   }
-  return sum > 0 ? formatCurrencyNoKr(sum) : '';
+  return sumEllerTomString(sum);
 };
 
 const summerBeregningsgrunnlagPrAar = (fields: FordelBeregningsgrunnlagAndelValues[]): string => {
@@ -128,11 +137,17 @@ const summerBeregningsgrunnlagPrAar = (fields: FordelBeregningsgrunnlagAndelValu
       sum += field.beregningsgrunnlagPrAar ? Number(removeSpacesFromNumber(field.beregningsgrunnlagPrAar)) : 0;
     }
   }
-  return sum > 0 ? formatCurrencyNoKr(sum) : '';
+  return sumEllerTomString(sum);
 };
 
-const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues): boolean =>
-  isSelvstendigNæringsdrivende(fieldVal.inntektskategori) || Inntektskategori.FRILANSER === fieldVal.inntektskategori;
+const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues): boolean => {
+  if (!fieldVal.inntektskategori) {
+    return false;
+  }
+  return (
+    isSelvstendigNæringsdrivende(fieldVal.inntektskategori) || Inntektskategori.FRILANSER === fieldVal.inntektskategori
+  );
+};
 
 const onKeyDown =
   (fields: FordelBeregningsgrunnlagAndelValues[], periodeUtenAarsak: boolean): ((arg: React.KeyboardEvent) => void) =>
@@ -145,19 +160,19 @@ const onKeyDown =
 const finnArbeidsforholdForAndel = (
   arbeidsforholdListe: BGFordelArbeidsforhold[],
   val: string,
-): BGFordelArbeidsforhold => {
+): BGFordelArbeidsforhold | undefined => {
   const andelsnr = Number(val);
   return arbeidsforholdListe.find(arbeidsforhold => arbeidsforhold.andelsnr === andelsnr);
 };
 
-const finnAktivitetStatus = (fields: FordelBeregningsgrunnlagAndelValues[], val: string): string => {
+const finnAktivitetStatus = (fields: FordelBeregningsgrunnlagAndelValues[], val: string): string | undefined => {
   const andelsnr = Number(val);
   for (let index = 0; index < fields.length; index += 1) {
     if (fields[index].andelsnr === andelsnr) {
       return fields[index].aktivitetStatus;
     }
   }
-  return null;
+  return undefined;
 };
 
 const setArbeidsforholdInfo = (
@@ -472,7 +487,9 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     }
   }, [fieldArrayToRepeat]);
 
-  const harKunYtelse = beregningsgrunnlag.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
+  const harKunYtelse =
+    !!beregningsgrunnlag.aktivitetStatus &&
+    beregningsgrunnlag.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
   const sumFordeling = summerFordeling(vilkårperiodeFieldIndex, fieldName, fields, watch);
   const sumBeregningsgrunnlagPrAar = summerBeregningsgrunnlagPrAar(fields);
@@ -499,12 +516,18 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   );
   tablerows.push(createBruttoBGSummaryRow(sumFordeling, sumBeregningsgrunnlagPrAar, gjelderGradering));
 
-  // Valideringer, fields settes også opp for perioder om ikke skal endres, disse trenger vi ikke validere.
-  const valideringsresultat = [];
+  const valideringsresultat: string[] = [];
+
+  const valider = (feilmelding?: string): void => {
+    if (feilmelding) {
+      valideringsresultat.push(feilmelding);
+    }
+  };
+  // Fields settes også opp for perioder om ikke skal endres, disse trenger vi ikke validere.
   const fieldsMåValideres = fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
   if (fieldsMåValideres) {
-    valideringsresultat.push(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
-    valideringsresultat.push(
+    valider(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
+    valider(
       validateSumFastsattForUgraderteAktiviteter(
         vilkårperiodeFieldIndex,
         getValues,
@@ -515,19 +538,15 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
         getKodeverknavn,
       ),
     );
-    valideringsresultat.push(
-      validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl),
-    );
+    valider(validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl));
     if (gjelderGradering) {
-      valideringsresultat.push(
-        validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl),
-      );
+      valider(validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl));
     }
     if (skalKunneEndreRefusjon) {
-      valideringsresultat.push(
+      valider(
         validateSumRefusjon(vilkårperiodeFieldIndex, fields, fieldName, getValues, beregningsgrunnlag.grunnbeløp, intl),
       );
-      valideringsresultat.push(
+      valider(
         validateTotalRefusjonPrArbeidsforhold(
           vilkårperiodeFieldIndex,
           fields,

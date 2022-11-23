@@ -2,25 +2,25 @@ import AvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklari
 import FaktaFordelBeregningAksjonspunktCode from './FaktaFordelBeregningAksjonspunktCode';
 
 export type FordelBeregningsgrunnlagFastsatteVerdierTransformedValues = {
-  refusjonPrÅr: number;
+  refusjonPrÅr?: number;
   fastsattÅrsbeløpInklNaturalytelse: number;
   inntektskategori: string;
 };
 
 export type FordelBeregningsgrunnlagAndelTransformedValues = {
   andelsnr: number | string;
-  aktivitetStatus: string;
-  arbeidsgiverId: string;
-  arbeidsforholdId: string;
+  aktivitetStatus?: string;
+  arbeidsgiverId?: string;
+  arbeidsforholdId?: string;
   nyAndel: boolean;
   kilde: string;
   lagtTilAvSaksbehandler: boolean;
-  arbeidsforholdType: string;
-  beregningsperiodeTom: string;
-  beregningsperiodeFom: string;
-  forrigeArbeidsinntektPrÅr: number;
-  forrigeRefusjonPrÅr: number;
-  forrigeInntektskategori: string;
+  arbeidsforholdType?: string;
+  beregningsperiodeTom?: string;
+  beregningsperiodeFom?: string;
+  forrigeArbeidsinntektPrÅr?: number;
+  forrigeRefusjonPrÅr?: number;
+  forrigeInntektskategori?: string;
   fastsatteVerdier: FordelBeregningsgrunnlagFastsatteVerdierTransformedValues;
 };
 
