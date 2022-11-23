@@ -13,7 +13,7 @@ export type FordelBeregningsgrunnlagAndelTransformedValues = {
   arbeidsgiverId?: string;
   arbeidsforholdId?: string;
   nyAndel: boolean;
-  kilde: string;
+  kilde?: string;
   lagtTilAvSaksbehandler: boolean;
   arbeidsforholdType?: string;
   beregningsperiodeTom?: string;
