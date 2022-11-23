@@ -15,7 +15,6 @@ import {
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
   Vilkar,
-  Vilkarperiode,
 } from '@navikt/ft-types';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
@@ -100,11 +99,11 @@ export default {
   component: FordelBeregningsgrunnlagFaktaIndex,
 };
 
-const lagVilkår = (perioder: Vilkarperiode[]): Vilkar => ({
+const lagVilkår = (perioder: any[]): Vilkar => ({
   vilkarType: 'VK_41',
   overstyrbar: false,
   perioder: perioder.map(p => ({
-    periode: { fom: p.periode.fom, tom: p.periode.tom },
+    periode: { fom: p.fom, tom: p.tom },
     vurderesIBehandlingen: p.vurderesIBehandlingen,
     merknadParametere: {},
     vilkarStatus: 'OPPFYLT',
