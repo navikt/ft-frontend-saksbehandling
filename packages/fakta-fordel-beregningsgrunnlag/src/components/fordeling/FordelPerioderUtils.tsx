@@ -244,7 +244,7 @@ export const lagPerioderForSubmit = (
     .map((p: FordelBeregningsgrunnlagPeriode) => ({
       andeler: values[getFieldNameKey(index)].map(mapAndel),
       fom: stringEllerFeil(p.fom),
-      tom: stringEllerFeil(p.tom),
+      tom: p.tom,
     }));
 
 export const slaaSammenPerioder = (

@@ -26,7 +26,7 @@ export type FordelBeregningsgrunnlagAndelTransformedValues = {
 
 export type FordelBeregningsgrunnlagPeriodeTransformedValues = {
   fom: string;
-  tom: string;
+  tom?: string;
   andeler: FordelBeregningsgrunnlagAndelTransformedValues[];
 };
 

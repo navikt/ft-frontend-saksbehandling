@@ -468,7 +468,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
             {
               arbeidsgiverAktoerId: '999999998',
               arbeidsgiverOrgnr: undefined,
-              delvisRefusjonPrMndFørStart: null,
+              delvisRefusjonPrMndFørStart: undefined,
               fastsattRefusjonFom: '2020-07-01',
               internArbeidsforholdRef: undefined,
             },
