@@ -23,6 +23,7 @@ export interface DatepickerProps {
     toDate?: Date;
   };
   isEdited?: boolean;
+  strategy?: 'absolute' | 'fixed';
 }
 
 const Datepicker: FunctionComponent<DatepickerProps> = ({
@@ -34,6 +35,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   onChange,
   disabledDays,
   isEdited,
+  strategy = 'absolute',
 }): JSX.Element => {
   const {
     formState: { errors },
@@ -96,7 +98,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
 
   return (
     // eslint-disable-next-line react/jsx-pascal-case, camelcase
-    <UNSAFE_DatePicker {...dpProps}>
+    <UNSAFE_DatePicker {...dpProps} strategy={strategy}>
       {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
       <UNSAFE_DatePicker.Input
         {...inputProps}

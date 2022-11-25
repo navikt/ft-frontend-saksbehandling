@@ -6,6 +6,8 @@ import NotFoundPage from './NotFoundPage';
 import UnauthorizedPage from './UnauthorizedPage';
 import IngenBehandlingValgtPanel from './IngenBehandlingValgtPanel';
 
+import '@navikt/ds-css';
+
 export default {
   title: 'sak/sak-infosider',
 };

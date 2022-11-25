@@ -11,6 +11,8 @@ import {
 import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
 import VisittkortSakIndex from './VisittkortSakIndex';
 
+import '@navikt/ds-css';
+
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 
