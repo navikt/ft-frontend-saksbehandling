@@ -24,8 +24,8 @@
     "storybook": "cross-env start-storybook -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.0.4",
-    "@navikt/ds-react": "2.0.4",
+    "@navikt/ds-css": "2.0.5",
+    "@navikt/ds-react": "2.0.5",
     "@navikt/ft-form-validators": "^1.0.38",
     "@navikt/ft-types": "^1.0.34",
     "@navikt/ft-ui-komponenter": "^1.2.6",
@@ -37,8 +37,8 @@
     "react-hook-form": "7.39.5"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.0.4",
-    "@navikt/ds-react": "2.0.4",
+    "@navikt/ds-css": "2.0.5",
+    "@navikt/ds-react": "2.0.5",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "^1.x",
