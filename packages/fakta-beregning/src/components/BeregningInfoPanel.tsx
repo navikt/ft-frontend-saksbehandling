@@ -50,7 +50,7 @@ type OwnProps = {
 /**
  * BeregningInfoPanel
  *
- * Container komponent.. Har ansvar for å sette opp Redux Formen for "avklar fakta om beregning" panel.
+ * Container komponent.. Har ansvar for å sette opp Formen for "avklar fakta om beregning" panel.
  */
 const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   readOnly,
