@@ -5,8 +5,8 @@
   width: 0;
 }
 .DayPickerInput-Overlay {
-  background: var(--navds-global-color-white);
-  border: 1px solid var(--navds-global-color-gray-200);
+  background: var(--a-white);
+  border: 1px solid var(--a-gray-200);
   border-radius: 4px;
   left: 0;
   position: absolute;
@@ -14,8 +14,8 @@
   z-index: 1010;
 }
 .calendarWrapper {
-  background: var(--navds-global-color-white);
-  border: 1px solid var(--navds-global-color-gray-200);
+  background: var(--a-white);
+  border: 1px solid var(--a-gray-200);
   border-radius: 4px;
   left: 0;
   position: absolute;
@@ -40,7 +40,7 @@
   user-select: none;
 }
 .DayPicker:focus {
-  box-shadow: 0 0 0 3px var(--navds-global-color-orange-300);
+  box-shadow: 0 0 0 3px var(--a-orange-300);
   outline: none;
 }
 .DayPicker-Months {
@@ -69,7 +69,7 @@
   width: 2em;
 }
 .DayPicker-NavButton:focus {
-  box-shadow: 0 0 0 3px var(--navds-global-color-orange-300);
+  box-shadow: 0 0 0 3px var(--a-orange-300);
   outline: none;
 }
 .DayPicker-NavButton:focus, .DayPicker-NavButton:hover {
@@ -92,7 +92,7 @@
   text-align: center;
 }
 .DayPicker-Weekdays {
-  border-top: 1px solid var(--navds-global-color-gray-200);
+  border-top: 1px solid var(--a-gray-200);
   display: table-header-group;
 }
 .DayPicker-WeekdaysRow {
@@ -126,46 +126,46 @@
   vertical-align: middle;
 }
 .DayPicker-Day:focus {
-  background-color: var(--navds-global-color-orange-300);
+  background-color: var(--a-orange-300);
   outline: none;
 }
 .DayPicker-Day:hover {
-  background-color: var(--navds-global-color-gray-100);
+  background-color: var(--a-gray-100);
 }
 .DayPicker-Day:empty:hover {
   background-color: transparent;
 }
 .DayPicker-Day:last-child {
-  color: var(--navds-global-color-nav-red);
+  color: var(--a-nav-red);
 }
 .DayPicker--interactionDisabled .DayPicker-Day {
   cursor: default;
 }
 .DayPicker-Day--disabled, .DayPicker-Day--disabled:last-child {
-  color: var(--navds-global-color-gray-200);
+  color: var(--a-gray-200);
   cursor: default;
   font-weight: normal;
 }
 .DayPicker-Day--disabled:focus, .DayPicker-Day--disabled:last-child:focus {
-  color: var(--navds-global-color-gray-400);
+  color: var(--a-gray-400);
 }
 .DayPicker-Day--disabled:hover {
   background-color: transparent;
 }
 .DayPicker-Day--outside {
-  color: var(--navds-global-color-gray-400);
+  color: var(--a-gray-400);
   cursor: default;
 }
 .DayPicker-Day--sunday {
-  background-color: var(--navds-global-color-gray-100);
+  background-color: var(--a-gray-100);
 }
 .DayPicker-Day--today {
-  border: 1px solid var(--navds-global-color-gray-200);
+  border: 1px solid var(--a-gray-200);
 }
 .DayPicker-Day--sunday:not(.DayPicker-Day--today) {
-  color: var(--navds-global-color-nav-red);
+  color: var(--a-nav-red);
 }
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: var(--navds-global-color-deepblue-500);
-  color: var(--navds-global-color-white);
+  background-color: var(--a-deepblue-500);
+  color: var(--a-white);
 }
