@@ -51,15 +51,6 @@ const andelField = {
   refusjonskrav: '10 000',
 };
 
-jest.mock('redux-form', () => {
-  const reduxForm = jest.requireActual('redux-form');
-  return {
-    ...reduxForm,
-    isDirty: () => () => false,
-    getFormValues: () => () => ({ vurderbesteberegningField: {} }),
-  };
-});
-
 describe('<InntektFieldArray>', () => {
   const initial = {
     fieldArrayName: null,

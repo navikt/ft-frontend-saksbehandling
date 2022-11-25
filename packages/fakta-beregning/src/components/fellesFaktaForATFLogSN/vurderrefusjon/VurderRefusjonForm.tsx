@@ -75,7 +75,7 @@ interface StaticFunctions {
 /**
  * VurderRefusjonForm
  *
- * Container komponent. Har ansvar for å sette opp Redux Formen for vurdering av refusjonskrav som har kommet for sent.
+ * Container komponent. Har ansvar for å sette opp Formen for vurdering av refusjonskrav som har kommet for sent.
  */
 export const VurderRefusjonForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,

@@ -48,7 +48,7 @@ interface OwnProps {
 /**
  * FordelBeregningsgrunnlagPanel
  *
- * Har ansvar for å sette opp Redux Formen for "avklar fakta om fordeling" panel.
+ * Har ansvar for å sette opp Formen for "avklar fakta om fordeling" panel.
  */
 const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   aktivtBeregningsgrunnlagIndeks,
