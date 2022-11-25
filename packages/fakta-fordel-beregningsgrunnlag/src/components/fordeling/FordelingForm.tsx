@@ -80,7 +80,7 @@ interface PureOwnProps {
 /**
  * FordelingForm
  *
- * Container komponent. Har ansvar for å sette opp Redux Formen for "avklar fakta om fordeling" panel.
+ * Container komponent. Har ansvar for å sette opp Formen for "avklar fakta om fordeling" panel.
  */
 const FordelingForm: FunctionComponent<PureOwnProps> = ({
   aktivtBeregningsgrunnlagIndeks,
