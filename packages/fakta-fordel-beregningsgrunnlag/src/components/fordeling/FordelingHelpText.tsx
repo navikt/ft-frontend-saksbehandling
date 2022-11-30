@@ -10,10 +10,12 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
+  FordelBeregningsgrunnlagPeriode,
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import { slaaSammenPerioder } from './FordelPerioderUtils';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
 
@@ -47,14 +49,29 @@ const byggListeSomStreng = (listeMedStrenger: string[]): string => {
   return '';
 };
 
-const lagPeriodeStreng = (perioder: PerioderMedGraderingEllerRefusjon[]): string => {
-  const listeMedPeriodeStrenger = perioder.map(periode => {
-    let periodeStreng = ` f.o.m. ${formatDate(periode.fom)}`;
-    if (periode.tom) {
-      periodeStreng = periodeStreng.concat(` - t.o.m. ${formatDate(periode.tom)}`);
-    }
-    return periodeStreng;
-  });
+function overlapperMinstEnEndringsperiode(
+  perioder: PerioderMedGraderingEllerRefusjon[],
+  p: FordelBeregningsgrunnlagPeriode,
+) {
+  return perioder.some(
+    endringPeriode =>
+      !dayjs(p.fom).isAfter(dayjs(endringPeriode.fom)) && !dayjs(p.tom).isBefore(dayjs(endringPeriode.tom)),
+  );
+}
+
+const lagPeriodeStreng = (
+  perioder: PerioderMedGraderingEllerRefusjon[],
+  sammenslåttePerioder: FordelBeregningsgrunnlagPeriode[],
+): string => {
+  const listeMedPeriodeStrenger = sammenslåttePerioder
+    .filter(p => overlapperMinstEnEndringsperiode(perioder, p))
+    .map(periode => {
+      let periodeStreng = ` f.o.m. ${formatDate(periode.fom)}`;
+      if (periode.tom) {
+        periodeStreng = periodeStreng.concat(` - t.o.m. ${formatDate(periode.tom)}`);
+      }
+      return periodeStreng;
+    });
   return byggListeSomStreng(listeMedPeriodeStrenger);
 };
 
@@ -76,6 +93,7 @@ export const createFordelArbeidsforholdString = (
   listOfArbeidsforhold: ArbeidsforholdTilFordeling[],
   mTextCase: string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  sammenslåttePerioder: FordelBeregningsgrunnlagPeriode[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
 ): string => {
   const listOfStrings = listOfArbeidsforhold.map(arbeidsforhold => {
@@ -83,19 +101,28 @@ export const createFordelArbeidsforholdString = (
     if (mTextCase === textCase.GRADERING) {
       return (
         visningsnavn +
-        lagPeriodeStreng(arbeidsforhold.perioderMedGraderingEllerRefusjon.filter(({ erGradering }) => erGradering))
+        lagPeriodeStreng(
+          arbeidsforhold.perioderMedGraderingEllerRefusjon.filter(({ erGradering }) => erGradering),
+          sammenslåttePerioder,
+        )
       );
     }
     if (mTextCase === textCase.REFUSJON) {
       return (
         visningsnavn +
-        lagPeriodeStreng(arbeidsforhold.perioderMedGraderingEllerRefusjon.filter(({ erRefusjon }) => erRefusjon))
+        lagPeriodeStreng(
+          arbeidsforhold.perioderMedGraderingEllerRefusjon.filter(({ erRefusjon }) => erRefusjon),
+          sammenslåttePerioder,
+        )
       );
     }
     if (mTextCase === textCase.ENDRING_YTELSE) {
       return (
         visningsnavn +
-        lagPeriodeStreng(arbeidsforhold.perioderMedGraderingEllerRefusjon.filter(({ erSøktYtelse }) => erSøktYtelse))
+        lagPeriodeStreng(
+          arbeidsforhold.perioderMedGraderingEllerRefusjon.filter(({ erSøktYtelse }) => erSøktYtelse),
+          sammenslåttePerioder,
+        )
       );
     }
     if (mTextCase === textCase.PERMISJON) {
@@ -111,6 +138,7 @@ const createGraderingOrRefusjonString = (
   refusjonArbeidsforhold: ArbeidsforholdTilFordeling[],
   permisjonMedGraderingEllerRefusjon: ArbeidsforholdTilFordeling[],
   endringYtelse: ArbeidsforholdTilFordeling[],
+  sammenslåttePerioder: FordelBeregningsgrunnlagPeriode[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
@@ -120,6 +148,7 @@ const createGraderingOrRefusjonString = (
       permisjonMedGraderingEllerRefusjon,
       textCase.PERMISJON,
       arbeidsgiverOpplysningerPerId,
+      sammenslåttePerioder,
       getKodeverknavn,
     );
     text.push(
@@ -137,6 +166,7 @@ const createGraderingOrRefusjonString = (
       graderingArbeidsforhold,
       textCase.GRADERING,
       arbeidsgiverOpplysningerPerId,
+      sammenslåttePerioder,
       getKodeverknavn,
     );
     text.push(
@@ -152,6 +182,7 @@ const createGraderingOrRefusjonString = (
       refusjonArbeidsforhold,
       textCase.REFUSJON,
       arbeidsgiverOpplysningerPerId,
+      sammenslåttePerioder,
       getKodeverknavn,
     );
     text.push(
@@ -167,6 +198,7 @@ const createGraderingOrRefusjonString = (
       endringYtelse,
       textCase.ENDRING_YTELSE,
       arbeidsgiverOpplysningerPerId,
+      sammenslåttePerioder,
       getKodeverknavn,
     );
     text.push(
@@ -195,6 +227,7 @@ const harGraderingEllerRefusjon = (perioderMedGraderingEllerRefusjon: PerioderMe
 
 const lagHelpTextsFordelBG = (
   endredeArbeidsforhold: ArbeidsforholdTilFordeling[],
+  sammenslåttePerioder: FordelBeregningsgrunnlagPeriode[],
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
@@ -215,6 +248,7 @@ const lagHelpTextsFordelBG = (
     refusjon,
     permisjonMedGraderingEllerRefusjon,
     endringYtelse,
+    sammenslåttePerioder,
     getKodeverknavn,
     arbeidsgiverOpplysningerPerId,
   );
@@ -227,8 +261,17 @@ export const getHelpTextsFordelBG = (
 ): ReactElement[] => {
   const fordelBG = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag;
   const endredeArbeidsforhold = fordelBG ? fordelBG.arbeidsforholdTilFordeling : [];
+  const sammenslåttePerioder = slaaSammenPerioder(
+    fordelBG.fordelBeregningsgrunnlagPerioder,
+    beregningsgrunnlag.beregningsgrunnlagPeriode,
+  );
   return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)
-    ? lagHelpTextsFordelBG(endredeArbeidsforhold, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId)
+    ? lagHelpTextsFordelBG(
+        endredeArbeidsforhold,
+        sammenslåttePerioder,
+        getKodeverknavnFn(alleKodeverk),
+        arbeidsgiverOpplysningerPerId,
+      )
     : [];
 };
 
