@@ -61,11 +61,19 @@ const erArbeidsforholdLike = (andel1: FordelBeregningsgrunnlagAndel, andel2: For
 
 function erPeriodeKunHelg(periode: BeregningsgrunnlagPeriodeProp) {
   const starterLørdag = dayjs(periode.beregningsgrunnlagPeriodeFom).day() === 6;
-  const slutterSøndag =
-    starterLørdag &&
-    !!periode.beregningsgrunnlagPeriodeTom &&
-    dayjs(periode.beregningsgrunnlagPeriodeFom).add(1, 'days').isSame(dayjs(periode.beregningsgrunnlagPeriodeTom));
-  return starterLørdag && slutterSøndag;
+  const starterSøndag = dayjs(periode.beregningsgrunnlagPeriodeFom).day() === 0;
+
+  const slutterLørdag = dayjs(periode.beregningsgrunnlagPeriodeTom).day() === 6;
+  const slutterSøndag = dayjs(periode.beregningsgrunnlagPeriodeTom).day() === 0;
+
+  return (starterLørdag || starterSøndag) && (slutterLørdag || slutterSøndag);
+}
+
+const harFravær = (andel: FordelBeregningsgrunnlagAndel) =>
+  andel.andelIArbeid.some(arbeidsandel => arbeidsandel !== 100);
+
+function harIkkeUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
+  return !periode.fordelBeregningsgrunnlagAndeler.some(a => harFravær(a));
 }
 
 function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
@@ -91,8 +99,16 @@ const harIngenRelevantEndringForFordeling = (
   }
   const erKunHelg = erPeriodeKunHelg(periode);
   const erForrigeKunHelg = erPeriodeKunHelg(forrigePeriode);
+  const harIkkeUtbetaling = harIkkeUtbetalingIPeriode(fordelPeriode);
+  const harIkkeUtbetalingForrige = harIkkeUtbetalingIPeriode(forrigeEndringPeriode);
+
   const skalKunneEndreRefusjon = fordelPeriode.skalKunneEndreRefusjon || forrigeEndringPeriode.skalKunneEndreRefusjon;
   const kanSlåSammenOverHelg = (erKunHelg || erForrigeKunHelg) && !skalKunneEndreRefusjon;
+  const kanSlåSammenGrunnetIngenUtbetaling = harIkkeUtbetaling || harIkkeUtbetalingForrige;
+  if (kanSlåSammenGrunnetIngenUtbetaling || kanSlåSammenOverHelg) {
+    return true;
+  }
+
   for (let i = 0; i < fordelPeriode.fordelBeregningsgrunnlagAndeler.length; i += 1) {
     const andelIPeriode = fordelPeriode.fordelBeregningsgrunnlagAndeler[i];
     const andelFraForrige = forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler.find(
@@ -107,7 +123,7 @@ const harIngenRelevantEndringForFordeling = (
     if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
       return false;
     }
-    if (!kanSlåSammenOverHelg && andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
+    if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
       return false;
     }
   }
