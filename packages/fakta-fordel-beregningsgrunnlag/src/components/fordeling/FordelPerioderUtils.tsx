@@ -99,13 +99,9 @@ const harIngenRelevantEndringForFordeling = (
   }
   const erKunHelg = erPeriodeKunHelg(periode);
   const erForrigeKunHelg = erPeriodeKunHelg(forrigePeriode);
-  const harIkkeUtbetaling = harIkkeUtbetalingIPeriode(fordelPeriode);
-  const harIkkeUtbetalingForrige = harIkkeUtbetalingIPeriode(forrigeEndringPeriode);
-
   const skalKunneEndreRefusjon = fordelPeriode.skalKunneEndreRefusjon || forrigeEndringPeriode.skalKunneEndreRefusjon;
   const kanSlåSammenOverHelg = (erKunHelg || erForrigeKunHelg) && !skalKunneEndreRefusjon;
-  const kanSlåSammenGrunnetIngenUtbetaling = harIkkeUtbetaling || harIkkeUtbetalingForrige;
-  if (kanSlåSammenGrunnetIngenUtbetaling || kanSlåSammenOverHelg) {
+  if (kanSlåSammenOverHelg) {
     return true;
   }
 
@@ -137,6 +133,15 @@ const harPeriodeSomKanKombineresMedForrige = (
   periodeList: FordelBeregningsgrunnlagPeriode[],
 ): boolean => {
   const forrigeEndringPeriode = periodeList[periodeList.length - 1];
+  const harIkkeUtbetaling = harIkkeUtbetalingIPeriode(fordelPeriode);
+  const harIkkeUtbetalingForrige = harIkkeUtbetalingIPeriode(forrigeEndringPeriode);
+  const kanSlåSammenGrunnetIngenUtbetaling = harIkkeUtbetaling || harIkkeUtbetalingForrige;
+  const harLikeMangeAndeler =
+    fordelPeriode.fordelBeregningsgrunnlagAndeler.length ===
+    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler.length;
+  if (kanSlåSammenGrunnetIngenUtbetaling && harLikeMangeAndeler) {
+    return true;
+  }
   if (fordelPeriode.skalRedigereInntekt !== forrigeEndringPeriode.skalRedigereInntekt) {
     return false;
   }
