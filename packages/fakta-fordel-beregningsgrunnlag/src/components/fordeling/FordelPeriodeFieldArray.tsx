@@ -481,17 +481,22 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     if (fieldArrayToRepeat && !readOnly && !skalIkkeRedigereInntekt) {
       const formValues = getValues(fieldArrayToRepeat as `FORDEL_BEREGNING_FORM.${number}.${string}`);
       for (let index = 0; index < formValues.length; index += 1) {
+        const erNyAndel = formValues[index].nyAndel;
         update(index, {
           ...fields[index],
           skalRedigereInntekt: formValues[index].skalRedigereInntekt,
-          nyAndel: formValues[index].nyAndel,
-          andel: formValues[index].andel,
-          readOnlyBelop: formValues[index].readOnlyBelop,
+          nyAndel: erNyAndel,
+          andel: erNyAndel ? formValues[index].andel : fields[index]?.andel,
+          readOnlyBelop: erNyAndel ? formValues[index].readOnlyBelop : fields[index]?.readOnlyBelop,
           fastsattBelop: formValues[index].fastsattBelop,
-          fordelingForrigeBehandling: formValues[index].fordelingForrigeBehandling,
-          andelIArbeid: formValues[index].andelIArbeid,
+          fordelingForrigeBehandling: erNyAndel
+            ? formValues[index].fordelingForrigeBehandling
+            : fields[index]?.fordelingForrigeBehandling,
+          andelIArbeid: erNyAndel ? formValues[index].andelIArbeid : fields[index]?.andelIArbeid,
           refusjonskrav: skalKunneEndreRefusjon ? formValues[index].refusjonskrav : fields[index]?.refusjonskrav,
-          beregningsgrunnlagPrAar: formValues[index].beregningsgrunnlagPrAar,
+          beregningsgrunnlagPrAar: erNyAndel
+            ? formValues[index].beregningsgrunnlagPrAar
+            : fields[index]?.beregningsgrunnlagPrAar,
           inntektskategori: formValues[index].inntektskategori,
         });
       }
