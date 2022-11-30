@@ -17,6 +17,7 @@ import {
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import TilkommetAktivitet from './tilkommetAktivitet/TilkommetAktivitet';
 
 const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
 
@@ -75,6 +76,7 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
   return (
     <>
+      <TilkommetAktivitet />
       {skalViseRefusjon && (
         <VurderEndringRefusjonForm
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}

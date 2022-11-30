@@ -107,6 +107,15 @@ export type VurderRefusjonFormValues = {
   VURDER_REFUSJON_BERGRUNN_FORM: VurderRefusjonFieldValues[];
 };
 
+export type TilkommetAktivitetFieldValues = {
+  VURDER_TILKOMMET_AKTIVITET_BEGRUNN_BEGRUNNELSE: string;
+  harSøkerInntektSomRedusererInntektstap: boolean;
+};
+
+export type TilkommetAktivitetFormValues = {
+  VURDER_TILKOMMET_AKTIVITET: TilkommetAktivitetFieldValues[];
+};
+
 type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonFormValues;
 
 export default FormValues;

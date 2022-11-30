@@ -39,6 +39,9 @@
   "BeregningInfoPanel.RefusjonBG.Aksjonspunkt": "Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.",
   "BeregningInfoPanel.RefusjonBG.DelvisPrMnd": "Før denne datoen skal refusjonsbeløpet per måned være",
 
+  "BeregningInfoPanel.TilkommetAktivitet.Aktivitet": "Aktivitet",
+  "BeregningInfoPanel.TilkommetAktivitet.Periode": "Periode",
+
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
 }
