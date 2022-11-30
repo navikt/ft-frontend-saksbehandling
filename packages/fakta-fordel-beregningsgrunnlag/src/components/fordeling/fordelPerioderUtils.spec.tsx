@@ -357,6 +357,47 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[1].tom).toBe(null);
   });
 
+  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om siste periode ikke har utbetaling', () => {
+    const perioder = [
+      {
+        fom: '2022-11-28',
+        tom: '2022-11-30',
+        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+      },
+      {
+        fom: '2022-12-01',
+        tom: '2022-12-02',
+        fordelBeregningsgrunnlagAndeler: [
+          {
+            ...fordelAndel,
+            andelIArbeid: [100],
+            refusjonskravPrAar: 0,
+          },
+        ],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+      },
+    ];
+    const bgPerioder = [
+      {
+        beregningsgrunnlagPeriodeFom: '2022-11-28',
+        beregningsgrunnlagPeriodeTom: '2022-11-30',
+        periodeAarsaker: [],
+        bruttoPrAar: 500_000,
+      },
+      {
+        beregningsgrunnlagPeriodeFom: '2022-12-01',
+        beregningsgrunnlagPeriodeTom: '2022-12-02',
+        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        bruttoPrAar: 500_000,
+      },
+    ];
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
+    expect(nyePerioder.length).toBe(1);
+    expect(nyePerioder[0].fom).toBe('2022-11-28');
+    expect(nyePerioder[0].tom).toBe('2022-12-02');
+  });
+
   it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om siste periode er kun helg', () => {
     const perioder = [
       {
@@ -437,6 +478,47 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
+  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om første periode ikke har utbetaling', () => {
+    const perioder = [
+      {
+        fom: '2022-08-15',
+        tom: '2022-08-16',
+        fordelBeregningsgrunnlagAndeler: [
+          {
+            ...fordelAndel,
+            andelIArbeid: [100],
+            refusjonskravPrAar: 0,
+          },
+        ],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+      },
+      {
+        fom: '2022-08-17',
+        tom: '9999-12-31',
+        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+      },
+    ];
+    const bgPerioder = [
+      {
+        beregningsgrunnlagPeriodeFom: '2022-08-15',
+        beregningsgrunnlagPeriodeTom: '2022-08-16',
+        periodeAarsaker: [],
+        bruttoPrAar: 500_000,
+      },
+      {
+        beregningsgrunnlagPeriodeFom: '2022-08-17',
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
+        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        bruttoPrAar: 500_000,
+      },
+    ];
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
+    expect(nyePerioder.length).toBe(1);
+    expect(nyePerioder[0].fom).toBe('2022-08-15');
+    expect(nyePerioder[0].tom).toBe('9999-12-31');
+  });
+
   it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om midterste periode er kun helg', () => {
     const perioder = [
       {
@@ -478,6 +560,59 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2022-08-15',
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
+        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        bruttoPrAar: 500_000,
+      },
+    ];
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
+    expect(nyePerioder.length).toBe(1);
+    expect(nyePerioder[0].fom).toBe('2019-01-01');
+    expect(nyePerioder[0].tom).toBe('9999-12-31');
+  });
+
+  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om midterste periode er uten utbetaling', () => {
+    const perioder = [
+      {
+        fom: '2019-01-01',
+        tom: '2022-08-15',
+        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+      },
+      {
+        fom: '2022-08-16',
+        tom: '2022-08-17',
+        fordelBeregningsgrunnlagAndeler: [
+          {
+            ...fordelAndel,
+            andelIArbeid: [100],
+            refusjonskravPrAar: 0,
+          },
+        ],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+      },
+      {
+        fom: '2022-08-18',
+        tom: '9999-12-31',
+        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+      },
+    ];
+    const bgPerioder = [
+      {
+        beregningsgrunnlagPeriodeFom: '2019-01-01',
+        beregningsgrunnlagPeriodeTom: '2022-08-15',
+        periodeAarsaker: [],
+        bruttoPrAar: 500_000,
+      },
+      {
+        beregningsgrunnlagPeriodeFom: '2022-08-16',
+        beregningsgrunnlagPeriodeTom: '2022-08-17',
+        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        bruttoPrAar: 500_000,
+      },
+      {
+        beregningsgrunnlagPeriodeFom: '2022-08-18',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
