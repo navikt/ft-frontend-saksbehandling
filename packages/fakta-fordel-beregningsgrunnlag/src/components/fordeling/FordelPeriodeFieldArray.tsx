@@ -487,9 +487,11 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
         );
         if (matchendeAndelIndex > -1) {
           update(matchendeAndelIndex, {
-            ...fields[index],
+            ...fields[matchendeAndelIndex],
             fastsattBelop: formValues[index].fastsattBelop,
-            refusjonskrav: skalKunneEndreRefusjon ? formValues[index].refusjonskrav : fields[index]?.refusjonskrav,
+            refusjonskrav: skalKunneEndreRefusjon
+              ? formValues[index].refusjonskrav
+              : fields[matchendeAndelIndex]?.refusjonskrav,
           });
         }
       }
