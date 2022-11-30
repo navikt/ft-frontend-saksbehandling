@@ -478,27 +478,20 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   });
 
   useEffect(() => {
-    if (fieldArrayToRepeat && !readOnly && !skalIkkeRedigereInntekt) {
+    if (fieldArrayToRepeat && fieldArrayToRepeat !== fieldArrayName && !readOnly && !skalIkkeRedigereInntekt) {
       const formValues = getValues(fieldArrayToRepeat as `FORDEL_BEREGNING_FORM.${number}.${string}`);
       for (let index = 0; index < formValues.length; index += 1) {
-        const erNyAndel = formValues[index].nyAndel;
-        update(index, {
-          ...fields[index],
-          skalRedigereInntekt: formValues[index].skalRedigereInntekt,
-          nyAndel: erNyAndel,
-          andel: erNyAndel ? formValues[index].andel : fields[index]?.andel,
-          readOnlyBelop: erNyAndel ? formValues[index].readOnlyBelop : fields[index]?.readOnlyBelop,
-          fastsattBelop: formValues[index].fastsattBelop,
-          fordelingForrigeBehandling: erNyAndel
-            ? formValues[index].fordelingForrigeBehandling
-            : fields[index]?.fordelingForrigeBehandling,
-          andelIArbeid: erNyAndel ? formValues[index].andelIArbeid : fields[index]?.andelIArbeid,
-          refusjonskrav: skalKunneEndreRefusjon ? formValues[index].refusjonskrav : fields[index]?.refusjonskrav,
-          beregningsgrunnlagPrAar: erNyAndel
-            ? formValues[index].beregningsgrunnlagPrAar
-            : fields[index]?.beregningsgrunnlagPrAar,
-          inntektskategori: formValues[index].inntektskategori,
-        });
+        const matchendeAndelIndex = fields.findIndex(
+          field =>
+            field.andel === formValues[index].andel && field.inntektskategori === formValues[index].inntektskategori,
+        );
+        if (matchendeAndelIndex > -1) {
+          update(matchendeAndelIndex, {
+            ...fields[index],
+            fastsattBelop: formValues[index].fastsattBelop,
+            refusjonskrav: skalKunneEndreRefusjon ? formValues[index].refusjonskrav : fields[index]?.refusjonskrav,
+          });
+        }
       }
     }
   }, [fieldArrayToRepeat]);

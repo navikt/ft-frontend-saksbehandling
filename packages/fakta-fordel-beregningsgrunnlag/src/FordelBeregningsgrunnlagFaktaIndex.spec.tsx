@@ -138,7 +138,10 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     // Andre skjæringstidspunkt
 
     expect(
-      await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
+      await screen.getAllByText(
+        'Vurder om beregningsgrunnlaget skal flyttes til ny aktivitet eller fordeles mellom aktivitetene.',
+        { exact: false },
+      )[0],
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
