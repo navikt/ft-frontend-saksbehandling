@@ -1,19 +1,18 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
-import dayjs from 'dayjs';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { DDMMYYYY_DATE_FORMAT, getKodeverknavnFn, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { AksjonspunktHelpTextTemp } from '@navikt/ft-ui-komponenter';
 import {
-  AlleKodeverk,
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
+import { AksjonspunktHelpTextTemp } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
+import React, { FunctionComponent, ReactElement } from 'react';
+import { FormattedMessage } from 'react-intl';
 import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
 
@@ -111,79 +110,25 @@ const createGraderingOrRefusjonString = (
   refusjonArbeidsforhold: ArbeidsforholdTilFordeling[],
   permisjonMedGraderingEllerRefusjon: ArbeidsforholdTilFordeling[],
   endringYtelse: ArbeidsforholdTilFordeling[],
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
   const text = [];
-  if (permisjonMedGraderingEllerRefusjon.length > 0) {
-    const arbeidsforholdString = createFordelArbeidsforholdString(
-      permisjonMedGraderingEllerRefusjon,
-      textCase.PERMISJON,
-      arbeidsgiverOpplysningerPerId,
-      getKodeverknavn,
-    );
-    text.push(
-      <FormattedMessage
-        key="EndringBeregningsgrunnlagPermisjon"
-        id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.Permisjon"
-        values={{
-          arbeidsforhold: arbeidsforholdString,
-        }}
-      />,
-    );
-  }
-  if (graderingArbeidsforhold.length > 0) {
-    const arbeidsforholdString = createFordelArbeidsforholdString(
-      graderingArbeidsforhold,
-      textCase.GRADERING,
-      arbeidsgiverOpplysningerPerId,
-      getKodeverknavn,
-    );
-    text.push(
-      <FormattedMessage
-        key="EndringBeregningsgrunnlagGradering"
-        id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.Gradering"
-        values={{ arbeidsforhold: arbeidsforholdString }}
-      />,
-    );
-  }
-  if (refusjonArbeidsforhold.length > 0) {
-    const arbeidsforholdString = createFordelArbeidsforholdString(
-      refusjonArbeidsforhold,
-      textCase.REFUSJON,
-      arbeidsgiverOpplysningerPerId,
-      getKodeverknavn,
-    );
-    text.push(
-      <FormattedMessage
-        key="EndringBeregningsgrunnlagRefusjon"
-        id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.Refusjon"
-        values={{ arbeidsforhold: arbeidsforholdString }}
-      />,
-    );
-  }
-  if (endringYtelse.length > 0) {
-    const arbeidsforholdString = createFordelArbeidsforholdString(
-      endringYtelse,
-      textCase.ENDRING_YTELSE,
-      arbeidsgiverOpplysningerPerId,
-      getKodeverknavn,
-    );
-    text.push(
-      <FormattedMessage
-        key="EndringBeregningsgrunnlagEndringYtelse"
-        id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.EndringYtelse"
-        values={{ arbeidsforhold: arbeidsforholdString }}
-      />,
-    );
-  }
-  if (text.length < 1) {
+
+  if (
+    endringYtelse.length === 0 &&
+    refusjonArbeidsforhold.length === 0 &&
+    graderingArbeidsforhold.length === 0 &&
+    permisjonMedGraderingEllerRefusjon.length === 0
+  ) {
     return text;
   }
   text.push(
     <FormattedMessage
       key="EndringBeregningsgrunnlagFastsetÅrsbeløp"
-      id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.FastsetÅrsbeløp"
+      id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.TilkommetAktivitet"
+      values={{
+        b: (...chunks) => <b>{chunks}</b>,
+        br: <br />,
+      }}
     />,
   );
   return text;
@@ -193,11 +138,7 @@ const harGraderingEllerRefusjon = (perioderMedGraderingEllerRefusjon: PerioderMe
   perioderMedGraderingEllerRefusjon.map(({ erRefusjon }) => erRefusjon).includes(true) ||
   perioderMedGraderingEllerRefusjon.map(({ erGradering }) => erGradering).includes(true);
 
-const lagHelpTextsFordelBG = (
-  endredeArbeidsforhold: ArbeidsforholdTilFordeling[],
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement[] => {
+const lagHelpTextsFordelBG = (endredeArbeidsforhold: ArbeidsforholdTilFordeling[]): ReactElement[] => {
   const gradering = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
     perioderMedGraderingEllerRefusjon.map(({ erGradering }) => erGradering).includes(true),
   );
@@ -210,42 +151,24 @@ const lagHelpTextsFordelBG = (
   const endringYtelse = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
     perioderMedGraderingEllerRefusjon.map(({ erSøktYtelse }) => erSøktYtelse).includes(true),
   );
-  return createGraderingOrRefusjonString(
-    gradering,
-    refusjon,
-    permisjonMedGraderingEllerRefusjon,
-    endringYtelse,
-    getKodeverknavn,
-    arbeidsgiverOpplysningerPerId,
-  );
+  return createGraderingOrRefusjonString(gradering, refusjon, permisjonMedGraderingEllerRefusjon, endringYtelse);
 };
 
-export const getHelpTextsFordelBG = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  alleKodeverk: AlleKodeverk,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement[] => {
+export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag): ReactElement[] => {
   const fordelBG = beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag;
   const endredeArbeidsforhold = fordelBG ? fordelBG.arbeidsforholdTilFordeling : [];
   return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)
-    ? lagHelpTextsFordelBG(endredeArbeidsforhold, getKodeverknavnFn(alleKodeverk), arbeidsgiverOpplysningerPerId)
+    ? lagHelpTextsFordelBG(endredeArbeidsforhold)
     : [];
 };
 
 type OwnProps = {
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  alleKodeverk: AlleKodeverk;
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-const FordelingHelpText: FunctionComponent<OwnProps> = ({
-  isAksjonspunktClosed,
-  beregningsgrunnlag,
-  alleKodeverk,
-  arbeidsgiverOpplysningerPerId,
-}) => {
-  const helpText = getHelpTextsFordelBG(beregningsgrunnlag, alleKodeverk, arbeidsgiverOpplysningerPerId);
+const FordelingHelpText: FunctionComponent<OwnProps> = ({ isAksjonspunktClosed, beregningsgrunnlag }) => {
+  const helpText = getHelpTextsFordelBG(beregningsgrunnlag);
   return <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAksjonspunktClosed}>{helpText}</AksjonspunktHelpTextTemp>;
 };
 
