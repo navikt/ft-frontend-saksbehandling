@@ -6,7 +6,6 @@ import { Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
   ArbeidsforholdTilFordeling,
-  Behandling,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -87,12 +86,6 @@ const agOpplysninger = {
   },
 };
 
-const behandling = {
-  uuid: '1',
-  versjon: 1,
-  type: 'BT-003',
-} as Behandling;
-
 const fordelAP = [
   {
     definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
@@ -125,7 +118,6 @@ const Template: Story<{
   vilkårsperioder?: any[];
 }> = ({ readOnly, beregningsgrunnlagListe, submitCallback, vilkårsperioder = null }) => (
   <FordelBeregningsgrunnlagFaktaIndex
-    behandlingType={behandling.type}
     beregningsgrunnlagListe={beregningsgrunnlagListe}
     beregningsgrunnlagVilkår={lagVilkår(
       vilkårsperioder ||

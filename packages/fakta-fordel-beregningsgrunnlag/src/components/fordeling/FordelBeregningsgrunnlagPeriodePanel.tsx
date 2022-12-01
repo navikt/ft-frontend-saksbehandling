@@ -84,7 +84,6 @@ type OwnProps = {
   showPanel: (...args: any[]) => any;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   fordelingsperiode: FordelBeregningsgrunnlagPeriode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
@@ -116,7 +115,6 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   showPanel,
   beregningsgrunnlag,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   fordelBGFieldArrayName,
   fordelingsperiode,
@@ -142,7 +140,6 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
           isAksjonspunktClosed={isAksjonspunktClosed}
           alleKodeverk={alleKodeverk}
           beregningsgrunnlag={beregningsgrunnlag}
-          behandlingType={behandlingType}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           vilkårperiodeFieldIndex={fieldIndex}
           setFieldArrayToRepeat={setFieldArrayToRepeat}
@@ -209,10 +206,6 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
       ...setGenerellAndelsinfo(andel, harKunYtelse, getKodeverknavn, arbeidsgiverOpplysningerPerId),
       ...setArbeidsforholdInitialValues(andel),
       andelIArbeid: settAndelIArbeid(andel.andelIArbeid),
-      fordelingForrigeBehandling:
-        andel.fordelingForrigeBehandlingPrAar || andel.fordelingForrigeBehandlingPrAar === 0
-          ? formatCurrencyNoKr(andel.fordelingForrigeBehandlingPrAar)
-          : '',
       fastsattBelop: settFastsattBelop(
         andel.fordeltPrAar,
         bgAndel.bruttoPrAar,
