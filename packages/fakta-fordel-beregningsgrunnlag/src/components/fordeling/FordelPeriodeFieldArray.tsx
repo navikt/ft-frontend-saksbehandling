@@ -454,7 +454,9 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
       for (let index = 0; index < formValues.length; index += 1) {
         const matchendeAndelIndex = fields.findIndex(
           field =>
-            field.andel === formValues[index].andel && field.inntektskategori === formValues[index].inntektskategori,
+            field.andel === formValues[index].andel &&
+            (field.inntektskategori === formValues[index].inntektskategori ||
+              (!field.inntektskategori && !formValues[index].lagtTilAvSaksbehandler && !field.lagtTilAvSaksbehandler)),
         );
         if (matchendeAndelIndex > -1) {
           update(matchendeAndelIndex, {
