@@ -42,11 +42,11 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('0%')).toBeInTheDocument();
 
     // Beregningsresultat
-    expect(screen.getByText('Beregningsgrunnlag - beregnet årsinntekt arbeid')).toBeInTheDocument();
-    expect(screen.getByText('Redusert til 80% dekningsgrad')).toBeInTheDocument();
-    expect(screen.getByText('Dagsats (360 000/260 dager)')).toBeInTheDocument();
-    expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt frilans')).not.toBeInTheDocument();
-    expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt næring')).not.toBeInTheDocument();
+    expect(screen.getByText('Fastsatt årsinntekt arbeid')).toBeInTheDocument();
+    expect(screen.getByText('Årsinntekt redusert til 80% dekningsgrad')).toBeInTheDocument();
+    expect(screen.getByText('Dagsats (årsinntekt/260 dager)')).toBeInTheDocument();
+    expect(screen.queryByText('Fastsatt årsinntekt frilans')).not.toBeInTheDocument();
+    expect(screen.queryByText('Fastsatt årsinntekt næring')).not.toBeInTheDocument();
   });
 
   it('skal bekrefte aksjonspunkt for avvik', async () => {
@@ -363,8 +363,8 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getAllByText('5 000')).toHaveLength(2);
     expect(screen.getAllByText('250 000')).toHaveLength(2);
     expect(screen.getAllByText('100 000')).toHaveLength(2);
-    expect(screen.getAllByText('355 000')).toHaveLength(5);
-    expect(screen.getAllByText('4 500')).toHaveLength(3);
+    expect(screen.getAllByText('355 000')).toHaveLength(6);
+    expect(screen.getAllByText('4 500')).toHaveLength(4);
 
     expect(await screen.findByText('Beregning av dagsats')).toBeInTheDocument();
     expect(await screen.findByText('Periode 01.01.2021 - 16.01.2021')).toBeInTheDocument();

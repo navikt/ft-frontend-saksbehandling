@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   AlleKodeverk,
@@ -20,13 +20,13 @@ import { BeregningAksjonspunktSubmitType } from '../../types/interface/Beregning
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
 import SkjeringspunktOgStatusPanel from '../fellesPaneler/SkjeringspunktOgStatusPanel';
 import Beregningsgrunnlag from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import BeregningsresultatTable from '../beregningsresultatPanel/BeregningsresultatTable';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktTittel from '../fellesPaneler/AksjonspunktTittel';
 import YtelsegrunnlagPanel from '../frisinn/YtelsegrunnlagPanel';
 import SammenligningOgFastsettelsePanel from '../fellesPaneler/SammenligningOgFastsettelsePanel';
 import BeregningFormValues from '../../types/BeregningFormValues';
+import BeregningsresultatPanel from '../beregningsresultat/BeregningsresultatPanel';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
@@ -34,10 +34,6 @@ const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning):
         tilfelle => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
       )
     : false;
-
-const sjekkErMidlertidigInaktiv = (beregningsgrunnlag: BeregningsgrunnlagProp): boolean =>
-  !!beregningsgrunnlag.aktivitetStatus &&
-  beregningsgrunnlag.aktivitetStatus.some(a => a === AktivitetStatus.MIDLERTIDIG_INAKTIV);
 
 const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag?: YtelseGrunnlag): boolean =>
   !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
@@ -100,17 +96,11 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   setFormData,
   aktivIndex,
 }) => {
-  const {
-    dekningsgrad,
-    skjaeringstidspunktBeregning,
-    beregningsgrunnlagPeriode,
-    faktaOmBeregning,
-    ytelsesspesifiktGrunnlag,
-  } = valgtBeregningsgrunnlag;
+  const { skjaeringstidspunktBeregning, beregningsgrunnlagPeriode, faktaOmBeregning, ytelsesspesifiktGrunnlag } =
+    valgtBeregningsgrunnlag;
 
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
-  const erMidlertidigInaktiv = sjekkErMidlertidigInaktiv(valgtBeregningsgrunnlag);
   const storSpacer = <div className={beregningStyles.storSpace} />;
 
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
@@ -183,15 +173,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             <YtelsegrunnlagPanel beregningsgrunnlag={valgtBeregningsgrunnlag} />
           </>
           {vilkarPeriode && (
-            <BeregningsresultatTable
-              beregningsgrunnlagPerioder={valgtBeregningsgrunnlag.beregningsgrunnlagPeriode}
-              dekningsgrad={dekningsgrad}
-              vilkarPeriode={vilkarPeriode}
-              aktivitetStatusList={aktivitetStatusList}
-              grunnbelop={valgtBeregningsgrunnlag.grunnbeløp}
-              ytelseGrunnlag={valgtBeregningsgrunnlag.ytelsesspesifiktGrunnlag}
-              erMidlertidigInaktiv={erMidlertidigInaktiv}
-            />
+            <BeregningsresultatPanel beregningsgrunnlag={valgtBeregningsgrunnlag} vilkårsperiode={vilkarPeriode} />
           )}
         </FlexColumn>
       </FlexRow>
