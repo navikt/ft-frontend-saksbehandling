@@ -55,7 +55,7 @@ const NumberField: FunctionComponent<OwnProps> = ({
 
   const regex = forceTwoDecimalDigits ? TWO_DECIMALS_REGEXP : DECIMAL_REGEXP;
 
-  const value = field.value !== undefined ? field.value.toString() : '';
+  const value = field.value !== undefined && field.value !== null ? field.value.toString() : '';
   const formattedValue =
     !hasFocus && forceTwoDecimalDigits && value !== '' && !Number.isNaN(value) ? parseFloat(value).toFixed(2) : value;
 
