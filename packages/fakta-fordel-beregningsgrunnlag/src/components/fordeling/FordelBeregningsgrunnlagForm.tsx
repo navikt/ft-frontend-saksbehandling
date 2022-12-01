@@ -53,7 +53,6 @@ type OwnProps = {
   bgPerioder: BeregningsgrunnlagPeriodeProp[];
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex;
 };
@@ -85,7 +84,6 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
   bgPerioder,
   beregningsgrunnlag,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
@@ -122,7 +120,6 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
             showPanel={showPanel}
             beregningsgrunnlag={beregningsgrunnlag}
             alleKodeverk={alleKodeverk}
-            behandlingType={behandlingType}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             fieldIndex={fieldIndex}
             setFieldArrayToRepeat={setFieldArrayToRepeat}

@@ -6,7 +6,6 @@ import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
-  BehandlingType as bt,
   BeregningsgrunnlagAndelType,
   Inntektskategori,
   isSelvstendigNæringsdrivende,
@@ -40,7 +39,6 @@ export const getFieldNameKey = (index: number): string => fordelBGFieldArrayName
 const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
   nyAndel: true,
   kilde: 'SAKSBEHANDLER_FORDELING',
-  fordelingForrigeBehandling: '0',
   fastsattBelop: formatCurrencyNoKr(0),
   lagtTilAvSaksbehandler: true,
   refusjonskravFraInntektsmelding: 0,
@@ -98,22 +96,6 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactEleme
       {ik.navn}
     </option>
   ));
-
-const summerFordelingForrigeBehandlingFraFields = (fields: FordelBeregningsgrunnlagAndelValues[]): string => {
-  let sum = 0;
-  let index = 0;
-  for (index; index < fields.length; index += 1) {
-    const { fordelingForrigeBehandling } = fields[index];
-    if (
-      fordelingForrigeBehandling !== undefined &&
-      fordelingForrigeBehandling !== null &&
-      fordelingForrigeBehandling !== ''
-    ) {
-      sum += Number(removeSpacesFromNumber(fordelingForrigeBehandling));
-    }
-  }
-  return sum > 0 ? formatCurrencyNoKr(sum) : '';
-};
 
 const summerFordeling = (
   vilkårperiodeFieldIndex: number,
@@ -291,7 +273,7 @@ const createAndelerTableRows = (
   skalIkkeRedigereInntekt: boolean,
   arbeidsforholdList: BGFordelArbeidsforhold[],
   selectVals: ReactElement[],
-  erRevurdering: boolean,
+  gjelderGradering: boolean,
   fieldname: string,
   removeFromFieldsMethod: any,
   updateFieldMethod: any,
@@ -320,25 +302,17 @@ const createAndelerTableRows = (
           </div>
         )}
       </TableColumn>
-      {erRevurdering && (
+      {gjelderGradering && (
         <TableColumn>
           <InputField
-            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fordelingForrigeBehandling`}
+            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andelIArbeid`}
             readOnly
             className={styles.litenBredde}
-            parse={parseCurrencyInput}
+            // @ts-ignore Fiks
+            normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value).toFixed(2))}
           />
         </TableColumn>
       )}
-      <TableColumn>
-        <InputField
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andelIArbeid`}
-          readOnly
-          className={styles.litenBredde}
-          // @ts-ignore Fiks
-          normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value).toFixed(2))}
-        />
-      </TableColumn>
       <TableColumn
         className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
       >
@@ -390,21 +364,15 @@ const createAndelerTableRows = (
 };
 
 const createBruttoBGSummaryRow = (
-  sumFordelingForrigeBehandling: string,
   sumFordeling: string,
   sumBeregningsgrunnlagPrAar: string,
-  erRevurdering: boolean,
+  gjelderGradering: boolean,
 ): ReactElement => (
   <TableRow key="bruttoBGSummaryRow">
     <TableColumn>
       <FormattedMessage id="BeregningInfoPanel.FordelBG.Sum" />
     </TableColumn>
-    {erRevurdering && (
-      <TableColumn>
-        <Label size="small">{sumFordelingForrigeBehandling}</Label>
-      </TableColumn>
-    )}
-    <TableColumn />
+    {gjelderGradering && <TableColumn />}
     <TableColumn />
     <TableColumn>
       <Label size="small">{sumBeregningsgrunnlagPrAar}</Label>
@@ -417,13 +385,12 @@ const createBruttoBGSummaryRow = (
   </TableRow>
 );
 
-const getHeaderTextCodes = (erRevurdering: boolean): string[] => {
+const getHeaderTextCodes = (gjelderGradering: boolean): string[] => {
   const headerCodes = [];
   headerCodes.push('BeregningInfoPanel.FordelBG.Andel');
-  if (erRevurdering) {
-    headerCodes.push('BeregningInfoPanel.FordelBG.FordelingForrigeBehandling');
+  if (gjelderGradering) {
+    headerCodes.push('BeregningInfoPanel.FordelBG.AndelIArbeid');
   }
-  headerCodes.push('BeregningInfoPanel.FordelBG.AndelIArbeid');
   headerCodes.push('BeregningInfoPanel.FordelBG.Refusjonskrav');
   headerCodes.push('BeregningInfoPanel.FordelBG.Beregningsgrunnlag');
   headerCodes.push('BeregningInfoPanel.FordelBG.Fordeling');
@@ -436,7 +403,6 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   skalIkkeRedigereInntekt: boolean;
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldName: string;
@@ -447,6 +413,12 @@ type OwnProps = {
   setFieldArrayToRepeat: (fieldArrayName: string) => void;
   fieldArrayToRepeat: string;
 };
+
+function getGjelderGradering(beregningsgrunnlag: Beregningsgrunnlag) {
+  return beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.arbeidsforholdTilFordeling.some(a =>
+    a.perioderMedGraderingEllerRefusjon.some(p => p.erGradering),
+  );
+}
 
 /**
  *  RenderFordelBGFieldArray
@@ -459,7 +431,6 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   readOnly,
   skalIkkeRedigereInntekt,
   isAksjonspunktClosed,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   alleKodeverk,
   beregningsgrunnlag,
@@ -500,10 +471,9 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
 
   const harKunYtelse = beregningsgrunnlag.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
-  const sumFordelingForrigeBehandling = summerFordelingForrigeBehandlingFraFields(fields);
   const sumFordeling = summerFordeling(vilkårperiodeFieldIndex, fieldName, fields, watch);
   const sumBeregningsgrunnlagPrAar = summerBeregningsgrunnlagPrAar(fields);
-  const erRevurdering = behandlingType ? behandlingType === bt.REVURDERING : false;
+  const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
   const inntektskategoriKoder = alleKodeverk[KodeverkType.INNTEKTSKATEGORI];
   const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
   const intl = useIntl();
@@ -519,14 +489,12 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     skalIkkeRedigereInntekt,
     arbeidsforholdList,
     selectVals,
-    erRevurdering,
+    gjelderGradering,
     fieldName,
     remove,
     update,
   );
-  tablerows.push(
-    createBruttoBGSummaryRow(sumFordelingForrigeBehandling, sumFordeling, sumBeregningsgrunnlagPrAar, erRevurdering),
-  );
+  tablerows.push(createBruttoBGSummaryRow(sumFordeling, sumBeregningsgrunnlagPrAar, gjelderGradering));
 
   // Valideringer, fields settes også opp for perioder om ikke skal endres, disse trenger vi ikke validere.
   const valideringsresultat = [];
@@ -583,7 +551,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
 
   return (
     <div>
-      <Table headerTextCodes={getHeaderTextCodes(erRevurdering)} noHover classNameTable={styles.inntektTable}>
+      <Table headerTextCodes={getHeaderTextCodes(gjelderGradering)} noHover classNameTable={styles.inntektTable}>
         {tablerows}
       </Table>
       {!readOnly && !skalIkkeRedigereInntekt && (
