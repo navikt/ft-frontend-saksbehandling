@@ -71,7 +71,6 @@ interface PureOwnProps {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkårsperioder: Vilkarperiode[];
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues;
   setFormData: (data: FordelBeregningsgrunnlagFormValues) => void;
@@ -90,7 +89,6 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
   beregningsgrunnlagListe,
   vilkårsperioder,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
@@ -136,7 +134,6 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
               readOnly || !vurderesIBehandlingen(vilkårsperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
             }
             beregningsgrunnlag={beregningsgrunnlagListe[index]}
-            behandlingType={behandlingType}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             alleKodeverk={alleKodeverk}
             fieldIndex={index}

@@ -46,7 +46,6 @@ const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
   bg.avklaringsbehov.some(a => a.definisjon === VURDER_REFUSJON_BERGRUNN || a.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
 
 type OwnProps = {
-  behandlingType: string;
   beregningsgrunnlagVilkår: Vilkar;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -61,7 +60,6 @@ type Props = OwnProps &
   >;
 
 const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
-  behandlingType,
   beregningsgrunnlagVilkår,
   beregningsgrunnlagListe,
   alleKodeverk,
@@ -102,7 +100,6 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
       <VerticalSpacer eightPx />
       <FordelBeregningsgrunnlagPanel
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-        behandlingType={behandlingType}
         alleKodeverk={alleKodeverk}
         submitCallback={submitCallback}
         readOnly={readOnly}

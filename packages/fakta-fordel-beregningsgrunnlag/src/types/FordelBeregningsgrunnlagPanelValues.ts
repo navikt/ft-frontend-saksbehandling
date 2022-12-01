@@ -43,7 +43,6 @@ export type BGFordelArbeidsforhold = {
 export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenerellAndelValues &
   FordelBeregningsgrunnlagArbeidAndelValues & {
     andelIArbeid?: string;
-    fordelingForrigeBehandling: string;
     fastsattBelop: string;
     readOnlyBelop?: string;
     refusjonskrav?: string;
@@ -67,12 +66,6 @@ export type AksjonspunktValues = {
     tom: string;
   };
 };
-
-export type FordelErrorMessageLabel = {
-  id: string;
-};
-
-export type FordelErrorMessage = FordelErrorMessageLabel | any;
 
 export type FordelBeregningsgrunnlagValues = {
   [key: string]: FordelBeregningsgrunnlagAndelValues[];
