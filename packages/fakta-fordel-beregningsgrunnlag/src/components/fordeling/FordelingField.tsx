@@ -80,7 +80,6 @@ interface PureOwnProps {
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 }
@@ -95,7 +94,6 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
   submittable,
   beregningsgrunnlag,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
@@ -112,7 +110,6 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
         isAksjonspunktClosed={isAksjonspunktClosed}
         beregningsgrunnlag={beregningsgrunnlag}
         alleKodeverk={alleKodeverk}
-        behandlingType={behandlingType}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         fieldIndex={fieldIndex}
       />

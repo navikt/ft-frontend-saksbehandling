@@ -30,7 +30,6 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 };
@@ -54,7 +53,6 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
   readOnly,
   beregningsgrunnlag,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
@@ -68,7 +66,6 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
       bgPerioder={bgPerioder}
       beregningsgrunnlag={beregningsgrunnlag}
       alleKodeverk={alleKodeverk}
-      behandlingType={behandlingType}
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       fieldIndex={fieldIndex}
     />
