@@ -21,10 +21,10 @@ const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): 
   andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
 
 const finnForeslåttBeløp = (andel: BeregningsgrunnlagAndel): number => {
-  if (andel.besteberegningPrAar) {
+  if (andel.besteberegningPrAar || andel.besteberegningPrAar === 0) {
     return andel.besteberegningPrAar;
   }
-  if (andel.overstyrtPrAar) {
+  if (andel.overstyrtPrAar || andel.overstyrtPrAar === 0) {
     return andel.overstyrtPrAar;
   }
   return andel.beregnetPrAar || 0;
