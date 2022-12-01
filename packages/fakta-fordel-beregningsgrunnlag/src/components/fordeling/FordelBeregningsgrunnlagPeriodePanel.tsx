@@ -88,6 +88,8 @@ type OwnProps = {
   fordelingsperiode: FordelBeregningsgrunnlagPeriode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
+  setFieldArrayToRepeat: (fieldArrayName: string) => void;
+  fieldArrayToRepeat: string;
 };
 
 interface StaticFunctions {
@@ -119,6 +121,8 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   fordelBGFieldArrayName,
   fordelingsperiode,
   fieldIndex,
+  setFieldArrayToRepeat,
+  fieldArrayToRepeat,
 }) => (
   <Accordion
     className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
@@ -141,6 +145,8 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
           behandlingType={behandlingType}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           vilkårperiodeFieldIndex={fieldIndex}
+          setFieldArrayToRepeat={setFieldArrayToRepeat}
+          fieldArrayToRepeat={fieldArrayToRepeat}
         />
       </Accordion.Content>
     </Accordion.Item>

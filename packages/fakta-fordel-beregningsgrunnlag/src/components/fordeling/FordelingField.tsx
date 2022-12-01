@@ -105,12 +105,7 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);
   return (
     <>
-      <FordelingHelpText
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        alleKodeverk={alleKodeverk}
-        beregningsgrunnlag={beregningsgrunnlag}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
+      <FordelingHelpText isAksjonspunktClosed={isAksjonspunktClosed} beregningsgrunnlag={beregningsgrunnlag} />
       <VerticalSpacer twentyPx />
       <FastsettFordeltBeregningsgrunnlag
         readOnly={readOnly}

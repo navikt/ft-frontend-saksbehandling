@@ -1,6 +1,6 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Detail, ErrorMessage, Label } from '@navikt/ds-react';
+import { Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
@@ -444,6 +444,8 @@ type OwnProps = {
   sumIPeriode: number;
   periodeFom: string;
   vilkårperiodeFieldIndex: number;
+  setFieldArrayToRepeat: (fieldArrayName: string) => void;
+  fieldArrayToRepeat: string;
 };
 
 /**
@@ -465,12 +467,37 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   sumIPeriode,
   periodeFom,
   vilkårperiodeFieldIndex,
+  setFieldArrayToRepeat,
+  fieldArrayToRepeat,
 }) => {
   const { control, watch, getValues } = formHooks.useFormContext<FordelBeregningsgrunnlagFormValues>();
+  const fieldArrayName = `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`;
   const { fields, append, remove, update } = formHooks.useFieldArray({
     control,
     name: `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`,
   });
+
+  useEffect(() => {
+    if (fieldArrayToRepeat && fieldArrayToRepeat !== fieldArrayName && !readOnly && !skalIkkeRedigereInntekt) {
+      const formValues = getValues(fieldArrayToRepeat as `FORDEL_BEREGNING_FORM.${number}.${string}`);
+      for (let index = 0; index < formValues.length; index += 1) {
+        const matchendeAndelIndex = fields.findIndex(
+          field =>
+            field.andel === formValues[index].andel && field.inntektskategori === formValues[index].inntektskategori,
+        );
+        if (matchendeAndelIndex > -1) {
+          update(matchendeAndelIndex, {
+            ...fields[matchendeAndelIndex],
+            fastsattBelop: formValues[index].fastsattBelop,
+            refusjonskrav: skalKunneEndreRefusjon
+              ? formValues[index].refusjonskrav
+              : fields[matchendeAndelIndex]?.refusjonskrav,
+          });
+        }
+      }
+    }
+  }, [fieldArrayToRepeat]);
+
   const harKunYtelse = beregningsgrunnlag.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
   const sumFordelingForrigeBehandling = summerFordelingForrigeBehandlingFraFields(fields);
@@ -546,6 +573,14 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
 
   const errorMessage = useCustomValidation(skjemaNavn, feilmeldingSomSkalVises);
 
+  const handleBenyttCheckbox = () => {
+    if (fieldArrayName === fieldArrayToRepeat) {
+      setFieldArrayToRepeat('');
+    } else {
+      setFieldArrayToRepeat(fieldArrayName);
+    }
+  };
+
   return (
     <div>
       <Table headerTextCodes={getHeaderTextCodes(erRevurdering)} noHover classNameTable={styles.inntektTable}>
@@ -572,6 +607,15 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
             </div>
           </FlexColumn>
         </FlexRow>
+      )}
+      {!readOnly && !skalIkkeRedigereInntekt && (
+        <Checkbox
+          className={styles.benyttCheckbox}
+          checked={fieldArrayName === fieldArrayToRepeat}
+          onChange={handleBenyttCheckbox}
+        >
+          Benytt for alle perioder
+        </Checkbox>
       )}
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
