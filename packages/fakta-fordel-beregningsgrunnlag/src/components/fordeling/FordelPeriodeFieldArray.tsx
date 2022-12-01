@@ -429,11 +429,11 @@ type OwnProps = {
   fieldArrayToRepeat: string;
 };
 
-function getGjelderGradering(beregningsgrunnlag: Beregningsgrunnlag) {
-  return beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.arbeidsforholdTilFordeling.some(a =>
-    a.perioderMedGraderingEllerRefusjon.some(p => p.erGradering),
-  );
-}
+const getGjelderGradering = (beregningsgrunnlag: Beregningsgrunnlag): boolean => {
+  const arbeidTilFordeling =
+    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling || [];
+  return arbeidTilFordeling.some(a => a.perioderMedGraderingEllerRefusjon?.some(p => p.erGradering));
+};
 
 /**
  *  RenderFordelBGFieldArray

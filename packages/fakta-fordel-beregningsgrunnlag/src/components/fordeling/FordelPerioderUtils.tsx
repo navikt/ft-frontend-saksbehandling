@@ -73,10 +73,10 @@ function erPeriodeKunHelg(periode: BeregningsgrunnlagPeriodeProp) {
 }
 
 const harFravær = (andel: FordelBeregningsgrunnlagAndel) =>
-  andel.andelIArbeid.some(arbeidsandel => arbeidsandel !== 100);
+  andel.andelIArbeid?.some(arbeidsandel => arbeidsandel !== 100);
 
 function harIkkeUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
-  return !periode.fordelBeregningsgrunnlagAndeler.some(a => harFravær(a));
+  return !periode.fordelBeregningsgrunnlagAndeler?.some(a => harFravær(a));
 }
 
 function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
@@ -139,8 +139,8 @@ const harPeriodeSomKanKombineresMedForrige = (
   const harIkkeUtbetalingForrige = harIkkeUtbetalingIPeriode(forrigeEndringPeriode);
   const kanSlåSammenGrunnetIngenUtbetaling = harIkkeUtbetaling || harIkkeUtbetalingForrige;
   const harLikeMangeAndeler =
-    fordelPeriode.fordelBeregningsgrunnlagAndeler.length ===
-    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler.length;
+    fordelPeriode.fordelBeregningsgrunnlagAndeler?.length ===
+    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler?.length;
   if (kanSlåSammenGrunnetIngenUtbetaling && harLikeMangeAndeler) {
     return true;
   }

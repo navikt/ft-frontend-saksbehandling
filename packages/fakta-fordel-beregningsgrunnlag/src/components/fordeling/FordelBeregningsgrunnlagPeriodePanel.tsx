@@ -125,36 +125,34 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   if (!fordelingsperiode.fom) {
     return null;
   }
-  return (<Accordion
-    className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
-  >
-    <Accordion.Item open={open}>
-      <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
-        {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}
-      </Accordion.Header>
-      <Accordion.Content>
-        <FordelPeriodeFieldArray
-          fieldName={fordelBGFieldArrayName}
-          readOnly={readOnly}
-          sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
-          skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
-          skalKunneEndreRefusjon={fordelingsperiode.skalKunneEndreRefusjon}
-          periodeFom={fordelingsperiode.fom}
-          isAksjonspunktClosed={isAksjonspunktClosed}
-          alleKodeverk={alleKodeverk}
-          beregningsgrunnlag={beregningsgrunnlag}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          vilkårperiodeFieldIndex={fieldIndex}
-          setFieldArrayToRepeat={setFieldArrayToRepeat}
-          fieldArrayToRepeat={fieldArrayToRepeat}
-        />
-      </Accordion.Content>
-    </Accordion.Item>
-  </Accordion>);
-};
-
-FordelBeregningsgrunnlagPeriodePanel.defaultProps = {
-  open: null,
+  return (
+    <Accordion
+      className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
+    >
+      <Accordion.Item open={open}>
+        <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
+          {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}
+        </Accordion.Header>
+        <Accordion.Content>
+          <FordelPeriodeFieldArray
+            fieldName={fordelBGFieldArrayName}
+            readOnly={readOnly}
+            sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
+            skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
+            skalKunneEndreRefusjon={!!fordelingsperiode.skalKunneEndreRefusjon}
+            periodeFom={fordelingsperiode.fom}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            alleKodeverk={alleKodeverk}
+            beregningsgrunnlag={beregningsgrunnlag}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            vilkårperiodeFieldIndex={fieldIndex}
+            setFieldArrayToRepeat={setFieldArrayToRepeat}
+            fieldArrayToRepeat={fieldArrayToRepeat}
+          />
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion>
+  );
 };
 
 const finnRiktigAndel = (

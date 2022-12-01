@@ -117,7 +117,7 @@ const createGraderingOrRefusjonString = (
   permisjonMedGraderingEllerRefusjon: ArbeidsforholdTilFordeling[],
   endringYtelse: ArbeidsforholdTilFordeling[],
 ): ReactElement[] => {
-  const text = [];
+  const text: ReactElement[] = [];
 
   if (
     endringYtelse.length === 0 &&
