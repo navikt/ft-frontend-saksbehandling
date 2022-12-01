@@ -90,6 +90,7 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
   fieldIndex,
 }) => {
   const [openPanels, setOpenPanels] = useState<string[]>([]);
+  const [fieldArrayToRepeat, setFieldArrayToRepeat] = useState('');
   useEffect(() => {
     const åpnePaneler = perioder
       .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
@@ -124,6 +125,8 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
             behandlingType={behandlingType}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             fieldIndex={fieldIndex}
+            setFieldArrayToRepeat={setFieldArrayToRepeat}
+            fieldArrayToRepeat={fieldArrayToRepeat}
           />
           <VerticalSpacer eightPx />
         </React.Fragment>
