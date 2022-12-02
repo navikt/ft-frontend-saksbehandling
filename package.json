@@ -37,7 +37,7 @@
     "@formatjs/intl-datetimeformat": "6.3.1",
     "@formatjs/intl-numberformat": "8.2.0",
     "@navikt/ds-codemod": "2.0.5",
-    "@storybook/addon-essentials": "6.5.13",
+    "@storybook/addon-essentials": "6.5.14",
     "@storybook/addon-links": "6.5.13",
     "@storybook/addons": "6.5.13",
     "@storybook/builder-webpack5": "6.5.13",
