@@ -515,9 +515,11 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     valideringsresultat.push(
       validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl),
     );
-    valideringsresultat.push(
-      validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl),
-    );
+    if (gjelderGradering) {
+      valideringsresultat.push(
+        validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl),
+      );
+    }
     if (skalKunneEndreRefusjon) {
       valideringsresultat.push(
         validateSumRefusjon(vilkårperiodeFieldIndex, fields, fieldName, getValues, beregningsgrunnlag.grunnbeløp, intl),
