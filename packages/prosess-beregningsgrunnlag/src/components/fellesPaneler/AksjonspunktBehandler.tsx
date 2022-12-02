@@ -27,7 +27,7 @@ import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
 import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 import styles from './aksjonspunktBehandler.less';
 import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
@@ -48,7 +48,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+} = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 const defaultFormName = 'BeregningForm';
 
@@ -211,7 +211,7 @@ const settOppKomponenterForNæring = (
   );
   const erNyArbLivet = snAndel && snAndel.erNyIArbeidslivet;
   const erVarigEndring =
-    avklaringsbehov.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
+    avklaringsbehov.definisjon === ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
     (snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erVarigEndret === true));
   const erNyoppstartet = snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
   if (!erNyArbLivet && !erNyoppstartet && !erVarigEndring) {

@@ -5,7 +5,7 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
   it('Skal teste at buildInitialvalues bygges korrekt når det er tidligere fastsatt etterlønn eller sluttpakke', () => {
     const ap = {
       status: 'OPPRETTET',
-      definisjon: '5058',
+      definisjon: 'VURDER_FAKTA_ATFL_SN',
       kanLoses: true,
       erAktivt: true,
     };
@@ -33,7 +33,7 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
   it('Skal teste at buildInitialvalues bygges korrekt når det ikke er tidligere fastsatt etterlønn eller sluttpakke', () => {
     const ap = {
       status: 'OPPRETTET',
-      definisjon: '5058',
+      definisjon: 'VURDER_FAKTA_ATFL_SN',
       kanLoses: true,
       erAktivt: true,
     };

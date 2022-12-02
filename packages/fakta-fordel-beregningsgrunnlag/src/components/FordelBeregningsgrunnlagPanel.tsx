@@ -16,9 +16,9 @@ import {
   FordelBeregningsgrunnlagFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const harFordelInfo = (bg: Beregningsgrunnlag): boolean =>
   bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false;

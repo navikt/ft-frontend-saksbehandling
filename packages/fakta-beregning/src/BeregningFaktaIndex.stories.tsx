@@ -34,12 +34,12 @@ import {
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import BeregningFaktaIndex from './BeregningFaktaIndex';
-import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 
 import '@navikt/ds-css';
 
 const opprettetVurderFakta = {
-  definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+  definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
   status: AksjonspunktStatus.OPPRETTET,
   begrunnelse: undefined,
   kanLoses: true,
@@ -239,7 +239,7 @@ export const ArbeidOgDagpengerAp5058: Story = () => (
 export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story = () => {
   const overstyringAPBeregningsaktiviteter = {
     id: 1,
-    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+    definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
     status: AksjonspunktStatus.OPPRETTET,
     kanLoses: true,
     erAktivt: true,
@@ -248,7 +248,7 @@ export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story
 
   const overstyringAPBeregningsgrunnlag = {
     id: 1,
-    definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+    definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
     status: AksjonspunktStatus.OPPRETTET,
     kanLoses: true,
     erAktivt: true,
@@ -991,13 +991,13 @@ export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
   } as FaktaOmBeregning;
   const avklaringsbehov = [
     {
-      definisjon: FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
+      definisjon: FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER,
       status: AksjonspunktStatus.UTFORT,
       begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
       kanLoses: true,
     },
     {
-      definisjon: FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+      definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
       status: AksjonspunktStatus.OPPRETTET,
       begrunnelse: undefined,
       kanLoses: true,
@@ -1067,7 +1067,7 @@ export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: Story = ({ submitC
   };
   const avklaringsbehov = [
     {
-      definisjon: FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+      definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
       status: AksjonspunktStatus.OPPRETTET,
       begrunnelse: undefined,
       kanLoses: true,

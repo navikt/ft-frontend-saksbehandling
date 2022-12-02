@@ -20,16 +20,17 @@ import messages from '../i18n/nb_NO.json';
 import BeregningFP from './components/BeregningFP';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from './types/BeregningFormValues';
-import ProsessBeregningsgrunnlagAksjonspunktCode from './types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 import advarsel from './images/advarsel.svg';
 
 const beregningAksjonspunkter = [
-  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ];
 
 const cx = classNames.bind(styles);
@@ -90,6 +91,17 @@ const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vil
     stp: dayjs(gr.skjaeringstidspunktBeregning).format(DDMMYYYY_DATE_FORMAT),
   }));
 
+function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]) {
+  for (let i = 0; i < beregningsgrunnlag.length; i += 1) {
+    const bg = beregningsgrunnlag[i];
+    for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
+      const a = bg.avklaringsbehov[j];
+      // @ts-ignore
+      a.definisjon = mapAvklaringsbehovKode(a.definisjon);
+    }
+  }
+}
+
 const BeregningsgrunnlagProsessIndex: FunctionComponent<
   OwnProps & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>
 > = ({
@@ -109,6 +121,8 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   ) {
     return visningForManglendeBG();
   }
+
+  konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
 
   const skalBrukeSidemeny = beregningsgrunnlagListe.length > 1;
   const kronologiskeGrunnlag = beregningsgrunnlagListe.sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>

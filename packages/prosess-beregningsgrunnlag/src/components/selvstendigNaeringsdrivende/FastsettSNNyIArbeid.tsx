@@ -9,7 +9,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { NyIArbeidslivetValues } from '../../types/NaringAksjonspunktTsType';
@@ -18,7 +18,7 @@ const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
-const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAksjonspunktCode;
+const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 type OwnProps = {
   endretTekst?: React.ReactNode;

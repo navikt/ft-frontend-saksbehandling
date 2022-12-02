@@ -2,10 +2,10 @@ import { Vilkarperiode, AlleKodeverk, AvklarBeregningAktiviteterMap } from '@nav
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import arbeidsgiverOpplysninger from '../../../testdata/arbeidsgiverOpplysninger';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 
-const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAksjonspunktCode;
+const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const alleKodeverk = {
   [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [

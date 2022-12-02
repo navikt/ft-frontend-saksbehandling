@@ -15,8 +15,9 @@ import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.less';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
-import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
+import mapAvklaringsbehovKode from './typer/interface/AvklaringsbehovMapping';
 
 const intl = createIntl(messages);
 
@@ -31,7 +32,7 @@ type OwnProps = {
   skalKunneAvbryteOverstyring?: boolean;
 };
 
-const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
+const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const lagLabel = (bg, vilkårsperioder) => {
   const stpOpptjening = bg.vilkårsperiodeFom;
@@ -71,6 +72,17 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsT
 
 type AksjonspunktDataDef = SubmitBeregningType[];
 
+function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]) {
+  for (let i = 0; i < beregningsgrunnlag.length; i += 1) {
+    const bg = beregningsgrunnlag[i];
+    for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
+      const a = bg.avklaringsbehov[j];
+      // @ts-ignore
+      a.definisjon = mapAvklaringsbehovKode(a.definisjon);
+    }
+  }
+}
+
 const BeregningFaktaIndex: FunctionComponent<
   OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>
 > = ({
@@ -90,6 +102,9 @@ const BeregningFaktaIndex: FunctionComponent<
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
+
+  konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag);
+
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];

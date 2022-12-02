@@ -63,7 +63,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for fordeling',
-      kode: '5046',
+      kode: 'FORDEL_BG',
       grunnlag: [
         {
           periode: {
@@ -169,7 +169,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for fordeling',
-      kode: '5046',
+      kode: 'FORDEL_BG',
       grunnlag: [
         {
           periode: {
@@ -311,7 +311,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for fordeling En helt annen begrunnelse for fordeling',
-      kode: '5046',
+      kode: 'FORDEL_BG',
       grunnlag: [
         {
           periode: {
@@ -456,7 +456,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for refusjonsdato',
-      kode: '5059',
+      kode: 'VURDER_REFUSJONSKRAV',
       grunnlag: [
         {
           periode: {
@@ -513,7 +513,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for refusjonsdato',
-      kode: '5059',
+      kode: 'VURDER_REFUSJONSKRAV',
       grunnlag: [
         {
           periode: {

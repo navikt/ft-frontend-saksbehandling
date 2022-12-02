@@ -95,7 +95,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             inntektFrilanser: null,
           },
         ],
-        kode: '5038',
+        kode: 'FASTSETT_BG_AT_FL',
       },
     ]);
   });
@@ -160,7 +160,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             erVarigEndret: true,
           },
         ],
-        kode: '5039',
+        kode: 'VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN',
       },
     ]);
   });
@@ -213,7 +213,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             erVarigEndret: true,
           },
         ],
-        kode: '5054',
+        kode: 'VURDER_VARIG_ENDRT_ARB_SITSJN_MDL_INAKTV',
       },
     ]);
   });
@@ -261,7 +261,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             bruttoBeregningsgrunnlag: 500000,
           },
         ],
-        kode: '5049',
+        kode: 'FASTSETT_BG_SN_NY_I_ARB_LIVT',
       },
     ]);
   });
@@ -341,7 +341,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           },
         ],
         begrunnelse: 'Min begrunnelse for tidsbegrenset inntekt',
-        kode: '5047',
+        kode: 'FASTSETT_BG_TB_ARB',
       },
     ]);
   });
@@ -447,7 +447,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           },
         ],
         begrunnelse: 'Min begrunnelse for vurdering av varig endring',
-        kode: '5039',
+        kode: 'VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN',
       },
     ]);
   });
