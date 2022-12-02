@@ -23,11 +23,12 @@ import {
   FordelBeregningsgrunnlagFormValues,
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from './types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 
 const intl = createIntl(messages);
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): string => {
   const stpOpptjening = bg.vilkårsperiodeFom;
@@ -44,6 +45,17 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): st
 
 const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
   bg.avklaringsbehov.some(a => a.definisjon === VURDER_REFUSJON_BERGRUNN || a.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
+
+function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]) {
+  for (let i = 0; i < beregningsgrunnlag.length; i += 1) {
+    const bg = beregningsgrunnlag[i];
+    for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
+      const a = bg.avklaringsbehov[j];
+      // @ts-ignore
+      a.definisjon = mapAvklaringsbehovKode(a.definisjon);
+    }
+  }
+}
 
 type OwnProps = {
   beregningsgrunnlagVilkår: Vilkar;
@@ -70,6 +82,8 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   formData,
   setFormData,
 }) => {
+  konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
+
   const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
 
   if (bgMedAvklaringsbehov.length === 0) {

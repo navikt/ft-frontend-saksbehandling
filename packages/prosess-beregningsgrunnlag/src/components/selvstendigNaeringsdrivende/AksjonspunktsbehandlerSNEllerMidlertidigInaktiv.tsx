@@ -6,7 +6,7 @@ import {
   NyIArbeidslivetruttoNæringResultatAP,
   VurderVarigEndretNyoppstartetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 import FastsettSNNyIArbeid from './FastsettSNNyIArbeid';
 import VurderVarigEndringEllerNyoppstartet from './VurderVarigEndringEllerNyoppstartet';
@@ -16,7 +16,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+} = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 const hasAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === kode);

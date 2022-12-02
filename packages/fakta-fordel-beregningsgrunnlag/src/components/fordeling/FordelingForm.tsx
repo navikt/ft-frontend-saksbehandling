@@ -5,13 +5,13 @@ import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkar
 
 import FordelBeregningsgrunnlagAP from '../../types/interface/FordelBeregningsgrunnlagAP';
 import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import FordelingField, {
   buildFieldInitialValuesFordelBeregning,
   transformFieldValuesFordelBeregning,
 } from './FordelingField';
 
-const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
 export const FORM_NAME = 'FORDEL_BEREGNING_FORM';
 

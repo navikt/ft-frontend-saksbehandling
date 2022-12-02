@@ -1,12 +1,12 @@
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 
-const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
+const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
 const harAvklaringsbehovSomKanLøses = (
   avklaringsbehovCode: string,

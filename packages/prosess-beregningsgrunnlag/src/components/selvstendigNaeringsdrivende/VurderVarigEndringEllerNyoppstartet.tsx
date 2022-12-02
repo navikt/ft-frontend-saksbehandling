@@ -9,7 +9,7 @@ import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formHooks, InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.less';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
@@ -23,7 +23,7 @@ export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+} = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 const inntektFastsettesText = (erVarigEndretArbeidssituasjon?: boolean) =>
   erVarigEndretArbeidssituasjon ? (

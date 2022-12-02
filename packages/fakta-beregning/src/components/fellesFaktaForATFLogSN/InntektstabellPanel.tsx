@@ -5,13 +5,13 @@ import { Button, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import styles from './InntektstabellPanel.less';
 import VurderFaktaContext from './VurderFaktaContext';
 
 export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringRapportertInntekt';
 
-const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
+const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);

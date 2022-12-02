@@ -9,7 +9,7 @@ import {
 export const beregningsgrunnlag = {
   avklaringsbehov: [
     {
-      definisjon: '5046',
+      definisjon: 'FORDEL_BG',
       status: 'OPPR',
       kanLoses: true,
     },
@@ -510,7 +510,7 @@ export const beregningsgrunnlag = {
 
 export const aksjonspunkt = [
   {
-    definisjon: '5046',
+    definisjon: 'FORDEL_BG',
     status: 'OPPR',
     toTrinnsBehandling: true,
     aksjonspunktType: 'MANU',

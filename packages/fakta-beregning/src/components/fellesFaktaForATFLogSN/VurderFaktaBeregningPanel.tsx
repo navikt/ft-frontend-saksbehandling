@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
@@ -25,7 +25,7 @@ const {
   AVKLAR_AKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-} = FaktaBeregningAksjonspunktCode;
+} = FaktaBeregningAvklaringsbehovCode;
 
 const findAvklaringsbehovMedBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
   if (avklaringsbehov.some(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG)) {

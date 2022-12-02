@@ -5,7 +5,7 @@ import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from
 
 import VurderRefusjonAksjonspunktSubmitType from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 
 import VurderEndringRefusjonField, {
   buildFieldInitialValues,
@@ -14,7 +14,7 @@ import VurderEndringRefusjonField, {
 
 export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
-const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
+const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],

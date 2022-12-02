@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { InntektstabellPanelImpl } from './InntektstabellPanel';
 import messages from '../../../i18n/nb_NO.json';
 
-const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
+const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
 describe('<InntektstabellPanel>', () => {
   it('skal vise checkbox for overstyring', () => {

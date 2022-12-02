@@ -19,11 +19,11 @@ import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagMedAksjonspunktValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
 
-const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const hasAvklaringsbehov = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
