@@ -705,12 +705,14 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         tom: '2019-02-01',
         fordelBeregningsgrunnlagAndeler: [fordelAndel, fordelAndel2],
         harPeriodeAarsakGraderingEllerRefusjon: true,
+        skalRedigereInntekt: true,
       },
       {
         fom: '2019-02-02',
         tom: null,
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
+        skalRedigereInntekt: true,
       },
     ];
     const submitPerioder = lagPerioderForSubmit({ fordelBGPeriode0: [] }, 0, perioder[0], perioder);
@@ -726,12 +728,14 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         tom: '2019-02-01',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
+        skalRedigereInntekt: true,
       },
       {
         fom: '2019-02-02',
         tom: null,
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
+        skalRedigereInntekt: true,
       },
     ];
 
@@ -749,6 +753,36 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(submitPerioder[1].tom).toBe(null);
   });
 
+  it('skal lage en periode for submit dersom slått sammen med siste periode men kun en er redigerbar', () => {
+    const perioder = [
+      {
+        fom: '2019-01-01',
+        tom: '2019-02-01',
+        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        harPeriodeAarsakGraderingEllerRefusjon: true,
+        skalRedigereInntekt: true,
+      },
+      {
+        fom: '2019-02-02',
+        tom: null,
+        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        harPeriodeAarsakGraderingEllerRefusjon: false,
+        skalRedigereInntekt: false,
+      },
+    ];
+
+    const kombinertPeriode = {
+      fom: '2019-01-01',
+      tom: null,
+      fordelBeregningsgrunnlagAndeler: [fordelAndel],
+      harPeriodeAarsakGraderingEllerRefusjon: true,
+    };
+    const submitPerioder = lagPerioderForSubmit({ fordelBGPeriode0: [] }, 0, kombinertPeriode, perioder);
+    expect(submitPerioder.length).toBe(1);
+    expect(submitPerioder[0].fom).toBe('2019-01-01');
+    expect(submitPerioder[0].tom).toBe('2019-02-01');
+  });
+
   it('skal lage to perioder for submit dersom slått sammen med ikke periode', () => {
     const perioder = [
       {
@@ -756,12 +790,14 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         tom: '2019-02-01',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
+        skalRedigereInntekt: true,
       },
       {
         fom: '2019-02-02',
         tom: '2019-02-03',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: true,
+        skalRedigereInntekt: true,
       },
     ];
 
@@ -770,6 +806,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       tom: '2019-02-03',
       fordelBeregningsgrunnlagAndeler: [fordelAndel],
       harPeriodeAarsakGraderingEllerRefusjon: true,
+      skalRedigereInntekt: true,
     };
     const submitPerioder = lagPerioderForSubmit({ fordelBGPeriode0: [] }, 0, kombinertPeriode, perioder);
     expect(submitPerioder.length).toBe(2);
