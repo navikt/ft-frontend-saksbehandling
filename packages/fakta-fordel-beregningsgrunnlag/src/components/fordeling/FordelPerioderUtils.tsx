@@ -227,11 +227,14 @@ export const lagPerioderForSubmit = (
   kombinertPeriode: FordelBeregningsgrunnlagPeriode,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
 ): FordelBeregningsgrunnlagPeriodeTransformedValues[] =>
-  fordelBGPerioder.filter(inkludererPeriode(kombinertPeriode)).map((p: FordelBeregningsgrunnlagPeriode) => ({
-    andeler: values[getFieldNameKey(index)].map(mapAndel),
-    fom: p.fom,
-    tom: p.tom,
-  }));
+  fordelBGPerioder
+    .filter(inkludererPeriode(kombinertPeriode))
+    .filter(p => p.skalRedigereInntekt || p.skalKunneEndreRefusjon)
+    .map((p: FordelBeregningsgrunnlagPeriode) => ({
+      andeler: values[getFieldNameKey(index)].map(mapAndel),
+      fom: p.fom,
+      tom: p.tom,
+    }));
 
 export const slaaSammenPerioder = (
   perioder: FordelBeregningsgrunnlagPeriode[],
