@@ -84,7 +84,9 @@ const createInputFieldKey = (andel: BeregningsgrunnlagAndel, periode: Beregnings
 const findArbeidstakerAndeler = (periode: BeregningsgrunnlagPeriodeProp): BeregningsgrunnlagAndel[] =>
   !periode.beregningsgrunnlagPrStatusOgAndel
     ? []
-    : periode.beregningsgrunnlagPrStatusOgAndel.filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
+    : periode.beregningsgrunnlagPrStatusOgAndel.filter(
+        andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.erTilkommetAndel !== true,
+      );
 
 const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsforhold): string =>
   !arbeidsforhold
