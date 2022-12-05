@@ -33,6 +33,10 @@ const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   const inntektTekst = erPGI
     ? 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt.Naring'
     : 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt';
+  const sammenligningTekst = erPGI
+    ? 'Beregningsgrunnlag.Avviksopplysninger.SamletInntekt'
+    : 'Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt';
+
   return (
     <>
       {skilleLinje}
@@ -53,7 +57,7 @@ const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
       <FlexRow>
         <FlexColumn className={styles.colLable}>
           <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt" />
+            <FormattedMessage id={sammenligningTekst} />
           </BodyShort>
         </FlexColumn>
         <FlexColumn className={styles.colValue}>
