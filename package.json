@@ -100,7 +100,7 @@
     "raf": "3.4.1",
     "react-test-renderer": "18.2.0",
     "sinon": "14.0.2",
-    "stylelint": "14.15.0",
+    "stylelint": "14.16.0",
     "stylelint-order": "5.0.0",
     "terser-webpack-plugin": "5.3.6",
     "thread-loader": "3.0.4",
