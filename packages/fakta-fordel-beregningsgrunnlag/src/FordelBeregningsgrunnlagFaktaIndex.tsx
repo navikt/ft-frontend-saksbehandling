@@ -46,15 +46,17 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): st
 const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
   bg.avklaringsbehov.some(a => a.definisjon === VURDER_REFUSJON_BERGRUNN || a.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
 
-function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]) {
-  for (let i = 0; i < beregningsgrunnlag.length; i += 1) {
-    const bg = beregningsgrunnlag[i];
+function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
+  const res = [...beregningsgrunnlag];
+  for (let i = 0; i < res.length; i += 1) {
+    const bg = res[i];
     for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
       const a = bg.avklaringsbehov[j];
       // @ts-ignore
       a.definisjon = mapAvklaringsbehovKode(a.definisjon);
     }
   }
+  return res;
 }
 
 type OwnProps = {
@@ -82,9 +84,9 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   formData,
   setFormData,
 }) => {
-  konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
+  const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
 
-  const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
+  const bgMedAvklaringsbehov = konverterteBg.filter(bg => kreverManuellBehandlingFn(bg));
 
   if (bgMedAvklaringsbehov.length === 0) {
     return null;
