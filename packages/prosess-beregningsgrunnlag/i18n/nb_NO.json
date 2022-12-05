@@ -17,6 +17,7 @@
   "Beregningsgrunnlag.Avviksopplysninger.MIDL.Tittel": "Avviksberegning for midlertidig inaktiv",
   "Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt.Naring": "Pensjonsgivende inntekt",
   "Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt": "Sammenligningsgrunnlag",
+  "Beregningsgrunnlag.Avviksopplysninger.SamletInntekt": "Samlet inntekt",
   "Beregningsgrunnlag.Avviksopplysninger.BeregnetAvvik": "Beregnet avvik ",
   "Beregningsgrunnlag.Avviksopplysninger.SN.NyIArbeidslivet": "Søker er ny i arbeidslivet. Det foretas derfor ingen avviksvurdering.",
   "Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN": "Det regnes ikke avvik på arbeids- og frilansinntekt for kombinasjonen arbeid, frilans og selvstendig næringsdrivende i beregningsgrunnlag der skjæringstidspunkt er før 01.01.2023",

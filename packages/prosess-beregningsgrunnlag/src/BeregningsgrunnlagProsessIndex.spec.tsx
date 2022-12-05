@@ -17,6 +17,9 @@ const {
   ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038,
 } = composeStories(stories);
 
+const scrollIntoViewMock = jest.fn();
+window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
+
 describe('<BeregningsgrunnlagProsessIndex>', () => {
   jest.setTimeout(15000);
 
