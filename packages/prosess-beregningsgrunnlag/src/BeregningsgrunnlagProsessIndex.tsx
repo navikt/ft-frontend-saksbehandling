@@ -91,15 +91,17 @@ const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vil
     stp: dayjs(gr.skjaeringstidspunktBeregning).format(DDMMYYYY_DATE_FORMAT),
   }));
 
-function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]) {
-  for (let i = 0; i < beregningsgrunnlag.length; i += 1) {
-    const bg = beregningsgrunnlag[i];
+function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
+  const res = [...beregningsgrunnlag];
+  for (let i = 0; i < res.length; i += 1) {
+    const bg = res[i];
     for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
       const a = bg.avklaringsbehov[j];
       // @ts-ignore
       a.definisjon = mapAvklaringsbehovKode(a.definisjon);
     }
   }
+  return res;
 }
 
 const BeregningsgrunnlagProsessIndex: FunctionComponent<
@@ -122,10 +124,10 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
     return visningForManglendeBG();
   }
 
-  konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
+  const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
 
-  const skalBrukeSidemeny = beregningsgrunnlagListe.length > 1;
-  const kronologiskeGrunnlag = beregningsgrunnlagListe.sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
+  const skalBrukeSidemeny = konverterteBg.length > 1;
+  const kronologiskeGrunnlag = konverterteBg.sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
     a.skjaeringstidspunktBeregning.localeCompare(b.skjaeringstidspunktBeregning),
   );
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
@@ -161,7 +163,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
         <div className={styles.contentContainer}>
           <BeregningFP
             aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            beregningsgrunnlagListe={kronologiskeGrunnlag}
             submitCallback={submitCallback}
             readOnly={isReadOnly}
             readOnlySubmitButton={readOnlySubmitButton}
