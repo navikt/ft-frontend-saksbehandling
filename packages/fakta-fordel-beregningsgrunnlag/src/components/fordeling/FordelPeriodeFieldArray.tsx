@@ -465,6 +465,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
             refusjonskrav: skalKunneEndreRefusjon
               ? formValues[index].refusjonskrav
               : fields[matchendeAndelIndex]?.refusjonskrav,
+            inntektskategori: formValues[index].inntektskategori,
           });
         }
       }
