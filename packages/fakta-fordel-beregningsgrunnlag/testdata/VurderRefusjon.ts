@@ -4,7 +4,7 @@ import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 export const bgUtenDelvisRefusjon = {
   avklaringsbehov: [
     {
-      definisjon: '5059',
+      definisjon: 'VURDER_REFUSJONSKRAV',
       status: 'OPPR',
       kanLoses: true,
     },
@@ -42,7 +42,7 @@ export const bgUtenDelvisRefusjon = {
 export const bgMedDelvisRefusjon = {
   avklaringsbehov: [
     {
-      definisjon: '5059',
+      definisjon: 'VURDER_REFUSJONSKRAV',
       status: 'OPPR',
       kanLoses: true,
     },
@@ -79,7 +79,7 @@ export const bgMedDelvisRefusjon = {
 
 export const aksjonspunkt = [
   {
-    definisjon: '5059',
+    definisjon: 'VURDER_REFUSJONSKRAV',
     status: 'OPPR',
     toTrinnsBehandling: true,
     aksjonspunktType: 'MANU',

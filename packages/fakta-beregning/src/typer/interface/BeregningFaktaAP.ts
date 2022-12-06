@@ -1,5 +1,5 @@
 import BeregningAvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
-import FaktaBeregningAksjonspunktCode from './FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from './FaktaBeregningAvklaringsbehovCode';
 
 export type BeregningAktivitetTransformedValues = {
   opptjeningAktivitetType: string;
@@ -16,12 +16,12 @@ export type BeregningAktiviteterTransformedValues = {
 };
 
 export type OverstyrBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
-  FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+  FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   BeregningAktiviteterTransformedValues
 >;
 
 export type AvklarBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
-  FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER,
+  FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER,
   BeregningAktiviteterTransformedValues
 >;
 
@@ -181,12 +181,12 @@ export type BeregningFaktaTransformedValues = {
 };
 
 export type BeregningFaktaAP = BeregningAvklaringsbehovTilBekreftelse<
-  FaktaBeregningAksjonspunktCode.VURDER_FAKTA_FOR_ATFL_SN,
+  FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
   BeregningFaktaTransformedValues
 >;
 
 export type BeregningOverstyringAP = BeregningAvklaringsbehovTilBekreftelse<
-  FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+  FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   BeregningFaktaTransformedValues
 >;
 

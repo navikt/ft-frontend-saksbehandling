@@ -8,7 +8,7 @@ import {
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, useState } from 'react';
 import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
-import FaktaBeregningAksjonspunktCode from '../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from '../typer/interface/SubmitBeregningTsType';
 import VurderFaktaBeregningFormValues from '../typer/VurderFaktaBeregningFormValues';
 import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
@@ -21,7 +21,7 @@ const {
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   AVKLAR_AKTIVITETER,
-} = FaktaBeregningAksjonspunktCode;
+} = FaktaBeregningAvklaringsbehovCode;
 
 const relevanteKoder = [
   VURDER_FAKTA_FOR_ATFL_SN,

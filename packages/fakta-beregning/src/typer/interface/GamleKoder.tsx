@@ -1,8 +1,8 @@
-enum FaktaBeregningAksjonspunktCode {
+enum GamleKoder {
   AVKLAR_AKTIVITETER = '5052',
   VURDER_FAKTA_FOR_ATFL_SN = '5058',
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER = '6014',
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG = '6015',
 }
 
-export default FaktaBeregningAksjonspunktCode;
+export default GamleKoder;

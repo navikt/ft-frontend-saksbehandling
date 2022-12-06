@@ -6,7 +6,7 @@ export const beregningsgrunnlag = [
     aktivitetStatus: ['AT'],
     avklaringsbehov: [
       {
-        definisjon: '5052',
+        definisjon: 'AVKLAR_AKTIVITETER',
         status: 'OPPR',
         kanLoses: true,
       },
@@ -118,7 +118,7 @@ export const vilkar: Vilkar = {
 
 export const aksjonspunkt = [
   {
-    definisjon: '5052',
+    definisjon: 'AVKLAR_AKTIVITETER',
     status: 'OPPR',
     toTrinnsBehandling: true,
     aksjonspunktType: 'MANU',

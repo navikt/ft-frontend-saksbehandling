@@ -27,7 +27,7 @@ import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/Arbe
 import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import bgFlerePerioderMedHelg from '../testdata/FlerePerioderMedHelg';
 
-import { FaktaFordelBeregningAksjonspunktCode } from '..';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 
@@ -88,7 +88,7 @@ const agOpplysninger = {
 
 const fordelAP = [
   {
-    definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+    definisjon: FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
     status: 'OPPR',
     kanLoses: true,
   },
@@ -619,7 +619,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
       ),
       [
         {
-          definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+          definisjon: FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
           status: 'UTFO',
           kanLoses: true,
           begrunnelse: 'En god begrunnelse.',

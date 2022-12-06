@@ -1,12 +1,12 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 import { BeregningAktivitetTransformedValues, BeregningAktiviteterTransformedValues } from './BeregningFaktaAP';
-import FaktaBeregningAksjonspunktCode from './FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from './FaktaBeregningAvklaringsbehovCode';
 
 export type OverstyrBeregningsaktiviteterAP = BeregningAktivitetTransformedValues &
-  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER>;
+  AksjonspunktTilBekreftelse<FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER>;
 
 export type AvklarBeregningsaktiviteterAP = BeregningAktiviteterTransformedValues &
-  AksjonspunktTilBekreftelse<FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER>;
+  AksjonspunktTilBekreftelse<FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER>;
 
 type BeregningAktivitetAP = AvklarBeregningsaktiviteterAP | OverstyrBeregningsaktiviteterAP;
 

@@ -1,5 +1,5 @@
 import AvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
-import FaktaFordelBeregningAksjonspunktCode from './FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type FordelBeregningsgrunnlagFastsatteVerdierTransformedValues = {
   refusjonPrÅr?: number;
@@ -35,7 +35,7 @@ export type FordelBeregningsgrunnlagPerioderTransformedValues = {
 };
 
 type FordelBeregningsgrunnlagAP = AvklaringsbehovTilBekreftelse<
-  FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+  FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
   FordelBeregningsgrunnlagPerioderTransformedValues
 >;
 
