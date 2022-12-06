@@ -139,7 +139,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        kode: '5058',
+        kode: 'VURDER_FAKTA_ATFL_SN',
         begrunnelse: 'test',
         grunnlag: [
           {
@@ -225,7 +225,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        kode: '5058',
+        kode: 'VURDER_FAKTA_ATFL_SN',
         begrunnelse: 'test',
         grunnlag: [
           {
@@ -283,7 +283,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        kode: '5058',
+        kode: 'VURDER_FAKTA_ATFL_SN',
         begrunnelse: 'test',
         grunnlag: [
           {
@@ -321,7 +321,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        kode: '5058',
+        kode: 'VURDER_FAKTA_ATFL_SN',
         begrunnelse: 'test',
         grunnlag: [
           {
@@ -360,7 +360,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        kode: '5058',
+        kode: 'VURDER_FAKTA_ATFL_SN',
         begrunnelse: 'test',
         grunnlag: [
           {
@@ -397,7 +397,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        kode: '5058',
+        kode: 'VURDER_FAKTA_ATFL_SN',
         begrunnelse: 'test',
         grunnlag: [
           {
@@ -432,7 +432,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
       {
-        kode: '5058',
+        kode: 'VURDER_FAKTA_ATFL_SN',
         begrunnelse: 'test',
         grunnlag: [
           {

@@ -19,7 +19,7 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
 import BeregningForm from './beregningForm/BeregningForm';
@@ -28,12 +28,12 @@ import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
 import BeregningFormValues from '../types/BeregningFormValues';
 
 const beregningAksjonspunkter = [
-  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-  ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
-  ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+  ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
 ];
 
 const finnAvklaringsbehov = (beregningsgrunnlag: Beregningsgrunnlag) =>
@@ -60,7 +60,7 @@ const getAvklaringsbehovForGraderingPaaAndelUtenBG = (
 ): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov
     ? avklaringsbehov.find(
-        ap => ap.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
+        ap => ap.definisjon === ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
       )
     : undefined;
 

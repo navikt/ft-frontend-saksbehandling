@@ -14,7 +14,7 @@ import {
   FastsettAvvikATFLResultatAP,
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 import YtelserFraInfotrygd from '../tilstotendeYtelser/YtelserFraInfotrygd';
 import GrunnlagForAarsinntektPanelSN from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';
@@ -34,7 +34,7 @@ import beregningStyles from './beregningsgrunnlag.less';
 import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
-  ProsessBeregningsgrunnlagAksjonspunktCode;
+  ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 const finnAksjonspunktForATFL = (
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],

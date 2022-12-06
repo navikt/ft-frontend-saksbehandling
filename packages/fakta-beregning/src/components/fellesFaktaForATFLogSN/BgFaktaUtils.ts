@@ -18,7 +18,7 @@ import {
 import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
@@ -250,7 +250,7 @@ export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boole
 
 export const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov &&
-  avklaringsbehov.some(ap => ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+  avklaringsbehov.some(ap => ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
 export const erOverstyringAvBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues) => erOverstyring(values);
 

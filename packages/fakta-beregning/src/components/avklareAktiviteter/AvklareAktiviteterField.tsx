@@ -24,7 +24,7 @@ import { UseFormGetValues } from 'react-hook-form';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
@@ -37,7 +37,7 @@ import {
 import styles from './avklareAktiviteterPanel.less';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 
-const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAksjonspunktCode;
+const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
@@ -186,8 +186,8 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     avklaringsbehov
       .filter(
         ap =>
-          ap.definisjon === FaktaBeregningAksjonspunktCode.AVKLAR_AKTIVITETER ||
-          ap.definisjon === FaktaBeregningAksjonspunktCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+          ap.definisjon === FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER ||
+          ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
       )
       .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 

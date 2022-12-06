@@ -1,8 +1,8 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import FaktaBeregningAksjonspunktCode from '../../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import VurderBesteberegningForm, { besteberegningField } from './VurderBesteberegningForm';
 
-const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAksjonspunktCode;
+const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 

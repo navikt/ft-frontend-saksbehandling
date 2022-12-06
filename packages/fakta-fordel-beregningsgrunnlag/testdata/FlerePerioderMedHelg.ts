@@ -5,7 +5,7 @@ const beregningsgrunnlag = [
   {
     avklaringsbehov: [
       {
-        definisjon: '5046',
+        definisjon: 'FORDEL_BG',
         status: 'OPPR',
         kanLoses: true,
       },

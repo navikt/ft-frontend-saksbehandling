@@ -6,7 +6,7 @@ import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-k
 import { Heading } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { TabellRadData, TabellData, TabellMap } from '../../types/BeregningsresultatTabellType';
 import OppsummertGrunnlagPanel from './OppsummertGrunnlagPanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
@@ -40,21 +40,21 @@ const finnAksjonspunktForStatus = (
       return avklaringsbehov.find(
         ak =>
           ak.definisjon ===
-            ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
+            ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
           ak.definisjon ===
-            ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+            ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
       );
     case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
       return avklaringsbehov.find(
         ak =>
           ak.definisjon ===
-            ProsessBeregningsgrunnlagAksjonspunktCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET ||
+            ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET ||
           ak.definisjon ===
-            ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+            ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
       );
     case AktivitetStatus.BRUKERS_ANDEL:
       return avklaringsbehov.find(
-        ak => ak.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+        ak => ak.definisjon === ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
       );
     default:
       return undefined;

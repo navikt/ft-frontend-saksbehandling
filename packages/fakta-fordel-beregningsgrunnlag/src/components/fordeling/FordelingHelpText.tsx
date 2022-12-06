@@ -11,10 +11,10 @@ import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
-const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: BeregningAvklaringsbehov[]): boolean =>
   aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
