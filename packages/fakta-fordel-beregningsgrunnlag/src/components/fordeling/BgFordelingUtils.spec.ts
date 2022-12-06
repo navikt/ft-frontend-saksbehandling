@@ -29,7 +29,7 @@ const arbeidstakerIkkeFastsatt = {
   inntektskategori: 'ARBEIDSTAKER',
 };
 
-const getKodeverknavn = kode => {
+const getKodeverknavn = (kode: string): string => {
   if (kode === AktivitetStatus.ARBEIDSTAKER) {
     return 'Arbeidstaker';
   }
@@ -49,7 +49,7 @@ describe('<BgFordelingUtils>', () => {
   });
 
   it('skal sette riktig fastsatt beløp for andel i periode uten fordeltBeløp og med brutto', () => {
-    const fordeltPrAar = null;
+    const fordeltPrAar = undefined;
     const bruttoPrAar = 50000;
     const skalPreutfylleMedBeregningsgrunnlag = true;
     const fastsattBelop = settFastsattBelop(fordeltPrAar, bruttoPrAar, skalPreutfylleMedBeregningsgrunnlag);

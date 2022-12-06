@@ -12,6 +12,9 @@ type OwnProps = {
 };
 
 const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
+  if (!andel.arbeidsgiver) {
+    return `${andel.aktivitetStatus}${andel.internArbeidsforholdRef})`;
+  }
   if (andel.arbeidsgiver.arbeidsgiverAktørId) {
     return `${andel.arbeidsgiver.arbeidsgiverAktørId}${andel.internArbeidsforholdRef})`;
   }
@@ -22,7 +25,7 @@ export const TidligereUtbetalinger: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId,
 }) => {
-  const { andeler } = beregningsgrunnlag.refusjonTilVurdering;
+  const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
   return (
     <FlexRow>
       <FlexColumn className={styles.flexColumn9}>
