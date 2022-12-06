@@ -764,7 +764,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         fom: '2019-02-02',
-        tom: null,
+        tom: undefined,
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
         harPeriodeAarsakGraderingEllerRefusjon: false,
         skalRedigereInntekt: false,
@@ -773,7 +773,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
 
     const kombinertPeriode = {
       fom: '2019-01-01',
-      tom: null,
+      tom: undefined,
       fordelBeregningsgrunnlagAndeler: [fordelAndel],
       harPeriodeAarsakGraderingEllerRefusjon: true,
     };
