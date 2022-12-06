@@ -8,6 +8,7 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
+  FordelBeregningsgrunnlagPeriode,
   Vilkarperiode,
 } from '@navikt/ft-types';
 
@@ -28,28 +29,32 @@ const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
 const hasAvklaringsbehov = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
-const findAvklaringsbehovMedBegrunnelse = (
-  avklaringsbehov: BeregningAvklaringsbehov[],
-): BeregningAvklaringsbehov | undefined =>
-  avklaringsbehov.find(ap => ap.definisjon === FORDEL_BEREGNINGSGRUNNLAG && ap.begrunnelse !== null);
+const findAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
+  const ak = avklaringsbehov.find(ap => ap.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
+  if (!ak) {
+    throw Error(`Fant ikke forventet avklaringsbehov ${FORDEL_BEREGNINGSGRUNNLAG}`);
+  }
+  return ak;
+};
 
 export const BEGRUNNELSE_FORDELING_NAME = 'begrunnelse';
+
+const finnFordelPerioder = (bg: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
+  bg.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
 
 export const transformFieldValuesFordelBeregning = (
   values: FordelBeregningsgrunnlagMedAksjonspunktValues,
   beregningsgrunnlag: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<FordelBeregningsgrunnlagPerioderTransformedValues> => {
-  const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
-  const fordelBGPerioder =
-    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
-  if (hasAvklaringsbehov(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)) {
-    return {
-      begrunnelse: values.begrunnelse,
-      periode: values.periode,
-      ...FastsettFordeltBeregningsgrunnlag.transformValues(values, fordelBGPerioder, bgPerioder),
-    };
+  if (!hasAvklaringsbehov(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)) {
+    throw Error('har ikke aksjonspunkt for fordeling når transform values ble kalt');
   }
-  return null;
+  const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
+  return {
+    begrunnelse: values.begrunnelse,
+    periode: values.periode,
+    ...FastsettFordeltBeregningsgrunnlag.transformValues(values, finnFordelPerioder(beregningsgrunnlag), bgPerioder),
+  };
 };
 
 export const buildFieldInitialValuesFordelBeregning = (
@@ -58,12 +63,11 @@ export const buildFieldInitialValuesFordelBeregning = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   alleKodeverk: AlleKodeverk,
 ): FordelBeregningsgrunnlagMedAksjonspunktValues => {
-  const fordelBGPerioder =
-    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
+  const fordelBGPerioder = finnFordelPerioder(beregningsgrunnlag);
   return {
     periode: vilkårsperiode.periode,
     ...FaktaBegrunnelseTextField.buildInitialValues(
-      findAvklaringsbehovMedBegrunnelse(beregningsgrunnlag.avklaringsbehov),
+      findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov),
       BEGRUNNELSE_FORDELING_NAME,
     ),
     ...FastsettFordeltBeregningsgrunnlag.buildInitialValues(
@@ -97,7 +101,7 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
-  const relevantAp = beregningsgrunnlag.avklaringsbehov.find(ap => ap.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
+  const relevantAp = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const isAksjonspunktClosed = !isAksjonspunktOpen(relevantAp.status);
   const formMethods = formHooks.useFormContext<FordelBeregningsgrunnlagFormValues>();
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);

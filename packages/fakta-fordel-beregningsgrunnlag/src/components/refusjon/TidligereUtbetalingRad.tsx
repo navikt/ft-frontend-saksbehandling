@@ -46,7 +46,7 @@ const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] =>
   ));
 
 type OwnProps = {
-  refusjonAndel?: RefusjonTilVurderingAndel;
+  refusjonAndel: RefusjonTilVurderingAndel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
@@ -58,11 +58,11 @@ export const TidligereUtbetalingRad: FunctionComponent<OwnProps> = ({
     <TableColumn>{createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId)}</TableColumn>
     <TableColumn>
       {utbetalingTil(
-        refusjonAndel.tidligereUtbetalinger,
+        refusjonAndel.tidligereUtbetalinger || [],
         createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId),
       )}
     </TableColumn>
-    <TableColumn>{perioder(refusjonAndel.tidligereUtbetalinger)}</TableColumn>
+    <TableColumn>{perioder(refusjonAndel.tidligereUtbetalinger || [])}</TableColumn>
   </TableRow>
 );
 

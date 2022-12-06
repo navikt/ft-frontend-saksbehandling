@@ -4,7 +4,7 @@ export type FordelBeregningsgrunnlagGenerellAndelValues = {
   andelsnr?: number;
   andelsnrRef?: number;
   nyAndel: boolean;
-  kilde: string;
+  kilde?: string;
   lagtTilAvSaksbehandler: boolean;
   inntektskategori?: string;
   forrigeInntektskategori?: string;
@@ -47,9 +47,9 @@ export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenere
     readOnlyBelop?: string;
     refusjonskrav?: string;
     skalKunneEndreRefusjon?: boolean;
-    belopFraInntektsmelding: number;
+    belopFraInntektsmelding?: number;
     skalRedigereInntekt: boolean;
-    refusjonskravFraInntektsmelding: number;
+    refusjonskravFraInntektsmelding?: number;
     nyttArbeidsforhold?: boolean;
     beregningsgrunnlagPrAar?: string;
     forrigeRefusjonPrAar?: number;

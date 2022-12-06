@@ -16,22 +16,31 @@ export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
 
+const finnVilkårsperiode = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): Vilkarperiode => {
+  const periode = vilkårsperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
+  if (!periode) {
+    throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${bg.vilkårsperiodeFom}`);
+  }
+  return periode;
+};
+
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårperioder: Vilkarperiode[],
 ): VurderRefusjonFormValues => ({
-  [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
-    buildFieldInitialValues(
-      bg,
-      vilkårperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom),
-    ),
-  ),
+  [FORM_NAME]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, finnVilkårsperiode(bg, vilkårperioder))),
 });
 
 const finnBeregningsgrunnlag = (
   vilkårsperiodeFom: string,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
-): Beregningsgrunnlag => beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+): Beregningsgrunnlag => {
+  const matchetndeBG = beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+  if (!matchetndeBG) {
+    throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+  }
+  return matchetndeBG;
+};
 
 const transformValues = (
   values: VurderRefusjonFormValues,

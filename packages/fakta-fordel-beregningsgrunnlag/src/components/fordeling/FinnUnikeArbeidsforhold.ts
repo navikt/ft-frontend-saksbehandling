@@ -23,19 +23,24 @@ const arbeidsforholdEksistererIListen = (
 const finnBgAndelMedSammeArbeidsforhold = (
   bgAndeler: BeregningsgrunnlagAndel[],
   andel: FordelBeregningsgrunnlagAndel,
-): BeregningsgrunnlagAndel =>
-  bgAndeler.find(
+): BeregningsgrunnlagAndel => {
+  const matchetAndel = bgAndeler.find(
     bga =>
       !!bga.arbeidsforhold &&
-      bga.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsforhold.arbeidsgiverIdent &&
-      bga.arbeidsforhold.arbeidsforholdId === andel.arbeidsforhold.arbeidsforholdId,
+      bga.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsforhold?.arbeidsgiverIdent &&
+      bga.arbeidsforhold.arbeidsforholdId === andel.arbeidsforhold?.arbeidsforholdId,
   );
+  if (!matchetAndel) {
+    throw new Error(`Finner ikke forventet andel med arbeidsgiverId ${andel.arbeidsforhold?.arbeidsgiverIdent}`);
+  }
+  return matchetAndel;
+};
 
 const getUniqueListOfArbeidsforholdFromAndeler = (
   andeler: FordelBeregningsgrunnlagAndel[],
   bgAndeler: BeregningsgrunnlagAndel[],
 ): BGFordelArbeidsforhold[] => {
-  const arbeidsgiverList = [];
+  const arbeidsgiverList: BGFordelArbeidsforhold[] = [];
   if (andeler === undefined) {
     return arbeidsgiverList;
   }
@@ -48,22 +53,20 @@ const getUniqueListOfArbeidsforholdFromAndeler = (
         beregningsperiodeTom: bgAndel.beregningsperiodeTom,
         beregningsperiodeFom: bgAndel.beregningsperiodeFom,
         ...andel.arbeidsforhold,
-      };
+      } as BGFordelArbeidsforhold;
       arbeidsgiverList.push(arbeidsforholdObject);
     }
   });
   return arbeidsgiverList;
 };
 
-const emptyList = [];
-
 const finnAndelerFraFordelingperioder = (
   fordelPerioder: FordelBeregningsgrunnlagPeriode[],
 ): FordelBeregningsgrunnlagAndel[] =>
-  fordelPerioder.length > 0 ? fordelPerioder.flatMap(p => p.fordelBeregningsgrunnlagAndeler) : emptyList;
+  fordelPerioder.length > 0 ? fordelPerioder.flatMap(p => p.fordelBeregningsgrunnlagAndeler || []) : [];
 
 const finnAndelerFraBgperioder = (bgPerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] =>
-  bgPerioder.length > 0 ? bgPerioder.flatMap(p => p.beregningsgrunnlagPrStatusOgAndel) : emptyList;
+  bgPerioder.length > 0 ? bgPerioder.flatMap(p => p.beregningsgrunnlagPrStatusOgAndel || []) : [];
 
 const getUniqueListOfArbeidsforholdFromPerioder = (
   fordelPerioder: FordelBeregningsgrunnlagPeriode[],
@@ -76,7 +79,7 @@ const getUniqueListOfArbeidsforholdFromPerioder = (
 
 const finnUnikeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag): BGFordelArbeidsforhold[] => {
   const fordelBGPerioder =
-    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
+    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
   const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   return getUniqueListOfArbeidsforholdFromPerioder(fordelBGPerioder, bgPerioder);
 };

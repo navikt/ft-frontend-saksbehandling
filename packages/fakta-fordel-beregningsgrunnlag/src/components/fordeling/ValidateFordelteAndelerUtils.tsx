@@ -13,15 +13,14 @@ import {
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
-const convertToNumber = (n: string): number =>
-  n === null || n === undefined ? null : Number(removeSpacesFromNumber(n));
+const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
 
 type Refusjonsinfo = {
-  arbeidsforholdId: string;
-  eksternArbeidsforholdId: string;
-  arbeidsgiverNavn: string;
-  arbeidsgiverId: string;
-  refusjonskravFraInntektsmelding: number;
+  arbeidsforholdId?: string;
+  eksternArbeidsforholdId?: string;
+  arbeidsgiverNavn?: string;
+  arbeidsgiverId?: string;
+  refusjonskravFraInntektsmelding?: number;
   totalRefusjon: number;
 };
 
@@ -30,10 +29,10 @@ export const ulikeAndelerErrorMessage = (intl: IntlShape): string =>
 
 type Andelsnøkkel = {
   erNyAndel: boolean;
-  aktivitetstatus: string;
-  arbeidsgiverIdent: string;
-  arbeidsforholdId: string;
-  inntektskategori: string;
+  aktivitetstatus?: string;
+  arbeidsgiverIdent?: string;
+  arbeidsforholdId?: string;
+  inntektskategori?: string;
 };
 
 const erLikeFields = (field1: Andelsnøkkel, field2: Andelsnøkkel): boolean =>
@@ -52,8 +51,16 @@ const erIListe = (andelerÅSjekkeMot: Andelsnøkkel[], andelÅSjekke: Andelsnøk
   return false;
 };
 
-const finnEksisterendeField = (fields: FordelBeregningsgrunnlagAndelValues[], andelsnr: number) =>
-  fields.find(f => f.andelsnr === andelsnr);
+const finnEksisterendeField = (
+  fields: FordelBeregningsgrunnlagAndelValues[],
+  andelsnr: number,
+): FordelBeregningsgrunnlagAndelValues => {
+  const matchetField = fields.find(f => f.andelsnr === andelsnr);
+  if (!matchetField) {
+    throw new Error(`Finner ikke field med andelsnr ${andelsnr}`);
+  }
+  return matchetField;
+};
 
 const lagAndelsnøkler = (
   vilkårperiodeFieldIndex: number,
@@ -61,10 +68,10 @@ const lagAndelsnøkler = (
   fieldName: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
 ): Andelsnøkkel[] => {
-  const liste = [];
+  const liste: Andelsnøkkel[] = [];
   for (let fieldIndex = 0; fieldIndex < fields.length; fieldIndex += 1) {
     const field = fields[fieldIndex];
-    if (field.nyAndel) {
+    if (field.nyAndel && (field.andelsnrRef || field.andelsnrRef === 0)) {
       const eksisterendeField = finnEksisterendeField(fields, field.andelsnrRef);
       liste.push({
         erNyAndel: field.nyAndel,
@@ -94,7 +101,7 @@ export const validateUlikeAndeler = (
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
   intl: IntlShape,
-) => {
+): string | undefined => {
   const nøklerAvAndeler = lagAndelsnøkler(vilkårperiodeFieldIndex, getValues, fieldname, fields);
   const andelerSomErSjekket = [];
   for (let i = 0; i < nøklerAvAndeler.length; i += 1) {
@@ -104,7 +111,7 @@ export const validateUlikeAndeler = (
     }
     andelerSomErSjekket.push(andel);
   }
-  return null;
+  return undefined;
 };
 
 const finnArbeidsforholdRefusjonsinfoListe = (
@@ -113,7 +120,7 @@ const finnArbeidsforholdRefusjonsinfoListe = (
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
 ): Refusjonsinfo[] => {
-  const arbeidsforholdRefusjonsbelop = [];
+  const arbeidsforholdRefusjonsbelop: Refusjonsinfo[] = [];
   fields.forEach((field, index) => {
     if (field.arbeidsforholdId !== '') {
       const infoIndex = arbeidsforholdRefusjonsbelop.findIndex(
@@ -125,7 +132,11 @@ const finnArbeidsforholdRefusjonsinfoListe = (
       );
       if (infoIndex >= 0) {
         const belopsInfo = arbeidsforholdRefusjonsbelop[infoIndex];
-        if (belopsInfo.refusjonskravFraInntektsmelding < field.refusjonskravFraInntektsmelding) {
+        if (
+          (field.refusjonskravFraInntektsmelding || field.refusjonskravFraInntektsmelding === 0) &&
+          (belopsInfo.refusjonskravFraInntektsmelding || belopsInfo.refusjonskravFraInntektsmelding === 0) &&
+          belopsInfo.refusjonskravFraInntektsmelding < field.refusjonskravFraInntektsmelding
+        ) {
           arbeidsforholdRefusjonsbelop[infoIndex].refusjonskravFraInntektsmelding =
             field.refusjonskravFraInntektsmelding;
         }
@@ -173,7 +184,7 @@ export const validateTotalRefusjonPrArbeidsforhold = (
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   intl: IntlShape,
-) => {
+): string | undefined => {
   const arbeidsforholdRefusjonsinfo = finnArbeidsforholdRefusjonsinfoListe(
     vilkårperiodeFieldIndex,
     getValues,
@@ -181,13 +192,17 @@ export const validateTotalRefusjonPrArbeidsforhold = (
     fields,
   );
   const arbeidsforholdMedForHogRefusjon = arbeidsforholdRefusjonsinfo.filter(
-    refusjonsInfo => refusjonsInfo.totalRefusjon > refusjonsInfo.refusjonskravFraInntektsmelding,
+    refusjonsInfo =>
+      (refusjonsInfo.refusjonskravFraInntektsmelding || refusjonsInfo.refusjonskravFraInntektsmelding === 0) &&
+      refusjonsInfo.totalRefusjon > refusjonsInfo.refusjonskravFraInntektsmelding,
   );
   if (arbeidsforholdMedForHogRefusjon.length > 0) {
-    const agOpplysninger = arbeidsgiverOpplysningerPerId[arbeidsforholdMedForHogRefusjon[0].arbeidsgiverId];
+    const agOpplysninger = arbeidsforholdMedForHogRefusjon[0].arbeidsgiverId
+      ? arbeidsgiverOpplysningerPerId[arbeidsforholdMedForHogRefusjon[0].arbeidsgiverId]
+      : undefined;
     let arbeidsgiverString;
     if (!agOpplysninger) {
-      arbeidsgiverString = arbeidsforholdMedForHogRefusjon[0].arbeidsgiverNavn;
+      arbeidsgiverString = arbeidsforholdMedForHogRefusjon[0].arbeidsgiverNavn || '';
     } else {
       arbeidsgiverString = createVisningsnavnForAktivitetFordeling(
         agOpplysninger,
@@ -196,19 +211,23 @@ export const validateTotalRefusjonPrArbeidsforhold = (
     }
     return skalIkkjeVereHoegereEnnRefusjonFraInntektsmelding(arbeidsgiverString, intl);
   }
-  return null;
+  return undefined;
 };
 
-export const skalVereLikFordelingMessage = (fordeling: string, intl: IntlShape): string =>
-  intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.LikFordeling' }, { fordeling });
+export const skalVereLikFordelingMessage = (fordeling: string | undefined, intl: IntlShape): string | undefined =>
+  fordeling
+    ? intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.LikFordeling' }, { fordeling })
+    : undefined;
 
 export const kanIkkjeHaNullBeregningsgrunnlagError = (intl: IntlShape): string =>
   intl.formatMessage({ id: 'FordelBeregningsgrunnlag.Validation.KanIkkeHaNullIBeregningsgrunnlag' });
 
-export const totalRefusjonMåVereLavereEnn = (seksG: string, intl: IntlShape): string =>
-  intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.TotalRefusjonSkalIkkeOverstige' }, { seksG });
+export const totalRefusjonMåVereLavereEnn = (seksG: string | undefined, intl: IntlShape): string | undefined =>
+  seksG
+    ? intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.TotalRefusjonSkalIkkeOverstige' }, { seksG })
+    : undefined;
 
-const totalRefusjonSkalVereLavereEnn = (value: number, seksG: number, intl: IntlShape): string =>
+const totalRefusjonSkalVereLavereEnn = (value: number, seksG: number, intl: IntlShape): string | undefined =>
   value >= Math.round(seksG) ? totalRefusjonMåVereLavereEnn(formatCurrencyNoKr(seksG), intl) : undefined;
 
 export const totalFordelingForMåVæreLavereEnn = (seksG: string, andelsliste: string, intl: IntlShape): string =>
@@ -226,11 +245,13 @@ const totalFordelingSkalVereLavereEnn = (
   beskrivendeString: string,
   errorMessage: (seksG: string, andelsliste: string, intl: IntlShape) => string,
   intl: IntlShape,
-): string =>
-  value >= Math.round(seksG) ? errorMessage(formatCurrencyNoKr(seksG), beskrivendeString, intl) : undefined;
+): string | undefined =>
+  value >= Math.round(seksG) ? errorMessage(formatCurrencyNoKr(seksG) as string, beskrivendeString, intl) : undefined;
 
-export const likFordeling = (value: number, fordeling: number, intl: IntlShape): string =>
-  value !== Math.round(fordeling) ? skalVereLikFordelingMessage(formatCurrencyNoKr(Math.round(fordeling)), intl) : null;
+export const likFordeling = (value: number, fordeling: number, intl: IntlShape): string | undefined =>
+  value !== Math.round(fordeling)
+    ? skalVereLikFordelingMessage(formatCurrencyNoKr(Math.round(fordeling)), intl)
+    : undefined;
 
 const validateFordelingForGradertAndel = (
   vilkårperiodeFieldIndex: number,
@@ -267,11 +288,11 @@ export const validerBGGraderteAndeler = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   periodeFom: string,
   intl: IntlShape,
-) => {
+): string | undefined => {
   const finnesUgyldigAndel = fields.some((field, index) =>
     validateFordelingForGradertAndel(vilkårperiodeFieldIndex, intl, field, periodeFom, getValues, fieldname, index),
   );
-  return finnesUgyldigAndel ? kanIkkjeHaNullBeregningsgrunnlagError(intl) : null;
+  return finnesUgyldigAndel ? kanIkkjeHaNullBeregningsgrunnlagError(intl) : undefined;
 };
 
 export const validateSumFastsattBelop = (
@@ -281,11 +302,11 @@ export const validateSumFastsattBelop = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   fordeling: number,
   intl: IntlShape,
-) => {
+): string | undefined => {
   const sumFastsattBelop = fields
     .map((field, index) => mapToBelop(vilkårperiodeFieldIndex, field, fieldname, getValues, index))
     .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
-  return fordeling !== undefined && fordeling !== null ? likFordeling(sumFastsattBelop, fordeling, intl) : null;
+  return fordeling !== undefined && fordeling !== null ? likFordeling(sumFastsattBelop, fordeling, intl) : undefined;
 };
 
 const finnFastsattRefusjon = (
@@ -308,7 +329,7 @@ export const validateSumRefusjon = (
   getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
   grunnbeløp: number,
   intl: IntlShape,
-) => {
+): string | undefined => {
   const harGraderingUtenRefusjon = !!fields.find(
     (v, index) =>
       v.andelIArbeid !== '0.00' && finnFastsattRefusjon(vilkårperiodeFieldIndex, v, fieldname, index, getValues) === 0,
@@ -317,7 +338,7 @@ export const validateSumRefusjon = (
     .map((field, index) => finnFastsattRefusjon(vilkårperiodeFieldIndex, field, fieldname, index, getValues))
     .reduce((sum, refusjonskrav) => sum + refusjonskrav, 0);
   const seksG = 6 * grunnbeløp;
-  return harGraderingUtenRefusjon ? totalRefusjonSkalVereLavereEnn(sumRefusjon, seksG, intl) : null;
+  return harGraderingUtenRefusjon ? totalRefusjonSkalVereLavereEnn(sumRefusjon, seksG, intl) : undefined;
 };
 
 const lagBeskrivendeStringAvStatuser = (
@@ -339,7 +360,7 @@ const finnFastsattBeløpForStatus = (
 ): number =>
   fields
     .map((field, index) => {
-      if (!statuser.includes(field.aktivitetStatus)) {
+      if (field.aktivitetStatus && !statuser.includes(field.aktivitetStatus)) {
         return 0;
       }
       return mapToBelop(vilkårperiodeFieldIndex, field, fieldname, getValues, index);
@@ -354,7 +375,7 @@ const validateSumFastsattArbeidstaker = (
   seksG: number,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   intl: IntlShape,
-): string => {
+): string | undefined => {
   const statuserSomValideres = [AktivitetStatus.ARBEIDSTAKER];
   const sumFastsattBelop = finnFastsattBeløpForStatus(
     vilkårperiodeFieldIndex,
@@ -381,7 +402,7 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
   seksG: number,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   intl: IntlShape,
-): string => {
+): string | undefined => {
   const statuserSomPrioriteresOverSN = [
     AktivitetStatus.ARBEIDSTAKER,
     AktivitetStatus.FRILANSER,
@@ -389,8 +410,8 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
     AktivitetStatus.ARBEIDSAVKLARINGSPENGER,
   ] as string[];
   const statuserSomValideres = fields
-    .filter(v => statuserSomPrioriteresOverSN.includes(v.aktivitetStatus))
-    .map(v => v.aktivitetStatus);
+    .filter(v => !!v.aktivitetStatus && statuserSomPrioriteresOverSN.includes(v.aktivitetStatus))
+    .map(v => v.aktivitetStatus) as string[]; // Trenger en as string her siden ts ikke ser at v.aktivitetStatus alltid er definert
   const sumFastsattBelop = finnFastsattBeløpForStatus(
     vilkårperiodeFieldIndex,
     getValues,
@@ -416,7 +437,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
   intl: IntlShape,
   grunnbeløp: number,
   getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-) => {
+): string | undefined => {
   const skalGradereFL = !!fields.find(
     v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.FRILANSER,
   );
@@ -446,5 +467,5 @@ export const validateSumFastsattForUgraderteAktiviteter = (
       intl,
     );
   }
-  return null;
+  return undefined;
 };

@@ -1,6 +1,6 @@
 import { createFordelArbeidsforholdString, textCase } from './FordelingHelpText';
 
-const fn = kode => {
+const fn = (kode: string): string => {
   if (kode === 'AAP') {
     return 'Arbeidsavklaringspenger';
   }

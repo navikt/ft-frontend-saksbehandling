@@ -14,7 +14,7 @@ const likeAndelerFeilmelding = 'Andeler for samme aktivitet må ha ulik inntekts
 const refusjonHøyereEnnKravFeilmelding = 'Total refusjon for  kan ikke være høyere enn beløpet fra inntektsmeldingen.';
 const gradertAndelMåVæreFordeltMerEnn0Feilmelding = 'Fastsatt beløp for gradert andel må være høyere enn 0.';
 
-const getKodeverknavn = kode => {
+const getKodeverknavn = (kode: string): string => {
   if (kode === 'AAP') {
     return 'Arbeidsavklaringspenger';
   }
@@ -78,7 +78,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi feil om det er lagt til identisk andel', () => {
@@ -150,7 +150,7 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi feil om det er lagt til andel med samme inntektskategori uten arbeid', () => {
@@ -248,7 +248,7 @@ describe('<ValidateAndelerUtils>', () => {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.3.inntektskategori':
           return 'FRILANS';
         default:
-          return null;
+          return '';
       }
     }) as any;
 
@@ -284,12 +284,12 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
           return 250000;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -302,7 +302,7 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi feil når total refusjon er høyere enn inntektsmeldingen', () => {
@@ -327,12 +327,12 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
           return 250001;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -352,13 +352,17 @@ describe('<ValidateAndelerUtils>', () => {
     const andeler = [
       {
         andelsnr: 2,
+        fordelingForrigeBehandling: '',
+        fastsattBelop: '',
+        skalRedigereInntekt: false,
         andel: 'Frilans',
         nyAndel: false,
+        kilde: 'PROSESS_START',
         lagtTilAvSaksbehandler: false,
         aktivitetStatus: 'FL',
-        refusjonskrav: null,
+        refusjonskrav: undefined,
         refusjonskravFraInntektsmelding: 0,
-      },
+      } as FordelBeregningsgrunnlagAndelValues,
     ];
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
@@ -370,7 +374,7 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal validere at hele beløpet er fordelt', () => {
@@ -397,14 +401,14 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 300000;
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 200000;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -416,7 +420,7 @@ describe('<ValidateAndelerUtils>', () => {
       500000,
       intlMock,
     );
-    expect(validateFastsattBeløp).toBe(null);
+    expect(validateFastsattBeløp).toBe(undefined);
   });
 
   it('skal gi feil når total fordeling er større enn tillatt beløp', () => {
@@ -443,14 +447,14 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 300000;
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 300000;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -491,14 +495,14 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 1;
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 499999;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -510,7 +514,7 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(undefined);
   });
 
   it('skal gi feil når gradert andel har 0 i fordelt beløp', () => {
@@ -539,14 +543,14 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 500000;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -587,14 +591,14 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 500000;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -606,7 +610,7 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(undefined);
   });
 
   it('skal tillate 0 i fordeling på andeler som ikke skal graderes', () => {
@@ -635,14 +639,14 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number => {
+    const getValues = jest.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
           return 500000;
         default:
-          return null;
+          return undefined;
       }
     }) as any;
 
@@ -654,6 +658,6 @@ describe('<ValidateAndelerUtils>', () => {
       '2022-04-21',
       intlMock,
     );
-    expect(verifiserGraderteAndeler).toBe(null);
+    expect(verifiserGraderteAndeler).toBe(undefined);
   });
 });
