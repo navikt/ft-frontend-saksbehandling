@@ -16,9 +16,9 @@ import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import SubmitBeregningType from '../../typer/interface/SubmitBeregningTsType';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 
-const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
+const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 

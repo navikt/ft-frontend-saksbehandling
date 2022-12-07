@@ -1,8 +1,8 @@
 import { Aksjonspunkt } from '@navikt/ft-types';
 import { harIkkeEndringerIAvklarMedFlereAksjonspunkter } from './VurderFaktaBeregningField';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 
-const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
+const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
 describe('<VurderFaktaBeregningField>', () => {
   it('skal returnere true for endring i avklar med kun avklar aksjonspunkt', () => {

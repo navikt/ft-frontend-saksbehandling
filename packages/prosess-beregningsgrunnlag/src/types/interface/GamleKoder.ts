@@ -1,4 +1,4 @@
-enum ProsessBeregningsgrunnlagAksjonspunktCode {
+enum ProsessBeregningsgrunnlagAvklaringsbehovCode {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS = '5038',
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE = '5039',
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON = '5054',
@@ -8,4 +8,4 @@ enum ProsessBeregningsgrunnlagAksjonspunktCode {
   VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG = '5050',
 }
 
-export default ProsessBeregningsgrunnlagAksjonspunktCode;
+export default ProsessBeregningsgrunnlagAvklaringsbehovCode;

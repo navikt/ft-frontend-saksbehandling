@@ -5,7 +5,7 @@ const beregningsgrunnlag = [
   {
     avklaringsbehov: [
       {
-        definisjon: '5046',
+        definisjon: 'FORDEL_BG',
         status: 'OPPR',
         kanLoses: true,
       },
@@ -13,7 +13,6 @@ const beregningsgrunnlag = [
     skjaeringstidspunktBeregning: '2021-06-28',
     vilkårsperiodeFom: '2021-06-28',
     aktivitetStatus: ['SN'],
-    inntektsgrunnlag: null,
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPeriodeFom: '2021-06-28',

@@ -1,11 +1,11 @@
-import React, { FunctionComponent, ReactElement, useEffect } from 'react';
+import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react';
 import { Heading } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {
   AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
@@ -27,7 +27,7 @@ import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
 import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
-import ProsessBeregningsgrunnlagAksjonspunktCode from '../../types/interface/ProsessBeregningsgrunnlagAksjonspunktCode';
+import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 import styles from './aksjonspunktBehandler.less';
 import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
@@ -48,7 +48,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-} = ProsessBeregningsgrunnlagAksjonspunktCode;
+} = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 const defaultFormName = 'BeregningForm';
 
@@ -211,7 +211,7 @@ const settOppKomponenterForNæring = (
   );
   const erNyArbLivet = snAndel && snAndel.erNyIArbeidslivet;
   const erVarigEndring =
-    avklaringsbehov.definisjon === ProsessBeregningsgrunnlagAksjonspunktCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
+    avklaringsbehov.definisjon === ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
     (snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erVarigEndret === true));
   const erNyoppstartet = snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
   if (!erNyArbLivet && !erNyoppstartet && !erVarigEndring) {
@@ -514,9 +514,18 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     control,
   });
 
+  const panelRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (isSubmitted && dirtyFields[formName]?.[aktivIndex]) {
       trigger();
+    }
+    const aktivtBG = beregningsgrunnlagListe[aktivIndex];
+    if (
+      aktivtBG.avklaringsbehov.some(
+        ak => gjelderForParagraf(ak, lovparagraf) && ak.status === AksjonspunktStatus.OPPRETTET,
+      )
+    ) {
+      panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     }
   }, [aktivIndex]);
 
@@ -562,25 +571,27 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   const aktivtStp = beregningsgrunnlagListe[aktivIndex].vilkårsperiodeFom;
 
   return (
-    <Form
-      formMethods={formMethods}
-      onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
-      setDataOnUnmount={setFormData}
-    >
-      {fields.map((field, index) => (
-        <div
-          key={field.id}
-          style={{ display: bgSomSkalVurderes[index].vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
-        >
-          <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder}>
-            {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
-            <VerticalSpacer sixteenPx />
-            {submittKnapp}
-            <VerticalSpacer sixteenPx />
+    <div ref={panelRef}>
+      <Form
+        formMethods={formMethods}
+        onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
+        setDataOnUnmount={setFormData}
+      >
+        {fields.map((field, index) => (
+          <div
+            key={field.id}
+            style={{ display: bgSomSkalVurderes[index].vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
+          >
+            <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder}>
+              {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
+              <VerticalSpacer sixteenPx />
+              {submittKnapp}
+              <VerticalSpacer sixteenPx />
+            </div>
           </div>
-        </div>
-      ))}
-    </Form>
+        ))}
+      </Form>
+    </div>
   );
 };
 

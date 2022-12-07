@@ -1,32 +1,32 @@
 import AvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
-import FaktaFordelBeregningAksjonspunktCode from './FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type FordelBeregningsgrunnlagFastsatteVerdierTransformedValues = {
-  refusjonPrÅr: number;
+  refusjonPrÅr?: number;
   fastsattÅrsbeløpInklNaturalytelse: number;
   inntektskategori: string;
 };
 
 export type FordelBeregningsgrunnlagAndelTransformedValues = {
   andelsnr: number | string;
-  aktivitetStatus: string;
-  arbeidsgiverId: string;
-  arbeidsforholdId: string;
+  aktivitetStatus?: string;
+  arbeidsgiverId?: string;
+  arbeidsforholdId?: string;
   nyAndel: boolean;
-  kilde: string;
+  kilde?: string;
   lagtTilAvSaksbehandler: boolean;
-  arbeidsforholdType: string;
-  beregningsperiodeTom: string;
-  beregningsperiodeFom: string;
-  forrigeArbeidsinntektPrÅr: number;
-  forrigeRefusjonPrÅr: number;
-  forrigeInntektskategori: string;
+  arbeidsforholdType?: string;
+  beregningsperiodeTom?: string;
+  beregningsperiodeFom?: string;
+  forrigeArbeidsinntektPrÅr?: number;
+  forrigeRefusjonPrÅr?: number;
+  forrigeInntektskategori?: string;
   fastsatteVerdier: FordelBeregningsgrunnlagFastsatteVerdierTransformedValues;
 };
 
 export type FordelBeregningsgrunnlagPeriodeTransformedValues = {
   fom: string;
-  tom: string;
+  tom?: string;
   andeler: FordelBeregningsgrunnlagAndelTransformedValues[];
 };
 
@@ -35,7 +35,7 @@ export type FordelBeregningsgrunnlagPerioderTransformedValues = {
 };
 
 type FordelBeregningsgrunnlagAP = AvklaringsbehovTilBekreftelse<
-  FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+  FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
   FordelBeregningsgrunnlagPerioderTransformedValues
 >;
 

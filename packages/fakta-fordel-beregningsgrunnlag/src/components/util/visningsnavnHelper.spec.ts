@@ -14,7 +14,7 @@ const andelMedAlt = {
 
 describe('visningsnavnHelper', () => {
   it('skal lage visningsnavn når vi mangler arbeidsforholdId', () => {
-    const arbeidsgiverNavnOrgnr = createVisningsnavnForAktivitetFordeling(andelUtenArbeidsforholdId, null);
+    const arbeidsgiverNavnOrgnr = createVisningsnavnForAktivitetFordeling(andelUtenArbeidsforholdId);
     expect(arbeidsgiverNavnOrgnr).toBe('Andeby bank (321)');
   });
 

@@ -63,7 +63,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for fordeling',
-      kode: '5046',
+      kode: 'FORDEL_BG',
       grunnlag: [
         {
           periode: {
@@ -90,7 +90,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
                   forrigeRefusjonPrÅr: 0,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -110,7 +110,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSTAKER',
                   forrigeRefusjonPrÅr: 0,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -138,7 +138,10 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     // Andre skjæringstidspunkt
 
     expect(
-      await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
+      await screen.getAllByText(
+        'Vurder om beregningsgrunnlaget skal flyttes til ny aktivitet eller fordeles mellom aktivitetene.',
+        { exact: false },
+      )[0],
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
@@ -166,7 +169,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for fordeling',
-      kode: '5046',
+      kode: 'FORDEL_BG',
       grunnlag: [
         {
           periode: {
@@ -180,20 +183,20 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                 {
                   aktivitetStatus: 'AAP',
                   andelsnr: 2,
-                  arbeidsforholdId: null,
+                  arbeidsforholdId: undefined,
                   arbeidsforholdType: '-',
-                  arbeidsgiverId: null,
+                  arbeidsgiverId: undefined,
                   beregningsperiodeFom: '2019-06-01',
                   beregningsperiodeTom: '2019-08-31',
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 100000,
                     inntektskategori: 'ARBEIDSAVKLARINGSPENGER',
-                    refusjonPrÅr: null,
+                    refusjonPrÅr: undefined,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
                   forrigeRefusjonPrÅr: 0,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -208,12 +211,12 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 200000,
                     inntektskategori: 'ARBEIDSTAKER',
-                    refusjonPrÅr: null,
+                    refusjonPrÅr: undefined,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSTAKER',
                   forrigeRefusjonPrÅr: 300000,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -308,7 +311,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for fordeling En helt annen begrunnelse for fordeling',
-      kode: '5046',
+      kode: 'FORDEL_BG',
       grunnlag: [
         {
           periode: {
@@ -335,7 +338,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
                   forrigeRefusjonPrÅr: 0,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -355,7 +358,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSTAKER',
                   forrigeRefusjonPrÅr: 300000,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -390,7 +393,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
                   forrigeRefusjonPrÅr: 0,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -410,7 +413,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSTAKER',
                   forrigeRefusjonPrÅr: 300000,
-                  kilde: null,
+                  kilde: undefined,
                   lagtTilAvSaksbehandler: false,
                   nyAndel: false,
                 },
@@ -453,7 +456,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for refusjonsdato',
-      kode: '5059',
+      kode: 'VURDER_REFUSJONSKRAV',
       grunnlag: [
         {
           periode: {
@@ -465,7 +468,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
             {
               arbeidsgiverAktoerId: '999999998',
               arbeidsgiverOrgnr: undefined,
-              delvisRefusjonPrMndFørStart: null,
+              delvisRefusjonPrMndFørStart: undefined,
               fastsattRefusjonFom: '2020-07-01',
               internArbeidsforholdRef: undefined,
             },
@@ -510,7 +513,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Begrunnelse for refusjonsdato',
-      kode: '5059',
+      kode: 'VURDER_REFUSJONSKRAV',
       grunnlag: [
         {
           periode: {

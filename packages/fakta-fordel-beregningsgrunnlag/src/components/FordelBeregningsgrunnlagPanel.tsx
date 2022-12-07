@@ -16,10 +16,10 @@ import {
   FordelBeregningsgrunnlagFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../types/interface/FaktaFordelBeregningAksjonspunktCode';
 import TilkommetAktivitet from './tilkommetAktivitet/TilkommetAktivitet';
+import FaktaFordelBeregningAvklaringsbehovCode from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const harFordelInfo = (bg: Beregningsgrunnlag): boolean =>
   bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false;
@@ -40,7 +40,6 @@ interface OwnProps {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues;
   setFormData: (data: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues) => void;
@@ -58,7 +57,6 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   beregningsgrunnlagListe,
   vilkarperioder,
   alleKodeverk,
-  behandlingType,
   submittable,
   arbeidsgiverOpplysningerPerId,
   formData,
@@ -98,7 +96,6 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
           submitCallback={submitCallback}
           alleKodeverk={alleKodeverk}
           beregningsgrunnlagListe={beregningsgrunnlagListe}
-          behandlingType={behandlingType}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           formData={formData as FordelBeregningsgrunnlagFormValues}
           setFormData={setFormData}

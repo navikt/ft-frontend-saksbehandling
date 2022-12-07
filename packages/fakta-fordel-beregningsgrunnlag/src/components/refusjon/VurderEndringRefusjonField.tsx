@@ -16,7 +16,7 @@ import { Heading } from '@navikt/ds-react';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import SubmitButton from '../felles/SubmitButton';
@@ -24,12 +24,15 @@ import SubmitButton from '../felles/SubmitButton';
 const BEGRUNNELSE_FIELD = 'VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE';
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
-const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAksjonspunktCode;
+const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const finnAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov ? avklaringsbehov.find(ap => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined;
 
 const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
+  if (!andel.arbeidsgiver) {
+    return `${andel.aktivitetStatus}${andel.internArbeidsforholdRef})`;
+  }
   if (andel.arbeidsgiver.arbeidsgiverAktørId) {
     return `${andel.arbeidsgiver.arbeidsgiverAktørId}${andel.internArbeidsforholdRef})`;
   }
@@ -40,7 +43,7 @@ export const buildFieldInitialValues = (
   bg: Beregningsgrunnlag,
   vilkårsperiode: Vilkarperiode,
 ): VurderRefusjonFieldValues => {
-  const { andeler } = bg.refusjonTilVurdering;
+  const andeler = bg.refusjonTilVurdering?.andeler || [];
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
   let initialValues = {
     periode: vilkårsperiode.periode,
@@ -59,7 +62,7 @@ export const transformFieldValues = (
   values: VurderRefusjonFieldValues,
   bg: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
-  const { andeler } = bg.refusjonTilVurdering;
+  const andeler = bg.refusjonTilVurdering?.andeler || [];
   const transformedAndeler = andeler.map(andel =>
     VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),
   );
@@ -85,16 +88,14 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   vilkårperiodeFieldIndex,
 }) => {
-  const { andeler } = beregningsgrunnlag.refusjonTilVurdering;
+  const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
   const ap = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
   const formMethods = formHooks.useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
     <>
-      <AksjonspunktHelpTextTemp
-        isAksjonspunktOpen={isAksjonspunktOpen(finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov).status)}
-      >
+      <AksjonspunktHelpTextTemp isAksjonspunktOpen={erAksjonspunktÅpent}>
         {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
       </AksjonspunktHelpTextTemp>
       <VerticalSpacer sixteenPx />

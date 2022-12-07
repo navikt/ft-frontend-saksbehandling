@@ -5,23 +5,33 @@ import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkar
 
 import FordelBeregningsgrunnlagAP from '../../types/interface/FordelBeregningsgrunnlagAP';
 import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAksjonspunktCode from '../../types/interface/FaktaFordelBeregningAksjonspunktCode';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import FordelingField, {
   buildFieldInitialValuesFordelBeregning,
   transformFieldValuesFordelBeregning,
 } from './FordelingField';
 
-const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAksjonspunktCode;
+const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
 export const FORM_NAME = 'FORDEL_BEREGNING_FORM';
 
 const finnBeregningsgrunnlag = (
   vilkårsperiodeFom: string,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
-): Beregningsgrunnlag => beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+): Beregningsgrunnlag => {
+  const matchetndeBG = beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+  if (!matchetndeBG) {
+    throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+  }
+  return matchetndeBG;
+};
 
-function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
-  return vilkårsperioder.find(p => p.periode.fom === vilkårsperiodeFom);
+function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string): Vilkarperiode {
+  const periode = vilkårsperioder.find(p => p.periode.fom === vilkårsperiodeFom);
+  if (!periode) {
+    throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+  }
+  return periode;
 }
 
 function vurderesIBehandlingen(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
@@ -56,7 +66,7 @@ const buildInitialValues = (
   [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
     buildFieldInitialValuesFordelBeregning(
       bg,
-      vilkårsperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom),
+      finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom),
       arbeidsgiverOpplysningerPerId,
       alleKodeverk,
     ),
@@ -71,7 +81,6 @@ interface PureOwnProps {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkårsperioder: Vilkarperiode[];
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues;
   setFormData: (data: FordelBeregningsgrunnlagFormValues) => void;
@@ -90,7 +99,6 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
   beregningsgrunnlagListe,
   vilkårsperioder,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
@@ -136,7 +144,6 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
               readOnly || !vurderesIBehandlingen(vilkårsperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
             }
             beregningsgrunnlag={beregningsgrunnlagListe[index]}
-            behandlingType={behandlingType}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             alleKodeverk={alleKodeverk}
             fieldIndex={index}

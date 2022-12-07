@@ -15,8 +15,9 @@ import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.less';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
-import FaktaBeregningAksjonspunktCode from './typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
+import mapAvklaringsbehovKode from './typer/interface/AvklaringsbehovMapping';
 
 const intl = createIntl(messages);
 
@@ -31,7 +32,7 @@ type OwnProps = {
   skalKunneAvbryteOverstyring?: boolean;
 };
 
-const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAksjonspunktCode;
+const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const lagLabel = (bg, vilkårsperioder) => {
   const stpOpptjening = bg.vilkårsperiodeFom;
@@ -71,6 +72,19 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsT
 
 type AksjonspunktDataDef = SubmitBeregningType[];
 
+function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
+  const res = [...beregningsgrunnlag];
+  for (let i = 0; i < res.length; i += 1) {
+    const bg = res[i];
+    for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
+      const a = bg.avklaringsbehov[j];
+      // @ts-ignore
+      a.definisjon = mapAvklaringsbehovKode(a.definisjon);
+    }
+  }
+  return res;
+}
+
 const BeregningFaktaIndex: FunctionComponent<
   OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>
 > = ({
@@ -90,9 +104,12 @@ const BeregningFaktaIndex: FunctionComponent<
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
+
+  const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag);
+
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
-  const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
+  const aktivtBeregningsgrunnlag = konverterteBg[aktivtBeregningsgrunnlagIndeks];
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
   const vilkårsperioder = vilkar.perioder;
@@ -102,7 +119,7 @@ const BeregningFaktaIndex: FunctionComponent<
       {skalBrukeTabs && (
         <div className={styles.tabsContainer}>
           <TabsPure
-            tabs={beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
+            tabs={konverterteBg.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
               aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
               label: lagLabel(currentBeregningsgrunnlag, vilkårsperioder),
               className: skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : '',
@@ -113,7 +130,7 @@ const BeregningFaktaIndex: FunctionComponent<
       )}
       <BeregningInfoPanel
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-        beregningsgrunnlag={beregningsgrunnlag}
+        beregningsgrunnlag={konverterteBg}
         alleKodeverk={alleKodeverk}
         avklaringsbehov={aktiveAvklaringsBehov}
         submitCallback={submitCallback}

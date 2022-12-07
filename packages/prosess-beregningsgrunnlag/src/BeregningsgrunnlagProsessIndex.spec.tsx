@@ -17,6 +17,9 @@ const {
   ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038,
 } = composeStories(stories);
 
+const scrollIntoViewMock = jest.fn();
+window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
+
 describe('<BeregningsgrunnlagProsessIndex>', () => {
   jest.setTimeout(15000);
 
@@ -42,11 +45,11 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('0%')).toBeInTheDocument();
 
     // Beregningsresultat
-    expect(screen.getByText('Beregningsgrunnlag - beregnet årsinntekt arbeid')).toBeInTheDocument();
-    expect(screen.getByText('Redusert til 80% dekningsgrad')).toBeInTheDocument();
-    expect(screen.getByText('Dagsats (360 000/260 dager)')).toBeInTheDocument();
-    expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt frilans')).not.toBeInTheDocument();
-    expect(screen.queryByText('Beregningsgrunnlag - beregnet årsinntekt næring')).not.toBeInTheDocument();
+    expect(screen.getByText('Fastsatt årsinntekt arbeid')).toBeInTheDocument();
+    expect(screen.getByText('Årsinntekt redusert til 80% dekningsgrad')).toBeInTheDocument();
+    expect(screen.getByText('Dagsats (årsinntekt/260 dager)')).toBeInTheDocument();
+    expect(screen.queryByText('Fastsatt årsinntekt frilans')).not.toBeInTheDocument();
+    expect(screen.queryByText('Fastsatt årsinntekt næring')).not.toBeInTheDocument();
   });
 
   it('skal bekrefte aksjonspunkt for avvik', async () => {
@@ -95,7 +98,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             inntektFrilanser: null,
           },
         ],
-        kode: '5038',
+        kode: 'FASTSETT_BG_AT_FL',
       },
     ]);
   });
@@ -160,7 +163,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             erVarigEndret: true,
           },
         ],
-        kode: '5039',
+        kode: 'VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN',
       },
     ]);
   });
@@ -213,7 +216,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             erVarigEndret: true,
           },
         ],
-        kode: '5054',
+        kode: 'VURDER_VARIG_ENDRT_ARB_SITSJN_MDL_INAKTV',
       },
     ]);
   });
@@ -261,7 +264,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             bruttoBeregningsgrunnlag: 500000,
           },
         ],
-        kode: '5049',
+        kode: 'FASTSETT_BG_SN_NY_I_ARB_LIVT',
       },
     ]);
   });
@@ -341,7 +344,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           },
         ],
         begrunnelse: 'Min begrunnelse for tidsbegrenset inntekt',
-        kode: '5047',
+        kode: 'FASTSETT_BG_TB_ARB',
       },
     ]);
   });
@@ -363,8 +366,8 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getAllByText('5 000')).toHaveLength(2);
     expect(screen.getAllByText('250 000')).toHaveLength(2);
     expect(screen.getAllByText('100 000')).toHaveLength(2);
-    expect(screen.getAllByText('355 000')).toHaveLength(5);
-    expect(screen.getAllByText('4 500')).toHaveLength(3);
+    expect(screen.getAllByText('355 000')).toHaveLength(6);
+    expect(screen.getAllByText('4 500')).toHaveLength(4);
 
     expect(await screen.findByText('Beregning av dagsats')).toBeInTheDocument();
     expect(await screen.findByText('Periode 01.01.2021 - 16.01.2021')).toBeInTheDocument();
@@ -447,7 +450,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
           },
         ],
         begrunnelse: 'Min begrunnelse for vurdering av varig endring',
-        kode: '5039',
+        kode: 'VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN',
       },
     ]);
   });

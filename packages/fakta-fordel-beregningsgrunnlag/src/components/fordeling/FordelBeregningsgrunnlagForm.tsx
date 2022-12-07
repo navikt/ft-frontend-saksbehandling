@@ -26,14 +26,20 @@ import {
 const finnRiktigBgPeriode = (
   periode: FordelBeregningsgrunnlagPeriode,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
-): BeregningsgrunnlagPeriodeProp => bgPerioder.find(p => p.beregningsgrunnlagPeriodeFom === periode.fom);
+): BeregningsgrunnlagPeriodeProp => {
+  const matchetPeriode = bgPerioder.find(p => p.beregningsgrunnlagPeriodeFom === periode.fom);
+  if (!matchetPeriode) {
+    throw Error(`Finner ikke matchende beregningsgrunnlagperiode for fordelingsperiode med fom ${periode.fom}`);
+  }
+  return matchetPeriode;
+};
 
 export const transformPerioder = (
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   values: FordelBeregningsgrunnlagValues,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
 ): FordelBeregningsgrunnlagPeriodeTransformedValues[] => {
-  const fordelBeregningsgrunnlagPerioder = [];
+  const fordelBeregningsgrunnlagPerioder: FordelBeregningsgrunnlagPeriodeTransformedValues[] = [];
   const kombinertePerioder = slaaSammenPerioder(fordelBGPerioder, bgPerioder);
   for (let index = 0; index < kombinertePerioder.length; index += 1) {
     const { skalRedigereInntekt } = kombinertePerioder[index];
@@ -53,9 +59,8 @@ type OwnProps = {
   bgPerioder: BeregningsgrunnlagPeriodeProp[];
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  fieldIndex;
+  fieldIndex: number;
 };
 
 interface StaticFunctions {
@@ -85,15 +90,16 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
   bgPerioder,
   beregningsgrunnlag,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
   const [openPanels, setOpenPanels] = useState<string[]>([]);
+  const [fieldArrayToRepeat, setFieldArrayToRepeat] = useState('');
   useEffect(() => {
     const åpnePaneler = perioder
       .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
-      .map(periode => periode.fom);
+      .filter(periode => !!periode.fom)
+      .map(periode => periode.fom || ''); // Typscript forstår ikke at fom alltid vil være definert her, så må en hack til...
     setOpenPanels(åpnePaneler);
   }, [perioder]);
 
@@ -121,9 +127,10 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
             showPanel={showPanel}
             beregningsgrunnlag={beregningsgrunnlag}
             alleKodeverk={alleKodeverk}
-            behandlingType={behandlingType}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             fieldIndex={fieldIndex}
+            setFieldArrayToRepeat={setFieldArrayToRepeat}
+            fieldArrayToRepeat={fieldArrayToRepeat}
           />
           <VerticalSpacer eightPx />
         </React.Fragment>
@@ -150,7 +157,7 @@ FordelBeregningsgrunnlagForm.buildInitialValues = (
   if (!fordelBGPerioder) {
     return initialValues;
   }
-  const harKunYtelse = bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
+  const harKunYtelse = !!bg.aktivitetStatus && bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const bgPerioder = bg.beregningsgrunnlagPeriode;
   slaaSammenPerioder(fordelBGPerioder, bgPerioder).forEach((periode, index) => {
     const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);

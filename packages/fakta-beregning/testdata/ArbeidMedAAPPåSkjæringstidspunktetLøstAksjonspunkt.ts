@@ -6,13 +6,13 @@ export const beregningsgrunnlag = [
     aktivitetStatus: ['AT'],
     avklaringsbehov: [
       {
-        definisjon: '5052',
+        definisjon: 'AVKLAR_AKTIVITETER',
         status: 'UTFO',
         kanLoses: true,
         begrunnelse: 'En veldig god begrunnelse.',
       },
       {
-        definisjon: '5058',
+        definisjon: 'VURDER_FAKTA_ATFL_SN',
         status: 'OPPR',
         kanLoses: true,
       },
@@ -145,7 +145,7 @@ export const vilkar: Vilkar = {
 
 export const aksjonspunkt = [
   {
-    definisjon: '5052',
+    definisjon: 'AVKLAR_AKTIVITETER',
     status: 'UTFO',
     toTrinnsBehandling: true,
     aksjonspunktType: 'MANU',
@@ -154,7 +154,7 @@ export const aksjonspunkt = [
     begrunnelse: 'Denne begrunnelsen skal ikke vises.',
   },
   {
-    definisjon: '5058',
+    definisjon: 'VURDER_FAKTA_ATFL_SN',
     status: 'OPPR',
     toTrinnsBehandling: true,
     aksjonspunktType: 'MANU',

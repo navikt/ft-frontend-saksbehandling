@@ -14,23 +14,14 @@ import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
-const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] => {
-  if (
-    beregningsgrunnlag &&
-    beregningsgrunnlag.faktaOmFordeling &&
-    beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag
-  ) {
-    return beregningsgrunnlag.faktaOmFordeling.fordelBeregningsgrunnlag.fordelBeregningsgrunnlagPerioder;
-  }
-  return [];
-};
+const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
+  beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
 
 type OwnProps = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   alleKodeverk: AlleKodeverk;
-  behandlingType: string;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 };
@@ -54,7 +45,6 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
   readOnly,
   beregningsgrunnlag,
   alleKodeverk,
-  behandlingType,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
@@ -68,7 +58,6 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
       bgPerioder={bgPerioder}
       beregningsgrunnlag={beregningsgrunnlag}
       alleKodeverk={alleKodeverk}
-      behandlingType={behandlingType}
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       fieldIndex={fieldIndex}
     />

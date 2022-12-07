@@ -6,7 +6,6 @@ import { Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
   ArbeidsforholdTilFordeling,
-  Behandling,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -28,7 +27,7 @@ import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/Arbe
 import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import bgFlerePerioderMedHelg from '../testdata/FlerePerioderMedHelg';
 
-import { FaktaFordelBeregningAksjonspunktCode } from '..';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
 
@@ -87,15 +86,9 @@ const agOpplysninger = {
   },
 };
 
-const behandling = {
-  uuid: '1',
-  versjon: 1,
-  type: 'BT-003',
-} as Behandling;
-
 const fordelAP = [
   {
-    definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+    definisjon: FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
     status: 'OPPR',
     kanLoses: true,
   },
@@ -106,7 +99,7 @@ export default {
   component: FordelBeregningsgrunnlagFaktaIndex,
 };
 
-const lagVilkår = (perioder): Vilkar => ({
+const lagVilkår = (perioder: any[]): Vilkar => ({
   vilkarType: 'VK_41',
   overstyrbar: false,
   perioder: perioder.map(p => ({
@@ -125,7 +118,6 @@ const Template: Story<{
   vilkårsperioder?: any[];
 }> = ({ readOnly, beregningsgrunnlagListe, submitCallback, vilkårsperioder = null }) => (
   <FordelBeregningsgrunnlagFaktaIndex
-    behandlingType={behandling.type}
     beregningsgrunnlagListe={beregningsgrunnlagListe}
     beregningsgrunnlagVilkår={lagVilkår(
       vilkårsperioder ||
@@ -147,7 +139,7 @@ const Template: Story<{
 const lagBGAndel = (
   andelsnr: number,
   aktivitetstatuskode: string,
-  beregnet: number,
+  beregnet?: number,
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold,
 ): BeregningsgrunnlagAndel => ({
   aktivitetStatus: aktivitetstatuskode,
@@ -169,7 +161,7 @@ const lagBGPeriode = (
   const sum = andelsliste.reduce((acc, andel) => acc + (andel.beregnetPrAar ? andel.beregnetPrAar : 0), 0);
   return {
     beregningsgrunnlagPeriodeFom: fom,
-    beregningsgrunnlagPeriodeTom: tom,
+    beregningsgrunnlagPeriodeTom: tom || '9999-12-31',
     beregnetPrAar: sum,
     bruttoPrAar: sum,
     bruttoInkludertBortfaltNaturalytelsePrAar: sum,
@@ -598,7 +590,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
         lagBGPeriode(
           [
             lagBGAndel(2, 'AAP', 300000),
-            lagBGAndel(1, 'AT', null, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+            lagBGAndel(1, 'AT', undefined, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
           ],
           [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
           '2019-11-27',
@@ -607,7 +599,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
       lagFaktaOmFordeling(
         [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
         [
-          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, null)], false, false, '2019-08-05', '2019-11-26'),
+          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, undefined)], false, false, '2019-08-05', '2019-11-26'),
           lagFordelPeriode(
             [
               lagFordelingsandel(2, 'AAP', 0, 100000),
@@ -627,7 +619,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
       ),
       [
         {
-          definisjon: FaktaFordelBeregningAksjonspunktCode.FORDEL_BEREGNINGSGRUNNLAG,
+          definisjon: FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
           status: 'UTFO',
           kanLoses: true,
           begrunnelse: 'En god begrunnelse.',
@@ -641,7 +633,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
         lagBGPeriode(
           [
             lagBGAndel(2, 'AAP', 300000),
-            lagBGAndel(1, 'AT', null, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+            lagBGAndel(1, 'AT', undefined, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
           ],
           [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
           '2020-01-27',

@@ -19,7 +19,7 @@ import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAksjonspunktCode from '../../typer/interface/FaktaBeregningAksjonspunktCode';
+import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { erInitialOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import {
@@ -37,7 +37,7 @@ import VurderMottarYtelseForm from './vurderOgFastsettATFL/forms/VurderMottarYte
 import VurderOgFastsettATFL from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
 
-const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAksjonspunktCode;
+const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
 export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning =>
   beregningsgrunnlag.faktaOmBeregning;

@@ -4,6 +4,7 @@
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.Gradering": "Søkt gradering hos {arbeidsforhold}. ",
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.Permisjon": "Permisjon avsluttet hos {arbeidsforhold}",
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.FastsetÅrsbeløp": "Fastsett årsbeløp for ny fordeling av beregningsgrunnlaget.",
+  "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.TilkommetAktivitet": "<b>Tilkommet aktivitet</b> {br} Vurder om beregningsgrunnlaget skal flyttes til ny aktivitet eller fordeles mellom aktivitetene.",
 
   "FordelBeregningsgrunnlag.Validation.KanIkkeHaNullIBeregningsgrunnlag": "Fastsatt beløp for gradert andel må være høyere enn 0.",
 
@@ -14,7 +15,6 @@
   "BeregningInfoPanel.FordelBG.PeriodeFomOgTom": "Gjeldende {fom} - {tom}",
   "BeregningInfoPanel.FordelBG.Andel": "Aktivitet",
   "BeregningInfoPanel.FordelBG.AndelIArbeid": "Andel i arbeid",
-  "BeregningInfoPanel.FordelBG.FordelingForrigeBehandling": "Fordeling forrige behandling",
   "BeregningInfoPanel.FordelBG.Refusjonskrav": "Ref.krav",
   "BeregningInfoPanel.FordelBG.Fordeling": "Ny fordeling",
   "BeregningInfoPanel.FordelBG.Inntektskategori": "Inntektskategori",

@@ -23,13 +23,16 @@ export const getFieldNameKey = (index: number): string => fordelBGFieldArrayName
 export const mapTilFastsatteVerdier = (
   aktivitet: FordelBeregningsgrunnlagAndelValues,
 ): FordelBeregningsgrunnlagFastsatteVerdierTransformedValues => ({
-  refusjonPrÅr: aktivitet.skalKunneEndreRefusjon ? removeSpacesFromNumber(aktivitet.refusjonskrav) : null,
+  refusjonPrÅr:
+    aktivitet.skalKunneEndreRefusjon && aktivitet.refusjonskrav
+      ? removeSpacesFromNumber(aktivitet.refusjonskrav)
+      : undefined,
   fastsattÅrsbeløpInklNaturalytelse: removeSpacesFromNumber(aktivitet.fastsattBelop),
-  inntektskategori: aktivitet.inntektskategori,
+  inntektskategori: aktivitet.inntektskategori || '',
 });
 
-const harPeriodeÅrsak = (periode: BeregningsgrunnlagPeriodeProp, periodeÅrsak: string) =>
-  periode.periodeAarsaker.includes(periodeÅrsak);
+const harPeriodeÅrsak = (periode: BeregningsgrunnlagPeriodeProp, periodeÅrsak: string): boolean =>
+  !!periode.periodeAarsaker && periode.periodeAarsaker.includes(periodeÅrsak);
 
 const harPeriodeårsakerSomIkkeSlåsSammen = (periode: BeregningsgrunnlagPeriodeProp) =>
   harPeriodeÅrsak(periode, PeriodeAarsak.ENDRING_I_REFUSJONSKRAV) ||
@@ -61,11 +64,19 @@ const erArbeidsforholdLike = (andel1: FordelBeregningsgrunnlagAndel, andel2: For
 
 function erPeriodeKunHelg(periode: BeregningsgrunnlagPeriodeProp) {
   const starterLørdag = dayjs(periode.beregningsgrunnlagPeriodeFom).day() === 6;
-  const slutterSøndag =
-    starterLørdag &&
-    !!periode.beregningsgrunnlagPeriodeTom &&
-    dayjs(periode.beregningsgrunnlagPeriodeFom).add(1, 'days').isSame(dayjs(periode.beregningsgrunnlagPeriodeTom));
-  return starterLørdag && slutterSøndag;
+  const starterSøndag = dayjs(periode.beregningsgrunnlagPeriodeFom).day() === 0;
+
+  const slutterLørdag = dayjs(periode.beregningsgrunnlagPeriodeTom).day() === 6;
+  const slutterSøndag = dayjs(periode.beregningsgrunnlagPeriodeTom).day() === 0;
+
+  return (starterLørdag || starterSøndag) && (slutterLørdag || slutterSøndag);
+}
+
+const harFravær = (andel: FordelBeregningsgrunnlagAndel) =>
+  andel.andelIArbeid?.some(arbeidsandel => arbeidsandel !== 100);
+
+function harIkkeUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
+  return !periode.fordelBeregningsgrunnlagAndeler?.some(a => harFravær(a));
 }
 
 function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
@@ -78,10 +89,9 @@ const harIngenRelevantEndringForFordeling = (
   periode: BeregningsgrunnlagPeriodeProp,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
 ) => {
-  if (
-    fordelPeriode.fordelBeregningsgrunnlagAndeler.length !==
-    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler.length
-  ) {
+  const fordelAndeler = fordelPeriode.fordelBeregningsgrunnlagAndeler || [];
+  const forrigeAndeler = forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler || [];
+  if (fordelAndeler.length !== forrigeAndeler.length) {
     return false;
   }
   const periodeIndex = bgPerioder.indexOf(periode);
@@ -93,9 +103,13 @@ const harIngenRelevantEndringForFordeling = (
   const erForrigeKunHelg = erPeriodeKunHelg(forrigePeriode);
   const skalKunneEndreRefusjon = fordelPeriode.skalKunneEndreRefusjon || forrigeEndringPeriode.skalKunneEndreRefusjon;
   const kanSlåSammenOverHelg = (erKunHelg || erForrigeKunHelg) && !skalKunneEndreRefusjon;
-  for (let i = 0; i < fordelPeriode.fordelBeregningsgrunnlagAndeler.length; i += 1) {
-    const andelIPeriode = fordelPeriode.fordelBeregningsgrunnlagAndeler[i];
-    const andelFraForrige = forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler.find(
+  if (kanSlåSammenOverHelg) {
+    return true;
+  }
+
+  for (let i = 0; i < fordelAndeler.length; i += 1) {
+    const andelIPeriode = fordelAndeler[i];
+    const andelFraForrige = forrigeAndeler.find(
       a =>
         a.aktivitetStatus === andelIPeriode.aktivitetStatus &&
         a.inntektskategori === andelIPeriode.inntektskategori &&
@@ -107,7 +121,7 @@ const harIngenRelevantEndringForFordeling = (
     if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
       return false;
     }
-    if (!kanSlåSammenOverHelg && andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
+    if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
       return false;
     }
   }
@@ -121,6 +135,15 @@ const harPeriodeSomKanKombineresMedForrige = (
   periodeList: FordelBeregningsgrunnlagPeriode[],
 ): boolean => {
   const forrigeEndringPeriode = periodeList[periodeList.length - 1];
+  const harIkkeUtbetaling = harIkkeUtbetalingIPeriode(fordelPeriode);
+  const harIkkeUtbetalingForrige = harIkkeUtbetalingIPeriode(forrigeEndringPeriode);
+  const kanSlåSammenGrunnetIngenUtbetaling = harIkkeUtbetaling || harIkkeUtbetalingForrige;
+  const harLikeMangeAndeler =
+    fordelPeriode.fordelBeregningsgrunnlagAndeler?.length ===
+    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler?.length;
+  if (kanSlåSammenGrunnetIngenUtbetaling && harLikeMangeAndeler) {
+    return true;
+  }
   if (fordelPeriode.skalRedigereInntekt !== forrigeEndringPeriode.skalRedigereInntekt) {
     return false;
   }
@@ -175,8 +198,11 @@ const inkludererPeriode =
     (periode.tom === null || dayjs(tom).isSame(dayjs(periode.tom)) || dayjs(tom).isBefore(dayjs(periode.tom)));
 
 const getAndelsnr = (aktivitet: FordelBeregningsgrunnlagAndelValues): number | string => {
-  if (aktivitet.nyAndel === true) {
+  if (aktivitet.nyAndel && aktivitet.andel) {
     return aktivitet.andel;
+  }
+  if (!aktivitet.andelsnr) {
+    throw Error(`Forventer å finne andelsnr for submit på aktivitet ${aktivitet}`);
   }
   return aktivitet.andelsnr;
 };
@@ -186,8 +212,8 @@ export const mapAndel = (
 ): FordelBeregningsgrunnlagAndelTransformedValues => ({
   andelsnr: getAndelsnr(aktivitet),
   aktivitetStatus: aktivitet.aktivitetStatus,
-  arbeidsgiverId: aktivitet.arbeidsgiverId !== '' ? aktivitet.arbeidsgiverId : null,
-  arbeidsforholdId: aktivitet.arbeidsforholdId !== '' ? aktivitet.arbeidsforholdId : null,
+  arbeidsgiverId: aktivitet.arbeidsgiverId !== '' ? aktivitet.arbeidsgiverId : undefined,
+  arbeidsforholdId: aktivitet.arbeidsforholdId !== '' ? aktivitet.arbeidsforholdId : undefined,
   nyAndel: aktivitet.nyAndel,
   kilde: aktivitet.kilde,
   lagtTilAvSaksbehandler: aktivitet.lagtTilAvSaksbehandler,
@@ -200,17 +226,26 @@ export const mapAndel = (
   fastsatteVerdier: mapTilFastsatteVerdier(aktivitet),
 });
 
+const stringEllerFeil = (felt?: string): string => {
+  if (!felt) {
+    throw Error('Fant ikke påkrevd felt før submit');
+  }
+  return felt;
+};
 export const lagPerioderForSubmit = (
   values: FordelBeregningsgrunnlagValues,
   index: number,
   kombinertPeriode: FordelBeregningsgrunnlagPeriode,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
 ): FordelBeregningsgrunnlagPeriodeTransformedValues[] =>
-  fordelBGPerioder.filter(inkludererPeriode(kombinertPeriode)).map((p: FordelBeregningsgrunnlagPeriode) => ({
-    andeler: values[getFieldNameKey(index)].map(mapAndel),
-    fom: p.fom,
-    tom: p.tom,
-  }));
+  fordelBGPerioder
+    .filter(inkludererPeriode(kombinertPeriode))
+    .filter(p => p.skalRedigereInntekt || p.skalKunneEndreRefusjon)
+    .map((p: FordelBeregningsgrunnlagPeriode) => ({
+      andeler: values[getFieldNameKey(index)].map(mapAndel),
+      fom: stringEllerFeil(p.fom),
+      tom: p.tom,
+    }));
 
 export const slaaSammenPerioder = (
   perioder: FordelBeregningsgrunnlagPeriode[],
