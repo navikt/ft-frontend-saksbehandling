@@ -41,8 +41,6 @@ import styles from './tilbakekrevingPeriodeForm.less';
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-export const TILBAKEKREVING_PERIODE_FORM_NAME = 'TilbakekrevingPeriodeForm';
-
 export type CustomPeriode = {
   fom: string;
   tom: string;
