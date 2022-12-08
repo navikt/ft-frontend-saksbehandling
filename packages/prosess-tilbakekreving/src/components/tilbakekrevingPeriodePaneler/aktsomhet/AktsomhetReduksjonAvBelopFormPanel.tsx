@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { BodyShort, Label, Detail } from '@navikt/ds-react';
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow, FlexContainer } from '@navikt/ft-ui-komponenter';
 
-import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { InputField, SelectField, RadioGroupPanel, formHooks } from '@navikt/ft-form-hooks';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { minValue, maxValue, required } from '@navikt/ft-form-validators';
 
@@ -50,6 +50,16 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
   andelSomTilbakekreves,
 }) => {
   const intl = useIntl();
+
+  const context = formHooks.useFormContext();
+  const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter`;
+  useEffect(() => {
+    const value = context.getValues(tilleggesRenterFelt);
+    if (value === undefined) {
+      context.setValue(tilleggesRenterFelt, false);
+    }
+  }, []);
+
   return (
     <>
       <VerticalSpacer sixteenPx />
@@ -174,7 +184,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
               {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
                 <FlexColumn>
                   <RadioGroupPanel
-                    name={`${name}.skalDetTilleggesRenter`}
+                    name={tilleggesRenterFelt}
                     label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
                     validate={[required]}
                     radios={[
