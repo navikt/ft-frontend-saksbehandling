@@ -24,30 +24,30 @@
     "storybook": "cross-env start-storybook -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.0.5",
-    "@navikt/ds-react": "2.0.5",
+    "@navikt/ds-css": "2.0.8",
+    "@navikt/ds-react": "2.0.8",
     "@navikt/ft-form-validators": "^1.0.38",
     "@navikt/ft-types": "^1.0.34",
     "@navikt/ft-ui-komponenter": "^1.3.0",
     "@navikt/ft-utils": "^1.1.9",
     "classnames": "2.3.2",
-    "dayjs": "1.11.6",
+    "dayjs": "1.11.7",
     "lodash.throttle": "4.1.1",
     "react": "18.2.0",
-    "react-hook-form": "7.39.5"
+    "react-hook-form": "7.40.0"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.0.5",
-    "@navikt/ds-react": "2.0.5",
+    "@navikt/ds-css": "2.0.8",
+    "@navikt/ds-react": "2.0.8",
     "@navikt/ft-form-validators": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "^1.x",
     "@navikt/ft-utils": "^1.x",
     "classnames": "2.3.2",
-    "dayjs": "1.11.6",
+    "dayjs": "1.11.7",
     "lodash.throttle": "4.1.1",
     "react": "18.2.0",
-    "react-hook-form": "7.39.5"
+    "react-hook-form": "7.40.0"
   },
   "devDependencies": {
     "@navikt/ft-utils-test": "^1.2.0",
@@ -56,9 +56,9 @@
     "@testing-library/user-event": "14.4.3",
     "clean-webpack-plugin": "4.0.0",
     "cross-env": "7.0.3",
-    "typescript": "4.9.3",
+    "typescript": "4.9.4",
     "webpack": "5.75.0",
-    "webpack-cli": "5.0.0",
+    "webpack-cli": "5.0.1",
     "webpack-node-externals": "3.0.0"
   },
   "publishConfig": {
