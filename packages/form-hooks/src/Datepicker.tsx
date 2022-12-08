@@ -24,6 +24,7 @@ export interface DatepickerProps {
   };
   isEdited?: boolean;
   strategy?: 'absolute' | 'fixed';
+  defaultMonth?: Date;
 }
 
 const Datepicker: FunctionComponent<DatepickerProps> = ({
@@ -36,6 +37,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   disabledDays,
   isEdited,
   strategy = 'absolute',
+  defaultMonth,
 }): JSX.Element => {
   const {
     formState: { errors },
@@ -63,7 +65,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
       }
     },
     defaultSelected: field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).toDate() : undefined,
-    defaultMonth: !field.value && disabledDays?.toDate ? disabledDays.toDate : undefined,
+    defaultMonth: defaultMonth || (!field.value && disabledDays?.toDate ? disabledDays.toDate : undefined),
   });
 
   const onChangeInput = useCallback(
