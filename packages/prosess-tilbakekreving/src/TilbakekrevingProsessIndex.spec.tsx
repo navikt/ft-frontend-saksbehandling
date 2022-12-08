@@ -131,7 +131,9 @@ describe('<TilbakekrevingProsessIndex>', () => {
     ).not.toBeInTheDocument();
 
     await userEvent.type(
-      utils.getByLabelText('Vurder i hvilken grad mottaker har handlet uaktsomt'),
+      utils.getByLabelText(
+        'Vurder hvorfor mottaker burde forstått, må ha forstått eller forsto at utbetalingen skyldtes en feil',
+      ),
       'Dette er en vurdering a god tro',
     );
 
@@ -284,7 +286,9 @@ describe('<TilbakekrevingProsessIndex>', () => {
       screen.getByText('Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)'),
     );
     await userEvent.type(
-      utils.getByLabelText('Vurder i hvilken grad mottaker har handlet uaktsomt'),
+      utils.getByLabelText(
+        'Vurder hvorfor mottaker burde forstått, må ha forstått eller forsto at utbetalingen skyldtes en feil',
+      ),
       'Dette er en vurdering a god tro',
     );
     await userEvent.click(screen.getByText('Burde ha forstått'));
@@ -338,7 +342,9 @@ describe('<TilbakekrevingProsessIndex>', () => {
       screen.getByText('Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)'),
     );
     await userEvent.type(
-      utils.getByLabelText('Vurder i hvilken grad mottaker har handlet uaktsomt'),
+      utils.getByLabelText(
+        'Vurder hvorfor mottaker burde forstått, må ha forstått eller forsto at utbetalingen skyldtes en feil',
+      ),
       'Dette er en vurdering a god tro',
     );
     await userEvent.click(screen.getByText('Burde ha forstått'));
