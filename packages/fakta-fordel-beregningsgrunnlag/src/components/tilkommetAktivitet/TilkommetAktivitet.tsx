@@ -1,35 +1,123 @@
-import { Alert, Heading } from '@navikt/ds-react';
-import { TextAreaField, RadioGroupPanel, Form } from '@navikt/ft-form-hooks';
-import { Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Form } from '@navikt/ft-form-hooks';
+import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagTilBekreftelse } from '@navikt/ft-types';
 import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { useFieldArray, useForm } from 'react-hook-form';
+import {
+  TilkommetAktivitetFieldValues,
+  TilkommetAktivitetFormValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import VurderNyttInntektsforholdAP, {
+  VurderNyttInntektsforholTransformedValues,
+} from '../../types/interface/VurderNyttInntektsforholdAP';
 import styles from './tilkommetAktivitet.less';
+import TilkommetAktivitetField from './TilkommetAktivitetField';
 
-const buildFieldInitialValues = () => null;
+const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
+export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';
 
-export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_BEGRUNN_BEGRUNNELSE';
+const findAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
+  const ak = avklaringsbehov.find(ap => ap.definisjon === VURDER_NYTT_INNTKTSFRHLD);
+  if (!ak) {
+    throw Error(`Fant ikke forventet avklaringsbehov ${VURDER_NYTT_INNTKTSFRHLD}`);
+  }
+  return ak;
+};
+
+const finnBeregningsgrunnlag = (
+  vilkårsperiodeFom: string,
+  beregninsgrunnlagListe: Beregningsgrunnlag[],
+): Beregningsgrunnlag => {
+  const matchetndeBG = beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+  if (!matchetndeBG) {
+    throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+  }
+  return matchetndeBG;
+};
+
+const buildFieldInitialValues = (beregningsgrunnlag: Beregningsgrunnlag) => {
+  const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
+  return {
+    begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
+    bruttoInntektPrÅr: undefined,
+    skalRedusereUtbetaling: undefined,
+  };
+};
+
+const buildInitialValues = (beregningsgrunnlagListe: Beregningsgrunnlag[]) => ({
+  [FORM_NAME]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg)),
+});
+
+export const transformFieldValues = (
+  values: TilkommetAktivitetFieldValues,
+  bg: Beregningsgrunnlag,
+): BeregningsgrunnlagTilBekreftelse<VurderNyttInntektsforholTransformedValues> => {
+  const vurderInntektsforholdPerioder =
+    bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder || [];
+  const transformedInntektsforhold = vurderInntektsforholdPerioder.flatMap(inntektsforholdPeriode => ({
+    fom: inntektsforholdPeriode.fom,
+    tom: inntektsforholdPeriode.tom,
+    andeler: inntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => ({
+      arbeidsgiverId: inntektsforhold.arbeidsgiverId,
+      arbeidsforholdId: inntektsforhold.arbeidsforholdId,
+
+      bruttoInntektPrÅr: values.bruttoInntektPrÅr,
+      skalRedusereUtbetaling: values.skalRedusereUtbetaling,
+    })),
+  }));
+
+  return {
+    periode: values.periode,
+    begrunnelse: values.begrunnelse,
+    tilkomneInntektsforholdPerioder: transformedInntektsforhold,
+  };
+};
+
+const transformValues = (
+  values: TilkommetAktivitetFormValues,
+  beregninsgrunnlagListe: Beregningsgrunnlag[],
+): VurderNyttInntektsforholdAP => {
+  const fields = values[FORM_NAME];
+  const grunnlag = fields.map(field =>
+    transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)),
+  );
+  const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
+  return {
+    begrunnelse,
+    grunnlag,
+    kode: VURDER_NYTT_INNTKTSFRHLD,
+  };
+};
 
 interface TilkommetAktivitetProps {
   aktivtBeregningsgrunnlagIndeks: number;
   formData?: TilkommetAktivitetFormValues;
   setFormData: (data: TilkommetAktivitetFormValues) => void;
-  //   submitCallback: (aksjonspunktData: any) => Promise<void>;
+  // arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  submitCallback: (aksjonspunktData: VurderNyttInntektsforholdAP) => Promise<void>;
+  readOnly: boolean;
+  submittable: boolean;
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  // vilkarperioder: Vilkarperiode[];
 }
 
 const TilkommetAktivitet = ({
   aktivtBeregningsgrunnlagIndeks,
   formData,
   setFormData,
-}: //   submitCallback,
-TilkommetAktivitetProps) => {
+  beregningsgrunnlagListe,
+  submitCallback,
+  readOnly,
+  submittable,
+}: TilkommetAktivitetProps) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
-    defaultValues: formData || buildFieldInitialValues(),
+    defaultValues: formData || buildInitialValues(beregningsgrunnlagListe),
   });
 
   const {
     formState: { dirtyFields, isSubmitted, errors },
     trigger,
+    control,
   } = formMethods;
 
   useEffect(() => {
@@ -38,71 +126,35 @@ TilkommetAktivitetProps) => {
     }
   }, [aktivtBeregningsgrunnlagIndeks]);
 
-  const getAlertHeading = () =>
-    // if (selvstendigNæringsdrivende) {
-    //   return 'Søker har opplyst om ny inntekt som selvstendig næringsdrivende.';
-    // }
+  const { fields } = useFieldArray({
+    name: FORM_NAME,
+    control,
+  });
 
-    // if (frilanser) {
-    //   return 'Søker har en ny frilansaktivitet i AA-registeret.';
-    // }
+  const gjeldendeBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
 
-    'Søker har et nytt arbeidsforhold i AA-registeret';
   return (
     <div className={styles.tilkommetAktivitet}>
       <Form
         formMethods={formMethods}
-        onSubmit={() => {
+        onSubmit={values => {
           if (Object.keys(errors).length === 0) {
-            //   submitCallback(transformValues(values, beregningsgrunnlagListe));
+            submitCallback(transformValues(values, beregningsgrunnlagListe));
           }
         }}
         setDataOnUnmount={setFormData}
       >
-        <Alert size="small" variant="warning">
-          <Heading spacing size="xsmall" level="3">
-            {getAlertHeading()}
-          </Heading>
-          Vurder om pleiepengene skal reduseres på grunn av den nye inntekten.
-        </Alert>
-        <VerticalSpacer eightPx />
-        <Alert size="small" variant="info">
-          Inntekter som kommer til underveis i en løpende pleiepengeperiode er ikke en del av søkers beregningsgrunnlag.
-          Dersom inntekten reduserer søkers inntektstap, må det vurderes om pleiepengene skal graderes mot den nye
-          inntekten.
-        </Alert>
-        <div className={styles.aktivitetContainer}>
-          <Heading size="small" level="3">
-            Ny aktivitet
-          </Heading>
-          <hr className={styles.separator} />
-          <Table
-            headerTextCodes={[
-              'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
-              'BeregningInfoPanel.TilkommetAktivitet.Periode',
-            ]}
-            noHover
-            classNameTable={styles.aktivitetTable}
-          >
-            <TableRow>
-              <TableColumn>FREJA UNGOMDSKLUBB (Arbeidsforhold)</TableColumn>
-              <TableColumn>10.07.2022 -</TableColumn>
-            </TableRow>
-          </Table>
-        </div>
-        <VerticalSpacer sixteenPx />
-        <div className={styles.aksjonspunktContainer}>
-          <RadioGroupPanel
-            label="Har søker inntekt fra det nye arbeidsforholdet som reduserer søkers inntektstap?"
-            name={`${FORM_NAME}.harInntektIArbeidsforholdSomRedusererInntektstap`}
-            radios={[
-              { value: 'ja', label: 'Ja' },
-              { value: 'nei', label: 'Nei' },
-            ]}
-          />
-          <VerticalSpacer fourtyPx />
-          <TextAreaField name={`${FORM_NAME}.begrunnelse`} label="Begrunnelse" />
-        </div>
+        {fields.map((field, index) => (
+          <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
+            <TilkommetAktivitetField
+              gjeldendeBeregningsgrunnlag={gjeldendeBeregningsgrunnlag}
+              formName={FORM_NAME}
+              index={index}
+              readOnly={readOnly}
+              submittable={submittable}
+            />
+          </div>
+        ))}
       </Form>
     </div>
   );

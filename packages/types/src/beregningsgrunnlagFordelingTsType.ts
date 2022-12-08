@@ -1,3 +1,4 @@
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import BeregningsgrunnlagArbeidsforhold from './beregningsgrunnlagArbeidsforholdTsType';
 
 export type TidligereUtbetalinger = Readonly<{
@@ -88,8 +89,25 @@ type FordelBeregningsgrunnlag = Readonly<{
   fordelBeregningsgrunnlagPerioder?: FordelBeregningsgrunnlagPeriode[];
 }>;
 
+type Inntektsforhold = Readonly<{
+  aktivitetStatus: AktivitetStatus;
+  arbeidsforholdId: string;
+  arbeidsgiverId: string;
+  bruttoInntektPrÅr: number;
+  harInntektsmelding: boolean;
+}>;
+
+export type VurderInntektsforholdPeriode = Readonly<{
+  fom: string;
+  tom: string;
+  inntektsforholdListe: Inntektsforhold[];
+}>;
+
 export type FaktaOmFordeling = Readonly<{
   fordelBeregningsgrunnlag?: FordelBeregningsgrunnlag;
+  vurderNyttInntektsforholdDto: {
+    vurderInntektsforholdPerioder: VurderInntektsforholdPeriode[];
+  };
 }>;
 
 export default RefusjonTilVurdering;

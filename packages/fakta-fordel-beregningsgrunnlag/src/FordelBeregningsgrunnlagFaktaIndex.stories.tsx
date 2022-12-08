@@ -678,3 +678,298 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
     },
   ],
 };
+
+export const TilkommetAktivitet = Template.bind({});
+TilkommetAktivitet.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    {
+      avklaringsbehov: [
+        {
+          definisjon: 'VURDER_VARIG_ENDRT_ARB_SITSJN_MDL_INAKTV',
+          status: 'UTFO',
+          kanLoses: true,
+          erTrukket: false,
+          begrunnelse: 'test',
+        },
+        {
+          definisjon: 'FORDEL_BG',
+          status: 'OPPR',
+          kanLoses: true,
+          erTrukket: false,
+        },
+        {
+          definisjon: 'VURDER_NYTT_INNTKTSFRHLD',
+          status: 'OPPR',
+          kanLoses: true,
+          erTrukket: false,
+        },
+      ],
+      skjaeringstidspunktBeregning: '2022-11-08',
+      skjæringstidspunkt: '2022-11-08',
+      aktivitetStatus: ['MIDL_INAKTIV'],
+      beregningsgrunnlagPeriode: [
+        {
+          beregningsgrunnlagPeriodeFom: '2022-11-08',
+          beregningsgrunnlagPeriodeTom: '2022-11-08',
+          beregnetPrAar: 0,
+          bruttoPrAar: 480000,
+          bruttoInkludertBortfaltNaturalytelsePrAar: 480000,
+          periodeAarsaker: [],
+          beregningsgrunnlagPrStatusOgAndel: [
+            {
+              dtoType: 'GENERELL',
+              aktivitetStatus: 'AT',
+              andelsnr: 2,
+              inntektskategori: '-',
+              arbeidsforhold: {
+                arbeidsgiverIdent: '947064649',
+                startdato: '2022-10-27',
+                arbeidsforholdType: 'ARBEID',
+                belopFraInntektsmeldingPrMnd: 40000,
+              },
+              fastsattAvSaksbehandler: false,
+              lagtTilAvSaksbehandler: false,
+              erTilkommetAndel: true,
+              skalFastsetteGrunnlag: false,
+            },
+            {
+              dtoType: 'SN',
+              aktivitetStatus: 'BA',
+              beregningsperiodeFom: '2018-01-01',
+              beregningsperiodeTom: '2020-12-31',
+              beregnetPrAar: 0,
+              overstyrtPrAar: 480000,
+              bruttoPrAar: 480000,
+              andelsnr: 1,
+              inntektskategori: 'ARBEIDSTAKER_UTEN_FERIEPENGER',
+              fastsattAvSaksbehandler: false,
+              lagtTilAvSaksbehandler: false,
+              erTilkommetAndel: false,
+              skalFastsetteGrunnlag: true,
+              pgiSnitt: 0,
+              pgiVerdier: [
+                {
+                  beløp: 0,
+                  årstall: 2020,
+                },
+                {
+                  beløp: 0,
+                  årstall: 2019,
+                },
+                {
+                  beløp: 0,
+                  årstall: 2018,
+                },
+              ],
+              næringer: [],
+            },
+          ],
+        },
+        {
+          beregningsgrunnlagPeriodeFom: '2022-11-09',
+          beregningsgrunnlagPeriodeTom: '9999-12-31',
+          beregnetPrAar: 0,
+          bruttoPrAar: 480000,
+          bruttoInkludertBortfaltNaturalytelsePrAar: 480000,
+          periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
+          beregningsgrunnlagPrStatusOgAndel: [
+            {
+              dtoType: 'SN',
+              aktivitetStatus: 'BA',
+              beregningsperiodeFom: '2018-01-01',
+              beregningsperiodeTom: '2020-12-31',
+              beregnetPrAar: 0,
+              overstyrtPrAar: 480000,
+              bruttoPrAar: 480000,
+              andelsnr: 1,
+              inntektskategori: 'ARBEIDSTAKER_UTEN_FERIEPENGER',
+              fastsattAvSaksbehandler: false,
+              lagtTilAvSaksbehandler: false,
+              erTilkommetAndel: false,
+              skalFastsetteGrunnlag: true,
+              pgiSnitt: 0,
+              pgiVerdier: [
+                {
+                  beløp: 0,
+                  årstall: 2020,
+                },
+                {
+                  beløp: 0,
+                  årstall: 2019,
+                },
+                {
+                  beløp: 0,
+                  årstall: 2018,
+                },
+              ],
+              næringer: [],
+            },
+          ],
+        },
+      ],
+      sammenligningsgrunnlagPrStatus: [
+        {
+          sammenligningsgrunnlagFom: '2022-11-08',
+          sammenligningsgrunnlagTom: '2022-12-07',
+          rapportertPrAar: 480000,
+          avvikPromille: 1000,
+          avvikProsent: 100,
+          sammenligningsgrunnlagType: 'SAMMENLIGNING_MIDL_INAKTIV',
+          differanseBeregnet: -480000,
+        },
+      ],
+      halvG: 55738.5,
+      grunnbeløp: 111477,
+      faktaOmBeregning: {
+        saksopplysninger: {
+          arbeidsforholdMedLønnsendring: [],
+          kortvarigeArbeidsforhold: [],
+        },
+        avklarAktiviteter: {
+          aktiviteterTomDatoMapping: [
+            {
+              tom: '2022-11-08',
+              aktiviteter: [
+                {
+                  arbeidsgiverIdent: '947064649',
+                  fom: '2022-10-27',
+                  tom: '9999-12-31',
+                  arbeidsforholdType: 'ARBEID',
+                },
+              ],
+            },
+          ],
+          skjæringstidspunkt: '2022-11-08',
+        },
+        andelerForFaktaOmBeregning: [
+          {
+            fastsattBelop: 0,
+            inntektskategori: 'ARBEIDSTAKER_UTEN_FERIEPENGER',
+            aktivitetStatus: 'BA',
+            andelsnr: 1,
+            skalKunneEndreAktivitet: false,
+            lagtTilAvSaksbehandler: false,
+          },
+        ],
+      },
+      hjemmel: 'F_9_9_8_47',
+      faktaOmFordeling: {
+        vurderNyttInntektsforholdDto: {
+          vurderInntektsforholdPerioder: [
+            {
+              fom: '2022-11-09',
+              tom: '9999-12-31',
+              inntektsforholdListe: [
+                {
+                  aktivitetStatus: 'AT',
+                  arbeidsgiverId: '947064649',
+                  bruttoInntektPrÅr: 480000,
+                  harInntektsmelding: true,
+                },
+              ],
+            },
+          ],
+        },
+        fordelBeregningsgrunnlag: {
+          fordelBeregningsgrunnlagPerioder: [
+            {
+              fom: '2022-11-08',
+              tom: '2022-11-08',
+              fordelBeregningsgrunnlagAndeler: [
+                {
+                  andelsnr: 1,
+                  inntektskategori: 'ARBEIDSTAKER_UTEN_FERIEPENGER',
+                  aktivitetStatus: 'BA',
+                  kilde: 'PROSESS_START',
+                  lagtTilAvSaksbehandler: false,
+                  fastsattAvSaksbehandler: false,
+                  andelIArbeid: [100],
+                  refusjonskravPrAar: 0,
+                  nyttArbeidsforhold: false,
+                  arbeidsforholdType: '-',
+                },
+                {
+                  andelsnr: 2,
+                  arbeidsforhold: {
+                    arbeidsgiverIdent: '947064649',
+                    startdato: '2022-10-27',
+                    arbeidsforholdType: 'ARBEID',
+                  },
+                  inntektskategori: '-',
+                  aktivitetStatus: 'AT',
+                  kilde: 'PROSESS_PERIODISERING',
+                  lagtTilAvSaksbehandler: false,
+                  fastsattAvSaksbehandler: false,
+                  andelIArbeid: [0],
+                  refusjonskravPrAar: 0,
+                  belopFraInntektsmeldingPrAar: 480000,
+                  nyttArbeidsforhold: true,
+                  arbeidsforholdType: 'ARBEID',
+                },
+              ],
+              harPeriodeAarsakGraderingEllerRefusjon: true,
+              skalRedigereInntekt: true,
+              skalPreutfyllesMedBeregningsgrunnlag: false,
+              skalKunneEndreRefusjon: false,
+            },
+            {
+              fom: '2022-11-09',
+              tom: '9999-12-31',
+              fordelBeregningsgrunnlagAndeler: [
+                {
+                  andelsnr: 1,
+                  inntektskategori: 'ARBEIDSTAKER_UTEN_FERIEPENGER',
+                  aktivitetStatus: 'BA',
+                  kilde: 'PROSESS_START',
+                  lagtTilAvSaksbehandler: false,
+                  fastsattAvSaksbehandler: false,
+                  andelIArbeid: [100],
+                  refusjonskravPrAar: 0,
+                  nyttArbeidsforhold: false,
+                  arbeidsforholdType: '-',
+                },
+              ],
+              harPeriodeAarsakGraderingEllerRefusjon: false,
+              skalRedigereInntekt: false,
+              skalPreutfyllesMedBeregningsgrunnlag: false,
+              skalKunneEndreRefusjon: false,
+            },
+          ],
+          arbeidsforholdTilFordeling: [
+            {
+              arbeidsgiverIdent: '947064649',
+              startdato: '2022-10-27',
+              arbeidsforholdType: 'ARBEID',
+              perioderMedGraderingEllerRefusjon: [
+                {
+                  erRefusjon: false,
+                  erGradering: false,
+                  erSøktYtelse: true,
+                  fom: '2022-11-08',
+                  tom: '2022-11-08',
+                },
+              ],
+            },
+          ],
+        },
+      },
+      årsinntektVisningstall: 0,
+      dekningsgrad: 100,
+      ytelsesspesifiktGrunnlag: {
+        ytelsetype: 'OMP',
+        skalAvviksvurdere: true,
+      },
+      erOverstyrtInntekt: false,
+      vilkårsperiodeFom: '2022-11-08',
+    },
+  ],
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+  vilkårsperioder: [
+    {
+      fom: '2022-11-08',
+      tom: '2022-11-08',
+      vurderesIBehandlingen: true,
+    },
+  ],
+};
