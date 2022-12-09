@@ -1,3 +1,4 @@
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import moment from 'moment';
 
 export const isoDateRegex = /(19|20)\d{2}-(0?[1-9]|1[0-2])-(0?[1-9]|1\d|2\d|3[01])$/;
@@ -26,13 +27,17 @@ export const tomorrow = (): moment.Moment => moment().add(1, 'days').startOf('da
 export const dateRangesAreSequential = (ranges: string[][]): boolean => {
   if (Array.isArray(ranges)) {
     const isBeforeTheNextDate = (element: string, index: number, array: string[]): boolean => {
-      const current = moment(element).startOf('day');
-      const next = index + 1 < array.length ? moment(array[index + 1]).startOf('day') : null;
+      const current = moment(element, ISO_DATE_FORMAT).startOf('day');
+      const next = index + 1 < array.length ? moment(array[index + 1], ISO_DATE_FORMAT).startOf('day') : null;
       return next !== null ? current.isBefore(next) : true;
     };
 
     return [...ranges]
-      .sort((range1, range2) => (moment(range1[0]).startOf('day').isAfter(moment(range2[0]).startOf('day')) ? 1 : -1))
+      .sort((range1, range2) =>
+        moment(range1[0], ISO_DATE_FORMAT).startOf('day').isAfter(moment(range2[0], ISO_DATE_FORMAT).startOf('day'))
+          ? 1
+          : -1,
+      )
       .map(range => (range[0] === range[1] ? [range[0]] : range))
       .reduce((range1, range2) => range1.concat(range2))
       .every(isBeforeTheNextDate);
