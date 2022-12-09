@@ -4,6 +4,7 @@ import {
   fodselsnummerPattern,
   isValidFodselsnummer,
   DDMMYYYY_DATE_FORMAT,
+  ISO_DATE_FORMAT,
 } from '@navikt/ft-utils';
 
 import {
@@ -169,9 +170,9 @@ export const hasValidDate = (text: string): FormValidationResult =>
 export const dateBeforeOrEqual =
   (latest: DateType) =>
   (text?: moment.Moment | string): FormValidationResult =>
-    isEmpty(text) || moment(text).isSameOrBefore(moment(latest).startOf('day'))
+    isEmpty(text) || moment(text, ISO_DATE_FORMAT).isSameOrBefore(moment(latest, ISO_DATE_FORMAT).startOf('day'))
       ? null
-      : dateNotBeforeOrEqualMessage(moment(latest).format(DDMMYYYY_DATE_FORMAT));
+      : dateNotBeforeOrEqualMessage(moment(latest, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT));
 const getErrorMessage = (
   earliest: DateType,
   customErrorMessage?: (date: string) => FormValidationResult,
