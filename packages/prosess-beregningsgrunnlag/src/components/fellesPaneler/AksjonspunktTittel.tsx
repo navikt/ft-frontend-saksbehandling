@@ -100,9 +100,8 @@ const lagAksjonspunktHelpText = (
     <div>
       <AksjonspunktHelpTextHTML>
         {åpneAvklaringsbehov.map(ap => (
-          <Label>
+          <Label key={ap.definisjon}>
             <FormattedMessage
-              key={ap.definisjon}
               id={findAksjonspunktHelpTekst(
                 ap,
                 erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,

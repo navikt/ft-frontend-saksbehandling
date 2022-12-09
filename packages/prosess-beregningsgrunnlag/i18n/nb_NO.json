@@ -111,6 +111,7 @@
   "Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning": "Beregning etter §14-7, 1. ledd gir beste beregning.",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
   "Malform.Beskrivelse": "Foretrukket språk",
+  "HelpText.Aksjonspunkt": "Aksjonspunkt",
   "Behandling.EditedField": "Saksbehandler har endret feltets verdi",
   "Beregningsgrunnlag.Beregningsresultat.Periode": "Periode {fom} - {tom}",
   "Beregningsgrunnlag.Beregningsresultat.Arbeid": "Fastsatt årsinntekt arbeid",

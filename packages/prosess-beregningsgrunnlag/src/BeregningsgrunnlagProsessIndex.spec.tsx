@@ -68,7 +68,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('16 667')).toBeInTheDocument();
 
     // Aksjonspunkt avvik
-    expect(screen.getByText('Skjønnsmessig fastsettelse av årsinntekt ved avvik')).toBeInTheDocument();
+    expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker')).toBeInTheDocument();
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
@@ -136,7 +136,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ingen varig endring'));
     await waitFor(() => expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument());
-    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes.'));
+    await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
     expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
@@ -189,7 +189,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ingen varig endring'));
     await waitFor(() => expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument());
-    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes.'));
+    await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
     expect(await screen.findByText('Varig endret årsinntekt fastsettes til')).toBeInTheDocument();
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
@@ -239,8 +239,12 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
       screen.getByText('Søker er ny i arbeidslivet. Det foretas derfor ingen avviksvurdering.'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Skjønnsmessig fastsettelse av årsinntekt når søker er ny i arbeidslivet'),
+      screen.getByText(
+        'Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år),' +
+          ' det skal gjøres en skjønnsmessig vurdering av næringsinntekten.',
+      ),
     ).toBeInTheDocument();
+
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
@@ -407,8 +411,10 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
 
     // Avvik arbeid og frilans
-    expect(screen.getByText('Avviksberegning for arbeidstaker og frilans')).toBeInTheDocument();
-    expect(screen.getByText('Skjønnsmessig fastsettelse av årsinntekt ved avvik')).toBeInTheDocument();
+    expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans')).toBeInTheDocument();
+    expect(
+      screen.getByText('Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget.'),
+    ).toBeInTheDocument();
     const bruttoAG1 = alleInputfelt[0];
     const bruttoFL1 = alleInputfelt[1];
     const begrunnelseATFL = alleInputfelt[2];
@@ -420,7 +426,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ingen varig endring'));
     await waitFor(() => expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument());
-    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes.'));
+    await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
     expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
 
     const alleInputfeltEtterKlikk = utils.getAllByRole('textbox', { hidden: true });
