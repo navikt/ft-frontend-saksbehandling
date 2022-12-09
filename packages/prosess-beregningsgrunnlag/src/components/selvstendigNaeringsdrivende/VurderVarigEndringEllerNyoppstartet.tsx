@@ -79,6 +79,13 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
     radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IkkeVarigEndring" />;
     radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndring" />;
   }
+  let radioLabel = 'Beregningsgrunnlag.AksjonspunktBehandler.RadioTittelVarigEndringNæring';
+  if (erVarigEndretArbeidssituasjon) {
+    radioLabel = 'Beregningsgrunnlag.AksjonspunktBehandler.RadioTittelVarigEndringArbeid';
+  }
+  if (erNyoppstartet) {
+    radioLabel = 'Beregningsgrunnlag.AksjonspunktBehandler.RadioTittelNyoppstartetNæring';
+  }
   const intl = useIntl();
   const formMethods = formHooks.useFormContext<BeregningFormValues>();
   const varigEndringValues = formMethods.watch(formName)[fieldIndex] as VurderOgFastsettValues;
@@ -100,7 +107,8 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
           <RadioGroupPanel
             name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
             validate={[required]}
-            isHorizontal
+            label={intl.formatMessage({ id: radioLabel })}
+            isHorizontal={false}
             isReadOnly={readOnly}
             isEdited={readOnly && isAksjonspunktClosed}
             radios={radioknapper}
