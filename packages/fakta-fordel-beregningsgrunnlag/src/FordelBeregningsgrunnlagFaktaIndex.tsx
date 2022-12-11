@@ -28,7 +28,8 @@ import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 
 const intl = createIntl(messages);
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
+  FaktaFordelBeregningAvklaringsbehovCode;
 
 const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): string => {
   const stpOpptjening = bg.vilkårsperiodeFom;
@@ -44,7 +45,12 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): st
 };
 
 const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
-  bg.avklaringsbehov.some(a => a.definisjon === VURDER_REFUSJON_BERGRUNN || a.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
+  bg.avklaringsbehov.some(
+    a =>
+      a.definisjon === VURDER_REFUSJON_BERGRUNN ||
+      a.definisjon === FORDEL_BEREGNINGSGRUNNLAG ||
+      a.definisjon === VURDER_NYTT_INNTKTSFRHLD,
+  );
 
 function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
   const res = [...beregningsgrunnlag];

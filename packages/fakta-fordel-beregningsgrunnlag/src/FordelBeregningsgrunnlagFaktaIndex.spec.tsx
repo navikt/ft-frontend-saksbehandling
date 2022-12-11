@@ -10,6 +10,7 @@ const {
   ViseVurderTilkommetRefusjonskravAp5059,
   SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059,
   FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046,
+  TilkommetAktivitet,
 } = composeStories(stories);
 
 window.ResizeObserver =
@@ -533,5 +534,48 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
         },
       ],
     });
+  });
+});
+
+it('skal kunne løse aksjonspunkt for tilkommet aktivitet', async () => {
+  const lagre = jest.fn();
+  render(<TilkommetAktivitet submitCallback={lagre} />);
+  expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
+  expect(
+    screen.getByText('Har søker inntekt fra det nye arbeidsforholdet som reduserer søkers inntektstap?'),
+  ).toBeInTheDocument();
+  expect(screen.getByText('Årsinntekt')).toBeInTheDocument();
+  await userEvent.click(screen.getByLabelText('Ja'));
+  expect(screen.getByText('Fastsett årsinntekt')).toBeInTheDocument();
+  await userEvent.type(screen.getByLabelText('Fastsett årsinntekt'), '1349');
+  await userEvent.type(screen.getByLabelText('Begrunnelse'), 'En saklig begrunnelse');
+  await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+  await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+  expect(lagre).toHaveBeenCalledWith({
+    begrunnelse: 'En saklig begrunnelse',
+    grunnlag: [
+      {
+        periode: {
+          fom: '2022-11-08',
+          tom: '2022-11-08',
+        },
+        begrunnelse: 'En saklig begrunnelse',
+        tilkomneInntektsforhold: [
+          {
+            fom: '2022-11-09',
+            tom: '9999-12-31',
+            andeler: [
+              {
+                aktivitetStatus: 'AT',
+                arbeidsgiverId: '947064649',
+                bruttoInntektPrÅr: '1 349',
+                skalRedusereUtbetaling: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    kode: 'VURDER_NYTT_INNTKTSFRHLD',
   });
 });

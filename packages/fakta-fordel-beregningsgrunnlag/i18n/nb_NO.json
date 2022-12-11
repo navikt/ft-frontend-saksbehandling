@@ -41,6 +41,7 @@
 
   "BeregningInfoPanel.TilkommetAktivitet.Aktivitet": "Aktivitet",
   "BeregningInfoPanel.TilkommetAktivitet.Periode": "Periode",
+  "BeregningInfoPanel.TilkommetAktivitet.Årsinntekt": "Årsinntekt",
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett"

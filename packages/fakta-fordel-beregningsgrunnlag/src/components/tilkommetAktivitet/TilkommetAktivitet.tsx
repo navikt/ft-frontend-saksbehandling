@@ -1,5 +1,11 @@
 import { Form } from '@navikt/ft-form-hooks';
-import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagTilBekreftelse } from '@navikt/ft-types';
+import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import {
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagTilBekreftelse,
+  Vilkarperiode,
+} from '@navikt/ft-types';
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import {
@@ -35,17 +41,26 @@ const finnBeregningsgrunnlag = (
   return matchetndeBG;
 };
 
-const buildFieldInitialValues = (beregningsgrunnlag: Beregningsgrunnlag) => {
+const finnVilkårsperiode = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): Vilkarperiode => {
+  const periode = vilkårsperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
+  if (!periode) {
+    throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${bg.vilkårsperiodeFom}`);
+  }
+  return periode;
+};
+
+const buildFieldInitialValues = (beregningsgrunnlag: Beregningsgrunnlag, vilkarperioder: Vilkarperiode[]) => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
     bruttoInntektPrÅr: undefined,
     skalRedusereUtbetaling: undefined,
+    periode: finnVilkårsperiode(beregningsgrunnlag, vilkarperioder).periode,
   };
 };
 
-const buildInitialValues = (beregningsgrunnlagListe: Beregningsgrunnlag[]) => ({
-  [FORM_NAME]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg)),
+const buildInitialValues = (beregningsgrunnlagListe: Beregningsgrunnlag[], vilkarperioder: Vilkarperiode[]) => ({
+  [FORM_NAME]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, vilkarperioder)),
 });
 
 export const transformFieldValues = (
@@ -58,18 +73,18 @@ export const transformFieldValues = (
     fom: inntektsforholdPeriode.fom,
     tom: inntektsforholdPeriode.tom,
     andeler: inntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => ({
+      aktivitetStatus: inntektsforhold.aktivitetStatus,
       arbeidsgiverId: inntektsforhold.arbeidsgiverId,
       arbeidsforholdId: inntektsforhold.arbeidsforholdId,
-
       bruttoInntektPrÅr: values.bruttoInntektPrÅr,
-      skalRedusereUtbetaling: values.skalRedusereUtbetaling,
+      skalRedusereUtbetaling: values.skalRedusereUtbetaling === 'true',
     })),
   }));
 
   return {
     periode: values.periode,
     begrunnelse: values.begrunnelse,
-    tilkomneInntektsforholdPerioder: transformedInntektsforhold,
+    tilkomneInntektsforhold: transformedInntektsforhold,
   };
 };
 
@@ -98,7 +113,7 @@ interface TilkommetAktivitetProps {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  // vilkarperioder: Vilkarperiode[];
+  vilkarperioder: Vilkarperiode[];
 }
 
 const TilkommetAktivitet = ({
@@ -109,9 +124,10 @@ const TilkommetAktivitet = ({
   submitCallback,
   readOnly,
   submittable,
+  vilkarperioder,
 }: TilkommetAktivitetProps) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
-    defaultValues: formData || buildInitialValues(beregningsgrunnlagListe),
+    defaultValues: formData || buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
   });
 
   const {
@@ -132,6 +148,8 @@ const TilkommetAktivitet = ({
   });
 
   const gjeldendeBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
+  const ap = findAvklaringsbehov(gjeldendeBeregningsgrunnlag.avklaringsbehov);
+  const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
 
   return (
     <div className={styles.tilkommetAktivitet}>
@@ -147,11 +165,12 @@ const TilkommetAktivitet = ({
         {fields.map((field, index) => (
           <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
             <TilkommetAktivitetField
-              gjeldendeBeregningsgrunnlag={gjeldendeBeregningsgrunnlag}
+              beregningsgrunnlag={gjeldendeBeregningsgrunnlag}
               formName={FORM_NAME}
               index={index}
               readOnly={readOnly}
               submittable={submittable}
+              erAksjonspunktÅpent={erAksjonspunktÅpent}
             />
           </div>
         ))}

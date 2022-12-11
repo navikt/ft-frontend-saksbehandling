@@ -15,7 +15,7 @@ export type VurderNyttInntektsforholdTilkomneInntektsforholdPerioderTransformedV
 };
 
 export type VurderNyttInntektsforholTransformedValues = {
-  tilkomneInntektsforholdPerioder: VurderNyttInntektsforholdTilkomneInntektsforholdPerioderTransformedValues[];
+  tilkomneInntektsforhold: VurderNyttInntektsforholdTilkomneInntektsforholdPerioderTransformedValues[];
 };
 
 type VurderNyttInntektsforholdAP = AvklaringsbehovTilBekreftelse<

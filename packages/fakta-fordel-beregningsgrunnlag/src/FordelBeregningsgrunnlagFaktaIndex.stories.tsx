@@ -686,19 +686,6 @@ TilkommetAktivitet.args = {
     {
       avklaringsbehov: [
         {
-          definisjon: 'VURDER_VARIG_ENDRT_ARB_SITSJN_MDL_INAKTV',
-          status: 'UTFO',
-          kanLoses: true,
-          erTrukket: false,
-          begrunnelse: 'test',
-        },
-        {
-          definisjon: 'FORDEL_BG',
-          status: 'OPPR',
-          kanLoses: true,
-          erTrukket: false,
-        },
-        {
           definisjon: 'VURDER_NYTT_INNTKTSFRHLD',
           status: 'OPPR',
           kanLoses: true,
