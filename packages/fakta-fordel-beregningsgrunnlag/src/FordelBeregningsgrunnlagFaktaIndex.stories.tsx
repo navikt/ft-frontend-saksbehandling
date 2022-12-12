@@ -850,7 +850,7 @@ TilkommetAktivitet.args = {
               inntektsforholdListe: [
                 {
                   aktivitetStatus: 'AT',
-                  arbeidsgiverId: '947064649',
+                  arbeidsgiverId: '999999997',
                   bruttoInntektPrÅr: 480000,
                   harInntektsmelding: true,
                 },

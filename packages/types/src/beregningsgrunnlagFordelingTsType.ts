@@ -89,7 +89,7 @@ type FordelBeregningsgrunnlag = Readonly<{
   fordelBeregningsgrunnlagPerioder?: FordelBeregningsgrunnlagPeriode[];
 }>;
 
-type Inntektsforhold = Readonly<{
+export type Inntektsforhold = Readonly<{
   aktivitetStatus: AktivitetStatus;
   arbeidsforholdId: string;
   arbeidsgiverId: string;

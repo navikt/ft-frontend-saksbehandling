@@ -1,6 +1,7 @@
 import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
+  ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagTilBekreftelse,
@@ -108,7 +109,7 @@ interface TilkommetAktivitetProps {
   aktivtBeregningsgrunnlagIndeks: number;
   formData?: TilkommetAktivitetFormValues;
   setFormData: (data: TilkommetAktivitetFormValues) => void;
-  // arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   submitCallback: (aksjonspunktData: VurderNyttInntektsforholdAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
@@ -125,6 +126,7 @@ const TilkommetAktivitet = ({
   readOnly,
   submittable,
   vilkarperioder,
+  arbeidsgiverOpplysningerPerId,
 }: TilkommetAktivitetProps) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
     defaultValues: formData || buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
@@ -171,6 +173,7 @@ const TilkommetAktivitet = ({
               readOnly={readOnly}
               submittable={submittable}
               erAksjonspunktÅpent={erAksjonspunktÅpent}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             />
           </div>
         ))}

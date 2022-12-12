@@ -2,8 +2,8 @@ import { Alert, Heading, Tag } from '@navikt/ds-react';
 import { InputField, formHooks, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyWithKr, ISO_DATE_FORMAT, parseCurrencyInput } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
@@ -31,6 +31,7 @@ interface TilkommetAktivitetField {
   readOnly: boolean;
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 
 const TilkommetAktivitetField = ({
@@ -40,11 +41,42 @@ const TilkommetAktivitetField = ({
   readOnly,
   submittable,
   erAksjonspunktÅpent,
+  arbeidsgiverOpplysningerPerId,
 }: TilkommetAktivitetField) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto.vurderInntektsforholdPerioder;
+
+  const getAktivitetNavn = (inntektsforhold: Inntektsforhold) => {
+    if (!inntektsforhold.arbeidsgiverId || !arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId]) {
+      return '';
+    }
+    const agOpplysning = arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId];
+
+    if (inntektsforhold.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
+      if (!agOpplysning) {
+        return 'Arbeidsforhold';
+      }
+      return `${agOpplysning.navn} (Arbeidsforhold)`;
+    }
+
+    if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
+      if (!agOpplysning) {
+        return 'Frilanser';
+      }
+      return `${agOpplysning.navn} (Frilanser)`;
+    }
+
+    if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+      if (!agOpplysning) {
+        return 'Selvstendig næringsdrivende';
+      }
+      return `${agOpplysning.navn}`;
+    }
+
+    return '';
+  };
 
   const getInntektsforholdTableRows = (inntektsforholdPerioder: VurderInntektsforholdPeriode[]): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
@@ -54,7 +86,7 @@ const TilkommetAktivitetField = ({
         const harBruttoInntekt = !!inntektsforhold.bruttoInntektPrÅr && +inntektsforhold.bruttoInntektPrÅr > 0;
         tableRows.push(
           <TableRow key={inntektsforhold.arbeidsgiverId}>
-            <TableColumn>{inntektsforhold.arbeidsgiverId}</TableColumn>
+            <TableColumn>{getAktivitetNavn(inntektsforhold)}</TableColumn>
             <TableColumn>{`${formatDate(fom)} - ${formatDate(tom)}`}</TableColumn>
             {harBruttoInntekt && (
               <TableColumn className={styles.inntektColumn}>
