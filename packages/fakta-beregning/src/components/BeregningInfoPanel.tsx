@@ -101,7 +101,6 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         setAvklarAktiviteterErEndret={setAvklarAktiviteterErEndret}
       />
       <VerticalSpacer thirtyTwoPx />
-      {/* @ts-ignore */}
       <VurderFaktaBeregningPanel
         readOnly={avklarFaktaBeregningReadOnly}
         submitCallback={submitCallback}

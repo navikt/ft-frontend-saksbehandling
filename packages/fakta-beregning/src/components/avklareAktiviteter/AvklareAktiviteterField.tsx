@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 import { Button, ErrorMessage, Label } from '@navikt/ds-react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -113,6 +113,7 @@ interface OwnProps {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
+  submitDisabled: boolean;
 }
 
 const validate = (
@@ -144,6 +145,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   submittable,
   fieldId,
   updateOverstyring,
+  submitDisabled,
 }) => {
   const intl = useIntl();
   const {
@@ -160,15 +162,8 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(
     harOverstyrAvklaringsbehov || erOverstyrtAktivt,
   );
-  const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
 
   const finnesFeilForBegrunnelse = !!errors.avklarAktiviteterForm?.[fieldId]?.begrunnelseAvklareAktiviteter;
-
-  useEffect(() => {
-    if (!submitEnabled) {
-      setSubmitEnabled(true);
-    }
-  }, []);
 
   const initializeForm = (skalOverstyre: boolean) => {
     if (skalOverstyre) {
@@ -273,7 +268,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                       })}
                       isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
                       isDirty={fieldIsDirty}
-                      isSubmitting={isSubmitting}
+                      isSubmitting={submitDisabled}
                       isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
                       hasEmptyRequiredFields={finnesFeilForBegrunnelse}
                     />
