@@ -710,7 +710,7 @@ TilkommetAktivitet.args = {
               andelsnr: 2,
               inntektskategori: '-',
               arbeidsforhold: {
-                arbeidsgiverIdent: '947064649',
+                arbeidsgiverIdent: '999999997',
                 startdato: '2022-10-27',
                 arbeidsforholdType: 'ARBEID',
                 belopFraInntektsmeldingPrMnd: 40000,
@@ -819,7 +819,7 @@ TilkommetAktivitet.args = {
               tom: '2022-11-08',
               aktiviteter: [
                 {
-                  arbeidsgiverIdent: '947064649',
+                  arbeidsgiverIdent: '999999997',
                   fom: '2022-10-27',
                   tom: '9999-12-31',
                   arbeidsforholdType: 'ARBEID',
@@ -879,7 +879,7 @@ TilkommetAktivitet.args = {
                 {
                   andelsnr: 2,
                   arbeidsforhold: {
-                    arbeidsgiverIdent: '947064649',
+                    arbeidsgiverIdent: '999999997',
                     startdato: '2022-10-27',
                     arbeidsforholdType: 'ARBEID',
                   },
@@ -925,7 +925,7 @@ TilkommetAktivitet.args = {
           ],
           arbeidsforholdTilFordeling: [
             {
-              arbeidsgiverIdent: '947064649',
+              arbeidsgiverIdent: '999999997',
               startdato: '2022-10-27',
               arbeidsforholdType: 'ARBEID',
               perioderMedGraderingEllerRefusjon: [
