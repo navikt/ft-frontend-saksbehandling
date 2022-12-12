@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import { useFieldArray, useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -166,6 +166,8 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     control,
   });
 
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(false);
+
   const updateOverstyring = (index: number, skalOverstyre: boolean): void => {
     const currVal = getValues(`avklarAktiviteterForm.${index}`);
     setValue(
@@ -184,6 +186,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
 
   const losAvklaringsbehov = values => {
     if (Object.keys(errors).length === 0) {
+      setSubmitDisabled(true);
       submitCallback(transformValues(values as AvklarAktiviteterFormValues));
     }
   };
@@ -211,6 +214,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
                 alleKodeverk={alleKodeverk}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 updateOverstyring={updateOverstyring}
+                submitDisabled={submitDisabled}
               />
             ),
         )}
