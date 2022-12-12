@@ -10,6 +10,7 @@ import {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
+import { Label } from '@navikt/ds-react';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {
@@ -66,10 +67,9 @@ const getSammenligningsgrunnlagsPrStatus = (bg: BeregningsgrunnlagProp): Sammenl
   bg.sammenligningsgrunnlagPrStatus ? bg.sammenligningsgrunnlagPrStatus : [];
 
 const APTekster = {
-  [FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS]: 'Beregningsgrunnlag.Helptext.Arbeidstaker2',
-  [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]:
-    'Beregningsgrunnlag.Helptext.TidsbegrensetArbeidsforhold2',
-  [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'Beregningsgrunnlag.Helptext.NyIArbeidslivetSN2',
+  [FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS]: 'Beregningsgrunnlag.Helptext.Arbeidstaker',
+  [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]: 'Beregningsgrunnlag.Helptext.TidsbegrensetArbeidsforhold',
+  [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'Beregningsgrunnlag.Helptext.NyIArbeidslivetSN',
   [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'Beregningsgrunnlag.Helptext.VarigEndretArbeidssituasjon',
 } as Record<string, string>;
 
@@ -100,15 +100,19 @@ const lagAksjonspunktHelpText = (
     <div>
       <AksjonspunktHelpTextHTML>
         {åpneAvklaringsbehov.map(ap => (
-          <FormattedMessage
-            key={ap.definisjon}
-            id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
-            values={{
-              verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
-              b: (chunks: any) => <b>{chunks}</b>,
-              br: <br />,
-            }}
-          />
+          <Label key={ap.definisjon}>
+            <FormattedMessage
+              id={findAksjonspunktHelpTekst(
+                ap,
+                erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+              )}
+              values={{
+                verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
+                b: (chunks: any) => <b>{chunks}</b>,
+                br: <br />,
+              }}
+            />
+          </Label>
         ))}
       </AksjonspunktHelpTextHTML>
       <VerticalSpacer thirtyTwoPx />
