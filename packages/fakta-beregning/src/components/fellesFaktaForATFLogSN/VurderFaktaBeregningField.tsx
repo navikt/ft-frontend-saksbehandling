@@ -35,6 +35,7 @@ interface OwnProps {
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   vilkarsperiode: Vilkarperiode;
   verdiForAvklarAktivitetErEndret: boolean;
+  submitDisabled: boolean;
 }
 
 const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
@@ -92,10 +93,11 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   updateOverstyring,
   vilkarsperiode,
   verdiForAvklarAktivitetErEndret,
+  submitDisabled,
 }) => {
   const {
     getValues,
-    formState: { isSubmitting, errors, isDirty },
+    formState: { errors, isDirty },
   } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
 
   const { avklaringsbehov } = beregningsgrunnlag;
@@ -144,7 +146,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
             )}
             isReadOnly={readOnly || !skalVurderes}
             isDirty={isDirty}
-            isSubmitting={isSubmitting}
+            isSubmitting={submitDisabled}
             hasEmptyRequiredFields={finnesFeilForBegrunnelse(fieldId, errors)}
           />
         </>

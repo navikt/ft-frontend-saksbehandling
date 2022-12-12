@@ -7,7 +7,7 @@ import {
   Beregningsgrunnlag,
   Vilkar,
 } from '@navikt/ft-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -16,7 +16,7 @@ import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
+import transformValuesVurderFaktaBeregning from './transformValuesHjelpefunksjoner';
 import VurderFaktaContext from './VurderFaktaContext';
 import VurderFaktaBeregningField, { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
 
@@ -111,6 +111,8 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
   });
   const { errors, isSubmitted, dirtyFields } = formState;
 
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(false);
+
   useEffect(() => {
     if (isSubmitted && dirtyFields.vurderFaktaBeregningForm?.[aktivtBeregningsgrunnlagIndeks]) {
       trigger();
@@ -127,6 +129,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
 
   const losAvklaringsbehov = values => {
     if (Object.keys(errors).length === 0) {
+      setSubmitDisabled(true);
       submitCallback(transformValuesVurderFaktaBeregning(values, skalKunneAvbryteOverstyring));
     }
   };
@@ -162,6 +165,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
                   submittable={submittable}
                   fieldId={index}
                   updateOverstyring={updateOverstyring}
+                  submitDisabled={submitDisabled}
                   verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
                 />
               ),

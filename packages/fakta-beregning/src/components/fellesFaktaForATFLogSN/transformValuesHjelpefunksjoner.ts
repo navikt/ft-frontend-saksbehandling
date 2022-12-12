@@ -44,8 +44,7 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues, transfo
   };
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const transformValuesVurderFaktaBeregning = (
+const transformValuesVurderFaktaBeregning = (
   values: VurderFaktaBeregningFormValues,
   skalKunneAvbryteOverstyring = true,
 ) => {
@@ -106,3 +105,5 @@ export const transformValuesVurderFaktaBeregning = (
 
   return apDataTilSubmit;
 };
+
+export default transformValuesVurderFaktaBeregning;
