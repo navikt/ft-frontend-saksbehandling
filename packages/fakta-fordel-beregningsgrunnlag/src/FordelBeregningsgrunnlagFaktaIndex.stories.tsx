@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
-import { Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
   ArbeidsforholdTilFordeling,
@@ -36,6 +36,7 @@ import '@navikt/ds-css';
 // eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
+import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
 
 const agOpplysninger = {
   874652202: {
@@ -114,7 +115,9 @@ const Template: Story<{
   readOnly: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   aksjonspunkter: Aksjonspunkt[];
-  submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
+  submitCallback: (
+    aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
+  ) => Promise<void>;
   vilkårsperioder?: any[];
 }> = ({ readOnly, beregningsgrunnlagListe, submitCallback, vilkårsperioder = null }) => (
   <FordelBeregningsgrunnlagFaktaIndex
@@ -689,11 +692,9 @@ TilkommetAktivitet.args = {
           definisjon: 'VURDER_NYTT_INNTKTSFRHLD',
           status: 'OPPR',
           kanLoses: true,
-          erTrukket: false,
         },
       ],
       skjaeringstidspunktBeregning: '2022-11-08',
-      skjæringstidspunkt: '2022-11-08',
       aktivitetStatus: ['MIDL_INAKTIV'],
       beregningsgrunnlagPeriode: [
         {
@@ -705,7 +706,6 @@ TilkommetAktivitet.args = {
           periodeAarsaker: [],
           beregningsgrunnlagPrStatusOgAndel: [
             {
-              dtoType: 'GENERELL',
               aktivitetStatus: 'AT',
               andelsnr: 2,
               inntektskategori: '-',
@@ -715,13 +715,11 @@ TilkommetAktivitet.args = {
                 arbeidsforholdType: 'ARBEID',
                 belopFraInntektsmeldingPrMnd: 40000,
               },
-              fastsattAvSaksbehandler: false,
               lagtTilAvSaksbehandler: false,
               erTilkommetAndel: true,
               skalFastsetteGrunnlag: false,
             },
             {
-              dtoType: 'SN',
               aktivitetStatus: 'BA',
               beregningsperiodeFom: '2018-01-01',
               beregningsperiodeTom: '2020-12-31',
@@ -730,7 +728,6 @@ TilkommetAktivitet.args = {
               bruttoPrAar: 480000,
               andelsnr: 1,
               inntektskategori: 'ARBEIDSTAKER_UTEN_FERIEPENGER',
-              fastsattAvSaksbehandler: false,
               lagtTilAvSaksbehandler: false,
               erTilkommetAndel: false,
               skalFastsetteGrunnlag: true,
@@ -762,7 +759,6 @@ TilkommetAktivitet.args = {
           periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
           beregningsgrunnlagPrStatusOgAndel: [
             {
-              dtoType: 'SN',
               aktivitetStatus: 'BA',
               beregningsperiodeFom: '2018-01-01',
               beregningsperiodeTom: '2020-12-31',
@@ -771,7 +767,6 @@ TilkommetAktivitet.args = {
               bruttoPrAar: 480000,
               andelsnr: 1,
               inntektskategori: 'ARBEIDSTAKER_UTEN_FERIEPENGER',
-              fastsattAvSaksbehandler: false,
               lagtTilAvSaksbehandler: false,
               erTilkommetAndel: false,
               skalFastsetteGrunnlag: true,
@@ -806,7 +801,6 @@ TilkommetAktivitet.args = {
           differanseBeregnet: -480000,
         },
       ],
-      halvG: 55738.5,
       grunnbeløp: 111477,
       faktaOmBeregning: {
         saksopplysninger: {
@@ -840,7 +834,6 @@ TilkommetAktivitet.args = {
           },
         ],
       },
-      hjemmel: 'F_9_9_8_47',
       faktaOmFordeling: {
         vurderNyttInntektsforholdDto: {
           vurderInntektsforholdPerioder: [
@@ -849,10 +842,11 @@ TilkommetAktivitet.args = {
               tom: '9999-12-31',
               inntektsforholdListe: [
                 {
-                  aktivitetStatus: 'AT',
+                  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
                   arbeidsgiverId: '999999997',
                   bruttoInntektPrÅr: 480000,
                   harInntektsmelding: true,
+                  arbeidsforholdId: '123',
                 },
               ],
             },
@@ -870,7 +864,6 @@ TilkommetAktivitet.args = {
                   aktivitetStatus: 'BA',
                   kilde: 'PROSESS_START',
                   lagtTilAvSaksbehandler: false,
-                  fastsattAvSaksbehandler: false,
                   andelIArbeid: [100],
                   refusjonskravPrAar: 0,
                   nyttArbeidsforhold: false,
@@ -887,7 +880,6 @@ TilkommetAktivitet.args = {
                   aktivitetStatus: 'AT',
                   kilde: 'PROSESS_PERIODISERING',
                   lagtTilAvSaksbehandler: false,
-                  fastsattAvSaksbehandler: false,
                   andelIArbeid: [0],
                   refusjonskravPrAar: 0,
                   belopFraInntektsmeldingPrAar: 480000,
@@ -895,7 +887,6 @@ TilkommetAktivitet.args = {
                   arbeidsforholdType: 'ARBEID',
                 },
               ],
-              harPeriodeAarsakGraderingEllerRefusjon: true,
               skalRedigereInntekt: true,
               skalPreutfyllesMedBeregningsgrunnlag: false,
               skalKunneEndreRefusjon: false,
@@ -910,14 +901,12 @@ TilkommetAktivitet.args = {
                   aktivitetStatus: 'BA',
                   kilde: 'PROSESS_START',
                   lagtTilAvSaksbehandler: false,
-                  fastsattAvSaksbehandler: false,
                   andelIArbeid: [100],
                   refusjonskravPrAar: 0,
                   nyttArbeidsforhold: false,
                   arbeidsforholdType: '-',
                 },
               ],
-              harPeriodeAarsakGraderingEllerRefusjon: false,
               skalRedigereInntekt: false,
               skalPreutfyllesMedBeregningsgrunnlag: false,
               skalKunneEndreRefusjon: false,
@@ -941,11 +930,9 @@ TilkommetAktivitet.args = {
           ],
         },
       },
-      årsinntektVisningstall: 0,
       dekningsgrad: 100,
       ytelsesspesifiktGrunnlag: {
         ytelsetype: 'OMP',
-        skalAvviksvurdere: true,
       },
       erOverstyrtInntekt: false,
       vilkårsperiodeFom: '2022-11-08',

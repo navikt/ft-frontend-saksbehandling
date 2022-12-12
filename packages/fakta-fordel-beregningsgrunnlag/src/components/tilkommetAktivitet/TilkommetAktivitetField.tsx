@@ -46,7 +46,7 @@ const TilkommetAktivitetField = ({
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
   const vurderInntektsforholdPerioder =
-    beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto.vurderInntektsforholdPerioder;
+    beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
 
   const getAktivitetNavn = (inntektsforhold: Inntektsforhold) => {
     if (!inntektsforhold.arbeidsgiverId || !arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId]) {
