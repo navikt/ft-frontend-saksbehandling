@@ -4,8 +4,8 @@ import {
   Beregningsgrunnlag,
   StandardFaktaPanelProps,
   Vilkar,
+  Vilkarperiode,
 } from '@navikt/ft-types';
-import vilkarperiodeTsType from '@navikt/ft-types/src/vilkarperiodeTsType';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { TabsPure } from 'nav-frontend-tabs';
@@ -34,7 +34,12 @@ type OwnProps = {
 
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
-const lagLabel = (bg, vilkårsperioder) => {
+const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
+  const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
+  return vilkårPeriode.erForlengelse === true;
+};
+
+const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
   const stpOpptjening = bg.vilkårsperiodeFom;
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
   if (vilkårPeriode) {
@@ -61,7 +66,7 @@ const harAvklaringsbehovIPanel = avklaringsbehov => {
   return false;
 };
 
-const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: vilkarperiodeTsType[]) => {
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
   const aktuellPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning);
   return (
     harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
@@ -134,7 +139,7 @@ const BeregningFaktaIndex: FunctionComponent<
         alleKodeverk={alleKodeverk}
         avklaringsbehov={aktiveAvklaringsBehov}
         submitCallback={submitCallback}
-        readOnly={readOnly}
+        readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
         submittable={submittable}
         erOverstyrer={erOverstyrer}
         skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
