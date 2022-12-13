@@ -45,8 +45,9 @@ const finnDetaljer = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsg
     case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
       return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerVarigEndringArbeid';
     case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
-    case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
       return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerATFL';
+    case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
+      return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerATFLTidsbegrenset';
     default:
       return 'Ukjent aksjonspunkt';
   }
