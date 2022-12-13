@@ -239,10 +239,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
       screen.getByText('Søker er ny i arbeidslivet. Det foretas derfor ingen avviksvurdering.'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(
-        'Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år),' +
-          ' det skal gjøres en skjønnsmessig vurdering av næringsinntekten.',
-      ),
+      screen.getByText('Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år).'),
     ).toBeInTheDocument();
 
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
