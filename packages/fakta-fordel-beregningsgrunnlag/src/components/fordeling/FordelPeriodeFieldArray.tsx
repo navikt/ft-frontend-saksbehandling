@@ -527,20 +527,20 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   const fieldsMåValideres = fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
   if (fieldsMåValideres) {
     valider(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
-    valider(
-      validateSumFastsattForUgraderteAktiviteter(
-        vilkårperiodeFieldIndex,
-        getValues,
-        fieldName,
-        fields,
-        intl,
-        beregningsgrunnlag.grunnbeløp,
-        getKodeverknavn,
-      ),
-    );
     valider(validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl));
     if (gjelderGradering) {
       valider(validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl));
+      valider(
+        validateSumFastsattForUgraderteAktiviteter(
+          vilkårperiodeFieldIndex,
+          getValues,
+          fieldName,
+          fields,
+          intl,
+          beregningsgrunnlag.grunnbeløp,
+          getKodeverknavn,
+        ),
+      );
     }
     if (skalKunneEndreRefusjon) {
       valider(

@@ -60,8 +60,9 @@ const ExpandableTableRow: FunctionComponent<OwnProps> = ({
       className={showContent ? styles.activeRow : styles.hidden}
       isSelected={showContent}
     >
-      {[...Array(alignWithColumn)].map(() => (
-        <TableColumn className={showContent ? styles.active : styles.hidden} />
+      {[...Array(alignWithColumn)].map((_v, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <TableColumn key={index} className={showContent ? styles.active : styles.hidden} />
       ))}
       <TableColumn colspanAll className={showContent ? styles.active : styles.hidden}>
         <div className={showContent ? styles.active : styles.hidden}>{content}</div>

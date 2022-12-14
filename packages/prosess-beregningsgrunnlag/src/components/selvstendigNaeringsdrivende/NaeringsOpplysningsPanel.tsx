@@ -11,10 +11,27 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less'
 import styles from './naeringsOpplysningsPanel.less';
 import Ledelinje from '../fellesPaneler/Ledelinje';
 
-const finnvirksomhetsTypeKode = (næring: Næring): string => {
+const finnVirksomhetTypeTekst = (næring: Næring): string => {
   const kode = næring?.virksomhetType;
-  return kode || 'UDEFINERT';
+  if (!kode) {
+    return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT';
+  }
+  switch (kode) {
+    case 'JORDBRUK_SKOGBRUK':
+      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.JORDBRUK_SKOGBRUK';
+    case 'DAGMAMMA':
+      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.DAGMAMMA';
+    case 'FISKE':
+      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.FISKE';
+    case 'FRILANSER':
+      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.FRILANSER';
+    case 'ANNEN':
+      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.ANNEN';
+    default:
+      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT';
+  }
 };
+
 const virksomhetsDatoer = (næring: Næring): string | undefined => {
   const { oppstartsdato, opphørsdato } = næring;
   if (!oppstartsdato) {
@@ -130,9 +147,7 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
           <FlexRow>
             <FlexColumn>
               <BodyShort size="small">
-                <FormattedMessage
-                  id={`Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.${finnvirksomhetsTypeKode(naring)}`}
-                />
+                <FormattedMessage id={finnVirksomhetTypeTekst(naring)} />
               </BodyShort>
             </FlexColumn>
           </FlexRow>

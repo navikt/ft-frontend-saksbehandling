@@ -1,5 +1,4 @@
 import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react';
-import { Heading } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 
@@ -21,7 +20,6 @@ import {
 import { Vilkar } from '@navikt/ft-types/index';
 import { useFieldArray, useForm } from 'react-hook-form';
 import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
@@ -38,6 +36,7 @@ import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunk
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
+import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -219,24 +218,6 @@ const settOppKomponenterForNæring = (
   }
   return (
     <>
-      <FlexRow>
-        <FlexColumn>
-          <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
-            {erNyArbLivet && (
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.NyIArbeidslivet" />
-            )}
-            {!erNyArbLivet && !erVarigEndring && (
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.Nyoppstartet" />
-            )}
-            {!erNyArbLivet && !erNyoppstartet && erVarigEndring && (
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.VarigEndring" />
-            )}
-            {!erNyArbLivet && erNyoppstartet && erVarigEndring && (
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler" />
-            )}
-          </Heading>
-        </FlexColumn>
-      </FlexRow>
       <VerticalSpacer eightPx />
       <AksjonspunktBehandlerSNEllerMidlInakt
         readOnly={readOnly}
@@ -266,13 +247,6 @@ const settOppKomponenterForATFL = (
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
   return (
     <>
-      <FlexRow>
-        <FlexColumn>
-          <Heading size="medium" className={beregningStyles.avsnittOverskrift}>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler" />
-          </Heading>
-        </FlexColumn>
-      </FlexRow>
       <VerticalSpacer eightPx />
       {erTidsbegrenset && (
         <AksjonspunktBehandlerTB
@@ -525,7 +499,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
         ak => gjelderForParagraf(ak, lovparagraf) && ak.status === AksjonspunktStatus.OPPRETTET,
       )
     ) {
-      panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
     }
   }, [aktivIndex]);
 
@@ -542,8 +516,12 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     </FlexRow>
   );
 
+  const finnAvklaringsbehov = (
+    avklaringsbehovForBG: BeregningAvklaringsbehov[],
+  ): BeregningAvklaringsbehov | undefined => avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
+
   const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement | null => {
-    const ab = avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
+    const ab = finnAvklaringsbehov(avklaringsbehovForBG);
     if (lovparagraf === LovParagraf.ÅTTE_TRETTI && ab) {
       return settOppKomponenterForATFL(
         ab,
@@ -582,6 +560,11 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
             key={field.id}
             style={{ display: bgSomSkalVurderes[index].vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
           >
+            <AksjonspunktBehandlerHeader
+              readOnly={readOnly}
+              avklaringsbehov={finnAvklaringsbehov(bgSomSkalVurderes[index].avklaringsbehov)}
+              beregningsgrunnlag={bgSomSkalVurderes[index]}
+            />
             <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder}>
               {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
               <VerticalSpacer sixteenPx />
