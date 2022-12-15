@@ -7,6 +7,7 @@ import {
   PersonstatusType,
   FagsakYtelseType,
   RelasjonsRolleType,
+  FamilieHendelseType,
 } from '@navikt/ft-kodeverk';
 import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
 import VisittkortSakIndex from './VisittkortSakIndex';
@@ -95,4 +96,17 @@ ForAnnenPartDerAktørIdErUkjent.args = {
   fagsak: defaultFagsak,
   fagsakPersoner: fagsakPersonerMedAnnenPartUkjent,
   lenkeTilAnnenPart: 'testlenke til annen part',
+};
+
+export const MedDødfødtBarn = Template.bind({});
+MedDødfødtBarn.args = {
+  fagsak: defaultFagsak,
+  fagsakPersoner: {
+    bruker: fagsakPerson,
+    familiehendelse: {
+      hendelseType: FamilieHendelseType.FODSEL,
+      dødfødsel: true,
+      antallBarn: 1,
+    },
+  },
 };
