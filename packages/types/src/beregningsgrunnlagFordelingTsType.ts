@@ -88,8 +88,25 @@ type FordelBeregningsgrunnlag = Readonly<{
   fordelBeregningsgrunnlagPerioder?: FordelBeregningsgrunnlagPeriode[];
 }>;
 
+export type Inntektsforhold = Readonly<{
+  aktivitetStatus: string;
+  arbeidsforholdId: string;
+  arbeidsgiverId: string;
+  bruttoInntektPrÅr: number;
+  harInntektsmelding: boolean;
+}>;
+
+export type VurderInntektsforholdPeriode = Readonly<{
+  fom: string;
+  tom: string;
+  inntektsforholdListe: Inntektsforhold[];
+}>;
+
 export type FaktaOmFordeling = Readonly<{
   fordelBeregningsgrunnlag?: FordelBeregningsgrunnlag;
+  vurderNyttInntektsforholdDto?: {
+    vurderInntektsforholdPerioder?: VurderInntektsforholdPeriode[];
+  };
 }>;
 
 export default RefusjonTilVurdering;

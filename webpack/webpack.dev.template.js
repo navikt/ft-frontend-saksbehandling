@@ -9,7 +9,7 @@ const styleRule = require('./rules/style-rule');
 
 module.exports = (dirname) => ({
   mode: 'development',
-  devtool: 'eval-cheap-source-map',
+  devtool: 'eval-cheap-module-source-map',
   output: {
     publicPath: 'auto',
   },
@@ -29,7 +29,7 @@ module.exports = (dirname) => ({
           filename: '[name]_[contenthash].[ext]',
         },
       },
-      styleModulesRule(path.join(dirname, '../src')), 
+      styleModulesRule(path.join(dirname, '../src')),
       styleRule(path.join(dirname, '../src'), true, true)
     ],
   },

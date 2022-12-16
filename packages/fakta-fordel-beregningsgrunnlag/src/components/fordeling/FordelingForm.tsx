@@ -104,9 +104,9 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
   setFormData,
 }) => {
   const formMethods = useForm<FordelBeregningsgrunnlagFormValues>({
-    defaultValues:
-      formData ||
-      buildInitialValues(beregningsgrunnlagListe, vilkårsperioder, arbeidsgiverOpplysningerPerId, alleKodeverk),
+    defaultValues: formData?.FORDEL_BEREGNING_FORM
+      ? formData
+      : buildInitialValues(beregningsgrunnlagListe, vilkårsperioder, arbeidsgiverOpplysningerPerId, alleKodeverk),
   });
 
   const {

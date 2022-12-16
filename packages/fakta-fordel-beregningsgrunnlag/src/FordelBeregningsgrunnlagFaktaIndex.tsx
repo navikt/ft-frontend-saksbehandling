@@ -21,14 +21,17 @@ import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlag
 import messages from '../i18n/nb_NO.json';
 import {
   FordelBeregningsgrunnlagFormValues,
+  TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAvklaringsbehovCode from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
+import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
 
 const intl = createIntl(messages);
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
+  FaktaFordelBeregningAvklaringsbehovCode;
 
 const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): string => {
   const stpOpptjening = bg.vilkårsperiodeFom;
@@ -44,7 +47,12 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): st
 };
 
 const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
-  bg.avklaringsbehov.some(a => a.definisjon === VURDER_REFUSJON_BERGRUNN || a.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
+  bg.avklaringsbehov.some(
+    a =>
+      a.definisjon === VURDER_REFUSJON_BERGRUNN ||
+      a.definisjon === FORDEL_BEREGNINGSGRUNNLAG ||
+      a.definisjon === VURDER_NYTT_INNTKTSFRHLD,
+  );
 
 function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
   const res = [...beregningsgrunnlag];
@@ -69,8 +77,8 @@ type OwnProps = {
 
 type Props = OwnProps &
   StandardFaktaPanelProps<
-    FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP,
-    FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues
+    FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
+    FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues
   >;
 
 const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({

@@ -8,22 +8,31 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 
+import { FagsakStatus } from '@navikt/ft-kodeverk';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
 import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
 import FordelingForm from './fordeling/FordelingForm';
 import {
   FordelBeregningsgrunnlagFormValues,
+  TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
+import TilkommetAktivitet from './tilkommetAktivitet/TilkommetAktivitet';
 import FaktaFordelBeregningAvklaringsbehovCode from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import VurderNyttInntektsforholdAP from '../types/interface/VurderNyttInntektsforholdAP';
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
+  FaktaFordelBeregningAvklaringsbehovCode;
 
 const harFordelInfo = (bg: Beregningsgrunnlag): boolean =>
   bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false;
 
 const harRefusjonInfo = (bg: Beregningsgrunnlag): boolean => !!(bg && bg.refusjonTilVurdering);
+
+const harNyttInntektsforholdInfo = (bg: Beregningsgrunnlag): boolean =>
+  bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.vurderNyttInntektsforholdDto : false;
 
 const getAvklaringsbehov = (
   avklaringsbehov: BeregningAvklaringsbehov[],
@@ -34,14 +43,18 @@ const getAvklaringsbehov = (
 interface OwnProps {
   aktivtBeregningsgrunnlagIndeks: number;
   readOnly: boolean;
-  submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
+  submitCallback: (
+    aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
+  ) => Promise<void>;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
   alleKodeverk: AlleKodeverk;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues;
-  setFormData: (data: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues) => void;
+  formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues;
+  setFormData: (
+    data: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues,
+  ) => void;
 }
 
 /**
@@ -69,22 +82,63 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
     beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].avklaringsbehov,
     VURDER_REFUSJON_BERGRUNN,
   );
-  const skalViseFordeling = fordelAP && harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
-  const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
+  const nyttInntektsforholdAP = getAvklaringsbehov(
+    beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].avklaringsbehov,
+    VURDER_NYTT_INNTKTSFRHLD,
+  );
+
+  const alleAksjonspunktErLøst =
+    (!fordelAP || fordelAP.status !== FagsakStatus.OPPRETTET) &&
+    (!refusjonAP || refusjonAP.status !== FagsakStatus.OPPRETTET) &&
+    (!nyttInntektsforholdAP || nyttInntektsforholdAP.status !== FagsakStatus.OPPRETTET);
+
+  const skalViseNyttInntektsforhold =
+    nyttInntektsforholdAP &&
+    harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
+    (nyttInntektsforholdAP.status === FagsakStatus.OPPRETTET || alleAksjonspunktErLøst);
+  const skalViseFordeling =
+    fordelAP &&
+    harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
+    ((!skalViseNyttInntektsforhold && fordelAP.status === FagsakStatus.OPPRETTET) || alleAksjonspunktErLøst);
+  const skalViseRefusjon =
+    refusjonAP &&
+    harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
+    ((!skalViseNyttInntektsforhold && !skalViseFordeling && refusjonAP.status === FagsakStatus.OPPRETTET) ||
+      alleAksjonspunktErLøst);
+
   return (
     <>
+      {skalViseNyttInntektsforhold && (
+        <>
+          <TilkommetAktivitet
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            formData={formData as TilkommetAktivitetFormValues}
+            setFormData={setFormData}
+            submittable={submittable}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            vilkarperioder={vilkarperioder}
+          />
+          {alleAksjonspunktErLøst && <VerticalSpacer fourtyPx />}
+        </>
+      )}
       {skalViseRefusjon && (
-        <VurderEndringRefusjonForm
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          submittable={submittable}
-          readOnly={readOnly}
-          submitCallback={submitCallback}
-          beregningsgrunnlagListe={beregningsgrunnlagListe}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          formData={formData as VurderRefusjonFormValues}
-          setFormData={setFormData}
-          vilkarperioder={vilkarperioder}
-        />
+        <>
+          <VurderEndringRefusjonForm
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            submittable={submittable}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            formData={formData as VurderRefusjonFormValues}
+            setFormData={setFormData}
+            vilkarperioder={vilkarperioder}
+          />
+          {alleAksjonspunktErLøst && <VerticalSpacer fourtyPx />}
+        </>
       )}
       {skalViseFordeling && (
         <FordelingForm
