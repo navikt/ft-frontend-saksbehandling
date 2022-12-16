@@ -79,12 +79,8 @@ const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps> = ({ familiehen
         </BodyShort>
       </FlexColumn>
       {dødfødsel && (
-        <FlexColumn>
-          <Tag
-            variant="info"
-            className={styles.etikett}
-            title={intl.formatMessage({ id: 'VisittkortBarnInfoFodselPanel.DodTittel' })}
-          >
+        <FlexColumn className={styles.etikett}>
+          <Tag variant="info" title={intl.formatMessage({ id: 'VisittkortBarnInfoFodselPanel.DodTittel' })}>
             <FormattedMessage id="VisittkortBarnInfoFodselPanel.Dod" />
           </Tag>
         </FlexColumn>
