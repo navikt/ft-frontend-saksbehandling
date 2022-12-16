@@ -1,5 +1,5 @@
-import { Alert, Heading, Tag } from '@navikt/ds-react';
-import { InputField, formHooks, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { Alert, BodyShort, Heading, Tag } from '@navikt/ds-react';
+import { formHooks, InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
@@ -8,6 +8,7 @@ import { Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komp
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyWithKr, ISO_DATE_FORMAT, parseCurrencyInput } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import SubmitButton from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.less';
@@ -44,6 +45,7 @@ const TilkommetAktivitetField = ({
   arbeidsgiverOpplysningerPerId,
 }: TilkommetAktivitetField) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const intl = useIntl();
 
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
@@ -146,16 +148,33 @@ const TilkommetAktivitetField = ({
     return 'Har søker inntekt fra det nye arbeidsforholdet som reduserer søkers inntektstap?';
   };
 
+  const getAksjonspunktText = () => {
+    if (erAksjonspunktÅpent) {
+      return (
+        <Alert size="small" variant="warning">
+          <Heading spacing size="xsmall" level="3">
+            {getAlertHeading()}
+          </Heading>
+          Vurder om pleiepengene skal reduseres på grunn av den nye inntekten.
+        </Alert>
+      );
+    }
+    return (
+      <>
+        <BodyShort size="small">
+          <strong>{intl.formatMessage({ id: 'HelpText.Aksjonspunkt.BehandletAksjonspunkt' })}</strong>
+          <strong>{getAlertHeading()}</strong>
+        </BodyShort>
+        <BodyShort size="small">Vurder om pleiepengene skal reduseres på grunn av den nye inntekten.</BodyShort>
+      </>
+    );
+  };
+
   return (
     <>
+      {getAksjonspunktText()}
       {!!vurderInntektsforholdPerioder && erAksjonspunktÅpent && (
         <>
-          <Alert size="small" variant="warning">
-            <Heading spacing size="xsmall" level="3">
-              {getAlertHeading()}
-            </Heading>
-            Vurder om pleiepengene skal reduseres på grunn av den nye inntekten.
-          </Alert>
           <VerticalSpacer eightPx />
           <Alert size="small" variant="info">
             Inntekter som kommer til underveis i en løpende pleiepengeperiode er ikke en del av søkers

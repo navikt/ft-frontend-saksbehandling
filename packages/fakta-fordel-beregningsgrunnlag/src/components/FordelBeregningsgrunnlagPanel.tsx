@@ -8,6 +8,8 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 
+import { FagsakStatus } from '@navikt/ft-kodeverk';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
 import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
@@ -84,37 +86,59 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
     beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].avklaringsbehov,
     VURDER_NYTT_INNTKTSFRHLD,
   );
-  const skalViseFordeling = fordelAP && harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
-  const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
+
+  const alleAksjonspunktErLøst =
+    (!fordelAP || fordelAP.status !== FagsakStatus.OPPRETTET) &&
+    (!refusjonAP || refusjonAP.status !== FagsakStatus.OPPRETTET) &&
+    (!nyttInntektsforholdAP || nyttInntektsforholdAP.status !== FagsakStatus.OPPRETTET);
+
   const skalViseNyttInntektsforhold =
-    nyttInntektsforholdAP && harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
+    nyttInntektsforholdAP &&
+    harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
+    (nyttInntektsforholdAP.status === FagsakStatus.OPPRETTET || alleAksjonspunktErLøst);
+  const skalViseFordeling =
+    fordelAP &&
+    harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
+    ((!skalViseNyttInntektsforhold && fordelAP.status === FagsakStatus.OPPRETTET) || alleAksjonspunktErLøst);
+  const skalViseRefusjon =
+    refusjonAP &&
+    harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
+    ((!skalViseNyttInntektsforhold && !skalViseFordeling && refusjonAP.status === FagsakStatus.OPPRETTET) ||
+      alleAksjonspunktErLøst);
+
   return (
     <>
       {skalViseNyttInntektsforhold && (
-        <TilkommetAktivitet
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          formData={formData as TilkommetAktivitetFormValues}
-          setFormData={setFormData}
-          submittable={submittable}
-          readOnly={readOnly}
-          submitCallback={submitCallback}
-          beregningsgrunnlagListe={beregningsgrunnlagListe}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          vilkarperioder={vilkarperioder}
-        />
+        <>
+          <TilkommetAktivitet
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            formData={formData as TilkommetAktivitetFormValues}
+            setFormData={setFormData}
+            submittable={submittable}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            vilkarperioder={vilkarperioder}
+          />
+          {alleAksjonspunktErLøst && <VerticalSpacer fourtyPx />}
+        </>
       )}
       {skalViseRefusjon && (
-        <VurderEndringRefusjonForm
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          submittable={submittable}
-          readOnly={readOnly}
-          submitCallback={submitCallback}
-          beregningsgrunnlagListe={beregningsgrunnlagListe}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          formData={formData as VurderRefusjonFormValues}
-          setFormData={setFormData}
-          vilkarperioder={vilkarperioder}
-        />
+        <>
+          <VurderEndringRefusjonForm
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            submittable={submittable}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            formData={formData as VurderRefusjonFormValues}
+            setFormData={setFormData}
+            vilkarperioder={vilkarperioder}
+          />
+          {alleAksjonspunktErLøst && <VerticalSpacer fourtyPx />}
+        </>
       )}
       {skalViseFordeling && (
         <FordelingForm

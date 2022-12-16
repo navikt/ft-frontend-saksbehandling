@@ -7,6 +7,7 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import {
@@ -77,7 +78,7 @@ export const transformFieldValues = (
       aktivitetStatus: inntektsforhold.aktivitetStatus,
       arbeidsgiverId: inntektsforhold.arbeidsgiverId,
       arbeidsforholdId: inntektsforhold.arbeidsforholdId,
-      bruttoInntektPrÅr: values.bruttoInntektPrÅr,
+      bruttoInntektPrÅr: removeSpacesFromNumber(values.bruttoInntektPrÅr),
       skalRedusereUtbetaling: values.skalRedusereUtbetaling === 'true',
     })),
   }));
@@ -129,7 +130,9 @@ const TilkommetAktivitet = ({
   arbeidsgiverOpplysningerPerId,
 }: TilkommetAktivitetProps) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
-    defaultValues: formData || buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
+    defaultValues: formData?.VURDER_TILKOMMET_AKTIVITET_FORM
+      ? formData
+      : buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
   });
 
   const {

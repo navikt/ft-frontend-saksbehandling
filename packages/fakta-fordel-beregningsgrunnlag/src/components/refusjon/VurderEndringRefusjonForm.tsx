@@ -82,7 +82,9 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
   submitCallback,
 }) => {
   const formMethods = useForm<VurderRefusjonFormValues>({
-    defaultValues: formData || buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
+    defaultValues: formData?.VURDER_REFUSJON_BERGRUNN_FORM
+      ? formData
+      : buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
   });
 
   const {
