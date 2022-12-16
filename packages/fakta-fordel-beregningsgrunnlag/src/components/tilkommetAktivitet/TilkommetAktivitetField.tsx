@@ -152,7 +152,7 @@ const TilkommetAktivitetField = ({
     if (erAksjonspunktÅpent) {
       return (
         <Alert size="small" variant="warning">
-          <Heading spacing size="xsmall" level="3">
+          <Heading size="xsmall" level="3">
             {getAlertHeading()}
           </Heading>
           Vurder om pleiepengene skal reduseres på grunn av den nye inntekten.
