@@ -569,7 +569,7 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet', async () => {
                 aktivitetStatus: 'AT',
                 arbeidsforholdId: '123',
                 arbeidsgiverId: '999999997',
-                bruttoInntektPrÅr: '1 349',
+                bruttoInntektPrÅr: 1349,
                 skalRedusereUtbetaling: true,
               },
             ],
