@@ -847,6 +847,7 @@ TilkommetAktivitet.args = {
                   bruttoInntektPrÅr: 480000,
                   harInntektsmelding: true,
                   arbeidsforholdId: '123',
+                  skalRedusereUtbetaling: false,
                 },
               ],
             },

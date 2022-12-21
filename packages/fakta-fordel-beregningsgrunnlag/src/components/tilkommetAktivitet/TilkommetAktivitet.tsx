@@ -20,6 +20,7 @@ import VurderNyttInntektsforholdAP, {
 } from '../../types/interface/VurderNyttInntektsforholdAP';
 import styles from './tilkommetAktivitet.less';
 import TilkommetAktivitetField from './TilkommetAktivitetField';
+import { getInntektsforhold } from './TilkommetAktivitetUtils';
 
 const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
 export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';
@@ -53,10 +54,13 @@ const finnVilkårsperiode = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarper
 
 const buildFieldInitialValues = (beregningsgrunnlag: Beregningsgrunnlag, vilkarperioder: Vilkarperiode[]) => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
+  const inntektsforhold = getInntektsforhold(
+    beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder,
+  );
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
-    bruttoInntektPrÅr: undefined,
-    skalRedusereUtbetaling: undefined,
+    bruttoInntektPrÅr: inntektsforhold?.skalRedusereUtbetaling ? inntektsforhold?.bruttoInntektPrÅr : undefined,
+    skalRedusereUtbetaling: inntektsforhold?.skalRedusereUtbetaling,
     periode: finnVilkårsperiode(beregningsgrunnlag, vilkarperioder).periode,
   };
 };
@@ -79,7 +83,7 @@ export const transformFieldValues = (
       arbeidsgiverId: inntektsforhold.arbeidsgiverId,
       arbeidsforholdId: inntektsforhold.arbeidsforholdId,
       bruttoInntektPrÅr: removeSpacesFromNumber(values.bruttoInntektPrÅr),
-      skalRedusereUtbetaling: values.skalRedusereUtbetaling === 'true',
+      skalRedusereUtbetaling: values.skalRedusereUtbetaling,
     })),
   }));
 
