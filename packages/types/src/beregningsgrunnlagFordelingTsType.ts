@@ -94,6 +94,7 @@ export type Inntektsforhold = Readonly<{
   arbeidsgiverId: string;
   bruttoInntektPrÅr: number;
   harInntektsmelding: boolean;
+  skalRedusereUtbetaling: boolean;
 }>;
 
 export type VurderInntektsforholdPeriode = Readonly<{
