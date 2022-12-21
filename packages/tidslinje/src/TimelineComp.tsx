@@ -1,6 +1,4 @@
-import React, {
-  useMemo, useRef, useEffect, useImperativeHandle, forwardRef, ForwardedRef,
-} from 'react';
+import React, { useMemo, useRef, useEffect, useImperativeHandle, forwardRef, ForwardedRef } from 'react';
 import { DataSet } from 'vis-data';
 import { Timeline as VisTimelineCtor } from 'vis-timeline';
 import type {
@@ -76,7 +74,7 @@ const events: TimelineEventsWithMissing[] = [
 
 const eventDefaultProps: TimelineEventsHandlers = {};
 
-events.forEach((event) => {
+events.forEach(event => {
   eventDefaultProps[`${event}Handler`] = null;
 });
 
@@ -114,7 +112,7 @@ const Timeline = (
 
     timeline.current.setOptions(options);
 
-    events.forEach((event) => {
+    events.forEach(event => {
       const handler = rest[`${event}Handler`];
       if (typeof handler === 'function') {
         timeline.current.on(event, handler);
@@ -130,7 +128,7 @@ const Timeline = (
     }
 
     if (customTimes) {
-      Object.keys(customTimes).forEach((id) => {
+      Object.keys(customTimes).forEach(id => {
         timeline.current.addCustomTime(customTimes[id], id);
       });
     }
@@ -145,6 +143,12 @@ const Timeline = (
       timeline.current.setCurrentTime(currentTime);
     }
   }, [currentTime]);
+
+  useEffect(() => {
+    if (rest.selectHandler) {
+      timeline.current.on('select', rest.selectHandler);
+    }
+  }, [rest.selectHandler]);
 
   useEffect(() => {
     if (selection) {
