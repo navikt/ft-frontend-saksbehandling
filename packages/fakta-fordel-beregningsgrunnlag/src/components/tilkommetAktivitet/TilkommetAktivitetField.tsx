@@ -5,13 +5,13 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyWithKr, ISO_DATE_FORMAT, parseCurrencyInput } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
+import { formatCurrencyWithKr, parseCurrencyInput } from '@navikt/ft-utils';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import SubmitButton from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.less';
+import { getInntektsforhold } from './TilkommetAktivitetUtils';
 
 const finnAktivitetStatus = (
   aktivitetStatus: AktivitetStatus,
@@ -22,8 +22,6 @@ const finnAktivitetStatus = (
       inntektsforhold => inntektsforhold.aktivitetStatus === aktivitetStatus,
     ),
   );
-
-const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '');
 
 interface TilkommetAktivitetField {
   formName: string;
@@ -82,28 +80,25 @@ const TilkommetAktivitetField = ({
 
   const getInntektsforholdTableRows = (inntektsforholdPerioder: VurderInntektsforholdPeriode[]): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
-    inntektsforholdPerioder.forEach(inntektsforholdPeriode => {
-      const { fom, tom } = inntektsforholdPeriode;
-      inntektsforholdPeriode.inntektsforholdListe.forEach(inntektsforhold => {
-        const harBruttoInntekt = !!inntektsforhold.bruttoInntektPrÅr && +inntektsforhold.bruttoInntektPrÅr > 0;
-        tableRows.push(
-          <TableRow key={inntektsforhold.arbeidsgiverId}>
-            <TableColumn>{getAktivitetNavn(inntektsforhold)}</TableColumn>
-            <TableColumn>{`${formatDate(fom)} - ${formatDate(tom)}`}</TableColumn>
-            {harBruttoInntekt && (
-              <TableColumn className={styles.inntektColumn}>
-                {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr)}
-                {inntektsforhold.harInntektsmelding && (
-                  <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
-                    IM
-                  </Tag>
-                )}
-              </TableColumn>
-            )}
-          </TableRow>,
-        );
-      });
-    });
+    const inntektsforhold = getInntektsforhold(inntektsforholdPerioder);
+    if (inntektsforhold) {
+      const harBruttoInntekt = !!inntektsforhold.bruttoInntektPrÅr && +inntektsforhold.bruttoInntektPrÅr > 0;
+      tableRows.push(
+        <TableRow key={inntektsforhold.arbeidsgiverId}>
+          <TableColumn>{getAktivitetNavn(inntektsforhold)}</TableColumn>
+          {harBruttoInntekt && (
+            <TableColumn className={styles.inntektColumn}>
+              {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr)}
+              {inntektsforhold.harInntektsmelding && (
+                <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
+                  IM
+                </Tag>
+              )}
+            </TableColumn>
+          )}
+        </TableRow>,
+      );
+    }
     return tableRows;
   };
 
@@ -192,7 +187,6 @@ const TilkommetAktivitetField = ({
           <Table
             headerTextCodes={[
               'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
-              'BeregningInfoPanel.TilkommetAktivitet.Periode',
               harInntektsforholdMedÅrsinntekt ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt' : 'EMPTY',
             ]}
             noHover
@@ -213,9 +207,10 @@ const TilkommetAktivitetField = ({
           ]}
           isReadOnly={readOnly}
           validate={[required]}
+          isTrueOrFalseSelection
         />
 
-        {skalRedusereUtbetaling === 'true' && (
+        {skalRedusereUtbetaling && (
           <>
             <VerticalSpacer sixteenPx />
             <div className={styles.bruttoInntektContainer}>
