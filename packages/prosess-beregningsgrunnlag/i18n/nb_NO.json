@@ -119,6 +119,8 @@
   "Beregningsgrunnlag.Beregningsresultat.Frilans": "Fastsatt årsinntekt frilans",
   "Beregningsgrunnlag.Beregningsresultat.Næring": "Fastsatt årsinntekt næring",
   "Beregningsgrunnlag.Beregningsresultat.Dagpenger": "Fastsatt årsinntekt dagpenger",
+  "Beregningsgrunnlag.Beregningsresultat.SykepengerAvDagpenger": "Fastsatt årsinntekt sykepenger av dagpenger",
+  "Beregningsgrunnlag.Beregningsresultat.PleiepengerAvDagpenger": "Fastsatt årsinntekt pleiepenger av dagpenger",
   "Beregningsgrunnlag.Beregningsresultat.Arbeidsavklaringspenger": "Fastsatt årsinntekt arbeidsavklaringspenger",
   "Beregningsgrunnlag.Beregningsresultat.Militær": "Fastsatt årsinntekt militær",
   "Beregningsgrunnlag.Beregningsresultat.BrukersAndel": "Fastsatt årsinntekt brukers andel",
