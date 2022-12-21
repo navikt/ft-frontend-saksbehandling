@@ -36,6 +36,14 @@ const statusKonfigMap: StatusKonfig = {
     rekkefølgePri: 3,
     beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Dagpenger',
   },
+  [AktivitetStatus.SYKEPENGER_AV_DAGPENGER]: {
+    rekkefølgePri: 3,
+    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.SykepengerAvDagpenger',
+  },
+  [AktivitetStatus.PLEIEPENGER_AV_DAGPENGER]: {
+    rekkefølgePri: 3,
+    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.PleiepengerAvDagpenger',
+  },
   [AktivitetStatus.ARBEIDSAVKLARINGSPENGER]: {
     rekkefølgePri: 4,
     beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Arbeidsavklaringspenger',
