@@ -138,10 +138,7 @@ const harPeriodeSomKanKombineresMedForrige = (
   const harIkkeUtbetaling = harIkkeUtbetalingIPeriode(fordelPeriode);
   const harIkkeUtbetalingForrige = harIkkeUtbetalingIPeriode(forrigeEndringPeriode);
   const kanSlåSammenGrunnetIngenUtbetaling = harIkkeUtbetaling || harIkkeUtbetalingForrige;
-  const harLikeMangeAndeler =
-    fordelPeriode.fordelBeregningsgrunnlagAndeler?.length ===
-    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler?.length;
-  if (kanSlåSammenGrunnetIngenUtbetaling && harLikeMangeAndeler) {
+  if (kanSlåSammenGrunnetIngenUtbetaling) {
     return true;
   }
   if (fordelPeriode.skalRedigereInntekt !== forrigeEndringPeriode.skalRedigereInntekt) {
