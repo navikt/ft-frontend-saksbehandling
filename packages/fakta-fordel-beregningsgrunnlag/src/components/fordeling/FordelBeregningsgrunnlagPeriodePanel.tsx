@@ -57,13 +57,13 @@ const finnBortfaltNaturalytelse = (andel: BeregningsgrunnlagAndel): number =>
 
 const finnBeregnetPlussBortfaltNat = (andel: BeregningsgrunnlagAndel): number => {
   const bortfaltNaturalytelse = finnBortfaltNaturalytelse(andel);
-  if (andel.besteberegningPrAar) {
+  if (andel.besteberegningPrAar !== undefined && andel.besteberegningPrAar !== null) {
     return andel.besteberegningPrAar + bortfaltNaturalytelse;
   }
-  if (andel.overstyrtPrAar) {
+  if (andel.overstyrtPrAar !== undefined && andel.overstyrtPrAar !== null) {
     return andel.overstyrtPrAar + bortfaltNaturalytelse;
   }
-  if (andel.beregnetPrAar) {
+  if (andel.beregnetPrAar !== undefined && andel.beregnetPrAar !== null) {
     return andel.beregnetPrAar + bortfaltNaturalytelse;
   }
   return 0;
