@@ -68,6 +68,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: VurderRefusjonFormValues;
   setFormData: (data: VurderRefusjonFormValues) => void;
+  setRefusjonFormIsDirty: (isDirty: boolean) => void;
 };
 
 const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
@@ -80,6 +81,7 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
   setFormData,
   formData,
   submitCallback,
+  setRefusjonFormIsDirty,
 }) => {
   const formMethods = useForm<VurderRefusjonFormValues>({
     defaultValues: formData?.VURDER_REFUSJON_BERGRUNN_FORM
@@ -88,10 +90,14 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
   });
 
   const {
-    formState: { dirtyFields, isSubmitted, errors },
+    formState: { dirtyFields, isSubmitted, errors, isDirty },
     control,
     trigger,
   } = formMethods;
+
+  useEffect(() => {
+    setRefusjonFormIsDirty(isDirty);
+  }, [isDirty]);
 
   useEffect(() => {
     if (isSubmitted && dirtyFields[FORM_NAME]?.[aktivtBeregningsgrunnlagIndeks]) {

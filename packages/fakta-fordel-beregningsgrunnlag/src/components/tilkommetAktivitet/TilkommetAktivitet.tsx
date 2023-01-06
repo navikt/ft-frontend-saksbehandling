@@ -120,6 +120,7 @@ interface TilkommetAktivitetProps {
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
+  setTilkommetAktivitetFormIsDirty: (isDirty: boolean) => void;
 }
 
 const TilkommetAktivitet = ({
@@ -132,6 +133,7 @@ const TilkommetAktivitet = ({
   submittable,
   vilkarperioder,
   arbeidsgiverOpplysningerPerId,
+  setTilkommetAktivitetFormIsDirty,
 }: TilkommetAktivitetProps) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
     defaultValues: formData?.VURDER_TILKOMMET_AKTIVITET_FORM
@@ -140,10 +142,14 @@ const TilkommetAktivitet = ({
   });
 
   const {
-    formState: { dirtyFields, isSubmitted, errors },
+    formState: { dirtyFields, isSubmitted, errors, isDirty },
     trigger,
     control,
   } = formMethods;
+
+  useEffect(() => {
+    setTilkommetAktivitetFormIsDirty(isDirty);
+  }, [isDirty]);
 
   useEffect(() => {
     if (isSubmitted && dirtyFields[FORM_NAME]?.[aktivtBeregningsgrunnlagIndeks]) {
