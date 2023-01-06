@@ -114,6 +114,23 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
 
   return (
     <>
+      {skalViseRefusjon && (
+        <>
+          <VurderEndringRefusjonForm
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            submittable={submittable && !tilkommetAktivitetFormIsDirty && !fordelingFormIsDirty}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            formData={formData as VurderRefusjonFormValues}
+            setFormData={setFormData}
+            vilkarperioder={vilkarperioder}
+            setRefusjonFormIsDirty={setRefusjonFormIsDirty}
+          />
+          <VerticalSpacer fourtyPx />
+        </>
+      )}
       {harNyttInntektsforholdAP && (
         <>
           <TilkommetAktivitet
@@ -129,23 +146,6 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
             setTilkommetAktivitetFormIsDirty={setTilkommetAktivitetFormIsDirty}
           />
           <VerticalSpacer fourtyPx />
-        </>
-      )}
-      {skalViseRefusjon && (
-        <>
-          <VurderEndringRefusjonForm
-            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            submittable={submittable && !tilkommetAktivitetFormIsDirty && !fordelingFormIsDirty}
-            readOnly={readOnly}
-            submitCallback={submitCallback}
-            beregningsgrunnlagListe={beregningsgrunnlagListe}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            formData={formData as VurderRefusjonFormValues}
-            setFormData={setFormData}
-            vilkarperioder={vilkarperioder}
-            setRefusjonFormIsDirty={setRefusjonFormIsDirty}
-          />
-          {alleAksjonspunktErLøst && <VerticalSpacer fourtyPx />}
         </>
       )}
       {skalViseFordeling && (
