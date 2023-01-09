@@ -7,7 +7,7 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import {
@@ -59,7 +59,9 @@ const buildFieldInitialValues = (beregningsgrunnlag: Beregningsgrunnlag, vilkarp
   );
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
-    bruttoInntektPrÅr: inntektsforhold?.skalRedusereUtbetaling ? inntektsforhold?.bruttoInntektPrÅr : undefined,
+    bruttoInntektPrÅr: inntektsforhold?.skalRedusereUtbetaling
+      ? formatCurrencyNoKr(inntektsforhold?.bruttoInntektPrÅr)
+      : undefined,
     skalRedusereUtbetaling: inntektsforhold?.skalRedusereUtbetaling,
     periode: finnVilkårsperiode(beregningsgrunnlag, vilkarperioder).periode,
   };

@@ -102,7 +102,7 @@ export type VurderRefusjonFormValues = {
 
 export type TilkommetAktivitetFieldValues = AksjonspunktValues & {
   skalRedusereUtbetaling: boolean;
-  bruttoInntektPrÅr: number;
+  bruttoInntektPrÅr: string;
 };
 
 export type TilkommetAktivitetFormValues = {
