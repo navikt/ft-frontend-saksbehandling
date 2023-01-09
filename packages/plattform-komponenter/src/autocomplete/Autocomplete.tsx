@@ -7,6 +7,7 @@ import styles from './autocomplete.less';
 export interface AutocompleteProps {
   onSelect: (value: Suggestion) => void;
   onChange: (value: string) => void;
+  onBlur?: () => void;
   placeholder: string;
   suggestions: Suggestion[];
   value: string;
@@ -161,6 +162,10 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
       }
     }, 10);
     this.setState({ blurDelay });
+    const { onBlur } = this.props;
+    if (onBlur) {
+      onBlur();
+    }
   }
 
   setSuggestionIndex(index: number) {
