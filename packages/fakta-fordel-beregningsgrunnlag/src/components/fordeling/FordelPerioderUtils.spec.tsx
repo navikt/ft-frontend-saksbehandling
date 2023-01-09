@@ -387,7 +387,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       },
       {
         beregningsgrunnlagPeriodeFom: '2022-12-01',
-        beregningsgrunnlagPeriodeTom: '2022-12-02',
+        beregningsgrunnlagPeriodeTom: '2022-11-30',
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
@@ -395,7 +395,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2022-11-28');
-    expect(nyePerioder[0].tom).toBe('2022-12-02');
+    expect(nyePerioder[0].tom).toBe('2022-11-30');
   });
 
   it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om siste periode er kun helg', () => {
@@ -515,7 +515,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
-    expect(nyePerioder[0].fom).toBe('2022-08-15');
+    expect(nyePerioder[0].fom).toBe('2022-08-17');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 

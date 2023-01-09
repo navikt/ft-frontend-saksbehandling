@@ -75,8 +75,8 @@ function erPeriodeKunHelg(periode: BeregningsgrunnlagPeriodeProp) {
 const harFravær = (andel: FordelBeregningsgrunnlagAndel) =>
   andel.andelIArbeid?.some(arbeidsandel => arbeidsandel !== 100);
 
-function harIkkeUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
-  return !periode.fordelBeregningsgrunnlagAndeler?.some(a => harFravær(a));
+function harUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
+  return periode.fordelBeregningsgrunnlagAndeler?.some(a => harFravær(a));
 }
 
 function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
@@ -135,11 +135,11 @@ const harPeriodeSomKanKombineresMedForrige = (
   periodeList: FordelBeregningsgrunnlagPeriode[],
 ): boolean => {
   const forrigeEndringPeriode = periodeList[periodeList.length - 1];
-  const harIkkeUtbetaling = harIkkeUtbetalingIPeriode(fordelPeriode);
-  const harIkkeUtbetalingForrige = harIkkeUtbetalingIPeriode(forrigeEndringPeriode);
-  const kanSlåSammenGrunnetIngenUtbetaling = harIkkeUtbetaling || harIkkeUtbetalingForrige;
-  if (kanSlåSammenGrunnetIngenUtbetaling) {
-    return true;
+  const harLikeMangeAndeler =
+    fordelPeriode.fordelBeregningsgrunnlagAndeler?.length ===
+    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler?.length;
+  if (!harLikeMangeAndeler) {
+    return false;
   }
   if (fordelPeriode.skalRedigereInntekt !== forrigeEndringPeriode.skalRedigereInntekt) {
     return false;
@@ -247,4 +247,5 @@ export const lagPerioderForSubmit = (
 export const slaaSammenPerioder = (
   perioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
-): FordelBeregningsgrunnlagPeriode[] => perioder.reduce(sjekkOmPeriodeSkalLeggesTil(bgPerioder), []);
+): FordelBeregningsgrunnlagPeriode[] =>
+  perioder.filter(p => harUtbetalingIPeriode(p)).reduce(sjekkOmPeriodeSkalLeggesTil(bgPerioder), []);
