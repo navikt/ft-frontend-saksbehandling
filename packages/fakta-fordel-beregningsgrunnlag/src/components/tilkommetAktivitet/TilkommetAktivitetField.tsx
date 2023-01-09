@@ -49,10 +49,10 @@ const TilkommetAktivitetField = ({
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
 
   const getAktivitetNavn = (inntektsforhold: Inntektsforhold) => {
-    if (!inntektsforhold.arbeidsgiverId || !arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId]) {
-      return '';
+    let agOpplysning = null;
+    if (inntektsforhold.arbeidsgiverId !== null && inntektsforhold.arbeidsgiverId !== undefined) {
+      agOpplysning = arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId];
     }
-    const agOpplysning = arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId];
 
     if (inntektsforhold.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
       if (!agOpplysning) {
