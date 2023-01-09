@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 import {
   AlleKodeverk,
@@ -74,6 +74,9 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
 }) => {
+  const [tilkommetAktivitetFormIsDirty, setTilkommetAktivitetFormIsDirty] = useState(false);
+  const [refusjonFormIsDirty, setRefusjonFormIsDirty] = useState(false);
+  const [fordelingFormIsDirty, setFordelingFormIsDirty] = useState(false);
   const fordelAP = getAvklaringsbehov(
     beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].avklaringsbehov,
     FORDEL_BEREGNINGSGRUNNLAG,
@@ -92,43 +95,30 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
     (!refusjonAP || refusjonAP.status !== FagsakStatus.OPPRETTET) &&
     (!nyttInntektsforholdAP || nyttInntektsforholdAP.status !== FagsakStatus.OPPRETTET);
 
-  const skalViseNyttInntektsforhold =
-    nyttInntektsforholdAP &&
-    harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
-    (nyttInntektsforholdAP.status === FagsakStatus.OPPRETTET || alleAksjonspunktErLøst);
+  const harNyttInntektsforholdAP =
+    nyttInntektsforholdAP && harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
+
+  const erNyttInntektsforholdFerdigbehandlet =
+    !harNyttInntektsforholdAP || nyttInntektsforholdAP.status !== FagsakStatus.OPPRETTET;
+
   const skalViseFordeling =
     fordelAP &&
     harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
-    ((!skalViseNyttInntektsforhold && fordelAP.status === FagsakStatus.OPPRETTET) || alleAksjonspunktErLøst);
+    ((erNyttInntektsforholdFerdigbehandlet && fordelAP.status === FagsakStatus.OPPRETTET) || alleAksjonspunktErLøst);
+
   const skalViseRefusjon =
     refusjonAP &&
     harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
-    ((!skalViseNyttInntektsforhold && !skalViseFordeling && refusjonAP.status === FagsakStatus.OPPRETTET) ||
+    ((erNyttInntektsforholdFerdigbehandlet && !skalViseFordeling && refusjonAP.status === FagsakStatus.OPPRETTET) ||
       alleAksjonspunktErLøst);
 
   return (
     <>
-      {skalViseNyttInntektsforhold && (
-        <>
-          <TilkommetAktivitet
-            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            formData={formData as TilkommetAktivitetFormValues}
-            setFormData={setFormData}
-            submittable={submittable}
-            readOnly={readOnly}
-            submitCallback={submitCallback}
-            beregningsgrunnlagListe={beregningsgrunnlagListe}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            vilkarperioder={vilkarperioder}
-          />
-          {alleAksjonspunktErLøst && <VerticalSpacer fourtyPx />}
-        </>
-      )}
       {skalViseRefusjon && (
         <>
           <VurderEndringRefusjonForm
             aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            submittable={submittable}
+            submittable={submittable && !tilkommetAktivitetFormIsDirty && !fordelingFormIsDirty}
             readOnly={readOnly}
             submitCallback={submitCallback}
             beregningsgrunnlagListe={beregningsgrunnlagListe}
@@ -136,14 +126,32 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
             formData={formData as VurderRefusjonFormValues}
             setFormData={setFormData}
             vilkarperioder={vilkarperioder}
+            setRefusjonFormIsDirty={setRefusjonFormIsDirty}
           />
-          {alleAksjonspunktErLøst && <VerticalSpacer fourtyPx />}
+          <VerticalSpacer fourtyPx />
+        </>
+      )}
+      {harNyttInntektsforholdAP && (
+        <>
+          <TilkommetAktivitet
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            formData={formData as TilkommetAktivitetFormValues}
+            setFormData={setFormData}
+            submittable={submittable && !refusjonFormIsDirty && !fordelingFormIsDirty}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            vilkarperioder={vilkarperioder}
+            setTilkommetAktivitetFormIsDirty={setTilkommetAktivitetFormIsDirty}
+          />
+          <VerticalSpacer fourtyPx />
         </>
       )}
       {skalViseFordeling && (
         <FordelingForm
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          submittable={submittable}
+          submittable={submittable && !tilkommetAktivitetFormIsDirty && !refusjonFormIsDirty}
           readOnly={readOnly}
           submitCallback={submitCallback}
           alleKodeverk={alleKodeverk}
@@ -152,6 +160,7 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
           formData={formData as FordelBeregningsgrunnlagFormValues}
           setFormData={setFormData}
           vilkårsperioder={vilkarperioder}
+          setFordelingFormIsDirty={setFordelingFormIsDirty}
         />
       )}
     </>

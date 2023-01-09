@@ -84,6 +84,7 @@ interface PureOwnProps {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues;
   setFormData: (data: FordelBeregningsgrunnlagFormValues) => void;
+  setFordelingFormIsDirty: (isDirty: boolean) => void;
 }
 
 /**
@@ -102,6 +103,7 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
+  setFordelingFormIsDirty,
 }) => {
   const formMethods = useForm<FordelBeregningsgrunnlagFormValues>({
     defaultValues: formData?.FORDEL_BEREGNING_FORM
@@ -110,10 +112,14 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
   });
 
   const {
-    formState: { dirtyFields, isSubmitted, errors },
+    formState: { dirtyFields, isSubmitted, errors, isDirty },
     control,
     trigger,
   } = formMethods;
+
+  useEffect(() => {
+    setFordelingFormIsDirty(isDirty);
+  }, [isDirty]);
 
   useEffect(() => {
     if (isSubmitted && dirtyFields[FORM_NAME]?.[aktivtBeregningsgrunnlagIndeks]) {
