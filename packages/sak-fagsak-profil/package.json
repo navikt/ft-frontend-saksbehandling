@@ -23,8 +23,8 @@
     "storybook": "cross-env start-storybook -p 7018"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.0.8",
-    "@navikt/ds-react": "2.0.8",
+    "@navikt/ds-css": "2.0.12",
+    "@navikt/ds-react": "2.0.12",
     "@navikt/ft-kodeverk": "^1.0.24",
     "@navikt/ft-types": "^1.0.37",
     "@navikt/ft-ui-komponenter": "^1.3.5",
@@ -33,8 +33,8 @@
     "react-intl": "6.2.5"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.0.8",
-    "@navikt/ds-react": "2.0.8",
+    "@navikt/ds-css": "2.0.12",
+    "@navikt/ds-react": "2.0.12",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-types": "^1.x",
     "@navikt/ft-ui-komponenter": "1.x",
@@ -43,7 +43,7 @@
     "react-intl": "6.2.5"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "6.5.14",
+    "@storybook/addon-actions": "6.5.15",
     "@storybook/testing-react": "1.3.0",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "14.4.3"
