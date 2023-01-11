@@ -34,10 +34,6 @@ import {
   maxValueMessage,
   minLengthMessage,
   minValueMessage,
-  trekkdagerErMerEnnNullUtsettelseMessage,
-  ukerOgDagerVidNullUtbetalningsgradMessage,
-  utbetalingMerEnnNullUtsettelseMessage,
-  utbetalingsgradErMerSamtidigUttaksprosentMessage,
   hasWhiteSpace,
 } from './messages';
 import {
@@ -260,34 +256,13 @@ export const hasValidPeriod = (fomDate: string, tomDate: string): FormValidation
   return moment(fomDate).isSameOrBefore(moment(tomDate).startOf('day')) ? null : invalidPeriodMessage();
 };
 
-export const isWithinOpptjeningsperiode =
+export const isWithinPeriode =
   (fomDateLimit: string, tomDateLimit: string) =>
   (fom: string, tom: string): FormValidationResult => {
     const isBefore = moment(fom).isBefore(moment(fomDateLimit));
     const isAfter = moment(tom).isAfter(moment(tomDateLimit));
     return isBefore || isAfter ? invalidPeriodRangeMessage() : null;
   };
-
-export const isUtbetalingsgradMerSamitidigUttaksprosent = (
-  samtidigUttaksProsent: number,
-  utbetalingsgrad: number,
-): FormValidationResult => {
-  if (samtidigUttaksProsent < utbetalingsgrad) {
-    return utbetalingsgradErMerSamtidigUttaksprosentMessage();
-  }
-  return null;
-};
-
-export const isUkerOgDagerVidNullUtbetalningsgrad = (
-  weeks: number,
-  days: number,
-  utbetalingsgrad: number,
-): FormValidationResult => {
-  if (weeks === 0 && days === 0 && utbetalingsgrad > 0) {
-    return ukerOgDagerVidNullUtbetalningsgradMessage();
-  }
-  return null;
-};
 
 export const validateProsentandel = (prosentandel: string | number): FormValidationResult =>
   required(prosentandel) || hasValidDecimal(prosentandel) || hasValidNumber(prosentandel.toString().replace('.', ''));
@@ -311,9 +286,3 @@ export const ariaCheck = (): void => {
     }
   }, 300);
 };
-
-export const isTrekkdagerMerEnnNullUtsettelse = (value: number): FormValidationResult =>
-  value > 0 ? trekkdagerErMerEnnNullUtsettelseMessage() : null;
-
-export const isUtbetalingMerEnnNullUtsettelse = (value: number): FormValidationResult =>
-  value > 0 ? utbetalingMerEnnNullUtsettelseMessage() : null;
