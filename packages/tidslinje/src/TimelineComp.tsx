@@ -145,12 +145,6 @@ const Timeline = (
   }, [currentTime]);
 
   useEffect(() => {
-    if (rest.selectHandler) {
-      timeline.current.on('select', rest.selectHandler);
-    }
-  }, [rest.selectHandler]);
-
-  useEffect(() => {
     if (selection) {
       timeline.current.setSelection(selection, selectionOptions as Required<SelectionOptions>);
     }

@@ -49,23 +49,8 @@ export const invalidDatesInPeriodMessage = (): string =>
 export const invalidPeriodMessage = (): string => intl.formatMessage({ id: 'ValidationMessage.InvalidPeriod' });
 export const invalidPeriodRangeMessage = (): string =>
   intl.formatMessage({ id: 'ValidationMessage.InvalidPeriodRange' });
-export const utbetalingsgradErMerSamtidigUttaksprosentMessage = (): string =>
-  intl.formatMessage({
-    id: 'ValidationMessage.utbetalingsgradErMerSamtidigUttaksprosent',
-  });
-export const trekkdagerErMerEnnNullUtsettelseMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.trekkdagerErMerEnnNullUtsettelse' });
-export const utbetalingMerEnnNullUtsettelseMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.utbetalingMerEnnNullUtsettelse' });
 export const invalidNumberMessage = (text: string): string =>
   intl.formatMessage({ id: 'ValidationMessage.InvalidNumber' }, { text });
-export const ukerOgDagerVidNullUtbetalningsgradMessage = (): string =>
-  intl.formatMessage({
-    id: 'ValidationMessage.ukerOgDagerVidNullUtbetalningsgradMessage',
-  });
-export const arbeidsprosentMåVare100VidUtsettelseAvArbeidMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.UtsettelseUtenFullArbeid' });
-export const merEn100ProsentMessage = (): string => intl.formatMessage({ id: 'ValidationMessage.MerEn100Prosent' });
 export const dateRangesOverlappingBetweenPeriodTypesMessage = (): string =>
   intl.formatMessage({ id: 'ValidationMessage.DateRangesOverlappingPeriodTypes' });
 export const invalidOrgNumberMessage = (): string =>

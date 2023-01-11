@@ -1,9 +1,7 @@
 export {
   ariaCheck,
   validateProsentandel,
-  isUtbetalingsgradMerSamitidigUttaksprosent,
-  isUkerOgDagerVidNullUtbetalningsgrad,
-  isWithinOpptjeningsperiode,
+  isWithinPeriode,
   hasValidPeriod,
   validPeriodeFomTom,
   isDatesEqual,
@@ -39,8 +37,6 @@ export {
   notDash,
   required,
   maxLengthOrFodselsnr,
-  isTrekkdagerMerEnnNullUtsettelse,
-  isUtbetalingMerEnnNullUtsettelse,
   hasValidOrgNumber,
   hasValidOrgNumberOrFodselsnr,
   hasNoWhiteSpace,
@@ -57,6 +53,4 @@ export {
   invalidDecimalMessage,
   dateNotBeforeOrEqualMessage,
   dateNotAfterOrEqualMessage,
-  merEn100ProsentMessage,
-  arbeidsprosentMåVare100VidUtsettelseAvArbeidMessage,
 } from './src/messages';
