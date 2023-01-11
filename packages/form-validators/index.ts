@@ -1,7 +1,7 @@
 export {
   ariaCheck,
   validateProsentandel,
-  isWithinPeriode,
+  isWithinOpptjeningsperiode,
   hasValidPeriod,
   validPeriodeFomTom,
   isDatesEqual,
