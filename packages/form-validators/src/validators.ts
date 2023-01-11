@@ -256,7 +256,7 @@ export const hasValidPeriod = (fomDate: string, tomDate: string): FormValidation
   return moment(fomDate).isSameOrBefore(moment(tomDate).startOf('day')) ? null : invalidPeriodMessage();
 };
 
-export const isWithinPeriode =
+export const isWithinOpptjeningsperiode =
   (fomDateLimit: string, tomDateLimit: string) =>
   (fom: string, tom: string): FormValidationResult => {
     const isBefore = moment(fom).isBefore(moment(fomDateLimit));
