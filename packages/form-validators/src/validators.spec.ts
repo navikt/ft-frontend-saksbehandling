@@ -19,7 +19,6 @@ import {
   hasValidPeriod,
   hasValidSaksnummerOrFodselsnummerFormat,
   hasValidText,
-  isWithinOpptjeningsperiode,
   maxLength,
   maxValue,
   minLength,
@@ -441,26 +440,6 @@ describe('Validators', () => {
     it('skal feile når fomDato er etter tomDato', () => {
       const result = hasValidPeriod('2017-06-01', '2017-05-01');
       expect(result).toEqual('Startdato må være før eller lik sluttdato');
-    });
-  });
-
-  describe('isWithinOpptjeningsperiode', () => {
-    const opptjeningFom = '2017-01-01';
-    const opptjeningTom = '2017-05-01';
-
-    it('skal ikke feile når periode er innenfor opptjeningsperiode', () => {
-      expect(isWithinOpptjeningsperiode(opptjeningFom, opptjeningTom)('2017-02-01', '2017-03-01')).toBeNull();
-      expect(isWithinOpptjeningsperiode(opptjeningFom, opptjeningTom)('2017-01-01', '2017-05-01')).toBeNull();
-    });
-
-    it('skal feile når fom-dato er utenfor opptjeningsperiode', () => {
-      const result = isWithinOpptjeningsperiode(opptjeningFom, opptjeningTom)('2016-02-01', '2017-03-01');
-      expect(result).toEqual('Periode er utenfor opptjeningsperioden');
-    });
-
-    it('skal feile når tom-dato er utenfor opptjeningsperiode', () => {
-      const result = isWithinOpptjeningsperiode(opptjeningFom, opptjeningTom)('2017-02-01', '2018-03-01');
-      expect(result).toEqual('Periode er utenfor opptjeningsperioden');
     });
   });
 
