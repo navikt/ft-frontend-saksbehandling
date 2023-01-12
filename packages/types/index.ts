@@ -11,6 +11,7 @@ export type {
   InntektsgrunnlagMåned,
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
+  ForlengelsePeriodeProp,
 } from './src/beregningsgrunnlagTsType';
 export type {
   default as FaktaOmBeregning,

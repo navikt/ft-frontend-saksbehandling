@@ -53,7 +53,12 @@ export const transformFieldValuesFordelBeregning = (
   return {
     begrunnelse: values.begrunnelse,
     periode: values.periode,
-    ...FastsettFordeltBeregningsgrunnlag.transformValues(values, finnFordelPerioder(beregningsgrunnlag), bgPerioder),
+    ...FastsettFordeltBeregningsgrunnlag.transformValues(
+      values,
+      finnFordelPerioder(beregningsgrunnlag),
+      bgPerioder,
+      beregningsgrunnlag.forlengelseperioder,
+    ),
   };
 };
 
