@@ -85,6 +85,15 @@ function filtrerForlengelse(beregningsgrunnlag: Beregningsgrunnlag, periode: For
   return erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder);
 }
 
+function erVurdertTidligere(periode: FordelBeregningsgrunnlagPeriode, beregningsgrunnlag: Beregningsgrunnlag): boolean {
+  return (
+    !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder) &&
+    periode.skalRedigereInntekt === true &&
+    !!periode.fordelBeregningsgrunnlagAndeler &&
+    periode.fordelBeregningsgrunnlagAndeler?.every(a => a.fordeltPrAar !== null && a.fordeltPrAar !== undefined)
+  );
+}
+
 /**
  * FordelBeregningsgrunnlagForm
  *
@@ -129,6 +138,7 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
           <VerticalSpacer eightPx />
           <FordelBeregningsgrunnlagPeriodePanel
             readOnly={readOnly || !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder)}
+            erVurdertTidligere={erVurdertTidligere(periode, beregningsgrunnlag)}
             fordelingsperiode={periode}
             fordelBGFieldArrayName={getFieldNameKey(index)}
             open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
