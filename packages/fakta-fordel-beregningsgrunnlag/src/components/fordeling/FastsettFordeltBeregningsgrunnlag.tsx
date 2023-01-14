@@ -6,12 +6,13 @@ import {
   FordelBeregningsgrunnlagPeriode,
   AlleKodeverk,
   Beregningsgrunnlag,
+  ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
+
 import { KodeverkType } from '@navikt/ft-kodeverk';
-
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 
+import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
@@ -37,6 +38,7 @@ interface StaticFunctions {
     values: FordelBeregningsgrunnlagValues,
     fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
     bgPerioder: BeregningsgrunnlagPeriodeProp[],
+    forlengelseperioder?: ForlengelsePeriodeProp[],
   ) => FordelBeregningsgrunnlagPerioderTransformedValues;
 }
 
@@ -76,7 +78,8 @@ FastsettFordeltBeregningsgrunnlag.transformValues = (
   values: FordelBeregningsgrunnlagValues,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
+  forlengelseperioder?: ForlengelsePeriodeProp[],
 ): FordelBeregningsgrunnlagPerioderTransformedValues =>
-  FordelBeregningsgrunnlagForm.transformValues(values, fordelBGPerioder, bgPerioder);
+  FordelBeregningsgrunnlagForm.transformValues(values, fordelBGPerioder, bgPerioder, forlengelseperioder);
 
 export default FastsettFordeltBeregningsgrunnlag;

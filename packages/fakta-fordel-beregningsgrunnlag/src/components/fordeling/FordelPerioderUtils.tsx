@@ -5,6 +5,7 @@ import {
 } from '@navikt/ft-types';
 import { PeriodeAarsak } from '@navikt/ft-kodeverk';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import { ForlengelsePeriodeProp } from '@navikt/ft-types/src/beregningsgrunnlagTsType';
 import dayjs from 'dayjs';
 import {
   FordelBeregningsgrunnlagAndelValues,
@@ -15,6 +16,7 @@ import {
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
+import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 
 export const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 
@@ -133,25 +135,32 @@ const harPeriodeSomKanKombineresMedForrige = (
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
   fordelPeriode: FordelBeregningsgrunnlagPeriode,
   periodeList: FordelBeregningsgrunnlagPeriode[],
+  forlengelseperioder?: ForlengelsePeriodeProp[],
 ): boolean => {
-  const forrigeEndringPeriode = periodeList[periodeList.length - 1];
+  const forrigeFordelPeriode = periodeList[periodeList.length - 1];
   const harLikeMangeAndeler =
     fordelPeriode.fordelBeregningsgrunnlagAndeler?.length ===
-    forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler?.length;
+    forrigeFordelPeriode.fordelBeregningsgrunnlagAndeler?.length;
   if (!harLikeMangeAndeler) {
     return false;
   }
-  if (fordelPeriode.skalRedigereInntekt !== forrigeEndringPeriode.skalRedigereInntekt) {
+  if (fordelPeriode.skalRedigereInntekt !== forrigeFordelPeriode.skalRedigereInntekt) {
     return false;
   }
   if (harPeriodeårsakerSomIkkeSlåsSammen(periode)) {
+    return false;
+  }
+  if (
+    erPeriodeTilVurdering(fordelPeriode, forlengelseperioder) &&
+    !erPeriodeTilVurdering(forrigeFordelPeriode, forlengelseperioder)
+  ) {
     return false;
   }
   if (harPeriodeÅrsak(periode, PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET)) {
     return skalSlåSammenAvsluttetArbeidsforholdPerioder(periode, bgPerioder);
   }
   if (harPeriodeÅrsak(periode, PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR)) {
-    return harIngenRelevantEndringForFordeling(fordelPeriode, forrigeEndringPeriode, periode, bgPerioder);
+    return harIngenRelevantEndringForFordeling(fordelPeriode, forrigeFordelPeriode, periode, bgPerioder);
   }
   return true;
 };
@@ -168,7 +177,7 @@ const oppdaterTomDatoForSistePeriode = (
 };
 
 const sjekkOmPeriodeSkalLeggesTil =
-  (bgPerioder: BeregningsgrunnlagPeriodeProp[]) =>
+  (bgPerioder: BeregningsgrunnlagPeriodeProp[], forlengelseperioder?: ForlengelsePeriodeProp[]) =>
   (
     aggregatedPeriodList: FordelBeregningsgrunnlagPeriode[],
     periode: FordelBeregningsgrunnlagPeriode,
@@ -179,7 +188,15 @@ const sjekkOmPeriodeSkalLeggesTil =
     }
     const matchendeBgPeriode = bgPerioder.find(p => p.beregningsgrunnlagPeriodeFom === periode.fom);
     if (matchendeBgPeriode) {
-      if (harPeriodeSomKanKombineresMedForrige(matchendeBgPeriode, bgPerioder, periode, aggregatedPeriodList)) {
+      if (
+        harPeriodeSomKanKombineresMedForrige(
+          matchendeBgPeriode,
+          bgPerioder,
+          periode,
+          aggregatedPeriodList,
+          forlengelseperioder,
+        )
+      ) {
         oppdaterTomDatoForSistePeriode(aggregatedPeriodList, periode);
         return aggregatedPeriodList;
       }
@@ -247,5 +264,8 @@ export const lagPerioderForSubmit = (
 export const slaaSammenPerioder = (
   perioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
+  forlengelseperioder?: ForlengelsePeriodeProp[],
 ): FordelBeregningsgrunnlagPeriode[] =>
-  perioder.filter(p => harUtbetalingIPeriode(p)).reduce(sjekkOmPeriodeSkalLeggesTil(bgPerioder), []);
+  perioder
+    .filter(p => harUtbetalingIPeriode(p))
+    .reduce(sjekkOmPeriodeSkalLeggesTil(bgPerioder, forlengelseperioder), []);

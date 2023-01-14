@@ -7,6 +7,7 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagPeriode,
+  ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
 import {
   FordelBeregningsgrunnlagPerioderTransformedValues,
@@ -22,6 +23,7 @@ import {
   lagPerioderForSubmit,
   slaaSammenPerioder,
 } from './FordelPerioderUtils';
+import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 
 const finnRiktigBgPeriode = (
   periode: FordelBeregningsgrunnlagPeriode,
@@ -38,12 +40,13 @@ export const transformPerioder = (
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   values: FordelBeregningsgrunnlagValues,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
+  forlengelseperioder?: ForlengelsePeriodeProp[],
 ): FordelBeregningsgrunnlagPeriodeTransformedValues[] => {
   const fordelBeregningsgrunnlagPerioder: FordelBeregningsgrunnlagPeriodeTransformedValues[] = [];
-  const kombinertePerioder = slaaSammenPerioder(fordelBGPerioder, bgPerioder);
+  const kombinertePerioder = slaaSammenPerioder(fordelBGPerioder, bgPerioder, forlengelseperioder);
   for (let index = 0; index < kombinertePerioder.length; index += 1) {
     const { skalRedigereInntekt } = kombinertePerioder[index];
-    if (skalRedigereInntekt) {
+    if (skalRedigereInntekt && erPeriodeTilVurdering(kombinertePerioder[index])) {
       lagPerioderForSubmit(values, index, kombinertePerioder[index], fordelBGPerioder).forEach(
         (p: FordelBeregningsgrunnlagPeriodeTransformedValues) => fordelBeregningsgrunnlagPerioder.push(p),
       );
@@ -74,7 +77,21 @@ interface StaticFunctions {
     values: FordelBeregningsgrunnlagValues,
     fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
     bgPerioder: BeregningsgrunnlagPeriodeProp[],
+    forlengelseperioder?: ForlengelsePeriodeProp[],
   ) => FordelBeregningsgrunnlagPerioderTransformedValues;
+}
+
+function filtrerForlengelse(beregningsgrunnlag: Beregningsgrunnlag, periode: FordelBeregningsgrunnlagPeriode) {
+  return erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder);
+}
+
+function erVurdertTidligere(periode: FordelBeregningsgrunnlagPeriode, beregningsgrunnlag: Beregningsgrunnlag): boolean {
+  return (
+    !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder) &&
+    periode.skalRedigereInntekt === true &&
+    !!periode.fordelBeregningsgrunnlagAndeler &&
+    periode.fordelBeregningsgrunnlagAndeler?.every(a => a.fordeltPrAar !== null && a.fordeltPrAar !== undefined)
+  );
 }
 
 /**
@@ -97,6 +114,7 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
   const [fieldArrayToRepeat, setFieldArrayToRepeat] = useState('');
   useEffect(() => {
     const åpnePaneler = perioder
+      .filter(periode => filtrerForlengelse(beregningsgrunnlag, periode))
       .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
       .filter(periode => !!periode.fom)
       .map(periode => periode.fom || ''); // Typscript forstår ikke at fom alltid vil være definert her, så må en hack til...
@@ -115,11 +133,12 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
   };
   return (
     <BorderBox className={styles.lessPadding}>
-      {slaaSammenPerioder(perioder, bgPerioder).map((periode, index) => (
+      {slaaSammenPerioder(perioder, bgPerioder, beregningsgrunnlag.forlengelseperioder).map((periode, index) => (
         <React.Fragment key={fordelBGFieldArrayNamePrefix + periode.fom}>
           <VerticalSpacer eightPx />
           <FordelBeregningsgrunnlagPeriodePanel
-            readOnly={readOnly}
+            readOnly={readOnly || !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder)}
+            erVurdertTidligere={erVurdertTidligere(periode, beregningsgrunnlag)}
             fordelingsperiode={periode}
             fordelBGFieldArrayName={getFieldNameKey(index)}
             open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
@@ -143,8 +162,9 @@ FordelBeregningsgrunnlagForm.transformValues = (
   values: FordelBeregningsgrunnlagValues,
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
+  forlengelseperioder?: ForlengelsePeriodeProp[],
 ): FordelBeregningsgrunnlagPerioderTransformedValues => ({
-  endretBeregningsgrunnlagPerioder: transformPerioder(fordelBGPerioder, values, bgPerioder),
+  endretBeregningsgrunnlagPerioder: transformPerioder(fordelBGPerioder, values, bgPerioder, forlengelseperioder),
 });
 
 FordelBeregningsgrunnlagForm.buildInitialValues = (
@@ -159,7 +179,7 @@ FordelBeregningsgrunnlagForm.buildInitialValues = (
   }
   const harKunYtelse = !!bg.aktivitetStatus && bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const bgPerioder = bg.beregningsgrunnlagPeriode;
-  slaaSammenPerioder(fordelBGPerioder, bgPerioder).forEach((periode, index) => {
+  slaaSammenPerioder(fordelBGPerioder, bgPerioder, bg.forlengelseperioder).forEach((periode, index) => {
     const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);
     initialValues[getFieldNameKey(index)] = FordelBeregningsgrunnlagPeriodePanel.buildInitialValues(
       periode,
