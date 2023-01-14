@@ -26,6 +26,7 @@ import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaI
 import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
 import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import bgFlerePerioderMedHelg from '../testdata/FlerePerioderMedHelg';
+import bgFlerePerioderMedForlengelse from '../testdata/FlerePerioderMedForlengelse';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -297,6 +298,13 @@ export const FlerePerioderMedHelg = Template.bind({});
 FlerePerioderMedHelg.args = {
   readOnly: false,
   beregningsgrunnlagListe: bgFlerePerioderMedHelg,
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+};
+
+export const FlerePerioderMedForlengelse = Template.bind({});
+FlerePerioderMedForlengelse.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: bgFlerePerioderMedForlengelse,
   submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
 };
 

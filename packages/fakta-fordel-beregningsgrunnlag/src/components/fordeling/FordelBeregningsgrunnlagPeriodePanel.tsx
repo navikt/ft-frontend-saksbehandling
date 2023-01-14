@@ -14,7 +14,7 @@ import {
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
-import { Label, Accordion } from '@navikt/ds-react';
+import { Accordion, Label } from '@navikt/ds-react';
 import {
   finnFastsattPrAar,
   setArbeidsforholdInitialValues,
@@ -26,6 +26,7 @@ import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregning
 import FordelPeriodeFieldArray from './FordelPeriodeFieldArray';
 
 import styles from './fordelBeregningsgrunnlagPeriodePanel.less';
+import VurdertIForrigeBehandlingIcon from './VurdertIForrigeBehandlingIcon';
 
 const classNames = classnames.bind(styles);
 
@@ -89,6 +90,7 @@ type OwnProps = {
   fieldIndex: number;
   setFieldArrayToRepeat: (fieldArrayName: string) => void;
   fieldArrayToRepeat: string;
+  erVurdertTidligere: boolean;
 };
 
 interface StaticFunctions {
@@ -110,6 +112,7 @@ interface StaticFunctions {
 
 const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
+  erVurdertTidligere,
   isAksjonspunktClosed,
   open,
   showPanel,
@@ -131,7 +134,8 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
     >
       <Accordion.Item open={open}>
         <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
-          {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}
+          {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}{' '}
+          {erVurdertTidligere ? <VurdertIForrigeBehandlingIcon /> : ''}
         </Accordion.Header>
         <Accordion.Content>
           <FordelPeriodeFieldArray

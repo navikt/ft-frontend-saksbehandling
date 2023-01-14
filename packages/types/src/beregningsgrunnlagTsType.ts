@@ -112,6 +112,11 @@ export type BeregningsgrunnlagPeriodeProp = Readonly<{
   beregningsgrunnlagPrStatusOgAndel?: BeregningsgrunnlagAndel[];
 }>;
 
+export type ForlengelsePeriodeProp = Readonly<{
+  fom: string;
+  tom: string;
+}>;
+
 type Beregningsgrunnlag = Readonly<{
   vilkårsperiodeFom: string;
   avklaringsbehov: BeregningAvklaringsbehov[];
@@ -128,6 +133,7 @@ type Beregningsgrunnlag = Readonly<{
   ytelsesspesifiktGrunnlag?: YtelseGrunnlag;
   refusjonTilVurdering?: RefusjonTilVurdering;
   inntektsgrunnlag?: Inntektsgrunnlag;
+  forlengelseperioder?: ForlengelsePeriodeProp[];
 }>;
 
 export default Beregningsgrunnlag;
