@@ -12,8 +12,9 @@ export default {
 };
 
 const Template: Story<{
+  kanJournalføre?: boolean;
   feilmeldinger?: Feilmelding[];
-}> = ({ feilmeldinger = [] }) => {
+}> = ({ kanJournalføre, feilmeldinger = [] }) => {
   const [errorMessages, removeErrorMessages] = useState(feilmeldinger);
   return (
     <div style={{ marginLeft: '-56px' }}>
@@ -25,12 +26,18 @@ const Template: Story<{
         setSiteHeight={() => undefined}
         feilmeldinger={errorMessages}
         systemrutineUrl="url"
+        kanJournalføre={kanJournalføre}
+        visJournalføringside={() => null}
       />
     </div>
   );
 };
 
 export const UtenFeilmeldinger = Template.bind({});
+UtenFeilmeldinger.args = {
+  feilmeldinger: [],
+  kanJournalføre: true,
+};
 
 export const MedFeilmeldinger = Template.bind({});
 MedFeilmeldinger.args = {

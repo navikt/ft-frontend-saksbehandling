@@ -46,9 +46,11 @@ interface OwnProps {
   tittelLenke?: string;
   visSaksbehandlerside?: (event: React.SyntheticEvent) => void;
   visAvdelingslederside?: (event: React.SyntheticEvent) => void;
+  visJournalføringside?: (event: React.SyntheticEvent) => void;
   navAnsattNavn?: string;
   systemrutineUrl: string;
   kanOppgavestyre?: boolean;
+  kanJournalføre?: boolean;
   feilmeldinger: Feilmelding[];
   fjernFeilmeldinger: () => void;
   setSiteHeight: (height: number) => void;
@@ -66,9 +68,11 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
   tittelLenke,
   visSaksbehandlerside,
   visAvdelingslederside,
+  visJournalføringside,
   navAnsattNavn = '',
   systemrutineUrl,
   kanOppgavestyre,
+  kanJournalføre,
   feilmeldinger,
   fjernFeilmeldinger,
   setSiteHeight,
@@ -101,8 +105,15 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
         isExternal: false,
       });
     }
+    if (kanJournalføre) {
+      items.push({
+        name: intl.formatMessage({ id: 'DekoratorMedFeilviserSakIndex.Journalforing' }),
+        href: '#',
+        isExternal: false,
+      });
+    }
     return items;
-  }, [kanOppgavestyre, systemrutineUrl]);
+  }, [kanOppgavestyre, systemrutineUrl, kanJournalføre]);
 
   const popperPropsChildren = useCallback(
     () => (
@@ -113,6 +124,9 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
 
           if (index === 2 && visAvdelingslederside) {
             visAvdelingslederside(e);
+          }
+          if (index === 3 && visJournalføringside) {
+            visJournalføringside(e);
           }
         }}
       />
