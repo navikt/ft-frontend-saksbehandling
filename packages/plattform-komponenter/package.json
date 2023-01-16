@@ -26,7 +26,7 @@
   "dependencies": {
     "@navikt/ds-css": "2.0.12",
     "@navikt/ds-icons": "2.0.12",
-    "@navikt/ds-react": "2.0.12",
+    "@navikt/ds-react": "2.0.14",
     "@navikt/ft-utils": "^1.1.13"
   },
   "peerDependencies": {
