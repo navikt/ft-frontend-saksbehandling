@@ -12,6 +12,7 @@ import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnl
 import SubmitButton from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.less';
 import { getInntektsforhold } from './TilkommetAktivitetUtils';
+import TidligereVurderteInntektsforholdPanel from './TidligereVurderteInntektsforholdPanel';
 
 const finnAktivitetStatus = (
   aktivitetStatus: AktivitetStatus,
@@ -178,6 +179,12 @@ const TilkommetAktivitetField = ({
           </Alert>
         </>
       )}
+      <VerticalSpacer eightPx />
+      <TidligereVurderteInntektsforholdPanel
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        beregningsgrunnlag={beregningsgrunnlag}
+      />
+      <VerticalSpacer eightPx />
       <div className={styles.aktivitetContainer}>
         <Heading size="small" level="3">
           Ny aktivitet

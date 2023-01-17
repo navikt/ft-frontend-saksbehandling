@@ -7,12 +7,13 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { Inntektsforhold } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,
+  TilkommetAktivitetValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import VurderNyttInntektsforholdAP, {
@@ -21,6 +22,7 @@ import VurderNyttInntektsforholdAP, {
 import styles from './tilkommetAktivitet.less';
 import TilkommetAktivitetField from './TilkommetAktivitetField';
 import { getInntektsforhold } from './TilkommetAktivitetUtils';
+import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 
 const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
 export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';
@@ -52,21 +54,40 @@ const finnVilkårsperiode = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarper
   return periode;
 };
 
-const buildFieldInitialValues = (beregningsgrunnlag: Beregningsgrunnlag, vilkarperioder: Vilkarperiode[]) => {
+const buildInnteksforholdInitialValues = (inntektsforhold: Inntektsforhold): TilkommetAktivitetValues => ({
+  [getInntektsforholdIdentifikator(inntektsforhold)]: {
+    bruttoInntektPrÅr: inntektsforhold?.skalRedusereUtbetaling ? inntektsforhold?.bruttoInntektPrÅr : undefined,
+    skalRedusereUtbetaling: inntektsforhold?.skalRedusereUtbetaling,
+  },
+});
+
+const buildFieldInitialValues = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  vilkarperioder: Vilkarperiode[],
+): TilkommetAktivitetFieldValues | null => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const inntektsforhold = getInntektsforhold(
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder,
   );
+  if (!inntektsforhold) {
+    return null;
+  }
+  // @ts-ignore
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
-    bruttoInntektPrÅr: inntektsforhold?.skalRedusereUtbetaling ? inntektsforhold?.bruttoInntektPrÅr : undefined,
-    skalRedusereUtbetaling: inntektsforhold?.skalRedusereUtbetaling,
     periode: finnVilkårsperiode(beregningsgrunnlag, vilkarperioder).periode,
+    ...buildInnteksforholdInitialValues(inntektsforhold),
   };
 };
 
-const buildInitialValues = (beregningsgrunnlagListe: Beregningsgrunnlag[], vilkarperioder: Vilkarperiode[]) => ({
-  [FORM_NAME]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, vilkarperioder)),
+// @ts-ignore
+const buildInitialValues = (
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  vilkarperioder: Vilkarperiode[],
+): TilkommetAktivitetFormValues => ({
+  [`${FORM_NAME}`]: beregningsgrunnlagListe
+    .map(bg => buildFieldInitialValues(bg, vilkarperioder))
+    .filter(it => it !== null),
 });
 
 export const transformFieldValues = (
@@ -82,8 +103,8 @@ export const transformFieldValues = (
       aktivitetStatus: inntektsforhold.aktivitetStatus,
       arbeidsgiverId: inntektsforhold.arbeidsgiverId,
       arbeidsforholdId: inntektsforhold.arbeidsforholdId,
-      bruttoInntektPrÅr: removeSpacesFromNumber(values.bruttoInntektPrÅr),
-      skalRedusereUtbetaling: values.skalRedusereUtbetaling,
+      bruttoInntektPrÅr: values[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr,
+      skalRedusereUtbetaling: values[getInntektsforholdIdentifikator(inntektsforhold)].skalRedusereUtbetaling,
     })),
   }));
 

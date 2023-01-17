@@ -4,7 +4,7 @@ import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvkla
 export type VurderNyttInntektsforholdAndelTransformedValues = {
   arbeidsgiverId: string;
   arbeidsforholdId: string;
-  bruttoInntektPrÅr: number;
+  bruttoInntektPrÅr: number | undefined;
   skalRedusereUtbetaling: boolean;
 };
 
