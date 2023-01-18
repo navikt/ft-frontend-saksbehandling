@@ -1449,3 +1449,11 @@ AvvikNæringEtterLøstAvvikArbeid5038Og5039.args = {
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
+
+export const ManglerBeregningsgrunnlag = Template.bind({});
+ManglerBeregningsgrunnlag.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [],
+  vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};

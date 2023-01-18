@@ -121,7 +121,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
     beregningsgrunnlagListe.length === 0 ||
     (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
   ) {
-    return visningForManglendeBG();
+    return <RawIntlProvider value={intl}>{visningForManglendeBG()}</RawIntlProvider>;
   }
 
   const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
