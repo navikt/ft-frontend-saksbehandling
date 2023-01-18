@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useCallback, ReactNode, KeyboardEvent, MouseEvent } from 'react';
+import React, { useState, useCallback, ReactNode, KeyboardEvent, MouseEvent } from 'react';
 
 import Tooltip from './Tooltip';
 
@@ -18,65 +18,71 @@ interface OwnProps {
 /**
  * Image
  *
- * Presentasjonskomponent. Komponent som har ansvar for visning av bilder.
+ * Komponent som har ansvar for visning av bilder.
  */
-const Image: FunctionComponent<OwnProps> = ({
-  onClick = () => undefined,
-  onMouseDown,
-  tabIndex = -1,
-  className = '',
-  src,
-  srcHover,
-  alt,
-  onKeyDown,
-  tooltip,
-  alignTooltipLeft = false,
-}) => {
-  const [isHovering, setHoovering] = useState(false);
+const Image = React.forwardRef<HTMLImageElement, OwnProps>(
+  (
+    {
+      onClick = () => undefined,
+      onMouseDown,
+      tabIndex = -1,
+      className = '',
+      src,
+      srcHover,
+      alt,
+      onKeyDown,
+      tooltip,
+      alignTooltipLeft = false,
+    },
+    ref,
+  ) => {
+    const [isHovering, setHoovering] = useState(false);
 
-  const onFocus = useCallback((): void => {
-    setHoovering(true);
-  }, []);
-  const onBlur = useCallback((): void => {
-    setHoovering(false);
-  }, []);
+    const onFocus = useCallback((): void => {
+      setHoovering(true);
+    }, []);
+    const onBlur = useCallback((): void => {
+      setHoovering(false);
+    }, []);
 
-  const onKeyDownFn = useCallback((e: React.KeyboardEvent): void => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      if (onKeyDown) {
-        onKeyDown(e);
+    const onKeyDownFn = useCallback((e: React.KeyboardEvent): void => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (onKeyDown) {
+          onKeyDown(e);
+        }
+        e.preventDefault();
       }
-      e.preventDefault();
+    }, []);
+
+    const imgSource = srcHover && isHovering ? srcHover : src;
+
+    const image = (
+      <img // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
+        ref={ref}
+        className={className}
+        src={imgSource}
+        alt={alt}
+        tabIndex={tabIndex}
+        onMouseOver={onFocus}
+        onMouseOut={onBlur}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={onKeyDownFn}
+        onMouseDown={onMouseDown}
+        onClick={onClick}
+      />
+    );
+
+    if (!tooltip) {
+      return image;
     }
-  }, []);
 
-  const imgSource = srcHover && isHovering ? srcHover : src;
-
-  const image = (
-    <img // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
-      className={className}
-      src={imgSource}
-      alt={alt}
-      tabIndex={tabIndex}
-      onMouseOver={onFocus}
-      onMouseOut={onBlur}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      onKeyDown={onKeyDownFn}
-      onMouseDown={onMouseDown}
-      onClick={onClick}
-    />
-  );
-
-  if (!tooltip) {
-    return image;
-  }
-
-  return (
-    <Tooltip content={tooltip} alignLeft={alignTooltipLeft}>
-      {image}
-    </Tooltip>
-  );
-};
+    return (
+      <Tooltip content={tooltip} alignLeft={alignTooltipLeft}>
+        {image}
+      </Tooltip>
+    );
+  },
+);
 
 export default Image;
