@@ -78,7 +78,7 @@ const NumberField: FunctionComponent<OwnProps> = ({
         const targetValue = event.currentTarget.value;
         let newValue;
         if (targetValue === '') {
-          newValue = '';
+          newValue = null;
         } else if (targetValue.match(regex)) {
           newValue = targetValue.replace(',', '.');
         } else {
