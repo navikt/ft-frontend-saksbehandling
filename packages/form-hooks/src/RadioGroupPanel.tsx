@@ -55,55 +55,61 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
 
   const parseValue = isTrueOrFalseSelection ? (value: string) => value === 'true' : parse;
 
+  const legend =
+    isReadOnly && isEdited ? (
+      <>
+        {label} <EditedIcon />
+      </>
+    ) : (
+      label
+    );
+
   return (
-    <>
-      <RadioGroup
-        name={name}
-        value={field.value !== undefined ? field.value : null}
-        onChange={value => {
-          if (onChange) {
-            onChange(value);
-          }
-          field.onChange(value);
-        }}
-        size="small"
-        legend={label}
-        error={getError(errors, name)}
-        className={hideRadioLabels ? styles.hideRadioLabels : ''}
-        hideLegend={hideLegend}
-      >
-        {!isHorizontal &&
-          radios
-            .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
-            .map(radio => (
-              <Fragment key={radio.value}>
-                <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
-                  {radio.label}
-                </Radio>
-                {field.value === parseValue(radio.value) && radio.element}
-              </Fragment>
-            ))}
-        {isHorizontal && (
-          <FlexContainer>
-            <FlexRow>
-              {radios
-                .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
-                .map(radio => (
-                  <FlexColumn key={radio.value}>
-                    <>
-                      <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
-                        {radio.label}
-                      </Radio>
-                      {field.value === parseValue(radio.value) && radio.element}
-                    </>
-                  </FlexColumn>
-                ))}
-            </FlexRow>
-          </FlexContainer>
-        )}
-      </RadioGroup>
-      {isReadOnly && isEdited && <EditedIcon />}
-    </>
+    <RadioGroup
+      name={name}
+      value={field.value !== undefined ? field.value : null}
+      onChange={value => {
+        if (onChange) {
+          onChange(value);
+        }
+        field.onChange(value);
+      }}
+      size="small"
+      legend={legend}
+      error={getError(errors, name)}
+      className={hideRadioLabels ? styles.hideRadioLabels : ''}
+      hideLegend={hideLegend}
+    >
+      {!isHorizontal &&
+        radios
+          .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
+          .map(radio => (
+            <Fragment key={radio.value}>
+              <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
+                {radio.label}
+              </Radio>
+              {field.value === parseValue(radio.value) && radio.element}
+            </Fragment>
+          ))}
+      {isHorizontal && (
+        <FlexContainer>
+          <FlexRow>
+            {radios
+              .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
+              .map(radio => (
+                <FlexColumn key={radio.value}>
+                  <>
+                    <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
+                      {radio.label}
+                    </Radio>
+                    {field.value === parseValue(radio.value) && radio.element}
+                  </>
+                </FlexColumn>
+              ))}
+          </FlexRow>
+        </FlexContainer>
+      )}
+    </RadioGroup>
   );
 };
 
