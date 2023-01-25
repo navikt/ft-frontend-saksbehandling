@@ -10,6 +10,7 @@ import {
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Inntektsforhold } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,
@@ -20,9 +21,9 @@ import VurderNyttInntektsforholdAP, {
   VurderNyttInntektsforholTransformedValues,
 } from '../../types/interface/VurderNyttInntektsforholdAP';
 import styles from './tilkommetAktivitet.less';
-import TilkommetAktivitetField from './TilkommetAktivitetField';
 import { getInntektsforhold } from './TilkommetAktivitetUtils';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
+import TilkommetAktivitetPanel from './TilkommetAktivitetPanel';
 
 const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
 export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';
@@ -76,15 +77,21 @@ const buildFieldInitialValues = (
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
     periode: finnVilkårsperiode(beregningsgrunnlag, vilkarperioder).periode,
-    ...buildInnteksforholdInitialValues(inntektsforhold),
+    ...inntektsforhold.reduce(
+      (initial, inntekt) => ({
+        ...initial,
+        ...buildInnteksforholdInitialValues(inntekt),
+      }),
+      {},
+    ),
   };
 };
 
-// @ts-ignore
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFormValues => ({
+  // @ts-ignore
   [`${FORM_NAME}`]: beregningsgrunnlagListe
     .map(bg => buildFieldInitialValues(bg, vilkarperioder))
     .filter(it => it !== null),
@@ -103,7 +110,9 @@ export const transformFieldValues = (
       aktivitetStatus: inntektsforhold.aktivitetStatus,
       arbeidsgiverId: inntektsforhold.arbeidsgiverId,
       arbeidsforholdId: inntektsforhold.arbeidsforholdId,
-      bruttoInntektPrÅr: values[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr,
+      bruttoInntektPrÅr: removeSpacesFromNumber(
+        values[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr,
+      ),
       skalRedusereUtbetaling: values[getInntektsforholdIdentifikator(inntektsforhold)].skalRedusereUtbetaling,
     })),
   }));
@@ -200,7 +209,7 @@ const TilkommetAktivitet = ({
       >
         {fields.map((field, index) => (
           <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
-            <TilkommetAktivitetField
+            <TilkommetAktivitetPanel
               beregningsgrunnlag={gjeldendeBeregningsgrunnlag}
               formName={FORM_NAME}
               index={index}

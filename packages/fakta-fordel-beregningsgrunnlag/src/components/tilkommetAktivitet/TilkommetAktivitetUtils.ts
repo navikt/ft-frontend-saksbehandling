@@ -2,15 +2,15 @@ import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/
 import { ForlengelsePeriodeProp } from '@navikt/ft-types/src/beregningsgrunnlagTsType';
 import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 
-export const getInntektsforhold = (
-  inntektsforholdPerioder?: VurderInntektsforholdPeriode[],
-): Inntektsforhold | undefined =>
-  inntektsforholdPerioder
-    ?.flatMap(inntektsforholdPeriode => inntektsforholdPeriode.inntektsforholdListe)
-    .filter(
-      (inntektsforhold, i, liste) =>
-        liste.findIndex(listeElement => listeElement.arbeidsgiverId === inntektsforhold.arbeidsgiverId) === i,
-    )[0];
+export const getInntektsforhold = (inntektsforholdPerioder?: VurderInntektsforholdPeriode[]): Inntektsforhold[] =>
+  inntektsforholdPerioder === undefined
+    ? []
+    : inntektsforholdPerioder
+        ?.flatMap(inntektsforholdPeriode => inntektsforholdPeriode.inntektsforholdListe)
+        .filter(
+          (inntektsforhold, i, liste) =>
+            liste.findIndex(listeElement => listeElement.arbeidsgiverId === inntektsforhold.arbeidsgiverId) === i,
+        );
 
 function unike() {
   return (v: Inntektsforhold, i: number, l: Inntektsforhold[]) =>
