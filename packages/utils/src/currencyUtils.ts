@@ -17,7 +17,7 @@ export const formatCurrencyNoKr = (value?: string | number): string | undefined 
     .replace(/,|\s/g, ' ');
 };
 
-export const removeSpacesFromNumber = (input: number | string): number => {
+export const removeSpacesFromNumber = (input: number | string | undefined): number => {
   if (!input || input === Number(input)) {
     return input as number;
   }
