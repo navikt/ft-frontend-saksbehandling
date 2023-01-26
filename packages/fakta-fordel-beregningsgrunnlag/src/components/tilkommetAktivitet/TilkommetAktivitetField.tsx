@@ -5,30 +5,30 @@ import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import React from 'react';
+import React, { FC } from 'react';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import SubmitButton from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.less';
 import { getAktivitetNavn, getInntektsforhold } from './TilkommetAktivitetUtils';
 import TilkommetInntektsforholdField, { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 
-interface TilkommetAktivitetField {
+type TilkommetAktivitetFieldType = {
   formName: string;
   vurderInntektsforholdPerioder: VurderInntektsforholdPeriode[];
   index: number;
   readOnly: boolean;
   submittable: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-}
+};
 
-const TilkommetAktivitetField = ({
+const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   formName,
   vurderInntektsforholdPerioder,
   index,
   readOnly,
   submittable,
   arbeidsgiverOpplysningerPerId,
-}: TilkommetAktivitetField) => {
+}) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
   const getInntektsforholdTableRows = (

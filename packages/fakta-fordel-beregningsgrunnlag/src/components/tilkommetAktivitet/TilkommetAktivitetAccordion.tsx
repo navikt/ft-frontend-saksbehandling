@@ -1,7 +1,7 @@
 import { Accordion, Label } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
@@ -48,23 +48,23 @@ function getHeading(perioder: VurderInntektsforholdPeriode[]) {
   return renderDateHeading(fom, tom);
 }
 
-interface TilkommetAktivitetAccordion {
+type TilkommetAktivitetAccordionType = {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
   index: number;
   readOnly: boolean;
   submittable: boolean;
-}
+};
 
-const TilkommetAktivitetAccordion = ({
+const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
   beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId,
   formName,
   index,
   readOnly,
   submittable,
-}: TilkommetAktivitetAccordion) => {
+}) => {
   const [sammenslåttePerioder, setSammenslåttePerioder] = useState<VurderInntektsforholdPeriode[]>([]);
   const [openPanels, setOpenPanels] = useState<string[]>([]);
 

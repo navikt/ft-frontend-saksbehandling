@@ -3,7 +3,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React from 'react';
+import React, { FC } from 'react';
 import { useIntl } from 'react-intl';
 import TilkommetAktivitetAccordion from './TilkommetAktivitetAccordion';
 import styles from './tilkommetAktivitet.less';
@@ -18,7 +18,7 @@ const finnAktivitetStatus = (
     ),
   );
 
-interface TilkommetAktivitetPanel {
+type TilkommetAktivitetPanelType = {
   formName: string;
   beregningsgrunnlag: Beregningsgrunnlag;
   index: number;
@@ -26,9 +26,9 @@ interface TilkommetAktivitetPanel {
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-}
+};
 
-const TilkommetAktivitetPanel = ({
+const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   formName,
   beregningsgrunnlag,
   index,
@@ -36,7 +36,7 @@ const TilkommetAktivitetPanel = ({
   submittable,
   erAksjonspunktÅpent,
   arbeidsgiverOpplysningerPerId,
-}: TilkommetAktivitetPanel) => {
+}) => {
   const intl = useIntl();
 
   const vurderInntektsforholdPerioder =

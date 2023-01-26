@@ -4,20 +4,20 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Inntektsforhold } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React from 'react';
+import React, { FC } from 'react';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { useIntl } from 'react-intl';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import styles from './tilkommetAktivitet.less';
 import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 
-interface TilkommetInntektsforholdField {
+type TilkommetInntektsforholdFieldType = {
   formName: string;
   index: number;
   readOnly: boolean;
   inntektsforholdTilVurdering: Inntektsforhold;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-}
+};
 
 export const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold | undefined): string => {
   if (!inntektsforhold) {
@@ -33,13 +33,13 @@ export const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold
   return result;
 };
 
-const TilkommetInntektsforholdField = ({
+const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
   formName,
   index,
   readOnly,
   inntektsforholdTilVurdering,
   arbeidsgiverOpplysningerPerId,
-}: TilkommetInntektsforholdField) => {
+}) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
   const intl = useIntl();
 

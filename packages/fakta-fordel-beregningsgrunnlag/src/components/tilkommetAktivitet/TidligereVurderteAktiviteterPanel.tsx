@@ -2,22 +2,22 @@ import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import React from 'react';
+import React, { FC } from 'react';
 import { Tag } from '@navikt/ds-react';
 import { useIntl } from 'react-intl';
 import styles from './tilkommetAktivitet.less';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 
-interface TidligereVurderteAktiviteterPanelType {
+type TidligereVurderteAktiviteterPanelType = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
-}
+};
 
-const TidligereVurderteAktiviteterPanel = ({
+const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelType> = ({
   arbeidsgiverOpplysningerPerId,
   vurderInntektsforholdPeriode,
-}: TidligereVurderteAktiviteterPanelType) => {
+}) => {
   const intl = useIntl();
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
