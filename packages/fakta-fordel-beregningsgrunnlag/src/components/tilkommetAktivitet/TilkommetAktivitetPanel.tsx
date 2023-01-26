@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
@@ -88,10 +88,10 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
     }
     return (
       <>
-        <BodyShort size="small">
-          <strong>{intl.formatMessage({ id: 'HelpText.Aksjonspunkt.BehandletAksjonspunkt' })}</strong>
-          <strong>{getAlertHeading()}</strong>
-        </BodyShort>
+        <Label size="small">
+          {intl.formatMessage({ id: 'HelpText.Aksjonspunkt.BehandletAksjonspunkt' })}
+          {getAlertHeading()}
+        </Label>
         <BodyShort size="small">{intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktHelpText' })}</BodyShort>
       </>
     );

@@ -65,19 +65,19 @@ const buildInnteksforholdInitialValues = (inntektsforhold: Inntektsforhold): Til
 const buildFieldInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag,
   vilkarperioder: Vilkarperiode[],
-): TilkommetAktivitetFieldValues | null => {
+): TilkommetAktivitetFieldValues => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
+
   if (!vurderInntektsforholdPerioder) {
-    return null;
+    throw Error('vurderInntektsforholdPerioder skal være definert');
   }
+
   const sammenslåttPerioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
   const perioderTilVurdering = sammenslåttPerioder.filter(p => !erVurdertTidligere(p, beregningsgrunnlag));
   const inntektsforhold = getInntektsforhold(perioderTilVurdering);
-  if (!inntektsforhold) {
-    return null;
-  }
+
   // @ts-ignore
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
@@ -96,10 +96,7 @@ const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFormValues => ({
-  // @ts-ignore
-  [`${FORM_NAME}`]: beregningsgrunnlagListe
-    .map(bg => buildFieldInitialValues(bg, vilkarperioder))
-    .filter(it => it !== null),
+  [`${FORM_NAME}`]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, vilkarperioder)),
 });
 
 export const transformFieldValues = (
