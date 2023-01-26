@@ -55,6 +55,7 @@ type TilkommetAktivitetAccordionType = {
   index: number;
   readOnly: boolean;
   submittable: boolean;
+  erAksjonspunktÅpent: boolean;
 };
 
 const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
@@ -64,6 +65,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
   index,
   readOnly,
   submittable,
+  erAksjonspunktÅpent,
 }) => {
   const [sammenslåttePerioder, setSammenslåttePerioder] = useState<VurderInntektsforholdPeriode[]>([]);
   const [openPanels, setOpenPanels] = useState<string[]>([]);
@@ -108,6 +110,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
         index={index}
         readOnly={readOnly}
         submittable={submittable}
+        erAksjonspunktÅpent={erAksjonspunktÅpent}
       />
     );
   }
@@ -142,6 +145,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
             index={index}
             readOnly={readOnly}
             submittable={submittable}
+            erAksjonspunktÅpent={erAksjonspunktÅpent}
           />
         </Accordion.Content>
       </Accordion.Item>

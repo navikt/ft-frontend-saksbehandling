@@ -9,8 +9,9 @@ import {
 } from '@navikt/ft-types';
 import React, { FC, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { Inntektsforhold } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
 import {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,
@@ -62,11 +63,7 @@ const buildInnteksforholdInitialValues = (inntektsforhold: Inntektsforhold): Til
   },
 });
 
-const buildFieldInitialValues = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  vilkarperioder: Vilkarperiode[],
-): TilkommetAktivitetFieldValues => {
-  const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
+function finnPerioderTilVurdering(beregningsgrunnlag: Beregningsgrunnlag): VurderInntektsforholdPeriode[] {
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
 
@@ -75,7 +72,15 @@ const buildFieldInitialValues = (
   }
 
   const sammenslåttPerioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
-  const perioderTilVurdering = sammenslåttPerioder.filter(p => !erVurdertTidligere(p, beregningsgrunnlag));
+  return sammenslåttPerioder.filter(p => !erVurdertTidligere(p, beregningsgrunnlag));
+}
+
+const buildFieldInitialValues = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  vilkarperioder: Vilkarperiode[],
+): TilkommetAktivitetFieldValues => {
+  const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
+  const perioderTilVurdering = finnPerioderTilVurdering(beregningsgrunnlag);
   const inntektsforhold = getInntektsforhold(perioderTilVurdering);
 
   // @ts-ignore
@@ -99,29 +104,37 @@ const buildInitialValues = (
   [`${FORM_NAME}`]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, vilkarperioder)),
 });
 
+function skalVurderes(perioderTilVurdering: VurderInntektsforholdPeriode[]) {
+  return (p: VurderInntektsforholdPeriode) =>
+    perioderTilVurdering.some(p2 => !dayjs(p.fom).isBefore(p2.fom) && !dayjs(p.tom).isAfter(p2.tom));
+}
+
 export const transformFieldValues = (
   values: TilkommetAktivitetFieldValues,
   bg: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<VurderNyttInntektsforholTransformedValues> => {
+  const perioderTilVurdering = finnPerioderTilVurdering(bg);
   const vurderInntektsforholdPerioder =
     bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder || [];
-  const transformedInntektsforhold = vurderInntektsforholdPerioder.flatMap(inntektsforholdPeriode => ({
-    fom: inntektsforholdPeriode.fom,
-    tom: inntektsforholdPeriode.tom,
-    andeler: inntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => {
-      const { skalRedusereUtbetaling } = values[getInntektsforholdIdentifikator(inntektsforhold)];
-      const bruttoInntektPrÅr = skalRedusereUtbetaling
-        ? removeSpacesFromNumber(values[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr)
-        : undefined;
-      return {
-        aktivitetStatus: inntektsforhold.aktivitetStatus,
-        arbeidsgiverId: inntektsforhold.arbeidsgiverId,
-        arbeidsforholdId: inntektsforhold.arbeidsforholdId,
-        bruttoInntektPrÅr,
-        skalRedusereUtbetaling,
-      };
-    }),
-  }));
+  const transformedInntektsforhold = vurderInntektsforholdPerioder
+    .filter(skalVurderes(perioderTilVurdering))
+    .map(inntektsforholdPeriode => ({
+      fom: inntektsforholdPeriode.fom,
+      tom: inntektsforholdPeriode.tom,
+      andeler: inntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => {
+        const { skalRedusereUtbetaling } = values[getInntektsforholdIdentifikator(inntektsforhold)];
+        const bruttoInntektPrÅr = skalRedusereUtbetaling
+          ? removeSpacesFromNumber(values[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr)
+          : undefined;
+        return {
+          aktivitetStatus: inntektsforhold.aktivitetStatus,
+          arbeidsgiverId: inntektsforhold.arbeidsgiverId,
+          arbeidsforholdId: inntektsforhold.arbeidsforholdId,
+          bruttoInntektPrÅr,
+          skalRedusereUtbetaling,
+        };
+      }),
+    }));
 
   return {
     periode: values.periode,
