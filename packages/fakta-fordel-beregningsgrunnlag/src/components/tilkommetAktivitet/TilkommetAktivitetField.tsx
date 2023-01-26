@@ -19,6 +19,7 @@ type TilkommetAktivitetFieldType = {
   readOnly: boolean;
   submittable: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  erAksjonspunktÅpent: boolean;
 };
 
 const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
@@ -28,6 +29,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   readOnly,
   submittable,
   arbeidsgiverOpplysningerPerId,
+  erAksjonspunktÅpent,
 }) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
@@ -78,7 +80,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
         )}
       </div>
       <VerticalSpacer sixteenPx />
-      <div className={styles.aksjonspunktContainer}>
+      <div className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}>
         {getInntektsforhold(vurderInntektsforholdPerioder).map(inntektsforhold => (
           <TilkommetInntektsforholdField
             key={getInntektsforholdIdentifikator(inntektsforhold)}
