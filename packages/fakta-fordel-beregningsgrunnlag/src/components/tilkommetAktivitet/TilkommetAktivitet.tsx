@@ -7,7 +7,7 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Inntektsforhold } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -149,7 +149,7 @@ const transformValues = (
   };
 };
 
-interface TilkommetAktivitetProps {
+type TilkommetAktivitetProps = {
   aktivtBeregningsgrunnlagIndeks: number;
   formData?: TilkommetAktivitetFormValues;
   setFormData: (data: TilkommetAktivitetFormValues) => void;
@@ -160,9 +160,9 @@ interface TilkommetAktivitetProps {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
   setTilkommetAktivitetFormIsDirty: (isDirty: boolean) => void;
-}
+};
 
-const TilkommetAktivitet = ({
+const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
   aktivtBeregningsgrunnlagIndeks,
   formData,
   setFormData,
@@ -173,7 +173,7 @@ const TilkommetAktivitet = ({
   vilkarperioder,
   arbeidsgiverOpplysningerPerId,
   setTilkommetAktivitetFormIsDirty,
-}: TilkommetAktivitetProps) => {
+}) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
     defaultValues: formData?.VURDER_TILKOMMET_AKTIVITET_FORM
       ? formData
