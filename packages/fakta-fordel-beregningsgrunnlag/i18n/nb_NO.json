@@ -42,7 +42,7 @@
   "BeregningInfoPanel.TilkommetAktivitet.Aktivitet": "Aktivitet",
   "BeregningInfoPanel.TilkommetAktivitet.Periode": "Periode",
   "BeregningInfoPanel.TilkommetAktivitet.Årsinntekt": "Årsinntekt",
-  "BeregningInfoPanel.TilkommetAktivitet.RedusererUtbetaling": "Reduserer utbetaling",
+  "BeregningInfoPanel.TilkommetAktivitet.RedusererUtbetaling": "Reduserer inntektstap",
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett",

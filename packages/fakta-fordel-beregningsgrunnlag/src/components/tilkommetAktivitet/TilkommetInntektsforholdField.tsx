@@ -119,6 +119,7 @@ const TilkommetInntektsforholdField = ({
           </div>
         </>
       )}
+      <VerticalSpacer fourtyPx />
     </>
   );
 };

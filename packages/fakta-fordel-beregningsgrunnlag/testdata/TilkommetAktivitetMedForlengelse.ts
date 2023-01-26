@@ -271,6 +271,14 @@ const beregningsgrunnlag = [
                 arbeidsforholdId: '123',
                 skalRedusereUtbetaling: false,
               },
+              {
+                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                arbeidsgiverId: '974652293',
+                bruttoInntektPrÅr: 300000,
+                harInntektsmelding: false,
+                arbeidsforholdId: '456',
+                skalRedusereUtbetaling: true,
+              },
             ],
           },
           {

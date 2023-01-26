@@ -49,15 +49,23 @@ const TilkommetAktivitetPanel = ({
     );
     const harFrilanserAktvitet = finnAktivitetStatus(AktivitetStatus.FRILANSER, vurderInntektsforholdPerioder);
 
+    const harArbeidsforhold = finnAktivitetStatus(AktivitetStatus.ARBEIDSTAKER, vurderInntektsforholdPerioder);
+
+    let alertText = '';
+
     if (harSNAktvitet) {
-      return 'Søker har opplyst om ny inntekt som selvstendig næringsdrivende.';
+      alertText += 'Søker har opplyst om ny inntekt som selvstendig næringsdrivende.';
     }
 
     if (harFrilanserAktvitet) {
-      return 'Søker har en ny frilansaktivitet i AA-registeret.';
+      alertText += 'Søker har en ny frilansaktivitet i AA-registeret.';
     }
 
-    return 'Søker har et nytt arbeidsforhold i AA-registeret';
+    if (harArbeidsforhold) {
+      alertText += 'Søker har et nytt arbeidsforhold i AA-registeret';
+    }
+
+    return alertText;
   };
 
   const getAksjonspunktText = () => {
