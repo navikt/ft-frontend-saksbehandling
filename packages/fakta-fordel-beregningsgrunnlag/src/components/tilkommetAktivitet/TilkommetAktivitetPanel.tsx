@@ -49,23 +49,30 @@ const TilkommetAktivitetPanel = ({
     );
     const harFrilanserAktvitet = finnAktivitetStatus(AktivitetStatus.FRILANSER, vurderInntektsforholdPerioder);
 
-    const harArbeidsforhold = finnAktivitetStatus(AktivitetStatus.ARBEIDSTAKER, vurderInntektsforholdPerioder);
+    const unikestatuser = vurderInntektsforholdPerioder
+      ?.flatMap(p => p.inntektsforholdListe.map(a => a.aktivitetStatus))
+      .reduce((liste: string[], a) => {
+        if (!liste.some(it => it === a)) {
+          liste.push(a);
+        }
+        return liste;
+      }, []);
 
-    let alertText = '';
+    const antallStatuser = !unikestatuser ? 0 : unikestatuser.length;
+
+    if (antallStatuser > 1) {
+      return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.FlereStatuser' });
+    }
 
     if (harSNAktvitet) {
-      alertText += 'Søker har opplyst om ny inntekt som selvstendig næringsdrivende.';
+      return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.SelvstendigNæringsdrivende' });
     }
 
     if (harFrilanserAktvitet) {
-      alertText += 'Søker har en ny frilansaktivitet i AA-registeret.';
+      return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.Frilans' });
     }
 
-    if (harArbeidsforhold) {
-      alertText += 'Søker har et nytt arbeidsforhold i AA-registeret';
-    }
-
-    return alertText;
+    return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.Arbeidsforhold' });
   };
 
   const getAksjonspunktText = () => {
@@ -75,7 +82,7 @@ const TilkommetAktivitetPanel = ({
           <Heading size="xsmall" level="3">
             {getAlertHeading()}
           </Heading>
-          Vurder om pleiepengene skal reduseres på grunn av den nye inntekten.
+          {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktHelpText' })}
         </Alert>
       );
     }
@@ -85,7 +92,7 @@ const TilkommetAktivitetPanel = ({
           <strong>{intl.formatMessage({ id: 'HelpText.Aksjonspunkt.BehandletAksjonspunkt' })}</strong>
           <strong>{getAlertHeading()}</strong>
         </BodyShort>
-        <BodyShort size="small">Vurder om pleiepengene skal reduseres på grunn av den nye inntekten.</BodyShort>
+        <BodyShort size="small">{intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktHelpText' })}</BodyShort>
       </>
     );
   };
@@ -97,16 +104,14 @@ const TilkommetAktivitetPanel = ({
         <>
           <VerticalSpacer eightPx />
           <Alert size="small" variant="info">
-            Inntekter som kommer til underveis i en løpende pleiepengeperiode er ikke en del av søkers
-            beregningsgrunnlag. Dersom inntekten reduserer søkers inntektstap, må det vurderes om pleiepengene skal
-            graderes mot den nye inntekten.
+            {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktAlert' })}
           </Alert>
         </>
       )}
       <VerticalSpacer fourtyPx />
 
       <Heading size="small" level="3">
-        Ny aktivitet
+        {intl.formatMessage({ id: 'TilkommetAktivitet.Heading' })}
       </Heading>
       <hr className={styles.separator} />
 
