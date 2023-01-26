@@ -31,8 +31,10 @@ const TilkommetAktivitetField = ({
 }: TilkommetAktivitetField) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
-  const getInntektsforholdTableRows = (inntektsforholdPerioder: VurderInntektsforholdPeriode[]): JSX.Element[] => {
-    const tableRows: JSX.Element[] = [];
+  const getInntektsforholdTableRows = (
+    inntektsforholdPerioder: VurderInntektsforholdPeriode[],
+  ): React.ReactElement[] => {
+    const tableRows: React.ReactElement[] = [];
     const inntektsforholdListe = getInntektsforhold(inntektsforholdPerioder);
     inntektsforholdListe.forEach(inntektsforhold => {
       const harBruttoInntekt = !!inntektsforhold.bruttoInntektPrÅr && +inntektsforhold.bruttoInntektPrÅr > 0;

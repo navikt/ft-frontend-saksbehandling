@@ -3,6 +3,7 @@ import { ForlengelsePeriodeProp } from '@navikt/ft-types/src/beregningsgrunnlagT
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import erPeriodeTilVurdering from '../util/ForlengelseUtils';
+import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 export const getInntektsforhold = (inntektsforholdPerioder?: VurderInntektsforholdPeriode[]): Inntektsforhold[] =>
   inntektsforholdPerioder === undefined
@@ -135,7 +136,7 @@ export const getAktivitetNavn = (
     if (!agOpplysning) {
       return 'Arbeidsforhold';
     }
-    return `${agOpplysning.navn} (${agOpplysning.identifikator})`;
+    return createVisningsnavnForAktivitetFordeling(agOpplysning, inntektsforhold.arbeidsforholdId);
   }
 
   if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {

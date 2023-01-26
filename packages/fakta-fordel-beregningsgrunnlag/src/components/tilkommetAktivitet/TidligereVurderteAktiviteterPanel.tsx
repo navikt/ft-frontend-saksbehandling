@@ -4,6 +4,7 @@ import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponen
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 import React from 'react';
 import { Tag } from '@navikt/ds-react';
+import { useIntl } from 'react-intl';
 import styles from './tilkommetAktivitet.less';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import { getAktivitetNavn } from './TilkommetAktivitetUtils';
@@ -17,6 +18,7 @@ const TidligereVurderteAktiviteterPanel = ({
   arbeidsgiverOpplysningerPerId,
   vurderInntektsforholdPeriode,
 }: TidligereVurderteAktiviteterPanelType) => {
+  const intl = useIntl();
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
     inntektsforholdPeriode.inntektsforholdListe.forEach(inntektsforhold => {
@@ -24,7 +26,11 @@ const TidligereVurderteAktiviteterPanel = ({
       tableRows.push(
         <TableRow key={getInntektsforholdIdentifikator(inntektsforhold)}>
           <TableColumn>{getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
-          <TableColumn>{inntektsforhold.skalRedusereUtbetaling ? 'Ja' : 'Nei'}</TableColumn>
+          <TableColumn>
+            {inntektsforhold.skalRedusereUtbetaling
+              ? intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' })
+              : intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' })}
+          </TableColumn>
           {harBruttoInntekt && (
             <TableColumn>
               {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr)}

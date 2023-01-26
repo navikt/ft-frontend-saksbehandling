@@ -43,6 +43,12 @@
   "BeregningInfoPanel.TilkommetAktivitet.Periode": "Periode",
   "BeregningInfoPanel.TilkommetAktivitet.Årsinntekt": "Årsinntekt",
   "BeregningInfoPanel.TilkommetAktivitet.RedusererUtbetaling": "Reduserer inntektstap",
+  "BeregningInfoPanel.TilkommetAktivitet.Ja": "Ja",
+  "BeregningInfoPanel.TilkommetAktivitet.Nei": "Nei",
+  "BeregningInfoPanel.TilkommetAktivitet.VurderTekstNæring": "Har søker inntekt fra den nye næringsaktiviteten som reduserer søkers inntektstap?",
+  "BeregningInfoPanel.TilkommetAktivitet.VurderTekstFrilans": "Har søker inntekt fra den nye frilanseraktiviteten som reduserer søkers inntektstap?",
+  "BeregningInfoPanel.TilkommetAktivitet.VurderTekstArbeid": "Har søker inntekt fra {arbeidsforhold} som reduserer søkers inntektstap?",
+
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
