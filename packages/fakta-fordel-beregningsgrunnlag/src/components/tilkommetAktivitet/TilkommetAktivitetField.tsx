@@ -1,17 +1,16 @@
 import { Tag } from '@navikt/ds-react';
 import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 import React from 'react';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import SubmitButton from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.less';
-import { getInntektsforhold } from './TilkommetAktivitetUtils';
-import TilkommetInntektsforholdField from './TilkommetInntektsforholdField';
+import { getAktivitetNavn, getInntektsforhold } from './TilkommetAktivitetUtils';
+import TilkommetInntektsforholdField, { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 
 interface TilkommetAktivitetField {
   formName: string;
@@ -32,36 +31,6 @@ const TilkommetAktivitetField = ({
 }: TilkommetAktivitetField) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
-  const getAktivitetNavn = (inntektsforhold: Inntektsforhold) => {
-    let agOpplysning = null;
-    if (inntektsforhold.arbeidsgiverId !== null && inntektsforhold.arbeidsgiverId !== undefined) {
-      agOpplysning = arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId];
-    }
-
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
-      if (!agOpplysning) {
-        return 'Arbeidsforhold';
-      }
-      return `${agOpplysning.navn} (Arbeidsforhold)`;
-    }
-
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
-      if (!agOpplysning) {
-        return 'Frilanser';
-      }
-      return `${agOpplysning.navn} (Frilanser)`;
-    }
-
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
-      if (!agOpplysning) {
-        return 'Selvstendig næringsdrivende';
-      }
-      return `${agOpplysning.navn}`;
-    }
-
-    return '';
-  };
-
   const getInntektsforholdTableRows = (inntektsforholdPerioder: VurderInntektsforholdPeriode[]): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
     const inntektsforholdListe = getInntektsforhold(inntektsforholdPerioder);
@@ -69,7 +38,7 @@ const TilkommetAktivitetField = ({
       const harBruttoInntekt = !!inntektsforhold.bruttoInntektPrÅr && +inntektsforhold.bruttoInntektPrÅr > 0;
       tableRows.push(
         <TableRow key={inntektsforhold.arbeidsgiverId}>
-          <TableColumn>{getAktivitetNavn(inntektsforhold)}</TableColumn>
+          <TableColumn>{getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
           {harBruttoInntekt && (
             <TableColumn className={styles.inntektColumn}>
               {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr)}
@@ -109,16 +78,14 @@ const TilkommetAktivitetField = ({
       <VerticalSpacer sixteenPx />
       <div className={styles.aksjonspunktContainer}>
         {getInntektsforhold(vurderInntektsforholdPerioder).map(inntektsforhold => (
-          <>
-            <TilkommetInntektsforholdField
-              formName={formName}
-              index={index}
-              readOnly={readOnly}
-              inntektsforholdTilVurdering={inntektsforhold}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            />
-            <VerticalSpacer fourtyPx />
-          </>
+          <TilkommetInntektsforholdField
+            key={getInntektsforholdIdentifikator(inntektsforhold)}
+            formName={formName}
+            index={index}
+            readOnly={readOnly}
+            inntektsforholdTilVurdering={inntektsforhold}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
         ))}
         <VerticalSpacer fourtyPx />
         <TextAreaField

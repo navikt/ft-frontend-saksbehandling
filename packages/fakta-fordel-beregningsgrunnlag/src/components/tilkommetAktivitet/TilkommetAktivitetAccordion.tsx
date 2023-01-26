@@ -5,11 +5,10 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
-import styles from './tilkommetAktivitet.less';
-import { slaaSammenPerioder } from './TilkommetAktivitetUtils';
+import styles from './tilkommetAktivitetAccordion.less';
+import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
 import TidligereVurderteAktiviteterPanel from './TidligereVurderteAktiviteterPanel';
-import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 import TilkommetAktivitetField from './TilkommetAktivitetField';
 
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
@@ -34,14 +33,6 @@ const renderDateHeading = (fom: string, tom: string | undefined): ReactElement =
     </Label>
   );
 };
-
-function erVurdertTidligere(periode: VurderInntektsforholdPeriode, beregningsgrunnlag: Beregningsgrunnlag): boolean {
-  return (
-    !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder) &&
-    !!periode.inntektsforholdListe &&
-    periode.inntektsforholdListe?.every(a => a.skalRedusereUtbetaling !== null)
-  );
-}
 
 function finnFørsteFom(perioder: VurderInntektsforholdPeriode[]) {
   return perioder.map(p => p.fom).sort((t1, t2) => (dayjs(t1).isBefore(dayjs(t2)) ? -1 : 1))[0];
@@ -122,7 +113,7 @@ const TilkommetAktivitetAccordion = ({
   return (
     <Accordion className={styles.statusOk}>
       {tidligereVurderte.map(periode => (
-        <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0}>
+        <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0} key={periode.fom}>
           <Accordion.Header onClick={() => showPanel(periode.fom)}>
             {renderDateHeading(periode.fom, periode.tom)} <VurdertIForrigeBehandlingIcon />
           </Accordion.Header>
@@ -134,7 +125,10 @@ const TilkommetAktivitetAccordion = ({
           </Accordion.Content>
         </Accordion.Item>
       ))}
-      <Accordion.Item open={openPanels.filter(panel => panel === finnFørsteFom(ikkeVurdertTidligere)).length > 0}>
+      <Accordion.Item
+        open={openPanels.filter(panel => panel === finnFørsteFom(ikkeVurdertTidligere)).length > 0}
+        key={finnFørsteFom(ikkeVurdertTidligere)}
+      >
         <Accordion.Header onClick={() => showPanel(finnFørsteFom(ikkeVurdertTidligere))}>
           {getHeading(ikkeVurdertTidligere)}
         </Accordion.Header>

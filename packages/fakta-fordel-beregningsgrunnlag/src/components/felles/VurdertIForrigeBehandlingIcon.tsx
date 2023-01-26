@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
-import { Chips } from '@navikt/ds-react';
+import { Tag } from '@navikt/ds-react';
 import styles from './vurdertIForrigeBehandlingIcon.less';
 
 const classNames = classnames.bind(styles);
@@ -17,9 +17,9 @@ interface OwnProps {
 
 const VurdertIForrigeBehandlingIcon: FunctionComponent<OwnProps> = ({ className = '' }) => (
   <span data-testid="vurdertIForrigeIcon" className={classNames('vurdertIForrigeIcon', className)}>
-    <Chips size="small">
-      <Chips.Toggle>Vurdert i en tidligere behandling</Chips.Toggle>
-    </Chips>
+    <Tag size="small" variant="neutral">
+      Vurdert i en tidligere behandling
+    </Tag>
   </span>
 );
 

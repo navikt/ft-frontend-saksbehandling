@@ -1,5 +1,7 @@
 import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { ForlengelsePeriodeProp } from '@navikt/ft-types/src/beregningsgrunnlagTsType';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 
 export const getInntektsforhold = (inntektsforholdPerioder?: VurderInntektsforholdPeriode[]): Inntektsforhold[] =>
@@ -108,3 +110,41 @@ export const slaaSammenPerioder = (
   perioder: VurderInntektsforholdPeriode[],
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): VurderInntektsforholdPeriode[] => perioder.reduce(sjekkOmPeriodeSkalLeggesTil(forlengelseperioder), []);
+
+export function erVurdertTidligere(
+  periode: VurderInntektsforholdPeriode,
+  beregningsgrunnlag: Beregningsgrunnlag,
+): boolean {
+  return (
+    !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder) &&
+    !!periode.inntektsforholdListe &&
+    periode.inntektsforholdListe?.every(a => a.skalRedusereUtbetaling !== null)
+  );
+}
+
+export const getAktivitetNavn = (
+  inntektsforhold: Inntektsforhold,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+) => {
+  let agOpplysning = null;
+  if (inntektsforhold.arbeidsgiverId !== null && inntektsforhold.arbeidsgiverId !== undefined) {
+    agOpplysning = arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId];
+  }
+
+  if (inntektsforhold.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
+    if (!agOpplysning) {
+      return 'Arbeidsforhold';
+    }
+    return `${agOpplysning.navn} (${agOpplysning.identifikator})`;
+  }
+
+  if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
+    return 'Frilanser';
+  }
+
+  if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+    return 'Selvstendig næringsdrivende';
+  }
+
+  return '';
+};

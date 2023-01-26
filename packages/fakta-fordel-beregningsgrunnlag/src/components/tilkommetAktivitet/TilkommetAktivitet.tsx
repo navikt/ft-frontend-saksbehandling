@@ -21,7 +21,7 @@ import VurderNyttInntektsforholdAP, {
   VurderNyttInntektsforholTransformedValues,
 } from '../../types/interface/VurderNyttInntektsforholdAP';
 import styles from './tilkommetAktivitet.less';
-import { getInntektsforhold } from './TilkommetAktivitetUtils';
+import { erVurdertTidligere, getInntektsforhold, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import TilkommetAktivitetPanel from './TilkommetAktivitetPanel';
 
@@ -57,7 +57,7 @@ const finnVilkårsperiode = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarper
 
 const buildInnteksforholdInitialValues = (inntektsforhold: Inntektsforhold): TilkommetAktivitetValues => ({
   [getInntektsforholdIdentifikator(inntektsforhold)]: {
-    bruttoInntektPrÅr: inntektsforhold?.skalRedusereUtbetaling ? inntektsforhold?.bruttoInntektPrÅr : undefined,
+    bruttoInntektPrÅr: inntektsforhold?.bruttoInntektPrÅr,
     skalRedusereUtbetaling: inntektsforhold?.skalRedusereUtbetaling,
   },
 });
@@ -67,9 +67,14 @@ const buildFieldInitialValues = (
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFieldValues | null => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
-  const inntektsforhold = getInntektsforhold(
-    beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder,
-  );
+  const vurderInntektsforholdPerioder =
+    beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
+  if (!vurderInntektsforholdPerioder) {
+    return null;
+  }
+  const sammenslåttPerioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
+  const perioderTilVurdering = sammenslåttPerioder.filter(p => !erVurdertTidligere(p, beregningsgrunnlag));
+  const inntektsforhold = getInntektsforhold(perioderTilVurdering);
   if (!inntektsforhold) {
     return null;
   }
@@ -106,15 +111,19 @@ export const transformFieldValues = (
   const transformedInntektsforhold = vurderInntektsforholdPerioder.flatMap(inntektsforholdPeriode => ({
     fom: inntektsforholdPeriode.fom,
     tom: inntektsforholdPeriode.tom,
-    andeler: inntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => ({
-      aktivitetStatus: inntektsforhold.aktivitetStatus,
-      arbeidsgiverId: inntektsforhold.arbeidsgiverId,
-      arbeidsforholdId: inntektsforhold.arbeidsforholdId,
-      bruttoInntektPrÅr: removeSpacesFromNumber(
-        values[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr,
-      ),
-      skalRedusereUtbetaling: values[getInntektsforholdIdentifikator(inntektsforhold)].skalRedusereUtbetaling,
-    })),
+    andeler: inntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => {
+      const { skalRedusereUtbetaling } = values[getInntektsforholdIdentifikator(inntektsforhold)];
+      const bruttoInntektPrÅr = skalRedusereUtbetaling
+        ? removeSpacesFromNumber(values[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr)
+        : undefined;
+      return {
+        aktivitetStatus: inntektsforhold.aktivitetStatus,
+        arbeidsgiverId: inntektsforhold.arbeidsgiverId,
+        arbeidsforholdId: inntektsforhold.arbeidsforholdId,
+        bruttoInntektPrÅr,
+        skalRedusereUtbetaling,
+      };
+    }),
   }));
 
   return {
