@@ -1,6 +1,6 @@
 import { Accordion, Label } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
@@ -14,7 +14,7 @@ import TilkommetAktivitetField from './TilkommetAktivitetField';
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
 const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
-  if (!tom || tom === '9999-12-31') {
+  if (!tom || tom === TIDENES_ENDE) {
     return (
       <Label size="small">
         <FormattedMessage id="BeregningInfoPanel.FordelBG.PeriodeFom" values={{ fom: formatDate(fom) }} />
@@ -96,6 +96,8 @@ const TilkommetAktivitetAccordion = ({
     }
   };
 
+  const visPanel = (periode: VurderInntektsforholdPeriode) => () => showPanel(periode.fom);
+
   if (tidligereVurderte.length === 0) {
     // Viser ikke accordion dersom ingen tidligere vurderte perioder
     return (
@@ -114,7 +116,7 @@ const TilkommetAktivitetAccordion = ({
     <Accordion className={styles.statusOk}>
       {tidligereVurderte.map(periode => (
         <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0} key={periode.fom}>
-          <Accordion.Header onClick={() => showPanel(periode.fom)}>
+          <Accordion.Header onClick={visPanel(periode)}>
             {renderDateHeading(periode.fom, periode.tom)} <VurdertIForrigeBehandlingIcon />
           </Accordion.Header>
           <Accordion.Content>

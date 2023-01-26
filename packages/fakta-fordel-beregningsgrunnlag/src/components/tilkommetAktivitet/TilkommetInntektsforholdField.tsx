@@ -6,8 +6,10 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React from 'react';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import { useIntl } from 'react-intl';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import styles from './tilkommetAktivitet.less';
+import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 
 interface TilkommetInntektsforholdField {
   formName: string;
@@ -39,50 +41,23 @@ const TilkommetInntektsforholdField = ({
   arbeidsgiverOpplysningerPerId,
 }: TilkommetInntektsforholdField) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const intl = useIntl();
 
-  const getAktivitetNavn = (inntektsforhold: Inntektsforhold) => {
-    let agOpplysning = null;
-    if (inntektsforhold.arbeidsgiverId !== null && inntektsforhold.arbeidsgiverId !== undefined) {
-      agOpplysning = arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId];
-    }
-
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
-      if (!agOpplysning) {
-        return 'Arbeidsforhold';
-      }
-      return `${agOpplysning.navn}`;
-    }
-
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
-      if (!agOpplysning) {
-        return 'Frilanser';
-      }
-      return `${agOpplysning.navn}`;
-    }
-
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
-      if (!agOpplysning) {
-        return 'Selvstendig næringsdrivende';
-      }
-      return `${agOpplysning.navn}`;
-    }
-
-    return '';
-  };
   const { skalRedusereUtbetaling } = formMethods.watch(`${formName}.${index}`)[
     getInntektsforholdIdentifikator(inntektsforholdTilVurdering)
   ];
 
   const getRadioGroupLabel = (inntektsforhold: Inntektsforhold) => {
     if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
-      return 'Har søker inntekt fra den nye næringsaktiviteten som reduserer søkers inntektstap?';
+      return intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstNæring' });
     }
-
     if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
-      return 'Har søker inntekt fra den nye frilanseraktiviteten som reduserer søkers inntektstap?';
+      return intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstFrilans' });
     }
-
-    return `Har søker inntekt fra ${getAktivitetNavn(inntektsforhold)}  som reduserer søkers inntektstap?`;
+    return intl.formatMessage(
+      { id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstArbeid' },
+      { arbeidsforhold: getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId) },
+    );
   };
 
   return (
@@ -93,8 +68,8 @@ const TilkommetInntektsforholdField = ({
           inntektsforholdTilVurdering,
         )}.skalRedusereUtbetaling`}
         radios={[
-          { value: 'true', label: 'Ja' },
-          { value: 'false', label: 'Nei' },
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' }) },
         ]}
         isReadOnly={readOnly}
         validate={[required]}
