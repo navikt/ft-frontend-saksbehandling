@@ -35,7 +35,7 @@
     "dayjs": "1.11.7",
     "lodash.throttle": "4.1.1",
     "react": "18.2.0",
-    "react-hook-form": "7.41.5"
+    "react-hook-form": "7.42.1"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.0.12",
@@ -48,7 +48,7 @@
     "dayjs": "1.11.7",
     "lodash.throttle": "4.1.1",
     "react": "18.2.0",
-    "react-hook-form": "7.41.5"
+    "react-hook-form": "7.42.1"
   },
   "devDependencies": {
     "@navikt/ft-utils-test": "^1.2.2",
