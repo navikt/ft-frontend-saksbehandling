@@ -27,6 +27,8 @@ import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/Arbe
 import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import bgFlerePerioderMedHelg from '../testdata/FlerePerioderMedHelg';
 import bgFlerePerioderMedForlengelse from '../testdata/FlerePerioderMedForlengelse';
+import bgTilkommetInntektsforholdMedForlengelse from '../testdata/TilkommetAktivitetMedForlengelse';
+import bgTilkommetInntektsforholdMedForlengelseLukketAP from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -953,6 +955,36 @@ TilkommetAktivitet.args = {
       fom: '2022-11-08',
       tom: '2022-11-08',
       vurderesIBehandlingen: true,
+    },
+  ],
+};
+
+export const TilkommetAktivitetMedForlengelse = Template.bind({});
+TilkommetAktivitetMedForlengelse.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: bgTilkommetInntektsforholdMedForlengelse,
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+  vilkårsperioder: [
+    {
+      fom: '2022-11-08',
+      tom: '2022-11-20',
+      vurderesIBehandlingen: true,
+      erForlengelse: true,
+    },
+  ],
+};
+
+export const TilkommetAktivitetMedForlengelseLukketAP = Template.bind({});
+TilkommetAktivitetMedForlengelseLukketAP.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: bgTilkommetInntektsforholdMedForlengelseLukketAP,
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+  vilkårsperioder: [
+    {
+      fom: '2022-11-08',
+      tom: '2022-11-20',
+      vurderesIBehandlingen: true,
+      erForlengelse: true,
     },
   ],
 };

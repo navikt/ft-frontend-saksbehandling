@@ -11,6 +11,7 @@ const {
   SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059,
   FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046,
   TilkommetAktivitet,
+  TilkommetAktivitetMedForlengelse,
 } = composeStories(stories);
 
 window.ResizeObserver =
@@ -542,12 +543,10 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet', async () => {
   render(<TilkommetAktivitet submitCallback={lagre} />);
   expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
   expect(
-    screen.getByText('Har søker inntekt fra det nye arbeidsforholdet som reduserer søkers inntektstap?'),
+    screen.getByText('Har søker inntekt fra Arbeidsgiveren (999999997)...123 som reduserer søkers inntektstap?'),
   ).toBeInTheDocument();
   expect(screen.getByText('Årsinntekt')).toBeInTheDocument();
   await userEvent.click(screen.getByLabelText('Ja'));
-  expect(screen.getByText('Fastsett årsinntekt')).toBeInTheDocument();
-  await userEvent.type(screen.getByLabelText('Fastsett årsinntekt'), '1349');
   await userEvent.type(screen.getByLabelText('Begrunnelse'), 'En saklig begrunnelse');
   await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
   await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
@@ -569,6 +568,80 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet', async () => {
                 aktivitetStatus: 'AT',
                 arbeidsforholdId: '123',
                 arbeidsgiverId: '999999997',
+                bruttoInntektPrÅr: 480000,
+                skalRedusereUtbetaling: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    kode: 'VURDER_NYTT_INNTKTSFRHLD',
+  });
+});
+
+it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', async () => {
+  const lagre = jest.fn();
+  render(<TilkommetAktivitetMedForlengelse submitCallback={lagre} />);
+  expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
+
+  expect(screen.getByText('Gjeldende 09.11.2022 - 15.11.2022')).toBeInTheDocument();
+  await userEvent.click(screen.getByText('Gjeldende 09.11.2022 - 15.11.2022'));
+
+  expect(screen.getAllByText('Årsinntekt')).toHaveLength(2);
+
+  expect(screen.getByText('Reduserer inntektstap')).toBeInTheDocument();
+
+  expect(screen.getAllByText('Arbeidsgiveren (999999997)...123')).toHaveLength(2);
+  expect(screen.getAllByText('Nei')).toHaveLength(3);
+  expect(screen.getAllByText('480 000 kr')).toHaveLength(2);
+
+  expect(screen.getAllByText('NAV Troms og Finnmark (974652293)...456')).toHaveLength(2);
+  expect(screen.getAllByText('Ja')).toHaveLength(3);
+
+  expect(screen.getByText('300 000 kr')).toBeInTheDocument();
+  expect(screen.getByText('Gjeldende 16.11.2022 - 20.11.2022')).toBeInTheDocument();
+  expect(
+    screen.getByText('Har søker inntekt fra Arbeidsgiveren (999999997)...123 som reduserer søkers inntektstap?'),
+  ).toBeInTheDocument();
+  await userEvent.click(screen.getAllByLabelText('Nei')[0]);
+
+  expect(
+    screen.getByText('Har søker inntekt fra NAV Troms og Finnmark (974652293)...456 som reduserer søkers inntektstap?'),
+  ).toBeInTheDocument();
+
+  await userEvent.click(screen.getAllByLabelText('Ja')[1]);
+  expect(screen.getByLabelText('Fastsett årsinntekt')).toBeInTheDocument();
+
+  await userEvent.type(screen.getByLabelText('Fastsett årsinntekt'), '1349');
+  await userEvent.type(screen.getByLabelText('Begrunnelse'), 'En saklig begrunnelse');
+  await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+  await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+  expect(lagre).toHaveBeenCalledWith({
+    begrunnelse: 'En saklig begrunnelse',
+    grunnlag: [
+      {
+        periode: {
+          fom: '2022-11-08',
+          tom: '2022-11-20',
+        },
+        begrunnelse: 'En saklig begrunnelse',
+        tilkomneInntektsforhold: [
+          {
+            fom: '2022-11-16',
+            tom: '2022-11-20',
+            andeler: [
+              {
+                aktivitetStatus: 'AT',
+                arbeidsforholdId: '123',
+                arbeidsgiverId: '999999997',
+                bruttoInntektPrÅr: undefined,
+                skalRedusereUtbetaling: false,
+              },
+              {
+                aktivitetStatus: 'AT',
+                arbeidsforholdId: '456',
+                arbeidsgiverId: '974652293',
                 bruttoInntektPrÅr: 1349,
                 skalRedusereUtbetaling: true,
               },
