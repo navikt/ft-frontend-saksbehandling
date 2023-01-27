@@ -100,13 +100,19 @@ export type VurderRefusjonFormValues = {
   VURDER_REFUSJON_BERGRUNN_FORM: VurderRefusjonFieldValues[];
 };
 
-export type TilkommetAktivitetFieldValues = AksjonspunktValues & {
+export type TilkommetInntektsforholdFieldValues = {
   skalRedusereUtbetaling: boolean;
-  bruttoInntektPrÅr: number;
+  bruttoInntektPrÅr: number | undefined;
 };
 
+export type TilkommetAktivitetValues = {
+  [key: string]: TilkommetInntektsforholdFieldValues;
+};
+
+export type TilkommetAktivitetFieldValues = AksjonspunktValues & TilkommetAktivitetValues;
+
 export type TilkommetAktivitetFormValues = {
-  VURDER_TILKOMMET_AKTIVITET_FORM: TilkommetAktivitetFieldValues[];
+  [key: string]: TilkommetAktivitetFieldValues[];
 };
 
 type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonFormValues;

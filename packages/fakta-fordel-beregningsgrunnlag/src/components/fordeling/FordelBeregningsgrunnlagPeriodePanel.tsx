@@ -26,7 +26,7 @@ import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregning
 import FordelPeriodeFieldArray from './FordelPeriodeFieldArray';
 
 import styles from './fordelBeregningsgrunnlagPeriodePanel.less';
-import VurdertIForrigeBehandlingIcon from './VurdertIForrigeBehandlingIcon';
+import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
 
 const classNames = classnames.bind(styles);
 
