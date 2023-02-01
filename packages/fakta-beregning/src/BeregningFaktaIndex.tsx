@@ -8,7 +8,7 @@ import {
 } from '@navikt/ft-types';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import { TabsPure } from 'nav-frontend-tabs';
+import { Tabs } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
@@ -123,14 +123,21 @@ const BeregningFaktaIndex: FunctionComponent<
     <RawIntlProvider value={intl}>
       {skalBrukeTabs && (
         <div className={styles.tabsContainer}>
-          <TabsPure
-            tabs={konverterteBg.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => ({
-              aktiv: aktivtBeregningsgrunnlagIndeks === currentBeregningsgrunnlagIndex,
-              label: lagLabel(currentBeregningsgrunnlag, vilkårsperioder),
-              className: skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : '',
-            }))}
-            onChange={(e, clickedIndex) => setAktivtBeregningsgrunnlagIndeks(clickedIndex)}
-          />
+          <Tabs
+            value={aktivtBeregningsgrunnlagIndeks.toString()}
+            onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+          >
+            <Tabs.List>
+              {konverterteBg.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+                <Tabs.Tab
+                  key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
+                  value={currentBeregningsgrunnlagIndex.toString()}
+                  label={lagLabel(currentBeregningsgrunnlag, vilkar.perioder)}
+                  className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
+                />
+              ))}
+            </Tabs.List>
+          </Tabs>
         </div>
       )}
       <BeregningInfoPanel
