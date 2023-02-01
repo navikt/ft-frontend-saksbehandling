@@ -132,7 +132,7 @@ const BeregningFaktaIndex: FunctionComponent<
                 <Tabs.Tab
                   key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
                   value={currentBeregningsgrunnlagIndex.toString()}
-                  label={lagLabel(currentBeregningsgrunnlag, vilkar.perioder)}
+                  label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
                   className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
                 />
               ))}
