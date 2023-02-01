@@ -18,6 +18,10 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@navikt'
           cache: 'yarn'
+          cache-dependency-path: |
+            node_modules/.cache/nx
+            yarn.lock
+          
 
       - name: Installere dependencies
         run: yarn install --ignore-optional --no-progress --frozen-lockfile
