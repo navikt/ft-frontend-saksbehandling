@@ -11,14 +11,12 @@ const avklarAktiviteterAp = {
   definisjon: AVKLAR_AKTIVITETER,
   status: AksjonspunktStatus.OPPRETTET,
   kanLoses: true,
-  erAktivt: true,
 } as Aksjonspunkt;
 
 const aksjonspunkter = [
   {
     definisjon: VURDER_FAKTA_FOR_ATFL_SN,
     status: 'OPPR',
-    erAktivt: true,
     kanLoses: true,
   },
 ];

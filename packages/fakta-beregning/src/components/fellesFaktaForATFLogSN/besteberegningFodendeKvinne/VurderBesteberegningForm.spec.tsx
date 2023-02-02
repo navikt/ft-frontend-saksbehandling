@@ -30,7 +30,6 @@ describe('<VurderBesteberegning>', () => {
       definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
       status: 'OPPR',
       kanLoses: true,
-      erAktivt: true,
     };
     const initialValues = VurderBesteberegningForm.buildInitialValues(
       [ap],
