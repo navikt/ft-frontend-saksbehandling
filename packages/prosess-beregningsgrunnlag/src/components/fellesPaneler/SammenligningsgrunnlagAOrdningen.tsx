@@ -122,7 +122,7 @@ const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], sammenligningsgrunnla
     const aarMaaned = dato.format('YYYYMM');
     const månedMedInntekter = andeler.find(andel => dayjs(andel.fom, ISO_DATE_FORMAT).format('YYYYMM') === aarMaaned);
     const beløp = finnInntektForStatus(månedMedInntekter?.inntekter || [], inntektAType);
-    data.push([beløp, dato.toDate()]);
+    data.push([beløp, aarMaaned]);
   }
   return data;
 };
