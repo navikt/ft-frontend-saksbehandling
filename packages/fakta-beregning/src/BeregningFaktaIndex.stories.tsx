@@ -242,7 +242,6 @@ export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story
     definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
     status: AksjonspunktStatus.OPPRETTET,
     kanLoses: true,
-    erAktivt: true,
     begrunnelse: undefined,
   };
 
@@ -251,7 +250,6 @@ export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story
     definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
     status: AksjonspunktStatus.OPPRETTET,
     kanLoses: true,
-    erAktivt: true,
     begrunnelse: undefined,
   };
 
