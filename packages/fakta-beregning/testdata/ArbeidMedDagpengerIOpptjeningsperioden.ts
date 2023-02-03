@@ -235,6 +235,5 @@ export const aksjonspunkt = [
     toTrinnsBehandling: true,
     aksjonspunktType: 'MANU',
     kanLoses: true,
-    erAktivt: true,
   },
 ];

@@ -111,7 +111,6 @@ Default.args = {
       status: AksjonspunktStatus.OPPRETTET,
       begrunnelse: undefined,
       kanLoses: true,
-      erAktivt: true,
     },
   ],
 };

@@ -7,7 +7,6 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
       status: 'OPPRETTET',
       definisjon: 'VURDER_FAKTA_ATFL_SN',
       kanLoses: true,
-      erAktivt: true,
     };
     const bg = {
       beregningsgrunnlagPeriode: [
@@ -35,7 +34,6 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
       status: 'OPPRETTET',
       definisjon: 'VURDER_FAKTA_ATFL_SN',
       kanLoses: true,
-      erAktivt: true,
     };
     const bg = {
       beregningsgrunnlagPeriode: [
