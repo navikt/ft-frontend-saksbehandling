@@ -63,7 +63,7 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
               {getKodeverkMedNavn(behandling.type, KodeverkType.BEHANDLING_TYPE, behandling.type)?.navn || ''}
             </Label>
           </FlexColumn>
-          {behandling.type === BehandlingType.REVURDERING && behandling.førsteÅrsak?.behandlingArsakType && (
+          {(behandling.type === BehandlingType.REVURDERING || behandling.type === BehandlingType.KLAGE) && behandling.førsteÅrsak?.behandlingArsakType && (
             <>
               <FlexColumn className={styles.arsakPadding}>-</FlexColumn>
               <FlexColumn>
