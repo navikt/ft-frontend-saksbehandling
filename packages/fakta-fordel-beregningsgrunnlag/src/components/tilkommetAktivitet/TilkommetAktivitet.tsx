@@ -229,7 +229,7 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
         {fields.map((field, index) => (
           <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
             <TilkommetAktivitetPanel
-              beregningsgrunnlag={gjeldendeBeregningsgrunnlag}
+              beregningsgrunnlag={beregningsgrunnlagListe[index]}
               formName={FORM_NAME}
               index={index}
               readOnly={readOnly}
