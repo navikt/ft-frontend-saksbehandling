@@ -35,7 +35,7 @@ const oppdaterTomOgInntektsforholdForSistePeriode = (
   if (!forrigePeriode) {
     return;
   }
-  const inntektsforholdListe = forrigePeriode.inntektsforholdListe || [];
+  const inntektsforholdListe = [...forrigePeriode.inntektsforholdListe] || [];
   // @ts-ignore
   periode.inntektsforholdListe.forEach(it => inntektsforholdListe.push(it));
   const endretPeriode = {
