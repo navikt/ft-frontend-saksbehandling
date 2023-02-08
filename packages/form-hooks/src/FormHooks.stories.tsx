@@ -42,13 +42,29 @@ const Template: Story = () => {
       <VerticalSpacer sixteenPx />
       <InputField label="Dette er et inputfelt der verdi er valgt" name="testinputpre" className={styles.bredde} />
       <VerticalSpacer sixteenPx />
+      <InputField
+        label="Dette er et inputfelt som er readonly"
+        name="testinputpre"
+        className={styles.bredde}
+        readOnly
+      />
+      <VerticalSpacer sixteenPx />
       <NumberField label="Dette er et numberfelt" name="testnumber" className={styles.bredde} forceTwoDecimalDigits />
       <VerticalSpacer sixteenPx />
       <NumberField label="Dette er et numberfelt der verdi er valgt" name="testnumberpre" className={styles.bredde} />
       <VerticalSpacer sixteenPx />
+      <NumberField
+        label="Dette er et numberfelt som er readonly"
+        name="testnumberpre"
+        className={styles.bredde}
+        readOnly
+      />
+      <VerticalSpacer sixteenPx />
       <CheckboxField label="Dette er en checkbox" name="testcheckbox" />
       <VerticalSpacer sixteenPx />
       <CheckboxField label="Dette er en checkbox der verdi er valgt" name="testcheckboxpre" />
+      <VerticalSpacer sixteenPx />
+      <CheckboxField label="Dette er en checkbox som er readonly" name="testcheckboxpre" readOnly />
       <VerticalSpacer sixteenPx />
       <CheckboxPanel
         name="checkboxpanel"
@@ -84,6 +100,26 @@ const Template: Story = () => {
         ]}
       />
       <VerticalSpacer sixteenPx />
+      <CheckboxPanel
+        name="checkboxpanelpre"
+        label="Dette er et checkboxpanel som er readonly"
+        isReadOnly
+        checkboxes={[
+          {
+            label: 'Verdi 3',
+            value: 'verdi3',
+          },
+          {
+            label: 'Verdi 4',
+            value: 'verdi4',
+          },
+          {
+            label: 'Verdi 5',
+            value: 'verdi5',
+          },
+        ]}
+      />
+      <VerticalSpacer sixteenPx />
       <RadioGroupPanel
         name="radio"
         label="Dette er en radioknapp"
@@ -101,7 +137,7 @@ const Template: Story = () => {
       <VerticalSpacer sixteenPx />
       <RadioGroupPanel
         name="radiopre"
-        label="Dette er en radioknapp der verdi er valgt"
+        label="Dette er en radioknapp som er readonly"
         isReadOnly
         isEdited
         radios={[
@@ -149,6 +185,21 @@ const Template: Story = () => {
         ]}
       />
       <VerticalSpacer sixteenPx />
+      <SelectField
+        label="Dette er en dropdown som er readonly"
+        name="testSelectFieldpre"
+        readOnly
+        className={styles.bredde}
+        selectValues={[
+          <option value="value3" key="1">
+            Test 3
+          </option>,
+          <option value="value4" key="2">
+            Test 4
+          </option>,
+        ]}
+      />
+      <VerticalSpacer sixteenPx />
       <TextAreaField
         label="Dette er et tekstfelt"
         name="testTextAreaField"
@@ -173,6 +224,19 @@ const Template: Story = () => {
         ]}
       />
       <VerticalSpacer sixteenPx />
+      <TextAreaField
+        label="Dette er et tekstfelt som er readonly"
+        name="testTextAreaFieldPre"
+        readOnly
+        maxLength={50}
+        badges={[
+          {
+            type: 'warning',
+            titleText: 'Dette er en test',
+          },
+        ]}
+      />
+      <VerticalSpacer sixteenPx />
       <Datepicker
         label="Dette er en datepicker"
         name="datepickerField"
@@ -184,9 +248,13 @@ const Template: Story = () => {
       <VerticalSpacer sixteenPx />
       <Datepicker label="Dette er en datepicker der verdi er valgt" name="datepickerFieldPre" />
       <VerticalSpacer sixteenPx />
+      <Datepicker label="Dette er en datepicker som er readonly" name="datepickerFieldPre" isReadOnly />
+      <VerticalSpacer sixteenPx />
       <Rangepicker label="Periode" fomName="fom" tomName="tom" />
       <VerticalSpacer sixteenPx />
       <Rangepicker label="Periode der verdi er valgt" fomName="fomPre" tomName="tomPre" />
+      <VerticalSpacer sixteenPx />
+      <Rangepicker label="Periode som er readonly" fomName="fomPre" tomName="tomPre" isReadOnly />
     </Form>
   );
 };
