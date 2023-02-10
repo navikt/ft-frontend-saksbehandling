@@ -10,6 +10,7 @@ import FordelingField, {
   buildFieldInitialValuesFordelBeregning,
   transformFieldValuesFordelBeregning,
 } from './FordelingField';
+import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
@@ -25,18 +26,6 @@ const finnBeregningsgrunnlag = (
   }
   return matchetndeBG;
 };
-
-function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string): Vilkarperiode {
-  const periode = vilkårsperioder.find(p => p.periode.fom === vilkårsperiodeFom);
-  if (!periode) {
-    throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${vilkårsperiodeFom}`);
-  }
-  return periode;
-}
-
-function vurderesIBehandlingen(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
-  return finnVilkårsperiode(vilkårsperioder, vilkårsperiodeFom).vurderesIBehandlingen;
-}
 
 const transformValues = (
   values: FordelBeregningsgrunnlagFormValues,

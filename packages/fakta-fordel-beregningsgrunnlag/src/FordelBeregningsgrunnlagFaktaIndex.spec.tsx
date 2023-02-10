@@ -589,12 +589,12 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
   await userEvent.click(screen.getByText('Gjeldende 09.11.2022 - 15.11.2022'));
 
   expect(screen.getAllByText('Årsinntekt')).toHaveLength(2);
+  expect(screen.getAllByText('450 000 kr')).toHaveLength(2);
 
   expect(screen.getByText('Reduserer inntektstap')).toBeInTheDocument();
 
   expect(screen.getAllByText('Arbeidsgiveren (999999997)...123')).toHaveLength(2);
   expect(screen.getAllByText('Nei')).toHaveLength(3);
-  expect(screen.getAllByText('480 000 kr')).toHaveLength(2);
 
   expect(screen.getAllByText('NAV Troms og Finnmark (974652293)...456')).toHaveLength(2);
   expect(screen.getAllByText('Ja')).toHaveLength(3);
