@@ -27,6 +27,7 @@ import {
 import FaktaFordelBeregningAvklaringsbehovCode from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
+import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 
 const intl = createIntl(messages);
 
@@ -34,8 +35,7 @@ const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTS
   FaktaFordelBeregningAvklaringsbehovCode;
 
 const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): string => {
-  const stpOpptjening = bg.vilkårsperiodeFom;
-  const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
+  const vilkårPeriode = finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;
     if (tom !== null) {
@@ -43,7 +43,7 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): st
     }
     return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - `;
   }
-  return `${dayjs(stpOpptjening).format(DDMMYYYY_DATE_FORMAT)}`;
+  return `${dayjs(bg.vilkårsperiodeFom).format(DDMMYYYY_DATE_FORMAT)}`;
 };
 
 const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
@@ -53,6 +53,9 @@ const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
       a.definisjon === FORDEL_BEREGNINGSGRUNNLAG ||
       a.definisjon === VURDER_NYTT_INNTKTSFRHLD,
   );
+
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) =>
+  kreverManuellBehandlingFn(bg) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
 
 function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
   const res = [...beregningsgrunnlag];
@@ -116,6 +119,9 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
                 key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
                 value={currentBeregningsgrunnlagIndex.toString()}
                 label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
+                className={
+                  skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder) ? 'harAksjonspunkt' : ''
+                }
               />
             ))}
           </Tabs.List>
