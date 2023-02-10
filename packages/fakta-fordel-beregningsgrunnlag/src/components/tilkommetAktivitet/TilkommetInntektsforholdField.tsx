@@ -76,7 +76,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
         isTrueOrFalseSelection
       />
 
-      {skalRedusereUtbetaling && !inntektsforholdTilVurdering.harInntektsmelding && (
+      {skalRedusereUtbetaling && (
         <>
           <VerticalSpacer sixteenPx />
           <div className={styles.bruttoInntektContainer}>
