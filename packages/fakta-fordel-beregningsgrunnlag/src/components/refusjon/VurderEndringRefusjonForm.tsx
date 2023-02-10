@@ -11,24 +11,19 @@ import VurderEndringRefusjonField, {
   buildFieldInitialValues,
   transformFieldValues,
 } from './VurderEndringRefusjonField';
+import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 
 export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
-const finnVilkårsperiode = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): Vilkarperiode => {
-  const periode = vilkårsperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
-  if (!periode) {
-    throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${bg.vilkårsperiodeFom}`);
-  }
-  return periode;
-};
-
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårperioder: Vilkarperiode[],
 ): VurderRefusjonFormValues => ({
-  [FORM_NAME]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, finnVilkårsperiode(bg, vilkårperioder))),
+  [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
+    buildFieldInitialValues(bg, finnVilkårsperiode(vilkårperioder, bg.vilkårsperiodeFom)),
+  ),
 });
 
 const finnBeregningsgrunnlag = (
@@ -124,7 +119,9 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
         <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
           <VurderEndringRefusjonField
             submittable={submittable}
-            readOnly={readOnly}
+            readOnly={
+              readOnly || !vurderesIBehandlingen(vilkarperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
+            }
             beregningsgrunnlag={beregningsgrunnlagListe[index]}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             vilkårperiodeFieldIndex={index}

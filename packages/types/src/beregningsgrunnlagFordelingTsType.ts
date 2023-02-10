@@ -92,9 +92,13 @@ export type Inntektsforhold = Readonly<{
   aktivitetStatus: string;
   arbeidsforholdId: string;
   arbeidsgiverId: string;
-  bruttoInntektPrÅr: number;
-  harInntektsmelding: boolean;
+  bruttoInntektPrÅr?: number;
+  inntektFraInntektsmeldingPrÅr?: number;
   skalRedusereUtbetaling: boolean;
+  periode?: {
+    fom: string;
+    tom: string;
+  };
 }>;
 
 export type VurderInntektsforholdPeriode = Readonly<{
