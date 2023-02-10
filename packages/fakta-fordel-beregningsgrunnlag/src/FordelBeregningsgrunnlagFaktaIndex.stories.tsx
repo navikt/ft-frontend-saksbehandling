@@ -855,7 +855,7 @@ TilkommetAktivitet.args = {
                   aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
                   arbeidsgiverId: '999999997',
                   bruttoInntektPrÅr: 480000,
-                  harInntektsmelding: true,
+                  inntektFraInntektsmeldingPrÅr: 480000,
                   arbeidsforholdId: '123',
                   skalRedusereUtbetaling: false,
                 },
