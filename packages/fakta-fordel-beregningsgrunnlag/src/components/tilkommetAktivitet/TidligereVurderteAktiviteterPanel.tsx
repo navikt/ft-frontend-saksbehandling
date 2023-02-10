@@ -14,6 +14,8 @@ type TidligereVurderteAktiviteterPanelType = {
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
 };
 
+const erDefinert = (tall?: number) => !!tall && +tall > 0;
+
 const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelType> = ({
   arbeidsgiverOpplysningerPerId,
   vurderInntektsforholdPeriode,
@@ -22,7 +24,8 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
     inntektsforholdPeriode.inntektsforholdListe.forEach(inntektsforhold => {
-      const harBruttoInntekt = !!inntektsforhold.bruttoInntektPrÅr && +inntektsforhold.bruttoInntektPrÅr > 0;
+      const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
+      const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
       tableRows.push(
         <TableRow key={getInntektsforholdIdentifikator(inntektsforhold)}>
           <TableColumn>{getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
@@ -31,15 +34,22 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
               ? intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' })
               : intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' })}
           </TableColumn>
-          {harBruttoInntekt && (
+          {(harBruttoInntekt || harInntektsmelding) && (
             <TableColumn>
-              {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr)}
-              {inntektsforhold.harInntektsmelding && (
-                <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
-                  IM
-                </Tag>
+              {harBruttoInntekt && (
+                <>
+                  {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr || 0)}
+                  <EditedIcon />
+                </>
               )}
-              {!inntektsforhold.harInntektsmelding && <EditedIcon className={styles.edited} />}
+              {harInntektsmelding && !harBruttoInntekt && (
+                <>
+                  {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr || 0)}
+                  <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
+                    IM
+                  </Tag>
+                </>
+              )}
             </TableColumn>
           )}
         </TableRow>,

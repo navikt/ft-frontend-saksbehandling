@@ -25,6 +25,7 @@ import styles from './tilkommetAktivitet.less';
 import { erVurdertTidligere, getInntektsforhold, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import TilkommetAktivitetPanel from './TilkommetAktivitetPanel';
+import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 
 const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
 export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';
@@ -46,14 +47,6 @@ const finnBeregningsgrunnlag = (
     throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
   }
   return matchetndeBG;
-};
-
-const finnVilkårsperiode = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): Vilkarperiode => {
-  const periode = vilkårsperioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
-  if (!periode) {
-    throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${bg.vilkårsperiodeFom}`);
-  }
-  return periode;
 };
 
 const buildInnteksforholdInitialValues = (inntektsforhold: Inntektsforhold): TilkommetAktivitetValues => ({
@@ -86,7 +79,7 @@ const buildFieldInitialValues = (
   // @ts-ignore
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
-    periode: finnVilkårsperiode(beregningsgrunnlag, vilkarperioder).periode,
+    periode: finnVilkårsperiode(vilkarperioder, beregningsgrunnlag.vilkårsperiodeFom).periode,
     ...inntektsforhold.reduce(
       (initial, inntekt) => ({
         ...initial,
@@ -232,7 +225,9 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
               beregningsgrunnlag={beregningsgrunnlagListe[index]}
               formName={FORM_NAME}
               index={index}
-              readOnly={readOnly}
+              readOnly={
+                readOnly || !vurderesIBehandlingen(vilkarperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
+              }
               submittable={submittable}
               erAksjonspunktÅpent={erAksjonspunktÅpent}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

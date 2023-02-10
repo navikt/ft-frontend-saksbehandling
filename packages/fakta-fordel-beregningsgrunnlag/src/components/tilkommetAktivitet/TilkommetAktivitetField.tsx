@@ -1,11 +1,11 @@
-import { Tag } from '@navikt/ds-react';
 import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
-import { Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyWithKr } from '@navikt/ft-utils';
+import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FC } from 'react';
+import { formatCurrencyWithKr } from '@navikt/ft-utils';
+import { Tag } from '@navikt/ds-react';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import SubmitButton from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.less';
@@ -22,6 +22,8 @@ type TilkommetAktivitetFieldType = {
   erAksjonspunktÅpent: boolean;
 };
 
+const erDefinert = (tall?: number) => !!tall && +tall > 0;
+
 const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   formName,
   vurderInntektsforholdPerioder,
@@ -33,24 +35,50 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
 }) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
+  const harInntektsforholdMedÅrsinntekt = vurderInntektsforholdPerioder?.some(inntektsforholdPeriode =>
+    inntektsforholdPeriode.inntektsforholdListe.some(
+      inntektsforhold =>
+        erDefinert(inntektsforhold.bruttoInntektPrÅr) || erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr),
+    ),
+  );
+
+  const harInntektsforholdMedPeriode = vurderInntektsforholdPerioder?.some(inntektsforholdPeriode =>
+    inntektsforholdPeriode.inntektsforholdListe.some(inntektsforhold => !!inntektsforhold.periode),
+  );
+
   const getInntektsforholdTableRows = (
     inntektsforholdPerioder: VurderInntektsforholdPeriode[],
   ): React.ReactElement[] => {
     const tableRows: React.ReactElement[] = [];
     const inntektsforholdListe = getInntektsforhold(inntektsforholdPerioder);
     inntektsforholdListe.forEach(inntektsforhold => {
-      const harBruttoInntekt = !!inntektsforhold.bruttoInntektPrÅr && +inntektsforhold.bruttoInntektPrÅr > 0;
+      const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
+      const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
+
       tableRows.push(
         <TableRow key={inntektsforhold.arbeidsgiverId}>
           <TableColumn>{getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
-          {harBruttoInntekt && (
+          {(harBruttoInntekt || harInntektsmelding || harInntektsforholdMedPeriode) && (
             <TableColumn className={styles.inntektColumn}>
-              {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr)}
-              {inntektsforhold.harInntektsmelding && (
-                <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
-                  IM
-                </Tag>
+              {harBruttoInntekt && !harInntektsmelding && (
+                <>
+                  {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr || 0)}
+                  <EditedIcon />
+                </>
               )}
+              {harInntektsmelding && (
+                <>
+                  {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr || 0)}
+                  <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
+                    IM
+                  </Tag>
+                </>
+              )}
+            </TableColumn>
+          )}
+          {inntektsforhold.periode && (
+            <TableColumn className={styles.periodeColumn}>
+              <PeriodLabel dateStringFom={inntektsforhold.periode.fom} dateStringTom={inntektsforhold.periode.tom} />
             </TableColumn>
           )}
         </TableRow>,
@@ -58,10 +86,6 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
     });
     return tableRows;
   };
-
-  const harInntektsforholdMedÅrsinntekt = vurderInntektsforholdPerioder?.some(inntektsforholdPeriode =>
-    inntektsforholdPeriode.inntektsforholdListe.some(inntektsforhold => inntektsforhold.bruttoInntektPrÅr),
-  );
 
   return (
     <>
@@ -71,6 +95,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
             headerTextCodes={[
               'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
               harInntektsforholdMedÅrsinntekt ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt' : 'EMPTY',
+              harInntektsforholdMedPeriode ? 'BeregningInfoPanel.TilkommetAktivitet.Periode' : 'EMPTY',
             ]}
             noHover
             classNameTable={styles.aktivitetTable}
