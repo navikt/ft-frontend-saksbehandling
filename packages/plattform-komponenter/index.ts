@@ -1,10 +1,11 @@
-/** Vanlige react-komponenter **/
+/** Vanlige react-komponenter * */
 export { default as BoxedList } from './src/boxed-list/BoxedList';
 export { default as BoxedListWithLinks } from './src/boxed-list-with-links/BoxedListWithLinks';
 export { default as BoxedListWithSelection } from './src/boxed-list-with-selection/BoxedListWithSelection';
 export { default as ContentWithTooltip } from './src/content-with-tooltip/ContentWithTooltip';
 export { default as Clipboard } from './src/clipboard/Clipboard';
 export { default as DetailView, type DetailViewProps } from './src/detail-view/DetailView';
+export { default as FilterList } from './src/filter-list/FilterList';
 export { default as IndicatorWithOverlay } from './src/indicator-with-overlay/IndicatorWithOverlay';
 export { default as InteractiveList } from './src/interactive-list/InteractiveList';
 export { default as NavigationWithDetailView } from './src/navigation-with-detail-view/NavigationWithDetailView';
@@ -37,7 +38,7 @@ export { default as Infostripe } from './src/infostripe/Infostripe';
 export { default as AssessedBy } from './src/assessed-by/AssessedBy';
 export { default as PeriodList } from './src/period-list/PeriodList';
 
-/** Ikoner **/
+/** Ikoner * */
 export { default as ArrowIcon } from './src/icons/ArrowIcon';
 export { default as BucketIcon } from './src/icons/BucketIcon';
 export { default as CalendarIcon } from './src/icons/CalendarIcon';
