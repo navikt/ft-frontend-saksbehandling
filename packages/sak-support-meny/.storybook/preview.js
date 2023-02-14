@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../.storybook/global.less';
+import '../../utils-test/src/global.less';
 
 export const decorators = [
   Story => (

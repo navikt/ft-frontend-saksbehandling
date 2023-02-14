@@ -11,18 +11,18 @@
     "package.json"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "jest --colors",
     "test:coverage": "jest --coverage --colors",
     "tsc": "tsc --pretty",
-    "eslint": "eslint \"src/**/*.ts*\"",
-    "eslint:fix": "eslint --fix \"src/**/*.ts*\"",
+    "eslint": "eslint \"src/**/*.ts*\" --color",
+    "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
     "less:lint": "stylelint \"src/**/*.less\"",
     "dev": "cross-env node dev/webpack.dev.js",
     "build-webpack": "cross-env webpack --config webpack.config.js",
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --target esnext --emitDeclarationOnly --downlevelIteration --resolveJsonModule --moduleResolution node --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack && yarn build-ts-declarations",
     "clean": "rm -rf ./dist ./node_modules",
-    "storybook": "cross-env start-storybook -p 7008"
+    "storybook": "start-storybook --quiet -p 7008"
   },
   "dependencies": {
     "@navikt/ds-css": "2.1.5",
