@@ -1,6 +1,5 @@
 const OFF = 0;
 const ERROR = 2;
-const { resolve } = require('path');
 
 const config = {
   env: {
@@ -14,13 +13,11 @@ const config = {
 
   parser: '@typescript-eslint/parser',
 
-  plugins: ['jest', 'jest-dom', '@typescript-eslint'],
+  plugins: ['vitest', '@typescript-eslint'],
 
   extends: [
     'airbnb',
     'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended',
-    'plugin:jest-dom/recommended',
     'prettier',
   ],
 
@@ -57,7 +54,6 @@ const config = {
     'react/state-in-constructor': OFF,
     'react/prop-types': OFF,
     'no-restricted-exports': OFF,
-    'jest/valid-expect': OFF,
     'function-paren-newline': OFF,
     'function-call-argument-newline': OFF,
     'import/no-extraneous-dependencies': [

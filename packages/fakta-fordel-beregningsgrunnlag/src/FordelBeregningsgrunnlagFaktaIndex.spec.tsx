@@ -16,15 +16,15 @@ const {
 
 window.ResizeObserver =
   window.ResizeObserver ||
-  jest.fn().mockImplementation(() => ({
-    disconnect: jest.fn(),
-    observe: jest.fn(),
-    unobserve: jest.fn(),
+  vi.fn().mockImplementation(() => ({
+    disconnect: vi.fn(),
+    observe: vi.fn(),
+    unobserve: vi.fn(),
   }));
 
 describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it.skip('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<AapOgRefusjonAp5046 submitCallback={lagre} />);
 
@@ -127,7 +127,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   });
 
   it('skal kunne løse aksjonspunkt for nytt refusjonskrav med flere beregningsgrunnlag og kun en til vurdering', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046 submitCallback={lagre} />);
 
@@ -233,7 +233,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   });
 
   it.skip('skal kunne løse aksjonspunkt med fastsetting av fordeling og refusjonskrav for flere beregningsgrunnlag', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 submitCallback={lagre} />);
 
@@ -430,7 +430,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   });
 
   it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<ViseVurderTilkommetRefusjonskravAp5059 submitCallback={lagre} />);
 
@@ -481,7 +481,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   });
 
   it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav med delvis refusjon', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(
       <SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059 submitCallback={lagre} />,
@@ -539,7 +539,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
 });
 
 it('skal kunne løse aksjonspunkt for tilkommet aktivitet', async () => {
-  const lagre = jest.fn();
+  const lagre = vi.fn();
   render(<TilkommetAktivitet submitCallback={lagre} />);
   expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
   expect(
@@ -581,7 +581,7 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet', async () => {
 });
 
 it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', async () => {
-  const lagre = jest.fn();
+  const lagre = vi.fn();
   render(<TilkommetAktivitetMedForlengelse submitCallback={lagre} />);
   expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
 

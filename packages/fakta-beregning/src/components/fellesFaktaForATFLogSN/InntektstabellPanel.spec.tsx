@@ -18,7 +18,7 @@ describe('<InntektstabellPanel>', () => {
           avklaringsbehov={[]}
           readOnly={false}
           erOverstyrer
-          updateOverstyring={jest.fn()}
+          updateOverstyring={vi.fn()}
           erOverstyrt={false}
         >
           <span>test1</span>
@@ -45,7 +45,7 @@ describe('<InntektstabellPanel>', () => {
           ]}
           readOnly={false}
           erOverstyrer
-          updateOverstyring={jest.fn()}
+          updateOverstyring={vi.fn()}
           erOverstyrt={false}
         >
           <span>test1</span>

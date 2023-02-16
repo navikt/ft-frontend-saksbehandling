@@ -118,7 +118,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne fastsette inntekt for kun ytelse', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     render(<FastsettingAvBeregningsgrunnlagForKunYtelseAp5058 submitCallback={lagre} />);
     await userEvent.type(screen.getByLabelText('Månedsinntekt for ytelse 1'), '1234');
     await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 1'), 'Arbeidstaker');
@@ -202,7 +202,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne fastsette inntekt for arbeidstaker og frilanser i samme organisasjon', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     render(<FrilansOgArbeidstakerISammeOrganisasjonAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
@@ -263,7 +263,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     render(<VurderOmBrukerMottarYtelseForFrilansAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
@@ -306,7 +306,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet og fastsette inntekt', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     render(<VurderOmBrukerMottarYtelseForFrilansAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
@@ -347,7 +347,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne sette at bruker har miliærtjeneste', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     render(<VurderingAvMilitærAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText('Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?'),
@@ -382,7 +382,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne sette at bruker ikke har miliærtjeneste', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     render(<VurderingAvMilitærAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText('Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?'),
@@ -419,7 +419,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal kunne sette at arbeidsforhold er tidsbegrenset', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     render(<TidsbegrensetArbeidsforholdAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
