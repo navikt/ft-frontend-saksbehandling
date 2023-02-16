@@ -90,7 +90,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
               parse={parseCurrencyInput}
               validate={[required, maxValueFormatted(178956970)]}
             />
-            <span className={!readOnly ? styles.bruttoInntektCurrency : styles.bruttoInntektCurrencyReadOnly}>kr</span>
+            <span className={styles.bruttoInntektCurrency}>kr</span>
           </div>
         </>
       )}
