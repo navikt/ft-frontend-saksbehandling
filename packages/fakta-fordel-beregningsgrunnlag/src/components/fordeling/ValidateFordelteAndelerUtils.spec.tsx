@@ -365,11 +365,13 @@ describe('<ValidateAndelerUtils>', () => {
       } as FordelBeregningsgrunnlagAndelValues,
     ];
 
+    const mock = vi.fn();
+
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
       0,
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
-      vi.fn(),
+      mock,
       getKodeverknavn,
       arbeidsgiverOppysninger,
       intlMock,
