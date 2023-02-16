@@ -9,21 +9,19 @@ const { Default, UtenAksjonspunkt } = composeStories(stories);
 
 window.ResizeObserver =
   window.ResizeObserver ||
-  jest.fn().mockImplementation(() => ({
-    disconnect: jest.fn(),
-    observe: jest.fn(),
-    unobserve: jest.fn(),
+  vi.fn().mockImplementation(() => ({
+    disconnect: vi.fn(),
+    observe: vi.fn(),
+    unobserve: vi.fn(),
   }));
 
 describe('<ForeldelseProsessIndex>', () => {
-  jest.setTimeout(15000);
-
   if (Modal.setAppElement) {
     Modal.setAppElement('body');
   }
 
   it('skal vurdere to perioder og så bekrefte', async () => {
-    const lagre = jest.fn(() => Promise.resolve());
+    const lagre = vi.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);
 
     expect(
@@ -108,7 +106,7 @@ describe('<ForeldelseProsessIndex>', () => {
   });
 
   it('skal splitte en periode i to og så bekrefte', async () => {
-    const lagre = jest.fn(() => Promise.resolve());
+    const lagre = vi.fn(() => Promise.resolve());
 
     const utils = render(<Default submitCallback={lagre} />);
 

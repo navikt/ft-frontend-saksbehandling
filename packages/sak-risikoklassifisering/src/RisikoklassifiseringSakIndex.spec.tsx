@@ -18,7 +18,7 @@ describe('<RisikoklassifiseringSakIndex>', () => {
   });
 
   it('skal vurdere faresignaler som ikke reelle', async () => {
-    const lagreAksjonspunkt = jest.fn();
+    const lagreAksjonspunkt = vi.fn();
     const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
     expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
     expect(await screen.findByText('Vurder faresignalene')).toBeInTheDocument();
@@ -46,7 +46,7 @@ describe('<RisikoklassifiseringSakIndex>', () => {
   });
 
   it('skal vurdere faresignaler som reelle', async () => {
-    const lagreAksjonspunkt = jest.fn();
+    const lagreAksjonspunkt = vi.fn();
     const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
     expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
     expect(screen.getByText('Vurder faresignalene')).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe('<RisikoklassifiseringSakIndex>', () => {
   });
 
   it('skal få feilmelding når en ikke krysser av type vurdering og vurdering er for kort', async () => {
-    const lagreAksjonspunkt = jest.fn();
+    const lagreAksjonspunkt = vi.fn();
     const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
     expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -95,7 +95,7 @@ describe('<RisikoklassifiseringSakIndex>', () => {
   });
 
   it('skal få feilmelding når en ikke krysser av grunn til at sak er innvilget eller avslått', async () => {
-    const lagreAksjonspunkt = jest.fn();
+    const lagreAksjonspunkt = vi.fn();
     const utils = render(<HøyRisikoklassifisering submitAksjonspunkt={lagreAksjonspunkt} />);
     expect(await screen.findByText('Faresignaler oppdaget')).toBeInTheDocument();
 

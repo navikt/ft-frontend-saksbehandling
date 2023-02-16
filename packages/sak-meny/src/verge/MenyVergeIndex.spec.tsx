@@ -13,8 +13,8 @@ describe('<MenyVergeIndex>', () => {
   }
 
   it('skal vise modal for opprett og så velge å opprette verge', async () => {
-    const opprettVerge = jest.fn();
-    const lukkModal = jest.fn();
+    const opprettVerge = vi.fn();
+    const lukkModal = vi.fn();
     render(<LeggeTilVerge opprettVerge={opprettVerge} lukkModal={lukkModal} />);
 
     expect(await screen.findByText('Opprett verge/fullmektig?')).toBeInTheDocument();
@@ -26,8 +26,8 @@ describe('<MenyVergeIndex>', () => {
   });
 
   it('skal vise modal for fjerne og så velge å fjerne verge', async () => {
-    const fjernVerge = jest.fn();
-    const lukkModal = jest.fn();
+    const fjernVerge = vi.fn();
+    const lukkModal = vi.fn();
     render(<FjerneVerge fjernVerge={fjernVerge} lukkModal={lukkModal} />);
 
     expect(await screen.findByText('Fjern verge/fullmektig?')).toBeInTheDocument();

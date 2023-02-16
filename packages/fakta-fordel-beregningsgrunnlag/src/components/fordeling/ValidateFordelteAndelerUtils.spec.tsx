@@ -69,7 +69,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn();
+    const getValues = vi.fn();
 
     const ulikeAndelerError = validateUlikeAndeler(
       0,
@@ -105,7 +105,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn(() => 'ARBEIDSTAKER') as any;
+    const getValues = vi.fn(() => 'ARBEIDSTAKER') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(
       0,
@@ -141,7 +141,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((): string => 'DAGPENGER') as any;
+    const getValues = vi.fn((): string => 'DAGPENGER') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(
       0,
@@ -183,7 +183,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((): string => 'FRILANS') as any;
+    const getValues = vi.fn((): string => 'FRILANS') as any;
 
     const ulikeAndelerError = validateUlikeAndeler(
       0,
@@ -239,7 +239,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): string => {
+    const getValues = vi.fn((x: string): string => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.inntektskategori':
           return 'DAGPENGER';
@@ -284,7 +284,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
           return 250000;
@@ -327,7 +327,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
           return 250001;
@@ -369,7 +369,7 @@ describe('<ValidateAndelerUtils>', () => {
       0,
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
-      jest.fn(),
+      vi.fn(),
       getKodeverknavn,
       arbeidsgiverOppysninger,
       intlMock,
@@ -401,7 +401,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 300000;
@@ -447,7 +447,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 300000;
@@ -495,7 +495,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 1;
@@ -543,7 +543,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
@@ -591,7 +591,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;
@@ -639,7 +639,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = jest.fn((x: string): number | undefined => {
+    const getValues = vi.fn((x: string): number | undefined => {
       switch (x) {
         case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
           return 0;

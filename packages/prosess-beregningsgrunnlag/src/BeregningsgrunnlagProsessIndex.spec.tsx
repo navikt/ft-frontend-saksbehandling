@@ -17,12 +17,10 @@ const {
   ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038,
 } = composeStories(stories);
 
-const scrollIntoViewMock = jest.fn();
+const scrollIntoViewMock = vi.fn();
 window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
 describe('<BeregningsgrunnlagProsessIndex>', () => {
-  jest.setTimeout(15000);
-
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvik />);
     expect(await screen.findByText('Skjæringstidspunkt for beregning')).toBeInTheDocument();
@@ -53,7 +51,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal bekrefte aksjonspunkt for avvik', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<ArbeidstakerMedAvvikAp5038 submitCallback={lagre} />);
 
@@ -104,7 +102,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal bekrefte aksjonspunkt for vurder varig endring selvstendig næringsdrivende', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<SelvstendigNæringsdrivendeMedAksjonspunktAp5039 submitCallback={lagre} />);
 
@@ -169,7 +167,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal bekrefte aksjonspunkt for vurder varig endret arbeidssituasjon', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<MidlertidigInaktivMedAksjonspunktAp5054 submitCallback={lagre} />);
 
@@ -222,7 +220,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal bekrefte aksjonspunkt for ny i arbeidslivet selvstendig næringsdrivende', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<SelvstendigNæringsdrivendNyIArbeidslivetAp5049 submitCallback={lagre} />);
 
@@ -293,7 +291,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal bekrefte aksjonspunkt for avvik ved tidsbegrenset arbeidsforhold', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<TidsbegrensetArbeidsforholdMedAvvikAp5047 submitCallback={lagre} />);
 
@@ -351,7 +349,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal verifisere at fasatt grunnlag med perioder tidsbegrenset perioder utenfor vilkårsperiode vises riktig', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     render(<MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047 submitCallback={lagre} />);
 
@@ -376,7 +374,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal bekrefte akjonspunkt for varig endring når avik atfl er løst', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
 
@@ -459,7 +457,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
   });
 
   it('skal sette første kronologiske skjæringstidspunkt med aksjonspunkt som aktiv', () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
     const { getByTestId } = render(
       <ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038 submitCallback={lagre} />,
     );

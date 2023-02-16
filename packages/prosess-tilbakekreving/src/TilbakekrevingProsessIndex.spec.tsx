@@ -9,21 +9,19 @@ const { Default, MedToPerioder } = composeStories(stories);
 
 window.ResizeObserver =
   window.ResizeObserver ||
-  jest.fn().mockImplementation(() => ({
-    disconnect: jest.fn(),
-    observe: jest.fn(),
-    unobserve: jest.fn(),
+  vi.fn().mockImplementation(() => ({
+    disconnect: vi.fn(),
+    observe: vi.fn(),
+    unobserve: vi.fn(),
   }));
 
 describe('<TilbakekrevingProsessIndex>', () => {
-  jest.setTimeout(20000);
-
   if (Modal.setAppElement) {
     Modal.setAppElement('body');
   }
 
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
-    const lagre = jest.fn(() => Promise.resolve());
+    const lagre = vi.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Tilbakekreving')).toBeInTheDocument();
@@ -91,7 +89,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
   });
 
   it('skal vurdere perioden som Forsto eller burde forstått og så bekrefte', async () => {
-    const lagre = jest.fn(() => Promise.resolve());
+    const lagre = vi.fn(() => Promise.resolve());
 
     const utils = render(<Default submitCallback={lagre} />);
 
@@ -192,7 +190,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
   });
 
   it('skal splitte en periode i to, kopier valg fra periode, og så bekrefte', async () => {
-    const lagre = jest.fn(() => Promise.resolve());
+    const lagre = vi.fn(() => Promise.resolve());
 
     const utils = render(<Default submitCallback={lagre} />);
 
@@ -272,7 +270,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
   });
 
   it('skal vurdere at totalbeløpet er over 4 rettsgebyr, og ved bruk av 6.ledd må alle periodene behandles likt', async () => {
-    const lagre = jest.fn(() => Promise.resolve());
+    const lagre = vi.fn(() => Promise.resolve());
 
     const utils = render(<MedToPerioder submitCallback={lagre} />);
 

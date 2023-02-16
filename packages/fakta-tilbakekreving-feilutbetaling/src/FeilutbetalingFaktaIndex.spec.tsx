@@ -8,7 +8,7 @@ const { AksjonspunktForFeilutbetaling } = composeStories(stories);
 
 describe('<FeilutbetalingFaktaIndex>', () => {
   it('skal legge til hendelse for alle perioder og så lagre', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
 
@@ -63,7 +63,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
   });
 
   it('skal legge til hendelse-undertype for perioder og så lagre', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
 
@@ -119,7 +119,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
   });
 
   it('skal behandle alle perioder samlet', async () => {
-    const lagre = jest.fn();
+    const lagre = vi.fn();
 
     const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
 
