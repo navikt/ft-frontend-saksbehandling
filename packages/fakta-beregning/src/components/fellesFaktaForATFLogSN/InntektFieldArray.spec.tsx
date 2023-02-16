@@ -65,7 +65,7 @@ describe('<InntektFieldArray>', () => {
       false,
       alleKodeverk[KodeverkType.AKTIVITET_STATUS],
       false,
-      jest.fn(),
+      vi.fn(),
       (index: number) => newfields.splice(index, 1),
       (values: any) => newfields.push(values),
     );
@@ -79,7 +79,7 @@ describe('<InntektFieldArray>', () => {
       false,
       alleKodeverk[KodeverkType.AKTIVITET_STATUS],
       false,
-      jest.fn(),
+      vi.fn(),
       (index: number) => newfields.splice(index, 1),
       (values: any) => newfields.push(values),
     );

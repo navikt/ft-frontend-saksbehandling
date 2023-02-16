@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@navikt/ft-kodeverk": "^1.0.26",
-    "@testing-library/jest-dom": "5.16.5",
     "axios-mock-adapter": "1.21.2",
     "clean-webpack-plugin": "4.0.0",
     "cross-env": "7.0.3",

@@ -11,8 +11,6 @@
     "package.json"
   ],
   "scripts": {
-    "test": "jest --passWithNoTests --colors",
-    "test:coverage": "jest --passWithNoTests --coverage --colors",
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
     "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",

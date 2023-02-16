@@ -13,8 +13,8 @@ describe('<MenyTaAvVentIndex>', () => {
   }
 
   it('skal vise modal og velge å åpne ta behandling av vent', async () => {
-    const taBehandlingAvVent = jest.fn();
-    const lukkModal = jest.fn();
+    const taBehandlingAvVent = vi.fn();
+    const lukkModal = vi.fn();
     render(<Default taBehandlingAvVent={taBehandlingAvVent} lukkModal={lukkModal} />);
 
     expect(await screen.findByText('Ta behandlingen av vent?')).toBeInTheDocument();

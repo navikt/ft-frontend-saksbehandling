@@ -13,8 +13,8 @@ describe('<MenyEndreBehandlendeEnhetIndex>', () => {
   }
 
   it('skal velge og lagre ny enhet', async () => {
-    const lagreNyBehandlendeEnhet = jest.fn();
-    const lukkModal = jest.fn();
+    const lagreNyBehandlendeEnhet = vi.fn();
+    const lukkModal = vi.fn();
     const utils = render(<Default lagreNyBehandlendeEnhet={lagreNyBehandlendeEnhet} lukkModal={lukkModal} />);
     expect(await screen.findByText('Endre behandlende enhet for valgt behandling')).toBeInTheDocument();
     expect(screen.getByText('OK').closest('button')).toBeDisabled();
@@ -37,8 +37,8 @@ describe('<MenyEndreBehandlendeEnhetIndex>', () => {
   });
 
   it('skal avbryte endring av enhet', async () => {
-    const lagreNyBehandlendeEnhet = jest.fn();
-    const lukkModal = jest.fn();
+    const lagreNyBehandlendeEnhet = vi.fn();
+    const lukkModal = vi.fn();
     render(<Default lagreNyBehandlendeEnhet={lagreNyBehandlendeEnhet} lukkModal={lukkModal} />);
     expect(await screen.findByText('Endre behandlende enhet for valgt behandling')).toBeInTheDocument();
 
