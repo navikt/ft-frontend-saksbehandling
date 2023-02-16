@@ -25,7 +25,7 @@
     "storybook": "start-storybook --quiet -p 7017"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.1.7",
+    "@navikt/ds-css": "2.2.0",
     "@navikt/ds-react": "2.1.7",
     "@navikt/ft-kodeverk": "^1.0.26",
     "@navikt/ft-types": "^1.1.2",
@@ -35,7 +35,7 @@
     "react-intl": "6.2.8"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.1.7",
+    "@navikt/ds-css": "2.2.0",
     "@navikt/ds-react": "2.1.7",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-types": "^1.x",
