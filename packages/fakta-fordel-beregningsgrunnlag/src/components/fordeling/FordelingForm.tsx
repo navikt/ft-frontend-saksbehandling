@@ -79,7 +79,7 @@ interface PureOwnProps {
 /**
  * FordelingForm
  *
- * Container komponent. Har ansvar for å sette opp Formen for "avklar fakta om fordeling" panel.
+ * Container komponent. Har ansvar for å sette opp Formen for å fordele beregningsgrunnlag.
  */
 const FordelingForm: FunctionComponent<PureOwnProps> = ({
   aktivtBeregningsgrunnlagIndeks,
