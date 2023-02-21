@@ -1,5 +1,14 @@
 {
   "Malform.Bokmal": "Bokmål",
   "Malform.Nynorsk": "Nynorsk",
-  "Malform.Engelsk": "Engelsk"
+  "Malform.Engelsk": "Engelsk",
+  "UttakInfoPanel.AntallEnDagOgEnUke": "{weeks} uke {days} dag",
+  "UttakInfoPanel.AntallEnDagOgFlereUker": "{weeks} uker {days} dag",
+  "UttakInfoPanel.AntallFlereDagerOgEnUke": "{weeks} uke {days} dager",
+  "UttakInfoPanel.AntallFlereDagerOgFlereUker": "{weeks} uker {days} dager",
+  "UttakInfoPanel.AntallFlereDagerOgNullUker": "{days} dager",
+  "UttakInfoPanel.AntallEnDagOgNullUker": "{days} dag",
+  "UttakInfoPanel.AntallNullDagerOgFlereUker": "{weeks} uker",
+  "UttakInfoPanel.AntallNullDagerOgEnUke": "{weeks} uke",
+  "UttakInfoPanel.TidenesEnde": "Antall uker og dager -"
 }

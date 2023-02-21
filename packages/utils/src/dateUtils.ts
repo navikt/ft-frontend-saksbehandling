@@ -3,16 +3,22 @@ import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import 'dayjs/locale/nb';
+import createIntl from './createIntl';
+import messages from '../i18n/nb_NO.json';
+
 import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
 
 dayjs.extend(utc);
 dayjs.extend(isoWeek);
 dayjs.extend(duration);
 
+const intl = createIntl(messages);
+
 export const TIDENES_ENDE = '9999-12-31';
 
 type WeekAndDay = {
   id: string;
+  formattedString: string;
   weeks?: number;
   days?: number;
 };
@@ -26,7 +32,6 @@ export const initializeDate = (
   return dayjs(dateString, supportedFormats, strict).utc(true).startOf('day');
 };
 
-// TODO Denne funksjonen må ut ifrå utils. Dette er uttakslogikk
 const checkDays = (weeks?: number, days?: number): WeekAndDay => {
   const weeksDaysObj = {
     weeks,
@@ -57,6 +62,7 @@ const checkDays = (weeks?: number, days?: number): WeekAndDay => {
 
   return {
     id,
+    formattedString: intl.formatMessage({ id }),
     ...weeksDaysObj,
   };
 };
