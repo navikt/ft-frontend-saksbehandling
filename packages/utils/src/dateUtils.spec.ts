@@ -14,6 +14,7 @@ describe('dateutils', () => {
       const tom = '2018-06-02';
       const formatedMessage = {
         id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker',
+        formattedString: '6 uker 5 dager',
         weeks: 6,
         days: 5,
       };
@@ -27,6 +28,7 @@ describe('dateutils', () => {
       const tom = '2018-06-02';
       const formatedMessage = {
         id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker',
+        formattedString: '6 uker 4 dager',
         weeks: 6,
         days: 4,
       };

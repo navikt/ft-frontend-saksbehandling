@@ -16,6 +16,7 @@ const intl = createIntl(messages);
 
 export const TIDENES_ENDE = '9999-12-31';
 
+// Når konsumenter er gått fra å bruke id til å bruke formattedString kan id fjernes
 type WeekAndDay = {
   id: string;
   formattedString: string;
@@ -39,30 +40,38 @@ const checkDays = (weeks?: number, days?: number): WeekAndDay => {
   };
 
   let id = 'UttakInfoPanel.AntallFlereDagerOgFlereUker';
+  let formattedString = intl.formatMessage(
+    { id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker' },
+    { weeks, days },
+  );
 
   if (weeks === undefined && days === undefined) {
     id = 'UttakInfoPanel.TidenesEnde';
+    formattedString = intl.formatMessage({ id: 'UttakInfoPanel.TidenesEnde' });
   }
 
   if (days === 0) {
     id = weeks === 1 ? 'UttakInfoPanel.AntallNullDagerOgEnUke' : 'UttakInfoPanel.AntallNullDagerOgFlereUker';
+    formattedString = intl.formatMessage({ id }, { weeks });
   }
 
   if (weeks === 0) {
     id = days === 1 ? 'UttakInfoPanel.AntallEnDagOgNullUker' : 'UttakInfoPanel.AntallFlereDagerOgNullUker';
+    formattedString = intl.formatMessage({ id }, { days });
   }
 
   if (days === 1) {
     id = weeks === 1 ? 'UttakInfoPanel.AntallEnDagOgEnUke' : 'UttakInfoPanel.AntallEnDagOgFlereUker';
+    formattedString = intl.formatMessage({ id }, { weeks, days });
   }
 
   if (weeks === 1) {
     id = 'UttakInfoPanel.AntallFlereDagerOgEnUke';
+    formattedString = intl.formatMessage({ id }, { weeks, days });
   }
-
   return {
     id,
-    formattedString: intl.formatMessage({ id }),
+    formattedString,
     ...weeksDaysObj,
   };
 };
