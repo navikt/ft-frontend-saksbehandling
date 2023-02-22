@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils-test",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "license": "MIT",
   "private": true,
   "main": "./dist/index.js",
