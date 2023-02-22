@@ -1872,10 +1872,10 @@
     meow "7.0.1"
     prettier "2.7.1"
 
-"@navikt/ds-css@2.1.7":
-  version "2.1.7"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/2.1.7/80f2a8fe2680ad118ccf9e1bdaba75ff3004df05#80f2a8fe2680ad118ccf9e1bdaba75ff3004df05"
-  integrity sha512-Dq/vFsGqnmVQCRWGLIzOB7XaFWgJRYVnbA2n4lfcnovp+zCwql1NNXKscvVWqaQEbq+2bGR71A5bgrr4NCR14w==
+"@navikt/ds-css@2.3.1":
+  version "2.3.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/2.3.1/32b98dda7ee929efae13ff5f3f1c77f9716e4bb1#32b98dda7ee929efae13ff5f3f1c77f9716e4bb1"
+  integrity sha512-YFfgVi+zvPqd51ZNJgKWXMoYt7rhElPwkhgRPCuY44wFk9bwq8GczeENcp+KEDiJ2EqpxwuqVmzaV4C3PYcv9Q==
 
 "@navikt/ds-icons@2.1.7":
   version "2.1.7"
