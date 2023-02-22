@@ -97,7 +97,7 @@ function erVurdertTidligere(periode: FordelBeregningsgrunnlagPeriode, beregnings
 /**
  * FordelBeregningsgrunnlagForm
  *
- * Container komponent.. Behandling av aksjonspunktet for fasetting av nytt/endret beregningsgrunnlag.
+ * Container komponent. Behandling av aksjonspunktet for ny fordeling av beregningsgrunnlag.
  */
 
 const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunctions = ({
