@@ -19,6 +19,7 @@
     "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
     "less:lint": "stylelint \"src/**/*.less\"",
     "dev": "cross-env node dev/webpack.dev.js",
+    "watch": "webpack --env watch=true --config webpack.config.js",
     "build-webpack": "cross-env webpack --config webpack.config.js",
     "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --target esnext --emitDeclarationOnly --downlevelIteration --resolveJsonModule --moduleResolution node --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
     "build": "yarn build-webpack && yarn build-ts-declarations",
