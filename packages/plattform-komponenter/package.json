@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "1.4.12",
+  "version": "1.4.13",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
     "@navikt/ds-css": "2.1.7",
     "@navikt/ds-icons": "2.1.7",
     "@navikt/ds-react": "2.1.7",
-    "@navikt/ft-utils": "^1.1.19"
+    "@navikt/ft-utils": "^1.1.20"
   },
   "peerDependencies": {
     "@popperjs/core": "2.11.6",
