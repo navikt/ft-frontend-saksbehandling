@@ -18,7 +18,7 @@ type OwnProps = {
  * GrunnlagForAarsinntektPanelFL
  *
  * Presentasjonskomponent. Viser beregningsgrunnlag for frilansere.
- * Viser kun én frilanserinntekt og et inputfelt for å oversyre det ved aksjonspunkt.
+ * Viser kun én frilanserinntekt.
  * Vises også hvis status er en kombinasjonsstatus som inkluderer frilanser.
  */
 const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
