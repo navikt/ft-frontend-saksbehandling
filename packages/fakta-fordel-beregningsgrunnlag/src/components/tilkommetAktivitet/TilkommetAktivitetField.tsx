@@ -124,7 +124,6 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
           validate={[required]}
         />
         <VerticalSpacer sixteenPx />
-
         <SubmitButton
           isSubmittable={submittable}
           isReadOnly={readOnly}
