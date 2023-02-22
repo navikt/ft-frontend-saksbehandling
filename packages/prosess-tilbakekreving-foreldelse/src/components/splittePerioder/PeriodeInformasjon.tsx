@@ -31,15 +31,7 @@ const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({ fom, tom, feilutb
             </Label>
           </FlexColumn>
           <FlexColumn className={styles.marginLeft}>
-            <BodyShort size="small">
-              <FormattedMessage
-                id={daysAndWeeks.id}
-                values={{
-                  weeks: daysAndWeeks.weeks,
-                  days: daysAndWeeks.days,
-                }}
-              />
-            </BodyShort>
+            <BodyShort size="small">{daysAndWeeks.formattedString}</BodyShort>
           </FlexColumn>
         </FlexRow>
         <div className={styles.resultSum}>

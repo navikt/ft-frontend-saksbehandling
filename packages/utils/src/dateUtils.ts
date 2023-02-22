@@ -3,16 +3,23 @@ import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import 'dayjs/locale/nb';
+import createIntl from './createIntl';
+import messages from '../i18n/nb_NO.json';
+
 import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
 
 dayjs.extend(utc);
 dayjs.extend(isoWeek);
 dayjs.extend(duration);
 
+const intl = createIntl(messages);
+
 export const TIDENES_ENDE = '9999-12-31';
 
+// Når konsumenter er gått fra å bruke id til å bruke formattedString kan id fjernes
 type WeekAndDay = {
   id: string;
+  formattedString: string;
   weeks?: number;
   days?: number;
 };
@@ -26,7 +33,6 @@ export const initializeDate = (
   return dayjs(dateString, supportedFormats, strict).utc(true).startOf('day');
 };
 
-// TODO Denne funksjonen må ut ifrå utils. Dette er uttakslogikk
 const checkDays = (weeks?: number, days?: number): WeekAndDay => {
   const weeksDaysObj = {
     weeks,
@@ -34,29 +40,38 @@ const checkDays = (weeks?: number, days?: number): WeekAndDay => {
   };
 
   let id = 'UttakInfoPanel.AntallFlereDagerOgFlereUker';
+  let formattedString = intl.formatMessage(
+    { id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker' },
+    { weeks, days },
+  );
 
   if (weeks === undefined && days === undefined) {
     id = 'UttakInfoPanel.TidenesEnde';
+    formattedString = intl.formatMessage({ id: 'UttakInfoPanel.TidenesEnde' });
   }
 
   if (days === 0) {
     id = weeks === 1 ? 'UttakInfoPanel.AntallNullDagerOgEnUke' : 'UttakInfoPanel.AntallNullDagerOgFlereUker';
+    formattedString = intl.formatMessage({ id }, { weeks });
   }
 
   if (weeks === 0) {
     id = days === 1 ? 'UttakInfoPanel.AntallEnDagOgNullUker' : 'UttakInfoPanel.AntallFlereDagerOgNullUker';
+    formattedString = intl.formatMessage({ id }, { days });
   }
 
   if (days === 1) {
     id = weeks === 1 ? 'UttakInfoPanel.AntallEnDagOgEnUke' : 'UttakInfoPanel.AntallEnDagOgFlereUker';
+    formattedString = intl.formatMessage({ id }, { weeks, days });
   }
 
   if (weeks === 1) {
     id = 'UttakInfoPanel.AntallFlereDagerOgEnUke';
+    formattedString = intl.formatMessage({ id }, { weeks, days });
   }
-
   return {
     id,
+    formattedString,
     ...weeksDaysObj,
   };
 };
