@@ -27,7 +27,7 @@
   "dependencies": {
     "@navikt/ds-css": "2.1.7",
     "@navikt/ds-icons": "2.1.7",
-    "@navikt/ds-react": "2.1.7",
+    "@navikt/ds-react": "2.3.0",
     "@navikt/ft-kodeverk": "^1.0.26",
     "@navikt/ft-konstanter": "^1.0.19-alpha.0",
     "@navikt/ft-plattform-komponenter": "^1.4.13",
@@ -41,7 +41,7 @@
   "peerDependencies": {
     "@navikt/ds-css": "2.1.7",
     "@navikt/ds-icons": "2.1.7",
-    "@navikt/ds-react": "2.1.7",
+    "@navikt/ds-react": "2.3.0",
     "@navikt/ft-kodeverk": "^1.x",
     "@navikt/ft-konstanter": "^1.x",
     "@navikt/ft-plattform-komponenter": "1.x",
