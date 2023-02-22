@@ -29,6 +29,11 @@ type OwnProps = {
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
 };
 
+/**
+ * AksjonspunktBehandlerFL
+ *
+ * Viser et inputfelt for å sette frilansinntekt ved aksjonspunkt.
+ */
 const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   fieldIndex,
