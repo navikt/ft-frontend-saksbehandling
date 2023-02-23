@@ -109,7 +109,11 @@ export type TilkommetAktivitetValues = {
   [key: string]: TilkommetInntektsforholdFieldValues;
 };
 
-export type TilkommetAktivitetFieldValues = AksjonspunktValues & TilkommetAktivitetValues;
+export type TilkommetAktivitetPeriodeValues = {
+  [key: string]: TilkommetAktivitetValues;
+};
+
+export type TilkommetAktivitetFieldValues = AksjonspunktValues & TilkommetAktivitetPeriodeValues;
 
 export type TilkommetAktivitetFormValues = {
   [key: string]: TilkommetAktivitetFieldValues[];

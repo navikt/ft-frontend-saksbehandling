@@ -15,6 +15,7 @@ type TilkommetInntektsforholdFieldType = {
   formName: string;
   index: number;
   readOnly: boolean;
+  periodeIdentifikator: string;
   inntektsforholdTilVurdering: Inntektsforhold;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
@@ -38,12 +39,13 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
   index,
   readOnly,
   inntektsforholdTilVurdering,
+  periodeIdentifikator,
   arbeidsgiverOpplysningerPerId,
 }) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
   const intl = useIntl();
 
-  const { skalRedusereUtbetaling } = formMethods.watch(`${formName}.${index}`)[
+  const { skalRedusereUtbetaling } = formMethods.watch(`${formName}.${index}`)[periodeIdentifikator][
     getInntektsforholdIdentifikator(inntektsforholdTilVurdering)
   ];
 
@@ -64,7 +66,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
     <>
       <RadioGroupPanel
         label={getRadioGroupLabel(inntektsforholdTilVurdering)}
-        name={`${formName}.${index}.${getInntektsforholdIdentifikator(
+        name={`${formName}.${index}.${periodeIdentifikator}.${getInntektsforholdIdentifikator(
           inntektsforholdTilVurdering,
         )}.skalRedusereUtbetaling`}
         radios={[
@@ -81,7 +83,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
           <VerticalSpacer sixteenPx />
           <div className={styles.bruttoInntektContainer}>
             <InputField
-              name={`${formName}.${index}.${getInntektsforholdIdentifikator(
+              name={`${formName}.${index}.${periodeIdentifikator}.${getInntektsforholdIdentifikator(
                 inntektsforholdTilVurdering,
               )}.bruttoInntektPrÅr`}
               label="Fastsett årsinntekt"
@@ -94,7 +96,6 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
           </div>
         </>
       )}
-      <VerticalSpacer fourtyPx />
     </>
   );
 };

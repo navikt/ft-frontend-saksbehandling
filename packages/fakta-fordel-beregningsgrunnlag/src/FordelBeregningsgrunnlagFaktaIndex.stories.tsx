@@ -29,6 +29,7 @@ import bgFlerePerioderMedHelg from '../testdata/FlerePerioderMedHelg';
 import bgFlerePerioderMedForlengelse from '../testdata/FlerePerioderMedForlengelse';
 import bgTilkommetInntektsforholdMedForlengelse from '../testdata/TilkommetAktivitetMedForlengelse';
 import bgTilkommetInntektsforholdMedForlengelseLukketAP from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
+import bgTilkommetInntektsforholdMedRevurdering from '../testdata/TilkommetAktivitetRevurderingLøstTidligere';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -985,6 +986,21 @@ TilkommetAktivitetMedForlengelseLukketAP.args = {
       tom: '2022-11-20',
       vurderesIBehandlingen: true,
       erForlengelse: true,
+    },
+  ],
+};
+
+export const TilkommetAktivitetMedRevurdering = Template.bind({});
+TilkommetAktivitetMedRevurdering.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: bgTilkommetInntektsforholdMedRevurdering,
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+  vilkårsperioder: [
+    {
+      fom: '2022-11-08',
+      tom: '2022-11-20',
+      vurderesIBehandlingen: true,
+      erForlengelse: false,
     },
   ],
 };
