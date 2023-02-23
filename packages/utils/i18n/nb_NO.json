@@ -2,13 +2,13 @@
   "Malform.Bokmal": "Bokmål",
   "Malform.Nynorsk": "Nynorsk",
   "Malform.Engelsk": "Engelsk",
-  "UttakInfoPanel.AntallEnDagOgEnUke": "{weeks} uke {days} dag",
-  "UttakInfoPanel.AntallEnDagOgFlereUker": "{weeks} uker {days} dag",
-  "UttakInfoPanel.AntallFlereDagerOgEnUke": "{weeks} uke {days} dager",
-  "UttakInfoPanel.AntallFlereDagerOgFlereUker": "{weeks} uker {days} dager",
-  "UttakInfoPanel.AntallFlereDagerOgNullUker": "{days} dager",
-  "UttakInfoPanel.AntallEnDagOgNullUker": "{days} dag",
-  "UttakInfoPanel.AntallNullDagerOgFlereUker": "{weeks} uker",
-  "UttakInfoPanel.AntallNullDagerOgEnUke": "{weeks} uke",
-  "UttakInfoPanel.TidenesEnde": "Antall uker og dager -"
+  "Periodebeskrivelse.AntallEnDagOgEnUke": "{weeks} uke {days} dag",
+  "Periodebeskrivelse.AntallEnDagOgFlereUker": "{weeks} uker {days} dag",
+  "Periodebeskrivelse.AntallFlereDagerOgEnUke": "{weeks} uke {days} dager",
+  "Periodebeskrivelse.AntallFlereDagerOgFlereUker": "{weeks} uker {days} dager",
+  "Periodebeskrivelse.AntallFlereDagerOgNullUker": "{days} dager",
+  "Periodebeskrivelse.AntallEnDagOgNullUker": "{days} dag",
+  "Periodebeskrivelse.AntallNullDagerOgFlereUker": "{weeks} uker",
+  "Periodebeskrivelse.AntallNullDagerOgEnUke": "{weeks} uke",
+  "Periodebeskrivelse.TidenesEnde": "Antall uker og dager -"
 }

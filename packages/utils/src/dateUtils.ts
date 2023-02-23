@@ -18,7 +18,6 @@ export const TIDENES_ENDE = '9999-12-31';
 
 // Når konsumenter er gått fra å bruke id til å bruke formattedString kan id fjernes
 type WeekAndDay = {
-  id: string;
   formattedString: string;
   weeks?: number;
   days?: number;
@@ -39,38 +38,33 @@ const checkDays = (weeks?: number, days?: number): WeekAndDay => {
     days,
   };
 
-  let id = 'UttakInfoPanel.AntallFlereDagerOgFlereUker';
-  let formattedString = intl.formatMessage(
-    { id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker' },
-    { weeks, days },
-  );
+  let formattedString = intl.formatMessage({ id: 'Periodebeskrivelse.AntallFlereDagerOgFlereUker' }, { weeks, days });
 
   if (weeks === undefined && days === undefined) {
-    id = 'UttakInfoPanel.TidenesEnde';
-    formattedString = intl.formatMessage({ id: 'UttakInfoPanel.TidenesEnde' });
+    formattedString = intl.formatMessage({ id: 'Periodebeskrivelse.TidenesEnde' });
   }
 
   if (days === 0) {
-    id = weeks === 1 ? 'UttakInfoPanel.AntallNullDagerOgEnUke' : 'UttakInfoPanel.AntallNullDagerOgFlereUker';
+    const id =
+      weeks === 1 ? 'Periodebeskrivelse.AntallNullDagerOgEnUke' : 'Periodebeskrivelse.AntallNullDagerOgFlereUker';
     formattedString = intl.formatMessage({ id }, { weeks });
   }
 
   if (weeks === 0) {
-    id = days === 1 ? 'UttakInfoPanel.AntallEnDagOgNullUker' : 'UttakInfoPanel.AntallFlereDagerOgNullUker';
+    const id =
+      days === 1 ? 'Periodebeskrivelse.AntallEnDagOgNullUker' : 'Periodebeskrivelse.AntallFlereDagerOgNullUker';
     formattedString = intl.formatMessage({ id }, { days });
   }
 
   if (days === 1) {
-    id = weeks === 1 ? 'UttakInfoPanel.AntallEnDagOgEnUke' : 'UttakInfoPanel.AntallEnDagOgFlereUker';
+    const id = weeks === 1 ? 'Periodebeskrivelse.AntallEnDagOgEnUke' : 'Periodebeskrivelse.AntallEnDagOgFlereUker';
     formattedString = intl.formatMessage({ id }, { weeks, days });
   }
 
   if (weeks === 1) {
-    id = 'UttakInfoPanel.AntallFlereDagerOgEnUke';
-    formattedString = intl.formatMessage({ id }, { weeks, days });
+    formattedString = intl.formatMessage({ id: 'Periodebeskrivelse.AntallFlereDagerOgEnUke' }, { weeks, days });
   }
   return {
-    id,
     formattedString,
     ...weeksDaysObj,
   };
