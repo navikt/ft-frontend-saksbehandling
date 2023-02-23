@@ -122,7 +122,7 @@ const validate = (
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
   erOverstyrt: boolean,
   intl: any,
-) => {
+): string | null => {
   if (
     VurderAktiviteterPanel.harIngenAktiviteter(
       getValues(`avklarAktiviteterForm.${fieldId}`),
