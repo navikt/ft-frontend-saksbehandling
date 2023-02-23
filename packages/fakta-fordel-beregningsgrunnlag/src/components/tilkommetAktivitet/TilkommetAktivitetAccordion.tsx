@@ -5,11 +5,16 @@ import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
+import { required } from '@navikt/ft-form-validators';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import styles from './tilkommetAktivitetAccordion.less';
 import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
 import TidligereVurderteAktiviteterPanel from './TidligereVurderteAktiviteterPanel';
 import TilkommetAktivitetField from './TilkommetAktivitetField';
+import SubmitButton from '../felles/SubmitButton';
+import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
@@ -33,20 +38,6 @@ const renderDateHeading = (fom: string, tom: string | undefined): ReactElement =
     </Label>
   );
 };
-
-function finnFørsteFom(perioder: VurderInntektsforholdPeriode[]) {
-  return perioder.map(p => p.fom).sort((t1, t2) => (dayjs(t1).isBefore(dayjs(t2)) ? -1 : 1))[0];
-}
-
-function finnSisteTom(perioder: VurderInntektsforholdPeriode[]) {
-  return perioder.map(p => p.tom).sort((t1, t2) => (dayjs(t1).isAfter(dayjs(t2)) ? -1 : 1))[0];
-}
-
-function getHeading(perioder: VurderInntektsforholdPeriode[]) {
-  const fom = finnFørsteFom(perioder);
-  const tom = finnSisteTom(perioder);
-  return renderDateHeading(fom, tom);
-}
 
 type TilkommetAktivitetAccordionType = {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -98,58 +89,82 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
     }
   };
 
+  const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+
   const visPanel = (periode: VurderInntektsforholdPeriode) => () => showPanel(periode.fom);
 
-  if (tidligereVurderte.length === 0) {
+  if (tidligereVurderte.length === 0 && ikkeVurdertTidligere.length === 1) {
     // Viser ikke accordion dersom ingen tidligere vurderte perioder
     return (
       <TilkommetAktivitetField
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        vurderInntektsforholdPerioder={ikkeVurdertTidligere}
+        vurderInntektsforholdPeriode={ikkeVurdertTidligere[0]}
         formName={formName}
         index={index}
         readOnly={readOnly}
-        submittable={submittable}
         erAksjonspunktÅpent={erAksjonspunktÅpent}
+        submittable={submittable}
+        skalViseBegrunnelse
       />
     );
   }
 
   return (
-    <Accordion className={styles.statusOk}>
-      {tidligereVurderte.map(periode => (
-        <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0} key={periode.fom}>
-          <Accordion.Header onClick={visPanel(periode)}>
-            {renderDateHeading(periode.fom, periode.tom)} <VurdertIForrigeBehandlingIcon />
-          </Accordion.Header>
-          <Accordion.Content>
-            <TidligereVurderteAktiviteterPanel
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              vurderInntektsforholdPeriode={periode}
-            />
-          </Accordion.Content>
-        </Accordion.Item>
-      ))}
-      <Accordion.Item
-        open={openPanels.filter(panel => panel === finnFørsteFom(ikkeVurdertTidligere)).length > 0}
-        key={finnFørsteFom(ikkeVurdertTidligere)}
-      >
-        <Accordion.Header onClick={() => showPanel(finnFørsteFom(ikkeVurdertTidligere))}>
-          {getHeading(ikkeVurdertTidligere)}
-        </Accordion.Header>
-        <Accordion.Content>
-          <TilkommetAktivitetField
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            vurderInntektsforholdPerioder={ikkeVurdertTidligere}
-            formName={formName}
-            index={index}
+    <>
+      <Accordion className={styles.statusOk}>
+        {tidligereVurderte.map(periode => (
+          <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0} key={periode.fom}>
+            <Accordion.Header onClick={visPanel(periode)}>
+              {renderDateHeading(periode.fom, periode.tom)} <VurdertIForrigeBehandlingIcon />
+            </Accordion.Header>
+            <Accordion.Content>
+              <TidligereVurderteAktiviteterPanel
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                vurderInntektsforholdPeriode={periode}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+        {ikkeVurdertTidligere.map(periode => (
+          <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0} key={periode.fom}>
+            <Accordion.Header onClick={visPanel(periode)}>
+              {renderDateHeading(periode.fom, periode.tom)}
+            </Accordion.Header>
+            <Accordion.Content>
+              <TilkommetAktivitetField
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                vurderInntektsforholdPeriode={periode}
+                formName={formName}
+                index={index}
+                readOnly={readOnly}
+                erAksjonspunktÅpent={erAksjonspunktÅpent}
+                submittable={submittable}
+                skalViseBegrunnelse={ikkeVurdertTidligere.length === 1}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+
+      {ikkeVurdertTidligere.length > 1 && (
+        <div className={styles.aktivitetContainer}>
+          <VerticalSpacer fourtyPx />
+          <TextAreaField
+            name={`${formName}.${index}.begrunnelse`}
+            label="Begrunnelse for alle perioder"
             readOnly={readOnly}
-            submittable={submittable}
-            erAksjonspunktÅpent={erAksjonspunktÅpent}
+            validate={[required]}
           />
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
+          <VerticalSpacer sixteenPx />
+          <SubmitButton
+            isSubmittable={submittable}
+            isReadOnly={readOnly}
+            isSubmitting={formMethods.formState.isSubmitting}
+            isDirty={formMethods.formState.isDirty}
+          />
+        </div>
+      )}
+    </>
   );
 };
 export default TilkommetAktivitetAccordion;
