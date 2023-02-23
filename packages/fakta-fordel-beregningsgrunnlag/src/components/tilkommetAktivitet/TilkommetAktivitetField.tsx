@@ -1,56 +1,57 @@
-import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FC } from 'react';
+import { required } from '@navikt/ft-form-validators';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
+import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
 import { Tag } from '@navikt/ds-react';
-import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import SubmitButton from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.less';
-import { getAktivitetNavn, getInntektsforhold } from './TilkommetAktivitetUtils';
+import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 import TilkommetInntektsforholdField, { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
+import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 type TilkommetAktivitetFieldType = {
   formName: string;
-  vurderInntektsforholdPerioder: VurderInntektsforholdPeriode[];
+  vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
   index: number;
   readOnly: boolean;
   submittable: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   erAksjonspunktÅpent: boolean;
+  skalViseBegrunnelse: boolean;
 };
 
 const erDefinert = (tall?: number) => !!tall && +tall > 0;
 
+export function getPeriodeIdentikator(vurderInntektsforholdPeriode: VurderInntektsforholdPeriode) {
+  return `${vurderInntektsforholdPeriode.fom}_${vurderInntektsforholdPeriode.tom}`;
+}
+
 const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   formName,
-  vurderInntektsforholdPerioder,
+  vurderInntektsforholdPeriode,
   index,
   readOnly,
+  erAksjonspunktÅpent,
   submittable,
   arbeidsgiverOpplysningerPerId,
-  erAksjonspunktÅpent,
+  skalViseBegrunnelse,
 }) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
-
-  const harInntektsforholdMedÅrsinntekt = vurderInntektsforholdPerioder?.some(inntektsforholdPeriode =>
-    inntektsforholdPeriode.inntektsforholdListe.some(
-      inntektsforhold =>
-        erDefinert(inntektsforhold.bruttoInntektPrÅr) || erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr),
-    ),
+  const harInntektsforholdMedÅrsinntekt = vurderInntektsforholdPeriode.inntektsforholdListe.some(
+    inntektsforhold =>
+      erDefinert(inntektsforhold.bruttoInntektPrÅr) || erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr),
   );
 
-  const harInntektsforholdMedPeriode = vurderInntektsforholdPerioder?.some(inntektsforholdPeriode =>
-    inntektsforholdPeriode.inntektsforholdListe.some(inntektsforhold => !!inntektsforhold.periode),
+  const harInntektsforholdMedPeriode = vurderInntektsforholdPeriode.inntektsforholdListe.some(
+    inntektsforhold => !!inntektsforhold.periode,
   );
 
-  const getInntektsforholdTableRows = (
-    inntektsforholdPerioder: VurderInntektsforholdPeriode[],
-  ): React.ReactElement[] => {
+  const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): React.ReactElement[] => {
     const tableRows: React.ReactElement[] = [];
-    const inntektsforholdListe = getInntektsforhold(inntektsforholdPerioder);
+    const { inntektsforholdListe } = inntektsforholdPeriode;
     inntektsforholdListe.forEach(inntektsforhold => {
       const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
       const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
@@ -90,46 +91,52 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   return (
     <>
       <div className={styles.aktivitetContainer}>
-        {vurderInntektsforholdPerioder && vurderInntektsforholdPerioder.length > 0 && (
-          <Table
-            headerTextCodes={[
-              'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
-              harInntektsforholdMedÅrsinntekt ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt' : 'EMPTY',
-              harInntektsforholdMedPeriode ? 'BeregningInfoPanel.TilkommetAktivitet.Periode' : 'EMPTY',
-            ]}
-            noHover
-            classNameTable={styles.aktivitetTable}
-          >
-            {getInntektsforholdTableRows(vurderInntektsforholdPerioder)}
-          </Table>
-        )}
+        <Table
+          headerTextCodes={[
+            'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
+            harInntektsforholdMedÅrsinntekt ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt' : 'EMPTY',
+            harInntektsforholdMedPeriode ? 'BeregningInfoPanel.TilkommetAktivitet.Periode' : 'EMPTY',
+          ]}
+          noHover
+          classNameTable={styles.aktivitetTable}
+        >
+          {getInntektsforholdTableRows(vurderInntektsforholdPeriode)}
+        </Table>
       </div>
       <VerticalSpacer sixteenPx />
       <div className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}>
-        {getInntektsforhold(vurderInntektsforholdPerioder).map(inntektsforhold => (
-          <TilkommetInntektsforholdField
-            key={getInntektsforholdIdentifikator(inntektsforhold)}
-            formName={formName}
-            index={index}
-            readOnly={readOnly}
-            inntektsforholdTilVurdering={inntektsforhold}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
+        {vurderInntektsforholdPeriode.inntektsforholdListe.map((inntektsforhold, idx) => (
+          <>
+            <TilkommetInntektsforholdField
+              key={getInntektsforholdIdentifikator(inntektsforhold)}
+              formName={formName}
+              index={index}
+              readOnly={readOnly}
+              inntektsforholdTilVurdering={inntektsforhold}
+              periodeIdentifikator={getPeriodeIdentikator(vurderInntektsforholdPeriode)}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            />
+            {idx < vurderInntektsforholdPeriode.inntektsforholdListe.length - 1 && <VerticalSpacer fourtyPx />}
+          </>
         ))}
-        <VerticalSpacer fourtyPx />
-        <TextAreaField
-          name={`${formName}.${index}.begrunnelse`}
-          label="Begrunnelse"
-          readOnly={readOnly}
-          validate={[required]}
-        />
-        <VerticalSpacer sixteenPx />
-        <SubmitButton
-          isSubmittable={submittable}
-          isReadOnly={readOnly}
-          isSubmitting={formMethods.formState.isSubmitting}
-          isDirty={formMethods.formState.isDirty}
-        />
+        {skalViseBegrunnelse && (
+          <>
+            <VerticalSpacer fourtyPx />
+            <TextAreaField
+              name={`${formName}.${index}.begrunnelse`}
+              label="Begrunnelse"
+              readOnly={readOnly}
+              validate={[required]}
+            />
+            <VerticalSpacer sixteenPx />
+            <SubmitButton
+              isSubmittable={submittable}
+              isReadOnly={readOnly}
+              isSubmitting={formMethods.formState.isSubmitting}
+              isDirty={formMethods.formState.isDirty}
+            />
+          </>
+        )}
       </div>
     </>
   );

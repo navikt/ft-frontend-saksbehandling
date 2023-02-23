@@ -121,8 +121,8 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
         formName={formName}
         index={index}
         readOnly={readOnly}
-        submittable={submittable}
         erAksjonspunktÅpent={erAksjonspunktÅpent}
+        submittable={submittable}
       />
     </>
   );
