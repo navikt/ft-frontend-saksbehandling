@@ -1,21 +1,37 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vitest/config';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import dts from 'vite-plugin-dts';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import react from '@vitejs/plugin-react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import svgr from 'vite-plugin-svgr';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    svgr(),
+    dts({
+      insertTypesEntry: true,
+    }),
   ],
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
+  },
+  build: {
+    lib: {
+      entry: 'index.ts',
+      formats: ['es', 'umd'],
+      fileName: format => `index.${format}.js`,
+    },
+    sourcemap: true,
+  },
   test: {
+    deps: { interopDefault: true },
     environment: 'jsdom',
     css: false,
     globals: true,
     setupFiles: '../../vitest-setup.ts',
     watch: false,
+    testTimeout: 15000,
   },
 });
