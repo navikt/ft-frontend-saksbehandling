@@ -92,9 +92,12 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
         isTrueOrFalseSelection
       />
       {skalRedusereUtbetaling === false && (
-        <Alert size="small" variant="info">
-          {intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Alert' })}
-        </Alert>
+        <>
+          <VerticalSpacer sixteenPx />
+          <Alert size="small" variant="info">
+            {intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Alert' })}
+          </Alert>
+        </>
       )}
       {skalRedusereUtbetaling && (
         <>
