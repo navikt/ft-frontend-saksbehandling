@@ -9,7 +9,7 @@ import urlMann from '../images/mann.svg';
 import urlKvinne from '../images/kvinne.svg';
 import messages from '../../i18n/nb_NO.json';
 
-import styles from './timeLineSokerEnsamSoker.less';
+import styles from './timeLineSokerEnsamSoker.module.css';
 
 const intl = createIntl(messages);
 

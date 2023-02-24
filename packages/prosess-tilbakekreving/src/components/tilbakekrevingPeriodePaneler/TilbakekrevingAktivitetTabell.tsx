@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 
-import styles from './tilbakekrevingAktivitetTabell.less';
+import styles from './tilbakekrevingAktivitetTabell.module.css';
 
 const headerTextCodes = ['TilbakekrevingAktivitetTabell.Aktivitet', 'TilbakekrevingAktivitetTabell.FeilutbetaltBelop'];
 

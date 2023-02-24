@@ -1,7 +1,7 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import OtherIcon from './icons/Other';
-import styles from './menu.less';
+import styles from './menu.module.css';
 
 const menuCls = bemUtils('menu');
 

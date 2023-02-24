@@ -1,4 +1,4 @@
-import { Detail, ErrorMessage } from '@navikt/ds-react';
+import { Detail, ErrorMessage } from '@navikt/ds-react/esm';
 import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
@@ -13,7 +13,7 @@ import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningF
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import VurderFaktaContext from '../VurderFaktaContext';
-import styles from './brukersAndelFieldArray.less';
+import styles from './brukersAndelFieldArray.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], alleKodeverk) => ({
   andel: getKodeverknavnFn(alleKodeverk)(

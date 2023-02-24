@@ -1,7 +1,7 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 
-import styles from './flexContainer.less';
+import styles from './flexContainer.module.css';
 
 const classNames = classnames.bind(styles);
 

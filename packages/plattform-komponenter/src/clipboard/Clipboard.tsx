@@ -2,7 +2,7 @@ import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import ClipboardIcon from './ClipboardIcon';
 import copyContentsToClipboard from './util';
-import styles from './clipboard.less';
+import styles from './clipboard.module.css';
 
 interface ClipboardProps {
   children: React.ReactNode;

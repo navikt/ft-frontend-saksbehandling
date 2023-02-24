@@ -15,9 +15,9 @@ import {
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
   Vilkarperiode,
+  Vilkar,
 } from '@navikt/ft-types';
 
-import { Vilkar } from '@navikt/ft-types/index';
 import { useFieldArray, useForm } from 'react-hook-form';
 import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
@@ -27,7 +27,7 @@ import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivend
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
-import styles from './aksjonspunktBehandler.less';
+import styles from './aksjonspunktBehandler.module.css';
 import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';

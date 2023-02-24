@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Button } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react/esm';
 
 import { createIntl } from '@navikt/ft-utils';
 import { ariaCheck } from '@navikt/ft-form-validators';

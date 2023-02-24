@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
-import { Button } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react/esm';
 
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ariaCheck, hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -12,7 +12,7 @@ import faresignalVurdering from '../kodeverk/faresignalVurdering';
 import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringAp';
 import RisikoklassifiseringAksjonspunktCode from '../RisikoklassifiseringAksjonspunktCode';
 
-import styles from './avklarFaresignalerForm.less';
+import styles from './avklarFaresignalerForm.module.css';
 
 const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);

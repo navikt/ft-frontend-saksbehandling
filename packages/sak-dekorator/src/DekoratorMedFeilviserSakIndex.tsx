@@ -9,7 +9,7 @@ import Feilmelding from './typer/feilmeldingTsType';
 
 import messages from '../i18n/nb_NO.json';
 
-import styles from './dekoratorMedFeilviserSakIndex.less';
+import styles from './dekoratorMedFeilviserSakIndex.module.css';
 
 const intl = createIntl(messages);
 

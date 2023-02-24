@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react/esm';
 
 import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
@@ -32,7 +32,7 @@ import VilkarsVurderingAp from '../types/VilkarsVurderingAp';
 import TilbakekrevingAksjonspunktCodes from '../TilbakekrevingAksjonspunktCodes';
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
-import styles from './tilbakekrevingForm.less';
+import styles from './tilbakekrevingForm.module.css';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));

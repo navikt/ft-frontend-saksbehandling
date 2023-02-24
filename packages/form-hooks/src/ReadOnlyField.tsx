@@ -1,9 +1,9 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { BodyLong, Label } from '@navikt/ds-react';
+import { BodyLong, Label } from '@navikt/ds-react/esm';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import styles from './readOnlyField.less';
+import styles from './readOnlyField.module.css';
 
 const hasValue = (value: any): boolean => value !== undefined && value !== null && value !== '';
 

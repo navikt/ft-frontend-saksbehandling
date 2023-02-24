@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import styles from './ledelinje.less';
+import styles from './ledelinje.module.css';
 
 interface OwnProps {
   prosentBredde: number;

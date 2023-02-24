@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collapse } from 'react-collapse';
 import ChevronIconBlue from '../icons/ChevronIconBlue';
-import styles from './expandableLabel.less';
+import styles from './expandableLabel.module.css';
 
 interface HelptextProps {
   labelText: React.ReactNode;

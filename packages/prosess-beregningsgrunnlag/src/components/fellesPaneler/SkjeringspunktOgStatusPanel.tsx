@@ -13,8 +13,8 @@ import {
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AlleKodeverk } from '@navikt/ft-types';
 
-import { BodyShort, Tag } from '@navikt/ds-react';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import { BodyShort, Tag } from '@navikt/ds-react/esm';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 enum TagType {
   BLÅ = 'alt3',

@@ -10,7 +10,7 @@ import {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
-import { Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react/esm';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {

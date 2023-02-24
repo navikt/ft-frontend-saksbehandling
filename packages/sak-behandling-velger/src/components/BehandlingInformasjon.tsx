@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import classNames from 'classnames';
-import { Panel, BodyShort, Label, Detail } from '@navikt/ds-react';
+import { Panel, BodyShort, Label, Detail } from '@navikt/ds-react/esm';
 import {
   FlexContainer,
   FlexRow,
@@ -19,7 +19,7 @@ import chevronUp from '../images/pil_opp.svg';
 import chevronDown from '../images/pil_ned.svg';
 import stjerneImg from '../images/stjerne.svg';
 
-import styles from './behandlingInformasjon.less';
+import styles from './behandlingInformasjon.module.css';
 
 const tilbakekrevingÅrsakTyperKlage = [BehandlingArsakType.RE_KLAGE_KA, BehandlingArsakType.RE_KLAGE_NFP];
 
@@ -63,20 +63,21 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
               {getKodeverkMedNavn(behandling.type, KodeverkType.BEHANDLING_TYPE, behandling.type)?.navn || ''}
             </Label>
           </FlexColumn>
-          {(behandling.type === BehandlingType.REVURDERING || behandling.type === BehandlingType.KLAGE) && behandling.førsteÅrsak?.behandlingArsakType && (
-            <>
-              <FlexColumn className={styles.arsakPadding}>-</FlexColumn>
-              <FlexColumn>
-                <BodyShort size="small">
-                  {getKodeverkMedNavn(
-                    behandling.førsteÅrsak.behandlingArsakType,
-                    KodeverkType.BEHANDLING_AARSAK,
-                    BehandlingType.REVURDERING,
-                  )?.navn || ''}
-                </BodyShort>
-              </FlexColumn>
-            </>
-          )}
+          {(behandling.type === BehandlingType.REVURDERING || behandling.type === BehandlingType.KLAGE) &&
+            behandling.førsteÅrsak?.behandlingArsakType && (
+              <>
+                <FlexColumn className={styles.arsakPadding}>-</FlexColumn>
+                <FlexColumn>
+                  <BodyShort size="small">
+                    {getKodeverkMedNavn(
+                      behandling.førsteÅrsak.behandlingArsakType,
+                      KodeverkType.BEHANDLING_AARSAK,
+                      BehandlingType.REVURDERING,
+                    )?.navn || ''}
+                  </BodyShort>
+                </FlexColumn>
+              </>
+            )}
           {behandling.type === BehandlingType.TILBAKEKREVING_REVURDERING &&
             erTilbakekrevingÅrsakKlage(behandling.førsteÅrsak?.behandlingArsakType) && (
               <>

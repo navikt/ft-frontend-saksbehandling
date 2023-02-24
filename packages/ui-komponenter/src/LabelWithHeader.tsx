@@ -1,7 +1,7 @@
 import React, { ReactNode, FunctionComponent } from 'react';
-import { BodyShort, Detail } from '@navikt/ds-react';
+import { BodyShort, Detail } from '@navikt/ds-react/esm';
 
-import styles from './labelWithHeader.less';
+import styles from './labelWithHeader.module.css';
 
 interface OwnProps {
   header: string | ReactNode;

@@ -1,9 +1,9 @@
 import { bemUtils } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import React from 'react';
 import classnames from 'classnames';
 import MenuLink from './MenuLink';
-import styles from './sideMenu.less';
+import styles from './sideMenu.module.css';
 
 const sideMenuCls = bemUtils('sideMenu');
 

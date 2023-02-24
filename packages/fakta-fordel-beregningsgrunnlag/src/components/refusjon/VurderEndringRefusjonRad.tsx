@@ -11,13 +11,13 @@ import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyN
 import { Datepicker, InputField, formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
-import styles from './vurderEndringRefusjonRad.less';
+import styles from './vurderEndringRefusjonRad.module.css';
 
 const FIELD_KEY_REFUSJONSTART = 'REFUSJON_ENDRING_DATO';
 const FIELD_KEY_DELVIS_REF = 'DELVIS_REFUSJON_FØR_START_BELØP';

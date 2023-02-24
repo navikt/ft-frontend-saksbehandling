@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Loader, Modal } from '@navikt/ds-react';
+import { Label, Loader, Modal } from '@navikt/ds-react/esm';
 
 import { createIntl } from '@navikt/ft-utils';
 
@@ -9,7 +9,7 @@ import FlexColumn from './flexGrid/FlexColumn';
 
 import messages from '../i18n/nb_NO.json';
 
-import styles from './dataFetchPendingModal.less';
+import styles from './dataFetchPendingModal.module.css';
 
 const intl = createIntl(messages);
 

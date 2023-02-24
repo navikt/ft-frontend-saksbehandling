@@ -1,9 +1,9 @@
 import { bemUtils } from '@navikt/ft-utils';
 import classnames from 'classnames';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react/esm';
 
 import React from 'react';
-import styles from './menuLink.less';
+import styles from './menuLink.module.css';
 
 interface MenuLinkProps {
   label: string;

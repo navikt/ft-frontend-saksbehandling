@@ -8,7 +8,7 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';

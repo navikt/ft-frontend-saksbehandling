@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react/esm';
 
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
-import styles from './naeringsOpplysningsPanel.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import styles from './naeringsOpplysningsPanel.module.css';
 import Ledelinje from '../fellesPaneler/Ledelinje';
 
 const finnVirksomhetTypeTekst = (næring: Næring): string => {

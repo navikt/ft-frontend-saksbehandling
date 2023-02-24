@@ -11,7 +11,7 @@ import {
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';

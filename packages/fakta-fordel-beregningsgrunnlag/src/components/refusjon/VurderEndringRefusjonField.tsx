@@ -10,9 +10,9 @@ import {
   Beregningsgrunnlag,
   RefusjonTilVurderingAndel,
   Vilkarperiode,
+  BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
-import BeregningsgrunnlagTilBekreftelse from '@navikt/ft-types/src/BeregningsgrunnlagTilBekreftelse';
-import { Heading } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react/esm';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';

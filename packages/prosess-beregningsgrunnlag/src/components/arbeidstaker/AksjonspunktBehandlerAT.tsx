@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -11,7 +11,7 @@ import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {

@@ -8,9 +8,9 @@ import {
   Beregningsgrunnlag,
   Vilkar,
   Vilkarperiode,
+  BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
-import BeregningAvklaringsbehov from '@navikt/ft-types/src/beregningAvklaringsbehovTsType';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';

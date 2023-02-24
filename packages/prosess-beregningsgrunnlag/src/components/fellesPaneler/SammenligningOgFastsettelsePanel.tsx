@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode, useState } from 'react';
-import { Heading } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react/esm';
 import { FormattedMessage } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
@@ -10,9 +10,9 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
+  Vilkar,
 } from '@navikt/ft-types';
-import { Vilkar } from '@navikt/ft-types/index';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
 import SammenligningForklaringPanel from './SammenligningForklaringPanel';

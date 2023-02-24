@@ -3,7 +3,7 @@ import { useFormContext, useController } from 'react-hook-form';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
 // eslint-disable-next-line camelcase
-import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react/esm';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { getError, getValidationRules } from './formUtils';

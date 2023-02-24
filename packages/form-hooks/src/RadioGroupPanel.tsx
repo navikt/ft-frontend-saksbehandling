@@ -1,9 +1,9 @@
 import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
-import { RadioGroup, Radio } from '@navikt/ds-react';
+import { RadioGroup, Radio } from '@navikt/ds-react/esm';
 import { FlexContainer, FlexColumn, FlexRow, EditedIcon } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
-import styles from './radioGroupPanel.less';
+import styles from './radioGroupPanel.module.css';
 
 interface RadioProps {
   value: string;

@@ -8,11 +8,11 @@ import {
 } from '@navikt/ft-types';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import { Tabs } from '@navikt/ds-react';
+import { Tabs } from '@navikt/ds-react/esm';
 import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
-import styles from './beregningFaktaIndex.less';
+import styles from './beregningFaktaIndex.module.css';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -106,6 +106,7 @@ const BeregningFaktaIndex: FunctionComponent<
   vilkar,
   skalKunneAvbryteOverstyring = false,
 }) => {
+  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
@@ -113,7 +114,6 @@ const BeregningFaktaIndex: FunctionComponent<
   const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag);
 
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
-  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   const aktivtBeregningsgrunnlag = konverterteBg[aktivtBeregningsgrunnlagIndeks];
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react/esm';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { Image, EditedIcon, FloatRight, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 import { TimeLineButton } from '@navikt/ft-tidslinje';
@@ -9,7 +9,7 @@ import splitPeriodImageUrl from '../../images/splitt.svg';
 import ForeldelsesresultatActivity from '../../types/foreldelsesresultatActivitytsType';
 import DelOppPeriodeModal, { PerioderData } from './DelOppPeriodeModal';
 
-import styles from './periodeController.less';
+import styles from './periodeController.module.css';
 
 const isEdited = false;
 

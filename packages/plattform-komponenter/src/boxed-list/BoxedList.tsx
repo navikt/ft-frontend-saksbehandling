@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './boxedList.less';
+import styles from './boxedList.module.css';
 
 interface BoxedListProps {
   children: React.ReactNode;

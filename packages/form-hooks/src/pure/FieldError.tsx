@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './fieldError.less';
+import styles from './fieldError.module.css';
 
 interface FieldErrorProps {
   message?: string;

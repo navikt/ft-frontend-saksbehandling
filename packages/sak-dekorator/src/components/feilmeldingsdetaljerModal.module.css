@@ -1,0 +1,27 @@
+.divider {
+  border-left: 1px solid var(--a-gray-200);
+  border-right: 0 solid var(--a-gray-200);
+  display: inline;
+  margin-left: 25px;
+  position: absolute;
+  top: 5px;
+}
+.image {
+  height: 25px;
+  margin-top: 10px;
+  width: 25px;
+}
+.modal {
+  height: auto;
+  width: 900px;
+}
+.text {
+  margin-top: 10px;
+}
+.detail {
+  max-height: 250px;
+  overflow-y: auto;
+}
+.firstCol {
+  width: 50px;
+}

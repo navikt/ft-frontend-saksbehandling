@@ -1,7 +1,7 @@
 import React from 'react';
 import { CaseworkerFilled } from '@navikt/ds-icons';
 import { prettifyDateString } from '@navikt/ft-utils';
-import styles from './assessedBy.less';
+import styles from './assessedBy.module.css';
 
 interface IAssessedByProps {
   name?: string;

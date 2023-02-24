@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react/esm';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import BeregningsresultatPeriode from './BeregningsresultatPeriode';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,

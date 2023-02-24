@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react/esm';
 
 interface PageErrorProps {
   message: string;

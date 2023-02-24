@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react';
+import { Label, BodyShort } from '@navikt/ds-react/esm';
 
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import styles from './graderingUtenBGReadOnly.less';
+import styles from './graderingUtenBGReadOnly.module.css';
 
 type OwnProps = {
   avklaringsbehov: BeregningAvklaringsbehov;

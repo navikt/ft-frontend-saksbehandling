@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react/esm';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { BeregningResultatPeriode } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
-import styles from './tilbakekrevingVedtakPeriodeTabell.less';
+import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
 
 const headerTextCodes = [
   'TilbakekrevingVedtakPeriodeTabell.Periode',

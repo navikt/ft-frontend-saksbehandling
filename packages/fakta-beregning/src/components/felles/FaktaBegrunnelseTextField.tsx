@@ -4,7 +4,7 @@ import { decodeHtmlEntity, createIntl } from '@navikt/ft-utils';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 
-import styles from './faktaBegrunnelseTextField.less';
+import styles from './faktaBegrunnelseTextField.module.css';
 import messages from '../../../i18n/nb_NO.json';
 
 const intl = createIntl(messages);

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 
 import { DateTimeLabel, Table, TableColumn, TableRow, Image, Tooltip } from '@navikt/ft-ui-komponenter';
 import { Kommunikasjonsretning } from '@navikt/ft-kodeverk';
@@ -11,7 +11,7 @@ import mottaDokumentImageUrl from '../images/motta_dokument.svg';
 import erIBrukImageUrl from '../images/stjerne.svg';
 import internDokumentImageUrl from '../images/intern_dokument.svg';
 
-import styles from './documentList.less';
+import styles from './documentList.module.css';
 
 const headerTextCodes = [
   'DocumentList.Direction',

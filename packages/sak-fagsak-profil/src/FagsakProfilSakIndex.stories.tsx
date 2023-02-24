@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react/esm';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { FagsakStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';

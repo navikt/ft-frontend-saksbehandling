@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Accordion } from '@navikt/ds-react';
+import { Accordion } from '@navikt/ds-react/esm';
 
 import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 
@@ -8,7 +8,7 @@ import HoyRisikoPanel from './HoyRisikoPanel';
 import TittelMedDivider from './TittelMedDivider';
 import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringAp';
 
-import styles from './hoyRisikoTittel.less';
+import styles from './hoyRisikoTittel.module.css';
 
 interface OwnProps {
   risikoklassifisering: Risikoklassifisering;

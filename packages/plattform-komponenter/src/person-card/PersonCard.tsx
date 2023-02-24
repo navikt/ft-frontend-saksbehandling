@@ -1,12 +1,12 @@
 import { bemUtils } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import React from 'react';
 import Clipboard from '../clipboard/Clipboard';
 import Popover from '../popover/Popover';
 import Card from './Card';
 import GenderIcon, { GenderType } from './GenderIcon';
 import Menu from './Menu';
-import styles from './personCard.less';
+import styles from './personCard.module.css';
 
 export enum Gender {
   male = 'male',

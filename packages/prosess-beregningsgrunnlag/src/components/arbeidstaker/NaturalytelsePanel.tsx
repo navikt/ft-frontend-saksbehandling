@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
+import { Label, BodyShort, Detail } from '@navikt/ds-react/esm';
 
 import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -11,7 +11,7 @@ import {
 } from '@navikt/ft-types';
 
 import dayjs from 'dayjs';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import NaturalytelseTabellData, {
   NaturalytelseEndring,
   NaturalytelseTabellRad,

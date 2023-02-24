@@ -1,7 +1,7 @@
-import { Loader } from '@navikt/ds-react';
+import { Loader } from '@navikt/ds-react/esm';
 import React from 'react';
 import PageError from '../page-error/PageError';
-import styles from './pageContainer.less';
+import styles from './pageContainer.module.css';
 
 interface PageContainerProps {
   isLoading?: boolean;

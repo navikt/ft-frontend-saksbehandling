@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
-import { Tag } from '@navikt/ds-react';
+import { Tag } from '@navikt/ds-react/esm';
 import { useIntl } from 'react-intl';
-import styles from './vurdertIForrigeBehandlingIcon.less';
+import styles from './vurdertIForrigeBehandlingIcon.module.css';
 
 const classNames = classnames.bind(styles);
 

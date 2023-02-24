@@ -1,11 +1,11 @@
 import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { Textarea as NavTextarea, Tag } from '@navikt/ds-react';
+import { Textarea as NavTextarea, Tag } from '@navikt/ds-react/esm';
 
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
-import styles from './textAreaField.less';
+import styles from './textAreaField.module.css';
 
 type BadgesType = 'success' | 'info' | 'error' | 'warning';
 

@@ -14,7 +14,7 @@ import arrowDownFilledImageUrl from '../images/arrow_down_filled.svg';
 import questionNormalUrl from '../images/question_normal.svg';
 import questionHoverUrl from '../images/question_hover.svg';
 
-import styles from './timeLineButton.less';
+import styles from './timeLineButton.module.css';
 
 interface ButtonType {
   src: string;
@@ -64,12 +64,7 @@ interface TimeLineButtonProps {
   type: keyof ButtonTypes;
 }
 
-const TimeLineButton: React.FunctionComponent<TimeLineButtonProps> = ({
-  callback,
-  inverted,
-  text,
-  type,
-}) => (
+const TimeLineButton: React.FunctionComponent<TimeLineButtonProps> = ({ callback, inverted, text, type }) => (
   <Image
     {...buttonTypes[type]}
     tabIndex={0}

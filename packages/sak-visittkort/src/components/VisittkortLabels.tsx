@@ -1,13 +1,13 @@
 import React, { useMemo, FunctionComponent } from 'react';
 import moment from 'moment';
 import { useIntl, FormattedMessage } from 'react-intl';
-import { Tag } from '@navikt/ds-react';
+import { Tag } from '@navikt/ds-react/esm';
 import { Tooltip } from '@navikt/ft-ui-komponenter';
 import { DiskresjonskodeType } from '@navikt/ft-kodeverk';
 import { FagsakPerson } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
-import styles from './visittkortLabels.less';
+import styles from './visittkortLabels.module.css';
 
 interface OwnProps {
   fagsakPerson: FagsakPerson;

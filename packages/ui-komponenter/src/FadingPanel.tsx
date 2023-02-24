@@ -1,6 +1,6 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 
-import styles from './fadingPanel.less';
+import styles from './fadingPanel.module.css';
 
 interface OwnProps {
   withoutTopMargin?: boolean;

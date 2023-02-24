@@ -1,11 +1,10 @@
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 import React, { FC } from 'react';
-import { Tag } from '@navikt/ds-react';
+import { Tag } from '@navikt/ds-react/esm';
 import { useIntl } from 'react-intl';
-import styles from './tilkommetAktivitet.less';
+import styles from './tilkommetAktivitet.module.css';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 

@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 
 import { minValue, required } from '@navikt/ft-form-validators';
 import { removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 
-import styles from './belopetMottattIGodTroFormPanel.less';
+import styles from './belopetMottattIGodTroFormPanel.module.css';
 
 const minValue1 = minValue(1);
 

@@ -1,6 +1,6 @@
 import React, { useMemo, FunctionComponent, ReactNode } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { Select as NavSelect } from '@navikt/ds-react';
+import { Select as NavSelect } from '@navikt/ds-react/esm';
 
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';

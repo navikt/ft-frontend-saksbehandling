@@ -3,14 +3,14 @@ import { useFormContext, useController } from 'react-hook-form';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
 // eslint-disable-next-line camelcase
-import { Label, UNSAFE_DatePicker, UNSAFE_useRangeDatepicker } from '@navikt/ds-react';
+import { Label, UNSAFE_DatePicker, UNSAFE_useRangeDatepicker } from '@navikt/ds-react/esm';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
 import ReadOnlyField from './ReadOnlyField';
 
-import styles from './rangepicker.less';
+import styles from './rangepicker.module.css';
 
 dayjs.extend(customParseFormat);
 

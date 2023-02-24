@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Modal, Button, BodyShort, Detail, Heading } from '@navikt/ds-react';
+import { Modal, Button, BodyShort, Detail, Heading } from '@navikt/ds-react/esm';
 import { VerticalSpacer, Image, FlexContainer, FlexRow, FlexColumn, FloatRight } from '@navikt/ft-ui-komponenter';
 
 import infoImageUrl from '../images/behandle.svg';
 import Feilmelding from '../typer/feilmeldingTsType';
 
-import styles from './feilmeldingsdetaljerModal.less';
+import styles from './feilmeldingsdetaljerModal.module.css';
 
 const capitalizeFirstLetters = (key: string): string => key.charAt(0).toUpperCase() + key.substr(1);
 

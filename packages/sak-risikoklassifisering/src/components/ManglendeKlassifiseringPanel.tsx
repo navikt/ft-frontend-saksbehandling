@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { Panel } from '@navikt/ds-react';
+import { Panel } from '@navikt/ds-react/esm';
 
 import manglendeKlassifiseringIkon from '../images/behandle_disable.svg';
 import TittelMedDivider from './TittelMedDivider';
 
-import styles from './manglendeKlassifiseringPanel.less';
+import styles from './manglendeKlassifiseringPanel.module.css';
 
 /**
  * ManglendeKlassifiseringPanel

@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import { FlexColumn } from '@navikt/ft-ui-komponenter';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import styles from './visittkortBarnInfoOmsorgPanel.less';
+import styles from './visittkortBarnInfoOmsorgPanel.module.css';
 
 interface OwnProps {
   familiehendelse: FagsakHendelse;

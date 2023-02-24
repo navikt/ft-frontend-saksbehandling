@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Modal, Heading, Button } from '@navikt/ds-react';
+import { Modal, Heading, Button } from '@navikt/ds-react/esm';
 
 import { SelectField, TextAreaField, Form } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, required } from '@navikt/ft-form-validators';
 import { VerticalSpacer, FlexContainer, FlexRow, FlexColumn, FloatRight } from '@navikt/ft-ui-komponenter';
 
-import styles from './endreBehandlendeEnhetModal.less';
+import styles from './endreBehandlendeEnhetModal.module.css';
 
 const maxLength400 = maxLength(400);
 

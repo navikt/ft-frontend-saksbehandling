@@ -2,12 +2,12 @@ import { formHooks } from '@navikt/ft-form-hooks';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt } from './BgFaktaUtils';
-import styles from './inntektFieldArray.less';
+import styles from './inntektFieldArray.module.css';
 import VurderFaktaContext from './VurderFaktaContext';
 
 const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {

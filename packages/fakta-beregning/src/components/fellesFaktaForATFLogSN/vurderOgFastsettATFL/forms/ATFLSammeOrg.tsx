@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import { FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { InntektTransformed } from '../../../../typer/FieldValues';

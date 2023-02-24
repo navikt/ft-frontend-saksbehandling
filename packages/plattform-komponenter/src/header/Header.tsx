@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
-import { Heading } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react/esm';
 import { bemUtils } from '@navikt/ft-utils';
-import styles from './header.less';
+import styles from './header.module.css';
 
 interface HeaderProps {
   title: string;

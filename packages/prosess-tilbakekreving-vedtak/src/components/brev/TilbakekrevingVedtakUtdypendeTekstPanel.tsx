@@ -1,13 +1,13 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Detail } from '@navikt/ds-react';
+import { Detail } from '@navikt/ds-react/esm';
 import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { required, hasValidText, maxLength, minLength } from '@navikt/ft-form-validators';
 import { TextAreaField, formHooks } from '@navikt/ft-form-hooks';
 
 import addCircleIcon from '../../images/add-circle.svg';
-import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.less';
+import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
 const minLength3 = minLength(3);
 const maxLength4000 = maxLength(4000);

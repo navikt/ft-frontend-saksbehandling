@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, Detail } from '@navikt/ds-react';
+import { BodyShort, Detail } from '@navikt/ds-react/esm';
 
 import {
   dateFormat,
@@ -27,14 +27,14 @@ import {
 } from '../../types/interface/BeregningsgrunnlagAP';
 
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import {
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
 } from '../../types/ATFLAksjonspunktTsType';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import BeregningFormValues from '../../types/BeregningFormValues';
 
 const formPrefix = 'inntektField';

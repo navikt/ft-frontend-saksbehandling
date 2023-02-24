@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react/esm';
 
 import { FormattedMessage } from 'react-intl';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -7,7 +7,7 @@ import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 type OwnProps = {
   beregningsgrunnlag: Beregningsgrunnlag;

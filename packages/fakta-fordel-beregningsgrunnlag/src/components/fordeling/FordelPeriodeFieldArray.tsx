@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+import { Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react/esm';
 import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
@@ -31,7 +31,7 @@ import {
 import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
 import addCircleIcon from '../../images/add-circle.svg';
 
-import styles from './renderFordelBGFieldArray.less';
+import styles from './renderFordelBGFieldArray.module.css';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;

@@ -1,0 +1,23 @@
+.container {
+  max-width: 1000px;
+}
+.panel {
+  border: 1px solid black;
+  padding: 1px 1px 1px 1px;
+}
+.panelMedGulmarkering {
+  border: 1px solid black;
+  /* stylelint-disable-next-line declaration-no-important */
+  border-left-color: var(--a-orange-400) !important;
+  /* stylelint-disable-next-line declaration-no-important */
+  border-left-width: 5px !important;
+  padding: 1px 1px 1px 1px;
+}
+:global(.navds-accordion__header) {
+  /* stylelint-disable-next-line declaration-no-important */
+  border-bottom: 0 !important;
+}
+:global(.navds-accordion__content) {
+  /* stylelint-disable-next-line declaration-no-important */
+  border-bottom: 0 !important;
+}

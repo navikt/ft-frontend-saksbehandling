@@ -8,7 +8,7 @@ import keyUtgraetImage from './images/key-1-rotert-utgraet.svg';
 
 import messages from '../i18n/nb_NO.json';
 
-import styles from './overstyringKnapp.less';
+import styles from './overstyringKnapp.module.css';
 
 const intl = createIntl(messages);
 

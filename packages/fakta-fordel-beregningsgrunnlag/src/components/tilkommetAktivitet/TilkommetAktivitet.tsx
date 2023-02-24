@@ -6,10 +6,11 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
+  Inntektsforhold,
+  VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
 import React, { FC, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import {
@@ -22,12 +23,13 @@ import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/Fakta
 import VurderNyttInntektsforholdAP, {
   VurderNyttInntektsforholTransformedValues,
 } from '../../types/interface/VurderNyttInntektsforholdAP';
-import styles from './tilkommetAktivitet.less';
 import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import TilkommetAktivitetPanel from './TilkommetAktivitetPanel';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { getPeriodeIdentikator } from './TilkommetAktivitetField';
+
+import styles from './tilkommetAktivitet.module.css';
 
 const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
 export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';

@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort, Heading, Button, Modal } from '@navikt/ds-react';
+import { BodyShort, Heading, Button, Modal } from '@navikt/ds-react/esm';
 
 import advarselImageUrl from './images/advarsel.svg';
 import Image from './Image';
 import FlexRow from './flexGrid/FlexRow';
 import FlexColumn from './flexGrid/FlexColumn';
 
-import styles from './warningModal.less';
+import styles from './warningModal.module.css';
 
 interface OwnProps {
   headerText?: string;

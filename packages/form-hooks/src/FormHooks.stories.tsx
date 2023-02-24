@@ -9,7 +9,7 @@ import CheckboxPanel from './CheckboxPanel';
 import Rangepicker from './Rangepicker';
 import Datepicker from './Datepicker';
 
-import styles from './formHooks.stories.less';
+import styles from './formHooks.stories.module.css';
 
 // TODO Kvifor feilar denne kun på Github?
 // eslint-disable-next-line import/no-unresolved

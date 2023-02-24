@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import { Accordion, BodyShort, Label, Heading } from '@navikt/ds-react';
+import { Accordion, BodyShort, Label, Heading } from '@navikt/ds-react/esm';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
@@ -9,7 +9,7 @@ import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
 import TilbakekrevingVedtakUtdypendeTekstPanel from './TilbakekrevingVedtakUtdypendeTekstPanel';
 import underavsnittType from '../../kodeverk/avsnittType';
 
-import styles from './tilbakekrevingEditerVedtaksbrevPanel.less';
+import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
 
 export type FormValues = Record<string, Record<string, string> | string>;
 

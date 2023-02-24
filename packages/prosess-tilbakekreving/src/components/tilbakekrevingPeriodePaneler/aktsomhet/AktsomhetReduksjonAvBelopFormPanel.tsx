@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
-import { BodyShort, Label, Detail } from '@navikt/ds-react';
+import { BodyShort, Label, Detail } from '@navikt/ds-react/esm';
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow, FlexContainer } from '@navikt/ft-ui-komponenter';
 
 import { InputField, SelectField, RadioGroupPanel, formHooks } from '@navikt/ft-form-hooks';
@@ -9,7 +9,7 @@ import { minValue, maxValue, required } from '@navikt/ft-form-validators';
 
 import aktsomhet from '../../../kodeverk/aktsomhet';
 
-import styles from './aktsomhetReduksjonAvBelopFormPanel.less';
+import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
 
 const minValue1 = minValue(0.0);
 const maxValue100 = maxValue(99.99);

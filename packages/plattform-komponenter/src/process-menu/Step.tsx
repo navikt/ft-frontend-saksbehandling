@@ -1,10 +1,10 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import classnames from 'classnames';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import StepIcon from './StepIcon';
 import StepType from './StepType';
-import styles from './step.less';
+import styles from './step.module.css';
 
 export interface StepProps {
   label: string;

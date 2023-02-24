@@ -1,12 +1,11 @@
-import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react/esm';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FC } from 'react';
 import { useIntl } from 'react-intl';
 import TilkommetAktivitetAccordion from './TilkommetAktivitetAccordion';
-import styles from './tilkommetAktivitet.less';
+import styles from './tilkommetAktivitet.module.css';
 
 const finnAktivitetStatus = (
   aktivitetStatus: AktivitetStatus,

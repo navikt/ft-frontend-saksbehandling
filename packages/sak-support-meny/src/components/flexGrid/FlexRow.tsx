@@ -1,7 +1,7 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 
-import styles from './flexRow.less';
+import styles from './flexRow.module.css';
 
 const classNames = classnames.bind(styles);
 

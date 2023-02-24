@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
-import { Button, Label, BodyShort, Detail } from '@navikt/ds-react';
+import { Button, Label, BodyShort, Detail } from '@navikt/ds-react/esm';
 
 import {
   VerticalSpacer,
@@ -20,7 +20,7 @@ import { AlleKodeverk, AlleKodeverkTilbakekreving, FeilutbetalingFakta, Feilutbe
 
 import FeilutbetalingPerioderFieldArray, { FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
 
-import styles from './feilutbetalingInfoPanel.less';
+import styles from './feilutbetalingInfoPanel.module.css';
 import AvklartFaktaFeilutbetalingAp from '../types/AvklartFaktaFeilutbetalingAp';
 import FeilutbetalingAksjonspunktCode from '../FeilutbetalingAksjonspunktCode';
 

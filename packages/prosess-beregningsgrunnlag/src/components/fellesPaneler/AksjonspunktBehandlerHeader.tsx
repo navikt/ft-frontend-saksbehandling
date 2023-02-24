@@ -3,14 +3,14 @@ import React, { FunctionComponent } from 'react';
 import { Beregningsgrunnlag, BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react/esm';
 import {
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
   isStatusFrilanserOrKombinasjon,
 } from '@navikt/ft-kodeverk';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import styles from './aksjonspunktBehandler.less';
+import styles from './aksjonspunktBehandler.module.css';
 import advarsel from '../../images/advarsel2.svg';
 
 const {

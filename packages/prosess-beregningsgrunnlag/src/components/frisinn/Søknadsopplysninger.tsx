@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Label, BodyShort } from '@navikt/ds-react';
+import { Label, BodyShort } from '@navikt/ds-react/esm';
 import { FormattedMessage } from 'react-intl';
 
 import { Beregningsgrunnlag } from '@navikt/ft-types';
@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
   <FlexRow>

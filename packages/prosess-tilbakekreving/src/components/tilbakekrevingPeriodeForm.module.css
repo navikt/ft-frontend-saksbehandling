@@ -1,0 +1,14 @@
+.explanationTextarea {
+  min-height: 100px;
+  resize: none;
+}
+.leftColumn {
+  margin-right: 20px;
+  width: 45%;
+}
+.rightColumn {
+  width: 55%;
+}
+.selectWidth {
+  width: 300px;
+}

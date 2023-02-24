@@ -1,8 +1,8 @@
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Image from '../Image';
-import styles from './blaBoksMedCheckmarkListe.less';
+import styles from './blaBoksMedCheckmarkListe.module.css';
 import checkBlaIkonUrl from './check_blue.svg';
 
 interface OwnProps {

@@ -1,10 +1,10 @@
-import { Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react/esm';
 import { AlleKodeverk } from '@navikt/ft-types';
 import { BorderBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
-import styles from './kunYtelseUtenBesteberegningPanel.less';
+import styles from './kunYtelseUtenBesteberegningPanel.module.css';
 
 type OwnProps = {
   readOnly: boolean;

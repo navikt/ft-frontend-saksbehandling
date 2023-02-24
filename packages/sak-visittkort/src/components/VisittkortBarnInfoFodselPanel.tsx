@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Tag, BodyShort } from '@navikt/ds-react';
+import { Tag, BodyShort } from '@navikt/ds-react/esm';
 import { FlexColumn } from '@navikt/ft-ui-komponenter';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
 import { dateFormat, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import styles from './visittkortBarnInfoFodselPanel.less';
+import styles from './visittkortBarnInfoFodselPanel.module.css';
 
 const finnFodselsdatoTekstkode = (antallBarn: number): string => {
   if (antallBarn === 1) {

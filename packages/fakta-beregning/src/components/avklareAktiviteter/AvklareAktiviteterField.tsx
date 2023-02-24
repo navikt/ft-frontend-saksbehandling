@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { Button, ErrorMessage, Label } from '@navikt/ds-react';
+import { Button, ErrorMessage, Label } from '@navikt/ds-react/esm';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
 import {
@@ -9,9 +9,9 @@ import {
   AvklarBeregningAktiviteter,
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
+  BeregningsgrunnlagTilBekreftelse,
+  Vilkarperiode,
 } from '@navikt/ft-types';
-import { BeregningsgrunnlagTilBekreftelse } from '@navikt/ft-types/index';
-import Vilkarperiode from '@navikt/ft-types/src/vilkarperiodeTsType';
 import {
   AksjonspunktHelpTextTemp,
   FlexColumn,
@@ -34,7 +34,7 @@ import {
   skalKunneLoseAvklaringsbehov,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
-import styles from './avklareAktiviteterPanel.less';
+import styles from './avklareAktiviteterPanel.module.css';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;

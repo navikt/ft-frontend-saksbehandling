@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react/esm';
 import { FormattedMessage, IntlShape } from 'react-intl';
 
 import { FloatRight, Image, EditedIcon, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
@@ -11,7 +11,7 @@ import splitPeriodImageUrl from '../../images/splitt.svg';
 import DelOppPeriodeModal from './DelOppPeriodeModal';
 import DataForPeriode from '../../types/dataForPeriodeTsType';
 
-import styles from './periodeController.less';
+import styles from './periodeController.module.css';
 
 const isEdited = false;
 

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react/esm';
 
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
@@ -10,7 +10,7 @@ import { KodeverkMedNavn } from '@navikt/ft-types';
 import aktsomhet from '../../../kodeverk/aktsomhet';
 import AktsomhetSarligeGrunnerFormPanel from './AktsomhetSarligeGrunnerFormPanel';
 
-import styles from './aktsomhetGradUaktsomhetFormPanel.less';
+import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

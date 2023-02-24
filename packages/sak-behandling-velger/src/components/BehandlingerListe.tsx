@@ -1,13 +1,13 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import { BehandlingAppKontekst, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import BehandlingListeRad from './BehandlingListeRad';
 
-import styles from './behandlingerListe.less';
+import styles from './behandlingerListe.module.css';
 
 const sorterBehandlinger = (behandlinger: BehandlingAppKontekst[]): BehandlingAppKontekst[] =>
   [...behandlinger].sort((b1, b2) => {

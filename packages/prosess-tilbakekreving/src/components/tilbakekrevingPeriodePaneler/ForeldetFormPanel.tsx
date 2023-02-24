@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Detail } from '@navikt/ds-react';
+import { Detail } from '@navikt/ds-react/esm';
 
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';

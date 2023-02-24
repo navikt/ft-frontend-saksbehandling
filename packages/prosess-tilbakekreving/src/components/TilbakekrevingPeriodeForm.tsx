@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
-import { Button, BodyShort, Heading } from '@navikt/ds-react';
+import { Button, BodyShort, Heading } from '@navikt/ds-react/esm';
 
 import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { formatCurrencyNoKr, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
@@ -36,7 +36,7 @@ import AktsomhetFormPanel, {
 } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
 import DataForPeriode from '../types/dataForPeriodeTsType';
 
-import styles from './tilbakekrevingPeriodeForm.less';
+import styles from './tilbakekrevingPeriodeForm.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

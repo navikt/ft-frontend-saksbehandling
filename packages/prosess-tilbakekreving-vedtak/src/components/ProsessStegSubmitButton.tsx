@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { Button } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react/esm';
 
 import { ariaCheck } from '@navikt/ft-form-validators';
 

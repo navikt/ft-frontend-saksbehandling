@@ -5,7 +5,7 @@ import TimeLineButton from './TimeLineButton';
 
 import messages from '../../i18n/nb_NO.json';
 
-import styles from './timeLineControl.less';
+import styles from './timeLineControl.module.css';
 
 const intl = createIntl(messages);
 

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
-import { Button } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react/esm';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField, Datepicker, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import {
@@ -18,7 +18,7 @@ import { AlleKodeverkTilbakekreving } from '@navikt/ft-types';
 
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
 
-import styles from './foreldelsePeriodeForm.less';
+import styles from './foreldelsePeriodeForm.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

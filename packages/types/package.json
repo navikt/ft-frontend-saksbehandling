@@ -1,12 +1,15 @@
 {
   "name": "@navikt/ft-types",
+  "type": "module",
   "version": "1.1.2",
   "license": "MIT",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "tsc": "tsc --pretty",
-    "build-ts-declarations": "tsc index.ts ../../@types/externals.d.ts --declaration --emitDeclarationOnly --jsx react --outDir dist --declarationMap --esModuleInterop --skipLibCheck",
-    "build": "yarn build-ts-declarations",
+    "dev": "vite build --watch",
+    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
@@ -24,5 +27,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
   }
 }

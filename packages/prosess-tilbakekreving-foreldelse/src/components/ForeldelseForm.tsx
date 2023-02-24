@@ -1,7 +1,7 @@
 import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
 import moment from 'moment';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Heading } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react/esm';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
@@ -22,7 +22,7 @@ import TilbakekrevingTimelineData from './splittePerioder/TilbakekrevingTimeline
 import { PeriodeMedBelop } from './splittePerioder/PeriodeController';
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
-import styles from './foreldelseForm.less';
+import styles from './foreldelseForm.module.css';
 import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
 import VurderForeldelseAp from '../types/VurderForeldelseAp';
 

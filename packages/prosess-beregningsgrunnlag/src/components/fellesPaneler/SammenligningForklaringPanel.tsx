@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import { FormattedMessage } from 'react-intl';
 
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';

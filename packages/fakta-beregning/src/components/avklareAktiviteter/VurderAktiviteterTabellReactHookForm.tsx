@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import dayjs from 'dayjs';
 import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
-import { Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react/esm';
 import { Table } from '@navikt/ft-ui-komponenter';
 import { hasValidDate } from '@navikt/ft-form-validators';
 

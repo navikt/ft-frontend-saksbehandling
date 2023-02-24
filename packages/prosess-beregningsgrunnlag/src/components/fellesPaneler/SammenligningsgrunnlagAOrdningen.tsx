@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort, ReadMore, Label, Heading } from '@navikt/ds-react';
+import { BodyShort, ReadMore, Label, Heading } from '@navikt/ds-react/esm';
 
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
@@ -18,10 +18,10 @@ import norskFormat from 'dayjs/locale/nb';
 
 import { CallbackDataParams } from 'echarts/types/dist/shared';
 import { OptionDataValue } from 'echarts/types/src/util/types';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import ReactECharts from '../echart/ReactECharts';
 
-import styles from './sammenligningsgrunnlagAOrdningen.less';
+import styles from './sammenligningsgrunnlagAOrdningen.module.css';
 import Ledelinje from './Ledelinje';
 
 const GRAF_FARGE_AT = '#99bdcd';

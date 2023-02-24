@@ -1,9 +1,9 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import Card from './Card';
 import GenderIcon from './GenderIcon';
-import styles from './personCard.less';
+import styles from './personCard.module.css';
 
 const personCardCls = bemUtils('personCard');
 

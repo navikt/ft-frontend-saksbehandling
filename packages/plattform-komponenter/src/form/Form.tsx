@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '@navikt/ds-react';
-import styles from './form.less';
+import { Button } from '@navikt/ds-react/esm';
+import styles from './form.module.css';
 import Box, { Margin } from '../box/Box';
 
 export interface FormProps {

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react';
 import { RawIntlProvider, FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react/esm';
 import { Aktor, AlleKodeverk } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
