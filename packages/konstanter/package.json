@@ -12,7 +12,7 @@
   "scripts": {
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
-    "dev": "vite build --watch",
+    "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
