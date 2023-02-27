@@ -1,7 +1,7 @@
 import { bemUtils } from '@navikt/ft-utils';
 import React from 'react';
 import { Button } from '@navikt/ds-react/esm';
-import { SystemFilled } from '@navikt/ds-icons';
+import { SystemFilled } from '@navikt/ds-icons/esm';
 import styles from './systemButton.module.css';
 
 const systemsCls = bemUtils('systems');

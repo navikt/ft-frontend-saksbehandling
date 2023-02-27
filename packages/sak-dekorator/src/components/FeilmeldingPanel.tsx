@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Button, Detail } from '@navikt/ds-react/esm';
-import { Close } from '@navikt/ds-icons';
+import { Close } from '@navikt/ds-icons/esm';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import FeilmeldingsdetaljerModal from './FeilmeldingsdetaljerModal';

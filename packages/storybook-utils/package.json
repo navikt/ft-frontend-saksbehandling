@@ -2,10 +2,10 @@
   "name": "@navikt/ft-storybook-utils",
   "type": "module",
   "version": "1.0.7",
-  "module": "index.jsx",
   "license": "MIT",
   "private": true,
-  "main": "./dist/index.js",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -26,6 +26,9 @@
     "react-intl": "6.2.8"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
   }
 }

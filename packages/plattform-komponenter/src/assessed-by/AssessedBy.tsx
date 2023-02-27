@@ -1,5 +1,5 @@
 import React from 'react';
-import { CaseworkerFilled } from '@navikt/ds-icons';
+import { CaseworkerFilled } from '@navikt/ds-icons/esm';
 import { prettifyDateString } from '@navikt/ft-utils';
 import styles from './assessedBy.module.css';
 

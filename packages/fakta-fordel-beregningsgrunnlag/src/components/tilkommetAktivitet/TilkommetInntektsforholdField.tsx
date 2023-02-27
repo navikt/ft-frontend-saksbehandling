@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ReadMore, Label, Alert } from '@navikt/ds-react';
+import { ReadMore, Label, Alert } from '@navikt/ds-react/esm';
 import { formHooks, InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
