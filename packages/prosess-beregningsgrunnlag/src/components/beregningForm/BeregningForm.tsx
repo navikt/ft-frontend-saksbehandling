@@ -12,15 +12,15 @@ import {
   FaktaOmBeregning,
   Vilkarperiode,
   YtelseGrunnlag,
+  Vilkar,
 } from '@navikt/ft-types';
 import { Heading } from '@navikt/ds-react';
-import { Vilkar } from '@navikt/ft-types/index';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
 import SkjeringspunktOgStatusPanel from '../fellesPaneler/SkjeringspunktOgStatusPanel';
 import Beregningsgrunnlag from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import AksjonspunktTittel from '../fellesPaneler/AksjonspunktTittel';
 import YtelsegrunnlagPanel from '../frisinn/YtelsegrunnlagPanel';

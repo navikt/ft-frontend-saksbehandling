@@ -4,4 +4,4 @@ export type { BeregningFaktaAP } from './src/typer/interface/BeregningFaktaAP';
 export type { BeregningOverstyringAP } from './src/typer/interface/BeregningFaktaAP';
 export type { default as SubmitBeregningType } from './src/typer/interface/SubmitBeregningTsType';
 export { default as FaktaBeregningAvklaringsbehovCode } from './src/typer/interface/FaktaBeregningAvklaringsbehovCode';
-export { default } from './src/BeregningFaktaIndex';
+export { default as BeregningFaktaIndex } from './src/BeregningFaktaIndex';

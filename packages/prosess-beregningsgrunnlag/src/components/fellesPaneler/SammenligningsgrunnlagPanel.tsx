@@ -6,8 +6,8 @@ import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
-import styles from './avvikopplysningerPanel.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import styles from './avvikopplysningerPanel.module.css';
 
 const skilleLinje = (
   <FlexRow>

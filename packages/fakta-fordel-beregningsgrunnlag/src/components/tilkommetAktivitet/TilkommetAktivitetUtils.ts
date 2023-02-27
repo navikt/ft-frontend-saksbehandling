@@ -1,6 +1,10 @@
-import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
-import { ForlengelsePeriodeProp } from '@navikt/ft-types/src/beregningsgrunnlagTsType';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  ForlengelsePeriodeProp,
+  Inntektsforhold,
+  VurderInntektsforholdPeriode,
+} from '@navikt/ft-types';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';

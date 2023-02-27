@@ -2,13 +2,13 @@ import React, { FunctionComponent, useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Button, Detail } from '@navikt/ds-react';
-import { Close } from '@navikt/ds-icons';
+import { Close } from '@navikt/ds-icons/esm';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import FeilmeldingsdetaljerModal from './FeilmeldingsdetaljerModal';
 import Feilmelding from '../typer/feilmeldingTsType';
 
-import styles from './feilmeldingPanel.less';
+import styles from './feilmeldingPanel.module.css';
 
 // TODO Dette er gjort fordi testen viste ein warning når ein dytta 'style.link' inn i a-tag'en. Bør ikkje vera naudsynt.
 const classNames = classnames.bind(styles);

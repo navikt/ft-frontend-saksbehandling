@@ -15,7 +15,7 @@ import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import { Heading } from '@navikt/ds-react';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import styles from './beregningsgrunnlagProsessIndex.less';
+import styles from './beregningsgrunnlagProsessIndex.module.css';
 import messages from '../i18n/nb_NO.json';
 import BeregningFP from './components/BeregningFP';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';

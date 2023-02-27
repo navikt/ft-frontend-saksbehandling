@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, Image } from '@navikt/ft-ui-komponenter';
 
-import styles from './tittelMedDivider.less';
+import styles from './tittelMedDivider.module.css';
 
 interface OwnProps {
   imageSrc: string;

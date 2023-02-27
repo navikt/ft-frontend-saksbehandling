@@ -1,6 +1,6 @@
 import React from 'react';
 import { Heading } from '@navikt/ds-react';
-import styles from './titleWithUnderline.less';
+import styles from './titleWithUnderline.module.css';
 
 export interface TitleWithUnderlineProps {
   children: React.ReactNode;

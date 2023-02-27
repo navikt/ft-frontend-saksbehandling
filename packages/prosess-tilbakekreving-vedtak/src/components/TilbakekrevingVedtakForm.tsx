@@ -13,7 +13,7 @@ import underavsnittType from '../kodeverk/avsnittType';
 import TilbakekrevingEditerVedtaksbrevPanel, { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
-import styles from './tilbakekrevingVedtakForm.less';
+import styles from './tilbakekrevingVedtakForm.module.css';
 import ForeslaVedtakTilbakekrevingAp from '../types/ForeslaVedtakTilbakekrevingAp';
 import VedtakAksjonspunktCode from '../VedtakAksjonspunktCode';
 

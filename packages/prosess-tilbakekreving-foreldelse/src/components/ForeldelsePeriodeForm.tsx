@@ -18,7 +18,7 @@ import { AlleKodeverkTilbakekreving } from '@navikt/ft-types';
 
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
 
-import styles from './foreldelsePeriodeForm.less';
+import styles from './foreldelsePeriodeForm.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

@@ -1,4 +1,4 @@
-import BeregningAvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
+import { AvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
 import FaktaBeregningAvklaringsbehovCode from './FaktaBeregningAvklaringsbehovCode';
 
 export type BeregningAktivitetTransformedValues = {
@@ -15,12 +15,12 @@ export type BeregningAktiviteterTransformedValues = {
   beregningsaktivitetLagreDtoList: BeregningAktivitetTransformedValues[];
 };
 
-export type OverstyrBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
+export type OverstyrBeregningsaktiviteterAP = AvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   BeregningAktiviteterTransformedValues
 >;
 
-export type AvklarBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
+export type AvklarBeregningsaktiviteterAP = AvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER,
   BeregningAktiviteterTransformedValues
 >;
@@ -180,12 +180,12 @@ export type BeregningFaktaTransformedValues = {
   overstyrteAndeler?: FastsettBeregningsgrunnlagAndelTransformedValues[];
 };
 
-export type BeregningFaktaAP = BeregningAvklaringsbehovTilBekreftelse<
+export type BeregningFaktaAP = AvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
   BeregningFaktaTransformedValues
 >;
 
-export type BeregningOverstyringAP = BeregningAvklaringsbehovTilBekreftelse<
+export type BeregningOverstyringAP = AvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   BeregningFaktaTransformedValues
 >;

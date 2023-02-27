@@ -3,7 +3,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { TextField as NavInput } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
-import styles from './inputField.less';
+import styles from './inputField.module.css';
 
 interface OwnProps {
   name: string;

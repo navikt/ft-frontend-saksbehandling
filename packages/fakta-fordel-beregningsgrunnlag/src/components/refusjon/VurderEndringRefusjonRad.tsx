@@ -17,7 +17,7 @@ import { VurderRefusjonAndelTransformedValues } from '../../types/interface/Vurd
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
-import styles from './vurderEndringRefusjonRad.less';
+import styles from './vurderEndringRefusjonRad.module.css';
 
 const FIELD_KEY_REFUSJONSTART = 'REFUSJON_ENDRING_DATO';
 const FIELD_KEY_DELVIS_REF = 'DELVIS_REFUSJON_FØR_START_BELØP';

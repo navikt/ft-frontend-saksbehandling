@@ -11,7 +11,7 @@ import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {

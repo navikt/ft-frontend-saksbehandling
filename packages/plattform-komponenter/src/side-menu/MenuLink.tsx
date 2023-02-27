@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { BodyShort, Label } from '@navikt/ds-react';
 
 import React from 'react';
-import styles from './menuLink.less';
+import styles from './menuLink.module.css';
 
 interface MenuLinkProps {
   label: string;

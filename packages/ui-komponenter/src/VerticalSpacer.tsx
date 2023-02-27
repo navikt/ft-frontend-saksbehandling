@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 
-import styles from './verticalSpacer.less';
+import styles from './verticalSpacer.module.css';
 
 const classNames = classnames.bind(styles);
 

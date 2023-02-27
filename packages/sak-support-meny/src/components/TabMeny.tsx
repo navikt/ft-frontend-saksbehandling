@@ -6,7 +6,7 @@ import FlexContainer from './flexGrid/FlexContainer';
 import FlexRow from './flexGrid/FlexRow';
 import FlexColumn from './flexGrid/FlexColumn';
 
-import styles from './tabMeny.less';
+import styles from './tabMeny.module.css';
 
 const classNames = classnames.bind(styles);
 

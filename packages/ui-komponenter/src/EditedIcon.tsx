@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 
 import Image from './Image';
 import endretFelt from './images/endret_felt.svg';
-import styles from './editedIcon.less';
+import styles from './editedIcon.module.css';
 
 const classNames = classnames.bind(styles);
 

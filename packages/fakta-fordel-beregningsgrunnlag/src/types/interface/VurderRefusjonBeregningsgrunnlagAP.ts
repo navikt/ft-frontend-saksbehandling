@@ -1,4 +1,4 @@
-import AvklaringsbehovTilBekreftelse from '@navikt/ft-types/src/BeregningAvklaringsbehovTilBekreftelse';
+import { AvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
 import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type VurderRefusjonAndelTransformedValues = {

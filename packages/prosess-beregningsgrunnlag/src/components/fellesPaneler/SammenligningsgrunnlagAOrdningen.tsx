@@ -18,10 +18,10 @@ import norskFormat from 'dayjs/locale/nb';
 
 import { CallbackDataParams } from 'echarts/types/dist/shared';
 import { OptionDataValue } from 'echarts/types/src/util/types';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import ReactECharts from '../echart/ReactECharts';
 
-import styles from './sammenligningsgrunnlagAOrdningen.less';
+import styles from './sammenligningsgrunnlagAOrdningen.module.css';
 import Ledelinje from './Ledelinje';
 
 const GRAF_FARGE_AT = '#99bdcd';

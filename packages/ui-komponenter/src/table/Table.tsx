@@ -5,7 +5,7 @@ import classnames from 'classnames/bind';
 import TableRow from './TableRow';
 import TableColumn from './TableColumn';
 
-import styles from './table.less';
+import styles from './table.module.css';
 
 const classNames = classnames.bind(styles);
 

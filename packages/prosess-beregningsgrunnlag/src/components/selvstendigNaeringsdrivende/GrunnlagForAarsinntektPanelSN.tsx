@@ -7,7 +7,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel, PgiVerdier } from '@navikt/ft-types';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import Ledelinje from '../fellesPaneler/Ledelinje';
 
 const createHeaderRow = (): React.ReactNode => (

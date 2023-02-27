@@ -7,7 +7,7 @@ import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbe
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 
-import styles from './tidligereUtbetalinger.less';
+import styles from './tidligereUtbetalinger.module.css';
 
 const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement[] =>
   utbetalinger.map(utbetaling => (

@@ -1,6 +1,8 @@
-import { FordelBeregningsgrunnlagPeriode } from '@navikt/ft-types';
-import { FordelBeregningsgrunnlagAndel } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
-import BeregningsgrunnlagArbeidsforhold from '@navikt/ft-types/src/beregningsgrunnlagArbeidsforholdTsType';
+import {
+  FordelBeregningsgrunnlagPeriode,
+  FordelBeregningsgrunnlagAndel,
+  BeregningsgrunnlagArbeidsforhold,
+} from '@navikt/ft-types';
 import { PeriodeAarsak } from '@navikt/ft-kodeverk';
 import { lagPerioderForSubmit, slaaSammenPerioder as slåSammenPerioder } from './FordelPerioderUtils';
 

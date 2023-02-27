@@ -22,7 +22,7 @@ import TilbakekrevingTimelineData from './splittePerioder/TilbakekrevingTimeline
 import { PeriodeMedBelop } from './splittePerioder/PeriodeController';
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
-import styles from './foreldelseForm.less';
+import styles from './foreldelseForm.module.css';
 import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
 import VurderForeldelseAp from '../types/VurderForeldelseAp';
 

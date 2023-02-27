@@ -3,7 +3,7 @@ import { BodyShort } from '@navikt/ds-react';
 import React from 'react';
 import classnames from 'classnames';
 import MenuLink from './MenuLink';
-import styles from './sideMenu.less';
+import styles from './sideMenu.module.css';
 
 const sideMenuCls = bemUtils('sideMenu');
 

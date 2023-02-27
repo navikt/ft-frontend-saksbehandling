@@ -7,7 +7,7 @@ import barnevognImage from '../images/barnevogn.svg';
 import VisittkortBarnInfoFodselPanel from './VisittkortBarnInfoFodselPanel';
 import VisittkortBarnInfoOmsorgPanel from './VisittkortBarnInfoOmsorgPanel';
 
-import styles from './visittkortBarnInfoPanel.less';
+import styles from './visittkortBarnInfoPanel.module.css';
 
 interface OwnProps {
   familiehendelse: FagsakHendelse;

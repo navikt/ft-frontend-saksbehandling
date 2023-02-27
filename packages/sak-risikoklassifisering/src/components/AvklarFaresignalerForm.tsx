@@ -12,7 +12,7 @@ import faresignalVurdering from '../kodeverk/faresignalVurdering';
 import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringAp';
 import RisikoklassifiseringAksjonspunktCode from '../RisikoklassifiseringAksjonspunktCode';
 
-import styles from './avklarFaresignalerForm.less';
+import styles from './avklarFaresignalerForm.module.css';
 
 const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);

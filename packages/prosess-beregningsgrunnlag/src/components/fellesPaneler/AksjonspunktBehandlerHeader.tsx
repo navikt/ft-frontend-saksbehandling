@@ -10,7 +10,7 @@ import {
   isStatusFrilanserOrKombinasjon,
 } from '@navikt/ft-kodeverk';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import styles from './aksjonspunktBehandler.less';
+import styles from './aksjonspunktBehandler.module.css';
 import advarsel from '../../images/advarsel2.svg';
 
 const {

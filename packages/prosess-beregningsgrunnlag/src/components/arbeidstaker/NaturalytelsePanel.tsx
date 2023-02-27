@@ -11,7 +11,7 @@ import {
 } from '@navikt/ft-types';
 
 import dayjs from 'dayjs';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import NaturalytelseTabellData, {
   NaturalytelseEndring,
   NaturalytelseTabellRad,

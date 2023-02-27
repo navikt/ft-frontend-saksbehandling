@@ -1,0 +1,8 @@
+.assessed-by {
+  align-items: center;
+  display: flex;
+  margin: 10px 0;
+}
+.assessed-by svg {
+  margin-right: 8px;
+}

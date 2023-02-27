@@ -1,7 +1,7 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 
-import styles from './aksjonspunktBox.less';
+import styles from './aksjonspunktBox.module.css';
 
 const classNames = classnames.bind(styles);
 

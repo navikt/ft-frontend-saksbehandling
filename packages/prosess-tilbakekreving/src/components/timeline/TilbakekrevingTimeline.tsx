@@ -11,7 +11,7 @@ import urlMann from '../../images/mann.svg';
 import urlKvinne from '../../images/kvinne.svg';
 
 import TidslinjePeriode from '../../types/tidslinjePeriodeTsType';
-import styles from './tilbakekrevingTimeline.less';
+import styles from './tilbakekrevingTimeline.module.css';
 
 export const GODKJENT_CLASSNAME = 'godkjentPeriode';
 export const AVVIST_CLASSNAME = 'avvistPeriode';

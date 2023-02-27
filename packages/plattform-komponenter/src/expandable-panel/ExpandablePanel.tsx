@@ -1,7 +1,7 @@
 import { bemUtils } from '@navikt/ft-utils';
 import React from 'react';
 import { Collapse } from 'react-collapse';
-import styles from './expandablePanelStyles.less';
+import styles from './expandablePanelStyles.module.css';
 
 const expandablePanelCls = bemUtils('expandablePanel');
 

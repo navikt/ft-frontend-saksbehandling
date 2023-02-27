@@ -5,7 +5,7 @@ import { Label, BodyShort } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import styles from './periodeInformasjon.less';
+import styles from './periodeInformasjon.module.css';
 
 interface OwnProps {
   fom: string;

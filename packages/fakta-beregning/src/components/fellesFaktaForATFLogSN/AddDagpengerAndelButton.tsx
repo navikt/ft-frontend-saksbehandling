@@ -7,7 +7,7 @@ import { UseFieldArrayAppend } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import addCircleIcon from '../../images/add-circle.svg';
 import AndelFieldValue from '../../typer/FieldValues';
-import styles from './addAndelButton.less';
+import styles from './addAndelButton.module.css';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
   andel: aktivitetStatuser.filter(({ kode }) => kode === AktivitetStatus.DAGPENGER)[0].navn,

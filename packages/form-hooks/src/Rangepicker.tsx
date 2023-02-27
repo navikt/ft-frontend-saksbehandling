@@ -10,7 +10,7 @@ import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
 import ReadOnlyField from './ReadOnlyField';
 
-import styles from './rangepicker.less';
+import styles from './rangepicker.module.css';
 
 dayjs.extend(customParseFormat);
 

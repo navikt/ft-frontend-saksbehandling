@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './navigationWithDetailViewStyles.less';
+import styles from './navigationWithDetailViewStyles.module.css';
 
 export interface NavigationWithDetailViewProps {
   navigationSection: () => React.ReactNode;

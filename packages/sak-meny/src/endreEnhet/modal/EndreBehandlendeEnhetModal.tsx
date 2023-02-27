@@ -7,7 +7,7 @@ import { SelectField, TextAreaField, Form } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, required } from '@navikt/ft-form-validators';
 import { VerticalSpacer, FlexContainer, FlexRow, FlexColumn, FloatRight } from '@navikt/ft-ui-komponenter';
 
-import styles from './endreBehandlendeEnhetModal.less';
+import styles from './endreBehandlendeEnhetModal.module.css';
 
 const maxLength400 = maxLength(400);
 

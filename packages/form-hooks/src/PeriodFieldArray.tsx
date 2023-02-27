@@ -5,7 +5,7 @@ import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
 import addCircleIcon from './images/add-circle.svg';
 
-import styles from './periodFieldArray.less';
+import styles from './periodFieldArray.module.css';
 
 function onClick<PERIOD_TYPE>(
   append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void,

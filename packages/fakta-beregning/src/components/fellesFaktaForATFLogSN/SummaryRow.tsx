@@ -7,7 +7,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt } from './BgFaktaUtils';
-import styles from './inntektFieldArray.less';
+import styles from './inntektFieldArray.module.css';
 import VurderFaktaContext from './VurderFaktaContext';
 
 const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {

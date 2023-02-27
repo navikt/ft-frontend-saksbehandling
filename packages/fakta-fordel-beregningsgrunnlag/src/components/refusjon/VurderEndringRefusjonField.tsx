@@ -10,8 +10,8 @@ import {
   Beregningsgrunnlag,
   RefusjonTilVurderingAndel,
   Vilkarperiode,
+  BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
-import BeregningsgrunnlagTilBekreftelse from '@navikt/ft-types/src/BeregningsgrunnlagTilBekreftelse';
 import { Heading } from '@navikt/ds-react';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';

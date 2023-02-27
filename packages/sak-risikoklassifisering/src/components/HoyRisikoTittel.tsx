@@ -8,7 +8,7 @@ import HoyRisikoPanel from './HoyRisikoPanel';
 import TittelMedDivider from './TittelMedDivider';
 import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringAp';
 
-import styles from './hoyRisikoTittel.less';
+import styles from './hoyRisikoTittel.module.css';
 
 interface OwnProps {
   risikoklassifisering: Risikoklassifisering;

@@ -7,7 +7,7 @@ import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import BehandlingListeRad from './BehandlingListeRad';
 
-import styles from './behandlingerListe.less';
+import styles from './behandlingerListe.module.css';
 
 const sorterBehandlinger = (behandlinger: BehandlingAppKontekst[]): BehandlingAppKontekst[] =>
   [...behandlinger].sort((b1, b2) => {

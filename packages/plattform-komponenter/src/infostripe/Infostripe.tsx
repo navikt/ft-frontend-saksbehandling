@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './infostripe.less';
+import styles from './infostripe.module.css';
 
 interface BaseInfostripeProps {
   iconRenderer: () => React.ReactNode;

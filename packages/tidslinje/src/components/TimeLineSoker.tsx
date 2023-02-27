@@ -11,7 +11,7 @@ import urlKvinne from '../images/kvinne.svg';
 
 import messages from '../../i18n/nb_NO.json';
 
-import styles from './timeLineSoker.less';
+import styles from './timeLineSoker.module.css';
 
 const intl = createIntl(messages);
 

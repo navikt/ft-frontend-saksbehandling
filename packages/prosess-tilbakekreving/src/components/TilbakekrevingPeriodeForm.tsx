@@ -36,7 +36,7 @@ import AktsomhetFormPanel, {
 } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
 import DataForPeriode from '../types/dataForPeriodeTsType';
 
-import styles from './tilbakekrevingPeriodeForm.less';
+import styles from './tilbakekrevingPeriodeForm.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

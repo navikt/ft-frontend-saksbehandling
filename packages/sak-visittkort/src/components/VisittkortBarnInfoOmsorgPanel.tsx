@@ -7,7 +7,7 @@ import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import styles from './visittkortBarnInfoOmsorgPanel.less';
+import styles from './visittkortBarnInfoOmsorgPanel.module.css';
 
 interface OwnProps {
   familiehendelse: FagsakHendelse;

@@ -9,7 +9,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { TabellRadData, TabellData, TabellMap } from '../../types/BeregningsresultatTabellType';
 import OppsummertGrunnlagPanel from './OppsummertGrunnlagPanel';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [
   PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET,

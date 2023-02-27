@@ -5,7 +5,7 @@ import { Textarea as NavTextarea, Tag } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
-import styles from './textAreaField.less';
+import styles from './textAreaField.module.css';
 
 type BadgesType = 'success' | 'info' | 'error' | 'warning';
 

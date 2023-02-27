@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { BodyShort } from '@navikt/ds-react';
 import StepIcon from './StepIcon';
 import StepType from './StepType';
-import styles from './step.less';
+import styles from './step.module.css';
 
 export interface StepProps {
   label: string;

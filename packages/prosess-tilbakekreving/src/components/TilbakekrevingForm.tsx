@@ -32,7 +32,7 @@ import VilkarsVurderingAp from '../types/VilkarsVurderingAp';
 import TilbakekrevingAksjonspunktCodes from '../TilbakekrevingAksjonspunktCodes';
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
-import styles from './tilbakekrevingForm.less';
+import styles from './tilbakekrevingForm.module.css';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));

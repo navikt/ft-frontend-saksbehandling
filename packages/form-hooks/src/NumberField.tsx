@@ -3,7 +3,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { TextField } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
-import styles from './inputField.less';
+import styles from './inputField.module.css';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
 const DECIMAL_REGEXP = /^(\d+[,]?(\d+)?)$/;

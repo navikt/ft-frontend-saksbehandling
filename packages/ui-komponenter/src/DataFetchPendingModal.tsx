@@ -9,7 +9,7 @@ import FlexColumn from './flexGrid/FlexColumn';
 
 import messages from '../i18n/nb_NO.json';
 
-import styles from './dataFetchPendingModal.less';
+import styles from './dataFetchPendingModal.module.css';
 
 const intl = createIntl(messages);
 

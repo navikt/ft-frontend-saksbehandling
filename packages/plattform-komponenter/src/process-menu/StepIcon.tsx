@@ -5,7 +5,7 @@ import StepType from './StepType';
 import CheckIcon from './icons/CheckIcon';
 import WarningIcon from './icons/WarningIcon';
 import AvslåttValgIcon from './icons/AvslåttIcon';
-import styles from './step.less';
+import styles from './step.module.css';
 
 interface StepIconProps {
   type: string;

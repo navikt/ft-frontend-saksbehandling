@@ -8,7 +8,7 @@ import { SelectField, formHooks } from '@navikt/ft-form-hooks';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { FeilutbetalingAarsak, FeilutbetalingFakta } from '@navikt/ft-types';
 
-import styles from './feilutbetalingPerioderFieldArray.less';
+import styles from './feilutbetalingPerioderFieldArray.module.css';
 
 const FIELD_ARRAY_NAME = 'perioder';
 

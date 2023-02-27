@@ -6,7 +6,7 @@ import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-va
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 
-import styles from './faktaBegrunnelseTextField.less';
+import styles from './faktaBegrunnelseTextField.module.css';
 
 import messages from '../../../i18n/nb_NO.json';
 

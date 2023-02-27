@@ -10,9 +10,9 @@ import {
   Beregningsgrunnlag,
   FordelBeregningsgrunnlagPeriode,
   Vilkarperiode,
+  BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
 
-import BeregningsgrunnlagTilBekreftelse from '@navikt/ft-types/src/BeregningsgrunnlagTilBekreftelse';
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelingHelpText from './FordelingHelpText';
 import FastsettFordeltBeregningsgrunnlag from './FastsettFordeltBeregningsgrunnlag';

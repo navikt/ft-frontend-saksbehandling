@@ -5,7 +5,7 @@ import { Label, BodyShort } from '@navikt/ds-react';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import styles from './graderingUtenBGReadOnly.less';
+import styles from './graderingUtenBGReadOnly.module.css';
 
 type OwnProps = {
   avklaringsbehov: BeregningAvklaringsbehov;
