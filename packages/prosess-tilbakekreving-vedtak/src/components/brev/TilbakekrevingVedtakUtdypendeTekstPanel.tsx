@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Detail } from '@navikt/ds-react/esm';
+import { Detail } from '@navikt/ds-react';
 import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { required, hasValidText, maxLength, minLength } from '@navikt/ft-form-validators';

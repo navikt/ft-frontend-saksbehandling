@@ -1,4 +1,4 @@
-import { Label } from '@navikt/ds-react/esm';
+import { Label } from '@navikt/ds-react';
 import { AlleKodeverk } from '@navikt/ft-types';
 import { BorderBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Panel } from '@navikt/ds-react/esm';
+import { Panel } from '@navikt/ds-react';
 
 import innvilgetIkonUrl from '../images/innvilget.svg';
 import TittelMedDivider from './TittelMedDivider';

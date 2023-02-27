@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort, Heading, Button, Modal } from '@navikt/ds-react/esm';
+import { BodyShort, Heading, Button, Modal } from '@navikt/ds-react';
 
 import advarselImageUrl from './images/advarsel.svg';
 import Image from './Image';

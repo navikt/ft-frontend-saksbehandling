@@ -12,7 +12,7 @@ import {
   Vilkarperiode,
   BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
-import { Heading } from '@navikt/ds-react/esm';
+import { Heading } from '@navikt/ds-react';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';

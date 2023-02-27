@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react/esm';
+import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';

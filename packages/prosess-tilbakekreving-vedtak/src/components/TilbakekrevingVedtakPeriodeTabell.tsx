@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, Label } from '@navikt/ds-react/esm';
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';

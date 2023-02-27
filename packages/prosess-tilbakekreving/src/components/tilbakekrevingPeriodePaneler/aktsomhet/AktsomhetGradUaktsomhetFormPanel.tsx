@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Label } from '@navikt/ds-react/esm';
+import { Label } from '@navikt/ds-react';
 
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';

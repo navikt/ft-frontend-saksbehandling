@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback, FunctionComponent } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { Button } from '@navikt/ds-react/esm';
+import { Button } from '@navikt/ds-react';
 import { Image } from '@navikt/ft-ui-komponenter';
 import { Popover, BoxedListWithSelection } from '@navikt/ft-plattform-komponenter';
 import { createIntl } from '@navikt/ft-utils';

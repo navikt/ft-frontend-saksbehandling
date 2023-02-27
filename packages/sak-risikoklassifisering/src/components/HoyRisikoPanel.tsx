@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Panel } from '@navikt/ds-react/esm';
+import { Panel } from '@navikt/ds-react';
 
 import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';

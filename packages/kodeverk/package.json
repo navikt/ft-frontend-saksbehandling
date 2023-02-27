@@ -1,6 +1,5 @@
 {
   "name": "@navikt/ft-kodeverk",
-  "type": "module",
   "version": "1.0.26",
   "license": "MIT",
   "main": "./dist/index.umd.js",

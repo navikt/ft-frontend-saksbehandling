@@ -1,7 +1,7 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import classnames from 'classnames';
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import StepIcon from './StepIcon';
 import StepType from './StepType';
 import styles from './step.module.css';

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import moment from 'moment/moment';
-import { Modal, Button, Label, BodyShort, Alert, Heading } from '@navikt/ds-react/esm';
+import { Modal, Button, Label, BodyShort, Alert, Heading } from '@navikt/ds-react';
 
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';

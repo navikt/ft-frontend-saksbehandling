@@ -1,4 +1,4 @@
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';

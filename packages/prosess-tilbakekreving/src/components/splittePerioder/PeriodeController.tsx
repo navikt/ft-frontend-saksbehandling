@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label } from '@navikt/ds-react/esm';
+import { Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 
 import { FloatRight, Image, EditedIcon, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';

@@ -8,7 +8,7 @@ import {
 } from '@navikt/ft-types';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import { Tabs } from '@navikt/ds-react/esm';
+import { Tabs } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';

@@ -11,7 +11,7 @@ import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyN
 import { Datepicker, InputField, formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ErrorMessage, Label } from '@navikt/ds-react/esm';
+import { ErrorMessage, Label } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formHooks, CheckboxField, TextAreaField, useCustomValidation } from '@navikt/ft-form-hooks';

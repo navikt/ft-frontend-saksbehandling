@@ -14,7 +14,7 @@ import {
   YtelseGrunnlag,
   Vilkar,
 } from '@navikt/ft-types';
-import { Heading } from '@navikt/ds-react/esm';
+import { Heading } from '@navikt/ds-react';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 
 import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';

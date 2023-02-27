@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 
 import { minValue, required } from '@navikt/ft-form-validators';
 import { removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';

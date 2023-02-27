@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
 import { InputField } from '@navikt/ft-form-hooks';

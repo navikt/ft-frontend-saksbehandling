@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Panel } from '@navikt/ds-react/esm';
+import { Panel } from '@navikt/ds-react';
 import styles from './infoPanel.module.css';
 
 interface InfoPanel {

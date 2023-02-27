@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react/esm';
+import { Label, BodyShort } from '@navikt/ds-react';
 
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';

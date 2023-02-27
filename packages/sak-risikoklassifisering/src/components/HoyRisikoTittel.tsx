@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Accordion } from '@navikt/ds-react/esm';
+import { Accordion } from '@navikt/ds-react';
 
 import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 

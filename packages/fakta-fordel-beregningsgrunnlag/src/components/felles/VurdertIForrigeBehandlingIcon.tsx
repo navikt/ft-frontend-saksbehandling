@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
-import { Tag } from '@navikt/ds-react/esm';
+import { Tag } from '@navikt/ds-react';
 import { useIntl } from 'react-intl';
 import styles from './vurdertIForrigeBehandlingIcon.module.css';
 

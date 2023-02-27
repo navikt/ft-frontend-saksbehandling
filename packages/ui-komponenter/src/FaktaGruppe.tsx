@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { Label } from '@navikt/ds-react/esm';
+import { Label } from '@navikt/ds-react';
 
 import BorderBox from './BorderBox';
 import VerticalSpacer from './VerticalSpacer';

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';

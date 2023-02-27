@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Panel } from '@navikt/ds-react/esm';
+import { Panel } from '@navikt/ds-react';
 
 import manglendeKlassifiseringIkon from '../images/behandle_disable.svg';
 import TittelMedDivider from './TittelMedDivider';

@@ -1,6 +1,5 @@
 {
   "name": "@navikt/ft-utils-test",
-  "type": "module",
   "version": "1.2.5",
   "license": "MIT",
   "private": true,

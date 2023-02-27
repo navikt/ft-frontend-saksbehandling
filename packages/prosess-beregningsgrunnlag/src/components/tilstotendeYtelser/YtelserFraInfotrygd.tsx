@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react/esm';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 

@@ -1,4 +1,4 @@
-import { Accordion, Label } from '@navikt/ds-react/esm';
+import { Accordion, Label } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 import React, { FC, ReactElement, useEffect, useState } from 'react';

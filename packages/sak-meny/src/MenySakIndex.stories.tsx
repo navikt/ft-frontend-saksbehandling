@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
-import { Modal } from '@navikt/ds-react/esm';
+import { Modal } from '@navikt/ds-react';
 
 import MenySakIndex from './MenySakIndex';
 import MenyData from './MenyData';

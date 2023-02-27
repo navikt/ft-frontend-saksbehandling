@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort, ReadMore, Label, Heading } from '@navikt/ds-react/esm';
+import { BodyShort, ReadMore, Label, Heading } from '@navikt/ds-react';
 
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';

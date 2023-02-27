@@ -2,7 +2,7 @@ import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import { Collapse, Expand } from '@navikt/ds-icons/esm';
 
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import styles from './userPanel.module.css';
 
 const userCls = bemUtils('user');

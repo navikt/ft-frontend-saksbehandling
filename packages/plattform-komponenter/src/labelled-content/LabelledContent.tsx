@@ -1,4 +1,4 @@
-import { Label } from '@navikt/ds-react/esm';
+import { Label } from '@navikt/ds-react';
 import React from 'react';
 import classNames from 'classnames';
 import styles from './labelledContent.module.css';

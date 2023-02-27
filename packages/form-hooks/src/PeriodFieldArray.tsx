@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
-import { Detail, Fieldset } from '@navikt/ds-react/esm';
+import { Detail, Fieldset } from '@navikt/ds-react';
 import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
 
 import addCircleIcon from './images/add-circle.svg';

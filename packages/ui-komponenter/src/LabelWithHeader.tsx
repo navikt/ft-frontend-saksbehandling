@@ -1,5 +1,5 @@
 import React, { ReactNode, FunctionComponent } from 'react';
-import { BodyShort, Detail } from '@navikt/ds-react/esm';
+import { BodyShort, Detail } from '@navikt/ds-react';
 
 import styles from './labelWithHeader.module.css';
 

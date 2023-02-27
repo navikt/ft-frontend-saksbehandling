@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { LinkPanel } from '@navikt/ds-react/esm';
+import { LinkPanel } from '@navikt/ds-react';
 import { getKodeverknavnFn } from '@navikt/ft-utils';
 import { VisittkortSakIndex } from '@navikt/ft-sak-visittkort';
 import { Fagsak, FagsakPerson, AlleKodeverk } from '@navikt/ft-types';

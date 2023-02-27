@@ -1,6 +1,5 @@
 {
   "name": "@navikt/ft-storybook-utils",
-  "type": "module",
   "version": "1.0.7",
   "license": "MIT",
   "private": true,

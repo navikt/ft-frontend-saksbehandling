@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { Button, ErrorMessage, Label } from '@navikt/ds-react/esm';
+import { Button, ErrorMessage, Label } from '@navikt/ds-react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
 import {

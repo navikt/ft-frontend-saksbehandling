@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { Heading } from '@navikt/ds-react/esm';
+import { Heading } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 

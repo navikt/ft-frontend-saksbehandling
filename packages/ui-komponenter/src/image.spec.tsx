@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { composeStories } from '@storybook/testing-react';
-import { Modal } from '@navikt/ds-react/esm';
+import { Modal } from '@navikt/ds-react';
 import * as stories from './Image.stories';
 
 // @ts-ignore Fjern når fiksa

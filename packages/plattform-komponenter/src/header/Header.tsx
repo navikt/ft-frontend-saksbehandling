@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Heading } from '@navikt/ds-react/esm';
+import { Heading } from '@navikt/ds-react';
 import { bemUtils } from '@navikt/ft-utils';
 import styles from './header.module.css';
 

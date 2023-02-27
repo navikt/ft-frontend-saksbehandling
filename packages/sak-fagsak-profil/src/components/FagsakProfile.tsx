@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { Tag, BodyShort, Heading } from '@navikt/ds-react/esm';
+import { Tag, BodyShort, Heading } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FagsakYtelseType } from '@navikt/ft-kodeverk';

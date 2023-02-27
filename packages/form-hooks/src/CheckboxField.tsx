@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode, useMemo } from 'react';
-import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react/esm';
+import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react';
 import { useController, useFormContext } from 'react-hook-form';
 import { getError, getValidationRules } from './formUtils';
 

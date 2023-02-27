@@ -1,6 +1,6 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import BoxedList from '../boxed-list/BoxedList';
 import styles from './boxedListWithSelection.module.css';
 

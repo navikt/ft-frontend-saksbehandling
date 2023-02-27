@@ -6,7 +6,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react/esm';
+import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import Ledelinje from '../fellesPaneler/Ledelinje';
 

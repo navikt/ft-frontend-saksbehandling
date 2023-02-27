@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 
 import { DateTimeLabel, Table, TableColumn, TableRow, Image, Tooltip } from '@navikt/ft-ui-komponenter';
 import { Kommunikasjonsretning } from '@navikt/ft-kodeverk';

@@ -1,7 +1,7 @@
 import React, { useMemo, FunctionComponent } from 'react';
 import moment from 'moment';
 import { useIntl, FormattedMessage } from 'react-intl';
-import { Tag } from '@navikt/ds-react/esm';
+import { Tag } from '@navikt/ds-react';
 import { Tooltip } from '@navikt/ft-ui-komponenter';
 import { DiskresjonskodeType } from '@navikt/ft-kodeverk';
 import { FagsakPerson } from '@navikt/ft-types';

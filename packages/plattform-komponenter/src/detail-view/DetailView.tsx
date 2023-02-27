@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from '@navikt/ds-react/esm';
+import { Heading } from '@navikt/ds-react';
 import classnames from 'classnames';
 import styles from './detailView.module.css';
 

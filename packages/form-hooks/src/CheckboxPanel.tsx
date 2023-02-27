@@ -1,6 +1,6 @@
 import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
-import { CheckboxGroup, Checkbox } from '@navikt/ds-react/esm';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import { FlexContainer, FlexColumn, FlexRow, EditedIcon } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
 import styles from './radioGroupPanel.module.css';

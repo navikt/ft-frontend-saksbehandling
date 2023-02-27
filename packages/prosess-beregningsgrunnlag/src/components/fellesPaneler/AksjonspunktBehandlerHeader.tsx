@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { Beregningsgrunnlag, BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort, Label } from '@navikt/ds-react/esm';
+import { BodyShort, Label } from '@navikt/ds-react';
 import {
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,

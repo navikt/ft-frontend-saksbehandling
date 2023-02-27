@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Loader, Modal } from '@navikt/ds-react/esm';
+import { Label, Loader, Modal } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 

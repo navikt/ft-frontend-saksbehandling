@@ -14,7 +14,7 @@ import {
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
-import { Accordion, Label } from '@navikt/ds-react/esm';
+import { Accordion, Label } from '@navikt/ds-react';
 import {
   finnFastsattPrAar,
   setArbeidsforholdInitialValues,

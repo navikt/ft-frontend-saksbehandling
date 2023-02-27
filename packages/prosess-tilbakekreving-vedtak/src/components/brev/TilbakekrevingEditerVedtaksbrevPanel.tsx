@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import { Accordion, BodyShort, Label, Heading } from '@navikt/ds-react/esm';
+import { Accordion, BodyShort, Label, Heading } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';

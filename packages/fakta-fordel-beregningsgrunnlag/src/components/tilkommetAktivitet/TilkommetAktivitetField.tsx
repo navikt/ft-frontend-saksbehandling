@@ -4,7 +4,7 @@ import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@na
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FC } from 'react';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import { Tag } from '@navikt/ds-react/esm';
+import { Tag } from '@navikt/ds-react';
 import SubmitButton from '../felles/SubmitButton';
 import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 import TilkommetInntektsforholdField, { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';

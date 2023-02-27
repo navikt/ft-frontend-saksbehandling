@@ -2,7 +2,7 @@ import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@na
 import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 import React, { FC } from 'react';
-import { Tag } from '@navikt/ds-react/esm';
+import { Tag } from '@navikt/ds-react';
 import { useIntl } from 'react-intl';
 import styles from './tilkommetAktivitet.module.css';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';

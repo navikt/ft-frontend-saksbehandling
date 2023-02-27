@@ -3,7 +3,7 @@ import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
-import { Heading, BodyShort, Label } from '@navikt/ds-react/esm';
+import { Heading, BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Beregningsgrunnlag, Vilkarperiode, YtelseGrunnlag } from '@navikt/ft-types';
 import avslaatIkonUrl from '../../images/avslaatt_mini.svg';

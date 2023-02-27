@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Modal, Button, BodyShort, Detail, Heading } from '@navikt/ds-react/esm';
+import { Modal, Button, BodyShort, Detail, Heading } from '@navikt/ds-react';
 import { VerticalSpacer, Image, FlexContainer, FlexRow, FlexColumn, FloatRight } from '@navikt/ft-ui-komponenter';
 
 import infoImageUrl from '../images/behandle.svg';

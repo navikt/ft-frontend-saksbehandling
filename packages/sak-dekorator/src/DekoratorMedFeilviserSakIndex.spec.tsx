@@ -2,7 +2,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
-import { Modal } from '@navikt/ds-react/esm';
+import { Modal } from '@navikt/ds-react';
 import * as stories from './DekoratorMedFeilviserSakIndex.stories';
 
 const { UtenFeilmeldinger, MedFeilmeldinger, MedFeilmeldingDetaljer } = composeStories(stories);

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, Detail } from '@navikt/ds-react/esm';
+import { BodyShort, Detail } from '@navikt/ds-react';
 
 import {
   dateFormat,

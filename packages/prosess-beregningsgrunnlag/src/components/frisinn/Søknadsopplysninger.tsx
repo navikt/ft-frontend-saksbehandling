@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Label, BodyShort } from '@navikt/ds-react/esm';
+import { Label, BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
 import { Beregningsgrunnlag } from '@navikt/ft-types';

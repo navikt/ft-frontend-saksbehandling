@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Modal, Heading, Button } from '@navikt/ds-react/esm';
+import { Modal, Heading, Button } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 import FlexColumn from './flexGrid/FlexColumn';

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
-import { BodyShort, Label, Detail } from '@navikt/ds-react/esm';
+import { BodyShort, Label, Detail } from '@navikt/ds-react';
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow, FlexContainer } from '@navikt/ft-ui-komponenter';
 
 import { InputField, SelectField, RadioGroupPanel, formHooks } from '@navikt/ft-form-hooks';

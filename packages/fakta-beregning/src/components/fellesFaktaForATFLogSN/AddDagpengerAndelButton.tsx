@@ -1,4 +1,4 @@
-import { Detail } from '@navikt/ds-react/esm';
+import { Detail } from '@navikt/ds-react';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, Image } from '@navikt/ft-ui-komponenter';

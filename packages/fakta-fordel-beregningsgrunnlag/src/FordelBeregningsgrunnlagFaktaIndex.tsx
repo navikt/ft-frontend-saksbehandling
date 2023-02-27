@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import dayjs from 'dayjs';
-import { Tabs } from '@navikt/ds-react/esm';
+import { Tabs } from '@navikt/ds-react';
 
 import {
   AlleKodeverk,

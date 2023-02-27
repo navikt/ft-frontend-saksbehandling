@@ -1,6 +1,6 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import { isObject, createIntl } from '@navikt/ft-utils';
 import Image from './Image';
 import FlexColumn from './flexGrid/FlexColumn';

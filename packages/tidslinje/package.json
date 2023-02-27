@@ -1,6 +1,5 @@
 {
   "name": "@navikt/ft-tidslinje",
-  "type": "module",
   "description": "Overbygg for vis-timeline",
   "version": "1.3.16",
   "license": "MIT",

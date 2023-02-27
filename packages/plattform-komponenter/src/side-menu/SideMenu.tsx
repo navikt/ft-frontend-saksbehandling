@@ -1,5 +1,5 @@
 import { bemUtils } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react/esm';
+import { BodyShort } from '@navikt/ds-react';
 import React from 'react';
 import classnames from 'classnames';
 import MenuLink from './MenuLink';

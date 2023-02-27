@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
-import { Button, Label, BodyShort, Detail } from '@navikt/ds-react/esm';
+import { Button, Label, BodyShort, Detail } from '@navikt/ds-react';
 
 import {
   VerticalSpacer,

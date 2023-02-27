@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Detail } from '@navikt/ds-react/esm';
+import { Detail } from '@navikt/ds-react';
 
 import { FormattedMessage } from 'react-intl';
 import { Beregningsgrunnlag } from '@navikt/ft-types';

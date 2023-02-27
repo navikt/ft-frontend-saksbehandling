@@ -1,4 +1,4 @@
-import { Detail, ErrorMessage } from '@navikt/ds-react/esm';
+import { Detail, ErrorMessage } from '@navikt/ds-react';
 import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';

@@ -12,7 +12,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 
-import { Label, Detail, BodyShort, Heading } from '@navikt/ds-react/esm';
+import { Label, Detail, BodyShort, Heading } from '@navikt/ds-react';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import NaturalytelsePanel from './NaturalytelsePanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
