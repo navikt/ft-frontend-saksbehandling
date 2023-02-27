@@ -102,7 +102,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
       {skalRedusereUtbetaling && (
         <>
           <VerticalSpacer sixteenPx />
-          <Label>
+          <Label size="small">
             <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Fastsett" />
           </Label>
           <ReadMore header={<FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMer" />}>
