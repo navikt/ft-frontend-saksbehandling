@@ -1948,18 +1948,18 @@
   resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/2.1.7/4c38de9400fff6502ce7ba0509e05f770af66921#4c38de9400fff6502ce7ba0509e05f770af66921"
   integrity sha512-1QGVRkkjPeqPRJg3kbO5WcWLIkronMNmz4m1MFC+HPZ4+Dp4WXIHeBUi6b13rrJAXBxb2Dun+gpbXxSzPxx79A==
 
-"@navikt/ds-icons@^2.1.7":
-  version "2.2.0"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/2.2.0/3bcfc2145b897a7c36c6ca4ce20ba3b991d64a90#3bcfc2145b897a7c36c6ca4ce20ba3b991d64a90"
-  integrity sha512-86vmaBIwdk8THOOYqHusiSKZ8e7imaog7EdHsJz+9CCt7uKE+as+c/aVCyz1LUJjjXhdt7ify4mq4MzPuHK9MQ==
+"@navikt/ds-icons@^2.4.0":
+  version "2.4.0"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/2.4.0/3878e7930fe35a9a569204a07a0b5514fe9971b4#3878e7930fe35a9a569204a07a0b5514fe9971b4"
+  integrity sha512-FEEX0qFkaYHT5SMHkRcnX+pSeDxPALbf+GcmJI0k0mshb2bE336PsfM3peAECr+PQV/2axjgMl448I1sAll3Sg==
 
-"@navikt/ds-react@2.1.7":
-  version "2.1.7"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-react/2.1.7/71ac60f7d929a34697b89874d03bd53d6b382691#71ac60f7d929a34697b89874d03bd53d6b382691"
-  integrity sha512-3IX4YfCbxS+ZsU/F2e9icIpacGDuZI8GEVFXZexOgWA7LfpK7a4Maif2Xi+pFo6mgmQUV6PJW4XCP417MjVrmQ==
+"@navikt/ds-react@2.4.0":
+  version "2.4.0"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-react/2.4.0/f5703e68829b27994805860026c323054d46591f#f5703e68829b27994805860026c323054d46591f"
+  integrity sha512-H9ou7/bb2D/El3BqgpGETVnkSFDEuwKJ5QamXoWNUL+UaM5hqv3Mgri9UcA19eqiPW5dwy84+Dz1mYHnn09ruA==
   dependencies:
     "@floating-ui/react" "0.17.0"
-    "@navikt/ds-icons" "^2.1.7"
+    "@navikt/ds-icons" "^2.4.0"
     "@radix-ui/react-tabs" "1.0.0"
     "@radix-ui/react-toggle-group" "1.0.0"
     clsx "^1.2.1"
