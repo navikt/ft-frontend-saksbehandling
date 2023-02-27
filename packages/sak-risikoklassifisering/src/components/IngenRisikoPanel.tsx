@@ -4,7 +4,7 @@ import { Panel } from '@navikt/ds-react';
 import innvilgetIkonUrl from '../images/innvilget.svg';
 import TittelMedDivider from './TittelMedDivider';
 
-import styles from './ingenRisikoPanel.less';
+import styles from './ingenRisikoPanel.module.css';
 
 /**
  * IngenRisikoPanel

@@ -31,7 +31,7 @@ import {
 import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
 import addCircleIcon from '../../images/add-circle.svg';
 
-import styles from './renderFordelBGFieldArray.less';
+import styles from './renderFordelBGFieldArray.module.css';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;

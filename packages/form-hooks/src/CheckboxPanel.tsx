@@ -3,7 +3,7 @@ import { useFormContext, useController } from 'react-hook-form';
 import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import { FlexContainer, FlexColumn, FlexRow, EditedIcon } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
-import styles from './radioGroupPanel.less';
+import styles from './radioGroupPanel.module.css';
 
 interface CheckboxProps {
   value: string;

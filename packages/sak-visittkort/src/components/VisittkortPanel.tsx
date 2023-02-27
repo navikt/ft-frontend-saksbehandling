@@ -8,7 +8,7 @@ import { RelasjonsRolleType, NavBrukerKjonn } from '@navikt/ft-kodeverk';
 import VisittkortLabels from './VisittkortLabels';
 import VisittkortBarnInfoPanel from './VisittkortBarnInfoPanel';
 
-import styles from './visittkortPanel.less';
+import styles from './visittkortPanel.module.css';
 
 const utledKjonn = (kjonn: string): Gender => {
   if (kjonn === NavBrukerKjonn.KVINNE) {

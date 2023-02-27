@@ -4,7 +4,7 @@ import { Detail } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import styles from './søknadsopplysninger.less';
+import styles from './søknadsopplysninger.module.css';
 import Søknadsopplysninger from './Søknadsopplysninger';
 import Beregningsresultat from './Beregningsresultat';
 import Inntektsopplysninger from './Inntektsopplysninger';

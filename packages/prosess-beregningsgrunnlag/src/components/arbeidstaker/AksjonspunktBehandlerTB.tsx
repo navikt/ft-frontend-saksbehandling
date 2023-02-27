@@ -27,14 +27,14 @@ import {
 } from '../../types/interface/BeregningsgrunnlagAP';
 
 import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import {
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
 } from '../../types/ATFLAksjonspunktTsType';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import BeregningFormValues from '../../types/BeregningFormValues';
 
 const formPrefix = 'inntektField';

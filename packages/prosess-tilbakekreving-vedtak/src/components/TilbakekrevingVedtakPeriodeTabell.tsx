@@ -7,7 +7,7 @@ import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-kompone
 import { BeregningResultatPeriode } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
-import styles from './tilbakekrevingVedtakPeriodeTabell.less';
+import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
 
 const headerTextCodes = [
   'TilbakekrevingVedtakPeriodeTabell.Periode',

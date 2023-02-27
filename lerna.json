@@ -9,8 +9,9 @@
         "**/*.md",
         "**/*.spec.tsx",
         "**/*.stories.tsx",
-        "**/jest.config.js",
         "**/tsconfig.json",
+        "**/vite.config.js",
+        "**/.storybook/**",
         "**/dist/**",
         "**/node_modules/**"
       ]

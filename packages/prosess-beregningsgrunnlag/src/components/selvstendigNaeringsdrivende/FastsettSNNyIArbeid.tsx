@@ -11,7 +11,7 @@ import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-ty
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { NyIArbeidslivetValues } from '../../types/NaringAksjonspunktTsType';
 
 const maxLength1500 = maxLength(1500);

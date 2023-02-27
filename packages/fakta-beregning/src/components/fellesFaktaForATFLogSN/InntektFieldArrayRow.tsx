@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt, getSkalRedigereInntektskategori } from './BgFaktaUtils';
-import styles from './inntektFieldArray.less';
+import styles from './inntektFieldArray.module.css';
 import VurderFaktaContext from './VurderFaktaContext';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {

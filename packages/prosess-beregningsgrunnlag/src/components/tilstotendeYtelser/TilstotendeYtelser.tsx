@@ -7,7 +7,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 import Ledelinje from '../fellesPaneler/Ledelinje';
 

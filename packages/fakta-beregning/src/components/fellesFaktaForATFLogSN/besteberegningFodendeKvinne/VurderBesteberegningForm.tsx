@@ -11,7 +11,7 @@ import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '
 import { InntektTransformed } from '../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import styles from '../kunYtelse/kunYtelseBesteberegningPanel.less';
+import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import VurderFaktaContext from '../VurderFaktaContext';
 

@@ -11,7 +11,7 @@ import mottaDokumentImageUrl from '../images/motta_dokument.svg';
 import erIBrukImageUrl from '../images/stjerne.svg';
 import internDokumentImageUrl from '../images/intern_dokument.svg';
 
-import styles from './documentList.less';
+import styles from './documentList.module.css';
 
 const headerTextCodes = [
   'DocumentList.Direction',

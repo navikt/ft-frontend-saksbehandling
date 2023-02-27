@@ -4,12 +4,11 @@ import { ReadMore, Label, Alert } from '@navikt/ds-react';
 import { formHooks, InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Inntektsforhold } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import styles from './tilkommetAktivitet.less';
+import styles from './tilkommetAktivitet.module.css';
 import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 
 type TilkommetInntektsforholdFieldType = {

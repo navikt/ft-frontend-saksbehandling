@@ -1,0 +1,7 @@
+.explanationTextarea {
+  min-height: 120px;
+  resize: none;
+}
+.panelWidth {
+  max-width: 380px;
+}

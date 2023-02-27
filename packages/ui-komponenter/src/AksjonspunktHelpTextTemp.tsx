@@ -5,7 +5,7 @@ import { isObject, createIntl } from '@navikt/ft-utils';
 import AksjonspunktHelpTextHTML from './AksjonspunktHelpTextHTML';
 
 import messages from '../i18n/nb_NO.json';
-import styles from './AksjonspunktHelpTextTemp.less';
+import styles from './AksjonspunktHelpTextTemp.module.css';
 
 const intl = createIntl(messages);
 

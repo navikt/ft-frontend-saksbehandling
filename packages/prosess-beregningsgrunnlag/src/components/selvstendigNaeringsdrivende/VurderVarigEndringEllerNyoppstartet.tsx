@@ -11,7 +11,7 @@ import { formHooks, InputField, RadioGroupPanel, TextAreaField } from '@navikt/f
 import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import BeregningFormValues from '../../types/BeregningFormValues';
 

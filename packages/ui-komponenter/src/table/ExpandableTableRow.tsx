@@ -12,7 +12,7 @@ import Image from '../Image';
 import messages from '../../i18n/nb_NO.json';
 import FloatRight from '../FloatRight';
 
-import styles from './expandableTableRow.less';
+import styles from './expandableTableRow.module.css';
 
 const classNames = classnames.bind(styles);
 

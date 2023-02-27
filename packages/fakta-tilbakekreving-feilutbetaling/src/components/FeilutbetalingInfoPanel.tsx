@@ -20,7 +20,7 @@ import { AlleKodeverk, AlleKodeverkTilbakekreving, FeilutbetalingFakta, Feilutbe
 
 import FeilutbetalingPerioderFieldArray, { FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
 
-import styles from './feilutbetalingInfoPanel.less';
+import styles from './feilutbetalingInfoPanel.module.css';
 import AvklartFaktaFeilutbetalingAp from '../types/AvklartFaktaFeilutbetalingAp';
 import FeilutbetalingAksjonspunktCode from '../FeilutbetalingAksjonspunktCode';
 

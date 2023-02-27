@@ -4,7 +4,7 @@ import { Period, sortPeriodsByFomDate } from '@navikt/ft-utils';
 import { Heading, Label, BodyShort } from '@navikt/ds-react';
 
 import CalendarIcon from '../icons/CalendarIcon';
-import styles from './periodList.less';
+import styles from './periodList.module.css';
 
 type Item = {
   label: string;

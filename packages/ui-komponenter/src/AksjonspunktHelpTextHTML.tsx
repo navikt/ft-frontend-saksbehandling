@@ -9,7 +9,7 @@ import FlexRow from './flexGrid/FlexRow';
 
 import messages from '../i18n/nb_NO.json';
 import advarselIkonUrl from './images/advarsel2.svg';
-import styles from './aksjonspunktHelpTextHTML.less';
+import styles from './aksjonspunktHelpTextHTML.module.css';
 
 const intl = createIntl(messages);
 

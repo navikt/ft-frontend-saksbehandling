@@ -18,7 +18,7 @@ import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import AddDagpengerAndelButton from './AddDagpengerAndelButton';
 import { erOverstyring, getKanRedigereInntekt, mapAndelToField, skalFastsetteInntektForAndel } from './BgFaktaUtils';
-import styles from './inntektFieldArray.less';
+import styles from './inntektFieldArray.module.css';
 import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
 import SummaryRow from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';

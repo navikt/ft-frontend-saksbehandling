@@ -6,7 +6,7 @@ import Popover from '../popover/Popover';
 import Card from './Card';
 import GenderIcon, { GenderType } from './GenderIcon';
 import Menu from './Menu';
-import styles from './personCard.less';
+import styles from './personCard.module.css';
 
 export enum Gender {
   male = 'male',

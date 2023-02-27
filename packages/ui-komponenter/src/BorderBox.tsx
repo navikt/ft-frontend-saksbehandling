@@ -2,7 +2,7 @@ import React, { ReactNode, FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 import { Panel } from '@navikt/ds-react';
 
-import styles from './borderBox.less';
+import styles from './borderBox.module.css';
 
 const classNames = classnames.bind(styles);
 

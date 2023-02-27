@@ -9,7 +9,7 @@ import FlexRow from './flexGrid/FlexRow';
 import VerticalSpacer from './VerticalSpacer';
 
 import messages from '../i18n/nb_NO.json';
-import styles from './okAvbrytModal.less';
+import styles from './okAvbrytModal.module.css';
 
 const intl = createIntl(messages);
 

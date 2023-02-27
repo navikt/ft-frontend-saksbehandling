@@ -9,7 +9,7 @@ import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import styles from '../fellesPaneler/aksjonspunktBehandler.less';
+import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { FrilansInntektValues } from '../../types/ATFLAksjonspunktTsType';
 
 const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): boolean =>

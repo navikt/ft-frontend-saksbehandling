@@ -4,7 +4,7 @@ import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import BehandlingInformasjon from './BehandlingInformasjon';
 
-import styles from './behandlingListeRad.less';
+import styles from './behandlingListeRad.module.css';
 
 interface OwnProps {
   behandling: BehandlingAppKontekst;

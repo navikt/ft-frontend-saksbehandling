@@ -1,0 +1,13 @@
+.leftCol {
+  margin-right: 40px;
+}
+.textarea {
+  width: 550px;
+}
+.textPadding {
+  margin-left: 20px;
+}
+.redText {
+  color: var(--a-nav-red);
+  font-weight: bold;
+}

@@ -11,7 +11,7 @@ import splitPeriodImageUrl from '../../images/splitt.svg';
 import DelOppPeriodeModal from './DelOppPeriodeModal';
 import DataForPeriode from '../../types/dataForPeriodeTsType';
 
-import styles from './periodeController.less';
+import styles from './periodeController.module.css';
 
 const isEdited = false;
 

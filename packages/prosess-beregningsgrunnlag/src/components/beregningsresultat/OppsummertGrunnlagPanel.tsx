@@ -9,7 +9,7 @@ import { Beregningsgrunnlag, Vilkarperiode, YtelseGrunnlag } from '@navikt/ft-ty
 import avslaatIkonUrl from '../../images/avslaatt_mini.svg';
 
 import { TabellRadData, TabellData } from '../../types/BeregningsresultatTabellType';
-import styles from './beregningsresultat.less';
+import styles from './beregningsresultat.module.css';
 
 const VIRKEDAGER_PR_AAR = 260;
 

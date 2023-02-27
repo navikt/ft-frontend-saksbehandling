@@ -1,6 +1,6 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 
-import styles from './floatRight.less';
+import styles from './floatRight.module.css';
 
 interface OwnProps {
   children?: ReactNode;

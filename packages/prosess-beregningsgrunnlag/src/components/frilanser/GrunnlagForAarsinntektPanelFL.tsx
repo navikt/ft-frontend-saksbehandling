@@ -7,7 +7,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import Ledelinje from '../fellesPaneler/Ledelinje';
 
 type OwnProps = {

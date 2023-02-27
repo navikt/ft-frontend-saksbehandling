@@ -7,7 +7,7 @@ import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
 import { dateFormat, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import styles from './visittkortBarnInfoFodselPanel.less';
+import styles from './visittkortBarnInfoFodselPanel.module.css';
 
 const finnFodselsdatoTekstkode = (antallBarn: number): string => {
   if (antallBarn === 1) {

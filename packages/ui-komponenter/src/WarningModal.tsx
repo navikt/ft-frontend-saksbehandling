@@ -6,7 +6,7 @@ import Image from './Image';
 import FlexRow from './flexGrid/FlexRow';
 import FlexColumn from './flexGrid/FlexColumn';
 
-import styles from './warningModal.less';
+import styles from './warningModal.module.css';
 
 interface OwnProps {
   headerText?: string;

@@ -9,7 +9,7 @@ import splitPeriodImageUrl from '../../images/splitt.svg';
 import ForeldelsesresultatActivity from '../../types/foreldelsesresultatActivitytsType';
 import DelOppPeriodeModal, { PerioderData } from './DelOppPeriodeModal';
 
-import styles from './periodeController.less';
+import styles from './periodeController.module.css';
 
 const isEdited = false;
 

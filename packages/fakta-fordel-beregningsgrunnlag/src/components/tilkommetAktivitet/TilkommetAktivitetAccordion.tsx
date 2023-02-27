@@ -1,14 +1,13 @@
 import { Accordion, Label } from '@navikt/ds-react';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
-import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
 import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import styles from './tilkommetAktivitetAccordion.less';
+import styles from './tilkommetAktivitetAccordion.module.css';
 import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
 import TidligereVurderteAktiviteterPanel from './TidligereVurderteAktiviteterPanel';

@@ -9,7 +9,7 @@ import { Datepicker, Form } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import styles from './delOppPeriodeModal.less';
+import styles from './delOppPeriodeModal.module.css';
 
 type Periode = {
   fom: string;

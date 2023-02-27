@@ -15,7 +15,7 @@ import {
 import { Label, Detail, BodyShort, Heading } from '@navikt/ds-react';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import NaturalytelsePanel from './NaturalytelsePanel';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
 import Ledelinje from '../fellesPaneler/Ledelinje';
 

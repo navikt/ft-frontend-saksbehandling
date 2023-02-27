@@ -39,6 +39,8 @@ export type {
   FordelBeregningsgrunnlagAndel,
   PerioderMedGraderingEllerRefusjon,
   FaktaOmFordeling,
+  Inntektsforhold,
+  VurderInntektsforholdPeriode,
 } from './src/beregningsgrunnlagFordelingTsType';
 export type { default as KodeverkMedNavn } from './src/kodeverkMedNavnTsType';
 export type { default as AlleKodeverkTilbakekreving } from './src/kodeverkAlleTilbakekrevingTsType';

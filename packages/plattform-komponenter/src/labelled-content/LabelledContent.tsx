@@ -1,7 +1,7 @@
 import { Label } from '@navikt/ds-react';
 import React from 'react';
 import classNames from 'classnames';
-import styles from './labelledContent.less';
+import styles from './labelledContent.module.css';
 
 export interface LabelledContentProps {
   label: string | React.ReactNode;

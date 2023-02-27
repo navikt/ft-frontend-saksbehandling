@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './linkButton.less';
+import styles from './linkButton.module.css';
 
 export interface LinkButtonProps {
   onClick: () => void;

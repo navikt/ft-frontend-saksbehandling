@@ -7,7 +7,7 @@ import { DiskresjonskodeType } from '@navikt/ft-kodeverk';
 import { FagsakPerson } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
-import styles from './visittkortLabels.less';
+import styles from './visittkortLabels.module.css';
 
 interface OwnProps {
   fagsakPerson: FagsakPerson;

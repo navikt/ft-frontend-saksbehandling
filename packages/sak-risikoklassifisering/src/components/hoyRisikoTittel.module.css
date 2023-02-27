@@ -1,0 +1,15 @@
+.hoyRisikoPanel {
+  border: 1px solid;
+  border-radius: 2px;
+}
+.hoyRisikoPanelHeader {
+  background-color: #f3cccc;
+}
+:global(.navds-accordion__header) {
+  /* stylelint-disable-next-line declaration-no-important */
+  border-bottom: 0 !important;
+}
+:global(.navds-accordion__content) {
+  /* stylelint-disable-next-line declaration-no-important */
+  border-bottom: 0 !important;
+}

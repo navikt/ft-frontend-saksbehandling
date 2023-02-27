@@ -15,7 +15,7 @@ import {
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
 
-import styles from './fordelBeregningsgrunnlagForm.less';
+import styles from './fordelBeregningsgrunnlagForm.module.css';
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
   fordelBGFieldArrayNamePrefix,

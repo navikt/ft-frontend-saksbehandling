@@ -6,7 +6,7 @@ import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-ty
 import dayjs from 'dayjs';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import BeregningsresultatPeriode from './BeregningsresultatPeriode';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,

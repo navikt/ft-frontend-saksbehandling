@@ -6,7 +6,7 @@ import React, { FunctionComponent, useCallback, useMemo, useState } from 'react'
 import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import styles from './InntektstabellPanel.less';
+import styles from './InntektstabellPanel.module.css';
 import VurderFaktaContext from './VurderFaktaContext';
 
 export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringRapportertInntekt';

@@ -1,16 +1,15 @@
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { VurderInntektsforholdPeriode } from '@navikt/ft-types/src/beregningsgrunnlagFordelingTsType';
+import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
+import { required } from '@navikt/ft-form-validators';
+import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FC } from 'react';
-import { required } from '@navikt/ft-form-validators';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
 import { Tag } from '@navikt/ds-react';
 import SubmitButton from '../felles/SubmitButton';
-import styles from './tilkommetAktivitet.less';
 import { getAktivitetNavn } from './TilkommetAktivitetUtils';
 import TilkommetInntektsforholdField, { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import styles from './tilkommetAktivitet.module.css';
 
 type TilkommetAktivitetFieldType = {
   formName: string;

@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.less';
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
   <FlexRow>

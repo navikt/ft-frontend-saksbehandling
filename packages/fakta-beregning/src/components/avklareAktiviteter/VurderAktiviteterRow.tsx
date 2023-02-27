@@ -10,7 +10,7 @@ import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
-import styles from './vurderAktiviteterTabell.less';
+import styles from './vurderAktiviteterTabell.module.css';
 
 type OwnProps = {
   readOnly: boolean;

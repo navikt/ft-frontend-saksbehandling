@@ -4,7 +4,7 @@ import ChildIcon from './icons/Child';
 import ManIcon from './icons/Man';
 import WomanIcon from './icons/Woman';
 import UnknownIcon from './icons/Unknown';
-import styles from './personCard.less';
+import styles from './personCard.module.css';
 
 const cardCls = bemUtils('personCard');
 

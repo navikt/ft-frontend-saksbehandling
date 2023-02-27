@@ -10,7 +10,7 @@ import { KodeverkMedNavn } from '@navikt/ft-types';
 import aktsomhet from '../../../kodeverk/aktsomhet';
 import AktsomhetSarligeGrunnerFormPanel from './AktsomhetSarligeGrunnerFormPanel';
 
-import styles from './aktsomhetGradUaktsomhetFormPanel.less';
+import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

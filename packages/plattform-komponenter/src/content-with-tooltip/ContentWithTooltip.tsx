@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import styles from './contentWithTooltip.less';
+import styles from './contentWithTooltip.module.css';
 
 export interface ContentWithTooltipProps {
   tooltipText: string;

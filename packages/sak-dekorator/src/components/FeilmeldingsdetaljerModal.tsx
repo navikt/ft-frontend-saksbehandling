@@ -6,7 +6,7 @@ import { VerticalSpacer, Image, FlexContainer, FlexRow, FlexColumn, FloatRight }
 import infoImageUrl from '../images/behandle.svg';
 import Feilmelding from '../typer/feilmeldingTsType';
 
-import styles from './feilmeldingsdetaljerModal.less';
+import styles from './feilmeldingsdetaljerModal.module.css';
 
 const capitalizeFirstLetters = (key: string): string => key.charAt(0).toUpperCase() + key.substr(1);
 

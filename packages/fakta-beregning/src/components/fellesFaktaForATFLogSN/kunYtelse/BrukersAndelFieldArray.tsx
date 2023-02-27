@@ -13,7 +13,7 @@ import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningF
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import VurderFaktaContext from '../VurderFaktaContext';
-import styles from './brukersAndelFieldArray.less';
+import styles from './brukersAndelFieldArray.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], alleKodeverk) => ({
   andel: getKodeverknavnFn(alleKodeverk)(

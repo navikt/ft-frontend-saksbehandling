@@ -4,7 +4,7 @@ import { Beregningsgrunnlag, RefusjonTilVurderingAndel, ArbeidsgiverOpplysninger
 
 import TidligereUtbetalingRad from './TidligereUtbetalingRad';
 
-import styles from './tidligereUtbetalinger.less';
+import styles from './tidligereUtbetalinger.module.css';
 
 type OwnProps = {
   beregningsgrunnlag: Beregningsgrunnlag;

@@ -3,7 +3,7 @@ import { BodyLong, Label } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import styles from './readOnlyField.less';
+import styles from './readOnlyField.module.css';
 
 const hasValue = (value: any): boolean => value !== undefined && value !== null && value !== '';
 

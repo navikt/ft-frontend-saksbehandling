@@ -16,7 +16,7 @@ import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import VurderFaktaContext from '../VurderFaktaContext';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
-import styles from './kunYtelseBesteberegningPanel.less';
+import styles from './kunYtelseBesteberegningPanel.module.css';
 
 export const besteberegningField = 'besteberegningField';
 

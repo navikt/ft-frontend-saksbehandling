@@ -2,12 +2,12 @@ import React, { FunctionComponent, ReactElement, ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { LinkPanel } from '@navikt/ds-react';
 import { getKodeverknavnFn } from '@navikt/ft-utils';
-import VisittkortSakIndex from '@navikt/ft-sak-visittkort';
+import { VisittkortSakIndex } from '@navikt/ft-sak-visittkort';
 import { Fagsak, FagsakPerson, AlleKodeverk } from '@navikt/ft-types';
 import { KodeverkType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import styles from './aktoerGrid.less';
+
+import styles from './aktoerGrid.module.css';
 
 interface OwnProps {
   aktorInfo: {

@@ -6,7 +6,7 @@ import { createIntl } from '@navikt/ft-utils';
 
 import messages from '../i18n/nb_NO.json';
 
-import styles from './ingenBehandlingValgtPanel.less';
+import styles from './ingenBehandlingValgtPanel.module.css';
 
 const intl = createIntl(messages);
 

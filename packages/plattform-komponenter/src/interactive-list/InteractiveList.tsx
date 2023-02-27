@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import styles from './interactiveList.less';
+import styles from './interactiveList.module.css';
 import ChevronIconBlack from '../icons/ChevronIconBlack';
 import ChevronIconGray from '../icons/ChevronIconGray';
 

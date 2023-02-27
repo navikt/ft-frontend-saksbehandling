@@ -1,7 +1,7 @@
 import { bemUtils } from '@navikt/ft-utils';
 import React from 'react';
 import Step, { StepProps } from './Step';
-import styles from './processMenu.less';
+import styles from './processMenu.module.css';
 
 interface ProcessMenuProps {
   steps: StepProps[];

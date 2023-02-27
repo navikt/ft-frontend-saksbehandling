@@ -1,6 +1,6 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import styles from './card.less';
+import styles from './card.module.css';
 
 const cardCls = bemUtils('card');
 
