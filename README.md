@@ -33,7 +33,7 @@ En publiser pakker på denne måten:
 
 Pakkene publiseres på GitHub Package Registry, og krever derfor at man har satt opp lokal `npm` med en PAT (Personal Access Token) med `write:packages`-tilgang, med en bruker som har tilgang til å publisere pakker på repoet. GitHub har dokumentert oppsett [her](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#publishing-a-package).
 
-TLDR er å opprette en GitHub PAT med kun `read:packages`-tilgang, enable SSO, og putte det i en egen ~/.yarnrc.yml-fil slik:
+TLDR er å opprette en GitHub PAT med kun `write:packages`-tilgang, enable SSO, og putte det i en egen ~/.yarnrc.yml-fil slik:
 
 ```
 npmRegistries:
