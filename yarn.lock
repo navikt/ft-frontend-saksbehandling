@@ -1920,10 +1920,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@navikt/ds-codemod@2.1.7":
-  version "2.1.7"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-codemod/2.1.7/9f41d840217df3e8e2a21014507d60b712f9e3b0#9f41d840217df3e8e2a21014507d60b712f9e3b0"
-  integrity sha512-v8Ivp9zHDx2BAnLjJRWC7Cf2qPH2PO5z1yICeB1lTSHxPrQoJSnbht9x10YKDhXH/Qlsm6UIgymYfoVeKXkrpg==
+"@navikt/ds-codemod@2.4.0":
+  version "2.4.0"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-codemod/2.4.0/fc4bd491ce38ec4b1f006b14c25dbb856285ccee#fc4bd491ce38ec4b1f006b14c25dbb856285ccee"
+  integrity sha512-5aS+Jp4Fk28L/5kyjnh7cAqgs5YbNxso6Fn6gjDbV8YGZ3ORP0s5PebOlDjtH17IcNYHhBPS/N/wjaoq8iRtdw==
   dependencies:
     chalk "4.1.0"
     cheerio "1.0.0-rc.9"
