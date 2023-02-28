@@ -10,8 +10,14 @@ dist
 .storybook-static-build
 lerna-debug.log
 .vscode
-.yarnrc
 ssh.exe.stackdump
 .DS_Store
 .eslintcache
 .npmrc
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
