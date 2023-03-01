@@ -19,7 +19,7 @@ En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mer
 
 Det er ikke satt opp noen automatisk publisering av npm-moduler gjennom CI eller lignende. Dette må derfor gjøres manuelt.
 
-Hver npm-pakke har sitt eget build-script i en package.json, som kan kjøres for å lage et nytt bygg under `/dist`-mappa på rot av den aktuelle pakken. 
+Hver npm-pakke har sitt eget build-script i en package.json, som kan kjøres for å lage et nytt bygg under `/dist`-mappa på rot av den aktuelle pakken.
 
 En publiser pakker på denne måten:
 
@@ -33,10 +33,13 @@ En publiser pakker på denne måten:
 
 Pakkene publiseres på GitHub Package Registry, og krever derfor at man har satt opp lokal `npm` med en PAT (Personal Access Token) med `write:packages`-tilgang, med en bruker som har tilgang til å publisere pakker på repoet. GitHub har dokumentert oppsett [her](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#publishing-a-package).
 
-TLDR er å opprette en GitHub PAT med kun write:packages-tilgang, enable SSO, og putte det i en egen ~/.npmrc-fil slik:
+TLDR er å opprette en GitHub PAT med kun `write:packages`-tilgang, enable SSO, og putte det i en egen ~/.yarnrc.yml-fil slik:
 
 ```
-//npm.pkg.github.com/:_authToken=<token>
+npmRegistries:
+  https://npm.pkg.github.com:
+    npmAlwaysAuth: true
+    npmAuthToken: <token>
 ```
 
 Merk at dette _ikke_ skal sjekkes inn i versjonskontroll.
