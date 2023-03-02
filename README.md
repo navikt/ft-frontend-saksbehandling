@@ -9,10 +9,6 @@ Bygg så alle pakkene ved å kjøre `yarn build`. (Kan også bygges enkeltvis ve
 
 Utviklingsmiljø i Storybook kan kjøres opp ved å kjøre `yarn storybook` i de pakkene som er satt opp med Storybook.
 
-En kan også kjøre opp alle Storybook'ene samtidig ved å kjøre `yarn storybook-all` på rot, etterfulgt av `yarn storybook`. Utviklingsmiljøet er satt opp med [Storybook Composition](https://storybook.js.org/docs/react/workflows/storybook-composition).
-
-En kan også velge å starte enkelte pakker som micro-frontends for å teste direkte i hovedapp. Dette gjøres ved å gå inn i aktuell pakke og så kjøre `yarn dev`
-
 En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mergest til main når testene har gått grønt.
 
 ## Publisering av moduler
