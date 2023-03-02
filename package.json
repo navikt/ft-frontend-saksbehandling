@@ -20,7 +20,7 @@
     "build": "lerna run build --stream",
     "lerna-publish": "lerna publish",
     "lerna-changed": "lerna changed",
-    "clean": "lerna clean",
+    "clean": "lerna run clean",
     "deploy-storybook": "storybook-to-ghpages -o .storybook-static-build --monorepo-index-generator scripts/create-storybook-index.js --packages packages",
     "prepare": "husky install"
   },
