@@ -3714,7 +3714,7 @@ __metadata:
     eslint: 8.35.0
     moment: 2.29.4
     react: 18.2.0
-    react-day-picker: 8.5.1
+    react-day-picker: 8.6.0
     react-intl: 6.2.8
     react-modal: 3.16.1
     sinon: 15.0.1
@@ -3734,7 +3734,7 @@ __metadata:
     date-fns: 2.29.3
     moment: 2.29.4
     react: 18.2.0
-    react-day-picker: 8.5.1
+    react-day-picker: 8.6.0
     react-intl: 6.2.8
     react-modal: 3.16.1
   languageName: unknown
@@ -20867,13 +20867,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:8.5.1":
-  version: 8.5.1
-  resolution: "react-day-picker@npm:8.5.1"
+"react-day-picker@npm:8.6.0":
+  version: 8.6.0
+  resolution: "react-day-picker@npm:8.6.0"
   peerDependencies:
     date-fns: ^2.28.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 0d444710bccf07db869673f19975e68962b44a1de8a176710e2a0297e0c7d98e610b7d7e5b24a19dc695dac7e3745191cfef3f656d87f6fbafc1ecc8833a212c
+  checksum: f5bc2f9b093ddffc5e504b48c52ca6fccd9180bd63d77641312b0df80cdf5285d440b191d6379262798ab40926936144ca216f1c2a1fb78b998105f9e49c6379
   languageName: node
   linkType: hard
 
