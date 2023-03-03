@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-support-meny",
   "description": "Sidemeny som lar saksbehandling velge mellom 'Send melding', 'Dokumenter', 'Historikk', og beslutterinformasjon",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -24,10 +24,10 @@
   },
   "dependencies": {
     "@navikt/ds-css": "2.1.7",
-    "@navikt/ft-kodeverk": "2.0.0",
-    "@navikt/ft-types": "2.0.0",
-    "@navikt/ft-ui-komponenter": "2.0.0",
-    "@navikt/ft-utils": "2.0.0",
+    "@navikt/ft-kodeverk": "^2.0.1",
+    "@navikt/ft-types": "^2.0.1",
+    "@navikt/ft-ui-komponenter": "^2.0.1",
+    "@navikt/ft-utils": "^2.0.1",
     "classnames": "2.3.2",
     "react": "18.2.0",
     "react-intl": "6.2.8"
