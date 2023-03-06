@@ -1,0 +1,14 @@
+.pgiTabell {
+  width: 20%
+}
+
+.næringTabellAktivitet {
+  width: 40%;
+}
+.næringTabellInntekt {
+  text-align: right;
+  width: 20%;
+}
+.etikettLiten {
+  text-transform: none;
+}

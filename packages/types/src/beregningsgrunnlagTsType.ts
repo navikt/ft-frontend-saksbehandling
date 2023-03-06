@@ -15,8 +15,19 @@ export type InntektsgrunnlagMåned = Readonly<{
   inntekter: InntektsgrunnlagInntekt[];
 }>;
 
+export type PGIGrunnlag = Readonly<{
+  pgiType: string;
+  beløp: number;
+}>;
+
+export type PGIPrÅr = Readonly<{
+  år: number;
+  inntekter: PGIGrunnlag[];
+}>;
+
 export type Inntektsgrunnlag = Readonly<{
-  måneder?: InntektsgrunnlagMåned[];
+  måneder: InntektsgrunnlagMåned[];
+  pgiGrunnlag: PGIPrÅr[];
 }>;
 
 export type Næring = Readonly<{
