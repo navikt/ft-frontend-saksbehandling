@@ -75,6 +75,7 @@ const events: TimelineEventsWithMissing[] = [
 const eventDefaultProps: TimelineEventsHandlers = {};
 
 events.forEach(event => {
+  // @ts-ignore Kan denne endrast til undefined?
   eventDefaultProps[`${event}Handler`] = null;
 });
 
@@ -108,44 +109,46 @@ const Timeline = (
   const groups: DataSet<TimelineGroup> = useMemo(() => new DataSet<TimelineGroup>(), []);
 
   useEffect(() => {
+    // @ts-ignore Fiks
     timeline.current = new VisTimelineCtor(el.current, items, groups, options);
 
+    // @ts-ignore Fiks
     timeline.current.setOptions(options);
 
     events.forEach(event => {
       const handler = rest[`${event}Handler`];
-      if (typeof handler === 'function') {
+      if (typeof handler === 'function' && timeline.current) {
         timeline.current.on(event, handler);
       }
     });
 
-    if (initialGroups?.length > 0) {
+    if (initialGroups?.length && initialGroups.length > 0) {
       groups.add(initialGroups);
     }
 
-    if (initialItems?.length > 0) {
+    if (initialItems?.length && initialItems.length > 0) {
       items.add(initialItems);
     }
 
     if (customTimes) {
       Object.keys(customTimes).forEach(id => {
-        timeline.current.addCustomTime(customTimes[id], id);
+        timeline.current?.addCustomTime(customTimes[id], id);
       });
     }
 
     return () => {
-      timeline.current.destroy();
+      timeline.current?.destroy();
     };
   }, []);
 
   useEffect(() => {
-    if (currentTime) {
+    if (currentTime && timeline.current) {
       timeline.current.setCurrentTime(currentTime);
     }
   }, [currentTime]);
 
   useEffect(() => {
-    if (selection) {
+    if (selection && timeline.current) {
       timeline.current.setSelection(selection, selectionOptions as Required<SelectionOptions>);
     }
   }, [selection]);
@@ -167,20 +170,23 @@ const Timeline = (
   useImperativeHandle(
     ref,
     () => ({
+      // @ts-ignore Fiks
       getWindow: () => timeline.current.getWindow(),
       setWindow: (start, end, opts?, cb?) => {
-        timeline.current.setWindow(start, end, opts, cb);
+        // @ts-ignore Fiks
+        timeline.current?.setWindow(start, end, opts, cb);
       },
       zoomIn: (value, opts?, cb?) => {
-        timeline.current.zoomIn(value, opts, cb);
+        timeline.current?.zoomIn(value, opts, cb);
       },
       zoomOut: (value, opts?, cb?) => {
-        timeline.current.zoomOut(value, opts, cb);
+        timeline.current?.zoomOut(value, opts, cb);
       },
     }),
     [],
   );
 
+  // @ts-ignore Fiks
   return <div ref={el} />;
 };
 
