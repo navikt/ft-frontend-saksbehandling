@@ -35,7 +35,7 @@
   "Beregningsgrunnlag.AarsinntektPanel.SN.Sum": "Sum",
   "Beregningsgrunnlag.AarsinntektPanel.SN.Gjustert": "G-justert",
   "Beregningsgrunnlag.AarsinntektPanel.SN.sisteTreAar": "3 siste ferdigliknede år fra skatteetaten",
-  "Beregningsgrunnlag.AarsinntektPanel.SN.GsnittSum": "Gjennomsnitt pensjonsgivende inntekt",
+  "Beregningsgrunnlag.AarsinntektPanel.SN.GsnittSum": "Gjennomsnittlig pensjonsgivende inntekt",
   "Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar": "Beregnet År",
   "Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned": "Måned",
   "Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt": "Frilansinntekt",
@@ -46,7 +46,7 @@
   "Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt": "Totalt",
   "Beregningsgrunnlag.AarsinntektPanel.TotalPensjonsGivende": "Total",
   "Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset": "Tidsbegrenset",
-  "Beregningsgrunnlag.AarsinntektPanel.SnittPensjonsGivende": "Gjennomsnitt pensjonsgivende inntekt",
+  "Beregningsgrunnlag.AarsinntektPanel.SnittPensjonsGivende": "Gjennomsnittlig pensjonsgivende inntekt",
 
   "Beregningsgrunnlag.AksjonspunktBehandler.TittelVarigEndringNyoppstartet": "Vurder om det er varig endring i næringen, som gjør at næringsinntekten skal fastsettes skjønnsmessig",
   "Beregningsgrunnlag.AksjonspunktBehandler.DetaljerVarigEndring": "Søker har opplyst varig endring og det er mer enn 25% avvik mellom pensjonsgivende inntekt og samlet inntekt.",
