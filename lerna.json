@@ -10,7 +10,6 @@
         "**/*.spec.tsx",
         "**/*.stories.tsx",
         "**/tsconfig.json",
-        "**/vite.config.js",
         "**/.storybook/**",
         "**/dist/**",
         "**/node_modules/**"
