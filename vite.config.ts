@@ -7,7 +7,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [
+    // @ts-ignore Fiks
     react(),
+    // @ts-ignore Fiks
     dts({
       insertTypesEntry: true,
     }),
