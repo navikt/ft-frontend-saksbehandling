@@ -10,9 +10,7 @@ export default defineConfig({
     // @ts-ignore Fiks
     react(),
     // @ts-ignore Fiks
-    dts({
-      insertTypesEntry: true,
-    }),
+    dts(),
   ],
   css: {
     modules: {
