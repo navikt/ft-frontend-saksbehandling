@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils-test",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "private": true,
   "main": "./dist/index.umd.js",
@@ -18,7 +18,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.0.1",
+    "@navikt/ft-kodeverk": "^2.0.2",
     "axios-mock-adapter": "1.21.2",
     "clean-webpack-plugin": "4.0.0",
     "cross-env": "7.0.3",
