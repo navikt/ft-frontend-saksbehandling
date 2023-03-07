@@ -12,6 +12,8 @@ export type {
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
   ForlengelsePeriodeProp,
+  PGIGrunnlag,
+  PGIPrÅr,
 } from './src/beregningsgrunnlagTsType';
 export type {
   default as FaktaOmBeregning,

@@ -106,7 +106,10 @@ const createRelevantePaneler = (
     {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
       <>
         {storSpacer}
-        <GrunnlagForAarsinntektPanelSN alleAndeler={alleAndelerIForstePeriode} />
+        <GrunnlagForAarsinntektPanelSN
+          alleAndeler={alleAndelerIForstePeriode}
+          inntektsgrunnlag={sammenligningsGrunnlagInntekter}
+        />
         {storSpacer}
         <NaeringsopplysningsPanel
           alleAndelerIForstePeriode={alleAndelerIForstePeriode}
