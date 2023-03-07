@@ -20,7 +20,7 @@
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook --quiet -p 7022"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.1.7",
+    "@navikt/ds-css": "2.6.0",
     "@navikt/ft-kodeverk": "^2.0.1",
     "@navikt/ft-types": "^2.0.1",
     "@navikt/ft-ui-komponenter": "^2.0.1",
@@ -32,7 +32,7 @@
     "vis-timeline": "7.7.0"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.1.7",
+    "@navikt/ds-css": "2.6.0",
     "@navikt/ft-kodeverk": "1.x",
     "@navikt/ft-types": "1.x",
     "@navikt/ft-ui-komponenter": "1.x",
