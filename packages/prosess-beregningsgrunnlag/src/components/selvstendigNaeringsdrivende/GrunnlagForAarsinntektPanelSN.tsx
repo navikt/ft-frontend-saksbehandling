@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { BodyShort, Detail, Heading, Label, Table } from '@navikt/ds-react';
 
@@ -71,29 +71,67 @@ const lagTabellRad = (pgiVerdier: PgiVerdier[], inntektsgrunnlag: PGIPrÅr): Rea
   );
 };
 
-const lagTabellData = (pgiVerdier: PgiVerdier[], inntektsgrunnlag: Inntektsgrunnlag): React.ReactNode[] => {
+const lagTabellData = (pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React.ReactNode[] => {
   const relevanteÅr = pgiVerdier.map(pgi => pgi.årstall);
-  return inntektsgrunnlag.pgiGrunnlag
+  return pgiGrunnlag
     .filter(grunnlag => relevanteÅr.includes(grunnlag.år))
     .sort((a, b) => a.år - b.år)
     .map(grunnlag => lagTabellRad(pgiVerdier, grunnlag));
 };
 
 const lagOppsummeringRad = (pgiSnitt: number): React.ReactElement => (
-    <Table.Row shadeOnHover key="PGI-Oppsumert">
-      <Table.DataCell>
-        <Label>
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.GsnittSum" />
-        </Label>
-      </Table.DataCell>
-      <Table.DataCell />
-      <Table.DataCell />
-      <Table.DataCell />
-      <Table.DataCell align="right">
-        <Label>{formatCurrencyNoKr(pgiSnitt)}</Label>
-      </Table.DataCell>
-    </Table.Row>
+  <Table.Row shadeOnHover key="PGI-Oppsumert">
+    <Table.DataCell>
+      <Label>
+        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.GsnittSum" />
+      </Label>
+    </Table.DataCell>
+    <Table.DataCell />
+    <Table.DataCell />
+    <Table.DataCell />
+    <Table.DataCell align="right">
+      <Label>{formatCurrencyNoKr(pgiSnitt)}</Label>
+    </Table.DataCell>
+  </Table.Row>
+);
+
+const lagUtvidetPGIGrunnlagTabell = (
+  pgiVerdier: PgiVerdier[],
+  pgiSnitt: number,
+  inntektsgrunnlag?: Inntektsgrunnlag,
+): React.ReactNode => {
+  const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];
+  if (!pgiGrunlag || pgiGrunlag.length < 1) {
+    return null;
+  }
+  return (
+    <Table className={styles.pgiTabell}>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.TreSisteÅr" />
+          </Table.HeaderCell>
+          <Table.HeaderCell align="right">
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.ATFL" />
+          </Table.HeaderCell>
+          <Table.HeaderCell align="right">
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Næring" />
+          </Table.HeaderCell>
+          <Table.HeaderCell align="right">
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Sum" />
+          </Table.HeaderCell>
+          <Table.HeaderCell align="right">
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Gjustert" />
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {lagTabellData(pgiVerdier, pgiGrunlag)}
+        {lagOppsummeringRad(pgiSnitt)}
+      </Table.Body>
+    </Table>
   );
+};
 
 type OwnProps = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -116,39 +154,17 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
     return null;
   }
   const { pgiVerdier, pgiSnitt } = andel;
+  const utvidetPgiGrunnlagTabell = useMemo(
+    () => lagUtvidetPGIGrunnlagTabell(pgiVerdier, pgiSnitt, inntektsgrunnlag),
+    [andel, inntektsgrunnlag],
+  );
   return (
     <>
       <Heading size="medium">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt" />
       </Heading>
-      {inntektsgrunnlag?.pgiGrunnlag && (
-        <Table className={styles.pgiTabell}>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.TreSisteÅr" />
-                </Table.HeaderCell>
-                <Table.HeaderCell align="right">
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.ATFL" />
-                </Table.HeaderCell>
-                <Table.HeaderCell align="right">
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Næring" />
-                </Table.HeaderCell>
-                <Table.HeaderCell align="right">
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Sum" />
-                </Table.HeaderCell>
-                <Table.HeaderCell align="right">
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Gjustert" />
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {lagTabellData(pgiVerdier, inntektsgrunnlag)}
-              {lagOppsummeringRad(pgiSnitt)}
-            </Table.Body>
-          </Table>
-      )}
-      {!inntektsgrunnlag?.pgiGrunnlag && ( // Tar vare å gammel visning til alle klienter er klare for å forsyne ny visning
+      {utvidetPgiGrunnlagTabell && <div>{utvidetPgiGrunnlagTabell}</div>}
+      {!utvidetPgiGrunnlagTabell && ( // Tar vare på gammel visning til alle klienter er klare for å forsyne ny visning
         <>
           <VerticalSpacer fourPx />
           {createHeaderRow()}
