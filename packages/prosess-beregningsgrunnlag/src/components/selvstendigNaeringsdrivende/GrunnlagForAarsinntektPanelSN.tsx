@@ -76,6 +76,7 @@ const lagTabellData = (pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React
   return pgiGrunnlag
     .filter(grunnlag => relevanteÅr.includes(grunnlag.år))
     .sort((a, b) => a.år - b.år)
+    .reverse()
     .map(grunnlag => lagTabellRad(pgiVerdier, grunnlag));
 };
 
