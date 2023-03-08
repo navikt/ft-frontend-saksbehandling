@@ -106,7 +106,7 @@ const lagUtvidetPGIGrunnlagTabell = (
     return null;
   }
   return (
-    <Table className={styles.pgiTabell}>
+    <Table>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>
