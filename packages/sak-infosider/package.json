@@ -24,14 +24,14 @@
   },
   "dependencies": {
     "@navikt/ds-css": "2.6.0",
-    "@navikt/ds-react": "2.6.0",
+    "@navikt/ds-react": "2.6.1",
     "@navikt/ft-utils": "^2.0.3",
     "react": "18.2.0",
     "react-intl": "6.2.10"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.6.0",
-    "@navikt/ds-react": "2.6.0",
+    "@navikt/ds-react": "2.6.1",
     "@navikt/ft-utils": "1.x",
     "react": "18.2.0",
     "react-intl": "6.2.10"
