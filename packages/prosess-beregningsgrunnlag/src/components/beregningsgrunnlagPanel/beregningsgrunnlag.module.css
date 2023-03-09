@@ -41,9 +41,6 @@
 .redError {
   color: var(--a-surface-danger);
 }
-.etikettLiten {
-  text-transform: none;
-}
 .tabellAktivitet {
   width: 70%;
 }
@@ -66,13 +63,6 @@
   }
 }
 
-.næringTabellAktivitet {
-  width: 40%;
-}
-.næringTabellInntekt {
-  text-align: right;
-  width: 20%;
-}
 .næringOpplysningNavn {
   width: 80%;
 }

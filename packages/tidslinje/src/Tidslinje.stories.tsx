@@ -47,7 +47,7 @@ const Template: Story = () => (
         },
       ]}
       selectHandler={() => undefined}
-      selection={[null]}
+      selection={[]}
     />
     <VerticalSpacer sixteenPx />
     <LegendBox
