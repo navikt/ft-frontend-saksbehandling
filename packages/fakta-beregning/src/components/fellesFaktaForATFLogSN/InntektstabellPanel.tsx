@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import styles from './InntektstabellPanel.module.css';
-import VurderFaktaContext from './VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringRapportertInntekt';
 
@@ -52,7 +52,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   erOverstyrt,
 }) => {
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
-  const aktivtBeregningsgrunnlagIndeks = React.useContext(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
   const kanOverstyre = useMemo(
     () => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov),
     [erOverstyrer, avklaringsbehov],
@@ -60,7 +60,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
 
   const toggleOverstyring = useCallback(() => {
     setOverstyring(!erTabellOverstyrt);
-    updateOverstyring(aktivtBeregningsgrunnlagIndeks, !erTabellOverstyrt);
+    updateOverstyring(beregningsgrunnlagIndeks, !erTabellOverstyrt);
   }, [erTabellOverstyrt]);
   return (
     <>

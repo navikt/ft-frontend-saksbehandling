@@ -9,6 +9,7 @@ import {
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { Tabs } from '@navikt/ds-react';
+import { WarningColored } from '@navikt/ds-icons';
 import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
@@ -18,6 +19,8 @@ import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
 import mapAvklaringsbehovKode from './typer/interface/AvklaringsbehovMapping';
+import { GetErrorsContext } from './components/fellesFaktaForATFLogSN/VurderFaktaContext';
+import { formNameVurderFaktaBeregning } from './components/BeregningFormUtils';
 
 const intl = createIntl(messages);
 
@@ -107,10 +110,10 @@ const BeregningFaktaIndex: FunctionComponent<
   skalKunneAvbryteOverstyring = false,
 }) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
+  const [vurderFaktaBeregningFormErrors, getVurderFaktaBeregningFormErrors] = useState(undefined);
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
-
   const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag);
 
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
@@ -118,6 +121,8 @@ const BeregningFaktaIndex: FunctionComponent<
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
   const vilkårsperioder = vilkar.perioder;
+  const beregningsgrunnlagIndeksHarFeil = (indeks: number) =>
+    !!vurderFaktaBeregningFormErrors?.[`${formNameVurderFaktaBeregning}`]?.[indeks];
 
   return (
     <RawIntlProvider value={intl}>
@@ -134,28 +139,34 @@ const BeregningFaktaIndex: FunctionComponent<
                   value={currentBeregningsgrunnlagIndex.toString()}
                   label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
                   className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
+                  icon={
+                    currentBeregningsgrunnlagIndex !== aktivtBeregningsgrunnlagIndeks &&
+                    beregningsgrunnlagIndeksHarFeil(currentBeregningsgrunnlagIndex) && <WarningColored />
+                  }
                 />
               ))}
             </Tabs.List>
           </Tabs>
         </div>
       )}
-      <BeregningInfoPanel
-        aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-        beregningsgrunnlag={konverterteBg}
-        alleKodeverk={alleKodeverk}
-        avklaringsbehov={aktiveAvklaringsBehov}
-        submitCallback={submitCallback}
-        readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
-        submittable={submittable}
-        erOverstyrer={erOverstyrer}
-        skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        setFormData={setFormData}
-        formData={formData}
-        vilkar={vilkar}
-        skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
-      />
+      <GetErrorsContext.Provider value={getVurderFaktaBeregningFormErrors}>
+        <BeregningInfoPanel
+          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+          beregningsgrunnlag={konverterteBg}
+          alleKodeverk={alleKodeverk}
+          avklaringsbehov={aktiveAvklaringsBehov}
+          submitCallback={submitCallback}
+          readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
+          submittable={submittable}
+          erOverstyrer={erOverstyrer}
+          skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          setFormData={setFormData}
+          formData={formData}
+          vilkar={vilkar}
+          skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
+        />
+      </GetErrorsContext.Provider>
     </RawIntlProvider>
   );
 };
