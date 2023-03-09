@@ -33,6 +33,8 @@ import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
+
+import { beregningsgrunnlag as bgTest, vilkar as vTest } from '../testdata/test';
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 
@@ -211,6 +213,44 @@ export default {
   title: 'fakta-beregning',
   component: BeregningFaktaIndex,
 };
+
+const konverterKodeverkTilKode = (data: any) => {
+  if (data === undefined || data === null) {
+    return;
+  }
+  const lengdeKodeverkObject = 2;
+
+  Object.keys(data).forEach(key => {
+    if (data[key]?.kode) {
+      const antallAttr = Object.keys(data[key]).length;
+      if (
+        (data[key]?.kodeverk &&
+          (antallAttr === lengdeKodeverkObject || data[key]?.kodeverk === 'AVKLARINGSBEHOV_DEF')) ||
+        antallAttr === 1
+      ) {
+        // eslint-disable-next-line no-param-reassign
+        data[key] = data[key].kode;
+      }
+    }
+    if (typeof data[key] === 'object' && data[key] !== null) {
+      konverterKodeverkTilKode(data[key]);
+    }
+  });
+};
+konverterKodeverkTilKode(bgTest);
+export const Test: Story = () => (
+  <BeregningFaktaIndex
+    beregningsgrunnlag={bgTest}
+    erOverstyrer={false}
+    alleKodeverk={alleKodeverkMock as any}
+    submitCallback={action('button-click') as (data: any) => Promise<any>}
+    readOnly={false}
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vTest}
+  />
+);
 
 /**
  * Arbeid og dagpenger

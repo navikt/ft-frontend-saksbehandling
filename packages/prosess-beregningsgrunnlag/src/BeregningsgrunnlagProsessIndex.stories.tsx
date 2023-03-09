@@ -5,6 +5,7 @@ import {
   AktivitetStatus,
   InntektAktivitetType,
   PeriodeAarsak,
+  PgiType,
   SammenligningType,
   VilkarType,
   VilkarUtfallType,
@@ -394,6 +395,29 @@ const lagMånedInntekt = (fom: string, tom: string, inntekter: Inntekt[]): Innte
   inntekter,
 });
 
+const lagInntektPgi = (beløp: number, pgiType: string) => ({
+  beløp,
+  pgiType,
+});
+
+const inntektsgrunnlagSN = {
+  måneder: [],
+  pgiGrunnlag: [
+    {
+      år: 2015,
+      inntekter: [lagInntektPgi(110000, PgiType.LØNN), lagInntektPgi(10000, PgiType.NÆRING)],
+    },
+    {
+      år: 2016,
+      inntekter: [lagInntektPgi(70000, PgiType.LØNN), lagInntektPgi(50000, PgiType.NÆRING)],
+    },
+    {
+      år: 2017,
+      inntekter: [lagInntektPgi(15000, PgiType.LØNN), lagInntektPgi(150000, PgiType.NÆRING)],
+    },
+  ],
+};
+
 const lagInntektsgrunnlag = (): Inntektsgrunnlag => {
   const måneder = [];
   måneder.push(
@@ -775,7 +799,7 @@ SelvstendigNæringsdrivendeMedAksjonspunktAp5039.args = {
     lagBG(
       malPerioder([lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false))]),
       ['SN'],
-      undefined,
+      inntektsgrunnlagSN,
       [malSGGrunnlagAvvik(SammenligningType.SN)],
       [
         lagAPMedKode(
@@ -1433,7 +1457,7 @@ AvvikNæringEtterLøstAvvikArbeid5038Og5039.args = {
         lagFrilansandel(3, 200000, 100000, true),
       ]),
       ['AT_FL_SN', 'DP'],
-      undefined,
+      inntektsgrunnlagSN,
       [malSGGrunnlagAvvik(SammenligningType.SN), malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       [
         lagAPMedKode(

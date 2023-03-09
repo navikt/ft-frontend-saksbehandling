@@ -22,6 +22,7 @@ export { default as AksjonspunktStatus, isAksjonspunktOpen } from './src/aksjons
 export { default as FaktaOmBeregningTilfelle } from './src/faktaOmBeregningTilfelle';
 export { default as BehandlingType } from './src/behandlingType';
 export { default as InntektAktivitetType } from './src/inntektAktivitetType';
+export { default as PgiType } from './src/pgiType';
 export { default as BeregningsgrunnlagAndelType } from './src/beregningsgrunnlagAndelType';
 export { default as VilkarUtfallType } from './src/vilkarUtfallType';
 export { default as PeriodeAarsak } from './src/periodeAarsak';
