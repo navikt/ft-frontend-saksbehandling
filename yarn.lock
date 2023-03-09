@@ -13658,7 +13658,7 @@ __metadata:
     thread-loader: 3.0.4
     typescript: 4.9.5
     vite: 4.1.4
-    vite-plugin-dts: 2.0.2
+    vite-plugin-dts: 2.0.0-beta.1
     vite-plugin-svgr: 2.4.0
     vitest: 0.29.2
     webpack: 5.75.0
@@ -24896,9 +24896,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:2.0.2":
-  version: 2.0.2
-  resolution: "vite-plugin-dts@npm:2.0.2"
+"vite-plugin-dts@npm:2.0.0-beta.1":
+  version: 2.0.0-beta.1
+  resolution: "vite-plugin-dts@npm:2.0.0-beta.1"
   dependencies:
     "@babel/parser": ^7.20.15
     "@microsoft/api-extractor": ^7.33.5
@@ -24912,7 +24912,7 @@ __metadata:
     ts-morph: 17.0.1
   peerDependencies:
     vite: ">=2.9.0"
-  checksum: d8bf9a8066d6db088f967379139bc54f78aef495a7827f0680a5c261e9b62b17cfc7b4f8cc4ad94cf3ef08b1aa4740040d471d6557641fbab2174ce4ad059430
+  checksum: 5cfc866b380837b829f36e4c093223d4e0556a6bda417924e0e15dbfb96679a77a0a936ccce530f233d4e191a3af46bc12422787e076ed490674d54a8f117b3d
   languageName: node
   linkType: hard
 
