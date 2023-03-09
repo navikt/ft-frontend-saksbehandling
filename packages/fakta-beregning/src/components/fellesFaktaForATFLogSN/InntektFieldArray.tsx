@@ -22,7 +22,7 @@ import styles from './inntektFieldArray.module.css';
 import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
 import SummaryRow from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
-import VurderFaktaContext from './VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
@@ -248,8 +248,8 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
 }) => {
   const { getValues, control, formState } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const { errors } = formState;
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const fieldArrayName = `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.inntektFieldArray`;
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const fieldArrayName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`;
   const { fields, remove, append, update } = formHooks.useFieldArray({
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.inntektFieldArray',
@@ -257,15 +257,15 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
 
   const formValues = formHooks.useWatch({
     control,
-    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}` as 'vurderFaktaBeregningForm.0',
+    name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}` as 'vurderFaktaBeregningForm.0',
   });
   const skalHaBesteberegning = formHooks.useWatch({
     control,
-    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderbesteberegningField`,
+    name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderbesteberegningField`,
   });
   const skalHaMilitær = formHooks.useWatch({
     control,
-    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMilitær`,
+    name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMilitær`,
   });
   const intl = useIntl();
 
@@ -275,7 +275,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   );
 
   useEffect(() => {
-    const currentFields = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.inntektFieldArray`);
+    const currentFields = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`);
     const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
     fjernEllerLeggTilMilitær(
       currentFields,
@@ -317,7 +317,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
     });
   }, [formValues]);
 
-  const inntektFieldArrayErrors = errors?.vurderFaktaBeregningForm?.[aktivtBeregningsgrunnlagIndeks]?.inntektFieldArray;
+  const inntektFieldArrayErrors = errors?.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.inntektFieldArray;
 
   const feilmelding = validate(formValues, inntektFieldArrayErrors, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
