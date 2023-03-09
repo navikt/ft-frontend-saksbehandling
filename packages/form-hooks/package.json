@@ -23,7 +23,7 @@
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook --quiet -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.6.0",
+    "@navikt/ds-css": "2.7.2",
     "@navikt/ds-react": "2.6.0",
     "@navikt/ft-form-validators": "^2.0.4",
     "@navikt/ft-types": "^2.0.4",
@@ -36,7 +36,7 @@
     "react-hook-form": "7.43.5"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.6.0",
+    "@navikt/ds-css": "2.7.2",
     "@navikt/ds-react": "2.6.0",
     "@navikt/ft-form-validators": "1.x",
     "@navikt/ft-types": "1.x",
