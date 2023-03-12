@@ -19,6 +19,7 @@ interface OwnProps {
   renderBehandlingMeny: () => ReactNode;
   renderBehandlingVelger: () => ReactNode;
   dekningsgrad?: number;
+  utlandMarkeringTekst?: string;
 }
 
 /**
@@ -33,6 +34,7 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
   renderBehandlingMeny,
   renderBehandlingVelger,
   dekningsgrad,
+  utlandMarkeringTekst,
 }) => {
   const intl = useIntl();
   return (
@@ -51,6 +53,16 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
                     alignBottom
                   >
                     <Tag variant="info">{`${dekningsgrad}%`}</Tag>
+                  </Tooltip>
+                </FlexColumn>
+              )}
+              {utlandMarkeringTekst && (
+                <FlexColumn>
+                  <Tooltip
+                    content={intl.formatMessage({ id: 'FagsakProfile.UtlandMarkering' }, { utlandMarkeringTekst })}
+                    alignBottom
+                  >
+                    <Tag variant="alt1">{`${utlandMarkeringTekst}%`}</Tag>
                   </Tooltip>
                 </FlexColumn>
               )}
