@@ -17,7 +17,7 @@ import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import transformValuesVurderFaktaBeregning from './transformValuesHjelpefunksjoner';
-import VurderFaktaContext from './VurderFaktaContext';
+import VurderFaktaContext, { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import VurderFaktaBeregningField, { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
 
 const {
@@ -104,20 +104,19 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
     defaultValues: formData || buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov, vilkar),
   });
-  const { control, getValues, formState, trigger } = formMethods;
+  const { control, formState, trigger, getValues, watch } = formMethods;
   const { fields, update } = useFieldArray({
     name: formNameVurderFaktaBeregning,
     control,
   });
-  const { errors, isSubmitted, dirtyFields } = formState;
-
+  const { errors, isSubmitted } = formState;
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(false);
-
+  const formValues = watch(formNameVurderFaktaBeregning);
   useEffect(() => {
-    if (isSubmitted && dirtyFields.vurderFaktaBeregningForm?.[aktivtBeregningsgrunnlagIndeks]) {
+    if (isSubmitted) {
       trigger();
     }
-  }, [aktivtBeregningsgrunnlagIndeks]);
+  }, [JSON.stringify(formValues)]);
 
   const updateOverstyring = (index: number, skalOverstyre: boolean): void => {
     const currVal = getValues(`${formNameVurderFaktaBeregning}.${index}`);
@@ -149,27 +148,25 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
           }}
           setDataOnUnmount={setFormData}
         >
-          {fields.map(
-            (field, index) =>
-              aktivtBeregningsgrunnlagIndeks === index && (
-                <VurderFaktaBeregningField
-                  key={field.id}
-                  vilkarsperiode={vilkar.perioder.find(
-                    p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
-                  )}
-                  beregningsgrunnlag={beregningsgrunnlag[index]}
-                  erOverstyrer={erOverstyrer}
-                  readOnly={readOnly}
-                  alleKodeverk={alleKodeverk}
-                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                  submittable={submittable}
-                  fieldId={index}
-                  updateOverstyring={updateOverstyring}
-                  submitDisabled={submitDisabled}
-                  verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
-                />
-              ),
-          )}
+          {fields.map((field, index) => (
+            <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
+              <VurderFaktaBeregningField
+                key={field.id}
+                vilkarsperiode={vilkar.perioder.find(
+                  p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
+                )}
+                beregningsgrunnlag={beregningsgrunnlag[index]}
+                erOverstyrer={erOverstyrer}
+                readOnly={readOnly}
+                alleKodeverk={alleKodeverk}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                submittable={submittable}
+                updateOverstyring={updateOverstyring}
+                submitDisabled={submitDisabled}
+                verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
+              />
+            </BeregningsgrunnlagIndexContext.Provider>
+          ))}
         </Form>
       </VurderFaktaContext.Provider>
     );

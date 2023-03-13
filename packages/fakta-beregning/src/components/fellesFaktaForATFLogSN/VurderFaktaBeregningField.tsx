@@ -19,6 +19,7 @@ import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregn
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpefunksjoner';
+import VurderFaktaContext, { BeregningsgrunnlagIndexContext, GetErrorsContext } from './VurderFaktaContext';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -31,7 +32,6 @@ interface OwnProps {
   submittable: boolean;
   alleKodeverk: AlleKodeverk;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  fieldId: number;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   vilkarsperiode: Vilkarperiode;
   verdiForAvklarAktivitetErEndret: boolean;
@@ -79,8 +79,8 @@ const erOverstyrt = (index: number, getValues: UseFormGetValues<any>) => {
   return erOverstyringAvBeregningsgrunnlag(formValue);
 };
 
-const finnesFeilForBegrunnelse = (fieldId, errors) =>
-  !!errors.vurderFaktaBeregningForm?.[fieldId]?.begrunnelseFaktaTilfeller;
+const finnesFeilForBegrunnelse = (beregningsgrunnlagIndeks, errors) =>
+  !!errors.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.begrunnelseFaktaTilfeller;
 
 const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
@@ -89,7 +89,6 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
   submittable,
-  fieldId,
   updateOverstyring,
   vilkarsperiode,
   verdiForAvklarAktivitetErEndret,
@@ -99,11 +98,18 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
     getValues,
     formState: { errors, isDirty },
   } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const setErrors = React.useContext(GetErrorsContext);
+  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const skalVæreSynlig = beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks;
+  React.useEffect(() => {
+    setErrors(errors);
+  }, [JSON.stringify(errors)]);
 
   const { avklaringsbehov } = beregningsgrunnlag;
   const skalVurderes = vilkarsperiode.vurderesIBehandlingen;
   return (
-    <React.Fragment key={fieldId}>
+    <div key={beregningsgrunnlagIndeks} style={{ display: skalVæreSynlig ? 'block' : 'none' }}>
       {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) && (
         <AksjonspunktHelpTextHTML>
           {!isAksjonspunktClosed(avklaringsbehov) ? lagHelpTextsForFakta() : null}
@@ -123,11 +129,12 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
       {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ||
         hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) ||
-        erOverstyrt(fieldId, getValues)) && (
+        erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
         <>
-          {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) || erOverstyrt(fieldId, getValues)) && (
+          {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ||
+            erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
             <FaktaBegrunnelseTextField
-              name={`${formNameVurderFaktaBeregning}.${fieldId}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
+              name={`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
               isSubmittable={submittable}
               isReadOnly={readOnly || !skalVurderes}
               hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== null}
@@ -142,16 +149,16 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
                 harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, avklaringsbehov) &&
                 !isAksjonspunktClosed(avklaringsbehov),
               true,
-              finnesFeilForBegrunnelse(fieldId, errors),
+              finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
             )}
             isReadOnly={readOnly || !skalVurderes}
             isDirty={isDirty}
             isSubmitting={submitDisabled}
-            hasEmptyRequiredFields={finnesFeilForBegrunnelse(fieldId, errors)}
+            hasEmptyRequiredFields={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
           />
         </>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

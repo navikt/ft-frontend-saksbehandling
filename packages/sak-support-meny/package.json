@@ -23,7 +23,7 @@
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook --quiet -p 7016"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.6.0",
+    "@navikt/ds-css": "2.7.6",
     "@navikt/ft-kodeverk": "^2.0.4",
     "@navikt/ft-types": "^2.0.4",
     "@navikt/ft-ui-komponenter": "^2.0.4",
@@ -48,7 +48,7 @@
     "@svgr/webpack": "6.5.1",
     "@testing-library/react": "14.0.0",
     "cross-env": "7.0.3",
-    "eslint": "8.35.0",
+    "eslint": "8.36.0",
     "stylelint": "15.2.0",
     "typescript": "4.9.5",
     "vite": "4.1.4",

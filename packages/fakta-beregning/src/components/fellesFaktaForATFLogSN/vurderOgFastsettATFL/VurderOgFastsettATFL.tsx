@@ -27,7 +27,7 @@ import {
 } from '../BgFaktaUtils';
 import InntektFieldArray, { InntektFieldArray as InntektFieldArrayImpl } from '../InntektFieldArray';
 import InntektstabellPanel from '../InntektstabellPanel';
-import VurderFaktaContext from '../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
 import { ATFLSammeOrgTekst, transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import { harKunstigArbeidsforhold } from './forms/KunstigArbeidsforhold';
@@ -171,8 +171,8 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   updateOverstyring,
 }) => {
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erOverstyrt = useMemo(
     () => erOverstyringAvBeregningsgrunnlag(formValues),
     [formValues, beregningsgrunnlag, avklaringsbehov],

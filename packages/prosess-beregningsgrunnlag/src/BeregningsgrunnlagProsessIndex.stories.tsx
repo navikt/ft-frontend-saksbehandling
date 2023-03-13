@@ -396,9 +396,9 @@ const lagMånedInntekt = (fom: string, tom: string, inntekter: Inntekt[]): Innte
 });
 
 const lagInntektPgi = (beløp: number, pgiType: string) => ({
-    beløp,
-    pgiType,
-  });
+  beløp,
+  pgiType,
+});
 
 const inntektsgrunnlagSN = {
   måneder: [],

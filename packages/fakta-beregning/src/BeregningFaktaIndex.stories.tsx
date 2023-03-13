@@ -33,6 +33,7 @@ import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
+
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 
@@ -231,6 +232,19 @@ export const ArbeidOgDagpengerAp5058: Story = () => (
     vilkar={vilkarArbeidOgDagpenger}
   />
 );
+export const ArbeidOgDagpengerAp5058EnPeriode: Story = () => (
+  <BeregningFaktaIndex
+    beregningsgrunnlag={[bgMedArbeidOgDagpenger[0]]}
+    erOverstyrer
+    alleKodeverk={alleKodeverkMock as any}
+    submitCallback={action('button-click') as (data: any) => Promise<any>}
+    readOnly={false}
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vilkarArbeidOgDagpenger}
+  />
+);
 
 /**
  * Aktiviteter i beregning er overstyrt og aksjonspunktet er i status OPPRETTET.
@@ -347,7 +361,7 @@ export const ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058: Story = () => (
  */
 export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: Story = () => (
   <BeregningFaktaIndex
-    beregningsgrunnlag={bgMedArbeidOgDagpenger}
+    beregningsgrunnlag={[bgMedArbeidOgDagpenger[0]]}
     erOverstyrer={false}
     alleKodeverk={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
