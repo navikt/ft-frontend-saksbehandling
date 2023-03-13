@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
-import VurderFaktaContext from './VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {
   let sum = 0;
@@ -35,11 +35,11 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
 }) => {
   const { control, getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const fields = formHooks.useWatch({
     control,
-    name: `vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.inntektFieldArray`,
+    name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`,
   });
 
   const sumBeregnet = summerBeregnet(fields, formValues, beregningsgrunnlag) || 0;

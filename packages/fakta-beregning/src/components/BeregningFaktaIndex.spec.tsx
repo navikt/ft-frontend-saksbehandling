@@ -6,6 +6,7 @@ import * as stories from '../BeregningFaktaIndex.stories';
 
 const {
   ArbeidOgDagpengerAp5058,
+  ArbeidOgDagpengerAp5058EnPeriode,
   ArbeidOgAAPAp5052,
   VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058,
   VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet,
@@ -97,7 +98,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal ikke få sende inn vurder fakta uten å ha fylt ut felter', async () => {
-    render(<ArbeidOgDagpengerAp5058 />);
+    render(<ArbeidOgDagpengerAp5058EnPeriode />);
     const radioJa = screen.getByLabelText('Ja');
     await userEvent.click(radioJa);
     expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
@@ -108,7 +109,7 @@ describe('<BeregningFaktaIndexSpec', () => {
   });
 
   it('skal måtte overstyre inntekt for minst én aktivitet', async () => {
-    render(<ArbeidOgDagpengerAp5058 />);
+    render(<ArbeidOgDagpengerAp5058EnPeriode />);
     const secondOverstyrknapp = screen.getAllByTestId('overstyringsknapp')[1];
     await userEvent.click(secondOverstyrknapp);
     expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
@@ -187,7 +188,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     });
     await userEvent.type(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)'), '10');
     await userEvent.type(screen.getByLabelText('Månedsinntekt for Dagpenger'), '20');
-    expect(screen.getByTestId('sum').innerHTML).toBe('30');
+    expect(screen.getAllByTestId('sum')[0].innerHTML).toBe('30');
     await userEvent.click(screen.getByLabelText('Nei'));
     await waitFor(() => {
       expect(screen.queryByLabelText('Månedsinntekt for Dagpenger')).not.toBeInTheDocument();
