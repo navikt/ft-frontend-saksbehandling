@@ -16,6 +16,7 @@ interface OwnProps {
   renderBehandlingMeny: () => ReactNode;
   renderBehandlingVelger: () => ReactNode;
   dekningsgrad?: number;
+  utlandMarkeringTekst?: string;
 }
 
 const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
@@ -25,6 +26,7 @@ const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
   renderBehandlingMeny,
   renderBehandlingVelger,
   dekningsgrad,
+  utlandMarkeringTekst,
 }) => (
   <RawIntlProvider value={intl}>
     <FagsakProfile
@@ -34,6 +36,7 @@ const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
       renderBehandlingMeny={renderBehandlingMeny}
       renderBehandlingVelger={renderBehandlingVelger}
       dekningsgrad={dekningsgrad}
+      utlandMarkeringTekst={utlandMarkeringTekst}
     />
   </RawIntlProvider>
 );
