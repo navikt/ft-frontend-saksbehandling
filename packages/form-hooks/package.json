@@ -23,8 +23,8 @@
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook --quiet -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.7.3",
-    "@navikt/ds-react": "2.7.3",
+    "@navikt/ds-css": "2.7.6",
+    "@navikt/ds-react": "2.7.6",
     "@navikt/ft-form-validators": "^2.0.4",
     "@navikt/ft-types": "^2.0.4",
     "@navikt/ft-ui-komponenter": "^2.0.4",
@@ -56,12 +56,12 @@
     "@testing-library/user-event": "14.4.3",
     "clean-webpack-plugin": "4.0.0",
     "cross-env": "7.0.3",
-    "eslint": "8.35.0",
+    "eslint": "8.36.0",
     "stylelint": "15.2.0",
     "typescript": "4.9.5",
     "vite": "4.1.4",
     "vitest": "0.29.2",
-    "webpack": "5.76.0",
+    "webpack": "5.76.1",
     "webpack-cli": "5.0.1",
     "webpack-node-externals": "3.0.0"
   },
