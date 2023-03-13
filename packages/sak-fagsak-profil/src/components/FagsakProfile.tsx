@@ -62,7 +62,7 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
                     content={intl.formatMessage({ id: 'FagsakProfile.UtlandMarkering' }, { utlandMarkeringTekst })}
                     alignBottom
                   >
-                    <Tag variant="alt1">{`${utlandMarkeringTekst}%`}</Tag>
+                    <Tag variant="alt1">{`${utlandMarkeringTekst}`}</Tag>
                   </Tooltip>
                 </FlexColumn>
               )}
