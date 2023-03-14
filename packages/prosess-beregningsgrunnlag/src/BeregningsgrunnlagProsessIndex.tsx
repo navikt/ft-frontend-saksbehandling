@@ -37,6 +37,20 @@ const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
+const ikkeTilstrekkeligInntektsgrunnlag = () => (
+  <RawIntlProvider value={intl}>
+    <Heading size="medium">
+      <FormattedMessage id="Beregningsgrunnlag.Title" />
+    </Heading>
+    <VerticalSpacer eightPx />
+    <FlexRow>
+      <FlexColumn>
+        <FormattedMessage id="Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag" />
+      </FlexColumn>
+    </FlexRow>
+  </RawIntlProvider>
+);
+
 const visningForManglendeBG = () => (
   <>
     <Heading size="medium">
@@ -117,6 +131,12 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   formData,
   setFormData,
 }) => {
+  if (
+    beregningsgrunnlagListe.length === 0 &&
+    beregningsgrunnlagsvilkar?.perioder?.some(periode => periode.avslagKode === '1043')
+  ) {
+    return ikkeTilstrekkeligInntektsgrunnlag();
+  }
   if (
     beregningsgrunnlagListe.length === 0 ||
     (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
