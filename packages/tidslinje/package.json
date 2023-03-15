@@ -27,7 +27,7 @@
     "@navikt/ft-utils": "^2.0.6",
     "moment": "2.29.4",
     "react": "18.2.0",
-    "react-intl": "6.2.10",
+    "react-intl": "6.3.0",
     "vis-data": "7.1.4",
     "vis-timeline": "7.7.0"
   },
@@ -39,7 +39,7 @@
     "@navikt/ft-utils": "1.x",
     "moment": "2.29.4",
     "react": "18.2.0",
-    "react-intl": "6.2.10",
+    "react-intl": "6.3.0",
     "vis-data": "7.1.4",
     "vis-timeline": "7.7.0"
   },

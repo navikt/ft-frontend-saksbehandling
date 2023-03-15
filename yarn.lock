@@ -2933,7 +2933,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     sinon: 15.0.2
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -2957,7 +2957,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -2992,7 +2992,7 @@ __metadata:
     query-string: 8.1.0
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     storybook: 6.5.16
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3015,7 +3015,7 @@ __metadata:
     dayjs: 1.11.7
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3044,7 +3044,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3064,7 +3064,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3244,7 +3244,7 @@ __metadata:
     react: 18.2.0
     react-collapse: 5.1.1
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     sinon: 15.0.2
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3269,7 +3269,7 @@ __metadata:
     react: 18.2.0
     react-collapse: 5.1.1
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3299,7 +3299,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3320,7 +3320,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3348,7 +3348,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3368,7 +3368,7 @@ __metadata:
     classnames: 2.3.2
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3398,7 +3398,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3419,7 +3419,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3442,7 +3442,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3457,7 +3457,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 1.x
     "@navikt/ft-utils": 1.x
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3484,7 +3484,7 @@ __metadata:
     history: 5.3.0
     moment: 2.29.4
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3501,7 +3501,7 @@ __metadata:
     history: 5.3.0
     moment: 2.29.4
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3527,7 +3527,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3544,7 +3544,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     classnames: 2.3.2
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3566,7 +3566,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3579,7 +3579,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 1.x
     "@navikt/ft-utils": 1.x
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3601,7 +3601,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3614,7 +3614,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 1.x
     "@navikt/ft-utils": 1.x
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3633,7 +3633,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3643,7 +3643,7 @@ __metadata:
     "@navikt/ds-react": 2.6.0
     "@navikt/ft-utils": 1.x
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3667,7 +3667,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3682,7 +3682,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3710,7 +3710,7 @@ __metadata:
     react-collapse: 5.1.1
     react-dom: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3728,7 +3728,7 @@ __metadata:
     react-collapse: 5.1.1
     react-dom: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3749,7 +3749,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3762,7 +3762,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     classnames: 2.3.2
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3785,7 +3785,7 @@ __metadata:
     eslint: 8.36.0
     moment: 2.29.4
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3800,7 +3800,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     moment: 2.29.4
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -3813,7 +3813,7 @@ __metadata:
     history: 5.3.0
     react: 18.2.0
     react-hook-form: 7.43.5
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     typescript: 4.9.5
     vite: 4.1.4
   languageName: unknown
@@ -3834,7 +3834,7 @@ __metadata:
     eslint: 8.36.0
     moment: 2.29.4
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     stylelint: 15.2.0
     typescript: 4.9.5
     vis-data: 7.1.4
@@ -3852,7 +3852,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     moment: 2.29.4
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     vis-data: 7.1.4
     vis-timeline: 7.7.0
   languageName: unknown
@@ -3898,7 +3898,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-day-picker: 8.6.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     react-modal: 3.16.1
     sinon: 15.0.2
     stylelint: 15.2.0
@@ -3918,7 +3918,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-day-picker: 8.6.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     react-modal: 3.16.1
   languageName: unknown
   linkType: soft
@@ -3934,7 +3934,7 @@ __metadata:
     eslint: 8.36.0
     raf: 3.4.1
     react: 18.2.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     sinon: 15.0.2
     typescript: 4.9.5
     vite: 4.1.4
@@ -3953,7 +3953,7 @@ __metadata:
     clean-webpack-plugin: 4.0.0
     dayjs: 1.11.7
     eslint: 8.36.0
-    react-intl: 6.2.10
+    react-intl: 6.3.0
     typescript: 4.9.5
     vite: 4.1.4
     vitest: 0.29.2
@@ -3964,7 +3964,7 @@ __metadata:
     "@navikt/ft-kodeverk": 1.x
     "@navikt/ft-types": 1.x
     dayjs: 1.11.7
-    react-intl: 6.2.10
+    react-intl: 6.3.0
   languageName: unknown
   linkType: soft
 
@@ -21283,9 +21283,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-intl@npm:6.2.10":
-  version: 6.2.10
-  resolution: "react-intl@npm:6.2.10"
+"react-intl@npm:6.3.0":
+  version: 6.3.0
+  resolution: "react-intl@npm:6.3.0"
   dependencies:
     "@formatjs/ecma402-abstract": 1.14.3
     "@formatjs/icu-messageformat-parser": 2.3.0
@@ -21303,7 +21303,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: a86e87c2cbb5c7cb1cae9db11fa8d60d42201e6781f62a8f6a97518fa12bf63c57a21293f45f70ead426ffc8446fa063d4f6a25f805b8e1f9066f2d01d5d5455
+  checksum: 8a47baffcbcf25e0ce83bf87bf43e26ce6be82e16357292d02c40d385faf584272050c7ff88090c449aba1590988426eecac9d461310d301e66f5a0492a0cd15
   languageName: node
   linkType: hard
 
