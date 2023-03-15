@@ -37,38 +37,41 @@ const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
-const ikkeTilstrekkeligInntektsgrunnlag = () => (
-  <RawIntlProvider value={intl}>
-    <Heading size="medium">
-      <FormattedMessage id="Beregningsgrunnlag.Title" />
-    </Heading>
-    <VerticalSpacer eightPx />
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag" />
-      </FlexColumn>
-    </FlexRow>
-  </RawIntlProvider>
-);
+const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkar) => {
+  const ikkeTilstrekkeligInntektsgrunnlag = beregningsgrunnlagsvilkar?.perioder?.some(
+    periode => periode.avslagKode === '1043',
+  );
 
-const visningForManglendeBG = () => (
-  <>
-    <Heading size="medium">
-      <FormattedMessage id="Beregningsgrunnlag.Title" />
-    </Heading>
-    <VerticalSpacer eightPx />
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.HarIkkeBeregningsregler" />
-      </FlexColumn>
-    </FlexRow>
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.SakTilInfo" />
-      </FlexColumn>
-    </FlexRow>
-  </>
-);
+  return (
+    <>
+      <Heading size="medium">
+        <FormattedMessage id="Beregningsgrunnlag.Title" />
+      </Heading>
+      <VerticalSpacer eightPx />
+      {ikkeTilstrekkeligInntektsgrunnlag && (
+        <FlexRow>
+          <FlexColumn>
+            <FormattedMessage id="Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag" />
+          </FlexColumn>
+        </FlexRow>
+      )}
+      {!ikkeTilstrekkeligInntektsgrunnlag && (
+        <>
+          <FlexRow>
+            <FlexColumn>
+              <FormattedMessage id="Beregningsgrunnlag.HarIkkeBeregningsregler" />
+            </FlexColumn>
+          </FlexRow>
+          <FlexRow>
+            <FlexColumn>
+              <FormattedMessage id="Beregningsgrunnlag.SakTilInfo" />
+            </FlexColumn>
+          </FlexRow>
+        </>
+      )}
+    </>
+  );
+};
 
 type OwnProps = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -132,16 +135,10 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   setFormData,
 }) => {
   if (
-    beregningsgrunnlagListe.length === 0 &&
-    beregningsgrunnlagsvilkar?.perioder?.some(periode => periode.avslagKode === '1043')
-  ) {
-    return ikkeTilstrekkeligInntektsgrunnlag();
-  }
-  if (
     beregningsgrunnlagListe.length === 0 ||
     (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
   ) {
-    return <RawIntlProvider value={intl}>{visningForManglendeBG()}</RawIntlProvider>;
+    return <RawIntlProvider value={intl}>{visningForManglendeBG(beregningsgrunnlagsvilkar)}</RawIntlProvider>;
   }
 
   const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
