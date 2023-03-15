@@ -48,27 +48,17 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkar) => {
         <FormattedMessage id="Beregningsgrunnlag.Title" />
       </Heading>
       <VerticalSpacer eightPx />
-      {ikkeTilstrekkeligInntektsgrunnlag && (
-        <FlexRow>
-          <FlexColumn>
-            <FormattedMessage id="Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag" />
-          </FlexColumn>
-        </FlexRow>
-      )}
-      {!ikkeTilstrekkeligInntektsgrunnlag && (
-        <>
-          <FlexRow>
-            <FlexColumn>
-              <FormattedMessage id="Beregningsgrunnlag.HarIkkeBeregningsregler" />
-            </FlexColumn>
-          </FlexRow>
-          <FlexRow>
-            <FlexColumn>
-              <FormattedMessage id="Beregningsgrunnlag.SakTilInfo" />
-            </FlexColumn>
-          </FlexRow>
-        </>
-      )}
+      <FlexRow>
+        <FlexColumn>
+          <FormattedMessage
+            id={
+              ikkeTilstrekkeligInntektsgrunnlag
+                ? 'Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag'
+                : 'Beregningsgrunnlag.HarIkkeBeregningsregler'
+            }
+          />
+        </FlexColumn>
+      </FlexRow>
     </>
   );
 };
