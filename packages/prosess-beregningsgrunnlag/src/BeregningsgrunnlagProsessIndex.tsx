@@ -37,24 +37,31 @@ const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
-const visningForManglendeBG = () => (
-  <>
-    <Heading size="medium">
-      <FormattedMessage id="Beregningsgrunnlag.Title" />
-    </Heading>
-    <VerticalSpacer eightPx />
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.HarIkkeBeregningsregler" />
-      </FlexColumn>
-    </FlexRow>
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.SakTilInfo" />
-      </FlexColumn>
-    </FlexRow>
-  </>
-);
+const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkar) => {
+  const ikkeTilstrekkeligInntektsgrunnlag = beregningsgrunnlagsvilkar?.perioder?.some(
+    periode => periode.avslagKode === '1043',
+  );
+
+  return (
+    <>
+      <Heading size="medium">
+        <FormattedMessage id="Beregningsgrunnlag.Title" />
+      </Heading>
+      <VerticalSpacer eightPx />
+      <FlexRow>
+        <FlexColumn>
+          <FormattedMessage
+            id={
+              ikkeTilstrekkeligInntektsgrunnlag
+                ? 'Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag'
+                : 'Beregningsgrunnlag.HarIkkeBeregningsregler'
+            }
+          />
+        </FlexColumn>
+      </FlexRow>
+    </>
+  );
+};
 
 type OwnProps = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -121,7 +128,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
     beregningsgrunnlagListe.length === 0 ||
     (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
   ) {
-    return <RawIntlProvider value={intl}>{visningForManglendeBG()}</RawIntlProvider>;
+    return <RawIntlProvider value={intl}>{visningForManglendeBG(beregningsgrunnlagsvilkar)}</RawIntlProvider>;
   }
 
   const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
