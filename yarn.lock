@@ -2936,7 +2936,7 @@ __metadata:
     react-intl: 6.2.10
     sinon: 15.0.2
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -2995,7 +2995,7 @@ __metadata:
     react-intl: 6.2.10
     storybook: 6.5.16
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3046,7 +3046,7 @@ __metadata:
     react-hook-form: 7.43.5
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3092,7 +3092,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: 7.43.5
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3123,7 +3123,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     moment: 2.29.4
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3145,7 +3145,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3163,7 +3163,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3196,7 +3196,7 @@ __metadata:
     react-dom: 18.2.0
     react-popper: 2.3.0
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3247,7 +3247,7 @@ __metadata:
     react-intl: 6.2.10
     sinon: 15.0.2
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3301,7 +3301,7 @@ __metadata:
     react-hook-form: 7.43.5
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3350,7 +3350,7 @@ __metadata:
     react-hook-form: 7.43.5
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3400,7 +3400,7 @@ __metadata:
     react-hook-form: 7.43.5
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3444,7 +3444,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3486,7 +3486,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3529,7 +3529,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3568,7 +3568,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3603,7 +3603,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3635,7 +3635,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3669,7 +3669,7 @@ __metadata:
     react-hook-form: 7.43.5
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3712,7 +3712,7 @@ __metadata:
     react-hook-form: 7.43.5
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3751,7 +3751,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3787,7 +3787,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3814,7 +3814,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: 7.43.5
     react-intl: 6.2.10
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
   languageName: unknown
   linkType: soft
@@ -3836,7 +3836,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vis-data: 7.1.4
     vis-timeline: 7.7.0
     vite: 4.1.4
@@ -3867,7 +3867,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
   peerDependencies:
@@ -3902,7 +3902,7 @@ __metadata:
     react-modal: 3.16.1
     sinon: 15.0.2
     stylelint: 15.2.0
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -3936,7 +3936,7 @@ __metadata:
     react: 18.2.0
     react-intl: 6.2.10
     sinon: 15.0.2
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     webpack: 5.76.1
     webpack-cli: 5.0.1
@@ -3954,7 +3954,7 @@ __metadata:
     dayjs: 1.11.7
     eslint: 8.36.0
     react-intl: 6.2.10
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vitest: 0.29.2
     webpack: 5.76.1
@@ -13695,7 +13695,7 @@ __metadata:
     stylelint-order: 6.0.3
     terser-webpack-plugin: 5.3.7
     thread-loader: 3.0.4
-    typescript: 4.9.5
+    typescript: 5.0.2
     vite: 4.1.4
     vite-plugin-dts: 2.0.0-beta.1
     vite-plugin-svgr: 2.4.0
@@ -24352,7 +24352,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.5, typescript@npm:^3 || ^4":
+"typescript@npm:5.0.2":
+  version: 5.0.2
+  resolution: "typescript@npm:5.0.2"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: bef1dcd166acfc6934b2ec4d72f93edb8961a5fab36b8dd2aaf6f4f4cd5c0210f2e0850aef4724f3b4913d5aef203a94a28ded731b370880c8bcff7e4ff91fc1
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^3 || ^4":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -24372,7 +24382,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.9.5#~builtin<compat/typescript>, typescript@patch:typescript@^3 || ^4#~builtin<compat/typescript>":
+"typescript@patch:typescript@5.0.2#~builtin<compat/typescript>":
+  version: 5.0.2
+  resolution: "typescript@patch:typescript@npm%3A5.0.2#~builtin<compat/typescript>::version=5.0.2&hash=1f5320"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: bdbf3d0aac0d6cf010fbe0536753dc19f278eb4aba88140dcd25487dfe1c56ca8b33abc0dcd42078790a939b08ebc4046f3e9bb961d77d3d2c3cfa9829da4d53
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^3 || ^4#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
   bin:
