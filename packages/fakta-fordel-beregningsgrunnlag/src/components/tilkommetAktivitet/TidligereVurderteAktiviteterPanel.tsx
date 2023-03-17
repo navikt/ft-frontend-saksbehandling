@@ -6,7 +6,7 @@ import { Tag } from '@navikt/ds-react';
 import { useIntl } from 'react-intl';
 import styles from './tilkommetAktivitet.module.css';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
-import { getAktivitetNavn } from './TilkommetAktivitetUtils';
+import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
 
 type TidligereVurderteAktiviteterPanelType = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -27,7 +27,7 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
       const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
       tableRows.push(
         <TableRow key={getInntektsforholdIdentifikator(inntektsforhold)}>
-          <TableColumn>{getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
+          <TableColumn>{getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
           <TableColumn>
             {inntektsforhold.skalRedusereUtbetaling
               ? intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' })
