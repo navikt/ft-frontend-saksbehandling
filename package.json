@@ -95,7 +95,7 @@
     "raf": "3.4.1",
     "react-test-renderer": "18.2.0",
     "sinon": "15.0.2",
-    "stylelint": "15.2.0",
+    "stylelint": "15.3.0",
     "stylelint-order": "6.0.3",
     "terser-webpack-plugin": "5.3.7",
     "thread-loader": "3.0.4",
