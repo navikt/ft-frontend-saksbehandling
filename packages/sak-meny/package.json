@@ -32,7 +32,7 @@
     "@navikt/ft-utils": "^2.0.6",
     "react": "18.2.0",
     "react-hook-form": "7.43.5",
-    "react-intl": "6.2.10"
+    "react-intl": "6.3.1"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.6.0",
@@ -44,7 +44,7 @@
     "@navikt/ft-utils": "1.x",
     "react": "18.2.0",
     "react-hook-form": "7.43.5",
-    "react-intl": "6.2.10"
+    "react-intl": "6.3.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "6.5.16",
