@@ -1,11 +1,11 @@
 import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { TextField as NavInput } from '@navikt/ds-react';
+import { TextField, TextFieldProps } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 import styles from './inputField.module.css';
 
-interface OwnProps {
+interface OwnProps extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
   name: string;
   label?: string | ReactNode;
   validate?: ((value: string) => any)[] | ((value: number) => any)[];
@@ -47,6 +47,7 @@ const InputField: FunctionComponent<OwnProps> = ({
   disabled,
   className,
   hideLabel,
+  ...props
 }) => {
   const {
     formState: { errors },
@@ -66,7 +67,7 @@ const InputField: FunctionComponent<OwnProps> = ({
   const navInputClassNames = `${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`;
 
   return (
-    <NavInput
+    <TextField
       size="small"
       description={description}
       label={label}
@@ -100,6 +101,7 @@ const InputField: FunctionComponent<OwnProps> = ({
           field.onChange(event?.target?.value ? normalizeOnBlur(parse(event?.target?.value)) : null);
         }
       }}
+      {...props}
     />
   );
 };
