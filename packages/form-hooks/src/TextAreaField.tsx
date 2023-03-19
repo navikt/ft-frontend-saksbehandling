@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { Textarea as NavTextarea, Tag } from '@navikt/ds-react';
+import { Textarea, TextareaProps, Tag } from '@navikt/ds-react';
 
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
@@ -14,7 +14,7 @@ interface Badges {
   titleText: string;
 }
 
-interface OwnProps {
+interface OwnProps extends TextareaProps {
   name: string;
   label: string | ReactNode;
   readOnly?: boolean;
@@ -38,6 +38,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
   className,
   description,
   isEdited,
+  ...props
 }) => {
   const {
     formState: { errors },
@@ -64,7 +65,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
           ))}
         </div>
       )}
-      <NavTextarea
+      <Textarea
         size="small"
         label={label}
         description={description}
@@ -75,6 +76,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
         value={field.value ? field.value : ''}
         error={getError(errors, name)}
         maxLength={maxLength}
+        {...props}
       />
     </div>
   );
