@@ -2910,11 +2910,11 @@ __metadata:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-icons": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
     "@navikt/ft-konstanter": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -2932,7 +2932,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-dom: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     sinon: 15.0.2
     stylelint: 15.2.0
@@ -2956,7 +2956,7 @@ __metadata:
     dayjs: 1.11.7
     react: 18.2.0
     react-dom: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -2967,10 +2967,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -2991,7 +2991,7 @@ __metadata:
     eslint: 8.36.0
     query-string: 8.1.0
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     storybook: 6.5.16
     stylelint: 15.2.0
@@ -3014,7 +3014,7 @@ __metadata:
     core-js: 3.29.0
     dayjs: 1.11.7
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -3025,10 +3025,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -3043,7 +3043,7 @@ __metadata:
     eslint: 8.36.0
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3063,12 +3063,12 @@ __metadata:
     "@navikt/ft-utils": 1.x
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-form-hooks@^4.0.6, @navikt/ft-form-hooks@workspace:packages/form-hooks":
+"@navikt/ft-form-hooks@^4.0.7, @navikt/ft-form-hooks@workspace:packages/form-hooks":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-hooks@workspace:packages/form-hooks"
   dependencies:
@@ -3090,7 +3090,7 @@ __metadata:
     eslint: 8.36.0
     lodash.throttle: 4.1.1
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     stylelint: 15.2.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -3109,7 +3109,7 @@ __metadata:
     dayjs: 1.11.7
     lodash.throttle: 4.1.1
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
   languageName: unknown
   linkType: soft
 
@@ -3221,11 +3221,11 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
     "@navikt/ft-plattform-komponenter": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -3243,7 +3243,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-collapse: 5.1.1
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     sinon: 15.0.2
     stylelint: 15.2.0
@@ -3268,7 +3268,7 @@ __metadata:
     echarts: 5.4.1
     react: 18.2.0
     react-collapse: 5.1.1
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -3279,10 +3279,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-tidslinje": ^2.0.6
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
@@ -3298,7 +3298,7 @@ __metadata:
     eslint: 8.36.0
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3319,7 +3319,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -3330,10 +3330,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -3347,7 +3347,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3367,7 +3367,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     classnames: 2.3.2
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -3378,10 +3378,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-tidslinje": ^2.0.6
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
@@ -3397,7 +3397,7 @@ __metadata:
     eslint: 8.36.0
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3418,7 +3418,7 @@ __metadata:
     "@navikt/ft-utils": 1.x
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -3431,8 +3431,8 @@ __metadata:
     "@navikt/ds-react": 2.7.6
     "@navikt/ft-kodeverk": ^2.0.6
     "@navikt/ft-plattform-komponenter": ^2.0.6
-    "@navikt/ft-sak-visittkort": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-sak-visittkort": ^2.0.7
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -3469,7 +3469,7 @@ __metadata:
     "@navikt/ds-react": 2.7.6
     "@navikt/ft-kodeverk": ^2.0.6
     "@navikt/ft-plattform-komponenter": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -3653,7 +3653,7 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-plattform-komponenter": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
@@ -3666,7 +3666,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.36.0
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3681,7 +3681,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 1.x
     "@navikt/ft-utils": 1.x
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -3692,10 +3692,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.7.6
     "@navikt/ds-react": 2.7.6
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     "@navikt/ft-form-validators": ^2.0.6
     "@navikt/ft-kodeverk": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -3709,7 +3709,7 @@ __metadata:
     react: 18.2.0
     react-collapse: 5.1.1
     react-dom: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     stylelint: 15.2.0
     typescript: 4.9.5
@@ -3727,7 +3727,7 @@ __metadata:
     react: 18.2.0
     react-collapse: 5.1.1
     react-dom: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
   languageName: unknown
   linkType: soft
@@ -3766,7 +3766,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-sak-visittkort@^2.0.6, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
+"@navikt/ft-sak-visittkort@^2.0.7, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-visittkort@workspace:packages/sak-visittkort"
   dependencies:
@@ -3774,7 +3774,7 @@ __metadata:
     "@navikt/ds-react": 2.7.6
     "@navikt/ft-kodeverk": ^2.0.6
     "@navikt/ft-plattform-komponenter": ^2.0.6
-    "@navikt/ft-storybook-utils": ^2.0.6
+    "@navikt/ft-storybook-utils": ^2.0.7
     "@navikt/ft-types": ^2.0.6
     "@navikt/ft-ui-komponenter": ^2.0.6
     "@navikt/ft-utils": ^2.0.6
@@ -3804,15 +3804,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-storybook-utils@^2.0.6, @navikt/ft-storybook-utils@workspace:packages/storybook-utils":
+"@navikt/ft-storybook-utils@^2.0.7, @navikt/ft-storybook-utils@workspace:packages/storybook-utils":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-storybook-utils@workspace:packages/storybook-utils"
   dependencies:
-    "@navikt/ft-form-hooks": ^4.0.6
+    "@navikt/ft-form-hooks": ^4.0.7
     eslint: 8.36.0
     history: 5.3.0
     react: 18.2.0
-    react-hook-form: 7.43.5
+    react-hook-form: 7.43.7
     react-intl: 6.2.10
     typescript: 4.9.5
     vite: 4.1.4
@@ -21261,12 +21261,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.43.5":
-  version: 7.43.5
-  resolution: "react-hook-form@npm:7.43.5"
+"react-hook-form@npm:7.43.7":
+  version: 7.43.7
+  resolution: "react-hook-form@npm:7.43.7"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: cfd757ac24bc81946d97183d061f38c8b602baaf9d019e87a905ce66f3a9f1d91d3a21002b921f8322e79b2afa9a4921b7c2d76e594fcf384e1b96889de2f2f5
+  checksum: c1679fc5119f3f910f30424b846f9a05ecbc9cce1c7408e4e8eb907aa5a4366d5228a7b41d818868c85017f2be4e1854a1536ba5c1cddf2c27818bd045df9589
   languageName: node
   linkType: hard
 
