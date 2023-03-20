@@ -60,7 +60,7 @@ const spacer = hasShownPanel => {
   if (hasShownPanel) {
     return <VerticalSpacer twentyPx />;
   }
-  return {};
+  return null;
 };
 
 const getFaktaPanels = (
