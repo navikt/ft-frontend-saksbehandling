@@ -60,7 +60,7 @@
     "stylelint": "15.3.0",
     "typescript": "5.0.2",
     "vite": "4.2.0",
-    "vitest": "0.29.3",
+    "vitest": "0.29.5",
     "webpack": "5.76.2",
     "webpack-cli": "5.0.1",
     "webpack-node-externals": "3.0.0"
