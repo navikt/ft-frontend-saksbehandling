@@ -22,14 +22,14 @@
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook --quiet -p 7018"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.7.6",
-    "@navikt/ds-react": "2.7.6",
+    "@navikt/ds-css": "2.8.1",
+    "@navikt/ds-react": "2.8.1",
     "@navikt/ft-kodeverk": "^2.0.6",
     "@navikt/ft-types": "^2.0.6",
     "@navikt/ft-ui-komponenter": "^2.0.6",
     "@navikt/ft-utils": "^2.0.6",
     "react": "18.2.0",
-    "react-intl": "6.2.10"
+    "react-intl": "6.3.1"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.6.0",
@@ -49,10 +49,10 @@
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
     "eslint": "8.36.0",
-    "stylelint": "15.2.0",
-    "typescript": "4.9.5",
-    "vite": "4.1.4",
-    "vitest": "0.29.2"
+    "stylelint": "15.3.0",
+    "typescript": "5.0.2",
+    "vite": "4.2.0",
+    "vitest": "0.29.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
