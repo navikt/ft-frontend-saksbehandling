@@ -101,7 +101,7 @@
     "thread-loader": "3.0.4",
     "typescript": "5.0.2",
     "vite": "4.2.0",
-    "vite-plugin-dts": "2.0.0-beta.1",
+    "vite-plugin-dts": "2.1.0",
     "vite-plugin-svgr": "2.4.0",
     "vitest": "0.29.3",
     "webpack": "5.76.2",
