@@ -231,7 +231,7 @@ export const hasValidValue =
 // eslint-disable-next-line react/destructuring-assignment
 export const arrayMinLength =
   (length: number) =>
-  (value: string): FormValidationResult =>
+  (value: string | any[]): FormValidationResult =>
     // eslint-disable-next-line react/destructuring-assignment
     value && value.length >= length ? null : arrayMinLengthMessage(length);
 
