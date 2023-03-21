@@ -1,7 +1,11 @@
 module.exports = {
-  core: {
-    builder: "@storybook/builder-vite",
-},
   stories: ['../src/**/*.stories.@(ts|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
+  framework: {
+    name: '@storybook/react-vite',
+    options: {}
+  },
+  docs: {
+    autodocs: false
+  }
 };
