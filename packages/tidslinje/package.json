@@ -28,7 +28,7 @@
     "moment": "2.29.4",
     "react": "18.2.0",
     "react-intl": "6.3.1",
-    "vis-data": "7.1.4",
+    "vis-data": "7.1.6",
     "vis-timeline": "7.7.0"
   },
   "peerDependencies": {
@@ -40,7 +40,7 @@
     "moment": "2.29.4",
     "react": "18.2.0",
     "react-intl": "6.2.10",
-    "vis-data": "7.1.4",
+    "vis-data": "7.1.6",
     "vis-timeline": "7.7.0"
   },
   "devDependencies": {
