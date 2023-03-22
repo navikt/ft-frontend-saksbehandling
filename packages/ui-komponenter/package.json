@@ -56,17 +56,12 @@
     "@testing-library/react": "14.0.0",
     "@testing-library/react-hooks": "8.0.1",
     "@testing-library/user-event": "14.4.3",
-    "clean-webpack-plugin": "4.0.0",
     "cross-env": "7.0.3",
     "eslint": "8.36.0",
-    "sinon": "15.0.2",
     "stylelint": "15.3.0",
     "typescript": "5.0.2",
     "vite": "4.2.1",
-    "vitest": "0.29.7",
-    "webpack": "5.76.2",
-    "webpack-cli": "5.0.1",
-    "webpack-node-externals": "3.0.0"
+    "vitest": "0.29.7"
   },
   "resolutions": {
     "react": "18.2.0",
