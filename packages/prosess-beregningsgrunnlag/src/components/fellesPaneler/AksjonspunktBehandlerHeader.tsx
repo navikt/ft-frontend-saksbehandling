@@ -93,10 +93,10 @@ const AksjonspunktBehandlerHeader: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   readOnly,
 }) => {
+  const intl = useIntl();
   if (!avklaringsbehov) {
     return null;
   }
-  const intl = useIntl();
   return (
     <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerHeader}>
       <FlexRow>
