@@ -175,7 +175,7 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Årsgrunnlag næring
-    expect(screen.getByText('3 siste ferdigliknede år fra skatteetaten')).toBeInTheDocument();
+    expect(screen.getByText('3 siste år fra skatt')).toBeInTheDocument();
     expect(screen.getByText('2017')).toBeInTheDocument();
     expect(screen.getByText('2016')).toBeInTheDocument();
     expect(screen.getByText('2015')).toBeInTheDocument();
