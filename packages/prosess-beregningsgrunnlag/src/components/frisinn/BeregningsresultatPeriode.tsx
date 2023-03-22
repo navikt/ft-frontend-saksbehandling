@@ -69,16 +69,17 @@ const lagRedusertBGRad = (
           <BodyShort size="small">{formatCurrencyNoKr(redusert)}</BodyShort>
         </FlexColumn>
       </FlexRow>
-      {(løpendeBeløp || løpendeBeløp === 0) && (
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <FormattedMessage id={tekstIdLøpende} />
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <BodyShort size="small">{formatCurrencyNoKr(løpendeBeløp)}</BodyShort>
-          </FlexColumn>
-        </FlexRow>
-      )}
+      {!!løpendeBeløp ||
+        (løpendeBeløp === 0 && (
+          <FlexRow>
+            <FlexColumn className={beregningStyles.tabellAktivitet}>
+              <FormattedMessage id={tekstIdLøpende} />
+            </FlexColumn>
+            <FlexColumn className={beregningStyles.tabellInntekt}>
+              <BodyShort size="small">{formatCurrencyNoKr(løpendeBeløp)}</BodyShort>
+            </FlexColumn>
+          </FlexRow>
+        ))}
     </>
   );
 };

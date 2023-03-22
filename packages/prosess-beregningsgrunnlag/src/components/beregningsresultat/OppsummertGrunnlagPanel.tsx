@@ -92,12 +92,7 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
 
 const skilleRad = (): ReactElement => <div className={styles.radEnkelLinje} />;
 
-const lagIkkeOppfyltVisning = (
-  sumBrutto: number,
-  grunnbeløp: number,
-  erMidlertidigInaktiv: boolean,
-  intl: IntlShape,
-): ReactElement => (
+const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean, intl: IntlShape): ReactElement => (
   <FlexContainer>
     <VerticalSpacer twentyPx />
     <FlexRow>
@@ -142,19 +137,14 @@ const lagResultatRader = (
   vilkårPeriode: Vilkarperiode,
   beregningsgrunnlag: Beregningsgrunnlag,
   harFlereAndeler: boolean,
+  intl: IntlShape,
 ): ReactElement | null => {
   const sumBrutto = tabellData.andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
   if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT) {
     return null;
   }
   if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT) {
-    const intl = useIntl();
-    return lagIkkeOppfyltVisning(
-      sumBrutto,
-      beregningsgrunnlag.grunnbeløp,
-      sjekkErMidlertidigInaktiv(beregningsgrunnlag),
-      intl,
-    );
+    return lagIkkeOppfyltVisning(beregningsgrunnlag.grunnbeløp, sjekkErMidlertidigInaktiv(beregningsgrunnlag), intl);
   }
   const seksG = beregningsgrunnlag.grunnbeløp * 6;
   const skalViseAvkortetRad = sumBrutto > seksG;
@@ -225,6 +215,7 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
   vilkårsperiode,
   beregningsgrunnlag,
 }) => {
+  const intl = useIntl();
   const skalViseOppsummeringsrad =
     tabellData.andeler.length > 1 && !tabellData.andeler.some(andel => !andel.erFerdigBeregnet);
   tabellData.andeler.sort((a, b) => finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b));
@@ -299,7 +290,7 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
         </>
       )}
       {alleAndelerErFastsatt && (
-        <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler)}</>
+        <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler, intl)}</>
       )}
     </>
   );

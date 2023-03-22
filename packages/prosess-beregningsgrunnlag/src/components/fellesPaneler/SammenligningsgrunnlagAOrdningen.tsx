@@ -24,6 +24,7 @@ import ReactECharts from '../echart/ReactECharts';
 import styles from './sammenligningsgrunnlagAOrdningen.module.css';
 import Ledelinje from './Ledelinje';
 
+const TOM_ARRAY: InntektsgrunnlagMåned[] = [];
 const GRAF_FARGE_AT = '#99bdcd';
 const GRAF_FARGE_FL = '#c1b5d0';
 const GRAF_FARGE_YTELSE = '#C6C2BF';
@@ -145,18 +146,24 @@ const lagOverskrift = (): ReactElement => (
   </>
 );
 
-const finnesInntektAvType = (måneder: InntektsgrunnlagMåned[], status: string): boolean =>
-  måneder.flatMap(p => p.inntekter).some(innt => innt.inntektAktivitetType === status);
-
-type OwnProps = {
-  sammenligningsGrunnlagInntekter: Inntektsgrunnlag;
-  sammenligningsgrunnlag: SammenligningsgrunlagProp[];
-};
-
 type Inntektstyper = {
   harFrilansinntekt: boolean;
   harArbeidsinntekt: boolean;
   harYtelseinntekt: boolean;
+};
+
+const finnesInntektAvType = (måneder: InntektsgrunnlagMåned[], status: string): boolean =>
+  måneder.flatMap(p => p.inntekter).some(innt => innt.inntektAktivitetType === status);
+
+const utledRelevanteStatuser = (måneder: InntektsgrunnlagMåned[]): Inntektstyper => ({
+  harFrilansinntekt: finnesInntektAvType(måneder, InntektAktivitetType.FRILANS),
+  harArbeidsinntekt: finnesInntektAvType(måneder, InntektAktivitetType.ARBEID),
+  harYtelseinntekt: finnesInntektAvType(måneder, InntektAktivitetType.YTELSE),
+});
+
+type OwnProps = {
+  sammenligningsGrunnlagInntekter: Inntektsgrunnlag;
+  sammenligningsgrunnlag: SammenligningsgrunlagProp[];
 };
 
 const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
@@ -164,48 +171,39 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
   sammenligningsgrunnlag,
 }) => {
   const intl = useIntl();
-  const måneder = sammenligningsGrunnlagInntekter?.måneder;
-  if (!måneder || måneder.length === 0 || !sammenligningsgrunnlag || sammenligningsgrunnlag.length < 1) {
-    return null;
-  }
-  const relevanteStatuser = {
-    harFrilansinntekt: finnesInntektAvType(måneder, InntektAktivitetType.FRILANS),
-    harArbeidsinntekt: finnesInntektAvType(måneder, InntektAktivitetType.ARBEID),
-    harYtelseinntekt: finnesInntektAvType(måneder, InntektAktivitetType.YTELSE),
-  } as Inntektstyper;
-
-  const arbeidTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid' });
-  const frilansTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans' });
-  const ytelseTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse' });
-  const { sammenligningsgrunnlagFom } = sammenligningsgrunnlag[0];
+  const måneder = sammenligningsGrunnlagInntekter?.måneder || TOM_ARRAY;
+  const relevanteStatuser = useMemo(() => utledRelevanteStatuser(måneder), [måneder]);
+  const sgFom =
+    sammenligningsgrunnlag && sammenligningsgrunnlag.length > 0
+      ? sammenligningsgrunnlag[0].sammenligningsgrunnlagFom
+      : undefined;
   const dataForArbeid = useMemo(
     () =>
-      relevanteStatuser.harArbeidsinntekt
-        ? finnDataForIAT(måneder, sammenligningsgrunnlagFom, InntektAktivitetType.ARBEID)
-        : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, sammenligningsgrunnlagFom],
+      relevanteStatuser.harArbeidsinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.ARBEID) : [],
+    [relevanteStatuser.harArbeidsinntekt, måneder, sgFom],
   );
   const dataForFrilans = useMemo(
     () =>
-      relevanteStatuser.harFrilansinntekt
-        ? finnDataForIAT(måneder, sammenligningsgrunnlagFom, InntektAktivitetType.FRILANS)
-        : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, sammenligningsgrunnlagFom],
+      relevanteStatuser.harFrilansinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.FRILANS) : [],
+    [relevanteStatuser.harArbeidsinntekt, måneder, sgFom],
   );
   const dataForYtelse = useMemo(
     () =>
-      relevanteStatuser.harYtelseinntekt
-        ? finnDataForIAT(måneder, sammenligningsgrunnlagFom, InntektAktivitetType.YTELSE)
-        : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, sammenligningsgrunnlagFom],
+      relevanteStatuser.harYtelseinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.YTELSE) : [],
+    [relevanteStatuser.harArbeidsinntekt, måneder, sgFom],
   );
-
   const barFormatter = useCallback((params: any) => {
     if (params.value[0] > 5000) {
       return formatCurrencyNoKr(params.value[0]) || '';
     }
     return params.value[0] === 0 ? '' : '..';
   }, []);
+  if (!måneder || måneder.length === 0 || !sammenligningsgrunnlag || sammenligningsgrunnlag.length < 1) {
+    return null;
+  }
+  const arbeidTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid' });
+  const frilansTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans' });
+  const ytelseTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse' });
 
   return (
     <>

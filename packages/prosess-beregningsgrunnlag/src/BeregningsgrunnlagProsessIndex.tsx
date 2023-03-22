@@ -33,6 +33,8 @@ const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ];
 
+const TOM_ARRAY: Beregningsgrunnlag[] = [];
+
 const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
@@ -99,6 +101,9 @@ const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vil
   }));
 
 function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
+  if (!beregningsgrunnlag || beregningsgrunnlag.length === 0) {
+    return TOM_ARRAY;
+  }
   const res = [...beregningsgrunnlag];
   for (let i = 0; i < res.length; i += 1) {
     const bg = res[i];
@@ -124,13 +129,6 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   formData,
   setFormData,
 }) => {
-  if (
-    beregningsgrunnlagListe.length === 0 ||
-    (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
-  ) {
-    return <RawIntlProvider value={intl}>{visningForManglendeBG(beregningsgrunnlagsvilkar)}</RawIntlProvider>;
-  }
-
   const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
 
   const skalBrukeSidemeny = konverterteBg.length > 1;
@@ -149,7 +147,14 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
     if (førsteSkjæringstidspunktMedAksjonspunktIndex > -1) {
       setAktivtBeregningsgrunnlagIndeks(førsteSkjæringstidspunktMedAksjonspunktIndex);
     }
-  }, []);
+  }, [beregningsgrunnlagListe]);
+
+  if (
+    beregningsgrunnlagListe.length === 0 ||
+    (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
+  ) {
+    return <RawIntlProvider value={intl}>{visningForManglendeBG(beregningsgrunnlagsvilkar)}</RawIntlProvider>;
+  }
 
   return (
     <RawIntlProvider value={intl}>
