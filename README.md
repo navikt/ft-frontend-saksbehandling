@@ -2,6 +2,9 @@
 
 Kildekode og publisering av npm-moduler til frontend-moduler brukt i FP og K9
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=navikt_ft-frontend-saksbehandling&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=navikt_ft-frontend-saksbehandling)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=navikt_ft-frontend-saksbehandling&metric=bugs)](https://sonarcloud.io/summary/new_code?id=navikt_ft-frontend-saksbehandling)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=navikt_ft-frontend-saksbehandling&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=navikt_ft-frontend-saksbehandling)
 # Komme i gang
 
 Kjør `yarn install` på rot.
