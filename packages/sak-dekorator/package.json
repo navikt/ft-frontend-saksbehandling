@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@navikt/ds-css": "2.8.1",
-    "@navikt/ds-icons": "2.8.1",
+    "@navikt/ds-icons": "2.8.2",
     "@navikt/ds-react": "2.8.1",
     "@navikt/ft-kodeverk": "^2.0.8",
     "@navikt/ft-konstanter": "^2.0.8",
