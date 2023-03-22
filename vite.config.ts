@@ -12,6 +12,8 @@ export default defineConfig({
     // @ts-ignore Fiks
     dts({
       insertTypesEntry: true,
+      copyDtsFiles: true,
+      skipDiagnostics: true,
     }),
   ],
   css: {
