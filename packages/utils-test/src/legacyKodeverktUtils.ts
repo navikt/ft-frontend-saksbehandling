@@ -1,7 +1,10 @@
+// TODO Fjern denne fila når k9 er over på kodeverk-strings
+
 // eslint-disable-next-line import/prefer-default-export
 const data = {};
 
-const konverterKodeverkTilKode = data => {
+// eslint-disable-next-line @typescript-eslint/no-shadow
+const konverterKodeverkTilKode = (data: any) => {
   if (data === undefined || data === null) {
     return;
   }
@@ -27,4 +30,5 @@ const konverterKodeverkTilKode = data => {
 
 konverterKodeverkTilKode(data);
 
+// eslint-disable-next-line no-console
 console.log(JSON.stringify(data));
