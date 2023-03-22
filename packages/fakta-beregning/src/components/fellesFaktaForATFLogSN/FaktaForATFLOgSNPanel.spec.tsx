@@ -5,7 +5,6 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
-import sinon from 'sinon';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
 import { transformValues, transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
@@ -190,10 +189,10 @@ describe('<FaktaForATFLOgSNPanel>', () => {
   });
 
   it('skal transform values for nyIArbeidslivet om kun ny i arbeidslivet', () => {
-    const nyIArbTransform = sinon.spy();
-    const kortvarigTransform = sinon.spy();
-    const lonnsendringTransform = sinon.spy();
-    const vurderRefusjonTransform = sinon.spy();
+    const nyIArbTransform = vi.fn();
+    const kortvarigTransform = vi.fn();
+    const lonnsendringTransform = vi.fn();
+    const vurderRefusjonTransform = vi.fn();
 
     const aktivePaneler = [FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET];
     transformValues(
@@ -210,10 +209,10 @@ describe('<FaktaForATFLOgSNPanel>', () => {
   });
 
   it('skal transform values for nyIArbeidslivet og kortvarig om kun ny i arbeidslivet og kortvarig', () => {
-    const nyIArbTransform = sinon.spy();
-    const kortvarigTransform = sinon.spy();
-    const lonnsendringTransform = sinon.spy();
-    const vurderRefusjonTransform = sinon.spy();
+    const nyIArbTransform = vi.fn();
+    const kortvarigTransform = vi.fn();
+    const lonnsendringTransform = vi.fn();
+    const vurderRefusjonTransform = vi.fn();
 
     const aktivePaneler = [
       FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET,

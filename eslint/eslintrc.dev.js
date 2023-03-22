@@ -1,4 +1,4 @@
-const { merge } = require('webpack-merge');
+const vite = require('vite');
 const common = require('./eslintrc.common.js');
 
 const OFF = 0;
@@ -11,4 +11,4 @@ const config = {
   },
 };
 
-module.exports = merge(common, config);
+module.exports = vite.mergeConfig(common, config);
