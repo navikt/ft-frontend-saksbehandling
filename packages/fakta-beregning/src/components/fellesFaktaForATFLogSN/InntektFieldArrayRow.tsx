@@ -11,7 +11,7 @@ import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt, getSkalRedigereInntektskategori } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
-import VurderFaktaContext from './VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
   const headerCodes = [];
@@ -72,8 +72,8 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
 }) => {
   const intl = useIntl();
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const formValues = getValues(`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}`);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);

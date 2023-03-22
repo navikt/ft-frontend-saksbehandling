@@ -9,7 +9,7 @@ import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../.
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
-import VurderFaktaContext from '../../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 /**
  * LonnsendringForm
@@ -35,7 +35,7 @@ interface StaticFunctions {
 }
 
 const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
   return (
@@ -46,7 +46,7 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readO
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring" />
           </BodyShort>
         }
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.lonnsendringField`}
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
         isReadOnly={readOnly}
         radios={[
           { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },

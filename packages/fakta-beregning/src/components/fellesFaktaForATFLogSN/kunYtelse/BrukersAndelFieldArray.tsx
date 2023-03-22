@@ -12,7 +12,7 @@ import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
-import VurderFaktaContext from '../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from './brukersAndelFieldArray.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], alleKodeverk) => ({
@@ -161,8 +161,8 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
 }) => {
   const intl = useIntl();
   const { control } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const fieldArrayName = `${formNameVurderFaktaBeregning}.${aktivtBeregningsgrunnlagIndeks}.${name}`;
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const fieldArrayName = `${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${name}`;
   const { fields, append, remove } = formHooks.useFieldArray({
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
