@@ -19,7 +19,7 @@ import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
-import VurderFaktaContext from '../../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,
@@ -126,7 +126,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   alleKodeverk,
   arbeidsgiverOpplysningerPerId,
 }) => {
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
     : undefined;
@@ -149,7 +149,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
                 </BodyShort>
               </div>
             }
-            name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
+            name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
             isReadOnly={readOnly}
             radios={[
               { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
@@ -167,7 +167,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           readOnly,
           alleKodeverk,
           arbeidsgiverOpplysningerPerId,
-          aktivtBeregningsgrunnlagIndeks,
+          beregningsgrunnlagIndeks,
           intl,
         ),
       )}

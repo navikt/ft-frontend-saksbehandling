@@ -14,7 +14,7 @@ import {
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
-import VurderFaktaContext from '../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
 import styles from './kunYtelseBesteberegningPanel.module.css';
 
@@ -48,14 +48,14 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
   alleKodeverk,
 }) => {
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const formValues = getValues(`${formNameVurderFaktaBeregning}.${aktivtBeregningsgrunnlagIndeks}`);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
   const erBesteberegning = formValues[besteberegningField];
   const intl = useIntl();
   return (
     <div>
       <RadioGroupPanel
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.besteberegningField`}
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.besteberegningField`}
         isReadOnly={readOnly}
         label={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
         radios={[

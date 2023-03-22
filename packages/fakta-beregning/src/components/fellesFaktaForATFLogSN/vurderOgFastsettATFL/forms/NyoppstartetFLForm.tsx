@@ -9,7 +9,7 @@ import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
-import VurderFaktaContext from '../../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 /**
  * NyOppstartetFLForm
@@ -37,7 +37,7 @@ interface StaticFunctions {
 }
 
 const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
   return (
@@ -48,7 +48,7 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ rea
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
           </BodyShort>
         }
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
