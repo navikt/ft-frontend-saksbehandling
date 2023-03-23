@@ -13,7 +13,7 @@ import {
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
-import VurderFaktaContext from '../../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 /**
  * VurderEtterlønnSluttpakkeForm
@@ -41,7 +41,7 @@ interface StaticFunctions {
 }
 
 const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
   return (
@@ -52,7 +52,7 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
           </BodyShort>
         }
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
