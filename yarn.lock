@@ -3031,9 +3031,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-codemod@npm:2.8.1":
-  version: 2.8.1
-  resolution: "@navikt/ds-codemod@npm:2.8.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-codemod%2F2.8.1%2F5f15df002dc6bdaefc8b393c7485562bc2a848b9"
+"@navikt/ds-codemod@npm:2.8.3":
+  version: 2.8.3
+  resolution: "@navikt/ds-codemod@npm:2.8.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-codemod%2F2.8.3%2F538103b1245e8e220af6ccdedfd6cd4cc1586f2f"
   dependencies:
     chalk: 4.1.0
     cheerio: 1.0.0-rc.9
@@ -3049,7 +3049,7 @@ __metadata:
     prettier: 2.7.1
   bin:
     ds-codemod: bin/ds-codemod.js
-  checksum: 169dad52f46d1b501e039af53edd8707157a0cc35e8a4b901bbf51732ff48a3050decd245d5768bd9e41b396e9fca9f9ffcaf241bdaca045a6e7b5ef973d3b31
+  checksum: d0758f179f610086250d3213d2e9acf4f54d9c2ea7ee2ee6c7f1d61803f52bc4d51ae8ad5d5f53045d2cacaca306a4c6aff80a4293dfaa3843523441b09099b0
   languageName: node
   linkType: hard
 
@@ -13110,7 +13110,7 @@ __metadata:
     "@babel/runtime": 7.21.0
     "@formatjs/intl-datetimeformat": 6.5.1
     "@formatjs/intl-numberformat": 8.3.5
-    "@navikt/ds-codemod": 2.8.1
+    "@navikt/ds-codemod": 2.8.3
     "@storybook/addon-essentials": 6.5.16
     "@storybook/addon-links": 6.5.16
     "@storybook/addons": 6.5.16
