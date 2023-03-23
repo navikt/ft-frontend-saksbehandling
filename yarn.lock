@@ -14724,7 +14724,6 @@ __metadata:
     "@storybook/builder-vite": 7.0.0-rc.5
     "@storybook/cli": 7.0.0-rc.5
     "@storybook/react": 7.0.0-rc.5
-    "@storybook/storybook-deployer": 2.8.16
     "@storybook/testing-react": 2.0.0-next.0
     "@storybook/theming": 7.0.0-rc.5
 >>>>>>> a38c2ca7 (Oppgrader til storybook 7-rc)
@@ -14749,7 +14748,11 @@ __metadata:
     eslint-plugin-jsx-a11y: 6.7.1
     eslint-plugin-react: 7.32.2
     eslint-plugin-testing-library: 5.10.2
+<<<<<<< HEAD
     eslint-plugin-vitest: 0.0.57
+=======
+    eslint-plugin-vitest: 0.0.54
+>>>>>>> 3d542410 (div)
     gh-pages: 5.0.0
     husky: 8.0.3
     jsdom: 21.1.1
@@ -14970,6 +14973,9 @@ __metadata:
   linkType: hard
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d542410 (div)
 "gh-pages@npm:5.0.0":
   version: 5.0.0
   resolution: "gh-pages@npm:5.0.0"
@@ -14985,7 +14991,13 @@ __metadata:
     gh-pages: bin/gh-pages.js
     gh-pages-clean: bin/gh-pages-clean.js
   checksum: d766aef02d2859bd2fa89b183a7cb7cdb4b86401369c734e9a76875afbdcf9132142b2cdf35a835ed056131a9cdc4b4d9c551cdc353a9a248ff3cec6346a36d8
+<<<<<<< HEAD
 =======
+=======
+  languageName: node
+  linkType: hard
+
+>>>>>>> 3d542410 (div)
 "giget@npm:^1.0.0":
   version: 1.1.2
   resolution: "giget@npm:1.1.2"
@@ -26081,6 +26093,7 @@ __metadata:
   linkType: hard
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "which-typed-array@npm:^1.1.9":
 =======
 "which-module@npm:^2.0.0":
@@ -26090,6 +26103,8 @@ __metadata:
   languageName: node
   linkType: hard
 
+=======
+>>>>>>> 3d542410 (div)
 "which-typed-array@npm:^1.1.2, which-typed-array@npm:^1.1.9":
 >>>>>>> a3efbbeb (Oppgrader til storybook 7-rc)
   version: 1.1.9

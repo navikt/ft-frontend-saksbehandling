@@ -20,12 +20,8 @@
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules",
-<<<<<<< HEAD
     "build-storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider build-storybook -o .storybook-static-build",
-    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook --quiet -p 7008"
-=======
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider storybook dev --quiet -p 7008"
->>>>>>> a3efbbeb (Oppgrader til storybook 7-rc)
   },
   "dependencies": {
     "@navikt/ds-css": "2.8.4",

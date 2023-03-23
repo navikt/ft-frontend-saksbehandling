@@ -20,8 +20,8 @@
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules",
-    "build-storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider build-storybook -o .storybook-static-build",
-    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider storybook dev --quiet -p 7020"
+    "build-storybook": "storybook build -o ../../.storybook-static-build/@navikt/ft-sak-infosider",
+    "storybook": "storybook dev --quiet -p 7020"
   },
   "dependencies": {
     "@navikt/ds-css": "2.8.4",

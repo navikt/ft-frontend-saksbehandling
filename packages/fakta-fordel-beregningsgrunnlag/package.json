@@ -20,8 +20,8 @@
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules",
-    "build-storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider build-storybook -o .storybook-static-build",
-    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider storybook dev --quiet -p 7002"
+    "build-storybook": "storybook build -o ../../.storybook-static-build/@navikt/ft-fakta-fordel-beregningsgrunnlag",
+    "storybook": "storybook dev --quiet -p 7002"
   },
   "dependencies": {
     "@navikt/ds-css": "2.8.4",
@@ -57,23 +57,12 @@
     "react-intl": "6.2.10"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@navikt/ft-storybook-utils": "^2.0.13",
     "@navikt/ft-utils-test": "^2.0.10",
-    "@storybook/addon-actions": "6.5.16",
-    "@storybook/addon-essentials": "6.5.16",
-    "@storybook/addon-links": "6.5.16",
-    "@storybook/cli": "6.5.16",
-    "@storybook/react": "6.5.16",
-    "@storybook/testing-react": "1.3.0",
-=======
-    "@navikt/ft-storybook-utils": "^2.0.10",
-    "@navikt/ft-utils-test": "^2.0.8",
     "@storybook/addon-actions": "7.0.0-rc.5",
     "@storybook/react": "7.0.0-rc.5",
     "@storybook/react-vite": "7.0.0-rc.5",
     "@storybook/testing-react": "2.0.0-next.0",
->>>>>>> a3efbbeb (Oppgrader til storybook 7-rc)
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",

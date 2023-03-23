@@ -2,6 +2,10 @@ const path = require('path');
 const shell = require('shelljs');
 const glob = require('glob');
 const fs = require('fs');
+<<<<<<< HEAD
+=======
+const ghpages = require('gh-pages');
+>>>>>>> 3d542410 (div)
 
 const generateRow = (package) => `
   <div class="box">
