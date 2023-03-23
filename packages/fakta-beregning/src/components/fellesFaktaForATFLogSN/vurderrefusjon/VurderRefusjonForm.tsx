@@ -8,7 +8,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
-import VurderFaktaContext from '../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
@@ -83,7 +83,7 @@ export const VurderRefusjonForm: FunctionComponent<OwnProps> & StaticFunctions =
   faktaOmBeregning,
   arbeidsgiverOpplysningerPerId,
 }) => {
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
   return (
     <>
@@ -92,7 +92,7 @@ export const VurderRefusjonForm: FunctionComponent<OwnProps> & StaticFunctions =
         readOnly,
         isAksjonspunktClosed,
         arbeidsgiverOpplysningerPerId,
-        aktivtBeregningsgrunnlagIndeks,
+        beregningsgrunnlagIndeks,
       )}
     </>
   );

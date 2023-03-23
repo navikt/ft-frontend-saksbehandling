@@ -7,7 +7,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
-import VurderFaktaContext from '../VurderFaktaContext';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 /**
  * NyIArbeidslivetSNForm
@@ -34,7 +34,7 @@ interface StaticFunctions {
 }
 
 const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
   return (
@@ -45,7 +45,7 @@ const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ 
             <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
           </BodyShort>
         }
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.${radioGroupFieldName}`}
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${radioGroupFieldName}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
