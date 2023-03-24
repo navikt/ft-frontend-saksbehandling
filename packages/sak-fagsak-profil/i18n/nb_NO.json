@@ -1,4 +1,4 @@
 {
   "FagsakProfile.Dekningsgrad": "Dekningsgraden er {dekningsgrad}%",
-  "FagsakProfile.UtlandMarkering": "Saken er utlandsmerket med {utlandMarkeringTekst}"
+  "FagsakProfile.FagsakMarkering": "Saken er markert med {fagsakMarkeringTekst}"
 }
