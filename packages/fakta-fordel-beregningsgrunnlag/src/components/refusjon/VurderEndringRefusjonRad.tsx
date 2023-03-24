@@ -45,7 +45,7 @@ const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
 };
 
 type OwnProps = {
-  refusjonAndel?: RefusjonTilVurderingAndel;
+  refusjonAndel: RefusjonTilVurderingAndel;
   readOnly: boolean;
   erAksjonspunktÅpent: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -71,9 +71,6 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   skjæringstidspunkt,
   vilkårperiodeFieldIndex,
 }) => {
-  if (!refusjonAndel) {
-    return null;
-  }
   const navn = createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId);
   const andelTekst = refusjonAndel.skalKunneFastsetteDelvisRefusjon
     ? 'BeregningInfoPanel.RefusjonBG.TidligereRefusjon'
