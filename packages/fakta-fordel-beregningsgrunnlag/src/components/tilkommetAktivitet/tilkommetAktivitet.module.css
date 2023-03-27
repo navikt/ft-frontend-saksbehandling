@@ -44,3 +44,6 @@
   align-items: center;
   display: flex;
 }
+.tittelRad {
+  justify-content: space-between;
+}

@@ -1,0 +1,10 @@
+.datoRad {
+  background-color: var(--a-gray-300);
+  border-radius: 5px;
+  padding: 16px;
+}
+
+.modal {
+    /* stylelint-disable-next-line declaration-no-important */
+  overflow: visible !important;
+}

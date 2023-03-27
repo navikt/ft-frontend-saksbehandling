@@ -1,11 +1,18 @@
-import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { useIntl } from 'react-intl';
+import { Alert, BodyShort, Heading, Label, Button } from '@navikt/ds-react';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { Scissors } from '@navikt/ds-icons';
+import dayjs from 'dayjs';
+import { formHooks } from '@navikt/ft-form-hooks';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import TilkommetAktivitetAccordion from './TilkommetAktivitetAccordion';
 import styles from './tilkommetAktivitet.module.css';
+import PeriodesplittModal from './PeriodesplittModal';
+import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { Periode } from './PeriodesplittDatoValg';
 
 const finnAktivitetStatus = (
   aktivitetStatus: AktivitetStatus,
@@ -20,7 +27,7 @@ const finnAktivitetStatus = (
 type TilkommetAktivitetPanelType = {
   formName: string;
   beregningsgrunnlag: Beregningsgrunnlag;
-  index: number;
+  bgIndex: number;
   readOnly: boolean;
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
@@ -30,13 +37,21 @@ type TilkommetAktivitetPanelType = {
 const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   formName,
   beregningsgrunnlag,
-  index,
+  bgIndex,
   readOnly,
   submittable,
   erAksjonspunktÅpent,
   arbeidsgiverOpplysningerPerId,
 }) => {
   const intl = useIntl();
+  const [modalErÅpen, setModalErÅpen] = useState<boolean>(false);
+
+  const { control, watch } = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const { fields, remove, insert } = formHooks.useFieldArray({
+    control,
+    name: `VURDER_TILKOMMET_AKTIVITET_FORM.${bgIndex}.perioder`,
+  });
+  fields.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
 
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
@@ -96,6 +111,87 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
     );
   };
 
+  const mapInntektsforhold = (
+    andel: any,
+    taMedAlleFelter: boolean,
+    periodeFieldIndex: number,
+    andelFieldIndex: number,
+  ) => {
+    const skalRedusereValg = watch(
+      `${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${andelFieldIndex}.skalRedusereUtbetaling`,
+    );
+    const bruttoVerdi = watch(
+      `${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${andelFieldIndex}.bruttoInntektPrÅr`,
+    );
+    return {
+      aktivitetStatus: andel.aktivitetStatus,
+      arbeidsgiverIdent: andel.arbeidsgiverIdent,
+      arbeidsforholdId: andel.arbeidsforholdId,
+      bruttoInntektPrÅr: taMedAlleFelter ? bruttoVerdi : undefined,
+      skalRedusereUtbetaling: taMedAlleFelter ? skalRedusereValg : undefined,
+    };
+  };
+
+  const overlapper = (fom: string, tom: string, dato: string): boolean =>
+    !dayjs(fom).isAfter(dayjs(dato)) && !dayjs(tom).isBefore(dayjs(dato));
+
+  const finnNyePerioder = useCallback(
+    (nyFom: string): Periode[] => {
+      const fieldSomSplittes = fields.find(field => overlapper(field.fom, field.tom, nyFom));
+      if (!fieldSomSplittes) {
+        throw new Error(`Finner ikke field somme inneholder dato ${nyFom}`);
+      }
+      const splittDel1Tom = dayjs(nyFom).subtract(1, 'day');
+      const splittDel1 = {
+        fom: dayjs(fieldSomSplittes.fom).format(ISO_DATE_FORMAT),
+        tom: splittDel1Tom.format(ISO_DATE_FORMAT),
+      };
+      const splittDel2 = {
+        fom: dayjs(nyFom).format(ISO_DATE_FORMAT),
+        tom: fieldSomSplittes.tom,
+      };
+      return [splittDel1, splittDel2];
+    },
+    [fields],
+  );
+
+  const splittPeriode = useCallback(
+    (nyFom: string) => {
+      const fieldSomSplittes = fields.find(field => overlapper(field.fom, field.tom, nyFom));
+      if (!fieldSomSplittes) {
+        throw new Error(`Finner ikke field somme inneholder dato ${nyFom}`);
+      }
+      const nyePerioder = finnNyePerioder(nyFom);
+      const periodeFieldIndex = fields.indexOf(fieldSomSplittes);
+      const andelerFraField = fieldSomSplittes.inntektsforhold || [];
+      const splittDel1 = {
+        inntektsforhold: andelerFraField.map((andel, index) =>
+          mapInntektsforhold(andel, true, periodeFieldIndex, index),
+        ),
+        fom: nyePerioder[0].fom,
+        tom: nyePerioder[0].tom,
+      };
+      const splittDel2 = {
+        inntektsforhold: andelerFraField.map((andel, index) =>
+          mapInntektsforhold(andel, false, periodeFieldIndex, index),
+        ),
+        fom: nyePerioder[1].fom,
+        tom: nyePerioder[1].tom,
+      };
+      remove(periodeFieldIndex);
+      insert(periodeFieldIndex, [splittDel1, splittDel2]);
+    },
+    [fields],
+  );
+
+  const åpneModal = useCallback(() => {
+    setModalErÅpen(true);
+  }, [modalErÅpen]);
+
+  const lukkModal = useCallback(() => {
+    setModalErÅpen(false);
+  }, [modalErÅpen]);
+
   return (
     <>
       {getAksjonspunktText()}
@@ -109,16 +205,44 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
       )}
       <VerticalSpacer fourtyPx />
 
-      <Heading size="small" level="3">
-        {intl.formatMessage({ id: 'TilkommetAktivitet.Heading' })}
-      </Heading>
+      <FlexContainer>
+        <FlexRow className={styles.tittelRad}>
+          <FlexColumn>
+            <Heading size="small" level="3">
+              {intl.formatMessage({ id: 'TilkommetAktivitet.Heading' })}
+            </Heading>
+          </FlexColumn>
+          <FlexColumn>
+            <Button
+              variant="tertiary"
+              loading={false}
+              disabled={false}
+              onClick={åpneModal}
+              size="small"
+              type="button"
+              icon={<Scissors height={32} width={32} />}
+            >
+              {intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Knapp' })}
+            </Button>
+          </FlexColumn>
+        </FlexRow>
+      </FlexContainer>
       <hr className={styles.separator} />
-
+      {modalErÅpen && (
+        <PeriodesplittModal
+          fields={fields}
+          forhåndsvisPeriodesplitt={finnNyePerioder}
+          lukkModal={lukkModal}
+          showModal={modalErÅpen}
+          utførPeriodesplitt={splittPeriode}
+        />
+      )}
       <TilkommetAktivitetAccordion
         beregningsgrunnlag={beregningsgrunnlag}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         formName={formName}
-        index={index}
+        fields={fields}
+        bgIndex={bgIndex}
         readOnly={readOnly}
         erAksjonspunktÅpent={erAksjonspunktÅpent}
         submittable={submittable}

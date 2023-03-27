@@ -7,30 +7,21 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
-import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import {
+  TilkommetAktivitetFormValues,
+  TilkommetInntektsforholdFieldValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 import styles from './tilkommetAktivitet.module.css';
-import { getAktivitetNavn } from './TilkommetAktivitetUtils';
+import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
 
 type TilkommetInntektsforholdFieldType = {
   formName: string;
-  index: number;
+  bgIndex: number;
+  periodeFieldIndex: number;
   readOnly: boolean;
-  periodeIdentifikator: string;
-  inntektsforholdTilVurdering: Inntektsforhold;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-};
-
-const lagHjelpetekst = (inntektsforhold: Inntektsforhold): ReactElement => {
-  switch (inntektsforhold.aktivitetStatus) {
-    case AktivitetStatus.ARBEIDSTAKER:
-      return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerArbeid" values={{ br: <br /> }} />;
-    case AktivitetStatus.FRILANSER:
-      return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerFrilans" values={{ br: <br /> }} />;
-    case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
-      return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerNæring" />;
-    default:
-      return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerArbeid" />;
-  }
+  inntektsforholdFieldIndex: number;
+  field: TilkommetInntektsforholdFieldValues;
 };
 
 export const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold | undefined): string => {
@@ -49,39 +40,50 @@ export const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold
 
 const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
   formName,
-  index,
+  bgIndex,
+  periodeFieldIndex,
   readOnly,
-  inntektsforholdTilVurdering,
-  periodeIdentifikator,
+  inntektsforholdFieldIndex,
+  field,
   arbeidsgiverOpplysningerPerId,
 }) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
   const intl = useIntl();
+  const skalRedusereValg = formMethods.watch(
+    `${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`,
+  );
 
-  const { skalRedusereUtbetaling } = formMethods.watch(`${formName}.${index}`)[periodeIdentifikator][
-    getInntektsforholdIdentifikator(inntektsforholdTilVurdering)
-  ];
+  const lagHjelpetekst = (): ReactElement => {
+    switch (field.aktivitetStatus) {
+      case AktivitetStatus.ARBEIDSTAKER:
+        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerArbeid" values={{ br: <br /> }} />;
+      case AktivitetStatus.FRILANSER:
+        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerFrilans" values={{ br: <br /> }} />;
+      case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
+        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerNæring" />;
+      default:
+        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerArbeid" />;
+    }
+  };
 
-  const getRadioGroupLabel = (inntektsforhold: Inntektsforhold) => {
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+  const getRadioGroupLabel = (): string => {
+    if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
       return intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstNæring' });
     }
-    if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
+    if (field.aktivitetStatus === AktivitetStatus.FRILANSER) {
       return intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstFrilans' });
     }
     return intl.formatMessage(
       { id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstArbeid' },
-      { arbeidsforhold: getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId) },
+      { arbeidsforhold: getAktivitetNavnFraField(field, arbeidsgiverOpplysningerPerId) },
     );
   };
 
   return (
     <>
       <RadioGroupPanel
-        label={getRadioGroupLabel(inntektsforholdTilVurdering)}
-        name={`${formName}.${index}.${periodeIdentifikator}.${getInntektsforholdIdentifikator(
-          inntektsforholdTilVurdering,
-        )}.skalRedusereUtbetaling`}
+        label={getRadioGroupLabel()}
+        name={`${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
         radios={[
           { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' }) },
           { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' }) },
@@ -90,7 +92,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
         validate={[required]}
         isTrueOrFalseSelection
       />
-      {skalRedusereUtbetaling === false && (
+      {skalRedusereValg === false && (
         <>
           <VerticalSpacer sixteenPx />
           <Alert size="small" variant="info">
@@ -98,21 +100,19 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
           </Alert>
         </>
       )}
-      {skalRedusereUtbetaling && (
+      {skalRedusereValg && (
         <>
           <VerticalSpacer sixteenPx />
           <Label size="small">
             <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Fastsett" />
           </Label>
           <ReadMore header={<FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMer" />}>
-            {lagHjelpetekst(inntektsforholdTilVurdering)}
+            {lagHjelpetekst()}
           </ReadMore>
           <VerticalSpacer eightPx />
           <div className={styles.bruttoInntektContainer}>
             <InputField
-              name={`${formName}.${index}.${periodeIdentifikator}.${getInntektsforholdIdentifikator(
-                inntektsforholdTilVurdering,
-              )}.bruttoInntektPrÅr`}
+              name={`${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.bruttoInntektPrÅr`}
               label="Fastsett årsinntekt"
               hideLabel
               readOnly={readOnly}

@@ -30,6 +30,7 @@ import bgFlerePerioderMedForlengelse from '../testdata/FlerePerioderMedForlengel
 import bgTilkommetInntektsforholdMedForlengelse from '../testdata/TilkommetAktivitetMedForlengelse';
 import bgTilkommetInntektsforholdMedForlengelseLukketAP from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
 import bgTilkommetInntektsforholdMedRevurdering from '../testdata/TilkommetAktivitetRevurderingLøstTidligere';
+import bgTilkommetInntektsforholdMedRevurdering1MaiSplitt from '../testdata/TilkommetAktivitetRevurderingLøstTidligere1MaiKryss';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -999,6 +1000,21 @@ TilkommetAktivitetMedRevurdering.args = {
     {
       fom: '2022-11-08',
       tom: '2022-11-20',
+      vurderesIBehandlingen: true,
+      erForlengelse: false,
+    },
+  ],
+};
+
+export const TilkommetAktivitetMedRevurdering1MaiKryss = Template.bind({});
+TilkommetAktivitetMedRevurdering1MaiKryss.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: bgTilkommetInntektsforholdMedRevurdering1MaiSplitt,
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+  vilkårsperioder: [
+    {
+      fom: '2023-04-25',
+      tom: '2023-05-20',
       vurderesIBehandlingen: true,
       erForlengelse: false,
     },
