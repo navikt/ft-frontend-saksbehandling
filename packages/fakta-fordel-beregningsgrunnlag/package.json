@@ -23,8 +23,8 @@
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook --quiet -p 7002"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.1",
-    "@navikt/ds-react": "2.8.1",
+    "@navikt/ds-css": "2.8.4",
+    "@navikt/ds-react": "2.8.4",
     "@navikt/ft-form-hooks": "^4.0.10",
     "@navikt/ft-form-validators": "^2.0.9",
     "@navikt/ft-kodeverk": "^2.0.8",
@@ -35,8 +35,8 @@
     "core-js": "3.29.1",
     "dayjs": "1.11.7",
     "react": "18.2.0",
-    "react-hook-form": "7.43.7",
-    "react-intl": "6.3.1"
+    "react-hook-form": "7.43.8",
+    "react-intl": "6.3.2"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.6.0",
