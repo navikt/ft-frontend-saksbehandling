@@ -11,23 +11,20 @@ import {
 } from '@navikt/ft-types';
 import React, { FC, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,
-  TilkommetAktivitetPeriodeValues,
   TilkommetAktivitetValues,
+  TilkommetInntektsforholdFieldValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import VurderNyttInntektsforholdAP, {
   VurderNyttInntektsforholTransformedValues,
 } from '../../types/interface/VurderNyttInntektsforholdAP';
-import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
-import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
+import { erVurdertTidligere, slaaSammenPerioder, splittSammenslåttePerioder } from './TilkommetAktivitetUtils';
 import TilkommetAktivitetPanel from './TilkommetAktivitetPanel';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
-import { getPeriodeIdentikator } from './TilkommetAktivitetField';
 
 import styles from './tilkommetAktivitet.module.css';
 
@@ -53,32 +50,6 @@ const finnBeregningsgrunnlag = (
   return matchetndeBG;
 };
 
-function erInkludertIEllerLik(p: VurderInntektsforholdPeriode, p2: VurderInntektsforholdPeriode) {
-  return !dayjs(p.fom).isBefore(p2.fom) && !dayjs(p.tom).isAfter(p2.tom);
-}
-
-function overlapper(p: VurderInntektsforholdPeriode, p2: VurderInntektsforholdPeriode) {
-  return erInkludertIEllerLik(p, p2) || erInkludertIEllerLik(p2, p);
-}
-
-function finnPeriodeIdentifikator(
-  inntektsforholdPeriode: VurderInntektsforholdPeriode,
-  sammenslåttePerioder: VurderInntektsforholdPeriode[],
-): string {
-  const periode = sammenslåttePerioder.find(p => overlapper(inntektsforholdPeriode, p));
-  if (periode === undefined) {
-    throw Error('Forventet å finne en overlappende periode');
-  }
-  return getPeriodeIdentikator(periode);
-}
-
-const buildInnteksforholdInitialValues = (inntektsforhold: Inntektsforhold): TilkommetAktivitetValues => ({
-  [getInntektsforholdIdentifikator(inntektsforhold)]: {
-    bruttoInntektPrÅr: inntektsforhold?.bruttoInntektPrÅr,
-    skalRedusereUtbetaling: inntektsforhold?.skalRedusereUtbetaling,
-  },
-});
-
 function finnPerioderTilVurdering(beregningsgrunnlag: Beregningsgrunnlag): VurderInntektsforholdPeriode[] {
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
@@ -91,29 +62,19 @@ function finnPerioderTilVurdering(beregningsgrunnlag: Beregningsgrunnlag): Vurde
   return sammenslåttPerioder.filter(p => !erVurdertTidligere(p, beregningsgrunnlag));
 }
 
-function buildInntektsforholdListeInitialValues(periode: VurderInntektsforholdPeriode): TilkommetAktivitetValues {
-  return periode.inntektsforholdListe.reduce(
-    (initialIF, inntekt) => ({
-      ...initialIF,
-      ...buildInnteksforholdInitialValues(inntekt),
-    }),
-    {},
-  );
-}
+const buildInitalValuesInntektsforhold = (inntektsforhold: Inntektsforhold): TilkommetInntektsforholdFieldValues => ({
+  aktivitetStatus: inntektsforhold.aktivitetStatus,
+  arbeidsgiverIdent: inntektsforhold.arbeidsgiverId,
+  arbeidsforholdId: inntektsforhold.arbeidsforholdId,
+  bruttoInntektPrÅr: formatCurrencyNoKr(inntektsforhold.bruttoInntektPrÅr),
+  skalRedusereUtbetaling: inntektsforhold.skalRedusereUtbetaling,
+});
 
-function buildPeriodeListeInitialValues(
-  perioderTilVurdering: VurderInntektsforholdPeriode[],
-): TilkommetAktivitetPeriodeValues {
-  return perioderTilVurdering.reduce(
-    (initialPeriode, periode) => ({
-      ...initialPeriode,
-      ...{
-        [getPeriodeIdentikator(periode)]: buildInntektsforholdListeInitialValues(periode),
-      },
-    }),
-    {},
-  );
-}
+const buildInitialValuesPeriode = (periode: VurderInntektsforholdPeriode): TilkommetAktivitetValues => ({
+  fom: periode.fom,
+  tom: periode.tom,
+  inntektsforhold: periode.inntektsforholdListe.map(andel => buildInitalValuesInntektsforhold(andel)),
+});
 
 const buildFieldInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag,
@@ -122,11 +83,10 @@ const buildFieldInitialValues = (
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const perioderTilVurdering = finnPerioderTilVurdering(beregningsgrunnlag);
 
-  // @ts-ignore
   return {
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
     periode: finnVilkårsperiode(vilkarperioder, beregningsgrunnlag.vilkårsperiodeFom).periode,
-    ...buildPeriodeListeInitialValues(perioderTilVurdering),
+    perioder: perioderTilVurdering.map(periode => buildInitialValuesPeriode(periode)),
   };
 };
 
@@ -137,45 +97,42 @@ const buildInitialValues = (
   [`${FORM_NAME}`]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, vilkarperioder)),
 });
 
-function skalVurderes(perioderTilVurdering: VurderInntektsforholdPeriode[]) {
-  return (p: VurderInntektsforholdPeriode) => perioderTilVurdering.some(p2 => overlapper(p, p2));
-}
-
 export const transformFieldValues = (
   values: TilkommetAktivitetFieldValues,
   bg: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<VurderNyttInntektsforholTransformedValues> => {
-  const perioderTilVurdering = finnPerioderTilVurdering(bg);
-  const vurderInntektsforholdPerioder =
-    bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder || [];
-  const sammenslåttePerioder = slaaSammenPerioder(vurderInntektsforholdPerioder, bg.forlengelseperioder);
-  const transformedInntektsforhold = vurderInntektsforholdPerioder
-    .filter(skalVurderes(perioderTilVurdering))
-    .map(inntektsforholdPeriode => {
-      const periodeValues = values[finnPeriodeIdentifikator(inntektsforholdPeriode, sammenslåttePerioder)];
+  const perioderFields = values.perioder;
+  const foreløpigTransformertePerioder = perioderFields.map(periodeField => {
+    const andelFields = periodeField.inntektsforhold;
+    const transformerteInntektsforhold = andelFields.map(andelField => {
+      const skalUtbetalingReduseres = !!andelField.skalRedusereUtbetaling;
+      const bruttoInntektPrÅr = skalUtbetalingReduseres
+        ? removeSpacesFromNumber(andelField.bruttoInntektPrÅr)
+        : undefined;
       return {
-        fom: inntektsforholdPeriode.fom,
-        tom: inntektsforholdPeriode.tom,
-        andeler: inntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => {
-          const { skalRedusereUtbetaling } = periodeValues[getInntektsforholdIdentifikator(inntektsforhold)];
-          const bruttoInntektPrÅr = skalRedusereUtbetaling
-            ? removeSpacesFromNumber(periodeValues[getInntektsforholdIdentifikator(inntektsforhold)].bruttoInntektPrÅr)
-            : undefined;
-          return {
-            aktivitetStatus: inntektsforhold.aktivitetStatus,
-            arbeidsgiverId: inntektsforhold.arbeidsgiverId,
-            arbeidsforholdId: inntektsforhold.arbeidsforholdId,
-            bruttoInntektPrÅr,
-            skalRedusereUtbetaling,
-          };
-        }),
+        aktivitetStatus: andelField.aktivitetStatus,
+        arbeidsgiverId: andelField.arbeidsgiverIdent,
+        arbeidsforholdId: andelField.arbeidsforholdId,
+        skalRedusereUtbetaling: skalUtbetalingReduseres,
+        bruttoInntektPrÅr,
       };
     });
-
+    return {
+      fom: periodeField.fom,
+      tom: periodeField.tom,
+      tilkomneInntektsforhold: transformerteInntektsforhold,
+    };
+  });
+  // Transformerte perioder er basert på periodene man finner i fields,
+  // som igjen er basert på sammenslåtte perioder (slått sammen så saksbehandler skal slippe unødig mange utfylliger)
+  // Backend forventer å motta alle perioder, så vi splitter de opp igjen før innsending
+  const perioderFørSammenslåing =
+    bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder || [];
+  const allePerioder = splittSammenslåttePerioder(foreløpigTransformertePerioder, perioderFørSammenslåing);
   return {
     periode: values.periode,
     begrunnelse: values.begrunnelse,
-    tilkomneInntektsforhold: transformedInntektsforhold,
+    tilkomneInntektsforhold: allePerioder,
   };
 };
 
@@ -266,9 +223,9 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
         {fields.map((field, index) => (
           <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
             <TilkommetAktivitetPanel
-              beregningsgrunnlag={beregningsgrunnlagListe[index]}
               formName={FORM_NAME}
-              index={index}
+              beregningsgrunnlag={beregningsgrunnlagListe[index]}
+              bgIndex={index}
               readOnly={
                 readOnly || !vurderesIBehandlingen(vilkarperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
               }

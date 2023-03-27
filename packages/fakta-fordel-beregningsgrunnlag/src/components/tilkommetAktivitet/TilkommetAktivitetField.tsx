@@ -1,20 +1,22 @@
+import React, { FC } from 'react';
 import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
+// eslint-disable-next-line react/jsx-pascal-case, camelcase
+import { Tag } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FC } from 'react';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import { Tag } from '@navikt/ds-react';
 import SubmitButton from '../felles/SubmitButton';
-import { getAktivitetNavn } from './TilkommetAktivitetUtils';
-import TilkommetInntektsforholdField, { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
+import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
+import TilkommetInntektsforholdField from './TilkommetInntektsforholdField';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import styles from './tilkommetAktivitet.module.css';
 
 type TilkommetAktivitetFieldType = {
   formName: string;
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
-  index: number;
+  bgIndex: number;
+  periodeFieldIndex: number;
   readOnly: boolean;
   submittable: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -31,7 +33,8 @@ export function getPeriodeIdentikator(vurderInntektsforholdPeriode: VurderInntek
 const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   formName,
   vurderInntektsforholdPeriode,
-  index,
+  bgIndex,
+  periodeFieldIndex,
   readOnly,
   erAksjonspunktÅpent,
   submittable,
@@ -39,11 +42,16 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   skalViseBegrunnelse,
 }) => {
   const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const { control } = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const { fields } = formHooks.useFieldArray({
+    control,
+    name: `VURDER_TILKOMMET_AKTIVITET_FORM.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold`,
+  });
+
   const harInntektsforholdMedÅrsinntekt = vurderInntektsforholdPeriode.inntektsforholdListe.some(
     inntektsforhold =>
       erDefinert(inntektsforhold.bruttoInntektPrÅr) || erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr),
   );
-
   const harInntektsforholdMedPeriode = vurderInntektsforholdPeriode.inntektsforholdListe.some(
     inntektsforhold => !!inntektsforhold.periode,
   );
@@ -57,7 +65,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
 
       tableRows.push(
         <TableRow key={inntektsforhold.arbeidsgiverId}>
-          <TableColumn>{getAktivitetNavn(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
+          <TableColumn>{getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
           {(harBruttoInntekt || harInntektsmelding || harInntektsforholdMedPeriode) && (
             <TableColumn className={styles.inntektColumn}>
               {harBruttoInntekt && !harInntektsmelding && (
@@ -86,7 +94,6 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
     });
     return tableRows;
   };
-
   return (
     <>
       <div className={styles.aktivitetContainer}>
@@ -104,25 +111,26 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
       </div>
       <VerticalSpacer sixteenPx />
       <div className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}>
-        {vurderInntektsforholdPeriode.inntektsforholdListe.map((inntektsforhold, idx) => (
-          <>
+        {fields.map((field, index) => (
+          <div key={field.id}>
             <TilkommetInntektsforholdField
-              key={getInntektsforholdIdentifikator(inntektsforhold)}
+              key={field.id}
               formName={formName}
-              index={index}
+              bgIndex={bgIndex}
+              periodeFieldIndex={periodeFieldIndex}
+              inntektsforholdFieldIndex={index}
+              field={field}
               readOnly={readOnly}
-              inntektsforholdTilVurdering={inntektsforhold}
-              periodeIdentifikator={getPeriodeIdentikator(vurderInntektsforholdPeriode)}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             />
-            {idx < vurderInntektsforholdPeriode.inntektsforholdListe.length - 1 && <VerticalSpacer fourtyPx />}
-          </>
+            {index < vurderInntektsforholdPeriode.inntektsforholdListe.length - 1 && <VerticalSpacer fourtyPx />}
+          </div>
         ))}
         {skalViseBegrunnelse && (
           <>
             <VerticalSpacer fourtyPx />
             <TextAreaField
-              name={`${formName}.${index}.begrunnelse`}
+              name={`${formName}.${bgIndex}.begrunnelse`}
               label="Begrunnelse"
               readOnly={readOnly}
               validate={[required]}

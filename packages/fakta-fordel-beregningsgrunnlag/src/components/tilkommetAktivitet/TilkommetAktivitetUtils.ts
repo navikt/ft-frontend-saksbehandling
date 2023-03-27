@@ -5,19 +5,15 @@ import {
   Inntektsforhold,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
+import dayjs from 'dayjs';
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
+import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { TilkommetInntektPeriodeTransformedValues } from '../../types/interface/VurderNyttInntektsforholdAP';
 
-export const getInntektsforhold = (inntektsforholdPerioder?: VurderInntektsforholdPeriode[]): Inntektsforhold[] =>
-  inntektsforholdPerioder === undefined
-    ? []
-    : inntektsforholdPerioder
-        ?.flatMap(inntektsforholdPeriode => inntektsforholdPeriode.inntektsforholdListe)
-        .filter(
-          (inntektsforhold, i, liste) =>
-            liste.findIndex(listeElement => listeElement.arbeidsgiverId === inntektsforhold.arbeidsgiverId) === i,
-        );
+const DATO_PRAKSISENDRING_TILKOMMET_INNTEKT = '2023-05-01';
 
 function unike() {
   return (v: Inntektsforhold, i: number, l: Inntektsforhold[]) =>
@@ -83,6 +79,10 @@ const harPeriodeSomKanKombineresMedForrige = (
   periodeList: VurderInntektsforholdPeriode[],
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): boolean => {
+  // Spesialbehandler 1. mai 2023 da alle saker før denne datoen ble behandlet etter andre retningslinjer
+  if (dayjs(inntektsforholdPeriode.fom).isSame(dayjs(DATO_PRAKSISENDRING_TILKOMMET_INNTEKT))) {
+    return false;
+  }
   const forrigeInntektsforholdPeriode = periodeList[periodeList.length - 1];
   if (
     erPeriodeTilVurdering(inntektsforholdPeriode, forlengelseperioder) &&
@@ -127,7 +127,7 @@ export function erVurdertTidligere(
   );
 }
 
-export const getAktivitetNavn = (
+export const getAktivitetNavnFraInnteksforhold = (
   inntektsforhold: Inntektsforhold,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ) => {
@@ -151,5 +151,81 @@ export const getAktivitetNavn = (
     return 'Selvstendig næringsdrivende';
   }
 
+  return '';
+};
+
+const finnPeriodeSomMåSplittes = (
+  dato: string,
+  transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
+): TilkommetInntektPeriodeTransformedValues | undefined =>
+  transformertePerioder.find(
+    periode => dayjs(dato).isAfter(dayjs(periode.fom)) && !dayjs(dato).isAfter(dayjs(periode.tom)),
+  );
+
+const splittPeriode = (
+  periode: TilkommetInntektPeriodeTransformedValues,
+  dato: string,
+): TilkommetInntektPeriodeTransformedValues[] => {
+  const nyFom = dayjs(dato);
+  const nyTom = nyFom.subtract(1, 'day');
+  const periodeDel1 = {
+    fom: periode.fom,
+    tom: nyTom.format(ISO_DATE_FORMAT),
+    tilkomneInntektsforhold: periode.tilkomneInntektsforhold,
+  };
+  const periodeDel2 = {
+    fom: nyFom.format(ISO_DATE_FORMAT),
+    tom: periode.tom,
+    tilkomneInntektsforhold: periode.tilkomneInntektsforhold,
+  };
+  return [periodeDel1, periodeDel2];
+};
+
+export const splittSammenslåttePerioder = (
+  transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
+  perioderFørSammenslåing: VurderInntektsforholdPeriode[],
+): TilkommetInntektPeriodeTransformedValues[] => {
+  const alleOriginaleStartdatoer = perioderFørSammenslåing.map(p => p.fom);
+  const splittedePerioder = transformertePerioder.map(p => ({
+    fom: p.fom,
+    tom: p.tom,
+    tilkomneInntektsforhold: p.tilkomneInntektsforhold,
+  }));
+  alleOriginaleStartdatoer.forEach(dato => {
+    const periodeÅSplitte = finnPeriodeSomMåSplittes(dato, splittedePerioder);
+    if (periodeÅSplitte) {
+      const nyePerioder = splittPeriode(periodeÅSplitte, dato);
+      const indexÅFjerne = splittedePerioder.indexOf(periodeÅSplitte);
+      splittedePerioder.splice(indexÅFjerne, 1);
+      nyePerioder.forEach(nyPeriode => splittedePerioder.push(nyPeriode));
+    }
+  });
+  splittedePerioder.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom))); // For at periodene skal komme i kronologisk rekkefølge
+  return splittedePerioder;
+};
+
+export const getAktivitetNavnFraField = (
+  field: TilkommetInntektsforholdFieldValues,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+) => {
+  let agOpplysning = null;
+  if (field.arbeidsgiverIdent) {
+    agOpplysning = arbeidsgiverOpplysningerPerId[field.arbeidsgiverIdent];
+  }
+
+  if (field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
+    if (!agOpplysning) {
+      return 'Arbeidsforhold';
+    }
+    return createVisningsnavnForAktivitetFordeling(agOpplysning, field.arbeidsforholdId);
+  }
+
+  if (field.aktivitetStatus === AktivitetStatus.FRILANSER) {
+    return 'Frilanser';
+  }
+
+  if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+    return 'Selvstendig næringsdrivende';
+  }
   return '';
 };

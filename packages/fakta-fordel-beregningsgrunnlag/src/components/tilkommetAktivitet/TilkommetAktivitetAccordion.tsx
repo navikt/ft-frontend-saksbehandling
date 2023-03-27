@@ -1,7 +1,7 @@
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { Accordion, Label } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
 import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
@@ -13,7 +13,10 @@ import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIc
 import TidligereVurderteAktiviteterPanel from './TidligereVurderteAktiviteterPanel';
 import TilkommetAktivitetField from './TilkommetAktivitetField';
 import SubmitButton from '../felles/SubmitButton';
-import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import {
+  TilkommetAktivitetFormValues,
+  TilkommetAktivitetValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
@@ -42,23 +45,26 @@ type TilkommetAktivitetAccordionType = {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
-  index: number;
+  bgIndex: number;
   readOnly: boolean;
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
+  fields: TilkommetAktivitetValues[];
 };
 
 const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
   beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId,
   formName,
-  index,
+  bgIndex,
   readOnly,
   submittable,
   erAksjonspunktÅpent,
+  fields,
 }) => {
   const [sammenslåttePerioder, setSammenslåttePerioder] = useState<VurderInntektsforholdPeriode[]>([]);
   const [openPanels, setOpenPanels] = useState<string[]>([]);
+  const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
 
   useEffect(() => {
     const vurderInntektsforholdPerioder =
@@ -69,13 +75,12 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
       const åpnePaneler = perioder
         .filter(p => !erVurdertTidligere(p, beregningsgrunnlag))
         .filter(periode => !!periode.fom)
-        .map(periode => periode.fom || ''); // Typscript forstår ikke at fom alltid vil være definert her, så må en hack til...
+        .map(periode => periode.fom);
       setOpenPanels(åpnePaneler);
     }
   }, [beregningsgrunnlag]);
 
   const tidligereVurderte = sammenslåttePerioder.filter(p => erVurdertTidligere(p, beregningsgrunnlag));
-  const ikkeVurdertTidligere = sammenslåttePerioder.filter(p => !erVurdertTidligere(p, beregningsgrunnlag));
 
   const showPanel = (fom: string) => {
     if (openPanels.includes(fom)) {
@@ -88,68 +93,65 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
     }
   };
 
-  const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const finnMatchendeinntektsperiodeForField = (fieldFom: string): VurderInntektsforholdPeriode => {
+    const fomDato = dayjs(fieldFom);
+    const match = sammenslåttePerioder.find(p => !dayjs(p.fom).isAfter(fomDato) && !dayjs(p.tom).isBefore(fomDato));
+    if (!match) {
+      throw new Error(`Finner ikke periode som overlapper med fom ${fieldFom}`);
+    }
+    return match;
+  };
 
-  const visPanel = (periode: VurderInntektsforholdPeriode) => () => showPanel(periode.fom);
+  const visPanel = (fom: string) => () => showPanel(fom);
 
-  if (tidligereVurderte.length === 0 && ikkeVurdertTidligere.length === 1) {
-    // Viser ikke accordion dersom ingen tidligere vurderte perioder
-    return (
-      <TilkommetAktivitetField
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        vurderInntektsforholdPeriode={ikkeVurdertTidligere[0]}
-        formName={formName}
-        index={index}
-        readOnly={readOnly}
-        erAksjonspunktÅpent={erAksjonspunktÅpent}
-        submittable={submittable}
-        skalViseBegrunnelse
-      />
-    );
+  if (!sammenslåttePerioder || sammenslåttePerioder.length < 1) {
+    return null;
   }
 
   return (
     <>
       <Accordion className={styles.statusOk}>
-        {tidligereVurderte.map(periode => (
-          <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0} key={periode.fom}>
-            <Accordion.Header onClick={visPanel(periode)}>
-              {renderDateHeading(periode.fom, periode.tom)} <VurdertIForrigeBehandlingIcon />
+        {tidligereVurderte.map(tidligereVurdertPeriode => (
+          <Accordion.Item
+            open={openPanels.filter(panel => panel === tidligereVurdertPeriode.fom).length > 0}
+            key={tidligereVurdertPeriode.fom}
+          >
+            <Accordion.Header onClick={visPanel(tidligereVurdertPeriode.fom)}>
+              {renderDateHeading(tidligereVurdertPeriode.fom, tidligereVurdertPeriode.tom)}{' '}
+              <VurdertIForrigeBehandlingIcon />
             </Accordion.Header>
             <Accordion.Content>
               <TidligereVurderteAktiviteterPanel
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                vurderInntektsforholdPeriode={periode}
+                vurderInntektsforholdPeriode={tidligereVurdertPeriode}
               />
             </Accordion.Content>
           </Accordion.Item>
         ))}
-        {ikkeVurdertTidligere.map(periode => (
-          <Accordion.Item open={openPanels.filter(panel => panel === periode.fom).length > 0} key={periode.fom}>
-            <Accordion.Header onClick={visPanel(periode)}>
-              {renderDateHeading(periode.fom, periode.tom)}
-            </Accordion.Header>
+        {fields.map((field, index) => (
+          <Accordion.Item open={openPanels.filter(panel => panel === field.fom).length > 0} key={field.fom}>
+            <Accordion.Header onClick={visPanel(field.fom)}>{renderDateHeading(field.fom, field.tom)}</Accordion.Header>
             <Accordion.Content>
               <TilkommetAktivitetField
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                vurderInntektsforholdPeriode={periode}
+                vurderInntektsforholdPeriode={finnMatchendeinntektsperiodeForField(field.fom)}
                 formName={formName}
-                index={index}
+                bgIndex={bgIndex}
+                periodeFieldIndex={index}
                 readOnly={readOnly}
                 erAksjonspunktÅpent={erAksjonspunktÅpent}
                 submittable={submittable}
-                skalViseBegrunnelse={ikkeVurdertTidligere.length === 1}
+                skalViseBegrunnelse={fields.length === 1}
               />
             </Accordion.Content>
           </Accordion.Item>
         ))}
       </Accordion>
-
-      {ikkeVurdertTidligere.length > 1 && (
+      {fields.length > 1 && (
         <div className={styles.aktivitetContainer}>
           <VerticalSpacer fourtyPx />
           <TextAreaField
-            name={`${formName}.${index}.begrunnelse`}
+            name={`${formName}.${bgIndex}.begrunnelse`}
             label="Begrunnelse for alle perioder"
             readOnly={readOnly}
             validate={[required]}

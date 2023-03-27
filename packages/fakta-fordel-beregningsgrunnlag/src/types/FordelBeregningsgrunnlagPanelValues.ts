@@ -101,19 +101,24 @@ export type VurderRefusjonFormValues = {
 };
 
 export type TilkommetInntektsforholdFieldValues = {
-  skalRedusereUtbetaling: boolean;
-  bruttoInntektPrÅr: number | undefined;
+  aktivitetStatus: string;
+  arbeidsgiverIdent?: string;
+  arbeidsforholdId?: string;
+  skalRedusereUtbetaling?: boolean;
+  bruttoInntektPrÅr?: string;
 };
 
 export type TilkommetAktivitetValues = {
-  [key: string]: TilkommetInntektsforholdFieldValues;
+  fom: string;
+  tom: string;
+  inntektsforhold: TilkommetInntektsforholdFieldValues[];
 };
 
-export type TilkommetAktivitetPeriodeValues = {
-  [key: string]: TilkommetAktivitetValues;
+export type TilkommetAktivitetPeriodeValuesMedPerioder = {
+  perioder: TilkommetAktivitetValues[];
 };
 
-export type TilkommetAktivitetFieldValues = AksjonspunktValues & TilkommetAktivitetPeriodeValues;
+export type TilkommetAktivitetFieldValues = AksjonspunktValues & TilkommetAktivitetPeriodeValuesMedPerioder;
 
 export type TilkommetAktivitetFormValues = {
   [key: string]: TilkommetAktivitetFieldValues[];

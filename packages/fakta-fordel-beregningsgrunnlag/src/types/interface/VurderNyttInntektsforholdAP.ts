@@ -2,20 +2,21 @@ import { AvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
 import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type VurderNyttInntektsforholdAndelTransformedValues = {
-  arbeidsgiverId: string;
-  arbeidsforholdId: string;
-  bruttoInntektPrÅr: number | undefined;
+  aktivitetStatus: string;
   skalRedusereUtbetaling: boolean;
+  arbeidsgiverId?: string;
+  arbeidsforholdId?: string;
+  bruttoInntektPrÅr?: number;
 };
 
-export type VurderNyttInntektsforholdTilkomneInntektsforholdPerioderTransformedValues = {
-  andeler: VurderNyttInntektsforholdAndelTransformedValues[];
+export type TilkommetInntektPeriodeTransformedValues = {
+  tilkomneInntektsforhold: VurderNyttInntektsforholdAndelTransformedValues[];
   fom: string;
   tom: string;
 };
 
 export type VurderNyttInntektsforholTransformedValues = {
-  tilkomneInntektsforhold: VurderNyttInntektsforholdTilkomneInntektsforholdPerioderTransformedValues[];
+  tilkomneInntektsforhold: TilkommetInntektPeriodeTransformedValues[];
 };
 
 type VurderNyttInntektsforholdAP = AvklaringsbehovTilBekreftelse<
