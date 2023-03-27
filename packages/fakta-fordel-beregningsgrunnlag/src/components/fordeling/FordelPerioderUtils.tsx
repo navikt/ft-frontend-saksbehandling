@@ -82,7 +82,7 @@ function harUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
 }
 
 function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
-  return forrigeAndelIArbeid.sort().join('_') !== andelIArbeid.sort().join('-');
+  return forrigeAndelIArbeid.sort((a, b) => a - b).join('_') !== andelIArbeid.sort((a, b) => a - b).join('-');
 }
 
 const harIngenRelevantEndringForFordeling = (

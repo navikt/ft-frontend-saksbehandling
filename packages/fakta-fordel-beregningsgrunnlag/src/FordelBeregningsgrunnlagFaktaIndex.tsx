@@ -98,13 +98,13 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
 
   const bgMedAvklaringsbehov = konverterteBg.filter(bg => kreverManuellBehandlingFn(bg));
+  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   if (bgMedAvklaringsbehov.length === 0) {
     return null;
   }
 
   const skalBrukeTabs = bgMedAvklaringsbehov.length > 1;
-  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   return (
     <RawIntlProvider value={intl}>
