@@ -1,16 +1,19 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
+import dayjs from 'dayjs';
+import { DDMMYYYY_DATE_FORMAT, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 import {
+  BlaBoksMedCheckmarkListe,
   DateLabel,
-  VerticalSpacer,
   FlexColumn,
   FlexContainer,
   FlexRow,
-  BlaBoksMedCheckmarkListe,
+  VerticalSpacer,
 } from '@navikt/ft-ui-komponenter';
-import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, KodeverkType, LønnsendringScenario } from '@navikt/ft-kodeverk';
 
+import { AlleKodeverk, LønnsendringSaksopplysning, Saksopplysninger } from '@navikt/ft-types';
 import { BodyShort, Tag } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import KodeverkForPanel from '../../types/kodeverkForPanel';
@@ -66,8 +69,90 @@ type OwnProps = {
   skjeringstidspunktDato: string;
   aktivitetStatusList: string[];
   kodeverkSamling: KodeverkForPanel;
-  lonnsendringSisteTreMan: boolean;
+  saksopplysninger?: Saksopplysninger;
 };
+
+function uledMåned(skjeringstidspunktDato: string) {
+  const månedsnummer = dayjs(skjeringstidspunktDato).month();
+  switch (månedsnummer) {
+    case 0:
+      return 'januar';
+    case 1:
+      return 'februar';
+    case 2:
+      return 'mars';
+    case 3:
+      return 'april';
+    case 4:
+      return 'mai';
+    case 5:
+      return 'juni';
+    case 6:
+      return 'juli';
+    case 7:
+      return 'august';
+    case 8:
+      return 'september';
+    case 9:
+      return 'oktober';
+    case 10:
+      return 'november';
+    case 11:
+      return 'desember';
+    default:
+      throw Error(`Ugyldig måned ${månedsnummer} for dato ${skjeringstidspunktDato}`);
+  }
+}
+
+function lagLesMer(opplysning: LønnsendringSaksopplysning, skjeringstidspunktDato: string) {
+  switch (opplysning.lønnsendringscenario) {
+    case LønnsendringScenario.MANUELT_BEHANDLET:
+      return (
+        <FormattedMessage
+          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.manueltBehandlet"
+          values={{
+            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
+          }}
+        />
+      );
+    case LønnsendringScenario.DELVIS_MÅNEDSINNTEKT_SISTE_MND:
+      return (
+        <FormattedMessage
+          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.delvisMåned"
+          values={{
+            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
+            måned: uledMåned(opplysning.sisteLønnsendringsdato),
+            forrigeMåned: uledMåned(
+              dayjs(opplysning.sisteLønnsendringsdato).subtract(1, 'month').format(YYYY_MM_FORMAT),
+            ),
+          }}
+        />
+      );
+    case LønnsendringScenario.FULL_MÅNEDSINNTEKT_EN_MND:
+      return (
+        <FormattedMessage
+          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullEnMåned"
+          values={{
+            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
+            nesteMåned: uledMåned(dayjs(skjeringstidspunktDato).subtract(1, 'month').format(YYYY_MM_FORMAT)),
+          }}
+        />
+      );
+    case LønnsendringScenario.FULL_MÅNEDSINNTEKT_TO_MND:
+      return (
+        <FormattedMessage
+          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullToMåned"
+          values={{
+            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
+            sisteMåned: uledMåned(dayjs(skjeringstidspunktDato).subtract(1, 'month').format(YYYY_MM_FORMAT)),
+            nesteMåned: uledMåned(dayjs(skjeringstidspunktDato).subtract(2, 'month').format(YYYY_MM_FORMAT)),
+          }}
+        />
+      );
+    default:
+      return null;
+  }
+}
 
 /**
  * SkjeringspunktOgStatusPanel
@@ -79,11 +164,14 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
   skjeringstidspunktDato,
   aktivitetStatusList,
   kodeverkSamling,
-  lonnsendringSisteTreMan,
+  saksopplysninger,
 }) => {
-  const textIdsTilBlaBoksMedCheckmarkListe = [];
-  if (lonnsendringSisteTreMan) {
-    textIdsTilBlaBoksMedCheckmarkListe.push('Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan');
+  const saksopplysningerTilBlaBoksMedCheckmarkListe = [];
+  if (saksopplysninger && saksopplysninger.lønnsendringSaksopplysning) {
+    saksopplysningerTilBlaBoksMedCheckmarkListe.push({
+      textId: 'Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan',
+      readMoreContent: lagLesMer(saksopplysninger.lønnsendringSaksopplysning, skjeringstidspunktDato),
+    });
   }
   return (
     <div className={beregningStyles.panelLeft}>
@@ -102,12 +190,12 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
             </BodyShort>
           </FlexColumn>
         </FlexRow>
-        {textIdsTilBlaBoksMedCheckmarkListe.length > 0 && (
+        {saksopplysningerTilBlaBoksMedCheckmarkListe.length > 0 && (
           <>
             <VerticalSpacer sixteenPx />
             <FlexRow>
               <FlexColumn>
-                <BlaBoksMedCheckmarkListe textIds={textIdsTilBlaBoksMedCheckmarkListe} />
+                <BlaBoksMedCheckmarkListe saksopplysninger={saksopplysningerTilBlaBoksMedCheckmarkListe} />
               </FlexColumn>
             </FlexRow>
           </>
