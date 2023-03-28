@@ -42,3 +42,4 @@ export { default as DiskresjonskodeType } from './src/diskresjonskodeType';
 export { default as RelasjonsRolleType } from './src/relasjonsRolleType';
 export { default as Kommunikasjonsretning } from './src/kommunikasjonsretning';
 export { default as Inntektskategori, isSelvstendigNæringsdrivende } from './src/inntektskategori';
+export { default as LønnsendringScenario } from './src/lønnsendringScenario';
