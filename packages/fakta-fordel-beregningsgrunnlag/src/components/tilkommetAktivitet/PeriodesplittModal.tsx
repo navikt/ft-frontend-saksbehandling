@@ -30,11 +30,14 @@ const periodeInneholderFlereVirkedager = (periode: Periode): boolean => {
 const lagPerioderFraFields = (fields: TilkommetAktivitetValues[]): Periode[] =>
   fields.map(field => ({ fom: field.fom, tom: field.tom }));
 
-const formaterTomForVisning = (tom: string): string => {
-  if (tom === TIDENES_ENDE) {
-    return '';
+const lagPeriodeString = (fom: string, tom: string): string => {
+  const fomString = dayjs(fom).format(DDMMYYYY_DATE_FORMAT);
+  if (tom && tom !== TIDENES_ENDE) {
+    const tomString = dayjs(tom).format(DDMMYYYY_DATE_FORMAT);
+    const tekst = fomString.concat(' - ', tomString);
+    return tekst;
   }
-  return dayjs(tom).format(DDMMYYYY_DATE_FORMAT);
+  return fomString.concat(' - ');
 };
 
 const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
@@ -96,18 +99,10 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
                 label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Select' })}
                 onChange={endreValgtPeriode}
               >
-                <option value="">
-                  <FormattedMessage id="TilkommetAktivitet.Modal.Placeholder" />
-                </option>
+                <option value={undefined}>Velg periode</option>
                 {perioder.map(periode => (
                   <option key={periode.fom} value={periode.fom}>
-                    <FormattedMessage
-                      id="TilkommetAktivitet.Modal.Periode"
-                      values={{
-                        fom: dayjs(periode.fom).format(DDMMYYYY_DATE_FORMAT),
-                        tom: formaterTomForVisning(periode.tom),
-                      }}
-                    />
+                    {lagPeriodeString(periode.fom, periode.tom)}
                   </option>
                 ))}
               </Select>
