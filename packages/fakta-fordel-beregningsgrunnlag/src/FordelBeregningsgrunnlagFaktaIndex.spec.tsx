@@ -35,10 +35,10 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Første periode
-    expect(screen.getByText('Gjeldende 05.08.2019 - 26.11.2019')).toBeInTheDocument();
+    expect(screen.getByText('05.08.2019 - 26.11.2019')).toBeInTheDocument();
 
     // Andre periode
-    expect(screen.getByText('Gjeldende f.o.m. 27.11.2019')).toBeInTheDocument();
+    expect(screen.getByText('27.11.2019 -')).toBeInTheDocument();
     expect(screen.getByText('Legg til aktivitet')).toBeEnabled();
 
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
@@ -133,10 +133,10 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const utils = render(<AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046 submitCallback={lagre} />);
 
     // Første periode
-    expect(screen.getByText('Gjeldende 05.08.2019 - 26.11.2019')).toBeInTheDocument();
+    expect(screen.getByText('05.08.2019 - 26.11.2019')).toBeInTheDocument();
 
     // Andre periode
-    expect(screen.getByText('Gjeldende f.o.m. 27.11.2019')).toBeInTheDocument();
+    expect(screen.getByText('27.11.2019 -')).toBeInTheDocument();
 
     // Andre skjæringstidspunkt
 
@@ -151,10 +151,10 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     await userEvent.click(screen.getByText('01.01.2020 - 05.02.2020'));
 
     // Første periode - andre stp
-    expect(screen.getByText('Gjeldende 01.01.2020 - 26.01.2020')).toBeInTheDocument();
+    expect(screen.getByText('01.01.2020 - 26.01.2020')).toBeInTheDocument();
 
     // Andre periode - andre stp
-    expect(screen.getByText('Gjeldende f.o.m. 27.11.2019')).toBeInTheDocument();
+    expect(screen.getByText('27.11.2019 -')).toBeInTheDocument();
 
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     expect(alleInputfelt).toHaveLength(4);
@@ -249,10 +249,10 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(knapp[1]).toBeDisabled();
 
     // Første periode
-    expect(screen.getByText('Gjeldende 05.08.2019 - 26.11.2019')).toBeInTheDocument();
+    expect(screen.getByText('05.08.2019 - 26.11.2019')).toBeInTheDocument();
 
     // Andre periode
-    expect(screen.getByText('Gjeldende f.o.m. 27.11.2019')).toBeInTheDocument();
+    expect(screen.getByText('27.11.2019 -')).toBeInTheDocument();
     const leggTilKnapper = screen.getAllByText('Legg til aktivitet');
     expect(leggTilKnapper).toHaveLength(2);
     expect(leggTilKnapper[0]).toBeEnabled();
@@ -586,8 +586,8 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
   render(<TilkommetAktivitetMedForlengelse submitCallback={lagre} />);
   expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
 
-  expect(screen.getByText('Gjeldende 09.11.2022 - 15.11.2022')).toBeInTheDocument();
-  await userEvent.click(screen.getByText('Gjeldende 09.11.2022 - 15.11.2022'));
+  expect(screen.getByText('09.11.2022 - 15.11.2022')).toBeInTheDocument();
+  await userEvent.click(screen.getByText('09.11.2022 - 15.11.2022'));
 
   expect(screen.getAllByText('Årsinntekt')).toHaveLength(2);
   expect(screen.getAllByText('450 000 kr')).toHaveLength(2);
@@ -601,7 +601,7 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
   expect(screen.getAllByText('Ja')).toHaveLength(3);
 
   expect(screen.getByText('300 000 kr')).toBeInTheDocument();
-  expect(screen.getByText('Gjeldende 16.11.2022 - 20.11.2022')).toBeInTheDocument();
+  expect(screen.getByText('16.11.2022 - 20.11.2022')).toBeInTheDocument();
   expect(
     screen.getByText('Har søker inntekt fra Arbeidsgiveren (999999997)...123 som reduserer søkers inntektstap?'),
   ).toBeInTheDocument();
@@ -660,8 +660,8 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
   render(<TilkommetAktivitetMedRevurdering submitCallback={lagre} />);
   expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
 
-  expect(screen.getByText('Gjeldende 09.11.2022 - 15.11.2022')).toBeInTheDocument();
-  expect(screen.getByText('Gjeldende 16.11.2022 - 20.11.2022')).toBeInTheDocument();
+  expect(screen.getByText('09.11.2022 - 15.11.2022')).toBeInTheDocument();
+  expect(screen.getByText('16.11.2022 - 20.11.2022')).toBeInTheDocument();
   expect(screen.getByText('Del opp periode')).toBeInTheDocument();
 
   await userEvent.click(screen.getByText('Del opp periode'));
@@ -683,9 +683,9 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
   expect(screen.getByText('09.11.2022 - 10.11.2022')).toBeInTheDocument();
   expect(screen.getByText('11.11.2022 - 15.11.2022')).toBeInTheDocument();
   await userEvent.click(screen.getAllByRole('button', { name: 'Del opp periode' })[1]);
-  expect(await screen.findByText('Gjeldende 09.11.2022 - 10.11.2022')).toBeInTheDocument();
-  expect(screen.getByText('Gjeldende 11.11.2022 - 15.11.2022')).toBeInTheDocument();
-  expect(screen.getByText('Gjeldende 16.11.2022 - 20.11.2022')).toBeInTheDocument();
+  expect(await screen.findByText('09.11.2022 - 10.11.2022')).toBeInTheDocument();
+  expect(screen.getByText('11.11.2022 - 15.11.2022')).toBeInTheDocument();
+  expect(screen.getByText('16.11.2022 - 20.11.2022')).toBeInTheDocument();
 
   expect(screen.getAllByText('Ja')).toHaveLength(6);
   expect(screen.getAllByText('Nei')).toHaveLength(6);

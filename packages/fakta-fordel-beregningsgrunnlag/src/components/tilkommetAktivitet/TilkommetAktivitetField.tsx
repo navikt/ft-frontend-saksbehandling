@@ -64,7 +64,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
       const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
 
       tableRows.push(
-        <TableRow key={inntektsforhold.arbeidsgiverId}>
+        <TableRow key={inntektsforhold.arbeidsgiverId || inntektsforhold.aktivitetStatus}>
           <TableColumn>{getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
           {(harBruttoInntekt || harInntektsmelding || harInntektsforholdMedPeriode) && (
             <TableColumn className={styles.inntektColumn}>
