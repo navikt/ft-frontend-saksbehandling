@@ -58,11 +58,6 @@ export type BeregningsgrunnlagAndel = Readonly<{
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
   avkortetPrAar?: number;
   inntektskategori?: string;
-
-  // Fjern disse to da er flyttet inn i arbeidsforhold objektet over her
-  bortfaltNaturalytelse?: number;
-  tilkommetNaturalytelse?: number;
-
   beregnetPrAar?: number;
   beregningsperiodeFom?: string;
   beregningsperiodeTom?: string;
