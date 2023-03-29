@@ -40,7 +40,7 @@
     "@babel/runtime": "7.21.0",
     "@formatjs/intl-datetimeformat": "6.5.1",
     "@formatjs/intl-numberformat": "8.3.5",
-    "@navikt/ds-codemod": "2.8.4",
+    "@navikt/ds-codemod": "2.8.7",
     "@storybook/addon-essentials": "6.5.16",
     "@storybook/addon-links": "6.5.16",
     "@storybook/addons": "6.5.16",
