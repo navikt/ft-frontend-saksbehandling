@@ -121,6 +121,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
                 ? valgtBeregningsgrunnlag.faktaOmBeregning.saksopplysninger
                 : undefined
             }
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
           {storSpacer}
           {relevanteStatuser.skalViseBeregningsgrunnlag && (

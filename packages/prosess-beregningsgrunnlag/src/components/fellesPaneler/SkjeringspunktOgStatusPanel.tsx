@@ -1,6 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
+import norskFormat from 'dayjs/locale/nb';
 import { DDMMYYYY_DATE_FORMAT, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 import {
@@ -11,12 +12,18 @@ import {
   FlexRow,
   VerticalSpacer,
 } from '@navikt/ft-ui-komponenter';
-import { AktivitetStatus, KodeverkType, LønnsendringScenario } from '@navikt/ft-kodeverk';
 
-import { AlleKodeverk, LønnsendringSaksopplysning, Saksopplysninger } from '@navikt/ft-types';
+import { AktivitetStatus, KodeverkType, LønnsendringScenario } from '@navikt/ft-kodeverk';
+import {
+  AlleKodeverk,
+  ArbeidsgiverOpplysningerPerId,
+  LønnsendringSaksopplysning,
+  Saksopplysninger,
+} from '@navikt/ft-types';
 import { BodyShort, Tag } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import KodeverkForPanel from '../../types/kodeverkForPanel';
+import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 
 enum TagType {
   BLÅ = 'alt3',
@@ -70,48 +77,53 @@ type OwnProps = {
   aktivitetStatusList: string[];
   kodeverkSamling: KodeverkForPanel;
   saksopplysninger?: Saksopplysninger;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-function uledMåned(skjeringstidspunktDato: string) {
-  const månedsnummer = dayjs(skjeringstidspunktDato).month();
-  switch (månedsnummer) {
-    case 0:
-      return 'januar';
-    case 1:
-      return 'februar';
-    case 2:
-      return 'mars';
-    case 3:
-      return 'april';
-    case 4:
-      return 'mai';
-    case 5:
-      return 'juni';
-    case 6:
-      return 'juli';
-    case 7:
-      return 'august';
-    case 8:
-      return 'september';
-    case 9:
-      return 'oktober';
-    case 10:
-      return 'november';
-    case 11:
-      return 'desember';
-    default:
-      throw Error(`Ugyldig måned ${månedsnummer} for dato ${skjeringstidspunktDato}`);
-  }
+const uledMåned = (dato: string) => dayjs(dato).locale(norskFormat).format('MMMM');
+
+function finnLønnsendringsdatoer(
+  opplysninger: LønnsendringSaksopplysning[],
+  scenario: LønnsendringScenario,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+) {
+  const datoListe = opplysninger
+    .filter(it => it.lønnsendringscenario === scenario)
+    .map(
+      it => `i ${createVisningsnavnForAktivitet(
+        arbeidsgiverOpplysningerPerId[it.arbeidsforhold.arbeidsgiverIdent],
+        undefined,
+      )}
+      ${dayjs(it.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT)}`,
+    );
+  return datoListe.reduce((concatString, current, index) => {
+    if (index === 0) {
+      return current;
+    }
+    if (index < datoListe.length - 2) {
+      return `${concatString}, ${current}`;
+    }
+    return `${concatString} og ${current}`;
+  }, '');
 }
 
-function lagLesMer(opplysning: LønnsendringSaksopplysning, skjeringstidspunktDato: string) {
-  switch (opplysning.lønnsendringscenario) {
+const finnScenarioTekst = (
+  scenario: string,
+  stp: string,
+  opplysninger: LønnsendringSaksopplysning[],
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+) => {
+  switch (scenario) {
     case LønnsendringScenario.MANUELT_BEHANDLET:
       return (
         <FormattedMessage
           id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.manueltBehandlet"
           values={{
-            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
+            datoer: finnLønnsendringsdatoer(
+              opplysninger,
+              LønnsendringScenario.MANUELT_BEHANDLET,
+              arbeidsgiverOpplysningerPerId,
+            ),
           }}
         />
       );
@@ -120,11 +132,13 @@ function lagLesMer(opplysning: LønnsendringSaksopplysning, skjeringstidspunktDa
         <FormattedMessage
           id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.delvisMåned"
           values={{
-            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
-            måned: uledMåned(opplysning.sisteLønnsendringsdato),
-            forrigeMåned: uledMåned(
-              dayjs(opplysning.sisteLønnsendringsdato).subtract(1, 'month').format(YYYY_MM_FORMAT),
+            datoer: finnLønnsendringsdatoer(
+              opplysninger,
+              LønnsendringScenario.DELVIS_MÅNEDSINNTEKT_SISTE_MND,
+              arbeidsgiverOpplysningerPerId,
             ),
+            måned: uledMåned(dayjs(stp).subtract(1, 'month').format(YYYY_MM_FORMAT)),
+            forrigeMåned: uledMåned(dayjs(stp).subtract(2, 'month').format(YYYY_MM_FORMAT)),
           }}
         />
       );
@@ -133,8 +147,12 @@ function lagLesMer(opplysning: LønnsendringSaksopplysning, skjeringstidspunktDa
         <FormattedMessage
           id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullEnMåned"
           values={{
-            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
-            nesteMåned: uledMåned(dayjs(skjeringstidspunktDato).subtract(1, 'month').format(YYYY_MM_FORMAT)),
+            datoer: finnLønnsendringsdatoer(
+              opplysninger,
+              LønnsendringScenario.FULL_MÅNEDSINNTEKT_EN_MND,
+              arbeidsgiverOpplysningerPerId,
+            ),
+            nesteMåned: uledMåned(dayjs(stp).subtract(1, 'month').format(YYYY_MM_FORMAT)),
           }}
         />
       );
@@ -143,15 +161,34 @@ function lagLesMer(opplysning: LønnsendringSaksopplysning, skjeringstidspunktDa
         <FormattedMessage
           id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullToMåned"
           values={{
-            sisteLønnsendring: dayjs(opplysning.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT),
-            sisteMåned: uledMåned(dayjs(skjeringstidspunktDato).subtract(1, 'month').format(YYYY_MM_FORMAT)),
-            nesteMåned: uledMåned(dayjs(skjeringstidspunktDato).subtract(2, 'month').format(YYYY_MM_FORMAT)),
+            datoer: finnLønnsendringsdatoer(
+              opplysninger,
+              LønnsendringScenario.FULL_MÅNEDSINNTEKT_TO_MND,
+              arbeidsgiverOpplysningerPerId,
+            ),
+            sisteMåned: uledMåned(dayjs(stp).subtract(1, 'month').format(YYYY_MM_FORMAT)),
+            nesteMåned: uledMåned(dayjs(stp).subtract(2, 'month').format(YYYY_MM_FORMAT)),
           }}
         />
       );
     default:
       return null;
   }
+};
+
+function lagLesMer(
+  opplysninger: LønnsendringSaksopplysning[],
+  skjeringstidspunktDato: string,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+) {
+  const unikeScenario = unique(opplysninger.map(o => o.lønnsendringscenario));
+  return unikeScenario.map(scenario => (
+    <>
+      {finnScenarioTekst(scenario, skjeringstidspunktDato, opplysninger, arbeidsgiverOpplysningerPerId)}
+      <br />
+      <VerticalSpacer sixteenPx />
+    </>
+  ));
 }
 
 /**
@@ -165,12 +202,21 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
   aktivitetStatusList,
   kodeverkSamling,
   saksopplysninger,
+  arbeidsgiverOpplysningerPerId,
 }) => {
   const saksopplysningerTilBlaBoksMedCheckmarkListe = [];
-  if (saksopplysninger && saksopplysninger.lønnsendringSaksopplysning) {
+  if (
+    saksopplysninger &&
+    saksopplysninger.lønnsendringSaksopplysning &&
+    saksopplysninger.lønnsendringSaksopplysning.length > 0
+  ) {
     saksopplysningerTilBlaBoksMedCheckmarkListe.push({
       textId: 'Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan',
-      readMoreContent: lagLesMer(saksopplysninger.lønnsendringSaksopplysning, skjeringstidspunktDato),
+      readMoreContent: lagLesMer(
+        saksopplysninger.lønnsendringSaksopplysning,
+        skjeringstidspunktDato,
+        arbeidsgiverOpplysningerPerId,
+      ),
     });
   }
   return (

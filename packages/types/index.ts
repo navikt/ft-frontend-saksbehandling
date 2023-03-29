@@ -30,7 +30,6 @@ export type {
   VurderBesteberegning,
   RefusjonskravSomKommerForSentListe,
   Saksopplysninger,
-  LønnsendringScenario,
   LønnsendringSaksopplysning,
 } from './src/beregningsgrunnlagFaktaTsType';
 export type { default as Personadresse } from './src/personadresseTsType';
