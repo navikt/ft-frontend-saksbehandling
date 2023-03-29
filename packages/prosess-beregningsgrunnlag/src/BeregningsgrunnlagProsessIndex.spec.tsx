@@ -23,6 +23,14 @@ window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 describe('<BeregningsgrunnlagProsessIndex>', () => {
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvik />);
+    expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();
+    await userEvent.click(screen.getByText('Søker har hatt lønnsendring i løpet av de siste tre månedene'));
+    expect(
+      screen.getByText(
+        'Bruker har hatt lønnsendring i BEDRIFT AS (999999996) 01.12.2019. ' +
+          'Ny inntekt er beregnet ved å bruke rapportert inntekt i desember.',
+      ),
+    ).toBeInTheDocument();
     expect(await screen.findByText('Skjæringstidspunkt for beregning')).toBeInTheDocument();
     expect(screen.getByText('01.01.2021')).toBeInTheDocument();
     expect(screen.getByText('Arbeidstaker')).toBeInTheDocument();
