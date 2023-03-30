@@ -7,6 +7,7 @@ import * as stories from './BeregningsgrunnlagProsessIndex.stories';
 const {
   ArbeidstakerMedAvvikAp5038,
   ArbeidstakerUtenAvvik,
+  ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring,
   SelvstendigNæringsdrivendeMedAksjonspunktAp5039,
   MidlertidigInaktivMedAksjonspunktAp5054,
   SelvstendigNæringsdrivendNyIArbeidslivetAp5049,
@@ -21,6 +22,30 @@ const scrollIntoViewMock = vi.fn();
 window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
 describe('<BeregningsgrunnlagProsessIndex>', () => {
+  it('skal vise informasjon om arbeidstakerinntekt', async () => {
+    render(<ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring />);
+    expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();
+    await userEvent.click(screen.getByText('Søker har hatt lønnsendring i løpet av de siste tre månedene'));
+    expect(
+      screen.getByText(
+        'Bruker har hatt lønnsendring i BEDRIFT AS (999999996) 15.12.2019 og i Gardslien transport' +
+          ' og Gardiner AS (999999998) 05.12.2019. ' +
+          'Dette betyr at rapportert inntekt for desember er en kombinasjon av ny og gammel inntekt. ' +
+          'Ny inntekt er beregnet ved først å finne gammel inntekt fra rapportert inntekt i november ' +
+          'og deretter regne oss fram til ny inntekt ved å bruke forholdet mellom dagene før og etter lønnsendringen.',
+        { exact: false },
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(
+        'Bruker har hatt lønnsendring i Svaneby sykehjem (999999997) 01.12.2019. ' +
+          'Ny inntekt er beregnet ved å bruke rapportert inntekt i desember.',
+        { exact: false },
+      ),
+    ).toBeInTheDocument();
+  });
+
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvik />);
     expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();

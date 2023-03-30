@@ -107,20 +107,22 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
             </BodyShort>
           </FlexColumn>
         </FlexRow>
-        {saksopplysninger?.lønnsendringSaksopplysning?.length > 0 && (
-          <>
-            <VerticalSpacer sixteenPx />
-            <FlexRow>
-              <FlexColumn>
-                <SaksopplysningPanel
-                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                  skjeringstidspunktDato={skjeringstidspunktDato}
-                  saksopplysninger={saksopplysninger}
-                />
-              </FlexColumn>
-            </FlexRow>
-          </>
-        )}
+        {!!saksopplysninger &&
+          !!saksopplysninger.lønnsendringSaksopplysning &&
+          saksopplysninger.lønnsendringSaksopplysning.length > 0 && (
+            <>
+              <VerticalSpacer sixteenPx />
+              <FlexRow>
+                <FlexColumn>
+                  <SaksopplysningPanel
+                    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                    skjeringstidspunktDato={skjeringstidspunktDato}
+                    saksopplysninger={saksopplysninger}
+                  />
+                </FlexColumn>
+              </FlexRow>
+            </>
+          )}
       </FlexContainer>
     </div>
   );

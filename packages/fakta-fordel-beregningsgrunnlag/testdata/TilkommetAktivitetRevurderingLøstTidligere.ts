@@ -198,7 +198,7 @@ const beregningsgrunnlag = [
     grunnbeløp: 111477,
     faktaOmBeregning: {
       saksopplysninger: {
-        arbeidsforholdMedLønnsendring: [],
+        lønnsendringSaksopplysning: [],
         kortvarigeArbeidsforhold: [],
       },
       avklarAktiviteter: {
