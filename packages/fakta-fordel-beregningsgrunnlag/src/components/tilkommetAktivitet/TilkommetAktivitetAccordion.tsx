@@ -70,7 +70,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
     const vurderInntektsforholdPerioder =
       beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
     if (vurderInntektsforholdPerioder) {
-      const perioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
+      const perioder = slaaSammenPerioder(vurderInntektsforholdPerioder, true, beregningsgrunnlag.forlengelseperioder);
       setSammenslåttePerioder(perioder);
       const åpnePaneler = perioder
         .filter(p => !erVurdertTidligere(p, beregningsgrunnlag))

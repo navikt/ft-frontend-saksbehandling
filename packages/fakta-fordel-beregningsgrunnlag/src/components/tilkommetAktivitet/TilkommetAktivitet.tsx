@@ -58,7 +58,7 @@ function finnPerioderTilVurdering(beregningsgrunnlag: Beregningsgrunnlag): Vurde
     throw Error('vurderInntektsforholdPerioder skal være definert');
   }
 
-  const sammenslåttPerioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
+  const sammenslåttPerioder = slaaSammenPerioder(vurderInntektsforholdPerioder, false, beregningsgrunnlag.forlengelseperioder);
   return sammenslåttPerioder.filter(p => !erVurdertTidligere(p, beregningsgrunnlag));
 }
 
