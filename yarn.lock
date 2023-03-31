@@ -3123,10 +3123,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-css@npm:2.8.4":
-  version: 2.8.4
-  resolution: "@navikt/ds-css@npm:2.8.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F2.8.4%2F2b1089e505e43bf479ba9bba52a9b1e1e4e5016c"
-  checksum: 964f7ef03dd11a739f986d056d24738b69eff07252879dabcb73a88b3b08e6d9301b00bf56188d2514d19dbe6539556c1eae134bd24700542cc69050cb40679b
+"@navikt/ds-css@npm:2.8.10":
+  version: 2.8.10
+  resolution: "@navikt/ds-css@npm:2.8.10::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F2.8.10%2F71f6526bdfef544483b50e5041b1a93d18257653"
+  checksum: bb8b901b20b247c78ffd71f3b7ab9ec0c083fd0630dacd1567f1d75e42a1fb79ce480fa799f50f50f7ddc140cda5780559f12df5f14e86ebf5b2c6e1f6428486
   languageName: node
   linkType: hard
 
@@ -3171,7 +3171,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-icons": 2.8.4
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
@@ -3224,7 +3224,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3278,7 +3278,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3323,7 +3323,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-hooks@workspace:packages/form-hooks"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-validators": ^2.0.11
     "@navikt/ft-types": ^2.0.9
@@ -3410,7 +3410,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-icons": 2.8.4
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-utils": ^2.0.10
@@ -3453,7 +3453,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3506,7 +3506,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3553,7 +3553,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3597,7 +3597,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3644,7 +3644,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-aktor@workspace:packages/sak-aktor"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-plattform-komponenter": ^2.0.12
@@ -3682,7 +3682,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-behandling-velger@workspace:packages/sak-behandling-velger"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-plattform-komponenter": ^2.0.12
@@ -3726,7 +3726,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-dekorator@workspace:packages/sak-dekorator"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-icons": 2.8.4
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-kodeverk": ^2.0.9
@@ -3769,7 +3769,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-dokumenter@workspace:packages/sak-dokumenter"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-types": ^2.0.9
@@ -3804,7 +3804,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-fagsak-profil@workspace:packages/sak-fagsak-profil"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-types": ^2.0.9
@@ -3839,7 +3839,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-infosider@workspace:packages/sak-infosider"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-utils": ^2.0.10
     "@storybook/addon-actions": 6.5.16
@@ -3868,7 +3868,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-meny@workspace:packages/sak-meny"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3907,7 +3907,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-risikoklassifisering@workspace:packages/sak-risikoklassifisering"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3953,7 +3953,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-support-meny@workspace:packages/sak-support-meny"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-types": ^2.0.9
     "@navikt/ft-ui-komponenter": ^2.0.11
@@ -3986,7 +3986,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-visittkort@workspace:packages/sak-visittkort"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-plattform-komponenter": ^2.0.12
@@ -4039,7 +4039,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-tidslinje@workspace:packages/tidslinje"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-types": ^2.0.9
     "@navikt/ft-ui-komponenter": ^2.0.11
@@ -4091,7 +4091,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
-    "@navikt/ds-css": 2.8.4
+    "@navikt/ds-css": 2.8.10
     "@navikt/ds-react": 2.8.4
     "@navikt/fnrvalidator": 1.3.3
     "@navikt/ft-utils": ^2.0.10
