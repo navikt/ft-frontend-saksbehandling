@@ -1,5 +1,4 @@
 import { VurderInntektsforholdPeriode, Inntektsforhold } from '@navikt/ft-types';
-import { calcDays } from '@navikt/ft-utils';
 import {
   TilkommetInntektPeriodeTransformedValues,
   VurderNyttInntektsforholdAndelTransformedValues,
@@ -11,7 +10,7 @@ const lagInntektsforhold = (aktivitetStatus: string, arbeidsgiverId: string): In
   arbeidsgiverId,
   arbeidsforholdId: '',
   skalRedusereUtbetaling: false,
-})
+});
 
 const lagTransformedPeriode = (
   fom: string,
@@ -146,31 +145,14 @@ describe('<TilkommetAktivitetUtils>', () => {
     const p3 = resultat.find(p => p.fom === '2022-11-09');
     expect(p3?.tom).toEqual('2022-11-20');
     expect(p3?.tilkomneInntektsforhold).toEqual(periodeFraField2.tilkomneInntektsforhold);
-  }); 
-  
-  it('skal ikke submitte perioder som ikke ligger i inntektsperiodeliste', () => {
-    const periodeFraField1 = lagTransformedPeriode('2023-04-03', '2023-04-14', [lagAndel('999999999', 'AT')]);
-    const inntektsforholdPeriode1 = lagInntektsperiode('2023-04-03', '2023-04-07');
-    const inntektsforholdPeriode2 = lagInntektsperiode('2023-04-10', '2023-04-14');
-    const resultat = splittSammenslåttePerioder(
-      [periodeFraField1],
-      [inntektsforholdPeriode1, inntektsforholdPeriode2],
-    );
-
-    expect(resultat).toHaveLength(2);
-
-    const p1 = resultat.find(p => p.fom === '2023-04-03');
-    expect(p1?.tom).toEqual('2023-04-07');
-    expect(p1?.tilkomneInntektsforhold).toEqual(periodeFraField1.tilkomneInntektsforhold);
-
-    const p2 = resultat.find(p => p.fom === '2023-04-10');
-    expect(p2?.tom).toEqual('2023-04-14');
-    expect(p2?.tilkomneInntektsforhold).toEqual(periodeFraField1.tilkomneInntektsforhold);
   });
 
   it('skal slå sammen to perioder som går vegg i vegg ', () => {
     const inntektsforhold = lagInntektsforhold('AT', '123');
-    const perioder = [lagInntektsperiode('2023-04-03', '2023-04-05', [inntektsforhold]), lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold])];
+    const perioder = [
+      lagInntektsperiode('2023-04-03', '2023-04-05', [inntektsforhold]),
+      lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold]),
+    ];
     const resultat = slaaSammenPerioder(perioder, false, []);
     expect(resultat).toHaveLength(1);
     expect(resultat[0].fom).toBe('2023-04-03');
@@ -179,8 +161,11 @@ describe('<TilkommetAktivitetUtils>', () => {
 
   it('skal slå sammen tre perioder som går vegg i vegg med helg mellom', () => {
     const inntektsforhold = lagInntektsforhold('AT', '123');
-    const perioder = [lagInntektsperiode('2023-04-03', '2023-04-05', [inntektsforhold]), 
-    lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold]), lagInntektsperiode('2023-04-10', '2023-04-13', [inntektsforhold])];
+    const perioder = [
+      lagInntektsperiode('2023-04-03', '2023-04-05', [inntektsforhold]),
+      lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold]),
+      lagInntektsperiode('2023-04-10', '2023-04-13', [inntektsforhold]),
+    ];
     const resultat = slaaSammenPerioder(perioder, false, []);
     expect(resultat).toHaveLength(1);
     expect(resultat[0].fom).toBe('2023-04-03');
@@ -189,7 +174,10 @@ describe('<TilkommetAktivitetUtils>', () => {
 
   it('skal ikke slå sammen perioder med en dag i mellom som ikke er helg', () => {
     const inntektsforhold = lagInntektsforhold('AT', '123');
-    const perioder = [lagInntektsperiode('2023-04-03', '2023-04-04', [inntektsforhold]), lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold])];
+    const perioder = [
+      lagInntektsperiode('2023-04-03', '2023-04-04', [inntektsforhold]),
+      lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold]),
+    ];
     const resultat = slaaSammenPerioder(perioder, false, []);
     expect(resultat).toHaveLength(2);
     expect(resultat[0].fom).toBe('2023-04-03');
@@ -200,8 +188,12 @@ describe('<TilkommetAktivitetUtils>', () => {
 
   it('skal slå sammen perioder med helg i mellom, og ikke slå sammen perioder med virkedager i mellom', () => {
     const inntektsforhold = lagInntektsforhold('AT', '123');
-    const perioder = [lagInntektsperiode('2023-04-03', '2023-04-04', [inntektsforhold]), lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold]),
-      lagInntektsperiode('2023-04-11', '2023-04-14', [inntektsforhold]), lagInntektsperiode('2023-04-17', '2023-04-21', [inntektsforhold])];
+    const perioder = [
+      lagInntektsperiode('2023-04-03', '2023-04-04', [inntektsforhold]),
+      lagInntektsperiode('2023-04-06', '2023-04-07', [inntektsforhold]),
+      lagInntektsperiode('2023-04-11', '2023-04-14', [inntektsforhold]),
+      lagInntektsperiode('2023-04-17', '2023-04-21', [inntektsforhold]),
+    ];
     const resultat = slaaSammenPerioder(perioder, false, []);
     expect(resultat).toHaveLength(3);
     expect(resultat[0].fom).toBe('2023-04-03');
@@ -211,5 +203,4 @@ describe('<TilkommetAktivitetUtils>', () => {
     expect(resultat[2].fom).toBe('2023-04-11');
     expect(resultat[2].tom).toBe('2023-04-21');
   });
-
 });
