@@ -6,13 +6,12 @@ import {
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
 import dayjs from 'dayjs';
-import { calcDays, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { calcDays } from '@navikt/ft-utils';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import isBetween from 'dayjs/plugin/isBetween';
 import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { TilkommetInntektPeriodeTransformedValues } from '../../types/interface/VurderNyttInntektsforholdAP';
 
 dayjs.extend(isBetween);
 const DATO_PRAKSISENDRING_TILKOMMET_INNTEKT = '2023-05-01';
@@ -92,7 +91,6 @@ const erVirkedagMellomPeriodene = (
 const harPeriodeSomKanKombineresMedForrige = (
   inntektsforholdPeriode: VurderInntektsforholdPeriode,
   periodeList: VurderInntektsforholdPeriode[],
-  slåSammenMellomliggendeVirkedager: boolean,
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): boolean => {
   // Spesialbehandler 1. mai 2023 da alle saker før denne datoen ble behandlet etter andre retningslinjer
@@ -100,23 +98,18 @@ const harPeriodeSomKanKombineresMedForrige = (
     return false;
   }
   const forrigeInntektsforholdPeriode = periodeList[periodeList.length - 1];
-  if (
-    erPeriodeTilVurdering(inntektsforholdPeriode, forlengelseperioder) &&
-    !erPeriodeTilVurdering(forrigeInntektsforholdPeriode, forlengelseperioder)
-  ) {
+  const dennePeriodenErTilVurdering = erPeriodeTilVurdering(inntektsforholdPeriode, forlengelseperioder);
+  if (dennePeriodenErTilVurdering && !erPeriodeTilVurdering(forrigeInntektsforholdPeriode, forlengelseperioder)) {
     return false;
   }
-  if (
-    !slåSammenMellomliggendeVirkedager &&
-    erVirkedagMellomPeriodene(inntektsforholdPeriode, forrigeInntektsforholdPeriode)
-  ) {
+  if (dennePeriodenErTilVurdering && erVirkedagMellomPeriodene(inntektsforholdPeriode, forrigeInntektsforholdPeriode)) {
     return false;
   }
   return harIngenRelevantEndring(inntektsforholdPeriode, forrigeInntektsforholdPeriode);
 };
 
 const sjekkOmPeriodeSkalLeggesTil =
-  (slåSammenMellomliggendeVirkedager: boolean, forlengelseperioder?: ForlengelsePeriodeProp[]) =>
+  (forlengelseperioder?: ForlengelsePeriodeProp[]) =>
   (
     aggregatedPeriodList: VurderInntektsforholdPeriode[],
     periode: VurderInntektsforholdPeriode,
@@ -125,14 +118,7 @@ const sjekkOmPeriodeSkalLeggesTil =
       aggregatedPeriodList.push({ ...periode });
       return aggregatedPeriodList;
     }
-    if (
-      harPeriodeSomKanKombineresMedForrige(
-        periode,
-        aggregatedPeriodList,
-        slåSammenMellomliggendeVirkedager,
-        forlengelseperioder,
-      )
-    ) {
+    if (harPeriodeSomKanKombineresMedForrige(periode, aggregatedPeriodList, forlengelseperioder)) {
       oppdaterTomOgInntektsforholdForSistePeriode(aggregatedPeriodList, periode);
       return aggregatedPeriodList;
     }
@@ -142,10 +128,8 @@ const sjekkOmPeriodeSkalLeggesTil =
 
 export const slaaSammenPerioder = (
   perioder: VurderInntektsforholdPeriode[],
-  slåSammenMellomliggendeVirkedager: boolean,
   forlengelseperioder?: ForlengelsePeriodeProp[],
-): VurderInntektsforholdPeriode[] =>
-  perioder.reduce(sjekkOmPeriodeSkalLeggesTil(slåSammenMellomliggendeVirkedager, forlengelseperioder), []);
+): VurderInntektsforholdPeriode[] => perioder.reduce(sjekkOmPeriodeSkalLeggesTil(forlengelseperioder), []);
 
 export function erVurdertTidligere(
   periode: VurderInntektsforholdPeriode,
@@ -183,56 +167,6 @@ export const getAktivitetNavnFraInnteksforhold = (
   }
 
   return '';
-};
-
-const finnPeriodeSomMåSplittes = (
-  dato: string,
-  transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
-): TilkommetInntektPeriodeTransformedValues | undefined =>
-  transformertePerioder.find(
-    periode => dayjs(dato).isAfter(dayjs(periode.fom)) && !dayjs(dato).isAfter(dayjs(periode.tom)),
-  );
-
-const splittPeriode = (
-  periode: TilkommetInntektPeriodeTransformedValues,
-  dato: string,
-): TilkommetInntektPeriodeTransformedValues[] => {
-  const nyFom = dayjs(dato);
-  const nyTom = nyFom.subtract(1, 'day');
-  const periodeDel1 = {
-    fom: periode.fom,
-    tom: nyTom.format(ISO_DATE_FORMAT),
-    tilkomneInntektsforhold: periode.tilkomneInntektsforhold,
-  };
-  const periodeDel2 = {
-    fom: nyFom.format(ISO_DATE_FORMAT),
-    tom: periode.tom,
-    tilkomneInntektsforhold: periode.tilkomneInntektsforhold,
-  };
-  return [periodeDel1, periodeDel2];
-};
-
-export const splittSammenslåttePerioder = (
-  transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
-  perioderFørSammenslåing: VurderInntektsforholdPeriode[],
-): TilkommetInntektPeriodeTransformedValues[] => {
-  const alleOriginaleStartdatoer = perioderFørSammenslåing.map(p => p.fom);
-  const splittedePerioder = transformertePerioder.map(p => ({
-    fom: p.fom,
-    tom: p.tom,
-    tilkomneInntektsforhold: p.tilkomneInntektsforhold,
-  }));
-  alleOriginaleStartdatoer.forEach(dato => {
-    const periodeÅSplitte = finnPeriodeSomMåSplittes(dato, splittedePerioder);
-    if (periodeÅSplitte) {
-      const nyePerioder = splittPeriode(periodeÅSplitte, dato);
-      const indexÅFjerne = splittedePerioder.indexOf(periodeÅSplitte);
-      splittedePerioder.splice(indexÅFjerne, 1);
-      nyePerioder.forEach(nyPeriode => splittedePerioder.push(nyPeriode));
-    }
-  });
-  splittedePerioder.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom))); // For at periodene skal komme i kronologisk rekkefølge
-  return splittedePerioder;
 };
 
 export const getAktivitetNavnFraField = (
