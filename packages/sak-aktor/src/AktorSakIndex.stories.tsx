@@ -35,7 +35,7 @@ const Template: Story<{
   <AktorSakIndex
     valgtAktorId="123"
     aktorInfo={aktorInfo}
-    alleKodeverk={alleKodeverk as any}
+    kodeverkSamling={alleKodeverk}
     renderSomLenke={(className, fagsakKomponent) => (
       <button type="button" className={className}>
         {fagsakKomponent}
