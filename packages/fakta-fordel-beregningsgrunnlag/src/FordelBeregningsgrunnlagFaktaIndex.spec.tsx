@@ -12,7 +12,7 @@ const {
   FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046,
   TilkommetAktivitet,
   TilkommetAktivitetMedForlengelse,
-  TilkommetAktivitetMedRevurdering,
+  TilkommetAktiviteTreLikePerioderHelgMellomAlle,
 } = composeStories(stories);
 
 window.ResizeObserver =
@@ -657,11 +657,10 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
 
 it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye perioder', async () => {
   const lagre = vi.fn();
-  render(<TilkommetAktivitetMedRevurdering submitCallback={lagre} />);
+  render(<TilkommetAktiviteTreLikePerioderHelgMellomAlle submitCallback={lagre} />);
   expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
 
-  expect(screen.getByText('09.11.2022 - 15.11.2022')).toBeInTheDocument();
-  expect(screen.getByText('16.11.2022 - 20.11.2022')).toBeInTheDocument();
+  expect(screen.getByText('10.04.2023 - 28.04.2023')).toBeInTheDocument();
   expect(screen.getByText('Del opp periode')).toBeInTheDocument();
 
   await userEvent.click(screen.getByText('Del opp periode'));
@@ -671,42 +670,35 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
   expect(await screen.queryByText('Opprett ny vurdering fra')).not.toBeInTheDocument();
   await userEvent.selectOptions(
     screen.getByLabelText('Hvilken periode ønsker du å dele opp?'),
-    '09.11.2022 - 15.11.2022',
+    '10.04.2023 - 28.04.2023',
   );
   expect(screen.getAllByText('Del opp periode')[2].closest('button')).toBeDisabled();
   expect(screen.getByText('Opprett ny vurdering fra')).toBeInTheDocument();
 
   await userEvent.click(screen.getByLabelText('Åpne datovelger'));
-  await userEvent.click(screen.getByLabelText('fredag 11'));
+  await userEvent.click(screen.getByLabelText('tirsdag 18'));
   expect(await screen.getAllByText('Del opp periode')[2].closest('button')).toBeEnabled();
   expect(screen.getByText('Nye perioder til vurdering:')).toBeInTheDocument();
-  expect(screen.getByText('09.11.2022 - 10.11.2022')).toBeInTheDocument();
-  expect(screen.getByText('11.11.2022 - 15.11.2022')).toBeInTheDocument();
+  expect(screen.getByText('10.04.2023 - 17.04.2023')).toBeInTheDocument();
+  expect(screen.getByText('18.04.2023 - 28.04.2023')).toBeInTheDocument();
   await userEvent.click(screen.getAllByRole('button', { name: 'Del opp periode' })[1]);
-  expect(await screen.findByText('09.11.2022 - 10.11.2022')).toBeInTheDocument();
-  expect(screen.getByText('11.11.2022 - 15.11.2022')).toBeInTheDocument();
-  expect(screen.getByText('16.11.2022 - 20.11.2022')).toBeInTheDocument();
+  expect(await screen.findByText('10.04.2023 - 17.04.2023')).toBeInTheDocument();
+  expect(screen.getByText('18.04.2023 - 28.04.2023')).toBeInTheDocument();
 
-  expect(screen.getAllByText('Ja')).toHaveLength(6);
-  expect(screen.getAllByText('Nei')).toHaveLength(6);
+  expect(screen.getAllByText('Ja')).toHaveLength(4);
+  expect(screen.getAllByText('Nei')).toHaveLength(4);
 
-  // 09.11.2022 - 10.11.2022
+  // 10.04.2023 - 17.04.2023
   await userEvent.click(screen.getAllByLabelText('Nei')[0]);
   await userEvent.click(screen.getAllByLabelText('Nei')[1]);
 
-  // 11.11.2022 - 15.11.2022
-  await userEvent.click(screen.getAllByLabelText('Nei')[2]);
+  // 18.04.2023 - 28.04.2023
+  await userEvent.click(screen.getAllByLabelText('Ja')[2]);
   await userEvent.click(screen.getAllByLabelText('Ja')[3]);
-  expect(screen.getByLabelText('Fastsett årsinntekt')).toBeInTheDocument();
+  expect(screen.getAllByLabelText('Fastsett årsinntekt')).toHaveLength(2);
 
   await userEvent.type(screen.getAllByLabelText('Fastsett årsinntekt')[0], '200000');
-
-  // 16.11.2022 - 20.11.2022
-  await userEvent.click(screen.getAllByLabelText('Ja')[4]);
-  await userEvent.click(screen.getAllByLabelText('Ja')[5]);
-
-  await userEvent.type(screen.getAllByLabelText('Fastsett årsinntekt')[1], '300000');
-  await userEvent.type(screen.getAllByLabelText('Fastsett årsinntekt')[2], '200000');
+  await userEvent.type(screen.getAllByLabelText('Fastsett årsinntekt')[1], '350000');
 
   // Begrunnelse og submit
   await userEvent.type(screen.getByLabelText('Begrunnelse for alle perioder'), 'En saklig begrunnelse');
@@ -718,14 +710,14 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
     grunnlag: [
       {
         periode: {
-          fom: '2022-11-08',
-          tom: '2022-11-20',
+          fom: '2023-04-10',
+          tom: '2023-04-28',
         },
         begrunnelse: 'En saklig begrunnelse',
         tilkomneInntektsforhold: [
           {
-            fom: '2022-11-09',
-            tom: '2022-11-10',
+            fom: '2023-04-10',
+            tom: '2023-04-14',
             tilkomneInntektsforhold: [
               {
                 aktivitetStatus: 'AT',
@@ -744,8 +736,8 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
             ],
           },
           {
-            fom: '2022-11-11',
-            tom: '2022-11-11',
+            fom: '2023-04-17',
+            tom: '2023-04-17',
             tilkomneInntektsforhold: [
               {
                 aktivitetStatus: 'AT',
@@ -758,67 +750,47 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
                 aktivitetStatus: 'AT',
                 arbeidsforholdId: '456',
                 arbeidsgiverId: '974652293',
-                bruttoInntektPrÅr: 200000,
-                skalRedusereUtbetaling: true,
-              },
-            ],
-          },
-          {
-            fom: '2022-11-12',
-            tom: '2022-11-13',
-            tilkomneInntektsforhold: [
-              {
-                aktivitetStatus: 'AT',
-                arbeidsforholdId: '123',
-                arbeidsgiverId: '999999997',
                 bruttoInntektPrÅr: undefined,
                 skalRedusereUtbetaling: false,
               },
-              {
-                aktivitetStatus: 'AT',
-                arbeidsforholdId: '456',
-                arbeidsgiverId: '974652293',
-                bruttoInntektPrÅr: 200000,
-                skalRedusereUtbetaling: true,
-              },
             ],
           },
           {
-            fom: '2022-11-14',
-            tom: '2022-11-15',
+            fom: '2023-04-18',
+            tom: '2023-04-21',
             tilkomneInntektsforhold: [
               {
                 aktivitetStatus: 'AT',
                 arbeidsforholdId: '123',
                 arbeidsgiverId: '999999997',
-                bruttoInntektPrÅr: undefined,
-                skalRedusereUtbetaling: false,
+                bruttoInntektPrÅr: 200000,
+                skalRedusereUtbetaling: true,
               },
               {
                 aktivitetStatus: 'AT',
                 arbeidsforholdId: '456',
                 arbeidsgiverId: '974652293',
-                bruttoInntektPrÅr: 200000,
+                bruttoInntektPrÅr: 350000,
                 skalRedusereUtbetaling: true,
               },
             ],
           },
           {
-            fom: '2022-11-16',
-            tom: '2022-11-20',
+            fom: '2023-04-24',
+            tom: '2023-04-28',
             tilkomneInntektsforhold: [
               {
                 aktivitetStatus: 'AT',
                 arbeidsforholdId: '123',
                 arbeidsgiverId: '999999997',
-                bruttoInntektPrÅr: 300000,
+                bruttoInntektPrÅr: 200000,
                 skalRedusereUtbetaling: true,
               },
               {
                 aktivitetStatus: 'AT',
                 arbeidsforholdId: '456',
                 arbeidsgiverId: '974652293',
-                bruttoInntektPrÅr: 200000,
+                bruttoInntektPrÅr: 350000,
                 skalRedusereUtbetaling: true,
               },
             ],

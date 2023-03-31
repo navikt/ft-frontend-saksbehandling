@@ -31,6 +31,7 @@ import bgTilkommetInntektsforholdMedForlengelse from '../testdata/TilkommetAktiv
 import bgTilkommetInntektsforholdMedForlengelseLukketAP from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
 import bgTilkommetInntektsforholdMedRevurdering from '../testdata/TilkommetAktivitetRevurderingLøstTidligere';
 import bgTilkommetInntektsforholdMedRevurdering1MaiSplitt from '../testdata/TilkommetAktivitetRevurderingLøstTidligere1MaiKryss';
+import bgTilkommetAktivitetTrePerioderHelgMellom from '../testdata/TilkommetAktivitetTrePerioderHelgMellom';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -1015,6 +1016,21 @@ TilkommetAktivitetMedRevurdering1MaiKryss.args = {
     {
       fom: '2023-04-25',
       tom: '2023-05-20',
+      vurderesIBehandlingen: true,
+      erForlengelse: false,
+    },
+  ],
+};
+
+export const TilkommetAktiviteTreLikePerioderHelgMellomAlle = Template.bind({});
+TilkommetAktiviteTreLikePerioderHelgMellomAlle.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: bgTilkommetAktivitetTrePerioderHelgMellom,
+  submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+  vilkårsperioder: [
+    {
+      fom: '2023-04-10',
+      tom: '2023-04-28',
       vurderesIBehandlingen: true,
       erForlengelse: false,
     },

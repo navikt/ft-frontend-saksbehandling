@@ -6,13 +6,14 @@ import {
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
 import dayjs from 'dayjs';
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { calcDays } from '@navikt/ft-utils';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import isBetween from 'dayjs/plugin/isBetween';
 import erPeriodeTilVurdering from '../util/ForlengelseUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { TilkommetInntektPeriodeTransformedValues } from '../../types/interface/VurderNyttInntektsforholdAP';
 
+dayjs.extend(isBetween);
 const DATO_PRAKSISENDRING_TILKOMMET_INNTEKT = '2023-05-01';
 
 function unike() {
@@ -74,6 +75,19 @@ const harIngenRelevantEndring = (
   return true;
 };
 
+const periodeInneholderVirkedager = (dag1: string, dag2: string): boolean => calcDays(dag1, dag2, true) > 2;
+
+const erVirkedagMellomPeriodene = (
+  inntektsforholdPeriode: VurderInntektsforholdPeriode,
+  forrigeInntektsforholdPeriode: VurderInntektsforholdPeriode,
+): boolean => {
+  const periode1Slutt = forrigeInntektsforholdPeriode.tom;
+  const periode2Start = inntektsforholdPeriode.fom;
+  return dayjs(periode1Slutt).isBefore(dayjs(periode2Start))
+    ? periodeInneholderVirkedager(periode1Slutt, periode2Start)
+    : periodeInneholderVirkedager(periode2Start, periode1Slutt);
+};
+
 const harPeriodeSomKanKombineresMedForrige = (
   inntektsforholdPeriode: VurderInntektsforholdPeriode,
   periodeList: VurderInntektsforholdPeriode[],
@@ -84,10 +98,11 @@ const harPeriodeSomKanKombineresMedForrige = (
     return false;
   }
   const forrigeInntektsforholdPeriode = periodeList[periodeList.length - 1];
-  if (
-    erPeriodeTilVurdering(inntektsforholdPeriode, forlengelseperioder) &&
-    !erPeriodeTilVurdering(forrigeInntektsforholdPeriode, forlengelseperioder)
-  ) {
+  const dennePeriodenErTilVurdering = erPeriodeTilVurdering(inntektsforholdPeriode, forlengelseperioder);
+  if (dennePeriodenErTilVurdering && !erPeriodeTilVurdering(forrigeInntektsforholdPeriode, forlengelseperioder)) {
+    return false;
+  }
+  if (dennePeriodenErTilVurdering && erVirkedagMellomPeriodene(inntektsforholdPeriode, forrigeInntektsforholdPeriode)) {
     return false;
   }
   return harIngenRelevantEndring(inntektsforholdPeriode, forrigeInntektsforholdPeriode);
@@ -152,56 +167,6 @@ export const getAktivitetNavnFraInnteksforhold = (
   }
 
   return '';
-};
-
-const finnPeriodeSomMåSplittes = (
-  dato: string,
-  transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
-): TilkommetInntektPeriodeTransformedValues | undefined =>
-  transformertePerioder.find(
-    periode => dayjs(dato).isAfter(dayjs(periode.fom)) && !dayjs(dato).isAfter(dayjs(periode.tom)),
-  );
-
-const splittPeriode = (
-  periode: TilkommetInntektPeriodeTransformedValues,
-  dato: string,
-): TilkommetInntektPeriodeTransformedValues[] => {
-  const nyFom = dayjs(dato);
-  const nyTom = nyFom.subtract(1, 'day');
-  const periodeDel1 = {
-    fom: periode.fom,
-    tom: nyTom.format(ISO_DATE_FORMAT),
-    tilkomneInntektsforhold: periode.tilkomneInntektsforhold,
-  };
-  const periodeDel2 = {
-    fom: nyFom.format(ISO_DATE_FORMAT),
-    tom: periode.tom,
-    tilkomneInntektsforhold: periode.tilkomneInntektsforhold,
-  };
-  return [periodeDel1, periodeDel2];
-};
-
-export const splittSammenslåttePerioder = (
-  transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
-  perioderFørSammenslåing: VurderInntektsforholdPeriode[],
-): TilkommetInntektPeriodeTransformedValues[] => {
-  const alleOriginaleStartdatoer = perioderFørSammenslåing.map(p => p.fom);
-  const splittedePerioder = transformertePerioder.map(p => ({
-    fom: p.fom,
-    tom: p.tom,
-    tilkomneInntektsforhold: p.tilkomneInntektsforhold,
-  }));
-  alleOriginaleStartdatoer.forEach(dato => {
-    const periodeÅSplitte = finnPeriodeSomMåSplittes(dato, splittedePerioder);
-    if (periodeÅSplitte) {
-      const nyePerioder = splittPeriode(periodeÅSplitte, dato);
-      const indexÅFjerne = splittedePerioder.indexOf(periodeÅSplitte);
-      splittedePerioder.splice(indexÅFjerne, 1);
-      nyePerioder.forEach(nyPeriode => splittedePerioder.push(nyPeriode));
-    }
-  });
-  splittedePerioder.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom))); // For at periodene skal komme i kronologisk rekkefølge
-  return splittedePerioder;
 };
 
 export const getAktivitetNavnFraField = (
