@@ -84,7 +84,7 @@ const erVirkedagMellomPeriodene = (
 ): boolean => {
   const periode1Slutt = forrigeInntektsforholdPeriode.tom;
   const periode2Start = inntektsforholdPeriode.fom;
-  return (dayjs(periode1Slutt).isBefore(dayjs(periode2Start)))
+  return dayjs(periode1Slutt).isBefore(dayjs(periode2Start))
     ? periodeInneholderVirkedager(periode1Slutt, periode2Start)
     : periodeInneholderVirkedager(periode2Start, periode1Slutt);
 };
@@ -106,7 +106,10 @@ const harPeriodeSomKanKombineresMedForrige = (
   ) {
     return false;
   }
-  if (!slåSammenMellomliggendeVirkedager && erVirkedagMellomPeriodene(inntektsforholdPeriode, forrigeInntektsforholdPeriode)) {
+  if (
+    !slåSammenMellomliggendeVirkedager &&
+    erVirkedagMellomPeriodene(inntektsforholdPeriode, forrigeInntektsforholdPeriode)
+  ) {
     return false;
   }
   return harIngenRelevantEndring(inntektsforholdPeriode, forrigeInntektsforholdPeriode);
@@ -114,27 +117,35 @@ const harPeriodeSomKanKombineresMedForrige = (
 
 const sjekkOmPeriodeSkalLeggesTil =
   (slåSammenMellomliggendeVirkedager: boolean, forlengelseperioder?: ForlengelsePeriodeProp[]) =>
-    (
-      aggregatedPeriodList: VurderInntektsforholdPeriode[],
-      periode: VurderInntektsforholdPeriode,
-    ): VurderInntektsforholdPeriode[] => {
-      if (aggregatedPeriodList.length === 0) {
-        aggregatedPeriodList.push({ ...periode });
-        return aggregatedPeriodList;
-      }
-      if (harPeriodeSomKanKombineresMedForrige(periode, aggregatedPeriodList, slåSammenMellomliggendeVirkedager, forlengelseperioder)) {
-        oppdaterTomOgInntektsforholdForSistePeriode(aggregatedPeriodList, periode);
-        return aggregatedPeriodList;
-      }
+  (
+    aggregatedPeriodList: VurderInntektsforholdPeriode[],
+    periode: VurderInntektsforholdPeriode,
+  ): VurderInntektsforholdPeriode[] => {
+    if (aggregatedPeriodList.length === 0) {
       aggregatedPeriodList.push({ ...periode });
       return aggregatedPeriodList;
-    };
+    }
+    if (
+      harPeriodeSomKanKombineresMedForrige(
+        periode,
+        aggregatedPeriodList,
+        slåSammenMellomliggendeVirkedager,
+        forlengelseperioder,
+      )
+    ) {
+      oppdaterTomOgInntektsforholdForSistePeriode(aggregatedPeriodList, periode);
+      return aggregatedPeriodList;
+    }
+    aggregatedPeriodList.push({ ...periode });
+    return aggregatedPeriodList;
+  };
 
 export const slaaSammenPerioder = (
   perioder: VurderInntektsforholdPeriode[],
   slåSammenMellomliggendeVirkedager: boolean,
   forlengelseperioder?: ForlengelsePeriodeProp[],
-): VurderInntektsforholdPeriode[] => perioder.reduce(sjekkOmPeriodeSkalLeggesTil(slåSammenMellomliggendeVirkedager, forlengelseperioder), []);
+): VurderInntektsforholdPeriode[] =>
+  perioder.reduce(sjekkOmPeriodeSkalLeggesTil(slåSammenMellomliggendeVirkedager, forlengelseperioder), []);
 
 export function erVurdertTidligere(
   periode: VurderInntektsforholdPeriode,
@@ -201,32 +212,10 @@ const splittPeriode = (
   return [periodeDel1, periodeDel2];
 };
 
-const liggerIPeriode = (fom: string, tom: string, dato: string): boolean => dayjs(dato).isBetween(fom, tom, 'day', '[]');
-
-const finnPerioderMedOverlapp = (periode: VurderInntektsforholdPeriode, 
-  transformertePerioder: TilkommetInntektPeriodeTransformedValues[]): TilkommetInntektPeriodeTransformedValues[] => transformertePerioder.filter((tp) => 
-  liggerIPeriode(tp.fom, tp.tom, periode.fom) || liggerIPeriode(tp.fom, tp.tom, periode.tom));
-
-const nyOgBedreMerge = (transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
-  perioderFørSammenslåing: VurderInntektsforholdPeriode[]): any[] => {
-  transformertePerioder.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
-  perioderFørSammenslåing.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
-  const sammenslåttePerioder = [];
-  // Skal loope over alle perioder, og splitte perioden opp i mindre deler utifra det som kommer fra finnPerioderMedOverlapp
-  perioderFørSammenslåing.forEach((periode) => {
-    const perioderMedOverlapp = finnPerioderMedOverlapp(periode, transformertePerioder);
-
-  });
-
-  return [];
-}
-
 export const splittSammenslåttePerioder = (
   transformertePerioder: TilkommetInntektPeriodeTransformedValues[],
   perioderFørSammenslåing: VurderInntektsforholdPeriode[],
 ): TilkommetInntektPeriodeTransformedValues[] => {
-  // Få denne til å funke istedenfor
-  nyOgBedreMerge(transformertePerioder, perioderFørSammenslåing)
   const alleOriginaleStartdatoer = perioderFørSammenslåing.map(p => p.fom);
   const splittedePerioder = transformertePerioder.map(p => ({
     fom: p.fom,
