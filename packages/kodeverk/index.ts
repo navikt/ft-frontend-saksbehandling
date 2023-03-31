@@ -1,9 +1,6 @@
 export { default as TilbakekrevingKodeverkType } from './src/tilbakekrevingKodeverkType';
-export { default as OpplysningAdresseType } from './src/opplysningAdresseType';
 export { default as VilkarType } from './src/vilkarType';
 export { default as KodeverkType } from './src/kodeverkType';
-export { default as Landkode } from './src/landkode';
-export { default as AvslagsarsakCode } from './src/avslagsarsakCode';
 export { default as ArbeidType } from './src/arbeidType';
 export {
   default as AktivitetStatus,
