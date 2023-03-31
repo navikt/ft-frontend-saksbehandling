@@ -1,17 +1,21 @@
 import React from 'react';
+import classnames from 'classnames/bind';
 import { bemUtils } from '@navikt/ft-utils';
 import ClipboardIcon from './ClipboardIcon';
 import copyContentsToClipboard from './util';
 import styles from './clipboard.module.css';
 
+const classNames = classnames.bind(styles);
+
 interface ClipboardProps {
   children: React.ReactNode;
   buttonLabel?: string;
+  className?: string;
 }
 
 const clipboardCls = bemUtils('clipboard');
 
-const Clipboard = ({ children, buttonLabel = 'Kopier' }: ClipboardProps): JSX.Element => {
+const Clipboard = ({ children, buttonLabel = 'Kopier', className }: ClipboardProps): JSX.Element => {
   const [didCopy, setDidCopy] = React.useState(false);
   const [shouldAnimate, setShouldAnimate] = React.useState(false);
   const ref = React.useRef<any>();
@@ -34,7 +38,7 @@ const Clipboard = ({ children, buttonLabel = 'Kopier' }: ClipboardProps): JSX.El
   }`;
 
   return (
-    <div className={styles[clipboardCls.block]}>
+    <div className={classNames([clipboardCls.block], className)}>
       <div ref={ref}>{children}</div>
       <button
         data-tooltip={didCopy ? 'Kopiert!' : 'Kopier'}
