@@ -17,7 +17,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "devDependencies": {
-    "@storybook/react": "6.5.16",
+    "@storybook/react": "7.0.2",
     "cross-env": "7.0.3",
     "eslint": "8.36.0",
     "stylelint": "15.3.0",
