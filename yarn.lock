@@ -1899,12 +1899,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/css-parser-algorithms@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@csstools/css-parser-algorithms@npm:2.0.1"
+"@csstools/css-parser-algorithms@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@csstools/css-parser-algorithms@npm:2.1.0"
   peerDependencies:
     "@csstools/css-tokenizer": ^2.0.0
-  checksum: 9f168cfc8fa30ba19fcbe7632d947b74beea494db60cf0eb250f7b77fe72239fb5e6d292b035144dbc52977fb4768f157064f8358530701fe56e5ef2993174c7
+  checksum: 197c8b0db9e721974d3850a44c73a7c1c0ebdddf981ddbc5f0a56d60c09c332bcd9f63ae391811ba3b11b9939faa50ada15c5cc38490861ba48f8933b599f660
   languageName: node
   linkType: hard
 
@@ -1925,13 +1925,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/selector-specificity@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "@csstools/selector-specificity@npm:2.1.1"
+"@csstools/selector-specificity@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@csstools/selector-specificity@npm:2.2.0"
   peerDependencies:
-    postcss: ^8.4
     postcss-selector-parser: ^6.0.10
-  checksum: 392ab62732e93aa8cbea445bf3485c1acbbecc8ec087b200e06c9ddd2acf740fd1fe46abdacf813e7a50a95a60346377ee3eecb4e1fe3709582e2851430b376a
+  checksum: 97c89f23b3b527d7bd51ed299969ed2b9fbb219a367948b44aefec228b8eda6ae0ad74fe8a82f9aac8ff32cfd00bb6d0c98d1daeab2e8fc6d5c4af25e5be5673
   languageName: node
   linkType: hard
 
@@ -3197,7 +3196,7 @@ __metadata:
     react-dom: 18.2.0
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3251,7 +3250,7 @@ __metadata:
     react-hook-form: 7.43.8
     react-intl: 6.3.2
     storybook: 6.5.16
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3299,7 +3298,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3341,7 +3340,7 @@ __metadata:
     lodash.throttle: 4.1.1
     react: 18.2.0
     react-hook-form: 7.43.8
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3385,7 +3384,7 @@ __metadata:
     "@storybook/react": 6.5.16
     cross-env: 7.0.3
     eslint: 8.36.0
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3399,7 +3398,7 @@ __metadata:
     "@storybook/react": 6.5.16
     cross-env: 7.0.3
     eslint: 8.36.0
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3429,7 +3428,7 @@ __metadata:
     react-collapse: 5.1.1
     react-dom: 18.2.0
     react-popper: 2.3.0
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3478,7 +3477,7 @@ __metadata:
     react-collapse: 5.1.1
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3528,7 +3527,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3573,7 +3572,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3619,7 +3618,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3660,7 +3659,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3702,7 +3701,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3745,7 +3744,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3784,7 +3783,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3819,7 +3818,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3851,7 +3850,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3885,7 +3884,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3928,7 +3927,7 @@ __metadata:
     react-dom: 18.2.0
     react-hook-form: 7.43.8
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -3966,7 +3965,7 @@ __metadata:
     eslint: 8.36.0
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -4002,7 +4001,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -4050,7 +4049,7 @@ __metadata:
     moment: 2.29.4
     react: 18.2.0
     react-intl: 6.3.2
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vis-data: 7.1.6
     vis-timeline: 7.7.2
@@ -4078,7 +4077,7 @@ __metadata:
     "@storybook/react": 6.5.16
     cross-env: 7.0.3
     eslint: 8.36.0
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -4111,7 +4110,7 @@ __metadata:
     react-day-picker: 8.6.0
     react-intl: 6.3.2
     react-modal: 3.16.1
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     typescript: 5.0.2
     vite: 4.2.1
     vitest: 0.29.7
@@ -10581,7 +10580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:^8.1.0":
+"cosmiconfig@npm:^8.1.3":
   version: 8.1.3
   resolution: "cosmiconfig@npm:8.1.3"
   dependencies:
@@ -13415,7 +13414,7 @@ __metadata:
     prettier: 2.8.7
     react-test-renderer: 18.2.0
     replace-in-files: 3.0.0
-    stylelint: 15.3.0
+    stylelint: 15.4.0
     stylelint-order: 6.0.3
     typescript: 5.0.2
     vite: 4.2.1
@@ -22527,17 +22526,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:15.3.0":
-  version: 15.3.0
-  resolution: "stylelint@npm:15.3.0"
+"stylelint@npm:15.4.0":
+  version: 15.4.0
+  resolution: "stylelint@npm:15.4.0"
   dependencies:
-    "@csstools/css-parser-algorithms": ^2.0.1
+    "@csstools/css-parser-algorithms": ^2.1.0
     "@csstools/css-tokenizer": ^2.1.0
     "@csstools/media-query-list-parser": ^2.0.1
-    "@csstools/selector-specificity": ^2.1.1
+    "@csstools/selector-specificity": ^2.2.0
     balanced-match: ^2.0.0
     colord: ^2.9.3
-    cosmiconfig: ^8.1.0
+    cosmiconfig: ^8.1.3
     css-functions-list: ^3.1.0
     css-tree: ^2.3.1
     debug: ^4.3.4
@@ -22575,7 +22574,7 @@ __metadata:
     write-file-atomic: ^5.0.0
   bin:
     stylelint: bin/stylelint.js
-  checksum: d6ef20cfc498dba274fc2b17ea9d342e0ca1a24bc07755066842f0a28e1dc6f36c2b67f4cf87a3a232ae98cf42864e884cdcd11428fe4caf0f5f1677cac8d85a
+  checksum: f56a75ffb8ee016690b78b2d401626134317526682ce818d686096db5d33472bf5d3b2941f5b5b3f9711061e5ad123a335a6f482316a567c4c75deba6929702a
   languageName: node
   linkType: hard
 
