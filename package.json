@@ -84,7 +84,7 @@
     "stylelint-order": "6.0.3",
     "typescript": "5.0.2",
     "vite": "4.2.1",
-    "vite-plugin-dts": "2.1.0",
+    "vite-plugin-dts": "2.2.0",
     "vite-plugin-svgr": "2.4.0",
     "vitest": "0.29.7"
   },

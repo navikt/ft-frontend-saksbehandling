@@ -13419,7 +13419,7 @@ __metadata:
     stylelint-order: 6.0.3
     typescript: 5.0.2
     vite: 4.2.1
-    vite-plugin-dts: 2.1.0
+    vite-plugin-dts: 2.2.0
     vite-plugin-svgr: 2.4.0
     vitest: 0.29.7
   languageName: unknown
@@ -24044,9 +24044,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:2.1.0":
-  version: 2.1.0
-  resolution: "vite-plugin-dts@npm:2.1.0"
+"vite-plugin-dts@npm:2.2.0":
+  version: 2.2.0
+  resolution: "vite-plugin-dts@npm:2.2.0"
   dependencies:
     "@babel/parser": ^7.20.15
     "@microsoft/api-extractor": ^7.33.5
@@ -24060,7 +24060,7 @@ __metadata:
     ts-morph: 17.0.1
   peerDependencies:
     vite: ">=2.9.0"
-  checksum: 6c51b6de986e622a8ec271b68dcbfac55ab0ba65ca3b74e19e3088ff931913e5bb5c6d15e77525ca0bc11a6c87497f4529132cd0ad6c5970e8794f809cfa9cb8
+  checksum: 28de6c500c31c6274ea70dcfcc78ac1b8a4ed68e793817b26a65caf6626ef3bd50a64501c77d363965658b5d0efa3474ad1eb49499ad5ee0b99baeb572908448
   languageName: node
   linkType: hard
 
