@@ -3130,7 +3130,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-icons@npm:2.8.4, @navikt/ds-icons@npm:^2.8.4":
+"@navikt/ds-icons@npm:2.8.11":
+  version: 2.8.11
+  resolution: "@navikt/ds-icons@npm:2.8.11::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-icons%2F2.8.11%2F2374f9867f2bf7c62f7e7d6b9fef72706f4c8629"
+  peerDependencies:
+    "@types/react": ^17.0.30 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  checksum: e459b7bc348a0122adb81fae739fc4ebc449a9e94f19f2ec3e387dd80ea2a5c1d26e099c3817c9045446765e1eef99e4f9dc61a43f81a02c573e97de52be07b1
+  languageName: node
+  linkType: hard
+
+"@navikt/ds-icons@npm:^2.8.4":
   version: 2.8.4
   resolution: "@navikt/ds-icons@npm:2.8.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-icons%2F2.8.4%2F945ac927d3dbeff46babc5a4fad176b22ec0291f"
   peerDependencies:
@@ -3172,7 +3182,7 @@ __metadata:
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
     "@navikt/ds-css": 2.8.4
-    "@navikt/ds-icons": 2.8.4
+    "@navikt/ds-icons": 2.8.11
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-form-hooks": ^4.0.13
     "@navikt/ft-form-validators": ^2.0.11
@@ -3411,7 +3421,7 @@ __metadata:
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
     "@navikt/ds-css": 2.8.4
-    "@navikt/ds-icons": 2.8.4
+    "@navikt/ds-icons": 2.8.11
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-utils": ^2.0.10
     "@popperjs/core": 2.11.7
@@ -3727,7 +3737,7 @@ __metadata:
   resolution: "@navikt/ft-sak-dekorator@workspace:packages/sak-dekorator"
   dependencies:
     "@navikt/ds-css": 2.8.4
-    "@navikt/ds-icons": 2.8.4
+    "@navikt/ds-icons": 2.8.11
     "@navikt/ds-react": 2.8.4
     "@navikt/ft-kodeverk": ^2.0.9
     "@navikt/ft-konstanter": ^2.0.8
