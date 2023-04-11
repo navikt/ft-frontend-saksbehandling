@@ -5,7 +5,6 @@ import { composeStories } from '@storybook/testing-react';
 import { Modal } from '@navikt/ds-react';
 import * as stories from './Image.stories';
 
-// @ts-ignore Fjern når fiksa
 const { Default, KlikkbartIkon } = composeStories(stories);
 
 describe('<Image>', () => {
@@ -14,12 +13,14 @@ describe('<Image>', () => {
   }
 
   it('skal vise et ikon', async () => {
+    // @ts-ignore Fjern når fiksa
     render(<Default />);
 
     expect(await screen.findByRole('img', { hidden: true })).toBeInTheDocument();
   });
 
   it('skal åpne en modal når en trykker på ikon', async () => {
+    // @ts-ignore Fjern når fiksa
     render(<KlikkbartIkon />);
 
     expect(await screen.findByRole('img', { hidden: true })).toBeInTheDocument();

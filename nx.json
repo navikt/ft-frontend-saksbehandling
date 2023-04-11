@@ -24,6 +24,10 @@
       "inputs": ["default", "{workspaceRoot}/eslint/*.js"],
       "dependsOn": ["build"]
     },
+    "deploy-storybook": {
+      "inputs": ["default"],
+      "dependsOn": ["build"]
+    },
     "build": {
       "inputs": ["prod"],
       "dependsOn": ["^build"],
