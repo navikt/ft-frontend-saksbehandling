@@ -20,12 +20,12 @@
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules",
-    "build-storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider build-storybook -o .storybook-static-build",
-    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider storybook dev --quiet -p 7003"
+    "build-storybook": "storybook build -o .storybook-static-build",
+    "storybook": "storybook dev --quiet -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.4",
-    "@navikt/ds-react": "2.8.4",
+    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-react": "2.8.11",
     "@navikt/ft-form-validators": "^2.0.11",
     "@navikt/ft-types": "^2.0.9",
     "@navikt/ft-ui-komponenter": "^2.0.11",
@@ -34,7 +34,7 @@
     "dayjs": "1.11.7",
     "lodash.throttle": "4.1.1",
     "react": "18.2.0",
-    "react-hook-form": "7.43.8"
+    "react-hook-form": "7.43.9"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.6.0",
@@ -51,19 +51,19 @@
   },
   "devDependencies": {
     "@navikt/ft-utils-test": "^2.0.10",
-    "@storybook/addon-actions": "7.0.0-rc.8",
-    "@storybook/react": "7.0.0-rc.8",
-    "@storybook/react-vite": "7.0.0-rc.8",
-    "@storybook/testing-react": "2.0.0-next.0",
+    "@storybook/addon-actions": "7.0.2",
+    "@storybook/react": "7.0.2",
+    "@storybook/react-vite": "7.0.2",
+    "@storybook/testing-react": "2.0.0",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
-    "eslint": "8.36.0",
-    "storybook": "7.0.0-rc.8",
-    "stylelint": "15.3.0",
-    "typescript": "5.0.2",
+    "eslint": "8.38.0",
+    "storybook": "7.0.2",
+    "stylelint": "15.4.0",
+    "typescript": "5.0.4",
     "vite": "4.2.1",
-    "vitest": "0.29.7"
+    "vitest": "0.29.8"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

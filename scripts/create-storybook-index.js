@@ -2,10 +2,6 @@ const path = require('path');
 const shell = require('shelljs');
 const glob = require('glob');
 const fs = require('fs');
-<<<<<<< HEAD
-=======
-const ghpages = require('gh-pages');
->>>>>>> 3d542410 (div)
 
 const generateRow = (package) => `
   <div class="box">
@@ -68,6 +64,13 @@ const creatIndexHtml = () => {
   shell.cp(
     path.join(__dirname, 'storybook-monorepo-index.css'),
     path.join(__dirname, DEPLOY_FOLDER, 'monorepo-index.css'),
+  );
+
+  // For å støtte filer med '_' (Skip Jekyll-prosessering)
+  shell.touch(path.join(__dirname, DEPLOY_FOLDER, '.nojekyll'))
+  shell.cp(
+    path.join(__dirname, '.nojekyll'),
+    path.join(__dirname, DEPLOY_FOLDER, '.nojekyll'),
   );
 
   // Kopier storybook fra pakkene og inn i folder som skal deployes

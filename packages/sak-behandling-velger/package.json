@@ -20,12 +20,12 @@
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules",
-    "build-storybook": "storybook build -o ../../.storybook-static-build/@navikt/ft-sak-behandling-velger",
+    "build-storybook": "storybook build -o .storybook-static-build",
     "storybook": "storybook dev --quiet -p 7012"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.4",
-    "@navikt/ds-react": "2.8.4",
+    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-react": "2.8.11",
     "@navikt/ft-kodeverk": "^2.0.9",
     "@navikt/ft-plattform-komponenter": "^2.0.12",
     "@navikt/ft-types": "^2.0.9",
@@ -53,19 +53,19 @@
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.0.13",
-    "@storybook/addon-actions": "7.0.0-rc.8",
-    "@storybook/react": "7.0.0-rc.8",
-    "@storybook/react-vite": "7.0.0-rc.8",
-    "@storybook/testing-react": "2.0.0-next.0",
+    "@storybook/addon-actions": "7.0.2",
+    "@storybook/react": "7.0.2",
+    "@storybook/react-vite": "7.0.2",
+    "@storybook/testing-react": "2.0.0",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
-    "eslint": "8.36.0",
-    "storybook": "7.0.0-rc.8",
-    "stylelint": "15.3.0",
-    "typescript": "5.0.2",
+    "eslint": "8.38.0",
+    "storybook": "7.0.2",
+    "stylelint": "15.4.0",
+    "typescript": "5.0.4",
     "vite": "4.2.1",
-    "vitest": "0.29.7"
+    "vitest": "0.29.8"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

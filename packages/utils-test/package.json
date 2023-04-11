@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "eslint": "8.36.0",
-    "typescript": "5.0.2",
+    "eslint": "8.38.0",
+    "typescript": "5.0.4",
     "vite": "4.2.1"
   },
   "exports": {
