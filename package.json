@@ -26,9 +26,6 @@
     "storybook-create-deploy-folder": "node scripts/create-storybook-index.js",
     "storybook-deploy-to-github": "gh-pages -d .storybook-static-build -t true",
     "deploy-storybook": "yarn storybook-clean-deploy-folder && yarn storybook-build-all && yarn storybook-create-deploy-folder && yarn storybook-deploy-to-github",
-    "clean-story": "rm -rf ./.storybook-static-build",
-    "creates": "node scripts/create-storybook-index.js",
-    "deploys": "gh-pages -d .storybook-static-build",
     "prepare": "husky install"
   },
   "devDependencies": {
