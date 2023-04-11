@@ -31,11 +31,11 @@
     "react-intl": "6.3.2"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.6.0",
-    "@navikt/ds-react": "2.6.0",
-    "@navikt/ft-utils": "1.x",
+    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-react": "2.8.11",
+    "@navikt/ft-utils": "2.x",
     "react": "18.2.0",
-    "react-intl": "6.2.10"
+    "react-intl": "6.3.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "7.0.2",
