@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import * as stories from './FlexContainer.stories';
 
-// @ts-ignore Fjern når fiksa
 const { Default } = composeStories(stories);
 
 describe('<FlexContainer>', () => {
   it('skal rendre korrekt', async () => {
+    // @ts-ignore Fjern når fiksa
     render(<Default />);
 
     expect(await screen.findByText('Tekst 1')).toBeInTheDocument();
