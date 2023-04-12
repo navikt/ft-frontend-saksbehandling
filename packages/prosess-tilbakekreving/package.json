@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@navikt/ds-css": "2.8.11",
-    "@navikt/ds-react": "2.8.11",
+    "@navikt/ds-react": "2.8.12",
     "@navikt/ft-form-hooks": "^4.0.14",
     "@navikt/ft-form-validators": "^2.0.12",
     "@navikt/ft-kodeverk": "^2.0.10",
@@ -40,7 +40,7 @@
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.8.11",
-    "@navikt/ds-react": "2.8.11",
+    "@navikt/ds-react": "2.8.12",
     "@navikt/ft-form-hooks": "4.x",
     "@navikt/ft-form-validators": "2.x",
     "@navikt/ft-kodeverk": "2.x",
