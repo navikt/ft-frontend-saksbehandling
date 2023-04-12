@@ -24,7 +24,7 @@
     "storybook": "storybook dev --quiet -p 7008"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-css": "2.8.12",
     "@navikt/ds-react": "2.8.11",
     "@navikt/ft-form-hooks": "^4.0.14",
     "@navikt/ft-form-validators": "^2.0.12",
@@ -38,7 +38,7 @@
     "react-intl": "6.3.2"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-css": "2.8.12",
     "@navikt/ds-react": "2.8.11",
     "@navikt/ft-form-hooks": "4.x",
     "@navikt/ft-form-validators": "2.x",

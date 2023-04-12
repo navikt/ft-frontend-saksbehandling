@@ -21,7 +21,7 @@
     "storybook": "storybook dev --quiet -p 7022"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-css": "2.8.12",
     "@navikt/ft-kodeverk": "^2.0.10",
     "@navikt/ft-types": "^2.0.10",
     "@navikt/ft-ui-komponenter": "^2.0.12",
@@ -33,7 +33,7 @@
     "vis-timeline": "7.7.2"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-css": "2.8.12",
     "@navikt/ft-kodeverk": "2.x",
     "@navikt/ft-types": "2.x",
     "@navikt/ft-ui-komponenter": "2.x",
