@@ -51,7 +51,7 @@
     "@navikt/ft-storybook-utils": "^2.0.14",
     "@storybook/addon-actions": "7.0.2",
     "@storybook/react": "7.0.2",
-    "@storybook/react-vite": "7.0.2",
+    "@storybook/react-vite": "7.0.4",
     "@storybook/testing-react": "2.0.0",
     "@testing-library/react": "14.0.0",
     "cross-env": "7.0.3",
