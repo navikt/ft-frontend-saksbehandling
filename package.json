@@ -39,7 +39,7 @@
     "@storybook/cli": "7.0.2",
     "@storybook/react": "7.0.2",
     "@storybook/testing-react": "2.0.0",
-    "@storybook/theming": "7.0.2",
+    "@storybook/theming": "7.0.4",
     "@testing-library/jest-dom": "5.16.5",
     "@types/react": "18.0.34",
     "@types/react-collapse": "5.0.1",
