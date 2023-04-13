@@ -4,7 +4,7 @@
 const data = {};
 
 // eslint-disable-next-line @typescript-eslint/no-shadow
-const konverterKodeverkTilKode = (data: any) => {
+const konverterKodeverkTilKode = data => {
   if (data === undefined || data === null) {
     return;
   }
@@ -30,5 +30,11 @@ const konverterKodeverkTilKode = (data: any) => {
 
 konverterKodeverkTilKode(data);
 
+// kopiere til clipboard
+function pbcopy(data) {
+  var proc = require('child_process').spawn('pbcopy');
+  proc.stdin.write(data);
+  proc.stdin.end();
+}
 // eslint-disable-next-line no-console
-console.log(JSON.stringify(data));
+pbcopy(JSON.stringify(data));
