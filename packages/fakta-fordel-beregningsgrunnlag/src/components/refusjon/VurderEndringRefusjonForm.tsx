@@ -40,11 +40,12 @@ const finnBeregningsgrunnlag = (
 const transformValues = (
   values: VurderRefusjonFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
+  vilkårsperioder: Vilkarperiode[],
 ): VurderRefusjonAksjonspunktSubmitType => {
   const fields = values[FORM_NAME];
-  const grunnlag = fields.map(field =>
-    transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)),
-  );
+  const grunnlag = fields
+    .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
+    .map(field => transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)));
   const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
   return {
     begrunnelse,
@@ -104,13 +105,12 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
     name: FORM_NAME,
     control,
   });
-
   return (
     <Form
       formMethods={formMethods}
       onSubmit={values => {
         if (Object.keys(errors).length === 0) {
-          submitCallback(transformValues(values, beregningsgrunnlagListe));
+          submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
         }
       }}
       setDataOnUnmount={setFormData}
