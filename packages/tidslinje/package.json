@@ -21,7 +21,7 @@
     "storybook": "storybook dev --quiet -p 7022"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.11",
+    "@navikt/ds-css": "2.8.12",
     "@navikt/ft-kodeverk": "^2.0.10",
     "@navikt/ft-types": "^2.0.10",
     "@navikt/ft-ui-komponenter": "^2.0.12",
@@ -45,13 +45,13 @@
     "vis-timeline": "7.7.2"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.0.2",
-    "@storybook/react": "7.0.2",
-    "@storybook/react-vite": "7.0.2",
+    "@storybook/addon-actions": "7.0.4",
+    "@storybook/react": "7.0.4",
+    "@storybook/react-vite": "7.0.4",
     "@storybook/testing-react": "2.0.0",
     "cross-env": "7.0.3",
     "eslint": "8.38.0",
-    "storybook": "7.0.2",
+    "storybook": "7.0.4",
     "stylelint": "15.4.0",
     "typescript": "5.0.4",
     "vite": "4.2.1",
