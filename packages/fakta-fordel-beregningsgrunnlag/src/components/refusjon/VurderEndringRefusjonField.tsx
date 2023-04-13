@@ -21,7 +21,6 @@ import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import SubmitButton from '../felles/SubmitButton';
 
-const BEGRUNNELSE_FIELD = 'VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE';
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
@@ -47,7 +46,7 @@ export const buildFieldInitialValues = (
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
   let initialValues = {
     periode: vilkårsperiode.periode,
-    [BEGRUNNELSE_FIELD]: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : '',
+    begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : '',
   } as VurderRefusjonFieldValues;
   andeler.forEach(andel => {
     initialValues = {
