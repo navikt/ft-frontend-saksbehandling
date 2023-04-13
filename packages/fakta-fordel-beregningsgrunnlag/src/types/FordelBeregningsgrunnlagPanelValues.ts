@@ -89,7 +89,7 @@ export type VurderRefusjonValues = {
 };
 
 export type VurderRefusjonFieldValues = VurderRefusjonValues & {
-  VURDER_REFUSJON_BERGRUNN_BEGRUNNELSE: string;
+  begrunnelse: string;
   periode: {
     fom: string;
     tom: string;

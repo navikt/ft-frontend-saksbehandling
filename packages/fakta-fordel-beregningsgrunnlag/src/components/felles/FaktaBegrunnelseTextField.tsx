@@ -57,7 +57,7 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
           <TextAreaField
             name={name}
             label={isReadOnly ? '' : textAreaLabel}
-            validate={isReadOnly ? [] : [required, minLength3, maxLength1500, hasValidText]}
+            validate={[required, minLength3, maxLength1500, hasValidText]}
             className={isReadOnly ? styles.explanationTextareaReadOnly : styles.explanationTextarea}
             maxLength={1500}
             readOnly={isReadOnly}
