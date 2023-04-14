@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { Story } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import LinkButtonComponent from './LinkButton';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: LinkButtonComponent,
 };
 
-const Template: Story<ComponentProps<typeof LinkButtonComponent>> = () => (
+const Template: StoryFn<ComponentProps<typeof LinkButtonComponent>> = () => (
   <LinkButtonComponent onClick={() => console.log('I was clicked')}>Click me</LinkButtonComponent>
 );
 

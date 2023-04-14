@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
 import MenyEndreBehandlendeEnhetIndex from './MenyEndreBehandlendeEnhetIndex';
@@ -11,7 +11,7 @@ export default {
   component: MenyEndreBehandlendeEnhetIndex,
 };
 
-const Template: Story<{
+const Template: StoryFn<{
   lagreNyBehandlendeEnhet: () => Promise<any>;
   lukkModal: () => Promise<any>;
 }> = ({ lagreNyBehandlendeEnhet, lukkModal }) => (

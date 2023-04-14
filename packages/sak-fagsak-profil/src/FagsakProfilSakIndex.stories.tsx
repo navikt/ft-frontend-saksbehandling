@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@navikt/ds-react';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { FagsakStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
 
@@ -16,7 +16,7 @@ export default {
 const FAGSAK_STATUS_KODEVERK = 'FAGSAK_STATUS';
 const FAGSAK_YTELSE_KODEVERK = 'FAGSAK_YTELSE';
 
-const Template: Story = () => (
+const Template: StoryFn = () => (
   <div style={{ width: '600px', backgroundColor: 'white', padding: '30px' }}>
     <FagsakProfilSakIndex
       saksnummer="232341251"

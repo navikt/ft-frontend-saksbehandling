@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField, SelectField, CheckboxField, InputField } from '../index';
 import Form from './Form';
@@ -20,7 +20,7 @@ export default {
   title: 'FormHooks',
 };
 
-const Template: Story = () => {
+const Template: StoryFn = () => {
   const formMethods = useForm({
     defaultValues: {
       testinputpre: 'Hei hei',

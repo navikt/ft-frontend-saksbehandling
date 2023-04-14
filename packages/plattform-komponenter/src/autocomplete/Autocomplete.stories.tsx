@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { Story } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import AutocompleteComponent from './Autocomplete';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: AutocompleteComponent,
 };
 
-const AutocompleteTemplate: Story<ComponentProps<typeof AutocompleteComponent>> = () => (
+const AutocompleteTemplate: StoryFn<ComponentProps<typeof AutocompleteComponent>> = () => (
   <AutocompleteComponent
     value="Verdi"
     onChange={v => v}

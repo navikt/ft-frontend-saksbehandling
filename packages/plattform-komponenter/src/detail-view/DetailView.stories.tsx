@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { Story } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import DetailViewComponent from './DetailView';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: DetailViewComponent,
 };
 
-const Template: Story<ComponentProps<typeof DetailViewComponent>> = () => (
+const Template: StoryFn<ComponentProps<typeof DetailViewComponent>> = () => (
   <DetailViewComponent title="Tittel">
     <p>Detaljer</p>
   </DetailViewComponent>

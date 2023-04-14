@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import AvsnittSkiller from './AvsnittSkiller';
 
@@ -8,7 +8,7 @@ export default {
   component: AvsnittSkiller,
 };
 
-export const Default: Story = () => (
+export const Default: StoryFn = () => (
   <div>
     Dette er en tekst
     <AvsnittSkiller />
