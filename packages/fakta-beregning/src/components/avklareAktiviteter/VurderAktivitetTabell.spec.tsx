@@ -1,11 +1,11 @@
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk } from '@navikt/ft-types';
 import {
   buildInitialValues,
   lagAktivitetFieldId,
   skalVurdereAktivitet,
   transformValues,
 } from './VurderAktiviteterTabell';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
@@ -66,7 +66,7 @@ const agOpplysninger = {
   },
 };
 
-const alleKodeverk = {
+const kodeverkSamling = {
   [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [
     {
       kode: OpptjeningAktivitetType.ARBEID,
@@ -94,7 +94,7 @@ const alleKodeverk = {
       kodeverk: 'test',
     },
   ],
-} as AlleKodeverk;
+} as KodeverkForPanel;
 
 describe('<VurderAktiviteterTabell>', () => {
   const id1 = '3847238947232019-01-01';
@@ -122,7 +122,7 @@ describe('<VurderAktiviteterTabell>', () => {
   });
 
   it('skal bygge initial values', () => {
-    const initialValues = buildInitialValues(aktiviteter, alleKodeverk, false, true, true, agOpplysninger);
+    const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, true, true, agOpplysninger);
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
     expect(initialValues[id1].tom).toBe(null);
@@ -145,7 +145,7 @@ describe('<VurderAktiviteterTabell>', () => {
   });
 
   it('skal bygge initial values for overstyrer', () => {
-    const initialValues = buildInitialValues(aktiviteter, alleKodeverk, false, false, true, agOpplysninger);
+    const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, false, true, agOpplysninger);
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
     expect(initialValues[id1].tom).toBe(null);

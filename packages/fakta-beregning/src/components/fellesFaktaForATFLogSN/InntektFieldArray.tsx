@@ -1,7 +1,6 @@
 import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -23,6 +22,7 @@ import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArr
 import SummaryRow from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
@@ -72,10 +72,10 @@ const removeAndel = (index, remove) => () => {
 
 const createAndelerTableRows = (
   fields: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>[],
-  readOnly,
-  beregningsgrunnlag,
-  isAksjonspunktClosed,
-  alleKodeverk,
+  readOnly: boolean,
+  beregningsgrunnlag: Beregningsgrunnlag,
+  isAksjonspunktClosed: boolean,
+  kodeverkSamling: KodeverkForPanel,
   fieldArrayName: string,
   remove: UseFieldArrayRemove,
   skalFastsetteInntektForAndelFunc,
@@ -91,7 +91,7 @@ const createAndelerTableRows = (
       removeAndel={removeAndel(index, remove)}
       beregningsgrunnlag={beregningsgrunnlag}
       isAksjonspunktClosed={isAksjonspunktClosed}
-      alleKodeverk={alleKodeverk}
+      kodeverkSamling={kodeverkSamling}
       rowName={`${fieldArrayName}.${index}`}
       skalFastsetteInntektForAndel={skalFastsetteInntektForAndelFunc}
     />
@@ -220,7 +220,7 @@ type OwnProps = {
   skalKunneLeggeTilDagpengerManuelt: boolean;
   skalHaMilitær?: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   isAksjonspunktClosed: boolean;
 };
 
@@ -228,7 +228,7 @@ interface StaticFunctions {
   buildInitialValues: (
     andeler: AndelForFaktaOmBeregning[],
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-    alleKodeverk: AlleKodeverk,
+    kodeverkSamling: KodeverkForPanel,
   ) => AndelFieldValue[];
   transformValues: (values: AndelFieldValue[]) => InntektTransformed[];
 }
@@ -244,7 +244,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   skalKunneLeggeTilDagpengerManuelt,
   beregningsgrunnlag,
   isAksjonspunktClosed,
-  alleKodeverk,
+  kodeverkSamling,
 }) => {
   const { getValues, control, formState } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const { errors } = formState;
@@ -276,7 +276,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
 
   useEffect(() => {
     const currentFields = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`);
-    const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
+    const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS];
     fjernEllerLeggTilMilitær(
       currentFields,
       skalHaMilitær,
@@ -333,7 +333,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
     readOnly,
     beregningsgrunnlag,
     isAksjonspunktClosed,
-    alleKodeverk,
+    kodeverkSamling,
     fieldArrayName,
     remove,
     skalFastsetteInntektForAndelFunc,
@@ -344,7 +344,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
         <div>
           {!readOnly && !harDagpenger(fields) && (
             // @ts-ignore Fiks
-            <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
+            <AddDagpengerAndelButton leggTilAndel={append} kodeverkSamling={kodeverkSamling} />
           )}
           <VerticalSpacer eightPx />
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
@@ -365,7 +365,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       </Table>
       {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
         // @ts-ignore Fiks
-        <AddDagpengerAndelButton leggTilAndel={append} alleKodeverk={alleKodeverk} />
+        <AddDagpengerAndelButton leggTilAndel={append} kodeverkSamling={kodeverkSamling} />
       )}
       <VerticalSpacer eightPx />
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
@@ -397,12 +397,12 @@ InntektFieldArray.transformValues = (values: AndelFieldValue[]): InntektTransfor
 InntektFieldArray.buildInitialValues = (
   andeler: AndelForFaktaOmBeregning[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): AndelFieldValue[] => {
   if (!andeler || andeler.length === 0) {
     return [];
   }
-  return andeler.map(a => mapAndelToField(a, arbeidsgiverOpplysningerPerId, alleKodeverk));
+  return andeler.map(a => mapAndelToField(a, arbeidsgiverOpplysningerPerId, kodeverkSamling));
 };
 
 export default InntektFieldArray;

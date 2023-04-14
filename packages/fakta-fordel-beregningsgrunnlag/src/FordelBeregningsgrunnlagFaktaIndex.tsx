@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { Tabs } from '@navikt/ds-react';
 
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   StandardFaktaPanelProps,
@@ -28,6 +27,7 @@ import FaktaFordelBeregningAvklaringsbehovCode from './types/interface/FaktaFord
 import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
+import KodeverkForPanel from './types/kodeverkForPanel';
 
 const intl = createIntl(messages);
 
@@ -74,7 +74,7 @@ type OwnProps = {
   beregningsgrunnlagVilkår: Vilkar;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
 };
 
@@ -87,7 +87,7 @@ type Props = OwnProps &
 const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   beregningsgrunnlagVilkår,
   beregningsgrunnlagListe,
-  alleKodeverk,
+  kodeverkSamling,
   submitCallback,
   readOnly,
   submittable,
@@ -130,7 +130,7 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
       <VerticalSpacer eightPx />
       <FordelBeregningsgrunnlagPanel
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         submitCallback={submitCallback}
         readOnly={readOnly}
         beregningsgrunnlagListe={bgMedAvklaringsbehov}

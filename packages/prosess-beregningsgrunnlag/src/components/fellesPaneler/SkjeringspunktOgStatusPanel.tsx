@@ -1,7 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { getKodeverknavnFn } from '@navikt/ft-utils';
 import {
   DateLabel,
   VerticalSpacer,
@@ -11,10 +10,10 @@ import {
   BlaBoksMedCheckmarkListe,
 } from '@navikt/ft-ui-komponenter';
 import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
-import { AlleKodeverk } from '@navikt/ft-types';
 
 import { BodyShort, Tag } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 enum TagType {
   BLÅ = 'alt3',
@@ -42,14 +41,11 @@ type statusObjekt = {
   tagType: TagType;
 };
 
-const createStatusEtiketter = (
-  listeMedStatuser: string[],
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-): ReactElement => {
+const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: KodeverkForPanel): ReactElement => {
   const statusList = [] as statusObjekt[];
   const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex(t => t === status));
   unikeStatuser.forEach(status => {
-    const statusName = getKodeverknavn(status, KodeverkType.AKTIVITET_STATUS);
+    const statusName = kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(s => s.kode === status)?.navn || '';
     statusList.push({ visningsNavn: statusName, kode: status, tagType: finnTagType(status) });
   });
   statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
@@ -69,7 +65,7 @@ const createStatusEtiketter = (
 type OwnProps = {
   skjeringstidspunktDato: string;
   aktivitetStatusList: string[];
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   lonnsendringSisteTreMan: boolean;
 };
 
@@ -82,17 +78,16 @@ type OwnProps = {
 const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
   skjeringstidspunktDato,
   aktivitetStatusList,
-  alleKodeverk,
+  kodeverkSamling,
   lonnsendringSisteTreMan,
 }) => {
   const textIdsTilBlaBoksMedCheckmarkListe = [];
-  const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
   if (lonnsendringSisteTreMan) {
     textIdsTilBlaBoksMedCheckmarkListe.push('Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan');
   }
   return (
     <div className={beregningStyles.panelLeft}>
-      {createStatusEtiketter(aktivitetStatusList, getKodeverknavn)}
+      {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
       <VerticalSpacer sixteenPx />
       <FlexContainer>
         <FlexRow>

@@ -9,7 +9,7 @@ import {
   TilbakekrevingKodeverkType,
   BehandlingStatus,
 } from '@navikt/ft-kodeverk';
-import { AlleKodeverkTilbakekreving, Behandling, Aksjonspunkt, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+import { Behandling, Aksjonspunkt, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
 import ForeldelseProsessIndex from './ForeldelseProsessIndex';
 import ForeldelseAksjonspunktCodes from './ForeldelseAksjonspunktCodes';
 
@@ -18,6 +18,7 @@ import '@navikt/ds-css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-tidslinje/dist/style.css';
+import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
 
 const perioderForeldelse = {
   perioder: [
@@ -53,7 +54,7 @@ const perioderForeldelse = {
   ],
 } as FeilutbetalingPerioderWrapper;
 
-const alleKodeverk = {
+const kodeverkSamling = {
   [TilbakekrevingKodeverkType.FORELDELSE_VURDERING]: [
     {
       kode: ForeldelseVurderingType.FORELDET,
@@ -71,7 +72,7 @@ const alleKodeverk = {
       kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
-} as AlleKodeverkTilbakekreving;
+} as KodeverkFpTilbakeForPanel;
 
 export default {
   title: 'prosess-foreldelse',
@@ -90,7 +91,7 @@ const Template: StoryFn<{
         status: BehandlingStatus.BEHANDLING_UTREDES,
       } as Behandling
     }
-    tilbakekrevingKodeverk={alleKodeverk}
+    kodeverkSamlingFpTilbake={kodeverkSamling}
     submitCallback={submitCallback}
     isReadOnly={false}
     setFormData={() => undefined}

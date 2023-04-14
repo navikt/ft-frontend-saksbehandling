@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
@@ -27,6 +26,7 @@ import YtelsegrunnlagPanel from '../frisinn/YtelsegrunnlagPanel';
 import SammenligningOgFastsettelsePanel from '../fellesPaneler/SammenligningOgFastsettelsePanel';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import BeregningsresultatPanel from '../beregningsresultat/BeregningsresultatPanel';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
@@ -57,7 +57,7 @@ type OwnProps = {
   relevanteStatuser: RelevanteStatuserProp;
   readOnlySubmitButton: boolean;
   valgtBeregningsgrunnlag: BeregningsgrunnlagProp;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   vilkarPeriode?: Vilkarperiode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[];
@@ -85,7 +85,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   valgtBeregningsgrunnlag,
   relevanteStatuser,
   readOnlySubmitButton,
-  alleKodeverk,
+  kodeverkSamling,
   vilkarPeriode,
   arbeidsgiverOpplysningerPerId,
   gjeldendeAvklaringsbehov,
@@ -121,7 +121,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           </Heading>
           <VerticalSpacer sixteenPx />
           <SkjeringspunktOgStatusPanel
-            alleKodeverk={alleKodeverk}
+            kodeverkSamling={kodeverkSamling}
             aktivitetStatusList={aktivitetStatusList}
             skjeringstidspunktDato={skjaeringstidspunktBeregning}
             lonnsendringSisteTreMan={lonnsendringSisteTreMan}
@@ -132,7 +132,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
               relevanteStatuser={relevanteStatuser}
               allePerioder={beregningsgrunnlagPeriode}
               gjelderBesteberegning={gjelderBesteberegning}
-              alleKodeverk={alleKodeverk}
+              kodeverkSamling={kodeverkSamling}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
               sammenligningsGrunnlagInntekter={valgtBeregningsgrunnlag.inntektsgrunnlag}
               sammenligningsgrunnlag={valgtBeregningsgrunnlag.sammenligningsgrunnlagPrStatus}
@@ -156,7 +156,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
           <SammenligningOgFastsettelsePanel
             readOnly={readOnly}
             readOnlySubmitButton={readOnlySubmitButton}
-            alleKodeverk={alleKodeverk}
+            kodeverkSamling={kodeverkSamling}
             relevanteStatuser={relevanteStatuser}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             gjelderBesteberegning={gjelderBesteberegning}

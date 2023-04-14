@@ -14,15 +14,17 @@ import {
 } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { TextAreaField, CheckboxField, Form } from '@navikt/ft-form-hooks';
-import { DDMMYYYY_DATE_FORMAT, getKodeverknavnFn, decodeHtmlEntity } from '@navikt/ft-utils';
+import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AlleKodeverk, AlleKodeverkTilbakekreving, FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
+import { FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
 import FeilutbetalingPerioderFieldArray, { FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
 
 import styles from './feilutbetalingInfoPanel.module.css';
 import AvklartFaktaFeilutbetalingAp from '../types/AvklartFaktaFeilutbetalingAp';
 import FeilutbetalingAksjonspunktCode from '../FeilutbetalingAksjonspunktCode';
+import KodeverkFpSakForPanel from '../types/kodeverkFpSakForPanel';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -96,12 +98,14 @@ const transformValues = (
 
 const getSortedFeilutbetalingArsaker = (
   feilutbetalingArsaker: FeilutbetalingAarsak,
-  getFpsakKodeverknavn: (kode: string, kodeverkType: KodeverkType, undertype?: string) => string,
+  kodeverkSamlingFpsak: KodeverkFpSakForPanel,
 ): FeilutbetalingAarsak['hendelseTyper'] => {
   const { hendelseTyper } = feilutbetalingArsaker;
   return hendelseTyper.sort((ht1, ht2) => {
-    const hendelseType1 = getFpsakKodeverknavn(ht1.hendelseType, KodeverkType.HENDELSE_TYPE);
-    const hendelseType2 = getFpsakKodeverknavn(ht2.hendelseType, KodeverkType.HENDELSE_TYPE);
+    const hendelseType1 =
+      kodeverkSamlingFpsak[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht1.hendelseType)?.navn || '';
+    const hendelseType2 =
+      kodeverkSamlingFpsak[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht2.hendelseType)?.navn || '';
     const hendelseType1ErParagraf = hendelseType1.startsWith('§');
     const hendelseType2ErParagraf = hendelseType2.startsWith('§');
     const ht1v = hendelseType1ErParagraf ? hendelseType1.replace(/\D/g, '') : hendelseType1;
@@ -117,8 +121,8 @@ interface OwnProps {
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
   hasOpenAksjonspunkter: boolean;
   readOnly: boolean;
-  alleKodeverk: AlleKodeverkTilbakekreving;
-  fpsakKodeverk: AlleKodeverk;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpsak: KodeverkFpSakForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   formData?: FormValues;
   setFormData: (data: FormValues) => void;
@@ -130,16 +134,14 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
   feilutbetalingFakta,
   readOnly,
   alleMerknaderFraBeslutter,
-  alleKodeverk,
-  fpsakKodeverk,
+  kodeverkSamlingFpTilbake,
+  kodeverkSamlingFpsak,
   formData,
   setFormData,
   submitCallback,
 }) => {
   const intl = useIntl();
 
-  const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
-  const getFpsakKodeverknavn = getKodeverknavnFn(fpsakKodeverk);
   const feilutbetaling = feilutbetalingFakta.behandlingFakta;
 
   const initialValues = buildInitialValues(feilutbetalingFakta);
@@ -150,7 +152,7 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
 
   const behandlePerioderSamlet = formMethods.watch('behandlePerioderSamlet') || false;
 
-  const årsaker = getSortedFeilutbetalingArsaker(feilutbetalingAarsak, getFpsakKodeverknavn);
+  const årsaker = getSortedFeilutbetalingArsaker(feilutbetalingAarsak, kodeverkSamlingFpsak);
 
   return (
     <>
@@ -222,7 +224,7 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                   behandlePerioderSamlet={behandlePerioderSamlet}
                   årsaker={årsaker}
                   readOnly={readOnly}
-                  getKodeverknavn={getKodeverknavn}
+                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
                 />
               </FaktaGruppe>
             </FlexColumn>
@@ -240,7 +242,12 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
                     {feilutbetaling.behandlingÅrsaker && (
                       <BodyShort size="small">
                         {feilutbetaling.behandlingÅrsaker
-                          .map(ba => getFpsakKodeverknavn(ba.behandlingArsakType, KodeverkType.BEHANDLING_AARSAK))
+                          .map(
+                            ba =>
+                              kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
+                                a => a.kode === ba.behandlingArsakType,
+                              )?.navn,
+                          )
                           .join(', ')}
                       </BodyShort>
                     )}
@@ -263,7 +270,11 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
               </Detail>
               {feilutbetaling.behandlingsresultat && (
                 <BodyShort size="small">
-                  {getFpsakKodeverknavn(feilutbetaling.behandlingsresultat.type, KodeverkType.BEHANDLING_AARSAK)}
+                  {
+                    kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
+                      a => a.kode === feilutbetaling.behandlingsresultat?.type,
+                    )?.navn
+                  }
                 </BodyShort>
               )}
               <VerticalSpacer sixteenPx />
@@ -273,7 +284,7 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
               {feilutbetaling.behandlingsresultat && (
                 <BodyShort size="small">
                   {feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
-                    .map(ba => getFpsakKodeverknavn(ba, KodeverkType.KONSEKVENS_FOR_YTELSEN))
+                    .map(ba => kodeverkSamlingFpsak[KodeverkType.KONSEKVENS_FOR_YTELSEN].find(k => k.kode === ba)?.navn)
                     .join(', ')}
                 </BodyShort>
               )}
@@ -283,10 +294,11 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
               </Detail>
               {feilutbetaling.tilbakekrevingValg && (
                 <BodyShort size="small">
-                  {getKodeverknavn(
-                    feilutbetaling.tilbakekrevingValg.videreBehandling,
-                    KodeverkType.TILBAKEKR_VIDERE_BEH,
-                  )}
+                  {
+                    kodeverkSamlingFpTilbake[KodeverkType.TILBAKEKR_VIDERE_BEH].find(
+                      tvb => tvb.kode === feilutbetaling.tilbakekrevingValg?.videreBehandling,
+                    )?.navn
+                  }
                 </BodyShort>
               )}
             </FlexColumn>

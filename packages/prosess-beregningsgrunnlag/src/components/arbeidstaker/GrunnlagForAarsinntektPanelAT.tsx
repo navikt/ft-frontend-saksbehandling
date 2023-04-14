@@ -1,11 +1,10 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { getKodeverknavnFn, dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
-import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
+import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer, FlexColumn, FlexRow, FlexContainer } from '@navikt/ft-ui-komponenter';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
@@ -18,6 +17,7 @@ import NaturalytelsePanel from './NaturalytelsePanel';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
 import Ledelinje from '../fellesPaneler/Ledelinje';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -70,14 +70,14 @@ const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => (andel.be
 
 const createArbeidinntektRows = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
   const beregnetAarsinntekt = relevanteAndeler.reduce((acc, andel) => acc + finnBeregnetEller0(andel), 0);
   const beregnetMaanedsinntekt = beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0;
   const rows = relevanteAndeler.map((andel, index) => (
     <React.Fragment
-      key={`ArbInntektWrapper${createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}${
+      key={`ArbInntektWrapper${createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}${
         index + 1
       }`}
     >
@@ -85,7 +85,7 @@ const createArbeidinntektRows = (
         <FlexRow>
           <FlexColumn className={beregningStyles.tabellAktivitet}>
             <Label size="small" key={`ColLableTxt${index + 1}`} className={beregningStyles.semiBoldText}>
-              {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
+              {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
             </Label>
           </FlexColumn>
           <FlexColumn className={beregningStyles.tabellInntekt}>
@@ -152,7 +152,7 @@ type OwnProps = {
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
 };
 
 /**
@@ -165,9 +165,8 @@ const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctio
   alleAndelerIFørstePeriode,
   allePerioder,
   arbeidsgiverOpplysningerPerId,
-  alleKodeverk,
+  kodeverkSamling,
 }) => {
-  const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIFørstePeriode);
   if (!relevanteAndeler || relevanteAndeler.length === 0) return null;
   return (
@@ -195,7 +194,7 @@ const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctio
         </FlexRow>
       </FlexContainer>
       <Ledelinje prosentBredde={100} />
-      {createArbeidinntektRows(relevanteAndeler, getKodeverknavn, arbeidsgiverOpplysningerPerId)}
+      {createArbeidinntektRows(relevanteAndeler, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
       <NaturalytelsePanel allePerioder={allePerioder} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
     </>
   );

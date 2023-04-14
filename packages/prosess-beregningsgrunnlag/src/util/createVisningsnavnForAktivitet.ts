@@ -2,6 +2,7 @@ import { ArbeidsgiverOpplysninger, ArbeidsgiverOpplysningerPerId, Beregningsgrun
 import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { KodeverkType } from '@navikt/ft-kodeverk';
+import KodeverkForPanel from '../types/kodeverkForPanel';
 
 const getEndCharFromId = (id: string | undefined): string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
 
@@ -18,26 +19,25 @@ const createVisningsnavnForAktivitet = (
   return identifikator ? `${navn} (${identifikator})${getEndCharFromId(eksternReferanse)}` : navn;
 };
 
-const lagVisningFraArbeidType = (
-  andel: BeregningsgrunnlagAndel,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-): string =>
+const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel, kodeverkSamling: KodeverkForPanel): string =>
   andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
-    ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OVERFOERING_AARSAK_TYPE)
+    ? kodeverkSamling[KodeverkType.OVERFOERING_AARSAK_TYPE].find(
+        a => a.kode === andel.arbeidsforhold?.arbeidsforholdType,
+      )?.navn || ''
     : '';
 
 export const createVisningsnavnForAndel = (
   andel: BeregningsgrunnlagAndel,
   arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
 ): string => {
   if (andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverIdent) {
     const arbeidsforholdInfo = arbeidsgiverOpplysninger[andel.arbeidsforhold.arbeidsgiverIdent];
     return arbeidsforholdInfo
       ? createVisningsnavnForAktivitet(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId)
-      : lagVisningFraArbeidType(andel, getKodeverknavn);
+      : lagVisningFraArbeidType(andel, kodeverkSamling);
   }
-  return lagVisningFraArbeidType(andel, getKodeverknavn);
+  return lagVisningFraArbeidType(andel, kodeverkSamling);
 };
 
 export default createVisningsnavnForAktivitet;

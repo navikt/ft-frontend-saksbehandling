@@ -4,16 +4,15 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagPeriode,
-  AlleKodeverk,
   Beregningsgrunnlag,
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
 
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 
 import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
   beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
@@ -22,7 +21,7 @@ type OwnProps = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 };
@@ -31,7 +30,7 @@ interface StaticFunctions {
   buildInitialValues: (
     fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
     bg: Beregningsgrunnlag,
-    getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+    kodeverkSamling: KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   ) => FordelBeregningsgrunnlagValues;
   transformValues: (
@@ -46,7 +45,7 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
   isAksjonspunktClosed,
   readOnly,
   beregningsgrunnlag,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
@@ -59,7 +58,7 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
       isAksjonspunktClosed={isAksjonspunktClosed}
       bgPerioder={bgPerioder}
       beregningsgrunnlag={beregningsgrunnlag}
-      alleKodeverk={alleKodeverk}
+      kodeverkSamling={kodeverkSamling}
       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       fieldIndex={fieldIndex}
     />
@@ -69,10 +68,10 @@ const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFun
 FastsettFordeltBeregningsgrunnlag.buildInitialValues = (
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bg: Beregningsgrunnlag,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagValues =>
-  FordelBeregningsgrunnlagForm.buildInitialValues(fordelBGPerioder, bg, getKodeverknavn, arbeidsgiverOpplysningerPerId);
+  FordelBeregningsgrunnlagForm.buildInitialValues(fordelBGPerioder, bg, kodeverkSamling, arbeidsgiverOpplysningerPerId);
 
 FastsettFordeltBeregningsgrunnlag.transformValues = (
   values: FordelBeregningsgrunnlagValues,

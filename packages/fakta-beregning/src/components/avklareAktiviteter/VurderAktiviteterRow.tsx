@@ -1,9 +1,9 @@
 import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
-import { getKodeverknavnFn, prettifyDateString } from '@navikt/ft-utils';
+import { prettifyDateString } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
@@ -11,12 +11,13 @@ import { useIntl } from 'react-intl';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
 import styles from './vurderAktiviteterTabell.module.css';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 type OwnProps = {
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
   aktivitet: BeregningAktivitet;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   erOverstyrt: boolean;
   harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
@@ -32,12 +33,13 @@ const isSameOrBefore = (dato1: string, dato2: string): boolean =>
 const lagVisningsnavn = (
   aktivitet: BeregningAktivitet,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): string => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent];
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? getKodeverknavnFn(alleKodeverk)(aktivitet.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
+          ?.navn
       : '';
   }
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
@@ -47,7 +49,7 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   readOnly,
   isAvklaringsbehovClosed,
   aktivitet,
-  alleKodeverk,
+  kodeverkSamling,
   erOverstyrt,
   harAvklaringsbehov,
   tomDatoForAktivitetGruppe,
@@ -63,7 +65,7 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   );
 
   const lagLabel = (skalBrukes: boolean) => {
-    const arbeidsgiver = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk);
+    const arbeidsgiver = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling);
     const dato = `${prettifyDateString(aktivitet.fom)} til ${prettifyDateString(aktivitet.tom)}`;
     return `${skalBrukes ? 'Benytt' : 'Ikke benytt'} ${arbeidsgiver} ${dato}`;
   };
@@ -71,7 +73,7 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   return (
     <TableRow key={lagAktivitetFieldId(aktivitet)}>
       <TableColumn className={styles.navnKol}>
-        <BodyShort>{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk)}</BodyShort>
+        <BodyShort>{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling)}</BodyShort>
       </TableColumn>
       <TableColumn className={styles.rowalign}>
         {!erOverstyrt && (

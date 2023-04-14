@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react';
-import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
@@ -12,7 +12,7 @@ import {
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { UseFormGetValues } from 'react-hook-form';
 import {
   validateSumFastsattBelop,
@@ -32,6 +32,7 @@ import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
 import addCircleIcon from '../../images/add-circle.svg';
 
 import styles from './renderFordelBGFieldArray.module.css';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
@@ -48,12 +49,14 @@ const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
 
 const lagVisningsnavn = (
   arbeidsforhold: BGFordelArbeidsforhold,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
   if (!arbeidsforhold.arbeidsgiverIdent || !arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]) {
     return arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
+          oat => oat.kode === arbeidsforhold.arbeidsforholdType,
+        )?.navn || ''
       : '';
   }
   return createVisningsnavnForAktivitetFordeling(
@@ -64,24 +67,24 @@ const lagVisningsnavn = (
 
 const arbeidsgiverSelectValues = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] =>
   arbeidsforholdList.map(arbeidsforhold => (
     <option value={arbeidsforhold.andelsnr.toString()} key={arbeidsforhold.andelsnr}>
-      {lagVisningsnavn(arbeidsforhold, getKodeverknavn, arbeidsgiverOpplysningerPerId)}
+      {lagVisningsnavn(arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
     </option>
   ));
 
 const arbeidsgiverSelectValuesForKunYtelse = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
   intl: IntlShape,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
   const nedtrekksvalgListe = arbeidsforholdList.map(arbeidsforhold => (
     <option value={arbeidsforhold.andelsnr.toString()} key={arbeidsforhold.andelsnr}>
-      {lagVisningsnavn(arbeidsforhold, getKodeverknavn, arbeidsgiverOpplysningerPerId)}
+      {lagVisningsnavn(arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
     </option>
   ));
   nedtrekksvalgListe.push(
@@ -417,7 +420,7 @@ type OwnProps = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   skalIkkeRedigereInntekt: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldName: string;
@@ -447,7 +450,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   skalIkkeRedigereInntekt,
   isAksjonspunktClosed,
   arbeidsgiverOpplysningerPerId,
-  alleKodeverk,
+  kodeverkSamling,
   beregningsgrunnlag,
   skalKunneEndreRefusjon,
   sumIPeriode,
@@ -494,12 +497,11 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   const sumFordeling = summerFordeling(vilkårperiodeFieldIndex, fieldName, fields, watch);
   const sumBeregningsgrunnlagPrAar = summerBeregningsgrunnlagPrAar(fields);
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
-  const inntektskategoriKoder = alleKodeverk[KodeverkType.INNTEKTSKATEGORI];
-  const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
+  const inntektskategoriKoder = kodeverkSamling[KodeverkType.INNTEKTSKATEGORI];
   const intl = useIntl();
   const selectVals = harKunYtelse
-    ? arbeidsgiverSelectValuesForKunYtelse(arbeidsforholdList, intl, getKodeverknavn, arbeidsgiverOpplysningerPerId)
-    : arbeidsgiverSelectValues(arbeidsforholdList, getKodeverknavn, arbeidsgiverOpplysningerPerId);
+    ? arbeidsgiverSelectValuesForKunYtelse(arbeidsforholdList, intl, kodeverkSamling, arbeidsgiverOpplysningerPerId)
+    : arbeidsgiverSelectValues(arbeidsforholdList, kodeverkSamling, arbeidsgiverOpplysningerPerId);
   const tablerows = createAndelerTableRows(
     vilkårperiodeFieldIndex,
     fields,
@@ -538,7 +540,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
           fields,
           intl,
           beregningsgrunnlag.grunnbeløp,
-          getKodeverknavn,
+          kodeverkSamling,
         ),
       );
     }
@@ -552,7 +554,6 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
           fields,
           fieldName,
           getValues,
-          getKodeverknavn,
           arbeidsgiverOpplysningerPerId,
           intl,
         ),

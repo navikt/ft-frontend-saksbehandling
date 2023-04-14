@@ -1,10 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { formHooks } from '@navikt/ft-form-hooks';
-import { getKodeverknavnFn } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -23,6 +21,7 @@ import {
 import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
@@ -66,7 +65,7 @@ export const buildFieldInitialValuesFordelBeregning = (
   beregningsgrunnlag: Beregningsgrunnlag,
   vilkårsperiode: Vilkarperiode,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagMedAksjonspunktValues => {
   const fordelBGPerioder = finnFordelPerioder(beregningsgrunnlag);
   return {
@@ -78,7 +77,7 @@ export const buildFieldInitialValuesFordelBeregning = (
     ...FastsettFordeltBeregningsgrunnlag.buildInitialValues(
       fordelBGPerioder,
       beregningsgrunnlag,
-      getKodeverknavnFn(alleKodeverk),
+      kodeverkSamling,
       arbeidsgiverOpplysningerPerId,
     ),
   } as FordelBeregningsgrunnlagMedAksjonspunktValues;
@@ -88,7 +87,7 @@ interface PureOwnProps {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 }
@@ -102,7 +101,7 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
   readOnly,
   submittable,
   beregningsgrunnlag,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
@@ -118,7 +117,7 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
         beregningsgrunnlag={beregningsgrunnlag}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         fieldIndex={fieldIndex}
       />

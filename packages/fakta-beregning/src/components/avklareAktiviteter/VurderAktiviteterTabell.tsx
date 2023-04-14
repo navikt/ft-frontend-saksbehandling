@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
-import { getKodeverknavnFn } from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på
@@ -93,12 +93,13 @@ export const skalVurdereAktivitet = (
 const lagVisningsnavn = (
   aktivitet: BeregningAktivitet,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): string => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent];
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? getKodeverknavnFn(alleKodeverk)(aktivitet.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
+          ?.navn
       : '';
   }
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
@@ -126,13 +127,13 @@ const skalBrukesPretufylling = (
 
 const mapToInitialValues = (
   aktivitet: BeregningAktivitet,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
   erTomLikEllerFørSkjæringstidpunkt: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): AktivitetValues => ({
-  beregningAktivitetNavn: lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, alleKodeverk),
+  beregningAktivitetNavn: lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling),
   fom: aktivitet.fom,
   tom: aktivitet.tom,
   skalBrukes: skalBrukesPretufylling(aktivitet, erOverstyrt, harAksjonspunkt, erTomLikEllerFørSkjæringstidpunkt),
@@ -172,7 +173,7 @@ export const transformValues = (
 
 export const buildInitialValues = (
   aktiviteter: BeregningAktivitet[],
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
   erTomLikEllerFørSkjæringstidpunkt: boolean,
@@ -185,7 +186,7 @@ export const buildInitialValues = (
   aktiviteter.forEach(aktivitet => {
     initialValues[lagAktivitetFieldId(aktivitet)] = mapToInitialValues(
       aktivitet,
-      alleKodeverk,
+      kodeverkSamling,
       erOverstyrt,
       harAksjonspunkt,
       erTomLikEllerFørSkjæringstidpunkt,

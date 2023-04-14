@@ -9,6 +9,7 @@ import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagGenerellAndelValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 
@@ -33,7 +34,7 @@ const finnnInntektskategorikode = (andel: FordelBeregningsgrunnlagAndel): string
 const createAndelnavn = (
   andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
   if (!andel.aktivitetStatus || andel.aktivitetStatus === AktivitetStatus.UDEFINERT) {
@@ -45,7 +46,9 @@ const createAndelnavn = (
       : undefined;
     if (!agOpplysninger) {
       return andel.arbeidsforhold.arbeidsforholdType
-        ? getKodeverknavn(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+        ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
+            oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType,
+          )?.kode || ''
         : '';
     }
     return createVisningsnavnForAktivitetFordeling(agOpplysninger, andel.arbeidsforhold.eksternArbeidsforholdId);
@@ -53,7 +56,7 @@ const createAndelnavn = (
   if (harKunYtelse && andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL) {
     return 'Ytelse';
   }
-  return getKodeverknavn(andel.aktivitetStatus, KodeverkType.AKTIVITET_STATUS);
+  return kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(as => as.kode === andel.aktivitetStatus)?.navn || '';
 };
 
 export const finnFastsattPrAar = (fordeltPrAar?: number): number | undefined =>
@@ -96,10 +99,10 @@ export const setArbeidsforholdInitialValues = (
 export const setGenerellAndelsinfo = (
   andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagGenerellAndelValues => ({
-  andel: createAndelnavn(andel, harKunYtelse, getKodeverknavn, arbeidsgiverOpplysningerPerId),
+  andel: createAndelnavn(andel, harKunYtelse, kodeverkSamling, arbeidsgiverOpplysningerPerId),
   aktivitetStatus: andel.aktivitetStatus,
   andelsnr: andel.andelsnr,
   nyAndel: false,

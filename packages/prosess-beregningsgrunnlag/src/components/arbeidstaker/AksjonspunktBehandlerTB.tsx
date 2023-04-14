@@ -3,18 +3,11 @@ import { UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { BodyShort, Detail } from '@navikt/ds-react';
 
-import {
-  dateFormat,
-  formatCurrencyNoKr,
-  getKodeverknavnFn,
-  parseCurrencyInput,
-  removeSpacesFromNumber,
-} from '@navikt/ft-utils';
+import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { formHooks, InputField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, isAksjonspunktOpen, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   BeregningsgrunnlagAndel,
@@ -36,6 +29,7 @@ import {
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import BeregningFormValues from '../../types/BeregningFormValues';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const formPrefix = 'inntektField';
 
@@ -109,7 +103,7 @@ const createBeregnetInntektForAlleAndeler = (periode: BeregningsgrunnlagPeriodeP
 
 const lagVisningsnavnForAktivitet = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ) => {
   const arbeidsforholdInfo = arbeidsforhold.arbeidsgiverIdent
@@ -117,7 +111,8 @@ const lagVisningsnavnForAktivitet = (
     : null;
   if (!arbeidsforholdInfo) {
     return arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(a => a.kode === arbeidsforhold.arbeidsforholdType)
+          ?.navn
       : '';
   }
   return createVisningsnavnForAktivitet(arbeidsforholdInfo, arbeidsforhold.eksternArbeidsforholdId);
@@ -136,7 +131,7 @@ const createMapValueObject = (): TidsbegrenseArbeidsforholdTabellCelle => ({
 // Vi antar at alle andeler ligger i alle perioder, henter derfor kun ut andeler fra den første perioden.
 const initializeMap = (
   periode: BeregningsgrunnlagPeriodeProp,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   const inntektMap = createBeregnetInntektForAlleAndeler(periode);
@@ -152,7 +147,7 @@ const initializeMap = (
     const mapValueMedAndelNavn = createMapValueObject();
     mapValueMedAndelNavn.tabellInnhold = lagVisningsnavnForAktivitet(
       andel.arbeidsforhold,
-      getKodeverknavn,
+      kodeverkSamling,
       arbeidsgiverOpplysningerPerId,
     );
     mapValueMedAndelNavn.erTidsbegrenset =
@@ -170,17 +165,13 @@ const initializeMap = (
 
 const createTableData = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
   const relevantPeriode = finnPeriodeEtterOpphørAvTidsbegrensetArbeid(allePerioder);
   const kopiAvPeriode = { ...relevantPeriode };
-  const arbeidsforholdPeriodeMap = initializeMap(
-    allePerioder[0],
-    getKodeverknavnFn(alleKodeverk),
-    arbeidsgiverOpplysningerPerId,
-  );
+  const arbeidsforholdPeriodeMap = initializeMap(allePerioder[0], kodeverkSamling, arbeidsgiverOpplysningerPerId);
 
   // Oppretter element for redigerbar periode
   const arbeidstakerAndeler = findArbeidstakerAndeler(kopiAvPeriode);
@@ -365,7 +356,7 @@ type OwnProps = {
   formName: string;
   avklaringsbehov: BeregningAvklaringsbehov;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   fieldIndex: number;
 };
 
@@ -373,12 +364,12 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
   readOnly,
   allePerioder,
   avklaringsbehov,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
   formName,
 }) => {
-  const tabellData = createTableData(allePerioder, alleKodeverk, arbeidsgiverOpplysningerPerId);
+  const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
   const isAvklaringsbehovClosed = getIsAksjonspunktClosed(avklaringsbehov);
   const formMethods = formHooks.useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);

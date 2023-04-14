@@ -12,6 +12,7 @@ import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
 
@@ -181,7 +182,6 @@ export const validateTotalRefusjonPrArbeidsforhold = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   fieldname: string,
   getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   intl: IntlShape,
 ): string | undefined => {
@@ -341,11 +341,10 @@ export const validateSumRefusjon = (
   return harGraderingUtenRefusjon ? totalRefusjonSkalVereLavereEnn(sumRefusjon, seksG, intl) : undefined;
 };
 
-const lagBeskrivendeStringAvStatuser = (
-  statuser: string[],
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
-): string => {
-  const liste = statuser.map(status => getKodeverknavn(status, KodeverkType.AKTIVITET_STATUS));
+const lagBeskrivendeStringAvStatuser = (statuser: string[], kodeverkSamling: KodeverkForPanel): string => {
+  const liste = statuser.map(
+    status => kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(as => as.kode === status)?.navn || '',
+  );
   liste.sort((a, b) => a.localeCompare(b));
   const unikListe = [...new Set(liste)];
   return unikListe.join(', ');
@@ -373,7 +372,7 @@ const validateSumFastsattArbeidstaker = (
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
   seksG: number,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   intl: IntlShape,
 ): string | undefined => {
   const statuserSomValideres = [AktivitetStatus.ARBEIDSTAKER];
@@ -384,7 +383,7 @@ const validateSumFastsattArbeidstaker = (
     fields,
     statuserSomValideres,
   );
-  const beskrivendeString = lagBeskrivendeStringAvStatuser(statuserSomValideres, getKodeverknavn);
+  const beskrivendeString = lagBeskrivendeStringAvStatuser(statuserSomValideres, kodeverkSamling);
   return totalFordelingSkalVereLavereEnn(
     sumFastsattBelop,
     seksG,
@@ -400,7 +399,7 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
   seksG: number,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   intl: IntlShape,
 ): string | undefined => {
   const statuserSomPrioriteresOverSN = [
@@ -419,7 +418,7 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
     fields,
     statuserSomValideres,
   );
-  const beskrivendeString = lagBeskrivendeStringAvStatuser(statuserSomValideres, getKodeverknavn);
+  const beskrivendeString = lagBeskrivendeStringAvStatuser(statuserSomValideres, kodeverkSamling);
   return totalFordelingSkalVereLavereEnn(
     sumFastsattBelop,
     seksG,
@@ -436,7 +435,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   intl: IntlShape,
   grunnbeløp: number,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
 ): string | undefined => {
   const skalGradereFL = !!fields.find(
     v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.FRILANSER,
@@ -449,7 +448,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
       fieldname,
       fields,
       seksG,
-      getKodeverknavn,
+      kodeverkSamling,
       intl,
     );
   }
@@ -463,7 +462,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
       fieldname,
       fields,
       seksG,
-      getKodeverknavn,
+      kodeverkSamling,
       intl,
     );
   }

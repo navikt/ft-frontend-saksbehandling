@@ -43,6 +43,7 @@ import '@navikt/ds-css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
+import KodeverkForPanel from './types/kodeverkForPanel';
 
 const agOpplysninger = {
   874652202: {
@@ -138,7 +139,7 @@ const Template: StoryFn<{
     )}
     submitCallback={submitCallback}
     readOnly={readOnly}
-    alleKodeverk={alleKodeverk as any}
+    kodeverkSamling={alleKodeverk as KodeverkForPanel}
     arbeidsgiverOpplysningerPerId={agOpplysninger}
     setFormData={() => undefined}
     submittable

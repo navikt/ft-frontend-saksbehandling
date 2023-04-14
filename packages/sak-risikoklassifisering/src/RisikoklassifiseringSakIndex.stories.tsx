@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
-import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, Risikoklassifisering } from '@navikt/ft-types';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
@@ -38,7 +38,7 @@ const Template: StoryFn<{
       readOnly={false}
       submitAksjonspunkt={submitAksjonspunkt}
       toggleRiskPanel={() => toggleOpen(!isOpen)}
-      alleKodeverk={alleKodeverk as any}
+      faresignalVurderinger={alleKodeverk[KodeverkType.FARESIGNAL_VURDERING]}
     />
   );
 };

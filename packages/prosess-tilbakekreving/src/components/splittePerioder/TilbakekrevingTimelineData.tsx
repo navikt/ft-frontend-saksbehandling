@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
-import { AlleKodeverkTilbakekreving } from '@navikt/ft-types';
-import { getKodeverknavnFn } from '@navikt/ft-utils';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import PeriodeController from './PeriodeController';
 import PeriodeInformasjon from './PeriodeInformasjon';
 import DataForPeriode from '../../types/dataForPeriodeTsType';
+import KodeverkFpTilbakeForPanel from '../../types/kodeverkFpTilbakeForPanel';
 
 type OwnProps = {
   periode: DataForPeriode;
@@ -18,7 +17,7 @@ type OwnProps = {
   readOnly: boolean;
   behandlingUuid: string;
   beregnBelop: (data: any) => Promise<any>;
-  alleTilbakekrevingKodeverk: AlleKodeverkTilbakekreving;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
 };
 
 const TilbakekrevingTimelineData: FunctionComponent<OwnProps> = ({
@@ -29,7 +28,7 @@ const TilbakekrevingTimelineData: FunctionComponent<OwnProps> = ({
   oppdaterSplittedePerioder,
   behandlingUuid,
   beregnBelop,
-  alleTilbakekrevingKodeverk,
+  kodeverkSamlingFpTilbake,
 }) => (
   <>
     <PeriodeController
@@ -47,10 +46,9 @@ const TilbakekrevingTimelineData: FunctionComponent<OwnProps> = ({
       feilutbetaling={periode.feilutbetaling}
       fom={periode.fom}
       tom={periode.tom}
-      arsakHendelseNavn={getKodeverknavnFn(alleTilbakekrevingKodeverk)(
-        periode.årsak?.hendelseType,
-        KodeverkType.HENDELSE_TYPE,
-      )}
+      arsakHendelseNavn={
+        kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(ht => ht.kode === periode.årsak?.hendelseType)?.navn
+      }
     />
   </>
 );

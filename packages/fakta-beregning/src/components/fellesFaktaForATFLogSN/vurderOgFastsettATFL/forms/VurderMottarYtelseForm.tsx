@@ -2,7 +2,6 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   ArbeidstakerUtenIMAndel,
   Beregningsgrunnlag,
@@ -10,7 +9,7 @@ import {
   FaktaOmBeregning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
-import { getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
@@ -27,6 +26,7 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
+import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -37,14 +37,16 @@ export const mottarYtelseForArbeidMsg = () => 'BeregningInfoPanel.VurderMottarYt
 
 const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): React.ReactNode => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
   let radioNavn;
   if (!agOpplysning) {
     radioNavn = arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavnFn(alleKodeverk)(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
+      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
+          oat => oat.kode === arbeidsforhold.arbeidsforholdType,
+        )?.navn
       : '';
   } else {
     radioNavn = createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
@@ -55,7 +57,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
 const mottarYtelseArbeidsforholdRadio = (
   andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
   intl: IntlShape,
@@ -64,7 +66,7 @@ const mottarYtelseArbeidsforholdRadio = (
     <RadioGroupPanel
       label={
         <BodyShort>
-          {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, alleKodeverk, arbeidsgiverOpplysningerPerId)}
+          {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
         </BodyShort>
       }
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
@@ -98,7 +100,7 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   tilfeller: string[];
   beregningsgrunnlag: Beregningsgrunnlag;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
@@ -123,7 +125,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   beregningsgrunnlag,
   tilfeller,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
 }) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -165,7 +167,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
         mottarYtelseArbeidsforholdRadio(
           andel,
           readOnly,
-          alleKodeverk,
+          kodeverkSamling,
           arbeidsgiverOpplysningerPerId,
           beregningsgrunnlagIndeks,
           intl,

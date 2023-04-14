@@ -3,7 +3,7 @@ import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-ext
 import { action } from '@storybook/addon-actions';
 
 import { VedtakResultatType, BehandlingStatus } from '@navikt/ft-kodeverk';
-import { AlleKodeverkTilbakekreving, Behandling, BeregningsresultatTilbakekreving } from '@navikt/ft-types';
+import { Behandling, BeregningsresultatTilbakekreving } from '@navikt/ft-types';
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
 
 import aktsomhet from './kodeverk/aktsomhet';
@@ -13,6 +13,7 @@ import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
+import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
 
 const vedtaksbrev = {
   avsnittsliste: [
@@ -182,7 +183,7 @@ const beregningsresultat = {
   vedtakResultatType: VedtakResultatType.DELVIS_TILBAKEBETALING,
 } as BeregningsresultatTilbakekreving;
 
-const alleKodeverk = alleTilbakekrevingKodeverk as AlleKodeverkTilbakekreving;
+const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
 
 export default {
   title: 'prosess-vedtak-tilbakekreving',
@@ -202,7 +203,7 @@ const Template: StoryFn<{
     }
     vedtaksbrev={vedtaksbrev}
     fetchPreviewVedtaksbrev={() => Promise.resolve()}
-    tilbakekrevingKodeverk={alleKodeverk}
+    kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
     submitCallback={submitCallback}
     isReadOnly={false}
     setFormData={() => undefined}

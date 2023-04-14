@@ -223,7 +223,7 @@ export const ArbeidOgDagpengerAp5058: StoryFn = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
     erOverstyrer
-    alleKodeverk={alleKodeverkMock as any}
+    kodeverkSamling={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
     submittable
@@ -236,7 +236,7 @@ export const ArbeidOgDagpengerAp5058EnPeriode: StoryFn = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={[bgMedArbeidOgDagpenger[0]]}
     erOverstyrer
-    alleKodeverk={alleKodeverkMock as any}
+    kodeverkSamling={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
     submittable
@@ -276,7 +276,7 @@ export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
       submittable
@@ -297,7 +297,7 @@ export const ToArbeidsforholdIOpptjeningsperioden = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgToArbeidsforholdIOpptjeningsperioden}
     erOverstyrer
-    alleKodeverk={alleKodeverkMock as any}
+    kodeverkSamling={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
     submittable
@@ -318,7 +318,7 @@ export const ArbeidOgAAPAp5052: StoryFn = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgArbeidOgAAP}
     erOverstyrer
-    alleKodeverk={alleKodeverkMock as any}
+    kodeverkSamling={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
     submittable
@@ -339,7 +339,7 @@ export const ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058: StoryFn = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgArbeidOgAAPLøstAksjonspunkt}
     erOverstyrer
-    alleKodeverk={alleKodeverkMock as any}
+    kodeverkSamling={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
     submittable
@@ -363,7 +363,7 @@ export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: St
   <BeregningFaktaIndex
     beregningsgrunnlag={[bgMedArbeidOgDagpenger[0]]}
     erOverstyrer={false}
-    alleKodeverk={alleKodeverkMock as any}
+    kodeverkSamling={alleKodeverkMock as any}
     submitCallback={action('button-click') as (data: any) => Promise<any>}
     readOnly={false}
     submittable
@@ -417,7 +417,7 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: StoryFn
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag1, beregningsgrunnlag2]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={callback}
       readOnly={false}
       submittable
@@ -457,7 +457,7 @@ export const DagpengerOgArbeidstakerMedVurderingAvBesteberegningAP5058 = () => {
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
       submittable
@@ -494,7 +494,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegningAp5058 = () => {
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
       submittable
@@ -534,7 +534,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: StoryFn = ({ sub
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback || (action('button-click') as (data: any) => Promise<any>)}
       readOnly={false}
       submittable
@@ -596,7 +596,7 @@ export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = ({ submitC
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -641,7 +641,7 @@ export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = ({ submitCall
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -673,7 +673,7 @@ export const VurderingAvMilitærAp5058: StoryFn = ({ submitCallback }) => {
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -726,7 +726,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjonAp5058: Story
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -760,7 +760,7 @@ export const TidsbegrensetArbeidsforholdAp5058: StoryFn = ({ submitCallback }) =
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -793,7 +793,7 @@ export const VurderingAvEtterlønnSluttpakkeAp5058: StoryFn = ({ submitCallback 
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -825,7 +825,7 @@ export const SelvstendigNæringNyIArbeidslivetAp5058: StoryFn = ({ submitCallbac
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -1020,7 +1020,7 @@ export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
       submittable
@@ -1090,7 +1090,7 @@ export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: StoryFn = ({ submi
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
@@ -1131,7 +1131,7 @@ export const VurderKunYtelseBesteberegningAp5058: StoryFn = ({ submitCallback })
     <BeregningFaktaIndex
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
-      alleKodeverk={alleKodeverkMock as any}
+      kodeverkSamling={alleKodeverkMock as any}
       submitCallback={submitCallback}
       readOnly={false}
       submittable
