@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import LoadingPanel from './LoadingPanel';
 
@@ -8,6 +8,6 @@ export default {
   component: LoadingPanel,
 };
 
-const Template: Story = () => <LoadingPanel />;
+const Template: StoryFn = () => <LoadingPanel />;
 
 export const Default = Template.bind({});

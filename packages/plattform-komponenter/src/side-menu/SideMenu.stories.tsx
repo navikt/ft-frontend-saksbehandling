@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { Story } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import StatefulSideMenuComponent from './StatefulSideMenu';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: StatefulSideMenuComponent,
 };
 
-const Template: Story<ComponentProps<typeof StatefulSideMenuComponent>> = () => (
+const Template: StoryFn<ComponentProps<typeof StatefulSideMenuComponent>> = () => (
   <StatefulSideMenuComponent
     heading="Dette er en test"
     links={[

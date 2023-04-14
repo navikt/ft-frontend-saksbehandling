@@ -1,4 +1,4 @@
-import { Story } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import React, { ComponentProps } from 'react';
 import Box, { Margin } from '../box/Box';
 import EmptyPersonCard from './EmptyPersonCard';
@@ -9,7 +9,7 @@ export default {
   component: PersonCardComponent,
 };
 
-const Template: Story<ComponentProps<typeof PersonCardComponent>> = () => (
+const Template: StoryFn<ComponentProps<typeof PersonCardComponent>> = () => (
   <>
     <Box marginBottom={Margin.xLarge}>
       <PersonCardComponent

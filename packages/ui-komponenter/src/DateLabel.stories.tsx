@@ -1,6 +1,6 @@
 import React from 'react';
 import { RawIntlProvider } from 'react-intl';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { createIntl } from '@navikt/ft-utils';
 import DateLabel from './DateLabel';
@@ -16,7 +16,7 @@ export default {
   component: DateLabel,
 };
 
-const Template: Story = () => (
+const Template: StoryFn = () => (
   <RawIntlProvider value={intl}>
     <DateLabel dateString="2017-10-02" />
   </RawIntlProvider>

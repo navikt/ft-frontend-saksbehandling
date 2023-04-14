@@ -1,6 +1,6 @@
 import React from 'react';
 import { RawIntlProvider } from 'react-intl';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { createIntl } from '@navikt/ft-utils';
 import DataFetchPendingModal from './DataFetchPendingModal';
@@ -14,7 +14,7 @@ export default {
   component: DataFetchPendingModal,
 };
 
-const Template: Story = () => (
+const Template: StoryFn = () => (
   <div style={{ width: '200px' }}>
     <RawIntlProvider value={intl}>
       <DataFetchPendingModal pendingMessage="Henting av data pågår" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { Aktor } from '@navikt/ft-types';
 import { NavBrukerKjonn, FagsakStatus, RelasjonsRolleType, FagsakYtelseType } from '@navikt/ft-kodeverk';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
@@ -29,7 +29,7 @@ export default {
   component: AktorSakIndex,
 };
 
-const Template: Story<{
+const Template: StoryFn<{
   aktorInfo?: Aktor;
 }> = ({ aktorInfo }) => (
   <AktorSakIndex

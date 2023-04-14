@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
 import { VedtakResultatType, BehandlingStatus } from '@navikt/ft-kodeverk';
@@ -189,7 +189,7 @@ export default {
   component: VedtakTilbakekrevingProsessIndex,
 };
 
-const Template: Story<{
+const Template: StoryFn<{
   submitCallback: (aksjonspunktData: any) => Promise<void>;
 }> = ({ submitCallback }) => (
   <VedtakTilbakekrevingProsessIndex

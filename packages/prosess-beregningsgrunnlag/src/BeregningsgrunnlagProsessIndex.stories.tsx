@@ -1,6 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import {
   AktivitetStatus,
   InntektAktivitetType,
@@ -550,7 +550,7 @@ export default {
   component: BeregningsgrunnlagProsessIndex,
 };
 
-const Template: Story<{
+const Template: StoryFn<{
   readOnly: boolean;
   vilkar: Vilkar;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
