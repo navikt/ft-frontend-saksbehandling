@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
+import { Story } from '@storybook/react';
 import TitleWithUnderlineComponent from './TitleWithUnderline';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: TitleWithUnderlineComponent,
 };
 
-const Template: StoryFn<ComponentProps<typeof TitleWithUnderlineComponent>> = () => (
+const Template: Story<ComponentProps<typeof TitleWithUnderlineComponent>> = () => (
   <TitleWithUnderlineComponent>Title</TitleWithUnderlineComponent>
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import SupportMenySakIndex from './SupportMenySakIndex';
 import SupportTabs from './supportTabs';
@@ -13,7 +13,7 @@ export default {
   component: SupportMenySakIndex,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   tilgjengeligeTabs: string[];
   valgbareTabs: string[];
 }> = ({ tilgjengeligeTabs, valgbareTabs }) => {

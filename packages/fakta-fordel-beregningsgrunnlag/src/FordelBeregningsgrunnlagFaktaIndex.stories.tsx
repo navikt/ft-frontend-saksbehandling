@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
 import { AktivitetStatus, Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
@@ -117,7 +117,7 @@ const lagVilkår = (perioder: any[]): Vilkar => ({
   })),
 });
 
-const Template: StoryFn<{
+const Template: Story<{
   readOnly: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   aksjonspunkter: Aksjonspunkt[];

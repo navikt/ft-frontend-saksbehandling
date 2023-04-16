@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
+import { Story } from '@storybook/react';
 import NavigationWithDetailView from './NavigationWithDetailView';
 import DetailView from '../detail-view/DetailView';
 
@@ -8,7 +8,7 @@ export default {
   component: NavigationWithDetailView,
 };
 
-const Template: StoryFn<ComponentProps<typeof NavigationWithDetailView>> = args => {
+const Template: Story<ComponentProps<typeof NavigationWithDetailView>> = args => {
   const navigationSection = () => <p>Navigasjon</p>;
   const detailSection = () => (
     <DetailView title="Tittel">

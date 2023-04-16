@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import Table from './Table';
 import ExpandableTableRow from './ExpandableTableRow';
@@ -10,7 +10,7 @@ export default {
   component: Table,
 };
 
-const Template: StoryFn = () => {
+const Template: Story = () => {
   const [visRad, toggleRad] = useState(false);
 
   const toggle = useCallback(() => toggleRad(!visRad), [visRad]);

@@ -1,16 +1,11 @@
 import { FordelBeregningsgrunnlagPeriode, ForlengelsePeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 
-function inneholderPeriode(periode2: { fom: string; tom?: string }, periode1: { fom: string; tom?: string }) {
+function overlapper(fp: ForlengelsePeriodeProp, periode: FordelBeregningsgrunnlagPeriode): boolean {
   return (
-    periode1.tom != null &&
-    !dayjs(periode1.tom).isBefore(dayjs(periode2.fom)) &&
-    (periode2.tom == null || !dayjs(periode1.tom).isAfter(dayjs(periode2.tom)))
+    (dayjs(fp.fom).isSame(dayjs(periode.fom)) || dayjs(fp.fom).isBefore(dayjs(periode.fom))) &&
+    (dayjs(fp.tom).isSame(dayjs(periode.tom)) || dayjs(fp.tom).isAfter(dayjs(periode.tom)))
   );
-}
-
-function overlapper(periode1: { fom: string; tom?: string }, periode2: { fom: string; tom?: string }): boolean {
-  return inneholderPeriode(periode1, periode2) || inneholderPeriode(periode2, periode1);
 }
 
 function erPeriodeTilVurdering(

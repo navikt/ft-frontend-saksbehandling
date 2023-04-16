@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
+import { Story } from '@storybook/react';
 import SystemButtonComponent from './SystemButton';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: SystemButtonComponent,
 };
 
-const Template: StoryFn<ComponentProps<typeof SystemButtonComponent>> = () => (
+const Template: Story<ComponentProps<typeof SystemButtonComponent>> = () => (
   <SystemButtonComponent onClick={() => null} isToggled />
 );
 
