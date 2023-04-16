@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
 import MenyTaAvVentIndex from './MenyTaAvVentIndex';
@@ -9,7 +9,7 @@ export default {
   component: MenyTaAvVentIndex,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   taBehandlingAvVent: () => void;
   lukkModal: () => void;
 }> = ({ taBehandlingAvVent, lukkModal }) => (

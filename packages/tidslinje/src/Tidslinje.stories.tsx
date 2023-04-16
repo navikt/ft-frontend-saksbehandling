@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -23,7 +23,7 @@ export default {
   component: TimelineComp,
 };
 
-const Template: StoryFn = () => (
+const Template: Story = () => (
   <IntlProvider locale="nb-NO" messages={messages}>
     <TimelineComp
       options={{

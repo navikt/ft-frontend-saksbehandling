@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import DekoratorMedFeilviserSakIndex from './DekoratorMedFeilviserSakIndex';
 import Feilmelding from './typer/feilmeldingTsType';
 
@@ -11,7 +11,7 @@ export default {
   component: DekoratorMedFeilviserSakIndex,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   kanJournalføre?: boolean;
   feilmeldinger?: Feilmelding[];
 }> = ({ kanJournalføre, feilmeldinger = [] }) => {

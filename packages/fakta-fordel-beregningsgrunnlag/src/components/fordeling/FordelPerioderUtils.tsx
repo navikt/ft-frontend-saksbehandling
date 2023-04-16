@@ -170,10 +170,9 @@ const oppdaterTomDatoForSistePeriode = (
   periode: FordelBeregningsgrunnlagPeriode,
 ) => {
   const forrigePeriode = liste.pop();
-  const kopi = {
-    ...forrigePeriode,
-    tom: periode.tom,
-  } as FordelBeregningsgrunnlagPeriode;
+  // @ts-ignore Fiks denne
+  const kopi = { ...forrigePeriode };
+  kopi.tom = periode.tom;
   liste.push(kopi);
 };
 

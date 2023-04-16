@@ -75,7 +75,7 @@ export type FordelBeregningsgrunnlagAndel = Readonly<{
 }>;
 
 export type FordelBeregningsgrunnlagPeriode = Readonly<{
-  fom: string;
+  fom?: string;
   fordelBeregningsgrunnlagAndeler?: FordelBeregningsgrunnlagAndel[];
   skalRedigereInntekt?: boolean;
   skalPreutfyllesMedBeregningsgrunnlag?: boolean;

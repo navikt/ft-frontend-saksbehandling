@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
 import MenyVergeIndex from './MenyVergeIndex';
@@ -9,7 +9,7 @@ export default {
   component: MenyVergeIndex,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   opprettVerge?: () => Promise<void>;
   fjernVerge?: () => Promise<void>;
   lukkModal: () => void;

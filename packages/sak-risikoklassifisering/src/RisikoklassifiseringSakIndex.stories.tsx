@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
 import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
@@ -23,7 +23,7 @@ export default {
   decorators: [withWidthProvider],
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   risikoklassifisering?: Risikoklassifisering;
   aksjonspunkt?: Aksjonspunkt;
   submitAksjonspunkt: () => Promise<any>;

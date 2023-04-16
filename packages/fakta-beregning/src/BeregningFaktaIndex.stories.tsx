@@ -16,7 +16,7 @@ import {
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import { action } from '@storybook/addon-actions';
-import type { StoryFn } from '@storybook/react';
+import type { Story } from '@storybook/react';
 import dayjs from 'dayjs';
 import React from 'react';
 import {
@@ -219,7 +219,7 @@ export default {
  * Her er det ingen aksjonspunkt, men panelet skal vere synlig siden saksbehandler har overstyringsrolle
  *
  */
-export const ArbeidOgDagpengerAp5058: StoryFn = () => (
+export const ArbeidOgDagpengerAp5058: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgMedArbeidOgDagpenger}
     erOverstyrer
@@ -232,7 +232,7 @@ export const ArbeidOgDagpengerAp5058: StoryFn = () => (
     vilkar={vilkarArbeidOgDagpenger}
   />
 );
-export const ArbeidOgDagpengerAp5058EnPeriode: StoryFn = () => (
+export const ArbeidOgDagpengerAp5058EnPeriode: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={[bgMedArbeidOgDagpenger[0]]}
     erOverstyrer
@@ -250,7 +250,7 @@ export const ArbeidOgDagpengerAp5058EnPeriode: StoryFn = () => (
  * Aktiviteter i beregning er overstyrt og aksjonspunktet er i status OPPRETTET.
  * Saksbehandler er ikke overstyrer. Får ikke lov til å redigere.
  */
-export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: StoryFn = () => {
+export const VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet: Story = () => {
   const overstyringAPBeregningsaktiviteter = {
     id: 1,
     definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
@@ -314,7 +314,7 @@ export const ToArbeidsforholdIOpptjeningsperioden = () => (
  * I dette scenarioet setter opp panelet i situasjonen der saksbehandler ser aksjonspunktet for første gang.
  *
  */
-export const ArbeidOgAAPAp5052: StoryFn = () => (
+export const ArbeidOgAAPAp5052: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgArbeidOgAAP}
     erOverstyrer
@@ -335,7 +335,7 @@ export const ArbeidOgAAPAp5052: StoryFn = () => (
  * I dette scenarioet setter opp panelet i situasjonen der saksbehandler har løst aksjonspunktet 5052 og gått videre.
  *
  */
-export const ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058: StoryFn = () => (
+export const ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={bgArbeidOgAAPLøstAksjonspunkt}
     erOverstyrer
@@ -359,7 +359,7 @@ export const ArbeidOgAAPMedUtførtAksjonspunktAp5052Ap5058: StoryFn = () => (
  *
  * Skal ikke vise liste over aktiviteter, kun vurder fakta med vurdering av besteberegning
  */
-export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: StoryFn = () => (
+export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: Story = () => (
   <BeregningFaktaIndex
     beregningsgrunnlag={[bgMedArbeidOgDagpenger[0]]}
     erOverstyrer={false}
@@ -383,7 +383,7 @@ export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: St
  * - Vurdering av om frilansaktivitet er nyoppstartet
  *
  */
-export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
+export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -512,7 +512,7 @@ export const KunArbeidstakerMedVurderingAvBesteberegningAp5058 = () => {
  * Det skal også vere mulig å legge til flere andeler med ulike inntektskategorier, men ikke samme inntektskategori flere ganger.
  *
  */
-export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: StoryFn = ({ submitCallback }) => {
+export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: Story = ({ submitCallback }) => {
   const beregningsgrunnlagYtelseAndel = {
     andelsnr: standardFaktaYtelseAndel.andelsnr,
     aktivitetStatus: standardFaktaYtelseAndel.aktivitetStatus,
@@ -551,7 +551,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: StoryFn = ({ sub
  * I dette tilfellet må saksbehandler fastsette inntekt for arbeidsforholdet og frilansaktiviteten manuelt
  *
  */
-export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = ({ submitCallback }) => {
+export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -611,7 +611,7 @@ export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = ({ submitC
  * Vurder om bruker mottar ytelse for frilansaktivitet
  *
  */
-export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = ({ submitCallback }) => {
+export const VurderOmBrukerMottarYtelseForFrilansAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -656,7 +656,7 @@ export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = ({ submitCall
  * Vurder om bruker har militærtjeneste
  *
  */
-export const VurderingAvMilitærAp5058: StoryFn = ({ submitCallback }) => {
+export const VurderingAvMilitærAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerMilitærAndel = {
     andelsnr: standardFaktaMilitærAndel.andelsnr,
     aktivitetStatus: standardFaktaMilitærAndel.aktivitetStatus,
@@ -691,7 +691,7 @@ export const VurderingAvMilitærAp5058: StoryFn = ({ submitCallback }) => {
  * - Bruker har arbeid og frilansaktivitet for samme organisasjon
  *
  */
-export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjonAp5058: StoryFn = ({ submitCallback }) => {
+export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjonAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: tidsbegrensetFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: tidsbegrensetFaktaArbeidstakerAndel.aktivitetStatus,
@@ -741,7 +741,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjonAp5058: Story
  * Vurder om arbeidsforholdet er tidsbegrenset
  *
  */
-export const TidsbegrensetArbeidsforholdAp5058: StoryFn = ({ submitCallback }) => {
+export const TidsbegrensetArbeidsforholdAp5058: Story = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: tidsbegrensetFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: tidsbegrensetFaktaArbeidstakerAndel.aktivitetStatus,
@@ -775,7 +775,7 @@ export const TidsbegrensetArbeidsforholdAp5058: StoryFn = ({ submitCallback }) =
  * Vurder om bruker mottar etterlønn eller sluttpakke
  *
  */
-export const VurderingAvEtterlønnSluttpakkeAp5058: StoryFn = ({ submitCallback }) => {
+export const VurderingAvEtterlønnSluttpakkeAp5058: Story = ({ submitCallback }) => {
   const etterlønnSluttpakkeBeregningsgrunnlagAndel = {
     andelsnr: etterlønnSluttpakkeFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: etterlønnSluttpakkeFaktaArbeidstakerAndel.aktivitetStatus,
@@ -808,7 +808,7 @@ export const VurderingAvEtterlønnSluttpakkeAp5058: StoryFn = ({ submitCallback 
  * Vurder om søker er ny i arbeidslivet
  *
  */
-export const SelvstendigNæringNyIArbeidslivetAp5058: StoryFn = ({ submitCallback }) => {
+export const SelvstendigNæringNyIArbeidslivetAp5058: Story = ({ submitCallback }) => {
   const beregningsgrunnlagNæringAndel = {
     andelsnr: standardFaktaNæringAndel.andelsnr,
     aktivitetStatus: standardFaktaNæringAndel.aktivitetStatus,
@@ -1037,7 +1037,7 @@ export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
  * To Arbeidstakerandeler uten tilfeller i fakta om beregning
  *
  */
-export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: StoryFn = ({ submitCallback }) => {
+export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: Story = ({ submitCallback }) => {
   const arbeidsAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
     fom: '01-01-2019',
@@ -1109,7 +1109,7 @@ export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: StoryFn = ({ submi
  * Dersom bruker skal beregnes ved besteberegning skal det vises ein link til regneark.
  *
  */
-export const VurderKunYtelseBesteberegningAp5058: StoryFn = ({ submitCallback }) => {
+export const VurderKunYtelseBesteberegningAp5058: Story = ({ submitCallback }) => {
   const beregningsgrunnlagYtelseAndel = {
     andelsnr: standardFaktaYtelseAndel.andelsnr,
     aktivitetStatus: standardFaktaYtelseAndel.aktivitetStatus,

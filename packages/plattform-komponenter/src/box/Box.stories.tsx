@@ -1,4 +1,4 @@
-import { StoryFn } from '@storybook/react';
+import { Story } from '@storybook/react';
 import React, { ComponentProps } from 'react';
 import Box, { Margin } from './Box';
 
@@ -7,7 +7,7 @@ export default {
   component: Box,
 };
 
-const Template: StoryFn<ComponentProps<typeof Box>> = args => (
+const Template: Story<ComponentProps<typeof Box>> = args => (
   <Box {...args} marginTop={Margin.xxLarge} marginBottom={Margin.large}>
     <p>Dette er en box</p>
   </Box>

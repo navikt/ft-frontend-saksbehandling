@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 
 import {
@@ -87,7 +87,7 @@ export default {
   component: FeilutbetalingFaktaIndex,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
 }> = ({ submitCallback }) => (
   <FeilutbetalingFaktaIndex

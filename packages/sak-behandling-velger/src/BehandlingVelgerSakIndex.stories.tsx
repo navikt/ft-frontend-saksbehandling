@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { BehandlingAppKontekst, Behandlingsresultat, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType, BehandlingType, BehandlingStatus } from '@navikt/ft-kodeverk';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
@@ -30,7 +30,7 @@ export default {
   component: BehandlingVelgerSakIndex,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   behandlinger: BehandlingAppKontekst[];
 }> = ({ behandlinger }) => {
   const [visAlle, toggleVisAlle] = useState(false);

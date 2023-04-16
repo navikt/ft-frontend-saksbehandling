@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
+import { Story } from '@storybook/react';
 import LabelledContentComponent from './LabelledContent';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: LabelledContentComponent,
 };
 
-const Template: StoryFn<ComponentProps<typeof LabelledContentComponent>> = () => (
+const Template: Story<ComponentProps<typeof LabelledContentComponent>> = () => (
   <LabelledContentComponent label="Label" content="Content" />
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import {
   NavBrukerKjonn,
@@ -70,7 +70,7 @@ const fagsakPersonerMedAnnenPartUkjent = {
   annenPart: fagsakPersonAnnenPartUkjent,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   fagsak: Fagsak;
   fagsakPersoner: FagsakPersoner;
   lenkeTilAnnenPart?: string;

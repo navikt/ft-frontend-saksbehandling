@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react';
+import { Story } from '@storybook/react';
 
 import PeriodList from './PeriodList';
 
@@ -103,6 +103,6 @@ const perioder = [
   },
 ];
 
-const Template: StoryFn = () => <PeriodList perioder={perioder} tittel="Perioder" />;
+const Template: Story = () => <PeriodList perioder={perioder} tittel="Perioder" />;
 
 export const Perioder = Template.bind({});

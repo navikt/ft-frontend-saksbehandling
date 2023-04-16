@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import Table from './Table';
 import TableRow from './TableRow';
@@ -10,7 +10,7 @@ export default {
   component: Table,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   noHover: boolean;
   isDashedBottomBorder: boolean;
   isSelected: boolean;

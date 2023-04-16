@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { action } from '@storybook/addon-actions';
 import { RawIntlProvider } from 'react-intl';
 
@@ -73,7 +73,7 @@ export default {
   component: TilbakekrevingProsessIndex,
 };
 
-const Template: StoryFn<{
+const Template: Story<{
   submitCallback: (aksjonspunktData: any) => Promise<void>;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
 }> = ({ submitCallback, vilkarvurderingsperioder }) => (

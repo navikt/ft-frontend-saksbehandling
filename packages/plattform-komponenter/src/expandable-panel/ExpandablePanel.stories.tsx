@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
+import { Story } from '@storybook/react';
 import ExpandablePanelComponent from './ExpandablePanel';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: ExpandablePanelComponent,
 };
 
-const Template: StoryFn<ComponentProps<typeof ExpandablePanelComponent>> = () => (
+const Template: Story<ComponentProps<typeof ExpandablePanelComponent>> = () => (
   <ExpandablePanelComponent renderHeader={() => null} isOpen onClick={() => null}>
     <p>Dette er en test</p>
   </ExpandablePanelComponent>

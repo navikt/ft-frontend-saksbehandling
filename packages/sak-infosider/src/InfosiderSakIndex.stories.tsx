@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { Story } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 
 import ForbiddenPage from './ForbiddenPage';
 import NotFoundPage from './NotFoundPage';
@@ -12,14 +12,14 @@ export default {
   title: 'sak/sak-infosider',
 };
 
-export const HarIkkeTilgang: StoryFn = () => <ForbiddenPage renderSomLenke={tekst => <a href="test">{tekst}</a>} />;
+export const HarIkkeTilgang: Story = () => <ForbiddenPage renderSomLenke={tekst => <a href="test">{tekst}</a>} />;
 
-export const SideIkkeFunnet: StoryFn = () => <NotFoundPage renderSomLenke={tekst => <a href="test">{tekst}</a>} />;
+export const SideIkkeFunnet: Story = () => <NotFoundPage renderSomLenke={tekst => <a href="test">{tekst}</a>} />;
 
-export const IkkeInnloggetBruker: StoryFn = () => (
+export const IkkeInnloggetBruker: Story = () => (
   <UnauthorizedPage renderSomLenke={tekst => <a href="test">{tekst}</a>} />
 );
 
-export const BehandlingErIkkeValgt: StoryFn = () => <IngenBehandlingValgtPanel numBehandlinger={2} />;
+export const BehandlingErIkkeValgt: Story = () => <IngenBehandlingValgtPanel numBehandlinger={2} />;
 
-export const BehandlingerFinnesIkke: StoryFn = () => <IngenBehandlingValgtPanel numBehandlinger={0} />;
+export const BehandlingerFinnesIkke: Story = () => <IngenBehandlingValgtPanel numBehandlinger={0} />;
