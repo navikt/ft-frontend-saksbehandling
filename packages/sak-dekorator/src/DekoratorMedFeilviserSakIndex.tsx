@@ -125,6 +125,9 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
           if (index === 2 && visAvdelingslederside) {
             visAvdelingslederside(e);
           }
+          if (index === 2 && !visAvdelingslederside && visJournalføringside) {
+            visJournalføringside(e);
+          }
           if (index === 3 && visJournalføringside) {
             visJournalføringside(e);
           }
