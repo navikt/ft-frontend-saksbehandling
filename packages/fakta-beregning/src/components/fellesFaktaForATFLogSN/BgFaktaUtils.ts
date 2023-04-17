@@ -7,7 +7,6 @@ import {
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
@@ -15,7 +14,7 @@ import {
   Beregningsgrunnlag,
   FaktaOmBeregning,
 } from '@navikt/ft-types';
-import { formatCurrencyNoKr, getKodeverknavnFn, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -27,6 +26,7 @@ import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
@@ -44,15 +44,17 @@ export const setArbeidsforholdInitialValues = (andel: AndelForFaktaOmBeregning) 
 const lagVisningsnavn = (
   andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): string => {
   const agOpplysning = andel.arbeidsforhold
     ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]
     : undefined;
   if (!agOpplysning) {
     return andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavnFn(alleKodeverk)(andel.arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
-      : getKodeverknavnFn(alleKodeverk)(andel.aktivitetStatus, KodeverkType.AKTIVITET_STATUS);
+      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
+          oat => oat.kode === andel.arbeidsforhold.arbeidsforholdType,
+        )?.navn
+      : kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(at => at.kode === andel.aktivitetStatus)?.navn;
   }
   return createVisningsnavnFakta(agOpplysning, andel.arbeidsforhold.eksternArbeidsforholdId);
 };
@@ -60,9 +62,9 @@ const lagVisningsnavn = (
 export const setGenerellAndelsinfo = (
   andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): GenerellAndelInfo => ({
-  andel: lagVisningsnavn(andel, arbeidsgiverOpplysningerPerId, alleKodeverk),
+  andel: lagVisningsnavn(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling),
   aktivitetStatus: andel.aktivitetStatus,
   andelsnr: andel.andelsnr,
   nyAndel: false,
@@ -291,9 +293,9 @@ export const mapToBelop = skalRedigereInntekt => andel => {
 export const mapAndelToField = (
   andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): AndelFieldValue => ({
-  ...setGenerellAndelsinfo(andel, arbeidsgiverOpplysningerPerId, alleKodeverk),
+  ...setGenerellAndelsinfo(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling),
   ...setArbeidsforholdInitialValues(andel),
   ...mapAndelFieldIdentifikator(andel),
   skalKunneEndreAktivitet: andel.skalKunneEndreAktivitet,

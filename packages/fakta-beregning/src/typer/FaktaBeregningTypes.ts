@@ -1,5 +1,4 @@
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -11,6 +10,7 @@ import {
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 import AndelFieldValue from './FieldValues';
+import KodeverkForPanel from './kodeverkForPanel';
 
 export type TidsbegrensetandelValues = {
   [key: string]: boolean;
@@ -115,7 +115,7 @@ export type FaktaStateProps = {
   tilfeller: string[];
   vurderMottarYtelse: VurderMottarYtelse;
   vurderBesteberegning: VurderBesteberegning;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   avklaringsbehov: BeregningAvklaringsbehov[];
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;

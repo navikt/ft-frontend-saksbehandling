@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -22,6 +21,7 @@ import {
 import TilkommetAktivitet from './tilkommetAktivitet/TilkommetAktivitet';
 import FaktaFordelBeregningAvklaringsbehovCode from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import VurderNyttInntektsforholdAP from '../types/interface/VurderNyttInntektsforholdAP';
+import KodeverkForPanel from '../types/kodeverkForPanel';
 
 const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
   FaktaFordelBeregningAvklaringsbehovCode;
@@ -49,7 +49,7 @@ interface OwnProps {
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues;
   setFormData: (
@@ -68,7 +68,7 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   submitCallback,
   beregningsgrunnlagListe,
   vilkarperioder,
-  alleKodeverk,
+  kodeverkSamling,
   submittable,
   arbeidsgiverOpplysningerPerId,
   formData,
@@ -154,7 +154,7 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
           submittable={submittable && !tilkommetAktivitetFormIsDirty && !refusjonFormIsDirty}
           readOnly={readOnly}
           submitCallback={submitCallback}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
           beregningsgrunnlagListe={beregningsgrunnlagListe}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           formData={formData as FordelBeregningsgrunnlagFormValues}

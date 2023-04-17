@@ -1,7 +1,6 @@
 import { formHooks } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -35,6 +34,7 @@ import LonnsendringForm from './forms/LonnsendringForm';
 import NyoppstartetFLForm from './forms/NyoppstartetFLForm';
 import VurderEtterlonnSluttpakkeForm from './forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './forms/VurderMottarYtelseForm';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 export const skalFastsettInntektForArbeidstaker = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -107,12 +107,18 @@ export const findInstruksjonForFastsetting = (
   return '';
 };
 
-const finnInntektstabell = (readOnly, beregningsgrunnlag, isAksjonspunktClosed, alleKodeverk, erOverstyrt) => (
+const finnInntektstabell = (
+  readOnly: boolean,
+  beregningsgrunnlag: Beregningsgrunnlag,
+  isAksjonspunktClosed: boolean,
+  kodeverkSamling: KodeverkForPanel,
+  erOverstyrt: boolean,
+) => (
   <InntektFieldArray
     readOnly={readOnly}
     skalKunneLeggeTilDagpengerManuelt={erOverstyrt}
     beregningsgrunnlag={beregningsgrunnlag}
-    alleKodeverk={alleKodeverk}
+    kodeverkSamling={kodeverkSamling}
     isAksjonspunktClosed={isAksjonspunktClosed}
   />
 );
@@ -127,7 +133,7 @@ type OwnProps = {
   skalHaBesteberegning: string;
   harKunstigArbeid: boolean;
   skalViseTabell: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   erOverstyrer: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -142,7 +148,7 @@ interface StaticFunctions {
     faktaOmBeregning: FaktaOmBeregning,
     erOverstyrt: boolean,
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-    alleKodeverk: AlleKodeverk,
+    kodeverkSamling: KodeverkForPanel,
   ) => VurderOgFastsettATFLValues;
   transformValues: (
     faktaOmBeregning: FaktaOmBeregning,
@@ -165,7 +171,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   tilfeller,
   beregningsgrunnlag,
   avklaringsbehov,
-  alleKodeverk,
+  kodeverkSamling,
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
@@ -197,7 +203,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     <div>
       <InntektstabellPanel
         key="inntektstabell"
-        tabell={finnInntektstabell(readOnly, beregningsgrunnlag, isAksjonspunktClosed, alleKodeverk, erOverstyrt)}
+        tabell={finnInntektstabell(readOnly, beregningsgrunnlag, isAksjonspunktClosed, kodeverkSamling, erOverstyrt)}
         skalViseTabell={skalViseTabell}
         hjelpeTekstId={findInstruksjonForFastsetting(
           skalHaBesteberegning,
@@ -225,7 +231,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
             isAksjonspunktClosed={isAksjonspunktClosed}
             tilfeller={tilfeller}
             beregningsgrunnlag={beregningsgrunnlag}
-            alleKodeverk={alleKodeverk}
+            kodeverkSamling={kodeverkSamling}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
         )}
@@ -243,7 +249,7 @@ VurderOgFastsettATFL.buildInitialValues = (
   faktaOmBeregning: FaktaOmBeregning,
   erOverstyrt: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
 ): VurderOgFastsettATFLValues => {
   if (!faktaOmBeregning) {
     return {};
@@ -256,7 +262,7 @@ VurderOgFastsettATFL.buildInitialValues = (
     [INNTEKT_FIELD_ARRAY_NAME]: InntektFieldArrayImpl.buildInitialValues(
       andeler,
       arbeidsgiverOpplysningerPerId,
-      alleKodeverk,
+      kodeverkSamling,
     ),
     ...InntektstabellPanel.buildInitialValues(erOverstyrt),
   };

@@ -1,7 +1,7 @@
 import { formHooks, InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
+import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
@@ -12,6 +12,7 @@ import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningForm
 import { getKanRedigereInntekt, getSkalRedigereInntektskategori } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
   const headerCodes = [];
@@ -35,8 +36,8 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
     </option>
   ));
 
-export const getInntektskategorierAlfabetiskSortert = alleKodeverk =>
-  alleKodeverk[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
+export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
+  kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
 type OwnProps = {
   readOnly: boolean;
@@ -46,7 +47,7 @@ type OwnProps = {
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
   removeAndel: (...args: any[]) => any;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
   skalFastsetteInntektForAndel: (andel) => boolean;
@@ -66,7 +67,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   isAksjonspunktClosed,
   removeAndel,
   beregningsgrunnlag,
-  alleKodeverk,
+  kodeverkSamling,
   rowName,
   skalFastsetteInntektForAndel,
 }) => {
@@ -77,7 +78,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
-  const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
+  const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
   const harPeriode = field.arbeidsperiodeFom || field.arbeidsperiodeTom;
   return (
     <TableRow>

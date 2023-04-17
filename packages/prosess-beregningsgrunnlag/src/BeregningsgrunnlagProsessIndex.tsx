@@ -1,13 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import {
-  AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  StandardProsessPanelProps,
-  Vilkar,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps, Vilkar } from '@navikt/ft-types';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 
@@ -23,6 +17,7 @@ import BeregningFormValues from './types/BeregningFormValues';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 import advarsel from './images/advarsel.svg';
+import KodeverkForPanel from './types/kodeverkForPanel';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -70,7 +65,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagsvilkar: Vilkar;
   readOnlySubmitButton: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
 };
 
 type MenyProp = {
@@ -124,7 +119,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   isReadOnly,
   readOnlySubmitButton,
   beregningsgrunnlagsvilkar,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
@@ -180,7 +175,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
             readOnly={isReadOnly}
             readOnlySubmitButton={readOnlySubmitButton}
             vilkar={beregningsgrunnlagsvilkar}
-            alleKodeverk={alleKodeverk}
+            kodeverkSamling={kodeverkSamling}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             setFormData={setFormData}
             formData={formData}

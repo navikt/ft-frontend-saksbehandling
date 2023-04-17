@@ -2,17 +2,18 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
-import { getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
@@ -34,7 +35,7 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
 
 const createRows = (
   relevanteAndelerAT: BeregningsgrunnlagAndel[],
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   readOnly: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   fieldIndex: number,
@@ -44,7 +45,7 @@ const createRows = (
     <FlexRow key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
       <FlexColumn className={styles.atflAvvikAktivitet}>
         <BodyShort size="small">
-          {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, getKodeverknavn)}
+          {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
         </BodyShort>
       </FlexColumn>
       <FlexColumn className={styles.atflAvvikInntekt}>
@@ -72,7 +73,7 @@ interface StaticFunctions {
 type OwnProps = {
   readOnly: boolean;
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
   formName: string;
@@ -80,16 +81,15 @@ type OwnProps = {
 const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   alleAndelerIForstePeriode,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
   formName,
 }) => {
-  const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
     <>
-      {createRows(relevanteAndelerAT, getKodeverknavn, readOnly, arbeidsgiverOpplysningerPerId, fieldIndex, formName)}
+      {createRows(relevanteAndelerAT, kodeverkSamling, readOnly, arbeidsgiverOpplysningerPerId, fieldIndex, formName)}
     </>
   );
 };

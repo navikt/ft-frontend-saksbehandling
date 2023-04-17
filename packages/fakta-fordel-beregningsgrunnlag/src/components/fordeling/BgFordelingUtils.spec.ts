@@ -1,5 +1,5 @@
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 
 import {
@@ -8,6 +8,7 @@ import {
   settAndelIArbeid,
   settFastsattBelop,
 } from './BgFordelingUtils';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
@@ -29,15 +30,20 @@ const arbeidstakerIkkeFastsatt = {
   inntektskategori: 'ARBEIDSTAKER',
 };
 
-const getKodeverknavn = (kode: string): string => {
-  if (kode === AktivitetStatus.ARBEIDSTAKER) {
-    return 'Arbeidstaker';
-  }
-  if (kode === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
-    return 'Selvstendig næringsdrivende';
-  }
-  return '';
-};
+const kodeverkSamling = {
+  [KodeverkType.AKTIVITET_STATUS]: [
+    {
+      kode: AktivitetStatus.ARBEIDSTAKER,
+      kodeverk: 'AKTIVITET_STATUS',
+      navn: 'Arbeidstaker',
+    },
+    {
+      kode: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      kodeverk: 'AKTIVITET_STATUS',
+      navn: 'Selvstendig næringsdrivende',
+    },
+  ],
+} as KodeverkForPanel;
 
 describe('<BgFordelingUtils>', () => {
   it('skal sette riktig fastsatt beløp for andel i periode fastsatt bruttoPrAar og fordeltPrAar', () => {
@@ -85,7 +91,7 @@ describe('<BgFordelingUtils>', () => {
       inntektskategori: 'ARBEIDSTAKER',
     };
 
-    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, false, getKodeverknavn, agOpplysninger);
+    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, false, kodeverkSamling, agOpplysninger);
     expect(andelsInfo.andel).toBe('Virksomheten (3284788923)...5678');
     expect(andelsInfo.aktivitetStatus).toBe('AT');
     expect(andelsInfo.andelsnr).toBe(3);
@@ -102,7 +108,7 @@ describe('<BgFordelingUtils>', () => {
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
     };
-    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, false, getKodeverknavn, agOpplysninger);
+    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, false, kodeverkSamling, agOpplysninger);
     expect(andelsInfo.andel).toBe('Selvstendig næringsdrivende');
     expect(andelsInfo.aktivitetStatus).toBe('SN');
     expect(andelsInfo.andelsnr).toBe(2);

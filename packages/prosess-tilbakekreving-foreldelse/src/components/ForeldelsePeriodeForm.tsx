@@ -14,11 +14,11 @@ import {
   hasValidDate,
 } from '@navikt/ft-form-validators';
 import { TilbakekrevingKodeverkType, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
-import { AlleKodeverkTilbakekreving } from '@navikt/ft-types';
 
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
 
 import styles from './foreldelsePeriodeForm.module.css';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -27,7 +27,7 @@ export type FormValues = ForeldelsesresultatActivity;
 
 interface OwnProps {
   periode: ForeldelsesresultatActivity;
-  alleKodeverk: AlleKodeverkTilbakekreving;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
   skjulPeriode: (event: React.MouseEvent) => void;
   readOnly: boolean;
@@ -48,7 +48,7 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
   readOnly,
   periode,
   oppdaterPeriode,
-  alleKodeverk,
+  kodeverkSamlingFpTilbake,
 }) => {
   const intl = useIntl();
   const formMethods = useForm<FormValues>({
@@ -59,7 +59,7 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
 
   const erForeldet = foreldet && foreldet === ForeldelseVurderingType.FORELDET;
   const erMedTilleggsfrist = foreldet && foreldet === ForeldelseVurderingType.TILLEGGSFRIST;
-  const foreldelseVurderingTyper = alleKodeverk[TilbakekrevingKodeverkType.FORELDELSE_VURDERING].filter(
+  const foreldelseVurderingTyper = kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.FORELDELSE_VURDERING].filter(
     fv => fv.kode !== ForeldelseVurderingType.IKKE_VURDERT,
   );
 

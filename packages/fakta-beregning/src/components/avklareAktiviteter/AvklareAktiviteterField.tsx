@@ -4,7 +4,6 @@ import { Button, ErrorMessage, Label } from '@navikt/ds-react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
   AvklarBeregningAktiviteterMap,
@@ -36,6 +35,7 @@ import {
 } from './avklareAktiviteterHjelpefunksjoner';
 import styles from './avklareAktiviteterPanel.module.css';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
@@ -45,7 +45,7 @@ const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 export const buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   avklarAktiviteter: AvklarBeregningAktiviteterMap,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
 ): AvklarAktiviteterValues => {
@@ -57,7 +57,7 @@ export const buildInitialValues = (
   if (avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping) {
     aktiviteterValues = VurderAktiviteterPanel.buildInitialValues(
       avklarAktiviteter.aktiviteterTomDatoMapping,
-      alleKodeverk,
+      kodeverkSamling,
       erOverstyrt,
       harAvklarAktiviteterAvklaringsbehov,
       arbeidsgiverOpplysningerPerId,
@@ -109,7 +109,7 @@ interface OwnProps {
   erOverstyrer: boolean;
   readOnly: boolean;
   submittable: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
@@ -140,7 +140,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   avklaringsbehov,
   erOverstyrer,
   readOnly,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   submittable,
   fieldId,
@@ -235,7 +235,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
             readOnly={readOnly}
             isAvklaringsbehovClosed={isAvklaringsbehovClosed}
             erOverstyrt={erOverstyrtKnappTrykket}
-            alleKodeverk={alleKodeverk}
+            kodeverkSamling={kodeverkSamling}
             values={watch(`avklarAktiviteterForm.${fieldId}`)}
             harAvklaringsbehov={hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov)}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

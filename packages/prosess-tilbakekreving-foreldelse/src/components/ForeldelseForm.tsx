@@ -5,12 +5,7 @@ import { Heading } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import {
-  AlleKodeverkTilbakekreving,
-  Aksjonspunkt,
-  FeilutbetalingPeriode,
-  FeilutbetalingPerioderWrapper,
-} from '@navikt/ft-types';
+import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
 
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import ForeldelsePeriodeForm, { FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
@@ -25,6 +20,7 @@ import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 import styles from './foreldelseForm.module.css';
 import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
 import VurderForeldelseAp from '../types/VurderForeldelseAp';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
   moment(periode1.fom).diff(moment(periode2.fom));
@@ -86,7 +82,7 @@ interface OwnProps {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   submitCallback: (aksjonspunktData: VurderForeldelseAp) => Promise<void>;
-  alleKodeverk: AlleKodeverkTilbakekreving;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   navBrukerKjonn: string;
   readOnly: boolean;
   beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
@@ -101,7 +97,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
   alleMerknaderFraBeslutter,
   perioderForeldelse,
   readOnly,
-  alleKodeverk,
+  kodeverkSamlingFpTilbake,
   beregnBelop,
   behandlingUuid,
   formData,
@@ -262,7 +258,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
                 oppdaterPeriode={oppdaterPeriode}
                 skjulPeriode={togglePeriode}
                 readOnly={readOnly}
-                alleKodeverk={alleKodeverk}
+                kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
               />
             </div>
           )}

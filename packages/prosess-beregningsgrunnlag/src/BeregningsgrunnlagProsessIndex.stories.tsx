@@ -34,6 +34,7 @@ import '@navikt/ds-css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
+import KodeverkForPanel from './types/kodeverkForPanel';
 
 const STP = '2021-01-01';
 
@@ -562,7 +563,7 @@ const Template: StoryFn<{
     isReadOnly={readOnly}
     readOnlySubmitButton={false}
     beregningsgrunnlagsvilkar={vilkar}
-    alleKodeverk={alleKodeverk as any}
+    kodeverkSamling={alleKodeverk as KodeverkForPanel}
     arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysninger}
     setFormData={() => undefined}
   />

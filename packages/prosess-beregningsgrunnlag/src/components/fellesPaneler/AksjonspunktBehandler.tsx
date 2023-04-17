@@ -6,7 +6,6 @@ import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-va
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -37,6 +36,7 @@ import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -155,8 +155,6 @@ const buildInitialValues = (
 
 const buildFieldInitialValue = (
   beregningsgrunnlag: Beregningsgrunnlag,
-  alleKodeverk: AlleKodeverk,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
   avklaringsbehov?: BeregningAvklaringsbehov,
   sammenligningsgrunnlag?: SammenligningsgrunlagProp,
@@ -177,8 +175,6 @@ const buildFieldInitialValue = (
 
 const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
-  alleKodeverk: AlleKodeverk,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkår: Vilkar,
   formName: string,
   lovparagraf: LovParagraf,
@@ -186,8 +182,6 @@ const buildFormInitialValues = (
   [formName]: beregningsgrunnlag.map(bg =>
     buildFieldInitialValue(
       bg,
-      alleKodeverk,
-      arbeidsgiverOpplysningerPerId,
       finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),
       bg.avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf)),
       bg.sammenligningsgrunnlagPrStatus?.find(
@@ -234,7 +228,7 @@ const settOppKomponenterForNæring = (
 
 const settOppKomponenterForATFL = (
   avklaringsbehov: BeregningAvklaringsbehov,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   readOnly: boolean,
@@ -253,7 +247,7 @@ const settOppKomponenterForATFL = (
           readOnly={readOnly}
           formName={formName}
           allePerioder={allePerioder}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
           avklaringsbehov={avklaringsbehov}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldIndex={fieldIndex}
@@ -263,7 +257,7 @@ const settOppKomponenterForATFL = (
         <AksjonspunktBehandlerAT
           readOnly={readOnly}
           alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldIndex={fieldIndex}
           formName={formName}
@@ -424,7 +418,7 @@ const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) 
 
 type OwnProps = {
   readOnly: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   readOnlySubmitButton: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -441,7 +435,7 @@ type OwnProps = {
 const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   readOnly,
   readOnlySubmitButton,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   beregningsgrunnlagListe,
   vilkår,
@@ -465,16 +459,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   );
   const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
-    defaultValues:
-      formData ||
-      buildFormInitialValues(
-        bgSomSkalVurderes,
-        alleKodeverk,
-        arbeidsgiverOpplysningerPerId,
-        vilkår,
-        formName,
-        lovparagraf,
-      ),
+    defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
   });
 
   const {
@@ -525,7 +510,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     if (lovparagraf === LovParagraf.ÅTTE_TRETTI && ab) {
       return settOppKomponenterForATFL(
         ab,
-        alleKodeverk,
+        kodeverkSamling,
         bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
         arbeidsgiverOpplysningerPerId,
         readOnly,

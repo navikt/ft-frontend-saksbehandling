@@ -10,7 +10,7 @@ import {
   FagsakYtelseType,
 } from '@navikt/ft-kodeverk';
 import { alleTilbakekrevingKodeverk, alleKodeverk } from '@navikt/ft-storybook-utils';
-import { AlleKodeverkTilbakekreving, FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
+import { FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
 import FeilutbetalingFaktaIndex from './FeilutbetalingFaktaIndex';
 import AvklartFaktaFeilutbetalingAp from './types/AvklartFaktaFeilutbetalingAp';
@@ -19,6 +19,8 @@ import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
+import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
+import KodeverkFpSakForPanel from './types/kodeverkFpSakForPanel';
 
 const feilutbetalingFakta = {
   behandlingFakta: {
@@ -79,8 +81,8 @@ const feilutbetalingAarsak = [
   },
 ] as FeilutbetalingAarsak[];
 
-const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as AlleKodeverkTilbakekreving;
-const fpSakAlleKodeverk = alleKodeverk as any;
+const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
+const fpSakAlleKodeverk = alleKodeverk as KodeverkFpSakForPanel;
 
 export default {
   title: 'fakta-feilutbetaling',
@@ -96,8 +98,8 @@ const Template: StoryFn<{
     setFormData={() => undefined}
     feilutbetalingFakta={feilutbetalingFakta as FeilutbetalingFakta}
     feilutbetalingAarsak={feilutbetalingAarsak}
-    alleKodeverk={fpSakAlleKodeverk}
-    tilbakekrevingKodeverk={fpTilbakekrevingAlleKodeverk}
+    kodeverkSamlingFpsak={fpSakAlleKodeverk}
+    kodeverkSamlingFpTilbake={fpTilbakekrevingAlleKodeverk}
     fagsakYtelseTypeKode={FagsakYtelseType.FORELDREPENGER}
     alleMerknaderFraBeslutter={{}}
     isAksjonspunktOpen

@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { Risikoklassifisering, Aksjonspunkt, AlleKodeverk } from '@navikt/ft-types';
+import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import AvklartRisikoklassifiseringAp from './types/AvklartRisikoklassifiseringAp';
 
 import kontrollresultatKode from './kodeverk/kontrollresultatKode';
@@ -28,7 +27,7 @@ interface OwnProps {
   readOnly: boolean;
   submitAksjonspunkt: (data: AvklartRisikoklassifiseringAp) => Promise<void>;
   toggleRiskPanel: () => void;
-  alleKodeverk: AlleKodeverk;
+  faresignalVurderinger: KodeverkMedNavn[];
 }
 
 /**
@@ -45,11 +44,10 @@ const RisikoklassifiseringSakIndex: FunctionComponent<OwnProps> = ({
   readOnly,
   submitAksjonspunkt,
   toggleRiskPanel,
-  alleKodeverk,
+  faresignalVurderinger,
 }) => {
   const harIkkeHoyRisikoklassifisering = harResultatkode(kontrollresultatKode.IKKE_HOY, risikoklassifisering);
   const harHoyRisikoklassifisering = harResultatkode(kontrollresultatKode.HOY, risikoklassifisering);
-  const faresignalVurderinger = alleKodeverk[KodeverkType.FARESIGNAL_VURDERING];
 
   return (
     <RawIntlProvider value={intl}>

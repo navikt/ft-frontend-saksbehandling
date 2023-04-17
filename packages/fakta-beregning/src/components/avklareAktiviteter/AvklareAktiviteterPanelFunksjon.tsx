@@ -3,7 +3,6 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   Vilkar,
@@ -17,6 +16,7 @@ import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues
 import SubmitBeregningType from '../../typer/interface/SubmitBeregningTsType';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
@@ -34,7 +34,7 @@ type OwnProps = {
   readOnly: boolean;
   submittable: boolean;
   harAndreAvklaringsbehovIPanel: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
   erOverstyrer: boolean;
@@ -96,7 +96,7 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
 
 const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkår: Vilkar,
 ): AvklarAktiviteterFormValues => ({
@@ -104,7 +104,7 @@ const buildFormInitialValues = (
     buildInitialValues(
       bg.avklaringsbehov,
       bg.faktaOmBeregning.avklarAktiviteter,
-      alleKodeverk,
+      kodeverkSamling,
       arbeidsgiverOpplysningerPerId,
       finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),
     ),
@@ -121,7 +121,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   harAndreAvklaringsbehovIPanel,
   erOverstyrer,
   readOnly,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   submittable,
   submitCallback,
@@ -134,7 +134,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
 }) => {
   const formMethods = useForm<AvklarAktiviteterFormValues>({
     defaultValues:
-      formData || buildFormInitialValues(beregningsgrunnlag, alleKodeverk, arbeidsgiverOpplysningerPerId, vilkår),
+      formData || buildFormInitialValues(beregningsgrunnlag, kodeverkSamling, arbeidsgiverOpplysningerPerId, vilkår),
   });
 
   const {
@@ -211,7 +211,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
                 erOverstyrer={erOverstyrer}
                 readOnly={readOnly}
                 submittable={submittable}
-                alleKodeverk={alleKodeverk}
+                kodeverkSamling={kodeverkSamling}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 updateOverstyring={updateOverstyring}
                 submitDisabled={submitDisabled}

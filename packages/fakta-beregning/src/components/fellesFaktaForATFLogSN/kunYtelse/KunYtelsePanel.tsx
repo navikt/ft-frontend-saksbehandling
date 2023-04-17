@@ -1,10 +1,4 @@
-import {
-  AlleKodeverk,
-  AndelForFaktaOmBeregning,
-  ArbeidsgiverOpplysningerPerId,
-  FaktaOmBeregning,
-  KunYtelse,
-} from '@navikt/ft-types';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
@@ -12,6 +6,7 @@ import { FaktaBeregningTransformedValues } from '../../../typer/interface/Beregn
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
 import KunYtelseBesteberegningPanel from './KunYtelseBesteberegningPanel';
 import KunYtelseUtenBesteberegningPanel from './KunYtelseUtenBesteberegningPanel';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 export const brukersAndelFieldArrayName = 'brukersAndelBG';
 
@@ -20,7 +15,7 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   skalSjekkeBesteberegning: boolean;
   skalViseInntektstabell?: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   faktaOmBeregning: FaktaOmBeregning;
 };
 
@@ -29,7 +24,7 @@ interface StaticFunctions {
     kunYtelse: KunYtelse,
     faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-    alleKodeverk: AlleKodeverk,
+    kodeverkSamling: KodeverkForPanel,
   ) => KunYtelseValues;
   summerFordeling: (values: any) => number;
   transformValues: (
@@ -49,7 +44,7 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   faktaOmBeregning,
   isAksjonspunktClosed,
   skalViseInntektstabell,
-  alleKodeverk,
+  kodeverkSamling,
 }) => {
   const { kunYtelse } = faktaOmBeregning;
   const skalSjekkeBesteberegning = kunYtelse.fodendeKvinneMedDP;
@@ -57,13 +52,12 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   return (
     <div>
       {skalSjekkeBesteberegning && (
-        /* @ts-ignore */
         <KunYtelseBesteberegningPanel
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
           brukersAndelFieldArrayName={brukersAndelFieldArrayName}
           skalViseInntektstabell={skalViseInntektstabell}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
         />
       )}
       {!skalSjekkeBesteberegning && skalViseInntektstabell && (
@@ -71,7 +65,7 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
           readOnly={readOnly}
           brukersAndelFieldArrayName={brukersAndelFieldArrayName}
           isAksjonspunktClosed={isAksjonspunktClosed}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
         />
       )}
     </div>
@@ -85,7 +79,7 @@ KunYtelsePanel.buildInitialValues = (
   kunYtelse,
   faktaOmBeregningAndeler,
   arbeidsgiverOpplysningerPerId,
-  alleKodeverk,
+  kodeverkSamling,
 ): KunYtelseValues => {
   if (!kunYtelse || !kunYtelse.andeler || kunYtelse.andeler.length === 0) {
     return {};
@@ -93,7 +87,7 @@ KunYtelsePanel.buildInitialValues = (
   const kunYtelseValues = kunYtelse.andeler.map(andel => {
     const andelMedInfo = faktaOmBeregningAndeler.find(faktaAndel => faktaAndel.andelsnr === andel.andelsnr);
     return {
-      ...setGenerellAndelsinfo(andelMedInfo, arbeidsgiverOpplysningerPerId, alleKodeverk),
+      ...setGenerellAndelsinfo(andelMedInfo, arbeidsgiverOpplysningerPerId, kodeverkSamling),
       fastsattBelop:
         andel.fastsattBelopPrMnd || andel.fastsattBelopPrMnd === 0 ? formatCurrencyNoKr(andel.fastsattBelopPrMnd) : '',
     };

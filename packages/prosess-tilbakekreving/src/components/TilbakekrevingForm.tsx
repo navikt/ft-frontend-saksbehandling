@@ -8,7 +8,6 @@ import { omitOne } from '@navikt/ft-utils';
 import { TilbakekrevingKodeverkType, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import {
   KodeverkMedNavn,
-  AlleKodeverkTilbakekreving,
   FeilutbetalingPerioderWrapper,
   VilkarsVurdertePerioderWrapper,
   VilkarsVurdertPeriode,
@@ -33,6 +32,7 @@ import TilbakekrevingAksjonspunktCodes from '../TilbakekrevingAksjonspunktCodes'
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
 import styles from './tilbakekrevingForm.module.css';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));
@@ -226,7 +226,7 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
 
 interface OwnProps {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
-  alleTilbakekrevingKodeverk: AlleKodeverkTilbakekreving;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   submitCallback: (aksjonspunktData: VilkarsVurderingAp) => Promise<void>;
   readOnly: boolean;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
@@ -247,7 +247,7 @@ interface OwnProps {
  */
 const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
   perioderForeldelse,
-  alleTilbakekrevingKodeverk,
+  kodeverkSamlingFpTilbake,
   submitCallback,
   readOnly,
   alleMerknaderFraBeslutter,
@@ -289,7 +289,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
   const lagrePerioder = useCallback(() => {
     setSubmitting(true);
     submitCallback(
-      transformValues(vilkårsvurdertePerioder, alleTilbakekrevingKodeverk[TilbakekrevingKodeverkType.SARLIG_GRUNN]),
+      transformValues(vilkårsvurdertePerioder, kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.SARLIG_GRUNN]),
     );
   }, [vilkårsvurdertePerioder]);
 
@@ -396,7 +396,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
                 readOnly={isReadOnly}
                 behandlingUuid={behandlingUuid}
                 beregnBelop={beregnBelop}
-                alleTilbakekrevingKodeverk={alleTilbakekrevingKodeverk}
+                kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
               />
               <VerticalSpacer twentyPx />
               <TilbakekrevingPeriodeForm
@@ -407,7 +407,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
                 readOnly={isReadOnly}
                 skjulPeriode={togglePeriode}
                 oppdaterPeriode={oppdaterPeriode}
-                alleKodeverk={alleTilbakekrevingKodeverk}
+                kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
                 vilkarsVurdertePerioder={vilkårsvurdertePerioder}
               />
             </div>

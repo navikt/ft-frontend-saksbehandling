@@ -8,6 +8,7 @@ import { BeregningResultatPeriode } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const headerTextCodes = [
   'TilbakekrevingVedtakPeriodeTabell.Periode',
@@ -21,10 +22,10 @@ const headerTextCodes = [
 
 interface OwnProps {
   perioder: BeregningResultatPeriode[];
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
 }
 
-const TilbakekrevingVedtakPeriodeTabell: FunctionComponent<OwnProps> = ({ perioder, getKodeverknavn }) => {
+const TilbakekrevingVedtakPeriodeTabell: FunctionComponent<OwnProps> = ({ perioder, kodeverkSamlingFpTilbake }) => {
   const rader = perioder
     .map(periode => (
       <TableRow key={periode.periode.fom}>
@@ -37,7 +38,9 @@ const TilbakekrevingVedtakPeriodeTabell: FunctionComponent<OwnProps> = ({ period
           <BodyShort size="small">{formatCurrencyNoKr(periode.feilutbetaltBeløp)}</BodyShort>
         </TableColumn>
         <TableColumn>
-          <BodyShort size="small">{getKodeverknavn(periode.vurdering, KodeverkType.AKTSOMHET)}</BodyShort>
+          <BodyShort size="small">
+            {kodeverkSamlingFpTilbake[KodeverkType.AKTSOMHET].find(a => a.kode === periode.vurdering)?.navn}
+          </BodyShort>
         </TableColumn>
         <TableColumn>
           <BodyShort size="small">

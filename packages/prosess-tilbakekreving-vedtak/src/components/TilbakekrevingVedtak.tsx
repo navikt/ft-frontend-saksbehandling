@@ -4,20 +4,20 @@ import { BodyShort, Heading, Detail } from '@navikt/ds-react';
 
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { getKodeverknavnFn } from '@navikt/ft-utils';
-import { BeregningResultatPeriode, VedtaksbrevAvsnitt, AlleKodeverkTilbakekreving } from '@navikt/ft-types';
+import { BeregningResultatPeriode, VedtaksbrevAvsnitt } from '@navikt/ft-types';
 
 import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import TilbakekrevingVedtakPeriodeTabell from './TilbakekrevingVedtakPeriodeTabell';
 import TilbakekrevingVedtakForm, { ForhandsvisData } from './TilbakekrevingVedtakForm';
 import ForeslaVedtakTilbakekrevingAp from '../types/ForeslaVedtakTilbakekrevingAp';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 interface OwnProps {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   readOnly: boolean;
   resultat: string;
   perioder: BeregningResultatPeriode[];
-  alleKodeverk: AlleKodeverkTilbakekreving;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   behandlingUuid: string;
   avsnittsliste: VedtaksbrevAvsnitt[];
   fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<any>;
@@ -32,7 +32,7 @@ const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
   readOnly,
   resultat,
   perioder,
-  alleKodeverk,
+  kodeverkSamlingFpTilbake,
   behandlingUuid,
   avsnittsliste,
   fetchPreviewVedtaksbrev,
@@ -40,34 +40,33 @@ const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
   formData,
   setFormData,
-}) => {
-  const getKodeverknavn = getKodeverknavnFn(alleKodeverk);
-  return (
-    <>
-      <Heading size="small">
-        <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
-      </Heading>
-      <VerticalSpacer twentyPx />
-      <Detail size="small">
-        <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
-      </Detail>
-      <BodyShort size="small">{getKodeverknavn(resultat, KodeverkType.VEDTAK_RESULTAT_TYPE)}</BodyShort>
-      <VerticalSpacer sixteenPx />
-      <TilbakekrevingVedtakPeriodeTabell perioder={perioder} getKodeverknavn={getKodeverknavn} />
-      <VerticalSpacer sixteenPx />
-      <TilbakekrevingVedtakForm
-        submitCallback={submitCallback}
-        readOnly={readOnly}
-        behandlingUuid={behandlingUuid}
-        avsnittsliste={avsnittsliste}
-        fetchPreviewVedtaksbrev={fetchPreviewVedtaksbrev}
-        erRevurderingTilbakekrevingKlage={erRevurderingTilbakekrevingKlage}
-        erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
-        formData={formData}
-        setFormData={setFormData}
-      />
-    </>
-  );
-};
+}) => (
+  <>
+    <Heading size="small">
+      <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
+    </Heading>
+    <VerticalSpacer twentyPx />
+    <Detail size="small">
+      <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
+    </Detail>
+    <BodyShort size="small">
+      {kodeverkSamlingFpTilbake[KodeverkType.VEDTAK_RESULTAT_TYPE].find(vrt => vrt.kode === resultat)?.navn}
+    </BodyShort>
+    <VerticalSpacer sixteenPx />
+    <TilbakekrevingVedtakPeriodeTabell perioder={perioder} kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake} />
+    <VerticalSpacer sixteenPx />
+    <TilbakekrevingVedtakForm
+      submitCallback={submitCallback}
+      readOnly={readOnly}
+      behandlingUuid={behandlingUuid}
+      avsnittsliste={avsnittsliste}
+      fetchPreviewVedtaksbrev={fetchPreviewVedtaksbrev}
+      erRevurderingTilbakekrevingKlage={erRevurderingTilbakekrevingKlage}
+      erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
+      formData={formData}
+      setFormData={setFormData}
+    />
+  </>
+);
 
 export default TilbakekrevingVedtak;

@@ -2,26 +2,21 @@ import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
-import {
-  AlleKodeverkTilbakekreving,
-  Behandling,
-  BeregningsresultatTilbakekreving,
-  StandardProsessPanelProps,
-  Vedtaksbrev,
-} from '@navikt/ft-types';
+import { Behandling, BeregningsresultatTilbakekreving, StandardProsessPanelProps, Vedtaksbrev } from '@navikt/ft-types';
 
 import { FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
 import TilbakekrevingVedtak from './components/TilbakekrevingVedtak';
 import ForeslaVedtakTilbakekrevingAp from './types/ForeslaVedtakTilbakekrevingAp';
 import messages from '../i18n/nb_NO.json';
 import { ForhandsvisData } from './components/TilbakekrevingVedtakForm';
+import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
 
 const intl = createIntl(messages);
 
 interface OwnProps {
   behandling: Behandling;
   beregningsresultat: BeregningsresultatTilbakekreving;
-  tilbakekrevingKodeverk: AlleKodeverkTilbakekreving;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   vedtaksbrev: Vedtaksbrev;
   fetchPreviewVedtaksbrev: (param: ForhandsvisData) => Promise<void>;
   erRevurderingTilbakekrevingKlage: boolean;
@@ -35,7 +30,7 @@ const VedtakTilbakekrevingProsessIndex: FunctionComponent<
   beregningsresultat,
   isReadOnly,
   submitCallback,
-  tilbakekrevingKodeverk,
+  kodeverkSamlingFpTilbake,
   formData,
   setFormData,
   vedtaksbrev,
@@ -51,7 +46,7 @@ const VedtakTilbakekrevingProsessIndex: FunctionComponent<
       avsnittsliste={vedtaksbrev.avsnittsliste}
       submitCallback={submitCallback}
       readOnly={isReadOnly}
-      alleKodeverk={tilbakekrevingKodeverk}
+      kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
       fetchPreviewVedtaksbrev={fetchPreviewVedtaksbrev}
       erRevurderingTilbakekrevingKlage={erRevurderingTilbakekrevingKlage}
       erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}

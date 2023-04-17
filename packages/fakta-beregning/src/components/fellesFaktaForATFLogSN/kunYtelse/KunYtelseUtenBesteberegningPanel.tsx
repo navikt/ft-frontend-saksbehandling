@@ -1,16 +1,16 @@
 import { Label } from '@navikt/ds-react';
-import { AlleKodeverk } from '@navikt/ft-types';
 import { BorderBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
 import styles from './kunYtelseUtenBesteberegningPanel.module.css';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 type OwnProps = {
   readOnly: boolean;
   brukersAndelFieldArrayName: string;
   isAksjonspunktClosed: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
 };
 
 /**
@@ -23,7 +23,7 @@ type OwnProps = {
 const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
   readOnly,
   brukersAndelFieldArrayName,
-  alleKodeverk,
+  kodeverkSamling,
   isAksjonspunktClosed,
 }) => (
   <BorderBox>
@@ -38,7 +38,7 @@ const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
       name={brukersAndelFieldArrayName}
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
-      alleKodeverk={alleKodeverk}
+      kodeverkSamling={kodeverkSamling}
     />
   </BorderBox>
 );
