@@ -98,14 +98,14 @@ const transformValues = (
 
 const getSortedFeilutbetalingArsaker = (
   feilutbetalingArsaker: FeilutbetalingAarsak,
-  kodeverkSamlingFpsak: KodeverkFpSakForPanel,
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel,
 ): FeilutbetalingAarsak['hendelseTyper'] => {
   const { hendelseTyper } = feilutbetalingArsaker;
   return hendelseTyper.sort((ht1, ht2) => {
     const hendelseType1 =
-      kodeverkSamlingFpsak[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht1.hendelseType)?.navn || '';
+      kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht1.hendelseType)?.navn || '';
     const hendelseType2 =
-      kodeverkSamlingFpsak[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht2.hendelseType)?.navn || '';
+      kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht2.hendelseType)?.navn || '';
     const hendelseType1ErParagraf = hendelseType1.startsWith('§');
     const hendelseType2ErParagraf = hendelseType2.startsWith('§');
     const ht1v = hendelseType1ErParagraf ? hendelseType1.replace(/\D/g, '') : hendelseType1;
@@ -152,7 +152,7 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
 
   const behandlePerioderSamlet = formMethods.watch('behandlePerioderSamlet') || false;
 
-  const årsaker = getSortedFeilutbetalingArsaker(feilutbetalingAarsak, kodeverkSamlingFpsak);
+  const årsaker = getSortedFeilutbetalingArsaker(feilutbetalingAarsak, kodeverkSamlingFpTilbake);
 
   return (
     <>

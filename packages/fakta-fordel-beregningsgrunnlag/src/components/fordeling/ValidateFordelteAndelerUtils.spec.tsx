@@ -14,13 +14,6 @@ const likeAndelerFeilmelding = 'Andeler for samme aktivitet må ha ulik inntekts
 const refusjonHøyereEnnKravFeilmelding = 'Total refusjon for  kan ikke være høyere enn beløpet fra inntektsmeldingen.';
 const gradertAndelMåVæreFordeltMerEnn0Feilmelding = 'Fastsatt beløp for gradert andel må være høyere enn 0.';
 
-const getKodeverknavn = (kode: string): string => {
-  if (kode === 'AAP') {
-    return 'Arbeidsavklaringspenger';
-  }
-  return '';
-};
-
 const arbeidsgiverOppysninger = {
   36363463463: {
     identifikator: '36363463463',
@@ -298,7 +291,6 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
       getValues,
-      getKodeverknavn,
       arbeidsgiverOppysninger,
       intlMock,
     );
@@ -341,7 +333,6 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
       getValues,
-      getKodeverknavn,
       arbeidsgiverOppysninger,
       intlMock,
     );
@@ -372,7 +363,6 @@ describe('<ValidateAndelerUtils>', () => {
       andeler as FordelBeregningsgrunnlagAndelValues[],
       fieldname,
       mock,
-      getKodeverknavn,
       arbeidsgiverOppysninger,
       intlMock,
     );
