@@ -16,10 +16,10 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "devDependencies": {
-    "@storybook/react": "7.0.4",
+    "@storybook/react": "7.0.5",
     "cross-env": "7.0.3",
     "eslint": "8.38.0",
-    "stylelint": "15.4.0",
+    "stylelint": "15.5.0",
     "typescript": "5.0.4",
     "vite": "4.2.1",
     "vitest": "0.29.8"

@@ -33,7 +33,7 @@
     "moment": "2.29.4",
     "react": "18.2.0",
     "react-day-picker": "8.7.1",
-    "react-intl": "6.3.2",
+    "react-intl": "6.4.0",
     "react-modal": "3.16.1"
   },
   "peerDependencies": {
@@ -51,9 +51,9 @@
   },
   "devDependencies": {
     "@navikt/ft-utils-test": "^2.0.12",
-    "@storybook/addon-actions": "7.0.4",
-    "@storybook/react": "7.0.4",
-    "@storybook/react-vite": "7.0.4",
+    "@storybook/addon-actions": "7.0.5",
+    "@storybook/react": "7.0.5",
+    "@storybook/react-vite": "7.0.5",
     "@storybook/testing-react": "2.0.0",
     "@testing-library/react": "14.0.0",
     "@testing-library/react-hooks": "8.0.1",
@@ -61,8 +61,8 @@
     "cross-env": "7.0.3",
     "eslint": "8.38.0",
     "sinon": "15.0.3",
-    "storybook": "7.0.4",
-    "stylelint": "15.4.0",
+    "storybook": "7.0.5",
+    "stylelint": "15.5.0",
     "typescript": "5.0.4",
     "vite": "4.2.1",
     "vitest": "0.29.8"
