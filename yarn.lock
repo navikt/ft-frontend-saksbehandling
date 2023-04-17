@@ -2689,13 +2689,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-validators@workspace:packages/form-validators"
   dependencies:
-<<<<<<< HEAD
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/react": 7.0.4
-=======
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/react": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     cross-env: 7.0.3
     eslint: 8.38.0
     moment: 2.29.4
@@ -2895,23 +2890,13 @@ __metadata:
     "@navikt/ft-form-hooks": ^4.0.17
     "@navikt/ft-form-validators": ^2.0.15
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-storybook-utils": ^2.0.17
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-storybook-utils": ^2.0.15
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -2998,27 +2983,15 @@ __metadata:
     "@navikt/ds-css": 2.8.12
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-plattform-komponenter": ^2.0.16
     "@navikt/ft-sak-visittkort": ^2.0.18
     "@navikt/ft-storybook-utils": ^2.0.17
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-plattform-komponenter": ^2.0.14
-    "@navikt/ft-sak-visittkort": ^2.0.16
-    "@navikt/ft-storybook-utils": ^2.0.15
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     cross-env: 7.0.3
@@ -3051,25 +3024,14 @@ __metadata:
     "@navikt/ds-css": 2.8.12
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-plattform-komponenter": ^2.0.16
     "@navikt/ft-storybook-utils": ^2.0.17
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-plattform-komponenter": ^2.0.14
-    "@navikt/ft-storybook-utils": ^2.0.15
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -3110,23 +3072,13 @@ __metadata:
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
     "@navikt/ft-konstanter": ^2.0.10
-<<<<<<< HEAD
     "@navikt/ft-plattform-komponenter": ^2.0.16
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-plattform-komponenter": ^2.0.14
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -3163,21 +3115,12 @@ __metadata:
     "@navikt/ds-css": 2.8.12
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -3209,21 +3152,12 @@ __metadata:
     "@navikt/ds-css": 2.8.12
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -3254,17 +3188,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.8.12
     "@navikt/ds-react": 2.8.12
-<<<<<<< HEAD
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -3292,25 +3219,14 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.8.12
     "@navikt/ds-react": 2.8.12
-<<<<<<< HEAD
     "@navikt/ft-form-hooks": ^4.0.17
     "@navikt/ft-form-validators": ^2.0.15
     "@navikt/ft-plattform-komponenter": ^2.0.16
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-form-hooks": ^4.0.15
-    "@navikt/ft-form-validators": ^2.0.13
-    "@navikt/ft-plattform-komponenter": ^2.0.14
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -3347,23 +3263,13 @@ __metadata:
     "@navikt/ft-form-hooks": ^4.0.17
     "@navikt/ft-form-validators": ^2.0.15
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-storybook-utils": ^2.0.17
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-storybook-utils": ^2.0.15
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -3402,21 +3308,12 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     classnames: 2.3.2
@@ -3448,25 +3345,14 @@ __metadata:
     "@navikt/ds-css": 2.8.12
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-plattform-komponenter": ^2.0.16
     "@navikt/ft-storybook-utils": ^2.0.17
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-plattform-komponenter": ^2.0.14
-    "@navikt/ft-storybook-utils": ^2.0.15
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     "@testing-library/react": 14.0.0
     cross-env: 7.0.3
@@ -3514,21 +3400,12 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 2.8.12
     "@navikt/ft-kodeverk": ^2.0.11
-<<<<<<< HEAD
     "@navikt/ft-types": ^2.0.13
     "@navikt/ft-ui-komponenter": ^2.0.15
     "@navikt/ft-utils": ^2.0.14
-    "@storybook/addon-actions": 7.0.4
-    "@storybook/react": 7.0.4
-    "@storybook/react-vite": 7.0.4
-=======
-    "@navikt/ft-types": ^2.0.11
-    "@navikt/ft-ui-komponenter": ^2.0.13
-    "@navikt/ft-utils": ^2.0.12
     "@storybook/addon-actions": 7.0.5
     "@storybook/react": 7.0.5
     "@storybook/react-vite": 7.0.5
->>>>>>> b2edd238 (Oppdatert deps)
     "@storybook/testing-react": 2.0.0
     cross-env: 7.0.3
     eslint: 8.38.0
