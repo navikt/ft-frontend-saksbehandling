@@ -1,10 +1,4 @@
-import {
-  AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
-  BeregningAvklaringsbehov,
-  Beregningsgrunnlag,
-  Vilkar,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkar } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, useState } from 'react';
 import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
@@ -15,6 +9,7 @@ import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPane
 import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from './BeregningFormUtils';
 import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
+import KodeverkForPanel from '../typer/kodeverkForPanel';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
@@ -38,7 +33,7 @@ type OwnProps = {
   submittable: boolean;
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag?: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -61,7 +56,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   erOverstyrer,
   skalKunneOverstyreAktiviteter,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   setFormData,
   formData,
@@ -91,7 +86,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         submitCallback={submitCallback}
         submittable={submittable}
         erOverstyrer={erOverstyrer && skalKunneOverstyreAktiviteter}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
         beregningsgrunnlag={beregningsgrunnlag}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -105,7 +100,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
         readOnly={avklarFaktaBeregningReadOnly}
         submitCallback={submitCallback}
         submittable={submittable}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         beregningsgrunnlag={beregningsgrunnlag}
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

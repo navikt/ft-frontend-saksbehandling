@@ -34,7 +34,6 @@ export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/lang
 export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMany } from './src/objectUtils';
 export { parseQueryString, buildPath, formatQueryString } from './src/urlUtils';
 
-export { getKodeverknavnFn, getKodeverknavnFraKode } from './src/kodeverkUtils';
 export { default as createIntl } from './src/createIntl';
 
 export { default as bemUtils } from './src/bemUtils';

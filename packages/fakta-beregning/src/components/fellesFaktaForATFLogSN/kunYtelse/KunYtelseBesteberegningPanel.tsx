@@ -3,7 +3,7 @@ import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
 import { Label } from '@navikt/ds-react';
-import { AlleKodeverk, KunYtelse } from '@navikt/ft-types';
+import { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -17,6 +17,7 @@ import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
 import styles from './kunYtelseBesteberegningPanel.module.css';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 export const besteberegningField = 'besteberegningField';
 
@@ -26,7 +27,7 @@ type OwnProps = {
   brukersAndelFieldArrayName: string;
   erBesteberegning?: boolean;
   skalViseInntektstabell?: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
 };
 
 interface StaticFunctions {
@@ -45,7 +46,7 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
   isAksjonspunktClosed,
   brukersAndelFieldArrayName,
   skalViseInntektstabell,
-  alleKodeverk,
+  kodeverkSamling,
 }) => {
   const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -95,7 +96,7 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
                   name={brukersAndelFieldArrayName}
                   readOnly={readOnly}
                   isAksjonspunktClosed={isAksjonspunktClosed}
-                  alleKodeverk={alleKodeverk}
+                  kodeverkSamling={kodeverkSamling}
                 />
               </FlexColumn>
             </FlexRow>

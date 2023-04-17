@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import dayjs from 'dayjs';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { Label } from '@navikt/ds-react';
 import { Table } from '@navikt/ft-ui-komponenter';
 import { hasValidDate } from '@navikt/ft-form-validators';
@@ -9,6 +9,7 @@ import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { FormattedMessage } from 'react-intl';
 import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
   const datoFeil = hasValidDate(skjaeringstidspunkt);
@@ -56,7 +57,7 @@ type OwnProps = {
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
   aktiviteter: BeregningAktivitet[];
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   erOverstyrt: boolean;
   harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
@@ -70,7 +71,7 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
   readOnly,
   isAvklaringsbehovClosed,
   aktiviteter,
-  alleKodeverk,
+  kodeverkSamling,
   erOverstyrt,
   harAvklaringsbehov,
   tomDatoForAktivitetGruppe,
@@ -88,7 +89,7 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
           aktivitet={aktivitet}
           readOnly={readOnly}
           isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
           erOverstyrt={erOverstyrt}
           harAvklaringsbehov={harAvklaringsbehov}
           tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}

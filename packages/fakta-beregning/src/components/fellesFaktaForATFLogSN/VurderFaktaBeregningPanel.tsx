@@ -1,12 +1,6 @@
 import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import {
-  AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
-  BeregningAvklaringsbehov,
-  Beregningsgrunnlag,
-  Vilkar,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkar } from '@navikt/ft-types';
 import React, { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
@@ -19,6 +13,7 @@ import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPa
 import transformValuesVurderFaktaBeregning from './transformValuesHjelpefunksjoner';
 import VurderFaktaContext, { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import VurderFaktaBeregningField, { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
@@ -41,7 +36,7 @@ type VurderFaktaBeregningPanelProps = {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag[];
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   erOverstyrer: boolean;
   submitCallback: (aksjonspunktData: BeregningFaktaOgOverstyringAP[]) => Promise<void>;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -87,7 +82,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     beregningsgrunnlag,
     readOnly,
     submittable,
-    alleKodeverk,
+    kodeverkSamling,
     erOverstyrer,
     arbeidsgiverOpplysningerPerId,
     aktivtBeregningsgrunnlagIndeks,
@@ -158,7 +153,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
                 beregningsgrunnlag={beregningsgrunnlag[index]}
                 erOverstyrer={erOverstyrer}
                 readOnly={readOnly}
-                alleKodeverk={alleKodeverk}
+                kodeverkSamling={kodeverkSamling}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 submittable={submittable}
                 updateOverstyring={updateOverstyring}

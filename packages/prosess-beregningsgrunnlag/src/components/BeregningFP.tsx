@@ -11,7 +11,6 @@ import {
   isStatusTilstotendeYtelse,
 } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -26,6 +25,7 @@ import BeregningForm from './beregningForm/BeregningForm';
 import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
 
 import BeregningFormValues from '../types/BeregningFormValues';
+import KodeverkForPanel from '../types/kodeverkForPanel';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -68,7 +68,7 @@ type OwnProps = {
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   readOnly: boolean;
   readOnlySubmitButton: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   aktivtBeregningsgrunnlagIndeks: number;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkar: Vilkar;
@@ -94,7 +94,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   readOnly,
   readOnlySubmitButton,
   vilkar,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
@@ -119,7 +119,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
         gjeldendeAvklaringsbehov={finnAvklaringsbehov(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks])}
         relevanteStatuser={relevanteStatuser}
         readOnlySubmitButton={readOnlySubmitButton}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         vilkarPeriode={finnVilkårperiode(
           vilkar,
           beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].vilkårsperiodeFom,

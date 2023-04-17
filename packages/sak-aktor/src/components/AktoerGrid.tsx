@@ -2,11 +2,9 @@ import React, { FunctionComponent, ReactElement, ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { LinkPanel } from '@navikt/ds-react';
 import { VisittkortSakIndex } from '@navikt/ft-sak-visittkort';
-import { Fagsak, FagsakPerson } from '@navikt/ft-types';
+import { Fagsak, FagsakPerson, KodeverkMedNavn } from '@navikt/ft-types';
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
-import KodeverkForPanel from '../typer/kodeverkForPanel';
 
 import styles from './aktoerGrid.module.css';
 
@@ -15,11 +13,12 @@ interface OwnProps {
     fagsaker: Fagsak[];
     person: FagsakPerson;
   };
-  kodeverkForPanel: KodeverkForPanel;
+  fagsakStatuser: KodeverkMedNavn[];
+  fagsakYtelseTyper: KodeverkMedNavn[];
   renderSomLenke: (className: string | undefined, fagsakKomponent: ReactNode, saksnummer: string) => ReactElement;
 }
 
-const AktoerGrid: FunctionComponent<OwnProps> = ({ aktorInfo, kodeverkForPanel, renderSomLenke }) => {
+const AktoerGrid: FunctionComponent<OwnProps> = ({ aktorInfo, fagsakStatuser, fagsakYtelseTyper, renderSomLenke }) => {
   const vFagsak =
     aktorInfo.fagsaker.length > 0 ? aktorInfo.fagsaker[0] : { relasjonsRolleType: RelasjonsRolleType.MOR };
 
@@ -34,10 +33,8 @@ const AktoerGrid: FunctionComponent<OwnProps> = ({ aktorInfo, kodeverkForPanel, 
       <div className={styles.list}>
         {aktorInfo.fagsaker.length ? (
           aktorInfo.fagsaker.map(fagsak => {
-            const fagsakYtelseNavn = kodeverkForPanel.FagsakYtelseType.find(
-              s => s.kode === fagsak.fagsakYtelseType,
-            )?.navn;
-            const fagsakStatusNavn = kodeverkForPanel.FagsakStatus.find(s => s.kode === fagsak.status)?.navn;
+            const fagsakYtelseNavn = fagsakYtelseTyper.find(s => s.kode === fagsak.fagsakYtelseType)?.navn;
+            const fagsakStatusNavn = fagsakStatuser.find(s => s.kode === fagsak.status)?.navn;
             return (
               <React.Fragment key={fagsak.saksnummer}>
                 <LinkPanel href="#">

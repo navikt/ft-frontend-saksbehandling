@@ -1,13 +1,14 @@
-import { Vilkarperiode, AlleKodeverk, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { Vilkarperiode, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 import arbeidsgiverOpplysninger from '../../../testdata/arbeidsgiverOpplysninger';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
-const alleKodeverk = {
+const kodeverkSamling = {
   [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [
     {
       kode: OpptjeningAktivitetType.ARBEID,
@@ -30,7 +31,7 @@ const alleKodeverk = {
       navn: 'Næring',
     },
   ],
-} as AlleKodeverk;
+} as KodeverkForPanel;
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
@@ -105,7 +106,7 @@ describe('<AvklareAktiviteterField>', () => {
     const initialValues = buildInitialValues(
       avklarAktiviteterAvklaringsbehov,
       avklarAktiviteter,
-      alleKodeverk,
+      kodeverkSamling,
       arbeidsgiverOpplysninger,
       vilkarPeriode,
     );
@@ -126,7 +127,7 @@ describe('<AvklareAktiviteterField>', () => {
     const initialValues = buildInitialValues(
       [],
       avklarAktiviteter,
-      alleKodeverk,
+      kodeverkSamling,
       arbeidsgiverOpplysninger,
       vilkarPeriode,
     );
@@ -153,7 +154,7 @@ describe('<AvklareAktiviteterField>', () => {
     const initialValues = buildInitialValues(
       aps,
       avklarAktiviteter,
-      alleKodeverk,
+      kodeverkSamling,
       arbeidsgiverOpplysninger,
       vilkarPeriode,
     );

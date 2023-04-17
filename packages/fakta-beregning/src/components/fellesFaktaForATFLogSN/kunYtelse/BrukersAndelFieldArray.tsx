@@ -2,9 +2,9 @@ import { Detail, ErrorMessage } from '@navikt/ds-react';
 import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
+import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, Image, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr, getKodeverknavnFn, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import addCircleIcon from '../../../images/add-circle.svg';
@@ -14,12 +14,12 @@ import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from './brukersAndelFieldArray.module.css';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
-const defaultBGFordeling = (aktivitetStatuser: string[], alleKodeverk) => ({
-  andel: getKodeverknavnFn(alleKodeverk)(
-    aktivitetStatuser.filter(kode => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
-    KodeverkType.AKTIVITET_STATUS,
-  ),
+const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
+  andel: kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(
+    as => as.kode === aktivitetStatuser.filter(kode => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
+  )?.navn,
   fastsattBelop: '',
   inntektskategori: '',
   nyAndel: true,
@@ -124,14 +124,14 @@ const getHeaderTextCodes = () => [
   'BeregningInfoPanel.FordelingBG.Inntektskategori',
 ];
 
-const getInntektskategorierAlfabetiskSortert = (alleKodeverk: AlleKodeverk) =>
-  alleKodeverk[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
+const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
+  kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
 type OwnProps = {
   name: string;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
 };
 
 const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInfo => {
@@ -157,7 +157,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
   name,
   readOnly,
   isAksjonspunktClosed,
-  alleKodeverk,
+  kodeverkSamling,
 }) => {
   const intl = useIntl();
   const { control } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
@@ -167,8 +167,8 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
   });
-  const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS]?.map(kodeverk => kodeverk.kode);
-  const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(alleKodeverk);
+  const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS]?.map(kodeverk => kodeverk.kode);
+  const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
   const fieldArrayValues = formHooks.useWatch({
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
     control,
@@ -200,7 +200,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
               id="leggTilAndelDiv"
               onClick={() => {
                 // @ts-ignore Fiks
-                append(defaultBGFordeling(aktivitetStatuser, alleKodeverk));
+                append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling));
               }}
               className={styles.addPeriode}
               type="button"

@@ -1,6 +1,5 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -36,6 +35,7 @@ import VurderEtterlonnSluttpakkeForm from './vurderOgFastsettATFL/forms/VurderEt
 import VurderMottarYtelseForm from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
 import VurderOgFastsettATFL from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -69,7 +69,7 @@ const getFaktaPanels = (
   isAksjonspunktClosed,
   faktaOmBeregning,
   beregningsgrunnlag,
-  alleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   avklaringsbehov: BeregningAvklaringsbehov[],
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
@@ -122,7 +122,7 @@ const getFaktaPanels = (
       );
     }
   });
-  setFaktaPanelForKunYtelse(faktaPanels, tilfeller, readOnly, isAksjonspunktClosed, faktaOmBeregning, alleKodeverk);
+  setFaktaPanelForKunYtelse(faktaPanels, tilfeller, readOnly, isAksjonspunktClosed, faktaOmBeregning, kodeverkSamling);
   faktaPanels.push(
     // @ts-ignore Fiks
     <React.Fragment key="VurderOgFastsettATFL">
@@ -133,7 +133,7 @@ const getFaktaPanels = (
         isAksjonspunktClosed={isAksjonspunktClosed}
         tilfeller={tilfeller}
         beregningsgrunnlag={beregningsgrunnlag}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         erOverstyrer={erOverstyrer}
         avklaringsbehov={avklaringsbehov}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -148,7 +148,7 @@ type OwnProps = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -164,7 +164,7 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   readOnly,
   isAksjonspunktClosed,
   beregningsgrunnlag,
-  alleKodeverk,
+  kodeverkSamling,
   avklaringsbehov,
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
@@ -187,7 +187,7 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
         isAksjonspunktClosed,
         faktaOmBeregning,
         beregningsgrunnlag,
-        alleKodeverk,
+        kodeverkSamling,
         avklaringsbehov,
         erOverstyrer,
         arbeidsgiverOpplysningerPerId,
@@ -327,14 +327,14 @@ const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues
     props.faktaOmBeregning,
     props.erOverstyrt,
     props.arbeidsgiverOpplysningerPerId,
-    props.alleKodeverk,
+    props.kodeverkSamling,
   ),
   ...buildInitialValuesKunYtelse(
     props.kunYtelse,
     props.tilfeller,
     props.faktaOmBeregning.andelerForFaktaOmBeregning,
     props.arbeidsgiverOpplysningerPerId,
-    props.alleKodeverk,
+    props.kodeverkSamling,
   ),
 });
 
@@ -346,7 +346,7 @@ const mapStateToBuildInitialValuesProps = (ownProps: OwnProps) => ({
   tilfeller: getFaktaOmBeregningTilfellerKoder(ownProps.beregningsgrunnlag),
   vurderMottarYtelse: getVurderMottarYtelse(ownProps.beregningsgrunnlag),
   vurderBesteberegning: getVurderBesteberegning(ownProps.beregningsgrunnlag),
-  alleKodeverk: ownProps.alleKodeverk,
+  kodeverkSamling: ownProps.kodeverkSamling,
   avklaringsbehov: ownProps.avklaringsbehov,
   faktaOmBeregning: getFaktaOmBeregning(ownProps.beregningsgrunnlag),
   arbeidsgiverOpplysningerPerId: ownProps.arbeidsgiverOpplysningerPerId,

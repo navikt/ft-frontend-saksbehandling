@@ -1,5 +1,4 @@
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   StandardFaktaPanelProps,
@@ -21,6 +20,7 @@ import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
 import mapAvklaringsbehovKode from './typer/interface/AvklaringsbehovMapping';
 import { GetErrorsContext } from './components/fellesFaktaForATFLogSN/VurderFaktaContext';
 import { formNameVurderFaktaBeregning } from './components/BeregningFormUtils';
+import KodeverkForPanel from './typer/kodeverkForPanel';
 
 const intl = createIntl(messages);
 
@@ -30,7 +30,7 @@ type OwnProps = {
   skalKunneOverstyreAktiviteter?: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vilkar: Vilkar;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
   skalKunneAvbryteOverstyring?: boolean;
 };
@@ -97,7 +97,7 @@ const BeregningFaktaIndex: FunctionComponent<
   OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>
 > = ({
   beregningsgrunnlag,
-  alleKodeverk,
+  kodeverkSamling,
   submitCallback,
   readOnly,
   submittable,
@@ -153,7 +153,7 @@ const BeregningFaktaIndex: FunctionComponent<
         <BeregningInfoPanel
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
           beregningsgrunnlag={konverterteBg}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
           avklaringsbehov={aktiveAvklaringsBehov}
           submitCallback={submitCallback}
           readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}

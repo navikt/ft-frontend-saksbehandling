@@ -1,9 +1,9 @@
 import { AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk } from '@navikt/ft-types';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { InntektFieldArray, leggTilDagpengerOmBesteberegning } from './InntektFieldArray';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
-const alleKodeverk = {
+const kodeverkSamling = {
   [KodeverkType.AKTIVITET_STATUS]: [
     {
       kode: aktivitetStatuser.MILITAER_ELLER_SIVIL,
@@ -36,7 +36,7 @@ const alleKodeverk = {
       kodeverk: 'test',
     },
   ],
-} as AlleKodeverk;
+} as KodeverkForPanel;
 
 const andelField = {
   nyAndel: false,
@@ -63,7 +63,7 @@ describe('<InntektFieldArray>', () => {
     leggTilDagpengerOmBesteberegning(
       newfields as any,
       false,
-      alleKodeverk[KodeverkType.AKTIVITET_STATUS],
+      kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
       false,
       vi.fn(),
       (index: number) => newfields.splice(index, 1),
@@ -77,7 +77,7 @@ describe('<InntektFieldArray>', () => {
     leggTilDagpengerOmBesteberegning(
       newfields as any,
       false,
-      alleKodeverk[KodeverkType.AKTIVITET_STATUS],
+      kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
       false,
       vi.fn(),
       (index: number) => newfields.splice(index, 1),
@@ -87,7 +87,7 @@ describe('<InntektFieldArray>', () => {
   });
 
   it('skal ikkje bygge initial values om ingen andeler', () => {
-    const iv = InntektFieldArray.buildInitialValues([], {}, {} as AlleKodeverk);
+    const iv = InntektFieldArray.buildInitialValues([], {}, {} as KodeverkForPanel);
     expect(Object.keys(iv)).toHaveLength(0);
   });
 });

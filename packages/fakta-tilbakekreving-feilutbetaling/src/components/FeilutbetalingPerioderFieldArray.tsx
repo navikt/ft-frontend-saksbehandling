@@ -9,6 +9,7 @@ import { KodeverkType } from '@navikt/ft-kodeverk';
 import { FeilutbetalingAarsak, FeilutbetalingFakta } from '@navikt/ft-types';
 
 import styles from './feilutbetalingPerioderFieldArray.module.css';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const FIELD_ARRAY_NAME = 'perioder';
 
@@ -39,7 +40,7 @@ type OwnProps = {
   årsaker: FeilutbetalingAarsak['hendelseTyper'];
   readOnly: boolean;
   behandlePerioderSamlet: boolean;
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
 };
 
 const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
@@ -47,7 +48,7 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
   årsaker,
   readOnly,
   behandlePerioderSamlet,
-  getKodeverknavn,
+  kodeverkSamlingFpTilbake,
 }) => {
   const { control, watch, setValue, getValues } = formHooks.useFormContext<FormValues>();
   const { fields } = formHooks.useFieldArray({
@@ -91,7 +92,10 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
                   name={`${FIELD_ARRAY_NAME}.${index}.årsak`}
                   selectValues={årsaker.map(a => (
                     <option key={a.hendelseType} value={a.hendelseType}>
-                      {getKodeverknavn(a.hendelseType, KodeverkType.HENDELSE_TYPE)}
+                      {
+                        kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(ht => ht.kode === a.hendelseType)
+                          ?.navn
+                      }
                     </option>
                   ))}
                   validate={[required]}
@@ -104,7 +108,7 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
                     name={`${FIELD_ARRAY_NAME}.${index}.${årsak}.underÅrsak`}
                     selectValues={hendelseUndertyper.map(a => (
                       <option key={a} value={a}>
-                        {getKodeverknavn(a, KodeverkType.HENDELSE_UNDERTYPE)}
+                        {kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_UNDERTYPE].find(hu => hu.kode === a)?.navn}
                       </option>
                     ))}
                     validate={[required]}

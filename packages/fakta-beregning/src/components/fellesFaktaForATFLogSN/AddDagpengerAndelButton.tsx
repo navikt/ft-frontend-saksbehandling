@@ -1,6 +1,6 @@
 import { Detail } from '@navikt/ds-react';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, KodeverkMedNavn } from '@navikt/ft-types';
+import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, Image } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { UseFieldArrayAppend } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import addCircleIcon from '../../images/add-circle.svg';
 import AndelFieldValue from '../../typer/FieldValues';
 import styles from './addAndelButton.module.css';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
   andel: aktivitetStatuser.filter(({ kode }) => kode === AktivitetStatus.DAGPENGER)[0].navn,
@@ -21,11 +22,11 @@ const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
 
 type OwnProps = {
   leggTilAndel: UseFieldArrayAppend<AndelFieldValue>;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
 };
 
-export const AddDagpengerAndelButton: FunctionComponent<OwnProps> = ({ leggTilAndel, alleKodeverk }) => {
-  const aktivitetStatuser = alleKodeverk[KodeverkType.AKTIVITET_STATUS];
+export const AddDagpengerAndelButton: FunctionComponent<OwnProps> = ({ leggTilAndel, kodeverkSamling }) => {
+  const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS];
   const intl = useIntl();
   return (
     <FlexRow className={styles.buttonRow}>

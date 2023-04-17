@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -11,7 +10,6 @@ import {
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
 import { Accordion, Label } from '@navikt/ds-react';
@@ -27,6 +25,7 @@ import FordelPeriodeFieldArray from './FordelPeriodeFieldArray';
 
 import styles from './fordelBeregningsgrunnlagPeriodePanel.module.css';
 import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const classNames = classnames.bind(styles);
 
@@ -84,7 +83,7 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   showPanel: (...args: any[]) => any;
   beregningsgrunnlag: Beregningsgrunnlag;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   fordelingsperiode: FordelBeregningsgrunnlagPeriode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
@@ -99,7 +98,7 @@ interface StaticFunctions {
     bgPeriode: BeregningsgrunnlagPeriodeProp,
     skjaeringstidspunktBeregning: string,
     harKunYtelse: boolean,
-    getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+    kodeverkSamling: KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   ) => FordelBeregningsgrunnlagAndelValues[];
 }
@@ -117,7 +116,7 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   open,
   showPanel,
   beregningsgrunnlag,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fordelBGFieldArrayName,
   fordelingsperiode,
@@ -146,7 +145,7 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
             skalKunneEndreRefusjon={!!fordelingsperiode.skalKunneEndreRefusjon}
             periodeFom={fordelingsperiode.fom}
             isAksjonspunktClosed={isAksjonspunktClosed}
-            alleKodeverk={alleKodeverk}
+            kodeverkSamling={kodeverkSamling}
             beregningsgrunnlag={beregningsgrunnlag}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             vilkårperiodeFieldIndex={fieldIndex}
@@ -213,7 +212,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
   bgPeriode: BeregningsgrunnlagPeriodeProp,
   skjaeringstidspunktBeregning: string,
   harKunYtelse: boolean,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagAndelValues[] => {
   if (!periode || !periode.fordelBeregningsgrunnlagAndeler) {
@@ -222,7 +221,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
   return periode.fordelBeregningsgrunnlagAndeler.map(andel => {
     const bgAndel = finnRiktigAndel(andel, bgPeriode);
     return {
-      ...setGenerellAndelsinfo(andel, harKunYtelse, getKodeverknavn, arbeidsgiverOpplysningerPerId),
+      ...setGenerellAndelsinfo(andel, harKunYtelse, kodeverkSamling, arbeidsgiverOpplysningerPerId),
       ...setArbeidsforholdInitialValues(andel),
       andelIArbeid: settAndelIArbeid(andel.andelIArbeid || []),
       fordelingForrigeBehandling: finnBeløpFraForrigeBehandling(andel),

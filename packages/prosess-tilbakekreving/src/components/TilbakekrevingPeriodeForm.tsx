@@ -16,12 +16,7 @@ import {
   FlexContainer,
 } from '@navikt/ft-ui-komponenter';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import {
-  KodeverkMedNavn,
-  AlleKodeverkTilbakekreving,
-  FeilutbetalingPerioderWrapper,
-  DetaljertFeilutbetalingPeriode,
-} from '@navikt/ft-types';
+import { KodeverkMedNavn, FeilutbetalingPerioderWrapper, DetaljertFeilutbetalingPeriode } from '@navikt/ft-types';
 
 import sarligGrunn from '../kodeverk/sarligGrunn';
 import Aktsomhet, { AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
@@ -37,6 +32,7 @@ import AktsomhetFormPanel, {
 import DataForPeriode from '../types/dataForPeriodeTsType';
 
 import styles from './tilbakekrevingPeriodeForm.module.css';
+import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -82,7 +78,7 @@ interface OwnProps {
   readOnly: boolean;
   oppdaterPeriode: (...args: any[]) => any;
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[];
-  alleKodeverk: AlleKodeverkTilbakekreving;
+  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   antallPerioderMedAksjonspunkt: number;
 }
 
@@ -93,7 +89,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
   readOnly,
   oppdaterPeriode,
   vilkarsVurdertePerioder,
-  alleKodeverk,
+  kodeverkSamlingFpTilbake,
   antallPerioderMedAksjonspunkt,
 }) => {
   const intl = useIntl();
@@ -123,10 +119,10 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
   const forrigeHandletUaktsomhetsgrad = usePrevious(handletUaktsomhetsgrad);
 
   const reduserteBelop = data.redusertBeloper;
-  const sarligGrunnTyper = alleKodeverk[TilbakekrevingKodeverkType.SARLIG_GRUNN];
-  const vilkarResultatTyper = alleKodeverk[TilbakekrevingKodeverkType.VILKAR_RESULTAT];
+  const sarligGrunnTyper = kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.SARLIG_GRUNN];
+  const vilkarResultatTyper = kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.VILKAR_RESULTAT];
   const aktsomhetTyper = AKTSOMHET_REKKEFØLGE.map(a =>
-    alleKodeverk[TilbakekrevingKodeverkType.AKTSOMHET].find((el: KodeverkMedNavn) => el.kode === a),
+    kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.AKTSOMHET].find((el: KodeverkMedNavn) => el.kode === a),
   );
 
   const onEndrePeriodeForKopi = (event: any, vurdertePerioder: CustomVilkarsVurdertePeriode[]) => {

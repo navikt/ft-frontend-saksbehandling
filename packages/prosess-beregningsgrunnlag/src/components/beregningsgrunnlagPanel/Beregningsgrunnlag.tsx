@@ -2,7 +2,6 @@ import React, { FunctionComponent, ReactElement } from 'react';
 
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   BeregningsgrunnlagAndel,
@@ -32,6 +31,7 @@ import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntek
 import NaeringsopplysningsPanel from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import beregningStyles from './beregningsgrunnlag.module.css';
 import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   ProsessBeregningsgrunnlagAvklaringsbehovCode;
@@ -60,7 +60,7 @@ const createRelevantePaneler = (
   relevanteStatuser: RelevanteStatuserProp,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   gjelderBesteberegning: boolean,
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   sammenligningsgrunnlag?: SammenligningsgrunlagProp[],
   sammenligningsGrunnlagInntekter?: Inntektsgrunnlag,
@@ -70,7 +70,7 @@ const createRelevantePaneler = (
       <GrunnlagForAarsinntektPanelAT
         alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
         allePerioder={allePerioder}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
     )}
@@ -147,7 +147,7 @@ type OwnProps = {
   relevanteStatuser: RelevanteStatuserProp;
   allePerioder?: BeregningsgrunnlagPeriodeProp[];
   gjelderBesteberegning: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   sammenligningsGrunnlagInntekter?: Inntektsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   sammenligningsgrunnlag?: SammenligningsgrunlagProp[];
@@ -166,7 +166,7 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
   relevanteStatuser,
   allePerioder,
   gjelderBesteberegning,
-  alleKodeverk,
+  kodeverkSamling,
   sammenligningsGrunnlagInntekter,
   arbeidsgiverOpplysningerPerId,
   sammenligningsgrunnlag,
@@ -180,7 +180,7 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
     relevanteStatuser,
     allePerioder,
     gjelderBesteberegning,
-    alleKodeverk,
+    kodeverkSamling,
     arbeidsgiverOpplysningerPerId,
     sammenligningsgrunnlag,
     sammenligningsGrunnlagInntekter,

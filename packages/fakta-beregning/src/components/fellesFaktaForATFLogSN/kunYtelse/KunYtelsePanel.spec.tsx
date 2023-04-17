@@ -2,6 +2,7 @@ import { Inntektskategori } from '@navikt/ft-kodeverk';
 
 import KunYtelsePanel, { brukersAndelFieldArrayName } from './KunYtelsePanel';
 import { besteberegningField } from './KunYtelseBesteberegningPanel';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 const faktaOmBeregningAndel1 = {
   andelsnr: 1,
@@ -19,7 +20,7 @@ const faktaOmBeregningAndel2 = {
   aktivitetStatus: 'BA',
 };
 
-const alleKodeverk = {
+const kodeverkSamling = {
   OpptjeningAktivitetType: [
     {
       kode: 'ARBEID',
@@ -34,7 +35,7 @@ const alleKodeverk = {
       kodeverk: 'AKTIVITET_STATUS',
     },
   ],
-} as any;
+} as KodeverkForPanel;
 
 const faktaOmBeregningAndeler = [faktaOmBeregningAndel1, faktaOmBeregningAndel2];
 
@@ -94,7 +95,7 @@ describe('<KunYtelsePanel>', () => {
       fodendeKvinneMedDP: false,
       andeler: [andel1, andel2],
     };
-    const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, alleKodeverk);
+    const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
     const andeler = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
@@ -134,7 +135,7 @@ describe('<KunYtelsePanel>', () => {
       fodendeKvinneMedDP: true,
       erBesteberegning: true,
     };
-    const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, alleKodeverk);
+    const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
     const andeler = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
@@ -177,7 +178,7 @@ describe('<KunYtelsePanel>', () => {
       fodendeKvinneMedDP: true,
       erBesteberegning: false,
     };
-    const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, alleKodeverk);
+    const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
     const andeler = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);

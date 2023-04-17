@@ -1,10 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import {
-  AlleKodeverk,
-  ArbeidsgiverOpplysningerPerId,
-  AvklarBeregningAktiviteter,
-  BeregningAktivitet,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import {
@@ -14,6 +9,7 @@ import {
 } from './VurderAktiviteterTabell';
 import AvklarAktiviteterValues, { AktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import VurderAktiviteterTabellReactHookForm from './VurderAktiviteterTabellReactHookForm';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const harListeAktivitetSomSkalBrukes = (
   mapping: AvklarBeregningAktiviteter,
@@ -142,7 +138,7 @@ type OwnProps = {
   isAvklaringsbehovClosed: boolean;
   harAvklaringsbehov: boolean;
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[];
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   values: AvklarAktiviteterValues;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
@@ -161,7 +157,7 @@ interface StaticFunctions {
   ) => boolean;
   buildInitialValues: (
     aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-    alleKodeverk: AlleKodeverk,
+    kodeverkSamling: KodeverkForPanel,
     erOverstyrt: boolean,
     harAvklaringsbehov: boolean,
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -180,7 +176,7 @@ export const VurderAktiviteterPanel: FunctionComponent<OwnProps> & StaticFunctio
   aktiviteterTomDatoMapping,
   erOverstyrt,
   harAvklaringsbehov,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }) => {
@@ -196,7 +192,7 @@ export const VurderAktiviteterPanel: FunctionComponent<OwnProps> & StaticFunctio
           aktiviteter={aktivitetMap.aktiviteter}
           erOverstyrt={erOverstyrt}
           harAvklaringsbehov={harAvklaringsbehov}
-          alleKodeverk={alleKodeverk}
+          kodeverkSamling={kodeverkSamling}
           tomDatoForAktivitetGruppe={aktivitetMap.tom}
           valgtSkjæringstidspunkt={gjeldendeSkjæringstidspunkt}
           ingenAktiviterErBrukt={gjeldendeSkjæringstidspunkt === undefined}
@@ -279,7 +275,7 @@ const utledGjeldendeSkjæringstidspunktVedPreutfylling = (
 
 VurderAktiviteterPanel.buildInitialValues = (
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-  alleKodeverk: AlleKodeverk,
+  kodeverkSamling: KodeverkForPanel,
   erOverstyrt: boolean,
   harAvklaringsbehov: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -295,7 +291,7 @@ VurderAktiviteterPanel.buildInitialValues = (
       ...initialValues,
       ...buildInitialValuesForTabell(
         liste.aktiviteter,
-        alleKodeverk,
+        kodeverkSamling,
         erOverstyrt,
         harAvklaringsbehov,
         erLikEllerFør(gjeldendeSkjæringstidspunkt, liste.tom),

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import { Aktor } from '@navikt/ft-types';
-import { NavBrukerKjonn, FagsakStatus, RelasjonsRolleType, FagsakYtelseType } from '@navikt/ft-kodeverk';
+import { NavBrukerKjonn, FagsakStatus, RelasjonsRolleType, FagsakYtelseType, KodeverkType } from '@navikt/ft-kodeverk';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';
 
 import AktorSakIndex from './AktorSakIndex';
@@ -35,7 +35,8 @@ const Template: StoryFn<{
   <AktorSakIndex
     valgtAktorId="123"
     aktorInfo={aktorInfo}
-    kodeverkSamling={alleKodeverk}
+    fagsakStatuser={alleKodeverk[KodeverkType.FAGSAK_STATUS]}
+    fagsakYtelseTyper={alleKodeverk[KodeverkType.FAGSAK_YTELSE]}
     renderSomLenke={(className, fagsakKomponent) => (
       <button type="button" className={className}>
         {fagsakKomponent}

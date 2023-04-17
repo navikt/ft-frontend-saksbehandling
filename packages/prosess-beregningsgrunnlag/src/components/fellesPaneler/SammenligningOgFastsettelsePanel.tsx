@@ -5,7 +5,6 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { AktivitetStatus, SammenligningType } from '@navikt/ft-kodeverk';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -22,6 +21,7 @@ import { BeregningAksjonspunktSubmitType } from '../../types/interface/Beregning
 import BeregningFormValues from '../../types/BeregningFormValues';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -141,7 +141,7 @@ const finnBeregnetInntekt = (
 
 type OwnProps = {
   readOnly: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   readOnlySubmitButton: boolean;
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];
   relevanteStatuser: RelevanteStatuserProp;
@@ -201,7 +201,7 @@ const grupperPrLovparagraf = (beregningsgrunnlagListe: Beregningsgrunnlag[]) =>
 const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   readOnly,
   readOnlySubmitButton,
-  alleKodeverk,
+  kodeverkSamling,
   relevanteStatuser,
   arbeidsgiverOpplysningerPerId,
   gjelderBesteberegning,
@@ -270,7 +270,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
               <AksjonspunktBehandler
                 readOnly={readOnly}
                 lovparagraf={lovparagraf}
-                alleKodeverk={alleKodeverk}
+                kodeverkSamling={kodeverkSamling}
                 readOnlySubmitButton={readOnlySubmitButton}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 beregningsgrunnlagListe={beregningsgrunnlagListe}

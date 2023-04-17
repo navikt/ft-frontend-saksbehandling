@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import {
-  AlleKodeverk,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -20,6 +19,7 @@ import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpefunksjoner';
 import VurderFaktaContext, { BeregningsgrunnlagIndexContext, GetErrorsContext } from './VurderFaktaContext';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -30,7 +30,7 @@ interface OwnProps {
   erOverstyrer: boolean;
   readOnly: boolean;
   submittable: boolean;
-  alleKodeverk: AlleKodeverk;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   vilkarsperiode: Vilkarperiode;
@@ -86,7 +86,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   erOverstyrer,
   readOnly,
-  alleKodeverk,
+  kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   submittable,
   updateOverstyring,
@@ -121,7 +121,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
         isAksjonspunktClosed={isAksjonspunktClosed(avklaringsbehov)}
         avklaringsbehov={avklaringsbehov}
         beregningsgrunnlag={beregningsgrunnlag}
-        alleKodeverk={alleKodeverk}
+        kodeverkSamling={kodeverkSamling}
         erOverstyrer={erOverstyrer}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         updateOverstyring={updateOverstyring}
@@ -162,4 +162,4 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   );
 };
 
-export default VurderFaktaBeregningField as any;
+export default VurderFaktaBeregningField;
