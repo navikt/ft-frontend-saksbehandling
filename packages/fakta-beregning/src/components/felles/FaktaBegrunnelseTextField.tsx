@@ -18,7 +18,7 @@ type OwnProps = {
   hasBegrunnelse: boolean;
   label?: string;
   hasVurderingText?: boolean;
-  name?: string;
+  name: string;
 };
 
 export type FormValues = {
