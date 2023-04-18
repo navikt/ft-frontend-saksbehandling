@@ -24,7 +24,7 @@
     "storybook": "storybook dev --quiet -p 7003"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.12",
+    "@navikt/ds-css": "2.8.13",
     "@navikt/ds-react": "2.8.12",
     "@navikt/ft-form-validators": "^2.0.16",
     "@navikt/ft-types": "^2.1.0",
