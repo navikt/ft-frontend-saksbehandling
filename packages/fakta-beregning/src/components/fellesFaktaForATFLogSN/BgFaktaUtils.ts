@@ -122,8 +122,6 @@ const erNyoppstartetFrilanser = (field: AndelFieldIdentifikator, values: any): b
 
 const skalHaBesteberegning = (values: FaktaOmBeregningAksjonspunktValues): boolean => values[besteberegningField];
 
-// export const skalHaBesteberegningSelector = createSelector([getFormValuesForBeregning], skalHaBesteberegning);
-
 // Lonnsendring
 
 const harLonnsendringUtenInntektsmelding = (values, field, faktaOmBeregning) =>

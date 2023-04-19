@@ -37,6 +37,7 @@
 }
 .inntektTable > tbody > tr > td:nth-child(2) {
   max-width: 50px;
+  text-align: left;
 }
 .inntektTable > thead > tr > td:nth-child(2) {
   text-align: left;
@@ -48,17 +49,12 @@
   text-align: right;
 }
 .inntektTable > tbody > tr > td {
+  text-align: right;
   vertical-align: middle;
 }
 .inntektTable > tbody > tr > td:first-child {
   padding-left: 0;
   text-align: left;
-}
-.inntektTable > tbody > tr > td:nth-child(2) {
-  text-align: left;
-}
-.inntektTable > tbody > tr > td {
-  text-align: right;
 }
 .inntektTable > tbody > tr > td:last-child {
   text-align: right;
