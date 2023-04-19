@@ -616,7 +616,7 @@ AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046.args = {
       lagFaktaOmFordeling(
         [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
         [
-          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0, undefined)], false, false, '2019-08-05', '2019-11-26'),
+          lagFordelPeriode([lagFordelingsandel(1, 'AAP', 0)], false, false, '2019-08-05', '2019-11-26'),
           lagFordelPeriode(
             [
               lagFordelingsandel(2, 'AAP', 0, 100000),

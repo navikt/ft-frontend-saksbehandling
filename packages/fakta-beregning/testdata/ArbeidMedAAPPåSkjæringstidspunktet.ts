@@ -15,6 +15,7 @@ export const beregningsgrunnlag = [
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPeriodeFom: '2020-01-13',
+        beregningsgrunnlagPeriodeTom: '9999-12-31',
         beregnetPrAar: 0,
         bruttoPrAar: 0,
         bruttoInkludertBortfaltNaturalytelsePrAar: 0,

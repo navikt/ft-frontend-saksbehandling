@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
+import createVisningsnavnFakta from '../ArbeidsforholdHelper';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
 import styles from './vurderAktiviteterTabell.module.css';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';

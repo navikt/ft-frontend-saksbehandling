@@ -3,7 +3,7 @@ import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } fro
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import AvklarAktiviteterValues, { AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
+import createVisningsnavnFakta from '../ArbeidsforholdHelper';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 /**

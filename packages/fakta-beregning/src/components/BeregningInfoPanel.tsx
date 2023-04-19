@@ -34,7 +34,7 @@ type OwnProps = {
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter: boolean;
   kodeverkSamling: KodeverkForPanel;
-  beregningsgrunnlag?: Beregningsgrunnlag[];
+  beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   setFormData: (data: any) => void;
@@ -64,7 +64,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   skalKunneAvbryteOverstyring,
 }) => {
   const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter(
-    ap => relevanteKoder.some(kode => kode === ap.definisjon) && ap.kanLoses !== false,
+    ap => relevanteKoder.some(kode => kode === ap.definisjon) && ap.kanLoses,
   );
   const avklarAktiviteterReadOnly =
     readOnly ||

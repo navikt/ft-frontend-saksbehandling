@@ -8,10 +8,12 @@ import {
 import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
 import {
   AndelForFaktaOmBeregning,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
   Vilkar,
+  Vilkarperiode,
 } from '@navikt/ft-types';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
@@ -64,7 +66,7 @@ const lagBeregningsgrunnlag = (
   andeler: FaktaOmBeregningAndel[],
   faktaOmBeregning: FaktaOmBeregning,
   stp = '2022-03-02',
-  avklaringsbehov = [],
+  avklaringsbehov: BeregningAvklaringsbehov[] = [],
 ): Beregningsgrunnlag =>
   ({
     vilkårsperiodeFom: stp,
@@ -74,9 +76,9 @@ const lagBeregningsgrunnlag = (
     },
     avklaringsbehov,
     skjaeringstidspunktBeregning: stp,
-    dekningsgrad: null,
-    grunnbeløp: null,
-    erOverstyrtInntekt: null,
+    dekningsgrad: 100,
+    grunnbeløp: 100,
+    erOverstyrtInntekt: false,
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPeriodeFom: stp,
@@ -194,15 +196,15 @@ const vilkar: Vilkar = {
   ],
 };
 
-const lagVilkar = perioder => ({
+const lagVilkar = (perioder: Vilkarperiode[]): Vilkar => ({
   vilkarType: '',
   overstyrbar: true,
   perioder: perioder.map(p => ({
     vurderesIBehandlingen: p.vurderesIBehandlingen,
     merknadParametere: { name: '' },
     periode: {
-      fom: p.fom,
-      tom: p.tom,
+      fom: p.periode.fom,
+      tom: p.periode.tom,
     },
     vilkarStatus: 'IKKE_VURDERT',
   })),
@@ -424,8 +426,8 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: StoryFn
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
       vilkar={lagVilkar([
-        { fom: '2022-03-02', tom: '2022-03-10', vurderesIBehandlingen: false },
-        { fom: '2022-03-15', tom: '2022-04-02', vurderesIBehandlingen: true },
+        { periode: { fom: '2022-03-02', tom: '2022-03-10' }, vurderesIBehandlingen: false } as Vilkarperiode,
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
       ])}
     />
   );

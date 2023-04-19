@@ -1,5 +1,6 @@
 import {
   ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   StandardFaktaPanelProps,
   Vilkar,
@@ -17,7 +18,6 @@ import BeregningInfoPanel from './components/BeregningInfoPanel';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
-import mapAvklaringsbehovKode from './typer/interface/AvklaringsbehovMapping';
 import { GetErrorsContext } from './components/fellesFaktaForATFLogSN/VurderFaktaContext';
 import { formNameVurderFaktaBeregning } from './components/BeregningFormUtils';
 import KodeverkForPanel from './typer/kodeverkForPanel';
@@ -39,7 +39,7 @@ const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaring
 
 const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
-  return vilkårPeriode.erForlengelse === true;
+  return vilkårPeriode?.erForlengelse === true;
 };
 
 const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
@@ -55,15 +55,13 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => 
   return `${dayjs(stpOpptjening).format(DDMMYYYY_DATE_FORMAT)}`;
 };
 
-const harAvklaringsbehovIPanel = avklaringsbehov => {
+const harAvklaringsbehovIPanel = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
   const harBehovForAvklaring = !!avklaringsbehov;
   if (harBehovForAvklaring) {
     const harVurderFaktaAksjonspunkt = avklaringsbehov.some(
-      ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.kanLoses !== false,
+      ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN && ap.kanLoses,
     );
-    const harAvklarAktiviteterAP = avklaringsbehov.some(
-      ap => ap.definisjon === AVKLAR_AKTIVITETER && ap.kanLoses !== false,
-    );
+    const harAvklarAktiviteterAP = avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && ap.kanLoses);
     return harVurderFaktaAksjonspunkt || harAvklarAktiviteterAP;
   }
   return false;
@@ -73,30 +71,17 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[])
   const aktuellPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning);
   return (
     harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
-    aktuellPeriode.vurderesIBehandlingen &&
+    aktuellPeriode?.vurderesIBehandlingen &&
     !aktuellPeriode.erForlengelse
   );
 };
 
 type AksjonspunktDataDef = SubmitBeregningType[];
 
-function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
-  const res = [...beregningsgrunnlag];
-  for (let i = 0; i < res.length; i += 1) {
-    const bg = res[i];
-    for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
-      const a = bg.avklaringsbehov[j];
-      // @ts-ignore
-      a.definisjon = mapAvklaringsbehovKode(a.definisjon);
-    }
-  }
-  return res;
-}
-
 const BeregningFaktaIndex: FunctionComponent<
   OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>
 > = ({
-  beregningsgrunnlag,
+  beregningsgrunnlag = [],
   kodeverkSamling,
   submitCallback,
   readOnly,
@@ -114,10 +99,9 @@ const BeregningFaktaIndex: FunctionComponent<
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
-  const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag);
 
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
-  const aktivtBeregningsgrunnlag = konverterteBg[aktivtBeregningsgrunnlagIndeks];
+  const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
   const vilkårsperioder = vilkar.perioder;
@@ -133,7 +117,7 @@ const BeregningFaktaIndex: FunctionComponent<
             onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
           >
             <Tabs.List>
-              {konverterteBg.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+              {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
                 <Tabs.Tab
                   key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
                   value={currentBeregningsgrunnlagIndex.toString()}
@@ -152,7 +136,7 @@ const BeregningFaktaIndex: FunctionComponent<
       <GetErrorsContext.Provider value={getVurderFaktaBeregningFormErrors}>
         <BeregningInfoPanel
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          beregningsgrunnlag={konverterteBg}
+          beregningsgrunnlag={beregningsgrunnlag}
           kodeverkSamling={kodeverkSamling}
           avklaringsbehov={aktiveAvklaringsBehov}
           submitCallback={submitCallback}
