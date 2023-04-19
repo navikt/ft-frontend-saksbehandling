@@ -85,6 +85,31 @@ function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []
   return forrigeAndelIArbeid.sort((a, b) => a - b).join('_') !== andelIArbeid.sort((a, b) => a - b).join('-');
 }
 
+const harLikeAndeler = (
+  fordelAndeler: FordelBeregningsgrunnlagAndel[],
+  forrigeAndeler: FordelBeregningsgrunnlagAndel[],
+): boolean => {
+  for (let i = 0; i < fordelAndeler.length; i += 1) {
+    const andelIPeriode = fordelAndeler[i];
+    const andelFraForrige = forrigeAndeler.find(
+      a =>
+        a.aktivitetStatus === andelIPeriode.aktivitetStatus &&
+        a.inntektskategori === andelIPeriode.inntektskategori &&
+        erArbeidsforholdLike(a, andelIPeriode),
+    );
+    if (andelFraForrige === undefined) {
+      return false;
+    }
+    if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
+      return false;
+    }
+    if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
+      return false;
+    }
+  }
+  return true;
+};
+
 const harIngenRelevantEndringForFordeling = (
   fordelPeriode: FordelBeregningsgrunnlagPeriode,
   forrigeEndringPeriode: FordelBeregningsgrunnlagPeriode,
@@ -108,26 +133,7 @@ const harIngenRelevantEndringForFordeling = (
   if (kanSlåSammenOverHelg) {
     return true;
   }
-
-  for (let i = 0; i < fordelAndeler.length; i += 1) {
-    const andelIPeriode = fordelAndeler[i];
-    const andelFraForrige = forrigeAndeler.find(
-      a =>
-        a.aktivitetStatus === andelIPeriode.aktivitetStatus &&
-        a.inntektskategori === andelIPeriode.inntektskategori &&
-        erArbeidsforholdLike(a, andelIPeriode),
-    );
-    if (andelFraForrige === undefined) {
-      return false;
-    }
-    if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
-      return false;
-    }
-    if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
-      return false;
-    }
-  }
-  return true;
+  return harLikeAndeler(fordelAndeler, forrigeAndeler);
 };
 
 const harPeriodeSomKanKombineresMedForrige = (

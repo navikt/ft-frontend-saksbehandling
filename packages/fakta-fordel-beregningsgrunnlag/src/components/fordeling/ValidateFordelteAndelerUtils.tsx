@@ -115,6 +115,57 @@ export const validateUlikeAndeler = (
   return undefined;
 };
 
+const sattBeløpErLavereEnnField = (field: FordelBeregningsgrunnlagAndelValues, belopsInfo: Refusjonsinfo): boolean =>
+  (!!field.refusjonskravFraInntektsmelding || field.refusjonskravFraInntektsmelding === 0) &&
+  (!!belopsInfo.refusjonskravFraInntektsmelding || belopsInfo.refusjonskravFraInntektsmelding === 0) &&
+  belopsInfo.refusjonskravFraInntektsmelding < field.refusjonskravFraInntektsmelding;
+
+const oppdaterInfoListe = (
+  vilkårperiodeFieldIndex: number,
+  getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
+  fieldname: string,
+  field: FordelBeregningsgrunnlagAndelValues,
+  fieldIndex: number,
+  arbeidsforholdRefusjonsbelop: Refusjonsinfo[],
+): void => {
+  const infoIndex = arbeidsforholdRefusjonsbelop.findIndex(
+    ({ arbeidsforholdId, arbeidsgiverId }) =>
+      arbeidsforholdId === field.arbeidsforholdId && arbeidsgiverId === field.arbeidsgiverId,
+  );
+  const refusjon = getValues(
+    `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${fieldIndex}.refusjonskrav`,
+  );
+  if (infoIndex >= 0) {
+    const belopsInfo = arbeidsforholdRefusjonsbelop[infoIndex];
+    if (sattBeløpErLavereEnnField(field, belopsInfo)) {
+      belopsInfo.refusjonskravFraInntektsmelding = field.refusjonskravFraInntektsmelding;
+    }
+    if (refusjon !== null && refusjon !== undefined) {
+      belopsInfo.totalRefusjon += Number(removeSpacesFromNumber(refusjon));
+    }
+  } else {
+    const {
+      refusjonskravFraInntektsmelding,
+      arbeidsforholdId,
+      arbeidsgiverNavn,
+      arbeidsgiverId,
+      eksternArbeidsforholdId,
+    } = field;
+    let totalRefusjon = 0;
+    if (refusjon !== null && refusjon !== undefined) {
+      totalRefusjon = Number(removeSpacesFromNumber(refusjon));
+    }
+    arbeidsforholdRefusjonsbelop.push({
+      arbeidsforholdId,
+      eksternArbeidsforholdId,
+      arbeidsgiverNavn,
+      arbeidsgiverId,
+      refusjonskravFraInntektsmelding,
+      totalRefusjon,
+    });
+  }
+};
+
 const finnArbeidsforholdRefusjonsinfoListe = (
   vilkårperiodeFieldIndex: number,
   getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
@@ -124,48 +175,7 @@ const finnArbeidsforholdRefusjonsinfoListe = (
   const arbeidsforholdRefusjonsbelop: Refusjonsinfo[] = [];
   fields.forEach((field, index) => {
     if (field.arbeidsforholdId !== '') {
-      const infoIndex = arbeidsforholdRefusjonsbelop.findIndex(
-        ({ arbeidsforholdId, arbeidsgiverId }) =>
-          arbeidsforholdId === field.arbeidsforholdId && arbeidsgiverId === field.arbeidsgiverId,
-      );
-      const refusjon = getValues(
-        `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`,
-      );
-      if (infoIndex >= 0) {
-        const belopsInfo = arbeidsforholdRefusjonsbelop[infoIndex];
-        if (
-          (field.refusjonskravFraInntektsmelding || field.refusjonskravFraInntektsmelding === 0) &&
-          (belopsInfo.refusjonskravFraInntektsmelding || belopsInfo.refusjonskravFraInntektsmelding === 0) &&
-          belopsInfo.refusjonskravFraInntektsmelding < field.refusjonskravFraInntektsmelding
-        ) {
-          arbeidsforholdRefusjonsbelop[infoIndex].refusjonskravFraInntektsmelding =
-            field.refusjonskravFraInntektsmelding;
-        }
-        if (refusjon !== null && refusjon !== undefined) {
-          arbeidsforholdRefusjonsbelop[infoIndex].totalRefusjon =
-            belopsInfo.totalRefusjon + Number(removeSpacesFromNumber(refusjon));
-        }
-      } else {
-        const {
-          refusjonskravFraInntektsmelding,
-          arbeidsforholdId,
-          arbeidsgiverNavn,
-          arbeidsgiverId,
-          eksternArbeidsforholdId,
-        } = field;
-        let totalRefusjon = 0;
-        if (refusjon !== null && refusjon !== undefined) {
-          totalRefusjon = Number(removeSpacesFromNumber(refusjon));
-        }
-        arbeidsforholdRefusjonsbelop.push({
-          arbeidsforholdId,
-          eksternArbeidsforholdId,
-          arbeidsgiverNavn,
-          arbeidsgiverId,
-          refusjonskravFraInntektsmelding,
-          totalRefusjon,
-        });
-      }
+      oppdaterInfoListe(vilkårperiodeFieldIndex, getValues, fieldname, field, index, arbeidsforholdRefusjonsbelop);
     }
   });
   return arbeidsforholdRefusjonsbelop;
