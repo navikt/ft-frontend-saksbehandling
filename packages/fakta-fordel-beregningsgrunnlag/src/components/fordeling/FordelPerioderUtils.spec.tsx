@@ -64,7 +64,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -97,7 +97,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.NATURALYTELSE_TILKOMMER],
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -130,7 +130,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.NATURALYTELSE_BORTFALT],
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -165,7 +165,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -200,7 +200,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(2);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
@@ -237,7 +237,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.REFUSJON_OPPHOERER],
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(2);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
@@ -274,7 +274,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(2);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
@@ -311,7 +311,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -351,7 +351,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(2);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
@@ -394,7 +394,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2022-11-28');
     expect(nyePerioder[0].tom).toBe('2022-11-30');
@@ -434,7 +434,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2022-08-14');
@@ -474,7 +474,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2022-08-13');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -515,7 +515,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2022-08-17');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -567,7 +567,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -620,7 +620,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -655,7 +655,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 200_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(2);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');
@@ -692,7 +692,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         bruttoPrAar: 500_000,
       },
     ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder, undefined);
+    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(2);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('2019-02-01');

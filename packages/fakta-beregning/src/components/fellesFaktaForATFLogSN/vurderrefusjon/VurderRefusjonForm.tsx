@@ -6,7 +6,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
-import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
+import createVisningsnavnFakta from '../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
