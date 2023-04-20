@@ -82,15 +82,16 @@ function harUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
 }
 
 function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
-  return forrigeAndelIArbeid.sort((a, b) => a - b).join('_') !== andelIArbeid.sort((a, b) => a - b).join('-');
+  forrigeAndelIArbeid.sort((a, b) => a - b);
+  andelIArbeid.sort((a, b) => a - b);
+  return forrigeAndelIArbeid.join('_') !== andelIArbeid.join('-');
 }
 
-const harLikeAndeler = (
+const finnesDiffIAndeler = (
   fordelAndeler: FordelBeregningsgrunnlagAndel[],
   forrigeAndeler: FordelBeregningsgrunnlagAndel[],
 ): boolean => {
-  for (let i = 0; i < fordelAndeler.length; i += 1) {
-    const andelIPeriode = fordelAndeler[i];
+  const finnesAndelMedDiff = fordelAndeler.some(andelIPeriode => {
     const andelFraForrige = forrigeAndeler.find(
       a =>
         a.aktivitetStatus === andelIPeriode.aktivitetStatus &&
@@ -98,16 +99,17 @@ const harLikeAndeler = (
         erArbeidsforholdLike(a, andelIPeriode),
     );
     if (andelFraForrige === undefined) {
-      return false;
+      return true;
     }
     if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
-      return false;
+      return true;
     }
     if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
-      return false;
+      return true;
     }
-  }
-  return true;
+    return false;
+  });
+  return finnesAndelMedDiff;
 };
 
 const harIngenRelevantEndringForFordeling = (
@@ -133,7 +135,7 @@ const harIngenRelevantEndringForFordeling = (
   if (kanSlåSammenOverHelg) {
     return true;
   }
-  return harLikeAndeler(fordelAndeler, forrigeAndeler);
+  return !finnesDiffIAndeler(fordelAndeler, forrigeAndeler);
 };
 
 const harPeriodeSomKanKombineresMedForrige = (

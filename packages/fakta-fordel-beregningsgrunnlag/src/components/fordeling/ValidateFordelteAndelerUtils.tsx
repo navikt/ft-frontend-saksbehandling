@@ -42,15 +42,8 @@ const erLikeFields = (field1: Andelsnøkkel, field2: Andelsnøkkel): boolean =>
   field1.aktivitetstatus === field2.aktivitetstatus &&
   field1.arbeidsforholdId === field2.arbeidsforholdId;
 
-const erIListe = (andelerÅSjekkeMot: Andelsnøkkel[], andelÅSjekke: Andelsnøkkel): boolean => {
-  for (let i = 0; i < andelerÅSjekkeMot.length; i += 1) {
-    const andel = andelerÅSjekkeMot[i];
-    if (erLikeFields(andelÅSjekke, andel)) {
-      return true;
-    }
-  }
-  return false;
-};
+const erIListe = (andelerÅSjekkeMot: Andelsnøkkel[], andelÅSjekke: Andelsnøkkel): boolean =>
+  andelerÅSjekkeMot.some(andel => erLikeFields(andelÅSjekke, andel));
 
 const finnEksisterendeField = (
   fields: FordelBeregningsgrunnlagAndelValues[],
@@ -70,15 +63,14 @@ const lagAndelsnøkler = (
   fields: FordelBeregningsgrunnlagAndelValues[],
 ): Andelsnøkkel[] => {
   const liste: Andelsnøkkel[] = [];
-  for (let fieldIndex = 0; fieldIndex < fields.length; fieldIndex += 1) {
-    const field = fields[fieldIndex];
+  fields.forEach((field, index) => {
     if (field.nyAndel && (field.andelsnrRef || field.andelsnrRef === 0)) {
       const eksisterendeField = finnEksisterendeField(fields, field.andelsnrRef);
       liste.push({
         erNyAndel: field.nyAndel,
         aktivitetstatus: field.aktivitetStatus,
         inntektskategori: getValues(
-          `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.${fieldIndex}.inntektskategori`,
+          `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.${index}.inntektskategori`,
         ),
         arbeidsgiverIdent: eksisterendeField.arbeidsgiverId,
         arbeidsforholdId: eksisterendeField.arbeidsforholdId,
@@ -92,7 +84,7 @@ const lagAndelsnøkler = (
         arbeidsforholdId: field.arbeidsforholdId,
       });
     }
-  }
+  });
   return liste;
 };
 
@@ -104,15 +96,15 @@ export const validateUlikeAndeler = (
   intl: IntlShape,
 ): string | undefined => {
   const nøklerAvAndeler = lagAndelsnøkler(vilkårperiodeFieldIndex, getValues, fieldname, fields);
-  const andelerSomErSjekket = [];
-  for (let i = 0; i < nøklerAvAndeler.length; i += 1) {
-    const andel = nøklerAvAndeler[i];
-    if (erIListe(andelerSomErSjekket, andel)) {
-      return ulikeAndelerErrorMessage(intl);
+  const andelerSomErSjekket: Andelsnøkkel[] = [];
+  let finnesFeil = false;
+  nøklerAvAndeler.forEach(nøkkel => {
+    if (erIListe(andelerSomErSjekket, nøkkel)) {
+      finnesFeil = true;
     }
-    andelerSomErSjekket.push(andel);
-  }
-  return undefined;
+    andelerSomErSjekket.push(nøkkel);
+  });
+  return finnesFeil ? ulikeAndelerErrorMessage(intl) : undefined;
 };
 
 const sattBeløpErLavereEnnField = (field: FordelBeregningsgrunnlagAndelValues, belopsInfo: Refusjonsinfo): boolean =>
@@ -420,7 +412,7 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
   ] as string[];
   const statuserSomValideres = fields
     .filter(v => !!v.aktivitetStatus && statuserSomPrioriteresOverSN.includes(v.aktivitetStatus))
-    .map(v => v.aktivitetStatus) as string[]; // Trenger en as string her siden ts ikke ser at v.aktivitetStatus alltid er definert
+    .map(v => v.aktivitetStatus as string); // Trenger en as string her siden ts ikke ser at v.aktivitetStatus alltid er definert
   const sumFastsattBelop = finnFastsattBeløpForStatus(
     vilkårperiodeFieldIndex,
     getValues,
