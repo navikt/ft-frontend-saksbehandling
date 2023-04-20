@@ -2447,7 +2447,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-icons@npm:2.8.12, @navikt/ds-icons@npm:^2.8.12":
+"@navikt/ds-icons@npm:2.8.14":
+  version: 2.8.14
+  resolution: "@navikt/ds-icons@npm:2.8.14::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-icons%2F2.8.14%2F2bcaf506d31457a66598ac01f8c2dcf827036db0"
+  peerDependencies:
+    "@types/react": ^17.0.30 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  checksum: 400a00aac50dae11109f3d6cf88ee66396a158ae17917a8e89bce150b46dacfcb5503915c136392194b63fd1556658c0ab0e8872c7d8b0b23ba59fede607c324
+  languageName: node
+  linkType: hard
+
+"@navikt/ds-icons@npm:^2.8.12":
   version: 2.8.12
   resolution: "@navikt/ds-icons@npm:2.8.12::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-icons%2F2.8.12%2Fbf69b4cdfa066061f403a47fb9fd41ee03ae0e35"
   peerDependencies:
@@ -2489,7 +2499,7 @@ __metadata:
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
     "@navikt/ds-css": 2.8.12
-    "@navikt/ds-icons": 2.8.12
+    "@navikt/ds-icons": 2.8.14
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-form-hooks": ^4.0.18
     "@navikt/ft-form-validators": ^2.0.16
@@ -2546,7 +2556,7 @@ __metadata:
   resolution: "@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag"
   dependencies:
     "@navikt/ds-css": 2.8.12
-    "@navikt/ds-icons": 2.8.12
+    "@navikt/ds-icons": 2.8.14
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-form-hooks": ^4.0.18
     "@navikt/ft-form-validators": ^2.0.16
@@ -2736,7 +2746,7 @@ __metadata:
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
     "@navikt/ds-css": 2.8.12
-    "@navikt/ds-icons": 2.8.12
+    "@navikt/ds-icons": 2.8.14
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-utils": ^2.0.15
     "@popperjs/core": 2.11.7
@@ -3068,7 +3078,7 @@ __metadata:
   resolution: "@navikt/ft-sak-dekorator@workspace:packages/sak-dekorator"
   dependencies:
     "@navikt/ds-css": 2.8.12
-    "@navikt/ds-icons": 2.8.12
+    "@navikt/ds-icons": 2.8.14
     "@navikt/ds-react": 2.8.12
     "@navikt/ft-kodeverk": ^2.1.0
     "@navikt/ft-konstanter": ^2.0.11
