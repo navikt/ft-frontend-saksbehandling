@@ -82,8 +82,35 @@ function harUtbetalingIPeriode(periode: FordelBeregningsgrunnlagPeriode) {
 }
 
 function erUlike(forrigeAndelIArbeid: number[] = [], andelIArbeid: number[] = []) {
-  return forrigeAndelIArbeid.sort((a, b) => a - b).join('_') !== andelIArbeid.sort((a, b) => a - b).join('-');
+  forrigeAndelIArbeid.sort((a, b) => a - b);
+  andelIArbeid.sort((a, b) => a - b);
+  return forrigeAndelIArbeid.join('_') !== andelIArbeid.join('-');
 }
+
+const finnesDiffIAndeler = (
+  fordelAndeler: FordelBeregningsgrunnlagAndel[],
+  forrigeAndeler: FordelBeregningsgrunnlagAndel[],
+): boolean => {
+  const finnesAndelMedDiff = fordelAndeler.some(andelIPeriode => {
+    const andelFraForrige = forrigeAndeler.find(
+      a =>
+        a.aktivitetStatus === andelIPeriode.aktivitetStatus &&
+        a.inntektskategori === andelIPeriode.inntektskategori &&
+        erArbeidsforholdLike(a, andelIPeriode),
+    );
+    if (andelFraForrige === undefined) {
+      return true;
+    }
+    if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
+      return true;
+    }
+    if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
+      return true;
+    }
+    return false;
+  });
+  return finnesAndelMedDiff;
+};
 
 const harIngenRelevantEndringForFordeling = (
   fordelPeriode: FordelBeregningsgrunnlagPeriode,
@@ -108,26 +135,7 @@ const harIngenRelevantEndringForFordeling = (
   if (kanSlåSammenOverHelg) {
     return true;
   }
-
-  for (let i = 0; i < fordelAndeler.length; i += 1) {
-    const andelIPeriode = fordelAndeler[i];
-    const andelFraForrige = forrigeAndeler.find(
-      a =>
-        a.aktivitetStatus === andelIPeriode.aktivitetStatus &&
-        a.inntektskategori === andelIPeriode.inntektskategori &&
-        erArbeidsforholdLike(a, andelIPeriode),
-    );
-    if (andelFraForrige === undefined) {
-      return false;
-    }
-    if (erUlike(andelFraForrige.andelIArbeid, andelIPeriode.andelIArbeid)) {
-      return false;
-    }
-    if (andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar) {
-      return false;
-    }
-  }
-  return true;
+  return !finnesDiffIAndeler(fordelAndeler, forrigeAndeler);
 };
 
 const harPeriodeSomKanKombineresMedForrige = (

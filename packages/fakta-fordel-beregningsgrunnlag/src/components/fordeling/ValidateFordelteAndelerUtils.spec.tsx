@@ -277,14 +277,9 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = vi.fn((x: string): number | undefined => {
-      switch (x) {
-        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
-          return 250000;
-        default:
-          return undefined;
-      }
-    }) as any;
+    const getValues = vi.fn((x: string): number | undefined =>
+      x === 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav' ? 250000 : undefined,
+    ) as any;
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
       0,
@@ -319,14 +314,9 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
 
-    const getValues = vi.fn((x: string): number | undefined => {
-      switch (x) {
-        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav':
-          return 250001;
-        default:
-          return undefined;
-      }
-    }) as any;
+    const getValues = vi.fn((x: string): number | undefined =>
+      x === 'FORDEL_BEREGNING_FORM.0.feltnavn.0.refusjonskrav' ? 250001 : undefined,
+    ) as any;
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
       0,
@@ -360,7 +350,7 @@ describe('<ValidateAndelerUtils>', () => {
 
     const ulikeAndelerError = validateTotalRefusjonPrArbeidsforhold(
       0,
-      andeler as FordelBeregningsgrunnlagAndelValues[],
+      andeler,
       fieldname,
       mock,
       arbeidsgiverOppysninger,

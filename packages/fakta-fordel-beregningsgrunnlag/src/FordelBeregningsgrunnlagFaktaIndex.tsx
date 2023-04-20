@@ -24,7 +24,6 @@ import {
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
 import FaktaFordelBeregningAvklaringsbehovCode from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 import KodeverkForPanel from './types/kodeverkForPanel';
@@ -57,19 +56,6 @@ const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
 const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) =>
   kreverManuellBehandlingFn(bg) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
 
-function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
-  const res = [...beregningsgrunnlag];
-  for (let i = 0; i < res.length; i += 1) {
-    const bg = res[i];
-    for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
-      const a = bg.avklaringsbehov[j];
-      // @ts-ignore
-      a.definisjon = mapAvklaringsbehovKode(a.definisjon);
-    }
-  }
-  return res;
-}
-
 type OwnProps = {
   beregningsgrunnlagVilkår: Vilkar;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -95,9 +81,7 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   formData,
   setFormData,
 }) => {
-  const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
-
-  const bgMedAvklaringsbehov = konverterteBg.filter(bg => kreverManuellBehandlingFn(bg));
+  const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   if (bgMedAvklaringsbehov.length === 0) {

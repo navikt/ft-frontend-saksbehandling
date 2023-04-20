@@ -170,12 +170,7 @@ const finnArbeidsforholdForAndel = (
 
 const finnAktivitetStatus = (fields: FordelBeregningsgrunnlagAndelValues[], val: string): string | undefined => {
   const andelsnr = Number(val);
-  for (let index = 0; index < fields.length; index += 1) {
-    if (fields[index].andelsnr === andelsnr) {
-      return fields[index].aktivitetStatus;
-    }
-  }
-  return undefined;
+  return fields.find(field => field.andelsnr === andelsnr)?.aktivitetStatus;
 };
 
 const setArbeidsforholdInfo = (
@@ -183,7 +178,7 @@ const setArbeidsforholdInfo = (
   index: number,
   arbeidsforholdList: BGFordelArbeidsforhold[],
   val: string,
-  updateFieldMethod: any,
+  updateFieldMethod: (index: number, obj: object) => void,
 ): void => {
   const field = fields[index];
   const arbeidsforhold = finnArbeidsforholdForAndel(arbeidsforholdList, val);
@@ -204,26 +199,21 @@ const setArbeidsforholdInfo = (
 };
 
 const arbeidsforholdReadOnlyOrSelect = (
-  vilkårperiodeFieldIndex: number,
   fields: FordelBeregningsgrunnlagAndelValues[],
   index: number,
-  fieldname: string,
   selectVals: ReactElement[],
   isReadOnly: boolean,
   arbeidsforholdList: BGFordelArbeidsforhold[],
-  updateFieldMethod: any,
+  updateFieldMethod: (index: number, obj: object) => void,
+  lagFeltNavn: (fieldIndex: number) => string,
 ): ReactElement => (
   <>
     {!fields[index].nyAndel && (
-      <InputField
-        name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
-        className={styles.storBredde}
-        readOnly
-      />
+      <InputField name={`${lagFeltNavn(index)}.andel`} className={styles.storBredde} readOnly />
     )}
     {fields[index].nyAndel && (
       <SelectField
-        name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andel`}
+        name={`${lagFeltNavn(index)}.andel`}
         className={styles.storBredde}
         label=""
         selectValues={selectVals}
@@ -237,20 +227,18 @@ const arbeidsforholdReadOnlyOrSelect = (
   </>
 );
 
-export const lagBelopKolonne = (
-  vilkårperiodeFieldIndex: number,
-  fieldname: string,
-  index: number,
+const lagBelopKolonne = (
   readOnly: boolean,
   skalIkkeRedigereInntekt: boolean,
   isAksjonspunktClosed: boolean,
+  fieldNavn: string,
 ): ReactElement => {
   if (skalIkkeRedigereInntekt) {
     return (
       <TableColumn>
         <FloatRight>
           <InputField
-            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.readOnlyBelop`}
+            name={`${fieldNavn}.readOnlyBelop`}
             className={styles.litenBredde}
             parse={parseCurrencyInput}
             readOnly
@@ -264,7 +252,7 @@ export const lagBelopKolonne = (
     <TableColumn className={styles.rightAlignInput}>
       <FloatRight>
         <InputField
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`}
+          name={`${fieldNavn}.fastsattBelop`}
           parse={parseCurrencyInput}
           readOnly={readOnly}
           validate={[required, maxValueFormatted(178956970)]}
@@ -283,7 +271,6 @@ const skalViseSletteknapp = (
 ): boolean => (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 
 const createAndelerTableRows = (
-  vilkårperiodeFieldIndex: number,
   fields: FordelBeregningsgrunnlagAndelValues[],
   isAksjonspunktClosed: boolean,
   readOnly: boolean,
@@ -292,29 +279,27 @@ const createAndelerTableRows = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
   selectVals: ReactElement[],
   gjelderGradering: boolean,
-  fieldname: string,
-  removeFromFieldsMethod: any,
+  removeFromFieldsMethod: (index?: number | number[]) => void,
   updateFieldMethod: any,
+  lagFeltNavn: (fieldIndex: number) => string,
 ): ReactElement[] => {
   const skalIkkeEndres = readOnly || skalIkkeRedigereInntekt;
   return fields.map((field, index) => (
     <TableRow key={field.id}>
       <TableColumn>
         {arbeidsforholdReadOnlyOrSelect(
-          vilkårperiodeFieldIndex,
           fields,
           index,
-          fieldname,
           selectVals,
           skalIkkeEndres,
           arbeidsforholdList,
           updateFieldMethod,
+          lagFeltNavn,
         )}
         {!isSelvstendigOrFrilanser(fields[index]) && (
           <div className={styles.wordwrap}>
             <InputField
-              name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.arbeidsperiodeFom -
-              FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.arbeidsperiodeTom`}
+              name={`${lagFeltNavn(index)}.arbeidsperiodeFom - ${lagFeltNavn(index)}.arbeidsperiodeTom`}
               readOnly
             />
           </div>
@@ -323,11 +308,10 @@ const createAndelerTableRows = (
       {gjelderGradering && (
         <TableColumn>
           <InputField
-            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.andelIArbeid`}
+            name={`${lagFeltNavn(index)}.andelIArbeid`}
             readOnly
             className={styles.litenBredde}
-            // @ts-ignore Fiks
-            normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value).toFixed(2))}
+            normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
           />
         </TableColumn>
       )}
@@ -336,7 +320,7 @@ const createAndelerTableRows = (
       >
         <FloatRight>
           <InputField
-            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.refusjonskrav`}
+            name={`${lagFeltNavn(index)}.refusjonskrav`}
             readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
             parse={parseCurrencyInput}
             className={styles.litenBredde}
@@ -346,25 +330,18 @@ const createAndelerTableRows = (
       </TableColumn>
       <TableColumn>
         <InputField
-          name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.beregningsgrunnlagPrAar`}
+          name={`${lagFeltNavn(index)}.beregningsgrunnlagPrAar`}
           className={styles.litenBredde}
           readOnly
           parse={parseCurrencyInput}
         />
       </TableColumn>
-      {lagBelopKolonne(
-        vilkårperiodeFieldIndex,
-        fieldname,
-        index,
-        readOnly,
-        skalIkkeRedigereInntekt,
-        isAksjonspunktClosed,
-      )}
+      {lagBelopKolonne(readOnly, skalIkkeRedigereInntekt, isAksjonspunktClosed, lagFeltNavn(index))}
       <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
         <FloatRight>
           <SelectField
             label=""
-            name={`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.inntektskategori`}
+            name={`${lagFeltNavn(index)}.inntektskategori`}
             className={styles.storBredde}
             validate={[required]}
             selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
@@ -469,24 +446,23 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   useEffect(() => {
     if (fieldArrayToRepeat && fieldArrayToRepeat !== fieldArrayName && !readOnly && !skalIkkeRedigereInntekt) {
       const formValues = getValues(fieldArrayToRepeat as `FORDEL_BEREGNING_FORM.${number}.${string}`);
-      for (let index = 0; index < formValues.length; index += 1) {
-        const matchendeAndelIndex = fields.findIndex(
+      formValues.forEach(val => {
+        const matchendeFieldIndex = fields.findIndex(
           field =>
-            field.andel === formValues[index].andel &&
-            (field.inntektskategori === formValues[index].inntektskategori ||
-              (!field.inntektskategori && !formValues[index].lagtTilAvSaksbehandler && !field.lagtTilAvSaksbehandler)),
+            field.andel === val.andel &&
+            (field.inntektskategori === val.inntektskategori ||
+              (!field.inntektskategori && !val.lagtTilAvSaksbehandler && !field.lagtTilAvSaksbehandler)),
         );
-        if (matchendeAndelIndex > -1) {
-          update(matchendeAndelIndex, {
-            ...fields[matchendeAndelIndex],
-            fastsattBelop: formValues[index].fastsattBelop,
-            refusjonskrav: skalKunneEndreRefusjon
-              ? formValues[index].refusjonskrav
-              : fields[matchendeAndelIndex]?.refusjonskrav,
-            inntektskategori: formValues[index].inntektskategori,
-          });
+        if (matchendeFieldIndex > -1) {
+          const nyttObj = {
+            ...fields[matchendeFieldIndex],
+            fastsattBelop: val.fastsattBelop,
+            refusjonskrav: skalKunneEndreRefusjon ? val.refusjonskrav : fields[matchendeFieldIndex]?.refusjonskrav,
+            inntektskategori: val.inntektskategori,
+          };
+          update(matchendeFieldIndex, nyttObj);
         }
-      }
+      });
     }
   }, [fieldArrayToRepeat]);
 
@@ -502,8 +478,11 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   const selectVals = harKunYtelse
     ? arbeidsgiverSelectValuesForKunYtelse(arbeidsforholdList, intl, kodeverkSamling, arbeidsgiverOpplysningerPerId)
     : arbeidsgiverSelectValues(arbeidsforholdList, kodeverkSamling, arbeidsgiverOpplysningerPerId);
+
+  const lagFeltNavn = (fieldIndex: number): string =>
+    `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.${fieldIndex}`;
+
   const tablerows = createAndelerTableRows(
-    vilkårperiodeFieldIndex,
     fields,
     isAksjonspunktClosed,
     readOnly,
@@ -512,9 +491,9 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     arbeidsforholdList,
     selectVals,
     gjelderGradering,
-    fieldName,
     remove,
     update,
+    lagFeltNavn,
   );
   tablerows.push(createBruttoBGSummaryRow(sumFordeling, sumBeregningsgrunnlagPrAar, gjelderGradering));
 
