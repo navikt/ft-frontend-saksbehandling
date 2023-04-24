@@ -21,14 +21,14 @@
     "storybook": "storybook dev --quiet -p 7022"
   },
   "dependencies": {
-    "@navikt/ds-css": "2.8.12",
+    "@navikt/ds-css": "2.8.15",
     "@navikt/ft-kodeverk": "^2.1.0",
     "@navikt/ft-types": "^2.1.0",
     "@navikt/ft-ui-komponenter": "^2.0.16",
     "@navikt/ft-utils": "^2.0.15",
     "moment": "2.29.4",
     "react": "18.2.0",
-    "react-intl": "6.4.0",
+    "react-intl": "6.4.1",
     "vis-data": "7.1.6",
     "vis-timeline": "7.7.2"
   },
@@ -45,16 +45,16 @@
     "vis-timeline": "7.7.2"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.0.5",
-    "@storybook/react": "7.0.5",
-    "@storybook/react-vite": "7.0.5",
-    "@storybook/testing-react": "2.0.0",
+    "@storybook/addon-actions": "7.0.6",
+    "@storybook/react": "7.0.6",
+    "@storybook/react-vite": "7.0.6",
+    "@storybook/testing-react": "2.0.1",
     "cross-env": "7.0.3",
-    "eslint": "8.38.0",
-    "storybook": "7.0.5",
-    "stylelint": "15.5.0",
+    "eslint": "8.39.0",
+    "storybook": "7.0.6",
+    "stylelint": "15.6.0",
     "typescript": "5.0.4",
-    "vite": "4.2.1",
+    "vite": "4.3.1",
     "vitest": "0.30.1"
   },
   "resolutions": {
