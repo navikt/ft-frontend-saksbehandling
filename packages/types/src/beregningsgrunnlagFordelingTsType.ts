@@ -111,6 +111,7 @@ export type FaktaOmFordeling = Readonly<{
   fordelBeregningsgrunnlag?: FordelBeregningsgrunnlag;
   vurderNyttInntektsforholdDto?: {
     vurderInntektsforholdPerioder?: VurderInntektsforholdPeriode[];
+    harMottattOmsorgsstønadEllerFosterhjemsgodtgjørelse: boolean;
   };
 }>;
 

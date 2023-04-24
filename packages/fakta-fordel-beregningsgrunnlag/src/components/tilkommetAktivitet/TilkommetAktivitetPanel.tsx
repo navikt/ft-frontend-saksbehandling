@@ -56,6 +56,10 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
 
+  const skalViseOmsorgspengerHjelpetekst =
+    beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto
+      ?.harMottattOmsorgsstønadEllerFosterhjemsgodtgjørelse;
+
   const getAlertHeading = () => {
     const harSNAktvitet = finnAktivitetStatus(
       AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
@@ -198,8 +202,18 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
       {!!vurderInntektsforholdPerioder && erAksjonspunktÅpent && (
         <>
           <VerticalSpacer eightPx />
-          <Alert size="small" variant="info">
-            {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktAlert' })}
+          <Alert size="small" variant="info" title="">
+            {skalViseOmsorgspengerHjelpetekst && (
+              <>
+                <Heading size="xsmall" level="3">
+                  {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktHelpText.OmsorgFosterTittel' })}
+                </Heading>
+                {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktHelpText.OmsorgFosterTekst' })}
+              </>
+            )}
+            {!skalViseOmsorgspengerHjelpetekst && (
+              <>{intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktAlert' })}</>
+            )}
           </Alert>
         </>
       )}
