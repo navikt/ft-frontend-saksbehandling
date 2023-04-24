@@ -19,8 +19,8 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
   arbeidsgiverOpplysningerPerId,
   vurderInntektsforholdPeriode,
 }) => {
+  const intl = useIntl();
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): JSX.Element[] => {
-    const intl = useIntl();
     const tableRows: JSX.Element[] = [];
     inntektsforholdPeriode.inntektsforholdListe.forEach(inntektsforhold => {
       const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
