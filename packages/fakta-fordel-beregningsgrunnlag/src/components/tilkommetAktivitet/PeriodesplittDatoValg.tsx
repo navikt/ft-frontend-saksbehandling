@@ -1,12 +1,11 @@
 import React, { FC, useState, useCallback } from 'react';
 // eslint-disable-next-line react/jsx-pascal-case, camelcase
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Label } from '@navikt/ds-react/esm/typography';
 import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-import styles from './periodesplittModal.module.css';
 
 export type Periode = {
   fom: string;
@@ -55,46 +54,44 @@ const PeriodesplittDatoValg: FC<PeriodesplittModalProps> = ({ periode, forhånds
 
   return (
     <>
-      <FlexRow className={styles.datoRad}>
-        <FlexColumn>
+      <FlexColumn>
+        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
+        <UNSAFE_DatePicker {...datepickerProps}>
           {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
-          <UNSAFE_DatePicker {...datepickerProps}>
-            {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
-            <UNSAFE_DatePicker.Input
-              {...inputProps}
-              label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.DatoValg' })}
-              size="small"
-            />
-          </UNSAFE_DatePicker>
+          <UNSAFE_DatePicker.Input
+            {...inputProps}
+            label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.DatoValg' })}
+            size="small"
+          />
+        </UNSAFE_DatePicker>
+      </FlexColumn>
+      {nyePerioder && (
+        <FlexColumn>
+          <Label>
+            <FormattedMessage id="TilkommetAktivitet.Modal.Resultat" />
+          </Label>
+          <ul>
+            <li>
+              <FormattedMessage
+                id="TilkommetAktivitet.Modal.Periode"
+                values={{
+                  fom: dayjs(nyePerioder[0].fom).format(DDMMYYYY_DATE_FORMAT),
+                  tom: formaterTomForVisning(nyePerioder[0].tom),
+                }}
+              />
+            </li>
+            <li>
+              <FormattedMessage
+                id="TilkommetAktivitet.Modal.Periode"
+                values={{
+                  fom: dayjs(nyePerioder[1].fom).format(DDMMYYYY_DATE_FORMAT),
+                  tom: formaterTomForVisning(nyePerioder[1].tom),
+                }}
+              />
+            </li>
+          </ul>
         </FlexColumn>
-        {nyePerioder && (
-          <FlexColumn>
-            <Label>
-              <FormattedMessage id="TilkommetAktivitet.Modal.Resultat" />
-            </Label>
-            <ul>
-              <li>
-                <FormattedMessage
-                  id="TilkommetAktivitet.Modal.Periode"
-                  values={{
-                    fom: dayjs(nyePerioder[0].fom).format(DDMMYYYY_DATE_FORMAT),
-                    tom: formaterTomForVisning(nyePerioder[0].tom),
-                  }}
-                />
-              </li>
-              <li>
-                <FormattedMessage
-                  id="TilkommetAktivitet.Modal.Periode"
-                  values={{
-                    fom: dayjs(nyePerioder[1].fom).format(DDMMYYYY_DATE_FORMAT),
-                    tom: formaterTomForVisning(nyePerioder[1].tom),
-                  }}
-                />
-              </li>
-            </ul>
-          </FlexColumn>
-        )}
-      </FlexRow>
+      )}
       <VerticalSpacer sixteenPx />
     </>
   );

@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 // eslint-disable-next-line react/jsx-pascal-case, camelcase
-import { Tag } from '@navikt/ds-react';
+import { BodyShort, Label, Tag } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
@@ -56,6 +57,21 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
     inntektsforhold => !!inntektsforhold.periode,
   );
 
+  const headerCodes = [
+    'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
+    harInntektsforholdMedÅrsinntekt
+      ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt'
+      : 'BeregningInfoPanel.TilkommetAktivitet.TomTekst',
+    harInntektsforholdMedPeriode
+      ? 'BeregningInfoPanel.TilkommetAktivitet.Periode'
+      : 'BeregningInfoPanel.TilkommetAktivitet.TomTekst',
+  ];
+  const headerComponents = headerCodes.map(id => (
+    <Label size="small" key={id}>
+      <FormattedMessage id={id} />{' '}
+    </Label>
+  ));
+
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): React.ReactElement[] => {
     const tableRows: React.ReactElement[] = [];
     const { inntektsforholdListe } = inntektsforholdPeriode;
@@ -65,23 +81,29 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
 
       tableRows.push(
         <TableRow key={inntektsforhold.arbeidsgiverId || inntektsforhold.aktivitetStatus}>
-          <TableColumn>{getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}</TableColumn>
+          <TableColumn>
+            <BodyShort size="small">
+              {getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}
+            </BodyShort>
+          </TableColumn>
           {(harBruttoInntekt || harInntektsmelding || harInntektsforholdMedPeriode) && (
             <TableColumn className={styles.inntektColumn}>
-              {harBruttoInntekt && !harInntektsmelding && (
-                <>
-                  {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr || 0)}
-                  <EditedIcon />
-                </>
-              )}
-              {harInntektsmelding && (
-                <>
-                  {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr || 0)}
-                  <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
-                    IM
-                  </Tag>
-                </>
-              )}
+              <BodyShort size="small">
+                {harBruttoInntekt && !harInntektsmelding && (
+                  <>
+                    {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr || 0)}
+                    <EditedIcon />
+                  </>
+                )}
+                {harInntektsmelding && (
+                  <>
+                    {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr || 0)}
+                    <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
+                      IM
+                    </Tag>
+                  </>
+                )}
+              </BodyShort>
             </TableColumn>
           )}
           {inntektsforhold.periode && (
@@ -97,15 +119,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   return (
     <>
       <div className={styles.aktivitetContainer}>
-        <Table
-          headerTextCodes={[
-            'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
-            harInntektsforholdMedÅrsinntekt ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt' : 'EMPTY',
-            harInntektsforholdMedPeriode ? 'BeregningInfoPanel.TilkommetAktivitet.Periode' : 'EMPTY',
-          ]}
-          noHover
-          classNameTable={styles.aktivitetTable}
-        >
+        <Table noHover headerColumnContent={headerComponents} classNameTable={styles.aktivitetTable}>
           {getInntektsforholdTableRows(vurderInntektsforholdPeriode)}
         </Table>
       </div>

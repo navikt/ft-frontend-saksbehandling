@@ -74,6 +74,9 @@
   "TilkommetAktivitet.AlertHeading.SelvstendigNæringsdrivende": "Søker har opplyst om ny inntekt som selvstendig næringsdrivende.",
   "TilkommetAktivitet.AlertHeading.Frilans": "Søker har en ny frilansaktivitet i AA-registeret.",
   "TilkommetAktivitet.AlertHeading.Arbeidsforhold": "Søker har et nytt arbeidsforhold i AA-registeret",
-  "Fordeling.VurdertTidligere": "Vurdert i en tidligere behandling"
+  "Fordeling.VurdertTidligere": "Vurdert i en tidligere behandling",
+  "TilkommetAktivitet.AksjonspunktHelpText.OmsorgFosterTittel": "Søker mottar omorgsstønad eller fosterhjemsgodtgjørelse",
+  "TilkommetAktivitet.AksjonspunktHelpText.OmsorgFosterTekst": "Inntil videre skal ikke inntekt fra omsorgsstønad og fosterhjemsgodtgjørelse redusere utbetaling. Hvis det er kombinert med annen frilansinntekt og denne skal redusere utbetaling, svar “JA”, men utelat inntekten fra omsorgsstønad/fosterhjemsgodtgjørelse.",
+  "BeregningInfoPanel.TilkommetAktivitet.TomTekst": " "
 
 }
