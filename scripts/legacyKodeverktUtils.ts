@@ -1,5 +1,6 @@
 // TODO Fjern denne fila når k9 er over på kodeverk-strings
 
+
 // eslint-disable-next-line import/prefer-default-export
 const data = {};
 
