@@ -850,6 +850,7 @@ TilkommetAktivitet.args = {
       },
       faktaOmFordeling: {
         vurderNyttInntektsforholdDto: {
+          harMottattOmsorgsstønadEllerFosterhjemsgodtgjørelse: true,
           vurderInntektsforholdPerioder: [
             {
               fom: '2022-11-09',
