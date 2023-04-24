@@ -231,6 +231,7 @@ const beregningsgrunnlag = [
     },
     faktaOmFordeling: {
       vurderNyttInntektsforholdDto: {
+        harMottattOmsorgsstønadEllerFosterhjemsgodtgjørelse: false,
         vurderInntektsforholdPerioder: [
           {
             fom: '2022-11-09',
