@@ -56,9 +56,15 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
 
-  const skalViseOmsorgspengerHjelpetekst =
+  const harInntektsIOmsorgspengerEllerFostergodtgjørelse =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto
       ?.harMottattOmsorgsstønadEllerFosterhjemsgodtgjørelse;
+
+  const harFrilans = vurderInntektsforholdPerioder?.some(periode =>
+    periode.inntektsforholdListe.some(forhold => forhold.aktivitetStatus === AktivitetStatus.FRILANSER),
+  );
+
+  const skalViseSpesialtekstForOmsorgOgFosterhjem = harFrilans && harInntektsIOmsorgspengerEllerFostergodtgjørelse;
 
   const getAlertHeading = () => {
     const harSNAktvitet = finnAktivitetStatus(
@@ -203,7 +209,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
         <>
           <VerticalSpacer eightPx />
           <Alert size="small" variant="info" title="">
-            {skalViseOmsorgspengerHjelpetekst && (
+            {skalViseSpesialtekstForOmsorgOgFosterhjem && (
               <>
                 <Heading size="xsmall" level="3">
                   {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktHelpText.OmsorgFosterTittel' })}
@@ -211,7 +217,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
                 {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktHelpText.OmsorgFosterTekst' })}
               </>
             )}
-            {!skalViseOmsorgspengerHjelpetekst && (
+            {!skalViseSpesialtekstForOmsorgOgFosterhjem && (
               <>{intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktAlert' })}</>
             )}
           </Alert>
