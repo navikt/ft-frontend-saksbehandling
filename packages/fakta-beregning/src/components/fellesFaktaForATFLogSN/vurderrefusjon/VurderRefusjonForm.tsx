@@ -19,7 +19,6 @@ export const lagFieldName = arbeidsgiverId => erRefusjonskravGyldigFieldPrefix +
 const lagRefusjonskravRadios = (
   senRefusjonkravListe: RefusjonskravSomKommerForSentListe[],
   readOnly: boolean,
-  isAksjonspunktClosed: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
 ): ReactElement[] =>
@@ -59,7 +58,6 @@ const lagRefusjonskravRadios = (
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
@@ -79,7 +77,6 @@ interface StaticFunctions {
  */
 export const VurderRefusjonForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  isAksjonspunktClosed,
   faktaOmBeregning,
   arbeidsgiverOpplysningerPerId,
 }) => {
@@ -87,13 +84,7 @@ export const VurderRefusjonForm: FunctionComponent<OwnProps> & StaticFunctions =
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
   return (
     <>
-      {lagRefusjonskravRadios(
-        senRefusjonkravListe,
-        readOnly,
-        isAksjonspunktClosed,
-        arbeidsgiverOpplysningerPerId,
-        beregningsgrunnlagIndeks,
-      )}
+      {lagRefusjonskravRadios(senRefusjonkravListe, readOnly, arbeidsgiverOpplysningerPerId, beregningsgrunnlagIndeks)}
     </>
   );
 };
