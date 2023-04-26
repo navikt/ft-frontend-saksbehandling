@@ -52,7 +52,6 @@
     "@storybook/addon-actions": "7.0.6",
     "@storybook/react": "7.0.6",
     "@storybook/react-vite": "7.0.6",
-    "@storybook/testing-react": "2.0.1",
     "@testing-library/react": "14.0.0",
     "cross-env": "7.0.3",
     "eslint": "8.39.0",
