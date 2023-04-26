@@ -7,7 +7,7 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent, ReactElement } from 'react';
 import {
   FaktaOmBeregningAksjonspunktValues,
   FaktaOmBeregningValues,
@@ -56,7 +56,7 @@ export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) 
 export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe || [];
 
-const spacer = hasShownPanel => {
+const spacer = (hasShownPanel: boolean): ReactElement => {
   if (hasShownPanel) {
     return <VerticalSpacer twentyPx />;
   }
@@ -64,17 +64,17 @@ const spacer = hasShownPanel => {
 };
 
 const getFaktaPanels = (
-  readOnly,
-  tilfeller,
-  isAksjonspunktClosed,
-  faktaOmBeregning,
-  beregningsgrunnlag,
+  readOnly: boolean,
+  isAksjonspunktClosed: boolean,
+  beregningsgrunnlag: Beregningsgrunnlag,
   kodeverkSamling: KodeverkForPanel,
-  avklaringsbehov: BeregningAvklaringsbehov[],
-  erOverstyrer,
-  arbeidsgiverOpplysningerPerId,
+  erOverstyrer: boolean,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   updateOverstyring: (index: number, skalOverstyre: boolean) => void,
 ) => {
+  const { avklaringsbehov } = beregningsgrunnlag;
+  const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
+  const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
   const faktaPanels = [];
   let hasShownPanel = false;
   tilfeller.forEach(tilfelle => {
@@ -115,7 +115,6 @@ const getFaktaPanels = (
           <VurderRefusjonForm
             readOnly={readOnly}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            isAksjonspunktClosed={isAksjonspunktClosed}
             faktaOmBeregning={faktaOmBeregning}
           />
         </React.Fragment>,
@@ -149,7 +148,6 @@ type OwnProps = {
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   kodeverkSamling: KodeverkForPanel;
-  avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
@@ -165,37 +163,22 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   isAksjonspunktClosed,
   beregningsgrunnlag,
   kodeverkSamling,
-  avklaringsbehov,
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
-}) => {
-  const faktaOmBeregning: FaktaOmBeregning = useMemo(
-    () => getFaktaOmBeregning(beregningsgrunnlag),
-    [beregningsgrunnlag],
-  );
-  const aktivePaneler = useMemo(
-    () => getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag) || [],
-    [beregningsgrunnlag],
-  );
-
-  return (
-    <div>
-      {getFaktaPanels(
-        readOnly,
-        aktivePaneler,
-        isAksjonspunktClosed,
-        faktaOmBeregning,
-        beregningsgrunnlag,
-        kodeverkSamling,
-        avklaringsbehov,
-        erOverstyrer,
-        arbeidsgiverOpplysningerPerId,
-        updateOverstyring,
-      ).map(panelOrSpacer => panelOrSpacer)}
-    </div>
-  );
-};
+}) => (
+  <div>
+    {getFaktaPanels(
+      readOnly,
+      isAksjonspunktClosed,
+      beregningsgrunnlag,
+      kodeverkSamling,
+      erOverstyrer,
+      arbeidsgiverOpplysningerPerId,
+      updateOverstyring,
+    ).map(panelOrSpacer => panelOrSpacer)}
+  </div>
+);
 
 const kunYtelseTransform =
   (faktaOmBeregning: FaktaOmBeregning, aktivePaneler: string[]) =>
@@ -341,17 +324,17 @@ const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues
 const mapStateToBuildInitialValuesProps = (ownProps: OwnProps) => ({
   beregningsgrunnlag: ownProps.beregningsgrunnlag,
   kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(ownProps.beregningsgrunnlag),
-  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps.avklaringsbehov),
+  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps.beregningsgrunnlag.avklaringsbehov),
   kunYtelse: getKunYtelse(ownProps.beregningsgrunnlag),
   tilfeller: getFaktaOmBeregningTilfellerKoder(ownProps.beregningsgrunnlag),
   vurderMottarYtelse: getVurderMottarYtelse(ownProps.beregningsgrunnlag),
   vurderBesteberegning: getVurderBesteberegning(ownProps.beregningsgrunnlag),
   kodeverkSamling: ownProps.kodeverkSamling,
-  avklaringsbehov: ownProps.avklaringsbehov,
+  avklaringsbehov: ownProps.beregningsgrunnlag.avklaringsbehov,
   faktaOmBeregning: getFaktaOmBeregning(ownProps.beregningsgrunnlag),
   arbeidsgiverOpplysningerPerId: ownProps.arbeidsgiverOpplysningerPerId,
   refusjonskravSomKommerForSentListe: getArbeidsgiverInfoForRefusjonskravSomKommerForSent(ownProps.beregningsgrunnlag),
-  erOverstyrt: erInitialOverstyringAvBeregningsgrunnlag(ownProps),
+  erOverstyrt: erInitialOverstyringAvBeregningsgrunnlag(ownProps.beregningsgrunnlag),
 });
 
 export const getBuildInitialValuesFaktaForATFLOgSN = (props: OwnProps): FaktaOmBeregningValues => {
