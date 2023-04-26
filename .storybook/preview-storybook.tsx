@@ -1,7 +1,6 @@
 import React from 'react';
-import '../../utils-test/src/global.module.css';
 
-import '@navikt/ds-css';
+import './global.module.css';
 
 export const decorators = [
   Story => (

@@ -19,7 +19,7 @@
     "stylelint": "stylelint \"src/**/*.module.css\"",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
-    "clean": "rm -rf ./dist ./node_modules",
+    "clean": "rm -rf ./dist ./node_modules ./.storybook-static-build",
     "build-storybook": "storybook build -o .storybook-static-build",
     "storybook": "storybook dev --quiet -p 7009"
   },
