@@ -1,13 +1,1 @@
-const config = {
-  stories: ['../src/**/*.stories.@(ts|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
-  framework: {
-    name: '@storybook/react-vite',
-    options: {},
-  },
-  docs: {
-    autodocs: false,
-  },
-};
-
-export default config;
+export { default } from '../../../.storybook/main-storybook';
