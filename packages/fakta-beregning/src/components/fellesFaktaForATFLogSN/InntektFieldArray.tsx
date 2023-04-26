@@ -9,10 +9,10 @@ import {
 import { Table, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent, useCallback, useEffect } from 'react';
-import { FieldArrayWithId, UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
+import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { IntlShape, useIntl } from 'react-intl';
 import { ErrorMessage } from '@navikt/ds-react';
-import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import AddDagpengerAndelButton from './AddDagpengerAndelButton';
@@ -69,33 +69,6 @@ const skalVisePeriode = fields => {
 const removeAndel = (index, remove) => () => {
   remove(index);
 };
-
-const createAndelerTableRows = (
-  fields: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>[],
-  readOnly: boolean,
-  beregningsgrunnlag: Beregningsgrunnlag,
-  isAksjonspunktClosed: boolean,
-  kodeverkSamling: KodeverkForPanel,
-  fieldArrayName: string,
-  remove: UseFieldArrayRemove,
-  skalFastsetteInntektForAndelFunc,
-) =>
-  fields.map((field, index) => (
-    <InntektFieldArrayAndelRow
-      key={field.id}
-      field={field}
-      skalVisePeriode={skalVisePeriode(fields)}
-      skalViseRefusjon={skalViseRefusjon(fields)}
-      skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
-      readOnly={readOnly}
-      removeAndel={removeAndel(index, remove)}
-      beregningsgrunnlag={beregningsgrunnlag}
-      isAksjonspunktClosed={isAksjonspunktClosed}
-      kodeverkSamling={kodeverkSamling}
-      rowName={`${fieldArrayName}.${index}`}
-      skalFastsetteInntektForAndel={skalFastsetteInntektForAndelFunc}
-    />
-  ));
 
 const createBruttoBGSummaryRow = (fields, readOnly, beregningsgrunnlag) => (
   <SummaryRow
@@ -323,21 +296,27 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
-  const skalFastsetteInntektForAndelFunc = useCallback(
-    () => skalFastsetteInntektForAndel(formValues, beregningsgrunnlag.faktaOmBeregning, beregningsgrunnlag),
-    [formValues, beregningsgrunnlag],
-  );
+  const tablerows = fields.map((field, index) => (
+    <InntektFieldArrayAndelRow
+      key={field.id}
+      field={field}
+      skalVisePeriode={skalVisePeriode(fields)}
+      skalViseRefusjon={skalViseRefusjon(fields)}
+      skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
+      readOnly={readOnly}
+      removeAndel={removeAndel(index, remove)}
+      beregningsgrunnlag={beregningsgrunnlag}
+      isAksjonspunktClosed={isAksjonspunktClosed}
+      kodeverkSamling={kodeverkSamling}
+      rowName={`${fieldArrayName}.${index}`}
+      skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(
+        formValues,
+        beregningsgrunnlag.faktaOmBeregning,
+        beregningsgrunnlag,
+      )}
+    />
+  ));
 
-  const tablerows = createAndelerTableRows(
-    fields,
-    readOnly,
-    beregningsgrunnlag,
-    isAksjonspunktClosed,
-    kodeverkSamling,
-    fieldArrayName,
-    remove,
-    skalFastsetteInntektForAndelFunc,
-  );
   if (tablerows.length === 0) {
     if (skalKunneLeggeTilDagpengerManuelt) {
       return (

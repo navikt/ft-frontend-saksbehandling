@@ -119,7 +119,6 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
       <FaktaForATFLOgSNPanel
         readOnly={readOnly || !skalVurderes}
         isAksjonspunktClosed={isAksjonspunktClosed(avklaringsbehov)}
-        avklaringsbehov={avklaringsbehov}
         beregningsgrunnlag={beregningsgrunnlag}
         kodeverkSamling={kodeverkSamling}
         erOverstyrer={erOverstyrer}

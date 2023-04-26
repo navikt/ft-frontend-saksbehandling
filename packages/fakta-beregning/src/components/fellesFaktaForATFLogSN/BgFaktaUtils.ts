@@ -254,8 +254,8 @@ export const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): 
 
 export const erOverstyringAvBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues) => erOverstyring(values);
 
-export const erInitialOverstyringAvBeregningsgrunnlag = ({ beregningsgrunnlag, avklaringsbehov }) =>
-  beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(avklaringsbehov);
+export const erInitialOverstyringAvBeregningsgrunnlag = (beregningsgrunnlag: Beregningsgrunnlag) =>
+  beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(beregningsgrunnlag.avklaringsbehov);
 
 export const skalFastsetteInntektForAndel =
   (

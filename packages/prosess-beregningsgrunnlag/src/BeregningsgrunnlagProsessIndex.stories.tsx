@@ -225,7 +225,7 @@ const lagArbeidsforhold = (
   opphoersdato: '2070-12-31',
 });
 
-const malArbeidsorhold = (): BeregningsgrunnlagArbeidsforhold => lagArbeidsforhold('999999996', undefined, undefined);
+const malArbeidsorhold = (): BeregningsgrunnlagArbeidsforhold => lagArbeidsforhold('999999996', undefined);
 
 const lagBrukersAndel = (andelnr: number, beregnet: number): BeregningsgrunnlagAndel => ({
   aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
@@ -311,7 +311,7 @@ const lagTBAndel = (
   beregnet: number,
   overstyrt?: number,
 ): BeregningsgrunnlagAndel => {
-  const arbfor = lagArbeidsforhold(arbeidsgiverIdent, undefined, undefined);
+  const arbfor = lagArbeidsforhold(arbeidsgiverIdent, undefined);
   return lagArbeidsandel(andelnr, arbfor, beregnet, overstyrt, true, true);
 };
 
@@ -787,7 +787,7 @@ export const Militær = Template.bind({});
 Militær.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
-    lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.MILITAER_ELLER_SIVIL, 300000)]), ['MS'], undefined),
+    lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.MILITAER_ELLER_SIVIL, 300000)]), ['MS']),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
@@ -1094,7 +1094,7 @@ NaturalYtelse.args = {
           [
             lagArbeidsandel(
               1,
-              lagArbeidsforhold('999999999', undefined, undefined, 5000, undefined),
+              lagArbeidsforhold('999999999', undefined, undefined, 5000),
               100000,
               undefined,
               false,
@@ -1109,7 +1109,7 @@ NaturalYtelse.args = {
           [
             lagArbeidsandel(
               1,
-              lagArbeidsforhold('999999999', undefined, undefined, 4000, undefined),
+              lagArbeidsforhold('999999999', undefined, undefined, 4000),
               100000,
               undefined,
               false,
@@ -1124,7 +1124,7 @@ NaturalYtelse.args = {
           [
             lagArbeidsandel(
               1,
-              lagArbeidsforhold('999999999', undefined, undefined, 3000, undefined),
+              lagArbeidsforhold('999999999', undefined, undefined, 3000),
               100000,
               undefined,
               false,
@@ -1139,7 +1139,7 @@ NaturalYtelse.args = {
           [
             lagArbeidsandel(
               1,
-              lagArbeidsforhold('999999999', undefined, undefined, 2000, undefined),
+              lagArbeidsforhold('999999999', undefined, undefined, 2000),
               100000,
               undefined,
               false,
@@ -1317,12 +1317,7 @@ export const SelvstendigNæringsdrivendeUtenAksjonspunkt = Template.bind({});
 SelvstendigNæringsdrivendeUtenAksjonspunkt.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
-    lagBG(
-      malPerioder([lagSNMedPGI(1, 200000, undefined, false, false, lagNæring(false, false))]),
-      ['SN'],
-      undefined,
-      undefined,
-    ),
+    lagBG(malPerioder([lagSNMedPGI(1, 200000, undefined, false, false, lagNæring(false, false))]), ['SN']),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
@@ -1376,8 +1371,6 @@ ArbeidstakerOgSelvstendigNæringsdrivendeSnStorreEnnAtOgStorreEnn6g.args = {
         ]),
       ],
       ['AT_SN'],
-      undefined,
-      undefined,
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
@@ -1388,12 +1381,7 @@ export const YtelseFraNav = Template.bind({});
 YtelseFraNav.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
-    lagBG(
-      [malPeriode([lagGenerellAndel(1, AktivitetStatus.KUN_YTELSE, 325845)])],
-      ['kun_YTELSE'],
-      undefined,
-      undefined,
-    ),
+    lagBG([malPeriode([lagGenerellAndel(1, AktivitetStatus.KUN_YTELSE, 325845)])], ['kun_YTELSE']),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
