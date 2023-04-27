@@ -1,25 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DateLabel, FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import dayjs from 'dayjs';
-import norskFormat from 'dayjs/locale/nb';
-import { DDMMYYYY_DATE_FORMAT, YYYY_MM_FORMAT } from '@navikt/ft-utils';
-
-import {
-  BlaBoksMedCheckmarkListe,
-  DateLabel,
-  FlexColumn,
-  FlexContainer,
-  FlexRow,
-  VerticalSpacer,
-} from '@navikt/ft-ui-komponenter';
 
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
-import { AlleKodeverk, ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { BodyShort, Tag } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import KodeverkForPanel from '../../types/kodeverkForPanel';
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 import SaksopplysningPanel from './SaksopplysningPanel';
 
 enum TagType {
@@ -89,8 +76,7 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
   kodeverkSamling,
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
-}) => {
-  return (
+}) => (
     <div className={beregningStyles.panelLeft}>
       {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
       <VerticalSpacer sixteenPx />
@@ -126,6 +112,5 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
       </FlexContainer>
     </div>
   );
-};
 
 export default SkjeringspunktOgStatusPanel;
