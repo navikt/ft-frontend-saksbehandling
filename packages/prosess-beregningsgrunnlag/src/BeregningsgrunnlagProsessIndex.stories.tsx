@@ -4,6 +4,7 @@ import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-ext
 import {
   AktivitetStatus,
   InntektAktivitetType,
+  LønnsendringScenario,
   PeriodeAarsak,
   PgiType,
   SammenligningType,
@@ -18,6 +19,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
   Inntektsgrunnlag,
   Næring,
+  Saksopplysninger,
   SammenligningsgrunlagProp,
   Vilkar,
 } from '@navikt/ft-types';
@@ -517,6 +519,7 @@ const lagBG = (
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[],
   avklaringsbehov?: BeregningAvklaringsbehov[],
   skjæringstidspunkt: string = STP,
+  saksopplysninger: Saksopplysninger = { lønnsendringSaksopplysning: [], kortvarigeArbeidsforhold: [] },
 ): Beregningsgrunnlag => {
   const beregningsgrunnlag = {
     avklaringsbehov: avklaringsbehov || [],
@@ -533,6 +536,7 @@ const lagBG = (
     halvG: 49929,
     faktaOmBeregning: {
       andelerForFaktaOmBeregning: [],
+      saksopplysninger,
     },
     hjemmel: {
       kode: 'F_14_7_8_30',
@@ -611,6 +615,17 @@ AvvikMedSammenligningsgraf5038.args = {
       lagInntektsgrunnlag(),
       [malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+      STP,
+      {
+        lønnsendringSaksopplysning: [
+          {
+            sisteLønnsendringsdato: '2020-12-14',
+            lønnsendringscenario: LønnsendringScenario.DELVIS_MÅNEDSINNTEKT_SISTE_MND.toString(),
+            arbeidsforhold: { arbeidsgiverIdent: '999999996', andelsnr: 1 },
+          },
+        ],
+        kortvarigeArbeidsforhold: [],
+      },
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
@@ -627,6 +642,58 @@ ArbeidstakerUtenAvvik.args = {
       undefined,
       [malSGGrunnlag(SammenligningType.AT_FL)],
       [],
+      STP,
+      {
+        lønnsendringSaksopplysning: [
+          {
+            sisteLønnsendringsdato: '2019-12-01',
+            lønnsendringscenario: LønnsendringScenario.FULL_MÅNEDSINNTEKT_EN_MND.toString(),
+            arbeidsforhold: { arbeidsgiverIdent: '999999996', andelsnr: 1 },
+          },
+        ],
+        kortvarigeArbeidsforhold: [],
+      },
+    ),
+  ],
+  vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+  submitCallback: action('button-click') as (data: any) => Promise<any>,
+};
+
+export const ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring = Template.bind({});
+ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring.args = {
+  readOnly: false,
+  beregningsgrunnlagListe: [
+    lagBG(
+      malPerioder([
+        lagArbeidsandel(1, lagArbeidsforhold('999999996', undefined, undefined), 200000, undefined, false, false),
+        lagArbeidsandel(2, lagArbeidsforhold('999999997', undefined, undefined), 200000, undefined, false, false),
+        lagArbeidsandel(3, lagArbeidsforhold('999999998', undefined, undefined), 200000, undefined, false, false),
+      ]),
+      ['AT'],
+      undefined,
+      [malSGGrunnlag(SammenligningType.AT_FL)],
+      [],
+      STP,
+      {
+        lønnsendringSaksopplysning: [
+          {
+            sisteLønnsendringsdato: '2019-12-15',
+            lønnsendringscenario: LønnsendringScenario.DELVIS_MÅNEDSINNTEKT_SISTE_MND.toString(),
+            arbeidsforhold: { arbeidsgiverIdent: '999999996', andelsnr: 1 },
+          },
+          {
+            sisteLønnsendringsdato: '2019-12-05',
+            lønnsendringscenario: LønnsendringScenario.DELVIS_MÅNEDSINNTEKT_SISTE_MND.toString(),
+            arbeidsforhold: { arbeidsgiverIdent: '999999998', andelsnr: 3 },
+          },
+          {
+            sisteLønnsendringsdato: '2019-12-01',
+            lønnsendringscenario: LønnsendringScenario.FULL_MÅNEDSINNTEKT_EN_MND.toString(),
+            arbeidsforhold: { arbeidsgiverIdent: '999999997', andelsnr: 2 },
+          },
+        ],
+        kortvarigeArbeidsforhold: [],
+      },
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
@@ -658,6 +725,17 @@ ArbeidstakerMedAvvikAp5038.args = {
       undefined,
       [malSGGrunnlagAvvik(SammenligningType.AT_FL)],
       [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+      STP,
+      {
+        lønnsendringSaksopplysning: [
+          {
+            sisteLønnsendringsdato: '2019-10-20',
+            lønnsendringscenario: LønnsendringScenario.FULL_MÅNEDSINNTEKT_TO_MND.toString(),
+            arbeidsforhold: { arbeidsgiverIdent: '999999996', andelsnr: 1 },
+          },
+        ],
+        kortvarigeArbeidsforhold: [],
+      },
     ),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),

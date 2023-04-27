@@ -1,19 +1,13 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { DateLabel, FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import {
-  DateLabel,
-  VerticalSpacer,
-  FlexColumn,
-  FlexContainer,
-  FlexRow,
-  BlaBoksMedCheckmarkListe,
-} from '@navikt/ft-ui-komponenter';
-import { KodeverkType, AktivitetStatus } from '@navikt/ft-kodeverk';
-
+import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { BodyShort, Tag } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import KodeverkForPanel from '../../types/kodeverkForPanel';
+import SaksopplysningPanel from './SaksopplysningPanel';
 
 enum TagType {
   BLÅ = 'alt3',
@@ -66,7 +60,8 @@ type OwnProps = {
   skjeringstidspunktDato: string;
   aktivitetStatusList: string[];
   kodeverkSamling: KodeverkForPanel;
-  lonnsendringSisteTreMan: boolean;
+  saksopplysninger?: Saksopplysninger;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
 /**
@@ -79,13 +74,9 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
   skjeringstidspunktDato,
   aktivitetStatusList,
   kodeverkSamling,
-  lonnsendringSisteTreMan,
-}) => {
-  const textIdsTilBlaBoksMedCheckmarkListe = [];
-  if (lonnsendringSisteTreMan) {
-    textIdsTilBlaBoksMedCheckmarkListe.push('Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan');
-  }
-  return (
+  saksopplysninger,
+  arbeidsgiverOpplysningerPerId,
+}) => (
     <div className={beregningStyles.panelLeft}>
       {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
       <VerticalSpacer sixteenPx />
@@ -102,19 +93,24 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
             </BodyShort>
           </FlexColumn>
         </FlexRow>
-        {textIdsTilBlaBoksMedCheckmarkListe.length > 0 && (
-          <>
-            <VerticalSpacer sixteenPx />
-            <FlexRow>
-              <FlexColumn>
-                <BlaBoksMedCheckmarkListe textIds={textIdsTilBlaBoksMedCheckmarkListe} />
-              </FlexColumn>
-            </FlexRow>
-          </>
-        )}
+        {!!saksopplysninger &&
+          !!saksopplysninger.lønnsendringSaksopplysning &&
+          saksopplysninger.lønnsendringSaksopplysning.length > 0 && (
+            <>
+              <VerticalSpacer sixteenPx />
+              <FlexRow>
+                <FlexColumn>
+                  <SaksopplysningPanel
+                    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                    skjeringstidspunktDato={skjeringstidspunktDato}
+                    saksopplysninger={saksopplysninger}
+                  />
+                </FlexColumn>
+              </FlexRow>
+            </>
+          )}
       </FlexContainer>
     </div>
   );
-};
 
 export default SkjeringspunktOgStatusPanel;
