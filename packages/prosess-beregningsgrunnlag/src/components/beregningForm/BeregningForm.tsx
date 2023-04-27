@@ -45,13 +45,6 @@ const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp
         .map(statusAndel => statusAndel.aktivitetStatus)
     : [];
 
-const sjekkLonnsendringSisteTreMan = (beregningsgrunnlag: BeregningsgrunnlagProp): boolean =>
-  beregningsgrunnlag.faktaOmBeregning &&
-  beregningsgrunnlag.faktaOmBeregning.saksopplysninger &&
-  beregningsgrunnlag.faktaOmBeregning.saksopplysninger.arbeidsforholdMedLønnsendring
-    ? beregningsgrunnlag.faktaOmBeregning.saksopplysninger.arbeidsforholdMedLønnsendring.length > 0
-    : false;
-
 type OwnProps = {
   readOnly: boolean;
   relevanteStatuser: RelevanteStatuserProp;
@@ -105,7 +98,6 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
 
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
-  const lonnsendringSisteTreMan = sjekkLonnsendringSisteTreMan(valgtBeregningsgrunnlag);
   return (
     <>
       {harAksjonspunkter && (
@@ -124,7 +116,12 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
             kodeverkSamling={kodeverkSamling}
             aktivitetStatusList={aktivitetStatusList}
             skjeringstidspunktDato={skjaeringstidspunktBeregning}
-            lonnsendringSisteTreMan={lonnsendringSisteTreMan}
+            saksopplysninger={
+              valgtBeregningsgrunnlag.faktaOmBeregning
+                ? valgtBeregningsgrunnlag.faktaOmBeregning.saksopplysninger
+                : undefined
+            }
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
           {storSpacer}
           {relevanteStatuser.skalViseBeregningsgrunnlag && (

@@ -818,7 +818,7 @@ TilkommetAktivitet.args = {
       grunnbeløp: 111477,
       faktaOmBeregning: {
         saksopplysninger: {
-          arbeidsforholdMedLønnsendring: [],
+          lønnsendringSaksopplysning: [],
           kortvarigeArbeidsforhold: [],
         },
         avklarAktiviteter: {
