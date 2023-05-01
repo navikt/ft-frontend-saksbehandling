@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@formatjs/intl-datetimeformat": "6.7.0",
-    "@formatjs/intl-numberformat": "8.4.1",
+    "@formatjs/intl-numberformat": "8.5.0",
     "@navikt/ds-codemod": "2.8.15",
     "@storybook/addon-essentials": "7.0.6",
     "@storybook/addon-links": "7.0.6",
