@@ -279,10 +279,13 @@ const settOppKomponenterForATFL = (
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
+            placeholder={intl.formatMessage({
+              id: 'Beregningsgrunnlag.Forms.Avvik.Placeholder',
+            })}
             readOnly={readOnly}
             className={styles.textAreaStyle}
             description={intl.formatMessage({
-              id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
+              id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
             })}
             parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />

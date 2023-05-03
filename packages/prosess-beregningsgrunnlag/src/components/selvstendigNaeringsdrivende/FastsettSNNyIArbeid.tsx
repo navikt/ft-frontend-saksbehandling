@@ -92,7 +92,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
               maxLength={1500}
               readOnly={readOnly}
               description={intl.formatMessage({
-                id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Placeholder',
+                id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
               })}
               parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
             />
