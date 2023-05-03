@@ -138,24 +138,24 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
           <VerticalSpacer sixteenPx />
         </>
       )}
-      <FlexRow>
-        <FlexColumn>
-          <TextAreaField
-            name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
-            label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
-            validate={[required, maxLength1500, minLength3, hasValidText]}
-            maxLength={1500}
-            placeholder={intl.formatMessage({
-              id: 'Beregningsgrunnlag.Forms.Avvik.Placeholder',
-            })}
-            readOnly={readOnly}
-            description={intl.formatMessage({
-              id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
-            })}
-            parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
-          />
-        </FlexColumn>
-      </FlexRow>
+      <>
+        <VerticalSpacer sixteenPx />
+        <FlexRow>
+          <FlexColumn>
+            <TextAreaField
+              name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+              label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
+              validate={[required, maxLength1500, minLength3, hasValidText]}
+              maxLength={1500}
+              readOnly={readOnly}
+              description={intl.formatMessage({
+                id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+              })}
+              parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
+            />
+          </FlexColumn>
+        </FlexRow>
+      </>
     </>
   );
 };

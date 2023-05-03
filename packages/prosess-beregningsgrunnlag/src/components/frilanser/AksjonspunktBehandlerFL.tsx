@@ -53,7 +53,7 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
           validate={[required, maxValueFormatted(178956970)]}
           readOnly={readOnly}
           parse={parseCurrencyInput}
-          className={styles.bredde}
+          className={styles.breddeInntekt}
           isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
         />
       </div>
