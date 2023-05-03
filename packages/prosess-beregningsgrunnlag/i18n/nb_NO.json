@@ -85,7 +85,7 @@
   "Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT": "Ikke definert",
   "Beregningsgrunnlag.Forms.Vurdering": "Vurdering",
   "Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag": "Vurdering av fastsatt beregningsgrunnlag",
-  "Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst": "Forklar hvordan du har kommet frem til beregningsgrunnlaget og hvilke vurderinger du har tatt. Dette skal gjøres i henhold til lovhjemmel",
+  "Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst": "Forklar hvordan du har kommet frem til beregningsgrunnlaget og hvilke vurderinger du har gjort. Beskriv hvorfor det er avvik og hvilken inntekt som kan legges til grunn. Dette skal gjøres i henhold til lovhjemmel.",
   "Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IngenEndring": "Ingen varig endring eller nyoppstartet næring",
   "Beregningsgrunnlag.FastsettSelvstendigNaeringForm.EndretNaering": "Varig endring eller nyoppstartet næring",
   "Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IkkeNyoppstartet": "Næringsvirksomhet er ikke nyoppstartet",
@@ -159,6 +159,5 @@
   "Beregningsgrunnlag.Søknad.Inntektsopplysninger": "Opplysninger om inntekt",
   "Beregningsgrunnlag.Resultat.Dagsats": "Dagsats",
   "Beregningsgrunnlag.Frisinn.InntektstakOpplysninger": "Opplysninger om inntektstak",
-  "Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode": "Opplysninger om inntektstak i perioden {fom} - {tom}",
-  "Beregningsgrunnlag.Forms.Avvik.Placeholder": "Forklar i vurderingen: \nHvorfor er det avvik? \nHvilken inntekt kan godtgjøres og hvorfor?"
+  "Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode": "Opplysninger om inntektstak i perioden {fom} - {tom}"
 }

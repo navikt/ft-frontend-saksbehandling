@@ -55,7 +55,7 @@ const createRows = (
             validate={[required, maxValueFormatted(178956970)]}
             readOnly={readOnly}
             parse={parseCurrencyInput}
-            className={styles.bredde}
+            className={styles.breddeInntekt}
             isEdited={readOnly && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0)}
           />
         </div>
