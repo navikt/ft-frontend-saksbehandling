@@ -279,9 +279,6 @@ const settOppKomponenterForATFL = (
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
             validate={[required, maxLength1500, minLength3, hasValidText]}
             maxLength={1500}
-            placeholder={intl.formatMessage({
-              id: 'Beregningsgrunnlag.Forms.Avvik.Placeholder',
-            })}
             readOnly={readOnly}
             className={styles.textAreaStyle}
             description={intl.formatMessage({
