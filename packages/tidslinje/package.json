@@ -45,7 +45,7 @@
     "vis-timeline": "7.7.2"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.0.6",
+    "@storybook/addon-actions": "7.0.8",
     "@storybook/react": "7.0.6",
     "@storybook/react-vite": "7.0.6",
     "cross-env": "7.0.3",
