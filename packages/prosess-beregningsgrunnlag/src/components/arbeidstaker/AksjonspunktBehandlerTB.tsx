@@ -82,10 +82,10 @@ const findArbeidstakerAndeler = (periode: BeregningsgrunnlagPeriodeProp): Beregn
         andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.erTilkommetAndel !== true,
       );
 
-const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsforhold): string =>
-  !arbeidsforhold
-    ? ''
-    : `${arbeidsforhold.arbeidsgiverIdent}${arbeidsforhold.arbeidsforholdId ? arbeidsforhold.arbeidsforholdId : ''}`;
+const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsforhold): string => {
+  const arbeidsforholdId = arbeidsforhold?.arbeidsforholdId ? arbeidsforhold?.arbeidsforholdId : '';
+  return arbeidsforhold ? `${arbeidsforhold.arbeidsgiverIdent}${arbeidsforholdId}` : '';
+};
 
 type InntektMapType = {
   [key: string]: string | undefined;
