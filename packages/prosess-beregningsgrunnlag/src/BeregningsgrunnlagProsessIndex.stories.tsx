@@ -665,9 +665,9 @@ ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring.args = {
   beregningsgrunnlagListe: [
     lagBG(
       malPerioder([
-        lagArbeidsandel(1, lagArbeidsforhold('999999996', undefined, undefined), 200000, undefined, false, false),
-        lagArbeidsandel(2, lagArbeidsforhold('999999997', undefined, undefined), 200000, undefined, false, false),
-        lagArbeidsandel(3, lagArbeidsforhold('999999998', undefined, undefined), 200000, undefined, false, false),
+        lagArbeidsandel(1, lagArbeidsforhold('999999996', undefined), 200000, undefined, false, false),
+        lagArbeidsandel(2, lagArbeidsforhold('999999997', undefined), 200000, undefined, false, false),
+        lagArbeidsandel(3, lagArbeidsforhold('999999998', undefined), 200000, undefined, false, false),
       ]),
       ['AT'],
       undefined,
@@ -1243,9 +1243,7 @@ NaturalYtelse.args = {
 export const Dagpenger = Template.bind({});
 Dagpenger.args = {
   readOnly: false,
-  beregningsgrunnlagListe: [
-    lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.DAGPENGER, 300000)]), ['DP'], undefined),
-  ],
+  beregningsgrunnlagListe: [lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.DAGPENGER, 300000)]), ['DP'])],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
@@ -1254,7 +1252,7 @@ export const SykepengerAvDagpenger = Template.bind({});
 SykepengerAvDagpenger.args = {
   readOnly: false,
   beregningsgrunnlagListe: [
-    lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.SYKEPENGER_AV_DAGPENGER, 300000)]), ['SP_AV_DP'], undefined),
+    lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.SYKEPENGER_AV_DAGPENGER, 300000)]), ['SP_AV_DP']),
   ],
   vilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   submitCallback: action('button-click') as (data: any) => Promise<any>,

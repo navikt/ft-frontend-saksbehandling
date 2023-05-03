@@ -15,7 +15,6 @@ import BeregningFP from './components/BeregningFP';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from './types/BeregningFormValues';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import mapAvklaringsbehovKode from './types/interface/AvklaringsbehovMapping';
 import advarsel from './images/advarsel.svg';
 import KodeverkForPanel from './types/kodeverkForPanel';
 
@@ -95,22 +94,6 @@ const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vil
     stp: dayjs(gr.skjaeringstidspunktBeregning).format(DDMMYYYY_DATE_FORMAT),
   }));
 
-function konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlag: Beregningsgrunnlag[]): Beregningsgrunnlag[] {
-  if (!beregningsgrunnlag || beregningsgrunnlag.length === 0) {
-    return TOM_ARRAY;
-  }
-  const res = [...beregningsgrunnlag];
-  for (let i = 0; i < res.length; i += 1) {
-    const bg = res[i];
-    for (let j = 0; j < bg.avklaringsbehov.length; j += 1) {
-      const a = bg.avklaringsbehov[j];
-      // @ts-ignore
-      a.definisjon = mapAvklaringsbehovKode(a.definisjon);
-    }
-  }
-  return res;
-}
-
 const BeregningsgrunnlagProsessIndex: FunctionComponent<
   OwnProps & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>
 > = ({
@@ -124,15 +107,15 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   formData,
   setFormData,
 }) => {
-  const konverterteBg = konverterTilNyeAvklaringsbehovKoder(beregningsgrunnlagListe);
+  const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
 
-  const skalBrukeSidemeny = konverterteBg.length > 1;
-  const kronologiskeGrunnlag = konverterteBg.sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
+  const skalBrukeSidemeny = listeMedGrunnlag.length > 1;
+  listeMedGrunnlag.sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
     a.skjaeringstidspunktBeregning.localeCompare(b.skjaeringstidspunktBeregning),
   );
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
-  const menyProps = lagMenyProps(kronologiskeGrunnlag, beregningsgrunnlagsvilkar);
+  const menyProps = lagMenyProps(listeMedGrunnlag, beregningsgrunnlagsvilkar);
   const mainContainerClassnames = cx('mainContainer', { 'mainContainer--withSideMenu': skalBrukeSidemeny });
 
   useEffect(() => {
@@ -170,7 +153,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
         <div className={styles.contentContainer}>
           <BeregningFP
             aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            beregningsgrunnlagListe={kronologiskeGrunnlag}
+            beregningsgrunnlagListe={listeMedGrunnlag}
             submitCallback={submitCallback}
             readOnly={isReadOnly}
             readOnlySubmitButton={readOnlySubmitButton}
