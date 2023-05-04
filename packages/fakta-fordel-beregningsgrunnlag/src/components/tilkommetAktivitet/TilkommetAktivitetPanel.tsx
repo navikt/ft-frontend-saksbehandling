@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { Alert, BodyShort, Heading, Label, Button } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { Scissors } from '@navikt/ds-icons';
+import { ScissorsIcon } from '@navikt/aksel-icons';
 import dayjs from 'dayjs';
 import { formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
@@ -220,7 +220,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
               onClick={åpneModal}
               size="small"
               type="button"
-              icon={<Scissors height={32} width={32} />}
+              icon={<ScissorsIcon height={32} width={32} />}
             >
               {intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Knapp' })}
             </Button>

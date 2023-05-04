@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames/bind';
 import { Button, Detail } from '@navikt/ds-react';
-import { Close } from '@navikt/ds-icons/esm';
+import { XMarkIcon } from '@navikt/aksel-icons';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import FeilmeldingsdetaljerModal from './FeilmeldingsdetaljerModal';
@@ -74,7 +74,7 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
         </React.Fragment>
       ))}
       <div className={styles.lukkContainer}>
-        <Button variant="tertiary" icon={<Close color="white" />} onClick={fjernFeilmeldinger} type="button" />
+        <Button variant="tertiary" icon={<XMarkIcon color="white" />} onClick={fjernFeilmeldinger} type="button" />
       </div>
       {erModalÅpen && (
         <FeilmeldingsdetaljerModal

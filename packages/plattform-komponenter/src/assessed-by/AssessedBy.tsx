@@ -1,5 +1,5 @@
 import React from 'react';
-import { CaseworkerFilled } from '@navikt/ds-icons/esm';
+import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { prettifyDateString } from '@navikt/ft-utils';
 import styles from './assessedBy.module.css';
 
@@ -14,7 +14,7 @@ const AssessedBy = ({ name, date }: IAssessedByProps) => {
   }
   return (
     <div className={styles['assessed-by']}>
-      <CaseworkerFilled height="1.5em" width="1.5em" />
+      <PersonPencilFillIcon height="1.5em" width="1.5em" />
       <span>{`Vurdering av ${name || ''}${date ? `, ${prettifyDateString(date)}` : ''}`}</span>
     </div>
   );
