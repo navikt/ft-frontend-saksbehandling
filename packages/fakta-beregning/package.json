@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@navikt/aksel-icons": "2.9.5",
-    "@navikt/ds-css": "2.9.5",
+    "@navikt/ds-css": "2.9.7",
     "@navikt/ds-react": "2.9.5",
     "@navikt/ft-form-hooks": "^4.0.23",
     "@navikt/ft-form-validators": "^2.0.21",
@@ -44,7 +44,7 @@
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "2.9.5",
-    "@navikt/ds-css": "2.9.5",
+    "@navikt/ds-css": "2.9.7",
     "@navikt/ds-react": "2.9.5",
     "@navikt/ft-form-hooks": "4.x",
     "@navikt/ft-form-validators": "2.x",
