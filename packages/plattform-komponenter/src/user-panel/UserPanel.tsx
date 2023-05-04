@@ -1,6 +1,6 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
-import { Collapse, Expand } from '@navikt/ds-icons/esm';
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 
 import { BodyShort } from '@navikt/ds-react';
 import styles from './userPanel.module.css';
@@ -35,9 +35,9 @@ const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClic
           )}
         </span>
         {isToggled ? (
-          <Collapse className={styles[userCls.element('chevron')]} />
+          <ChevronUpIcon className={styles[userCls.element('chevron')]} />
         ) : (
-          <Expand className={styles[userCls.element('chevron')]} />
+          <ChevronDownIcon className={styles[userCls.element('chevron')]} />
         )}
       </button>
     );

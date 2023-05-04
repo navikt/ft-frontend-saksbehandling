@@ -1,7 +1,7 @@
 import { bemUtils } from '@navikt/ft-utils';
 import React from 'react';
 import { Button } from '@navikt/ds-react';
-import { SystemFilled } from '@navikt/ds-icons/esm';
+import { MenuGridIcon } from '@navikt/aksel-icons';
 import styles from './systemButton.module.css';
 
 const systemsCls = bemUtils('systems');
@@ -15,7 +15,7 @@ const SystemButton: React.FunctionComponent<SystemButtonProps> = ({ onClick, isT
   <div className={styles[systemsCls.block]}>
     <Button
       variant="tertiary"
-      icon={<SystemFilled aria-hidden />}
+      icon={<MenuGridIcon aria-hidden />}
       onClick={onClick}
       className={styles[systemsCls.element('button')]}
       aria-haspopup="dialog"
