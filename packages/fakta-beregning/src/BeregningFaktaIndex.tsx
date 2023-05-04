@@ -9,7 +9,7 @@ import {
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { Tabs } from '@navikt/ds-react';
-import { WarningColored } from '@navikt/ds-icons';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
@@ -125,7 +125,9 @@ const BeregningFaktaIndex: FunctionComponent<
                   className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
                   icon={
                     currentBeregningsgrunnlagIndex !== aktivtBeregningsgrunnlagIndeks &&
-                    beregningsgrunnlagIndeksHarFeil(currentBeregningsgrunnlagIndex) && <WarningColored />
+                    beregningsgrunnlagIndeksHarFeil(currentBeregningsgrunnlagIndex) && (
+                      <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
+                    )
                   }
                 />
               ))}

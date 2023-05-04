@@ -44,11 +44,14 @@
   color: #3e3832;
   fill: #3e3832;
 }
-:global(.navds-button--tertiary).systems__button[aria-expanded='true']:global(.navds-button:focus:not(:disabled)):hover {
+:global(.navds-button--tertiary).systems__button[aria-expanded='true']:global(
+    .navds-button:focus:not(:disabled)
+  ):hover {
   background-color: #59514b;
   border: 3px solid #ffa733;
 }
-:global(.navds-button--tertiary).systems__button[aria-expanded='true']:global(.navds-button:focus:not(:disabled)):hover svg {
+:global(.navds-button--tertiary).systems__button[aria-expanded='true']:global(.navds-button:focus:not(:disabled)):hover
+  svg {
   color: white;
   fill: white;
 }
