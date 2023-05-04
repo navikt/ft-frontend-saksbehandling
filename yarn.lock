@@ -2424,9 +2424,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-codemod@npm:2.9.5":
-  version: 2.9.5
-  resolution: "@navikt/ds-codemod@npm:2.9.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-codemod%2F2.9.5%2F58bba0146635b291c4c59d08ae3b25f539b78779"
+"@navikt/ds-codemod@npm:2.9.7":
+  version: 2.9.7
+  resolution: "@navikt/ds-codemod@npm:2.9.7::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-codemod%2F2.9.7%2Fb2e0e86e2c8134f5c41714377f4d05e6eb1afff6"
   dependencies:
     chalk: 4.1.0
     cheerio: 1.0.0-rc.9
@@ -2442,7 +2442,7 @@ __metadata:
     prettier: 2.7.1
   bin:
     ds-codemod: bin/ds-codemod.js
-  checksum: aeeb430b75078c6f013f5a6e34b3b6b4ec00836da48d1839cbfc72ce98fc8ec74e2eeef30a66261f4ae5b49ab46852d407a21586473a28b5a0967f8e2acc6cd7
+  checksum: 0f780c0fbe4144700c217960be6e747595946f96260ba5d483cb59e17c5bdb34658054c365b98f0a8ce2ec315baf7a03bcba40d9c679f4ac31d8fa5c00bc9ef3
   languageName: node
   linkType: hard
 
@@ -10531,7 +10531,7 @@ __metadata:
   dependencies:
     "@formatjs/intl-datetimeformat": 6.8.0
     "@formatjs/intl-numberformat": 8.5.0
-    "@navikt/ds-codemod": 2.9.5
+    "@navikt/ds-codemod": 2.9.7
     "@storybook/addon-essentials": 7.0.8
     "@storybook/addon-links": 7.0.8
     "@storybook/addons": 7.0.8
