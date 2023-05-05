@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-aktor",
   "description": "Komponent som viser en liste med saker knyttet til en aktør-id",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -27,10 +27,10 @@
     "@navikt/ds-css": "2.9.8",
     "@navikt/ds-react": "2.9.8",
     "@navikt/ft-kodeverk": "^2.1.4",
-    "@navikt/ft-plattform-komponenter": "^2.0.23",
-    "@navikt/ft-sak-visittkort": "^2.0.25",
+    "@navikt/ft-plattform-komponenter": "^2.0.24",
+    "@navikt/ft-sak-visittkort": "^2.0.26",
     "@navikt/ft-types": "^2.1.5",
-    "@navikt/ft-ui-komponenter": "^2.0.22",
+    "@navikt/ft-ui-komponenter": "^2.0.23",
     "@navikt/ft-utils": "^2.0.21",
     "react": "18.2.0",
     "react-intl": "6.4.2"
@@ -48,7 +48,7 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.0.24",
+    "@navikt/ft-storybook-utils": "^2.0.25",
     "@storybook/addon-actions": "7.0.8",
     "@storybook/react": "7.0.8",
     "@storybook/react-vite": "7.0.8",
