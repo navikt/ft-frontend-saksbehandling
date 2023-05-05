@@ -97,7 +97,11 @@ const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFormValues => ({
-  [`${FORM_NAME}`]: beregningsgrunnlagListe.map(bg => buildFieldInitialValues(bg, vilkarperioder)),
+  [`${FORM_NAME}`]: beregningsgrunnlagListe
+    .filter(bg =>
+      bg.avklaringsbehov.some(v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_NYTT_INNTKTSFRHLD),
+    )
+    .map(bg => buildFieldInitialValues(bg, vilkarperioder)),
 });
 
 const overlapper = (periode1: { fom: string; tom: string }, periode2: { fom: string; tom: string }): boolean => {
