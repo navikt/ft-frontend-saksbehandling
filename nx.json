@@ -32,10 +32,6 @@
       "inputs": ["prod"],
       "dependsOn": ["^build"],
       "outputs": ["{projectRoot}/dist"]
-    },
-    "lerna-publish": {
-      "inputs": ["default"],
-      "dependsOn": ["build"]
     }
   }
 }
