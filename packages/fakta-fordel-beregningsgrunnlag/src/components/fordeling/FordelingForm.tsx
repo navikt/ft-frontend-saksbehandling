@@ -53,14 +53,18 @@ const buildInitialValues = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagFormValues => ({
-  [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
-    buildFieldInitialValuesFordelBeregning(
-      bg,
-      finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom),
-      arbeidsgiverOpplysningerPerId,
-      kodeverkSamling,
+  [FORM_NAME]: beregningsgrunnlagListe
+    .filter(bg =>
+      bg.avklaringsbehov.some(v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG),
+    )
+    .map(bg =>
+      buildFieldInitialValuesFordelBeregning(
+        bg,
+        finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom),
+        arbeidsgiverOpplysningerPerId,
+        kodeverkSamling,
+      ),
     ),
-  ),
 });
 
 interface PureOwnProps {
