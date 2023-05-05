@@ -18,7 +18,7 @@
     "eslint:changed": "lerna run eslint --stream --since origin/main",
     "stylelint": "lerna run less:lint --stream",
     "build": "lerna run build --stream",
-    "lerna-publish": "lerna publish",
+    "lerna-publish": "yarn build && lerna publish",
     "lerna-changed": "lerna changed",
     "clean": "lerna run clean",
     "storybook-clean-deploy-folder": "rm -rf ./.storybook-static-build",
