@@ -1,41 +1,29 @@
-// TODO Fjern denne fila når k9 er over på kodeverk-strings
+// TODO Fjern denne fila når k9 er over på kodeverk-string
 
-
-// eslint-disable-next-line import/prefer-default-export
-const data = {};
-
-// eslint-disable-next-line @typescript-eslint/no-shadow
-const konverterKodeverkTilKode = data => {
+export const konverterKodeverkTilKode = data => {
   if (data === undefined || data === null) {
     return;
   }
+
+  const newData = JSON.parse(JSON.stringify(data)); // Create a deep copy of the input object
   const lengdeKodeverkObject = 2;
 
-  Object.keys(data).forEach(key => {
-    if (data[key]?.kode) {
-      const antallAttr = Object.keys(data[key]).length;
+  Object.keys(newData).forEach(key => {
+    if (newData[key]?.kode) {
+      const antallAttr = Object.keys(newData[key]).length;
       if (
-        (data[key]?.kodeverk &&
-          (antallAttr === lengdeKodeverkObject || data[key]?.kodeverk === 'AVKLARINGSBEHOV_DEF')) ||
+        (newData[key]?.kodeverk &&
+          (antallAttr === lengdeKodeverkObject || newData[key]?.kodeverk === 'AVKLARINGSBEHOV_DEF')) ||
         antallAttr === 1
       ) {
-        // eslint-disable-next-line no-param-reassign
-        data[key] = data[key].kode;
+        // Modify the new object instead of the input object
+        newData[key] = newData[key].kode;
       }
     }
-    if (typeof data[key] === 'object' && data[key] !== null) {
-      konverterKodeverkTilKode(data[key]);
+    if (typeof newData[key] === 'object' && newData[key] !== null) {
+      newData[key] = konverterKodeverkTilKode(newData[key]);
     }
   });
+
+  return newData;
 };
-
-konverterKodeverkTilKode(data);
-
-// kopiere til clipboard
-function pbcopy(data) {
-  var proc = require('child_process').spawn('pbcopy');
-  proc.stdin.write(data);
-  proc.stdin.end();
-}
-// eslint-disable-next-line no-console
-pbcopy(JSON.stringify(data));
