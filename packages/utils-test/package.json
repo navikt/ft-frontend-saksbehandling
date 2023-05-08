@@ -18,7 +18,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.1.4",
+    "@navikt/ft-kodeverk": "2.1.4",
     "react": "18.2.0",
     "react-intl": "6.4.2"
   },

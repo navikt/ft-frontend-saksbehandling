@@ -12,7 +12,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.1.4"
+    "@navikt/ft-kodeverk": "2.1.4"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "2.x"

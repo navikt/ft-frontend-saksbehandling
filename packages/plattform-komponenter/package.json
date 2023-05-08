@@ -27,7 +27,7 @@
     "@navikt/aksel-icons": "2.9.8",
     "@navikt/ds-css": "2.9.8",
     "@navikt/ds-react": "2.9.8",
-    "@navikt/ft-utils": "^2.0.21",
+    "@navikt/ft-utils": "2.0.21",
     "classnames": "2.3.2"
   },
   "peerDependencies": {
