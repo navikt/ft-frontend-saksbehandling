@@ -2415,7 +2415,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:2.9.8, @navikt/aksel-icons@npm:^2.9.8":
+"@navikt/aksel-icons@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@navikt/aksel-icons@npm:3.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F3.1.1%2F9b8fae8cb54fda47db6a55dfcbf478ab42959bc6"
+  checksum: ffecd78549fa3ad78b52a72cfa3f552b13d04b92a4e6625ec90e0d63d25df1d1c95bd2a16875f988079fe7810d0ebdaa661df89dfee4fdad0a41291f613bc8be
+  languageName: node
+  linkType: hard
+
+"@navikt/aksel-icons@npm:^2.9.8":
   version: 2.9.8
   resolution: "@navikt/aksel-icons@npm:2.9.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F2.9.8%2F04e4868d2f8f1022b52e9de54668127f6d0f5052"
   checksum: 75d49e382b11e79995daa622aa9405c6b7c1857a4a865aee92462f65346adbcf130cd369fb4550e31e558985d31a6f14b9d754a91d5329c9cdd3944490cb94ea
@@ -2492,7 +2499,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
-    "@navikt/aksel-icons": 2.9.8
+    "@navikt/aksel-icons": 3.1.1
     "@navikt/ds-css": 2.9.8
     "@navikt/ds-react": 2.9.8
     "@navikt/ft-form-hooks": ^4.0.26
@@ -2548,7 +2555,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag"
   dependencies:
-    "@navikt/aksel-icons": 2.9.8
+    "@navikt/aksel-icons": 3.1.1
     "@navikt/ds-css": 2.9.8
     "@navikt/ds-react": 2.9.8
     "@navikt/ft-form-hooks": ^4.0.26
@@ -2735,7 +2742,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
-    "@navikt/aksel-icons": 2.9.8
+    "@navikt/aksel-icons": 3.1.1
     "@navikt/ds-css": 2.9.8
     "@navikt/ds-react": 2.9.8
     "@navikt/ft-utils": ^2.0.22
@@ -3060,7 +3067,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-dekorator@workspace:packages/sak-dekorator"
   dependencies:
-    "@navikt/aksel-icons": 2.9.8
+    "@navikt/aksel-icons": 3.1.1
     "@navikt/ds-css": 2.9.8
     "@navikt/ds-react": 2.9.8
     "@navikt/ft-kodeverk": ^2.1.5
