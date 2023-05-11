@@ -24,9 +24,9 @@
     "storybook": "storybook dev --quiet -p 7007"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "2.9.8",
-    "@navikt/ds-css": "2.9.8",
-    "@navikt/ds-react": "2.9.8",
+    "@navikt/aksel-icons": "3.1.2",
+    "@navikt/ds-css": "3.1.2",
+    "@navikt/ds-react": "3.1.2",
     "@navikt/ft-utils": "^2.0.22",
     "classnames": "2.3.2"
   },
@@ -48,9 +48,9 @@
   },
   "devDependencies": {
     "@popperjs/core": "2.11.7",
-    "@storybook/addon-actions": "7.0.9",
-    "@storybook/react": "7.0.9",
-    "@storybook/react-vite": "7.0.9",
+    "@storybook/addon-actions": "7.0.10",
+    "@storybook/react": "7.0.10",
+    "@storybook/react-vite": "7.0.10",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "classnames": "2.3.2",
@@ -63,7 +63,7 @@
     "react-collapse": "5.1.1",
     "react-dom": "18.2.0",
     "react-popper": "2.3.0",
-    "storybook": "7.0.9",
+    "storybook": "7.0.10",
     "stylelint": "15.6.1",
     "typescript": "5.0.4",
     "vite": "4.3.5",
