@@ -2444,7 +2444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-css-internal@npm:2.9.8":
+"@navikt/ds-css-internal@npm:2.9.8, @navikt/ds-css-internal@npm:^2.9.8":
   version: 2.9.8
   resolution: "@navikt/ds-css-internal@npm:2.9.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css-internal%2F2.9.8%2F09baada0d399ca309c34bcfb3908276795fa1e96"
   checksum: 1a9f8d3e794af0f276f613d3f92a577c49d7c768bbb729fc949b58775e579807d6c6fc3f0d5ccc3ba20f5ab7801b740930066e5139e78025cbd2c3e3f2f966e0
@@ -2468,7 +2468,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-react-internal@npm:2.9.8":
+"@navikt/ds-react-internal@npm:2.9.8, @navikt/ds-react-internal@npm:^2.9.8":
   version: 2.9.8
   resolution: "@navikt/ds-react-internal@npm:2.9.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react-internal%2F2.9.8%2Fa952843df673b24a6054f4d420b6343ddd75f784"
   dependencies:
@@ -2865,7 +2865,6 @@ __metadata:
     "@navikt/ft-form-validators": ^2.0.23
     "@navikt/ft-kodeverk": ^2.1.5
     "@navikt/ft-storybook-utils": ^2.0.26
-    "@navikt/ft-tidslinje": ^2.0.24
     "@navikt/ft-types": ^2.1.6
     "@navikt/ft-ui-komponenter": ^2.0.24
     "@navikt/ft-utils": ^2.0.22
@@ -2876,6 +2875,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
     cross-env: 7.0.3
+    dayjs: 1.11.7
     eslint: 8.40.0
     moment: 2.29.4
     react: 18.2.0
@@ -2895,10 +2895,10 @@ __metadata:
     "@navikt/ft-form-hooks": 4.x
     "@navikt/ft-form-validators": 2.x
     "@navikt/ft-kodeverk": 2.x
-    "@navikt/ft-tidslinje": 2.x
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
+    dayjs: 1.11.7
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.9
@@ -2955,13 +2955,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving"
   dependencies:
+    "@navikt/aksel-icons": 2.9.8
     "@navikt/ds-css": 2.9.8
+    "@navikt/ds-css-internal": ^2.9.8
     "@navikt/ds-react": 2.9.8
+    "@navikt/ds-react-internal": ^2.9.8
     "@navikt/ft-form-hooks": ^4.0.26
     "@navikt/ft-form-validators": ^2.0.23
     "@navikt/ft-kodeverk": ^2.1.5
     "@navikt/ft-storybook-utils": ^2.0.26
-    "@navikt/ft-tidslinje": ^2.0.24
     "@navikt/ft-types": ^2.1.6
     "@navikt/ft-ui-komponenter": ^2.0.24
     "@navikt/ft-utils": ^2.0.22
@@ -2972,6 +2974,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
     cross-env: 7.0.3
+    dayjs: 1.11.7
     eslint: 8.40.0
     moment: 2.29.4
     react: 18.2.0
@@ -2983,15 +2986,18 @@ __metadata:
     vite: 4.3.5
     vitest: 0.31.0
   peerDependencies:
-    "@navikt/ds-css": 2.8.11
-    "@navikt/ds-react": 2.8.11
+    "@navikt/aksel-icons": 2.9.8
+    "@navikt/ds-css": 2.9.8
+    "@navikt/ds-css-internal": ^2.9.8
+    "@navikt/ds-react": 2.9.8
+    "@navikt/ds-react-internal": ^2.9.8
     "@navikt/ft-form-hooks": 4.x
     "@navikt/ft-form-validators": 2.x
     "@navikt/ft-kodeverk": 2.x
-    "@navikt/ft-tidslinje": 2.x
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
+    dayjs: 1.11.7
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.9
@@ -3404,44 +3410,6 @@ __metadata:
     react-intl: 6.4.2
     typescript: 5.0.4
     vite: 4.3.5
-  languageName: unknown
-  linkType: soft
-
-"@navikt/ft-tidslinje@^2.0.24, @navikt/ft-tidslinje@workspace:packages/tidslinje":
-  version: 0.0.0-use.local
-  resolution: "@navikt/ft-tidslinje@workspace:packages/tidslinje"
-  dependencies:
-    "@navikt/ds-css": 2.9.8
-    "@navikt/ft-kodeverk": ^2.1.5
-    "@navikt/ft-types": ^2.1.6
-    "@navikt/ft-ui-komponenter": ^2.0.24
-    "@navikt/ft-utils": ^2.0.22
-    "@storybook/addon-actions": 7.0.9
-    "@storybook/react": 7.0.9
-    "@storybook/react-vite": 7.0.9
-    cross-env: 7.0.3
-    eslint: 8.40.0
-    moment: 2.29.4
-    react: 18.2.0
-    react-intl: 6.4.2
-    storybook: 7.0.9
-    stylelint: 15.6.1
-    typescript: 5.0.4
-    vis-data: 7.1.6
-    vis-timeline: 7.7.2
-    vite: 4.3.5
-    vitest: 0.31.0
-  peerDependencies:
-    "@navikt/ds-css": 2.8.11
-    "@navikt/ft-kodeverk": 2.x
-    "@navikt/ft-types": 2.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
-    moment: 2.29.4
-    react: 18.2.0
-    react-intl: 6.3.2
-    vis-data: 7.1.6
-    vis-timeline: 7.7.2
   languageName: unknown
   linkType: soft
 
@@ -19071,33 +19039,6 @@ __metadata:
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: ae0123222c6df65b437669d63dfa8c36cee20a504101b2fcd97b8bf76f91259c17f9f2b4d70a1e3c6bbcee7f51b28392833adb6b2770b23b01abec84e369660b
-  languageName: node
-  linkType: hard
-
-"vis-data@npm:7.1.6":
-  version: 7.1.6
-  resolution: "vis-data@npm:7.1.6"
-  peerDependencies:
-    uuid: ^3.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-    vis-util: ^5.0.1
-  checksum: ef461d13e0c340c29aef38b70247c0722d293b9aab029fdbffe6802e473c47ea83e2c3c9563cd03e092d1e579b5f98326ce704eb1b3d51eee8f0eadaf6618f99
-  languageName: node
-  linkType: hard
-
-"vis-timeline@npm:7.7.2":
-  version: 7.7.2
-  resolution: "vis-timeline@npm:7.7.2"
-  peerDependencies:
-    "@egjs/hammerjs": ^2.0.0
-    component-emitter: ^1.3.0
-    keycharm: ^0.2.0 || ^0.3.0 || ^0.4.0
-    moment: ^2.24.0
-    propagating-hammerjs: ^1.4.0 || ^2.0.0
-    uuid: ^3.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-    vis-data: ^6.3.0 || ^7.0.0
-    vis-util: ^5.0.1
-    xss: ^1.0.0
-  checksum: 3a44e6870e4230ddbdb1123ce655ad4491d9b163a656d9a8211504aa040e7bfa857d7e9689cc88515c6b41a76da540b26b14ca0f8d229fa87987b89866fa7cf1
   languageName: node
   linkType: hard
 

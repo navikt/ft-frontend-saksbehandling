@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import moment from 'moment';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Alert, Heading } from '@navikt/ds-react';
+import { FormattedMessage } from 'react-intl';
+import { Alert, Heading, Panel } from '@navikt/ds-react';
 
 import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
@@ -16,7 +16,6 @@ import {
 } from '@navikt/ft-types';
 
 import TilbakekrevingTimelineData from './splittePerioder/TilbakekrevingTimelineData';
-import TilbakekrevingTimelinePanel from './timeline/TilbakekrevingTimelinePanel';
 import TilbakekrevingPeriodeForm, {
   CustomPeriode,
   CustomPerioder,
@@ -24,7 +23,6 @@ import TilbakekrevingPeriodeForm, {
   periodeFormBuildInitialValues,
   CustomVilkarsVurdertePeriode,
 } from './TilbakekrevingPeriodeForm';
-import TilbakekrevingTidslinjeHjelpetekster from './TilbakekrevingTidslinjeHjelpetekster';
 import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
 import DataForPeriode from '../types/dataForPeriodeTsType';
 import VilkarsVurderingAp from '../types/VilkarsVurderingAp';
@@ -33,6 +31,7 @@ import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
 import styles from './tilbakekrevingForm.module.css';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
+import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));
@@ -260,8 +259,6 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
 }) => {
-  const intl = useIntl();
-
   const sammenslåttePerioder = slaSammenOriginaleOgLagredePeriode(perioder, vilkarvurdering, rettsgebyr);
   const [vilkårsvurdertePerioder, setVilkårsvurdertePerioder] = useState<CustomVilkarsVurdertePeriode[]>(
     formData || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
@@ -318,9 +315,8 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
     setPeriode(vilkårsvurdertePerioder[index - 1]);
   };
 
-  const togglePeriode = () => {
-    const periode = valgtPeriode ? undefined : vilkårsvurdertePerioder[0];
-    setPeriode(periode);
+  const lukkPeriode = () => {
+    setPeriode(undefined);
   };
 
   const oppdaterPeriode = (values: CustomVilkarsVurdertePeriode) => {
@@ -331,7 +327,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
     setVilkårsvurdertePerioder(sortedActivities);
     setFormData(sortedActivities);
     setDirty(true);
-    togglePeriode();
+    lukkPeriode();
 
     const periodeMedApenAksjonspunkt = sortedActivities.find(harApentAksjonspunkt);
     if (periodeMedApenAksjonspunkt) {
@@ -353,7 +349,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
       );
       const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
 
-      togglePeriode();
+      lukkPeriode();
       setDirty(true);
       setVilkårsvurdertePerioder(sortedActivities);
       setFormData(sortedActivities);
@@ -377,40 +373,41 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
       {vilkårsvurdertePerioder && (
         <>
-          <TilbakekrevingTimelinePanel
+          <TilbakekrevingTimeline
             perioder={perioderFormatertForTidslinje}
             valgtPeriode={valgtPeriodeFormatertForTidslinje}
             setPeriode={setPeriode}
-            toggleDetaljevindu={togglePeriode}
-            hjelpetekstKomponent={<TilbakekrevingTidslinjeHjelpetekster />}
             kjonn={navBrukerKjonn}
-            intl={intl}
           />
           {valgtPeriode && valgtData && (
-            <div className={styles.container}>
-              <TilbakekrevingTimelineData
-                periode={valgtData}
-                callbackForward={setNestePeriode}
-                callbackBackward={setForrigePeriode}
-                oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                readOnly={isReadOnly}
-                behandlingUuid={behandlingUuid}
-                beregnBelop={beregnBelop}
-                kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-              />
-              <VerticalSpacer twentyPx />
-              <TilbakekrevingPeriodeForm
-                key={valgtPeriodeFormatertForTidslinje?.id}
-                periode={valgtPeriode}
-                data={valgtData}
-                antallPerioderMedAksjonspunkt={antallPerioderMedAksjonspunkt}
-                readOnly={isReadOnly}
-                skjulPeriode={togglePeriode}
-                oppdaterPeriode={oppdaterPeriode}
-                kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-                vilkarsVurdertePerioder={vilkårsvurdertePerioder}
-              />
-            </div>
+            <>
+              <div className={styles.space} />
+              <Panel border>
+                <TilbakekrevingTimelineData
+                  periode={valgtData}
+                  callbackForward={setNestePeriode}
+                  callbackBackward={setForrigePeriode}
+                  oppdaterSplittedePerioder={oppdaterSplittedePerioder}
+                  readOnly={isReadOnly}
+                  behandlingUuid={behandlingUuid}
+                  beregnBelop={beregnBelop}
+                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
+                  lukkPeriode={lukkPeriode}
+                />
+                <VerticalSpacer twentyPx />
+                <TilbakekrevingPeriodeForm
+                  key={valgtPeriodeFormatertForTidslinje?.id}
+                  periode={valgtPeriode}
+                  data={valgtData}
+                  antallPerioderMedAksjonspunkt={antallPerioderMedAksjonspunkt}
+                  readOnly={isReadOnly}
+                  skjulPeriode={lukkPeriode}
+                  oppdaterPeriode={oppdaterPeriode}
+                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
+                  vilkarsVurdertePerioder={vilkårsvurdertePerioder}
+                />
+              </Panel>
+            </>
           )}
         </>
       )}

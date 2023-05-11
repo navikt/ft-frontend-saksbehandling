@@ -1,56 +1,45 @@
-import React, { Component, MouseEvent, KeyboardEvent, RefObject } from 'react';
+import React, { ReactElement, FunctionComponent, useState } from 'react';
 import moment from 'moment';
-import { IntlShape } from 'react-intl';
+import { Timeline } from '@navikt/ds-react-internal';
+import dayjs from 'dayjs';
+import {
+  XMarkOctagonIcon,
+  CheckmarkCircleIcon,
+  ExclamationmarkTriangleIcon,
+  FigureOutwardFillIcon,
+  SilhouetteFillIcon,
+  FigureCombinationIcon,
+  PlusIcon,
+  MinusIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+} from '@navikt/aksel-icons';
 
-import { FlexColumn, FlexContainer, FlexRow, Image } from '@navikt/ft-ui-komponenter';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { NavBrukerKjonn } from '@navikt/ft-kodeverk';
-import { Timeline, TimeLineControl } from '@navikt/ft-tidslinje';
 
-import urlMann from '../../images/mann.svg';
-import urlKvinne from '../../images/kvinne.svg';
-
-import TidslinjePeriode from '../../types/tidslinjePeriodeTsType';
+import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Button } from '@navikt/ds-react';
+import { useIntl } from 'react-intl';
 import styles from './tilbakekrevingTimeline.module.css';
+import TidslinjePeriode from '../../types/tidslinjePeriodeTsType';
 
 export const GODKJENT_CLASSNAME = 'godkjentPeriode';
 export const AVVIST_CLASSNAME = 'avvistPeriode';
 
 type Periode = {
-  className?: string;
-  group: number;
+  status: 'success' | 'danger' | 'warning';
 } & TidslinjePeriode;
 
-const isKvinne = (kode: string) => kode === NavBrukerKjonn.KVINNE;
-
-const getOptions = (sortedPeriods: Periode[]) => {
-  const firstPeriod = sortedPeriods[0];
-  const lastPeriod = sortedPeriods[sortedPeriods.length - 1];
-
-  return {
-    end: moment(lastPeriod.tom).add(2, 'days').toDate(),
-    locale: moment.locale('nb'),
-    margin: { item: 14 },
-    max: moment(firstPeriod.fom).add(4, 'years').toDate(),
-    min: moment(firstPeriod.fom).subtract(4, 'weeks').toDate(),
-    moment,
-    moveable: true,
-    orientation: { axis: 'top' },
-    showCurrentTime: false,
-    stack: false,
-    start: moment(firstPeriod.fom).subtract(1, 'days').toDate(),
-    tooltip: { followMouse: true },
-    verticalScroll: false,
-    width: '100%',
-    zoomable: true,
-    zoomMax: 1000 * 60 * 60 * 24 * 31 * 40,
-    zoomMin: 1000 * 60 * 60 * 24 * 30,
-  };
-};
+const PERIODE_STATUS_IKON_MAP = {
+  danger: <XMarkOctagonIcon />,
+  success: <CheckmarkCircleIcon />,
+  warning: <ExclamationmarkTriangleIcon />,
+} as Record<string, ReactElement>;
 
 const parseDateString = (dateString: moment.Moment | string) => moment(dateString, ISO_DATE_FORMAT).toDate();
 
-function sortByDate(a: Periode, b: Periode) {
+function sortByDate(a: TidslinjePeriode, b: TidslinjePeriode) {
   if (a.fom < b.fom) {
     return -1;
   }
@@ -60,15 +49,18 @@ function sortByDate(a: Periode, b: Periode) {
   return 0;
 }
 
-const parseDates = (item: Periode) => ({
-  ...item,
-  start: parseDateString(item.fom),
+const finnStatus = (periode: TidslinjePeriode): 'success' | 'danger' | 'warning' => {
+  const status = periode.isGodkjent ? 'success' : 'danger';
+  return periode.isAksjonspunktOpen ? 'warning' : status;
+};
 
-  end: parseDateString(moment(item.tom).add(1, 'days')),
-});
-
-const formatItems = (periodItems: Periode[] = []) => {
-  const itemsWithDates = periodItems.map(parseDates);
+const formatItems = (periodItems: TidslinjePeriode[] = []): Periode[] => {
+  const itemsWithDates = [...periodItems].sort(sortByDate).map(p => ({
+    ...p,
+    start: parseDateString(p.fom),
+    end: parseDateString(moment(p.tom).add(1, 'days')),
+    status: finnStatus(p),
+  }));
   const formattedItemsArray: any = [];
   formattedItemsArray.length = 0;
   itemsWithDates.forEach(item => {
@@ -77,26 +69,21 @@ const formatItems = (periodItems: Periode[] = []) => {
   return formattedItemsArray;
 };
 
-const formatGroups = (periodItems: Periode[] = []) => {
-  const duplicatesRemoved = periodItems.reduce<Periode[]>((accPeriods, period) => {
-    const hasPeriod = accPeriods.some(p => p.group === period.group);
-    if (!hasPeriod) accPeriods.push(period);
-    return accPeriods;
-  }, []);
-  return duplicatesRemoved.map(activity => ({
-    id: activity.group,
-    content: '',
-  }));
+const finnIkonGittKjønnkode = (kjonn: string) => {
+  if (kjonn === NavBrukerKjonn.KVINNE) {
+    return <FigureOutwardFillIcon width={20} height={20} color="var(--a-red-200)" />;
+  }
+  if (kjonn === NavBrukerKjonn.MANN) {
+    return <SilhouetteFillIcon width={20} height={20} color="var(--a-blue-600)" />;
+  }
+  return <FigureCombinationIcon width={20} height={20} />;
 };
 
 interface OwnProps {
   perioder: TidslinjePeriode[];
-  toggleDetaljevindu: (event: MouseEvent | KeyboardEvent) => void;
-  selectedPeriod?: TidslinjePeriode;
-  selectPeriodCallback: (...args: any[]) => any;
-  hjelpetekstKomponent: React.ReactNode;
+  valgtPeriode?: TidslinjePeriode;
+  setPeriode: (periode?: TidslinjePeriode) => void;
   kjonn: string;
-  intl: IntlShape;
 }
 
 /**
@@ -104,108 +91,110 @@ interface OwnProps {
  *
  * Presentationskomponent. Masserer data og populerer felten samt formatterar tidslinjen for tilbakekreving
  */
-class TilbakekrevingTimeline extends Component<OwnProps> {
-  timelineRef: RefObject<any>;
+const TilbakekrevingTimeline: FunctionComponent<OwnProps> = ({ perioder, valgtPeriode, setPeriode, kjonn }) => {
+  const intl = useIntl();
 
-  constructor(props: OwnProps) {
-    super(props);
+  const formatertePerioder = formatItems(perioder);
 
-    this.goForward = this.goForward.bind(this);
-    this.goBackward = this.goBackward.bind(this);
-    this.zoomIn = this.zoomIn.bind(this);
-    this.zoomOut = this.zoomOut.bind(this);
-    this.timelineRef = React.createRef();
-  }
+  const velgPeriode = (id: number): void => {
+    const periode = perioder.find(p => p.id === id);
+    if (periode) {
+      setPeriode(periode);
+    }
+  };
 
-  zoomIn() {
-    this.timelineRef.current.zoomOut(0.5);
-  }
+  const originalFomDato = dayjs(formatertePerioder[0].fom);
+  const originalTomDato = dayjs(formatertePerioder[formatertePerioder.length - 1].tom);
 
-  zoomOut() {
-    this.timelineRef.current.zoomIn(0.5);
-  }
+  const [fomDato, setFomDato] = useState(originalFomDato);
+  const [tomDato, setTomDato] = useState(originalTomDato);
 
-  goForward() {
-    const timeline = this.timelineRef.current;
-    const currentWindowTimes = timeline.getWindow();
-    const newWindowTimes = {
-      start: new Date(currentWindowTimes.start).setDate(currentWindowTimes.start.getDate() + 42),
-      end: new Date(currentWindowTimes.end).setDate(currentWindowTimes.end.getDate() + 42),
-    };
+  const goBackward = () => {
+    if (!fomDato.subtract(1, 'month').isBefore(originalFomDato)) {
+      setFomDato(fomDato.subtract(1, 'month'));
+      setTomDato(tomDato.subtract(1, 'month'));
+    }
+  };
+  const goForward = () => {
+    if (!tomDato.add(1, 'month').isAfter(originalTomDato)) {
+      setFomDato(fomDato.add(1, 'month'));
+      setTomDato(tomDato.add(1, 'month'));
+    }
+  };
 
-    timeline.setWindow(newWindowTimes.start, newWindowTimes.end);
-  }
+  const zoomIn = () => {
+    if (!fomDato.add(3, 'month').isAfter(tomDato)) {
+      setFomDato(fomDato.add(1, 'month'));
+      setTomDato(tomDato.subtract(1, 'month'));
+    }
+  };
 
-  goBackward() {
-    const timeline = this.timelineRef.current;
-    const currentWindowTimes = timeline.getWindow();
-    const newWindowTimes = {
-      start: new Date(currentWindowTimes.start).setDate(currentWindowTimes.start.getDate() - 42),
-      end: new Date(currentWindowTimes.end).setDate(currentWindowTimes.end.getDate() - 42),
-    };
+  const zoomOut = () => {
+    if (tomDato.add(1, 'month').diff(fomDato.subtract(1, 'month'), 'months') < 36) {
+      setFomDato(fomDato.subtract(1, 'month'));
+      setTomDato(tomDato.add(1, 'month'));
+    }
+  };
 
-    timeline.setWindow(newWindowTimes.start, newWindowTimes.end);
-  }
-
-  render() {
-    const { intl, perioder, selectedPeriod, selectPeriodCallback, toggleDetaljevindu, hjelpetekstKomponent, kjonn } =
-      this.props;
-
-    const newPerioder = perioder.map((periode: TidslinjePeriode) => {
-      const className = periode.isGodkjent ? GODKJENT_CLASSNAME : AVVIST_CLASSNAME;
-      return {
-        ...periode,
-        className: periode.isAksjonspunktOpen ? 'undefined' : className,
-        group: 1,
-      };
-    });
-
-    const groups = formatGroups(newPerioder);
-    const items = formatItems(newPerioder);
-    return (
-      <FlexContainer>
-        <FlexRow className={styles.timelineContainer}>
-          <FlexColumn className={styles.sokerContainer}>
-            <Image
-              className={styles.iconMedsoker}
-              src={isKvinne(kjonn) ? urlKvinne : urlMann}
-              alt={intl.formatMessage({ id: 'TilbakekrevingTimeline.ImageText' })}
-              tooltip={intl.formatMessage({
-                id: isKvinne(kjonn) ? 'TilbakekrevingTimeline.Woman' : 'TilbakekrevingTimeline.Man',
-              })}
+  return (
+    <>
+      <VerticalSpacer fourtyPx />
+      <Timeline startDate={dayjs(fomDato).toDate()} endDate={dayjs(tomDato).add(1, 'days').toDate()}>
+        <Timeline.Row label="-" icon={finnIkonGittKjønnkode(kjonn)}>
+          {formatertePerioder.map(periode => (
+            <Timeline.Period
+              key={periode.id}
+              start={dayjs(periode.fom).toDate()}
+              end={dayjs(periode.tom).toDate()}
+              status={periode.status}
+              icon={PERIODE_STATUS_IKON_MAP[periode.status]}
+              onSelectPeriod={() => velgPeriode(periode.id)}
+              isActive={valgtPeriode?.id === periode.id}
             />
-          </FlexColumn>
-          <FlexColumn className={styles.timelineWidth}>
-            <div className={styles.timeLineWrapper}>
-              <Timeline
-                ref={this.timelineRef}
-                options={getOptions([...newPerioder].sort(sortByDate))}
-                initialItems={items}
-                initialGroups={groups}
-                selectHandler={selectPeriodCallback}
-                selection={selectedPeriod ? [selectedPeriod.id] : undefined}
-              />
-            </div>
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow>
-          <FlexColumn className={styles.ctrlCol}>
-            <TimeLineControl
-              goBackwardCallback={this.goBackward}
-              goForwardCallback={this.goForward}
-              zoomInCallback={this.zoomIn}
-              zoomOutCallback={this.zoomOut}
-              openPeriodInfo={toggleDetaljevindu}
-              // @ts-ignore Fiks denne. Typane stemmer ikkje
-              selectedPeriod={selectedPeriod}
-            >
-              {hjelpetekstKomponent}
-            </TimeLineControl>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
-    );
-  }
-}
+          ))}
+        </Timeline.Row>
+      </Timeline>
+      <VerticalSpacer twentyPx />
+      <FloatRight>
+        <Button
+          className={styles.margin}
+          size="small"
+          icon={<PlusIcon aria-hidden />}
+          onClick={zoomIn}
+          variant="primary-neutral"
+          type="button"
+          title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ZoomInn' })}
+        />
+        <Button
+          className={styles.margin}
+          size="small"
+          icon={<MinusIcon aria-hidden />}
+          onClick={zoomOut}
+          variant="primary-neutral"
+          type="button"
+          title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ZoomUt' })}
+        />
+        <Button
+          className={styles.margin}
+          size="small"
+          icon={<ArrowLeftIcon aria-hidden />}
+          onClick={goBackward}
+          variant="primary-neutral"
+          type="button"
+          title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ScrollTilVenstre' })}
+        />
+        <Button
+          className={styles.margin}
+          size="small"
+          icon={<ArrowRightIcon aria-hidden />}
+          onClick={goForward}
+          variant="primary-neutral"
+          type="button"
+          title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ScrollTilHogre' })}
+        />
+      </FloatRight>
+    </>
+  );
+};
 
 export default TilbakekrevingTimeline;

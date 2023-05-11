@@ -18,6 +18,7 @@ type OwnProps = {
   behandlingUuid: string;
   beregnBelop: (data: any) => Promise<any>;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  lukkPeriode: () => void;
 };
 
 const TilbakekrevingTimelineData: FunctionComponent<OwnProps> = ({
@@ -29,6 +30,7 @@ const TilbakekrevingTimelineData: FunctionComponent<OwnProps> = ({
   behandlingUuid,
   beregnBelop,
   kodeverkSamlingFpTilbake,
+  lukkPeriode,
 }) => (
   <>
     <PeriodeController
@@ -40,6 +42,7 @@ const TilbakekrevingTimelineData: FunctionComponent<OwnProps> = ({
       behandlingUuid={behandlingUuid}
       beregnBelop={beregnBelop}
       intl={useIntl()}
+      lukkPeriode={lukkPeriode}
     />
     <VerticalSpacer sixteenPx />
     <PeriodeInformasjon
