@@ -1,5 +1,4 @@
-import React, { ReactElement, FunctionComponent, useState } from 'react';
-import moment from 'moment';
+import React, { ReactElement, FunctionComponent, useState, useCallback } from 'react';
 import { Timeline } from '@navikt/ds-react-internal';
 import dayjs from 'dayjs';
 import {
@@ -15,21 +14,21 @@ import {
   ArrowRightIcon,
 } from '@navikt/aksel-icons';
 
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { NavBrukerKjonn } from '@navikt/ft-kodeverk';
+import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
 
 import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Button } from '@navikt/ds-react';
 import { useIntl } from 'react-intl';
+import { KodeverkMedNavn } from '@navikt/ft-types';
 import styles from './tilbakekrevingTimeline.module.css';
 import TidslinjePeriode from '../../types/tidslinjePeriodeTsType';
 
-export const GODKJENT_CLASSNAME = 'godkjentPeriode';
-export const AVVIST_CLASSNAME = 'avvistPeriode';
-
 type Periode = {
+  id: number;
+  fom: string;
+  tom: string;
   status: 'success' | 'danger' | 'warning';
-} & TidslinjePeriode;
+};
 
 const PERIODE_STATUS_IKON_MAP = {
   danger: <XMarkOctagonIcon />,
@@ -37,9 +36,7 @@ const PERIODE_STATUS_IKON_MAP = {
   warning: <ExclamationmarkTriangleIcon />,
 } as Record<string, ReactElement>;
 
-const parseDateString = (dateString: moment.Moment | string) => moment(dateString, ISO_DATE_FORMAT).toDate();
-
-function sortByDate(a: TidslinjePeriode, b: TidslinjePeriode) {
+const sortByDate = (a: TidslinjePeriode, b: TidslinjePeriode) => {
   if (a.fom < b.fom) {
     return -1;
   }
@@ -47,33 +44,24 @@ function sortByDate(a: TidslinjePeriode, b: TidslinjePeriode) {
     return 1;
   }
   return 0;
-}
+};
 
 const finnStatus = (periode: TidslinjePeriode): 'success' | 'danger' | 'warning' => {
   const status = periode.isGodkjent ? 'success' : 'danger';
   return periode.isAksjonspunktOpen ? 'warning' : status;
 };
 
-const formatItems = (periodItems: TidslinjePeriode[] = []): Periode[] => {
-  const itemsWithDates = [...periodItems].sort(sortByDate).map(p => ({
+const formaterPerioder = (periodItems: TidslinjePeriode[] = []): Periode[] =>
+  [...periodItems].sort(sortByDate).map(p => ({
     ...p,
-    start: parseDateString(p.fom),
-    end: parseDateString(moment(p.tom).add(1, 'days')),
     status: finnStatus(p),
   }));
-  const formattedItemsArray: any = [];
-  formattedItemsArray.length = 0;
-  itemsWithDates.forEach(item => {
-    formattedItemsArray.push(item);
-  });
-  return formattedItemsArray;
-};
 
-const finnIkonGittKjønnkode = (kjonn: string) => {
-  if (kjonn === NavBrukerKjonn.KVINNE) {
+const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
+  if (relasjonsRolleType === RelasjonsRolleType.MOR || relasjonsRolleType === RelasjonsRolleType.MEDMOR) {
     return <FigureOutwardFillIcon width={20} height={20} color="var(--a-red-200)" />;
   }
-  if (kjonn === NavBrukerKjonn.MANN) {
+  if (relasjonsRolleType === RelasjonsRolleType.FAR) {
     return <SilhouetteFillIcon width={20} height={20} color="var(--a-blue-600)" />;
   }
   return <FigureCombinationIcon width={20} height={20} />;
@@ -83,25 +71,35 @@ interface OwnProps {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   setPeriode: (periode?: TidslinjePeriode) => void;
-  kjonn: string;
+  relasjonsRolleType: string;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
 }
 
 /**
  * TilbakekrevingTimeLine
  *
- * Presentationskomponent. Masserer data og populerer felten samt formatterar tidslinjen for tilbakekreving
+ * Masserer data og populerer felten samt formatterar tidslinjen for tilbakekreving
  */
-const TilbakekrevingTimeline: FunctionComponent<OwnProps> = ({ perioder, valgtPeriode, setPeriode, kjonn }) => {
+const TilbakekrevingTimeline: FunctionComponent<OwnProps> = ({
+  perioder,
+  valgtPeriode,
+  setPeriode,
+  relasjonsRolleType,
+  relasjonsRolleTypeKodeverk,
+}) => {
   const intl = useIntl();
 
-  const formatertePerioder = formatItems(perioder);
+  const formatertePerioder = formaterPerioder(perioder);
 
-  const velgPeriode = (id: number): void => {
-    const periode = perioder.find(p => p.id === id);
-    if (periode) {
-      setPeriode(periode);
-    }
-  };
+  const velgPeriode = useCallback(
+    (id: number): void => {
+      const periode = perioder.find(p => p.id === id);
+      if (periode) {
+        setPeriode(periode);
+      }
+    },
+    [perioder, setPeriode],
+  );
 
   const originalFomDato = dayjs(formatertePerioder[0].fom);
   const originalTomDato = dayjs(formatertePerioder[formatertePerioder.length - 1].tom);
@@ -109,38 +107,42 @@ const TilbakekrevingTimeline: FunctionComponent<OwnProps> = ({ perioder, valgtPe
   const [fomDato, setFomDato] = useState(originalFomDato);
   const [tomDato, setTomDato] = useState(originalTomDato);
 
-  const goBackward = () => {
+  const goBackward = useCallback(() => {
     if (!fomDato.subtract(1, 'month').isBefore(originalFomDato)) {
       setFomDato(fomDato.subtract(1, 'month'));
       setTomDato(tomDato.subtract(1, 'month'));
     }
-  };
-  const goForward = () => {
+  }, [fomDato, tomDato, originalFomDato]);
+
+  const goForward = useCallback(() => {
     if (!tomDato.add(1, 'month').isAfter(originalTomDato)) {
       setFomDato(fomDato.add(1, 'month'));
       setTomDato(tomDato.add(1, 'month'));
     }
-  };
+  }, [fomDato, tomDato, originalFomDato]);
 
-  const zoomIn = () => {
+  const zoomIn = useCallback(() => {
     if (!fomDato.add(3, 'month').isAfter(tomDato)) {
       setFomDato(fomDato.add(1, 'month'));
       setTomDato(tomDato.subtract(1, 'month'));
     }
-  };
+  }, [fomDato, tomDato]);
 
-  const zoomOut = () => {
+  const zoomOut = useCallback(() => {
     if (tomDato.add(1, 'month').diff(fomDato.subtract(1, 'month'), 'months') < 36) {
       setFomDato(fomDato.subtract(1, 'month'));
       setTomDato(tomDato.add(1, 'month'));
     }
-  };
+  }, [fomDato, tomDato]);
 
   return (
     <>
       <VerticalSpacer fourtyPx />
       <Timeline startDate={dayjs(fomDato).toDate()} endDate={dayjs(tomDato).add(1, 'days').toDate()}>
-        <Timeline.Row label="-" icon={finnIkonGittKjønnkode(kjonn)}>
+        <Timeline.Row
+          label={relasjonsRolleTypeKodeverk.find(k => k.kode === relasjonsRolleType)?.navn || '-'}
+          icon={finnIkonGittRelasjon(relasjonsRolleType)}
+        >
           {formatertePerioder.map(periode => (
             <Timeline.Period
               key={periode.id}
