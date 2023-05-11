@@ -2,7 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
-import { Aksjonspunkt, Behandling, FeilutbetalingPerioderWrapper, StandardProsessPanelProps } from '@navikt/ft-types';
+import {
+  Aksjonspunkt,
+  Behandling,
+  FeilutbetalingPerioderWrapper,
+  KodeverkMedNavn,
+  StandardProsessPanelProps,
+} from '@navikt/ft-types';
 
 import ForeldelseForm from './components/ForeldelseForm';
 import messages from '../i18n/nb_NO.json';
@@ -15,18 +21,19 @@ const intl = createIntl(messages);
 interface OwnProps {
   behandling: Behandling;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
-  navBrukerKjonn: string;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   aksjonspunkter: Aksjonspunkt[];
+  relasjonsRolleType: string;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
 }
 
 const ForeldelseProsessIndex: FunctionComponent<
   OwnProps & StandardProsessPanelProps<VurderForeldelseAp, ForeldelsesresultatActivity[]>
 > = ({
   perioderForeldelse,
-  navBrukerKjonn,
+  relasjonsRolleType,
   beregnBelop,
   behandling,
   aksjonspunkter,
@@ -36,6 +43,7 @@ const ForeldelseProsessIndex: FunctionComponent<
   alleMerknaderFraBeslutter,
   formData,
   setFormData,
+  relasjonsRolleTypeKodeverk,
 }) => (
   <RawIntlProvider value={intl}>
     <ForeldelseForm
@@ -44,7 +52,8 @@ const ForeldelseProsessIndex: FunctionComponent<
       submitCallback={submitCallback}
       readOnly={isReadOnly}
       aksjonspunkt={aksjonspunkter[0]}
-      navBrukerKjonn={navBrukerKjonn}
+      relasjonsRolleType={relasjonsRolleType}
+      relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
       alleMerknaderFraBeslutter={alleMerknaderFraBeslutter}
       kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
       beregnBelop={beregnBelop}

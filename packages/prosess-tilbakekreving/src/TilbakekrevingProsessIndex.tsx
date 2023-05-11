@@ -8,6 +8,7 @@ import {
   FeilutbetalingPerioderWrapper,
   Behandling,
   StandardProsessPanelProps,
+  KodeverkMedNavn,
 } from '@navikt/ft-types';
 
 import TilbakekrevingForm from './components/TilbakekrevingForm';
@@ -25,9 +26,10 @@ interface OwnProps {
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   vilkarvurdering: VilkarsVurdertePerioderWrapper;
   beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
-  navBrukerKjonn: string;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
+  relasjonsRolleType: string;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
 }
 
 const TilbakekrevingProsessIndex: FunctionComponent<
@@ -38,13 +40,14 @@ const TilbakekrevingProsessIndex: FunctionComponent<
   vilkarvurderingsperioder,
   vilkarvurdering,
   beregnBelop,
-  navBrukerKjonn,
   kodeverkSamlingFpTilbake,
   submitCallback,
   alleMerknaderFraBeslutter,
   isReadOnly,
   formData,
   setFormData,
+  relasjonsRolleType,
+  relasjonsRolleTypeKodeverk,
 }) => (
   <RawIntlProvider value={intl}>
     <TilbakekrevingForm
@@ -55,7 +58,8 @@ const TilbakekrevingProsessIndex: FunctionComponent<
       vilkarvurdering={vilkarvurdering}
       submitCallback={submitCallback}
       readOnly={isReadOnly}
-      navBrukerKjonn={navBrukerKjonn}
+      relasjonsRolleType={relasjonsRolleType}
+      relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
       alleMerknaderFraBeslutter={alleMerknaderFraBeslutter}
       kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
       beregnBelop={beregnBelop}

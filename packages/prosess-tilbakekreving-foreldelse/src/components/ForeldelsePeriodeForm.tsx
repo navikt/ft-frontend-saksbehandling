@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Button } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField, Datepicker, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
@@ -105,7 +105,7 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
                   label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
                   validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
                   isReadOnly={readOnly}
-                  disabledDays={{ fromDate: moment('1970-01-01').toDate(), toDate: moment(moment.now()).toDate() }}
+                  disabledDays={{ fromDate: dayjs('1970-01-01').toDate(), toDate: dayjs().toDate() }}
                 />
               </>
             )}

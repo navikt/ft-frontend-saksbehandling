@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
 import { Label, BodyShort } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
@@ -27,7 +27,7 @@ const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({ fom, tom, feilutb
         <FlexRow>
           <FlexColumn>
             <Label size="small">
-              {`${moment(fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(tom).format(DDMMYYYY_DATE_FORMAT)}`}
+              {`${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`}
             </Label>
           </FlexColumn>
           <FlexColumn className={styles.marginLeft}>
