@@ -5,7 +5,7 @@
   "ForeldelsePeriodeForm.Avbryt": "Avbryt",
   "ForeldelsePeriodeForm.Foreldelsesfrist": "Foreldelsesfrist",
   "ForeldelsePeriodeForm.OppdagelsesDato": "Dato for når feilutbetaling ble oppdaget",
-  
+
   "ForeldelseForm.Foreldelsesloven": "Foreldelsesloven §§ 2 og 3",
   "ForeldelseForm.AutomatiskVurdert": "Automatisk vurdert",
   "ForeldelseForm.AksjonspunktHelpText.5003": "Perioden før {dato} kan være foreldet. Del opp perioden ved behov og fastsett foreldelse",
@@ -31,6 +31,16 @@
   "TilbakekrevingTimeline.ImageText": "Personinformasjon",
   "TilbakekrevingTimeline.Woman": "Kvinne",
   "TilbakekrevingTimeline.Man": "Mann",
+  "TilbakekrevingTimeline.ZoomInn": "Zoom inn",
+  "TilbakekrevingTimeline.ZoomUt": "Zoom ut",
+  "TilbakekrevingTimeline.ScrollTilVenstre": "Scroll til venstre",
+  "TilbakekrevingTimeline.ScrollTilHogre": "Scroll til høyre",
+
+  "PeriodeController.nextPeriod": "Neste periode",
+  "PeriodeController.nextPeriodShort": "Neste",
+  "PeriodeController.prevPeriod": "Forrige periode",
+  "PeriodeController.prevPeriodShort": "Forrige",
+  "PeriodeController.LukkPeriode": "Lukk periode",
 
   "UttakInfoPanel.IngenPerioder": "Det må være minst én periode i uttaket.",
   "UttakInfoPanel.PeriodenSlettes": "Perioden {fom} - {tom} {uttakPeriodeType} slettes",
@@ -51,13 +61,13 @@
   "Timeline.tooltip.periodetype": "Periodetype",
   "Timeline.tooltip.utsettelsePeriode": "Utsettelse",
   "Timeline.TidspunktFamiliehendelse": "Tidspunkt for familiehendelse",
-  "Timeline.OppfyltPeriode" : "Oppfylt periode",
-  "Timeline.IkkeOppfyltPeriode" : "Ikke oppfylt periode",
-  "Timeline.TidspunktMotakSoknad" : "Tidspunkt for mottatt søknad",
-  "Timeline.BelopTilbakereves" : "Beløp tilbakekreves",
-  "Timeline.IngenTilbakekreving" : "Ingen tilbakekreving",
-  "Timeline.IkkeAvklartPeriode" : "Uavklart periode",
-  "Timeline.TidspunktRevurdering" : "Startpunkt for revurdering",
-  "Timeline.GradertPeriode" : "Gradert periode",
-  "Timeline.ManueltAvklart" : "Manuelt avklart periode"
+  "Timeline.OppfyltPeriode": "Oppfylt periode",
+  "Timeline.IkkeOppfyltPeriode": "Ikke oppfylt periode",
+  "Timeline.TidspunktMotakSoknad": "Tidspunkt for mottatt søknad",
+  "Timeline.BelopTilbakereves": "Beløp tilbakekreves",
+  "Timeline.IngenTilbakekreving": "Ingen tilbakekreving",
+  "Timeline.IkkeAvklartPeriode": "Uavklart periode",
+  "Timeline.TidspunktRevurdering": "Startpunkt for revurdering",
+  "Timeline.GradertPeriode": "Gradert periode",
+  "Timeline.ManueltAvklart": "Manuelt avklart periode"
 }
