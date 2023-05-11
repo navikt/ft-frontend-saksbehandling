@@ -411,8 +411,9 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
     AktivitetStatus.ARBEIDSAVKLARINGSPENGER,
   ] as string[];
   const statuserSomValideres = fields
-    .filter(v => !!v.aktivitetStatus && statuserSomPrioriteresOverSN.includes(v.aktivitetStatus))
-    .map(v => v.aktivitetStatus as string); // Trenger en as string her siden ts ikke ser at v.aktivitetStatus alltid er definert
+    .map(field => field.aktivitetStatus)
+    .filter((item): item is string => !!item && statuserSomPrioriteresOverSN.includes(item));
+
   const sumFastsattBelop = finnFastsattBeløpForStatus(
     vilkårperiodeFieldIndex,
     getValues,
