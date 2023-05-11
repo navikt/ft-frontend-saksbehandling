@@ -227,7 +227,7 @@ const arbeidsforholdReadOnlyOrSelect = (
   </>
 );
 
-const lagBelopKolonne = (
+const grunnlagInputKolonne = (
   readOnly: boolean,
   skalIkkeRedigereInntekt: boolean,
   isAksjonspunktClosed: boolean,
@@ -270,93 +270,111 @@ const skalViseSletteknapp = (
   readOnly: boolean,
 ): boolean => (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 
-const createAndelerTableRows = (
+const tittelKolonne = (
   fields: FordelBeregningsgrunnlagAndelValues[],
-  isAksjonspunktClosed: boolean,
-  readOnly: boolean,
-  inntektskategoriKoder: KodeverkMedNavn[],
-  skalIkkeRedigereInntekt: boolean,
-  arbeidsforholdList: BGFordelArbeidsforhold[],
+  index: number,
   selectVals: ReactElement[],
-  gjelderGradering: boolean,
-  removeFromFieldsMethod: (index?: number | number[]) => void,
+  skalIkkeEndres: boolean,
+  arbeidsforholdList: BGFordelArbeidsforhold[],
   updateFieldMethod: any,
   lagFeltNavn: (fieldIndex: number) => string,
-): ReactElement[] => {
-  const skalIkkeEndres = readOnly || skalIkkeRedigereInntekt;
-  return fields.map((field, index) => (
-    <TableRow key={field.id}>
-      <TableColumn>
-        {arbeidsforholdReadOnlyOrSelect(
-          fields,
-          index,
-          selectVals,
-          skalIkkeEndres,
-          arbeidsforholdList,
-          updateFieldMethod,
-          lagFeltNavn,
-        )}
-        {!isSelvstendigOrFrilanser(fields[index]) && (
-          <div className={styles.wordwrap}>
-            <InputField
-              name={`${lagFeltNavn(index)}.arbeidsperiodeFom - ${lagFeltNavn(index)}.arbeidsperiodeTom`}
-              readOnly
-            />
-          </div>
-        )}
-      </TableColumn>
-      {gjelderGradering && (
-        <TableColumn>
-          <InputField
-            name={`${lagFeltNavn(index)}.andelIArbeid`}
-            readOnly
-            className={styles.litenBredde}
-            normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
-          />
-        </TableColumn>
-      )}
-      <TableColumn
-        className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
-      >
-        <FloatRight>
-          <InputField
-            name={`${lagFeltNavn(index)}.refusjonskrav`}
-            readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
-            parse={parseCurrencyInput}
-            className={styles.litenBredde}
-            validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
-          />
-        </FloatRight>
-      </TableColumn>
-      <TableColumn>
+): ReactElement => (
+  <TableColumn>
+    {arbeidsforholdReadOnlyOrSelect(
+      fields,
+      index,
+      selectVals,
+      skalIkkeEndres,
+      arbeidsforholdList,
+      updateFieldMethod,
+      lagFeltNavn,
+    )}
+    {!isSelvstendigOrFrilanser(fields[index]) && (
+      <div className={styles.wordwrap}>
         <InputField
-          name={`${lagFeltNavn(index)}.beregningsgrunnlagPrAar`}
-          className={styles.litenBredde}
+          name={`${lagFeltNavn(index)}.arbeidsperiodeFom - ${lagFeltNavn(index)}.arbeidsperiodeTom`}
           readOnly
-          parse={parseCurrencyInput}
         />
-      </TableColumn>
-      {lagBelopKolonne(readOnly, skalIkkeRedigereInntekt, isAksjonspunktClosed, lagFeltNavn(index))}
-      <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
-        <FloatRight>
-          <SelectField
-            label=""
-            name={`${lagFeltNavn(index)}.inntektskategori`}
-            className={styles.storBredde}
-            validate={[required]}
-            selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-            readOnly={skalIkkeEndres}
-          />
-        </FloatRight>
-      </TableColumn>
-      <TableColumn>
-        {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
-          <button className={styles.buttonRemove} type="button" onClick={() => removeFromFieldsMethod(index)} />
-        )}
-      </TableColumn>
-    </TableRow>
-  ));
+      </div>
+    )}
+  </TableColumn>
+);
+
+const graderingKolonne = (gjelderGradering: boolean, fieldNavn: string): ReactElement | null => {
+  if (!gjelderGradering) return null;
+  return (
+    <TableColumn>
+      <InputField
+        name={`${fieldNavn}.andelIArbeid`}
+        readOnly
+        className={styles.litenBredde}
+        normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
+      />
+    </TableColumn>
+  );
 };
+
+const refusjonKolonne = (
+  skalIkkeEndres: boolean,
+  fields: FordelBeregningsgrunnlagAndelValues[],
+  index: number,
+  lagFeltNavn: (fieldIndex: number) => string,
+): ReactElement => (
+  <TableColumn className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}>
+    <FloatRight>
+      <InputField
+        name={`${lagFeltNavn(index)}.refusjonskrav`}
+        readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
+        parse={parseCurrencyInput}
+        className={styles.litenBredde}
+        validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
+      />
+    </FloatRight>
+  </TableColumn>
+);
+
+const grunnlagKolonne = (fieldNavn: string): ReactElement => (
+  <TableColumn>
+    <InputField
+      name={`${fieldNavn}.beregningsgrunnlagPrAar`}
+      className={styles.litenBredde}
+      readOnly
+      parse={parseCurrencyInput}
+    />
+  </TableColumn>
+);
+
+const inntektskategoriKolonne = (
+  skalIkkeEndres: boolean,
+  fieldNavn: string,
+  inntektskategoriKoder: KodeverkMedNavn[],
+): ReactElement => (
+  <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
+    <FloatRight>
+      <SelectField
+        label=""
+        name={`${fieldNavn}.inntektskategori`}
+        className={styles.storBredde}
+        validate={[required]}
+        selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
+        readOnly={skalIkkeEndres}
+      />
+    </FloatRight>
+  </TableColumn>
+);
+
+const knappKolonne = (
+  fields: FordelBeregningsgrunnlagAndelValues[],
+  index: number,
+  skalIkkeEndres: boolean,
+  removeFromFieldsMethod: (index?: number | number[]) => void,
+): ReactElement => (
+  <TableColumn>
+    {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
+      <button className={styles.buttonRemove} type="button" onClick={() => removeFromFieldsMethod(index)} />
+    )}
+  </TableColumn>
+);
 
 const createBruttoBGSummaryRow = (
   sumFordeling: string,
@@ -482,19 +500,21 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   const lagFeltNavn = (fieldIndex: number): string =>
     `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.${fieldIndex}`;
 
-  const tablerows = createAndelerTableRows(
-    fields,
-    isAksjonspunktClosed,
-    readOnly,
-    inntektskategoriKoder,
-    skalIkkeRedigereInntekt,
-    arbeidsforholdList,
-    selectVals,
-    gjelderGradering,
-    remove,
-    update,
-    lagFeltNavn,
-  );
+  const tablerows = fields.map((field, index) => {
+    const skalIkkeEndres = readOnly || skalIkkeRedigereInntekt;
+    return (
+      <TableRow key={field.id}>
+        {tittelKolonne(fields, index, selectVals, skalIkkeEndres, arbeidsforholdList, update, lagFeltNavn)}
+        {graderingKolonne(gjelderGradering, lagFeltNavn(index))}
+        {refusjonKolonne(skalIkkeEndres, fields, index, lagFeltNavn)}
+        {grunnlagKolonne(lagFeltNavn(index))}
+        {grunnlagInputKolonne(readOnly, skalIkkeRedigereInntekt, isAksjonspunktClosed, lagFeltNavn(index))}
+        {inntektskategoriKolonne(skalIkkeEndres, lagFeltNavn(index), inntektskategoriKoder)}
+        {knappKolonne(fields, index, skalIkkeEndres, remove)}
+      </TableRow>
+    );
+  });
+
   tablerows.push(createBruttoBGSummaryRow(sumFordeling, sumBeregningsgrunnlagPrAar, gjelderGradering));
 
   const valideringsresultat: string[] = [];
