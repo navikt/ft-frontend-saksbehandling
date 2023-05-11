@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Label } from '@navikt/ds-react';
+import { Button, Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import { Image, EditedIcon, FloatRight, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
-import { TimeLineButton } from '@navikt/ft-tidslinje';
+import { EditedIcon, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 
-import splitPeriodImageHoverUrl from '../../images/splitt_hover.svg';
-import splitPeriodImageUrl from '../../images/splitt.svg';
+import { ArrowLeftIcon, ArrowRightIcon, ScissorsIcon, XMarkIcon } from '@navikt/aksel-icons';
 import ForeldelsesresultatActivity from '../../types/foreldelsesresultatActivitytsType';
 import DelOppPeriodeModal, { PerioderData } from './DelOppPeriodeModal';
 
@@ -35,6 +33,7 @@ interface PureOwnProps {
   periode: ForeldelsesresultatActivity;
   readOnly: boolean;
   intl: IntlShape;
+  lukkPeriode: () => void;
 }
 
 interface StateProps {
@@ -127,7 +126,7 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
   }
 
   render() {
-    const { intl, callbackForward, callbackBackward, periode, readOnly } = this.props;
+    const { intl, callbackForward, callbackBackward, periode, readOnly, lukkPeriode } = this.props;
 
     const { showDelPeriodeModal, finnesBelopMed0Verdi } = this.state;
 
@@ -142,18 +141,17 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
           </FlexColumn>
           <FlexColumn className={styles.leftMargin}>
             {!readOnly && (
-              <span className={styles.splitPeriodPosition}>
-                <Image
-                  tabIndex={0}
-                  className={styles.splitPeriodImage}
-                  src={splitPeriodImageUrl}
-                  srcHover={splitPeriodImageHoverUrl}
-                  alt={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
-                  onMouseDown={this.showModal}
-                  onKeyDown={e => (e.key === 'Enter' ? this.showModal(e) : null)}
-                />
+              <Button
+                className={styles.margin}
+                size="xsmall"
+                icon={<ScissorsIcon aria-hidden />}
+                onClick={this.showModal}
+                variant="tertiary-neutral"
+                type="button"
+                title={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
+              >
                 <FormattedMessage id="PeriodeController.DelOppPerioden" />
-              </span>
+              </Button>
             )}
             {showDelPeriodeModal && (
               <DelOppPeriodeModal
@@ -165,19 +163,38 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
               />
             )}
           </FlexColumn>
-          <FlexColumn>
-            <FloatRight>
-              <TimeLineButton
-                text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })}
-                type="prev"
-                callback={callbackBackward}
-              />
-              <TimeLineButton
-                text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })}
-                type="next"
-                callback={callbackForward}
-              />
-            </FloatRight>
+          <FlexColumn className={styles.fix}>
+            <Button
+              className={styles.margin}
+              size="xsmall"
+              icon={<ArrowLeftIcon aria-hidden />}
+              onClick={callbackBackward}
+              variant="secondary-neutral"
+              type="button"
+              title={intl.formatMessage({ id: 'PeriodeController.prevPeriod' })}
+            >
+              <FormattedMessage id="PeriodeController.prevPeriodShort" />
+            </Button>
+            <Button
+              className={styles.margin}
+              size="xsmall"
+              icon={<ArrowRightIcon aria-hidden />}
+              onClick={callbackForward}
+              variant="secondary-neutral"
+              type="button"
+              title={intl.formatMessage({ id: 'PeriodeController.nextPeriod' })}
+              iconPosition="right"
+            >
+              <FormattedMessage id="PeriodeController.nextPeriodShort" />
+            </Button>
+            <Button
+              size="xsmall"
+              icon={<XMarkIcon aria-hidden />}
+              onClick={lukkPeriode}
+              variant="tertiary-neutral"
+              type="button"
+              title={intl.formatMessage({ id: 'PeriodeController.LukkPeriode' })}
+            />
           </FlexColumn>
         </FlexRow>
       </FlexContainer>

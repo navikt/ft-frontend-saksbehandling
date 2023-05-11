@@ -27,6 +27,17 @@
   "AktsomhetGradForsettFormPanel.Andel": "Andel som skal tilbakekreves",
   "AktsomhetGradForsettFormPanel.Renter": "Det legges til 10 % renter",
 
+  "TilbakekrevingTimeline.ZoomInn": "Zoom inn",
+  "TilbakekrevingTimeline.ZoomUt": "Zoom ut",
+  "TilbakekrevingTimeline.ScrollTilVenstre": "Scroll til venstre",
+  "TilbakekrevingTimeline.ScrollTilHogre": "Scroll til høyre",
+
+  "PeriodeController.nextPeriod": "Neste periode",
+  "PeriodeController.nextPeriodShort": "Neste",
+  "PeriodeController.prevPeriod": "Forrige periode",
+  "PeriodeController.prevPeriodShort": "Forrige",
+  "PeriodeController.LukkPeriode": "Lukk periode",
+
   "AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves": "Angi andel som skal tilbakekreves",
   "AktsomhetReduksjonAvBelopFormPanel.andelSomTilbakekreves": "Andel som skal tilbakekreves",
   "AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter": "Skal det tillegges renter?",
@@ -48,7 +59,7 @@
   "AktsomhetGradUaktsomhetFormPanel.SærligGrunner": "Særlige grunner 4. ledd",
   "AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner": "Vurder særlige grunner du har vektlagt for resultatet",
   "AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner.Hjelpetekst": "Begrunn om det foreligger/ ikke foreligger særlige grunner for reduksjon av beløpet som kreves tilbake. Kryss av hvilke særlige grunner som er vektlagt for resultatet",
-  "AktsomhetSarligeGrunnerFormPanel.GrunnerTilReduksjon":"Særlige grunner som er vektlagt (4.ledd)",
+  "AktsomhetSarligeGrunnerFormPanel.GrunnerTilReduksjon": "Særlige grunner som er vektlagt (4.ledd)",
 
   "PeriodeController.Detaljer": "Detaljer for valgt periode",
   "PeriodeController.DelOppPerioden": "Del opp perioden",
@@ -97,14 +108,13 @@
   "Timeline.tooltip.periodetype": "Periodetype",
   "Timeline.tooltip.utsettelsePeriode": "Utsettelse",
   "Timeline.TidspunktFamiliehendelse": "Tidspunkt for familiehendelse",
-  "Timeline.OppfyltPeriode" : "Oppfylt periode",
-  "Timeline.IkkeOppfyltPeriode" : "Ikke oppfylt periode",
-  "Timeline.TidspunktMotakSoknad" : "Tidspunkt for mottatt søknad",
-  "Timeline.BelopTilbakereves" : "Beløp tilbakekreves",
-  "Timeline.IngenTilbakekreving" : "Ingen tilbakekreving",
-  "Timeline.IkkeAvklartPeriode" : "Uavklart periode",
-  "Timeline.TidspunktRevurdering" : "Startpunkt for revurdering",
-  "Timeline.GradertPeriode" : "Gradert periode",
-  "Timeline.ManueltAvklart" : "Manuelt avklart periode"
-
+  "Timeline.OppfyltPeriode": "Oppfylt periode",
+  "Timeline.IkkeOppfyltPeriode": "Ikke oppfylt periode",
+  "Timeline.TidspunktMotakSoknad": "Tidspunkt for mottatt søknad",
+  "Timeline.BelopTilbakereves": "Beløp tilbakekreves",
+  "Timeline.IngenTilbakekreving": "Ingen tilbakekreving",
+  "Timeline.IkkeAvklartPeriode": "Uavklart periode",
+  "Timeline.TidspunktRevurdering": "Startpunkt for revurdering",
+  "Timeline.GradertPeriode": "Gradert periode",
+  "Timeline.ManueltAvklart": "Manuelt avklart periode"
 }
