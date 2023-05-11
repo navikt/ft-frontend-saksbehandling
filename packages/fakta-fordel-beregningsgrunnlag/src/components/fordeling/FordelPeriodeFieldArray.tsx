@@ -1,9 +1,10 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+import { Checkbox, Detail, ErrorMessage, Label, Button } from '@navikt/ds-react';
+import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { FlexColumn, FlexRow, FloatRight, Image, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, FloatRight, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
   BeregningsgrunnlagAndelType,
@@ -29,7 +30,6 @@ import {
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
-import addCircleIcon from '../../images/add-circle.svg';
 
 import styles from './renderFordelBGFieldArray.module.css';
 import KodeverkForPanel from '../../types/kodeverkForPanel';
@@ -151,14 +151,6 @@ const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues)
     isSelvstendigNæringsdrivende(fieldVal.inntektskategori) || Inntektskategori.FRILANSER === fieldVal.inntektskategori
   );
 };
-
-const onKeyDown =
-  (fields: FordelBeregningsgrunnlagAndelValues[], periodeUtenAarsak: boolean): ((arg: React.KeyboardEvent) => void) =>
-  ({ key }) => {
-    if (key === 'Enter') {
-      fields.push(defaultBGFordeling(periodeUtenAarsak));
-    }
-  };
 
 const finnArbeidsforholdForAndel = (
   arbeidsforholdListe: BGFordelArbeidsforhold[],
@@ -371,7 +363,12 @@ const knappKolonne = (
 ): ReactElement => (
   <TableColumn>
     {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
-      <button className={styles.buttonRemove} type="button" onClick={() => removeFromFieldsMethod(index)} />
+      <Button
+        icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
+        onClick={() => removeFromFieldsMethod(index)}
+        type="button"
+        variant="tertiary"
+      />
     )}
   </TableColumn>
 );
@@ -581,22 +578,16 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
       {!readOnly && !skalIkkeRedigereInntekt && (
         <FlexRow className={styles.buttonRow}>
           <FlexColumn className={styles.flexColumn3}>
-            {
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            }
-            <div
-              id="leggTilAndelDiv"
+            <Button
+              icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
               onClick={() => append(defaultBGFordeling(skalIkkeRedigereInntekt))}
-              onKeyDown={onKeyDown(fields, skalIkkeRedigereInntekt)}
-              className={styles.addPeriode}
-              role="button"
-              tabIndex={0}
+              type="button"
+              variant="tertiary"
             >
-              <Image className={styles.addCircleIcon} src={addCircleIcon} />
-              <Detail size="small" className={styles.imageText}>
+              <Detail className={styles.imageText}>
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
               </Detail>
-            </div>
+            </Button>
           </FlexColumn>
         </FlexRow>
       )}
