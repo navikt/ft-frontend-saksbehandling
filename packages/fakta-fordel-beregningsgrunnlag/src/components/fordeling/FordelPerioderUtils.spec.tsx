@@ -51,7 +51,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       {
         fom: '2019-01-01',
         tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel as FordelBeregningsgrunnlagAndel],
+        fordelBeregningsgrunnlagAndeler: [fordelAndel],
         skalRedigereInntekt: true,
         skalKunneEndreRefusjon: false,
         skalPreutfyllesMedBeregningsgrunnlag: true,
