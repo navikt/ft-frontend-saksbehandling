@@ -126,7 +126,7 @@ describe('<ForeldelseProsessIndex>', () => {
 
     expect(await screen.findByText('01.04.2019 - 30.04.2019')).toBeInTheDocument();
 
-    await userEvent.click(screen.getByAltText('Del opp perioden'));
+    await userEvent.click(screen.getByText('Del opp perioden'));
 
     expect(await screen.findAllByText('Del opp perioden')).toHaveLength(2);
 
@@ -143,11 +143,12 @@ describe('<ForeldelseProsessIndex>', () => {
 
     await waitFor(() => expect(screen.queryByText('Ok')).not.toBeInTheDocument());
 
-    await userEvent.click(screen.getByAltText('Åpne info om første periode'));
+    // Trykk på første periode
+    await userEvent.click(screen.getAllByRole('button')[0]);
 
     expect(await screen.findByText('Detaljer for valgt periode')).toBeInTheDocument();
 
-    const nestePeriodeKnapp = screen.getByAltText('Neste periode');
+    const nestePeriodeKnapp = screen.getByText('Neste');
     await userEvent.click(nestePeriodeKnapp);
     await userEvent.click(nestePeriodeKnapp);
     await userEvent.click(nestePeriodeKnapp);

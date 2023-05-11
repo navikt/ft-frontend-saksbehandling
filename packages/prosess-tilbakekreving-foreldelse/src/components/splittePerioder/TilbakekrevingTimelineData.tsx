@@ -14,6 +14,7 @@ interface PureOwnProps {
   readOnly: boolean;
   behandlingUuid: string;
   beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
+  lukkPeriode: () => void;
 }
 
 const TilbakekrevingTimelineData: FunctionComponent<PureOwnProps> = ({
@@ -24,6 +25,7 @@ const TilbakekrevingTimelineData: FunctionComponent<PureOwnProps> = ({
   oppdaterSplittedePerioder,
   behandlingUuid,
   beregnBelop,
+  lukkPeriode,
 }) => (
   <>
     <PeriodeController
@@ -35,6 +37,7 @@ const TilbakekrevingTimelineData: FunctionComponent<PureOwnProps> = ({
       behandlingUuid={behandlingUuid}
       beregnBelop={beregnBelop}
       intl={useIntl()}
+      lukkPeriode={lukkPeriode}
     />
     <VerticalSpacer sixteenPx />
     <PeriodeInformasjon feilutbetaling={periode.feilutbetaling} fom={periode.fom} tom={periode.tom} />

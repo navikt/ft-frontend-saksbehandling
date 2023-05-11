@@ -1,7 +1,7 @@
 import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
 import moment from 'moment';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Heading } from '@navikt/ds-react';
+import { FormattedMessage } from 'react-intl';
+import { Heading, Panel } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
@@ -9,8 +9,7 @@ import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } fr
 
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import ForeldelsePeriodeForm, { FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
-import TilbakekrevingTimelinePanel from './timeline/TilbakekrevingTimelinePanel';
-import ForeldelseTidslinjeHjelpetekster from './ForeldelseTidslinjeHjelpetekster';
+import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
 import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
 import TilbakekrevingTimelineData from './splittePerioder/TilbakekrevingTimelineData';
@@ -103,8 +102,6 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
 }) => {
-  const intl = useIntl();
-
   const alleForeldelseresultatAktiviteter = useMemo(
     () => lagForeldelsesresultatAktiviteter(perioderForeldelse.perioder),
     [perioderForeldelse.perioder],
@@ -141,9 +138,8 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
     setPeriode(foreldelseresultatAktiviteter[index - 1]);
   }, [foreldelseresultatAktiviteter, valgtPeriode]);
 
-  const togglePeriode = useCallback((): void => {
-    const periode = valgtPeriode ? undefined : foreldelseresultatAktiviteter[0];
-    setPeriode(periode);
+  const lukkPeriode = useCallback((): void => {
+    setPeriode(undefined);
   }, [valgtPeriode, foreldelseresultatAktiviteter]);
 
   const oppdaterPeriode = useCallback(
@@ -157,14 +153,14 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
       setForeldelseresultatAktiviteter(sortedActivities);
       setFormData(sortedActivities);
       setDirty(true);
-      togglePeriode();
+      lukkPeriode();
 
       const periodeMedApenAksjonspunkt = sortedActivities.find(harApentAksjonspunkt);
       if (periodeMedApenAksjonspunkt) {
         setPeriode(periodeMedApenAksjonspunkt);
       }
     },
-    [foreldelseresultatAktiviteter, togglePeriode, harApentAksjonspunkt],
+    [foreldelseresultatAktiviteter, lukkPeriode, harApentAksjonspunkt],
   );
 
   const oppdaterSplittedePerioder = useCallback(
@@ -186,10 +182,10 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
       setForeldelseresultatAktiviteter(sortedActivities);
       setFormData(sortedActivities);
       setDirty(true);
-      togglePeriode();
+      lukkPeriode();
       setPeriode(nyePerioder[0]);
     },
-    [foreldelseresultatAktiviteter, valgtPeriode, togglePeriode, harApentAksjonspunkt],
+    [foreldelseresultatAktiviteter, valgtPeriode, lukkPeriode, harApentAksjonspunkt],
   );
 
   const lagrePerioder = useCallback(() => {
@@ -231,36 +227,37 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
         <>
           <AksjonspunktHelpTextTemp isAksjonspunktOpen={isApOpen}>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextTemp>
           <VerticalSpacer twentyPx />
-          <TilbakekrevingTimelinePanel
+          <TilbakekrevingTimeline
             perioder={perioderFormatertForTidslinje}
             valgtPeriode={valgtPeriodeFormatertForTidslinje}
             setPeriode={setPeriode}
-            toggleDetaljevindu={togglePeriode}
-            hjelpetekstKomponent={<ForeldelseTidslinjeHjelpetekster />}
             kjonn={navBrukerKjonn}
-            intl={intl}
           />
           {valgtPeriode && (
-            <div className={styles.container}>
-              <TilbakekrevingTimelineData
-                periode={valgtPeriode}
-                callbackForward={setNestePeriode}
-                callbackBackward={setForrigePeriode}
-                // @ts-ignore Her er den ein typekonflikt som må fiksast!!
-                oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                readOnly={readOnly}
-                behandlingUuid={behandlingUuid}
-                beregnBelop={beregnBelop}
-              />
-              <ForeldelsePeriodeForm
-                key={valgtPeriode.fom}
-                periode={valgtPeriode}
-                oppdaterPeriode={oppdaterPeriode}
-                skjulPeriode={togglePeriode}
-                readOnly={readOnly}
-                kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-              />
-            </div>
+            <>
+              <div className={styles.space} />
+              <Panel border>
+                <TilbakekrevingTimelineData
+                  periode={valgtPeriode}
+                  callbackForward={setNestePeriode}
+                  callbackBackward={setForrigePeriode}
+                  // @ts-ignore Her er den ein typekonflikt som må fiksast!!
+                  oppdaterSplittedePerioder={oppdaterSplittedePerioder}
+                  readOnly={readOnly}
+                  behandlingUuid={behandlingUuid}
+                  beregnBelop={beregnBelop}
+                  lukkPeriode={lukkPeriode}
+                />
+                <ForeldelsePeriodeForm
+                  key={valgtPeriode.fom}
+                  periode={valgtPeriode}
+                  oppdaterPeriode={oppdaterPeriode}
+                  skjulPeriode={lukkPeriode}
+                  readOnly={readOnly}
+                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
+                />
+              </Panel>
+            </>
           )}
           <VerticalSpacer twentyPx />
           <ProsessStegSubmitButton

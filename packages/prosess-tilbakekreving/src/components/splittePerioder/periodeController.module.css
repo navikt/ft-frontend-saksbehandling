@@ -33,3 +33,11 @@
 .leftMargin {
   margin-left: 50px;
 }
+
+.margin {
+  margin-right: 5px;
+}
+
+.fix {
+  display: flex;
+}
