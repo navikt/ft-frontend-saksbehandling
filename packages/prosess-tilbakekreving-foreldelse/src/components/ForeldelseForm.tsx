@@ -1,30 +1,30 @@
 import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
 import { Heading, Panel } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
 
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import ForeldelsePeriodeForm, { FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
 import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
 import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
-import TilbakekrevingTimelineData from './splittePerioder/TilbakekrevingTimelineData';
-import { PeriodeMedBelop } from './splittePerioder/PeriodeController';
+import PeriodeController, { PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
 import styles from './foreldelseForm.module.css';
 import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
 import VurderForeldelseAp from '../types/VurderForeldelseAp';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
+import PeriodeInformasjon from './splittePerioder/PeriodeInformasjon';
 
 const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
-  moment(periode1.fom).diff(moment(periode2.fom));
+  dayjs(periode1.fom).diff(dayjs(periode2.fom));
 
-const getDate = (): string => moment().subtract(30, 'months').format(DDMMYYYY_DATE_FORMAT);
+const getDate = (): string => dayjs().subtract(30, 'months').format(DDMMYYYY_DATE_FORMAT);
 const getApTekst = (aksjonspunkt: Aksjonspunkt): ReactElement[] =>
   aksjonspunkt
     ? [
@@ -65,10 +65,20 @@ export const transformValues = (values: PeriodeFormValues[]): VurderForeldelseAp
   };
 };
 
+const sorterPerioder = (periode1: FeilutbetalingPeriode, periode2: FeilutbetalingPeriode) => {
+  if (periode1.fom < periode2.fom) {
+    return -1;
+  }
+  if (periode1.fom > periode2.fom) {
+    return 1;
+  }
+  return 0;
+};
+
 export const lagForeldelsesresultatAktiviteter = (
   foreldelsePerioder: FeilutbetalingPeriode[],
 ): ForeldelsesresultatActivity[] =>
-  foreldelsePerioder.map(p => ({
+  [...foreldelsePerioder].sort(sorterPerioder).map(p => ({
     ...p,
     feilutbetaling: p.belop,
     foreldet: p.foreldelseVurderingType === ForeldelseVurderingType.UDEFINERT ? undefined : p.foreldelseVurderingType,
@@ -82,7 +92,8 @@ interface OwnProps {
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   submitCallback: (aksjonspunktData: VurderForeldelseAp) => Promise<void>;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
-  navBrukerKjonn: string;
+  relasjonsRolleType: string;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
   readOnly: boolean;
   beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
   formData?: ForeldelsesresultatActivity[];
@@ -91,7 +102,8 @@ interface OwnProps {
 
 const ForeldelseForm: FunctionComponent<OwnProps> = ({
   submitCallback,
-  navBrukerKjonn,
+  relasjonsRolleType,
+  relasjonsRolleTypeKodeverk,
   aksjonspunkt,
   alleMerknaderFraBeslutter,
   perioderForeldelse,
@@ -128,14 +140,16 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
     const index = foreldelseresultatAktiviteter.findIndex(
       p => p.fom === valgtPeriode?.fom && p.tom === valgtPeriode?.tom,
     );
-    setPeriode(foreldelseresultatAktiviteter[index + 1]);
+    const nesteIndex = index === foreldelseresultatAktiviteter.length - 1 ? index : index + 1;
+    setPeriode(foreldelseresultatAktiviteter[nesteIndex]);
   }, [foreldelseresultatAktiviteter, valgtPeriode]);
 
   const setForrigePeriode = useCallback((): void => {
     const index = foreldelseresultatAktiviteter.findIndex(
       p => p.fom === valgtPeriode?.fom && p.tom === valgtPeriode?.tom,
     );
-    setPeriode(foreldelseresultatAktiviteter[index - 1]);
+    const forrigeIndex = index === 0 ? index : index - 1;
+    setPeriode(foreldelseresultatAktiviteter[forrigeIndex]);
   }, [foreldelseresultatAktiviteter, valgtPeriode]);
 
   const lukkPeriode = useCallback((): void => {
@@ -164,11 +178,16 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
   );
 
   const oppdaterSplittedePerioder = useCallback(
-    (perioder: ForeldelsesresultatActivity[]): void => {
+    (perioder: PeriodeMedFeilutbetaling[]): void => {
       const periode = foreldelseresultatAktiviteter.find(
         p => p.fom === valgtPeriode?.fom && p.tom === valgtPeriode?.tom,
       );
-      const nyePerioder = perioder.map(p => ({
+
+      if (periode === undefined) {
+        throw new TypeError(`Periode skal alltid finnes. Fom: ${valgtPeriode?.fom} Tom: ${valgtPeriode?.tom}`);
+      }
+
+      const nyePerioder = perioder.map<ForeldelsesresultatActivity>(p => ({
         ...periode,
         ...p,
         erSplittet: true,
@@ -231,22 +250,28 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
             perioder={perioderFormatertForTidslinje}
             valgtPeriode={valgtPeriodeFormatertForTidslinje}
             setPeriode={setPeriode}
-            kjonn={navBrukerKjonn}
+            relasjonsRolleType={relasjonsRolleType}
+            relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
           />
           {valgtPeriode && (
             <>
               <div className={styles.space} />
               <Panel border>
-                <TilbakekrevingTimelineData
-                  periode={valgtPeriode}
-                  callbackForward={setNestePeriode}
-                  callbackBackward={setForrigePeriode}
-                  // @ts-ignore Her er den ein typekonflikt som må fiksast!!
-                  oppdaterSplittedePerioder={oppdaterSplittedePerioder}
+                <PeriodeController
+                  setNestePeriode={setNestePeriode}
+                  setForrigePeriode={setForrigePeriode}
+                  valgtPeriode={valgtPeriode}
                   readOnly={readOnly}
+                  oppdaterSplittedePerioder={oppdaterSplittedePerioder}
                   behandlingUuid={behandlingUuid}
                   beregnBelop={beregnBelop}
                   lukkPeriode={lukkPeriode}
+                />
+                <VerticalSpacer sixteenPx />
+                <PeriodeInformasjon
+                  feilutbetaling={valgtPeriode.feilutbetaling}
+                  fom={valgtPeriode.fom}
+                  tom={valgtPeriode.tom}
                 />
                 <ForeldelsePeriodeForm
                   key={valgtPeriode.fom}

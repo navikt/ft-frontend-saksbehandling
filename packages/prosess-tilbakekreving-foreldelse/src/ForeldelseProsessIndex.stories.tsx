@@ -3,11 +3,11 @@ import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-ext
 import { action } from '@storybook/addon-actions';
 
 import {
-  NavBrukerKjonn,
   ForeldelseVurderingType,
   AksjonspunktStatus,
   TilbakekrevingKodeverkType,
   BehandlingStatus,
+  RelasjonsRolleType,
 } from '@navikt/ft-kodeverk';
 import { Behandling, Aksjonspunkt, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
 import ForeldelseProsessIndex from './ForeldelseProsessIndex';
@@ -96,9 +96,16 @@ const Template: StoryFn<{
     setFormData={() => undefined}
     perioderForeldelse={perioderForeldelse}
     aksjonspunkter={aksjonspunkter}
-    navBrukerKjonn={NavBrukerKjonn.KVINNE}
+    relasjonsRolleType={RelasjonsRolleType.MOR}
     beregnBelop={(params?: any) => Promise.resolve(params)}
     alleMerknaderFraBeslutter={{}}
+    relasjonsRolleTypeKodeverk={[
+      {
+        kode: 'MORA',
+        kodeverk: 'RELASJONSROLLE_TYPE',
+        navn: 'Mor',
+      },
+    ]}
   />
 );
 
