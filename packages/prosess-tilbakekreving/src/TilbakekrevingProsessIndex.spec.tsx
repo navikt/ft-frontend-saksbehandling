@@ -196,7 +196,7 @@ describe('<TilbakekrevingProsessIndex>', () => {
 
     expect(await screen.findByText('Detaljer for valgt periode')).toBeInTheDocument();
 
-    await userEvent.click(screen.getByAltText('Del opp perioden'));
+    await userEvent.click(screen.getByText('Del opp perioden'));
 
     expect(await screen.findAllByText('Del opp perioden')).toHaveLength(2);
 
@@ -213,7 +213,8 @@ describe('<TilbakekrevingProsessIndex>', () => {
 
     await waitFor(() => expect(screen.queryByText('Ok')).not.toBeInTheDocument());
 
-    await userEvent.click(screen.getByAltText('Åpne info om første periode'));
+    // Trykk på første periode
+    await userEvent.click(screen.getAllByRole('button')[0]);
 
     expect(await screen.findByText('01.01.2019 - 11.03.2019')).toBeInTheDocument();
     await userEvent.type(
@@ -330,10 +331,11 @@ describe('<TilbakekrevingProsessIndex>', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
-    await userEvent.click(screen.getByAltText('Åpne info om første periode'));
+    // Trykk på første periode
+    await userEvent.click(screen.getAllByRole('button')[0]);
 
     expect(await screen.findByText('13 uker')).toBeInTheDocument();
-    const nestePeriodeKnapp = screen.getByAltText('Neste periode');
+    const nestePeriodeKnapp = screen.getByText('Neste');
     await userEvent.click(nestePeriodeKnapp);
 
     await userEvent.click(
