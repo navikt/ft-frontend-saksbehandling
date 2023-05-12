@@ -2791,6 +2791,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
   dependencies:
+    "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 3.1.2
     "@navikt/ds-react": 3.1.2
     "@navikt/ft-form-hooks": ^4.0.28
@@ -2822,6 +2823,7 @@ __metadata:
     vite: 4.3.5
     vitest: 0.31.0
   peerDependencies:
+    "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
     "@navikt/ds-react": 2.8.11
     "@navikt/ft-form-hooks": 4.x
