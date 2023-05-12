@@ -33,6 +33,10 @@
 }
 .kolAvslagTekst {
   color: var(--a-red-500);
-  padding-top: 2px;
   width: 90%;
+}
+.avslåttIkon {
+  color: var(--a-red-500);
+  margin-bottom: auto;
+  margin-top: auto;
 }
