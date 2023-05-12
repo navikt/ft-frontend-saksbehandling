@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useCallback, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import { createIntl } from '@navikt/ft-utils';
 
@@ -20,14 +20,19 @@ interface OwnProps {
 /*
  * OverstyringKnapp
  */
-const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefined, erOverstyrt = false }) => {
+const OverstyringKnapp: FunctionComponent<OwnProps> = ({
+  onClick = () => undefined,
+  erOverstyrt = false,
+  beregningsgrunnlagIndeks,
+}) => {
+  console.log(beregningsgrunnlagIndeks, erOverstyrt);
   const [isOverstyrt, setOverstyrt] = useState(erOverstyrt);
-  const setOverstyrtFn = useCallback(() => {
+  const setOverstyrtFn = () => {
     if (!isOverstyrt) {
       setOverstyrt(true);
       onClick(true);
     }
-  }, []);
+  };
 
   useEffect(() => {
     setOverstyrt(erOverstyrt);

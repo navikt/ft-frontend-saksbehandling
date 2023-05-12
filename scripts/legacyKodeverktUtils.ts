@@ -1,5 +1,6 @@
 // TODO Fjern denne fila når k9 er over på kodeverk-string
 
+// eslint-disable-next-line import/prefer-default-export
 export const konverterKodeverkTilKode = data => {
   if (data === undefined || data === null) {
     return;
@@ -25,5 +26,6 @@ export const konverterKodeverkTilKode = data => {
     }
   });
 
+  // eslint-disable-next-line consistent-return
   return newData;
 };

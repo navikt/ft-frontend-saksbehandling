@@ -2,7 +2,7 @@ import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Button, Label } from '@navikt/ds-react';
-import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
+import React, { FunctionComponent, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -52,16 +52,17 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   erOverstyrt,
 }) => {
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
+
   const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
   const kanOverstyre = useMemo(
     () => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov),
     [erOverstyrer, avklaringsbehov],
   );
 
-  const toggleOverstyring = useCallback(() => {
+  const toggleOverstyring = () => {
     setOverstyring(!erTabellOverstyrt);
     updateOverstyring(beregningsgrunnlagIndeks, !erTabellOverstyrt);
-  }, [erTabellOverstyrt]);
+  };
   return (
     <>
       {children}
@@ -80,6 +81,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
                   <FlexColumn>
                     <OverstyringKnapp
                       onClick={toggleOverstyring}
+                      beregningsgrunnlagIndeks={beregningsgrunnlagIndeks}
                       erOverstyrt={
                         readOnly ||
                         erTabellOverstyrt ||
