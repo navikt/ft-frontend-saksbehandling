@@ -1,5 +1,7 @@
 import { formHooks, InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
+import { XMarkIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
@@ -144,11 +146,11 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       </TableColumn>
       <TableColumn>
         {skalViseSletteknapp && (
-          <button
-            className={styles.buttonRemove}
-            type="button"
+          <Button
+            icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
             onClick={() => removeAndel()}
-            title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.FjernDagpenger' })}
+            type="button"
+            variant="tertiary"
           />
         )}
       </TableColumn>

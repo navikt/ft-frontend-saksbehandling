@@ -1,13 +1,13 @@
-import { Detail, ErrorMessage } from '@navikt/ds-react';
+import { Detail, ErrorMessage, Button } from '@navikt/ds-react';
+import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, Image, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import addCircleIcon from '../../../images/add-circle.svg';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
@@ -94,13 +94,11 @@ const createAndelerTableRows = (
       </TableColumn>
       <TableColumn>
         {skalViseSletteknapp(index, fields, readOnly) && (
-          <button
-            className={styles.buttonRemove}
+          <Button
+            icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
+            onClick={() => remove(index)}
             type="button"
-            onClick={() => {
-              remove(index);
-            }}
-            title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.FjernAndel' })}
+            variant="tertiary"
           />
         )}
       </TableColumn>
@@ -196,21 +194,17 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
       {!readOnly && (
         <FlexRow className={styles.buttonRow}>
           <FlexColumn className={styles.flexColumn3}>
-            <button
-              id="leggTilAndelDiv"
-              onClick={() => {
-                // @ts-ignore Fiks
-                append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling));
-              }}
-              className={styles.addPeriode}
+            <Button
+              icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
+              // @ts-ignore Fiks
+              onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
               type="button"
-              title={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.LeggTilAndel' })}
+              variant="tertiary"
             >
-              <Image className={styles.addCircleIcon} src={addCircleIcon} />
               <Detail className={styles.imageText}>
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
               </Detail>
-            </button>
+            </Button>
           </FlexColumn>
         </FlexRow>
       )}

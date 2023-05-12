@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Beregningsgrunnlag, BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FormattedMessage } from 'react-intl';
 import { BodyShort, Label } from '@navikt/ds-react';
 import {
   AktivitetStatus,
@@ -11,7 +11,6 @@ import {
 } from '@navikt/ft-kodeverk';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import styles from './aksjonspunktBehandler.module.css';
-import advarsel from '../../images/advarsel2.svg';
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -93,7 +92,6 @@ const AksjonspunktBehandlerHeader: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   readOnly,
 }) => {
-  const intl = useIntl();
   if (!avklaringsbehov) {
     return null;
   }
@@ -102,7 +100,7 @@ const AksjonspunktBehandlerHeader: FunctionComponent<OwnProps> = ({
       <FlexRow>
         {!readOnly && (
           <FlexColumn className={styles.aksjonspunktBehandlerImageCol}>
-            <Image alt={intl.formatMessage({ id: 'HelpText.Aksjonspunkt' })} src={advarsel} />
+            <ExclamationmarkTriangleFillIcon className={styles.warningIcon} />
           </FlexColumn>
         )}
         <FlexColumn className={styles.aksjonspunktBehandlerTextCol}>
