@@ -14,7 +14,7 @@ describe('<WarningModal>', () => {
 
   it('skal rendre modal', async () => {
     render(<Default />);
-    expect(await screen.findByText('Dette er en advarsel')).toBeInTheDocument();
+    expect(await screen.findAllByText('Dette er en advarsel')).toHaveLength(2);
     expect(screen.getByText('OK')).toBeInTheDocument();
   });
 });
