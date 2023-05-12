@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Detail } from '@navikt/ds-react';
-import { Image, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { PlusCircleIcon } from '@navikt/aksel-icons';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { required, hasValidText, maxLength, minLength } from '@navikt/ft-form-validators';
 import { TextAreaField, formHooks } from '@navikt/ft-form-hooks';
 
-import addCircleIcon from '../../images/add-circle.svg';
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
 const minLength3 = minLength(3);
@@ -53,10 +53,9 @@ const TilbakekrevingVedtakUtdypendeTekstPanel: FunctionComponent<OwnProps> = ({
             role="button"
             tabIndex={0}
           >
-            <Image
+            <PlusCircleIcon
               className={styles.addCircleIcon}
-              src={addCircleIcon}
-              alt={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst' })}
+              title={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst' })}
             />
             <Detail size="small" className={styles.imageText}>
               <FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst" />

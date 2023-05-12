@@ -1,9 +1,8 @@
 import { BodyShort, ReadMore } from '@navikt/ds-react';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
-import Image from '../Image';
+import { CheckmarkIcon } from '@navikt/aksel-icons';
 import styles from './blaBoksMedCheckmarkListe.module.css';
-import checkBlaIkonUrl from './check_blue.svg';
 
 export type Saksopplysning = {
   textId: string;
@@ -18,7 +17,7 @@ const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: OwnProps) => (
   <div className={styles.container}>
     {saksopplysninger.map(opplysning => (
       <div key={opplysning.textId} className={styles.rad}>
-        {!opplysning.readMoreContent && <Image src={checkBlaIkonUrl} className={styles.checkBlaIkon} />}
+        {!opplysning.readMoreContent && <CheckmarkIcon className={styles.checkBlaIkon} height={35} width={35} />}
         <BodyShort size="small">
           {opplysning.readMoreContent && (
             <ReadMore size="small" header={<FormattedMessage id={opplysning.textId} />}>

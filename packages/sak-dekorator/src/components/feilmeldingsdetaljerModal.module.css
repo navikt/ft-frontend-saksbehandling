@@ -1,15 +1,8 @@
-.divider {
-  border-left: 1px solid var(--a-gray-200);
-  border-right: 0 solid var(--a-gray-200);
-  display: inline;
-  margin-left: 25px;
-  position: absolute;
-  top: 5px;
-}
 .image {
-  height: 25px;
+  color: var(--a-orange-500);
+  height: 30px;
   margin-top: 10px;
-  width: 25px;
+  width: 30px;
 }
 .modal {
   height: auto;

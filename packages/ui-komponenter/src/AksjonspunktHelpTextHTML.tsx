@@ -1,14 +1,13 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 
 import { BodyShort } from '@navikt/ds-react';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { isObject, createIntl } from '@navikt/ft-utils';
-import Image from './Image';
 import FlexColumn from './flexGrid/FlexColumn';
 import FlexContainer from './flexGrid/FlexContainer';
 import FlexRow from './flexGrid/FlexRow';
 
 import messages from '../i18n/nb_NO.json';
-import advarselIkonUrl from './images/advarsel2.svg';
 import styles from './aksjonspunktHelpTextHTML.module.css';
 
 const intl = createIntl(messages);
@@ -34,10 +33,12 @@ const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({ children }) => 
       <FlexContainer>
         <FlexRow>
           <FlexColumn>
-            <Image
+            <ExclamationmarkTriangleFillIcon
+              title={intl.formatMessage({ id: 'HelpText.Aksjonspunkt' })}
+              height={25}
+              width={25}
               className={styles.image}
-              alt={intl.formatMessage({ id: 'HelpText.Aksjonspunkt' })}
-              src={advarselIkonUrl}
+              color="var(--a-orange-600)"
             />
           </FlexColumn>
 

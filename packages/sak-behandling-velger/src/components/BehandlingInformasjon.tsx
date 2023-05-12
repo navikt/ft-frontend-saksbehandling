@@ -1,12 +1,12 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import React, { FunctionComponent } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
+import { ChevronDownIcon, ChevronUpIcon, StarFillIcon } from '@navikt/aksel-icons';
 import { Panel, BodyShort, Label, Detail } from '@navikt/ds-react';
 import {
   FlexContainer,
   FlexRow,
   FlexColumn,
-  Image,
   Tooltip,
   DateLabel,
   TimeLabel,
@@ -15,25 +15,12 @@ import {
 import { BehandlingAppKontekst, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType, BehandlingType, BehandlingArsakType } from '@navikt/ft-kodeverk';
 
-import chevronUp from '../images/pil_opp.svg';
-import chevronDown from '../images/pil_ned.svg';
-import stjerneImg from '../images/stjerne.svg';
-
 import styles from './behandlingInformasjon.module.css';
 
 const tilbakekrevingÅrsakTyperKlage = [BehandlingArsakType.RE_KLAGE_KA, BehandlingArsakType.RE_KLAGE_NFP];
 
 const erTilbakekrevingÅrsakKlage = (årsak?: string): boolean =>
   !!årsak && tilbakekrevingÅrsakTyperKlage.some(å => å === årsak);
-
-const renderChevron = (intl: IntlShape, chevron: string, messageId: string): ReactElement => (
-  <Image
-    src={chevron}
-    alt={intl.formatMessage({ id: messageId })}
-    tooltip={intl.formatMessage({ id: messageId })}
-    alignTooltipLeft
-  />
-);
 
 interface OwnProps {
   withChevronDown?: boolean;
@@ -91,17 +78,25 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
             )}
           <FlexColumn className={styles.pushRight}>
             {behandling.gjeldendeVedtak && (
-              <Image
+              <StarFillIcon
                 className={styles.starImage}
-                src={stjerneImg}
-                tooltip={<FormattedMessage id="BehandlingPickerItemContent.GjeldendeVedtak" />}
-                alignTooltipLeft
+                title={intl.formatMessage({ id: 'BehandlingPickerItemContent.GjeldendeVedtak' })}
               />
             )}
           </FlexColumn>
           <FlexColumn>
-            {withChevronDown && renderChevron(intl, chevronDown, 'BehandlingPickerItemContent.Open')}
-            {withChevronUp && renderChevron(intl, chevronUp, 'BehandlingPickerItemContent.Close')}
+            {withChevronDown && (
+              <ChevronDownIcon
+                title={intl.formatMessage({ id: 'BehandlingPickerItemContent.Open' })}
+                className={styles.chevronImage}
+              />
+            )}
+            {withChevronUp && (
+              <ChevronUpIcon
+                title={intl.formatMessage({ id: 'BehandlingPickerItemContent.Close' })}
+                className={styles.chevronImage}
+              />
+            )}
           </FlexColumn>
         </FlexRow>
       </FlexContainer>

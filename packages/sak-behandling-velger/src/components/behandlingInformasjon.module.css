@@ -1,12 +1,13 @@
 .starImage {
-  cursor: pointer;
+  color: var(--a-orange-500);
   height: 20px;
-  margin-left: 10px;
-  width: 25px;
+  width: 20px;
 }
-.resultatStatusImage {
-  height: 16px;
-  width: 16px;
+.chevronImage {
+  color: var(--a-blue-500);
+  height: 30px;
+  margin-top: -4px;
+  width: 30px;
 }
 .pushRight {
   margin-left: auto;
@@ -25,9 +26,6 @@
 }
 .timePadding {
   padding-left: 10px;
-}
-.resultatPadding {
-  padding-left: 5px;
 }
 .inline {
   display: inline;

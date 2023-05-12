@@ -1,4 +1,5 @@
 .checkBlaIkon {
+  color: var(--a-blue-400);
   padding-right: 0.5rem;
 }
 .container {

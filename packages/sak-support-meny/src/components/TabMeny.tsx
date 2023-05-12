@@ -1,18 +1,12 @@
 import React, { FunctionComponent, useRef, useEffect } from 'react';
 import classnames from 'classnames/bind';
 
-// TODO Importer fra ui-komponenter. Dette er ein midlertidig fiks av problem med rekkefølgen på lasting av style
-import FlexContainer from './flexGrid/FlexContainer';
-import FlexRow from './flexGrid/FlexRow';
-import FlexColumn from './flexGrid/FlexColumn';
-
 import styles from './tabMeny.module.css';
 
 const classNames = classnames.bind(styles);
 
 export type SvgProps = {
   className: any;
-  tabIndex: string;
   alt: string;
 };
 
@@ -36,38 +30,35 @@ const TabMeny: FunctionComponent<OwnProps> = ({ tabs, onClick }) => {
   }, [tabs]);
 
   return (
-    <FlexContainer>
-      <FlexRow className={styles.container}>
-        {tabs.map((tab, index) => (
-          <FlexColumn key={tab.tooltip} className={styles.column}>
-            <button
-              className={classNames(styles.button, { active: tab.isActive })}
-              type="button"
-              onClick={() => {
-                if (tabRef.current && tabRef.current[index]) {
-                  tabRef.current[index].focus();
-                }
-                onClick(index);
-              }}
-              data-tooltip={tab.tooltip}
-              data-testid={tab.tooltip}
-              disabled={tab.isDisabled}
-              ref={el => {
-                if (tabRef.current && el) {
-                  tabRef.current[index] = el;
-                }
-              }}
-            >
-              {tab.getSvg(tab.isActive, tab.isDisabled, {
-                className: styles.tabImage,
-                tabIndex: '-1',
-                alt: tab.tooltip,
-              })}
-            </button>
-          </FlexColumn>
-        ))}
-      </FlexRow>
-    </FlexContainer>
+    <div className={styles.row}>
+      {tabs.map((tab, index) => (
+        <div key={tab.tooltip} className={styles.col}>
+          <button
+            className={classNames(styles.button, { active: tab.isActive })}
+            type="button"
+            onClick={() => {
+              if (tabRef.current && tabRef.current[index]) {
+                tabRef.current[index].focus();
+              }
+              onClick(index);
+            }}
+            data-tooltip={tab.tooltip}
+            data-testid={tab.tooltip}
+            disabled={tab.isDisabled}
+            ref={el => {
+              if (tabRef.current && el) {
+                tabRef.current[index] = el;
+              }
+            }}
+          >
+            {tab.getSvg(tab.isActive, tab.isDisabled, {
+              className: styles.tabImage,
+              alt: tab.tooltip,
+            })}
+          </button>
+        </div>
+      ))}
+    </div>
   );
 };
 
