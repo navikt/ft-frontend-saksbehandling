@@ -20,12 +20,7 @@ interface OwnProps {
 /*
  * OverstyringKnapp
  */
-const OverstyringKnapp: FunctionComponent<OwnProps> = ({
-  onClick = () => undefined,
-  erOverstyrt = false,
-  beregningsgrunnlagIndeks,
-}) => {
-  console.log(beregningsgrunnlagIndeks, erOverstyrt);
+const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefined, erOverstyrt = false }) => {
   const [isOverstyrt, setOverstyrt] = useState(erOverstyrt);
   const setOverstyrtFn = () => {
     if (!isOverstyrt) {
