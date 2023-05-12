@@ -9,14 +9,13 @@ interface MenuLinkProps {
   label: string;
   onClick: () => void;
   active?: boolean;
-  iconSrc?: string;
-  iconAltText?: string;
+  icon?: React.ReactNode;
   theme?: string;
 }
 
 const menuLinkCls = bemUtils('menuLink');
 
-const MenuLink = ({ label, active, onClick, iconSrc, iconAltText, theme }: MenuLinkProps): JSX.Element => {
+const MenuLink = ({ label, active, onClick, icon, theme }: MenuLinkProps): JSX.Element => {
   const arrowTheme = theme === 'arrow';
   const handleOnClick = (event: React.FormEvent<HTMLButtonElement>): void => {
     event.preventDefault();
@@ -28,7 +27,7 @@ const MenuLink = ({ label, active, onClick, iconSrc, iconAltText, theme }: MenuL
       ? `${styles[menuLinkCls.element('label')]} ${styles['menuLink__label--active']}`
       : styles[menuLinkCls.element('label')],
     {
-      [styles['menuLink__label--with-icon']]: !!iconSrc,
+      [styles['menuLink__label--with-icon']]: !!icon,
     },
   );
 
@@ -51,12 +50,12 @@ const MenuLink = ({ label, active, onClick, iconSrc, iconAltText, theme }: MenuL
         {arrowTheme && active ? (
           <Label size="small" as="span" className={labelCls}>
             {label}
-            {iconSrc && <img src={iconSrc} alt={iconAltText || ''} className={styles[menuLinkCls.element('icon')]} />}
+            {icon}
           </Label>
         ) : (
           <BodyShort size="small" as="span" className={labelCls}>
             {label}
-            {iconSrc && <img src={iconSrc} alt={iconAltText || ''} className={styles[menuLinkCls.element('icon')]} />}
+            {icon}
           </BodyShort>
         )}
 
