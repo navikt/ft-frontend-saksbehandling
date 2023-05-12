@@ -10,8 +10,7 @@ const sideMenuCls = bemUtils('sideMenu');
 export interface Link {
   label: string;
   active?: boolean;
-  iconSrc?: string;
-  iconAltText?: string;
+  icon?: React.ReactNode;
 }
 
 export type ThemeProp = 'arrow';
@@ -41,14 +40,13 @@ const SideMenu = ({ links, heading, onClick, theme }: SideMenuProps): JSX.Elemen
           </BodyShort>
         )}
         <ul className={styles[sideMenuCls.element('link-list')]}>
-          {links.map(({ label, active, iconSrc, iconAltText }, index) => (
+          {links.map(({ label, active, icon }, index) => (
             <MenuLink
               key={label.split(' ').join('')}
               label={label}
               active={active}
               onClick={() => onClick(index)}
-              iconSrc={iconSrc}
-              iconAltText={iconAltText}
+              icon={icon}
               theme={theme}
             />
           ))}

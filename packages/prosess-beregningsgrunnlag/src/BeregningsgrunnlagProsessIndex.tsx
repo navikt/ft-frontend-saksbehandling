@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps, Vilkar } from '@navikt/ft-types';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
@@ -15,7 +16,6 @@ import BeregningFP from './components/BeregningFP';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import BeregningFormValues from './types/BeregningFormValues';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import advarsel from './images/advarsel.svg';
 import KodeverkForPanel from './types/kodeverkForPanel';
 
 const beregningAksjonspunkter = [
@@ -141,7 +141,10 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
           <div className={styles.sideMenuContainer}>
             <SideMenu
               links={menyProps.map((menyProp, index) => ({
-                iconSrc: menyProp.skalVurderes && menyProp.harAvklaringsbehov ? advarsel : null,
+                icon:
+                  menyProp.skalVurderes && menyProp.harAvklaringsbehov ? (
+                    <ExclamationmarkTriangleFillIcon className={styles.advarselIkon} />
+                  ) : null,
                 active: aktivtBeregningsgrunnlagIndeks === index,
                 label: `${menyProp.stp}`,
               }))}
