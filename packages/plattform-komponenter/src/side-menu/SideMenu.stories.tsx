@@ -1,4 +1,5 @@
 import React, { ComponentProps } from 'react';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { StoryFn } from '@storybook/react';
 import StatefulSideMenuComponent from './StatefulSideMenu';
 
@@ -13,10 +14,14 @@ const Template: StoryFn<ComponentProps<typeof StatefulSideMenuComponent>> = () =
     links={[
       {
         label: 'en link',
-        active: true,
       },
       {
         label: 'en link til',
+      },
+      {
+        icon: <ExclamationmarkTriangleFillIcon title="Dette er en ikontittel" style={{ color: 'orange' }} />,
+        label: 'en link med ikon',
+        active: true,
       },
     ]}
     onClick={() => null}
