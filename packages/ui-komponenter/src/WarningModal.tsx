@@ -31,7 +31,6 @@ const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showM
       <FlexRow>
         <FlexColumn>
           <ExclamationmarkTriangleFillIcon
-            title={bodyText}
             height={25}
             width={25}
             className={styles.image}
