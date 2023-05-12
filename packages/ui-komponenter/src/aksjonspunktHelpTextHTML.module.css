@@ -3,14 +3,6 @@
   border: 1px solid var(--a-orange-600);
   border-radius: 4px;
 }
-.divider {
-  border-left: 1px solid var(--a-gray-300);
-  border-right: 0 solid var(--a-gray-300);
-  height: 100%;
-  margin-bottom: 3px;
-  margin-left: 5px;
-  margin-top: 3px;
-}
 .image {
   margin-left: 10px;
   margin-top: 8px;

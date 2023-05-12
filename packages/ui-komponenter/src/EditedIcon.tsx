@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
+import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 
-import Image from './Image';
-import endretFelt from './images/endret_felt.svg';
 import styles from './editedIcon.module.css';
 
 const classNames = classnames.bind(styles);
@@ -19,10 +18,11 @@ interface OwnProps {
 
 const EditedIcon: FunctionComponent<OwnProps> = ({ className = '' }) => (
   <span data-testid="editedIcon" className={classNames('editedIcon', className)}>
-    <Image
-      src={endretFelt}
-      alt="Saksbehandler har endret feltets verdi"
-      tooltip="Saksbehandler har endret feltets verdi"
+    <PersonPencilFillIcon
+      title="Saksbehandler har endret feltets verdi"
+      height={20}
+      width={20}
+      color="var(--a-orange-600)"
     />
   </span>
 );

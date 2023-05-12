@@ -6,8 +6,6 @@ import SupportTabs from './supportTabs';
 
 import '@navikt/ds-css';
 
-import '@navikt/ft-ui-komponenter/dist/style.css';
-
 export default {
   title: 'sak/sak-support-meny',
   component: SupportMenySakIndex,

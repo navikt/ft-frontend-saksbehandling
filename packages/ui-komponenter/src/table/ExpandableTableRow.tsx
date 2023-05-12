@@ -1,13 +1,10 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import classnames from 'classnames/bind';
-
+import { ChevronUpIcon, ChevronDownIcon } from '@navikt/aksel-icons';
 import { createIntl } from '@navikt/ft-utils';
 
-import pilOppIkonUrl from '../images/pil_opp.svg';
-import pilNedIkonUrl from '../images/pil_ned.svg';
 import TableColumn from './TableColumn';
 import TableRow from './TableRow';
-import Image from '../Image';
 
 import messages from '../../i18n/nb_NO.json';
 import FloatRight from '../FloatRight';
@@ -47,10 +44,12 @@ const ExpandableTableRow: FunctionComponent<OwnProps> = ({
       {children}
       <TableColumn className={classNames('toggleIcon', showContent ? 'colTopPadding' : undefined)}>
         <FloatRight>
-          <Image
-            alt={intl.formatMessage({ id: showContent ? 'ExpandableTableRow.Lukke' : 'ExpandableTableRow.Apne' })}
-            src={showContent ? pilOppIkonUrl : pilNedIkonUrl}
-          />
+          {showContent && (
+            <ChevronUpIcon title={intl.formatMessage({ id: 'ExpandableTableRow.Lukke' })} fontSize="1.5rem" />
+          )}
+          {!showContent && (
+            <ChevronDownIcon title={intl.formatMessage({ id: 'ExpandableTableRow.Apne' })} fontSize="1.5rem" />
+          )}
         </FloatRight>
       </TableColumn>
     </TableRow>

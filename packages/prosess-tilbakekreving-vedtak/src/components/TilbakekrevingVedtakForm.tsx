@@ -2,13 +2,12 @@ import React, { FunctionComponent, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
-
-import { Image, FlexContainer, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
+import { FlexContainer, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Form } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
 
-import advarselIcon from '../images/advarsel_ny.svg';
 import underavsnittType from '../kodeverk/avsnittType';
 import TilbakekrevingEditerVedtaksbrevPanel, { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import ProsessStegSubmitButton from './ProsessStegSubmitButton';
@@ -203,7 +202,7 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
             <FlexColumn className={classNames(styles.infoTextContainer)}>
               <FlexRow>
                 <FlexColumn className={classNames(styles.padding, styles.infoTextIconColumn)}>
-                  <Image className={styles.infoTextIcon} src={advarselIcon} />
+                  <ExclamationmarkTriangleFillIcon className={styles.infoTextIcon} />
                 </FlexColumn>
                 <FlexColumn className={classNames(styles.infotextColumn)}>
                   <FormattedMessage id="TilbakekrevingVedtakForm.Infotekst.Klage" />

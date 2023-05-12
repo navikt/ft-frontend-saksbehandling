@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { Accordion } from '@navikt/ds-react';
 
+import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 
-import risikoIkon from '../images/avslaatt_hover.svg';
+import { useIntl } from 'react-intl';
 import HoyRisikoPanel from './HoyRisikoPanel';
 import TittelMedDivider from './TittelMedDivider';
 import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringAp';
@@ -33,23 +34,36 @@ const HoyRisikoTittel: FunctionComponent<OwnProps> = ({
   isRiskPanelOpen,
   toggleRiskPanel,
   faresignalVurderinger,
-}) => (
-  <Accordion className={styles.hoyRisikoPanel}>
-    <Accordion.Item open={isRiskPanelOpen} className={isRiskPanelOpen ? undefined : styles.hoyRisikoPanelHeader}>
-      <Accordion.Header onClick={toggleRiskPanel}>
-        <TittelMedDivider imageSrc={risikoIkon} tittel="Risikopanel.Tittel.Faresignaler" />
-      </Accordion.Header>
-      <Accordion.Content>
-        <HoyRisikoPanel
-          risikoklassifisering={risikoklassifisering}
-          aksjonspunkt={aksjonspunkt}
-          readOnly={readOnly}
-          submitCallback={submitCallback}
-          faresignalVurderinger={faresignalVurderinger}
-        />
-      </Accordion.Content>
-    </Accordion.Item>
-  </Accordion>
-);
+}) => {
+  const intl = useIntl();
+  return (
+    <Accordion className={styles.hoyRisikoPanel}>
+      <Accordion.Item open={isRiskPanelOpen} className={isRiskPanelOpen ? undefined : styles.hoyRisikoPanelHeader}>
+        <Accordion.Header onClick={toggleRiskPanel}>
+          <TittelMedDivider
+            ikon={
+              <XMarkOctagonFillIcon
+                title={intl.formatMessage({ id: 'Risikopanel.Tittel' })}
+                color="var(--a-nav-red)"
+                height={30}
+                width={30}
+              />
+            }
+            tittel="Risikopanel.Tittel.Faresignaler"
+          />
+        </Accordion.Header>
+        <Accordion.Content>
+          <HoyRisikoPanel
+            risikoklassifisering={risikoklassifisering}
+            aksjonspunkt={aksjonspunkt}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            faresignalVurderinger={faresignalVurderinger}
+          />
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion>
+  );
+};
 
 export default HoyRisikoTittel;
