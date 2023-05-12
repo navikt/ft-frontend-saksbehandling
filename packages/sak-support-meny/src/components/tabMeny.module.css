@@ -1,18 +1,26 @@
-.container {
+.tabImage {
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.row {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 100%;
+  flex-flow: row nowrap;
   margin-left: 3px;
   margin-right: 3px;
   padding-left: 20px;
   padding-right: 20px;
 }
-.column {
+
+.col {
+  box-sizing: border-box;
   flex: 1;
   padding-left: 0;
   padding-right: 0;
 }
-.tabImage {
-  margin-bottom: 10px;
-  outline: none;
-}
+
 .button {
   background: transparent;
   border: none;

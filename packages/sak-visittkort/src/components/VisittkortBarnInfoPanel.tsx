@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { FlexColumn, FlexContainer, FlexRow, Image } from '@navikt/ft-ui-komponenter';
+import { useIntl } from 'react-intl';
+import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
 import { FagsakHendelse } from '@navikt/ft-types';
+import { StrollerIcon } from '@navikt/aksel-icons';
 
-import barnevognImage from '../images/barnevogn.svg';
 import VisittkortBarnInfoFodselPanel from './VisittkortBarnInfoFodselPanel';
 import VisittkortBarnInfoOmsorgPanel from './VisittkortBarnInfoOmsorgPanel';
 
@@ -14,6 +15,8 @@ interface OwnProps {
 }
 
 const VisittkortBarnInfoPanel: FunctionComponent<OwnProps> = ({ familiehendelse }) => {
+  const intl = useIntl();
+
   const erFodselEllerTerminSoknad =
     familiehendelse.hendelseType === FamilieHendelseType.FODSEL ||
     familiehendelse.hendelseType === FamilieHendelseType.TERMIN;
@@ -23,7 +26,7 @@ const VisittkortBarnInfoPanel: FunctionComponent<OwnProps> = ({ familiehendelse 
       <FlexContainer>
         <FlexRow>
           <FlexColumn className={styles.image}>
-            <Image src={barnevognImage} />
+            <StrollerIcon title={intl.formatMessage({ id: 'VisittkortBarnInfoPanel.Barnevogn' })} fontSize="1.5rem" />
           </FlexColumn>
           {erFodselEllerTerminSoknad && <VisittkortBarnInfoFodselPanel familiehendelse={familiehendelse} />}
           {!erFodselEllerTerminSoknad && <VisittkortBarnInfoOmsorgPanel familiehendelse={familiehendelse} />}

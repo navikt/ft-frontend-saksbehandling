@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Panel } from '@navikt/ds-react';
+import { CheckmarkCircleIcon } from '@navikt/aksel-icons';
 
-import innvilgetIkonUrl from '../images/innvilget.svg';
+import { useIntl } from 'react-intl';
 import TittelMedDivider from './TittelMedDivider';
 
 import styles from './ingenRisikoPanel.module.css';
@@ -13,7 +14,17 @@ import styles from './ingenRisikoPanel.module.css';
  */
 const IngenRisikoPanel: FunctionComponent = () => (
   <Panel border className={styles.ingenRisikoOppdagetTittel}>
-    <TittelMedDivider imageSrc={innvilgetIkonUrl} tittel="Risikopanel.Tittel.IngenFaresignaler" />
+    <TittelMedDivider
+      ikon={
+        <CheckmarkCircleIcon
+          title={useIntl().formatMessage({ id: 'Risikopanel.Tittel' })}
+          height={30}
+          width={30}
+          color="var(--a-surface-success)"
+        />
+      }
+      tittel="Risikopanel.Tittel.IngenFaresignaler"
+    />
   </Panel>
 );
 

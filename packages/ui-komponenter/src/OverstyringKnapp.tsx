@@ -1,10 +1,6 @@
 import React, { FunctionComponent, useEffect, useCallback, useState } from 'react';
-
+import { KeyVerticalIcon, KeyVerticalFillIcon } from '@navikt/aksel-icons';
 import { createIntl } from '@navikt/ft-utils';
-
-import Image from './Image';
-import keyImage from './images/key-1-rotert.svg';
-import keyUtgraetImage from './images/key-1-rotert-utgraet.svg';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -35,18 +31,29 @@ const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefin
 
   return (
     <button
-      data-testid="overstyringsknapp"
       className={styles.button}
+      data-testid="overstyringsknapp"
       type="button"
       onClick={setOverstyrtFn}
       aria-disabled={erOverstyrt}
     >
-      <Image
-        className={isOverstyrt ? styles.keyWithoutCursor : styles.key}
-        src={isOverstyrt ? keyUtgraetImage : keyImage}
-        tooltip={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })}
-        alt={intl.formatMessage({ id: erOverstyrt ? 'OverstyringKnapp.HarOverstyrt' : 'OverstyringKnapp.Overstyring' })}
-      />
+      {isOverstyrt ? (
+        <KeyVerticalFillIcon
+          aria-hidden
+          color="var(--a-gray-300)"
+          height={25}
+          width={25}
+          title={intl.formatMessage({ id: 'OverstyringKnapp.HarOverstyrt' })}
+        />
+      ) : (
+        <KeyVerticalIcon
+          aria-hidden
+          color="var(--a-blue-400)"
+          height={25}
+          width={25}
+          title={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })}
+        />
+      )}
     </button>
   );
 };

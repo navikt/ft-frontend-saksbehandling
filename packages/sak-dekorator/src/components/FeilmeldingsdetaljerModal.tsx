@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Modal, Button, BodyShort, Detail, Heading } from '@navikt/ds-react';
-import { VerticalSpacer, Image, FlexContainer, FlexRow, FlexColumn, FloatRight } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, FlexContainer, FlexRow, FlexColumn, FloatRight } from '@navikt/ft-ui-komponenter';
 
-import infoImageUrl from '../images/behandle.svg';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import Feilmelding from '../typer/feilmeldingTsType';
 
 import styles from './feilmeldingsdetaljerModal.module.css';
@@ -36,8 +36,7 @@ const FeilmeldingsdetaljerModal: FunctionComponent<OwnProps> = ({ skalViseModal,
         <FlexContainer>
           <FlexRow>
             <FlexColumn className={styles.firstCol}>
-              <Image className={styles.image} src={infoImageUrl} />
-              <div className={styles.divider} />
+              <ExclamationmarkTriangleFillIcon className={styles.image} />
             </FlexColumn>
             <FlexColumn className={styles.text}>
               <Heading size="small">
