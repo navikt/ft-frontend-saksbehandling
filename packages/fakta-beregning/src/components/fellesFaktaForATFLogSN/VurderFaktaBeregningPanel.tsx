@@ -157,15 +157,22 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
           setDataOnUnmount={setFormData}
         >
           {fields.map((field, index) => {
-            const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter(
-              ap => relevanteKoder.some(kode => kode === ap.definisjon) && ap.kanLoses,
+            const harRelevantAksjonspunkt = avklaringspunkt =>
+              relevanteKoder.some(kode => kode === avklaringspunkt.definisjon);
+
+            const kanLøses = avklaringspunkt => avklaringspunkt.kanLoses;
+
+            const løsbareAksjonspunkter = avklaringsbehov.filter(
+              avklaringspunkt => harRelevantAksjonspunkt(avklaringspunkt) && kanLøses(avklaringspunkt),
             );
-            const erReadOnly =
+
+            const readOnlyAvAndreÅrsaker =
               readOnly ||
               erForlengelse(beregningsgrunnlag[index], vilkar.perioder) ||
-              ((relevanteLøsbareAvklaringsbehov.length === 0 ||
-                hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)) &&
-                !erOverstyrer);
+              (hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) && !erOverstyrer);
+
+            const isReadOnly = readOnlyAvAndreÅrsaker || løsbareAksjonspunkter.length === 0;
+
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
                 <VurderFaktaBeregningField
@@ -175,7 +182,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
                   )}
                   beregningsgrunnlag={beregningsgrunnlag[index]}
                   erOverstyrer={erOverstyrer}
-                  readOnly={erReadOnly}
+                  readOnly={isReadOnly}
                   kodeverkSamling={kodeverkSamling}
                   arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                   submittable={submittable}
