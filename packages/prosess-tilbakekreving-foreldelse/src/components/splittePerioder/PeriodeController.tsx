@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { Label } from '@navikt/ds-react';
-import { FormattedMessage, IntlShape } from 'react-intl';
-import { Image, EditedIcon, FloatRight, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
-import { TimeLineButton } from '@navikt/ft-tidslinje';
+import React, { FunctionComponent, useState } from 'react';
+import { Button, Label } from '@navikt/ds-react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { EditedIcon, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 
-import splitPeriodImageHoverUrl from '../../images/splitt_hover.svg';
-import splitPeriodImageUrl from '../../images/splitt.svg';
+import { ArrowLeftIcon, ArrowRightIcon, ScissorsIcon, XMarkIcon } from '@navikt/aksel-icons';
 import ForeldelsesresultatActivity from '../../types/foreldelsesresultatActivitytsType';
 import DelOppPeriodeModal, { PerioderData } from './DelOppPeriodeModal';
 
@@ -30,70 +28,51 @@ interface PureOwnProps {
   behandlingUuid: string;
   beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
   oppdaterSplittedePerioder: (data: PeriodeMedFeilutbetaling[]) => void;
-  callbackForward: (event: React.KeyboardEvent | React.MouseEvent) => void;
-  callbackBackward: (event: React.KeyboardEvent | React.MouseEvent) => void;
-  periode: ForeldelsesresultatActivity;
+  setNestePeriode: (event: React.KeyboardEvent | React.MouseEvent) => void;
+  setForrigePeriode: (event: React.KeyboardEvent | React.MouseEvent) => void;
+  valgtPeriode: ForeldelsesresultatActivity;
   readOnly: boolean;
-  intl: IntlShape;
+  lukkPeriode: () => void;
 }
 
-interface StateProps {
-  showDelPeriodeModal: boolean;
-  finnesBelopMed0Verdi: boolean;
-}
+const PeriodeController: FunctionComponent<PureOwnProps> = ({
+  valgtPeriode,
+  beregnBelop: callBeregnBelop,
+  behandlingUuid: selectedBehandlingUuid,
+  oppdaterSplittedePerioder,
+  setNestePeriode,
+  setForrigePeriode,
+  readOnly,
+  lukkPeriode,
+}) => {
+  const intl = useIntl();
 
-export class PeriodeController extends Component<PureOwnProps, StateProps> {
-  constructor(props: PureOwnProps) {
-    super(props);
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
-    this.splitPeriod = this.splitPeriod.bind(this);
+  const [showDelPeriodeModal, setShowDelPeriodeModal] = useState(false);
+  const [finnesBelopMed0Verdi, setFinnesBelopMed0Verdi] = useState(false);
 
-    this.state = {
-      showDelPeriodeModal: false,
-      finnesBelopMed0Verdi: false,
-    };
-  }
-
-  showModal(event: React.MouseEvent | React.KeyboardEvent): void {
-    this.setState((state: StateProps) => ({
-      ...state,
-      showDelPeriodeModal: true,
-    }));
+  const showModal = (event: React.MouseEvent | React.KeyboardEvent): void => {
+    setShowDelPeriodeModal(true);
     event.preventDefault();
-  }
+  };
 
-  hideModal(): void {
-    this.setState((state: StateProps) => ({
-      ...state,
-      showDelPeriodeModal: false,
-    }));
-  }
+  const hideModal = (): void => {
+    setShowDelPeriodeModal(false);
+  };
 
-  splitPeriod(formValues: PerioderData): void {
-    this.setState((state: StateProps) => ({
-      ...state,
-      finnesBelopMed0Verdi: false,
-    }));
-
-    const {
-      periode,
-      beregnBelop: callBeregnBelop,
-      behandlingUuid: selectedBehandlingUuid,
-      oppdaterSplittedePerioder,
-    } = this.props;
+  const splitPeriod = (formValues: PerioderData): void => {
+    setFinnesBelopMed0Verdi(false);
 
     const forstePeriode = {
-      belop: periode.feilutbetaling,
+      belop: valgtPeriode.feilutbetaling,
       fom: formValues.forstePeriode.fom,
       tom: formValues.forstePeriode.tom,
-      begrunnelse: periode.begrunnelse ? periode.begrunnelse : ' ',
+      begrunnelse: valgtPeriode.begrunnelse ? valgtPeriode.begrunnelse : ' ',
     };
     const andrePeriode = {
-      belop: periode.feilutbetaling,
+      belop: valgtPeriode.feilutbetaling,
       fom: formValues.andrePeriode.fom,
       tom: formValues.andrePeriode.tom,
-      begrunnelse: periode.begrunnelse ? periode.begrunnelse : ' ',
+      begrunnelse: valgtPeriode.begrunnelse ? valgtPeriode.begrunnelse : ' ',
     };
 
     const params = {
@@ -105,10 +84,7 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
       const { perioder } = response;
       const harPeriodeMedBelop0 = perioder.some(p => p.belop === 0);
       if (harPeriodeMedBelop0) {
-        this.setState((state: StateProps) => ({
-          ...state,
-          finnesBelopMed0Verdi: true,
-        }));
+        setFinnesBelopMed0Verdi(true);
       } else {
         const forstePeriodeMedBeløp = {
           fom: forstePeriode.fom,
@@ -120,69 +96,81 @@ export class PeriodeController extends Component<PureOwnProps, StateProps> {
           tom: andrePeriode.tom,
           feilutbetaling: perioder[1].belop,
         };
-        this.hideModal();
+        hideModal();
         oppdaterSplittedePerioder([forstePeriodeMedBeløp, andrePeriodeMedBeløp]);
       }
     });
-  }
+  };
 
-  render() {
-    const { intl, callbackForward, callbackBackward, periode, readOnly } = this.props;
-
-    const { showDelPeriodeModal, finnesBelopMed0Verdi } = this.state;
-
-    return (
-      <FlexContainer>
-        <FlexRow spaceBetween>
-          <FlexColumn>
-            <Label size="small">
-              <FormattedMessage id="PeriodeController.Detaljer" />
-              {isEdited && <EditedIcon />}
-            </Label>
-          </FlexColumn>
-          <FlexColumn className={styles.leftMargin}>
-            {!readOnly && (
-              <span className={styles.splitPeriodPosition}>
-                <Image
-                  tabIndex={0}
-                  className={styles.splitPeriodImage}
-                  src={splitPeriodImageUrl}
-                  srcHover={splitPeriodImageHoverUrl}
-                  alt={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
-                  onMouseDown={this.showModal}
-                  onKeyDown={e => (e.key === 'Enter' ? this.showModal(e) : null)}
-                />
-                <FormattedMessage id="PeriodeController.DelOppPerioden" />
-              </span>
-            )}
-            {showDelPeriodeModal && (
-              <DelOppPeriodeModal
-                cancelEvent={this.hideModal}
-                showModal={showDelPeriodeModal}
-                periodeData={periode}
-                splitPeriod={this.splitPeriod}
-                finnesBelopMed0Verdi={finnesBelopMed0Verdi}
-              />
-            )}
-          </FlexColumn>
-          <FlexColumn>
-            <FloatRight>
-              <TimeLineButton
-                text={intl.formatMessage({ id: 'PeriodeController.ForrigePeriode' })}
-                type="prev"
-                callback={callbackBackward}
-              />
-              <TimeLineButton
-                text={intl.formatMessage({ id: 'PeriodeController.NestePeriode' })}
-                type="next"
-                callback={callbackForward}
-              />
-            </FloatRight>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
-    );
-  }
-}
+  return (
+    <FlexContainer>
+      <FlexRow spaceBetween>
+        <FlexColumn>
+          <Label size="small">
+            <FormattedMessage id="PeriodeController.Detaljer" />
+            {isEdited && <EditedIcon />}
+          </Label>
+        </FlexColumn>
+        <FlexColumn className={styles.leftMargin}>
+          {!readOnly && (
+            <Button
+              className={styles.margin}
+              size="xsmall"
+              icon={<ScissorsIcon aria-hidden />}
+              onClick={showModal}
+              variant="tertiary-neutral"
+              type="button"
+              title={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
+            >
+              <FormattedMessage id="PeriodeController.DelOppPerioden" />
+            </Button>
+          )}
+          {showDelPeriodeModal && (
+            <DelOppPeriodeModal
+              cancelEvent={hideModal}
+              showModal={showDelPeriodeModal}
+              periodeData={valgtPeriode}
+              splitPeriod={splitPeriod}
+              finnesBelopMed0Verdi={finnesBelopMed0Verdi}
+            />
+          )}
+        </FlexColumn>
+        <FlexColumn className={styles.fix}>
+          <Button
+            className={styles.margin}
+            size="xsmall"
+            icon={<ArrowLeftIcon aria-hidden />}
+            onClick={setForrigePeriode}
+            variant="secondary-neutral"
+            type="button"
+            title={intl.formatMessage({ id: 'PeriodeController.prevPeriod' })}
+          >
+            <FormattedMessage id="PeriodeController.prevPeriodShort" />
+          </Button>
+          <Button
+            className={styles.margin}
+            size="xsmall"
+            icon={<ArrowRightIcon aria-hidden />}
+            onClick={setNestePeriode}
+            variant="secondary-neutral"
+            type="button"
+            title={intl.formatMessage({ id: 'PeriodeController.nextPeriod' })}
+            iconPosition="right"
+          >
+            <FormattedMessage id="PeriodeController.nextPeriodShort" />
+          </Button>
+          <Button
+            size="xsmall"
+            icon={<XMarkIcon aria-hidden />}
+            onClick={lukkPeriode}
+            variant="tertiary-neutral"
+            type="button"
+            title={intl.formatMessage({ id: 'PeriodeController.LukkPeriode' })}
+          />
+        </FlexColumn>
+      </FlexRow>
+    </FlexContainer>
+  );
+};
 
 export default PeriodeController;

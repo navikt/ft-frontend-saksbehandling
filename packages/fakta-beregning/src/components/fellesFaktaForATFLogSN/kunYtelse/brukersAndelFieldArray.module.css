@@ -7,17 +7,8 @@
   white-space: nowrap;
   width: 1px;
 }
-.buttonRemove {
-  background: var(--a-white) url('../../../images/remove.svg') no-repeat;
-  background-size: 100% 100%;
-  border: 0;
-  cursor: pointer;
-  display: inline-block;
-  height: 17px;
-  margin-top: 3px;
-  padding: 0;
-  vertical-align: top;
-  width: 17px;
+.slettIkon {
+  color: var(--a-red-500);
 }
 .rightAlign {
   text-align: right;

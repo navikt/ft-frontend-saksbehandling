@@ -19,6 +19,8 @@ interface OwnProps {
  * Image
  *
  * Komponent som har ansvar for visning av bilder.
+ *
+ * @deprecated Bruk heller ikon fra https://aksel.nav.no/ikoner
  */
 const Image = React.forwardRef<HTMLImageElement, OwnProps>(
   (

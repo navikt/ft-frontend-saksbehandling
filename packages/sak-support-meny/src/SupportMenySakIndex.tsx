@@ -1,12 +1,13 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import { createIntl } from '@navikt/ft-utils';
-
-import { ReactComponent as FraBeslutterSvg } from './images/arrow-return.svg';
-import { ReactComponent as SendMeldingSvg } from './images/email-send-1.svg';
-import { ReactComponent as DokumenterSvg } from './images/folder-big.svg';
-import { ReactComponent as TilBeslutterSvg } from './images/person-favorite-star-2.svg';
-import { ReactComponent as HistorikkSvg } from './images/synchronize-time.svg';
+import {
+  ClockDashedIcon,
+  PaperplaneFillIcon,
+  FolderFillIcon,
+  PersonCheckmarkFillIcon,
+  ArrowUndoIcon,
+} from '@navikt/aksel-icons';
 
 import TabMeny, { SvgProps } from './components/TabMeny';
 import SupportTabs from './supportTabs';
@@ -15,41 +16,41 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-const getStyle = (isActive: boolean, isDisabled: boolean): { fill: string } => {
+const getIconColor = (isActive: boolean, isDisabled: boolean): string => {
   if (isDisabled) {
-    return { fill: '#c6c2bf' };
+    return '#c6c2bf';
   }
-  return isActive ? { fill: '#0067c5' } : { fill: '#3e3832' };
+  return isActive ? '#0067c5' : '#3e3832';
 };
 
 const TABS = {
   [SupportTabs.TIL_BESLUTTER]: {
     getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
-      <TilBeslutterSvg {...props} style={getStyle(isActive, isDisabled)} />
+      <PersonCheckmarkFillIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
     ),
     tooltipTextCode: 'SupportMenySakIndex.Godkjenning',
   },
   [SupportTabs.FRA_BESLUTTER]: {
     getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
-      <FraBeslutterSvg {...props} style={getStyle(isActive, isDisabled)} />
+      <ArrowUndoIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
     ),
     tooltipTextCode: 'SupportMenySakIndex.FraBeslutter',
   },
   [SupportTabs.HISTORIKK]: {
     getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
-      <HistorikkSvg {...props} style={getStyle(isActive, isDisabled)} />
+      <ClockDashedIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
     ),
     tooltipTextCode: 'SupportMenySakIndex.Historikk',
   },
   [SupportTabs.MELDINGER]: {
     getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
-      <SendMeldingSvg {...props} style={getStyle(isActive, isDisabled)} />
+      <PaperplaneFillIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
     ),
     tooltipTextCode: 'SupportMenySakIndex.Melding',
   },
   [SupportTabs.DOKUMENTER]: {
     getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
-      <DokumenterSvg {...props} style={getStyle(isActive, isDisabled)} />
+      <FolderFillIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
     ),
     tooltipTextCode: 'SupportMenySakIndex.Dokumenter',
   },

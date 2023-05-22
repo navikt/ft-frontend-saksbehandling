@@ -1,11 +1,11 @@
 import { FordelBeregningsgrunnlagPeriode, ForlengelsePeriodeProp } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 
-function inneholderPeriode(periode2: { fom: string; tom?: string }, periode1: { fom: string; tom?: string }) {
+function inneholderPeriode(p1: { fom: string; tom?: string }, p2: { fom: string; tom?: string }) {
   return (
-    periode1.tom != null &&
-    !dayjs(periode1.tom).isBefore(dayjs(periode2.fom)) &&
-    (periode2.tom == null || !dayjs(periode1.tom).isAfter(dayjs(periode2.tom)))
+    p2.tom != null &&
+    !dayjs(p2.tom).isBefore(dayjs(p1.fom)) &&
+    (p1.tom == null || !dayjs(p2.tom).isAfter(dayjs(p1.tom)))
   );
 }
 

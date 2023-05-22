@@ -1,12 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
+import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Heading, BodyShort, Label } from '@navikt/ds-react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Beregningsgrunnlag, Vilkarperiode, YtelseGrunnlag } from '@navikt/ft-types';
-import avslaatIkonUrl from '../../images/avslaatt_mini.svg';
 
 import { TabellRadData, TabellData } from '../../types/BeregningsresultatTabellType';
 import styles from './beregningsresultat.module.css';
@@ -92,22 +92,12 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
 
 const skilleRad = (): ReactElement => <div className={styles.radEnkelLinje} />;
 
-const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean, intl: IntlShape): ReactElement => (
+const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement => (
   <FlexContainer>
     <VerticalSpacer twentyPx />
     <FlexRow>
-      <FlexColumn className={styles.kolAvslagIkon}>
-        <Image
-          alt={intl.formatMessage(
-            {
-              id: erMidlertidigInaktiv
-                ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
-                : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2',
-            },
-            { grunnbeløp: formatCurrencyNoKr(grunnbeløp) },
-          )}
-          src={avslaatIkonUrl}
-        />
+      <FlexColumn className={styles.avslåttIkon}>
+        <XMarkOctagonFillIcon />
       </FlexColumn>
       <FlexColumn className={styles.kolAvslagTekst}>
         <BodyShort size="small">
@@ -137,14 +127,13 @@ const lagResultatRader = (
   vilkårPeriode: Vilkarperiode,
   beregningsgrunnlag: Beregningsgrunnlag,
   harFlereAndeler: boolean,
-  intl: IntlShape,
 ): ReactElement | null => {
   const sumBrutto = tabellData.andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
   if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT) {
     return null;
   }
   if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT) {
-    return lagIkkeOppfyltVisning(beregningsgrunnlag.grunnbeløp, sjekkErMidlertidigInaktiv(beregningsgrunnlag), intl);
+    return lagIkkeOppfyltVisning(beregningsgrunnlag.grunnbeløp, sjekkErMidlertidigInaktiv(beregningsgrunnlag));
   }
   const seksG = beregningsgrunnlag.grunnbeløp * 6;
   const skalViseAvkortetRad = sumBrutto > seksG;
@@ -215,7 +204,6 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
   vilkårsperiode,
   beregningsgrunnlag,
 }) => {
-  const intl = useIntl();
   const skalViseOppsummeringsrad =
     tabellData.andeler.length > 1 && !tabellData.andeler.some(andel => !andel.erFerdigBeregnet);
   tabellData.andeler.sort((a, b) => finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b));
@@ -290,7 +278,7 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
         </>
       )}
       {alleAndelerErFastsatt && (
-        <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler, intl)}</>
+        <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler)}</>
       )}
     </>
   );

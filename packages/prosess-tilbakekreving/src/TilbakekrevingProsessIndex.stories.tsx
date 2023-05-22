@@ -5,7 +5,7 @@ import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
 import { Behandling, FeilutbetalingPerioderWrapper, DetaljerteFeilutbetalingsperioder } from '@navikt/ft-types';
-import { NavBrukerKjonn, ForeldelseVurderingType, BehandlingStatus } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType, BehandlingStatus, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
 import TilbakekrevingProsessIndex from './TilbakekrevingProsessIndex';
 
@@ -15,7 +15,6 @@ import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import '@navikt/ft-tidslinje/dist/style.css';
 import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
 
 const intl = createIntl(messages);
@@ -87,11 +86,18 @@ const Template: StoryFn<{
       setFormData={() => undefined}
       submitCallback={submitCallback}
       perioderForeldelse={perioderForeldelse}
-      navBrukerKjonn={NavBrukerKjonn.KVINNE}
       vilkarvurderingsperioder={vilkarvurderingsperioder}
       vilkarvurdering={vilkarvurdering}
       beregnBelop={(params?: any) => Promise.resolve(params)}
       alleMerknaderFraBeslutter={{}}
+      relasjonsRolleType={RelasjonsRolleType.MOR}
+      relasjonsRolleTypeKodeverk={[
+        {
+          kode: 'MORA',
+          kodeverk: 'RELASJONSROLLE_TYPE',
+          navn: 'Mor',
+        },
+      ]}
     />
   </RawIntlProvider>
 );

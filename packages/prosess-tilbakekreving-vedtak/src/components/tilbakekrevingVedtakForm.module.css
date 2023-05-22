@@ -16,9 +16,12 @@
   padding-right: 0;
 }
 .infoTextIcon {
+  color: var(--a-orange-500);
   display: inline-block;
+  height: 25px;
   margin-right: 1ex;
   vertical-align: text-bottom;
+  width: 25px;
 }
 .infotextColumn {
   font-weight: normal;

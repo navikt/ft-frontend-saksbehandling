@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { BodyShort, Heading, Button, Modal } from '@navikt/ds-react';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 
-import advarselImageUrl from './images/advarsel.svg';
-import Image from './Image';
 import FlexRow from './flexGrid/FlexRow';
 import FlexColumn from './flexGrid/FlexColumn';
 
@@ -31,8 +30,12 @@ const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showM
     <Modal.Content>
       <FlexRow>
         <FlexColumn>
-          <Image className={styles.image} alt={bodyText} src={advarselImageUrl} />
-          <div className={styles.divider} />
+          <ExclamationmarkTriangleFillIcon
+            height={25}
+            width={25}
+            className={styles.image}
+            color="var(--a-orange-600)"
+          />
         </FlexColumn>
         <FlexColumn className={styles.text}>
           {headerText && <Heading size="small">{headerText}</Heading>}

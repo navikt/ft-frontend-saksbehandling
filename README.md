@@ -7,7 +7,7 @@ Kildekode og publisering av npm-moduler til frontend-moduler brukt i FP og K9
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=navikt_ft-frontend-saksbehandling&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=navikt_ft-frontend-saksbehandling)
 # Storybook
 
-Storybook hostes på [github pages](https://navikt.github.io/ft-frontend-saksbehandling/) og releases automatisk hver dag 12.00
+Storybook hostes på [github pages](https://navikt.github.io/ft-frontend-saksbehandling/) og releases automatisk ved hver push til main.
 
 # Komme i gang
 
