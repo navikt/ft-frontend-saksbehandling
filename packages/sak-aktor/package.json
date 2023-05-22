@@ -26,12 +26,12 @@
   "dependencies": {
     "@navikt/ds-css": "3.2.2",
     "@navikt/ds-react": "3.2.2",
-    "@navikt/ft-kodeverk": "^2.1.8",
-    "@navikt/ft-plattform-komponenter": "^2.1.1",
-    "@navikt/ft-sak-visittkort": "^2.0.33",
-    "@navikt/ft-types": "^2.1.9",
-    "@navikt/ft-ui-komponenter": "^2.0.29",
-    "@navikt/ft-utils": "^2.0.25",
+    "@navikt/ft-kodeverk": "2.1.8",
+    "@navikt/ft-plattform-komponenter": "2.1.1",
+    "@navikt/ft-sak-visittkort": "2.0.33",
+    "@navikt/ft-types": "2.1.9",
+    "@navikt/ft-ui-komponenter": "2.0.29",
+    "@navikt/ft-utils": "2.0.25",
     "react": "18.2.0",
     "react-intl": "6.4.2"
   },
@@ -48,7 +48,7 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.0.31",
+    "@navikt/ft-storybook-utils": "2.0.31",
     "@storybook/addon-actions": "7.0.12",
     "@storybook/react": "7.0.12",
     "@storybook/react-vite": "7.0.12",
