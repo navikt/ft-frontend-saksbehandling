@@ -1,15 +1,16 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort } from '@navikt/ds-react';
+import {
+  StarFillIcon,
+  ChevronRightDoubleIcon,
+  ChevronLeftDoubleIcon,
+  ChevronDownDoubleIcon,
+} from '@navikt/aksel-icons';
 
-import { DateTimeLabel, Table, TableColumn, TableRow, Image, Tooltip } from '@navikt/ft-ui-komponenter';
+import { DateTimeLabel, Table, TableColumn, TableRow, Tooltip } from '@navikt/ft-ui-komponenter';
 import { Kommunikasjonsretning } from '@navikt/ft-kodeverk';
 import { Dokument } from '@navikt/ft-types';
-
-import sendDokumentImageUrl from '../images/send_dokument.svg';
-import mottaDokumentImageUrl from '../images/motta_dokument.svg';
-import erIBrukImageUrl from '../images/stjerne.svg';
-import internDokumentImageUrl from '../images/intern_dokument.svg';
 
 import styles from './documentList.module.css';
 
@@ -22,25 +23,6 @@ const headerTextCodes = [
 
 const isTextMoreThan25char = (text: string): boolean => !!text && text.length > 25;
 const trimText = (text: string): string => `${text.substring(0, 24)}...`;
-
-const getDirectionImage = (document: Dokument): string => {
-  if (document.kommunikasjonsretning === Kommunikasjonsretning.INN) {
-    return mottaDokumentImageUrl;
-  }
-  if (document.kommunikasjonsretning === Kommunikasjonsretning.UT) {
-    return sendDokumentImageUrl;
-  }
-  return internDokumentImageUrl;
-};
-const getDirectionText = (document: Dokument): string => {
-  if (document.kommunikasjonsretning === Kommunikasjonsretning.INN) {
-    return 'DocumentList.Motta';
-  }
-  if (document.kommunikasjonsretning === Kommunikasjonsretning.UT) {
-    return 'DocumentList.Send';
-  }
-  return 'DocumentList.Intern';
-};
 
 const markerSomValgtEllerÅpneDokumenter = (
   event: React.SyntheticEvent,
@@ -171,58 +153,67 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
   }
   return (
     <Table headerTextCodes={headerTextCodes}>
-      {documents.map(document => {
-        const directionImage = getDirectionImage(document);
-        const directionTextCode = getDirectionText(document);
-        return (
-          <TableRow<string>
-            key={document.dokumentId}
-            id={document.dokumentId}
-            onMouseDown={dokumentMouseHandler}
-            onKeyDown={dokumentKeyHandler}
-            isSelected={valgteDokumentIder.some(dokId => dokId === document.dokumentId)}
-            useMultiselect
-          >
-            <TableColumn>
-              <Image
-                className={styles.image}
-                src={directionImage}
-                alt={intl.formatMessage({ id: directionTextCode })}
-                tooltip={intl.formatMessage({ id: directionTextCode })}
+      {documents.map(document => (
+        <TableRow<string>
+          key={document.dokumentId}
+          id={document.dokumentId}
+          onMouseDown={dokumentMouseHandler}
+          onKeyDown={dokumentKeyHandler}
+          isSelected={valgteDokumentIder.some(dokId => dokId === document.dokumentId)}
+          useMultiselect
+        >
+          <TableColumn>
+            {document.kommunikasjonsretning === Kommunikasjonsretning.INN && (
+              <ChevronRightDoubleIcon
+                title={intl.formatMessage({ id: 'DocumentList.Motta' })}
+                height={25}
+                width={25}
+                color="var(--a-surface-success)"
               />
-            </TableColumn>
-            <TableColumn>
-              {document.tittel}
-              {document.behandlingUuidList &&
-                behandlingUuid &&
-                document.behandlingUuidList.includes(behandlingUuid) && (
-                  <Image
-                    className={styles.image}
-                    src={erIBrukImageUrl}
-                    tooltip={<FormattedMessage id="DocumentList.IBruk" />}
-                  />
-                )}
-            </TableColumn>
-            <TableColumn>
-              {document.gjelderFor && isTextMoreThan25char(document.gjelderFor) && (
-                <Tooltip content={<BodyShort size="small">{document.gjelderFor}</BodyShort>} alignLeft>
-                  {trimText(document.gjelderFor)}
-                </Tooltip>
+            )}
+            {document.kommunikasjonsretning === Kommunikasjonsretning.UT && (
+              <ChevronLeftDoubleIcon
+                title={intl.formatMessage({ id: 'DocumentList.Send' })}
+                height={25}
+                width={25}
+                color="var(--a-orange-500)"
+              />
+            )}
+            {document.kommunikasjonsretning !== Kommunikasjonsretning.INN &&
+              document.kommunikasjonsretning !== Kommunikasjonsretning.UT && (
+                <ChevronDownDoubleIcon
+                  title={intl.formatMessage({ id: 'DocumentList.Intern' })}
+                  height={25}
+                  width={25}
+                  color="var(--a-blue-400)"
+                />
               )}
-              {document.gjelderFor && !isTextMoreThan25char(document.gjelderFor) && document.gjelderFor}
-            </TableColumn>
-            <TableColumn>
-              {document.tidspunkt ? (
-                <DateTimeLabel dateTimeString={document.tidspunkt} />
-              ) : (
-                <BodyShort size="small">
-                  <FormattedMessage id="DocumentList.IProduksjon" />
-                </BodyShort>
-              )}
-            </TableColumn>
-          </TableRow>
-        );
-      })}
+          </TableColumn>
+          <TableColumn>
+            {document.tittel}
+            {document.behandlingUuidList && behandlingUuid && document.behandlingUuidList.includes(behandlingUuid) && (
+              <StarFillIcon className={styles.image} title={intl.formatMessage({ id: 'DocumentList.IBruk' })} />
+            )}
+          </TableColumn>
+          <TableColumn>
+            {document.gjelderFor && isTextMoreThan25char(document.gjelderFor) && (
+              <Tooltip content={<BodyShort size="small">{document.gjelderFor}</BodyShort>} alignLeft>
+                {trimText(document.gjelderFor)}
+              </Tooltip>
+            )}
+            {document.gjelderFor && !isTextMoreThan25char(document.gjelderFor) && document.gjelderFor}
+          </TableColumn>
+          <TableColumn>
+            {document.tidspunkt ? (
+              <DateTimeLabel dateTimeString={document.tidspunkt} />
+            ) : (
+              <BodyShort size="small">
+                <FormattedMessage id="DocumentList.IProduksjon" />
+              </BodyShort>
+            )}
+          </TableColumn>
+        </TableRow>
+      ))}
     </Table>
   );
 };

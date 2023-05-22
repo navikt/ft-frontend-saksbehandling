@@ -139,3 +139,8 @@
 .breddeInntekt {
   width: 100px;
 }
+.warningIcon {
+  color: var(--a-surface-warning);
+  height: 24px;
+  width: 24px;
+}

@@ -1,9 +1,8 @@
 import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
-import { Detail, Fieldset } from '@navikt/ds-react';
-import { VerticalSpacer, Image } from '@navikt/ft-ui-komponenter';
-
-import addCircleIcon from './images/add-circle.svg';
+import { Button, Detail, Fieldset } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 
 import styles from './periodFieldArray.module.css';
 
@@ -32,8 +31,9 @@ const getRemoveButton =
   (className?: string): ReactNode | undefined => {
     if (index > 0) {
       return (
-        <button
-          className={className || styles.buttonRemove}
+        <Button
+          className={className}
+          icon={<XMarkIcon aria-hidden />}
           type="button"
           onClick={() => {
             remove(index);
@@ -90,18 +90,18 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
             role="button"
             tabIndex={0}
           >
-            <Image className={styles.addCircleIcon} src={addCircleIcon} alt={bodyText} />
+            <PlusCircleIcon className={styles.addCircleIcon} title={bodyText} />
             <Detail className={styles.imageText}>{bodyText}</Detail>
           </div>
         )}
         {createAddButtonInsteadOfImageLink && !readOnly && (
-          <button
+          <Button
+            icon={<PlusCircleIcon aria-hidden />}
             type="button"
             onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-            className={styles.buttonAdd}
           >
             {bodyText}
-          </button>
+          </Button>
         )}
         <VerticalSpacer sixteenPx />
       </>

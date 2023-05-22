@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React, { FunctionComponent, ReactElement } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { BodyShort } from '@navikt/ds-react';
-import { FlexColumn, FlexContainer, FlexRow, Image } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import styles from './tittelMedDivider.module.css';
 
 interface OwnProps {
-  imageSrc: string;
+  ikon: ReactElement;
   tittel: string;
 }
 
@@ -15,31 +15,19 @@ interface OwnProps {
  *
  * Viser et ikon og en tittel skilt med en vertikal grå linje.
  */
-const TittelMedDivider: FunctionComponent<OwnProps> = ({ imageSrc, tittel }) => {
-  const intl = useIntl();
-  return (
-    <FlexContainer>
-      <FlexRow>
-        <FlexColumn>
-          <Image
-            src={imageSrc}
-            alt={intl.formatMessage({ id: 'Risikopanel.Tittel' })}
-            tooltip={intl.formatMessage({ id: 'Risikopanel.Tittel' })}
-          />
-        </FlexColumn>
-        <FlexColumn>
-          <div className={styles.divider} />
-        </FlexColumn>
-        <FlexColumn>
-          <div className={styles.tekst}>
-            <BodyShort size="small">
-              <FormattedMessage id={tittel} />
-            </BodyShort>
-          </div>
-        </FlexColumn>
-      </FlexRow>
-    </FlexContainer>
-  );
-};
+const TittelMedDivider: FunctionComponent<OwnProps> = ({ ikon, tittel }) => (
+  <FlexContainer>
+    <FlexRow>
+      <FlexColumn>{ikon}</FlexColumn>
+      <FlexColumn>
+        <div className={styles.tekst}>
+          <BodyShort size="small">
+            <FormattedMessage id={tittel} />
+          </BodyShort>
+        </div>
+      </FlexColumn>
+    </FlexRow>
+  </FlexContainer>
+);
 
 export default TittelMedDivider;

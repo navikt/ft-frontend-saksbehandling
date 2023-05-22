@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Button, BodyShort, Heading } from '@navikt/ds-react';
 
 import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
@@ -215,7 +215,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
             name="perioderForKopi"
             selectValues={vurdertePerioder.map(per => {
               const perId = `${per.fom}_${per.tom}`;
-              const perValue = `${moment(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(per.tom).format(
+              const perValue = `${dayjs(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(per.tom).format(
                 DDMMYYYY_DATE_FORMAT,
               )}`;
               return (
