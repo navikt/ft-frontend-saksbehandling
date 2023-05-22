@@ -1,5 +1,6 @@
-import React, { FunctionComponent, useEffect, useCallback, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { KeyVerticalIcon, KeyVerticalFillIcon } from '@navikt/aksel-icons';
+
 import { createIntl } from '@navikt/ft-utils';
 
 import messages from '../i18n/nb_NO.json';
@@ -18,12 +19,12 @@ interface OwnProps {
  */
 const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefined, erOverstyrt = false }) => {
   const [isOverstyrt, setOverstyrt] = useState(erOverstyrt);
-  const setOverstyrtFn = useCallback(() => {
+  const setOverstyrtFn = () => {
     if (!isOverstyrt) {
       setOverstyrt(true);
       onClick(true);
     }
-  }, []);
+  };
 
   useEffect(() => {
     setOverstyrt(erOverstyrt);
