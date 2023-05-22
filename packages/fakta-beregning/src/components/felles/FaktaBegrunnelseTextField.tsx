@@ -47,7 +47,6 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
 }) => {
   const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.BegrunnEndringene';
   const textAreaLabel = label || intl.formatMessage({ id: code });
-
   return (
     <RawIntlProvider value={intl}>
       {(isSubmittable || hasBegrunnelse) && (
@@ -55,7 +54,7 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
           <TextAreaField
             name={name}
             label={isReadOnly ? '' : textAreaLabel}
-            validate={[required, minLength3, maxLength1500, hasValidText]}
+            validate={isReadOnly ? [] : [required, minLength3, maxLength1500, hasValidText]}
             className={isReadOnly ? styles.explanationTextareaReadOnly : styles.explanationTextarea}
             maxLength={1500}
             readOnly={isReadOnly}

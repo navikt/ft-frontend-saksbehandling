@@ -21,7 +21,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-utils": "^2.0.25",
+    "@navikt/ft-utils": "2.0.25",
     "moment": "2.29.4"
   },
   "peerDependencies": {

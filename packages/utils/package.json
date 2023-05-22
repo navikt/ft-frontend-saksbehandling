@@ -20,8 +20,8 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.1.8",
-    "@navikt/ft-types": "^2.1.9",
+    "@navikt/ft-kodeverk": "2.1.8",
+    "@navikt/ft-types": "2.1.9",
     "dayjs": "1.11.7",
     "react-intl": "6.4.2"
   },

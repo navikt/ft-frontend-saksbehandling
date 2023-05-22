@@ -1,6 +1,12 @@
 import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkar } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  Vilkar,
+  Vilkarperiode,
+} from '@navikt/ft-types';
 import React, { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
@@ -14,6 +20,7 @@ import transformValuesVurderFaktaBeregning from './transformValuesHjelpefunksjon
 import VurderFaktaContext, { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import VurderFaktaBeregningField, { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
@@ -72,6 +79,11 @@ export const buildInitialValuesVurderFaktaBeregning = (
   }),
 });
 
+const relevanteKoder = [VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG];
+const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
+  const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
+  return vilkårPeriode?.erForlengelse === true;
+};
 /**
  * VurderFaktaBeregningPanel
  *
@@ -80,9 +92,10 @@ export const buildInitialValuesVurderFaktaBeregning = (
 const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = props => {
   const {
     beregningsgrunnlag,
-    readOnly,
     submittable,
+    readOnly,
     kodeverkSamling,
+
     erOverstyrer,
     arbeidsgiverOpplysningerPerId,
     aktivtBeregningsgrunnlagIndeks,
@@ -143,25 +156,43 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
           }}
           setDataOnUnmount={setFormData}
         >
-          {fields.map((field, index) => (
-            <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
-              <VurderFaktaBeregningField
-                key={field.id}
-                vilkarsperiode={vilkar.perioder.find(
-                  p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
-                )}
-                beregningsgrunnlag={beregningsgrunnlag[index]}
-                erOverstyrer={erOverstyrer}
-                readOnly={readOnly}
-                kodeverkSamling={kodeverkSamling}
-                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                submittable={submittable}
-                updateOverstyring={updateOverstyring}
-                submitDisabled={submitDisabled}
-                verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
-              />
-            </BeregningsgrunnlagIndexContext.Provider>
-          ))}
+          {fields.map((field, index) => {
+            const harRelevantAksjonspunkt = avklaringspunkt =>
+              relevanteKoder.some(kode => kode === avklaringspunkt.definisjon);
+
+            const kanLøses = avklaringspunkt => avklaringspunkt.kanLoses;
+
+            const løsbareAksjonspunkter = avklaringsbehov.filter(
+              avklaringspunkt => harRelevantAksjonspunkt(avklaringspunkt) && kanLøses(avklaringspunkt),
+            );
+
+            const readOnlyAvAndreÅrsaker =
+              readOnly ||
+              erForlengelse(beregningsgrunnlag[index], vilkar.perioder) ||
+              (hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) && !erOverstyrer);
+
+            const isReadOnly = readOnlyAvAndreÅrsaker || løsbareAksjonspunkter.length === 0;
+
+            return (
+              <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
+                <VurderFaktaBeregningField
+                  key={field.id}
+                  vilkarsperiode={vilkar.perioder.find(
+                    p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
+                  )}
+                  beregningsgrunnlag={beregningsgrunnlag[index]}
+                  erOverstyrer={erOverstyrer}
+                  readOnly={isReadOnly}
+                  kodeverkSamling={kodeverkSamling}
+                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                  submittable={submittable}
+                  updateOverstyring={updateOverstyring}
+                  submitDisabled={submitDisabled}
+                  verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
+                />
+              </BeregningsgrunnlagIndexContext.Provider>
+            );
+          })}
         </Form>
       </VurderFaktaContext.Provider>
     );
