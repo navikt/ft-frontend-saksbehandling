@@ -11,19 +11,10 @@ import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
 import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 import KodeverkForPanel from '../typer/kodeverkForPanel';
 
-const {
-  VURDER_FAKTA_FOR_ATFL_SN,
-  OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-  OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-  AVKLAR_AKTIVITETER,
-} = FaktaBeregningAvklaringsbehovCode;
+const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } =
+  FaktaBeregningAvklaringsbehovCode;
 
-const relevanteKoder = [
-  VURDER_FAKTA_FOR_ATFL_SN,
-  OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-  OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-  AVKLAR_AKTIVITETER,
-];
+const relevanteKoder = [OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER];
 
 type OwnProps = {
   submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
@@ -71,11 +62,6 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
     ((relevanteLøsbareAvklaringsbehov.length === 0 ||
       hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) &&
       !erOverstyrer);
-  const avklarFaktaBeregningReadOnly =
-    readOnly ||
-    ((relevanteLøsbareAvklaringsbehov.length === 0 ||
-      hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)) &&
-      !erOverstyrer);
   const [avklarAktiviteterErEndret, setAvklarAktiviteterErEndret] = useState<boolean>(false);
 
   return (
@@ -97,12 +83,12 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
       />
       <VerticalSpacer thirtyTwoPx />
       <VurderFaktaBeregningPanel
-        readOnly={avklarFaktaBeregningReadOnly}
         submitCallback={submitCallback}
         submittable={submittable}
         kodeverkSamling={kodeverkSamling}
         beregningsgrunnlag={beregningsgrunnlag}
         erOverstyrer={erOverstyrer}
+        readOnly={readOnly}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
         setFormData={setFormData}
