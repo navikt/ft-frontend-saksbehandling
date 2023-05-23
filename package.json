@@ -36,7 +36,7 @@
     "@storybook/addon-links": "7.0.12",
     "@storybook/addons": "7.0.12",
     "@storybook/builder-vite": "7.0.12",
-    "@storybook/cli": "7.0.12",
+    "@storybook/cli": "7.0.14",
     "@storybook/react": "7.0.12",
     "@storybook/theming": "7.0.12",
     "@testing-library/jest-dom": "5.16.5",
