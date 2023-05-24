@@ -2422,6 +2422,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@navikt/aksel-icons@npm:^3.2.4":
+  version: 3.2.4
+  resolution: "@navikt/aksel-icons@npm:3.2.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F3.2.4%2Fabd204c7bb30f3e4811d287aa0a3ec79422c27f3"
+  checksum: 7860cc2a1128cb75a93776f1b8e29b77a709d1a7af07d164c9c8f742801100250f41196e3e8a1e88d88538d18c72335093ab83df41238857528cb75709a2469f
+  languageName: node
+  linkType: hard
+
 "@navikt/ds-codemod@npm:3.2.2":
   version: 3.2.2
   resolution: "@navikt/ds-codemod@npm:3.2.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-codemod%2F3.2.2%2F0ceb1287710873682e146fc24c2a657fc601011c"
@@ -2458,22 +2465,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-react-internal@npm:3.2.2":
-  version: 3.2.2
-  resolution: "@navikt/ds-react-internal@npm:3.2.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react-internal%2F3.2.2%2Ff41c2d53af2ffdd422dce182c6819dfedb89ea95"
+"@navikt/ds-react-internal@npm:3.2.4":
+  version: 3.2.4
+  resolution: "@navikt/ds-react-internal@npm:3.2.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react-internal%2F3.2.4%2Ff4933a0c69d8e904bd758195425516fd8ba3ed99"
   dependencies:
-    "@navikt/aksel-icons": ^3.2.2
-    "@navikt/ds-react": ^3.2.2
+    "@navikt/aksel-icons": ^3.2.4
+    "@navikt/ds-react": ^3.2.4
     clsx: ^1.1.1
     copy-to-clipboard: ^3.3.1
   peerDependencies:
     "@types/react": ^17.0.30 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
-  checksum: 806b6d32f04c54ed5569a810922d9a80da24e89fa5260f5254dad4e268ef7cd9fa7439bac713eb5715982eaff44d090cc2e5dabada534df98915bc7f595fb1f2
+  checksum: 2a5bc90bf9d78debe291a5374cc4123e68488f7bf074bd8b5e7527b01f3d398f44cac1b0f5a246537f754edc3d57dc6a5f147df96b5bbb1f4a089e8e3da703d4
   languageName: node
   linkType: hard
 
-"@navikt/ds-react@npm:3.2.2, @navikt/ds-react@npm:^3.2.2":
+"@navikt/ds-react@npm:3.2.2":
   version: 3.2.2
   resolution: "@navikt/ds-react@npm:3.2.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F3.2.2%2F2d9a1a2a9ab943fb4edcbed7a120e4914d6649c2"
   dependencies:
@@ -2489,6 +2496,25 @@ __metadata:
     "@types/react": ^17.0.30 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
   checksum: 047705ee190572e991c79e4fa8261bcf69719b0cfdf256054da31932b170ec227b10fef88d080f7647344d5ea452c696d19476a1aa8c869c6adefc2d0a3c2004
+  languageName: node
+  linkType: hard
+
+"@navikt/ds-react@npm:^3.2.4":
+  version: 3.2.4
+  resolution: "@navikt/ds-react@npm:3.2.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F3.2.4%2F5df7838128b5ecc4b98ff1a0c2cf994819d5d0e1"
+  dependencies:
+    "@floating-ui/react": 0.17.0
+    "@navikt/aksel-icons": ^3.2.4
+    "@radix-ui/react-tabs": 1.0.0
+    "@radix-ui/react-toggle-group": 1.0.0
+    clsx: ^1.2.1
+    date-fns: 2.29.3
+    react-day-picker: 8.3.4
+    react-modal: 3.15.1
+  peerDependencies:
+    "@types/react": ^17.0.30 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  checksum: e881b09dc4a52cacdbfb57e96f94803bc820888219c921b63131334d7ffac7f5f2911969c3ef9a9ac4817af8788a8ab636db01aec3035243a83ef3d4b9f7eef1
   languageName: node
   linkType: hard
 
@@ -2846,7 +2872,7 @@ __metadata:
     "@navikt/ds-css": 3.2.2
     "@navikt/ds-css-internal": 3.2.2
     "@navikt/ds-react": 3.2.2
-    "@navikt/ds-react-internal": 3.2.2
+    "@navikt/ds-react-internal": 3.2.4
     "@navikt/ft-form-hooks": ^4.0.32
     "@navikt/ft-form-validators": ^2.0.27
     "@navikt/ft-kodeverk": 2.1.8
@@ -2947,7 +2973,7 @@ __metadata:
     "@navikt/ds-css": 3.2.2
     "@navikt/ds-css-internal": 3.2.2
     "@navikt/ds-react": 3.2.2
-    "@navikt/ds-react-internal": 3.2.2
+    "@navikt/ds-react-internal": 3.2.4
     "@navikt/ft-form-hooks": ^4.0.32
     "@navikt/ft-form-validators": ^2.0.27
     "@navikt/ft-kodeverk": 2.1.8
@@ -3236,7 +3262,7 @@ __metadata:
     "@navikt/ds-css": 3.2.2
     "@navikt/ds-css-internal": 3.2.2
     "@navikt/ds-react": 3.2.2
-    "@navikt/ds-react-internal": 3.2.2
+    "@navikt/ds-react-internal": 3.2.4
     "@navikt/ft-form-hooks": ^4.0.32
     "@navikt/ft-form-validators": ^2.0.27
     "@navikt/ft-plattform-komponenter": ^2.1.2
