@@ -522,6 +522,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     }
   };
   // Fields settes også opp for perioder om ikke skal endres, disse trenger vi ikke validere.
+  // Felter som er i readonly skal ikke valideres
   const fieldsMåValideres =
     !readOnly && fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
   if (fieldsMåValideres) {
