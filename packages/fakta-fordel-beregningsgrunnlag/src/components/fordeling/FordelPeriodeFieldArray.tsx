@@ -522,7 +522,8 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     }
   };
   // Fields settes også opp for perioder om ikke skal endres, disse trenger vi ikke validere.
-  const fieldsMåValideres = fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
+  const fieldsMåValideres =
+    !readOnly && fields.some((field: any) => !!field.skalRedigereInntekt || !!field.skalKunneEndreRefusjon);
   if (fieldsMåValideres) {
     valider(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
     valider(validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl));
