@@ -131,6 +131,10 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
       setOpenPanels(nyListe);
     }
   };
+
+  // dersom beregningsgrunnlag.forlengelsesperioder er tom, så skal skal alle perioder kunne redigeres
+  // dersom den ikke er tom, så skal kun forlengelsesperioder kunne redigeres
+
   return (
     <BorderBox className={styles.lessPadding}>
       {slaaSammenPerioder(perioder, bgPerioder, beregningsgrunnlag.forlengelseperioder).map((periode, index) => (
