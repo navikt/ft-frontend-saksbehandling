@@ -225,7 +225,7 @@ const grunnlagInputKolonne = (
   isAksjonspunktClosed: boolean,
   fieldNavn: string,
 ): ReactElement => {
-  if (skalIkkeRedigereInntekt) {
+  if (skalIkkeRedigereInntekt || readOnly) {
     return (
       <TableColumn>
         <FloatRight>
@@ -347,7 +347,7 @@ const inntektskategoriKolonne = (
         label=""
         name={`${fieldNavn}.inntektskategori`}
         className={styles.storBredde}
-        validate={[required]}
+        validate={skalIkkeEndres ? [] : [required]}
         selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
         readOnly={skalIkkeEndres}
       />
