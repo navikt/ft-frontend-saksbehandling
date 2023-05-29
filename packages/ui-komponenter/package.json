@@ -52,7 +52,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.41.0",
     "sinon": "15.1.0",
-    "storybook": "7.0.12",
+    "storybook": "7.0.18",
     "stylelint": "15.6.2",
     "typescript": "5.0.4",
     "vite": "4.3.8",
