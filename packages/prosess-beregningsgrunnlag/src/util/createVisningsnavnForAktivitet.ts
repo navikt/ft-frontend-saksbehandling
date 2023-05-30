@@ -21,7 +21,7 @@ const createVisningsnavnForAktivitet = (
 
 const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel, kodeverkSamling: KodeverkForPanel): string =>
   andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
-    ? kodeverkSamling[KodeverkType.OVERFOERING_AARSAK_TYPE].find(
+    ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
         a => a.kode === andel.arbeidsforhold?.arbeidsforholdType,
       )?.navn || ''
     : '';
