@@ -24,9 +24,9 @@
     "storybook": "storybook dev --quiet -p 7011"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "3.2.2",
-    "@navikt/ds-css": "3.2.2",
-    "@navikt/ds-react": "3.2.2",
+    "@navikt/aksel-icons": "3.4.2",
+    "@navikt/ds-css": "3.4.2",
+    "@navikt/ds-react": "3.4.2",
     "@navikt/ft-form-hooks": "^4.0.32",
     "@navikt/ft-form-validators": "^2.0.27",
     "@navikt/ft-kodeverk": "2.1.8",
@@ -35,7 +35,7 @@
     "@navikt/ft-utils": "^2.0.26",
     "classnames": "2.3.2",
     "react": "18.2.0",
-    "react-hook-form": "7.43.9",
+    "react-hook-form": "7.44.2",
     "react-intl": "6.4.2"
   },
   "peerDependencies": {
@@ -55,18 +55,18 @@
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.0.32",
-    "@storybook/addon-actions": "7.0.12",
-    "@storybook/react": "7.0.12",
-    "@storybook/react-vite": "7.0.12",
+    "@storybook/addon-actions": "7.0.18",
+    "@storybook/react": "7.0.18",
+    "@storybook/react-vite": "7.0.18",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
     "eslint": "8.41.0",
-    "storybook": "7.0.12",
+    "storybook": "7.0.18",
     "stylelint": "15.6.2",
     "typescript": "5.0.4",
-    "vite": "4.3.8",
-    "vitest": "0.31.1"
+    "vite": "4.3.9",
+    "vitest": "0.31.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

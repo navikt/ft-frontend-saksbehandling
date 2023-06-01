@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { KodeverkMedNavn } from '@navikt/ft-types';
@@ -13,8 +13,6 @@ interface OwnProps {
   saksnummer: string;
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;
-  renderBehandlingMeny: () => ReactNode;
-  renderBehandlingVelger: () => ReactNode;
   dekningsgrad?: number;
   fagsakMarkeringTekst?: string;
 }
@@ -23,8 +21,6 @@ const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
   saksnummer,
   fagsakYtelseType,
   fagsakStatus,
-  renderBehandlingMeny,
-  renderBehandlingVelger,
   dekningsgrad,
   fagsakMarkeringTekst,
 }) => (
@@ -33,8 +29,6 @@ const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
       saksnummer={saksnummer}
       fagsakYtelseType={fagsakYtelseType}
       fagsakStatus={fagsakStatus}
-      renderBehandlingMeny={renderBehandlingMeny}
-      renderBehandlingVelger={renderBehandlingVelger}
       dekningsgrad={dekningsgrad}
       fagsakMarkeringTekst={fagsakMarkeringTekst}
     />
