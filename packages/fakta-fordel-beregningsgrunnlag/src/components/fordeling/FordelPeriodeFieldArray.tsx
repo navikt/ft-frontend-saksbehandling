@@ -225,7 +225,7 @@ const grunnlagInputKolonne = (
   isAksjonspunktClosed: boolean,
   fieldNavn: string,
 ): ReactElement => {
-  if (skalIkkeRedigereInntekt || readOnly) {
+  if (skalIkkeRedigereInntekt) {
     return (
       <TableColumn>
         <FloatRight>
