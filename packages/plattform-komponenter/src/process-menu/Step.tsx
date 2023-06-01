@@ -17,6 +17,7 @@ export interface StepProps {
 
 interface ComponentProps {
   index: number;
+  stepArrowContainerStyle?: string;
 }
 
 const stepCls = bemUtils('step');
@@ -31,6 +32,7 @@ export const Step = React.memo(
     isFinished,
     type = StepType.default,
     usePartialStatus,
+    stepArrowContainerStyle,
   }: StepProps & ComponentProps): JSX.Element => {
     const handleButtonClick = (event: React.FormEvent<HTMLButtonElement>): void => {
       event.preventDefault();
@@ -72,9 +74,12 @@ export const Step = React.memo(
           <span className={stepIndicatorCls} />
         </button>
         {isActive && (
-          <div className={`${styles[stepCls.element('arrow-container')]} step__arrow-container`}>
-            <div className={`${styles[stepCls.element('arrow')]} step__arrow`} />
-          </div>
+          <div
+            className={classnames(
+              stepArrowContainerStyle,
+              `${styles[stepCls.element('arrow-container')]} step__arrow-container`,
+            )}
+          />
         )}
       </li>
     );

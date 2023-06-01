@@ -1,5 +1,3 @@
-export { default as MenySakIndex } from './src/MenySakIndex';
-export { default as MenyData } from './src/MenyData';
 export { default as MenyVergeIndex, getMenytekst as getVergeMenytekst } from './src/verge/MenyVergeIndex';
 export { default as MenyTaAvVentIndex, getMenytekst as getTaAvVentMenytekst } from './src/taAvVent/MenyTaAvVentIndex';
 export {

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 import { Tag, BodyShort, Heading } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -16,8 +16,6 @@ interface OwnProps {
   saksnummer: string;
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;
-  renderBehandlingMeny: () => ReactNode;
-  renderBehandlingVelger: () => ReactNode;
   dekningsgrad?: number;
   fagsakMarkeringTekst?: string;
 }
@@ -25,60 +23,47 @@ interface OwnProps {
 /**
  * FagsakProfile
  *
- * Presentasjonskomponent. Viser fagsakinformasjon og knapper for å endre status eller lukke sak.
+ * Viser fagsakinformasjon og knapper for å endre status eller lukke sak.
  */
 const FagsakProfile: FunctionComponent<OwnProps> = ({
   saksnummer,
   fagsakYtelseType,
   fagsakStatus,
-  renderBehandlingMeny,
-  renderBehandlingVelger,
   dekningsgrad,
   fagsakMarkeringTekst,
 }) => {
   const intl = useIntl();
   return (
-    <>
-      <FlexContainer>
-        <FlexRow spaceBetween alignItemsToBaseline>
+    <FlexContainer>
+      <FlexRow spaceBetween alignItemsToBaseline>
+        <FlexColumn>
+          <Heading size="medium">{fagsakYtelseType.navn}</Heading>
+        </FlexColumn>
+        {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
           <FlexColumn>
-            <FlexRow wrap>
-              <FlexColumn>
-                <Heading size="medium">{fagsakYtelseType.navn}</Heading>
-              </FlexColumn>
-              {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
-                <FlexColumn>
-                  <Tooltip
-                    content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })}
-                    alignBottom
-                  >
-                    <Tag variant="info">{`${dekningsgrad}%`}</Tag>
-                  </Tooltip>
-                </FlexColumn>
-              )}
-              {fagsakMarkeringTekst && (
-                <FlexColumn>
-                  <Tooltip
-                    content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
-                    alignBottom
-                  >
-                    <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
-                  </Tooltip>
-                </FlexColumn>
-              )}
-            </FlexRow>
+            <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
+              <Tag variant="info">{`${dekningsgrad}%`}</Tag>
+            </Tooltip>
           </FlexColumn>
-          <FlexColumn>{renderBehandlingMeny()}</FlexColumn>
-        </FlexRow>
-        <VerticalSpacer eightPx />
-        <FlexRow>
+        )}
+        {fagsakMarkeringTekst && (
           <FlexColumn>
-            <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
+            <Tooltip
+              content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
+              alignBottom
+            >
+              <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
+            </Tooltip>
           </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
-      {renderBehandlingVelger()}
-    </>
+        )}
+      </FlexRow>
+      <VerticalSpacer eightPx />
+      <FlexRow>
+        <FlexColumn>
+          <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
+        </FlexColumn>
+      </FlexRow>
+    </FlexContainer>
   );
 };
 
