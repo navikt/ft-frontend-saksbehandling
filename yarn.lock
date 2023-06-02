@@ -2919,7 +2919,7 @@ __metadata:
     "@testing-library/user-event": 14.4.3
     core-js: 3.30.2
     cross-env: 7.0.3
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     dayjs-plugin-utc: 0.1.2
     eslint: 8.41.0
     react: 18.2.0
@@ -2943,7 +2943,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     core-js: 3.30.1
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     dayjs-plugin-utc: 0.1.2
     react: 18.2.0
     react-dom: 18.2.0
@@ -2975,7 +2975,7 @@ __metadata:
     classnames: 2.3.2
     core-js: 3.30.2
     cross-env: 7.0.3
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     eslint: 8.41.0
     react: 18.2.0
     react-hook-form: 7.44.2
@@ -2997,7 +2997,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     classnames: 2.3.2
     core-js: 3.30.0
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     react: 18.2.0
     react-hook-form: 7.43.9
     react-intl: 6.3.2
@@ -3069,7 +3069,7 @@ __metadata:
     "@testing-library/user-event": 14.4.3
     classnames: 2.3.2
     cross-env: 7.0.3
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     eslint: 8.41.0
     lodash.throttle: 4.1.1
     react: 18.2.0
@@ -3088,7 +3088,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     classnames: 2.3.2
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     lodash.throttle: 4.1.1
     react: 18.2.0
     react-hook-form: 7.43.9
@@ -3157,7 +3157,7 @@ __metadata:
     "@testing-library/user-event": 14.4.3
     classnames: 2.3.2
     cross-env: 7.0.3
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     eslint: 8.41.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
@@ -3173,7 +3173,7 @@ __metadata:
   peerDependencies:
     "@popperjs/core": 2.11.7
     classnames: 2.3.2
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: 18.2.0
@@ -3209,7 +3209,7 @@ __metadata:
     "@testing-library/user-event": 14.4.3
     classnames: 2.3.2
     cross-env: 7.0.3
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     echarts: 5.4.2
     eslint: 8.41.0
     react: 18.2.0
@@ -3233,7 +3233,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     classnames: 2.3.2
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     echarts: 5.4.2
     react: 18.2.0
     react-collapse: 5.1.1
@@ -3265,7 +3265,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
     cross-env: 7.0.3
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     eslint: 8.41.0
     moment: 2.29.4
     react: 18.2.0
@@ -3288,7 +3288,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.9
@@ -3366,7 +3366,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
     cross-env: 7.0.3
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     eslint: 8.41.0
     moment: 2.29.4
     react: 18.2.0
@@ -3389,7 +3389,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     moment: 2.29.4
     react: 18.2.0
     react-hook-form: 7.43.9
@@ -3887,7 +3887,7 @@ __metadata:
   dependencies:
     "@navikt/ft-kodeverk": ^2.1.9
     "@navikt/ft-types": ^2.1.11
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     eslint: 8.41.0
     react-intl: 6.4.2
     typescript: 5.0.4
@@ -3896,7 +3896,7 @@ __metadata:
   peerDependencies:
     "@navikt/ft-kodeverk": 2.x
     "@navikt/ft-types": 2.x
-    dayjs: 1.11.7
+    dayjs: 1.11.8
     react-intl: 6.3.2
   languageName: unknown
   linkType: soft
@@ -8761,10 +8761,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.7":
-  version: 1.11.7
-  resolution: "dayjs@npm:1.11.7"
-  checksum: 5003a7c1dd9ed51385beb658231c3548700b82d3548c0cfbe549d85f2d08e90e972510282b7506941452c58d32136d6362f009c77ca55381a09c704e9f177ebb
+"dayjs@npm:1.11.8":
+  version: 1.11.8
+  resolution: "dayjs@npm:1.11.8"
+  checksum: 4fe04b6df98ba6e5f89b49d80bba603cbf01e21a1b4a24ecb163c94c0ba5324a32ac234a139cee654f89d5277a2bcebca5347e6676c28a0a6d1a90f1d34a42b8
   languageName: node
   linkType: hard
 
