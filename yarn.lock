@@ -2847,10 +2847,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-css-internal@npm:3.4.2":
-  version: 3.4.2
-  resolution: "@navikt/ds-css-internal@npm:3.4.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css-internal%2F3.4.2%2F1e6b1e6f7c879b15167452f7271f1c75aa1a6232"
-  checksum: 7c82521d40b645ede7d467aaa6a9f2fdaeb9bbdaf4ad67e8fa193e425a0e8ad3ebaebda8a10c02bb041dedb0b5ee3d88807d023c2a3eb1e974ebf4ca34cd7cda
+"@navikt/ds-css-internal@npm:3.4.3":
+  version: 3.4.3
+  resolution: "@navikt/ds-css-internal@npm:3.4.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css-internal%2F3.4.3%2F7c67c4b52264eb7833ca35788a83cc29af01d1ae"
+  checksum: 476f436c150621a53c70ed809053794c14eae84ad583ea37d8d32c6bae189dcff2fc764eb7f9b4102ea33899433903b4dcc0b65615ea7a0b0535849a0ad083b4
   languageName: node
   linkType: hard
 
@@ -3248,7 +3248,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 3.4.2
     "@navikt/ds-css": 3.4.2
-    "@navikt/ds-css-internal": 3.4.2
+    "@navikt/ds-css-internal": 3.4.3
     "@navikt/ds-react": 3.4.2
     "@navikt/ds-react-internal": 3.4.2
     "@navikt/ft-form-hooks": ^4.0.33
@@ -3349,7 +3349,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 3.4.2
     "@navikt/ds-css": 3.4.2
-    "@navikt/ds-css-internal": 3.4.2
+    "@navikt/ds-css-internal": 3.4.3
     "@navikt/ds-react": 3.4.2
     "@navikt/ds-react-internal": 3.4.2
     "@navikt/ft-form-hooks": ^4.0.33
