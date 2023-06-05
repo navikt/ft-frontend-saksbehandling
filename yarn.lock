@@ -2861,9 +2861,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-react-internal@npm:3.4.2":
-  version: 3.4.2
-  resolution: "@navikt/ds-react-internal@npm:3.4.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react-internal%2F3.4.2%2Ffa683d71c7c9307513b08b4c4d8c41fe794c6568"
+"@navikt/ds-react-internal@npm:3.4.3":
+  version: 3.4.3
+  resolution: "@navikt/ds-react-internal@npm:3.4.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react-internal%2F3.4.3%2Fb085cf08ed4b0f450c55ec394f08077739e4fccb"
   dependencies:
     "@floating-ui/react": 0.24.1
     "@navikt/aksel-icons": ^3.4.2
@@ -2873,7 +2873,7 @@ __metadata:
   peerDependencies:
     "@types/react": ^17.0.30 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
-  checksum: d7aaa82fa506944fd9e3326819f49c64ac1b1f9e87a793ab9033e9f061580cd279fbd22c362ecfa40330f6012bc87d6f4c0f1e59f52f4d034f5857f226a0e752
+  checksum: d6d165dccceafafc3cad995e3586a0624aa05a7a871a06999b664f23e21256474fcfecef8b2e3e3b76531fada9e3eed63004724bf41d7a27d153d0328f65fec5
   languageName: node
   linkType: hard
 
@@ -3250,7 +3250,7 @@ __metadata:
     "@navikt/ds-css": 3.4.2
     "@navikt/ds-css-internal": 3.4.2
     "@navikt/ds-react": 3.4.2
-    "@navikt/ds-react-internal": 3.4.2
+    "@navikt/ds-react-internal": 3.4.3
     "@navikt/ft-form-hooks": ^4.0.33
     "@navikt/ft-form-validators": ^2.0.28
     "@navikt/ft-kodeverk": ^2.1.9
@@ -3351,7 +3351,7 @@ __metadata:
     "@navikt/ds-css": 3.4.2
     "@navikt/ds-css-internal": 3.4.2
     "@navikt/ds-react": 3.4.2
-    "@navikt/ds-react-internal": 3.4.2
+    "@navikt/ds-react-internal": 3.4.3
     "@navikt/ft-form-hooks": ^4.0.33
     "@navikt/ft-form-validators": ^2.0.28
     "@navikt/ft-kodeverk": ^2.1.9
