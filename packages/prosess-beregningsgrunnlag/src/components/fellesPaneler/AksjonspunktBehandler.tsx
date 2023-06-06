@@ -484,7 +484,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
         ak => gjelderForParagraf(ak, lovparagraf) && ak.status === AksjonspunktStatus.OPPRETTET,
       )
     ) {
-      panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
 
