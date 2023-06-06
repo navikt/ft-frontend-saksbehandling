@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useMemo } from 'react';
 import { RawIntlProvider } from 'react-intl';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 as uuidv4 } from 'uuid';
@@ -84,9 +84,13 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   formData,
   setFormData,
 }) => {
-  const bgMedAvklaringsbehov = beregningsgrunnlagListe
-    .filter(bg => kreverManuellBehandlingFn(bg))
-    .map(bg => ({ ...bg, beregningsgrunnlagId: uuidv4() }));
+  const bgMedAvklaringsbehov = useMemo(
+    () =>
+      beregningsgrunnlagListe
+        .filter(bg => kreverManuellBehandlingFn(bg))
+        .map(bg => ({ ...bg, beregningsgrunnlagId: uuidv4() })),
+    [JSON.stringify(beregningsgrunnlagListe), JSON.stringify(kreverManuellBehandlingFn)],
+  );
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   if (bgMedAvklaringsbehov.length === 0) {

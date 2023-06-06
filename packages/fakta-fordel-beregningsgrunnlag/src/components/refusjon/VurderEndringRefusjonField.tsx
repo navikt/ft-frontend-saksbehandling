@@ -47,7 +47,7 @@ export const buildFieldInitialValues = (
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
   let initialValues = {
     beregningsgrunnlagId: bg.beregningsgrunnlagId,
-    periode: vilkårsperiode,
+    periode: vilkårsperiode.periode,
     begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : '',
   } as unknown as VurderRefusjonFieldValues;
   andeler.forEach(andel => {
