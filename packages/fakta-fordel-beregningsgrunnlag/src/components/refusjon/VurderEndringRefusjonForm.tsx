@@ -24,7 +24,7 @@ export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
   vilkårperioder: Vilkarperiode[],
 ): VurderRefusjonFormValues => ({
   [FORM_NAME]: beregningsgrunnlagListe

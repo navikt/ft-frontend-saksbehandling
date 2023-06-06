@@ -10,6 +10,7 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
+  BeregningsgrunnlagMedId,
   BeregningsgrunnlagPeriodeProp,
   FaktaOmFordeling,
   FordelBeregningsgrunnlagAndel,
@@ -128,7 +129,7 @@ const Template: StoryFn<{
   vilkårsperioder?: any[];
 }> = ({ readOnly, beregningsgrunnlagListe, submitCallback, vilkårsperioder = null }) => (
   <FordelBeregningsgrunnlagFaktaIndex
-    beregningsgrunnlagListe={beregningsgrunnlagListe}
+    beregningsgrunnlagListe={beregningsgrunnlagListe as BeregningsgrunnlagMedId[]}
     beregningsgrunnlagVilkår={lagVilkår(
       vilkårsperioder ||
         beregningsgrunnlagListe.map(bg => ({
