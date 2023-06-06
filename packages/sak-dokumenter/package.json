@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-dokumenter",
   "description": "Viser en dokumentoversikt. Saksbehandler kan velge å åpne en eller flere dokumenter.",
-  "version": "2.0.32",
+  "version": "2.0.31",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -29,10 +29,10 @@
     "@navikt/aksel-icons": "3.4.2",
     "@navikt/ds-css": "3.4.2",
     "@navikt/ds-react": "3.4.2",
-    "@navikt/ft-kodeverk": "^2.1.10",
-    "@navikt/ft-types": "^2.1.12",
-    "@navikt/ft-ui-komponenter": "^2.0.32",
-    "@navikt/ft-utils": "^2.0.28",
+    "@navikt/ft-kodeverk": "^2.1.9",
+    "@navikt/ft-types": "^2.1.11",
+    "@navikt/ft-ui-komponenter": "^2.0.31",
+    "@navikt/ft-utils": "^2.0.27",
     "react": "18.2.0",
     "react-intl": "6.4.3"
   },
