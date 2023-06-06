@@ -35,25 +35,34 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
   const intl = useIntl();
   return (
     <FlexContainer>
-      <FlexRow spaceBetween alignItemsToBaseline>
+      <FlexRow alignItemsToBaseline wrap>
         <FlexColumn>
           <Heading size="medium">{fagsakYtelseType.navn}</Heading>
         </FlexColumn>
         {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
           <FlexColumn>
-            <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
-              <Tag variant="info">{`${dekningsgrad}%`}</Tag>
-            </Tooltip>
-          </FlexColumn>
-        )}
-        {fagsakMarkeringTekst && (
-          <FlexColumn>
-            <Tooltip
-              content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
-              alignBottom
-            >
-              <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
-            </Tooltip>
+            <FlexContainer>
+              <FlexRow>
+                <FlexColumn>
+                  <Tooltip
+                    content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })}
+                    alignBottom
+                  >
+                    <Tag variant="info">{`${dekningsgrad}%`}</Tag>
+                  </Tooltip>
+                </FlexColumn>
+                {fagsakMarkeringTekst && (
+                  <FlexColumn>
+                    <Tooltip
+                      content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
+                      alignBottom
+                    >
+                      <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
+                    </Tooltip>
+                  </FlexColumn>
+                )}
+              </FlexRow>
+            </FlexContainer>
           </FlexColumn>
         )}
       </FlexRow>
