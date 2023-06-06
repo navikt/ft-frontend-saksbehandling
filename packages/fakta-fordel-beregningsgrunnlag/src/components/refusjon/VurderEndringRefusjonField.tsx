@@ -11,6 +11,7 @@ import {
   RefusjonTilVurderingAndel,
   Vilkarperiode,
   BeregningsgrunnlagTilBekreftelse,
+  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 import { Heading } from '@navikt/ds-react';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
@@ -39,15 +40,16 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
 };
 
 export const buildFieldInitialValues = (
-  bg: Beregningsgrunnlag,
+  bg: BeregningsgrunnlagMedId,
   vilkårsperiode: Vilkarperiode,
 ): VurderRefusjonFieldValues => {
   const andeler = bg.refusjonTilVurdering?.andeler || [];
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
   let initialValues = {
-    periode: vilkårsperiode.periode,
+    beregningsgrunnlagId: bg.beregningsgrunnlagId,
+    periode: vilkårsperiode,
     begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : '',
-  } as VurderRefusjonFieldValues;
+  } as unknown as VurderRefusjonFieldValues;
   andeler.forEach(andel => {
     initialValues = {
       ...initialValues,
