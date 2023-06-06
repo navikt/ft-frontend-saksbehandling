@@ -29,7 +29,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@formatjs/intl-datetimeformat": "6.8.0",
+    "@formatjs/intl-datetimeformat": "6.9.0",
     "@formatjs/intl-numberformat": "8.5.0",
     "@navikt/ds-codemod": "3.4.2",
     "@storybook/addon-essentials": "7.0.18",
