@@ -34,7 +34,7 @@
     "@navikt/ft-ui-komponenter": "^2.0.31",
     "@navikt/ft-utils": "^2.0.27",
     "react": "18.2.0",
-    "react-intl": "6.4.2"
+    "react-intl": "6.4.3"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "3.1.2",
@@ -59,7 +59,7 @@
     "stylelint": "15.6.2",
     "typescript": "5.0.4",
     "vite": "4.3.9",
-    "vitest": "0.31.3"
+    "vitest": "0.31.4"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
