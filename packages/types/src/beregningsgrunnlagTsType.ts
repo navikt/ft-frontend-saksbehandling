@@ -147,4 +147,8 @@ type Beregningsgrunnlag = Readonly<{
   forlengelseperioder?: ForlengelsePeriodeProp[];
 }>;
 
+export type BeregningsgrunnlagMedId = Beregningsgrunnlag & {
+  beregningsgrunnlagId: string;
+};
+
 export default Beregningsgrunnlag;
