@@ -54,7 +54,7 @@ const transformValues = (
 };
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
   vilkårsperioder: Vilkarperiode[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
