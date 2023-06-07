@@ -2930,7 +2930,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.5
     "@navikt/ds-css": 2.9.5
@@ -2985,7 +2985,7 @@ __metadata:
     typescript: 5.0.4
     uuid: 9.0.0
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.5
     "@navikt/ds-css": 2.8.11
@@ -3034,7 +3034,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
     "@navikt/ds-react": 2.8.11
@@ -3079,7 +3079,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3107,7 +3107,7 @@ __metadata:
     moment: 2.29.4
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ft-utils": 2.x
     moment: 2.29.4
@@ -3124,7 +3124,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   languageName: unknown
   linkType: soft
 
@@ -3138,7 +3138,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   languageName: unknown
   linkType: soft
 
@@ -3170,7 +3170,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@popperjs/core": 2.11.7
     classnames: 2.3.2
@@ -3221,7 +3221,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3276,7 +3276,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.8
     "@navikt/ds-css": 2.9.8
@@ -3326,7 +3326,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3377,7 +3377,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.8
     "@navikt/ds-css": 2.9.8
@@ -3423,7 +3423,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
     "@navikt/ds-react": 2.8.11
@@ -3467,7 +3467,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3512,7 +3512,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.5
     "@navikt/ds-css": 2.8.11
@@ -3553,7 +3553,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3590,7 +3590,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
     "@navikt/ds-react": 2.8.11
@@ -3623,7 +3623,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
     "@navikt/ds-react": 2.8.11
@@ -3658,7 +3658,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
     "@navikt/ds-react": 2.8.11
@@ -3703,7 +3703,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3744,7 +3744,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3783,7 +3783,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3825,7 +3825,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ft-kodeverk": 2.x
   languageName: unknown
@@ -3855,7 +3855,7 @@ __metadata:
     stylelint: 15.7.0
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
     "@navikt/ds-css": 2.8.11
@@ -3893,7 +3893,7 @@ __metadata:
     react-intl: 6.4.3
     typescript: 5.0.4
     vite: 4.3.9
-    vitest: 0.31.3
+    vitest: 0.32.0
   peerDependencies:
     "@navikt/ft-kodeverk": 2.x
     "@navikt/ft-types": 2.x
@@ -6524,57 +6524,57 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/expect@npm:0.31.3":
-  version: 0.31.3
-  resolution: "@vitest/expect@npm:0.31.3"
+"@vitest/expect@npm:0.32.0":
+  version: 0.32.0
+  resolution: "@vitest/expect@npm:0.32.0"
   dependencies:
-    "@vitest/spy": 0.31.3
-    "@vitest/utils": 0.31.3
+    "@vitest/spy": 0.32.0
+    "@vitest/utils": 0.32.0
     chai: ^4.3.7
-  checksum: 7f81a6d50debc76e78e861c07bcf432b302b59cfe76d2c64f53feb0354807f18cf4aa74826d5ff1209e9feec10b5e742ccc6f1457bc30fa804885afbf55ccf9b
+  checksum: 0f5740057faf1a45be00b7e06ad8dd7e5b37d9f436e29701a8577d42bdff930ce958bc9a7732eb88fb71a3ab5009a72f2ed11c02b2095a4173fa69f69897e7b4
   languageName: node
   linkType: hard
 
-"@vitest/runner@npm:0.31.3":
-  version: 0.31.3
-  resolution: "@vitest/runner@npm:0.31.3"
+"@vitest/runner@npm:0.32.0":
+  version: 0.32.0
+  resolution: "@vitest/runner@npm:0.32.0"
   dependencies:
-    "@vitest/utils": 0.31.3
+    "@vitest/utils": 0.32.0
     concordance: ^5.0.4
     p-limit: ^4.0.0
     pathe: ^1.1.0
-  checksum: 341dc80120757331f5c922fc08f9275590514a920cb8c4d6b00fdcb46a3cdcacd894ab4d389757d1b2d2419c9a3171e01c4fd8b2a76b289a292a840e6a58a42d
+  checksum: d7a63a9a80d90a48e706fcf8bc1c2171ee0395f60241c1f0bb67854d246b68a472805d6abe33ce9a7250768c0b27af882e4beb7a5ba9eea2b3e085a54ed978e0
   languageName: node
   linkType: hard
 
-"@vitest/snapshot@npm:0.31.3":
-  version: 0.31.3
-  resolution: "@vitest/snapshot@npm:0.31.3"
+"@vitest/snapshot@npm:0.32.0":
+  version: 0.32.0
+  resolution: "@vitest/snapshot@npm:0.32.0"
   dependencies:
     magic-string: ^0.30.0
     pathe: ^1.1.0
     pretty-format: ^27.5.1
-  checksum: 56782a1bafcab545943c1a22fa9a8308ab255817d16782628e0249013257d2402dd3551412ac808eef3a3b33ca889a3eeb5d4f0edc56a112fe315c617bb22eb9
+  checksum: 2017d461b8492ae16b15f4f3725e1e3dc7bd18e24f1db788f151f9435af620ee711114edc4bd6ad88ba047f47dc4104b7db87d7f7b29363537272c0353ceb71d
   languageName: node
   linkType: hard
 
-"@vitest/spy@npm:0.31.3":
-  version: 0.31.3
-  resolution: "@vitest/spy@npm:0.31.3"
+"@vitest/spy@npm:0.32.0":
+  version: 0.32.0
+  resolution: "@vitest/spy@npm:0.32.0"
   dependencies:
     tinyspy: ^2.1.0
-  checksum: 42ded8f530c8930f98c4b7bee4a9ad4b3d63708ac8641b6a4fe49945fb27619492bffebd236a9812f4adc18885a24c74c95396d15660757907cc27dc6e9c6fcc
+  checksum: 1c418f4064f4357e972e99d20e2b7b65b8cde3a8280a8e06a41fa81517efe335ca176c21a6644a6f490b565fb0ed6df0ed4ab8097813be3d0f4ec625b7fd3451
   languageName: node
   linkType: hard
 
-"@vitest/utils@npm:0.31.3":
-  version: 0.31.3
-  resolution: "@vitest/utils@npm:0.31.3"
+"@vitest/utils@npm:0.32.0":
+  version: 0.32.0
+  resolution: "@vitest/utils@npm:0.32.0"
   dependencies:
     concordance: ^5.0.4
     loupe: ^2.3.6
     pretty-format: ^27.5.1
-  checksum: 08f214ef0144e217af272d106c0e647f4719acb80bdebda1b20236477dcdcf9711729067e54da7f3dc2e784b460d9bfea0a6ce4b328791f0569b160ae33c50ed
+  checksum: f27df1e7066a310cd43a7261f2b1f668e32b7443f9b90af4a6e49575ee2d65b019192833ddbd0f51eb5690130b5b1bd2459cb83397860941308eeb122983427a
   languageName: node
   linkType: hard
 
@@ -10860,7 +10860,7 @@ __metadata:
     typescript: 5.0.4
     vite: 4.3.9
     vite-plugin-dts: 2.3.0
-    vitest: 0.31.3
+    vitest: 0.32.0
   languageName: unknown
   linkType: soft
 
@@ -19361,9 +19361,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-node@npm:0.31.3":
-  version: 0.31.3
-  resolution: "vite-node@npm:0.31.3"
+"vite-node@npm:0.32.0":
+  version: 0.32.0
+  resolution: "vite-node@npm:0.32.0"
   dependencies:
     cac: ^6.7.14
     debug: ^4.3.4
@@ -19373,7 +19373,7 @@ __metadata:
     vite: ^3.0.0 || ^4.0.0
   bin:
     vite-node: vite-node.mjs
-  checksum: 236031fb78a8693c8210447d2ee19930277def94463274b52b98e99bf2149b6585657fa8733cdc3ef2df364bf2b3e60adecb7b415aa747d43ae8b9961cb79f2e
+  checksum: ce1c45e7d903afc001a08b3bc3159d268e8422e28ec7ffa8e4a4f99d18c9f4e447db989a6e0a8e168d3a4f4e6eb0b954f2b51ef1a85f29cc3f7f561045ff0bbe
   languageName: node
   linkType: hard
 
@@ -19434,18 +19434,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:0.31.3":
-  version: 0.31.3
-  resolution: "vitest@npm:0.31.3"
+"vitest@npm:0.32.0":
+  version: 0.32.0
+  resolution: "vitest@npm:0.32.0"
   dependencies:
     "@types/chai": ^4.3.5
     "@types/chai-subset": ^1.3.3
     "@types/node": "*"
-    "@vitest/expect": 0.31.3
-    "@vitest/runner": 0.31.3
-    "@vitest/snapshot": 0.31.3
-    "@vitest/spy": 0.31.3
-    "@vitest/utils": 0.31.3
+    "@vitest/expect": 0.32.0
+    "@vitest/runner": 0.32.0
+    "@vitest/snapshot": 0.32.0
+    "@vitest/spy": 0.32.0
+    "@vitest/utils": 0.32.0
     acorn: ^8.8.2
     acorn-walk: ^8.2.0
     cac: ^6.7.14
@@ -19461,7 +19461,7 @@ __metadata:
     tinybench: ^2.5.0
     tinypool: ^0.5.0
     vite: ^3.0.0 || ^4.0.0
-    vite-node: 0.31.3
+    vite-node: 0.32.0
     why-is-node-running: ^2.2.2
   peerDependencies:
     "@edge-runtime/vm": "*"
@@ -19491,7 +19491,7 @@ __metadata:
       optional: true
   bin:
     vitest: vitest.mjs
-  checksum: 928753731cdaa365ce2dade36710793089d14d137ccb403052e4793c1a096d446ed576018d78e5b2169fc0898a0b1066cab42854f53090035a5447274fe4858b
+  checksum: a752f7a2290e08cc4033936b1b9e1fe6adcb156bccff6404d4950b4f913c01a8015768f8dbd35267752331311dc55e218d56c5271c56e5ca9c848a36a5dc5b55
   languageName: node
   linkType: hard
 
