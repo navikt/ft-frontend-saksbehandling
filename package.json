@@ -29,8 +29,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@formatjs/intl-datetimeformat": "6.8.0",
-    "@formatjs/intl-numberformat": "8.5.0",
+    "@formatjs/intl-datetimeformat": "6.9.0",
+    "@formatjs/intl-numberformat": "8.6.0",
     "@navikt/ds-codemod": "3.4.2",
     "@storybook/addon-essentials": "7.0.18",
     "@storybook/addon-links": "7.0.18",
@@ -44,8 +44,8 @@
     "@types/react-collapse": "5.0.1",
     "@types/react-dom": "18.2.4",
     "@types/react-responsive": "8.0.5",
-    "@typescript-eslint/eslint-plugin": "5.59.8",
-    "@typescript-eslint/parser": "5.59.8",
+    "@typescript-eslint/eslint-plugin": "5.59.9",
+    "@typescript-eslint/parser": "5.59.9",
     "@vitejs/plugin-react": "4.0.0",
     "@vitest/coverage-c8": "0.31.3",
     "axios-mock-adapter": "1.21.4",

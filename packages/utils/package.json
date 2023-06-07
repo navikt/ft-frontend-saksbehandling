@@ -22,8 +22,8 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "^2.1.9",
     "@navikt/ft-types": "^2.1.11",
-    "dayjs": "1.11.7",
-    "react-intl": "6.4.2"
+    "dayjs": "1.11.8",
+    "react-intl": "6.4.3"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "2.x",
