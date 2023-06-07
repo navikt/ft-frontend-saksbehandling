@@ -1,7 +1,3 @@
 .hoyRisikoPanel {
-  border: 1px solid;
-  border-radius: 2px;
-}
-.hoyRisikoPanelHeader {
-  background-color: #f3cccc;
+  --ac-expansioncard-border-radius: var(--a-border-radius-small);
 }

@@ -254,7 +254,10 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
             relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
           />
           {valgtPeriode && (
-            <>
+            <div
+              aria-controls="timeline-tilbakekreving-foreldelse"
+              id={valgtPeriodeFormatertForTidslinje?.id.toString()}
+            >
               <div className={styles.space} />
               <Panel border>
                 <PeriodeController
@@ -282,7 +285,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
                   kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
                 />
               </Panel>
-            </>
+            </div>
           )}
           <VerticalSpacer twentyPx />
           <ProsessStegSubmitButton
