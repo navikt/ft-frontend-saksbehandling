@@ -8,12 +8,14 @@ import {
   Vilkarperiode,
   Inntektsforhold,
   VurderInntektsforholdPeriode,
+  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import React, { FC, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 import {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,
@@ -80,13 +82,14 @@ const buildInitialValuesPeriode = (periode: VurderInntektsforholdPeriode): Tilko
 });
 
 const buildFieldInitialValues = (
-  beregningsgrunnlag: Beregningsgrunnlag,
+  beregningsgrunnlag: BeregningsgrunnlagMedId,
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFieldValues => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const perioderTilVurdering = finnPerioderTilVurdering(beregningsgrunnlag);
 
   return {
+    beregningsgrunnlagId: beregningsgrunnlag.beregningsgrunnlagId,
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
     periode: finnVilkårsperiode(vilkarperioder, beregningsgrunnlag.vilkårsperiodeFom).periode,
     perioder: perioderTilVurdering.map(periode => buildInitialValuesPeriode(periode)),
@@ -94,7 +97,7 @@ const buildFieldInitialValues = (
 };
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFormValues => ({
   [`${FORM_NAME}`]: beregningsgrunnlagListe
@@ -177,7 +180,7 @@ type TilkommetAktivitetProps = {
   submitCallback: (aksjonspunktData: VurderNyttInntektsforholdAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
   vilkarperioder: Vilkarperiode[];
   setTilkommetAktivitetFormIsDirty: (isDirty: boolean) => void;
 };
@@ -226,33 +229,48 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
   const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
 
   return (
-    <div className={styles.tilkommetAktivitet}>
-      <Form
-        formMethods={formMethods}
-        onSubmit={values => {
-          if (Object.keys(errors).length === 0) {
-            submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
-          }
-        }}
-        setDataOnUnmount={setFormData}
-      >
-        {fields.map((field, index) => (
-          <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
-            <TilkommetAktivitetPanel
-              formName={FORM_NAME}
-              beregningsgrunnlag={beregningsgrunnlagListe[index]}
-              bgIndex={index}
-              readOnly={
-                readOnly || !vurderesIBehandlingen(vilkarperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
-              }
-              submittable={submittable}
-              erAksjonspunktÅpent={erAksjonspunktÅpent}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            />
-          </div>
-        ))}
-      </Form>
-    </div>
+    <ErrorBoundary errorMessage="Noe gikk galt ved visning av tilkommet aktivitet">
+      <div className={styles.tilkommetAktivitet}>
+        <Form
+          formMethods={formMethods}
+          onSubmit={values => {
+            if (Object.keys(errors).length === 0) {
+              submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
+            }
+          }}
+          setDataOnUnmount={setFormData}
+        >
+          {fields.map(field => {
+            const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
+              bg => bg.beregningsgrunnlagId === field.beregningsgrunnlagId,
+            );
+
+            return (
+              <div
+                key={field.id}
+                style={{ display: beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}
+              >
+                <TilkommetAktivitetPanel
+                  formName={FORM_NAME}
+                  beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
+                  bgIndex={beregningsgrunnlagIndeks}
+                  readOnly={
+                    readOnly ||
+                    !vurderesIBehandlingen(
+                      vilkarperioder,
+                      beregningsgrunnlagListe[beregningsgrunnlagIndeks].vilkårsperiodeFom,
+                    )
+                  }
+                  submittable={submittable}
+                  erAksjonspunktÅpent={erAksjonspunktÅpent}
+                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                />
+              </div>
+            );
+          })}
+        </Form>
+      </div>
+    </ErrorBoundary>
   );
 };
 export default TilkommetAktivitet;

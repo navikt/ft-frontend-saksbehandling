@@ -1,7 +1,13 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Form } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagMedId,
+  Vilkarperiode,
+} from '@navikt/ft-types';
+import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
 import FordelBeregningsgrunnlagAP from '../../types/interface/FordelBeregningsgrunnlagAP';
 import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -48,7 +54,7 @@ const transformValues = (
 };
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
   vilkårsperioder: Vilkarperiode[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
@@ -72,7 +78,7 @@ interface PureOwnProps {
   submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
   vilkårsperioder: Vilkarperiode[];
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -127,30 +133,44 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
   });
 
   return (
-    <Form
-      formMethods={formMethods}
-      onSubmit={values => {
-        if (Object.keys(errors).length === 0) {
-          submitCallback(transformValues(values, beregningsgrunnlagListe, vilkårsperioder));
-        }
-      }}
-      setDataOnUnmount={setFormData}
-    >
-      {fields.map((field, index) => (
-        <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
-          <FordelingField
-            submittable={submittable}
-            readOnly={
-              readOnly || !vurderesIBehandlingen(vilkårsperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
-            }
-            beregningsgrunnlag={beregningsgrunnlagListe[index]}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            kodeverkSamling={kodeverkSamling}
-            fieldIndex={index}
-          />
-        </div>
-      ))}
-    </Form>
+    <ErrorBoundary errorMessage="Noe gikk galt ved visning av fordeling">
+      <Form
+        formMethods={formMethods}
+        onSubmit={values => {
+          if (Object.keys(errors).length === 0) {
+            submitCallback(transformValues(values, beregningsgrunnlagListe, vilkårsperioder));
+          }
+        }}
+        setDataOnUnmount={setFormData}
+      >
+        {fields.map(field => {
+          const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
+            bg => bg.beregningsgrunnlagId === field.beregningsgrunnlagId,
+          );
+          return (
+            <div
+              key={field.id}
+              style={{ display: beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}
+            >
+              <FordelingField
+                submittable={submittable}
+                readOnly={
+                  readOnly ||
+                  !vurderesIBehandlingen(
+                    vilkårsperioder,
+                    beregningsgrunnlagListe[beregningsgrunnlagIndeks].vilkårsperiodeFom,
+                  )
+                }
+                beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                kodeverkSamling={kodeverkSamling}
+                fieldIndex={beregningsgrunnlagIndeks}
+              />
+            </div>
+          );
+        })}
+      </Form>
+    </ErrorBoundary>
   );
 };
 

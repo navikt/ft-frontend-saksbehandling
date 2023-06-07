@@ -71,7 +71,10 @@ export type FordelBeregningsgrunnlagValues = {
   [key: string]: FordelBeregningsgrunnlagAndelValues[];
 };
 
-export type FordelBeregningsgrunnlagMedAksjonspunktValues = AksjonspunktValues & FordelBeregningsgrunnlagValues;
+export type FordelBeregningsgrunnlagMedAksjonspunktValues = AksjonspunktValues &
+  FordelBeregningsgrunnlagValues & {
+    beregningsgrunnlagId: string;
+  };
 
 export type FordelBeregningsgrunnlagFormValues = {
   FORDEL_BEREGNING_FORM: FordelBeregningsgrunnlagMedAksjonspunktValues[];
@@ -89,6 +92,7 @@ export type VurderRefusjonValues = {
 };
 
 export type VurderRefusjonFieldValues = VurderRefusjonValues & {
+  beregningsgrunnlagId: string;
   begrunnelse: string;
   periode: {
     fom: string;
@@ -118,7 +122,10 @@ export type TilkommetAktivitetPeriodeValuesMedPerioder = {
   perioder: TilkommetAktivitetValues[];
 };
 
-export type TilkommetAktivitetFieldValues = AksjonspunktValues & TilkommetAktivitetPeriodeValuesMedPerioder;
+export type TilkommetAktivitetFieldValues = AksjonspunktValues &
+  TilkommetAktivitetPeriodeValuesMedPerioder & {
+    beregningsgrunnlagId: string;
+  };
 
 export type TilkommetAktivitetFormValues = {
   [key: string]: TilkommetAktivitetFieldValues[];
