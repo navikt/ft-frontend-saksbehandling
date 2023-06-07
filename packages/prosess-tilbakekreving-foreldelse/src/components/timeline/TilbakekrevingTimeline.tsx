@@ -145,6 +145,8 @@ const TilbakekrevingTimeline: FunctionComponent<PureOwnProps> = ({
               onSelectPeriod={() => velgPeriode(periode.id)}
               isActive={valgtPeriode?.id === periode.id}
               icon={PERIODE_STATUS_IKON_MAP[periode.status]}
+              aria-controls="timeline-tilbakekreving-foreldelse"
+              id={periode.id.toString()}
             />
           ))}
         </Timeline.Row>
