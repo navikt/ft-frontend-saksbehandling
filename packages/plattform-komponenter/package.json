@@ -27,7 +27,7 @@
     "@navikt/aksel-icons": "3.4.2",
     "@navikt/ds-css": "3.4.2",
     "@navikt/ds-react": "3.4.2",
-    "@navikt/ft-utils": "^2.0.27",
+    "@navikt/ft-utils": "2.0.27",
     "classnames": "2.3.2"
   },
   "peerDependencies": {
@@ -55,8 +55,8 @@
     "@testing-library/user-event": "14.4.3",
     "classnames": "2.3.2",
     "cross-env": "7.0.3",
-    "dayjs": "1.11.7",
-    "eslint": "8.41.0",
+    "dayjs": "1.11.8",
+    "eslint": "8.42.0",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
     "react": "18.2.0",
@@ -64,7 +64,7 @@
     "react-dom": "18.2.0",
     "react-popper": "2.3.0",
     "storybook": "7.0.18",
-    "stylelint": "15.6.2",
+    "stylelint": "15.7.0",
     "typescript": "5.0.4",
     "vite": "4.3.9",
     "vitest": "0.31.3"
