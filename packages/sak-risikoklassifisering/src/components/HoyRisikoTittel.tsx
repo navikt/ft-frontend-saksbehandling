@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Accordion } from '@navikt/ds-react';
+import { ExpansionCard } from '@navikt/ds-react';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
@@ -37,9 +37,13 @@ const HoyRisikoTittel: FunctionComponent<OwnProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <Accordion className={styles.hoyRisikoPanel}>
-      <Accordion.Item open={isRiskPanelOpen} className={isRiskPanelOpen ? undefined : styles.hoyRisikoPanelHeader}>
-        <Accordion.Header onClick={toggleRiskPanel}>
+    <ExpansionCard
+      aria-label={intl.formatMessage({ id: 'Risikopanel.Tittel' })}
+      open={isRiskPanelOpen}
+      className={styles.hoyRisikoPanel}
+    >
+      <ExpansionCard.Header onClick={toggleRiskPanel}>
+        <ExpansionCard.Title>
           <TittelMedDivider
             ikon={
               <XMarkOctagonFillIcon
@@ -51,18 +55,18 @@ const HoyRisikoTittel: FunctionComponent<OwnProps> = ({
             }
             tittel="Risikopanel.Tittel.Faresignaler"
           />
-        </Accordion.Header>
-        <Accordion.Content>
-          <HoyRisikoPanel
-            risikoklassifisering={risikoklassifisering}
-            aksjonspunkt={aksjonspunkt}
-            readOnly={readOnly}
-            submitCallback={submitCallback}
-            faresignalVurderinger={faresignalVurderinger}
-          />
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
+        </ExpansionCard.Title>
+      </ExpansionCard.Header>
+      <ExpansionCard.Content>
+        <HoyRisikoPanel
+          risikoklassifisering={risikoklassifisering}
+          aksjonspunkt={aksjonspunkt}
+          readOnly={readOnly}
+          submitCallback={submitCallback}
+          faresignalVurderinger={faresignalVurderinger}
+        />
+      </ExpansionCard.Content>
+    </ExpansionCard>
   );
 };
 

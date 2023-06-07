@@ -9,6 +9,7 @@ import {
   FordelBeregningsgrunnlagPeriode,
   Vilkarperiode,
   BeregningsgrunnlagTilBekreftelse,
+  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
@@ -62,13 +63,14 @@ export const transformFieldValuesFordelBeregning = (
 };
 
 export const buildFieldInitialValuesFordelBeregning = (
-  beregningsgrunnlag: Beregningsgrunnlag,
+  beregningsgrunnlag: BeregningsgrunnlagMedId,
   vilkårsperiode: Vilkarperiode,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagMedAksjonspunktValues => {
   const fordelBGPerioder = finnFordelPerioder(beregningsgrunnlag);
   return {
+    beregningsgrunnlagId: beregningsgrunnlag.beregningsgrunnlagId,
     periode: vilkårsperiode.periode,
     ...FaktaBegrunnelseTextField.buildInitialValues(
       findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov),

@@ -1,7 +1,13 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Form } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagMedId,
+  Vilkarperiode,
+} from '@navikt/ft-types';
+import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
 import VurderRefusjonAksjonspunktSubmitType from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -18,7 +24,7 @@ export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
   vilkårperioder: Vilkarperiode[],
 ): VurderRefusjonFormValues => ({
   [FORM_NAME]: beregningsgrunnlagListe
@@ -61,7 +67,7 @@ type OwnProps = {
   submitCallback: (aksjonspunktData: VurderRefusjonAksjonspunktSubmitType) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
   vilkarperioder: Vilkarperiode[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: VurderRefusjonFormValues;
@@ -108,29 +114,45 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
     control,
   });
   return (
-    <Form
-      formMethods={formMethods}
-      onSubmit={values => {
-        if (Object.keys(errors).length === 0) {
-          submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
-        }
-      }}
-      setDataOnUnmount={setFormData}
-    >
-      {fields.map((field, index) => (
-        <div key={field.id} style={{ display: index === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}>
-          <VurderEndringRefusjonField
-            submittable={submittable}
-            readOnly={
-              readOnly || !vurderesIBehandlingen(vilkarperioder, beregningsgrunnlagListe[index].vilkårsperiodeFom)
-            }
-            beregningsgrunnlag={beregningsgrunnlagListe[index]}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            vilkårperiodeFieldIndex={index}
-          />
-        </div>
-      ))}
-    </Form>
+    <ErrorBoundary errorMessage="Noe gikk galt ved visning av refusjon">
+      <Form
+        formMethods={formMethods}
+        onSubmit={values => {
+          if (Object.keys(errors).length === 0) {
+            submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
+          }
+        }}
+        setDataOnUnmount={setFormData}
+      >
+        {fields.map(field => {
+          const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
+            bg => bg.beregningsgrunnlagId === field.beregningsgrunnlagId,
+          );
+          return (
+            <div
+              key={field.id}
+              style={{
+                display: beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none',
+              }}
+            >
+              <VurderEndringRefusjonField
+                submittable={submittable}
+                readOnly={
+                  readOnly ||
+                  !vurderesIBehandlingen(
+                    vilkarperioder,
+                    beregningsgrunnlagListe[beregningsgrunnlagIndeks].vilkårsperiodeFom,
+                  )
+                }
+                beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                vilkårperiodeFieldIndex={beregningsgrunnlagIndeks}
+              />
+            </div>
+          );
+        })}
+      </Form>
+    </ErrorBoundary>
   );
 };
 

@@ -1,5 +1,7 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useMemo } from 'react';
 import { RawIntlProvider } from 'react-intl';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { v4 as uuidv4 } from 'uuid';
 
 import dayjs from 'dayjs';
 import { Tabs } from '@navikt/ds-react';
@@ -10,6 +12,7 @@ import {
   StandardFaktaPanelProps,
   Vilkar,
   Vilkarperiode,
+  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
@@ -58,7 +61,7 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[])
 
 type OwnProps = {
   beregningsgrunnlagVilkår: Vilkar;
-  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
@@ -81,7 +84,13 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   formData,
   setFormData,
 }) => {
-  const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
+  const bgMedAvklaringsbehov = useMemo(
+    () =>
+      beregningsgrunnlagListe
+        .filter(bg => kreverManuellBehandlingFn(bg))
+        .map(bg => ({ ...bg, beregningsgrunnlagId: uuidv4() })),
+    [JSON.stringify(beregningsgrunnlagListe), JSON.stringify(kreverManuellBehandlingFn)],
+  );
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   if (bgMedAvklaringsbehov.length === 0) {
