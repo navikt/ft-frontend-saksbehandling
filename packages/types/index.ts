@@ -14,6 +14,7 @@ export type {
   ForlengelsePeriodeProp,
   PGIGrunnlag,
   PGIPrÅr,
+  BeregningsgrunnlagMedId,
 } from './src/beregningsgrunnlagTsType';
 export type {
   default as FaktaOmBeregning,
