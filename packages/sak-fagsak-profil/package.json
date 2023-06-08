@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@navikt/ds-css": "3.4.2",
-    "@navikt/ds-react": "3.4.2",
+    "@navikt/ds-react": "4.0.0",
     "@navikt/ft-kodeverk": "^2.1.11",
     "@navikt/ft-types": "^2.1.13",
     "@navikt/ft-ui-komponenter": "^2.0.33",
