@@ -1,5 +1,4 @@
 import React, { ReactElement, FunctionComponent, useState, useCallback } from 'react';
-import { Timeline } from '@navikt/ds-react-internal';
 import dayjs from 'dayjs';
 import {
   XMarkOctagonIcon,
@@ -17,7 +16,7 @@ import {
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
 
 import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Button } from '@navikt/ds-react';
+import { Button, Timeline } from '@navikt/ds-react';
 import { useIntl } from 'react-intl';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import styles from './tilbakekrevingTimeline.module.css';

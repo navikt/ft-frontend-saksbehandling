@@ -2,8 +2,7 @@ import React, { FunctionComponent, ReactNode, useCallback, useMemo, useState } f
 import { useFormContext, useController } from 'react-hook-form';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
-// eslint-disable-next-line camelcase
-import { Label, UNSAFE_DatePicker, UNSAFE_useRangeDatepicker } from '@navikt/ds-react';
+import { Label, DatePicker, useRangeDatepicker } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
@@ -67,7 +66,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
     : '';
   const [fieldValueTom, setFieldValueTom] = useState<string>(defaultDateTom);
 
-  const { datepickerProps, toInputProps, fromInputProps } = UNSAFE_useRangeDatepicker({
+  const { datepickerProps, toInputProps, fromInputProps } = useRangeDatepicker({
     onRangeChange: range => {
       const fom = range?.from ? dayjs(range?.from).format(ISO_DATE_FORMAT) : undefined;
       if (onChange) {
@@ -126,8 +125,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
   };
 
   return (
-    /* eslint-disable-next-line react/jsx-pascal-case, camelcase */
-    <UNSAFE_DatePicker {...dpProps}>
+    <DatePicker {...dpProps}>
       <FlexContainer>
         <FlexRow>
           <FlexColumn className={styles.label}>
@@ -136,8 +134,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
         </FlexRow>
         <FlexRow>
           <FlexColumn>
-            {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
-            <UNSAFE_DatePicker.Input
+            <DatePicker.Input
               {...fromInputProps}
               onChange={onChangeInputFom}
               value={fieldValueFom}
@@ -149,8 +146,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
             />
           </FlexColumn>
           <FlexColumn>
-            {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
-            <UNSAFE_DatePicker.Input
+            <DatePicker.Input
               {...toInputProps}
               onChange={onChangeInputTom}
               value={fieldValueTom}
@@ -163,7 +159,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
           </FlexColumn>
         </FlexRow>
       </FlexContainer>
-    </UNSAFE_DatePicker>
+    </DatePicker>
   );
 };
 

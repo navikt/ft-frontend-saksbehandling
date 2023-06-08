@@ -1,7 +1,6 @@
 import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
 import dayjs from 'dayjs';
 import { useIntl } from 'react-intl';
-import { Timeline } from '@navikt/ds-react-internal';
 import {
   XMarkOctagonIcon,
   CheckmarkCircleIcon,
@@ -17,7 +16,7 @@ import {
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
 
-import { Button } from '@navikt/ds-react';
+import { Button, Timeline } from '@navikt/ds-react';
 import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import TidslinjePeriode from '../../types/tidslinjePeriodeTsType';
