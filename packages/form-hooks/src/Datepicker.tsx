@@ -2,8 +2,7 @@ import React, { useState, FunctionComponent, ReactNode, useMemo, useCallback } f
 import { useFormContext, useController } from 'react-hook-form';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
-// eslint-disable-next-line camelcase
-import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { getError, getValidationRules } from './formUtils';
@@ -53,7 +52,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   const defaultDate = field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : '';
   const [fieldValue, setFieldValue] = useState<string>(defaultDate);
 
-  const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
+  const { datepickerProps, inputProps } = useDatepicker({
     onDateChange: date => {
       if (date !== undefined) {
         const verdi = dayjs(date).format(ISO_DATE_FORMAT);
@@ -99,10 +98,8 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   };
 
   return (
-    // eslint-disable-next-line react/jsx-pascal-case, camelcase
-    <UNSAFE_DatePicker {...dpProps} strategy={strategy}>
-      {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
-      <UNSAFE_DatePicker.Input
+    <DatePicker {...dpProps} strategy={strategy}>
+      <DatePicker.Input
         {...inputProps}
         onChange={onChangeInput}
         value={fieldValue}
@@ -111,7 +108,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
         disabled={disabled}
         error={getError(errors, name)}
       />
-    </UNSAFE_DatePicker>
+    </DatePicker>
   );
 };
 
