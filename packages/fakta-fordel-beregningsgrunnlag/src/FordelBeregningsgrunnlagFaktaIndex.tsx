@@ -9,10 +9,10 @@ import { Tabs } from '@navikt/ds-react';
 import {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
+  BeregningsgrunnlagMedId,
   StandardFaktaPanelProps,
   Vilkar,
   Vilkarperiode,
-  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
@@ -61,7 +61,7 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[])
 
 type OwnProps = {
   beregningsgrunnlagVilkår: Vilkar;
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
@@ -126,7 +126,7 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
         kodeverkSamling={kodeverkSamling}
         submitCallback={submitCallback}
         readOnly={readOnly}
-        beregningsgrunnlagListe={bgMedAvklaringsbehov}
+        beregningsgrunnlagListe={bgMedAvklaringsbehov as BeregningsgrunnlagMedId[]}
         vilkarperioder={beregningsgrunnlagVilkår.perioder}
         submittable={submittable}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
