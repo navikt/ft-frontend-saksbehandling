@@ -171,7 +171,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
               erForlengelse(beregningsgrunnlag[index], vilkar.perioder) ||
               (hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) && !erOverstyrer);
 
-            const isReadOnly = readOnlyAvAndreÅrsaker || løsbareAksjonspunkter.length === 0;
+            const isReadOnly = readOnlyAvAndreÅrsaker || (løsbareAksjonspunkter.length === 0 && !erOverstyrer);
 
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
