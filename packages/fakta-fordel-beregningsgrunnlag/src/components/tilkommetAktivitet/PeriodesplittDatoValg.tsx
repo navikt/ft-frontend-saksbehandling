@@ -1,6 +1,5 @@
 import React, { FC, useState, useCallback } from 'react';
-// eslint-disable-next-line react/jsx-pascal-case, camelcase
-import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { FlexColumn, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Label } from '@navikt/ds-react/esm/typography';
@@ -45,7 +44,7 @@ const PeriodesplittDatoValg: FC<PeriodesplittModalProps> = ({ periode, forhånds
   const disabledDays = [
     (date: Date) => !periode || !dayjs(date).isAfter(dayjs(periode.fom)) || dayjs(date).isAfter(dayjs(periode.tom)),
   ];
-  const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
+  const { datepickerProps, inputProps } = useDatepicker({
     today: new Date(periode.fom),
     disableWeekends: true,
     disabled: disabledDays,
@@ -55,15 +54,13 @@ const PeriodesplittDatoValg: FC<PeriodesplittModalProps> = ({ periode, forhånds
   return (
     <>
       <FlexColumn>
-        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
-        <UNSAFE_DatePicker {...datepickerProps}>
-          {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
-          <UNSAFE_DatePicker.Input
+        <DatePicker {...datepickerProps}>
+          <DatePicker.Input
             {...inputProps}
             label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.DatoValg' })}
             size="small"
           />
-        </UNSAFE_DatePicker>
+        </DatePicker>
       </FlexColumn>
       {nyePerioder && (
         <FlexColumn>
