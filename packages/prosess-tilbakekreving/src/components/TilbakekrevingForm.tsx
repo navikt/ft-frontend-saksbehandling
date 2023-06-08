@@ -384,7 +384,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
             relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
           />
           {valgtPeriode && valgtData && (
-            <div aria-controls="timeline-tilbakekreving" id={valgtPeriodeFormatertForTidslinje?.id.toString()}>
+            <div id="panel-tilbakekreving" aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}>
               <div className={styles.space} />
               <Panel border>
                 <PeriodeController
