@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@navikt/ds-css": "4.0.0",
-    "@navikt/ds-react": "4.0.0",
+    "@navikt/ds-react": "4.1.2",
     "@navikt/ft-form-hooks": "^4.0.36",
     "@navikt/ft-form-validators": "^2.0.31",
     "@navikt/ft-plattform-komponenter": "^2.2.3",
