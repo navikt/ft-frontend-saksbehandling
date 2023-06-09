@@ -35,6 +35,7 @@ import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
+import { bgOverstyreUtenAvklaringsbehov, vilkarOverstyreUtenAvklaringsbehov } from '../testdata/bgUtenAvklaringsbehov';
 
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -1143,3 +1144,21 @@ export const VurderKunYtelseBesteberegningAp5058: StoryFn = ({ submitCallback })
     />
   );
 };
+
+/**
+ * Overstyrer skal kunne overstyre når det ikke finnes avklaringsbehov.
+ *
+ */
+export const KanOverstyreBGUtenAvklaringsbehov: StoryFn = ({ submitCallback }) => (
+  <BeregningFaktaIndex
+    beregningsgrunnlag={bgOverstyreUtenAvklaringsbehov}
+    erOverstyrer
+    kodeverkSamling={alleKodeverkMock as any}
+    submitCallback={submitCallback}
+    readOnly={false}
+    submittable
+    arbeidsgiverOpplysningerPerId={agOpplysninger}
+    setFormData={() => undefined}
+    vilkar={vilkarOverstyreUtenAvklaringsbehov}
+  />
+);
