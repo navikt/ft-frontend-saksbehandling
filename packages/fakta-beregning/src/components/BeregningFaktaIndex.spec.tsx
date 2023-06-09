@@ -16,6 +16,7 @@ const {
   VurderOmBrukerMottarYtelseForFrilansAp5058,
   VurderingAvMilitærAp5058,
   TidsbegrensetArbeidsforholdAp5058,
+  KanOverstyreBGUtenAvklaringsbehov,
 } = composeStories(stories);
 
 describe('<BeregningFaktaIndexSpec', () => {
@@ -452,6 +453,56 @@ describe('<BeregningFaktaIndexSpec', () => {
             periode: {
               fom: '2022-03-02',
               tom: '2022-03-04',
+            },
+          },
+        ],
+      },
+    ]);
+  });
+
+  it('skal kunne overstyre når det ikke finnes avklaringsbehov', async () => {
+    const lagre = vi.fn();
+    render(<KanOverstyreBGUtenAvklaringsbehov submitCallback={lagre} />);
+
+    expect(screen.getAllByText('45 167')).toHaveLength(2);
+    expect(screen.queryByText('Har overstyrt')).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByText('Overstyr')[1]);
+    expect(screen.getByText('Har overstyrt')).toBeInTheDocument();
+
+    await userEvent.clear(screen.getByLabelText('Månedsinntekt for Arbeid'));
+    await userEvent.type(screen.getByLabelText('Månedsinntekt for Arbeid'), '50 000');
+    expect(screen.getByText('50 000')).toBeInTheDocument();
+
+    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'Velbegrunnede endringer');
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        kode: 'OVST_INNTEKT',
+        begrunnelse: 'Velbegrunnede endringer',
+        grunnlag: [
+          {
+            fakta: {
+              faktaOmBeregningTilfeller: [],
+            },
+            overstyrteAndeler: [
+              {
+                andelsnr: 1,
+                nyAndel: false,
+                aktivitetStatus: 'AT',
+                lagtTilAvSaksbehandler: false,
+                fastsatteVerdier: {
+                  fastsattBeløp: 50000,
+                  inntektskategori: 'ARBEIDSTAKER',
+                },
+              },
+            ],
+            begrunnelse: 'Velbegrunnede endringer',
+            periode: {
+              fom: '2022-01-18',
+              tom: '2023-06-30',
             },
           },
         ],

@@ -2680,7 +2680,7 @@ __metadata:
     "@navikt/ft-types": ^2.1.14
     "@navikt/ft-ui-komponenter": ^2.0.34
     "@navikt/ft-utils": ^2.0.30
-    "@navikt/ft-utils-test": ^2.0.26
+    "@navikt/ft-utils-test": 2.0.26
     "@storybook/addon-actions": 7.0.20
     "@storybook/react": 7.0.20
     "@storybook/react-vite": 7.0.20
@@ -3629,7 +3629,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-utils-test@^2.0.26, @navikt/ft-utils-test@workspace:packages/utils-test":
+"@navikt/ft-utils-test@2.0.26, @navikt/ft-utils-test@^2.0.26, @navikt/ft-utils-test@workspace:packages/utils-test":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-utils-test@workspace:packages/utils-test"
   dependencies:
