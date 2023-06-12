@@ -3,7 +3,6 @@ import { useFormContext, useController } from 'react-hook-form';
 import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import { FlexContainer, FlexColumn, FlexRow, EditedIcon } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
-import styles from './radioGroupPanel.module.css';
 
 interface CheckboxProps {
   value: string;
@@ -23,7 +22,6 @@ interface CheckboxPanelProps {
   isHorizontal?: boolean;
   parse?: (value: string) => any;
   hideLegend?: boolean;
-  hideRadioLabels?: boolean;
   isEdited?: boolean;
 }
 
@@ -38,7 +36,6 @@ const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
   isHorizontal = false,
   parse = value => value,
   hideLegend = false,
-  hideRadioLabels = false,
   isEdited = false,
 }) => {
   const {
@@ -65,7 +62,6 @@ const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
         size="small"
         legend={label}
         error={getError(errors, name)}
-        className={hideRadioLabels ? styles.hideRadioLabels : ''}
         hideLegend={hideLegend}
       >
         {!isHorizontal &&

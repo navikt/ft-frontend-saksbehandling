@@ -3,7 +3,6 @@ import { useController, useFormContext } from 'react-hook-form';
 import { TextField, TextFieldProps } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
-import styles from './inputField.module.css';
 
 interface OwnProps extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
   name: string;
@@ -64,11 +63,10 @@ const InputField: FunctionComponent<OwnProps> = ({
     return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} />;
   }
 
-  const navInputClassNames = `${className ?? ''} ${hideLabel ? styles.hideLabel : ''}`;
-
   return (
     <TextField
       size="small"
+      hideLabel={hideLabel}
       description={description}
       label={label}
       error={getError(errors, name)}
@@ -79,7 +77,7 @@ const InputField: FunctionComponent<OwnProps> = ({
       maxLength={maxLength}
       disabled={disabled}
       type={type}
-      className={navInputClassNames}
+      className={className}
       onChange={event => {
         const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : null;
         if (onChange) {
