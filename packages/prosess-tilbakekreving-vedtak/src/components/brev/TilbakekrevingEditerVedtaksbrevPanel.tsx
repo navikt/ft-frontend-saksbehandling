@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import { Accordion, BodyShort, Label, Heading } from '@navikt/ds-react';
+import { BodyShort, Label, Heading, ExpansionCard } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
@@ -48,43 +48,45 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
         avsnitt.avsnittstype === underavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
-          <Accordion
-            className={harPeriodeSomManglerObligatoriskVerdi || visApen ? styles.panelMedGulmarkering : styles.panel}
+          <ExpansionCard
+            aria-label="periode"
+            defaultOpen={harPeriodeSomManglerObligatoriskVerdi || visApen}
+            className={harPeriodeSomManglerObligatoriskVerdi || visApen ? styles.gulmarkering : ''}
           >
-            <Accordion.Item defaultOpen={harPeriodeSomManglerObligatoriskVerdi || visApen}>
-              <Accordion.Header>
+            <ExpansionCard.Header>
+              <ExpansionCard.Title size="small">
                 {avsnitt.overskrift
                   ? avsnitt.overskrift
                   : intl.formatMessage({ id: 'TilbakekrevingEditerVedtaksbrevPanel.LovhjemlerOgKlagerettOverskrift' })}
-              </Accordion.Header>
-              <Accordion.Content>
-                {underavsnitter.map(underavsnitt => (
-                  <React.Fragment
-                    key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
-                  >
-                    {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
-                    {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
-                    {underavsnitt.fritekstTillatt && (
-                      <>
-                        <VerticalSpacer eightPx />
-                        <TilbakekrevingVedtakUtdypendeTekstPanel
-                          type={
-                            underavsnitt.underavsnittstype
-                              ? `${periode}.${underavsnitt.underavsnittstype}`
-                              : avsnitt.avsnittstype
-                          }
-                          readOnly={readOnly}
-                          fritekstPakrevet={underavsnitt.fritekstPåkrevet}
-                          maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
-                        />
-                      </>
-                    )}
-                    <VerticalSpacer eightPx />
-                  </React.Fragment>
-                ))}
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion>
+              </ExpansionCard.Title>
+            </ExpansionCard.Header>
+            <ExpansionCard.Content>
+              {underavsnitter.map(underavsnitt => (
+                <React.Fragment
+                  key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
+                >
+                  {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
+                  {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
+                  {underavsnitt.fritekstTillatt && (
+                    <>
+                      <VerticalSpacer eightPx />
+                      <TilbakekrevingVedtakUtdypendeTekstPanel
+                        type={
+                          underavsnitt.underavsnittstype
+                            ? `${periode}.${underavsnitt.underavsnittstype}`
+                            : avsnitt.avsnittstype
+                        }
+                        readOnly={readOnly}
+                        fritekstPakrevet={underavsnitt.fritekstPåkrevet}
+                        maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
+                      />
+                    </>
+                  )}
+                  <VerticalSpacer eightPx />
+                </React.Fragment>
+              ))}
+            </ExpansionCard.Content>
+          </ExpansionCard>
           <VerticalSpacer eightPx />
         </React.Fragment>
       );

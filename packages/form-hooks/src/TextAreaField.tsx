@@ -51,7 +51,15 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
   });
 
   if (readOnly) {
-    return <ReadOnlyField label={label} value={field.value} type="textarea" isEdited={isEdited} />;
+    return (
+      <ReadOnlyField
+        label={label}
+        value={field.value}
+        type="textarea"
+        isEdited={isEdited}
+        hideLabel={props.hideLabel}
+      />
+    );
   }
 
   return (
