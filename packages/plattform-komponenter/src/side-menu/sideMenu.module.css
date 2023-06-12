@@ -15,7 +15,7 @@
   margin: 0;
   padding: 0;
 }
-.sideMenu__heading:global(.navds-body-short) {
+.sideMenu__heading {
   align-items: center;
   border-bottom: 1px solid #c6c2bf;
   color: #3e3832;
@@ -29,7 +29,7 @@
   border-right: none;
   padding: 0;
 }
-.sideMenu--arrow .side-menu__heading:global(.navds-body-short) {
+.sideMenu--arrow .side-menu__heading {
   border: none;
   font-size: 1.25rem;
 }
