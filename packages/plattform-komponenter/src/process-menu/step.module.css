@@ -53,10 +53,10 @@
   margin: -3px;
   outline: none;
 }
-.step__button--active :global(.navds-body-short) {
+.step__button--active {
   font-weight: 600;
 }
-.step__button--active:hover :global(.navds-body-short) {
+.step__button--active:hover {
   font-weight: 400;
 }
 .step__text-icon-container {
@@ -65,7 +65,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.step__text-icon-container :global(.navds-body-short) {
+.step__text-icon-container {
   line-height: 1.375rem;
 }
 .step__indicator {

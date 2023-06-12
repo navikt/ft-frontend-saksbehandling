@@ -5,7 +5,7 @@
   justify-content: space-between;
   padding: 0 0 0 16px;
 }
-.header__title:global(.navds-heading) {
+.header__title {
   color: white;
   font-size: 18px;
   line-height: 48px;

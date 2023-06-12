@@ -36,12 +36,12 @@
 .user[type='button'][aria-expanded='true'] .user__chevron {
   color: #3e3832;
 }
-.user__name:global(.navds-body-short) {
+.user__name {
   display: block;
   font-size: 1rem;
   margin: 0;
 }
-.user__unit:global(.navds-body-short) {
+.user__unit {
   display: block;
   font-size: 0.75rem;
   line-height: 0.95rem;
