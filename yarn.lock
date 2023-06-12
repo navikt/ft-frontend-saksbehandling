@@ -6185,7 +6185,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:5.59.9":
+"@typescript-eslint/utils@npm:5.59.9, @typescript-eslint/utils@npm:^5.59.9":
   version: 5.59.9
   resolution: "@typescript-eslint/utils@npm:5.59.9"
   dependencies:
@@ -6203,7 +6203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:^5.58.0, @typescript-eslint/utils@npm:^5.59.2":
+"@typescript-eslint/utils@npm:^5.58.0":
   version: 5.59.8
   resolution: "@typescript-eslint/utils@npm:5.59.8"
   dependencies:
@@ -9261,14 +9261,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-vitest@npm:0.2.5":
-  version: 0.2.5
-  resolution: "eslint-plugin-vitest@npm:0.2.5"
+"eslint-plugin-vitest@npm:0.2.6":
+  version: 0.2.6
+  resolution: "eslint-plugin-vitest@npm:0.2.6"
   dependencies:
-    "@typescript-eslint/utils": ^5.59.2
+    "@typescript-eslint/utils": ^5.59.9
   peerDependencies:
     eslint: ">=8.0.0"
-  checksum: 81892913acbcf9c227200fa312006e80f0d11d5cb0b8993a09e011f010dab2713d986252be987f04644c2558d8321bf259c210e48a1429e64d393b1310e4ff32
+  checksum: 09bb95262dc39b05546eb704b60440bce03bc68f4d563b3bcb4b25774624b3758db76bfa3702b8b0d45313246b6a6d57729ecc027f64ad840b234b94ca6aa233
   languageName: node
   linkType: hard
 
@@ -10088,7 +10088,7 @@ __metadata:
     eslint-plugin-jsx-a11y: 6.7.1
     eslint-plugin-react: 7.32.2
     eslint-plugin-testing-library: 5.11.0
-    eslint-plugin-vitest: 0.2.5
+    eslint-plugin-vitest: 0.2.6
     gh-pages: 5.0.0
     husky: 8.0.3
     jsdom: 22.1.0
