@@ -28,7 +28,7 @@
     "@navikt/ds-react": "4.0.0",
     "@navikt/ft-utils": "^2.0.30",
     "react": "18.2.0",
-    "react-intl": "6.4.3"
+    "react-intl": "6.4.4"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.8.11",

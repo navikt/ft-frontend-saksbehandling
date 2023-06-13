@@ -36,7 +36,7 @@
     "classnames": "2.3.2",
     "react": "18.2.0",
     "react-hook-form": "7.44.3",
-    "react-intl": "6.4.3"
+    "react-intl": "6.4.4"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "3.1.2",
