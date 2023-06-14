@@ -24,13 +24,13 @@
     "storybook": "storybook dev --quiet -p 7006"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "4.0.0",
-    "@navikt/ds-css": "4.0.0",
-    "@navikt/ds-react": "4.0.0",
+    "@navikt/aksel-icons": "4.1.4",
+    "@navikt/ds-css": "4.1.4",
+    "@navikt/ds-react": "4.1.4",
     "@navikt/ft-utils": "^2.0.30",
     "classnames": "2.3.2",
     "react": "18.2.0",
-    "react-intl": "6.4.3",
+    "react-intl": "6.4.4",
     "react-modal": "3.16.1"
   },
   "peerDependencies": {
@@ -51,7 +51,7 @@
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
     "eslint": "8.42.0",
-    "sinon": "15.1.0",
+    "sinon": "15.1.2",
     "storybook": "7.0.20",
     "stylelint": "15.7.0",
     "typescript": "5.0.4",

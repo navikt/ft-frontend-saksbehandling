@@ -24,9 +24,9 @@
     "storybook": "storybook dev --quiet -p 7012"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "4.0.0",
-    "@navikt/ds-css": "4.0.0",
-    "@navikt/ds-react": "4.0.0",
+    "@navikt/aksel-icons": "4.1.4",
+    "@navikt/ds-css": "4.1.4",
+    "@navikt/ds-react": "4.1.4",
     "@navikt/ft-kodeverk": "^2.1.12",
     "@navikt/ft-plattform-komponenter": "^2.2.4",
     "@navikt/ft-types": "^2.1.14",
@@ -36,7 +36,7 @@
     "history": "5.3.0",
     "moment": "2.29.4",
     "react": "18.2.0",
-    "react-intl": "6.4.3"
+    "react-intl": "6.4.4"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "3.1.2",

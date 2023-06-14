@@ -1,7 +1,6 @@
 {
   "version": "independent",
   "npmClient": "yarn",
-  "useWorkspaces": true,
   "command": {
     "publish": {
       "registry": "https://npm.pkg.github.com",
@@ -17,13 +16,9 @@
       ]
     },
     "bootstrap": {
-      "npmClientArgs": [
-        "--no-package-lock",
-        "--legacy-peer-deps"
-      ]
+      "npmClientArgs": ["--no-package-lock", "--legacy-peer-deps"]
     }
   },
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*"],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
