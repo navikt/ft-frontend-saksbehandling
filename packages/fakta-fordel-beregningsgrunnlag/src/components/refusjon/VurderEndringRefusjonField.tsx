@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { formHooks } from '@navikt/ft-form-hooks';
 
 import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
@@ -14,6 +13,7 @@ import {
   BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 import { Heading } from '@navikt/ds-react';
+import { useFormContext } from 'react-hook-form';
 import TidligereUtbetalinger from './TidligereUtbetalinger';
 import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -92,7 +92,7 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
   const ap = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
-  const formMethods = formHooks.useFormContext<VurderRefusjonFormValues>();
+  const formMethods = useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
     <>

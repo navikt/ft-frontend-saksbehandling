@@ -1,4 +1,3 @@
-import { formHooks } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -7,6 +6,7 @@ import {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 import React, { FunctionComponent, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
 import {
@@ -176,7 +176,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
 }) => {
-  const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erOverstyrt = useMemo(

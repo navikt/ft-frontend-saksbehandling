@@ -7,7 +7,8 @@ import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formHooks, InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { useFormContext } from 'react-hook-form';
 import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
@@ -87,7 +88,7 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
     radioLabel = 'Beregningsgrunnlag.AksjonspunktBehandler.RadioTittelNyoppstartetNæring';
   }
   const intl = useIntl();
-  const formMethods = formHooks.useFormContext<BeregningFormValues>();
+  const formMethods = useFormContext<BeregningFormValues>();
   const varigEndringValues = formMethods.watch(formName)[fieldIndex] as VurderOgFastsettValues;
   const varigEndringBekreftetVerdi = varigEndringValues.erVarigEndret;
   const radioknapper = [

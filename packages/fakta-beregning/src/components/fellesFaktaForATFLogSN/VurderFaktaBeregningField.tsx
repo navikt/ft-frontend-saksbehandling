@@ -6,10 +6,9 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formHooks } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
-import { UseFormGetValues } from 'react-hook-form';
+import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
@@ -97,7 +96,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   const {
     getValues,
     formState: { errors, isDirty },
-  } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  } = useFormContext<VurderFaktaBeregningFormValues>();
   const setErrors = React.useContext(GetErrorsContext);
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);

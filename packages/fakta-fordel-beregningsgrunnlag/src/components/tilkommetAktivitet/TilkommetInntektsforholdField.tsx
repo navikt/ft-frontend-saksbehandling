@@ -1,12 +1,13 @@
 import React, { FC, ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ReadMore, Label, Alert } from '@navikt/ds-react';
-import { formHooks, InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
+import { useFormContext } from 'react-hook-form';
 import {
   TilkommetAktivitetFormValues,
   TilkommetInntektsforholdFieldValues,
@@ -47,7 +48,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
   field,
   arbeidsgiverOpplysningerPerId,
 }) => {
-  const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const formMethods = useFormContext<TilkommetAktivitetFormValues>();
   const intl = useIntl();
   const skalRedusereValg = formMethods.watch(
     `${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`,

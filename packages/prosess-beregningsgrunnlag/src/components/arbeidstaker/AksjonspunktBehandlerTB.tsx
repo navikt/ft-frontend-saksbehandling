@@ -1,11 +1,11 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { BodyShort, Detail } from '@navikt/ds-react';
 
 import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { formHooks, InputField } from '@navikt/ft-form-hooks';
+import { InputField } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, isAksjonspunktOpen, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -371,7 +371,7 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
 }) => {
   const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
   const isAvklaringsbehovClosed = getIsAksjonspunktClosed(avklaringsbehov);
-  const formMethods = formHooks.useFormContext<BeregningFormValues>();
+  const formMethods = useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
   return (
     <table className={styles.inntektTableTB}>

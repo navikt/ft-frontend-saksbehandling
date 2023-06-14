@@ -5,9 +5,9 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { ScissorsIcon } from '@navikt/aksel-icons';
 import dayjs from 'dayjs';
-import { formHooks } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import TilkommetAktivitetAccordion from './TilkommetAktivitetAccordion';
 import styles from './tilkommetAktivitet.module.css';
 import PeriodesplittModal from './PeriodesplittModal';
@@ -46,8 +46,8 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   const intl = useIntl();
   const [modalErÅpen, setModalErÅpen] = useState<boolean>(false);
 
-  const { control, watch } = formHooks.useFormContext<TilkommetAktivitetFormValues>();
-  const { fields, remove, insert } = formHooks.useFieldArray({
+  const { control, watch } = useFormContext<TilkommetAktivitetFormValues>();
+  const { fields, remove, insert } = useFieldArray({
     control,
     name: `VURDER_TILKOMMET_AKTIVITET_FORM.${bgIndex}.perioder`,
   });
