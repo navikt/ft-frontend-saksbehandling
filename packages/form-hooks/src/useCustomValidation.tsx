@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-
-import formHooks from './formHooksWrapper';
+import { useFormContext } from 'react-hook-form';
 
 type ErrorMessageType = {
   notRegisteredInput?: boolean;
@@ -10,7 +9,7 @@ type ErrorMessageType = {
  * Bruk denne når en må validere og vise feilmelding som ikke er knyttet til ett spesifikt felt.
  */
 const useCustomValidation = (stateName: string, message?: string): string | undefined => {
-  const { setError, clearErrors, formState } = formHooks.useFormContext<{ [key: string]: ErrorMessageType }>();
+  const { setError, clearErrors, formState } = useFormContext<{ [key: string]: ErrorMessageType }>();
   const hasError = !!message;
 
   useEffect(() => {

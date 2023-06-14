@@ -1,10 +1,10 @@
-import { formHooks } from '@navikt/ft-form-hooks';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useFormContext, useWatch } from 'react-hook-form';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
@@ -34,10 +34,10 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
   readOnly,
   beregningsgrunnlag,
 }) => {
-  const { control, getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const { control, getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
-  const fields = formHooks.useWatch({
+  const fields = useWatch({
     control,
     name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`,
   });

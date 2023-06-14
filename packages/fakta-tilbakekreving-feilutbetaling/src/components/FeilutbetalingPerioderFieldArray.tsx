@@ -4,10 +4,11 @@ import moment from 'moment';
 import { Table, TableRow, TableColumn } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { required } from '@navikt/ft-form-validators';
-import { SelectField, formHooks } from '@navikt/ft-form-hooks';
+import { SelectField } from '@navikt/ft-form-hooks';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { FeilutbetalingAarsak, FeilutbetalingFakta } from '@navikt/ft-types';
 
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import styles from './feilutbetalingPerioderFieldArray.module.css';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
@@ -50,8 +51,8 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
   behandlePerioderSamlet,
   kodeverkSamlingFpTilbake,
 }) => {
-  const { control, watch, setValue, getValues } = formHooks.useFormContext<FormValues>();
-  const { fields } = formHooks.useFieldArray({
+  const { control, watch, setValue, getValues } = useFormContext<FormValues>();
+  const { fields } = useFieldArray({
     control,
     name: FIELD_ARRAY_NAME,
   });

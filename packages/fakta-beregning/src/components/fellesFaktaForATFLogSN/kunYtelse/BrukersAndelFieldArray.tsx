@@ -1,6 +1,6 @@
 import { Detail, ErrorMessage, Button } from '@navikt/ds-react';
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
@@ -8,6 +8,7 @@ import { FlexColumn, FlexRow, Table, TableColumn, TableRow, VerticalSpacer } fro
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
@@ -158,16 +159,16 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
   kodeverkSamling,
 }) => {
   const intl = useIntl();
-  const { control } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const fieldArrayName = `${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${name}`;
-  const { fields, append, remove } = formHooks.useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
   });
   const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS]?.map(kodeverk => kodeverk.kode);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
-  const fieldArrayValues = formHooks.useWatch({
+  const fieldArrayValues = useWatch({
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
     control,
   });

@@ -1,4 +1,4 @@
-import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
+import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import {
   AndelForFaktaOmBeregning,
@@ -9,7 +9,7 @@ import {
 import { Table, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent, useCallback, useEffect } from 'react';
-import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
+import { UseFieldArrayAppend, UseFieldArrayRemove, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { IntlShape, useIntl } from 'react-intl';
 import { ErrorMessage } from '@navikt/ds-react';
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
@@ -219,24 +219,24 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   isAksjonspunktClosed,
   kodeverkSamling,
 }) => {
-  const { getValues, control, formState } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues, control, formState } = useFormContext<VurderFaktaBeregningFormValues>();
   const { errors } = formState;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const fieldArrayName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`;
-  const { fields, remove, append, update } = formHooks.useFieldArray({
+  const { fields, remove, append, update } = useFieldArray({
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.inntektFieldArray',
   });
 
-  const formValues = formHooks.useWatch({
+  const formValues = useWatch({
     control,
     name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}` as 'vurderFaktaBeregningForm.0',
   });
-  const skalHaBesteberegning = formHooks.useWatch({
+  const skalHaBesteberegning = useWatch({
     control,
     name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderbesteberegningField`,
   });
-  const skalHaMilitær = formHooks.useWatch({
+  const skalHaMilitær = useWatch({
     control,
     name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMilitær`,
   });

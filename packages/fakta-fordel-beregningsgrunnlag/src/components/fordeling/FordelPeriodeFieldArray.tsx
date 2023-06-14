@@ -12,9 +12,9 @@ import {
   isSelvstendigNæringsdrivende,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
-import { formHooks, InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
-import { UseFormGetValues } from 'react-hook-form';
+import { UseFormGetValues, useFieldArray, useFormContext } from 'react-hook-form';
 import {
   validateSumFastsattBelop,
   validateSumFastsattForUgraderteAktiviteter,
@@ -451,9 +451,9 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   setFieldArrayToRepeat,
   fieldArrayToRepeat,
 }) => {
-  const { control, watch, getValues } = formHooks.useFormContext<FordelBeregningsgrunnlagFormValues>();
+  const { control, watch, getValues } = useFormContext<FordelBeregningsgrunnlagFormValues>();
   const fieldArrayName = `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`;
-  const { fields, append, remove, update } = formHooks.useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`,
   });

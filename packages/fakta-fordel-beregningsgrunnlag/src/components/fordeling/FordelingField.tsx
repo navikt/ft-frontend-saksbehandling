@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { formHooks } from '@navikt/ft-form-hooks';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
@@ -12,6 +11,7 @@ import {
   BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 
+import { useFormContext } from 'react-hook-form';
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import FordelingHelpText from './FordelingHelpText';
 import FastsettFordeltBeregningsgrunnlag from './FastsettFordeltBeregningsgrunnlag';
@@ -109,7 +109,7 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
 }) => {
   const relevantAp = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const isAksjonspunktClosed = !isAksjonspunktOpen(relevantAp.status);
-  const formMethods = formHooks.useFormContext<FordelBeregningsgrunnlagFormValues>();
+  const formMethods = useFormContext<FordelBeregningsgrunnlagFormValues>();
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);
   return (
     <>

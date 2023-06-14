@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 
 import { Button, ErrorMessage, Label } from '@navikt/ds-react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { formHooks, useCustomValidation } from '@navikt/ft-form-hooks';
+import { useCustomValidation } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
@@ -19,7 +19,7 @@ import {
   OverstyringKnapp,
   VerticalSpacer,
 } from '@navikt/ft-ui-komponenter';
-import { UseFormGetValues } from 'react-hook-form';
+import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
@@ -153,7 +153,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     watch,
     getValues,
     formState: { isSubmitting, errors, dirtyFields },
-  } = formHooks.useFormContext<AvklarAktiviteterFormValues>();
+  } = useFormContext<AvklarAktiviteterFormValues>();
 
   const fieldIsDirty = Object.keys(dirtyFields).length > 0;
 
