@@ -3,10 +3,11 @@ import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { BodyShort, Label, Detail } from '@navikt/ds-react';
 import { ArrowBox, VerticalSpacer, FlexColumn, FlexRow, FlexContainer } from '@navikt/ft-ui-komponenter';
 
-import { InputField, SelectField, RadioGroupPanel, formHooks } from '@navikt/ft-form-hooks';
+import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { minValue, maxValue, required } from '@navikt/ft-form-validators';
 
+import { useFormContext } from 'react-hook-form';
 import aktsomhet from '../../../kodeverk/aktsomhet';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
@@ -51,7 +52,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
 }) => {
   const intl = useIntl();
 
-  const context = formHooks.useFormContext();
+  const context = useFormContext();
   const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter`;
   useEffect(() => {
     const value = context.getValues(tilleggesRenterFelt);

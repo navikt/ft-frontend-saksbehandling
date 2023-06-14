@@ -3,10 +3,11 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage, Label } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formHooks, CheckboxField, TextAreaField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { CheckboxField, TextAreaField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 
+import { useFormContext } from 'react-hook-form';
 import AktsomhetReduksjonAvBelopFormPanel from './AktsomhetReduksjonAvBelopFormPanel';
 
 const minLength3 = minLength(3);
@@ -36,7 +37,7 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
   andelSomTilbakekreves,
 }) => {
   const intl = useIntl();
-  const { watch } = formHooks.useFormContext();
+  const { watch } = useFormContext();
 
   const hasError = !sarligGrunnTyper.some(sgt => !!watch(`${name}.${sgt.kode}`));
   const errorMessage = useCustomValidation(

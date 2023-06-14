@@ -4,9 +4,10 @@ import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforhol
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
-import { formHooks, TextAreaField } from '@navikt/ft-form-hooks';
+import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { useFormContext } from 'react-hook-form';
 import styles from './tilkommetAktivitetAccordion.module.css';
 import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
@@ -64,7 +65,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
 }) => {
   const [sammenslåttePerioder, setSammenslåttePerioder] = useState<VurderInntektsforholdPeriode[]>([]);
   const [openPanels, setOpenPanels] = useState<string[]>([]);
-  const formMethods = formHooks.useFormContext<TilkommetAktivitetFormValues>();
+  const formMethods = useFormContext<TilkommetAktivitetFormValues>();
 
   useEffect(() => {
     const vurderInntektsforholdPerioder =

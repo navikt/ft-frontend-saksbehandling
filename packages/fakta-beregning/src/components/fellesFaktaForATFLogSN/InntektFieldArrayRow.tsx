@@ -1,4 +1,4 @@
-import { formHooks, InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
+import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { XMarkIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
@@ -7,7 +7,7 @@ import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
-import { FieldArrayWithId } from 'react-hook-form';
+import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
@@ -74,7 +74,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   skalFastsetteInntektForAndel,
 }) => {
   const intl = useIntl();
-  const { getValues } = formHooks.useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);

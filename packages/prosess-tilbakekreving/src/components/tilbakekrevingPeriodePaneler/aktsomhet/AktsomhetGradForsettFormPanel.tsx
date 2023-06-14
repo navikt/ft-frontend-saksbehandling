@@ -3,8 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Detail, Label } from '@navikt/ds-react';
 
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { RadioGroupPanel, formHooks } from '@navikt/ft-form-hooks';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
+import { useFormContext } from 'react-hook-form';
 
 interface OwnProps {
   name: string;
@@ -17,7 +18,7 @@ const AktsomhetGradForsettFormPanel: FunctionComponent<OwnProps> = ({
   readOnly,
   erValgtResultatTypeForstoBurdeForstaatt,
 }) => {
-  const context = formHooks.useFormContext();
+  const context = useFormContext();
   const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter`;
   useEffect(() => {
     const value = context.getValues(tilleggesRenterFelt);

@@ -8,11 +8,12 @@ import {
   maxValueFormatted,
 } from '@navikt/ft-form-validators';
 import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
-import { Datepicker, InputField, formHooks } from '@navikt/ft-form-hooks';
+import { Datepicker, InputField } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
 import { BodyShort } from '@navikt/ds-react';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { useFormContext } from 'react-hook-form';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -75,7 +76,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   const andelTekst = refusjonAndel.skalKunneFastsetteDelvisRefusjon
     ? 'BeregningInfoPanel.RefusjonBG.TidligereRefusjon'
     : 'BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon';
-  const formMethods = formHooks.useFormContext<VurderRefusjonFormValues>();
+  const formMethods = useFormContext<VurderRefusjonFormValues>();
   const valgtStartdato = formMethods.watch(
     `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
   );

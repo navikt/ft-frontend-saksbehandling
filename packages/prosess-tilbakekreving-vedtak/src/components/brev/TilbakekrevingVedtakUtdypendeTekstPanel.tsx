@@ -5,8 +5,9 @@ import { PlusCircleIcon } from '@navikt/aksel-icons';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { required, hasValidText, maxLength, minLength } from '@navikt/ft-form-validators';
-import { TextAreaField, formHooks } from '@navikt/ft-form-hooks';
+import { TextAreaField } from '@navikt/ft-form-hooks';
 
+import { useFormContext } from 'react-hook-form';
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
 const minLength3 = minLength(3);
@@ -29,7 +30,7 @@ const TilbakekrevingVedtakUtdypendeTekstPanel: FunctionComponent<OwnProps> = ({
   maximumLength,
 }) => {
   const intl = useIntl();
-  const { watch } = formHooks.useFormContext();
+  const { watch } = useFormContext();
   const isEmpty = watch(type) === undefined;
 
   const [isTextfieldHidden, hideTextField] = useState(isEmpty && !fritekstPakrevet);
