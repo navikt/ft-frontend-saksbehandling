@@ -24,14 +24,14 @@
     "storybook": "storybook dev --quiet -p 7016"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "4.0.0",
-    "@navikt/ds-css": "4.0.0",
+    "@navikt/aksel-icons": "4.1.4",
+    "@navikt/ds-css": "4.1.4",
     "@navikt/ft-kodeverk": "^2.1.12",
     "@navikt/ft-types": "^2.1.14",
     "@navikt/ft-utils": "^2.0.30",
     "classnames": "2.3.2",
     "react": "18.2.0",
-    "react-intl": "6.4.3"
+    "react-intl": "6.4.4"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "3.1.2",
