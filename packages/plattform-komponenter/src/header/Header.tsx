@@ -1,6 +1,5 @@
-import React, { ReactElement } from 'react';
-import { Heading } from '@navikt/ds-react';
 import { bemUtils } from '@navikt/ft-utils';
+import React, { ReactElement } from 'react';
 import styles from './header.module.css';
 
 interface HeaderProps {
@@ -21,16 +20,16 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title, titleHref,
           onContextMenu={changeLocation || undefined}
           className={styles[headerCls.element('title-anchor')]}
         >
-          <Heading level="1" size="xlarge" className={styles[headerCls.element('title')]}>
+          <h1 className={styles[headerCls.element('title')]}>
             NAV
             <span className={styles[headerCls.element('subtitle')]}>{title}</span>
-          </Heading>
+          </h1>
         </a>
       ) : (
-        <Heading level="1" size="xlarge" className={styles[headerCls.element('title')]}>
+        <h1 className={styles[headerCls.element('title')]}>
           NAV
           <span className={styles[headerCls.element('subtitle')]}>{title}</span>
-        </Heading>
+        </h1>
       )}
     </div>
     <div className={styles[headerCls.element('column')]}>{children}</div>

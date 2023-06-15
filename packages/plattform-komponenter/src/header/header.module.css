@@ -8,7 +8,10 @@
 .header__title {
   color: white;
   font-size: 18px;
+  font-weight: var(--a-font-weight-bold);
+  letter-spacing: -0.002em;
   line-height: 48px;
+  margin: 0;
 }
 .header__subtitle {
   margin-left: 8px;
