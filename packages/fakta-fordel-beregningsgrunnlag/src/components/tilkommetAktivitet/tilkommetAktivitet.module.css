@@ -47,3 +47,6 @@
 .tittelRad {
   justify-content: space-between;
 }
+.modalKnapp > button {
+  padding-top: 0;
+}

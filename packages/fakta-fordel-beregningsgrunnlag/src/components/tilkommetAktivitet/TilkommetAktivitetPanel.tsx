@@ -212,7 +212,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
               {intl.formatMessage({ id: 'TilkommetAktivitet.Heading' })}
             </Heading>
           </FlexColumn>
-          <FlexColumn>
+          <FlexColumn className={styles.modalKnapp}>
             <Button
               variant="tertiary"
               loading={false}
@@ -227,7 +227,6 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
           </FlexColumn>
         </FlexRow>
       </FlexContainer>
-      <hr className={styles.separator} />
       {modalErÅpen && (
         <PeriodesplittModal
           fields={fields}
