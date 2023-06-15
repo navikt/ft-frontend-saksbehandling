@@ -117,6 +117,17 @@ const overlapper = (periode1: { fom: string; tom: string }, periode2: { fom: str
   return periode1OverlapperPeriode2 || periode2OverlapperPeriode1;
 };
 
+const andelFieldFinnesIPeriode = (
+  andelField: TilkommetInntektsforholdFieldValues,
+  periode: VurderInntektsforholdPeriode,
+): boolean =>
+  periode.inntektsforholdListe.some(
+    andel =>
+      andel.aktivitetStatus === andelField.aktivitetStatus &&
+      andel.arbeidsforholdId === andelField.arbeidsforholdId &&
+      andel.arbeidsgiverId === andelField.arbeidsgiverIdent,
+  );
+
 export const transformFieldValues = (
   values: TilkommetAktivitetFieldValues,
   bg: Beregningsgrunnlag,
@@ -128,19 +139,21 @@ export const transformFieldValues = (
     const overlappendeFields = perioderFields.filter(p => overlapper(p, periode));
     return overlappendeFields.map(periodeField => {
       const andelFields = periodeField.inntektsforhold;
-      const transformerteInntektsforhold = andelFields.map(andelField => {
-        const skalUtbetalingReduseres = !!andelField.skalRedusereUtbetaling;
-        const bruttoInntektPrÅr = skalUtbetalingReduseres
-          ? removeSpacesFromNumber(andelField.bruttoInntektPrÅr)
-          : undefined;
-        return {
-          aktivitetStatus: andelField.aktivitetStatus,
-          arbeidsgiverId: andelField.arbeidsgiverIdent,
-          arbeidsforholdId: andelField.arbeidsforholdId,
-          skalRedusereUtbetaling: skalUtbetalingReduseres,
-          bruttoInntektPrÅr,
-        };
-      });
+      const transformerteInntektsforhold = andelFields
+        .filter(andelField => andelFieldFinnesIPeriode(andelField, periode))
+        .map(andelField => {
+          const skalUtbetalingReduseres = !!andelField.skalRedusereUtbetaling;
+          const bruttoInntektPrÅr = skalUtbetalingReduseres
+            ? removeSpacesFromNumber(andelField.bruttoInntektPrÅr)
+            : undefined;
+          return {
+            aktivitetStatus: andelField.aktivitetStatus,
+            arbeidsgiverId: andelField.arbeidsgiverIdent,
+            arbeidsforholdId: andelField.arbeidsforholdId,
+            skalRedusereUtbetaling: skalUtbetalingReduseres,
+            bruttoInntektPrÅr,
+          };
+        });
       return {
         fom: dayjs(periodeField.fom).isBefore(dayjs(periode.fom)) ? periode.fom : periodeField.fom,
         tom: dayjs(periodeField.tom).isAfter(dayjs(periode.tom)) ? periode.tom : periodeField.tom,

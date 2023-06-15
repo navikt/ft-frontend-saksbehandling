@@ -24,13 +24,13 @@ const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT
 const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
   if (!tom || tom === TIDENES_ENDE) {
     return (
-      <Label size="small">
+      <Label size="medium">
         <FormattedMessage id="BeregningInfoPanel.FordelBG.PeriodeFom" values={{ fom: formatDate(fom) }} />
       </Label>
     );
   }
   return (
-    <Label size="small">
+    <Label size="medium">
       <FormattedMessage
         id="BeregningInfoPanel.FordelBG.PeriodeFomOgTom"
         values={{

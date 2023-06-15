@@ -108,7 +108,9 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
           )}
           {inntektsforhold.periode && (
             <TableColumn className={styles.periodeColumn}>
-              <PeriodLabel dateStringFom={inntektsforhold.periode.fom} dateStringTom={inntektsforhold.periode.tom} />
+              <BodyShort size="small">
+                <PeriodLabel dateStringFom={inntektsforhold.periode.fom} dateStringTom={inntektsforhold.periode.tom} />
+              </BodyShort>
             </TableColumn>
           )}
         </TableRow>,
