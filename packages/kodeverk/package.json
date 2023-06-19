@@ -19,7 +19,7 @@
   "devDependencies": {
     "@storybook/react": "7.0.20",
     "cross-env": "7.0.3",
-    "eslint": "8.42.0",
+    "eslint": "8.43.0",
     "stylelint": "15.7.0",
     "typescript": "5.0.4",
     "vite": "4.3.9",
