@@ -24,8 +24,8 @@
     "storybook": "storybook dev --quiet -p 7008"
   },
   "dependencies": {
-    "@navikt/ds-css": "4.1.4",
-    "@navikt/ds-react": "4.1.4",
+    "@navikt/ds-css": "4.1.7",
+    "@navikt/ds-react": "4.1.7",
     "@navikt/ft-form-hooks": "^4.1.0",
     "@navikt/ft-form-validators": "^2.0.32",
     "@navikt/ft-kodeverk": "^2.1.12",
@@ -34,7 +34,7 @@
     "@navikt/ft-utils": "^2.0.31",
     "moment": "2.29.4",
     "react": "18.2.0",
-    "react-hook-form": "7.44.3",
+    "react-hook-form": "7.45.0",
     "react-intl": "6.4.4"
   },
   "peerDependencies": {
@@ -54,16 +54,16 @@
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.0.38",
     "@navikt/ft-utils-test": "^2.0.28",
-    "@storybook/addon-actions": "7.0.20",
-    "@storybook/react": "7.0.20",
-    "@storybook/react-vite": "7.0.20",
+    "@storybook/addon-actions": "7.0.22",
+    "@storybook/react": "7.0.22",
+    "@storybook/react-vite": "7.0.22",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
-    "eslint": "8.42.0",
-    "storybook": "7.0.20",
-    "stylelint": "15.7.0",
-    "typescript": "5.0.4",
+    "eslint": "8.43.0",
+    "storybook": "7.0.22",
+    "stylelint": "15.8.0",
+    "typescript": "5.1.3",
     "vite": "4.3.9",
     "vitest": "0.32.0"
   },
