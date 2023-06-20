@@ -20,7 +20,7 @@ describe('<ForeldelseProsessIndex>', () => {
     Modal.setAppElement('body');
   }
 
-  it.skip('skal vurdere to perioder og så bekrefte', async () => {
+  it('skal vurdere to perioder og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);
 
@@ -105,7 +105,7 @@ describe('<ForeldelseProsessIndex>', () => {
     });
   });
 
-  it.skip('skal splitte en periode i to og så bekrefte', async () => {
+  it('skal splitte en periode i to og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
 
     const utils = render(<Default submitCallback={lagre} />);
@@ -221,7 +221,7 @@ describe('<ForeldelseProsessIndex>', () => {
     });
   });
 
-  it.skip('skal vise panel uten aksjonspunkt', async () => {
+  it('skal vise panel uten aksjonspunkt', async () => {
     render(<UtenAksjonspunkt />);
     expect(await screen.findByText('Foreldelsesloven §§ 2 og 3')).toBeInTheDocument();
     expect(screen.getByText('Automatisk vurdert')).toBeInTheDocument();
