@@ -51,7 +51,7 @@
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
     "eslint": "8.43.0",
-    "sinon": "15.1.2",
+    "sinon": "15.2.0",
     "storybook": "7.0.22",
     "stylelint": "15.8.0",
     "typescript": "5.0.4",
