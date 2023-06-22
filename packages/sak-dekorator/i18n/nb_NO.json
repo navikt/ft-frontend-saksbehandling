@@ -4,5 +4,6 @@
   "FeilmeldingsdetaljerModal.ErrorDetails": "Detaljert informasjon",
   "FeilmeldingsdetaljerModal.Close": "Lukk",
   "DekoratorMedFeilviserSakIndex.SystemerOgOppslagsverk": "Systemer og oppslagsverk",
-  "DekoratorMedFeilviserSakIndex.Vedtakslosningen": "Vedtaksløsningen"
+  "DekoratorMedFeilviserSakIndex.Vedtakslosningen": "Vedtaksløsningen",
+  "DekoratorMedFeilviserSakIndex.EksternLenke": "Ekstern lenke"
 }

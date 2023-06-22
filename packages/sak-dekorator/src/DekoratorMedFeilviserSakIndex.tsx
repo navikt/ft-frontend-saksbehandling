@@ -1,15 +1,16 @@
-import React, { FunctionComponent, ReactNode, useEffect, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { createIntl, guid } from '@navikt/ft-utils';
+import { createIntl } from '@navikt/ft-utils';
 
-import { Dropdown, InternalHeader } from '@navikt/ds-react';
-import { MenuGridIcon } from '@navikt/aksel-icons';
+import { Dropdown, InternalHeader, Link } from '@navikt/ds-react';
+import { ExternalLinkIcon, MenuGridIcon } from '@navikt/aksel-icons';
 import FeilmeldingPanel from './components/FeilmeldingPanel';
 import Feilmelding from './typer/feilmeldingTsType';
 
 import messages from '../i18n/nb_NO.json';
 
 import styles from './dekoratorMedFeilviserSakIndex.module.css';
+import DekoratorLenke from './typer/dekoratorLenke';
 
 const intl = createIntl(messages);
 
@@ -21,11 +22,11 @@ interface OwnProps {
   feilmeldinger: Feilmelding[];
   fjernFeilmeldinger: () => void;
   setSiteHeight: (height: number) => void;
-  interneLenker?: ReactNode[];
-  eksterneLenker: ReactNode[];
+  interneLenker?: DekoratorLenke[];
+  eksterneLenker: DekoratorLenke[];
 }
 
-const EMPTY_ARRAY = [] as ReactNode[];
+const EMPTY_ARRAY = [] as DekoratorLenke[];
 
 /**
  * DekoratorMedFeilviserSakIndex
@@ -72,13 +73,20 @@ const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({
                   </Dropdown.Menu.GroupedList.Heading>
                 )}
                 {interneLenker.map(lenke => (
-                  <Dropdown.Menu.GroupedList.Item key={guid()}>{lenke}</Dropdown.Menu.GroupedList.Item>
+                  <Dropdown.Menu.GroupedList.Item as={Link} key={lenke.tekst} onClick={lenke.callback}>
+                    {lenke.tekst}
+                  </Dropdown.Menu.GroupedList.Item>
                 ))}
                 <Dropdown.Menu.GroupedList.Heading>
                   <FormattedMessage id="DekoratorMedFeilviserSakIndex.SystemerOgOppslagsverk" />
                 </Dropdown.Menu.GroupedList.Heading>
                 {eksterneLenker.map(lenke => (
-                  <Dropdown.Menu.GroupedList.Item key={guid()}>{lenke}</Dropdown.Menu.GroupedList.Item>
+                  <Dropdown.Menu.GroupedList.Item as={Link} key={lenke.tekst} href={lenke.href} target="_blank">
+                    {lenke.tekst}
+                    <ExternalLinkIcon
+                      title={intl.formatMessage({ id: 'DekoratorMedFeilviserSakIndex.EksternLenke' })}
+                    />
+                  </Dropdown.Menu.GroupedList.Item>
                 ))}
               </Dropdown.Menu.GroupedList>
             </Dropdown.Menu>

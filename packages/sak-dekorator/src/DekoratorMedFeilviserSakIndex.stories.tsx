@@ -25,8 +25,20 @@ const Template: StoryFn<{
         fjernFeilmeldinger={() => removeErrorMessages([])}
         setSiteHeight={() => undefined}
         feilmeldinger={errorMessages}
-        eksterneLenker={[<div>NAV</div>]}
-        interneLenker={kanJournalføre ? [<div>test</div>] : []}
+        eksterneLenker={[
+          {
+            tekst: 'NAV',
+          },
+        ]}
+        interneLenker={
+          kanJournalføre
+            ? [
+                {
+                  tekst: 'Journal',
+                },
+              ]
+            : []
+        }
       />
     </div>
   );
