@@ -1,3 +1,7 @@
+.button {
+  margin-left: auto;
+}
+
 .container {
   background-color: var(--a-gray-900);
   color: var(--a-white);

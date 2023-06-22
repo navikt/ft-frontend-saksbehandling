@@ -25,9 +25,8 @@ const Template: StoryFn<{
         fjernFeilmeldinger={() => removeErrorMessages([])}
         setSiteHeight={() => undefined}
         feilmeldinger={errorMessages}
-        systemrutineUrl="url"
-        kanJournalføre={kanJournalføre}
-        visJournalføringside={() => null}
+        eksterneLenker={[<div>NAV</div>]}
+        interneLenker={kanJournalføre ? [<div>test</div>] : []}
       />
     </div>
   );

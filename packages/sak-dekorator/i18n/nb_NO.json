@@ -3,8 +3,6 @@
   "FeilmeldingPanel.Close": "Lukk",
   "FeilmeldingsdetaljerModal.ErrorDetails": "Detaljert informasjon",
   "FeilmeldingsdetaljerModal.Close": "Lukk",
-  "DekoratorMedFeilviserSakIndex.Rettskilde": "Rettskildene",
-  "DekoratorMedFeilviserSakIndex.Systemrutine": "Systemrutine",
-  "DekoratorMedFeilviserSakIndex.Journalforing": "Journalføring",
-  "DekoratorMedFeilviserSakIndex.Avdelingsleder": "Avdelingsleder"
+  "DekoratorMedFeilviserSakIndex.SystemerOgOppslagsverk": "Systemer og oppslagsverk",
+  "DekoratorMedFeilviserSakIndex.Vedtakslosningen": "Vedtaksløsningen"
 }
