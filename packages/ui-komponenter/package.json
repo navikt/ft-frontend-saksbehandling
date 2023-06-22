@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@navikt/aksel-icons": "4.1.7",
-    "@navikt/ds-css": "4.1.7",
+    "@navikt/ds-css": "4.3.0",
     "@navikt/ds-react": "4.1.7",
     "@navikt/ft-utils": "^2.0.32",
     "classnames": "2.3.2",
