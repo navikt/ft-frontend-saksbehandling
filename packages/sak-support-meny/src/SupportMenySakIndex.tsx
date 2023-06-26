@@ -3,10 +3,11 @@ import { RawIntlProvider } from 'react-intl';
 import { createIntl } from '@navikt/ft-utils';
 import {
   ClockDashedIcon,
-  PaperplaneFillIcon,
-  FolderFillIcon,
   PersonCheckmarkFillIcon,
   ArrowUndoIcon,
+  PencilWritingIcon,
+  FolderIcon,
+  PaperplaneIcon,
 } from '@navikt/aksel-icons';
 
 import TabMeny, { SvgProps } from './components/TabMeny';
@@ -44,15 +45,21 @@ const TABS = {
   },
   [SupportTabs.MELDINGER]: {
     getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
-      <PaperplaneFillIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
+      <PaperplaneIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
     ),
     tooltipTextCode: 'SupportMenySakIndex.Melding',
   },
   [SupportTabs.DOKUMENTER]: {
     getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
-      <FolderFillIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
+      <FolderIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
     ),
     tooltipTextCode: 'SupportMenySakIndex.Dokumenter',
+  },
+  [SupportTabs.NOTATER]: {
+    getSvg: (isActive: boolean, isDisabled: boolean, props: SvgProps) => (
+      <PencilWritingIcon {...props} color={getIconColor(isActive, isDisabled)} height={35} width={35} />
+    ),
+    tooltipTextCode: 'SupportMenySakIndex.Notater',
   },
 } as Record<
   string,
