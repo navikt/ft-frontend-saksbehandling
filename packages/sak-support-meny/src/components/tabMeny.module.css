@@ -24,7 +24,7 @@
 .button {
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--a-gray-100);
+  border-bottom: 1px solid var(--a-gray-300);
   cursor: pointer;
   padding-bottom: 3px;
   padding-top: 16px;
@@ -54,7 +54,7 @@
 }
 .button:disabled {
   background: white;
-  border-bottom: 1px solid var(--a-gray-100);
+  border-bottom: 1px solid var(--a-gray-300);
   cursor: default;
   padding-bottom: 3px;
 }
