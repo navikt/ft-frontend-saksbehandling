@@ -4,12 +4,11 @@
 }
 
 .row {
+  border-bottom: 1px solid var(--a-gray-300);
   box-sizing: border-box;
   display: flex;
   flex: 0 0 100%;
   flex-flow: row nowrap;
-  margin-left: 3px;
-  margin-right: 3px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -24,7 +23,6 @@
 .button {
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--a-gray-300);
   cursor: pointer;
   padding-bottom: 3px;
   padding-top: 16px;
