@@ -3669,41 +3669,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-sak-support-meny@workspace:packages/sak-support-meny":
-  version: 0.0.0-use.local
-  resolution: "@navikt/ft-sak-support-meny@workspace:packages/sak-support-meny"
-  dependencies:
-    "@navikt/aksel-icons": 4.4.0
-    "@navikt/ds-css": 4.4.0
-    "@navikt/ft-kodeverk": ^2.1.14
-    "@navikt/ft-types": ^2.1.16
-    "@navikt/ft-utils": ^2.0.33
-    "@storybook/addon-actions": 7.0.23
-    "@storybook/react": 7.0.23
-    "@storybook/react-vite": 7.0.23
-    "@testing-library/react": 14.0.0
-    classnames: 2.3.2
-    cross-env: 7.0.3
-    eslint: 8.43.0
-    react: 18.2.0
-    react-intl: 6.4.4
-    storybook: 7.0.23
-    stylelint: 15.9.0
-    typescript: 5.0.4
-    vite: 4.3.9
-    vitest: 0.32.2
-  peerDependencies:
-    "@navikt/aksel-icons": 3.1.2
-    "@navikt/ds-css": 2.8.11
-    "@navikt/ft-kodeverk": 2.x
-    "@navikt/ft-types": 2.x
-    "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
-    react: 18.2.0
-    react-intl: 6.3.2
-  languageName: unknown
-  linkType: soft
-
 "@navikt/ft-sak-visittkort@^2.0.43, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-visittkort@workspace:packages/sak-visittkort"
