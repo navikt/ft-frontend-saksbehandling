@@ -31,7 +31,7 @@
   "devDependencies": {
     "@formatjs/intl-datetimeformat": "6.10.0",
     "@formatjs/intl-numberformat": "8.7.0",
-    "@navikt/aksel-stylelint": "4.4.0",
+    "@navikt/aksel-stylelint": "4.4.2",
     "@storybook/addon-essentials": "7.0.23",
     "@storybook/addon-links": "7.0.23",
     "@storybook/addons": "7.0.23",
