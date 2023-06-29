@@ -52,6 +52,11 @@ export const leggTilAktivitet = (
   }
 };
 
+const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
+  values.avklarAktiviteter?.aktiviteterTomDatoMapping.some(
+    aktMap => !aktMap.aktiviteter.some(akt => !dayjs(akt.tom).isValid()),
+  );
+
 const lagTomDatoMapping = (values: AvklarAktiviteterValues): AvklarBeregningAktiviteter[] => {
   const forrigeTomDatoMapping = values.avklarAktiviteter.aktiviteterTomDatoMapping;
   const gjeldendeTomDatoMapping = [];
@@ -87,7 +92,8 @@ const finnListerSomSkalVurderes = (
   values: AvklarAktiviteterValues,
   erOverstyrt: boolean,
 ): AvklarBeregningAktiviteter[] => {
-  const nyTomDatoMapping = values ? lagTomDatoMapping(values) : aktiviteterTomDatoMapping;
+  const nyTomDatoMapping =
+    values && !finnesUgyldigeDatoer(values) ? lagTomDatoMapping(values) : aktiviteterTomDatoMapping;
   if (erOverstyrt) {
     return nyTomDatoMapping;
   }
