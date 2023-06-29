@@ -2811,7 +2811,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:4.4.0, @navikt/aksel-icons@npm:^4.4.0":
+"@navikt/aksel-icons@npm:4.5.0":
+  version: 4.5.0
+  resolution: "@navikt/aksel-icons@npm:4.5.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F4.5.0%2Fcdc0003f03c57ee0b070a03b9df37964b6c63d9c"
+  checksum: 79806676eb87e2479507a90314540a31ea3fbd63a5b1533a4095fac9124b7a86d8b7933e8facc7d726ef131610c6a7fe9f0851e441126e627f68b25c62d36678
+  languageName: node
+  linkType: hard
+
+"@navikt/aksel-icons@npm:^4.4.0":
   version: 4.4.0
   resolution: "@navikt/aksel-icons@npm:4.4.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F4.4.0%2Fc5a5086226e7a738da887f253b0d37675db0e2ac"
   checksum: d1ebf290c55e5a7e875323df8b0314eab9b386e961d6a3374d3929c6f6105269b46d78b66997c8067ec139c0a706b072fba362cea48fb52cb84d8a62dfa1ede4
@@ -2855,7 +2862,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-hooks": ^4.1.2
@@ -2911,7 +2918,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-hooks": ^4.1.2
@@ -3010,7 +3017,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-hooks@workspace:packages/form-hooks"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-validators": ^2.0.34
@@ -3101,7 +3108,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-utils": ^2.0.33
@@ -3146,7 +3153,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-hooks": ^4.1.2
@@ -3202,7 +3209,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-hooks": ^4.1.2
@@ -3252,7 +3259,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-hooks": ^4.1.2
@@ -3299,7 +3306,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-hooks": ^4.1.2
@@ -3389,7 +3396,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-behandling-velger@workspace:packages/sak-behandling-velger"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-kodeverk": ^2.1.14
@@ -3436,7 +3443,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-dekorator@workspace:packages/sak-dekorator"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-kodeverk": ^2.1.14
@@ -3480,7 +3487,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-dokumenter@workspace:packages/sak-dokumenter"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-kodeverk": ^2.1.14
@@ -3624,7 +3631,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-risikoklassifisering@workspace:packages/sak-risikoklassifisering"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-form-hooks": ^4.1.2
@@ -3673,7 +3680,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-visittkort@workspace:packages/sak-visittkort"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-kodeverk": ^2.1.14
@@ -3747,7 +3754,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
-    "@navikt/aksel-icons": 4.4.0
+    "@navikt/aksel-icons": 4.5.0
     "@navikt/ds-css": 4.4.0
     "@navikt/ds-react": 4.4.0
     "@navikt/ft-utils": ^2.0.33
