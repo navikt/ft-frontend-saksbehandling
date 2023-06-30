@@ -232,7 +232,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
           fields={fields}
           forhåndsvisPeriodesplitt={finnNyePerioder}
           lukkModal={lukkModal}
-          showModal={modalErÅpen}
+          skalViseModal={modalErÅpen}
           utførPeriodesplitt={splittPeriode}
         />
       )}

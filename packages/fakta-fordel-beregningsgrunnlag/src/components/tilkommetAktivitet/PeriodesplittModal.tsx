@@ -13,7 +13,7 @@ type PeriodesplittModalProps = {
   fields: TilkommetAktivitetValues[];
   forhåndsvisPeriodesplitt: (nyFom: string) => Periode[];
   utførPeriodesplitt: (nyFom: string) => void;
-  showModal: boolean;
+  skalViseModal: boolean;
   lukkModal: () => void;
 };
 
@@ -44,7 +44,7 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
   fields,
   forhåndsvisPeriodesplitt,
   utførPeriodesplitt,
-  showModal,
+  skalViseModal,
   lukkModal,
 }) => {
   const intl = useIntl();
@@ -71,12 +71,12 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
   }, []);
 
   const periodeKanSplittes = valgtPeriode && periodeInneholderFlereVirkedager(valgtPeriode);
-  if (!showModal) {
+  if (!skalViseModal) {
     return null;
   }
 
   return (
-    <Modal open={showModal} className={styles.modal} onClose={lukkModal} shouldCloseOnOverlayClick={false}>
+    <Modal open={skalViseModal} className={styles.modal} onClose={lukkModal} shouldCloseOnOverlayClick={false}>
       <Modal.Content>
         <FlexContainer>
           <div className={styles.boks}>
