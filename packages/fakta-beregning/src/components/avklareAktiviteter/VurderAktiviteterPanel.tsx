@@ -52,6 +52,7 @@ export const leggTilAktivitet = (
   }
 };
 
+// Sjekk for om saksbehandler har skrevet en ugyldig dato i inputfeltet.
 const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
   values.avklarAktiviteter?.aktiviteterTomDatoMapping.some(
     aktMap => !aktMap.aktiviteter.some(akt => !dayjs(akt.tom).isValid()),

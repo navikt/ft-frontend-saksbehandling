@@ -69,14 +69,14 @@ const erAktivitetValgbar = (erSkjæringstidpunktLikEllerFørTom: boolean, ingenA
  * @param {*} skalOverstyre - om overstyring er aktivert
  * @param {*} harAksjonspunkt - om behandlingen har et aksjonspunkt for avklaringen av aktiviteter
  * @param {*} erSkjæringstidpunktLikEllerFørTom - om et gjeldende skjæringstidspunkt er lik eller før t.o.m dato
- * @param {*} ingenAktiviterErBrukt - true hvis alle aktiviteter er satt til "Ikke benytt"
+ * @param {*} erIngenAktiviteterBrukt - true hvis alle aktiviteter er satt til "Ikke benytt"
  */
 export const skalVurdereAktivitet = (
   aktivitet: BeregningAktivitet,
   skalOverstyre: boolean,
   harAksjonspunkt: boolean,
   erSkjæringstidpunktLikEllerFørTom: boolean,
-  ingenAktiviterErBrukt: boolean,
+  erIngenAktiviteterBrukt: boolean,
 ): boolean => {
   if (!skalOverstyre && !harAksjonspunkt) {
     return false;
@@ -85,7 +85,7 @@ export const skalVurdereAktivitet = (
     return false;
   }
   if (skalOverstyre) {
-    return erAktivitetValgbar(erSkjæringstidpunktLikEllerFørTom, ingenAktiviterErBrukt);
+    return erAktivitetValgbar(erSkjæringstidpunktLikEllerFørTom, erIngenAktiviteterBrukt);
   }
   return true;
 };
