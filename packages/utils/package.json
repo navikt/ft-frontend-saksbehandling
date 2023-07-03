@@ -22,7 +22,7 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "^2.1.14",
     "@navikt/ft-types": "^2.1.16",
-    "dayjs": "1.11.8",
+    "dayjs": "1.11.9",
     "react-intl": "6.4.4"
   },
   "peerDependencies": {
@@ -32,7 +32,7 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "eslint": "8.43.0",
+    "eslint": "8.44.0",
     "typescript": "5.0.4",
     "vite": "4.3.9",
     "vitest": "0.32.2"
