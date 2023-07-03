@@ -67,7 +67,7 @@
     "stylelint": "15.9.0",
     "typescript": "5.1.6",
     "vite": "4.3.9",
-    "vitest": "0.32.3"
+    "vitest": "0.32.4"
   },
   "resolutions": {
     "react": "18.2.0",
