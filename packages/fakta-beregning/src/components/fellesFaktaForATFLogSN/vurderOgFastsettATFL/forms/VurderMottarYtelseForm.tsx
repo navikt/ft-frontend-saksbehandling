@@ -163,16 +163,18 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           />
         </div>
       )}
-      {arbeidsforholdUtenIM.map(andel =>
-        mottarYtelseArbeidsforholdRadio(
-          andel,
-          readOnly,
-          kodeverkSamling,
-          arbeidsgiverOpplysningerPerId,
-          beregningsgrunnlagIndeks,
-          intl,
-        ),
-      )}
+      {arbeidsforholdUtenIM.map(andel => (
+        <>
+          {mottarYtelseArbeidsforholdRadio(
+            andel,
+            readOnly,
+            kodeverkSamling,
+            arbeidsgiverOpplysningerPerId,
+            beregningsgrunnlagIndeks,
+            intl,
+          )}
+        </>
+      ))}
     </div>
   );
 };
