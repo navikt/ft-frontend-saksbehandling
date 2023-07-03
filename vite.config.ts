@@ -11,7 +11,6 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       copyDtsFiles: true,
-      skipDiagnostics: true,
     }),
   ],
   css: {
