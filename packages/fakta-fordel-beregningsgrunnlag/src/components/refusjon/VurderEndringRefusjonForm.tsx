@@ -27,11 +27,9 @@ const buildInitialValues = (
   beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
   vilkårperioder: Vilkarperiode[],
 ): VurderRefusjonFormValues => ({
-  [FORM_NAME]: beregningsgrunnlagListe
-    .filter(bg =>
-      bg.avklaringsbehov.some(v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN),
-    )
-    .map(bg => buildFieldInitialValues(bg, finnVilkårsperiode(vilkårperioder, bg.vilkårsperiodeFom))),
+  [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
+    buildFieldInitialValues(bg, finnVilkårsperiode(vilkårperioder, bg.vilkårsperiodeFom)),
+  ),
 });
 
 const finnBeregningsgrunnlag = (
