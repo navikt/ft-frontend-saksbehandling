@@ -106,7 +106,9 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
           <Datepicker
             name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
             isReadOnly={readOnly}
-            validate={[required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]}
+            validate={
+              readOnly ? [] : [required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]
+            }
             isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
           />
         </FlexColumn>
@@ -126,11 +128,11 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
                   refusjonAndel,
                 )}`}
                 className={styles.bredde}
-                validate={[
-                  required,
-                  minValueFormatted(1),
-                  maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd),
-                ]}
+                validate={
+                  readOnly
+                    ? []
+                    : [required, minValueFormatted(1), maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]
+                }
                 parse={parseCurrencyInput}
                 readOnly={readOnly}
                 isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}

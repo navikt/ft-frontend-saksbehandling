@@ -48,7 +48,7 @@ export const buildFieldInitialValues = (
   let initialValues = {
     beregningsgrunnlagId: bg.beregningsgrunnlagId,
     periode: vilkårsperiode.periode,
-    begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : '',
+    begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : undefined,
   } as unknown as VurderRefusjonFieldValues;
   andeler.forEach(andel => {
     initialValues = {
@@ -89,6 +89,11 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   vilkårperiodeFieldIndex,
 }) => {
+  const manglerAksjonspunkt =
+    readOnly &&
+    !beregningsgrunnlag.avklaringsbehov.some(
+      ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
+    );
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
   const ap = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
@@ -111,7 +116,7 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
       {andeler.map(andel => (
         <VurderEndringRefusjonRad
           refusjonAndel={andel}
-          readOnly={readOnly}
+          readOnly={manglerAksjonspunkt}
           erAksjonspunktÅpent={erAksjonspunktÅpent}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           key={lagRadNøkkel(andel)}
@@ -124,13 +129,13 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
       <FaktaBegrunnelseTextField
         name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
         isSubmittable={submittable}
-        isReadOnly={readOnly}
+        isReadOnly={manglerAksjonspunkt}
         hasBegrunnelse={!!begrunnelse}
       />
       <VerticalSpacer twentyPx />
       <SubmitButton
         isSubmittable={submittable}
-        isReadOnly={readOnly}
+        isReadOnly={manglerAksjonspunkt}
         isSubmitting={formMethods.formState.isSubmitting}
         isDirty={formMethods.formState.isDirty}
       />
