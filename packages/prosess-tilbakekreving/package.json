@@ -59,7 +59,7 @@
     "@navikt/ft-storybook-utils": "^2.0.42",
     "@navikt/ft-utils-test": "^2.0.32",
     "@storybook/addon-actions": "7.0.24",
-    "@storybook/react": "7.0.24",
+    "@storybook/react": "7.0.27",
     "@storybook/react-vite": "7.0.24",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
