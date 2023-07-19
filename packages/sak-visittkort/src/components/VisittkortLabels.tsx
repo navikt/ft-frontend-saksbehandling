@@ -9,7 +9,7 @@ import { dateFormat } from '@navikt/ft-utils';
 
 import styles from './visittkortLabels.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   fagsakPerson: FagsakPerson;
   harVerge: boolean;
 }

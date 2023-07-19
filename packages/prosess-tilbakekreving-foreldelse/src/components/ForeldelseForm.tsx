@@ -85,7 +85,7 @@ export const lagForeldelsesresultatAktiviteter = (
     begrunnelse: decodeHtmlEntity(p.begrunnelse),
   }));
 
-interface OwnProps {
+export interface OwnProps {
   behandlingUuid: string;
   aksjonspunkt: Aksjonspunkt;
   perioderForeldelse: FeilutbetalingPerioderWrapper;

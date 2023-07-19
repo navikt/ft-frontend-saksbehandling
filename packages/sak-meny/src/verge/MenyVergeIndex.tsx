@@ -13,7 +13,7 @@ export const getMenytekst = (erOpprettVerge: boolean): string =>
     id: erOpprettVerge ? 'MenyVergeIndex.OpprettVerge' : 'MenyVergeIndex.FjernVerge',
   });
 
-interface OwnProps {
+export interface OwnProps {
   fjernVerge?: () => Promise<void>;
   opprettVerge?: () => Promise<void>;
   lukkModal: () => void;

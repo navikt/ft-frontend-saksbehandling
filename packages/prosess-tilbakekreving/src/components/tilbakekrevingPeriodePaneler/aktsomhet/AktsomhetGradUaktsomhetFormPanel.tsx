@@ -34,7 +34,7 @@ const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: Intl
   </div>
 );
 
-interface OwnProps {
+export interface OwnProps {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: string;

@@ -61,7 +61,7 @@ const createKeyUpHandler =
     }
   };
 
-interface OwnProps<ID, MODEL = void> {
+export interface OwnProps<ID, MODEL = void> {
   id?: ID;
   model?: MODEL;
   isHeader?: boolean;

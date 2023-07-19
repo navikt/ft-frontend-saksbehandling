@@ -6,7 +6,7 @@ import BehandlingInformasjon from './BehandlingInformasjon';
 
 import styles from './behandlingListeRad.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   behandling: BehandlingAppKontekst;
   erKunEnBehandling: boolean;
   erAktiv: boolean;

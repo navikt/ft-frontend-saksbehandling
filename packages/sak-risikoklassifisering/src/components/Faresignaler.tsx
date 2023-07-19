@@ -30,7 +30,7 @@ export const FarePanel: FunctionComponent<{
   </div>
 );
 
-interface OwnProps {
+export interface OwnProps {
   risikoklassifisering: Risikoklassifisering;
 }
 

@@ -7,7 +7,7 @@ import { getError, getValidationRules } from './formUtils';
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
 const DECIMAL_REGEXP = /^(\d+[,]?(\d+)?)$/;
 
-interface OwnProps {
+export interface OwnProps {
   name: string;
   label?: string | ReactNode;
   hideLabel?: boolean;

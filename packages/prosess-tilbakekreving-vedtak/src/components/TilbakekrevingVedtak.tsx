@@ -12,7 +12,7 @@ import TilbakekrevingVedtakForm, { ForhandsvisData } from './TilbakekrevingVedta
 import ForeslaVedtakTilbakekrevingAp from '../types/ForeslaVedtakTilbakekrevingAp';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
-interface OwnProps {
+export interface OwnProps {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   readOnly: boolean;
   resultat: string;

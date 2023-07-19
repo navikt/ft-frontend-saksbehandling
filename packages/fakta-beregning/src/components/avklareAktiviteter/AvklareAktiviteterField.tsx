@@ -103,7 +103,7 @@ export const transformFieldValue = (
   };
 };
 
-interface OwnProps {
+export interface OwnProps {
   avklarAktiviteter: AvklarBeregningAktiviteterMap;
   avklaringsbehov: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;

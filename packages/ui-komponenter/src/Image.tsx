@@ -2,7 +2,7 @@ import React, { useState, useCallback, ReactNode, KeyboardEvent, MouseEvent } fr
 
 import Tooltip from './Tooltip';
 
-interface OwnProps {
+export interface OwnProps {
   className?: string;
   src?: string;
   srcHover?: string;

@@ -11,7 +11,7 @@ const classNames = classnames.bind(styles);
 
 const EMPTY_STRING = 'EMPTY';
 
-interface OwnProps {
+export interface OwnProps {
   headerTextCodes?: string[];
   headerColumnContent?: ReactElement[];
   children: ReactElement | ReactElement[];

@@ -18,7 +18,7 @@ import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   behandling: Behandling;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;

@@ -5,7 +5,7 @@ import { Select as NavSelect } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
-interface OwnProps {
+export interface OwnProps {
   name: string;
   label: string | ReactNode;
   onChange?: (event: any) => void;

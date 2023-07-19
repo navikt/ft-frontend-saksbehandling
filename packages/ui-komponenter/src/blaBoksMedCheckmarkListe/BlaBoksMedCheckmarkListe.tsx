@@ -9,7 +9,7 @@ export type Saksopplysning = {
   readMoreContent: ReactNode | ReactNode[] | string;
 };
 
-interface OwnProps {
+export interface OwnProps {
   saksopplysninger: Saksopplysning[];
 }
 

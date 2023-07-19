@@ -9,7 +9,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   saksnummer: string;
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;

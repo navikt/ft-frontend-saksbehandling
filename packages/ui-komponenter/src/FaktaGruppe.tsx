@@ -4,7 +4,7 @@ import { Label } from '@navikt/ds-react';
 import BorderBox from './BorderBox';
 import VerticalSpacer from './VerticalSpacer';
 
-interface OwnPropsWrapper {
+export interface OwnPropsWrapper {
   error: boolean;
   children: ReactNode;
   withoutBorder: boolean;
@@ -24,7 +24,7 @@ const Wrapper: FunctionComponent<OwnPropsWrapper> = ({ withoutBorder, error, chi
   );
 };
 
-interface OwnPropsFaktaGruppe {
+export interface OwnPropsFaktaGruppe {
   merknaderFraBeslutter?: {
     notAccepted?: boolean;
   };

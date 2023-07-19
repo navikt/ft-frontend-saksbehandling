@@ -29,7 +29,7 @@ export interface InitialValuesGodTroForm {
   tilbakekrevdBelop?: number;
 }
 
-interface OwnProps {
+export interface OwnProps {
   name: string;
   readOnly: boolean;
   erBelopetIBehold?: boolean;

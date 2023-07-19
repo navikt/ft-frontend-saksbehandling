@@ -73,7 +73,7 @@ const getClassName = (alignOffset?: number, alignLeft?: boolean, hideBorder?: bo
   return alignLeft ? `arrowBoxLeft${alignOffset}` : `arrowBoxTop${alignOffset}`;
 };
 
-interface OwnProps {
+export interface OwnProps {
   alignOffset?: number;
   alignLeft?: boolean;
   hideBorder?: boolean;

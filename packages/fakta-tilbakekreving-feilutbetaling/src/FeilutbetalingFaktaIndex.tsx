@@ -13,7 +13,7 @@ import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   feilutbetalingFakta: FeilutbetalingFakta;
   feilutbetalingAarsak: FeilutbetalingAarsak[];
   fagsakYtelseTypeKode: string;

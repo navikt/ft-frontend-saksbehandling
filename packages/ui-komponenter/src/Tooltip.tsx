@@ -5,7 +5,7 @@ import styles from './tooltip.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   children: ReactNode | string;
   content: ReactNode | string;
   alignLeft?: boolean;

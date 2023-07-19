@@ -3,7 +3,7 @@ import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react';
 import { useController, useFormContext } from 'react-hook-form';
 import { getError, getValidationRules } from './formUtils';
 
-interface OwnProps {
+export interface OwnProps {
   name: string;
   label: string | ReactNode;
   validate?: ((value: string) => any)[];
