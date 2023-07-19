@@ -3,7 +3,7 @@ import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { prettifyDateString } from '@navikt/ft-utils';
 import styles from './assessedBy.module.css';
 
-interface IAssessedByProps {
+export interface IAssessedByProps {
   name?: string;
   date?: string;
 }
