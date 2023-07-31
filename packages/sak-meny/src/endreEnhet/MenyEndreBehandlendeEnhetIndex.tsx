@@ -12,7 +12,7 @@ const intl = createIntl(messages);
 export const getMenytekst = (): string =>
   intl.formatMessage({ id: 'MenyEndreBehandlendeEnhetIndex.ByttBehandlendeEnhet' });
 
-interface OwnProps {
+export interface OwnProps {
   behandlingVersjon?: number;
   behandlendeEnhetId?: string;
   behandlendeEnhetNavn?: string;

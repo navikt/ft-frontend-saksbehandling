@@ -6,7 +6,7 @@ import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { VerticalSpacer, Table, TableColumn, TableRow, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 
-interface OwnProps {
+export interface OwnProps {
   periode: BeregningsgrunnlagPeriodeProp;
   besteMåneder?: Månedsgrunnlag[];
 }

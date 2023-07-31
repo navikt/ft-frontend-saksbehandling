@@ -23,7 +23,7 @@ const sorterBehandlinger = (behandlinger: BehandlingAppKontekst[]): BehandlingAp
     return moment(b2.opprettet).diff(moment(b1.opprettet));
   });
 
-interface OwnProps {
+export interface OwnProps {
   behandlinger: BehandlingAppKontekst[];
   renderRadSomLenke: (className: string, behandlingInfoKomponent: ReactElement, uuid: string) => ReactElement;
   behandlingUuid?: string;

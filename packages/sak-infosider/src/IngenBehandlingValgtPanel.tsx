@@ -15,7 +15,7 @@ const getMessage = (numBehandlinger: number): string =>
     ? 'IngenBehandlingValgtPanel.ZeroBehandlinger'
     : 'IngenBehandlingValgtPanel.PleaseSelectBehandling';
 
-interface OwnProps {
+export interface OwnProps {
   numBehandlinger: number;
 }
 

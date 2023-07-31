@@ -5,7 +5,7 @@ import styles from './flexContainer.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   children?: ReactNode | ReactNode[];
   wrap?: boolean;
   fullHeight?: boolean;

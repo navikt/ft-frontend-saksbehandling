@@ -102,7 +102,7 @@ const fetchPreview =
     e.preventDefault();
   };
 
-interface OwnProps {
+export interface OwnProps {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   avsnittsliste: VedtaksbrevAvsnitt[];
   readOnly: boolean;

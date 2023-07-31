@@ -5,7 +5,7 @@ import styles from './aksjonspunktBox.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   children: ReactNode | ReactNode[];
   erAksjonspunktApent: boolean;
   erIkkeGodkjentAvBeslutter: boolean;

@@ -19,7 +19,7 @@ export type SplittetPeriode = {
   feilutbetaling: number;
 };
 
-interface OwnProps {
+export interface OwnProps {
   behandlingUuid: string;
   beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
   oppdaterSplittedePerioder: (oppdatertePerioder: SplittetPeriode[]) => void;

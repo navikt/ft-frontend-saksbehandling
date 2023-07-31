@@ -8,7 +8,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import styles from './aktoerGrid.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   aktorInfo: {
     fagsaker: Fagsak[];
     person: FagsakPerson;

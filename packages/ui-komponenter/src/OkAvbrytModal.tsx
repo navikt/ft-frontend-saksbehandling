@@ -13,7 +13,7 @@ import styles from './okAvbrytModal.module.css';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   text: string;
   okButtonText?: string;
   showModal: boolean;

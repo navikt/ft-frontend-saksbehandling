@@ -10,7 +10,7 @@ import styles from './feilmeldingsdetaljerModal.module.css';
 
 const capitalizeFirstLetters = (key: string): string => key.charAt(0).toUpperCase() + key.substr(1);
 
-interface OwnProps {
+export interface OwnProps {
   skalViseModal: boolean;
   lukkModal: () => void;
   feilmeldingsdetaljer?: Feilmelding['tilleggsInfo'];

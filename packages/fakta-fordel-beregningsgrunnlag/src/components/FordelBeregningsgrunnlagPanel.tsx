@@ -41,7 +41,7 @@ const getAvklaringsbehov = (
 ): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov && def ? avklaringsbehov.find(ap => ap.definisjon === def) : undefined;
 
-interface OwnProps {
+export interface OwnProps {
   aktivtBeregningsgrunnlagIndeks: number;
   readOnly: boolean;
   submitCallback: (

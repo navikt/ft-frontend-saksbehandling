@@ -20,7 +20,7 @@ const headerTextCodes = [
   'TilbakekrevingVedtakPeriodeTabell.BelopSomTilbakekreves',
 ];
 
-interface OwnProps {
+export interface OwnProps {
   perioder: BeregningResultatPeriode[];
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
 }

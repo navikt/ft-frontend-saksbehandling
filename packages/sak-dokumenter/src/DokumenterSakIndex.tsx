@@ -9,7 +9,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   documents: Dokument[];
   selectDocumentCallback: (e: React.SyntheticEvent, id?: number | string, dokument?: Dokument) => void;
   behandlingUuid?: string;

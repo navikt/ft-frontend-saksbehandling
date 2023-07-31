@@ -11,7 +11,7 @@ import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringA
 
 import styles from './hoyRisikoTittel.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   risikoklassifisering: Risikoklassifisering;
   aksjonspunkt?: Aksjonspunkt;
   readOnly: boolean;

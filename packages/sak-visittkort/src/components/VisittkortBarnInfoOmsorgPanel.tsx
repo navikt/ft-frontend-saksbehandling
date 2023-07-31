@@ -9,7 +9,7 @@ import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import styles from './visittkortBarnInfoOmsorgPanel.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   familiehendelse: FagsakHendelse;
 }
 

@@ -13,7 +13,7 @@ import styles from './feilmeldingPanel.module.css';
 // TODO Dette er gjort fordi testen viste ein warning når ein dytta 'style.link' inn i a-tag'en. Bør ikkje vera naudsynt.
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   feilmeldinger: Feilmelding[];
   fjernFeilmeldinger: () => void;
 }

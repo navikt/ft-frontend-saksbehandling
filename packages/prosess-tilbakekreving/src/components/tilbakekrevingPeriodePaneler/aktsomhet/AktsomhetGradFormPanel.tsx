@@ -7,7 +7,7 @@ import Aktsomhet from '../../../kodeverk/aktsomhet';
 import AktsomhetGradForsettFormPanel from './AktsomhetGradForsettFormPanel';
 import AktsomhetGradUaktsomhetFormPanel from './AktsomhetGradUaktsomhetFormPanel';
 
-interface OwnProps {
+export interface OwnProps {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: Aktsomhet;

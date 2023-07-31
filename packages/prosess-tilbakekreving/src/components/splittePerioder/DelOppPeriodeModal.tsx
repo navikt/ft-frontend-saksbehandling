@@ -54,7 +54,7 @@ const transformValues = (values: FormValues, periodeData: Periode): any => {
   };
 };
 
-interface OwnProps {
+export interface OwnProps {
   periodeData: Periode;
   cancelEvent: () => void;
   showModal: boolean;

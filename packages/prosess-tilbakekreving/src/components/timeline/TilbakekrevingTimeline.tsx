@@ -66,7 +66,7 @@ const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
   return <FigureCombinationIcon width={20} height={20} />;
 };
 
-interface OwnProps {
+export interface OwnProps {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   setPeriode: (periode?: TidslinjePeriode) => void;

@@ -10,7 +10,7 @@ import VisittkortBarnInfoOmsorgPanel from './VisittkortBarnInfoOmsorgPanel';
 
 import styles from './visittkortBarnInfoPanel.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   familiehendelse: FagsakHendelse;
 }
 

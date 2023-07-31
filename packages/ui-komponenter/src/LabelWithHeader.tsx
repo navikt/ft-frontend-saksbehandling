@@ -3,7 +3,7 @@ import { BodyShort, Detail } from '@navikt/ds-react';
 
 import styles from './labelWithHeader.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   header: string | ReactNode;
   texts: string[];
 }

@@ -17,7 +17,7 @@ const utledKjonn = (kjonn: string): Gender => {
   return kjonn === NavBrukerKjonn.MANN ? Gender.male : Gender.unknown;
 };
 
-interface OwnProps {
+export interface OwnProps {
   fagsak: Fagsak;
   fagsakPersoner: FagsakPersoner;
   lenkeTilAnnenPart?: string;

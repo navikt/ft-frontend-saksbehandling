@@ -5,7 +5,7 @@ import styles from './tableColumn.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   children?: number | string | ReactNode;
   className?: string;
   hidden?: boolean;

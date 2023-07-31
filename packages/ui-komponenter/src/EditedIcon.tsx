@@ -6,7 +6,7 @@ import styles from './editedIcon.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   className?: string;
 }
 

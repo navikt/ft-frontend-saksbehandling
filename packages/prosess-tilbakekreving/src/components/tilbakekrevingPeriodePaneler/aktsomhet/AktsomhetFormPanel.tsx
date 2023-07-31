@@ -44,7 +44,7 @@ interface TransformedValuesAktsomhetForm {
   aktsomhetInfo: any;
 }
 
-interface OwnProps {
+export interface OwnProps {
   readOnly: boolean;
   resetFields: (...args: any[]) => any;
   harGrunnerTilReduksjon?: boolean;
