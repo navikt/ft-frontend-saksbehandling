@@ -7,7 +7,7 @@
 
 .modal {
   height: 360px;
-    /* stylelint-disable-next-line declaration-no-important */
+  /* stylelint-disable-next-line declaration-no-important */
   overflow: visible !important;
   width: 500px;
 }

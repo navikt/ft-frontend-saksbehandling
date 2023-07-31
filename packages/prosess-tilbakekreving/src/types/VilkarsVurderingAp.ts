@@ -10,17 +10,17 @@ type VilkårResultatAktsomhet = {
   tilbakekrevSelvOmBeloepErUnder4Rettsgebyr?: boolean;
   annetBegrunnelse?: string;
   sarligGrunnerBegrunnelse?: string;
-}
+};
 
 type VilkårResultatAnnet = {
   aktsomhet: string;
   aktsomhetInfo: VilkårResultatAktsomhet;
-}
+};
 
 type VilkårResultatGodTro = {
   erBelopetIBehold?: boolean;
   tilbakekrevesBelop?: number;
-}
+};
 
 type VilkarsVurderingAp = {
   vilkarsVurdertePerioder: {

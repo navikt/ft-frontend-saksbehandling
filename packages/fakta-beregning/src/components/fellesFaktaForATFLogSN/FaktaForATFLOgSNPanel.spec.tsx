@@ -23,7 +23,7 @@ const lagBeregningsgrunnlag = andeler =>
         })),
       },
     ],
-  } as Beregningsgrunnlag);
+  }) as Beregningsgrunnlag;
 
 describe('<FaktaForATFLOgSNPanel>', () => {
   it('skal kunne transform values for kun besteberegning', () => {

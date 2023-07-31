@@ -107,7 +107,7 @@ const lagSNUtenPGI = (
     lagtTilAvSaksbehandler: false,
     erTilkommetAndel: false,
     næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
-  } as BeregningsgrunnlagAndel);
+  }) as BeregningsgrunnlagAndel;
 
 const lagSNMedPGI = (
   andelnr: number,
@@ -134,7 +134,7 @@ const lagSNMedPGI = (
     pgiSnitt: lagPGISnitt(),
     pgiVerdier: lagPGIVerdier(),
     næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
-  } as BeregningsgrunnlagAndel);
+  }) as BeregningsgrunnlagAndel;
 
 const lagBrukersAndelMedPGI = (
   andelnr: number,
@@ -157,7 +157,7 @@ const lagBrukersAndelMedPGI = (
     erTilkommetAndel: false,
     pgiSnitt: lagPGISnitt(),
     pgiVerdier: lagPGIVerdier(),
-  } as BeregningsgrunnlagAndel);
+  }) as BeregningsgrunnlagAndel;
 
 const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<BeregningAvklaringsbehov> => ({
   definisjon: kode,
@@ -180,7 +180,7 @@ const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkar =>
         merknadParametere: {},
       },
     ],
-  } as Vilkar);
+  }) as Vilkar;
 
 const arbeidsgiverOpplysninger = {
   999999996: {
