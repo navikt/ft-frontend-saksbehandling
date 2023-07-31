@@ -14,7 +14,8 @@
     "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
-    "clean": "rm -rf ./dist ./node_modules"
+    "clean": "rm -rf ./dist ./node_modules",
+    "prettier": "prettier --write src"
   },
   "devDependencies": {
     "@storybook/react": "7.1.1",

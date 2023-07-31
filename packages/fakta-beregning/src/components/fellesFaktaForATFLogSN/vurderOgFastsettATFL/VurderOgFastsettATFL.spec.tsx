@@ -29,7 +29,7 @@ const lagBeregningsgrunnlag = andeler =>
         })),
       },
     ],
-  } as Beregningsgrunnlag);
+  }) as Beregningsgrunnlag;
 
 const lagFaktaOmBeregning = (
   tilfeller,

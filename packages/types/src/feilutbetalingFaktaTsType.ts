@@ -7,7 +7,7 @@ type FeilutbetalingFakta = {
       feilutbetalingÅrsakDto?: {
         hendelseType: string;
         hendelseUndertype?: string;
-      }
+      };
     }[];
     totalPeriodeFom: string;
     totalPeriodeTom: string;
