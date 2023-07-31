@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils-test",
-  "version": "2.0.32",
+  "version": "2.0.33",
   "license": "MIT",
   "private": true,
   "main": "./dist/index.umd.js",
@@ -18,7 +18,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.1.16",
+    "@navikt/ft-kodeverk": "^2.1.17",
     "react": "18.2.0",
     "react-intl": "6.4.4"
   },
