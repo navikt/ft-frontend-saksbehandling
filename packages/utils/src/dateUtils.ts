@@ -40,10 +40,7 @@ const checkDays = (weeks?: number, days?: number): WeekAndDay => {
   };
 
   let id = 'UttakInfoPanel.AntallFlereDagerOgFlereUker';
-  let formattedString = intl.formatMessage(
-    { id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker' },
-    { weeks, days },
-  );
+  let formattedString = intl.formatMessage({ id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker' }, { weeks, days });
 
   if (weeks === undefined && days === undefined) {
     id = 'UttakInfoPanel.TidenesEnde';

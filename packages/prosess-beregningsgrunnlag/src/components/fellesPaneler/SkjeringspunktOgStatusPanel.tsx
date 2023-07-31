@@ -77,40 +77,40 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
 }) => (
-    <div className={beregningStyles.panelLeft}>
-      {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
-      <VerticalSpacer sixteenPx />
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn>
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.Skjeringstidspunkt.SkjeringForBeregning" />
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn>
-            <BodyShort size="small" className={beregningStyles.semiBoldText}>
-              <DateLabel dateString={skjeringstidspunktDato} />
-            </BodyShort>
-          </FlexColumn>
-        </FlexRow>
-        {!!saksopplysninger &&
-          !!saksopplysninger.lønnsendringSaksopplysning &&
-          saksopplysninger.lønnsendringSaksopplysning.length > 0 && (
-            <>
-              <VerticalSpacer sixteenPx />
-              <FlexRow>
-                <FlexColumn>
-                  <SaksopplysningPanel
-                    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                    skjeringstidspunktDato={skjeringstidspunktDato}
-                    saksopplysninger={saksopplysninger}
-                  />
-                </FlexColumn>
-              </FlexRow>
-            </>
-          )}
-      </FlexContainer>
-    </div>
-  );
+  <div className={beregningStyles.panelLeft}>
+    {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
+    <VerticalSpacer sixteenPx />
+    <FlexContainer>
+      <FlexRow>
+        <FlexColumn>
+          <BodyShort size="small">
+            <FormattedMessage id="Beregningsgrunnlag.Skjeringstidspunkt.SkjeringForBeregning" />
+          </BodyShort>
+        </FlexColumn>
+        <FlexColumn>
+          <BodyShort size="small" className={beregningStyles.semiBoldText}>
+            <DateLabel dateString={skjeringstidspunktDato} />
+          </BodyShort>
+        </FlexColumn>
+      </FlexRow>
+      {!!saksopplysninger &&
+        !!saksopplysninger.lønnsendringSaksopplysning &&
+        saksopplysninger.lønnsendringSaksopplysning.length > 0 && (
+          <>
+            <VerticalSpacer sixteenPx />
+            <FlexRow>
+              <FlexColumn>
+                <SaksopplysningPanel
+                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                  skjeringstidspunktDato={skjeringstidspunktDato}
+                  saksopplysninger={saksopplysninger}
+                />
+              </FlexColumn>
+            </FlexRow>
+          </>
+        )}
+    </FlexContainer>
+  </div>
+);
 
 export default SkjeringspunktOgStatusPanel;
