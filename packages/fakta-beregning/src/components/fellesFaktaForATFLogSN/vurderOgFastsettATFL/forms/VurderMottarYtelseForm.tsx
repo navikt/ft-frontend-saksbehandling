@@ -1,5 +1,6 @@
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-form-validators';
+import { BodyShort, List, ReadMore } from '@navikt/ds-react';
+import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -9,16 +10,19 @@ import {
   FaktaOmBeregning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
+import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../../../ArbeidsforholdHelper';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,
@@ -26,7 +30,7 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
-import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
+import styles from './vurderMottarYtelseForm.module.css';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -84,8 +88,7 @@ const mottarYtelseArbeidsforholdRadio = (
   </div>
 );
 
-export const frilansMedAndreFrilanstilfeller = () =>
-  'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
+export const frilansMedAndreFrilanstilfeller = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
 export const frilansUtenAndreFrilanstilfeller = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
 
 const finnFrilansTekstKode = tilfeller => {
@@ -127,7 +130,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   tilfeller,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
+  isAksjonspunktClosed,
 }) => {
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
@@ -138,6 +143,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
       ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
       : [];
   const intl = useIntl();
+  const skalRedigereInntekt = getValues(
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
+  );
 
   return (
     <div>
@@ -149,22 +157,40 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
                 <BodyShort>
                   <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
                 </BodyShort>
+                <ReadMore size="small" header="Hvordan går jeg frem">
+                  <List>
+                    <List.Item>
+                      Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være
+                      feilregistreringer fra andre systemer og du skal da velge “nei”.
+                    </List.Item>
+                    <List.Item>
+                      For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på
+                      utbetalinger i Modia eller vedtaksbrev i Gosys.
+                    </List.Item>
+                  </List>
+                </ReadMore>
               </div>
             }
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
             isReadOnly={readOnly}
             radios={[
-              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+              {
+                value: 'true',
+                label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
+              },
+              {
+                value: 'false',
+                label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }),
+              },
             ]}
             parse={parseStringToBoolean}
             validate={readOnly ? [] : [required]}
-            isHorizontal
           />
         </div>
       )}
       {arbeidsforholdUtenIM.map(andel => (
         <>
+          <VerticalSpacer twentyPx />
           {mottarYtelseArbeidsforholdRadio(
             andel,
             readOnly,
@@ -175,6 +201,41 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           )}
         </>
       ))}
+      {skalRedigereInntekt && (
+        <>
+          <VerticalSpacer twentyPx />
+          <div className={styles.inntektInput}>
+            <InputField
+              name="test"
+              htmlSize={8}
+              parse={parseCurrencyInput}
+              readOnly={readOnly}
+              isEdited={isAksjonspunktClosed}
+              validate={[required, maxValueFormatted(178956970)]}
+              label={
+                <div key={finnFrilansFieldName()}>
+                  <BodyShort>
+                    <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
+                  </BodyShort>
+                  <ReadMore size="small" header="Hvordan går jeg frem">
+                    <List>
+                      <List.Item>
+                        Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være
+                        feilregistreringer fra andre systemer og du skal da velge “nei”.
+                      </List.Item>
+                      <List.Item>
+                        For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på
+                        utbetalinger i Modia eller vedtaksbrev i Gosys.
+                      </List.Item>
+                    </List>
+                  </ReadMore>
+                </div>
+              }
+            />
+            <p className={styles.krLabel}>kr</p>
+          </div>
+        </>
+      )}
     </div>
   );
 };

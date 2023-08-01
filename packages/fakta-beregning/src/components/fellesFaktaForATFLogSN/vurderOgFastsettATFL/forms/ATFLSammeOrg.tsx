@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
 import { BodyShort } from '@navikt/ds-react';
@@ -53,12 +53,26 @@ export const harRiktigTilfelle = beregningsgrunnlag =>
         .includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
     : false;
 
-type OwnProps = {
-  beregningsgrunnlag: Beregningsgrunnlag;
-  manglerInntektsmelding: boolean;
+const getManglerInntektsmelding = (beregningsgrunnlag: Beregningsgrunnlag) => {
+  const { faktaOmBeregning } = beregningsgrunnlag;
+  if (
+    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe &&
+    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.length > 0
+  ) {
+    return (
+      faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.find(forhold => !forhold.inntektPrMnd) !==
+      undefined
+    );
+  }
+  return false;
 };
 
-export const ATFLSammeOrgTekst: FunctionComponent<OwnProps> = ({ beregningsgrunnlag, manglerInntektsmelding }) => {
+type OwnProps = {
+  beregningsgrunnlag: Beregningsgrunnlag;
+};
+
+export const ATFLSammeOrgTekst: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
+  const manglerInntektsmelding = useMemo(() => getManglerInntektsmelding(beregningsgrunnlag), [beregningsgrunnlag]);
   if (!harRiktigTilfelle(beregningsgrunnlag)) {
     return null;
   }

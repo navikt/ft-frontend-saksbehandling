@@ -115,7 +115,7 @@ const fjernEllerLeggTilAktivitetStatus = (
   if (skalHaAndelMedAktivitetstatus) {
     append({
       ...nyStatusAndel,
-      kanRedigereInntekt: getKanRedigereInntektCallback()(nyStatusAndel),
+      // kanRedigereInntekt: getKanRedigereInntektCallback()(nyStatusAndel),
     });
   }
 };
@@ -223,7 +223,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   const { errors } = formState;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const fieldArrayName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`;
-  const { fields, remove, append, update } = useFieldArray({
+  const { fields, remove, append } = useFieldArray({
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.inntektFieldArray',
   });
@@ -271,24 +271,24 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
     );
   }, [skalHaBesteberegning, skalHaMilitær, skalKunneLeggeTilDagpengerManuelt]);
 
-  const updateKanRedigereInntekt = (index: number, kanRedigereInntekt: boolean): void => {
-    update(index, {
-      ...fields[index],
-      kanRedigereInntekt,
-    });
-  };
+  // const updateKanRedigereInntekt = (index: number, kanRedigereInntekt: boolean): void => {
+  //   update(index, {
+  //     ...fields[index],
+  //     kanRedigereInntekt,
+  //   });
+  // };
 
-  useEffect(() => {
-    fields.forEach((field, index) => {
-      const currentKanRedigereInntekt = field.kanRedigereInntekt;
-      const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
-      const erNyAndelSomSkalFjernes =
-        !skalHaBesteberegning && !skalKunneLeggeTilDagpengerManuelt && field.lagtTilAvSaksbehandler;
-      if (!erNyAndelSomSkalFjernes && currentKanRedigereInntekt !== kanRedigereInntekt) {
-        updateKanRedigereInntekt(index, kanRedigereInntekt);
-      }
-    });
-  }, [formValues]);
+  // useEffect(() => {
+  //   fields.forEach((field, index) => {
+  //     const currentKanRedigereInntekt = field.kanRedigereInntekt;
+  //     const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
+  //     const erNyAndelSomSkalFjernes =
+  //       !skalHaBesteberegning && !skalKunneLeggeTilDagpengerManuelt && field.lagtTilAvSaksbehandler;
+  //     if (!erNyAndelSomSkalFjernes && currentKanRedigereInntekt !== kanRedigereInntekt) {
+  //       updateKanRedigereInntekt(index, kanRedigereInntekt);
+  //     }
+  //   });
+  // }, [formValues]);
 
   const inntektFieldArrayErrors = errors?.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.inntektFieldArray;
 

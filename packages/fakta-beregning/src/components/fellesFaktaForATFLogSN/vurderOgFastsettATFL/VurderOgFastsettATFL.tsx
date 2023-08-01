@@ -9,32 +9,32 @@ import React, { FunctionComponent, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
+import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
-import VurderBesteberegningForm, {
-  besteberegningField,
-  vurderBesteberegningTransform,
-} from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 import {
+  INNTEKT_FIELD_ARRAY_NAME,
   erOverstyring,
   erOverstyringAvBeregningsgrunnlag,
   getKanRedigereInntekt,
-  INNTEKT_FIELD_ARRAY_NAME,
 } from '../BgFaktaUtils';
 import InntektFieldArray, { InntektFieldArray as InntektFieldArrayImpl } from '../InntektFieldArray';
 import InntektstabellPanel from '../InntektstabellPanel';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import {
+  besteberegningField,
+  vurderBesteberegningTransform,
+} from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
-import { ATFLSammeOrgTekst, transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import { harKunstigArbeidsforhold } from './forms/KunstigArbeidsforhold';
 import LonnsendringForm from './forms/LonnsendringForm';
 import NyoppstartetFLForm from './forms/NyoppstartetFLForm';
 import VurderEtterlonnSluttpakkeForm from './forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './forms/VurderMottarYtelseForm';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 export const skalFastsettInntektForArbeidstaker = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -66,20 +66,6 @@ export const skalFastsettInntektForFrilans = (
     .filter(field => field.aktivitetStatus === AktivitetStatus.FRILANSER)
     .map(skalFastsette)
     .includes(true);
-};
-
-const getManglerInntektsmelding = (beregningsgrunnlag: Beregningsgrunnlag) => {
-  const { faktaOmBeregning } = beregningsgrunnlag;
-  if (
-    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe &&
-    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.length > 0
-  ) {
-    return (
-      faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.find(forhold => !forhold.inntektPrMnd) !==
-      undefined
-    );
-  }
-  return false;
 };
 
 const getSkalViseTabell = (tilfeller: string[]) => !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
@@ -173,7 +159,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   avklaringsbehov,
   kodeverkSamling,
   erOverstyrer,
-  arbeidsgiverOpplysningerPerId,
   updateOverstyring,
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
@@ -192,7 +177,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     [formValues, beregningsgrunnlag],
   );
   const skalHaBesteberegning = formValues[besteberegningField] === true;
-  const manglerInntektsmelding = useMemo(() => getManglerInntektsmelding(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
   const harKunstigArbeid = useMemo(
     () => harKunstigArbeidsforhold(tilfeller, beregningsgrunnlag),
@@ -216,31 +200,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         avklaringsbehov={avklaringsbehov}
         updateOverstyring={updateOverstyring}
         erOverstyrt={erOverstyrt}
-      >
-        <ATFLSammeOrgTekst beregningsgrunnlag={beregningsgrunnlag} manglerInntektsmelding={manglerInntektsmelding} />
-        {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING) && <LonnsendringForm readOnly={readOnly} />}
-        {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE) && (
-          <VurderEtterlonnSluttpakkeForm readOnly={readOnly} />
-        )}
-        {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL) && (
-          <NyoppstartetFLForm readOnly={readOnly} />
-        )}
-        {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) && (
-          <VurderMottarYtelseForm
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            tilfeller={tilfeller}
-            beregningsgrunnlag={beregningsgrunnlag}
-            kodeverkSamling={kodeverkSamling}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        )}
-        {tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) &&
-          !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) && (
-            /* @ts-ignore */
-            <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
-          )}
-      </InntektstabellPanel>
+      />
     </div>
   );
 };

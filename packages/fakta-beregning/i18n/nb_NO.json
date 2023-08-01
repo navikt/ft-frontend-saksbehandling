@@ -4,6 +4,8 @@
   "BeregningInfoPanel.FormAlternativ.Ja": "Ja",
   "BeregningInfoPanel.FormAlternativ.Nei": "Nei",
   "BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende": "Søker er selvstendig næringsdrivende. Ble søker yrkesaktiv i løpet av de siste tre årene?",
+  "BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes": "Ja (månedsinntekt må fastsettes)",
+  "BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt": "Nei (bruker A-inntekt)",
 
   "AvklarAktivitetPanel.Overskrift": "Aktiviteter i beregningsgrunnlaget",
   "AvklarAktivitetPanel.ButtonText": "Oppdater",
@@ -21,8 +23,9 @@
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettArbeidsinntekt": "Fastsett arbeidsinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring": "Har søker hatt lønnsendring i løpet av de siste tre månedene?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans": "Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?",
-  "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans": "Søker er frilanser. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?",
+  "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans": "Mottar søker ytelse for frilansaktiviteten?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid": "Søker er arbeidstaker og det er ikke mottatt inntektsmelding. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for arbeid i {arbeid}?",
+  "BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt": "Fastsett månedsinntekt",
 
   "BeregningInfoPanel.VurderBestebergning.HarBesteberegning": "Søker har hatt dagpenger i opptjeningsperioden. Skal dette fordeles etter besteberegning?",
 
@@ -68,5 +71,6 @@
   "BeregningInfoPanel.Validation.MinstEnFastsatt": "Må ha overstyrt inntekt for minst én aktivitet.",
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
+  "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
 }

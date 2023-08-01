@@ -7,20 +7,25 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 import {
   FaktaOmBeregningAksjonspunktValues,
   FaktaOmBeregningValues,
   FaktaStateProps,
   TilfellerValues,
 } from '../../typer/FaktaBeregningTypes';
+import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import AksjonspunktBoks from '../felles/AksjonspunktBoks';
+import { erInitialOverstyringAvBeregningsgrunnlag, erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { erInitialOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import {
   buildInitialValuesKunYtelse,
   setFaktaPanelForKunYtelse,
@@ -29,13 +34,12 @@ import {
 import NyIArbeidslivetSNForm from './nyIArbeidslivet/NyIArbeidslivetSNForm';
 import TidsbegrensetArbeidsforholdForm from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import VurderMilitaer from './vurderMilitaer/VurderMilitaer';
+import VurderOgFastsettATFL from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 import LonnsendringForm from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import NyoppstartetFLForm from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import VurderEtterlonnSluttpakkeForm from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
-import VurderOgFastsettATFL from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -71,17 +75,20 @@ const getFaktaPanels = (
   erOverstyrer: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   updateOverstyring: (index: number, skalOverstyre: boolean) => void,
+  erOverstyrt: boolean,
+  renderTextFieldAndSubmitButton: () => React.ReactNode,
 ) => {
   const { avklaringsbehov } = beregningsgrunnlag;
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
   const faktaPanels = [];
+  const forms = [];
   let hasShownPanel = false;
-  tilfeller.forEach(tilfelle => {
-    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD) {
+  const byggForms = () => {
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
       hasShownPanel = true;
-      faktaPanels.push(
-        <React.Fragment key={tilfelle}>
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD}>
           <TidsbegrensetArbeidsforholdForm
             readOnly={readOnly}
             faktaOmBeregning={faktaOmBeregning}
@@ -90,28 +97,28 @@ const getFaktaPanels = (
         </React.Fragment>,
       );
     }
-    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET) {
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
       hasShownPanel = true;
-      faktaPanels.push(
+      forms.push(
         // @ts-ignore Fiks
-        <React.Fragment key={tilfelle}>
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
           {spacer(hasShownPanel)}
           <NyIArbeidslivetSNForm readOnly={readOnly} />
         </React.Fragment>,
       );
     }
-    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE) {
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
       hasShownPanel = true;
-      faktaPanels.push(
-        <React.Fragment key={tilfelle}>
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE}>
           <VurderMilitaer readOnly={readOnly} />
         </React.Fragment>,
       );
     }
-    if (tilfelle === FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT) {
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT)) {
       hasShownPanel = true;
-      faktaPanels.push(
-        <React.Fragment key={tilfelle}>
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT}>
           <VurderRefusjonForm
             readOnly={readOnly}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -120,7 +127,71 @@ const getFaktaPanels = (
         </React.Fragment>,
       );
     }
-  });
+    // forms.push(<ATFLSammeOrgTekst key="ATFLSammeOrgTekst" beregningsgrunnlag={beregningsgrunnlag} />);
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
+          <LonnsendringForm readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}>
+          <VurderEtterlonnSluttpakkeForm readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL}>
+          <NyoppstartetFLForm readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) &&
+      !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)
+    ) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING}>
+          <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}>
+          <VurderMottarYtelseForm
+            readOnly={readOnly}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            tilfeller={tilfeller}
+            beregningsgrunnlag={beregningsgrunnlag}
+            kodeverkSamling={kodeverkSamling}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </React.Fragment>,
+      );
+    }
+    if (hasShownPanel) {
+      return (
+        <>
+          <VerticalSpacer thirtyTwoPx />
+          <AksjonspunktBoks>
+            {forms.map(panelOrSpacer => panelOrSpacer)}
+            {renderTextFieldAndSubmitButton()}
+          </AksjonspunktBoks>
+        </>
+      );
+    }
+    return null;
+  };
+
   setFaktaPanelForKunYtelse(faktaPanels, tilfeller, readOnly, isAksjonspunktClosed, faktaOmBeregning, kodeverkSamling);
   faktaPanels.push(
     // @ts-ignore Fiks
@@ -135,11 +206,11 @@ const getFaktaPanels = (
         kodeverkSamling={kodeverkSamling}
         erOverstyrer={erOverstyrer}
         avklaringsbehov={avklaringsbehov}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         updateOverstyring={updateOverstyring}
       />
     </React.Fragment>,
   );
+  faktaPanels.push(byggForms());
   return faktaPanels;
 };
 
@@ -151,6 +222,7 @@ type OwnProps = {
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
+  renderTextFieldAndSubmitButton: () => React.ReactNode;
 };
 
 /**
@@ -166,19 +238,32 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   erOverstyrer,
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
-}) => (
-  <div>
-    {getFaktaPanels(
-      readOnly,
-      isAksjonspunktClosed,
-      beregningsgrunnlag,
-      kodeverkSamling,
-      erOverstyrer,
-      arbeidsgiverOpplysningerPerId,
-      updateOverstyring,
-    ).map(panelOrSpacer => panelOrSpacer)}
-  </div>
-);
+  renderTextFieldAndSubmitButton,
+}) => {
+  const { avklaringsbehov } = beregningsgrunnlag;
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
+  const erOverstyrt = useMemo(
+    () => erOverstyringAvBeregningsgrunnlag(formValues),
+    [formValues, beregningsgrunnlag, avklaringsbehov],
+  );
+  return (
+    <div>
+      {getFaktaPanels(
+        readOnly,
+        isAksjonspunktClosed,
+        beregningsgrunnlag,
+        kodeverkSamling,
+        erOverstyrer,
+        arbeidsgiverOpplysningerPerId,
+        updateOverstyring,
+        erOverstyrt,
+        renderTextFieldAndSubmitButton,
+      ).map(panelOrSpacer => panelOrSpacer)}
+    </div>
+  );
+};
 
 const kunYtelseTransform =
   (faktaOmBeregning: FaktaOmBeregning, aktivePaneler: string[]) =>

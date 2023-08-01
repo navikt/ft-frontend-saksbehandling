@@ -23,8 +23,10 @@
   margin-bottom: 8px;
 }
 .inntektTable > thead > tr > td:first-child {
-  padding-left: 0;
   text-align: left;
+}
+.inntektTable > thead > tr {
+  border-bottom: 2px solid var(--border-default, rgba(0, 0, 0, 0.44));
 }
 .inntektTable > tbody > tr > td:nth-child(2) {
   max-width: 50px;
@@ -44,7 +46,6 @@
   vertical-align: middle;
 }
 .inntektTable > tbody > tr > td:first-child {
-  padding-left: 0;
   text-align: left;
 }
 .inntektTable > tbody > tr > td:last-child {
@@ -59,6 +60,9 @@
 }
 .inntektTable > tbody > tr:last-child > td {
   border-top: 0;
+}
+.inntektTable > tbody > tr:last-of-type {
+  border-bottom: 1px solid var(--border-default, rgba(0, 0, 0, 0.44));
 }
 .inntektTable :global(.skjemaelement__label) {
   clip: rect(0 0 0 0);
