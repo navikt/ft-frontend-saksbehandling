@@ -22,7 +22,6 @@ import {
 } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import AksjonspunktBoks from '../felles/AksjonspunktBoks';
 import { erInitialOverstyringAvBeregningsgrunnlag, erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
@@ -82,115 +81,6 @@ const getFaktaPanels = (
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
   const faktaPanels = [];
-  const forms = [];
-  let hasShownPanel = false;
-  const byggForms = () => {
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD}>
-          <TidsbegrensetArbeidsforholdForm
-            readOnly={readOnly}
-            faktaOmBeregning={faktaOmBeregning}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        </React.Fragment>,
-      );
-    }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
-      hasShownPanel = true;
-      forms.push(
-        // @ts-ignore Fiks
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
-          {spacer(hasShownPanel)}
-          <NyIArbeidslivetSNForm readOnly={readOnly} />
-        </React.Fragment>,
-      );
-    }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE}>
-          <VurderMilitaer readOnly={readOnly} />
-        </React.Fragment>,
-      );
-    }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT}>
-          <VurderRefusjonForm
-            readOnly={readOnly}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            faktaOmBeregning={faktaOmBeregning}
-          />
-        </React.Fragment>,
-      );
-    }
-    // forms.push(<ATFLSammeOrgTekst key="ATFLSammeOrgTekst" beregningsgrunnlag={beregningsgrunnlag} />);
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
-          <LonnsendringForm readOnly={readOnly} />
-        </React.Fragment>,
-      );
-    }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}>
-          <VurderEtterlonnSluttpakkeForm readOnly={readOnly} />
-        </React.Fragment>,
-      );
-    }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL}>
-          <NyoppstartetFLForm readOnly={readOnly} />
-        </React.Fragment>,
-      );
-    }
-    if (
-      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) &&
-      !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)
-    ) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING}>
-          <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
-        </React.Fragment>,
-      );
-    }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}>
-          <VurderMottarYtelseForm
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            tilfeller={tilfeller}
-            beregningsgrunnlag={beregningsgrunnlag}
-            kodeverkSamling={kodeverkSamling}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        </React.Fragment>,
-      );
-    }
-    if (hasShownPanel) {
-      return (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <AksjonspunktBoks>
-            {forms.map(panelOrSpacer => panelOrSpacer)}
-            {renderTextFieldAndSubmitButton()}
-          </AksjonspunktBoks>
-        </>
-      );
-    }
-    return null;
-  };
 
   setFaktaPanelForKunYtelse(faktaPanels, tilfeller, readOnly, isAksjonspunktClosed, faktaOmBeregning, kodeverkSamling);
   faktaPanels.push(
@@ -207,10 +97,11 @@ const getFaktaPanels = (
         erOverstyrer={erOverstyrer}
         avklaringsbehov={avklaringsbehov}
         updateOverstyring={updateOverstyring}
+        renderTextFieldAndSubmitButton={renderTextFieldAndSubmitButton}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
     </React.Fragment>,
   );
-  faktaPanels.push(byggForms());
   return faktaPanels;
 };
 

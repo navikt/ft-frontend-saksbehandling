@@ -5,7 +5,8 @@ import {
   Beregningsgrunnlag,
   FaktaOmBeregning,
 } from '@navikt/ft-types';
-import React, { FunctionComponent, useMemo } from 'react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
@@ -15,6 +16,7 @@ import {
   FaktaBeregningTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import KodeverkForPanel from '../../../typer/kodeverkForPanel';
+import AksjonspunktBoks from '../../felles/AksjonspunktBoks';
 import {
   INNTEKT_FIELD_ARRAY_NAME,
   erOverstyring,
@@ -24,11 +26,15 @@ import {
 import InntektFieldArray, { InntektFieldArray as InntektFieldArrayImpl } from '../InntektFieldArray';
 import InntektstabellPanel from '../InntektstabellPanel';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
-import {
+import VurderBesteberegningForm, {
   besteberegningField,
   vurderBesteberegningTransform,
 } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
+import NyIArbeidslivetSNForm from '../nyIArbeidslivet/NyIArbeidslivetSNForm';
+import TidsbegrensetArbeidsforholdForm from '../tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
+import VurderMilitaer from '../vurderMilitaer/VurderMilitaer';
+import VurderRefusjonForm from '../vurderrefusjon/VurderRefusjonForm';
+import { ATFLSammeOrgTekst, transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
 import { harKunstigArbeidsforhold } from './forms/KunstigArbeidsforhold';
 import LonnsendringForm from './forms/LonnsendringForm';
@@ -96,7 +102,6 @@ export const findInstruksjonForFastsetting = (
 const finnInntektstabell = (
   readOnly: boolean,
   beregningsgrunnlag: Beregningsgrunnlag,
-  isAksjonspunktClosed: boolean,
   kodeverkSamling: KodeverkForPanel,
   erOverstyrt: boolean,
 ) => (
@@ -105,9 +110,15 @@ const finnInntektstabell = (
     skalKunneLeggeTilDagpengerManuelt={erOverstyrt}
     beregningsgrunnlag={beregningsgrunnlag}
     kodeverkSamling={kodeverkSamling}
-    isAksjonspunktClosed={isAksjonspunktClosed}
   />
 );
+
+const spacer = (hasShownPanel: boolean): ReactElement => {
+  if (hasShownPanel) {
+    return <VerticalSpacer twentyPx />;
+  }
+  return null;
+};
 
 type OwnProps = {
   readOnly: boolean;
@@ -127,6 +138,7 @@ type OwnProps = {
   skalHaMilitær: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
+  renderTextFieldAndSubmitButton: () => React.ReactNode;
 };
 
 interface StaticFunctions {
@@ -160,6 +172,8 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   kodeverkSamling,
   erOverstyrer,
   updateOverstyring,
+  renderTextFieldAndSubmitButton,
+  arbeidsgiverOpplysningerPerId,
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -183,11 +197,122 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     [tilfeller, beregningsgrunnlag],
   );
 
+  const byggForms = () => {
+    const forms = [];
+    let hasShownPanel = false;
+    const { faktaOmBeregning } = beregningsgrunnlag;
+
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD}>
+          <TidsbegrensetArbeidsforholdForm
+            readOnly={readOnly}
+            faktaOmBeregning={faktaOmBeregning}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
+      hasShownPanel = true;
+      forms.push(
+        // @ts-ignore Fiks
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
+          {spacer(hasShownPanel)}
+          <NyIArbeidslivetSNForm readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE}>
+          <VurderMilitaer readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT}>
+          <VurderRefusjonForm
+            readOnly={readOnly}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            faktaOmBeregning={faktaOmBeregning}
+          />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
+          <LonnsendringForm readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}>
+          <VurderEtterlonnSluttpakkeForm readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL}>
+          <NyoppstartetFLForm readOnly={readOnly} />
+        </React.Fragment>,
+      );
+    }
+    if (
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) &&
+      !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)
+    ) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING}>
+          <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
+        </React.Fragment>,
+      );
+    }
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}>
+          <VurderMottarYtelseForm
+            readOnly={readOnly}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            tilfeller={tilfeller}
+            beregningsgrunnlag={beregningsgrunnlag}
+            kodeverkSamling={kodeverkSamling}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </React.Fragment>,
+      );
+    }
+    if (hasShownPanel) {
+      return (
+        <>
+          <VerticalSpacer thirtyTwoPx />
+          <AksjonspunktBoks>
+            {forms.map(panelOrSpacer => panelOrSpacer)}
+            {renderTextFieldAndSubmitButton()}
+          </AksjonspunktBoks>
+        </>
+      );
+    }
+    return null;
+  };
+
   return (
     <div>
       <InntektstabellPanel
         key="inntektstabell"
-        tabell={finnInntektstabell(readOnly, beregningsgrunnlag, isAksjonspunktClosed, kodeverkSamling, erOverstyrt)}
+        tabell={finnInntektstabell(readOnly, beregningsgrunnlag, kodeverkSamling, erOverstyrt)}
         skalViseTabell={skalViseTabell}
         hjelpeTekstId={findInstruksjonForFastsetting(
           skalHaBesteberegning,
@@ -201,6 +326,8 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         updateOverstyring={updateOverstyring}
         erOverstyrt={erOverstyrt}
       />
+      <ATFLSammeOrgTekst beregningsgrunnlag={beregningsgrunnlag} />
+      {byggForms()}
     </div>
   );
 };
@@ -344,7 +471,10 @@ const transformValuesForAksjonspunkt = (
 VurderOgFastsettATFL.transformValues =
   (faktaOmBeregning: FaktaOmBeregning, beregningsgrunnlag: Beregningsgrunnlag) =>
   (values: FaktaOmBeregningAksjonspunktValues): BeregningFaktaTransformedValues => {
-    const inntektVerdier = InntektFieldArrayImpl.transformValues(values[INNTEKT_FIELD_ARRAY_NAME]);
+    const inntektVerdier = InntektFieldArrayImpl.transformValues(
+      values[INNTEKT_FIELD_ARRAY_NAME],
+      values.frilansinntektValues,
+    );
     const fastsatteAndelsnr = [];
     const transformed = transformValuesForAksjonspunkt(
       values,

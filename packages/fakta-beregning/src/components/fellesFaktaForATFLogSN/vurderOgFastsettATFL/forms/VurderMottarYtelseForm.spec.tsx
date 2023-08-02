@@ -129,6 +129,9 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansinntektValues: {
+        fastsattBelop: 10000,
+      },
     };
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
@@ -174,6 +177,9 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansinntektValues: {
+        fastsattBelop: 0,
+      },
     };
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
@@ -216,6 +222,9 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansinntektValues: {
+        fastsattBelop: 10000,
+      },
     };
     values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
     const fastsatteAndelsnr = [];
@@ -259,6 +268,9 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansinntektValues: {
+        fastsattBelop: 10000,
+      },
     };
     values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
     values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;

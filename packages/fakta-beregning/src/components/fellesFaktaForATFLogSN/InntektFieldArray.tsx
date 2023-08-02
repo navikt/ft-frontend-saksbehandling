@@ -363,9 +363,10 @@ InntektFieldArray.transformValues = (
             (erFrilanser(aktivitetStatus) && frilansinntektValues.fastsattBelop),
         )
         .map(fieldValue => {
-          const fastsattBelop = erFrilanser(fieldValue.aktivitetStatus)
-            ? frilansinntektValues.fastsattBelop
-            : fieldValue.fastsattBelop;
+          const fastsattBelop =
+            erFrilanser(fieldValue.aktivitetStatus) && frilansinntektValues?.fastsattBelop
+              ? frilansinntektValues.fastsattBelop
+              : fieldValue.fastsattBelop;
           return {
             andelsnr: fieldValue.andelsnr,
             fastsattBelop: removeSpacesFromNumber(fastsattBelop),

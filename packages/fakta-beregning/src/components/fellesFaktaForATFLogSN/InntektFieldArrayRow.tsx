@@ -75,7 +75,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erFrilans = erFrilanser(field);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
-  const harEndretFrilansinntekt = erFrilans && kanRedigereInntekt && formValues.frilansinntektValues.fastsattBelop;
+  const harEndretFrilansinntekt = erFrilans && kanRedigereInntekt && formValues?.frilansinntektValues?.fastsattBelop;
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);

@@ -6,16 +6,24 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useFormContext, useWatch } from 'react-hook-form';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import { getKanRedigereInntekt } from './BgFaktaUtils';
+import { erFrilanser, getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {
   let sum = 0;
+
   fields.forEach(field => {
-    const belop = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field)
-      ? field.fastsattBelop
-      : field.belopReadOnly;
+    let belop;
+
+    if (getKanRedigereInntekt(formValues, beregningsgrunnlag)(field)) {
+      const erFrilans = erFrilanser(field);
+      const harEndretFrilansinntekt = erFrilans && formValues?.frilansinntektValues?.fastsattBelop;
+      belop = harEndretFrilansinntekt ? formValues.frilansinntektValues.fastsattBelop : field.fastsattBelop;
+    } else {
+      belop = field.belopReadOnly;
+    }
+
     sum += belop ? removeSpacesFromNumber(belop) : 0;
   });
   return sum > 0 ? sum : 0;
