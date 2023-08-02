@@ -104,3 +104,22 @@
 .litenBredde {
   width: 70px;
 }
+.frilansinntekt {
+  display: flex;
+  justify-content: flex-end;
+}
+.frilansinntektNew {
+  margin-left: 0.5rem;
+  margin-right: 0.25rem;
+}
+.frilansinntektOldStrikethrough {
+  display: inline-block;
+}
+.frilansinntektOldStrikethrough p {
+  color: var(--text-subtle, rgba(0, 0, 0, 0.65));
+  text-decoration: line-through;
+}
+
+.frilansinntektOld {
+  display: inline-block;
+}

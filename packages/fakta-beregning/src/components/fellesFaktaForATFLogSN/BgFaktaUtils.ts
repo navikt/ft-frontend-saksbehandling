@@ -105,7 +105,7 @@ const erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon = (
 const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
   field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 
-const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
+export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
   field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
 
 // Nyoppstartet frilanser

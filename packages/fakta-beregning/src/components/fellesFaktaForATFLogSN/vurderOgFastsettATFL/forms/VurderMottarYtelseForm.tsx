@@ -88,7 +88,8 @@ const mottarYtelseArbeidsforholdRadio = (
   </div>
 );
 
-export const frilansMedAndreFrilanstilfeller = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
+export const frilansMedAndreFrilanstilfeller = () =>
+  'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
 export const frilansUtenAndreFrilanstilfeller = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
 
 const finnFrilansTekstKode = tilfeller => {
@@ -146,6 +147,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   const skalRedigereInntekt = getValues(
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
   );
+  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansinntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -201,12 +203,12 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           )}
         </>
       ))}
-      {skalRedigereInntekt && (
+      {skalRedigereInntekt && erFrilans && (
         <>
           <VerticalSpacer twentyPx />
           <div className={styles.inntektInput}>
             <InputField
-              name="test"
+              name={frilanserInntektFieldName}
               htmlSize={8}
               parse={parseCurrencyInput}
               readOnly={readOnly}
@@ -220,12 +222,14 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
                   <ReadMore size="small" header="Hvordan går jeg frem">
                     <List>
                       <List.Item>
-                        Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være
-                        feilregistreringer fra andre systemer og du skal da velge “nei”.
+                        Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i
+                        ytelse i beregningsperioden.
                       </List.Item>
                       <List.Item>
-                        For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på
-                        utbetalinger i Modia eller vedtaksbrev i Gosys.
+                        Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.
+                      </List.Item>
+                      <List.Item>
+                        Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.
                       </List.Item>
                     </List>
                   </ReadMore>
@@ -294,7 +298,7 @@ const transformValuesFrilans = (
       andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
     );
     if (!fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
-      const frilansInntekt = inntektVerdier.find(field => field.andelsnr === frilansAndel.andelsnr);
+      const frilansInntekt = values.frilansinntektValues;
       fastsatteAndelsnr.push(frilansAndel.andelsnr);
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
       return {

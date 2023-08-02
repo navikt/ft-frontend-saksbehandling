@@ -1,4 +1,4 @@
-import { XMarkIcon } from '@navikt/aksel-icons';
+import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -7,12 +7,14 @@ import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
-import { FieldArrayWithId } from 'react-hook-form';
+import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import { getSkalRedigereInntektskategori } from './BgFaktaUtils';
+import { erFrilanser, getKanRedigereInntekt, getSkalRedigereInntektskategori } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
+import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
   const headerCodes = [];
@@ -42,7 +44,6 @@ export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: Kodeverk
 type OwnProps = {
   readOnly: boolean;
   field: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>;
-  // isAksjonspunktClosed: boolean;
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
@@ -50,7 +51,6 @@ type OwnProps = {
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
-  // skalFastsetteInntektForAndel: (andel) => boolean;
 };
 
 /**
@@ -64,18 +64,18 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   skalViseRefusjon,
   skalViseSletteknapp,
   readOnly,
-  // isAksjonspunktClosed,
   removeAndel,
   beregningsgrunnlag,
   kodeverkSamling,
   rowName,
-  // skalFastsetteInntektForAndel,
 }) => {
   const intl = useIntl();
-  // const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
-  // const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  // const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
-  // const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
+  const erFrilans = erFrilanser(field);
+  const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
+  const harEndretFrilansinntekt = erFrilans && kanRedigereInntekt && formValues.frilansinntektValues.fastsattBelop;
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
@@ -92,35 +92,43 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
           />
         )}
       </TableColumn>
-      {/* {kanRedigereInntekt && (
-        <TableColumn className={styles.rightAlignInput}>
+      {!erFrilans && (
+        <TableColumn className={styles.rightAlign}>
           <InputField
-            label={intl.formatMessage(
-              {
-                id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
-              },
-              { andel: field.andel },
-            )}
-            name={`${rowName}.fastsattBelop`}
-            parse={parseCurrencyInput}
+            name={`${rowName}.belopReadOnly`}
             className={styles.mediumBredde}
-            readOnly={readOnly}
-            isEdited={isAksjonspunktClosed}
-            validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
-            hideLabel
+            parse={parseCurrencyInput}
+            readOnly
           />
         </TableColumn>
-      )} */}
-      {/* {!kanRedigereInntekt && ( */}
-      <TableColumn className={styles.rightAlign}>
-        <InputField
-          name={`${rowName}.belopReadOnly`}
-          className={styles.mediumBredde}
-          parse={parseCurrencyInput}
-          readOnly
-        />
-      </TableColumn>
-      {/* )} */}
+      )}
+      {erFrilans && (
+        <TableColumn className={styles.rightAlign}>
+          <div className={styles.frilansinntekt}>
+            <div className={harEndretFrilansinntekt ? styles.frilansinntektOldStrikethrough : styles.frilansinntektOld}>
+              <InputField
+                name={`${rowName}.belopReadOnly`}
+                className={styles.mediumBredde}
+                parse={parseCurrencyInput}
+                readOnly
+              />
+            </div>
+            {harEndretFrilansinntekt && (
+              <>
+                <div className={styles.frilansinntektNew}>
+                  <InputField
+                    name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansinntektValues.fastsattBelop`}
+                    className={styles.mediumBredde}
+                    parse={parseCurrencyInput}
+                    readOnly
+                  />
+                </div>
+                <PersonPencilFillIcon title="Endret av saksbehandler" fontSize="1.5rem" color="#C77300" />
+              </>
+            )}
+          </div>
+        </TableColumn>
+      )}
       {skalViseRefusjon && (
         <TableColumn className={styles.rightAlign}>
           <InputField

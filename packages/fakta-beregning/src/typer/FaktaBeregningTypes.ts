@@ -78,6 +78,10 @@ export type VurderRefusjonValues = {
   [key: string]: boolean;
 };
 
+export type FrilansinntektValues = {
+  fastsattBelop: number;
+};
+
 export type TilfellerValues = VurderMilitærValues &
   NyIArbeidslivetValues &
   LønnsendringValues &
@@ -89,6 +93,7 @@ export type TilfellerValues = VurderMilitærValues &
     tidsbegrensetValues?: TidsbegrensetandelValues;
     vurderMottarYtelseValues?: VurderMottarYtelseValues;
     vurderRefusjonValues?: VurderRefusjonValues;
+    frilansinntektValues?: FrilansinntektValues;
   };
 
 export type FaktaOmBeregningValues = TilfellerValues & {

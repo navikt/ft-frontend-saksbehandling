@@ -108,7 +108,7 @@ const standardFaktaArbeidstakerAndel = {
     arbeidsgiverNavn: 'Bedriften',
     arbeidsgiverId: '12345678',
     arbeidsgiverIdent: '12345678',
-    startdato: '01.01.2019',
+    startdato: '2019-01-01',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
@@ -120,7 +120,7 @@ const standardFaktaArbeidstakerAndel2 = {
     arbeidsgiverNavn: 'Bedriften2',
     arbeidsgiverId: '12345679',
     arbeidsgiverIdent: '12345679',
-    startdato: '01.01.2019',
+    startdato: '2019-01-01',
     opphoersdato: '01.01.2020',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
