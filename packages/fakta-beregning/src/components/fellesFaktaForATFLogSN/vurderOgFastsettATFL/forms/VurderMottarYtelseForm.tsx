@@ -190,19 +190,6 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           />
         </div>
       )}
-      {arbeidsforholdUtenIM.map(andel => (
-        <>
-          <VerticalSpacer twentyPx />
-          {mottarYtelseArbeidsforholdRadio(
-            andel,
-            readOnly,
-            kodeverkSamling,
-            arbeidsgiverOpplysningerPerId,
-            beregningsgrunnlagIndeks,
-            intl,
-          )}
-        </>
-      ))}
       {skalRedigereInntekt && erFrilans && (
         <>
           <VerticalSpacer twentyPx />
@@ -240,6 +227,19 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           </div>
         </>
       )}
+      {arbeidsforholdUtenIM.map(andel => (
+        <>
+          <VerticalSpacer twentyPx />
+          {mottarYtelseArbeidsforholdRadio(
+            andel,
+            readOnly,
+            kodeverkSamling,
+            arbeidsgiverOpplysningerPerId,
+            beregningsgrunnlagIndeks,
+            intl,
+          )}
+        </>
+      ))}
     </div>
   );
 };
