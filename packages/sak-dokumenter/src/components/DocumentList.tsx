@@ -51,7 +51,7 @@ const markerSomValgtEllerÅpneDokumenter = (
   }
 };
 
-interface OwnProps {
+export interface OwnProps {
   documents: Dokument[];
   behandlingUuid?: string;
   selectDocumentCallback: (e: React.SyntheticEvent, id?: number | string, dokument?: Dokument) => void;

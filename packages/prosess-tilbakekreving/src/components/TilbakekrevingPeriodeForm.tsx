@@ -71,7 +71,7 @@ export type CustomVilkarsVurdertePeriode = {
   feilutbetaling?: number;
 } & InitialValuesDetailForm;
 
-interface OwnProps {
+export interface OwnProps {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
   skjulPeriode: (...args: any[]) => any;

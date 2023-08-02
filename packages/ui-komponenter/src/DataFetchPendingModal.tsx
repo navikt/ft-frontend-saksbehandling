@@ -19,7 +19,7 @@ const doNothing = () => undefined;
 // Vent to sekund med å vise melding
 const MESSAGE_DELAY_MILLIS = 2000;
 
-interface OwnProps {
+export interface OwnProps {
   pendingMessage: string;
 }
 

@@ -9,7 +9,7 @@ import styles from './overstyringKnapp.module.css';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   onClick?: (overstyrt: boolean) => void;
   erOverstyrt?: boolean;
 }

@@ -16,7 +16,7 @@ const maxLength4000 = maxLength(4000);
 const valideringsregler = [minLength3, hasValidText];
 const valideringsreglerPakrevet = [required, minLength3, hasValidText];
 
-interface OwnProps {
+export interface OwnProps {
   type: string;
   readOnly: boolean;
   fritekstPakrevet?: boolean;

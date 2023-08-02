@@ -16,7 +16,7 @@ export type FormValues = {
   begrunnelse: string;
 };
 
-interface OwnProps {
+export interface OwnProps {
   lukkModal: () => void;
   behandlendeEnheter: {
     enhetId: string;

@@ -62,7 +62,7 @@ const transformValues = (values: Values): AvklartRisikoklassifiseringAp => ({
   begrunnelse: values[begrunnelseFieldName],
 });
 
-interface OwnProps {
+export interface OwnProps {
   aksjonspunkt: Aksjonspunkt;
   readOnly: boolean;
   risikoklassifisering?: Risikoklassifisering;

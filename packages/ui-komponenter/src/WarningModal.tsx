@@ -7,7 +7,7 @@ import FlexColumn from './flexGrid/FlexColumn';
 
 import styles from './warningModal.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   headerText?: string;
   bodyText: string;
   showModal: boolean;

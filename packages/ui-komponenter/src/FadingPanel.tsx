@@ -2,7 +2,7 @@ import React, { ReactNode, FunctionComponent } from 'react';
 
 import styles from './fadingPanel.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   withoutTopMargin?: boolean;
   children: ReactNode | ReactNode[];
 }

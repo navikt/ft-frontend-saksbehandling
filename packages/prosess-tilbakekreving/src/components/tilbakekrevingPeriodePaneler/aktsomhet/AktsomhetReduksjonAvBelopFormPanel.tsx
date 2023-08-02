@@ -31,7 +31,7 @@ const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (be
 export const EGENDEFINERT = 'Egendefinert';
 export const ANDELER = ['30', '50', '70', EGENDEFINERT];
 
-interface OwnProps {
+export interface OwnProps {
   name: string;
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;

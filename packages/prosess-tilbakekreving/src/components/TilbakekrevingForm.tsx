@@ -224,7 +224,7 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
   return undefined;
 };
 
-interface OwnProps {
+export interface OwnProps {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   submitCallback: (aksjonspunktData: VilkarsVurderingAp) => Promise<void>;

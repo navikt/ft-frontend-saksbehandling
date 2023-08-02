@@ -14,7 +14,7 @@ interface Badges {
   titleText: string;
 }
 
-interface OwnProps extends TextareaProps {
+export interface OwnProps extends TextareaProps {
   name: string;
   label: string | ReactNode;
   readOnly?: boolean;

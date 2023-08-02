@@ -8,7 +8,7 @@ import styles from './tilbakekrevingAktivitetTabell.module.css';
 
 const headerTextCodes = ['TilbakekrevingAktivitetTabell.Aktivitet', 'TilbakekrevingAktivitetTabell.FeilutbetaltBelop'];
 
-interface OwnProps {
+export interface OwnProps {
   ytelser: {
     aktivitet: string;
     belop: number;

@@ -13,7 +13,7 @@ import AktsomhetReduksjonAvBelopFormPanel from './AktsomhetReduksjonAvBelopFormP
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-interface OwnProps {
+export interface OwnProps {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: string;

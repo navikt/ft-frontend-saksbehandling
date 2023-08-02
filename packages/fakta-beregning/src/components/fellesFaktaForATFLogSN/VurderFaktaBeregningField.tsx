@@ -25,7 +25,7 @@ const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBer
 
 export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
 
-interface OwnProps {
+export interface OwnProps {
   beregningsgrunnlag: Beregningsgrunnlag;
   erOverstyrer: boolean;
   readOnly: boolean;

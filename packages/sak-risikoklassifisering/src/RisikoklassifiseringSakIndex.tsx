@@ -20,7 +20,7 @@ const harResultatkode = (resultatkode: string, risikoklassifisering?: Risikoklas
   return risikoklassifisering.kontrollresultat === resultatkode;
 };
 
-interface OwnProps {
+export interface OwnProps {
   aksjonspunkt?: Aksjonspunkt;
   risikoklassifisering?: Risikoklassifisering;
   isPanelOpen: boolean;

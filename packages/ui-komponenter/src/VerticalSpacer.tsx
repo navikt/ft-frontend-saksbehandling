@@ -5,7 +5,7 @@ import styles from './verticalSpacer.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   fourPx?: boolean;
   eightPx?: boolean;
   sixteenPx?: boolean;

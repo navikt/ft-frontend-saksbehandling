@@ -204,7 +204,7 @@ const lagBG = (
     hjemmel: 'F_14_7_8_30',
     faktaOmFordeling,
     årsinntektVisningstall: 360000,
-  } as Beregningsgrunnlag);
+  }) as Beregningsgrunnlag;
 
 const lagFaktaOmFordeling = (
   arbfor: ArbeidsforholdTilFordeling[],

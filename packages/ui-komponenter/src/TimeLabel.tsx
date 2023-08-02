@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedTime } from 'react-intl';
 
-interface OwnProps {
+export interface OwnProps {
   dateTimeString: string;
 }
 

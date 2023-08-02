@@ -5,7 +5,7 @@ import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import styles from './tittelMedDivider.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   ikon: ReactElement;
   tittel: string;
 }

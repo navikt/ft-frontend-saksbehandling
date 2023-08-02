@@ -4,7 +4,7 @@ import { TextField, TextFieldProps } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
-interface OwnProps extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
+export interface OwnProps extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
   name: string;
   label?: string | ReactNode;
   validate?: ((value: string) => any)[] | ((value: number) => any)[];

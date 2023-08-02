@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils-test",
-  "version": "2.0.32",
+  "version": "2.0.35",
   "license": "MIT",
   "private": true,
   "main": "./dist/index.umd.js",
@@ -13,20 +13,21 @@
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
     "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
+    "prettier": "prettier --write src",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.1.16",
+    "@navikt/ft-kodeverk": "^2.1.19",
     "react": "18.2.0",
     "react-intl": "6.4.4"
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "eslint": "8.44.0",
+    "eslint": "8.46.0",
     "typescript": "5.1.6",
-    "vite": "4.3.9"
+    "vite": "4.4.7"
   },
   "exports": {
     ".": {

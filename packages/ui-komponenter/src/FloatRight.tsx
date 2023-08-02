@@ -2,7 +2,7 @@ import React, { ReactNode, FunctionComponent } from 'react';
 
 import styles from './floatRight.module.css';
 
-interface OwnProps {
+export interface OwnProps {
   children?: ReactNode;
 }
 

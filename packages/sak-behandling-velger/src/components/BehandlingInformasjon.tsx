@@ -22,7 +22,7 @@ const tilbakekrevingÅrsakTyperKlage = [BehandlingArsakType.RE_KLAGE_KA, Behandl
 const erTilbakekrevingÅrsakKlage = (årsak?: string): boolean =>
   !!årsak && tilbakekrevingÅrsakTyperKlage.some(å => å === årsak);
 
-interface OwnProps {
+export interface OwnProps {
   withChevronDown?: boolean;
   withChevronUp?: boolean;
   behandling: BehandlingAppKontekst;

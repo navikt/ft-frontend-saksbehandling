@@ -7,7 +7,7 @@ import styles from './userPanel.module.css';
 
 const userCls = bemUtils('user');
 
-interface UserPanelProps {
+export interface UserPanelProps {
   name: string;
   unit?: string;
   onClick?: (e: React.FormEvent<HTMLButtonElement>) => void;

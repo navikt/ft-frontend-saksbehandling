@@ -15,7 +15,7 @@ const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: bool
   return !isDirty;
 };
 
-interface OwnProps {
+export interface OwnProps {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;

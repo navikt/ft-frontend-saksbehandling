@@ -92,7 +92,7 @@ const lagBeregningsgrunnlag = (
       },
     ],
     faktaOmBeregning,
-  } as Beregningsgrunnlag);
+  }) as Beregningsgrunnlag;
 
 const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: string): FaktaOmBeregningAndel => ({
   andelsnr,

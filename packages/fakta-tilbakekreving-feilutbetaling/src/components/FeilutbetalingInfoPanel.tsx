@@ -115,7 +115,7 @@ const getSortedFeilutbetalingArsaker = (
   });
 };
 
-interface OwnProps {
+export interface OwnProps {
   feilutbetalingFakta: FeilutbetalingFakta;
   feilutbetalingAarsak: FeilutbetalingAarsak;
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;

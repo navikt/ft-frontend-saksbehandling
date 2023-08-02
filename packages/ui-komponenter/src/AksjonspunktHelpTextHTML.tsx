@@ -12,7 +12,7 @@ import styles from './aksjonspunktHelpTextHTML.module.css';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   children: string[] | ReactNode | ReactNode[];
 }
 

@@ -47,7 +47,7 @@ const finnAlderTekstProps = (fødselsdato: string) => {
   };
 };
 
-interface OwnProps {
+export interface OwnProps {
   familiehendelse: FagsakHendelse;
 }
 

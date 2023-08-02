@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import ErrorPageWrapper from './components/ErrorPageWrapper';
 
-interface OwnProps {
+export interface OwnProps {
   renderSomLenke: (tekst: ReactElement) => ReactElement;
 }
 

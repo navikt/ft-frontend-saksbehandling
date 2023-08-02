@@ -6,7 +6,7 @@ import styles from './borderBox.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   error?: boolean;
   className?: string;
   children?: ReactNode | ReactNode[];

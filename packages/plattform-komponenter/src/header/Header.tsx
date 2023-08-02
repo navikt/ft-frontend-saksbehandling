@@ -2,7 +2,7 @@ import { bemUtils } from '@navikt/ft-utils';
 import React, { ReactElement } from 'react';
 import styles from './header.module.css';
 
-interface HeaderProps {
+export interface HeaderProps {
   title: string;
   titleHref?: string;
   changeLocation?: (event: React.SyntheticEvent) => void;

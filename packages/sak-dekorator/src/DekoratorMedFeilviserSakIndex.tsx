@@ -14,7 +14,7 @@ import DekoratorLenke from './typer/dekoratorLenke';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   tittel: string;
   tittelLenke?: string;
   tittelCallback?: (event: React.SyntheticEvent) => void;

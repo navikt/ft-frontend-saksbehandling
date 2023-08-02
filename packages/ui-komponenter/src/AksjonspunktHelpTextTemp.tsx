@@ -9,7 +9,7 @@ import styles from './AksjonspunktHelpTextTemp.module.css';
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   children: string[] | ReactNode[];
   isAksjonspunktOpen: boolean;
 }

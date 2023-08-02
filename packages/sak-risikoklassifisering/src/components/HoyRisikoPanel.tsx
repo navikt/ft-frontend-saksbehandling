@@ -10,7 +10,7 @@ import Faresignaler from './Faresignaler';
 import AvklarFaresignalerForm from './AvklarFaresignalerForm';
 import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringAp';
 
-interface OwnProps {
+export interface OwnProps {
   risikoklassifisering: Risikoklassifisering;
   aksjonspunkt?: Aksjonspunkt;
   readOnly: boolean;

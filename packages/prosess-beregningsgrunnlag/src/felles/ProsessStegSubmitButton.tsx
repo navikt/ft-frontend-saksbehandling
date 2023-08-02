@@ -23,7 +23,7 @@ const isDisabled = (
   return (!isDirty && hasEmptyRequiredFields) || hasEmptyRequiredFields;
 };
 
-interface OwnProps {
+export interface OwnProps {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;

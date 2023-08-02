@@ -5,7 +5,7 @@ import styles from './flexRow.module.css';
 
 const classNames = classnames.bind(styles);
 
-interface OwnProps {
+export interface OwnProps {
   children: ReactNode | ReactNode[];
   /**
    * spaceBetween: aktiverer { justify-content: space-between } på raden. Default er false.

@@ -15,7 +15,7 @@ const classNames = classnames.bind(styles);
 
 const intl = createIntl(messages);
 
-interface OwnProps {
+export interface OwnProps {
   showContent: boolean;
   content: ReactNode;
   toggleContent: () => void;

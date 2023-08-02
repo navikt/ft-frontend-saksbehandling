@@ -7,7 +7,7 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { useFormContext } from 'react-hook-form';
 
-interface OwnProps {
+export interface OwnProps {
   name: string;
   readOnly: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;

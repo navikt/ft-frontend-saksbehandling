@@ -12,7 +12,7 @@ const visSakDekningsgrad = (saksKode: string, dekningsgrad?: number): boolean =>
   return erForeldrepenger && gyldigDekningsGrad;
 };
 
-interface OwnProps {
+export interface OwnProps {
   saksnummer: string;
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;
