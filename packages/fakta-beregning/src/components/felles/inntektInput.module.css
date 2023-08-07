@@ -1,0 +1,15 @@
+.krLabel {
+  bottom: -11px;
+  font-size: var(--a-font-size-medium);
+  font-weight: var(--a-font-weight-regular);
+  left: 112px;
+  letter-spacing: 0.002em;
+  line-height: var(--a-font-line-height-medium);
+  position: absolute;
+}
+
+.inntektInput {
+  align-items: flex-end;
+  display: flex;
+  position: relative;
+}

@@ -82,6 +82,10 @@ export type FrilansinntektValues = {
   fastsattBelop: number;
 };
 
+export type DagpengerinntektValues = {
+  fastsattBelop: number;
+};
+
 export type ArbeidstakerInntektValues = {
   [key: string]: number;
 };
@@ -97,8 +101,9 @@ export type TilfellerValues = VurderMilitærValues &
     tidsbegrensetValues?: TidsbegrensetandelValues;
     vurderMottarYtelseValues?: VurderMottarYtelseValues;
     vurderRefusjonValues?: VurderRefusjonValues;
-    frilansinntektValues?: FrilansinntektValues;
+    frilansInntektValues?: FrilansinntektValues;
     arbeidstakerInntektValues?: ArbeidstakerInntektValues;
+    dagpengerInntektValues?: DagpengerinntektValues;
   };
 
 export type FaktaOmBeregningValues = TilfellerValues & {

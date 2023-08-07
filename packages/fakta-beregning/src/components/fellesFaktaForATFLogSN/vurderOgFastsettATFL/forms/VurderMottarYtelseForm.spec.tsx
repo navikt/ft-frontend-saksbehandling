@@ -129,7 +129,7 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-      frilansinntektValues: {
+      frilansInntektValues: {
         fastsattBelop: 10000,
       },
     };
@@ -177,7 +177,7 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-      frilansinntektValues: {
+      frilansInntektValues: {
         fastsattBelop: 0,
       },
     };
@@ -222,7 +222,7 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-      frilansinntektValues: {
+      frilansInntektValues: {
         fastsattBelop: 10000,
       },
     };
@@ -268,7 +268,7 @@ describe('<VurderMottarYtelseForm>', () => {
       vurderMottarYtelseValues: {},
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-      frilansinntektValues: {
+      frilansInntektValues: {
         fastsattBelop: 10000,
       },
     };

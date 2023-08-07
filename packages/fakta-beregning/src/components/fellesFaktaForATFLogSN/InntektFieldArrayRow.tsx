@@ -11,7 +11,13 @@ import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import { erFrilanser, getKanRedigereInntekt, getSkalRedigereInntektskategori } from './BgFaktaUtils';
+import {
+  erArbeidstaker,
+  erDagpenger,
+  erFrilanser,
+  getKanRedigereInntekt,
+  getSkalRedigereInntektskategori,
+} from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
@@ -75,14 +81,20 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
-  const erFrilans = erFrilanser(field);
+  const erFrilansInntekt = erFrilanser(field);
+  const erInntektDagpenger = erDagpenger(field);
+  const erArbeidstakerInntekt = erArbeidstaker(field);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
-  const harEndretFrilansinntekt = erFrilans && kanRedigereInntekt && formValues?.frilansinntektValues?.fastsattBelop;
+  const harEndretFrilansinntekt =
+    erFrilansInntekt && kanRedigereInntekt && formValues?.frilansInntektValues?.fastsattBelop;
   const harEndretInntektForArbeidsgiver =
-    !erFrilans && kanRedigereInntekt && formValues?.arbeidstakerInntektValues?.[field.arbeidsgiverId];
+    erArbeidstakerInntekt && kanRedigereInntekt && formValues?.arbeidstakerInntektValues?.[field.arbeidsgiverId];
+  const harEndretInntektForDagpenger =
+    erInntektDagpenger && kanRedigereInntekt && formValues?.dagpengerInntektValues?.fastsattBelop;
   const visMåFastsettesText =
-    (erFrilans && kanRedigereInntekt && !formValues?.frilansinntektValues?.fastsattBelop) ||
-    (!erFrilans && kanRedigereInntekt && !formValues?.arbeidstakerInntektValues?.[field.arbeidsgiverId]);
+    (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
+    (erArbeidstakerInntekt && kanRedigereInntekt && !formValues?.arbeidstakerInntektValues?.[field.arbeidsgiverId]) ||
+    (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
@@ -104,7 +116,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
         <div className={styles.inntekt}>
           <div
             className={
-              harEndretInntektForArbeidsgiver || harEndretFrilansinntekt
+              harEndretInntektForArbeidsgiver || harEndretFrilansinntekt || harEndretInntektForDagpenger
                 ? styles.inntektOldStrikethrough
                 : styles.inntektOld
             }
@@ -130,20 +142,33 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
                   readOnly
                 />
               </div>
-              <PersonPencilFillIcon title="Endret av saksbehandler" fontSize="1.5rem" color="#C77300" />
+              <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
             </>
           )}
           {harEndretFrilansinntekt && (
             <>
               <div className={styles.inntektNew}>
                 <InputField
-                  name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansinntektValues.fastsattBelop`}
+                  name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`}
                   className={styles.mediumBredde}
                   parse={parseCurrencyInput}
                   readOnly
                 />
               </div>
-              <PersonPencilFillIcon title="Endret av saksbehandler" fontSize="1.5rem" color="#C77300" />
+              <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
+            </>
+          )}
+          {harEndretInntektForDagpenger && (
+            <>
+              <div className={styles.inntektNew}>
+                <InputField
+                  name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`}
+                  className={styles.mediumBredde}
+                  parse={parseCurrencyInput}
+                  readOnly
+                />
+              </div>
+              <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
             </>
           )}
         </div>

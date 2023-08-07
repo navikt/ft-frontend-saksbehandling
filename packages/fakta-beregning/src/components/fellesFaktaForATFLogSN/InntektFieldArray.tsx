@@ -204,7 +204,7 @@ interface StaticFunctions {
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
     kodeverkSamling: KodeverkForPanel,
   ) => AndelFieldValue[];
-  transformValues: (values: AndelFieldValue[], frilansinntektValues: FrilansinntektValues) => InntektTransformed[];
+  transformValues: (values: AndelFieldValue[], frilansInntektValues: FrilansinntektValues) => InntektTransformed[];
 }
 
 /**
@@ -352,7 +352,7 @@ InntektFieldArray.defaultProps = {
 
 InntektFieldArray.transformValues = (
   values: AndelFieldValue[],
-  frilansinntektValues: FrilansinntektValues,
+  frilansInntektValues: FrilansinntektValues,
 ): InntektTransformed[] =>
   values
     ? values
@@ -360,12 +360,12 @@ InntektFieldArray.transformValues = (
         .filter(
           ({ fastsattBelop, aktivitetStatus }) =>
             (fastsattBelop !== null && fastsattBelop !== '') ||
-            (erFrilanser(aktivitetStatus) && frilansinntektValues.fastsattBelop),
+            (erFrilanser(aktivitetStatus) && frilansInntektValues.fastsattBelop),
         )
         .map(fieldValue => {
           const fastsattBelop =
-            erFrilanser(fieldValue.aktivitetStatus) && frilansinntektValues?.fastsattBelop
-              ? frilansinntektValues.fastsattBelop
+            erFrilanser(fieldValue.aktivitetStatus) && frilansInntektValues?.fastsattBelop
+              ? frilansInntektValues.fastsattBelop
               : fieldValue.fastsattBelop;
           return {
             andelsnr: fieldValue.andelsnr,

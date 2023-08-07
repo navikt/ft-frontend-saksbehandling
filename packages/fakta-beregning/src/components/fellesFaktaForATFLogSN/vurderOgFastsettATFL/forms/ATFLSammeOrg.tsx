@@ -2,14 +2,14 @@ import { BodyShort, Label, List, ReadMore } from '@navikt/ds-react';
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { ATFLSammeOrgAndel, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ArbeidstakerInntektValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { finnFrilansFieldName } from './VurderMottarYtelseUtils';
 import styles from './atflSammeOrg.module.css';
@@ -61,65 +61,16 @@ export const harRiktigTilfelle = beregningsgrunnlag =>
         .includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
     : false;
 
-const arbeidsinntektInputField = (
-  index: number,
-  arbeidsgiver: ATFLSammeOrgAndel,
-  beregningsgrunnlagIndeks: number,
-  readOnly: boolean,
-  isAksjonspunktClosed: boolean,
-) => {
-  const fieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${arbeidsgiver.arbeidsforhold.arbeidsgiverId}`;
-
-  return (
-    <React.Fragment key={arbeidsgiver.arbeidsforhold.arbeidsgiverId}>
-      <VerticalSpacer twentyPx />
-      <div className={styles.inntektInput}>
-        <InputField
-          name={fieldName}
-          htmlSize={8}
-          parse={parseCurrencyInput}
-          readOnly={readOnly}
-          isEdited={isAksjonspunktClosed}
-          validate={[required, maxValueFormatted(178956970)]}
-          label={
-            <div>
-              <BodyShort>
-                <FormattedMessage
-                  id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift"
-                  values={{
-                    bedrift: `${arbeidsgiver.arbeidsforhold.arbeidsgiverNavn} (${arbeidsgiver.arbeidsforhold.arbeidsgiverId})`,
-                  }}
-                />
-              </BodyShort>
-            </div>
-          }
-        />
-        <p className={styles.krLabel}>kr</p>
-      </div>
-    </React.Fragment>
-  );
-};
-
 type OwnProps = {
   beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (
-    arbeidstakerOgFrilanserISammeOrganisasjonListe: ATFLSammeOrgAndel[],
-  ) => ArbeidstakerInntektValues;
-}
-
-export const ATFLSammeOrg: FunctionComponent<OwnProps> & StaticFunctions = ({
-  beregningsgrunnlag,
-  isAksjonspunktClosed,
-  readOnly,
-}) => {
+export const ATFLSammeOrg: FunctionComponent<OwnProps> = ({ beregningsgrunnlag, isAksjonspunktClosed, readOnly }) => {
   const { arbeidstakerOgFrilanserISammeOrganisasjonListe } = beregningsgrunnlag.faktaOmBeregning;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansinntektValues.fastsattBelop`;
+  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <>
@@ -135,9 +86,14 @@ export const ATFLSammeOrg: FunctionComponent<OwnProps> & StaticFunctions = ({
           <List.Item>Restbeløp er frilansinntekt.</List.Item>
         </List>
       </ReadMore>
-      {arbeidstakerOgFrilanserISammeOrganisasjonListe?.map((arbeidsgiver, index) =>
-        arbeidsinntektInputField(index, arbeidsgiver, beregningsgrunnlagIndeks, readOnly, isAksjonspunktClosed),
-      )}
+      {arbeidstakerOgFrilanserISammeOrganisasjonListe?.map(arbeidsgiver => (
+        <ArbeidsinntektInput
+          key={arbeidsgiver.arbeidsforhold.arbeidsgiverId}
+          arbeidsgiver={arbeidsgiver}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+        />
+      ))}
       <VerticalSpacer twentyPx />
       <div className={styles.inntektInput}>
         <InputField
@@ -159,30 +115,4 @@ export const ATFLSammeOrg: FunctionComponent<OwnProps> & StaticFunctions = ({
       </div>
     </>
   );
-  // const manglerInntektsmelding = useMemo(() => getManglerInntektsmelding(beregningsgrunnlag), [beregningsgrunnlag]);
-  // if (!harRiktigTilfelle(beregningsgrunnlag)) {
-  return null;
-  // }
-  // if (manglerInntektsmelding) {
-  //   return (
-  //     <BodyShort>
-  //       <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM" />
-  //     </BodyShort>
-  //   );
-  // }
-  // return (
-  //   <BodyShort>
-  //     <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg" />
-  //   </BodyShort>
-  // );
-};
-
-ATFLSammeOrg.buildInitialValues = (
-  arbeidstakerOgFrilanserISammeOrganisasjonListe: ATFLSammeOrgAndel[],
-): ArbeidstakerInntektValues => {
-  const initialValues = {};
-  arbeidstakerOgFrilanserISammeOrganisasjonListe?.forEach(andel => {
-    initialValues[andel.arbeidsforhold.arbeidsgiverId] = '';
-  });
-  return initialValues;
 };

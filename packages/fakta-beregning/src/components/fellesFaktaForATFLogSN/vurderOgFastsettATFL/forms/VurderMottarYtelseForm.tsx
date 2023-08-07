@@ -1,6 +1,6 @@
 import { BodyShort, Label, List, ReadMore } from '@navikt/ds-react';
-import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { maxValueFormatted, required } from '@navikt/ft-form-validators';
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -11,7 +11,7 @@ import {
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
@@ -21,6 +21,7 @@ import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregni
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../../../ArbeidsforholdHelper';
+import InntektInput from '../../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import {
@@ -30,7 +31,6 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
-import styles from './vurderMottarYtelseForm.module.css';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -147,7 +147,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   const skalRedigereInntekt = getValues(
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
   );
-  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansinntektValues.fastsattBelop`;
+  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -193,38 +193,32 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
       {skalRedigereInntekt && erFrilans && (
         <>
           <VerticalSpacer twentyPx />
-          <div className={styles.inntektInput}>
-            <InputField
-              name={frilanserInntektFieldName}
-              htmlSize={8}
-              parse={parseCurrencyInput}
-              readOnly={readOnly}
-              isEdited={isAksjonspunktClosed}
-              validate={[required, maxValueFormatted(178956970)]}
-              label={
-                <div key={finnFrilansFieldName()}>
-                  <BodyShort>
-                    <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
-                  </BodyShort>
-                  <ReadMore size="small" header="Hvordan går jeg frem">
-                    <List>
-                      <List.Item>
-                        Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i
-                        ytelse i beregningsperioden.
-                      </List.Item>
-                      <List.Item>
-                        Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.
-                      </List.Item>
-                      <List.Item>
-                        Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.
-                      </List.Item>
-                    </List>
-                  </ReadMore>
-                </div>
-              }
-            />
-            <p className={styles.krLabel}>kr</p>
-          </div>
+          <InntektInput
+            name={frilanserInntektFieldName}
+            readOnly={readOnly}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            label={
+              <div key={finnFrilansFieldName()}>
+                <BodyShort>
+                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
+                </BodyShort>
+                <ReadMore size="small" header="Hvordan går jeg frem">
+                  <List>
+                    <List.Item>
+                      Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i
+                      ytelse i beregningsperioden.
+                    </List.Item>
+                    <List.Item>
+                      Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.
+                    </List.Item>
+                    <List.Item>
+                      Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.
+                    </List.Item>
+                  </List>
+                </ReadMore>
+              </div>
+            }
+          />
         </>
       )}
       {arbeidsforholdUtenIM.map(andel => (
@@ -298,7 +292,7 @@ const transformValuesFrilans = (
       andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
     );
     if (!fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
-      const frilansInntekt = values.frilansinntektValues;
+      const frilansInntekt = values.frilansInntektValues;
       fastsatteAndelsnr.push(frilansAndel.andelsnr);
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
       return {

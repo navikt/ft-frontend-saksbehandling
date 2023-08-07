@@ -287,7 +287,12 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING}>
-          <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
+          <VurderBesteberegningForm
+            readOnly={readOnly}
+            erOverstyrt={erOverstyrt}
+            beregningsgrunnlag={beregningsgrunnlag}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+          />
         </React.Fragment>,
       );
     }
@@ -488,7 +493,7 @@ VurderOgFastsettATFL.transformValues =
   (values: FaktaOmBeregningAksjonspunktValues): BeregningFaktaTransformedValues => {
     const inntektVerdier = InntektFieldArrayImpl.transformValues(
       values[INNTEKT_FIELD_ARRAY_NAME],
-      values.frilansinntektValues,
+      values.frilansInntektValues,
     );
     const fastsatteAndelsnr = [];
     const transformed = transformValuesForAksjonspunkt(

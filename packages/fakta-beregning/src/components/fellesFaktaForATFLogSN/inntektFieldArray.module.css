@@ -122,3 +122,9 @@
   color: var(--text-subtle, rgba(0, 0, 0, 0.65));
   text-decoration: line-through;
 }
+
+.saksbehandlerIcon {
+  color: #c77300;
+  font-size: 1.5rem;
+  margin-right: -28px;
+}

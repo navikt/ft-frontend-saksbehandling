@@ -3,17 +3,21 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
-import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
+import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import ArbeidsinntektInput from '../../felles/ArbeidsinntektInput';
+import InntektInput from '../../felles/InntektInput';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 export const besteberegningField = 'vurderbesteberegningField';
 
@@ -22,6 +26,8 @@ const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 type OwnProps = {
   readOnly: boolean;
   erOverstyrt: boolean;
+  beregningsgrunnlag: Beregningsgrunnlag;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -45,10 +51,22 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
+const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
+  readOnly,
+  erOverstyrt,
+  beregningsgrunnlag,
+  isAksjonspunktClosed,
+}) => {
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
+  const skalRedigereInntekt = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`);
+  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  );
+  const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
+
   return (
     <div>
       <FlexRow>
@@ -67,7 +85,6 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
               { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
             ]}
             parse={parseStringToBoolean}
-            isHorizontal
           />
         </FlexColumn>
         <FlexColumn className={styles.flexColumn3}>
@@ -81,6 +98,25 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
           </a>
         </FlexColumn>
       </FlexRow>
+      {skalRedigereInntekt ? (
+        <>
+          {andelerMedArbeidsinntekt.map(andel => (
+            <ArbeidsinntektInput
+              key={andel.arbeidsforhold.arbeidsgiverId}
+              arbeidsgiver={andel}
+              readOnly={readOnly}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+            />
+          ))}
+          <VerticalSpacer twentyPx />
+          <InntektInput
+            name={dagpengerInntektFieldName}
+            readOnly={readOnly}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            label="Dagpenger"
+          />
+        </>
+      ) : null}
     </div>
   );
 };

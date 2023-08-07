@@ -6,7 +6,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useFormContext, useWatch } from 'react-hook-form';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import { erFrilanser, getKanRedigereInntekt } from './BgFaktaUtils';
+import { erArbeidstaker, erDagpenger, erFrilanser, getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import AndelFieldValue from '../../typer/FieldValues';
@@ -21,15 +21,19 @@ const summerBeregnet = (
 
   fields.forEach(field => {
     let belop;
+    const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
 
-    if (getKanRedigereInntekt(formValues, beregningsgrunnlag)(field)) {
-      const erFrilans = erFrilanser(field);
-      const harEndretFrilansinntekt = erFrilans && formValues?.frilansinntektValues?.fastsattBelop;
-      const harEndretArbeidstakerinntekt = !erFrilans && formValues?.arbeidstakerInntektValues[field.arbeidsgiverId];
-      if (harEndretFrilansinntekt) {
-        belop = formValues.frilansinntektValues.fastsattBelop;
-      } else if (harEndretArbeidstakerinntekt) {
+    if (kanRedigereInntekt) {
+      const erFrilansInntekt = erFrilanser(field);
+      const erArbeidstakerInntekt = erArbeidstaker(field);
+      const erDagpengerInntekt = erDagpenger(field);
+
+      if (erFrilansInntekt && formValues?.frilansInntektValues?.fastsattBelop) {
+        belop = formValues.frilansInntektValues.fastsattBelop;
+      } else if (erArbeidstakerInntekt && formValues?.arbeidstakerInntektValues[field.arbeidsgiverId]) {
         belop = formValues.arbeidstakerInntektValues[field.arbeidsgiverId];
+      } else if (erDagpengerInntekt && formValues?.dagpengerInntektValues?.fastsattBelop) {
+        belop = formValues.dagpengerInntektValues.fastsattBelop;
       } else {
         belop = field.fastsattBelop;
       }
