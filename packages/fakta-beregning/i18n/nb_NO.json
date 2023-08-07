@@ -20,12 +20,15 @@
   "BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg": "Søker er arbeidstaker og frilanser i samme virksomhet.",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettFrilans": "Fastsett frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLAlleOppdrag": "Fastsett arbeidsinntekt og samlet frilansinntekt for alle oppdrag.",
+  "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet": "Fastsett arbeidsinntekt og samlet frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettArbeidsinntekt": "Fastsett arbeidsinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring": "Har søker hatt lønnsendring i løpet av de siste tre månedene?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans": "Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktivitet?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans": "Mottar søker ytelse for frilansaktivitet?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid": "Søker er arbeidstaker og det er ikke mottatt inntektsmelding. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for arbeid i {arbeid}?",
   "BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt": "Fastsett månedsinntekt",
+  "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser": "Månedsinntekt frilanser",
+  "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift": "Månedsinntekt {bedrift}",
 
   "BeregningInfoPanel.VurderBestebergning.HarBesteberegning": "Søker har hatt dagpenger i opptjeningsperioden. Skal dette fordeles etter besteberegning?",
 

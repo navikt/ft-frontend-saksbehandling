@@ -1,4 +1,4 @@
-import { BodyShort, List, ReadMore } from '@navikt/ds-react';
+import { BodyShort, Label, List, ReadMore } from '@navikt/ds-react';
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
@@ -156,9 +156,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           <RadioGroupPanel
             label={
               <div key={finnFrilansFieldName()}>
-                <BodyShort>
+                <Label>
                   <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-                </BodyShort>
+                </Label>
                 <ReadMore size="small" header="Hvordan går jeg frem">
                   <List>
                     <List.Item>

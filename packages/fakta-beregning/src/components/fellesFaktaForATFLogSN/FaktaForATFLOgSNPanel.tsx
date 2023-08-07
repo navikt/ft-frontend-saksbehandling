@@ -39,6 +39,7 @@ import NyoppstartetFLForm from './vurderOgFastsettATFL/forms/NyoppstartetFLForm'
 import VurderEtterlonnSluttpakkeForm from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
 import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
+import { ATFLSammeOrg } from './vurderOgFastsettATFL/forms/ATFLSammeOrg';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -267,6 +268,9 @@ const getVurderFaktaAksjonspunkt = (avklaringsbehov: BeregningAvklaringsbehov[])
 const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues => ({
   tidsbegrensetValues: TidsbegrensetArbeidsforholdForm.buildInitialValues(props.kortvarigeArbeidsforhold),
   vurderMottarYtelseValues: VurderMottarYtelseForm.buildInitialValues(props.vurderMottarYtelse),
+  arbeidstakerInntektValues: ATFLSammeOrg.buildInitialValues(
+    props.beregningsgrunnlag.faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe,
+  ),
   vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
     props.tilfeller,
     props.refusjonskravSomKommerForSentListe,

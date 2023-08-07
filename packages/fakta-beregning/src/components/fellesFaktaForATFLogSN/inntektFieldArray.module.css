@@ -104,22 +104,21 @@
 .litenBredde {
   width: 70px;
 }
-.frilansinntekt {
+.inntekt {
   display: flex;
   justify-content: flex-end;
 }
-.frilansinntektNew {
+.inntektNew {
   margin-left: 0.5rem;
   margin-right: 0.25rem;
 }
-.frilansinntektOldStrikethrough {
+.inntektOld {
   display: inline-block;
 }
-.frilansinntektOldStrikethrough p {
+.inntektOldStrikethrough {
+  display: inline-block;
+}
+.inntektOldStrikethrough p {
   color: var(--text-subtle, rgba(0, 0, 0, 0.65));
   text-decoration: line-through;
-}
-
-.frilansinntektOld {
-  display: inline-block;
 }

@@ -425,11 +425,11 @@ describe('<BeregningFaktaIndexSpec', () => {
     render(<TidsbegrensetArbeidsforholdAp5058 submitCallback={lagre} />);
     expect(
       screen.getByText(
-        'Er arbeidsforholdet i Bedriften3 (12345671) med varighet 09.01.2019 - 01.01.2020 tidsbegrenset?',
+        'Er arbeidsforholdet i Bedriften3 (12345671) med varighet 01.09.2019 - 01.01.2020 tidsbegrenset?',
       ),
     ).toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Nei'));
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [

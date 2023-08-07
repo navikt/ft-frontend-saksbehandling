@@ -9,8 +9,14 @@ import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningForm
 import { erFrilanser, getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+import AndelFieldValue from '../../typer/FieldValues';
+import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 
-const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {
+const summerBeregnet = (
+  fields: AndelFieldValue[],
+  formValues: FaktaOmBeregningAksjonspunktValues,
+  beregningsgrunnlag: Beregningsgrunnlag,
+) => {
   let sum = 0;
 
   fields.forEach(field => {
@@ -19,7 +25,14 @@ const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {
     if (getKanRedigereInntekt(formValues, beregningsgrunnlag)(field)) {
       const erFrilans = erFrilanser(field);
       const harEndretFrilansinntekt = erFrilans && formValues?.frilansinntektValues?.fastsattBelop;
-      belop = harEndretFrilansinntekt ? formValues.frilansinntektValues.fastsattBelop : field.fastsattBelop;
+      const harEndretArbeidstakerinntekt = !erFrilans && formValues?.arbeidstakerInntektValues[field.arbeidsgiverId];
+      if (harEndretFrilansinntekt) {
+        belop = formValues.frilansinntektValues.fastsattBelop;
+      } else if (harEndretArbeidstakerinntekt) {
+        belop = formValues.arbeidstakerInntektValues[field.arbeidsgiverId];
+      } else {
+        belop = field.fastsattBelop;
+      }
     } else {
       belop = field.belopReadOnly;
     }

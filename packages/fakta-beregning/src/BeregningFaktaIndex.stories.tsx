@@ -121,7 +121,7 @@ const standardFaktaArbeidstakerAndel2 = {
     arbeidsgiverId: '12345679',
     arbeidsgiverIdent: '12345679',
     startdato: '2019-01-01',
-    opphoersdato: '01.01.2020',
+    opphoersdato: '2020-01-01',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
@@ -133,8 +133,8 @@ const tidsbegrensetFaktaArbeidstakerAndel = {
     arbeidsgiverNavn: 'Bedriften3',
     arbeidsgiverId: '12345671',
     arbeidsgiverIdent: '12345671',
-    startdato: '01.09.2019',
-    opphoersdato: '01.01.2020',
+    startdato: '2019-09-01',
+    opphoersdato: '2020-01-01',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
@@ -146,7 +146,7 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
     arbeidsgiverNavn: 'Bedriften4',
     arbeidsgiverId: '795349533',
     arbeidsgiverIdent: '795349533',
-    startdato: '01.09.2019',
+    startdato: '2019-09-01',
     arbeidsforholdType: OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE,
   },
 };

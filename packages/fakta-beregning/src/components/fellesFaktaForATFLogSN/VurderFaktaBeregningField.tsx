@@ -69,6 +69,17 @@ const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): bool
 const lagHelpTextsForFakta = (beregningsgrunnlag: Beregningsgrunnlag): ReactElement => {
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const erFrilans = beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
+  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
+    return (
+      <Alert size="small" variant="warning">
+        <Heading size="small" level="3">
+          Søker er arbeidstaker og frilans i samme virksomhet
+        </Heading>
+        Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som
+        er arbeidsinntekt og samlet frilansinntekt.
+      </Alert>
+    );
+  }
   if (erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
     return (
       <Alert size="small" variant="warning">
