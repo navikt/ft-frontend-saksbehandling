@@ -1,7 +1,7 @@
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage } from '@navikt/ds-react';
 import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-form-validators';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
@@ -15,6 +15,7 @@ import {
   erArbeidstaker,
   erDagpenger,
   erFrilanser,
+  erOverstyring,
   getKanRedigereInntekt,
   getSkalRedigereInntektskategori,
 } from './BgFaktaUtils';
@@ -95,10 +96,26 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
     (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
     (erArbeidstakerInntekt && kanRedigereInntekt && !formValues?.arbeidstakerInntektValues?.[field.arbeidsgiverId]) ||
     (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop);
+  const harEndretInntekt = harEndretFrilansinntekt || harEndretInntektForArbeidsgiver || harEndretInntektForDagpenger;
+
+  const skalViseOverstyrtInntektInput = !harEndretInntekt && erOverstyring(formValues);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
   const harPeriode = field.arbeidsperiodeFom || field.arbeidsperiodeTom;
+
+  const getInputFieldName = () => {
+    if (harEndretInntektForArbeidsgiver) {
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${field.arbeidsgiverId}`;
+    }
+    if (harEndretFrilansinntekt) {
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
+    }
+    if (harEndretInntektForDagpenger) {
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
+    }
+    return '';
+  };
 
   return (
     <TableRow>
@@ -112,67 +129,54 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
           />
         )}
       </TableColumn>
-      <TableColumn className={styles.rightAlign}>
-        <div className={styles.inntekt}>
-          <div
-            className={
-              harEndretInntektForArbeidsgiver || harEndretFrilansinntekt || harEndretInntektForDagpenger
-                ? styles.inntektOldStrikethrough
-                : styles.inntektOld
-            }
-          >
-            {visMåFastsettesText ? (
-              getMåFastsettesText()
-            ) : (
-              <InputField
-                name={`${rowName}.belopReadOnly`}
-                className={styles.mediumBredde}
-                parse={parseCurrencyInput}
-                readOnly
-              />
+      {!skalViseOverstyrtInntektInput && (
+        <TableColumn className={styles.rightAlign}>
+          <div className={styles.inntekt}>
+            <div className={harEndretInntekt ? styles.inntektOldStrikethrough : styles.inntektOld}>
+              {visMåFastsettesText ? (
+                getMåFastsettesText()
+              ) : (
+                <InputField
+                  name={`${rowName}.belopReadOnly`}
+                  className={styles.mediumBredde}
+                  parse={parseCurrencyInput}
+                  readOnly
+                />
+              )}
+            </div>
+            {harEndretInntekt && (
+              <>
+                <div className={styles.inntektNew}>
+                  <InputField
+                    name={getInputFieldName()}
+                    className={styles.mediumBredde}
+                    parse={parseCurrencyInput}
+                    readOnly
+                  />
+                </div>
+                <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
+              </>
             )}
           </div>
-          {harEndretInntektForArbeidsgiver && (
-            <>
-              <div className={styles.inntektNew}>
-                <InputField
-                  name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${field.arbeidsgiverId}`}
-                  className={styles.mediumBredde}
-                  parse={parseCurrencyInput}
-                  readOnly
-                />
-              </div>
-              <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
-            </>
-          )}
-          {harEndretFrilansinntekt && (
-            <>
-              <div className={styles.inntektNew}>
-                <InputField
-                  name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`}
-                  className={styles.mediumBredde}
-                  parse={parseCurrencyInput}
-                  readOnly
-                />
-              </div>
-              <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
-            </>
-          )}
-          {harEndretInntektForDagpenger && (
-            <>
-              <div className={styles.inntektNew}>
-                <InputField
-                  name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`}
-                  className={styles.mediumBredde}
-                  parse={parseCurrencyInput}
-                  readOnly
-                />
-              </div>
-              <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
-            </>
-          )}
-        </div>
-      </TableColumn>
+        </TableColumn>
+      )}
+      {skalViseOverstyrtInntektInput && (
+        <TableColumn className={styles.rightAlignInput}>
+          <InputField
+            label={intl.formatMessage(
+              {
+                id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
+              },
+              { andel: field.andel },
+            )}
+            name={`${rowName}.fastsattBelop`}
+            parse={parseCurrencyInput}
+            className={styles.mediumBredde}
+            validate={[required, maxValueFormatted(178956970)]}
+            hideLabel
+          />
+        </TableColumn>
+      )}
 
       {skalViseRefusjon && (
         <TableColumn className={styles.rightAlign}>

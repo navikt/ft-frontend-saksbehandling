@@ -31,6 +31,7 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
+import { ATFLSammeOrg } from './ATFLSammeOrg';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -99,6 +100,9 @@ const finnFrilansTekstKode = tilfeller => {
   return frilansUtenAndreFrilanstilfeller();
 };
 
+const erATFLSammeOrg = (tilfeller: string[]) =>
+  tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+
 type OwnProps = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
@@ -116,7 +120,7 @@ interface StaticFunctions {
     beregningsgrunnlag: Beregningsgrunnlag,
     fastsatteAndelsnr: number[],
   ) => FaktaBeregningTransformedValues;
-  buildInitialValues: (vurderMottarYtelse: VurderMottarYtelse) => VurderMottarYtelseValues;
+  buildInitialValues: (vurderMottarYtelse: VurderMottarYtelse, tilfeller: string[]) => VurderMottarYtelseValues;
 }
 
 /**
@@ -149,7 +153,13 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   );
   const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
-  return (
+  return erATFLSammeOrg(tilfeller) ? (
+    <ATFLSammeOrg
+      beregningsgrunnlag={beregningsgrunnlag}
+      isAksjonspunktClosed={isAksjonspunktClosed}
+      readOnly={readOnly}
+    />
+  ) : (
     <div>
       {erFrilans && (
         <div>
@@ -324,13 +334,16 @@ const transformValuesMottarYtelse = (
   };
 };
 
-VurderMottarYtelseForm.buildInitialValues = (vurderMottarYtelse: VurderMottarYtelse): VurderMottarYtelseValues => {
+VurderMottarYtelseForm.buildInitialValues = (
+  vurderMottarYtelse: VurderMottarYtelse,
+  tilfeller: string[],
+): VurderMottarYtelseValues => {
   const initialValues = {};
   if (!vurderMottarYtelse) {
     return null;
   }
   if (vurderMottarYtelse.erFrilans) {
-    initialValues[finnFrilansFieldName()] = vurderMottarYtelse.frilansMottarYtelse;
+    initialValues[finnFrilansFieldName()] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse.frilansMottarYtelse;
   }
 
   const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM

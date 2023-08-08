@@ -83,7 +83,15 @@ const getFaktaPanels = (
   const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
   const faktaPanels = [];
 
-  setFaktaPanelForKunYtelse(faktaPanels, tilfeller, readOnly, isAksjonspunktClosed, faktaOmBeregning, kodeverkSamling);
+  setFaktaPanelForKunYtelse(
+    faktaPanels,
+    tilfeller,
+    readOnly,
+    isAksjonspunktClosed,
+    faktaOmBeregning,
+    kodeverkSamling,
+    renderTextFieldAndSubmitButton,
+  );
   faktaPanels.push(
     // @ts-ignore Fiks
     <React.Fragment key="VurderOgFastsettATFL">
@@ -267,7 +275,7 @@ const getVurderFaktaAksjonspunkt = (avklaringsbehov: BeregningAvklaringsbehov[])
 
 const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues => ({
   tidsbegrensetValues: TidsbegrensetArbeidsforholdForm.buildInitialValues(props.kortvarigeArbeidsforhold),
-  vurderMottarYtelseValues: VurderMottarYtelseForm.buildInitialValues(props.vurderMottarYtelse),
+  vurderMottarYtelseValues: VurderMottarYtelseForm.buildInitialValues(props.vurderMottarYtelse, props.tilfeller),
   arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(
     props.beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
   ),

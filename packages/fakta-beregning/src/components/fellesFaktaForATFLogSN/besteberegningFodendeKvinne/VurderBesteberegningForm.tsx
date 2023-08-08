@@ -113,7 +113,7 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
             name={dagpengerInntektFieldName}
             readOnly={readOnly}
             isAksjonspunktClosed={isAksjonspunktClosed}
-            label="Dagpenger"
+            label="Månedsinntekt dagpenger"
           />
         </>
       ) : null}

@@ -24,7 +24,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     render(<ArbeidOgAAPAp5052 />);
     // TODO: Valider på at AAP ikkje skal kunne endres
     await userEvent.click(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 01.04.2020'));
-    await userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
+    await userEvent.type(screen.getAllByLabelText('Begrunnelse')[0], 'Test');
     await userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
     const feltetMåFyllesUtfeilmelding = screen.queryByText('Feltet må fylles ut');
     expect(feltetMåFyllesUtfeilmelding).not.toBeInTheDocument();
@@ -63,7 +63,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await userEvent.click(screen.getByRole('tab', { name: '13.02.2022 - 20.02.2022' }));
     expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
-    await userEvent.type(screen.getAllByLabelText('Begrunn endringene')[0], 'Test');
+    await userEvent.type(screen.getAllByLabelText('Begrunnelse')[0], 'Test');
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     const måHaAktivitetFeilmeldingNyTab = screen.queryByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
@@ -102,8 +102,8 @@ describe('<BeregningFaktaIndexSpec', () => {
     render(<ArbeidOgDagpengerAp5058EnPeriode />);
     const radioJa = screen.getByLabelText('Ja');
     await userEvent.click(radioJa);
-    expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
-    expect(screen.getByLabelText('Månedsinntekt for Dagpenger')).toBeInTheDocument();
+    expect(screen.getByLabelText('Månedsinntekt BEDRIFT AS (910909088)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Månedsinntekt dagpenger')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     const valideringsmeldinger = await screen.findAllByText('Feltet må fylles ut');
     expect(valideringsmeldinger.length).toBe(3);
@@ -129,7 +129,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await userEvent.type(screen.getByLabelText('Månedsinntekt for ytelse 2'), '5678');
     await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 2'), 'Arbeidstaker');
     expect(screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[1].selected).toBe(true);
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     const forventetFeilmelding = await screen.findByText('Andeler for samme aktivitet må ha ulik inntektskategori');
     expect(forventetFeilmelding).toBeInTheDocument();
@@ -184,15 +184,15 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(screen.queryByText('Aktiviteter i beregningsgrunnlaget')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ja'));
     await waitFor(() => {
-      expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
-      expect(screen.getByLabelText('Månedsinntekt for Dagpenger')).toBeInTheDocument();
+      expect(screen.getByLabelText('Månedsinntekt BEDRIFT AS (910909088)')).toBeInTheDocument();
+      expect(screen.getByLabelText('Månedsinntekt dagpenger')).toBeInTheDocument();
     });
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)'), '10');
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for Dagpenger'), '20');
+    await userEvent.type(screen.getByLabelText('Månedsinntekt BEDRIFT AS (910909088)'), '10');
+    await userEvent.type(screen.getByLabelText('Månedsinntekt dagpenger'), '20');
     expect(screen.getAllByTestId('sum')[0].innerHTML).toBe('30');
     await userEvent.click(screen.getByLabelText('Nei'));
     await waitFor(() => {
-      expect(screen.queryByLabelText('Månedsinntekt for Dagpenger')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('Månedsinntekt dagpenger')).not.toBeInTheDocument();
     });
   });
 
@@ -206,23 +206,19 @@ describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne fastsette inntekt for arbeidstaker og frilanser i samme organisasjon', async () => {
     const lagre = vi.fn();
     render(<FrilansOgArbeidstakerISammeOrganisasjonAp5058 submitCallback={lagre} />);
+    expect(screen.getByText('Søker er arbeidstaker og frilans i samme virksomhet')).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Søker er arbeidstaker og frilanser i samme virksomhet og det er ikke mottatt inntektsmelding(er).',
+        // eslint-disable-next-line max-len
+        'Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og samlet frilansinntekt.',
       ),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?',
-      ),
-    ).toBeInTheDocument();
-    expect(screen.getByLabelText('Månedsinntekt for Bedriften (12345678)')).toBeInTheDocument();
-    expect(screen.getByLabelText('Månedsinntekt for Frilanser')).toBeInTheDocument();
-    expect(screen.queryByLabelText('Månedsinntekt for Bedriften2 (12345679)')).not.toBeInTheDocument();
-    await userEvent.click(screen.getByLabelText('Ja'));
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for Bedriften (12345678)'), '10');
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for Frilanser'), '20');
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    expect(screen.getByLabelText('Månedsinntekt Bedriften (12345678)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Månedsinntekt frilanser')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Månedsinntekt Bedriften2 (12345679)')).not.toBeInTheDocument();
+    await userEvent.type(screen.getByLabelText('Månedsinntekt Bedriften (12345678)'), '10');
+    await userEvent.type(screen.getByLabelText('Månedsinntekt frilanser'), '20');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -267,20 +263,16 @@ describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet', async () => {
     const lagre = vi.fn();
     render(<VurderOmBrukerMottarYtelseForFrilansAp5058 submitCallback={lagre} />);
-    expect(
-      screen.getByText(
-        'Søker er frilanser. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?',
-      ),
-    ).toBeInTheDocument();
-    expect(screen.getByLabelText('Ja')).toBeInTheDocument();
-    expect(screen.getByLabelText('Nei')).toBeInTheDocument();
-    await userEvent.click(screen.getByLabelText('Ja'));
-    expect(screen.getByLabelText('Månedsinntekt for Frilanser')).toBeInTheDocument();
-    await userEvent.click(screen.getByLabelText('Nei'));
+    expect(screen.getByText('Mottar søker ytelse for frilansaktivitet?')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ja (månedsinntekt må fastsettes)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Nei (bruker A-inntekt)')).toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText('Ja (månedsinntekt må fastsettes)'));
+    expect(screen.getByText('Fastsett månedsinntekt')).toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText('Nei (bruker A-inntekt)'));
     await waitFor(() => {
-      expect(screen.queryByLabelText('Månedsinntekt for Frilanser')).not.toBeInTheDocument();
+      expect(screen.queryByText('Fastsett månedsinntekt')).not.toBeInTheDocument();
     });
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -310,15 +302,11 @@ describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne vurdere om bruker mottar ytelse for frilansaktivitet og fastsette inntekt', async () => {
     const lagre = vi.fn();
     render(<VurderOmBrukerMottarYtelseForFrilansAp5058 submitCallback={lagre} />);
-    expect(
-      screen.getByText(
-        'Søker er frilanser. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktiviteten?',
-      ),
-    ).toBeInTheDocument();
-    await userEvent.click(screen.getByLabelText('Ja'));
-    expect(screen.getByLabelText('Månedsinntekt for Frilanser')).toBeInTheDocument();
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for Frilanser'), '5000');
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    expect(screen.getByText('Mottar søker ytelse for frilansaktivitet?')).toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText('Ja (månedsinntekt må fastsettes)'));
+    expect(screen.getByText('Fastsett månedsinntekt')).toBeInTheDocument();
+    await userEvent.type(screen.getByText('Fastsett månedsinntekt'), '5000');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -357,7 +345,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(screen.getByText('Militær eller sivil')).toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ja'));
     expect(screen.getByText('Militær eller sivil')).toBeInTheDocument();
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -394,7 +382,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await waitFor(() => {
       expect(screen.queryByText('Militær eller sivil')).not.toBeInTheDocument();
     });
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'test');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [
@@ -474,7 +462,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     await userEvent.type(screen.getByLabelText('Månedsinntekt for Arbeid'), '50 000');
     expect(screen.getByText('50 000')).toBeInTheDocument();
 
-    await userEvent.type(screen.getByLabelText('Begrunn endringene'), 'Velbegrunnede endringer');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'Velbegrunnede endringer');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
