@@ -268,7 +268,11 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}>
-          <VurderEtterlonnSluttpakkeForm readOnly={readOnly} />
+          <VurderEtterlonnSluttpakkeForm
+            beregningsgrunnlag={beregningsgrunnlag}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            readOnly={readOnly}
+          />
         </React.Fragment>,
       );
     }

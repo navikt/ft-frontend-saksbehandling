@@ -10,18 +10,20 @@ import React, { FunctionComponent } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
+import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import {
   erArbeidstaker,
   erDagpenger,
   erFrilanser,
   erOverstyring,
+  getArbeidsgiverIndex,
+  getFastsattBelopFromArbeidstakerInntekt,
   getKanRedigereInntekt,
   getSkalRedigereInntektskategori,
 } from './BgFaktaUtils';
-import styles from './inntektFieldArray.module.css';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+import styles from './inntektFieldArray.module.css';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
   const headerCodes = [];
@@ -60,6 +62,7 @@ type OwnProps = {
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
+  skalFastsetteInntektForAndel: (andel) => boolean;
 };
 
 /**
@@ -77,6 +80,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   kodeverkSamling,
   rowName,
+  skalFastsetteInntektForAndel,
 }) => {
   const intl = useIntl();
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
@@ -86,15 +90,23 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const erInntektDagpenger = erDagpenger(field);
   const erArbeidstakerInntekt = erArbeidstaker(field);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
+
   const harEndretFrilansinntekt =
     erFrilansInntekt && kanRedigereInntekt && formValues?.frilansInntektValues?.fastsattBelop;
+
   const harEndretInntektForArbeidsgiver =
-    erArbeidstakerInntekt && kanRedigereInntekt && formValues?.arbeidstakerInntektValues?.[field.arbeidsgiverId];
+    erArbeidstakerInntekt &&
+    kanRedigereInntekt &&
+    !!getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId);
+
   const harEndretInntektForDagpenger =
     erInntektDagpenger && kanRedigereInntekt && formValues?.dagpengerInntektValues?.fastsattBelop;
+
   const visMåFastsettesText =
     (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
-    (erArbeidstakerInntekt && kanRedigereInntekt && !formValues?.arbeidstakerInntektValues?.[field.arbeidsgiverId]) ||
+    (erArbeidstakerInntekt &&
+      kanRedigereInntekt &&
+      !getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId)) ||
     (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop);
   const harEndretInntekt = harEndretFrilansinntekt || harEndretInntektForArbeidsgiver || harEndretInntektForDagpenger;
 
@@ -106,7 +118,10 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
 
   const getInputFieldName = () => {
     if (harEndretInntektForArbeidsgiver) {
-      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${field.arbeidsgiverId}`;
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${getArbeidsgiverIndex(
+        formValues.arbeidstakerInntektValues,
+        field.arbeidsgiverId,
+      )}.fastsattBelop`;
     }
     if (harEndretFrilansinntekt) {
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
@@ -172,7 +187,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
             name={`${rowName}.fastsattBelop`}
             parse={parseCurrencyInput}
             className={styles.mediumBredde}
-            validate={[required, maxValueFormatted(178956970)]}
+            validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
             hideLabel
           />
         </TableColumn>

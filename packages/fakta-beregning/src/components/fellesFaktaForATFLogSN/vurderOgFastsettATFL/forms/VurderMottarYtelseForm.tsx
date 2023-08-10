@@ -209,9 +209,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
             isAksjonspunktClosed={isAksjonspunktClosed}
             label={
               <div key={finnFrilansFieldName()}>
-                <BodyShort>
-                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
-                </BodyShort>
+                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
                 <ReadMore size="small" header="Hvordan går jeg frem">
                   <List>
                     <List.Item>

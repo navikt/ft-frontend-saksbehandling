@@ -6,7 +6,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useFormContext, useWatch } from 'react-hook-form';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import { erArbeidstaker, erDagpenger, erFrilanser, getKanRedigereInntekt } from './BgFaktaUtils';
+import { erArbeidstaker, erDagpenger, erFrilanser, getArbeidsgiverIndex, getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import AndelFieldValue from '../../typer/FieldValues';
@@ -30,8 +30,16 @@ const summerBeregnet = (
 
       if (erFrilansInntekt && formValues?.frilansInntektValues?.fastsattBelop) {
         belop = formValues.frilansInntektValues.fastsattBelop;
-      } else if (erArbeidstakerInntekt && formValues?.arbeidstakerInntektValues[field.arbeidsgiverId]) {
-        belop = formValues.arbeidstakerInntektValues[field.arbeidsgiverId];
+      } else if (
+        erArbeidstakerInntekt &&
+        formValues?.arbeidstakerInntektValues[
+          getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
+        ]?.fastsattBelop
+      ) {
+        belop =
+          formValues.arbeidstakerInntektValues[
+            getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
+          ].fastsattBelop;
       } else if (erDagpengerInntekt && formValues?.dagpengerInntektValues?.fastsattBelop) {
         belop = formValues.dagpengerInntektValues.fastsattBelop;
       } else {

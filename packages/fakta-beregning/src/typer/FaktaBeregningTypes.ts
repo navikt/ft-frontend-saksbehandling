@@ -87,7 +87,8 @@ export type DagpengerinntektValues = {
 };
 
 export type ArbeidstakerInntektValues = {
-  [key: string]: number;
+  fastsattBelop: number;
+  arbeidsgiverId: string;
 };
 
 export type TilfellerValues = VurderMilitærValues &
@@ -102,7 +103,7 @@ export type TilfellerValues = VurderMilitærValues &
     vurderMottarYtelseValues?: VurderMottarYtelseValues;
     vurderRefusjonValues?: VurderRefusjonValues;
     frilansInntektValues?: FrilansinntektValues;
-    arbeidstakerInntektValues?: ArbeidstakerInntektValues;
+    arbeidstakerInntektValues?: ArbeidstakerInntektValues[];
     dagpengerInntektValues?: DagpengerinntektValues;
   };
 

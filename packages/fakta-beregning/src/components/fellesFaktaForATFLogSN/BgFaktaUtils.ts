@@ -15,7 +15,11 @@ import {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typer/FaktaBeregningTypes';
+import {
+  ArbeidstakerInntektValues,
+  FaktaOmBeregningAksjonspunktValues,
+  GenerellAndelInfo,
+} from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import createVisningsnavnFakta from '../ArbeidsforholdHelper';
@@ -304,3 +308,11 @@ export const mapAndelToField = (
   belopReadOnly: andel.belopReadOnly || andel.belopReadOnly === 0 ? formatCurrencyNoKr(andel.belopReadOnly) : '',
   refusjonskrav: andel.refusjonskrav || andel.refusjonskrav === 0 ? formatCurrencyNoKr(andel.refusjonskrav) : '',
 });
+
+export const getArbeidsgiverIndex = (arbeidstakerInntektValues: ArbeidstakerInntektValues[], arbeidsgiverId: string) =>
+  arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverId === arbeidsgiverId);
+
+export const getFastsattBelopFromArbeidstakerInntekt = (
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
+  arbeidsgiverId: string,
+) => arbeidstakerInntektValues?.find(arbeidsgiver => arbeidsgiver.arbeidsgiverId === arbeidsgiverId)?.fastsattBelop;

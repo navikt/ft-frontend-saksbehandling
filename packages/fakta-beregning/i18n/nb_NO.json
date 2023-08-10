@@ -29,6 +29,7 @@
   "BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt": "Fastsett månedsinntekt",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser": "Månedsinntekt frilanser",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift": "Månedsinntekt {bedrift}",
+  "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektDagpenger": "Månedsinntekt dagpenger",
 
   "BeregningInfoPanel.VurderBestebergning.HarBesteberegning": "Søker har hatt dagpenger i opptjeningsperioden. Skal dette fordeles etter besteberegning?",
 

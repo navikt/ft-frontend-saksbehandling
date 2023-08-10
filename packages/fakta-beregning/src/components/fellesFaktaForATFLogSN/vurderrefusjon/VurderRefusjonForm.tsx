@@ -50,7 +50,6 @@ const lagRefusjonskravRadios = (
             { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
           ]}
           parse={parseStringToBoolean}
-          isHorizontal
         />
       </React.Fragment>
     );

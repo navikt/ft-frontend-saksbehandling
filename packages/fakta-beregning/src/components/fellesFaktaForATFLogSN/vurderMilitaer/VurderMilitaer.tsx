@@ -45,7 +45,6 @@ const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnl
         ]}
         validate={[required]}
         parse={parseStringToBoolean}
-        isHorizontal
       />
     </div>
   );

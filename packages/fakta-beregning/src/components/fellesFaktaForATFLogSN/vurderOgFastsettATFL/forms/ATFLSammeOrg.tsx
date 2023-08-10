@@ -1,18 +1,15 @@
-import { BodyShort, Label, List, ReadMore } from '@navikt/ds-react';
-import { InputField } from '@navikt/ft-form-hooks';
-import { maxValueFormatted, required } from '@navikt/ft-form-validators';
+import { Label, List, ReadMore } from '@navikt/ds-react';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
+import InntektInput from '../../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { finnFrilansFieldName } from './VurderMottarYtelseUtils';
-import styles from './atflSammeOrg.module.css';
 
 export const transformValuesForATFLISammeOrg = (
   inntektVerdier: InntektTransformed[],
@@ -95,24 +92,18 @@ export const ATFLSammeOrg: FunctionComponent<OwnProps> = ({ beregningsgrunnlag, 
         />
       ))}
       <VerticalSpacer twentyPx />
-      <div className={styles.inntektInput}>
-        <InputField
-          name={frilanserInntektFieldName}
-          htmlSize={8}
-          parse={parseCurrencyInput}
-          readOnly={readOnly}
-          isEdited={isAksjonspunktClosed}
-          validate={[required, maxValueFormatted(178956970)]}
-          label={
-            <div key={finnFrilansFieldName()}>
-              <BodyShort>
-                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser" />
-              </BodyShort>
-            </div>
-          }
-        />
-        <p className={styles.krLabel}>kr</p>
-      </div>
+      <InntektInput
+        name={frilanserInntektFieldName}
+        readOnly={readOnly}
+        isAksjonspunktClosed={isAksjonspunktClosed}
+        label={
+          <div key={finnFrilansFieldName()}>
+            <Label size="small">
+              <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser" />
+            </Label>
+          </div>
+        }
+      />
     </>
   );
 };

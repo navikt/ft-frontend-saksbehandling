@@ -22,7 +22,13 @@ import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import AddDagpengerAndelButton from './AddDagpengerAndelButton';
-import { erOverstyring, getKanRedigereInntekt, mapAndelToField } from './BgFaktaUtils';
+import {
+  erOverstyring,
+  getFastsattBelopFromArbeidstakerInntekt,
+  getKanRedigereInntekt,
+  mapAndelToField,
+  skalFastsetteInntektForAndel,
+} from './BgFaktaUtils';
 import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
 import SummaryRow from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
@@ -214,7 +220,7 @@ interface StaticFunctions {
   transformValues: (
     values: AndelFieldValue[],
     frilansInntektValues: FrilansinntektValues,
-    arbeidstakerInntektValues: ArbeidstakerInntektValues,
+    arbeidstakerInntektValues: ArbeidstakerInntektValues[],
     dagpengerInntektValues: DagpengerinntektValues,
   ) => InntektTransformed[];
 }
@@ -320,6 +326,11 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       beregningsgrunnlag={beregningsgrunnlag}
       kodeverkSamling={kodeverkSamling}
       rowName={`${fieldArrayName}.${index}`}
+      skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(
+        formValues,
+        beregningsgrunnlag.faktaOmBeregning,
+        beregningsgrunnlag,
+      )}
     />
   ));
 
@@ -365,7 +376,7 @@ InntektFieldArray.defaultProps = {
 InntektFieldArray.transformValues = (
   values: AndelFieldValue[],
   frilansInntektValues: FrilansinntektValues,
-  arbeidstakerInntektValues: ArbeidstakerInntektValues,
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
   dagpengerInntektValues: DagpengerinntektValues,
 ): InntektTransformed[] => {
   if (!values) return null;
@@ -373,7 +384,8 @@ InntektFieldArray.transformValues = (
   const transformAndel = fieldValue => {
     const fastsattBelop =
       (erFrilanser(fieldValue.aktivitetStatus) && frilansInntektValues?.fastsattBelop) ||
-      (erArbeidstaker(fieldValue.aktivitetStatus) && arbeidstakerInntektValues?.[fieldValue.arbeidsgiverId]) ||
+      (erArbeidstaker(fieldValue.aktivitetStatus) &&
+        getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, fieldValue.arbeidsgiverId)) ||
       (erDagpenger(fieldValue.aktivitetStatus) && dagpengerInntektValues?.fastsattBelop) ||
       fieldValue.fastsattBelop;
 
@@ -395,7 +407,8 @@ InntektFieldArray.transformValues = (
       ({ fastsattBelop, aktivitetStatus, arbeidsgiverId }) =>
         (fastsattBelop !== null && fastsattBelop !== '') ||
         (erFrilanser(aktivitetStatus) && frilansInntektValues.fastsattBelop) ||
-        (erArbeidstaker(aktivitetStatus) && arbeidstakerInntektValues[arbeidsgiverId]) ||
+        (erArbeidstaker(aktivitetStatus) &&
+          getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, arbeidsgiverId)) ||
         (erDagpenger(aktivitetStatus) && dagpengerInntektValues.fastsattBelop),
     )
     .map(transformAndel);

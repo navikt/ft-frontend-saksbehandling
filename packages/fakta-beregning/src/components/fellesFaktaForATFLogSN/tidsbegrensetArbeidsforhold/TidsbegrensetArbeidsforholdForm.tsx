@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { BodyShort } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
@@ -7,15 +7,16 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import createVisningsnavnFakta from '../../ArbeidsforholdHelper';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 
@@ -88,8 +89,8 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
             ]}
             validate={[required]}
             parse={parseStringToBoolean}
-            isHorizontal
           />
+          <VerticalSpacer twentyPx />
         </div>
       ))}
     </div>

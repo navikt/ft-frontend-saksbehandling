@@ -53,7 +53,6 @@ const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ 
           { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
         ]}
         parse={parseStringToBoolean}
-        isHorizontal
       />
     </div>
   );

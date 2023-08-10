@@ -1,10 +1,16 @@
+import { BodyShort } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
+import {
+  AktivitetStatus,
+  FaktaOmBeregningTilfelle,
+  isAksjonspunktOpen,
+  OpptjeningAktivitetType as OAType,
+} from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import 'core-js/features/array/flat-map';
-import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
@@ -12,6 +18,8 @@ import {
 } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
+import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
@@ -24,7 +32,9 @@ import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 export const harEtterlonnSluttpakkeField = 'vurderEtterlønnSluttpakke';
 
 type OwnProps = {
+  beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -40,10 +50,21 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
+const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+  beregningsgrunnlag,
+  readOnly,
+  isAksjonspunktClosed,
+}) => {
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
 
+  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const skalRedigereInntekt = getValues(
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
+  );
+  const intl = useIntl();
+  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  );
   return (
     <div>
       <RadioGroupPanel
@@ -60,8 +81,18 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
           { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
         ]}
         parse={parseStringToBoolean}
-        isHorizontal
       />
+      {skalRedigereInntekt
+        ? andelerMedArbeidsinntekt.map(andel => (
+            <ArbeidsinntektInput
+              key={andel.arbeidsforhold.arbeidsgiverId}
+              arbeidsgiver={andel}
+              readOnly={readOnly}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+              label={<FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />}
+            />
+          ))
+        : null}
     </div>
   );
 };
