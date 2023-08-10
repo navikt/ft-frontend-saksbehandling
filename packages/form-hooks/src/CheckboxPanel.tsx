@@ -14,6 +14,7 @@ interface CheckboxProps {
 interface CheckboxPanelProps {
   name: string;
   label?: string | ReactNode;
+  description?: string;
   checkboxes: CheckboxProps[];
   validate?: ((value: string | number) => any)[];
   onChange?: (value: any) => void;
@@ -28,6 +29,7 @@ interface CheckboxPanelProps {
 const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
   label,
   name,
+  description,
   validate = [],
   checkboxes,
   onChange,
@@ -52,6 +54,7 @@ const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
     <>
       <CheckboxGroup
         name={name}
+        description={description}
         value={field.value !== undefined ? field.value : []}
         onChange={value => {
           if (onChange) {

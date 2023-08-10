@@ -14,6 +14,7 @@ interface RadioProps {
 
 interface RadioGroupPanelProps {
   name: string;
+  description?: string;
   label?: string | ReactNode;
   radios: RadioProps[];
   validate?: ((value: string | number) => any)[];
@@ -30,6 +31,7 @@ interface RadioGroupPanelProps {
 
 const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
   label,
+  description,
   name,
   validate = [],
   radios,
@@ -76,6 +78,7 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
       }}
       size="small"
       legend={legend}
+      description={description}
       error={getError(errors, name)}
       className={hideRadioLabels ? styles.hideRadioLabels : ''}
       hideLegend={hideLegend}
