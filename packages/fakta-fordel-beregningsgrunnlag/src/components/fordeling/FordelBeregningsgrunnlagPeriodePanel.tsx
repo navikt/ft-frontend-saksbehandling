@@ -53,7 +53,7 @@ const renderDateHeading = (fom: string, tom: string | undefined): ReactElement =
 };
 
 const finnBortfaltNaturalytelse = (andel: BeregningsgrunnlagAndel): number =>
-  andel.bortfaltNaturalytelse ? andel.bortfaltNaturalytelse : 0;
+  andel.arbeidsforhold?.naturalytelseBortfaltPrÅr ? andel.arbeidsforhold?.naturalytelseBortfaltPrÅr : 0;
 
 const finnBeregnetPlussBortfaltNat = (andel: BeregningsgrunnlagAndel): number => {
   const bortfaltNaturalytelse = finnBortfaltNaturalytelse(andel);
@@ -180,13 +180,15 @@ const finnBeregningsgrunnlagPrAar = (bgAndel: BeregningsgrunnlagAndel): string |
     return undefined;
   }
   const bortfaltNaturalytelse =
-    bgAndel.bortfaltNaturalytelse === null || bgAndel.bortfaltNaturalytelse === undefined
+    bgAndel.arbeidsforhold?.naturalytelseBortfaltPrÅr === null ||
+    bgAndel.arbeidsforhold?.naturalytelseBortfaltPrÅr === undefined
       ? 0
-      : bgAndel.bortfaltNaturalytelse;
+      : bgAndel.arbeidsforhold.naturalytelseBortfaltPrÅr;
   const tilkommetNaturalytelse =
-    bgAndel.tilkommetNaturalytelse === null || bgAndel.tilkommetNaturalytelse === undefined
+    bgAndel.arbeidsforhold?.naturalytelseTilkommetPrÅr === null ||
+    bgAndel.arbeidsforhold?.naturalytelseTilkommetPrÅr === undefined
       ? 0
-      : bgAndel.tilkommetNaturalytelse;
+      : bgAndel.arbeidsforhold.naturalytelseTilkommetPrÅr;
   if (bgAndel.besteberegningPrAar || bgAndel.besteberegningPrAar === 0) {
     return formatCurrencyNoKr(bgAndel.besteberegningPrAar + bortfaltNaturalytelse - tilkommetNaturalytelse);
   }
