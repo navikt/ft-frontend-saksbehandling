@@ -80,8 +80,6 @@ export const settFastsattBelop = (
 export const setArbeidsforholdInitialValues = (
   andel: FordelBeregningsgrunnlagAndel,
 ): FordelBeregningsgrunnlagArbeidAndelValues => ({
-  arbeidsgiverNavn:
-    andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverNavn ? andel.arbeidsforhold.arbeidsgiverNavn : '',
   arbeidsgiverId:
     andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverIdent ? andel.arbeidsforhold.arbeidsgiverIdent : '',
   eksternArbeidsforholdId:

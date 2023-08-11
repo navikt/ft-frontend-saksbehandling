@@ -19,7 +19,6 @@ const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFro
 type Refusjonsinfo = {
   arbeidsforholdId?: string;
   eksternArbeidsforholdId?: string;
-  arbeidsgiverNavn?: string;
   arbeidsgiverId?: string;
   refusjonskravFraInntektsmelding?: number;
   totalRefusjon: number;
@@ -136,13 +135,7 @@ const oppdaterInfoListe = (
       belopsInfo.totalRefusjon += Number(removeSpacesFromNumber(refusjon));
     }
   } else {
-    const {
-      refusjonskravFraInntektsmelding,
-      arbeidsforholdId,
-      arbeidsgiverNavn,
-      arbeidsgiverId,
-      eksternArbeidsforholdId,
-    } = field;
+    const { refusjonskravFraInntektsmelding, arbeidsforholdId, arbeidsgiverId, eksternArbeidsforholdId } = field;
     let totalRefusjon = 0;
     if (refusjon !== null && refusjon !== undefined) {
       totalRefusjon = Number(removeSpacesFromNumber(refusjon));
@@ -150,7 +143,6 @@ const oppdaterInfoListe = (
     arbeidsforholdRefusjonsbelop.push({
       arbeidsforholdId,
       eksternArbeidsforholdId,
-      arbeidsgiverNavn,
       arbeidsgiverId,
       refusjonskravFraInntektsmelding,
       totalRefusjon,
@@ -204,7 +196,7 @@ export const validateTotalRefusjonPrArbeidsforhold = (
       : undefined;
     let arbeidsgiverString;
     if (!agOpplysninger) {
-      arbeidsgiverString = arbeidsforholdMedForHogRefusjon[0].arbeidsgiverNavn || '';
+      arbeidsgiverString = arbeidsforholdMedForHogRefusjon[0].arbeidsgiverId || '';
     } else {
       arbeidsgiverString = createVisningsnavnForAktivitetFordeling(
         agOpplysninger,
