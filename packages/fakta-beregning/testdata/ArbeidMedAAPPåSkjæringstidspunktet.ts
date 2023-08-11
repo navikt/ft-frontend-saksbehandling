@@ -29,8 +29,6 @@ export const beregningsgrunnlag = [
             andelsnr: 1,
             inntektskategori: 'ARBEIDSTAKER',
             arbeidsforhold: {
-              arbeidsgiverNavn: 'BEDRIFT AS',
-              arbeidsgiverId: '910909088',
               arbeidsgiverIdent: '910909088',
               startdato: '2019-02-03',
               opphoersdato: '2020-04-01',
@@ -81,8 +79,6 @@ export const beregningsgrunnlag = [
           inntektskategori: 'ARBEIDSTAKER',
           aktivitetStatus: 'AT',
           arbeidsforhold: {
-            arbeidsgiverNavn: 'BEDRIFT AS',
-            arbeidsgiverId: '910909088',
             arbeidsgiverIdent: '910909088',
             startdato: '2019-02-03',
             opphoersdato: '2020-02-03',
