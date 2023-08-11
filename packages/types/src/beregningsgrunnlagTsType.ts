@@ -58,20 +58,12 @@ export type BeregningsgrunnlagAndel = Readonly<{
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
   avkortetPrAar?: number;
   inntektskategori?: string;
-
-  // Fjern disse to da er flyttet inn i arbeidsforhold objektet over her
-  bortfaltNaturalytelse?: number;
-  tilkommetNaturalytelse?: number;
-
   beregnetPrAar?: number;
   beregningsperiodeFom?: string;
   beregningsperiodeTom?: string;
   bruttoPrAar?: number;
   overstyrtPrAar?: number;
   redusertPrAar?: number;
-  pgi1?: number;
-  pgi2?: number;
-  pgi3?: number;
   pgiSnitt?: number;
   pgiVerdier?: PgiVerdier[];
   aarsbeloepFraTilstoetendeYtelse?: number;
@@ -140,7 +132,6 @@ type Beregningsgrunnlag = Readonly<{
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
   faktaOmBeregning?: FaktaOmBeregning;
   faktaOmFordeling?: FaktaOmFordeling;
-  andelerMedGraderingUtenBG?: BeregningsgrunnlagAndel[];
   ytelsesspesifiktGrunnlag?: YtelseGrunnlag;
   refusjonTilVurdering?: RefusjonTilVurdering;
   inntektsgrunnlag?: Inntektsgrunnlag;
