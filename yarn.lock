@@ -2306,15 +2306,15 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-konstanter": ^2.0.31
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
-    "@navikt/ft-utils-test": ^2.0.37
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-konstanter": ^2.0.32
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
+    "@navikt/ft-utils-test": ^2.0.38
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2362,14 +2362,14 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
-    "@navikt/ft-utils-test": ^2.0.37
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
+    "@navikt/ft-utils-test": ^2.0.38
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2414,14 +2414,14 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
-    "@navikt/ft-utils-test": ^2.0.37
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
+    "@navikt/ft-utils-test": ^2.0.38
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2454,18 +2454,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-form-hooks@^4.1.9, @navikt/ft-form-hooks@workspace:packages/form-hooks":
+"@navikt/ft-form-hooks@^4.1.10, @navikt/ft-form-hooks@workspace:packages/form-hooks":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-hooks@workspace:packages/form-hooks"
   dependencies:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
-    "@navikt/ft-utils-test": ^2.0.37
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
+    "@navikt/ft-utils-test": ^2.0.38
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2499,11 +2499,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-form-validators@^2.0.41, @navikt/ft-form-validators@workspace:packages/form-validators":
+"@navikt/ft-form-validators@^2.0.42, @navikt/ft-form-validators@workspace:packages/form-validators":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-validators@workspace:packages/form-validators"
   dependencies:
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/react": 7.2.3
     cross-env: 7.0.3
     eslint: 8.47.0
@@ -2517,7 +2517,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-kodeverk@^2.1.21, @navikt/ft-kodeverk@workspace:packages/kodeverk":
+"@navikt/ft-kodeverk@^2.1.22, @navikt/ft-kodeverk@workspace:packages/kodeverk":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-kodeverk@workspace:packages/kodeverk"
   dependencies:
@@ -2531,7 +2531,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-konstanter@^2.0.31, @navikt/ft-konstanter@workspace:packages/konstanter":
+"@navikt/ft-konstanter@^2.0.32, @navikt/ft-konstanter@workspace:packages/konstanter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-konstanter@workspace:packages/konstanter"
   dependencies:
@@ -2545,14 +2545,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-plattform-komponenter@^2.2.15, @navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter":
+"@navikt/ft-plattform-komponenter@^2.2.16, @navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-utils": ^2.0.41
     "@popperjs/core": 2.11.8
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
@@ -2597,15 +2597,15 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-plattform-komponenter": ^2.2.15
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
-    "@navikt/ft-utils-test": ^2.0.37
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-plattform-komponenter": ^2.2.16
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
+    "@navikt/ft-utils-test": ^2.0.38
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2653,14 +2653,14 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
-    "@navikt/ft-utils-test": ^2.0.37
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
+    "@navikt/ft-utils-test": ^2.0.38
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2703,13 +2703,13 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2750,14 +2750,14 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
-    "@navikt/ft-utils-test": ^2.0.37
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
+    "@navikt/ft-utils-test": ^2.0.38
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2799,13 +2799,13 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-plattform-komponenter": ^2.2.15
-    "@navikt/ft-sak-visittkort": ^2.0.50
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-plattform-komponenter": ^2.2.16
+    "@navikt/ft-sak-visittkort": ^2.0.51
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2840,12 +2840,12 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-plattform-komponenter": ^2.2.15
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-plattform-komponenter": ^2.2.16
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2887,12 +2887,12 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-konstanter": ^2.0.31
-    "@navikt/ft-plattform-komponenter": ^2.2.15
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-konstanter": ^2.0.32
+    "@navikt/ft-plattform-komponenter": ^2.2.16
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2931,10 +2931,10 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -2968,10 +2968,10 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -3004,7 +3004,7 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -3034,11 +3034,11 @@ __metadata:
   dependencies:
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-plattform-komponenter": ^2.2.15
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-plattform-komponenter": ^2.2.16
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -3075,13 +3075,13 @@ __metadata:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-form-hooks": ^4.1.9
-    "@navikt/ft-form-validators": ^2.0.41
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-form-hooks": ^4.1.10
+    "@navikt/ft-form-validators": ^2.0.42
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -3117,19 +3117,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-sak-visittkort@^2.0.50, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
+"@navikt/ft-sak-visittkort@^2.0.51, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-visittkort@workspace:packages/sak-visittkort"
   dependencies:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-plattform-komponenter": ^2.2.15
-    "@navikt/ft-storybook-utils": ^2.0.47
-    "@navikt/ft-types": ^2.1.23
-    "@navikt/ft-ui-komponenter": ^2.0.44
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-plattform-komponenter": ^2.2.16
+    "@navikt/ft-storybook-utils": ^2.0.48
+    "@navikt/ft-types": ^2.1.24
+    "@navikt/ft-ui-komponenter": ^2.0.45
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -3159,11 +3159,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-storybook-utils@^2.0.47, @navikt/ft-storybook-utils@workspace:packages/storybook-utils":
+"@navikt/ft-storybook-utils@^2.0.48, @navikt/ft-storybook-utils@workspace:packages/storybook-utils":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-storybook-utils@workspace:packages/storybook-utils"
   dependencies:
-    "@navikt/ft-form-hooks": ^4.1.9
+    "@navikt/ft-form-hooks": ^4.1.10
     eslint: 8.47.0
     history: 5.3.0
     react: 18.2.0
@@ -3174,11 +3174,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-types@^2.1.23, @navikt/ft-types@workspace:packages/types":
+"@navikt/ft-types@^2.1.24, @navikt/ft-types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-types@workspace:packages/types"
   dependencies:
-    "@navikt/ft-kodeverk": ^2.1.21
+    "@navikt/ft-kodeverk": ^2.1.22
     "@storybook/react": 7.2.3
     cross-env: 7.0.3
     eslint: 8.47.0
@@ -3191,14 +3191,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-ui-komponenter@^2.0.44, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
+"@navikt/ft-ui-komponenter@^2.0.45, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
     "@navikt/aksel-icons": 4.11.0
     "@navikt/ds-css": 4.11.0
     "@navikt/ds-react": 4.11.0
-    "@navikt/ft-utils": ^2.0.40
+    "@navikt/ft-utils": ^2.0.41
     "@storybook/addon-actions": 7.2.3
     "@storybook/react": 7.2.3
     "@storybook/react-vite": 7.2.3
@@ -3228,11 +3228,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-utils-test@^2.0.37, @navikt/ft-utils-test@workspace:packages/utils-test":
+"@navikt/ft-utils-test@^2.0.38, @navikt/ft-utils-test@workspace:packages/utils-test":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-utils-test@workspace:packages/utils-test"
   dependencies:
-    "@navikt/ft-kodeverk": ^2.1.21
+    "@navikt/ft-kodeverk": ^2.1.22
     cross-env: 7.0.3
     eslint: 8.47.0
     react: 18.2.0
@@ -3242,12 +3242,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-utils@^2.0.40, @navikt/ft-utils@workspace:packages/utils":
+"@navikt/ft-utils@^2.0.41, @navikt/ft-utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-utils@workspace:packages/utils"
   dependencies:
-    "@navikt/ft-kodeverk": ^2.1.21
-    "@navikt/ft-types": ^2.1.23
+    "@navikt/ft-kodeverk": ^2.1.22
+    "@navikt/ft-types": ^2.1.24
     dayjs: 1.11.9
     eslint: 8.47.0
     react-intl: 6.4.4
