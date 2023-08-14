@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import styles from './vurderAktiviteterTabell.module.css';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
   const datoFeil = hasValidDate(skjaeringstidspunkt);
@@ -22,19 +23,11 @@ const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, sk
       />
     );
   }
-  const harAAP = aktiviteter.some(a => a.arbeidsforholdType && a.arbeidsforholdType === opptjeningAktivitetTyper.AAP);
   const harVentelonnVartpenger = aktiviteter.some(
     aktivitet =>
       aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER,
   );
-  if (harAAP) {
-    return (
-      <FormattedMessage
-        id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift"
-        values={{ skjaeringstidspunkt: formatertStp }}
-      />
-    );
-  }
+
   if (harVentelonnVartpenger) {
     return (
       <FormattedMessage
@@ -82,7 +75,7 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
 }) => (
   <>
     <Label size="small">{finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}</Label>
-    <Table headerTextCodes={getHeaderTextCodes()} noHover>
+    <Table classNameTable={styles.aktiviteterTable} headerTextCodes={getHeaderTextCodes()} noHover>
       {aktiviteter.map(aktivitet => (
         <VurderAktiviteterTabellRad
           key={`${aktivitet.arbeidsgiverIdent}-${aktivitet.fom}-${aktivitet.tom}`}

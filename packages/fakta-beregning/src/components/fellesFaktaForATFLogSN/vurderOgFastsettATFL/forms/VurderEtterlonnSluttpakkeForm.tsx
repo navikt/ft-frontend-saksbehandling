@@ -1,11 +1,11 @@
-import { BodyShort } from '@navikt/ds-react';
+import { ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
   AktivitetStatus,
   FaktaOmBeregningTilfelle,
-  isAksjonspunktOpen,
   OpptjeningAktivitetType as OAType,
+  isAksjonspunktOpen,
 } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import 'core-js/features/array/flat-map';
@@ -17,11 +17,11 @@ import {
   VurderEtterlønnSluttpakkeValues,
 } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
+import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
 /**
  * VurderEtterlønnSluttpakkeForm
@@ -69,16 +69,23 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
     <div>
       <RadioGroupPanel
         label={
-          <BodyShort>
+          <>
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
-          </BodyShort>
+            <ReadMore size="small" header="Hvordan går jeg frem?">
+              Gå til A-inntekt og se om etterlønn eller sluttvederlag er rapportert. Hvis ikke, kontakt søker og be de
+              dokumentere etterlønn/sluttvederlag med avtale el.
+            </ReadMore>
+          </>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+          {
+            value: 'true',
+            label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
+          },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
         ]}
         parse={parseStringToBoolean}
       />

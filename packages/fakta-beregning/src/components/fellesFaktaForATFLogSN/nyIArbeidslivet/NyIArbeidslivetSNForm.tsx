@@ -2,12 +2,12 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { List, ReadMore } from '@navikt/ds-react';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 
 /**
  * NyIArbeidslivetSNForm
@@ -41,9 +41,27 @@ const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ 
     <div>
       <RadioGroupPanel
         label={
-          <BodyShort>
+          <>
             <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
-          </BodyShort>
+            <ReadMore size="small" header="Hvordan går jeg frem">
+              <List>
+                <List.Item>
+                  En næringsdrivende er “ny i arbeidslivet” når de i løpet av de tre siste årene har begynt i
+                  arbeidslivet, og i den forbindelse startet en virksomhet. Dette kan for eksempel være en student som
+                  etter eksamen oppretter et firma.
+                </List.Item>
+                <List.Item>
+                  For å finne ut når søker ble yrkesaktiv, kan du se i Brønnøysundregistrene når næringsvirksomheten ble
+                  registert. Du kan også bruke A-inntekt for å se om søker har hatt annen inntekt de tre siste
+                  ferdiglignede årene.
+                </List.Item>
+                <List.Item>
+                  Hvis du velger “ja”, kan du skjønnsfastsette næringsinntekten i neste steg, selv om avviket ikke er
+                  over 25 prosent. Hvis du velger “nei”, brukes hovedregler for beregning av næringsinntekt.
+                </List.Item>
+              </List>
+            </ReadMore>
+          </>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${radioGroupFieldName}`}
         validate={[required]}

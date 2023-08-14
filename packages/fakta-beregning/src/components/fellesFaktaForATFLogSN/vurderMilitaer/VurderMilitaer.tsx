@@ -1,12 +1,12 @@
+import { List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
-import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 
 /**
  * VurderMilitær
@@ -33,9 +33,22 @@ const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnl
     <div>
       <RadioGroupPanel
         label={
-          <BodyShort>
+          <>
             <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
-          </BodyShort>
+            <ReadMore size="small" header="Hvordan går jeg frem?">
+              <List>
+                <List.Item>
+                  Kontakt søker og be om dokumentasjon på avtjent tjeneste i opptjeningsperioden. Vurder om tjenesten
+                  har vart eller var ment å vare mer enn 28 dager i henhold til §8-46. Denne informasjonen er ikke
+                  tilgjengelig i noen registre, og vi må derfor ha dokumentasjon fra søker.
+                </List.Item>
+                <List.Item>
+                  {`Svarer du "ja" vil utbetalingen bli minst 2G (pleiepenger) / 3G (foreldrepenger). Svarer du "nei"
+                  beregnes det etter vanlige regler.`}
+                </List.Item>
+              </List>
+            </ReadMore>
+          </>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${vurderMilitaerField}`}
         isReadOnly={readOnly}

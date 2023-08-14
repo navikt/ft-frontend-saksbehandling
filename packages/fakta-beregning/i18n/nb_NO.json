@@ -1,21 +1,23 @@
 {
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning": "Vurder fakta for beregningen",
+  "BeregningInfoPanel.AksjonspunktHelpText.ForSentRefusjonskrav": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
   "BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold": "Er arbeidsforholdet i {navn} med varighet {fom} - {tom} tidsbegrenset?",
   "BeregningInfoPanel.FormAlternativ.Ja": "Ja",
   "BeregningInfoPanel.FormAlternativ.Nei": "Nei",
-  "BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende": "Søker er selvstendig næringsdrivende. Ble søker yrkesaktiv i løpet av de siste tre årene?",
+  "BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende": "Ble søker yrkesaktiv i løpet av de siste tre årene?",
   "BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes": "Ja (månedsinntekt må fastsettes)",
   "BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt": "Nei (bruker A-inntekt)",
 
   "AvklarAktivitetPanel.Overskrift": "Aktiviteter i beregningsgrunnlaget",
+  "AvklarAktivitetPanel.Overskrift.Skjaeringstidspunkt": "Skjæringstidspunkt: {skjaeringstidspunkt}",
   "AvklarAktivitetPanel.ButtonText": "Oppdater",
   "AvklarAktivitetPanel.OverstyrText": "Overstyr",
   "AvklareAktiviteter.Avbryt": "Avbryt",
-  "VurderAktiviteterTabell.FullAAPKombinert.Overskrift": "Søker har full AAP (200%) sammen med andre aktiviteter. Skjæringstidspunkt for beregning {skjaeringstidspunkt}",
+  "VurderAktiviteterTabell.FullAAPKombinert.Overskrift": "Søker har full AAP sammen med andre aktiviteter",
   "VurderAktiviteterTabell.VentelonnVartpenger.Overskrift": "Søker har ventelønn eller vartpenger som siste aktivitet. Skjæringstidspunkt for beregning {skjaeringstidspunkt}",
   "VurderAktiviteterTabell.Overstyrt.Overskrift": "Skjæringstidspunkt for beregning {skjaeringstidspunkt}",
 
-  "BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL": "Startet søker som frilanser i løpet av de siste tre månedene?",
+  "BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL": "Startet søker som frilanser i løpet av de siste 3 månedene før skjæringstidspunktet?",
   "BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM": "Søker er arbeidstaker og frilanser i samme virksomhet og det er ikke mottatt inntektsmelding(er).",
   "BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg": "Søker er arbeidstaker og frilanser i samme virksomhet.",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettFrilans": "Fastsett frilansinntekt",
@@ -25,8 +27,9 @@
   "BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring": "Har søker hatt lønnsendring i løpet av de siste tre månedene?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans": "Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktivitet?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans": "Mottar søker ytelse for frilansaktivitet?",
-  "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid": "Søker er arbeidstaker og det er ikke mottatt inntektsmelding. Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for arbeid i {arbeid}?",
+  "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid": "Mottar søker ytelse for arbeid i {arbeid}?",
   "BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt": "Fastsett månedsinntekt",
+  "BeregningInfoPanel.VurderMottarYtelse.FastsettNyManedsinntekt": "Fastsett ny månedsinntekt",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser": "Månedsinntekt frilanser",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift": "Månedsinntekt {bedrift}",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektDagpenger": "Månedsinntekt dagpenger",
@@ -62,15 +65,16 @@
   "KunYtelsePanel.Overskrift": "Søker har ytelse som eneste inntekt. Fastsett månedsbeløp for fordeling av beregningsgrunnlaget.",
   "KunYtelsePanel.HarBesteberegning": "Søker har ytelse som eneste inntekt. Skal denne fordeles etter besteberegning?",
   "KunYtelsePanel.OverskriftBesteberegning": "Fastsett månedsbeløp for brutto beregningsgrunnlag etter besteberegning",
+  "KunYtelsePanel.RapporterteInntekter": "Rapporterte inntekter",
   "BeregningInfoPanel.FordelBG.Validation.UlikeAndeler": "Andeler for samme aktivitet må ha ulik inntektskategori",
 
   "InntektstabellPanel.RapporterteInntekter": "Rapporterte inntekter",
 
-  "BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt": "Har søker etterlønn eller sluttpakke?",
+  "BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt": "Har søker etterlønn eller sluttvederlag?",
 
   "BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt": "Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?",
 
-  "VurderRefusjonForm.ErRefusjonskravGyldig": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent. Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
+  "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
 
   "BeregningInfoPanel.Validation.MinstEnFastsatt": "Må ha overstyrt inntekt for minst én aktivitet.",
 

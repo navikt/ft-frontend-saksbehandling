@@ -6,7 +6,7 @@ import {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, ReactElement, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
@@ -34,7 +34,7 @@ import NyIArbeidslivetSNForm from '../nyIArbeidslivet/NyIArbeidslivetSNForm';
 import TidsbegrensetArbeidsforholdForm from '../tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import VurderMilitaer from '../vurderMilitaer/VurderMilitaer';
 import VurderRefusjonForm from '../vurderrefusjon/VurderRefusjonForm';
-import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
+import { ATFLSammeOrg, transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
 import { harKunstigArbeidsforhold } from './forms/KunstigArbeidsforhold';
 import LonnsendringForm from './forms/LonnsendringForm';
@@ -112,13 +112,6 @@ const finnInntektstabell = (
     kodeverkSamling={kodeverkSamling}
   />
 );
-
-const spacer = (hasShownPanel: boolean): ReactElement => {
-  if (hasShownPanel) {
-    return <VerticalSpacer twentyPx />;
-  }
-  return null;
-};
 
 type OwnProps = {
   readOnly: boolean;
@@ -219,7 +212,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       forms.push(
         // @ts-ignore Fiks
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
-          {spacer(hasShownPanel)}
           <NyIArbeidslivetSNForm readOnly={readOnly} />
         </React.Fragment>,
       );
@@ -260,7 +252,11 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
-          <LonnsendringForm readOnly={readOnly} />
+          <LonnsendringForm
+            beregningsgrunnlag={beregningsgrunnlag}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            readOnly={readOnly}
+          />
         </React.Fragment>,
       );
     }
@@ -280,7 +276,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL}>
-          <NyoppstartetFLForm readOnly={readOnly} />
+          <NyoppstartetFLForm isAksjonspunktClosed={isAksjonspunktClosed} readOnly={readOnly} />
         </React.Fragment>,
       );
     }
@@ -301,10 +297,20 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       );
     }
 
-    if (
-      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) ||
-      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
-    ) {
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
+      hasShownPanel = true;
+      forms.push(
+        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON}>
+          <ATFLSammeOrg
+            beregningsgrunnlag={beregningsgrunnlag}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            readOnly={readOnly}
+          />
+        </React.Fragment>,
+      );
+    }
+
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}>

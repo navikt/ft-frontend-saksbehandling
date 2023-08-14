@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { Button, ErrorMessage, Label } from '@navikt/ds-react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { Alert, Button, ErrorMessage, Heading, Label, List, ReadMore } from '@navikt/ds-react';
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -11,22 +10,18 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import {
-  AksjonspunktHelpTextTemp,
-  FlexColumn,
-  FlexContainer,
-  FlexRow,
-  OverstyringKnapp,
-  VerticalSpacer,
-} from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
-import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
+import { FormattedMessage, useIntl } from 'react-intl';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
+import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import SubmitButton from '../felles/SubmitButton';
+import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
+import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import {
   erSubmittable,
   findBegrunnelse,
@@ -34,8 +29,6 @@ import {
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
 import styles from './avklareAktiviteterPanel.module.css';
-import VurderAktiviteterPanel from './VurderAktiviteterPanel';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
@@ -192,6 +185,27 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
 
   return (
     <>
+      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && (
+        <Alert size="small" variant="warning">
+          <Heading size="xsmall" level="3">
+            <FormattedMessage
+              key="VurderFaktaForBeregningen"
+              id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
+            />
+          </Heading>
+          <FormattedMessage id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift" />
+          <VerticalSpacer fourPx />
+          <ReadMore size="small" header="Hvordan går jeg frem?">
+            <List>
+              <List.Item>Undersøk i Modia om søker har full AAP.</List.Item>
+              <List.Item>Ved full AAP skal arbeidsinntekten ikke benyttes.</List.Item>
+            </List>
+          </ReadMore>
+        </Alert>
+      )}
+
+      <VerticalSpacer thirtyTwoPx />
+
       <FlexContainer>
         <FlexRow>
           <FlexColumn>
@@ -207,26 +221,11 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
         </FlexRow>
       </FlexContainer>
 
-      <VerticalSpacer sixteenPx />
-
-      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && (
-        <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAvklaringsbehovClosed}>
-          {[
-            <FormattedMessage
-              key="VurderFaktaForBeregningen"
-              id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
-            />,
-          ]}
-        </AksjonspunktHelpTextTemp>
-      )}
-
       {erOverstyrtKnappTrykket && (
         <Label size="small">
           <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
         </Label>
       )}
-
-      <VerticalSpacer twentyPx />
 
       {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
         <div>

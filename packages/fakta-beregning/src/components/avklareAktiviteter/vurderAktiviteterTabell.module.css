@@ -13,3 +13,11 @@
 .navnKol {
   width: 500px;
 }
+
+.aktiviteterTable > thead > tr {
+  border-bottom: 2px solid var(--border-default, rgba(0, 0, 0, 0.44));
+}
+
+.aktiviteterTable > tbody > tr:last-of-type {
+  border-bottom: 1px solid var(--border-default, rgba(0, 0, 0, 0.44));
+}

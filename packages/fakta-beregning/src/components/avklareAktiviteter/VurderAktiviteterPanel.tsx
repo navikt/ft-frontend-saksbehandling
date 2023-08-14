@@ -1,6 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 import dayjs from 'dayjs';
+import { FormattedMessage } from 'react-intl';
+import { hasValidDate } from '@navikt/ft-form-validators';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import {
   buildInitialValues as buildInitialValuesForTabell,
@@ -139,6 +143,11 @@ const utledGjeldendeSkjæringstidspunkt = (
   return undefined;
 };
 
+const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string) => {
+  const datoFeil = hasValidDate(skjaeringstidspunkt);
+  return datoFeil ? '' : dayjs(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
+};
+
 type OwnProps = {
   erOverstyrt: boolean;
   readOnly: boolean;
@@ -192,6 +201,11 @@ export const VurderAktiviteterPanel: FunctionComponent<OwnProps> & StaticFunctio
 
   return (
     <>
+      <FormattedMessage
+        id="AvklarAktivitetPanel.Overskrift.Skjaeringstidspunkt"
+        values={{ skjaeringstidspunkt: getFormatertSkjæringstidspunkt(gjeldendeSkjæringstidspunkt) }}
+      />
+      <VerticalSpacer twentyPx />
       {listeSomSkalVurderes.map(aktivitetMap => (
         <VurderAktiviteterTabellReactHookForm
           readOnly={readOnly}
@@ -208,6 +222,7 @@ export const VurderAktiviteterPanel: FunctionComponent<OwnProps> & StaticFunctio
           fieldId={fieldId}
         />
       ))}
+      <VerticalSpacer thirtyTwoPx />
     </>
   );
 };

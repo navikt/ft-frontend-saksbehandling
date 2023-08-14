@@ -1,15 +1,11 @@
 import { Label, List, ReadMore } from '@navikt/ds-react';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
-import InntektInput from '../../../felles/InntektInput';
-import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
-import { finnFrilansFieldName } from './VurderMottarYtelseUtils';
 
 export const transformValuesForATFLISammeOrg = (
   inntektVerdier: InntektTransformed[],
@@ -66,8 +62,6 @@ type OwnProps = {
 
 export const ATFLSammeOrg: FunctionComponent<OwnProps> = ({ beregningsgrunnlag, isAksjonspunktClosed, readOnly }) => {
   const { arbeidstakerOgFrilanserISammeOrganisasjonListe } = beregningsgrunnlag.faktaOmBeregning;
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <>
@@ -91,19 +85,6 @@ export const ATFLSammeOrg: FunctionComponent<OwnProps> = ({ beregningsgrunnlag, 
           isAksjonspunktClosed={isAksjonspunktClosed}
         />
       ))}
-      <VerticalSpacer twentyPx />
-      <InntektInput
-        name={frilanserInntektFieldName}
-        readOnly={readOnly}
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        label={
-          <div key={finnFrilansFieldName()}>
-            <Label size="small">
-              <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser" />
-            </Label>
-          </div>
-        }
-      />
     </>
   );
 };

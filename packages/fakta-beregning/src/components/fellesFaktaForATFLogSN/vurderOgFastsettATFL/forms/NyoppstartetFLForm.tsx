@@ -1,15 +1,19 @@
+import { List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
-import { BodyShort } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
+import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import InntektInput from '../../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
 /**
  * NyOppstartetFLForm
@@ -23,6 +27,7 @@ import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 export const erNyoppstartetFLField = 'NyoppstartetFLField';
 
 type OwnProps = {
+  isAksjonspunktClosed: boolean;
   readOnly: boolean;
 };
 
@@ -36,28 +41,74 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ isAksjonspunktClosed, readOnly }) => {
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
+  const skalRedigereInntekt = getValues(
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
+  );
+  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <div>
       <RadioGroupPanel
         label={
-          <BodyShort>
+          <>
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
-          </BodyShort>
+            <ReadMore size="small" header="Hvordan går jeg frem?">
+              <List>
+                <List.Item>Gå til Aa-registeret og A-inntekt for å se frilansoppdrag og inntekter.</List.Item>
+                <List.Item>
+                  {`Undersøk om søker faktisk var
+                  nyoppstartet frilanser i beregningsperioden. Frilansere har ofte ujevne utbetalinger, og kan bli meldt
+                  inn/ut av Aa-registeret selvom de fast jobber som frilanser. Hvis dette er tilfelle skal du velge
+                  "nei".`}
+                </List.Item>
+              </List>
+            </ReadMore>
+          </>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+          {
+            value: 'true',
+            label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
+          },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
         ]}
         parse={parseStringToBoolean}
-        isHorizontal
       />
+      {skalRedigereInntekt && (
+        <>
+          <VerticalSpacer twentyPx />
+          <InntektInput
+            name={frilanserInntektFieldName}
+            readOnly={readOnly}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            label={
+              <>
+                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
+                <ReadMore size="small" header="Hvordan går jeg frem">
+                  <List>
+                    <List.Item>Fastsett månedsinntekt ut ifra antall måneder/dager med utbetaling.</List.Item>
+                    <List.Item>
+                      Eksempel:
+                      <br />
+                      Hvis søker startet som frilanser for 2 mnd siden, skal samlet inntekt deles på 2 og ikke 3. Hvis
+                      det er under 1 mnd siden oppstart, må du regne om inntekt til dagsats per virkedag. Dagsats x 260
+                      / 12 mnd = månedsinntekt.
+                    </List.Item>
+                  </List>
+                </ReadMore>
+              </>
+            }
+          />
+        </>
+      )}
+      <VerticalSpacer twentyPx />
     </div>
   );
 };

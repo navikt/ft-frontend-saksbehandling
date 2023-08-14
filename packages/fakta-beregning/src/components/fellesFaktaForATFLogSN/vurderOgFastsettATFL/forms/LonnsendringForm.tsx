@@ -1,15 +1,19 @@
+import { List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
-import { BodyShort } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
+import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
 /**
  * LonnsendringForm
@@ -23,7 +27,9 @@ import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 export const lonnsendringField = 'lonnsendringField';
 
 type OwnProps = {
+  beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
+  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -34,28 +40,86 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+  beregningsgrunnlag,
+  readOnly,
+  isAksjonspunktClosed,
+}) => {
+  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const skalRedigereInntekt = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`);
   const intl = useIntl();
+  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
+    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  );
 
   return (
     <div>
       <RadioGroupPanel
         label={
-          <BodyShort>
+          <>
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring" />
-          </BodyShort>
+            <ReadMore size="small" header="Hva betyr dette?">
+              <List>
+                <List.Item>
+                  En arbeidstaker som får en varig lønnsendring i eller etter beregningsperioden, men før
+                  skjæringstidsspunktet, skal ha lønnsendringen med i beregningsgrunnlaget.
+                </List.Item>
+                <List.Item>
+                  Med varig lønnsendring menes alle lønnsendringer som ikke er midlertidige, og gjelder både ved
+                  lønnsøkning og lønnsreduksjon.
+                </List.Item>
+                <List.Item>
+                  Dette kan eksempelvis være endring av lønn etter lokale lønnsforhandlinger eller tariffendringer. Det
+                  kan også være en varig endring av stillingsprosent med dertil endret lønn.
+                </List.Item>
+              </List>
+            </ReadMore>
+          </>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
         isReadOnly={readOnly}
         radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+          {
+            value: 'true',
+            label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
+          },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
         ]}
         validate={[required]}
         parse={parseStringToBoolean}
-        isHorizontal
       />
+      {skalRedigereInntekt
+        ? andelerMedArbeidsinntekt.map(andel => (
+            <ArbeidsinntektInput
+              key={andel.arbeidsforhold.arbeidsgiverId}
+              arbeidsgiver={andel}
+              readOnly={readOnly}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+              label={
+                <>
+                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettNyManedsinntekt" />
+                  <ReadMore size="small" header="Hvordan går jeg frem?">
+                    <List>
+                      <List.Item>Bruk A-inntekt til å fastsette ny månedsinntekt hvis mulig.</List.Item>
+                      <List.Item>
+                        Hvis ny inntekt ikke fremgår av A-inntekt, kontakt arbeidsgiver og be de sende oppdatert
+                        inntektsmelding. Eventuelt kan du kontakte søker og be de dokumentere varig lønnsøkning med
+                        kontrakt, lønnslipp eller lignende.
+                      </List.Item>
+                      <List.Item>
+                        Eksempel: En person får en varig lønnsendring med virkning fra 5. oktober. Vedkommende har
+                        første fraværsdato 20. oktober og beregningsperioden er september, august og juli. Ved
+                        fastsettelse av inntekt skal tidsrommet etter lønnsendringen 5. oktober legges til grunn.
+                      </List.Item>
+                    </List>
+                  </ReadMore>
+                </>
+              }
+            />
+          ))
+        : null}
+      <VerticalSpacer twentyPx />
     </div>
   );
 };

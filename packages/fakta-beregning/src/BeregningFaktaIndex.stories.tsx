@@ -386,7 +386,7 @@ export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: St
  * - Vurdering av om frilansaktivitet er nyoppstartet
  *
  */
-export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
+export const FrilansOgArbeidsforholdMedLønnsendringOgNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -842,49 +842,49 @@ export const SelvstendigNæringNyIArbeidslivetAp5058: StoryFn = ({ submitCallbac
 export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
   const aapAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.AAP,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
   };
   const arbeidsAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const arbeidsAktivitet2 = {
     ...standardFaktaArbeidstakerAndel2.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const tidsbegrensetarbeidsAktivitet = {
     ...tidsbegrensetFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const næringAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.NARING,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const etterlonnSluttpakkeAktivitet = {
     ...etterlønnSluttpakkeFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const frilansAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const militærAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.MILITAR_ELLER_SIVILTJENESTE,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const aktiviteter = [
@@ -1043,14 +1043,14 @@ export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
 export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: StoryFn = ({ submitCallback }) => {
   const arbeidsAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const arbeidsAktivitet2 = {
     ...standardFaktaArbeidstakerAndel2.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const aktiviteter = [arbeidsAktivitet, arbeidsAktivitet2];

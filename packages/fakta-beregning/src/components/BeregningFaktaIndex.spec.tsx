@@ -210,7 +210,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(
       screen.getByText(
         // eslint-disable-next-line max-len
-        'Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og samlet frilansinntekt.',
+        'Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.',
       ),
     ).toBeInTheDocument();
     expect(screen.getByLabelText('Månedsinntekt Bedriften (12345678)')).toBeInTheDocument();

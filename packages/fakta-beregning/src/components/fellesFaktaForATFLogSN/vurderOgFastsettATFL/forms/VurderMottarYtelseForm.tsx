@@ -1,4 +1,4 @@
-import { BodyShort, Label, List, ReadMore } from '@navikt/ds-react';
+import { Label, List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
@@ -31,7 +31,6 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
-import { ATFLSammeOrg } from './ATFLSammeOrg';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -59,7 +58,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   return <FormattedMessage id={mottarYtelseForArbeidMsg()} values={{ arbeid: radioNavn }} />;
 };
 
-const mottarYtelseArbeidsforholdRadio = (
+const mottarYtelseArbeidsforholdRadioAndInputs = (
   andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
   kodeverkSamling: KodeverkForPanel,
@@ -70,9 +69,21 @@ const mottarYtelseArbeidsforholdRadio = (
   <div key={utledArbeidsforholdFieldName(andel)}>
     <RadioGroupPanel
       label={
-        <BodyShort>
+        <>
           {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
-        </BodyShort>
+          <ReadMore size="small" header="Hvordan går jeg frem">
+            <List>
+              <List.Item>
+                {`Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være
+                feilregistreringer fra andre systemer og du skal da velge "nei".`}
+              </List.Item>
+              <List.Item>
+                For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på
+                utbetalinger i Modia eller vedtaksbrev i Gosys.
+              </List.Item>
+            </List>
+          </ReadMore>
+        </>
       }
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
         andel,
@@ -80,11 +91,10 @@ const mottarYtelseArbeidsforholdRadio = (
       isReadOnly={readOnly}
       radios={[
         { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
       ]}
       parse={parseStringToBoolean}
       validate={readOnly ? [] : [required]}
-      isHorizontal
     />
   </div>
 );
@@ -153,15 +163,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   );
   const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
-  return erATFLSammeOrg(tilfeller) ? (
-    <ATFLSammeOrg
-      beregningsgrunnlag={beregningsgrunnlag}
-      isAksjonspunktClosed={isAksjonspunktClosed}
-      readOnly={readOnly}
-    />
-  ) : (
+  return (
     <div>
-      {erFrilans && (
+      {erFrilans && !erATFLSammeOrg(tilfeller) && (
         <div>
           <RadioGroupPanel
             label={
@@ -208,23 +212,27 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
             readOnly={readOnly}
             isAksjonspunktClosed={isAksjonspunktClosed}
             label={
-              <div key={finnFrilansFieldName()}>
-                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
-                <ReadMore size="small" header="Hvordan går jeg frem">
-                  <List>
-                    <List.Item>
-                      Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i
-                      ytelse i beregningsperioden.
-                    </List.Item>
-                    <List.Item>
-                      Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.
-                    </List.Item>
-                    <List.Item>
-                      Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.
-                    </List.Item>
-                  </List>
-                </ReadMore>
-              </div>
+              erATFLSammeOrg(tilfeller) ? (
+                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser" />
+              ) : (
+                <>
+                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
+                  <ReadMore size="small" header="Hvordan går jeg frem">
+                    <List>
+                      <List.Item>
+                        Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i
+                        ytelse i beregningsperioden.
+                      </List.Item>
+                      <List.Item>
+                        Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.
+                      </List.Item>
+                      <List.Item>
+                        Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.
+                      </List.Item>
+                    </List>
+                  </ReadMore>
+                </>
+              )
             }
           />
         </>
@@ -232,7 +240,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
       {arbeidsforholdUtenIM.map(andel => (
         <>
           <VerticalSpacer twentyPx />
-          {mottarYtelseArbeidsforholdRadio(
+          {mottarYtelseArbeidsforholdRadioAndInputs(
             andel,
             readOnly,
             kodeverkSamling,

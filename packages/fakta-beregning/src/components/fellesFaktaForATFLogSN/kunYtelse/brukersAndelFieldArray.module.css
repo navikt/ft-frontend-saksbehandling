@@ -26,6 +26,9 @@
   margin-bottom: 8px;
   max-width: 700px;
 }
+.inntektTable > thead > tr {
+  border-bottom: 2px solid var(--border-default, rgba(0, 0, 0, 0.44));
+}
 .inntektTable > thead > tr > td:first-child {
   padding-left: 0;
   text-align: left;
@@ -55,6 +58,9 @@
 }
 .inntektTable > tbody > tr:last-child > td {
   border-top: 0;
+}
+.inntektTable > tbody > tr:last-of-type {
+  border-bottom: 1px solid var(--border-default, rgba(0, 0, 0, 0.44));
 }
 .buttonRow {
   margin-top: 0;
