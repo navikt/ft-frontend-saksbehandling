@@ -11,7 +11,6 @@ import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregning
 const intlMock = getIntlMock(messages);
 const fieldname = 'feltnavn';
 const likeAndelerFeilmelding = 'Andeler for samme aktivitet må ha ulik inntektskategori';
-const refusjonHøyereEnnKravFeilmelding = 'Total refusjon for  kan ikke være høyere enn beløpet fra inntektsmeldingen.';
 const gradertAndelMåVæreFordeltMerEnn0Feilmelding = 'Fastsatt beløp for gradert andel må være høyere enn 0.';
 
 const arbeidsgiverOppysninger = {
@@ -326,7 +325,9 @@ describe('<ValidateAndelerUtils>', () => {
       arbeidsgiverOppysninger,
       intlMock,
     );
-    expect(ulikeAndelerError).toBe(refusjonHøyereEnnKravFeilmelding);
+    expect(ulikeAndelerError).toBe(
+      'Total refusjon for 999999999 kan ikke være høyere enn beløpet fra inntektsmeldingen.',
+    );
   });
 
   it('skal ikke validere andeler uten refusjon', () => {

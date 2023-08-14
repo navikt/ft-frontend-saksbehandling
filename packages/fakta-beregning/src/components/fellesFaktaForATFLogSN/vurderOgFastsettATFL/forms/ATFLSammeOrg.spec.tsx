@@ -41,8 +41,7 @@ describe('<ATFLSammeOrg>', () => {
   });
 
   const arbeidsforhold = {
-    arbeidsgiverNavn: 'bedrift',
-    arbeidsgiverId: '123',
+    arbeidsgiverIdent: '123',
     arbeidsforholdId: 'abc',
     startdato: '2018-01-01',
   } as BeregningsgrunnlagArbeidsforhold;

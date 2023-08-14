@@ -11,7 +11,6 @@ export type FordelBeregningsgrunnlagGenerellAndelValues = {
 };
 
 export type FordelBeregningsgrunnlagArbeidAndelValues = {
-  arbeidsgiverNavn?: string;
   arbeidsgiverId?: string;
   arbeidsforholdId?: string;
   arbeidsperiodeFom?: string;

@@ -104,8 +104,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       andelsnr: 2,
       inntektskategori: 'Arbeidstaker',
       arbeidsforhold: {
-        arbeidsgiverNavn: 'bedrift',
-        arbeidsgiverId: '123',
+        arbeidsgiverIdent: '123',
         arbeidsforholdId: 'abc',
         startdato: '2018-01-01',
       } as BeregningsgrunnlagArbeidsforhold,
@@ -115,8 +114,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       andelsnr: 2,
       inntektskategori: 'ARBEIDSTAKER',
       arbeidsforhold: {
-        arbeidsgiverNavn: 'bedrift',
-        arbeidsgiverId: '123',
+        arbeidsgiverIdent: '123',
         arbeidsforholdId: 'abc',
         startdato: '2018-01-01',
       } as BeregningsgrunnlagArbeidsforhold,
