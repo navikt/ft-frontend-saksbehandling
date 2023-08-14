@@ -6,10 +6,9 @@ import { BodyShort, Detail } from '@navikt/ds-react';
 import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { InputField } from '@navikt/ft-form-hooks';
-import { AktivitetStatus, isAksjonspunktOpen, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
-  BeregningAvklaringsbehov,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
@@ -224,7 +223,7 @@ const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement =
 const createRows = (
   tableData: TidsbegrenseArbeidsforholdTabellData,
   readOnly: boolean,
-  isAksjonspunktClosed: boolean,
+  finnesAlleredeLøstPeriode: boolean,
   perioder: BruttoPrPeriode[],
   fieldIndex: number,
   formName: string,
@@ -264,11 +263,12 @@ const createRows = (
           return (
             <React.Fragment key={`key${element.inputfieldKey}`}>
               <td key={`Col-${element.inputfieldKey}`} colSpan={2}>
-                <div className={isAksjonspunktClosed && readOnly ? styles.adjustedField : undefined}>
+                <div className={finnesAlleredeLøstPeriode && readOnly ? styles.adjustedField : undefined}>
                   <InputField
                     name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
                     validate={[required, maxValueFormatted(178956970)]}
                     readOnly={readOnly}
+                    isEdited={readOnly && finnesAlleredeLøstPeriode}
                     parse={parseCurrencyInput}
                     className={styles.breddeInntekt}
                   />
@@ -290,9 +290,6 @@ const createRows = (
 
   return rows;
 };
-
-const getIsAksjonspunktClosed = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov): boolean =>
-  gjeldendeAvklaringsbehov ? !isAksjonspunktOpen(gjeldendeAvklaringsbehov.status) : false;
 
 interface StaticFunctions {
   buildInitialValues: (allePerioder: BeregningsgrunnlagPeriodeProp[]) => TidsbegrenseArbeidsforholdValues;
@@ -354,7 +351,6 @@ type OwnProps = {
   readOnly: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
-  avklaringsbehov: BeregningAvklaringsbehov;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   kodeverkSamling: KodeverkForPanel;
   fieldIndex: number;
@@ -363,20 +359,26 @@ type OwnProps = {
 const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   allePerioder,
-  avklaringsbehov,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
   formName,
 }) => {
   const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
-  const isAvklaringsbehovClosed = getIsAksjonspunktClosed(avklaringsbehov);
+  const finnesAlleredeLøstPeriode = allePerioder.some(
+    periode =>
+      periode.beregningsgrunnlagPrStatusOgAndel?.some(
+        andel =>
+          andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER &&
+          (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
+      ),
+  );
   const formMethods = useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
   return (
     <table className={styles.inntektTableTB}>
       <tbody>
-        {createRows(tabellData, readOnly, isAvklaringsbehovClosed, bruttoPrPeriodeList, fieldIndex, formName)}
+        {createRows(tabellData, readOnly, finnesAlleredeLøstPeriode, bruttoPrPeriodeList, fieldIndex, formName)}
       </tbody>
     </table>
   );
