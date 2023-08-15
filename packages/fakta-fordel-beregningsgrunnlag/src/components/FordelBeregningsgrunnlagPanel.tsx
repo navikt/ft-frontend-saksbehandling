@@ -5,7 +5,6 @@ import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   Vilkarperiode,
-  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 
 import { FagsakStatus } from '@navikt/ft-kodeverk';
@@ -48,7 +47,7 @@ export interface OwnProps {
     aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
   ) => Promise<void>;
   submittable: boolean;
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
