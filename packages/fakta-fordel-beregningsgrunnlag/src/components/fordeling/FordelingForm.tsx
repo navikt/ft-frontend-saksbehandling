@@ -1,12 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Form } from '@navikt/ft-form-hooks';
-import {
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  BeregningsgrunnlagMedId,
-  Vilkarperiode,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
 import FordelBeregningsgrunnlagAP from '../../types/interface/FordelBeregningsgrunnlagAP';
@@ -54,7 +49,7 @@ const transformValues = (
 };
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårsperioder: Vilkarperiode[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
@@ -78,7 +73,7 @@ interface PureOwnProps {
   submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkårsperioder: Vilkarperiode[];
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -145,7 +140,7 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
       >
         {fields.map(field => {
           const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
-            bg => bg.beregningsgrunnlagId === field.beregningsgrunnlagId,
+            bg => bg.skjaeringstidspunktBeregning === field.beregningsgrunnlagStp,
           );
           return (
             <div

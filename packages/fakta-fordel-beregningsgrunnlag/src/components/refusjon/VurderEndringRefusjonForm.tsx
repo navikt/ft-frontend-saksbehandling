@@ -1,12 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Form } from '@navikt/ft-form-hooks';
-import {
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  BeregningsgrunnlagMedId,
-  Vilkarperiode,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
 import VurderRefusjonAksjonspunktSubmitType from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -24,7 +19,7 @@ export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårperioder: Vilkarperiode[],
 ): VurderRefusjonFormValues => ({
   [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
@@ -65,7 +60,7 @@ type OwnProps = {
   submitCallback: (aksjonspunktData: VurderRefusjonAksjonspunktSubmitType) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: VurderRefusjonFormValues;
@@ -124,7 +119,7 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
       >
         {fields.map(field => {
           const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
-            bg => bg.beregningsgrunnlagId === field.beregningsgrunnlagId,
+            bg => bg.skjaeringstidspunktBeregning === field.beregningsgrunnlagStp,
           );
           return (
             <div
