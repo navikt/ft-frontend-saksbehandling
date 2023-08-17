@@ -94,7 +94,7 @@ const BeregningFaktaIndex: FunctionComponent<
   skalKunneAvbryteOverstyring = false,
 }) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
-  const [getVurderFaktaBeregningFormErrors] = useState(undefined);
+  const [, getVurderFaktaBeregningFormErrors] = useState(undefined);
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
