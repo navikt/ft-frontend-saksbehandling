@@ -1,25 +1,17 @@
 import { ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import {
-  AktivitetStatus,
-  FaktaOmBeregningTilfelle,
-  OpptjeningAktivitetType as OAType,
-  isAksjonspunktOpen,
-} from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle, OpptjeningAktivitetType as OAType, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import 'core-js/features/array/flat-map';
 import React, { FunctionComponent } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
   VurderEtterlønnSluttpakkeValues,
 } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
@@ -50,21 +42,15 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({
-  beregningsgrunnlag,
-  readOnly,
-  isAksjonspunktClosed,
-}) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
-
+const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const skalRedigereInntekt = getValues(
-    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
-  );
+  // const skalRedigereInntekt = getValues(
+  //   `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
+  // );
   const intl = useIntl();
-  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
-    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  );
+  // const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
+  //   andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  // );
   return (
     <div>
       <RadioGroupPanel
@@ -89,7 +75,7 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
         ]}
         parse={parseStringToBoolean}
       />
-      {skalRedigereInntekt
+      {/* {skalRedigereInntekt
         ? andelerMedArbeidsinntekt.map(andel => (
             <ArbeidsinntektInput
               key={andel.arbeidsforhold.arbeidsgiverId}
@@ -99,7 +85,7 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
               label={<FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />}
             />
           ))
-        : null}
+        : null} */}
     </div>
   );
 };

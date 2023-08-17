@@ -28,7 +28,7 @@
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans": "Mottar søker sykepenger, foreldrepenger, pleiepenger eller svangerskapspenger for frilansaktivitet?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans": "Mottar søker ytelse for frilansaktivitet?",
   "BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid": "Mottar søker ytelse for arbeid i {arbeid}?",
-  "BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt": "Fastsett månedsinntekt",
+  "BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans": "Fastsett månedsinntekt for frilans",
   "BeregningInfoPanel.VurderMottarYtelse.FastsettNyManedsinntekt": "Fastsett ny månedsinntekt",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser": "Månedsinntekt frilanser",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift": "Månedsinntekt {bedrift}",

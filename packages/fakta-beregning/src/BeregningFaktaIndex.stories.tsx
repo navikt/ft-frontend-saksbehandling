@@ -434,6 +434,42 @@ export const FrilansOgArbeidsforholdMedLønnsendringOgNyoppstartetAp5058: StoryF
   );
 };
 
+export const ArbeidsforholdMedLønnsendringAp5058: StoryFn = ({ submitCallback }) => {
+  const arbeidstakerBeregningsgrunnlagAndel = {
+    andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
+    aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
+    inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
+  };
+
+  const andeler = [arbeidstakerBeregningsgrunnlagAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel];
+
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [VURDER_LONNSENDRING],
+    arbeidsforholdMedLønnsendringUtenIM: [arbeidstakerBeregningsgrunnlagAndel],
+    andelerForFaktaOmBeregning,
+  } as FaktaOmBeregning;
+  const beregningsgrunnlag2 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-15', [opprettetVurderFakta]);
+
+  const callback = submitCallback || (action('button-click') as (data: any) => Promise<any>);
+
+  return (
+    <BeregningFaktaIndex
+      beregningsgrunnlag={[beregningsgrunnlag2]}
+      erOverstyrer={false}
+      kodeverkSamling={alleKodeverkMock as any}
+      submitCallback={callback}
+      readOnly={false}
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={lagVilkar([
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
+      ])}
+    />
+  );
+};
+
 export const DagpengerOgArbeidstakerMedVurderingAvBesteberegningAP5058 = () => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,

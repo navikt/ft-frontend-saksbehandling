@@ -5,13 +5,10 @@ import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import InntektInput from '../../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
@@ -27,7 +24,6 @@ import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner
 export const erNyoppstartetFLField = 'NyoppstartetFLField';
 
 type OwnProps = {
-  isAksjonspunktClosed: boolean;
   readOnly: boolean;
 };
 
@@ -41,14 +37,13 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ isAksjonspunktClosed, readOnly }) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
-  const skalRedigereInntekt = getValues(
-    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
-  );
-  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
+  // const skalRedigereInntekt = getValues(
+  //   `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
+  // );
+  // const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -81,7 +76,7 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ isA
         ]}
         parse={parseStringToBoolean}
       />
-      {skalRedigereInntekt && (
+      {/* {skalRedigereInntekt && (
         <>
           <VerticalSpacer twentyPx />
           <InntektInput
@@ -107,7 +102,7 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ isA
             }
           />
         </>
-      )}
+      )} */}
       <VerticalSpacer twentyPx />
     </div>
   );

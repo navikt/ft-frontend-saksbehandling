@@ -285,6 +285,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         updateOverstyring={updateOverstyring}
         renderTextFieldAndSubmitButton={() => renderTextFieldAndSubmitButton()}
+        vilkarsperiodeSkalVurderesIBehandlingen={skalVurderes}
       />
     </div>
   );

@@ -5,13 +5,10 @@ import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
@@ -27,9 +24,7 @@ import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner
 export const lonnsendringField = 'lonnsendringField';
 
 type OwnProps = {
-  beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -40,18 +35,14 @@ interface StaticFunctions {
   ) => FaktaBeregningTransformedValues;
 }
 
-const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({
-  beregningsgrunnlag,
-  readOnly,
-  isAksjonspunktClosed,
-}) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+  // const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const skalRedigereInntekt = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`);
+  // const skalRedigereInntekt = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`);
   const intl = useIntl();
-  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
-    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  );
+  // const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
+  //   andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  // );
 
   return (
     <div>
@@ -89,7 +80,7 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({
         validate={[required]}
         parse={parseStringToBoolean}
       />
-      {skalRedigereInntekt
+      {/* {skalRedigereInntekt
         ? andelerMedArbeidsinntekt.map(andel => (
             <ArbeidsinntektInput
               key={andel.arbeidsforhold.arbeidsgiverId}
@@ -118,7 +109,7 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({
               }
             />
           ))
-        : null}
+        : null} */}
       <VerticalSpacer twentyPx />
     </div>
   );

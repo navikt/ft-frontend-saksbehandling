@@ -77,6 +77,7 @@ const getFaktaPanels = (
   updateOverstyring: (index: number, skalOverstyre: boolean) => void,
   erOverstyrt: boolean,
   renderTextFieldAndSubmitButton: () => React.ReactNode,
+  vilkarsperiodeSkalVurderesIBehandlingen: boolean,
 ) => {
   const { avklaringsbehov } = beregningsgrunnlag;
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
@@ -108,6 +109,7 @@ const getFaktaPanels = (
         updateOverstyring={updateOverstyring}
         renderTextFieldAndSubmitButton={renderTextFieldAndSubmitButton}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        vilkarsperiodeSkalVurderesIBehandlingen={vilkarsperiodeSkalVurderesIBehandlingen}
       />
     </React.Fragment>,
   );
@@ -123,6 +125,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   renderTextFieldAndSubmitButton: () => React.ReactNode;
+  vilkarsperiodeSkalVurderesIBehandlingen: boolean;
 };
 
 /**
@@ -139,6 +142,7 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   updateOverstyring,
   renderTextFieldAndSubmitButton,
+  vilkarsperiodeSkalVurderesIBehandlingen,
 }) => {
   const { avklaringsbehov } = beregningsgrunnlag;
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
@@ -160,6 +164,7 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
         updateOverstyring,
         erOverstyrt,
         renderTextFieldAndSubmitButton,
+        vilkarsperiodeSkalVurderesIBehandlingen,
       ).map(panelOrSpacer => panelOrSpacer)}
     </div>
   );

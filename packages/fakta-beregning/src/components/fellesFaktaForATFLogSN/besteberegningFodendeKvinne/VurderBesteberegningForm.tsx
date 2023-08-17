@@ -3,8 +3,8 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
-import { BeregningAvklaringsbehov, Beregningsgrunnlag, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -13,8 +13,6 @@ import { InntektTransformed } from '../../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import ArbeidsinntektInput from '../../felles/ArbeidsinntektInput';
-import InntektInput from '../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
@@ -26,8 +24,6 @@ const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 type OwnProps = {
   readOnly: boolean;
   erOverstyrt: boolean;
-  beregningsgrunnlag: Beregningsgrunnlag;
-  isAksjonspunktClosed: boolean;
 };
 
 interface StaticFunctions {
@@ -51,21 +47,16 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly,
-  erOverstyrt,
-  beregningsgrunnlag,
-  isAksjonspunktClosed,
-}) => {
+const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
   const skalRedigereInntekt = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`);
-  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
-    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  );
-  const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
+  // const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
+  //   andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
+  // );
+  // const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -100,21 +91,21 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
       </FlexRow>
       {skalRedigereInntekt ? (
         <>
-          {andelerMedArbeidsinntekt.map(andel => (
+          {/* {andelerMedArbeidsinntekt.map(andel => (
             <ArbeidsinntektInput
               key={andel.arbeidsforhold.arbeidsgiverId}
               arbeidsgiver={andel}
               readOnly={readOnly}
               isAksjonspunktClosed={isAksjonspunktClosed}
             />
-          ))}
-          <VerticalSpacer twentyPx />
+          ))} */}
+          {/* <VerticalSpacer twentyPx />
           <InntektInput
             name={dagpengerInntektFieldName}
             readOnly={readOnly}
             isAksjonspunktClosed={isAksjonspunktClosed}
             label={<FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektDagpenger" />}
-          />
+          /> */}
         </>
       ) : null}
     </div>

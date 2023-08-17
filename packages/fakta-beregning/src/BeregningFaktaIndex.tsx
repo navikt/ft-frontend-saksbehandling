@@ -1,3 +1,5 @@
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
+import { Tabs } from '@navikt/ds-react';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -6,20 +8,17 @@ import {
   Vilkar,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { DDMMYYYY_DATE_FORMAT, createIntl } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import { Tabs } from '@navikt/ds-react';
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import React, { FunctionComponent, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.module.css';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
+import { GetErrorsContext } from './components/fellesFaktaForATFLogSN/VurderFaktaContext';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
-import { GetErrorsContext } from './components/fellesFaktaForATFLogSN/VurderFaktaContext';
-import { formNameVurderFaktaBeregning } from './components/BeregningFormUtils';
 import KodeverkForPanel from './typer/kodeverkForPanel';
 
 const intl = createIntl(messages);
@@ -95,7 +94,7 @@ const BeregningFaktaIndex: FunctionComponent<
   skalKunneAvbryteOverstyring = false,
 }) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
-  const [vurderFaktaBeregningFormErrors, getVurderFaktaBeregningFormErrors] = useState(undefined);
+  const [getVurderFaktaBeregningFormErrors] = useState(undefined);
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
@@ -105,8 +104,6 @@ const BeregningFaktaIndex: FunctionComponent<
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
   const vilkårsperioder = vilkar.perioder;
-  const beregningsgrunnlagIndeksHarFeil = (indeks: number) =>
-    !!vurderFaktaBeregningFormErrors?.[`${formNameVurderFaktaBeregning}`]?.[indeks];
 
   return (
     <RawIntlProvider value={intl}>
@@ -124,8 +121,7 @@ const BeregningFaktaIndex: FunctionComponent<
                   label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
                   className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
                   icon={
-                    currentBeregningsgrunnlagIndex !== aktivtBeregningsgrunnlagIndeks &&
-                    beregningsgrunnlagIndeksHarFeil(currentBeregningsgrunnlagIndex) && (
+                    skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
                       <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
                     )
                   }

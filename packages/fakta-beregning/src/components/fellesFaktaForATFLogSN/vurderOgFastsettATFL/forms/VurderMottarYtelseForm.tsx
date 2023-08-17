@@ -1,4 +1,4 @@
-import { Label, List, ReadMore } from '@navikt/ds-react';
+import { List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
@@ -13,15 +13,12 @@ import {
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../../../ArbeidsforholdHelper';
-import InntektInput from '../../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import {
@@ -115,7 +112,6 @@ const erATFLSammeOrg = (tilfeller: string[]) =>
 
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
   tilfeller: string[];
   beregningsgrunnlag: Beregningsgrunnlag;
   kodeverkSamling: KodeverkForPanel;
@@ -145,9 +141,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
   tilfeller,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
-  isAksjonspunktClosed,
 }) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
@@ -158,10 +152,10 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
       ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
       : [];
   const intl = useIntl();
-  const skalRedigereInntekt = getValues(
-    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
-  );
-  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
+  // const skalRedigereInntekt = getValues(
+  //   `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
+  // );
+  // const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -169,10 +163,8 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
         <div>
           <RadioGroupPanel
             label={
-              <div key={finnFrilansFieldName()}>
-                <Label>
-                  <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-                </Label>
+              <>
+                <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
                 <ReadMore size="small" header="Hvordan går jeg frem">
                   <List>
                     <List.Item>
@@ -185,7 +177,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
                     </List.Item>
                   </List>
                 </ReadMore>
-              </div>
+              </>
             }
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
             isReadOnly={readOnly}
@@ -204,7 +196,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           />
         </div>
       )}
-      {skalRedigereInntekt && erFrilans && (
+      {/* {skalRedigereInntekt && erFrilans && (
         <>
           <VerticalSpacer twentyPx />
           <InntektInput
@@ -236,7 +228,7 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
             }
           />
         </>
-      )}
+      )} */}
       {arbeidsforholdUtenIM.map(andel => (
         <>
           <VerticalSpacer twentyPx />

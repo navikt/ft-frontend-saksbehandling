@@ -34,8 +34,9 @@ import NyIArbeidslivetSNForm from '../nyIArbeidslivet/NyIArbeidslivetSNForm';
 import TidsbegrensetArbeidsforholdForm from '../tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import VurderMilitaer from '../vurderMilitaer/VurderMilitaer';
 import VurderRefusjonForm from '../vurderrefusjon/VurderRefusjonForm';
-import { ATFLSammeOrg, transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
+import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
+import InntektInputFields from './forms/InntektInputFields';
 import { harKunstigArbeidsforhold } from './forms/KunstigArbeidsforhold';
 import LonnsendringForm from './forms/LonnsendringForm';
 import NyoppstartetFLForm from './forms/NyoppstartetFLForm';
@@ -132,6 +133,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   renderTextFieldAndSubmitButton: () => React.ReactNode;
+  vilkarsperiodeSkalVurderesIBehandlingen: boolean;
 };
 
 interface StaticFunctions {
@@ -167,6 +169,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   updateOverstyring,
   renderTextFieldAndSubmitButton,
   arbeidsgiverOpplysningerPerId,
+  vilkarsperiodeSkalVurderesIBehandlingen,
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -236,18 +239,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         </React.Fragment>,
       );
     }
-    // if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
-    //   hasShownPanel = true;
 
-    //   forms.push(
-    //     <ATFLSammeOrg
-    //       key="ATFLSammeOrgTekst"
-    //       beregningsgrunnlag={beregningsgrunnlag}
-    //       isAksjonspunktClosed={isAksjonspunktClosed}
-    //       readOnly={readOnly}
-    //     />,
-    //   );
-    // }
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
       hasShownPanel = true;
       forms.push(
@@ -297,19 +289,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       );
     }
 
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
-      hasShownPanel = true;
-      forms.push(
-        <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON}>
-          <ATFLSammeOrg
-            beregningsgrunnlag={beregningsgrunnlag}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            readOnly={readOnly}
-          />
-        </React.Fragment>,
-      );
-    }
-
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
       hasShownPanel = true;
       forms.push(
@@ -325,12 +304,36 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         </React.Fragment>,
       );
     }
+    if (!vilkarsperiodeSkalVurderesIBehandlingen) {
+      return null;
+    }
     if (hasShownPanel) {
+      if (readOnly) {
+        return (
+          <>
+            <VerticalSpacer thirtyTwoPx />
+            {forms.map(panelOrSpacer => panelOrSpacer)}
+            <InntektInputFields
+              beregningsgrunnlag={beregningsgrunnlag}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+              readOnly={readOnly}
+              tilfeller={tilfeller}
+            />
+            {renderTextFieldAndSubmitButton()}
+          </>
+        );
+      }
       return (
         <>
           <VerticalSpacer thirtyTwoPx />
           <AksjonspunktBoks>
             {forms.map(panelOrSpacer => panelOrSpacer)}
+            <InntektInputFields
+              beregningsgrunnlag={beregningsgrunnlag}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+              readOnly={readOnly}
+              tilfeller={tilfeller}
+            />
             {renderTextFieldAndSubmitButton()}
           </AksjonspunktBoks>
         </>
