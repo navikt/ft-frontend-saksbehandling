@@ -11,9 +11,9 @@ import InntektInput from '../../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { lonnsendringField } from './LonnsendringForm';
-import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
-import { finnFrilansFieldName } from './VurderMottarYtelseUtils';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
+import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
+import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
@@ -37,10 +37,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
     : undefined;
   const erFrilans = vurderMottarYtelse && vurderMottarYtelse.erFrilans;
-  // const arbeidsforholdUtenIM =
-  //   vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
-  //     ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-  //     : [];
+
   const skalRedigereFrilansinntektRadioValues = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
@@ -51,6 +48,13 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]);
+  const arbeidstakerAndelerUtenIM =
+    beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.arbeidstakerAndelerUtenIM?.filter(andel => {
+      const vurderMottarYtelseValues = getValues(
+        `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues`,
+      );
+      return vurderMottarYtelseValues?.[utledArbeidsforholdFieldName(andel)];
+    });
   const skalRedigereArbeidsinntekt = skalRedigereArbeidsinntektRadioValues.includes(true);
 
   const skalRedigereDagpengerInntekt = getValues(
@@ -212,7 +216,15 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
               label={getArbeidsinntektInputLabel(andel)}
             />
           ))
-        : null}
+        : arbeidstakerAndelerUtenIM?.map(andel => (
+            <ArbeidsinntektInput
+              key={andel.arbeidsforhold.arbeidsgiverId}
+              arbeidsgiver={andel}
+              readOnly={readOnly}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+              label={getArbeidsinntektInputLabel(andel)}
+            />
+          ))}
 
       {skalRedigereDagpengerInntekt && (
         <>

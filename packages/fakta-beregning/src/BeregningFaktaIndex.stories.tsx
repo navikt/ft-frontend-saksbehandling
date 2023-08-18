@@ -1,3 +1,5 @@
+import '@navikt/ds-css';
+import '@navikt/ft-form-hooks/dist/style.css';
 import {
   AksjonspunktStatus,
   AktivitetStatus as aktivitetStatuser,
@@ -16,7 +18,6 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import '@navikt/ft-ui-komponenter/dist/style.css';
-import '@navikt/ft-form-hooks/dist/style.css';
 import { action } from '@storybook/addon-actions';
 import type { StoryFn } from '@storybook/react';
 import dayjs from 'dayjs';
@@ -31,16 +32,13 @@ import {
   vilkar as vilkarArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
 import agOpplysninger from '../testdata/arbeidsgiverOpplysninger';
+import { bgOverstyreUtenAvklaringsbehov, vilkarOverstyreUtenAvklaringsbehov } from '../testdata/bgUtenAvklaringsbehov';
 import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
-import { bgOverstyreUtenAvklaringsbehov, vilkarOverstyreUtenAvklaringsbehov } from '../testdata/bgUtenAvklaringsbehov';
-
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
-
-import '@navikt/ds-css';
 
 const opprettetVurderFakta = {
   definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,

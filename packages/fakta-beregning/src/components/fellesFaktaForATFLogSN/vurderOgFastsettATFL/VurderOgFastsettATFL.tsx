@@ -244,11 +244,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
-          <LonnsendringForm
-            beregningsgrunnlag={beregningsgrunnlag}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            readOnly={readOnly}
-          />
+          <LonnsendringForm readOnly={readOnly} />
         </React.Fragment>,
       );
     }
@@ -268,7 +264,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL}>
-          <NyoppstartetFLForm isAksjonspunktClosed={isAksjonspunktClosed} readOnly={readOnly} />
+          <NyoppstartetFLForm readOnly={readOnly} />
         </React.Fragment>,
       );
     }
@@ -279,12 +275,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING}>
-          <VurderBesteberegningForm
-            readOnly={readOnly}
-            erOverstyrt={erOverstyrt}
-            beregningsgrunnlag={beregningsgrunnlag}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-          />
+          <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
         </React.Fragment>,
       );
     }
@@ -295,7 +286,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}>
           <VurderMottarYtelseForm
             readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
             tilfeller={tilfeller}
             beregningsgrunnlag={beregningsgrunnlag}
             kodeverkSamling={kodeverkSamling}
