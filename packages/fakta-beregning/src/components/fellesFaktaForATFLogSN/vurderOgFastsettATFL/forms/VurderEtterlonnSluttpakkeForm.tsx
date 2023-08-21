@@ -44,13 +44,7 @@ interface StaticFunctions {
 
 const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  // const skalRedigereInntekt = getValues(
-  //   `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
-  // );
   const intl = useIntl();
-  // const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
-  //   andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  // );
   return (
     <div>
       <RadioGroupPanel
@@ -75,17 +69,6 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
         ]}
         parse={parseStringToBoolean}
       />
-      {/* {skalRedigereInntekt
-        ? andelerMedArbeidsinntekt.map(andel => (
-            <ArbeidsinntektInput
-              key={andel.arbeidsforhold.arbeidsgiverId}
-              arbeidsgiver={andel}
-              readOnly={readOnly}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              label={<FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />}
-            />
-          ))
-        : null} */}
     </div>
   );
 };

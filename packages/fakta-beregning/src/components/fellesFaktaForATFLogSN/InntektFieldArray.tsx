@@ -125,7 +125,6 @@ const fjernEllerLeggTilAktivitetStatus = (
   if (skalHaAndelMedAktivitetstatus) {
     append({
       ...nyStatusAndel,
-      // kanRedigereInntekt: getKanRedigereInntektCallback()(nyStatusAndel),
     });
   }
 };

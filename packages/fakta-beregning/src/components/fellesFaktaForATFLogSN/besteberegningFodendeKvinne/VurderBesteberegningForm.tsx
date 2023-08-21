@@ -6,11 +6,9 @@ import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
@@ -48,15 +46,9 @@ interface StaticFunctions {
  */
 
 const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
-  const skalRedigereInntekt = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`);
-  // const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
-  //   andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  // );
-  // const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -89,25 +81,6 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
           </a>
         </FlexColumn>
       </FlexRow>
-      {skalRedigereInntekt ? (
-        <>
-          {/* {andelerMedArbeidsinntekt.map(andel => (
-            <ArbeidsinntektInput
-              key={andel.arbeidsforhold.arbeidsgiverId}
-              arbeidsgiver={andel}
-              readOnly={readOnly}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-            />
-          ))} */}
-          {/* <VerticalSpacer twentyPx />
-          <InntektInput
-            name={dagpengerInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektDagpenger" />}
-          /> */}
-        </>
-      ) : null}
     </div>
   );
 };

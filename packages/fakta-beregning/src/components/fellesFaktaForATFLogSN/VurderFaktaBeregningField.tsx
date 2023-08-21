@@ -68,6 +68,20 @@ const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): bool
   return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
 };
 
+const getManglerInntektsmelding = (beregningsgrunnlag: Beregningsgrunnlag) => {
+  const { faktaOmBeregning } = beregningsgrunnlag;
+  if (
+    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe &&
+    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.length > 0
+  ) {
+    return (
+      faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.find(forhold => !forhold.inntektPrMnd) !==
+      undefined
+    );
+  }
+  return false;
+};
+
 const lagHelpTextsForFakta = (
   beregningsgrunnlag: Beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -78,7 +92,13 @@ const lagHelpTextsForFakta = (
     return (
       <Alert size="small" variant="warning">
         <Heading size="xsmall" level="3">
-          Søker er arbeidstaker og frilans i samme virksomhet
+          <FormattedMessage
+            id={
+              getManglerInntektsmelding(beregningsgrunnlag)
+                ? 'BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM'
+                : 'BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg'
+            }
+          />
         </Heading>
         Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som
         er arbeidsinntekt og hva som er samlet frilansinntekt.

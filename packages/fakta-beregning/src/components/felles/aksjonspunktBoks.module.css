@@ -1,6 +1,6 @@
 .aksjonspunktBoks {
-  border: 2px solid #ff9100;
-  border-radius: 3px;
+  border: 0.125rem solid #ff9100;
+  border-radius: 0.1875rem;
   margin-right: 21%;
   padding: 1.75rem;
 }

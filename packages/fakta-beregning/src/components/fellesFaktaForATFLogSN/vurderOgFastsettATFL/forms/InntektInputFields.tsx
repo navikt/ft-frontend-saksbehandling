@@ -33,9 +33,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
-    ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
-    : undefined;
+  const vurderMottarYtelse = beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse;
   const erFrilans = vurderMottarYtelse && vurderMottarYtelse.erFrilans;
 
   const skalRedigereFrilansinntektRadioValues = getValues([

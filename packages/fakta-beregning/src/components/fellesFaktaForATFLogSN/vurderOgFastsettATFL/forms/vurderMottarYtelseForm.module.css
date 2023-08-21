@@ -1,8 +1,8 @@
 .krLabel {
-  bottom: -11px;
+  bottom: -0.6875rem;
   font-size: var(--a-font-size-medium);
   font-weight: var(--a-font-weight-regular);
-  left: 112px;
+  left: 7rem;
   letter-spacing: 0.002em;
   line-height: var(--a-font-line-height-medium);
   position: absolute;

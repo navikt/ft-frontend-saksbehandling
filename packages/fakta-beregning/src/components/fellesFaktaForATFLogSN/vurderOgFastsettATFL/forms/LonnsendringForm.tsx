@@ -36,13 +36,8 @@ interface StaticFunctions {
 }
 
 const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
-  // const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  // const skalRedigereInntekt = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`);
   const intl = useIntl();
-  // const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
-  //   andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  // );
 
   return (
     <div>
@@ -80,36 +75,6 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readO
         validate={[required]}
         parse={parseStringToBoolean}
       />
-      {/* {skalRedigereInntekt
-        ? andelerMedArbeidsinntekt.map(andel => (
-            <ArbeidsinntektInput
-              key={andel.arbeidsforhold.arbeidsgiverId}
-              arbeidsgiver={andel}
-              readOnly={readOnly}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              label={
-                <>
-                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettNyManedsinntekt" />
-                  <ReadMore size="small" header="Hvordan går jeg frem?">
-                    <List>
-                      <List.Item>Bruk A-inntekt til å fastsette ny månedsinntekt hvis mulig.</List.Item>
-                      <List.Item>
-                        Hvis ny inntekt ikke fremgår av A-inntekt, kontakt arbeidsgiver og be de sende oppdatert
-                        inntektsmelding. Eventuelt kan du kontakte søker og be de dokumentere varig lønnsøkning med
-                        kontrakt, lønnslipp eller lignende.
-                      </List.Item>
-                      <List.Item>
-                        Eksempel: En person får en varig lønnsendring med virkning fra 5. oktober. Vedkommende har
-                        første fraværsdato 20. oktober og beregningsperioden er september, august og juli. Ved
-                        fastsettelse av inntekt skal tidsrommet etter lønnsendringen 5. oktober legges til grunn.
-                      </List.Item>
-                    </List>
-                  </ReadMore>
-                </>
-              }
-            />
-          ))
-        : null} */}
       <VerticalSpacer twentyPx />
     </div>
   );

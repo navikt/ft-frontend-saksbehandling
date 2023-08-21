@@ -40,10 +40,6 @@ interface StaticFunctions {
 const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
-  // const skalRedigereInntekt = getValues(
-  //   `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
-  // );
-  // const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -76,33 +72,6 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ rea
         ]}
         parse={parseStringToBoolean}
       />
-      {/* {skalRedigereInntekt && (
-        <>
-          <VerticalSpacer twentyPx />
-          <InntektInput
-            name={frilanserInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={
-              <>
-                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
-                <ReadMore size="small" header="Hvordan går jeg frem">
-                  <List>
-                    <List.Item>Fastsett månedsinntekt ut ifra antall måneder/dager med utbetaling.</List.Item>
-                    <List.Item>
-                      Eksempel:
-                      <br />
-                      Hvis søker startet som frilanser for 2 mnd siden, skal samlet inntekt deles på 2 og ikke 3. Hvis
-                      det er under 1 mnd siden oppstart, må du regne om inntekt til dagsats per virkedag. Dagsats x 260
-                      / 12 mnd = månedsinntekt.
-                    </List.Item>
-                  </List>
-                </ReadMore>
-              </>
-            }
-          />
-        </>
-      )} */}
       <VerticalSpacer twentyPx />
     </div>
   );

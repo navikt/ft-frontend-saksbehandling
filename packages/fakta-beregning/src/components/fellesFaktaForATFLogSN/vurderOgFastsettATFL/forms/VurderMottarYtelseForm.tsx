@@ -152,10 +152,6 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
       ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
       : [];
   const intl = useIntl();
-  // const skalRedigereInntekt = getValues(
-  //   `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
-  // );
-  // const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
 
   return (
     <div>
@@ -196,39 +192,6 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           />
         </div>
       )}
-      {/* {skalRedigereInntekt && erFrilans && (
-        <>
-          <VerticalSpacer twentyPx />
-          <InntektInput
-            name={frilanserInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={
-              erATFLSammeOrg(tilfeller) ? (
-                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser" />
-              ) : (
-                <>
-                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntekt" />
-                  <ReadMore size="small" header="Hvordan går jeg frem">
-                    <List>
-                      <List.Item>
-                        Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i
-                        ytelse i beregningsperioden.
-                      </List.Item>
-                      <List.Item>
-                        Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.
-                      </List.Item>
-                      <List.Item>
-                        Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.
-                      </List.Item>
-                    </List>
-                  </ReadMore>
-                </>
-              )
-            }
-          />
-        </>
-      )} */}
       {arbeidsforholdUtenIM.map(andel => (
         <>
           <VerticalSpacer twentyPx />
