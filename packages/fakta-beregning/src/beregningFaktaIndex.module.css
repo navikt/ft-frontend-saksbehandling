@@ -6,3 +6,6 @@
 .tabsContainer :global(.navds-tabs__tab) {
   margin-right: 0.5rem;
 }
+.main {
+  max-width: 50.875rem;
+}

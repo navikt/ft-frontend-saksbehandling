@@ -172,7 +172,6 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     <>
       {erATFLSammeOrg(tilfeller) && atflOgSammeOrgArbeidsgivere?.length > 0 ? (
         <>
-          <VerticalSpacer twentyPx />
           <Label>
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet" />
           </Label>
@@ -197,7 +196,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
       ) : null}
       {skalRedigereFrilansinntekt && erFrilans && (
         <>
-          <VerticalSpacer twentyPx />
+          <VerticalSpacer thirtyTwoPx />
           <InntektInput
             name={frilanserInntektFieldName}
             readOnly={readOnly}
@@ -228,7 +227,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
 
       {skalRedigereDagpengerInntekt && (
         <>
-          <VerticalSpacer twentyPx />
+          {(skalRedigereFrilansinntekt || skalRedigereArbeidsinntekt) && <VerticalSpacer thirtyTwoPx />}
           <InntektInput
             name={dagpengerInntektFieldName}
             readOnly={readOnly}

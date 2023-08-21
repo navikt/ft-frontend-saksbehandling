@@ -1,10 +1,10 @@
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, ErrorMessage } from '@navikt/ds-react';
+import { Button, ErrorMessage, Table } from '@navikt/ds-react';
 import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
-import { PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
@@ -133,19 +133,19 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   };
 
   return (
-    <TableRow>
-      <TableColumn>
+    <Table.Row>
+      <Table.DataCell>
         <InputField name={`${rowName}.andel`} className={styles.storBredde} readOnly />
-      </TableColumn>
-      <TableColumn>
+      </Table.DataCell>
+      <Table.DataCell>
         {skalVisePeriode && harPeriode && (
           <ReadOnlyField
             value={<PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />}
           />
         )}
-      </TableColumn>
+      </Table.DataCell>
       {!skalViseOverstyrtInntektInput && (
-        <TableColumn className={styles.rightAlign}>
+        <Table.DataCell align="right">
           <div className={styles.inntekt}>
             <div className={harEndretInntekt ? styles.inntektOldStrikethrough : styles.inntektOld}>
               {visMåFastsettesText ? (
@@ -173,10 +173,10 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
               </>
             )}
           </div>
-        </TableColumn>
+        </Table.DataCell>
       )}
       {skalViseOverstyrtInntektInput && (
-        <TableColumn className={styles.rightAlignInput}>
+        <Table.DataCell align="right">
           <InputField
             label={intl.formatMessage(
               {
@@ -190,20 +190,20 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
             validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
             hideLabel
           />
-        </TableColumn>
+        </Table.DataCell>
       )}
 
       {skalViseRefusjon && (
-        <TableColumn className={styles.rightAlign}>
+        <Table.DataCell align="right">
           <InputField
             name={`${rowName}.refusjonskrav`}
             className={styles.litenBredde}
             readOnly
             parse={parseCurrencyInput}
           />
-        </TableColumn>
+        </Table.DataCell>
       )}
-      <TableColumn className={styles.rightAlign}>
+      <Table.DataCell align="right">
         <SelectField
           label={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Inntektskategori' })}
           name={`${rowName}.inntektskategori`}
@@ -213,18 +213,18 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
           readOnly={readOnly || !skalRedigereInntektskategori}
           hideLabel
         />
-      </TableColumn>
-      <TableColumn>
-        {skalViseSletteknapp && (
+      </Table.DataCell>
+      {skalViseSletteknapp && (
+        <Table.DataCell>
           <Button
             icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
             onClick={() => removeAndel()}
             type="button"
             variant="tertiary"
           />
-        )}
-      </TableColumn>
-    </TableRow>
+        </Table.DataCell>
+      )}
+    </Table.Row>
   );
 };
 

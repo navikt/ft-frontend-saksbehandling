@@ -1,16 +1,15 @@
+import { Label, Table } from '@navikt/ds-react';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
+import AndelFieldValue from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import { erArbeidstaker, erDagpenger, erFrilanser, getArbeidsgiverIndex, getKanRedigereInntekt } from './BgFaktaUtils';
-import styles from './inntektFieldArray.module.css';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
-import AndelFieldValue from '../../typer/FieldValues';
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
+import styles from './inntektFieldArray.module.css';
 
 const summerBeregnet = (
   fields: AndelFieldValue[],
@@ -78,21 +77,23 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
   const sumBeregnet = summerBeregnet(fields, formValues, beregningsgrunnlag) || 0;
 
   return (
-    <TableRow>
-      <TableColumn>
-        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
-      </TableColumn>
-      {skalVisePeriode && <TableColumn />}
-      <TableColumn className={styles.rightAlign}>
+    <Table.Row>
+      <Table.DataCell>
+        <Label as="p">
+          <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+        </Label>
+      </Table.DataCell>
+      {skalVisePeriode && <Table.DataCell />}
+      <Table.DataCell align="right">
         <div className={styles.readOnlyContainer}>
-          <BodyShort data-testid="sum" className={readOnly ? styles.readOnlyContent : ''}>
+          <Label as="p" data-testid="sum" className={readOnly ? styles.readOnlyContent : ''}>
             {formatCurrencyNoKr(sumBeregnet)}
-          </BodyShort>
+          </Label>
         </div>
-      </TableColumn>
-      {skalViseRefusjon && <TableColumn />}
-      <TableColumn />
-    </TableRow>
+      </Table.DataCell>
+      {skalViseRefusjon && <Table.DataCell />}
+      <Table.DataCell />
+    </Table.Row>
   );
 };
 export default SummaryRow;

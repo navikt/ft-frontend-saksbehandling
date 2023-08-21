@@ -107,48 +107,50 @@ const BeregningFaktaIndex: FunctionComponent<
 
   return (
     <RawIntlProvider value={intl}>
-      {skalBrukeTabs && (
-        <div className={styles.tabsContainer}>
-          <Tabs
-            value={aktivtBeregningsgrunnlagIndeks.toString()}
-            onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
-          >
-            <Tabs.List>
-              {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
-                <Tabs.Tab
-                  key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
-                  value={currentBeregningsgrunnlagIndex.toString()}
-                  label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
-                  className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
-                  icon={
-                    skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
-                      <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
-                    )
-                  }
-                />
-              ))}
-            </Tabs.List>
-          </Tabs>
-        </div>
-      )}
-      <GetErrorsContext.Provider value={getVurderFaktaBeregningFormErrors}>
-        <BeregningInfoPanel
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          beregningsgrunnlag={beregningsgrunnlag}
-          kodeverkSamling={kodeverkSamling}
-          avklaringsbehov={aktiveAvklaringsBehov}
-          submitCallback={submitCallback}
-          readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
-          submittable={submittable}
-          erOverstyrer={erOverstyrer}
-          skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          setFormData={setFormData}
-          formData={formData}
-          vilkar={vilkar}
-          skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
-        />
-      </GetErrorsContext.Provider>
+      <div className={styles.main}>
+        {skalBrukeTabs && (
+          <div className={styles.tabsContainer}>
+            <Tabs
+              value={aktivtBeregningsgrunnlagIndeks.toString()}
+              onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+            >
+              <Tabs.List>
+                {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+                  <Tabs.Tab
+                    key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
+                    value={currentBeregningsgrunnlagIndex.toString()}
+                    label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
+                    className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
+                    icon={
+                      skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
+                        <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
+                      )
+                    }
+                  />
+                ))}
+              </Tabs.List>
+            </Tabs>
+          </div>
+        )}
+        <GetErrorsContext.Provider value={getVurderFaktaBeregningFormErrors}>
+          <BeregningInfoPanel
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            beregningsgrunnlag={beregningsgrunnlag}
+            kodeverkSamling={kodeverkSamling}
+            avklaringsbehov={aktiveAvklaringsBehov}
+            submitCallback={submitCallback}
+            readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
+            submittable={submittable}
+            erOverstyrer={erOverstyrer}
+            skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            setFormData={setFormData}
+            formData={formData}
+            vilkar={vilkar}
+            skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
+          />
+        </GetErrorsContext.Provider>
+      </div>
     </RawIntlProvider>
   );
 };

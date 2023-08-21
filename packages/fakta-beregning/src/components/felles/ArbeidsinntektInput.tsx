@@ -43,7 +43,7 @@ const ArbeidsinntektInput: FunctionComponent<ArbeidsinntektInputProps> & StaticF
 
   return (
     <>
-      <VerticalSpacer twentyPx />
+      <VerticalSpacer thirtyTwoPx />
       <InntektInput
         name={fieldName}
         readOnly={readOnly}

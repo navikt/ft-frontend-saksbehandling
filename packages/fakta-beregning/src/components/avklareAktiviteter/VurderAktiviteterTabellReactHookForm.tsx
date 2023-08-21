@@ -1,28 +1,20 @@
-import React, { FunctionComponent } from 'react';
-import dayjs from 'dayjs';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
-import { Label } from '@navikt/ds-react';
-import { Table } from '@navikt/ft-ui-komponenter';
+import { Label, Table } from '@navikt/ds-react';
 import { hasValidDate } from '@navikt/ft-form-validators';
+import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import dayjs from 'dayjs';
+import React, { FunctionComponent } from 'react';
 
+import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { FormattedMessage } from 'react-intl';
-import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
-import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
 import styles from './vurderAktiviteterTabell.module.css';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
   const datoFeil = hasValidDate(skjaeringstidspunkt);
   const formatertStp = datoFeil ? '' : dayjs(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
-  if (erOverstyrt) {
-    return (
-      <FormattedMessage
-        id="VurderAktiviteterTabell.Overstyrt.Overskrift"
-        values={{ skjaeringstidspunkt: formatertStp }}
-      />
-    );
-  }
+
   const harVentelonnVartpenger = aktiviteter.some(
     aktivitet =>
       aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER,
@@ -75,23 +67,35 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
 }) => (
   <>
     <Label size="small">{finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}</Label>
-    <Table classNameTable={styles.aktiviteterTable} headerTextCodes={getHeaderTextCodes()} noHover>
-      {aktiviteter.map(aktivitet => (
-        <VurderAktiviteterTabellRad
-          key={`${aktivitet.arbeidsgiverIdent}-${aktivitet.fom}-${aktivitet.tom}`}
-          aktivitet={aktivitet}
-          readOnly={readOnly}
-          isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-          kodeverkSamling={kodeverkSamling}
-          erOverstyrt={erOverstyrt}
-          harAvklaringsbehov={harAvklaringsbehov}
-          tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}
-          valgtSkjæringstidspunkt={valgtSkjæringstidspunkt}
-          ingenAktiviterErBrukt={ingenAktiviterErBrukt}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          fieldId={fieldId}
-        />
-      ))}
+    <Table size="small" className={styles.table}>
+      <Table.Header>
+        <Table.Row>
+          {getHeaderTextCodes().map(header => (
+            <Table.HeaderCell key={header} scope="col">
+              <FormattedMessage id={header} />
+            </Table.HeaderCell>
+          ))}
+          <Table.HeaderCell />
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {aktiviteter.map(aktivitet => (
+          <VurderAktiviteterTabellRad
+            key={`${aktivitet.arbeidsgiverIdent}-${aktivitet.fom}-${aktivitet.tom}`}
+            aktivitet={aktivitet}
+            readOnly={readOnly}
+            isAvklaringsbehovClosed={isAvklaringsbehovClosed}
+            kodeverkSamling={kodeverkSamling}
+            erOverstyrt={erOverstyrt}
+            harAvklaringsbehov={harAvklaringsbehov}
+            tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}
+            valgtSkjæringstidspunkt={valgtSkjæringstidspunkt}
+            ingenAktiviterErBrukt={ingenAktiviterErBrukt}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            fieldId={fieldId}
+          />
+        ))}
+      </Table.Body>
     </Table>
   </>
 );

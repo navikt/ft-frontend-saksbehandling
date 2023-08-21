@@ -1,4 +1,4 @@
-import { ErrorMessage } from '@navikt/ds-react';
+import { ErrorMessage, Table } from '@navikt/ds-react';
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import {
@@ -7,11 +7,11 @@ import {
   Beregningsgrunnlag,
   KodeverkMedNavn,
 } from '@navikt/ft-types';
-import { Table, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent, useCallback, useEffect } from 'react';
 import { UseFieldArrayAppend, UseFieldArrayRemove, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import { IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import {
   ArbeidstakerInntektValues,
   DagpengerinntektValues,
@@ -33,7 +33,6 @@ import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArr
 import SummaryRow from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
-import styles from './inntektFieldArray.module.css';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
@@ -352,12 +351,25 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   tablerows.push(createBruttoBGSummaryRow(fields, readOnly, beregningsgrunnlag));
   return (
     <div>
-      <Table
-        headerTextCodes={getHeaderTextCodes(skalVisePeriode(fields), skalViseRefusjon(fields))}
-        noHover
-        classNameTable={styles.inntektTable}
-      >
-        {tablerows}
+      <Table size="small">
+        <Table.Header>
+          <Table.Row>
+            {getHeaderTextCodes(skalVisePeriode(fields), skalViseRefusjon(fields)).map(header => {
+              const alginRightHeaders = [
+                'BeregningInfoPanel.FordelingBG.Fordeling',
+                'BeregningInfoPanel.FordelingBG.Refusjonskrav',
+                'BeregningInfoPanel.FordelingBG.Inntektskategori',
+              ];
+              const alignRight = alginRightHeaders.includes(header);
+              return (
+                <Table.HeaderCell key={header} scope="col" align={alignRight ? 'right' : 'left'}>
+                  <FormattedMessage id={header} />
+                </Table.HeaderCell>
+              );
+            })}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>{tablerows}</Table.Body>
       </Table>
       {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
         // @ts-ignore Fiks

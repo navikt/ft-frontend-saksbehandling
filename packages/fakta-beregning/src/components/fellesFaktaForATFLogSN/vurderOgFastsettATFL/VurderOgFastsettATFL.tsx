@@ -1,4 +1,4 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -17,12 +17,7 @@ import {
 } from '../../../typer/interface/BeregningFaktaAP';
 import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 import AksjonspunktBoks from '../../felles/AksjonspunktBoks';
-import {
-  INNTEKT_FIELD_ARRAY_NAME,
-  erOverstyring,
-  erOverstyringAvBeregningsgrunnlag,
-  getKanRedigereInntekt,
-} from '../BgFaktaUtils';
+import { INNTEKT_FIELD_ARRAY_NAME, erOverstyring, erOverstyringAvBeregningsgrunnlag } from '../BgFaktaUtils';
 import InntektFieldArray, { InntektFieldArray as InntektFieldArrayImpl } from '../InntektFieldArray';
 import InntektstabellPanel from '../InntektstabellPanel';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
@@ -37,68 +32,12 @@ import VurderRefusjonForm from '../vurderrefusjon/VurderRefusjonForm';
 import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
 import InntektInputFields from './forms/InntektInputFields';
-import { harKunstigArbeidsforhold } from './forms/KunstigArbeidsforhold';
 import LonnsendringForm from './forms/LonnsendringForm';
 import NyoppstartetFLForm from './forms/NyoppstartetFLForm';
 import VurderEtterlonnSluttpakkeForm from './forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './forms/VurderMottarYtelseForm';
 
-export const skalFastsettInntektForArbeidstaker = (
-  values: FaktaOmBeregningAksjonspunktValues,
-  beregningsgrunnlag: Beregningsgrunnlag,
-) => {
-  const skalFastsette = andel => getKanRedigereInntekt(values, beregningsgrunnlag)(andel);
-
-  const fields = values[INNTEKT_FIELD_ARRAY_NAME];
-  if (!fields) {
-    return false;
-  }
-  return fields
-    .filter(field => field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
-    .map(skalFastsette)
-    .includes(true);
-};
-
-export const skalFastsettInntektForFrilans = (
-  values: Partial<FaktaOmBeregningAksjonspunktValues>,
-  beregningsgrunnlag: Beregningsgrunnlag,
-) => {
-  const skalFastsette = andel => getKanRedigereInntekt(values, beregningsgrunnlag)(andel);
-
-  const fields = values[INNTEKT_FIELD_ARRAY_NAME];
-  if (!fields) {
-    return false;
-  }
-  return fields
-    .filter(field => field.aktivitetStatus === AktivitetStatus.FRILANSER)
-    .map(skalFastsette)
-    .includes(true);
-};
-
 const getSkalViseTabell = (tilfeller: string[]) => !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
-export const findInstruksjonForFastsetting = (
-  skalHaBesteberegning,
-  skalFastsetteFL,
-  skalFastsetteAT,
-  harKunstigArbeid,
-) => {
-  if (harKunstigArbeid) {
-    return 'BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold';
-  }
-  if (skalHaBesteberegning) {
-    return 'KunYtelsePanel.OverskriftBesteberegning';
-  }
-  if (skalFastsetteFL) {
-    if (!skalFastsetteAT) {
-      return 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettFrilans';
-    }
-    return 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLAlleOppdrag';
-  }
-  if (skalFastsetteAT) {
-    return 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettArbeidsinntekt';
-  }
-  return '';
-};
 
 const finnInntektstabell = (
   readOnly: boolean,
@@ -178,20 +117,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     () => erOverstyringAvBeregningsgrunnlag(formValues),
     [formValues, beregningsgrunnlag, avklaringsbehov],
   );
-  const skalFastsetteAT = useMemo(
-    () => skalFastsettInntektForArbeidstaker(formValues, beregningsgrunnlag),
-    [formValues, beregningsgrunnlag],
-  );
-  const skalFastsetteFL = useMemo(
-    () => skalFastsettInntektForFrilans(formValues, beregningsgrunnlag),
-    [formValues, beregningsgrunnlag],
-  );
-  const skalHaBesteberegning = formValues[besteberegningField] === true;
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
-  const harKunstigArbeid = useMemo(
-    () => harKunstigArbeidsforhold(tilfeller, beregningsgrunnlag),
-    [tilfeller, beregningsgrunnlag],
-  );
 
   const byggForms = () => {
     const forms = [];
@@ -346,12 +272,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         key="inntektstabell"
         tabell={finnInntektstabell(readOnly, beregningsgrunnlag, kodeverkSamling, erOverstyrt)}
         skalViseTabell={skalViseTabell}
-        hjelpeTekstId={findInstruksjonForFastsetting(
-          skalHaBesteberegning,
-          skalFastsetteFL,
-          skalFastsetteAT,
-          harKunstigArbeid,
-        )}
         readOnly={readOnly}
         erOverstyrer={erOverstyrer}
         avklaringsbehov={avklaringsbehov}

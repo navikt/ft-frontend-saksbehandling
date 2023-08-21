@@ -14,6 +14,7 @@ import { FormattedMessage } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import createVisningsnavnFakta from '../ArbeidsforholdHelper';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpefunksjoner';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
@@ -21,7 +22,6 @@ import SubmitButton from '../felles/SubmitButton';
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import FaktaForATFLOgSNPanel, { getFaktaOmBeregningTilfellerKoder } from './FaktaForATFLOgSNPanel';
 import VurderFaktaContext, { BeregningsgrunnlagIndexContext, GetErrorsContext } from './VurderFaktaContext';
-import createVisningsnavnFakta from '../ArbeidsforholdHelper';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -236,7 +236,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   const skalVurderes = vilkarsperiode.vurderesIBehandlingen;
   const renderTextFieldAndSubmitButton = () => (
     <>
-      <VerticalSpacer twentyPx />
+      <VerticalSpacer thirtyTwoPx />
       {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ||
         hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) ||
         erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
