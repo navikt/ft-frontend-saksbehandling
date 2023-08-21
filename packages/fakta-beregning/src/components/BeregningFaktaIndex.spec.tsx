@@ -206,7 +206,11 @@ describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne fastsette inntekt for arbeidstaker og frilanser i samme organisasjon', async () => {
     const lagre = vi.fn();
     render(<FrilansOgArbeidstakerISammeOrganisasjonAp5058 submitCallback={lagre} />);
-    expect(screen.getByText('Søker er arbeidstaker og frilans i samme virksomhet')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Søker er arbeidstaker og frilans i samme virksomhet og det er ikke mottatt inntektsmelding(er).',
+      ),
+    ).toBeInTheDocument();
     expect(
       screen.getByText(
         // eslint-disable-next-line max-len
