@@ -5,6 +5,7 @@ import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningForm
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
+import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 
 const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
@@ -21,18 +22,18 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues, transfo
   if (
     transformForOverstyring &&
     !skalOverstyre &&
-    harAvklaringsbehovSomKanLøses(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, values.avklaringsbehov)
+    harAvklaringsbehovSomKanLøses(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, values.avklaringsbehov || [])
   ) {
     return {
       periode: values.periode,
       avbrutt: true,
-      begrunnelse: null,
+      begrunnelse: undefined,
     };
   }
 
-  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(skalOverstyre, values.avklaringsbehov);
+  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(!!skalOverstyre, values.avklaringsbehov || []);
   if (!skalLoseAvklaringsbehov) {
-    return null;
+    throw new Error('Feil: Kjører submit uten aksjonspunkt og uten overstyringsrolle');
   }
 
   const vurderAktiviteterTransformed = transformValuesFaktaForATFLOgSN(values);
@@ -47,14 +48,14 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues, transfo
 const transformValuesVurderFaktaBeregning = (
   values: VurderFaktaBeregningFormValues,
   skalKunneAvbryteOverstyring = true,
-) => {
+): BeregningFaktaOgOverstyringAP[] => {
   const fieldArrayList = values[formNameVurderFaktaBeregning];
   const overstyrteGrunnlag = fieldArrayList
     .filter(v => v.erTilVurdering)
     .filter(
       v =>
         v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] ||
-        harAvklaringsbehovSomKanLøses(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, v.avklaringsbehov),
+        harAvklaringsbehovSomKanLøses(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, v.avklaringsbehov || []),
     )
     .map(v => transformFieldValue(v, true))
     .filter(v => v);
@@ -63,7 +64,7 @@ const transformValuesVurderFaktaBeregning = (
     .filter(
       v =>
         (!v[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] || skalKunneAvbryteOverstyring) &&
-        harAvklaringsbehovSomKanLøses(VURDER_FAKTA_FOR_ATFL_SN, v.avklaringsbehov),
+        harAvklaringsbehovSomKanLøses(VURDER_FAKTA_FOR_ATFL_SN, v.avklaringsbehov || []),
     )
     .map(v => transformFieldValue(v, false))
     .filter(v => v);
