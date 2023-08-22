@@ -195,7 +195,10 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
           </Heading>
           <FormattedMessage id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift" />
           <VerticalSpacer fourPx />
-          <ReadMore size="small" header="Hvordan går jeg frem?">
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
             <List>
               <List.Item>Undersøk i Modia om søker har full AAP.</List.Item>
               <List.Item>Ved full AAP skal arbeidsinntekten ikke benyttes.</List.Item>

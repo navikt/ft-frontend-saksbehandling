@@ -47,7 +47,10 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ rea
         label={
           <>
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
-            <ReadMore size="small" header="Hvordan går jeg frem?">
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
               <List>
                 <List.Item>Gå til Aa-registeret og A-inntekt for å se frilansoppdrag og inntekter.</List.Item>
                 <List.Item>

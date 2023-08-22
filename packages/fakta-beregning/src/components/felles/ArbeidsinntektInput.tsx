@@ -51,7 +51,7 @@ const ArbeidsinntektInput: FunctionComponent<ArbeidsinntektInputProps> & StaticF
         label={
           label || (
             <FormattedMessage
-              id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift"
+              id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
               values={{
                 bedrift: `${arbeidsgiver.arbeidsforhold.arbeidsgiverNavn} (${arbeidsgiver.arbeidsforhold.arbeidsgiverId})`,
               }}

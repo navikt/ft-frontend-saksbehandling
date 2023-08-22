@@ -39,9 +39,11 @@ const lagRefusjonskravRadios = (
                   arbeidsgiverVisningsnavn,
                 }}
               />
-              <ReadMore size="small" header="Hvordan går jeg frem">
-                Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3
-                måneder).
+              <ReadMore
+                size="small"
+                header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+              >
+                <FormattedMessage id="VurderRefusjonForm.ReadMore" />
               </ReadMore>
             </>
           }

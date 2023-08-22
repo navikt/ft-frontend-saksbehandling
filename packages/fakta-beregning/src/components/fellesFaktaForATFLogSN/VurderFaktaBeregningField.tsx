@@ -91,38 +91,52 @@ const lagHelpTextsForFakta = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          <FormattedMessage
-            id={
-              getManglerInntektsmelding(beregningsgrunnlag)
-                ? 'BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM'
-                : 'BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg'
-            }
-          />
-        </Heading>
-        Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som
-        er arbeidsinntekt og hva som er samlet frilansinntekt.
+        <FormattedMessage
+          id={
+            getManglerInntektsmelding(beregningsgrunnlag)
+              ? 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM'
+              : 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg'
+          }
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Vurder om søker har hatt lønnsendring
-        </Heading>
-        Det er registrert lønnsendring 16.02.2023 for xxxx, men ny inntekt kan ikke fastsettes av systemet. Vurder om
-        registrert lønnsendring er riktig og fastsett ny månedsinntekt.
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
   if (erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Vurder om søker mottar ytelse for frilansaktivitet
-        </Heading>
-        Det er funnet utbetaling av [ytelse] i beregningsperioden, men utbetalt beløp kan ikke hentes fra registrene.
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpText"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
@@ -130,10 +144,16 @@ const lagHelpTextsForFakta = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Vurder om søker har etterlønn eller sluttvederlag i beregningsperioden
-        </Heading>
-        Søker har oppgitt etterlønn eller sluttvederlag i søknaden.
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
@@ -141,10 +161,16 @@ const lagHelpTextsForFakta = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Vurder om søker har vært i militær- eller siviljeneste i opptjeningsperioden
-        </Heading>
-        Søker har oppgitt militær- eller siviltjeneste i søknaden.
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
@@ -152,11 +178,16 @@ const lagHelpTextsForFakta = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Søker har [ytelse] som eneste inntekt
-        </Heading>
-        Det er funnet utbetaling av ytelse i beregningsperioden, men beløp og inntektskategori kan ikke hentes fra
-        registrene.
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
@@ -164,11 +195,16 @@ const lagHelpTextsForFakta = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Vurder om frilanser er nyoppstartet
-        </Heading>
-        Det er funnet frilansoppdrag med oppstartsdato i beregningsperioden. Vurder om frilansoppdrag er nyoppstartet,
-        og om det skal benyttes en kortere periode for å fastsette inntekt.
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
@@ -176,10 +212,16 @@ const lagHelpTextsForFakta = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Vurder om søker ble yrkesaktiv i løpet av de siste tre årene
-        </Heading>
-        Søker har oppgitt i søknaden at de er selvstendig næringsdrivende og ny i arbeidslivet.
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
       </Alert>
     );
   }
@@ -200,13 +242,15 @@ const lagHelpTextsForFakta = (
 
     return (
       <Alert size="small" variant="warning">
-        <Heading size="xsmall" level="3">
-          Vurder refusjonskrav som har kommet for sent
-        </Heading>
         <FormattedMessage
-          id="BeregningInfoPanel.AksjonspunktHelpText.ForSentRefusjonskrav"
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText"
           values={{
             arbeidsgiverVisningsnavn: arbeidsgivereNavn,
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
           }}
         />
       </Alert>

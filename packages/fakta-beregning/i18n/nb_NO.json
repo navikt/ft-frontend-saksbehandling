@@ -18,8 +18,6 @@
   "VurderAktiviteterTabell.Overstyrt.Overskrift": "Skjæringstidspunkt for beregning {skjaeringstidspunkt}",
 
   "BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL": "Startet søker som frilanser i løpet av de siste 3 månedene før skjæringstidspunktet?",
-  "BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM": "Søker er arbeidstaker og frilans i samme virksomhet og det er ikke mottatt inntektsmelding(er).",
-  "BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg": "Søker er arbeidstaker og frilans i samme virksomhet.",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettFrilans": "Fastsett frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLAlleOppdrag": "Fastsett arbeidsinntekt og samlet frilansinntekt for alle oppdrag.",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet": "Fastsett arbeidsinntekt og samlet frilansinntekt",
@@ -31,8 +29,30 @@
   "BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans": "Fastsett månedsinntekt for frilans",
   "BeregningInfoPanel.VurderMottarYtelse.FastsettNyManedsinntekt": "Fastsett ny månedsinntekt",
   "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektFrilanser": "Månedsinntekt frilanser",
-  "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift": "Månedsinntekt {bedrift}",
-  "BeregningInfoPanel.VurderMottarYtelse.ManedsinntektDagpenger": "Månedsinntekt dagpenger",
+  "BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift": "Månedsinntekt {bedrift}",
+  "BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger": "Månedsinntekt dagpenger",
+  "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1": "Bruk A-inntekt til å fastsette ny månedsinntekt hvis mulig.",
+  "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2": "Hvis ny inntekt ikke fremgår av A-inntekt, kontakt arbeidsgiver og be de sende oppdatert inntektsmelding. Eventuelt kan du kontakte søker og be de dokumentere varig lønnsøkning med kontrakt, lønnslipp eller lignende.",
+  "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3": "Eksempel: En person får en varig lønnsendring med virkning fra 5. oktober. Vedkommende har første fraværsdato 20. oktober og beregningsperioden er september, august og juli. Ved fastsettelse av inntekt skal tidsrommet etter lønnsendringen 5. oktober legges til grunn.",
+  "BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate1": "Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i ytelse i beregningsperioden.",
+  "BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate2": "Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.",
+  "BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate3": "Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.",
+  "BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1": "Fastsett månedsinntekt ut ifra antall måneder/dager med utbetaling.",
+  "BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2": "Eksempel: {br} Hvis søker startet som frilanser for 2 mnd siden, skal samlet inntekt deles på 2 og ikke 3. Hvis det er under 1 mnd siden oppstart, må du regne om inntekt til dagsats per virkedag. Dagsats x 260 / 12 mnd = månedsinntekt.",
+  "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1": "Trekk fra arbeidsinntekt oppgitt i inntektsmelding eller det arbeidsgiver opplyser på telefon fra totalinntekt i A-inntekt. Ta hensyn til eventuelle lønnsendringer.",
+  "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2": "Restbeløp er frilansinntekt.",
+  "BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem": "Hvordan går jeg frem?",
+
+  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM": "<h3>Søker er arbeidstaker og frilans i samme virksomhet og det er ikke mottatt inntektsmelding(er).</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText": "<h3>Vurder om søker har hatt lønnsendring</h3>Det er registrert lønnsendring 16.02.2023 for xxxx, men ny inntekt kan ikke fastsettes av systemet. Vurder om registrert lønnsendring er riktig og fastsett ny månedsinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpText": "<h3>Vurder om søker mottar ytelse for frilansaktivitet</h3>Det er funnet utbetaling av [ytelse] i beregningsperioden, men utbetalt beløp kan ikke hentes fra registrene.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText": "<h3>Vurder om søker har etterlønn eller sluttvederlag i beregningsperioden</h3>Søker har oppgitt etterlønn eller sluttvederlag i søknaden.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText": "<h3>Vurder om søker har vært i militær- eller siviljeneste i opptjeningsperioden</h3>Søker har oppgitt militær- eller siviltjeneste i søknaden.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText": "<h3>Søker har [ytelse] som eneste inntekt</h3>Det er funnet utbetaling av ytelse i beregningsperioden, men beløp og inntektskategori kan ikke hentes fra registrene.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText": "<h3>Vurder om frilanser er nyoppstartet</h3>Det er funnet frilansoppdrag med oppstartsdato i beregningsperioden. Vurder om frilansoppdrag er nyoppstartet, og om det skal benyttes en kortere periode for å fastsette inntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText": "<h3>Vurder om søker ble yrkesaktiv i løpet av de siste tre årene</h3>Søker har oppgitt i søknaden at de er selvstendig næringsdrivende og ny i arbeidslivet.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText": "<h3>Vurder refusjonskrav som har kommet for sent</h3>{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
 
   "BeregningInfoPanel.VurderBestebergning.HarBesteberegning": "Søker har hatt dagpenger i opptjeningsperioden. Skal dette fordeles etter besteberegning?",
 
@@ -75,6 +95,7 @@
   "BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt": "Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?",
 
   "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
+  "VurderRefusjonForm.ReadMore": "Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3 måneder).",
 
   "BeregningInfoPanel.Validation.MinstEnFastsatt": "Må ha overstyrt inntekt for minst én aktivitet.",
 

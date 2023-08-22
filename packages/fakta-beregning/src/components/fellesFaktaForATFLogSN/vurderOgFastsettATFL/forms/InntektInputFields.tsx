@@ -84,23 +84,24 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
       return (
         <>
           <FormattedMessage
-            id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift"
+            id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{
               bedrift: `${andel.arbeidsforhold.arbeidsgiverNavn} (${andel.arbeidsforhold.arbeidsgiverId})`,
             }}
           />
-          <ReadMore size="small" header="Hvordan går jeg frem?">
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
             <List>
-              <List.Item>Bruk A-inntekt til å fastsette ny månedsinntekt hvis mulig.</List.Item>
               <List.Item>
-                Hvis ny inntekt ikke fremgår av A-inntekt, kontakt arbeidsgiver og be de sende oppdatert
-                inntektsmelding. Eventuelt kan du kontakte søker og be de dokumentere varig lønnsøkning med kontrakt,
-                lønnslipp eller lignende.
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1" />
               </List.Item>
               <List.Item>
-                Eksempel: En person får en varig lønnsendring med virkning fra 5. oktober. Vedkommende har første
-                fraværsdato 20. oktober og beregningsperioden er september, august og juli. Ved fastsettelse av inntekt
-                skal tidsrommet etter lønnsendringen 5. oktober legges til grunn.
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3" />
               </List.Item>
             </List>
           </ReadMore>
@@ -109,7 +110,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     }
     return (
       <FormattedMessage
-        id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektBedrift"
+        id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
         values={{
           bedrift: `${andel.arbeidsforhold.arbeidsgiverNavn} (${andel.arbeidsforhold.arbeidsgiverId})`,
         }}
@@ -129,15 +130,19 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
       return (
         <>
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
-          <ReadMore size="small" header="Hvordan går jeg frem">
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
             <List>
               <List.Item>
-                Benytt A-inntekt (filter 8-30) eller utbetalinger i Modia for å se hvor mye søker har mottatt i ytelse i
-                beregningsperioden.
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate1" />
               </List.Item>
-              <List.Item>Bruk A-inntekt for å finne gjennomsnittet av frilansinntekten i beregningsperioden.</List.Item>
               <List.Item>
-                Fastsett månedsinntekten under ved å summere gjennomsnitt av mottatt ytelse og frilansinntekt.
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate2" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate3" />
               </List.Item>
             </List>
           </ReadMore>
@@ -148,15 +153,21 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
       return (
         <>
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
-          <ReadMore size="small" header="Hvordan går jeg frem">
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
             <List>
-              <List.Item>Fastsett månedsinntekt ut ifra antall måneder/dager med utbetaling.</List.Item>
               <List.Item>
-                Eksempel:
-                <br />
-                Hvis søker startet som frilanser for 2 mnd siden, skal samlet inntekt deles på 2 og ikke 3. Hvis det er
-                under 1 mnd siden oppstart, må du regne om inntekt til dagsats per virkedag. Dagsats x 260 / 12 mnd =
-                månedsinntekt.
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage
+                  id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2"
+                  values={{
+                    br: <br />,
+                  }}
+                />
               </List.Item>
             </List>
           </ReadMore>
@@ -173,13 +184,17 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
           <Label>
             <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet" />
           </Label>
-          <ReadMore size="small" header="Hvordan går jeg frem">
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
             <List>
               <List.Item>
-                Trekk fra arbeidsinntekt oppgitt i inntektsmelding eller det arbeidsgiver opplyser på telefon fra
-                totalinntekt i A-inntekt. Ta hensyn til eventuelle lønnsendringer.
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1" />
               </List.Item>
-              <List.Item>Restbeløp er frilansinntekt.</List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
+              </List.Item>
             </List>
           </ReadMore>
           {atflOgSammeOrgArbeidsgivere.map(arbeidsgiver => (
@@ -230,7 +245,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             name={dagpengerInntektFieldName}
             readOnly={readOnly}
             isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.ManedsinntektDagpenger" />}
+            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
           />
         </>
       )}

@@ -68,7 +68,10 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
       label={
         <>
           {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
-          <ReadMore size="small" header="Hvordan går jeg frem">
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
             <List>
               <List.Item>
                 {`Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være
@@ -161,7 +164,10 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
             label={
               <>
                 <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-                <ReadMore size="small" header="Hvordan går jeg frem">
+                <ReadMore
+                  size="small"
+                  header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+                >
                   <List>
                     <List.Item>
                       Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være

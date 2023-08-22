@@ -35,7 +35,10 @@ const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnl
         label={
           <>
             <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
-            <ReadMore size="small" header="Hvordan går jeg frem?">
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
               <List>
                 <List.Item>
                   Kontakt søker og be om dokumentasjon på avtjent tjeneste i opptjeningsperioden. Vurder om tjenesten
