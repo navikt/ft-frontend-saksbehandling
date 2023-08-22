@@ -99,7 +99,6 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
           </BodyShort>
           <VerticalSpacer sixteenPx />
           <Datepicker
-            strategy="fixed"
             name="forstePeriodeTomDato"
             label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
             validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}

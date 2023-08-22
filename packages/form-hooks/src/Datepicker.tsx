@@ -23,7 +23,6 @@ export interface DatepickerProps {
     toDate?: Date;
   };
   isEdited?: boolean;
-  strategy?: 'absolute' | 'fixed';
   defaultMonth?: Date;
 }
 
@@ -37,7 +36,6 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   onChange,
   disabledDays,
   isEdited,
-  strategy = 'absolute',
   defaultMonth,
 }): JSX.Element => {
   const {
@@ -100,7 +98,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   };
 
   return (
-    <DatePicker {...dpProps} strategy={strategy}>
+    <DatePicker {...dpProps}>
       <DatePicker.Input
         {...inputProps}
         onChange={onChangeInput}
