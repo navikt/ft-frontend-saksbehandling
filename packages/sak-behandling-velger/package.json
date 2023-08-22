@@ -25,9 +25,9 @@
     "storybook": "storybook dev --quiet -p 7012"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "4.11.0",
-    "@navikt/ds-css": "4.11.0",
-    "@navikt/ds-react": "4.11.0",
+    "@navikt/aksel-icons": "5.0.2",
+    "@navikt/ds-css": "5.0.2",
+    "@navikt/ds-react": "5.0.2",
     "@navikt/ft-kodeverk": "^2.1.22",
     "@navikt/ft-plattform-komponenter": "^2.2.18",
     "@navikt/ft-types": "^2.1.26",
@@ -56,18 +56,18 @@
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.0.50",
-    "@storybook/addon-actions": "7.2.3",
-    "@storybook/react": "7.2.3",
-    "@storybook/react-vite": "7.2.3",
+    "@storybook/addon-actions": "7.3.2",
+    "@storybook/react": "7.3.2",
+    "@storybook/react-vite": "7.3.2",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
     "eslint": "8.47.0",
-    "storybook": "7.2.3",
-    "stylelint": "15.10.2",
+    "storybook": "7.3.2",
+    "stylelint": "15.10.3",
     "typescript": "5.1.6",
     "vite": "4.4.9",
-    "vitest": "0.34.1"
+    "vitest": "0.34.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

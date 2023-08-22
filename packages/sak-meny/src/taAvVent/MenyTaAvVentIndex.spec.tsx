@@ -2,16 +2,11 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/react';
 import userEvent from '@testing-library/user-event';
-import { Modal } from '@navikt/ds-react';
 import * as stories from './MenyTaAvVentIndex.stories';
 
 const { Default } = composeStories(stories);
 
 describe('<MenyTaAvVentIndex>', () => {
-  if (Modal.setAppElement) {
-    Modal.setAppElement('body');
-  }
-
   it('skal vise modal og velge å åpne ta behandling av vent', async () => {
     const taBehandlingAvVent = vi.fn();
     const lukkModal = vi.fn();

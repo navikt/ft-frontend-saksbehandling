@@ -2,16 +2,11 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/react';
-import { Modal } from '@navikt/ds-react';
 import * as stories from './DekoratorMedFeilviserSakIndex.stories';
 
 const { UtenFeilmeldinger, MedFeilmeldinger, MedFeilmeldingDetaljer } = composeStories(stories);
 
 describe('<DekoratorSakIndex>', () => {
-  if (Modal.setAppElement) {
-    Modal.setAppElement('body');
-  }
-
   it('skal vise dekoratør uten feilmeldinger', async () => {
     render(<UtenFeilmeldinger />);
     expect(await screen.findByText('NAV')).toBeInTheDocument();

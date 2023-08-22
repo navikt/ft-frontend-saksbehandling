@@ -9,7 +9,6 @@ import FlexRow from './flexGrid/FlexRow';
 import VerticalSpacer from './VerticalSpacer';
 
 import messages from '../i18n/nb_NO.json';
-import styles from './okAvbrytModal.module.css';
 
 const intl = createIntl(messages);
 
@@ -27,15 +26,8 @@ export interface OwnProps {
  * Modal som viser en valgfri tekst i tillegg til knappene OK og Avbryt.
  */
 const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showModal, cancel, submit }) => (
-  <Modal
-    className={styles.modal}
-    open={showModal}
-    closeButton
-    aria-label={text}
-    onClose={cancel}
-    shouldCloseOnOverlayClick={false}
-  >
-    <Modal.Content>
+  <Modal width="small" open={showModal} aria-label={text} onClose={cancel}>
+    <Modal.Body>
       <Heading size="small">{text}</Heading>
       <VerticalSpacer thirtyTwoPx />
       <FlexContainer>
@@ -53,7 +45,7 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
         </FlexRow>
         <VerticalSpacer sixteenPx />
       </FlexContainer>
-    </Modal.Content>
+    </Modal.Body>
   </Modal>
 );
 

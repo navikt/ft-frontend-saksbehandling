@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/react';
 import userEvent from '@testing-library/user-event';
-import { Modal } from '@navikt/ds-react';
 import * as stories from './TilbakekrevingProsessIndex.stories';
 
 const { Default, MedToPerioder } = composeStories(stories);
@@ -16,10 +15,6 @@ window.ResizeObserver =
   }));
 
 describe('<TilbakekrevingProsessIndex>', () => {
-  if (Modal.setAppElement) {
-    Modal.setAppElement('body');
-  }
-
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);

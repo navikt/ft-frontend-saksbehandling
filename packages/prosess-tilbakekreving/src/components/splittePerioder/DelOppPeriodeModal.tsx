@@ -8,7 +8,7 @@ import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@na
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { Datepicker, Form } from '@navikt/ft-form-hooks';
 
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import styles from './delOppPeriodeModal.module.css';
 
 type Periode = {
@@ -73,74 +73,55 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
   const formMethods = useForm<FormValues>();
 
   return (
-    <Modal
-      open={showModal}
-      aria-label={intl.formatMessage({ id: 'DelOppPeriodeModalImpl.ModalDescription' })}
-      onClose={cancelEvent}
-      closeButton={false}
-      className={styles.modal}
-      shouldCloseOnOverlayClick={false}
+    <Form
+      formMethods={formMethods}
+      onSubmit={(values: FormValues) => splitPeriod(transformValues(values, periodeData))}
     >
-      <Modal.Content>
-        <Form
-          formMethods={formMethods}
-          onSubmit={(values: FormValues) => splitPeriod(transformValues(values, periodeData))}
-        >
-          <Heading size="small" className={styles.marginTop}>
+      <Modal
+        open={showModal}
+        aria-label={intl.formatMessage({ id: 'DelOppPeriodeModalImpl.ModalDescription' })}
+        onClose={cancelEvent}
+        width="medium"
+      >
+        <Modal.Header>
+          <Heading size="small">
             <FormattedMessage id="DelOppPeriodeModalImpl.DelOppPerioden" />
           </Heading>
-          <div className={styles.marginTop}>
-            <Label size="small">
-              <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
-            </Label>
-            <BodyShort size="small">
-              {`${moment(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
-                periodeData.tom.toString(),
-              ).format(DDMMYYYY_DATE_FORMAT)}`}
-            </BodyShort>
-          </div>
-          <div className={styles.marginTop}>
-            <Datepicker
-              name="forstePeriodeTomDato"
-              label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
-              validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
-              disabledDays={{ fromDate: moment(periodeData.fom).toDate(), toDate: moment(periodeData.tom).toDate() }}
-            />
-          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <Label size="small">
+            <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
+          </Label>
+          <BodyShort size="small">
+            {`${moment(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
+              periodeData.tom.toString(),
+            ).format(DDMMYYYY_DATE_FORMAT)}`}
+          </BodyShort>
+          <VerticalSpacer sixteenPx />
+          <Datepicker
+            strategy="fixed"
+            name="forstePeriodeTomDato"
+            label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
+            validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
+            disabledDays={{ fromDate: moment(periodeData.fom).toDate(), toDate: moment(periodeData.tom).toDate() }}
+          />
           {finnesBelopMed0Verdi && (
             <Alert variant="error">
               <FormattedMessage id="DelOppPeriodeModalImpl.BelopEr0" />
             </Alert>
           )}
           <VerticalSpacer sixteenPx />
-          <FlexContainer>
-            <FlexRow>
-              <FlexColumn>
-                <Button
-                  size="small"
-                  variant="primary"
-                  className={styles.button}
-                  disabled={!formMethods.formState.isDirty}
-                >
-                  <FormattedMessage id="DelOppPeriodeModalImpl.Ok" />
-                </Button>
-              </FlexColumn>
-              <FlexColumn>
-                <Button
-                  size="small"
-                  variant="secondary"
-                  onClick={cancelEvent}
-                  className={styles.cancelButton}
-                  type="button"
-                >
-                  <FormattedMessage id="DelOppPeriodeModalImpl.Avbryt" />
-                </Button>
-              </FlexColumn>
-            </FlexRow>
-          </FlexContainer>
-        </Form>
-      </Modal.Content>
-    </Modal>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button size="small" variant="primary" className={styles.button} disabled={!formMethods.formState.isDirty}>
+            <FormattedMessage id="DelOppPeriodeModalImpl.Ok" />
+          </Button>
+          <Button size="small" variant="secondary" onClick={cancelEvent} className={styles.cancelButton} type="button">
+            <FormattedMessage id="DelOppPeriodeModalImpl.Avbryt" />
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Form>
   );
 };
 
