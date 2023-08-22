@@ -29,7 +29,9 @@ const {
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
 } = FaktaBeregningAvklaringsbehovCode;
 
-const findAvklaringsbehovMedBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
+const findAvklaringsbehovMedBegrunnelse = (
+  avklaringsbehov: BeregningAvklaringsbehov[],
+): BeregningAvklaringsbehov | undefined => {
   if (avklaringsbehov.some(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG)) {
     return avklaringsbehov.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG && ap.begrunnelse !== null);
   }
@@ -49,19 +51,21 @@ type VurderFaktaBeregningPanelProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   aktivtBeregningsgrunnlagIndeks: number;
   setFormData: (data: VurderFaktaBeregningFormValues) => void;
-  formData: VurderFaktaBeregningFormValues;
+  formData?: VurderFaktaBeregningFormValues;
   vilkar: Vilkar;
   avklarAktiviteterErEndret: boolean;
   skalKunneAvbryteOverstyring: boolean;
 };
 
 export const buildInitialValuesVurderFaktaBeregning = (
-  props,
-  avklaringsbehov: BeregningAvklaringsbehov[],
+  props: VurderFaktaBeregningPanelProps,
   vilkar: Vilkar,
 ): VurderFaktaBeregningFormValues => ({
   [formNameVurderFaktaBeregning]: props.beregningsgrunnlag.map(bg => {
     const vilkarsperiode = vilkar.perioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
+    if (!vilkarsperiode) {
+      throw new Error(`Finner ikke vilkårsperiode med fom ${bg.vilkårsperiodeFom}`);
+    }
     return {
       avklaringsbehov: bg.avklaringsbehov,
       erTilVurdering: vilkarsperiode.vurderesIBehandlingen && !vilkarsperiode.erForlengelse,
@@ -70,11 +74,7 @@ export const buildInitialValuesVurderFaktaBeregning = (
         findAvklaringsbehovMedBegrunnelse(bg.avklaringsbehov)?.begrunnelse,
         BEGRUNNELSE_FAKTA_TILFELLER_NAME,
       ),
-      ...getBuildInitialValuesFaktaForATFLOgSN({
-        ...props,
-        avklaringsbehov: bg.avklaringsbehov,
-        beregningsgrunnlag: bg,
-      }),
+      ...getBuildInitialValuesFaktaForATFLOgSN(bg, props.kodeverkSamling, props.arbeidsgiverOpplysningerPerId),
     };
   }),
 });
@@ -95,7 +95,6 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     submittable,
     readOnly,
     kodeverkSamling,
-
     erOverstyrer,
     arbeidsgiverOpplysningerPerId,
     aktivtBeregningsgrunnlagIndeks,
@@ -110,7 +109,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
-    defaultValues: formData || buildInitialValuesVurderFaktaBeregning(props, avklaringsbehov, vilkar),
+    defaultValues: formData || buildInitialValuesVurderFaktaBeregning(props, vilkar),
   });
   const { control, formState, trigger, getValues, watch } = formMethods;
   const { fields, update } = useFieldArray({
@@ -134,7 +133,7 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
     });
   };
 
-  const losAvklaringsbehov = values => {
+  const losAvklaringsbehov = (values: VurderFaktaBeregningFormValues): void => {
     if (Object.keys(errors).length === 0) {
       setSubmitDisabled(true);
       submitCallback(transformValuesVurderFaktaBeregning(values, skalKunneAvbryteOverstyring));
@@ -157,10 +156,10 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
           setDataOnUnmount={setFormData}
         >
           {fields.map((field, index) => {
-            const harRelevantAksjonspunkt = avklaringspunkt =>
+            const harRelevantAksjonspunkt = (avklaringspunkt: BeregningAvklaringsbehov): boolean =>
               relevanteKoder.some(kode => kode === avklaringspunkt.definisjon);
 
-            const kanLøses = avklaringspunkt => avklaringspunkt.kanLoses;
+            const kanLøses = (avklaringspunkt: BeregningAvklaringsbehov): boolean => avklaringspunkt.kanLoses;
 
             const løsbareAksjonspunkter = avklaringsbehov.filter(
               avklaringspunkt => harRelevantAksjonspunkt(avklaringspunkt) && kanLøses(avklaringspunkt),
@@ -173,13 +172,18 @@ const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = 
 
             const isReadOnly = readOnlyAvAndreÅrsaker || (løsbareAksjonspunkter.length === 0 && !erOverstyrer);
 
+            const vilkårsperiode = vilkar.perioder.find(
+              p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
+            );
+            if (!vilkårsperiode) {
+              throw new Error(`Filler ikke vilkårsperiode med fom ${beregningsgrunnlag[index].vilkårsperiodeFom}`);
+            }
+
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
                 <VurderFaktaBeregningField
                   key={field.id}
-                  vilkarsperiode={vilkar.perioder.find(
-                    p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
-                  )}
+                  vilkarsperiode={vilkårsperiode}
                   beregningsgrunnlag={beregningsgrunnlag[index]}
                   erOverstyrer={erOverstyrer}
                   readOnly={isReadOnly}

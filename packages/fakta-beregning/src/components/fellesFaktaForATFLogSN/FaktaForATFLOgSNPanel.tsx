@@ -321,24 +321,36 @@ const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues
   ),
 });
 
-const mapStateToBuildInitialValuesProps = (ownProps: OwnProps) => ({
-  beregningsgrunnlag: ownProps.beregningsgrunnlag,
-  kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(ownProps.beregningsgrunnlag),
-  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps.beregningsgrunnlag.avklaringsbehov),
-  kunYtelse: getKunYtelse(ownProps.beregningsgrunnlag),
-  tilfeller: getFaktaOmBeregningTilfellerKoder(ownProps.beregningsgrunnlag),
-  vurderMottarYtelse: getVurderMottarYtelse(ownProps.beregningsgrunnlag),
-  vurderBesteberegning: getVurderBesteberegning(ownProps.beregningsgrunnlag),
-  kodeverkSamling: ownProps.kodeverkSamling,
-  avklaringsbehov: ownProps.beregningsgrunnlag.avklaringsbehov,
-  faktaOmBeregning: getFaktaOmBeregning(ownProps.beregningsgrunnlag),
-  arbeidsgiverOpplysningerPerId: ownProps.arbeidsgiverOpplysningerPerId,
-  refusjonskravSomKommerForSentListe: getArbeidsgiverInfoForRefusjonskravSomKommerForSent(ownProps.beregningsgrunnlag),
-  erOverstyrt: erInitialOverstyringAvBeregningsgrunnlag(ownProps.beregningsgrunnlag),
+const mapStateToBuildInitialValuesProps = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  kodeverkSamling: KodeverkForPanel,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): FaktaStateProps => ({
+  beregningsgrunnlag,
+  arbeidsgiverOpplysningerPerId,
+  kodeverkSamling,
+  kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(beregningsgrunnlag),
+  vurderFaktaAP: getVurderFaktaAksjonspunkt(beregningsgrunnlag.avklaringsbehov),
+  kunYtelse: getKunYtelse(beregningsgrunnlag),
+  tilfeller: getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag),
+  vurderMottarYtelse: getVurderMottarYtelse(beregningsgrunnlag),
+  vurderBesteberegning: getVurderBesteberegning(beregningsgrunnlag),
+  avklaringsbehov: beregningsgrunnlag.avklaringsbehov,
+  faktaOmBeregning: getFaktaOmBeregning(beregningsgrunnlag),
+  refusjonskravSomKommerForSentListe: getArbeidsgiverInfoForRefusjonskravSomKommerForSent(beregningsgrunnlag),
+  erOverstyrt: erInitialOverstyringAvBeregningsgrunnlag(beregningsgrunnlag),
 });
 
-export const getBuildInitialValuesFaktaForATFLOgSN = (props: OwnProps): FaktaOmBeregningValues => {
-  const initialValuesFromProps: FaktaStateProps = mapStateToBuildInitialValuesProps(props);
+export const getBuildInitialValuesFaktaForATFLOgSN = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  kodeverkSamling: KodeverkForPanel,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): FaktaOmBeregningValues => {
+  const initialValuesFromProps: FaktaStateProps = mapStateToBuildInitialValuesProps(
+    beregningsgrunnlag,
+    kodeverkSamling,
+    arbeidsgiverOpplysningerPerId,
+  );
   return {
     tilfeller: initialValuesFromProps.tilfeller,
     kortvarigeArbeidsforhold: initialValuesFromProps.kortvarigeArbeidsforhold,

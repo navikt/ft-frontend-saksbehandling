@@ -8,7 +8,7 @@ import {
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { FormattedMessage } from 'react-intl';
-import { UseFormGetValues, useFormContext } from 'react-hook-form';
+import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
@@ -78,8 +78,10 @@ const erOverstyrt = (index: number, getValues: UseFormGetValues<any>) => {
   return erOverstyringAvBeregningsgrunnlag(formValue);
 };
 
-const finnesFeilForBegrunnelse = (beregningsgrunnlagIndeks, errors) =>
-  !!errors.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.begrunnelseFaktaTilfeller;
+const finnesFeilForBegrunnelse = (
+  beregningsgrunnlagIndeks: number,
+  errors: FieldErrors<VurderFaktaBeregningFormValues>,
+): boolean => !!errors.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.begrunnelseFaktaTilfeller;
 
 const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
