@@ -2266,10 +2266,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-stylelint@npm:4.11.0":
-  version: 4.11.0
-  resolution: "@navikt/aksel-stylelint@npm:4.11.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-stylelint%2F4.11.0%2F5bd36a6ef813d5e528ed6028fa1fa4457d1e7e96"
-  checksum: 8db3065a39a1c9af82b20e49b4d45b33d2c2220c24fd4856f0823b9fd32d1af568818524bc58fc68947a86abcb475b0818940a42c89c78d3ea76b18ea73187f5
+"@navikt/aksel-stylelint@npm:5.0.3":
+  version: 5.0.3
+  resolution: "@navikt/aksel-stylelint@npm:5.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-stylelint%2F5.0.3%2Fea93c9aba0c856f39ed4d7868fcc9d59b4894f9e"
+  checksum: 6e08534db23d838b7637f340f208327746f41a230ff89a6d33a37a52bf51ca85b03c0f8240021c366576f1bc50bf6fb4f69377f9d151843ba3087985c766dea4
   languageName: node
   linkType: hard
 
@@ -9762,7 +9762,7 @@ __metadata:
   dependencies:
     "@formatjs/intl-datetimeformat": 6.10.0
     "@formatjs/intl-numberformat": 8.7.0
-    "@navikt/aksel-stylelint": 4.11.0
+    "@navikt/aksel-stylelint": 5.0.3
     "@storybook/addon-essentials": 7.2.3
     "@storybook/addon-links": 7.2.3
     "@storybook/addons": 7.2.3
