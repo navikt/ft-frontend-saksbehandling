@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import { Button, ErrorMessage, Label } from '@navikt/ds-react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -117,11 +117,11 @@ export interface OwnProps {
 }
 
 const validate = (
-  getValues: UseFormGetValues<any>,
+  getValues: UseFormGetValues<AvklarAktiviteterFormValues>,
   fieldId: number,
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
   erOverstyrt: boolean,
-  intl: any,
+  intl: IntlShape,
 ): string | undefined => {
   if (
     VurderAktiviteterPanel.harIngenAktiviteter(
