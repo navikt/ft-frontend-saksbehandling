@@ -65,7 +65,7 @@
     "stylelint": "15.10.2",
     "typescript": "5.1.6",
     "vite": "4.4.9",
-    "vitest": "0.34.1"
+    "vitest": "0.34.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
