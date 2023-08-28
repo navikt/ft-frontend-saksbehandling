@@ -12,7 +12,7 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import {
-  AksjonspunktHelpTextTemp,
+  AksjonspunktHelpTextHTML,
   FlexColumn,
   FlexContainer,
   FlexRow,
@@ -122,7 +122,7 @@ const validate = (
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
   erOverstyrt: boolean,
   intl: any,
-): string | null => {
+): string | undefined => {
   if (
     VurderAktiviteterPanel.harIngenAktiviteter(
       getValues(`avklarAktiviteterForm.${fieldId}`),
@@ -132,7 +132,7 @@ const validate = (
   ) {
     return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
   }
-  return null;
+  return undefined;
 };
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
@@ -158,7 +158,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   const fieldIsDirty = Object.keys(dirtyFields).length > 0;
 
   const harOverstyrAvklaringsbehov = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
-  const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
+  const erOverstyrtAktivt = !!getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
   const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(
     harOverstyrAvklaringsbehov || erOverstyrtAktivt,
   );
@@ -186,7 +186,13 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       )
       .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 
-  const feilmelding = validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl);
+  const feilmelding = validate(
+    watch,
+    fieldId,
+    avklarAktiviteter.aktiviteterTomDatoMapping || [],
+    erOverstyrtAktivt,
+    intl,
+  );
   const skjemaNavn = `vurderAktiviteterSkjema.${fieldId}`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
@@ -209,15 +215,15 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
 
       <VerticalSpacer sixteenPx />
 
-      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && (
-        <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAvklaringsbehovClosed}>
+      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && !isAvklaringsbehovClosed && (
+        <AksjonspunktHelpTextHTML>
           {[
             <FormattedMessage
               key="VurderFaktaForBeregningen"
               id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
             />,
           ]}
-        </AksjonspunktHelpTextTemp>
+        </AksjonspunktHelpTextHTML>
       )}
 
       {erOverstyrtKnappTrykket && (

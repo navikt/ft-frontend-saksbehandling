@@ -8,6 +8,7 @@ import {
   Vilkar,
   Vilkarperiode,
   BeregningAvklaringsbehov,
+  AvklarBeregningAktiviteterMap,
 } from '@navikt/ft-types';
 import { Form } from '@navikt/ft-form-hooks';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
@@ -22,8 +23,13 @@ const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregn
 
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
-  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
+const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode => {
+  const vp = vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
+  if (!vp) {
+    throw new Error(`Finner ikke vilkårsperiode med fom ${vilkårsperiodeFom}`);
+  }
+  return vp;
+};
 
 const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOverstyrer: boolean): boolean =>
   !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) &&
@@ -111,6 +117,13 @@ const buildFormInitialValues = (
   ),
 });
 
+const getAvklarAktiviteter = (alleGrunnlag: Beregningsgrunnlag[], index: number): AvklarBeregningAktiviteterMap => {
+  const aa = alleGrunnlag[index].faktaOmBeregning?.avklarAktiviteter;
+  if (!aa) {
+    throw new Error('Mangler aktivteter å populere skjema med!');
+  }
+  return aa;
+};
 /**
  * AvklareAktiviteterPanel
  *
@@ -184,7 +197,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     return null;
   }
 
-  const losAvklaringsbehov = values => {
+  const losAvklaringsbehov = (values: AvklarAktiviteterFormValues): void => {
     if (Object.keys(errors).length === 0) {
       setSubmitDisabled(true);
       submitCallback(transformValues(values as AvklarAktiviteterFormValues));
@@ -206,7 +219,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
                 aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
                 key={field.id}
                 fieldId={index}
-                avklarAktiviteter={beregningsgrunnlag[index].faktaOmBeregning.avklarAktiviteter}
+                avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}
                 avklaringsbehov={beregningsgrunnlag[index].avklaringsbehov}
                 erOverstyrer={erOverstyrer}
                 readOnly={readOnly}

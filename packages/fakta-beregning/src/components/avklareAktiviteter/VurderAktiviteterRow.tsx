@@ -21,13 +21,13 @@ type OwnProps = {
   erOverstyrt: boolean;
   harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
-  valgtSkjæringstidspunkt: string;
+  valgtSkjæringstidspunkt?: string;
   ingenAktiviterErBrukt: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
 };
 
-const isSameOrBefore = (dato1: string, dato2: string): boolean =>
+const isSameOrBefore = (dato1: string | undefined, dato2: string): boolean =>
   dayjs(dato1).isSame(dayjs(dato2)) || dayjs(dato1).isBefore(dayjs(dato2));
 
 const lagVisningsnavn = (
@@ -35,11 +35,13 @@ const lagVisningsnavn = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): string => {
-  const agOpplysning = arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent];
+  const agOpplysning = aktivitet.arbeidsgiverIdent
+    ? arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent]
+    : undefined;
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
       ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
-          ?.navn
+          ?.navn || ''
       : '';
   }
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
@@ -66,7 +68,7 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
 
   const lagLabel = (skalBrukes: boolean) => {
     const arbeidsgiver = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling);
-    const dato = `${prettifyDateString(aktivitet.fom)} til ${prettifyDateString(aktivitet.tom)}`;
+    const dato = `${prettifyDateString(aktivitet.fom)} til ${prettifyDateString(aktivitet.tom || '')}`;
     return `${skalBrukes ? 'Benytt' : 'Ikke benytt'} ${arbeidsgiver} ${dato}`;
   };
 
