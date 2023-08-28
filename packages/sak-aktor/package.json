@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.0.50",
-    "@storybook/addon-actions": "7.2.3",
+    "@storybook/addon-actions": "7.3.2",
     "@storybook/react": "7.2.3",
     "@storybook/react-vite": "7.2.3",
     "@testing-library/react": "14.0.0",
