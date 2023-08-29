@@ -1,11 +1,13 @@
+import { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
+import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import VurderAktiviteterPanel, { leggTilAktivitet, finnPlasseringIListe } from './VurderAktiviteterPanel';
 import { lagAktivitetFieldId } from './VurderAktiviteterTabell';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
   fom: '2019-01-01',
-  tom: null,
-  skalBrukes: null,
+  tom: '9999-12-31',
+  skalBrukes: undefined,
   arbeidsforholdType: 'ARBEID',
 };
 
@@ -19,7 +21,6 @@ const aktivitet2 = {
 };
 
 const aktivitet3 = {
-  aktørIdString: '324234234234',
   arbeidsgiverIdent: '324234234234',
   arbeidsforholdId: 'efj8343f34f',
   fom: '2019-01-01',
@@ -32,31 +33,31 @@ const aktivitetAAP = {
   arbeidsforholdType: 'AAP',
   fom: '2019-01-01',
   tom: '2020-02-02',
-  skalBrukes: null,
+  skalBrukes: undefined,
 };
 
-const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
+const aktiviteter: BeregningAktivitet[] = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
 
-const id1 = '3847238947232019-01-01';
-const id2 = '334534623342efj8343f34f2019-01-01';
-const id3 = '324234234234efj8343f34f2019-01-01';
-const idAAP = 'AAP2019-01-01';
+const id1: string = '3847238947232019-01-01';
+const id2: string = '334534623342efj8343f34f2019-01-01';
+const id3: string = '324234234234efj8343f34f2019-01-01';
+const idAAP: string = 'AAP2019-01-01';
 
 describe('<VurderAktiviteterPanel>', () => {
   it('skal returnere true om ingen aktiviteter skal brukes og det ikkje finnes fleire aktiviteter i opptjeningsperioden', () => {
     const aktiviteterTomDatoMapping = [{ tom: '2019-02-02', aktiviteter }];
     const values = {
-      avklarAktiviteter: null,
-      aktiviteterValues: {},
-    };
-    values.aktiviteterValues[id1] = { skalBrukes: 'false' };
-    values.aktiviteterValues[id2] = { skalBrukes: 'false' };
-    values.aktiviteterValues[id3] = { skalBrukes: 'false' };
-    values.aktiviteterValues[idAAP] = { skalBrukes: 'false' };
-    values.avklarAktiviteter = {
-      aktiviteterTomDatoMapping,
-      skjæringstidspunkt: '2019-02-02',
-    };
+      avklarAktiviteter: {
+        aktiviteterTomDatoMapping,
+        skjæringstidspunkt: '2019-02-02',
+      },
+      aktiviteterValues: {
+        [id1]: { skalBrukes: 'false' },
+        [id2]: { skalBrukes: 'false' },
+        [id3]: { skalBrukes: 'false' },
+        [idAAP]: { skalBrukes: 'false' },
+      },
+    } as AvklarAktiviteterValues;
     const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
     expect(harIngenAktiviteter).toBe(true);
   });
@@ -66,7 +67,7 @@ describe('<VurderAktiviteterPanel>', () => {
       arbeidsgiverIdent: '384723894723',
       fom: '2019-01-01',
       tom: '2019-01-01',
-      skalBrukes: null,
+      skalBrukes: undefined,
       arbeidsforholdType: 'ARBEID',
     };
     const aktivitet2STP2 = {
@@ -83,17 +84,17 @@ describe('<VurderAktiviteterPanel>', () => {
       { tom: '2019-01-02', aktiviteter: [aktivitet1STP2, aktivitet2STP2] },
     ];
     const values = {
-      avklarAktiviteter: null,
-      aktiviteterValues: {},
-    };
-    values.aktiviteterValues[id1] = { skalBrukes: 'true', tom: aktivitet1STP2.tom };
-    values.aktiviteterValues[id2] = { skalBrukes: 'false', tom: aktivitet2STP2.tom };
-    values.aktiviteterValues[id3] = { skalBrukes: 'false', tom: aktivitet3.tom };
-    values.aktiviteterValues[idAAP] = { skalBrukes: 'false', tom: aktivitetAAP.tom };
-    values.avklarAktiviteter = {
-      aktiviteterTomDatoMapping,
-      skjæringstidspunkt: '2019-02-02',
-    };
+      avklarAktiviteter: {
+        aktiviteterTomDatoMapping,
+        skjæringstidspunkt: '2019-02-02',
+      },
+      aktiviteterValues: {
+        [id1]: { skalBrukes: 'true', tom: aktivitet1STP2.tom },
+        [id2]: { skalBrukes: 'false', tom: aktivitet2STP2.tom },
+        [id3]: { skalBrukes: 'false', tom: aktivitet3.tom },
+        [idAAP]: { skalBrukes: 'false', tom: aktivitetAAP.tom },
+      },
+    } as AvklarAktiviteterValues;
     const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
     expect(harIngenAktiviteter).toBe(false);
   });
@@ -103,7 +104,7 @@ describe('<VurderAktiviteterPanel>', () => {
       arbeidsgiverIdent: '384723894723',
       fom: '2019-01-01',
       tom: '2019-01-01',
-      skalBrukes: null,
+      skalBrukes: undefined,
       arbeidsforholdType: 'ARBEID',
     };
     const aktivitetStp3 = {
@@ -121,27 +122,26 @@ describe('<VurderAktiviteterPanel>', () => {
       { tom: '2019-01-01', aktiviteter: [aktivitetStp3] },
     ];
     const values = {
-      avklarAktiviteter: null,
-      aktiviteterValues: {},
-    };
-    values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp2)] = { skalBrukes: 'false', tom: aktivitetStp2.tom };
-    values.aktiviteterValues[lagAktivitetFieldId(aktivitetStp3)] = { skalBrukes: null, tom: aktivitetStp3.tom };
-    values.aktiviteterValues[id3] = { skalBrukes: 'false', tom: aktivitet3.tom };
-    values.aktiviteterValues[idAAP] = { skalBrukes: 'false', tom: aktivitetAAP.tom };
-    values.avklarAktiviteter = {
-      aktiviteterTomDatoMapping,
-      skjæringstidspunkt: '2019-02-02',
-    };
-
+      avklarAktiviteter: {
+        aktiviteterTomDatoMapping,
+        skjæringstidspunkt: '2019-02-02',
+      },
+      aktiviteterValues: {
+        [lagAktivitetFieldId(aktivitetStp2)]: { skalBrukes: 'false', tom: aktivitetStp2.tom },
+        [lagAktivitetFieldId(aktivitetStp3)]: { skalBrukes: null, tom: aktivitetStp3.tom },
+        [id3]: { skalBrukes: 'false', tom: aktivitet3.tom },
+        [idAAP]: { skalBrukes: 'false', tom: aktivitetAAP.tom },
+      },
+    } as AvklarAktiviteterValues;
     const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
     expect(harIngenAktiviteter).toBe(true);
   });
 
   it('skal kunne legge til aktivitet i tom mapping', () => {
-    const aktiviteterTomDatoMapping = [];
+    const aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[] = [];
     leggTilAktivitet(aktiviteterTomDatoMapping, aktivitet1, '2020-02-08');
     expect(aktiviteterTomDatoMapping.length).toBe(1);
-    expect(aktiviteterTomDatoMapping[0].aktiviteter.length).toBe(1);
+    expect(aktiviteterTomDatoMapping[0].aktiviteter?.length).toBe(1);
   });
 
   it('skal kunne legge til aktivitet i mapping med eksisterende dato som er ulik gitt dato', () => {
@@ -159,7 +159,7 @@ describe('<VurderAktiviteterPanel>', () => {
 
   it('skal finne ny index i tom liste', () => {
     const dato = '2019-02-08';
-    const liste = [];
+    const liste: AvklarBeregningAktiviteter[] = [];
     const index = finnPlasseringIListe(liste, dato);
     expect(index).toBe(0);
   });

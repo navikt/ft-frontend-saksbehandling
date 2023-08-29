@@ -126,7 +126,7 @@ describe('<VurderAktiviteterTabell>', () => {
     const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, true, true, agOpplysninger);
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
-    expect(initialValues[id1].tom).toBe(null);
+    expect(initialValues[id1].tom).toBe('9999-12-31');
     expect(initialValues[id1].skalBrukes).toBe(undefined);
 
     expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
@@ -149,7 +149,7 @@ describe('<VurderAktiviteterTabell>', () => {
     const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, false, true, agOpplysninger);
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
-    expect(initialValues[id1].tom).toBe(null);
+    expect(initialValues[id1].tom).toBe('9999-12-31');
     expect(initialValues[id1].skalBrukes).toBe('true');
 
     expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
