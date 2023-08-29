@@ -251,7 +251,7 @@ VurderAktiviteterPanel.harIngenAktiviteter = (
   return !harAktiviteterSomSkalBrukesINesteSkjæringstidspunkt;
 };
 
-const erLikEllerFør = (dato1: string, dato2: string): boolean =>
+const erLikEllerFør = (dato1: string | undefined, dato2: string): boolean =>
   dayjs(dato1).isSame(dayjs(dato2)) || dayjs(dato1).isBefore(dayjs(dato2));
 
 VurderAktiviteterPanel.transformValues = (
@@ -285,12 +285,12 @@ VurderAktiviteterPanel.transformValues = (
  */
 const utledGjeldendeSkjæringstidspunktVedPreutfylling = (
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-): string => {
+): string | undefined => {
   if (aktiviteterTomDatoMapping === undefined) {
     return undefined;
   }
   for (let k = 0; k < aktiviteterTomDatoMapping.length; k += 1) {
-    const { aktiviteter } = aktiviteterTomDatoMapping[k];
+    const aktiviteter = aktiviteterTomDatoMapping[k].aktiviteter || [];
     for (let i = 0; i < aktiviteter.length; i += 1) {
       const skalBrukes =
         aktiviteter[i].skalBrukes === true ||
