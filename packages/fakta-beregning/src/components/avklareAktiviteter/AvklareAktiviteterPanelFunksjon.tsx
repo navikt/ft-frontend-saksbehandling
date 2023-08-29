@@ -63,7 +63,7 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
     .map(transformFieldValue)
     .filter(v => v);
 
-  const apDataTilSubmit = [];
+  const apDataTilSubmit: any[] = [];
 
   if (overstyrteGrunnlag.length > 0) {
     const beg = overstyrteGrunnlag
@@ -109,7 +109,7 @@ const buildFormInitialValues = (
   [formNameAvklarAktiviteter]: beregningsgrunnlag.map(bg =>
     buildInitialValues(
       bg.avklaringsbehov,
-      bg.faktaOmBeregning.avklarAktiviteter,
+      bg.faktaOmBeregning?.avklarAktiviteter,
       kodeverkSamling,
       arbeidsgiverOpplysningerPerId,
       finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),

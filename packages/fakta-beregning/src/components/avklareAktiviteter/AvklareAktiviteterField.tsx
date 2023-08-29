@@ -44,7 +44,7 @@ const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
 export const buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
-  avklarAktiviteter: AvklarBeregningAktiviteterMap,
+  avklarAktiviteter: AvklarBeregningAktiviteterMap | undefined,
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
@@ -77,11 +77,11 @@ export const buildInitialValues = (
 
 export const transformFieldValue = (
   values: AvklarAktiviteterValues,
-): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> => {
+): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> | null => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
   const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(
-    skalOverstyre,
-    values.avklaringsbehov,
+    !!skalOverstyre,
+    values.avklaringsbehov || [],
     values.erTilVurdering,
   );
   const { avklarAktiviteter } = values;
@@ -92,8 +92,8 @@ export const transformFieldValue = (
 
   const aktivitetListe = VurderAktiviteterPanel.transformValues(
     values,
-    avklarAktiviteter.aktiviteterTomDatoMapping,
-    skalOverstyre,
+    avklarAktiviteter?.aktiviteterTomDatoMapping || [],
+    !!skalOverstyre,
   );
 
   return {

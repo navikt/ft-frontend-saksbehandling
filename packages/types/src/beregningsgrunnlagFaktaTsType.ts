@@ -36,10 +36,9 @@ export type BeregningAktivitet = Readonly<{
   arbeidsgiverIdent?: string;
   eksternArbeidsforholdId?: string;
   fom: string;
-  tom?: string;
+  tom: string;
   arbeidsforholdId?: string;
   arbeidsforholdType: string;
-  aktørIdString?: string;
   skalBrukes?: boolean;
 }>;
 

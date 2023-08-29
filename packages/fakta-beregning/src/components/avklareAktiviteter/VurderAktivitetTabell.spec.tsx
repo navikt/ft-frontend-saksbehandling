@@ -16,7 +16,7 @@ const aktivitet1 = {
 };
 
 const aktivitet2 = {
-  arbeidsgiverIdent: '334534623342',
+  arbeidsgiverIdent: '998877665',
   arbeidsforholdId: 'efj8343f34f',
   eksternArbeidsforholdId: '123456',
   fom: '2019-01-01',
@@ -54,8 +54,8 @@ const agOpplysninger = {
     erPrivatPerson: true,
     fødselsdato: '1960-01-01',
   },
-  334534623342: {
-    identifikator: '334534623342',
+  998877665: {
+    identifikator: '998877665',
     navn: 'Arbeidsgiveren2',
     erPrivatPerson: false,
   },
@@ -103,7 +103,7 @@ describe('<VurderAktiviteterTabell>', () => {
     expect(idArbeid).toBe(id1);
   });
 
-  const id2 = '334534623342efj8343f34f2019-01-01';
+  const id2 = '998877665efj8343f34f2019-01-01';
   it('skal lage id for arbeid med arbeidsforholdId', () => {
     const idArbeid = lagAktivitetFieldId(aktivitet2);
     expect(idArbeid).toBe(id2);
@@ -126,9 +126,9 @@ describe('<VurderAktiviteterTabell>', () => {
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
     expect(initialValues[id1].tom).toBe(null);
-    expect(initialValues[id1].skalBrukes).toBe(null);
+    expect(initialValues[id1].skalBrukes).toBe(undefined);
 
-    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (334534623342)...3456');
+    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
     expect(initialValues[id2].fom).toBe('2019-01-01');
     expect(initialValues[id2].tom).toBe('2019-02-02');
     expect(initialValues[id2].skalBrukes).toBe('true');
@@ -151,7 +151,7 @@ describe('<VurderAktiviteterTabell>', () => {
     expect(initialValues[id1].tom).toBe(null);
     expect(initialValues[id1].skalBrukes).toBe('true');
 
-    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (334534623342)...3456');
+    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
     expect(initialValues[id2].fom).toBe('2019-01-01');
     expect(initialValues[id2].tom).toBe('2019-02-02');
     expect(initialValues[id2].skalBrukes).toBe('true');
@@ -177,14 +177,14 @@ describe('<VurderAktiviteterTabell>', () => {
     values.aktiviteterValues[idAAP] = { skalBrukes: 'true' };
     const transformed = transformValues(values, aktiviteter, '2019-02-02', '2019-02-02');
     expect(transformed.length).toBe(2);
-    expect(transformed[0].oppdragsgiverOrg).toBe('334534623342');
+    expect(transformed[0].oppdragsgiverOrg).toBe('998877665');
     expect(transformed[0].arbeidsforholdRef).toBe(aktivitet2.arbeidsforholdId);
     expect(transformed[0].fom).toBe('2019-01-01');
     expect(transformed[0].tom).toBe('2019-02-02');
-    expect(transformed[0].arbeidsgiverIdentifikator).toBe('334534623342');
+    expect(transformed[0].arbeidsgiverIdentifikator).toBe('998877665');
     expect(transformed[0].skalBrukes).toBe(false);
 
-    expect(transformed[1].oppdragsgiverOrg).toBe(null);
+    expect(transformed[1].oppdragsgiverOrg).toBe(undefined);
     expect(transformed[1].arbeidsforholdRef).toBe(aktivitet3.arbeidsforholdId);
     expect(transformed[1].fom).toBe('2019-01-01');
     expect(transformed[1].tom).toBe('2019-02-02');

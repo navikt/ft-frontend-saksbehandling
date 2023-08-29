@@ -261,8 +261,11 @@ VurderAktiviteterPanel.transformValues = (
 ): BeregningAktivitetTransformedValues[] => {
   const listerSomVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listerSomVurderes);
+  if (!gjeldendeSkjæringstidspunkt) {
+    throw new Error('Finner ikke forventet skjæringstidspunkt, ugyldig tilstand');
+  }
   return listerSomVurderes.flatMap(liste =>
-    transformValuesForTabell(values, liste.aktiviteter, gjeldendeSkjæringstidspunkt, liste.tom),
+    transformValuesForTabell(values, liste.aktiviteter || [], gjeldendeSkjæringstidspunkt, liste.tom),
   );
 };
 
@@ -318,7 +321,7 @@ VurderAktiviteterPanel.buildInitialValues = (
     initialValues = {
       ...initialValues,
       ...buildInitialValuesForTabell(
-        liste.aktiviteter,
+        liste.aktiviteter || [],
         kodeverkSamling,
         erOverstyrt,
         harAvklaringsbehov,

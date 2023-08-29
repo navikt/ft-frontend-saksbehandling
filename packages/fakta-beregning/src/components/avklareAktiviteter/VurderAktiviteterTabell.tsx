@@ -33,18 +33,14 @@ const appendAktivitetFieldIdSuffiks = (aktivitetPrefiks: string, aktivitet: Bere
 /**
  * Oppretter en unik ID for en aktivitet. Denne IDen brukes for å identifisere aktiviteter, slik at man f.eks kan
  * gjøre oppslag på disse. IDen består av en prefiks som genereres ift om det finnes en arbeidsgiverIdent
- * eller en aktørIdString (eller ingen).
  *
  * Det legges til slutt på en felles "suffiks" på alle genererte prefikser
  *
  * @param {*} aktivitet
  */
 export const lagAktivitetFieldId = (aktivitet: BeregningAktivitet): string => {
-  if (aktivitet.arbeidsgiverIdent || aktivitet.aktørIdString) {
-    const aktivitetPrefiks = aktivitetFieldIdPrefiks(
-      aktivitet,
-      aktivitet.arbeidsgiverIdent ? aktivitet.arbeidsgiverIdent : aktivitet.aktørIdString,
-    );
+  if (aktivitet.arbeidsgiverIdent) {
+    const aktivitetPrefiks = aktivitetFieldIdPrefiks(aktivitet, aktivitet.arbeidsgiverIdent);
     return appendAktivitetFieldIdSuffiks(aktivitetPrefiks, aktivitet);
   }
   return appendAktivitetFieldIdSuffiks(aktivitet.arbeidsforholdType, aktivitet);
@@ -95,11 +91,13 @@ const lagVisningsnavn = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): string => {
-  const agOpplysning = arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent];
+  const agOpplysning = aktivitet.arbeidsgiverIdent
+    ? arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent]
+    : undefined;
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
       ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
-          ?.navn
+          ?.navn || ''
       : '';
   }
   return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
@@ -113,10 +111,10 @@ const skalBrukesPretufylling = (
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
   erTomLikEllerFørSkjæringstidpunkt: boolean,
-): string => {
+): string | undefined => {
   if (skalVurdereAktivitet(aktivitet, erOverstyrt, harAksjonspunkt, erTomLikEllerFørSkjæringstidpunkt, false)) {
     if (aktivitet.skalBrukes === undefined || aktivitet.skalBrukes === null) {
-      return null;
+      return undefined;
     }
     return aktivitet.skalBrukes.toString();
   }
@@ -152,22 +150,28 @@ export const transformValues = (
   return aktiviteter
     .filter(
       aktivitet =>
-        values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'false' ||
-        values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null,
+        values.aktiviteterValues &&
+        (values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'false' ||
+          values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null),
     )
     .map(aktivitet => ({
-      oppdragsgiverOrg: aktivitet.aktørIdString ? null : aktivitet.arbeidsgiverIdent,
+      // Sjekker om ident har 9 tegn, antar da at det er et orgnr
+      oppdragsgiverOrg:
+        aktivitet.arbeidsgiverIdent && aktivitet.arbeidsgiverIdent.length === 9
+          ? aktivitet.arbeidsgiverIdent
+          : undefined,
       arbeidsforholdRef: aktivitet.arbeidsforholdId,
       fom: aktivitet.fom,
       tom:
-        values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null
+        values.aktiviteterValues && values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null
           ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom
           : aktivitet.tom,
-      opptjeningAktivitetType: aktivitet.arbeidsforholdType ? aktivitet.arbeidsforholdType : null,
+      opptjeningAktivitetType: aktivitet.arbeidsforholdType,
       arbeidsgiverIdentifikator: aktivitet.arbeidsgiverIdent,
-      skalBrukes: erValgtSkjæringstidspunktLikEllerFørTomDato
-        ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'true'
-        : true,
+      skalBrukes:
+        erValgtSkjæringstidspunktLikEllerFørTomDato && values.aktiviteterValues
+          ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].skalBrukes === 'true'
+          : true,
     }));
 };
 
@@ -179,10 +183,10 @@ export const buildInitialValues = (
   erTomLikEllerFørSkjæringstidpunkt: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): AktiviteterValues => {
+  const initialValues: AktiviteterValues = {};
   if (!aktiviteter) {
-    return {};
+    return initialValues;
   }
-  const initialValues = {};
   aktiviteter.forEach(aktivitet => {
     initialValues[lagAktivitetFieldId(aktivitet)] = mapToInitialValues(
       aktivitet,
