@@ -2,7 +2,6 @@ import React, { FC, useState, useCallback, useMemo } from 'react';
 import { Button, Modal, Select } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Heading } from '@navikt/ds-react/esm/typography';
 import dayjs from 'dayjs';
 import { calcDays, DDMMYYYY_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 import { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -76,66 +75,53 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
   }
 
   return (
-    <Modal open={skalViseModal} className={styles.modal} onClose={lukkModal} shouldCloseOnOverlayClick={false}>
-      <Modal.Content>
+    <Modal width="medium" open={skalViseModal} className={styles.modal} onClose={lukkModal}>
+      <Modal.Header>
+        <FormattedMessage id="TilkommetAktivitet.Modal.Tittel" />
+      </Modal.Header>
+      <Modal.Body>
+        <div className={styles.boks}>
+          <Select label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Select' })} onChange={endreValgtPeriode}>
+            <option value={undefined}>Velg periode</option>
+            {perioder.map(periode => (
+              <option key={periode.fom} value={periode.fom}>
+                {lagPeriodeString(periode.fom, periode.tom)}
+              </option>
+            ))}
+          </Select>
+          <VerticalSpacer sixteenPx />
+          {periodeKanSplittes && (
+            <PeriodesplittDatoValg
+              forhåndsvisPeriodesplitt={forhåndsvisPeriodesplitt}
+              periode={valgtPeriode}
+              setValgtDato={setValgtSplittdato}
+            />
+          )}
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
         <FlexContainer>
-          <div className={styles.boks}>
-            <FlexRow>
-              <FlexColumn>
-                <Heading size="small" level="3">
-                  <FormattedMessage id="TilkommetAktivitet.Modal.Tittel" />
-                </Heading>
-              </FlexColumn>
-            </FlexRow>
-            <VerticalSpacer sixteenPx />
-            <FlexRow>
-              <FlexColumn>
-                <Select
-                  label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Select' })}
-                  onChange={endreValgtPeriode}
-                >
-                  <option value={undefined}>Velg periode</option>
-                  {perioder.map(periode => (
-                    <option key={periode.fom} value={periode.fom}>
-                      {lagPeriodeString(periode.fom, periode.tom)}
-                    </option>
-                  ))}
-                </Select>
-              </FlexColumn>
-            </FlexRow>
-            <VerticalSpacer sixteenPx />
-            <FlexRow className={styles.datoRad}>
-              {periodeKanSplittes && (
-                <PeriodesplittDatoValg
-                  forhåndsvisPeriodesplitt={forhåndsvisPeriodesplitt}
-                  periode={valgtPeriode}
-                  setValgtDato={setValgtSplittdato}
-                />
-              )}
-            </FlexRow>
-            <VerticalSpacer twentyPx />
-            <FlexRow>
-              <FlexColumn>
-                <Button
-                  size="small"
-                  variant="primary"
-                  onClick={splittPeriode}
-                  disabled={!valgtSplittdato}
-                  autoFocus
-                  type="button"
-                >
-                  <FormattedMessage id="TilkommetAktivitet.Modal.DelOppKnapp" />
-                </Button>
-              </FlexColumn>
-              <FlexColumn>
-                <Button size="small" variant="secondary" onClick={lukkModal} disabled={false} autoFocus type="button">
-                  <FormattedMessage id="TilkommetAktivitet.Modal.AvbrytKnapp" />
-                </Button>
-              </FlexColumn>
-            </FlexRow>
-          </div>
+          <FlexRow>
+            <FlexColumn>
+              <Button
+                size="small"
+                variant="primary"
+                onClick={splittPeriode}
+                disabled={!valgtSplittdato}
+                autoFocus
+                type="button"
+              >
+                <FormattedMessage id="TilkommetAktivitet.Modal.DelOppKnapp" />
+              </Button>
+            </FlexColumn>
+            <FlexColumn>
+              <Button size="small" variant="secondary" onClick={lukkModal} disabled={false} autoFocus type="button">
+                <FormattedMessage id="TilkommetAktivitet.Modal.AvbrytKnapp" />
+              </Button>
+            </FlexColumn>
+          </FlexRow>
         </FlexContainer>
-      </Modal.Content>
+      </Modal.Footer>
     </Modal>
   );
 };

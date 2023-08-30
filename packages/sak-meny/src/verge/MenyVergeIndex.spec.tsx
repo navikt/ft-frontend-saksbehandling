@@ -2,16 +2,11 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/react';
 import userEvent from '@testing-library/user-event';
-import { Modal } from '@navikt/ds-react';
 import * as stories from './MenyVergeIndex.stories';
 
 const { LeggeTilVerge, FjerneVerge } = composeStories(stories);
 
 describe('<MenyVergeIndex>', () => {
-  if (Modal.setAppElement) {
-    Modal.setAppElement('body');
-  }
-
   it('skal vise modal for opprett og så velge å opprette verge', async () => {
     const opprettVerge = vi.fn();
     const lukkModal = vi.fn();

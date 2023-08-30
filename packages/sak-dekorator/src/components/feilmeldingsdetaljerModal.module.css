@@ -1,19 +1,7 @@
 .image {
   color: var(--a-orange-500);
   height: 30px;
-  margin-top: 10px;
   width: 30px;
-}
-.modal {
-  height: auto;
-  width: 900px;
-}
-.text {
-  margin-top: 10px;
-}
-.detail {
-  max-height: 250px;
-  overflow-y: auto;
 }
 .firstCol {
   width: 50px;
