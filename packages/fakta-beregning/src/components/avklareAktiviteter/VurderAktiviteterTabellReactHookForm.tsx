@@ -61,7 +61,7 @@ type OwnProps = {
   erOverstyrt: boolean;
   harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
-  valgtSkjæringstidspunkt: string;
+  valgtSkjæringstidspunkt?: string;
   ingenAktiviterErBrukt: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;

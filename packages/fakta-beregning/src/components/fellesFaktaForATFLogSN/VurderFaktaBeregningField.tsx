@@ -137,7 +137,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
               name={`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
               isSubmittable={submittable}
               isReadOnly={readOnly || !skalVurderes}
-              hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== null}
+              hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== undefined}
             />
           )}
           <VerticalSpacer twentyPx />

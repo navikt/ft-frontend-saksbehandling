@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import { Button, ErrorMessage, Label } from '@navikt/ds-react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -12,7 +12,7 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import {
-  AksjonspunktHelpTextTemp,
+  AksjonspunktHelpTextHTML,
   FlexColumn,
   FlexContainer,
   FlexRow,
@@ -44,7 +44,7 @@ const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
 export const buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
-  avklarAktiviteter: AvklarBeregningAktiviteterMap,
+  avklarAktiviteter: AvklarBeregningAktiviteterMap | undefined,
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
@@ -77,11 +77,11 @@ export const buildInitialValues = (
 
 export const transformFieldValue = (
   values: AvklarAktiviteterValues,
-): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> => {
+): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> | null => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
   const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(
-    skalOverstyre,
-    values.avklaringsbehov,
+    !!skalOverstyre,
+    values.avklaringsbehov || [],
     values.erTilVurdering,
   );
   const { avklarAktiviteter } = values;
@@ -92,8 +92,8 @@ export const transformFieldValue = (
 
   const aktivitetListe = VurderAktiviteterPanel.transformValues(
     values,
-    avklarAktiviteter.aktiviteterTomDatoMapping,
-    skalOverstyre,
+    avklarAktiviteter?.aktiviteterTomDatoMapping || [],
+    !!skalOverstyre,
   );
 
   return {
@@ -117,12 +117,12 @@ export interface OwnProps {
 }
 
 const validate = (
-  getValues: UseFormGetValues<any>,
+  getValues: UseFormGetValues<AvklarAktiviteterFormValues>,
   fieldId: number,
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
   erOverstyrt: boolean,
-  intl: any,
-): string | null => {
+  intl: IntlShape,
+): string | undefined => {
   if (
     VurderAktiviteterPanel.harIngenAktiviteter(
       getValues(`avklarAktiviteterForm.${fieldId}`),
@@ -132,7 +132,7 @@ const validate = (
   ) {
     return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
   }
-  return null;
+  return undefined;
 };
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
@@ -158,7 +158,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   const fieldIsDirty = Object.keys(dirtyFields).length > 0;
 
   const harOverstyrAvklaringsbehov = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
-  const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
+  const erOverstyrtAktivt = !!getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
   const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(
     harOverstyrAvklaringsbehov || erOverstyrtAktivt,
   );
@@ -186,7 +186,13 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       )
       .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 
-  const feilmelding = validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl);
+  const feilmelding = validate(
+    watch,
+    fieldId,
+    avklarAktiviteter.aktiviteterTomDatoMapping || [],
+    erOverstyrtAktivt,
+    intl,
+  );
   const skjemaNavn = `vurderAktiviteterSkjema.${fieldId}`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
@@ -209,15 +215,15 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
 
       <VerticalSpacer sixteenPx />
 
-      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && (
-        <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAvklaringsbehovClosed}>
+      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && !isAvklaringsbehovClosed && (
+        <AksjonspunktHelpTextHTML>
           {[
             <FormattedMessage
               key="VurderFaktaForBeregningen"
               id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
             />,
           ]}
-        </AksjonspunktHelpTextTemp>
+        </AksjonspunktHelpTextHTML>
       )}
 
       {erOverstyrtKnappTrykket && (
