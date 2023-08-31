@@ -1,5 +1,5 @@
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, Detail, ErrorMessage, Table } from '@navikt/ds-react';
+import { BodyShort, Button, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
@@ -58,7 +58,9 @@ const createAndelerTableRows = (
   fields.map((field, index) => (
     <Table.Row className={styles.row} key={field.id}>
       <Table.DataCell>
-        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
+        <BodyShort size="small">
+          <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
+        </BodyShort>
       </Table.DataCell>
       <Table.DataCell align="right" className={styles.rightAlign}>
         <InputField
@@ -75,6 +77,7 @@ const createAndelerTableRows = (
             { andel: `ytelse ${index + 1}` },
           )}
           hideLabel
+          size="small"
         />
       </Table.DataCell>
       <Table.DataCell align="right" className={styles.rightAlign}>
@@ -91,6 +94,7 @@ const createAndelerTableRows = (
           readOnly={readOnly}
           validate={readOnly ? [] : [required]}
           hideLabel
+          size="small"
         />
       </Table.DataCell>
       <Table.DataCell align="right" className={styles.rightAlign}>
@@ -108,7 +112,9 @@ const createAndelerTableRows = (
 const createBruttoBGSummaryRow = sumFordeling => (
   <Table.Row key="bruttoBGSummaryRow">
     <Table.DataCell>
-      <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+      <Label as="p" size="small">
+        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+      </Label>
     </Table.DataCell>
     <Table.DataCell align="right">
       <Detail>{sumFordeling}</Detail>
@@ -213,16 +219,16 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
       {!readOnly && (
         <FlexRow className={styles.buttonRow}>
           <FlexColumn className={styles.flexColumn3}>
+            <VerticalSpacer eightPx />
             <Button
               icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
               // @ts-ignore Fiks
               onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
               type="button"
               variant="tertiary"
+              size="small"
             >
-              <Detail className={styles.imageText}>
-                <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-              </Detail>
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
             </Button>
           </FlexColumn>
         </FlexRow>

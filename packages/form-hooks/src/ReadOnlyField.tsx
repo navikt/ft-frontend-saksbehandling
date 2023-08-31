@@ -1,5 +1,5 @@
-import React, { FunctionComponent, ReactNode } from 'react';
 import { BodyLong, Label } from '@navikt/ds-react';
+import React, { FunctionComponent, ReactNode } from 'react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
@@ -13,9 +13,10 @@ export interface OwnProps {
   value?: string | ReactNode;
   type?: string;
   hideLabel?: boolean;
+  size?: 'medium' | 'small';
 }
 
-export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdited, type, hideLabel }) => {
+export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdited, type, hideLabel, size }) => {
   if (!hasValue(value)) {
     return null;
   }
@@ -23,7 +24,7 @@ export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdi
     <div className={styles.readOnlyContainer}>
       {label && !hideLabel && <Label size="small">{label}</Label>}
       <div className={type === 'textarea' ? styles.textarea : ''}>
-        <BodyLong className={styles.readOnlyContent}>
+        <BodyLong className={styles.readOnlyContent} size={size}>
           {value}
           {isEdited && <EditedIcon className={styles.space} />}
         </BodyLong>

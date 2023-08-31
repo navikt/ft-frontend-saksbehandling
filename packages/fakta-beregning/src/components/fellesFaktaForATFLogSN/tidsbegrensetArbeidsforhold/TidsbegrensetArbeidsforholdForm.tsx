@@ -1,4 +1,4 @@
-import { BodyShort } from '@navikt/ds-react';
+import { ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
@@ -62,13 +62,14 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
 
   return (
     <div>
-      {andelsliste.map(andel => (
+      {andelsliste.map((andel, index) => (
         <div
           key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)}`}
         >
+          {index > 0 && <VerticalSpacer twentyPx />}
           <RadioGroupPanel
             label={
-              <BodyShort>
+              <>
                 <FormattedMessage
                   id={kortvarigStringId}
                   values={{
@@ -77,7 +78,15 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
                     tom: dayjs(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
                   }}
                 />
-              </BodyShort>
+                <ReadMore
+                  size="small"
+                  header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+                >
+                  Gå til A-inntekt og sjekk at informasjon om tidsbegrenset arbeidsforhold stemmer overens med
+                  informasjonen her. Ved å velge “ja”, gir det mulighet til å skjønnsfastsette de ulike periodene i
+                  beregning.
+                </ReadMore>
+              </>
             }
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
               andel,
@@ -90,7 +99,6 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
             validate={[required]}
             parse={parseStringToBoolean}
           />
-          <VerticalSpacer twentyPx />
         </div>
       ))}
     </div>

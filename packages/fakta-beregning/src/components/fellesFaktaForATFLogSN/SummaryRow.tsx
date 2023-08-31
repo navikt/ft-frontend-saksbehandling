@@ -79,14 +79,14 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
   return (
     <Table.Row>
       <Table.DataCell>
-        <Label as="p">
+        <Label as="p" size="small">
           <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
         </Label>
       </Table.DataCell>
       {skalVisePeriode && <Table.DataCell />}
       <Table.DataCell align="right">
         <div className={styles.readOnlyContainer}>
-          <Label as="p" data-testid="sum" className={readOnly ? styles.readOnlyContent : ''}>
+          <Label as="p" data-testid="sum" className={readOnly ? styles.readOnlyContent : ''} size="small">
             {formatCurrencyNoKr(sumBeregnet)}
           </Label>
         </div>

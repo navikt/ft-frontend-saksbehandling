@@ -113,19 +113,22 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
-  const erOverstyrt = useMemo(
-    () => erOverstyringAvBeregningsgrunnlag(formValues),
-    [formValues, beregningsgrunnlag, avklaringsbehov],
-  );
+  const erOverstyrt = useMemo(() => erOverstyringAvBeregningsgrunnlag(formValues), [
+    formValues,
+    beregningsgrunnlag,
+    avklaringsbehov,
+  ]);
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
 
   const byggForms = () => {
     const forms = [];
+    const keys = [];
     let hasShownPanel = false;
     const { faktaOmBeregning } = beregningsgrunnlag;
 
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD}>
           <TidsbegrensetArbeidsforholdForm
@@ -138,6 +141,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     }
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
       forms.push(
         // @ts-ignore Fiks
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
@@ -147,6 +151,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     }
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE}>
           <VurderMilitaer readOnly={readOnly} />
@@ -155,6 +160,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     }
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT}>
           <VurderRefusjonForm
@@ -168,6 +174,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
 
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
           <LonnsendringForm readOnly={readOnly} />
@@ -176,6 +183,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     }
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}>
           <VurderEtterlonnSluttpakkeForm
@@ -188,6 +196,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     }
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL}>
           <NyoppstartetFLForm readOnly={readOnly} />
@@ -199,6 +208,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)
     ) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING}>
           <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
@@ -208,6 +218,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
 
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
       hasShownPanel = true;
+      keys.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}>
           <VurderMottarYtelseForm
@@ -228,7 +239,12 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         return (
           <>
             <VerticalSpacer thirtyTwoPx />
-            {forms.map(panelOrSpacer => panelOrSpacer)}
+            {forms.map((form, index) => (
+              <React.Fragment key={keys[index]}>
+                {index > 0 && <VerticalSpacer thirtyTwoPx />}
+                {form}
+              </React.Fragment>
+            ))}
             <InntektInputFields
               beregningsgrunnlag={beregningsgrunnlag}
               isAksjonspunktClosed={isAksjonspunktClosed}
@@ -243,7 +259,12 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         <>
           <VerticalSpacer thirtyTwoPx />
           <AksjonspunktBoks>
-            {forms.map(panelOrSpacer => panelOrSpacer)}
+            {forms.map((form, index) => (
+              <React.Fragment key={keys[index]}>
+                {index > 0 && <VerticalSpacer thirtyTwoPx />}
+                {form}
+              </React.Fragment>
+            ))}
             <InntektInputFields
               beregningsgrunnlag={beregningsgrunnlag}
               isAksjonspunktClosed={isAksjonspunktClosed}
@@ -419,24 +440,24 @@ const transformValuesForAksjonspunkt = (
   return transformed;
 };
 
-VurderOgFastsettATFL.transformValues =
-  (faktaOmBeregning: FaktaOmBeregning, beregningsgrunnlag: Beregningsgrunnlag) =>
-  (values: FaktaOmBeregningAksjonspunktValues): BeregningFaktaTransformedValues => {
-    const inntektVerdier = InntektFieldArrayImpl.transformValues(
-      values[INNTEKT_FIELD_ARRAY_NAME],
-      values.frilansInntektValues,
-      values.arbeidstakerInntektValues,
-      values.dagpengerInntektValues,
-    );
-    const fastsatteAndelsnr = [];
-    const transformed = transformValuesForAksjonspunkt(
-      values,
-      inntektVerdier,
-      fastsatteAndelsnr,
-      faktaOmBeregning,
-      beregningsgrunnlag,
-    );
-    return transformValuesForOverstyring(values, transformed, inntektVerdier, fastsatteAndelsnr);
-  };
+VurderOgFastsettATFL.transformValues = (faktaOmBeregning: FaktaOmBeregning, beregningsgrunnlag: Beregningsgrunnlag) => (
+  values: FaktaOmBeregningAksjonspunktValues,
+): BeregningFaktaTransformedValues => {
+  const inntektVerdier = InntektFieldArrayImpl.transformValues(
+    values[INNTEKT_FIELD_ARRAY_NAME],
+    values.frilansInntektValues,
+    values.arbeidstakerInntektValues,
+    values.dagpengerInntektValues,
+  );
+  const fastsatteAndelsnr = [];
+  const transformed = transformValuesForAksjonspunkt(
+    values,
+    inntektVerdier,
+    fastsatteAndelsnr,
+    faktaOmBeregning,
+    beregningsgrunnlag,
+  );
+  return transformValuesForOverstyring(values, transformed, inntektVerdier, fastsatteAndelsnr);
+};
 
 export default VurderOgFastsettATFL;

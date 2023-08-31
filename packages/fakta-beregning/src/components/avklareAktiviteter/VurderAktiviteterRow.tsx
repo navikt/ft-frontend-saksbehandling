@@ -73,21 +73,24 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   return (
     <Table.Row key={lagAktivitetFieldId(aktivitet)}>
       <Table.DataCell className={styles.navnKol}>
-        <BodyShort>{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling)}</BodyShort>
+        <BodyShort size="small">{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling)}</BodyShort>
       </Table.DataCell>
       <Table.DataCell className={styles.rowalign}>
         {!erOverstyrt && (
           <BodyShort>
-            <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
+            <PeriodLabel size="small" dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
           </BodyShort>
         )}
         {erOverstyrt && (
           <div>
-            <DateLabel dateString={aktivitet.fom} /> -{' '}
+            <BodyShort as="span" size="small">
+              <DateLabel dateString={aktivitet.fom} /> -{' '}
+            </BodyShort>
             <Datepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
               validate={[required, hasValidDate]}
               isReadOnly={readOnly}
+              size="small"
             />
           </div>
         )}

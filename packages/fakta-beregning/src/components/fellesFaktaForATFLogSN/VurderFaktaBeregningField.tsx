@@ -1,4 +1,4 @@
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, Heading, List, ReadMore } from '@navikt/ds-react';
 import { FaktaOmBeregningTilfelle, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -68,35 +68,20 @@ const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): bool
   return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
 };
 
-const getManglerInntektsmelding = (beregningsgrunnlag: Beregningsgrunnlag) => {
-  const { faktaOmBeregning } = beregningsgrunnlag;
-  if (
-    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe &&
-    faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.length > 0
-  ) {
-    return (
-      faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe.find(forhold => !forhold.inntektPrMnd) !==
-      undefined
-    );
-  }
-  return false;
-};
-
 const lagHelpTextsForFakta = (
   beregningsgrunnlag: Beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement => {
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const erFrilans = beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
+  const alerts = [];
+  const keys = [];
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
-          id={
-            getManglerInntektsmelding(beregningsgrunnlag)
-              ? 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM'
-              : 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg'
-          }
+          id="BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg"
           values={{
             h3: (...chunks) => (
               <Heading size="xsmall" level="3">
@@ -105,11 +90,12 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
     );
   }
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText"
@@ -121,11 +107,12 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
     );
   }
   if (erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpText"
@@ -137,12 +124,13 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText"
@@ -154,12 +142,32 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
+    );
+  }
+
+  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
+    keys.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
+    alerts.push(
+      <Alert size="small" variant="warning">
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText"
+          values={{
+            arbeidsgiverVisningsnavn: 'PLACEHOLDER',
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
+      </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText"
@@ -171,12 +179,13 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
@@ -188,12 +197,58 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+        <VerticalSpacer fourPx />
+        <ReadMore
+          size="small"
+          header={
+            <FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt" />
+          }
+        >
+          <List>
+            <List.Item>Gå til A-inntekt for å finne brukerens inntekter.</List.Item>
+            <List.Item>
+              Bruk først filter §8-28 og finn samlet inntekt for de 3 siste månedene før skjæringstidspunktet
+              (utbetalinger fra Nav ligger ikke i dette filteret, kan derfor være 0). Regn om til årsinntekt.
+            </List.Item>
+            <List.Item>
+              Bruk så filter §8-30 og regn ut den totale inntekten for de siste 12 månedene før skjæringstidspunktet.
+            </List.Item>
+            <List.Item>
+              Regn ut månedsinntekt ved å finne differansen mellom rapportert inntekt (§8-30 filter) og omregnet
+              årsinntekt (§8-28 filter) / 12 måneder.
+            </List.Item>
+            <List.Item>
+              Regn ut avviket ved å bruke månedsinntekt x 100 / rapportert inntekt de siste 12 kalendermånedene = avvik
+              i prosent.
+            </List.Item>
+            <List.Item>
+              Dersom det er mer enn 25 prosent differanse i avviksberegningen skal det fastsettes ved skjønn.
+            </List.Item>
+          </List>
+        </ReadMore>
+        <VerticalSpacer fourPx />
+        <ReadMore
+          size="small"
+          header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori" />}
+        >
+          <List>
+            <List.Item>
+              Inntektskategori er den arbeidsaktiviteten ytelsen som ligger til grunn er beregnet ut ifra.
+            </List.Item>
+            <List.Item>
+              Hvis ytelsen er beregnet fra annen ytelse, skal du ta utgangspunkt i den første ytelsen det ble beregnet
+              grunnlag fra.
+            </List.Item>
+            <List.Item>Du finner inntektskategorien ytelsen er basert på i Modia.</List.Item>
+          </List>
+        </ReadMore>
+      </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText"
@@ -205,12 +260,13 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText"
@@ -222,7 +278,7 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
     );
   }
 
@@ -240,7 +296,8 @@ const lagHelpTextsForFakta = (
       }
     });
 
-    return (
+    keys.push(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT);
+    alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText"
@@ -253,7 +310,19 @@ const lagHelpTextsForFakta = (
             ),
           }}
         />
-      </Alert>
+      </Alert>,
+    );
+  }
+  if (alerts.length > 0) {
+    return (
+      <>
+        {alerts.map((alert, index) => (
+          <React.Fragment key={keys[index]}>
+            {index > 0 && <VerticalSpacer sixteenPx />}
+            {alert}
+          </React.Fragment>
+        ))}
+      </>
     );
   }
 

@@ -1,9 +1,9 @@
-import React, { useState, FunctionComponent, ReactNode, useMemo, useCallback } from 'react';
-import { useFormContext, useController } from 'react-hook-form';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import dayjs from 'dayjs';
 import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import React, { FunctionComponent, ReactNode, useCallback, useMemo, useState } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 
 import { getError, getValidationRules } from './formUtils';
 import ReadOnlyField from './ReadOnlyField';
@@ -24,6 +24,7 @@ export interface DatepickerProps {
   isEdited?: boolean;
   strategy?: 'absolute' | 'fixed';
   defaultMonth?: Date;
+  size?: 'medium' | 'small';
 }
 
 const Datepicker: FunctionComponent<DatepickerProps> = ({
@@ -37,6 +38,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   isEdited,
   strategy = 'absolute',
   defaultMonth,
+  size,
 }): JSX.Element => {
   const {
     formState: { errors },
@@ -87,6 +89,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
         label={label}
         value={field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined}
         isEdited={isEdited}
+        size={size}
       />
     );
   }

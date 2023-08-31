@@ -135,12 +135,18 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   return (
     <Table.Row>
       <Table.DataCell>
-        <InputField name={`${rowName}.andel`} className={styles.storBredde} readOnly />
+        <InputField size="small" name={`${rowName}.andel`} className={styles.storBredde} readOnly />
       </Table.DataCell>
       <Table.DataCell>
         {skalVisePeriode && harPeriode && (
           <ReadOnlyField
-            value={<PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />}
+            value={
+              <PeriodLabel
+                size="small"
+                dateStringFom={field.arbeidsperiodeFom}
+                dateStringTom={field.arbeidsperiodeTom}
+              />
+            }
           />
         )}
       </Table.DataCell>
@@ -152,6 +158,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
                 getMåFastsettesText()
               ) : (
                 <InputField
+                  size="small"
                   name={`${rowName}.belopReadOnly`}
                   className={styles.mediumBredde}
                   parse={parseCurrencyInput}
@@ -163,6 +170,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
               <>
                 <div className={styles.inntektNew}>
                   <InputField
+                    size="small"
                     name={getInputFieldName()}
                     className={styles.mediumBredde}
                     parse={parseCurrencyInput}
@@ -178,6 +186,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       {skalViseOverstyrtInntektInput && (
         <Table.DataCell align="right">
           <InputField
+            size="small"
             label={intl.formatMessage(
               {
                 id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
@@ -196,6 +205,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
       {skalViseRefusjon && (
         <Table.DataCell align="right">
           <InputField
+            size="small"
             name={`${rowName}.refusjonskrav`}
             className={styles.litenBredde}
             readOnly
@@ -211,6 +221,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           validate={readOnly ? [] : [required]}
           readOnly={readOnly || !skalRedigereInntektskategori}
+          size="small"
           hideLabel
         />
       </Table.DataCell>

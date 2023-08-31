@@ -63,7 +63,7 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
   aktivtBeregningsgrunnlagIndeks: number,
   intl: IntlShape,
 ): React.ReactNode => (
-  <div key={utledArbeidsforholdFieldName(andel)}>
+  <div>
     <RadioGroupPanel
       label={
         <>
@@ -198,9 +198,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
           />
         </div>
       )}
-      {arbeidsforholdUtenIM.map(andel => (
-        <>
-          <VerticalSpacer twentyPx />
+      {arbeidsforholdUtenIM.map((andel, index) => (
+        <React.Fragment key={utledArbeidsforholdFieldName(andel)}>
+          {index > 0 && <VerticalSpacer twentyPx />}
           {mottarYtelseArbeidsforholdRadioAndInputs(
             andel,
             readOnly,
@@ -209,8 +209,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
             beregningsgrunnlagIndeks,
             intl,
           )}
-        </>
+        </React.Fragment>
       ))}
+      {erATFLSammeOrg(tilfeller) && arbeidsforholdUtenIM.length > 0 && <VerticalSpacer thirtyTwoPx />}
     </div>
   );
 };
