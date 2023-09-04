@@ -112,7 +112,7 @@ interface StaticFunctions {
     beregningsgrunnlag: Beregningsgrunnlag,
     fastsatteAndelsnr: number[],
   ) => FaktaBeregningTransformedValues;
-  buildInitialValues: (vurderMottarYtelse: VurderMottarYtelse) => VurderMottarYtelseValues;
+  buildInitialValues: (vurderMottarYtelse?: VurderMottarYtelse) => VurderMottarYtelseValues;
 }
 
 /**
@@ -265,10 +265,10 @@ const transformValuesMottarYtelse = (
   };
 };
 
-VurderMottarYtelseForm.buildInitialValues = (vurderMottarYtelse: VurderMottarYtelse): VurderMottarYtelseValues => {
-  const initialValues = {};
+VurderMottarYtelseForm.buildInitialValues = (vurderMottarYtelse?: VurderMottarYtelse): VurderMottarYtelseValues => {
+  const initialValues: VurderMottarYtelseValues = {};
   if (!vurderMottarYtelse) {
-    return null;
+    return initialValues;
   }
   if (vurderMottarYtelse.erFrilans) {
     initialValues[finnFrilansFieldName()] = vurderMottarYtelse.frilansMottarYtelse;

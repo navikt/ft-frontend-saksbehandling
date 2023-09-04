@@ -21,7 +21,7 @@ type OwnProps = {
 
 interface StaticFunctions {
   buildInitialValues: (
-    kunYtelse: KunYtelse,
+    kunYtelse: KunYtelse | undefined,
     faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
     kodeverkSamling: KodeverkForPanel,

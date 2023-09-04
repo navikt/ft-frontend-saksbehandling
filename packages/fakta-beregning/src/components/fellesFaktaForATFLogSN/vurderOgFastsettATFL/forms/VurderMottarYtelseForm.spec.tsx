@@ -68,7 +68,7 @@ const arbeidstakerAndelerUtenIM = [
 describe('<VurderMottarYtelseForm>', () => {
   it('skal teste at initial values bygges korrekt uten dto til stede', () => {
     const initialValues = VurderMottarYtelseForm.buildInitialValues(undefined);
-    expect(initialValues).toBe(null);
+    expect(initialValues).toEqual({});
   });
 
   it('skal teste at initial values bygges korrekt med frilans uten definert mottar ytelse', () => {

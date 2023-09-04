@@ -30,7 +30,7 @@ type OwnProps = {
 interface StaticFunctions {
   buildInitialValues: (
     beregningsgrunnlag: Beregningsgrunnlag,
-    faktaAksjonspunkt: BeregningAvklaringsbehov,
+    faktaAksjonspunkt?: BeregningAvklaringsbehov,
   ) => VurderEtterlønnSluttpakkeValues;
   transformValues: (
     values: FaktaOmBeregningAksjonspunktValues,
@@ -67,20 +67,21 @@ const VurderEtterlonnSluttpakkeForm: FunctionComponent<OwnProps> & StaticFunctio
 };
 VurderEtterlonnSluttpakkeForm.buildInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag,
-  faktaAksjonspunkt: Aksjonspunkt,
+  faktaAksjonspunkt?: Aksjonspunkt,
 ): VurderEtterlønnSluttpakkeValues => {
-  const initialValues = {};
+  const initialValues: VurderEtterlønnSluttpakkeValues = {};
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode || !faktaAksjonspunkt) {
     return {};
   }
   const apErTidligereLost = !isAksjonspunktOpen(faktaAksjonspunkt.status);
   const relevanteAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
     .flatMap(periode => periode.beregningsgrunnlagPrStatusOgAndel)
-    .filter(
-      ({ arbeidsforhold }) => arbeidsforhold && arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE,
-    );
+    .filter(andel => andel?.arbeidsforhold && andel?.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE);
   if (relevanteAndeler.length > 0) {
-    initialValues[harEtterlonnSluttpakkeField] = apErTidligereLost ? relevanteAndeler[0].beregnetPrAar > 0 : undefined;
+    initialValues[harEtterlonnSluttpakkeField] =
+      apErTidligereLost && relevanteAndeler[0]?.beregnetPrAar !== undefined
+        ? relevanteAndeler[0]?.beregnetPrAar > 0
+        : undefined;
   }
   return initialValues;
 };
