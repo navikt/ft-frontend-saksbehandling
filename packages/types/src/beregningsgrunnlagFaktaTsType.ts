@@ -12,7 +12,7 @@ export type AndelForFaktaOmBeregning = Readonly<{
   andelsnr?: number;
   refusjonskrav?: number;
   inntektskategori?: string;
-  aktivitetStatus?: string;
+  aktivitetStatus: string;
   belopReadOnly?: number;
   fastsattBelop?: number;
   skalKunneEndreAktivitet?: boolean;

@@ -28,7 +28,7 @@ export type NyoppstartetFLValues = {
   NyoppstartetFLField?: boolean;
 };
 export type VurderBesteberegningMedKunYtelseValues = {
-  besteberegningField: boolean;
+  besteberegningField?: boolean;
 };
 
 export type VurderBesteberegningValues = {
