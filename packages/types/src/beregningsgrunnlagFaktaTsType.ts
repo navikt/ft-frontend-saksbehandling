@@ -4,7 +4,7 @@ export type FaktaOmBeregningAndel = Readonly<{
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
   andelsnr?: number;
   inntektskategori?: string;
-  aktivitetStatus?: string;
+  aktivitetStatus: string;
 }>;
 
 export type AndelForFaktaOmBeregning = Readonly<{
