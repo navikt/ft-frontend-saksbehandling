@@ -1,7 +1,12 @@
-import { FaktaOmBeregningTilfelle, Organisasjonstype as organisasjonstyper } from '@navikt/ft-kodeverk';
+import {
+  AktivitetStatus,
+  FaktaOmBeregningTilfelle,
+  Organisasjonstype as organisasjonstyper,
+} from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { lonnsendringField } from './LonnsendringForm';
 import transformValues from './ArbeidUtenInntektsmelding';
+import { InntektTransformed } from '../../../../typer/FieldValues';
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 
@@ -24,7 +29,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       ],
     };
-    const transformed = transformValues(emptyValues, null, faktaOmBeregning, {} as Beregningsgrunnlag, []);
+    const transformed = transformValues(emptyValues, [], faktaOmBeregning, {} as Beregningsgrunnlag, []);
     expect(Object.keys(transformed)).toHaveLength(0);
   });
 
@@ -81,7 +86,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         },
       ],
     };
-    const fastsatteAndeler = [];
+    const fastsatteAndeler: number[] = [];
     const transformed = transformValues(
       emptyValues,
       inntektVerdier,
@@ -89,45 +94,58 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       bg as Beregningsgrunnlag,
       fastsatteAndeler,
     );
-    expect(transformed.faktaOmBeregningTilfeller[0]).toBe(
-      FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
-    );
-    expect(transformed.fastsattUtenInntektsmelding.andelListe[0].andelsnr).toBe(1);
-    expect(transformed.fastsattUtenInntektsmelding.andelListe[0].fastsattBeløp).toBe(10000);
-    expect(transformed.fastsattUtenInntektsmelding.andelListe[0].inntektskategori).toBe('ARBEIDSTAKER');
+    const tilfeller = transformed.faktaOmBeregningTilfeller || [];
+    expect(tilfeller[0]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
+    const andeler = transformed.fastsattUtenInntektsmelding?.andelListe || [];
+    expect(andeler[0].andelsnr).toBe(1);
+    expect(andeler[0].fastsattBeløp).toBe(10000);
+    expect(andeler[0].inntektskategori).toBe('ARBEIDSTAKER');
     expect(fastsatteAndeler[0]).toBe(1);
   });
 
   it('skal teste at transformValues gir korrekt output når lønnsendring', () => {
-    const values = { ...emptyValues };
-    values[lonnsendringField] = true;
+    const values = {
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      [lonnsendringField]: true,
+    };
     const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1 }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
-      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1 }],
+      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
     };
     const bg = {
       beregningsgrunnlagPeriode: [
         {
-          beregningsgrunnlagPrStatusOgAndel: [{ andelsnr: 1, arbeidsforhold: {} } as BeregningsgrunnlagAndel],
+          beregningsgrunnlagPrStatusOgAndel: [
+            {
+              andelsnr: 1,
+              arbeidsforhold: {},
+              aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+            } as BeregningsgrunnlagAndel,
+          ],
         },
       ],
     };
     const transformedObject = transformValues(values, inntektVerdier, faktaOmBeregning, bg as Beregningsgrunnlag, []);
-    expect(transformedObject.fastsattUtenInntektsmelding.andelListe.length).toBe(1);
-    expect(transformedObject.fastsattUtenInntektsmelding.andelListe[0].andelsnr).toBe(1);
-    expect(transformedObject.fastsattUtenInntektsmelding.andelListe[0].fastsattBeløp).toBe(10000);
+    const andeler = transformedObject.fastsattUtenInntektsmelding?.andelListe || [];
+    expect(andeler.length).toBe(1);
+    expect(andeler[0].andelsnr).toBe(1);
+    expect(andeler[0].fastsattBeløp).toBe(10000);
   });
 
   it('skal ikkje submitte inntekt uten lønnsendring', () => {
-    const values = { ...emptyValues };
-    values[lonnsendringField] = false;
-    const inntektVerdier = [{ fastsattBelop: null, andelsnr: 1 }];
+    const values = {
+      erTilVurdering: true,
+      periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      [lonnsendringField]: false,
+    };
+    const inntektVerdier: InntektTransformed[] = [{ andelsnr: 1 } as InntektTransformed];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
-      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1 }],
+      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
     };
     const bg = {
       beregningsgrunnlagPeriode: [
@@ -150,13 +168,13 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           fastsattBelop: 10000,
           andelsnr: 1,
           arbeidsgiverId: '2134567',
-          arbeidsforholdId: null,
+          arbeidsforholdId: undefined,
         },
       ];
       const faktaOmBeregning = {
         andelerForFaktaOmBeregning: [],
         faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
-        arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1 }],
+        arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
       };
       const bg = {
         beregningsgrunnlagPeriode: [
@@ -180,9 +198,10 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         ],
       };
       const transformedObject = transformValues(values, inntektVerdier, faktaOmBeregning, bg as Beregningsgrunnlag, []);
-      expect(transformedObject.fastsattUtenInntektsmelding.andelListe.length).toBe(1);
-      expect(transformedObject.fastsattUtenInntektsmelding.andelListe[0].andelsnr).toBe(1);
-      expect(transformedObject.fastsattUtenInntektsmelding.andelListe[0].fastsattBeløp).toBe(10000);
+      const andeler = transformedObject.fastsattUtenInntektsmelding?.andelListe || [];
+      expect(andeler.length).toBe(1);
+      expect(andeler[0].andelsnr).toBe(1);
+      expect(andeler[0].fastsattBeløp).toBe(10000);
     },
   );
 });

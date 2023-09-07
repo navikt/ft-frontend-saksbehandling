@@ -10,16 +10,16 @@ import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
 import { transformValues, transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
+import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 
-const lagBeregningsgrunnlag = andeler =>
+const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrunnlag =>
   ({
     beregningsgrunnlagPeriode: [
       {
-        beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({
+        beregningsgrunnlagPrStatusOgAndel: andeler.map((andel: FaktaOmBeregningAndel) => ({
           andelsnr: andel.andelsnr,
           aktivitetStatus: andel.aktivitetStatus,
           inntektskategori: andel.inntektskategori,
-          erNyoppstartet: andel.erNyoppstartet,
         })),
       },
     ],
@@ -37,10 +37,6 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       vurderBesteberegning: { skalHaBesteberegning: true },
     };
     const beregningsgrunnlag = {
-      skjaeringstidspunktBeregning: null,
-      dekningsgrad: null,
-      grunnbeløp: null,
-      erOverstyrtInntekt: null,
       beregningsgrunnlagPeriode: [
         {
           beregningsgrunnlagPrStatusOgAndel: [andel1, andel2],
@@ -54,45 +50,39 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       beregningsgrunnlag,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      [besteberegningField]: true,
+      [INNTEKT_FIELD_ARRAY_NAME]: [
+        {
+          andel: 'Arbeid',
+          aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+          fastsattBelop: '10 000',
+          inntektskategori: 'ARBEIDSTAKER',
+          andelsnr: andel1.andelsnr,
+          kanRedigereInntekt: true,
+        },
+        {
+          andel: 'Næring',
+          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+          fastsattBelop: '20 000',
+          inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
+          andelsnr: andel2.andelsnr,
+          kanRedigereInntekt: true,
+        },
+      ],
     };
-    values[besteberegningField] = true;
-    values[INNTEKT_FIELD_ARRAY_NAME] = [
-      {
-        fastsattBelop: '10 000',
-        inntektskategori: 'ARBEIDSTAKER',
-        andelsnr: andel1.andelsnr,
-        kanRedigereInntekt: true,
-      },
-      {
-        fastsattBelop: '20 000',
-        inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
-        andelsnr: andel2.andelsnr,
-        kanRedigereInntekt: true,
-      },
-    ];
     const transformedValues = transformValuesFaktaForATFLOgSN(values);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller).toHaveLength(2);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller[1]).toEqual(
-      FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
-    );
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller[0]).toEqual(
-      FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING,
-    );
-    expect(transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe).toHaveLength(2);
-    expect(transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[0].andelsnr).toEqual(andel1.andelsnr);
-    expect(
-      transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[0].fastsatteVerdier.fastsattBeløp,
-    ).toEqual(10000);
-    expect(
-      transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[0].fastsatteVerdier.inntektskategori,
-    ).toEqual('ARBEIDSTAKER');
-    expect(transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[1].andelsnr).toEqual(andel2.andelsnr);
-    expect(
-      transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[1].fastsatteVerdier.fastsattBeløp,
-    ).toEqual(20000);
-    expect(
-      transformedValues.fakta.besteberegningAndeler.besteberegningAndelListe[1].fastsatteVerdier.inntektskategori,
-    ).toEqual('SELVSTENDIG_NÆRINGSDRIVENDE');
+    const tilfeller = transformedValues.fakta.faktaOmBeregningTilfeller || [];
+    expect(tilfeller).toHaveLength(2);
+    expect(tilfeller[1]).toEqual(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
+    expect(tilfeller[0]).toEqual(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING);
+    const bbAndeler = transformedValues.fakta.besteberegningAndeler?.besteberegningAndelListe || [];
+    expect(bbAndeler).toHaveLength(2);
+    expect(bbAndeler[0].andelsnr).toEqual(andel1.andelsnr);
+    expect(bbAndeler[0].fastsatteVerdier.fastsattBeløp).toEqual(10000);
+    expect(bbAndeler[0].fastsatteVerdier.inntektskategori).toEqual('ARBEIDSTAKER');
+    expect(bbAndeler[1].andelsnr).toEqual(andel2.andelsnr);
+    expect(bbAndeler[1].fastsatteVerdier.fastsattBeløp).toEqual(20000);
+    expect(bbAndeler[1].fastsatteVerdier.inntektskategori).toEqual('SELVSTENDIG_NÆRINGSDRIVENDE');
   });
 
   it('skal kunne transform values nyoppstartet fl og lønnsendring', () => {
@@ -102,6 +92,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     ];
     const forholdMedAtOgFl = {
       andelsnr: 2,
+      aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
       inntektskategori: 'Arbeidstaker',
       arbeidsforhold: {
         arbeidsgiverIdent: '123',
@@ -112,6 +103,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
 
     const forholdMedLonnsendringUtenIM = {
       andelsnr: 2,
+      aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
       inntektskategori: 'ARBEIDSTAKER',
       arbeidsforhold: {
         arbeidsgiverIdent: '123',
@@ -146,44 +138,40 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       beregningsgrunnlag,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      [lonnsendringField]: true,
+      [erNyoppstartetFLField]: true,
+      [INNTEKT_FIELD_ARRAY_NAME]: [
+        {
+          andel: 'Arbeid',
+          fastsattBelop: '10 000',
+          inntektskategori: 'ARBEIDSTAKER',
+          andelsnr: forholdMedLonnsendringUtenIM.andelsnr,
+          kanRedigereInntekt: true,
+        },
+        {
+          andel: 'Arbeid',
+          fastsattBelop: '20 000',
+          inntektskategori: 'FRILANS',
+          andelsnr: frilansAndel.andelsnr,
+          aktivitetStatus: AktivitetStatus.FRILANSER,
+          kanRedigereInntekt: true,
+        },
+      ],
     };
-    values[lonnsendringField] = true;
-    values[erNyoppstartetFLField] = true;
-    values[INNTEKT_FIELD_ARRAY_NAME] = [
-      {
-        fastsattBelop: '10 000',
-        inntektskategori: 'ARBEIDSTAKER',
-        andelsnr: forholdMedLonnsendringUtenIM.andelsnr,
-        kanRedigereInntekt: true,
-      },
-      {
-        fastsattBelop: '20 000',
-        inntektskategori: 'FRILANS',
-        andelsnr: frilansAndel.andelsnr,
-        aktivitetStatus: AktivitetStatus.FRILANSER,
-        kanRedigereInntekt: true,
-      },
-    ];
-    const transformedValues = transformValuesFaktaForATFLOgSN(values);
-    expect(transformedValues.fakta.faktaOmBeregningTilfeller).toHaveLength(4);
-    expect(
-      transformedValues.fakta.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING),
-    ).toEqual(true);
-    expect(
-      transformedValues.fakta.faktaOmBeregningTilfeller.includes(
-        FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
-      ),
-    ).toEqual(true);
-    expect(
-      transformedValues.fakta.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL),
-    ).toEqual(true);
-    expect(
-      transformedValues.fakta.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL),
-    ).toEqual(true);
-    expect(transformedValues.fakta.fastsattUtenInntektsmelding.andelListe).toHaveLength(1);
-    expect(transformedValues.fakta.fastsattUtenInntektsmelding.andelListe[0].andelsnr).toEqual(2);
-    expect(transformedValues.fakta.fastsattUtenInntektsmelding.andelListe[0].fastsattBeløp).toEqual(10000);
-    expect(transformedValues.fakta.fastsettMaanedsinntektFL.maanedsinntekt).toEqual(20000);
+    const transformedValues = transformValuesFaktaForATFLOgSN(values as FaktaOmBeregningAksjonspunktValues);
+    const tilfeller = transformedValues.fakta.faktaOmBeregningTilfeller || [];
+    expect(tilfeller).toHaveLength(4);
+    expect(tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)).toEqual(true);
+    expect(tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toEqual(
+      true,
+    );
+    expect(tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toEqual(true);
+    expect(tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL)).toEqual(true);
+    const andelsliste = transformedValues.fakta.fastsattUtenInntektsmelding?.andelListe || [];
+    expect(andelsliste).toHaveLength(1);
+    expect(andelsliste[0].andelsnr).toEqual(2);
+    expect(andelsliste[0].fastsattBeløp).toEqual(10000);
+    expect(transformedValues.fakta.fastsettMaanedsinntektFL?.maanedsinntekt).toEqual(20000);
   });
 
   it.skip('skal transform values for nyIArbeidslivet om kun ny i arbeidslivet', () => {

@@ -62,16 +62,16 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ rea
   );
 };
 NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyoppstartetFLValues => {
-  const initialValues = {};
+  const initialValues: NyoppstartetFLValues = {};
   if (beregningsgrunnlag === undefined || beregningsgrunnlag.beregningsgrunnlagPeriode === undefined) {
     return initialValues;
   }
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode.map(
     periode => periode.beregningsgrunnlagPrStatusOgAndel,
   );
-  const flAndeler = alleAndeler.flat().filter(andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER);
+  const flAndeler = alleAndeler.flat().filter(andel => andel?.aktivitetStatus === AktivitetStatus.FRILANSER);
   if (flAndeler.length > 0) {
-    initialValues[erNyoppstartetFLField] = flAndeler[0].erNyoppstartet;
+    initialValues[erNyoppstartetFLField] = flAndeler[0]?.erNyoppstartet;
   }
   return initialValues;
 };

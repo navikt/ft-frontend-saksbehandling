@@ -25,7 +25,7 @@ const transformValuesArbeidUtenInntektsmelding = (
   ) {
     return {};
   }
-  if (inntektVerdier === null) {
+  if (!inntektVerdier) {
     return {};
   }
   const arbeidUtenInntektsmelding = inntektVerdier

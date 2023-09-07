@@ -52,7 +52,7 @@ const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnl
 };
 
 VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): VurderMilitærValues => {
-  const initialValues = {};
+  const initialValues: VurderMilitærValues = {};
   if (!faktaOmBeregning || !faktaOmBeregning.vurderMilitaer) {
     return initialValues;
   }

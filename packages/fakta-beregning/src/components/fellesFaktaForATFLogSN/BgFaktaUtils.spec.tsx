@@ -10,7 +10,6 @@ import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/Nyoppstartet
 import {
   mapAndelToField,
   mapToBelop,
-  setArbeidsforholdInitialValues,
   setGenerellAndelsinfo,
   skalFastsetteInntektForAndel,
   kanRedigereInntektForAndel,
@@ -242,8 +241,8 @@ describe('<BgFaktaUtils>', () => {
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
     };
-    const arbeidsforholdIV = setArbeidsforholdInitialValues(andelValueFromState);
-    expect(arbeidsforholdIV.arbeidsforholdId).toBe(null);
+    const arbeidsforholdIV = mapAndelToField(andelValueFromState, {}, kodeverkSamling);
+    expect(arbeidsforholdIV.arbeidsforholdId).toBe(undefined);
     expect(arbeidsforholdIV.arbeidsperiodeFom).toBe('');
     expect(arbeidsforholdIV.arbeidsperiodeTom).toBe('');
   });
@@ -276,7 +275,7 @@ describe('<BgFaktaUtils>', () => {
   };
 
   it('skal sette arbeidsforhold initial values for andel med arbeidsforhold', () => {
-    const arbeidsforholdIV = setArbeidsforholdInitialValues(arbeidstakerAndel3);
+    const arbeidsforholdIV = mapAndelToField(arbeidstakerAndel3, {}, kodeverkSamling);
     expect(arbeidsforholdIV.arbeidsforholdId).toBe('321378huda7e2');
     expect(arbeidsforholdIV.arbeidsperiodeFom).toBe('2017-01-01');
     expect(arbeidsforholdIV.arbeidsperiodeTom).toBe('2018-01-01');
@@ -366,7 +365,7 @@ describe('<BgFaktaUtils>', () => {
     };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
-      ...setArbeidsforholdInitialValues(kunstigArbeidstakerAndel),
+      arbeidsgiverId: kunstigArbeidsgiver.arbeidsgiverIdent,
       ...setGenerellAndelsinfo(kunstigArbeidstakerAndel, agOpplysning, kodeverkSamling),
     };
     const skalRedigereInntektskategori = skalRedigereInntektskategoriForAndel(beregningsgrunnlag)(andelFieldValue);

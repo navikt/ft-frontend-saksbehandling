@@ -21,7 +21,7 @@ type OwnProps = {
 
 interface StaticFunctions {
   buildInitialValues: (
-    kunYtelse: KunYtelse,
+    kunYtelse: KunYtelse | undefined,
     faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
     arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
     kodeverkSamling: KodeverkForPanel,
@@ -86,13 +86,16 @@ KunYtelsePanel.buildInitialValues = (
   }
   const kunYtelseValues = kunYtelse.andeler.map(andel => {
     const andelMedInfo = faktaOmBeregningAndeler.find(faktaAndel => faktaAndel.andelsnr === andel.andelsnr);
+    if (!andelMedInfo) {
+      throw new Error(`Finner ikke faktaAndel med andelsnr ${andel.andelsnr}`);
+    }
+
     return {
       ...setGenerellAndelsinfo(andelMedInfo, arbeidsgiverOpplysningerPerId, kodeverkSamling),
-      fastsattBelop:
-        andel.fastsattBelopPrMnd || andel.fastsattBelopPrMnd === 0 ? formatCurrencyNoKr(andel.fastsattBelopPrMnd) : '',
+      fastsattBelop: formatCurrencyNoKr(andel.fastsattBelopPrMnd) || '',
     };
   });
-  const initialValues = {
+  const initialValues: KunYtelseValues = {
     [brukersAndelFieldArrayName]: kunYtelseValues,
   };
   if (kunYtelse.fodendeKvinneMedDP) {

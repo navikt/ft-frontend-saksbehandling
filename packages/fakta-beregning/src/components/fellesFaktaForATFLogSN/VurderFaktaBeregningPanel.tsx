@@ -7,7 +7,7 @@ import {
   Vilkar,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -57,11 +57,13 @@ type VurderFaktaBeregningPanelProps = {
   skalKunneAvbryteOverstyring: boolean;
 };
 
-export const buildInitialValuesVurderFaktaBeregning = (
-  props: VurderFaktaBeregningPanelProps,
+const buildInitialValuesVurderFaktaBeregning = (
+  alleBeregningsgrunnlag: Beregningsgrunnlag[],
+  kodeverkSamling: KodeverkForPanel,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkar: Vilkar,
 ): VurderFaktaBeregningFormValues => ({
-  [formNameVurderFaktaBeregning]: props.beregningsgrunnlag.map(bg => {
+  [formNameVurderFaktaBeregning]: alleBeregningsgrunnlag.map(bg => {
     const vilkarsperiode = vilkar.perioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
     if (!vilkarsperiode) {
       throw new Error(`Finner ikke vilkårsperiode med fom ${bg.vilkårsperiodeFom}`);
@@ -74,7 +76,7 @@ export const buildInitialValuesVurderFaktaBeregning = (
         findAvklaringsbehovMedBegrunnelse(bg.avklaringsbehov)?.begrunnelse,
         BEGRUNNELSE_FAKTA_TILFELLER_NAME,
       ),
-      ...getBuildInitialValuesFaktaForATFLOgSN(bg, props.kodeverkSamling, props.arbeidsgiverOpplysningerPerId),
+      ...getBuildInitialValuesFaktaForATFLOgSN(bg, kodeverkSamling, arbeidsgiverOpplysningerPerId),
     };
   }),
 });
@@ -89,27 +91,33 @@ const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]
  *
  * Container komponent.. Inneholder begrunnelsefelt og komponent som innholder panelene for fakta om beregning tilfeller
  */
-const VurderFaktaBeregningPanelImpl: React.FC<VurderFaktaBeregningPanelProps> = props => {
-  const {
-    beregningsgrunnlag,
-    submittable,
-    readOnly,
-    kodeverkSamling,
-    erOverstyrer,
-    arbeidsgiverOpplysningerPerId,
-    aktivtBeregningsgrunnlagIndeks,
-    submitCallback,
-    setFormData,
-    formData,
-    vilkar,
-    avklarAktiviteterErEndret,
-    skalKunneAvbryteOverstyring,
-  } = props;
+const VurderFaktaBeregningPanelImpl: FunctionComponent<VurderFaktaBeregningPanelProps> = ({
+  beregningsgrunnlag,
+  submittable,
+  readOnly,
+  kodeverkSamling,
+  erOverstyrer,
+  arbeidsgiverOpplysningerPerId,
+  aktivtBeregningsgrunnlagIndeks,
+  submitCallback,
+  setFormData,
+  formData,
+  vilkar,
+  avklarAktiviteterErEndret,
+  skalKunneAvbryteOverstyring,
+}) => {
   const verdiForAvklarAktivitetErEndret = avklarAktiviteterErEndret;
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
   const formMethods = useForm<VurderFaktaBeregningFormValues>({
-    defaultValues: formData || buildInitialValuesVurderFaktaBeregning(props, vilkar),
+    defaultValues:
+      formData ||
+      buildInitialValuesVurderFaktaBeregning(
+        beregningsgrunnlag,
+        kodeverkSamling,
+        arbeidsgiverOpplysningerPerId,
+        vilkar,
+      ),
   });
   const { control, formState, trigger, getValues, watch } = formMethods;
   const { fields, update } = useFieldArray({

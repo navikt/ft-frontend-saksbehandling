@@ -1,16 +1,12 @@
 import {
-  ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   KortvarigAndel,
   KunYtelse,
-  RefusjonskravSomKommerForSentListe,
-  VurderBesteberegning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 import AndelFieldValue from './FieldValues';
-import KodeverkForPanel from './kodeverkForPanel';
 
 export type TidsbegrensetandelValues = {
   [key: string]: boolean;
@@ -32,7 +28,7 @@ export type NyoppstartetFLValues = {
   NyoppstartetFLField?: boolean;
 };
 export type VurderBesteberegningMedKunYtelseValues = {
-  besteberegningField: boolean;
+  besteberegningField?: boolean;
 };
 
 export type VurderBesteberegningValues = {
@@ -71,11 +67,11 @@ export type KunYtelseValues =
     };
 
 export type VurderMottarYtelseValues = {
-  [key: string]: boolean;
+  [key: string]: boolean | undefined;
 };
 
 export type VurderRefusjonValues = {
-  [key: string]: boolean;
+  [key: string]: boolean | undefined;
 };
 
 export type TilfellerValues = VurderMilitærValues &
@@ -105,22 +101,6 @@ export type FaktaOmBeregningAksjonspunktValues = FaktaOmBeregningValues & {
   erTilVurdering: boolean;
   periode: { fom: string; tom: string };
   begrunnelseFaktaTilfeller?: string;
-};
-
-export type FaktaStateProps = {
-  beregningsgrunnlag: Beregningsgrunnlag;
-  kortvarigeArbeidsforhold: KortvarigAndel[];
-  vurderFaktaAP: BeregningAvklaringsbehov;
-  kunYtelse: KunYtelse;
-  tilfeller: string[];
-  vurderMottarYtelse: VurderMottarYtelse;
-  vurderBesteberegning: VurderBesteberegning;
-  kodeverkSamling: KodeverkForPanel;
-  avklaringsbehov: BeregningAvklaringsbehov[];
-  faktaOmBeregning: FaktaOmBeregning;
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  refusjonskravSomKommerForSentListe: RefusjonskravSomKommerForSentListe[];
-  erOverstyrt: boolean;
 };
 
 export type FaktaBeregningError = {
