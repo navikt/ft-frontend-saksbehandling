@@ -30,7 +30,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@formatjs/intl-datetimeformat": "6.10.0",
+    "@formatjs/intl-datetimeformat": "6.10.1",
     "@formatjs/intl-numberformat": "8.7.0",
     "@navikt/aksel-stylelint": "5.2.1",
     "@storybook/addon-essentials": "7.4.0",
