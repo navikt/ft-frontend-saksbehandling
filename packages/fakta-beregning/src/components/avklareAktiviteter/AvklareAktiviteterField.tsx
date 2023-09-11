@@ -123,6 +123,9 @@ const validate = (
   erOverstyrt: boolean,
   intl: IntlShape,
 ): string | undefined => {
+  if (aktiviteterTomDatoMapping.length < 1) {
+    return undefined; // Ingenting å validere mot
+  }
   if (
     VurderAktiviteterPanel.harIngenAktiviteter(
       getValues(`avklarAktiviteterForm.${fieldId}`),
@@ -196,6 +199,9 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   const skjemaNavn = `vurderAktiviteterSkjema.${fieldId}`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
+  if (!avklarAktiviteter.aktiviteterTomDatoMapping || avklarAktiviteter.aktiviteterTomDatoMapping.length < 1) {
+    return null; // Ingen aktiviteter å vise
+  }
   return (
     <>
       <FlexContainer>
