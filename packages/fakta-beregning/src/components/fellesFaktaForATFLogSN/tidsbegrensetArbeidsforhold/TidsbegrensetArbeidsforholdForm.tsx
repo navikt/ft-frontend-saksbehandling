@@ -41,7 +41,7 @@ type OwnProps = {
 
 interface StaticFunctions {
   transformValues: (values: FaktaOmBeregningAksjonspunktValues, andeler: KortvarigAndel[]) => any;
-  buildInitialValues: (andeler: KortvarigAndel[]) => TidsbegrensetandelValues;
+  buildInitialValues: (andeler?: KortvarigAndel[]) => TidsbegrensetandelValues;
 }
 
 /**
@@ -105,8 +105,8 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
   );
 };
 
-TidsbegrensetArbeidsforholdForm.buildInitialValues = (andeler: KortvarigAndel[]): TidsbegrensetandelValues => {
-  const initialValues = {};
+TidsbegrensetArbeidsforholdForm.buildInitialValues = (andeler?: KortvarigAndel[]): TidsbegrensetandelValues => {
+  const initialValues: TidsbegrensetandelValues = {};
   if (!andeler) {
     return initialValues;
   }

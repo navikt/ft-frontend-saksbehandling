@@ -121,7 +121,6 @@ const PersonCard = ({
                         <div className={styles[personCardCls.element('menu-container')]}>{renderMenuContent()}</div>
                       ),
                     placement: 'bottom-start',
-                    strategy: 'fixed',
                   }}
                   referenceProps={{
                     // eslint-disable-next-line react/no-unstable-nested-components

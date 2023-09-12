@@ -51,16 +51,22 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
                     <Tag variant="info">{`${dekningsgrad}%`}</Tag>
                   </Tooltip>
                 </FlexColumn>
-                {fagsakMarkeringTekst && (
-                  <FlexColumn>
-                    <Tooltip
-                      content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
-                      alignBottom
-                    >
-                      <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
-                    </Tooltip>
-                  </FlexColumn>
-                )}
+              </FlexRow>
+            </FlexContainer>
+          </FlexColumn>
+        )}
+        {fagsakMarkeringTekst && (
+          <FlexColumn>
+            <FlexContainer>
+              <FlexRow>
+                <FlexColumn>
+                  <Tooltip
+                    content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
+                    alignBottom
+                  >
+                    <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
+                  </Tooltip>
+                </FlexColumn>
               </FlexRow>
             </FlexContainer>
           </FlexColumn>

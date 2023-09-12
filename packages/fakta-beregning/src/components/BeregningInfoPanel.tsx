@@ -29,7 +29,7 @@ type OwnProps = {
   aktivtBeregningsgrunnlagIndeks: number;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   setFormData: (data: any) => void;
-  formData: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
+  formData?: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
   skalKunneAvbryteOverstyring: boolean;
 };
 

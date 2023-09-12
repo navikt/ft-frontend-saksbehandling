@@ -8,7 +8,6 @@ import {
   Vilkarperiode,
   Inntektsforhold,
   VurderInntektsforholdPeriode,
-  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -82,14 +81,14 @@ const buildInitialValuesPeriode = (periode: VurderInntektsforholdPeriode): Tilko
 });
 
 const buildFieldInitialValues = (
-  beregningsgrunnlag: BeregningsgrunnlagMedId,
+  beregningsgrunnlag: Beregningsgrunnlag,
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFieldValues => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const perioderTilVurdering = finnPerioderTilVurdering(beregningsgrunnlag);
 
   return {
-    beregningsgrunnlagId: beregningsgrunnlag.beregningsgrunnlagId,
+    beregningsgrunnlagStp: beregningsgrunnlag.skjaeringstidspunktBeregning,
     begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
     periode: finnVilkårsperiode(vilkarperioder, beregningsgrunnlag.vilkårsperiodeFom).periode,
     perioder: perioderTilVurdering.map(periode => buildInitialValuesPeriode(periode)),
@@ -97,7 +96,7 @@ const buildFieldInitialValues = (
 };
 
 const buildInitialValues = (
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[],
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkarperioder: Vilkarperiode[],
 ): TilkommetAktivitetFormValues => ({
   [`${FORM_NAME}`]: beregningsgrunnlagListe
@@ -193,7 +192,7 @@ type TilkommetAktivitetProps = {
   submitCallback: (aksjonspunktData: VurderNyttInntektsforholdAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
-  beregningsgrunnlagListe: BeregningsgrunnlagMedId[];
+  beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkarperiode[];
   setTilkommetAktivitetFormIsDirty: (isDirty: boolean) => void;
 };
@@ -255,7 +254,7 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
         >
           {fields.map(field => {
             const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
-              bg => bg.beregningsgrunnlagId === field.beregningsgrunnlagId,
+              bg => bg.skjaeringstidspunktBeregning === field.beregningsgrunnlagStp,
             );
 
             return (

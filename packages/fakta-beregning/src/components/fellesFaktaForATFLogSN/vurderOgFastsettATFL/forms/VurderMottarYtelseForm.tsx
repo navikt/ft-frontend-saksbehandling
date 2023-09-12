@@ -129,7 +129,7 @@ interface StaticFunctions {
     beregningsgrunnlag: Beregningsgrunnlag,
     fastsatteAndelsnr: number[],
   ) => FaktaBeregningTransformedValues;
-  buildInitialValues: (vurderMottarYtelse: VurderMottarYtelse, tilfeller: string[]) => VurderMottarYtelseValues;
+  buildInitialValues: (vurderMottarYtelse?: VurderMottarYtelse, tilfeller?: string[]) => VurderMottarYtelseValues;
 }
 
 /**
@@ -303,12 +303,12 @@ const transformValuesMottarYtelse = (
 };
 
 VurderMottarYtelseForm.buildInitialValues = (
-  vurderMottarYtelse: VurderMottarYtelse,
-  tilfeller: string[],
+  vurderMottarYtelse?: VurderMottarYtelse,
+  tilfeller?: string[],
 ): VurderMottarYtelseValues => {
-  const initialValues = {};
+  const initialValues: VurderMottarYtelseValues = {};
   if (!vurderMottarYtelse) {
-    return null;
+    return initialValues;
   }
   if (vurderMottarYtelse.erFrilans) {
     initialValues[finnFrilansFieldName()] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse.frilansMottarYtelse;

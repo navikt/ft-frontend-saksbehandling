@@ -84,6 +84,7 @@ const Template: StoryFn = () => {
       <CheckboxPanel
         name="checkboxpanelpre"
         label="Dette er et checkboxpanel der en verdi er valgt"
+        description="Dette er en mer utfyllende tekst"
         checkboxes={[
           {
             label: 'Verdi 3',
@@ -122,6 +123,7 @@ const Template: StoryFn = () => {
       <VerticalSpacer sixteenPx />
       <RadioGroupPanel
         name="radio"
+        description="Dette er en mer utfyllende tekst"
         label="Dette er en radioknapp"
         radios={[
           {
@@ -240,6 +242,7 @@ const Template: StoryFn = () => {
       <Datepicker
         label="Dette er en datepicker"
         name="datepickerField"
+        description="Dette er en mer utfyllende tekst"
         disabledDays={{
           fromDate: new Date('2022-10-10'),
           toDate: new Date('2022-10-14'),

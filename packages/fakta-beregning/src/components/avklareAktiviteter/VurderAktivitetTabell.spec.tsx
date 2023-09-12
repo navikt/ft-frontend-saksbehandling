@@ -1,4 +1,5 @@
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { BeregningAktivitet } from '@navikt/ft-types';
 import {
   buildInitialValues,
   lagAktivitetFieldId,
@@ -6,17 +7,18 @@ import {
   transformValues,
 } from './VurderAktiviteterTabell';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import AvklarAktiviteterValues, { AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
   fom: '2019-01-01',
-  tom: null,
-  skalBrukes: null,
+  tom: '9999-12-31',
+  skalBrukes: undefined,
   arbeidsforholdType: 'ARBEID',
 };
 
 const aktivitet2 = {
-  arbeidsgiverIdent: '334534623342',
+  arbeidsgiverIdent: '998877665',
   arbeidsforholdId: 'efj8343f34f',
   eksternArbeidsforholdId: '123456',
   fom: '2019-01-01',
@@ -37,15 +39,14 @@ const aktivitet3 = {
 };
 
 const aktivitetAAP = {
-  arbeidsgiverNavn: null,
-  arbeidsgiverIdent: null,
+  arbeidsgiverIdent: undefined,
   arbeidsforholdType: OpptjeningAktivitetType.AAP,
   fom: '2019-01-01',
   tom: '2020-02-02',
-  skalBrukes: null,
+  skalBrukes: undefined,
 };
 
-const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
+const aktiviteter: BeregningAktivitet[] = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
 
 const agOpplysninger = {
   324234234234: {
@@ -54,8 +55,8 @@ const agOpplysninger = {
     erPrivatPerson: true,
     fødselsdato: '1960-01-01',
   },
-  334534623342: {
-    identifikator: '334534623342',
+  998877665: {
+    identifikator: '998877665',
     navn: 'Arbeidsgiveren2',
     erPrivatPerson: false,
   },
@@ -97,25 +98,25 @@ const kodeverkSamling = {
 } as KodeverkForPanel;
 
 describe('<VurderAktiviteterTabell>', () => {
-  const id1 = '3847238947232019-01-01';
+  const id1: string = '3847238947232019-01-01';
   it('skal lage id for arbeid', () => {
     const idArbeid = lagAktivitetFieldId(aktivitet1);
     expect(idArbeid).toBe(id1);
   });
 
-  const id2 = '334534623342efj8343f34f2019-01-01';
+  const id2: string = '998877665efj8343f34f2019-01-01';
   it('skal lage id for arbeid med arbeidsforholdId', () => {
     const idArbeid = lagAktivitetFieldId(aktivitet2);
     expect(idArbeid).toBe(id2);
   });
 
-  const id3 = '324234234234efj8343f34f2019-01-01';
+  const id3: string = '324234234234efj8343f34f2019-01-01';
   it('skal lage id for arbeid med aktørId', () => {
     const idArbeid = lagAktivitetFieldId(aktivitet3);
     expect(idArbeid).toBe(id3);
   });
 
-  const idAAP = 'AAP2019-01-01';
+  const idAAP: string = 'AAP2019-01-01';
   it('skal lage id for AAP', () => {
     const idArbeid = lagAktivitetFieldId(aktivitetAAP);
     expect(idArbeid).toBe(idAAP);
@@ -125,10 +126,10 @@ describe('<VurderAktiviteterTabell>', () => {
     const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, true, true, agOpplysninger);
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
-    expect(initialValues[id1].tom).toBe(null);
-    expect(initialValues[id1].skalBrukes).toBe(null);
+    expect(initialValues[id1].tom).toBe('9999-12-31');
+    expect(initialValues[id1].skalBrukes).toBe(undefined);
 
-    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (334534623342)...3456');
+    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
     expect(initialValues[id2].fom).toBe('2019-01-01');
     expect(initialValues[id2].tom).toBe('2019-02-02');
     expect(initialValues[id2].skalBrukes).toBe('true');
@@ -148,10 +149,10 @@ describe('<VurderAktiviteterTabell>', () => {
     const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, false, true, agOpplysninger);
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
-    expect(initialValues[id1].tom).toBe(null);
+    expect(initialValues[id1].tom).toBe('9999-12-31');
     expect(initialValues[id1].skalBrukes).toBe('true');
 
-    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (334534623342)...3456');
+    expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
     expect(initialValues[id2].fom).toBe('2019-01-01');
     expect(initialValues[id2].tom).toBe('2019-02-02');
     expect(initialValues[id2].skalBrukes).toBe('true');
@@ -168,23 +169,24 @@ describe('<VurderAktiviteterTabell>', () => {
   });
 
   it('skal transform values', () => {
-    const values = {
-      aktiviteterValues: {},
-    };
-    values.aktiviteterValues[id1] = { skalBrukes: 'true' };
-    values.aktiviteterValues[id2] = { skalBrukes: 'false' };
-    values.aktiviteterValues[id3] = { skalBrukes: 'false' };
-    values.aktiviteterValues[idAAP] = { skalBrukes: 'true' };
+    const values: AvklarAktiviteterValues = {
+      aktiviteterValues: {
+        [id1]: { skalBrukes: 'true' } as AktivitetValues,
+        [id2]: { skalBrukes: 'false' } as AktivitetValues,
+        [id3]: { skalBrukes: 'false' } as AktivitetValues,
+        [idAAP]: { skalBrukes: 'true' } as AktivitetValues,
+      },
+    } as AvklarAktiviteterValues;
     const transformed = transformValues(values, aktiviteter, '2019-02-02', '2019-02-02');
     expect(transformed.length).toBe(2);
-    expect(transformed[0].oppdragsgiverOrg).toBe('334534623342');
+    expect(transformed[0].oppdragsgiverOrg).toBe('998877665');
     expect(transformed[0].arbeidsforholdRef).toBe(aktivitet2.arbeidsforholdId);
     expect(transformed[0].fom).toBe('2019-01-01');
     expect(transformed[0].tom).toBe('2019-02-02');
-    expect(transformed[0].arbeidsgiverIdentifikator).toBe('334534623342');
+    expect(transformed[0].arbeidsgiverIdentifikator).toBe('998877665');
     expect(transformed[0].skalBrukes).toBe(false);
 
-    expect(transformed[1].oppdragsgiverOrg).toBe(null);
+    expect(transformed[1].oppdragsgiverOrg).toBe(undefined);
     expect(transformed[1].arbeidsforholdRef).toBe(aktivitet3.arbeidsforholdId);
     expect(transformed[1].fom).toBe('2019-01-01');
     expect(transformed[1].tom).toBe('2019-02-02');

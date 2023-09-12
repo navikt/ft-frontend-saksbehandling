@@ -12,7 +12,7 @@ import {
 } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
@@ -37,7 +37,7 @@ const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
 export const buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
-  avklarAktiviteter: AvklarBeregningAktiviteterMap,
+  avklarAktiviteter: AvklarBeregningAktiviteterMap | undefined,
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkarperiode,
@@ -70,11 +70,11 @@ export const buildInitialValues = (
 
 export const transformFieldValue = (
   values: AvklarAktiviteterValues,
-): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> => {
+): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> | null => {
   const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
   const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(
-    skalOverstyre,
-    values.avklaringsbehov,
+    !!skalOverstyre,
+    values.avklaringsbehov || [],
     values.erTilVurdering,
   );
   const { avklarAktiviteter } = values;
@@ -85,8 +85,8 @@ export const transformFieldValue = (
 
   const aktivitetListe = VurderAktiviteterPanel.transformValues(
     values,
-    avklarAktiviteter.aktiviteterTomDatoMapping,
-    skalOverstyre,
+    avklarAktiviteter?.aktiviteterTomDatoMapping || [],
+    !!skalOverstyre,
   );
 
   return {
@@ -110,12 +110,15 @@ export interface OwnProps {
 }
 
 const validate = (
-  getValues: UseFormGetValues<any>,
+  getValues: UseFormGetValues<AvklarAktiviteterFormValues>,
   fieldId: number,
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
   erOverstyrt: boolean,
-  intl: any,
-): string | null => {
+  intl: IntlShape,
+): string | undefined => {
+  if (aktiviteterTomDatoMapping.length < 1) {
+    return undefined; // Ingenting å validere mot
+  }
   if (
     VurderAktiviteterPanel.harIngenAktiviteter(
       getValues(`avklarAktiviteterForm.${fieldId}`),
@@ -125,7 +128,7 @@ const validate = (
   ) {
     return intl.formatMessage({ id: 'VurderAktiviteterTabell.Validation.MåHaMinstEnAktivitet' });
   }
-  return null;
+  return undefined;
 };
 
 const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
@@ -151,7 +154,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   const fieldIsDirty = Object.keys(dirtyFields).length > 0;
 
   const harOverstyrAvklaringsbehov = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
-  const erOverstyrtAktivt = getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
+  const erOverstyrtAktivt = !!getValues(`avklarAktiviteterForm.${fieldId}`).manuellOverstyringBeregningAktiviteter;
   const [erOverstyrtKnappTrykket, setErOverstyrtKnappTrykket] = useState<boolean>(
     harOverstyrAvklaringsbehov || erOverstyrtAktivt,
   );
@@ -179,13 +182,22 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       )
       .filter(ap => isAvklaringsbehovOpen(ap.status)).length === 0;
 
-  const feilmelding = validate(watch, fieldId, avklarAktiviteter.aktiviteterTomDatoMapping, erOverstyrtAktivt, intl);
+  const feilmelding = validate(
+    watch,
+    fieldId,
+    avklarAktiviteter.aktiviteterTomDatoMapping || [],
+    erOverstyrtAktivt,
+    intl,
+  );
   const skjemaNavn = `vurderAktiviteterSkjema.${fieldId}`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
+  if (!avklarAktiviteter.aktiviteterTomDatoMapping || avklarAktiviteter.aktiviteterTomDatoMapping.length < 1) {
+    return null; // Ingen aktiviteter å vise
+  }
   return (
     <>
-      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && (
+      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) && !isAvklaringsbehovClosed && (
         <Alert size="small" variant="warning">
           <Heading size="xsmall" level="3">
             <FormattedMessage

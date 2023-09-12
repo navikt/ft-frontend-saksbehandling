@@ -26,7 +26,7 @@ type OwnProps = {
 interface StaticFunctions {
   buildInitialValues: (
     avklaringsbehov: BeregningAvklaringsbehov[],
-    vurderBesteberegning: VurderBesteberegning,
+    vurderBesteberegning: VurderBesteberegning | undefined,
     faktaOmBeregningTilfeller: string[],
     erOverstyrt: boolean,
   ) => VurderBesteberegningValues;
@@ -82,7 +82,7 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
 
 VurderBesteberegningPanelImpl.buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
-  vurderBesteberegning: VurderBesteberegning,
+  vurderBesteberegning: VurderBesteberegning | undefined,
   faktaOmBeregningTilfeller: string[],
   erOverstyrt: boolean,
 ): VurderBesteberegningValues => {

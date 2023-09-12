@@ -2,16 +2,11 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/react';
 import userEvent from '@testing-library/user-event';
-import { Modal } from '@navikt/ds-react';
 import * as stories from './MenyEndreBehandlendeEnhetIndex.stories';
 
 const { Default } = composeStories(stories);
 
 describe('<MenyEndreBehandlendeEnhetIndex>', () => {
-  if (Modal.setAppElement) {
-    Modal.setAppElement('body');
-  }
-
   it('skal velge og lagre ny enhet', async () => {
     const lagreNyBehandlendeEnhet = vi.fn();
     const lukkModal = vi.fn();

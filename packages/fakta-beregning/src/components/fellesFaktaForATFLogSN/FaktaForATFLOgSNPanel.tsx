@@ -9,12 +9,7 @@ import {
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import {
-  FaktaOmBeregningAksjonspunktValues,
-  FaktaOmBeregningValues,
-  FaktaStateProps,
-  TilfellerValues,
-} from '../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import {
   BeregningFaktaTransformedValues,
@@ -43,13 +38,19 @@ import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
-export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning =>
-  beregningsgrunnlag.faktaOmBeregning;
+export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning => {
+  if (!beregningsgrunnlag.faktaOmBeregning) {
+    throw new Error('Mangler fakta om beregning, ugyldig tilstand');
+  }
+  return beregningsgrunnlag.faktaOmBeregning;
+};
+
 export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold || undefined;
 
 export const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse || undefined;
+
 export const getFaktaOmBeregningTilfellerKoder = (beregningsgrunnlag: Beregningsgrunnlag): string[] =>
   getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller || [];
 
@@ -278,68 +279,61 @@ export const transformValuesFaktaForATFLOgSN = (
 const getVurderFaktaAksjonspunkt = (avklaringsbehov: BeregningAvklaringsbehov[]) =>
   avklaringsbehov ? avklaringsbehov.find(ap => ap.definisjon === VURDER_FAKTA_FOR_ATFL_SN) : undefined;
 
-const buildInitialValuesForTilfeller = (props: FaktaStateProps): TilfellerValues => ({
-  tidsbegrensetValues: TidsbegrensetArbeidsforholdForm.buildInitialValues(props.kortvarigeArbeidsforhold),
-  vurderMottarYtelseValues: VurderMottarYtelseForm.buildInitialValues(props.vurderMottarYtelse, props.tilfeller),
-  arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(
-    props.beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
-  ),
-  vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
-    props.tilfeller,
-    props.refusjonskravSomKommerForSentListe,
-  ),
-  ...VurderMilitaer.buildInitialValues(props.faktaOmBeregning),
-  ...NyIArbeidslivetSNForm.buildInitialValues(props.beregningsgrunnlag),
-  ...LonnsendringForm.buildInitialValues(props.beregningsgrunnlag),
-  ...NyoppstartetFLForm.buildInitialValues(props.beregningsgrunnlag),
-  ...VurderEtterlonnSluttpakkeForm.buildInitialValues(props.beregningsgrunnlag, props.vurderFaktaAP),
-  ...VurderBesteberegningForm.buildInitialValues(
-    props.avklaringsbehov,
-    props.vurderBesteberegning,
-    props.tilfeller,
-    props.erOverstyrt,
-  ),
-  ...VurderOgFastsettATFL.buildInitialValues(
-    props.faktaOmBeregning,
-    props.erOverstyrt,
-    props.arbeidsgiverOpplysningerPerId,
-    props.kodeverkSamling,
-  ),
-  ...buildInitialValuesKunYtelse(
-    props.kunYtelse,
-    props.tilfeller,
-    props.faktaOmBeregning.andelerForFaktaOmBeregning,
-    props.arbeidsgiverOpplysningerPerId,
-    props.kodeverkSamling,
-  ),
-});
-
-const mapStateToBuildInitialValuesProps = (ownProps: OwnProps) => ({
-  beregningsgrunnlag: ownProps.beregningsgrunnlag,
-  kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(ownProps.beregningsgrunnlag),
-  vurderFaktaAP: getVurderFaktaAksjonspunkt(ownProps.beregningsgrunnlag.avklaringsbehov),
-  kunYtelse: getKunYtelse(ownProps.beregningsgrunnlag),
-  tilfeller: getFaktaOmBeregningTilfellerKoder(ownProps.beregningsgrunnlag),
-  vurderMottarYtelse: getVurderMottarYtelse(ownProps.beregningsgrunnlag),
-  vurderBesteberegning: getVurderBesteberegning(ownProps.beregningsgrunnlag),
-  kodeverkSamling: ownProps.kodeverkSamling,
-  avklaringsbehov: ownProps.beregningsgrunnlag.avklaringsbehov,
-  faktaOmBeregning: getFaktaOmBeregning(ownProps.beregningsgrunnlag),
-  arbeidsgiverOpplysningerPerId: ownProps.arbeidsgiverOpplysningerPerId,
-  refusjonskravSomKommerForSentListe: getArbeidsgiverInfoForRefusjonskravSomKommerForSent(ownProps.beregningsgrunnlag),
-  erOverstyrt: erInitialOverstyringAvBeregningsgrunnlag(ownProps.beregningsgrunnlag),
-});
-
-export const getBuildInitialValuesFaktaForATFLOgSN = (props: OwnProps): FaktaOmBeregningValues => {
-  const initialValuesFromProps: FaktaStateProps = mapStateToBuildInitialValuesProps(props);
+export const getBuildInitialValuesFaktaForATFLOgSN = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  kodeverkSamling: KodeverkForPanel,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+): FaktaOmBeregningValues => {
+  const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
+  const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
   return {
-    tilfeller: initialValuesFromProps.tilfeller,
-    kortvarigeArbeidsforhold: initialValuesFromProps.kortvarigeArbeidsforhold,
-    faktaOmBeregning: initialValuesFromProps.faktaOmBeregning,
-    beregningsgrunnlag: initialValuesFromProps.beregningsgrunnlag,
-    vurderMottarYtelse: initialValuesFromProps.vurderMottarYtelse,
-    kunYtelse: initialValuesFromProps.kunYtelse,
-    ...buildInitialValuesForTilfeller(initialValuesFromProps),
+    beregningsgrunnlag,
+    tilfeller,
+    faktaOmBeregning,
+    kortvarigeArbeidsforhold: getKortvarigeArbeidsforhold(beregningsgrunnlag),
+    vurderMottarYtelse: getVurderMottarYtelse(beregningsgrunnlag),
+    kunYtelse: getKunYtelse(beregningsgrunnlag),
+    tidsbegrensetValues: TidsbegrensetArbeidsforholdForm.buildInitialValues(
+      getKortvarigeArbeidsforhold(beregningsgrunnlag),
+    ),
+    vurderMottarYtelseValues: VurderMottarYtelseForm.buildInitialValues(
+      getVurderMottarYtelse(beregningsgrunnlag),
+      tilfeller,
+    ),
+    arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(
+      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+    ),
+    vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
+      tilfeller,
+      getArbeidsgiverInfoForRefusjonskravSomKommerForSent(beregningsgrunnlag),
+    ),
+    ...VurderMilitaer.buildInitialValues(faktaOmBeregning),
+    ...NyIArbeidslivetSNForm.buildInitialValues(beregningsgrunnlag),
+    ...LonnsendringForm.buildInitialValues(beregningsgrunnlag),
+    ...NyoppstartetFLForm.buildInitialValues(beregningsgrunnlag),
+    ...VurderEtterlonnSluttpakkeForm.buildInitialValues(
+      beregningsgrunnlag,
+      getVurderFaktaAksjonspunkt(beregningsgrunnlag.avklaringsbehov),
+    ),
+    ...VurderBesteberegningForm.buildInitialValues(
+      beregningsgrunnlag.avklaringsbehov,
+      getVurderBesteberegning(beregningsgrunnlag),
+      tilfeller,
+      erInitialOverstyringAvBeregningsgrunnlag(beregningsgrunnlag),
+    ),
+    ...VurderOgFastsettATFL.buildInitialValues(
+      faktaOmBeregning,
+      erInitialOverstyringAvBeregningsgrunnlag(beregningsgrunnlag),
+      arbeidsgiverOpplysningerPerId,
+      kodeverkSamling,
+    ),
+    ...buildInitialValuesKunYtelse(
+      getKunYtelse(beregningsgrunnlag),
+      tilfeller,
+      faktaOmBeregning.andelerForFaktaOmBeregning,
+      arbeidsgiverOpplysningerPerId,
+      kodeverkSamling,
+    ),
   };
 };
 

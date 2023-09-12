@@ -63,15 +63,8 @@ class DataFetchPendingModal extends Component<OwnProps, OwnState> {
     const { pendingMessage } = this.props;
 
     return (
-      <Modal
-        className={styles.modal}
-        open
-        closeButton={false}
-        aria-label={pendingMessage}
-        onClose={doNothing}
-        shouldCloseOnOverlayClick={false}
-      >
-        <Modal.Content>
+      <Modal width="small" open aria-label={pendingMessage} onClose={doNothing}>
+        <Modal.Body>
           <FlexContainer>
             <FlexRow>
               <FlexColumn>
@@ -85,7 +78,7 @@ class DataFetchPendingModal extends Component<OwnProps, OwnState> {
               </FlexColumn>
             </FlexRow>
           </FlexContainer>
-        </Modal.Content>
+        </Modal.Body>
       </Modal>
     );
   }

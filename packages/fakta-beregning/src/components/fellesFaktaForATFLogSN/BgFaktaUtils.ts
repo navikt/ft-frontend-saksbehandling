@@ -37,30 +37,22 @@ export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 const preutfyllInntektskategori = (andel: AndelForFaktaOmBeregning) =>
   andel.inntektskategori && andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '';
 
-export const setArbeidsforholdInitialValues = (andel: AndelForFaktaOmBeregning) => ({
-  arbeidsgiverId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsgiverIdent : null,
-  arbeidsforholdId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdId : null,
-  arbeidsperiodeFom: andel.arbeidsforhold ? andel.arbeidsforhold.startdato : '',
-  arbeidsperiodeTom: andel.arbeidsforhold ? andel.arbeidsforhold.opphoersdato : '',
-  arbeidsforholdType: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdType : null,
-});
-
 const lagVisningsnavn = (
   andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
-): string => {
-  const agOpplysning = andel.arbeidsforhold
+): string | undefined => {
+  const agOpplysning = andel.arbeidsforhold?.arbeidsgiverIdent
     ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]
     : undefined;
   if (!agOpplysning) {
-    return andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
+    return andel.arbeidsforhold?.arbeidsforholdType
       ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-          oat => oat.kode === andel.arbeidsforhold.arbeidsforholdType,
+          oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType,
         )?.navn
       : kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(at => at.kode === andel.aktivitetStatus)?.navn;
   }
-  return createVisningsnavnFakta(agOpplysning, andel.arbeidsforhold.eksternArbeidsforholdId);
+  return createVisningsnavnFakta(agOpplysning, andel.arbeidsforhold?.eksternArbeidsforholdId);
 };
 
 export const setGenerellAndelsinfo = (
@@ -68,19 +60,12 @@ export const setGenerellAndelsinfo = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): GenerellAndelInfo => ({
-  andel: lagVisningsnavn(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling),
+  andel: lagVisningsnavn(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling) || '',
   aktivitetStatus: andel.aktivitetStatus,
   andelsnr: andel.andelsnr,
   nyAndel: false,
   inntektskategori: preutfyllInntektskategori(andel),
   lagtTilAvSaksbehandler: andel.lagtTilAvSaksbehandler === true,
-});
-
-export const mapAndelFieldIdentifikator = (andel: AndelForFaktaOmBeregning): AndelFieldIdentifikator => ({
-  aktivitetStatus: andel.aktivitetStatus,
-  andelsnr: andel.andelsnr,
-  arbeidsgiverId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsgiverIdent : null,
-  arbeidsforholdType: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdType : null,
 });
 
 const atflSammeOrgListeInneholderAndel = (
@@ -301,8 +286,13 @@ export const mapAndelToField = (
   kodeverkSamling: KodeverkForPanel,
 ): AndelFieldValue => ({
   ...setGenerellAndelsinfo(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling),
-  ...setArbeidsforholdInitialValues(andel),
-  ...mapAndelFieldIdentifikator(andel),
+  arbeidsforholdId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdId : undefined,
+  arbeidsperiodeFom: andel.arbeidsforhold ? andel.arbeidsforhold.startdato : '',
+  arbeidsperiodeTom: andel.arbeidsforhold ? andel.arbeidsforhold.opphoersdato : '',
+  arbeidsforholdType: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdType : undefined,
+  aktivitetStatus: andel.aktivitetStatus,
+  andelsnr: andel.andelsnr,
+  arbeidsgiverId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsgiverIdent : undefined,
   skalKunneEndreAktivitet: andel.skalKunneEndreAktivitet,
   fastsattBelop: andel.fastsattBelop || andel.fastsattBelop === 0 ? formatCurrencyNoKr(andel.fastsattBelop) : '',
   belopReadOnly: andel.belopReadOnly || andel.belopReadOnly === 0 ? formatCurrencyNoKr(andel.belopReadOnly) : '',

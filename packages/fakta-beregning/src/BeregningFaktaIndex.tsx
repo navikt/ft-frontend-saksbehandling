@@ -94,7 +94,7 @@ const BeregningFaktaIndex: FunctionComponent<
   skalKunneAvbryteOverstyring = false,
 }) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
-  const [, getVurderFaktaBeregningFormErrors] = useState(undefined);
+  const [, setVurderFaktaBeregningFormErrors] = useState(undefined);
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
@@ -132,7 +132,8 @@ const BeregningFaktaIndex: FunctionComponent<
             </Tabs>
           </div>
         )}
-        <GetErrorsContext.Provider value={getVurderFaktaBeregningFormErrors}>
+        {/* @ts-ignore Fiks denne */}
+        <GetErrorsContext.Provider value={setVurderFaktaBeregningFormErrors}>
           <BeregningInfoPanel
             aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
             beregningsgrunnlag={beregningsgrunnlag}

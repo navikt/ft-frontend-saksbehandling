@@ -1,4 +1,4 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import VurderMottarYtelseForm from './VurderMottarYtelseForm';
@@ -39,6 +39,7 @@ const arbeidsforhold3 = {
 } as BeregningsgrunnlagArbeidsforhold;
 
 const andel = {
+  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   andelsnr: 1,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
@@ -46,6 +47,7 @@ const andel = {
 };
 
 const andel2 = {
+  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   andelsnr: 2,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
@@ -53,6 +55,7 @@ const andel2 = {
 };
 
 const andel3 = {
+  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
   andelsnr: 3,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
@@ -60,7 +63,7 @@ const andel3 = {
 };
 
 const arbeidstakerAndelerUtenIM = [
-  { ...andel, mottarYtelse: null } as ArbeidstakerUtenIMAndel,
+  { ...andel, mottarYtelse: undefined } as ArbeidstakerUtenIMAndel,
   { ...andel2, mottarYtelse: false } as ArbeidstakerUtenIMAndel,
   { ...andel3, mottarYtelse: true } as ArbeidstakerUtenIMAndel,
 ];
@@ -69,17 +72,17 @@ describe('<VurderMottarYtelseForm>', () => {
   it('skal teste at initial values bygges korrekt uten dto til stede', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const initialValues = VurderMottarYtelseForm.buildInitialValues(undefined, tilfeller);
-    expect(initialValues).toBe(null);
+    expect(initialValues).toBe({});
   });
 
   it('skal teste at initial values bygges korrekt med frilans uten definert mottar ytelse', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const mottarYtelse = {
       erFrilans: true,
-      frilansMottarYtelse: null,
+      frilansMottarYtelse: undefined,
     };
     const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
-    expect(initialValues[finnFrilansFieldName()]).toBe(null);
+    expect(initialValues[finnFrilansFieldName()]).toBe(undefined);
   });
 
   it('skal teste at initial values bygges korrekt med frilans med mottar ytelse', () => {
@@ -111,7 +114,7 @@ describe('<VurderMottarYtelseForm>', () => {
     };
     const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
     expect(initialValues[finnFrilansFieldName()]).toBe(false);
-    expect(initialValues[utledArbeidsforholdFieldName(andel)]).toBe(null);
+    expect(initialValues[utledArbeidsforholdFieldName(andel)]).toBe(undefined);
     expect(initialValues[utledArbeidsforholdFieldName(andel2)]).toBe(false);
     expect(initialValues[utledArbeidsforholdFieldName(andel3)]).toBe(true);
   });
@@ -131,17 +134,18 @@ describe('<VurderMottarYtelseForm>', () => {
       andelerForFaktaOmBeregning: [],
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: {
+        [utledArbeidsforholdFieldName(andel)]: true,
+        [utledArbeidsforholdFieldName(andel2)]: false,
+        [utledArbeidsforholdFieldName(andel3)]: true,
+      },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       frilansInntektValues: {
         fastsattBelop: 10000,
       },
     };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = true;
-    const fastsatteAndelsnr = [];
+    const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,
@@ -149,7 +153,7 @@ describe('<VurderMottarYtelseForm>', () => {
       beregningsgrunnlag,
       fastsatteAndelsnr,
     );
-    const fastsatteInntekter = transformed.fastsattUtenInntektsmelding.andelListe;
+    const fastsatteInntekter = transformed.fastsattUtenInntektsmelding?.andelListe || [];
     expect(fastsatteAndelsnr.length).toBe(2);
     expect(fastsatteAndelsnr.find(nr => nr === andel.andelsnr) === undefined).toBe(false);
     expect(fastsatteAndelsnr.find(nr => nr === andel3.andelsnr) === undefined).toBe(false);
@@ -158,7 +162,7 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(fastsatteInntekter[0].fastsattBeløp).toBe(10000);
     expect(fastsatteInntekter[1].andelsnr).toBe(3);
     expect(fastsatteInntekter[1].fastsattBeløp).toBe(20000);
-    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
+    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller || [];
     expect(fastsatteTilfeller.length).toBe(2);
     expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
     expect(fastsatteTilfeller[1]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
@@ -179,17 +183,18 @@ describe('<VurderMottarYtelseForm>', () => {
       andelerForFaktaOmBeregning: [],
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: {
+        [utledArbeidsforholdFieldName(andel)]: true,
+        [utledArbeidsforholdFieldName(andel2)]: false,
+        [utledArbeidsforholdFieldName(andel3)]: true,
+      },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       frilansInntektValues: {
         fastsattBelop: 0,
       },
     };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = true;
-    const fastsatteAndelsnr = [];
+    const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,
@@ -197,7 +202,7 @@ describe('<VurderMottarYtelseForm>', () => {
       beregningsgrunnlag,
       fastsatteAndelsnr,
     );
-    const fastsatteInntekter = transformed.fastsattUtenInntektsmelding.andelListe;
+    const fastsatteInntekter = transformed.fastsattUtenInntektsmelding?.andelListe || [];
     expect(fastsatteAndelsnr.length).toBe(2);
     expect(fastsatteAndelsnr.find(nr => nr === andel.andelsnr) === undefined).toBe(false);
     expect(fastsatteAndelsnr.find(nr => nr === andel3.andelsnr) === undefined).toBe(false);
@@ -206,7 +211,7 @@ describe('<VurderMottarYtelseForm>', () => {
     expect(fastsatteInntekter[0].fastsattBeløp).toBe(0);
     expect(fastsatteInntekter[1].andelsnr).toBe(3);
     expect(fastsatteInntekter[1].fastsattBeløp).toBe(0);
-    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
+    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller || [];
     expect(fastsatteTilfeller.length).toBe(2);
     expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
     expect(fastsatteTilfeller[1]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
@@ -224,15 +229,16 @@ describe('<VurderMottarYtelseForm>', () => {
       andelerForFaktaOmBeregning: [],
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: {
+        [finnFrilansFieldName()]: true,
+      },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       frilansInntektValues: {
         fastsattBelop: 10000,
       },
     };
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
-    const fastsatteAndelsnr = [];
+    const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,
@@ -240,10 +246,10 @@ describe('<VurderMottarYtelseForm>', () => {
       beregningsgrunnlag,
       fastsatteAndelsnr,
     );
-    const fastsattInntekt = transformed.fastsettMaanedsinntektFL.maanedsinntekt;
+    const fastsattInntekt = transformed.fastsettMaanedsinntektFL?.maanedsinntekt;
     expect(fastsatteAndelsnr.length).toBe(1);
     expect(fastsattInntekt).toBe(10000);
-    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
+    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller || [];
     expect(fastsatteTilfeller.length).toBe(2);
     expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
     expect(fastsatteTilfeller[1]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
@@ -268,20 +274,20 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       andelerForFaktaOmBeregning: [],
     };
-    const fastsatteAndelsnr = [];
+    const fastsatteAndelsnr: number[] = [];
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: {
+        [finnFrilansFieldName()]: true,
+        [utledArbeidsforholdFieldName(andel)]: true,
+        [utledArbeidsforholdFieldName(andel2)]: false,
+        [utledArbeidsforholdFieldName(andel3)]: true,
+      },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       frilansInntektValues: {
         fastsattBelop: 10000,
       },
     };
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = true;
-
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,
@@ -290,16 +296,16 @@ describe('<VurderMottarYtelseForm>', () => {
       fastsatteAndelsnr,
     );
     expect(fastsatteAndelsnr.length).toBe(3);
-    const fastsattFrilansinntekt = transformed.fastsettMaanedsinntektFL.maanedsinntekt;
+    const fastsattFrilansinntekt = transformed.fastsettMaanedsinntektFL?.maanedsinntekt;
     expect(fastsattFrilansinntekt).toBe(10000);
 
-    const fastsatteArbeidsinntekter = transformed.fastsattUtenInntektsmelding.andelListe;
+    const fastsatteArbeidsinntekter = transformed.fastsattUtenInntektsmelding?.andelListe || [];
     expect(fastsatteArbeidsinntekter.length).toBe(2);
     expect(fastsatteArbeidsinntekter[0].andelsnr).toBe(1);
     expect(fastsatteArbeidsinntekter[0].fastsattBeløp).toBe(10000);
     expect(fastsatteArbeidsinntekter[1].andelsnr).toBe(3);
     expect(fastsatteArbeidsinntekter[1].fastsattBeløp).toBe(20000);
-    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller;
+    const fastsatteTilfeller = transformed.faktaOmBeregningTilfeller || [];
     expect(fastsatteTilfeller.length).toBe(3);
     expect(fastsatteTilfeller[0]).toBe(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
     expect(fastsatteTilfeller[2]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
@@ -326,14 +332,14 @@ describe('<VurderMottarYtelseForm>', () => {
     };
     const fastsatteAndelsnr = [andel.andelsnr, andel3.andelsnr];
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: {
+        [utledArbeidsforholdFieldName(andel)]: true,
+        [utledArbeidsforholdFieldName(andel2)]: false,
+        [utledArbeidsforholdFieldName(andel3)]: true,
+      },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
     };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = true;
-
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,
@@ -361,11 +367,12 @@ describe('<VurderMottarYtelseForm>', () => {
     };
     const fastsatteAndelsnr = [4];
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: {
+        [finnFrilansFieldName()]: true,
+      },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
     };
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,

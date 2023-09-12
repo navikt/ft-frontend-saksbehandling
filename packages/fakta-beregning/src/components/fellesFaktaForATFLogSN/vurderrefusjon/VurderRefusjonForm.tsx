@@ -108,7 +108,7 @@ VurderRefusjonForm.transformValues = arbeidsgiverListe => values => {
 };
 
 VurderRefusjonForm.buildInitialValues = (tilfeller, arbeidsgiverListe): VurderRefusjonValues => {
-  const initialValues = {};
+  const initialValues: VurderRefusjonValues = {};
   if (!tilfeller.includes(VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT) || arbeidsgiverListe.length === 0) {
     return initialValues;
   }

@@ -13,6 +13,7 @@ dayjs.extend(customParseFormat);
 export interface DatepickerProps {
   name: string;
   label?: string | ReactNode;
+  description?: string;
   validate?: ((value: string) => any)[];
   disabled?: boolean;
   isReadOnly?: boolean;
@@ -22,7 +23,6 @@ export interface DatepickerProps {
     toDate?: Date;
   };
   isEdited?: boolean;
-  strategy?: 'absolute' | 'fixed';
   defaultMonth?: Date;
   size?: 'medium' | 'small';
 }
@@ -30,13 +30,13 @@ export interface DatepickerProps {
 const Datepicker: FunctionComponent<DatepickerProps> = ({
   name,
   label,
+  description,
   validate = [],
   disabled = false,
   isReadOnly = false,
   onChange,
   disabledDays,
   isEdited,
-  strategy = 'absolute',
   defaultMonth,
   size,
 }): JSX.Element => {
@@ -101,13 +101,14 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   };
 
   return (
-    <DatePicker {...dpProps} strategy={strategy}>
+    <DatePicker {...dpProps}>
       <DatePicker.Input
         {...inputProps}
         onChange={onChangeInput}
         value={fieldValue}
         size="small"
         label={label}
+        description={description}
         disabled={disabled}
         error={getError(errors, name)}
       />

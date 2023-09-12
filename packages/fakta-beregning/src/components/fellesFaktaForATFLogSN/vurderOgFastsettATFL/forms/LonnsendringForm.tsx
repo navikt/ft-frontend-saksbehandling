@@ -89,7 +89,7 @@ const buildInitialLonnsendring = (alleATAndeler: BeregningsgrunnlagAndel[]): boo
 };
 
 LonnsendringForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): LønnsendringValues => {
-  const initialValues = {};
+  const initialValues: LønnsendringValues = {};
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
     return initialValues;
   }

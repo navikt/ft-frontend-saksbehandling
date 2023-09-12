@@ -8,7 +8,6 @@ import {
   FordelBeregningsgrunnlagPeriode,
   Vilkarperiode,
   BeregningsgrunnlagTilBekreftelse,
-  BeregningsgrunnlagMedId,
 } from '@navikt/ft-types';
 
 import { useFormContext } from 'react-hook-form';
@@ -63,14 +62,14 @@ export const transformFieldValuesFordelBeregning = (
 };
 
 export const buildFieldInitialValuesFordelBeregning = (
-  beregningsgrunnlag: BeregningsgrunnlagMedId,
+  beregningsgrunnlag: Beregningsgrunnlag,
   vilkårsperiode: Vilkarperiode,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagMedAksjonspunktValues => {
   const fordelBGPerioder = finnFordelPerioder(beregningsgrunnlag);
   return {
-    beregningsgrunnlagId: beregningsgrunnlag.beregningsgrunnlagId,
+    beregningsgrunnlagStp: beregningsgrunnlag.skjaeringstidspunktBeregning,
     periode: vilkårsperiode.periode,
     ...FaktaBegrunnelseTextField.buildInitialValues(
       findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov),

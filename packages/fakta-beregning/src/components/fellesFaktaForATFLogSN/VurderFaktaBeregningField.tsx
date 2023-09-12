@@ -9,7 +9,7 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, ReactElement } from 'react';
-import { UseFormGetValues, useFormContext } from 'react-hook-form';
+import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -338,8 +338,10 @@ const erOverstyrt = (index: number, getValues: UseFormGetValues<any>) => {
   return erOverstyringAvBeregningsgrunnlag(formValue);
 };
 
-const finnesFeilForBegrunnelse = (beregningsgrunnlagIndeks, errors) =>
-  !!errors.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.begrunnelseFaktaTilfeller;
+const finnesFeilForBegrunnelse = (
+  beregningsgrunnlagIndeks: number,
+  errors: FieldErrors<VurderFaktaBeregningFormValues>,
+): boolean => !!errors.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.begrunnelseFaktaTilfeller;
 
 const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
@@ -380,7 +382,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
               name={`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
               isSubmittable={submittable}
               isReadOnly={readOnly || !skalVurderes}
-              hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== null}
+              hasBegrunnelse={findBegrunnelse(avklaringsbehov) !== undefined}
             />
           )}
           <VerticalSpacer twentyPx />

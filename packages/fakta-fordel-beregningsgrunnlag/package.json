@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-fordel-beregningsgrunnlag",
   "description": "Fordeling av foreslått beregningsgrunnlag og fastsetting av refusjon",
-  "version": "7.2.35",
+  "version": "7.3.1",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -25,22 +25,22 @@
     "storybook": "storybook dev --quiet -p 7002"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "4.7.2",
-    "@navikt/ds-css": "4.7.2",
-    "@navikt/ds-react": "4.7.2",
-    "@navikt/ft-form-hooks": "^4.1.7",
-    "@navikt/ft-form-validators": "^2.0.39",
-    "@navikt/ft-kodeverk": "^2.1.19",
-    "@navikt/ft-types": "^2.1.21",
-    "@navikt/ft-ui-komponenter": "^2.0.42",
-    "@navikt/ft-utils": "^2.0.38",
+    "@navikt/aksel-icons": "5.4.1",
+    "@navikt/ds-css": "5.4.1",
+    "@navikt/ds-react": "5.4.1",
+    "@navikt/ft-form-hooks": "^4.2.1",
+    "@navikt/ft-form-validators": "^2.1.1",
+    "@navikt/ft-kodeverk": "^2.2.1",
+    "@navikt/ft-types": "^2.2.1",
+    "@navikt/ft-ui-komponenter": "^2.1.1",
+    "@navikt/ft-utils": "^2.1.1",
     "classnames": "2.3.2",
-    "core-js": "3.32.0",
+    "core-js": "3.32.2",
     "dayjs": "1.11.9",
     "react": "18.2.0",
-    "react-hook-form": "7.45.2",
-    "react-intl": "6.4.4",
-    "uuid": "9.0.0"
+    "react-hook-form": "7.46.1",
+    "react-intl": "6.4.6",
+    "uuid": "9.0.1"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "2.9.5",
@@ -60,20 +60,20 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.0.45",
-    "@navikt/ft-utils-test": "^2.0.35",
-    "@storybook/addon-actions": "7.1.1",
-    "@storybook/react": "7.1.1",
-    "@storybook/react-vite": "7.1.1",
+    "@navikt/ft-storybook-utils": "^2.1.1",
+    "@navikt/ft-utils-test": "^2.1.1",
+    "@storybook/addon-actions": "7.4.1",
+    "@storybook/react": "7.4.1",
+    "@storybook/react-vite": "7.4.1",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "cross-env": "7.0.3",
-    "eslint": "8.46.0",
-    "storybook": "7.1.1",
-    "stylelint": "15.10.2",
-    "typescript": "5.1.6",
-    "vite": "4.4.7",
-    "vitest": "0.33.0"
+    "eslint": "8.49.0",
+    "storybook": "7.4.1",
+    "stylelint": "15.10.3",
+    "typescript": "5.2.2",
+    "vite": "4.4.9",
+    "vitest": "0.34.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

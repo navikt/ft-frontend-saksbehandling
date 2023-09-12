@@ -53,7 +53,7 @@ export const transformValuesForKunYtelse = (
 };
 
 export const buildInitialValuesKunYtelse = (
-  kunYtelse: KunYtelse,
+  kunYtelse: KunYtelse | undefined,
   tilfeller: string[],
   faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,

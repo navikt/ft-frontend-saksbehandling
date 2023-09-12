@@ -11,7 +11,6 @@ export type FordelBeregningsgrunnlagGenerellAndelValues = {
 };
 
 export type FordelBeregningsgrunnlagArbeidAndelValues = {
-  arbeidsgiverNavn?: string;
   arbeidsgiverId?: string;
   arbeidsforholdId?: string;
   arbeidsperiodeFom?: string;
@@ -73,7 +72,7 @@ export type FordelBeregningsgrunnlagValues = {
 
 export type FordelBeregningsgrunnlagMedAksjonspunktValues = AksjonspunktValues &
   FordelBeregningsgrunnlagValues & {
-    beregningsgrunnlagId: string;
+    beregningsgrunnlagStp: string;
   };
 
 export type FordelBeregningsgrunnlagFormValues = {
@@ -92,7 +91,7 @@ export type VurderRefusjonValues = {
 };
 
 export type VurderRefusjonFieldValues = VurderRefusjonValues & {
-  beregningsgrunnlagId: string;
+  beregningsgrunnlagStp: string;
   begrunnelse: string;
   periode: {
     fom: string;
@@ -124,7 +123,7 @@ export type TilkommetAktivitetPeriodeValuesMedPerioder = {
 
 export type TilkommetAktivitetFieldValues = AksjonspunktValues &
   TilkommetAktivitetPeriodeValuesMedPerioder & {
-    beregningsgrunnlagId: string;
+    beregningsgrunnlagStp: string;
   };
 
 export type TilkommetAktivitetFormValues = {

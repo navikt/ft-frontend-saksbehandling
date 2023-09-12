@@ -103,8 +103,6 @@ const standardFaktaArbeidstakerAndel = {
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
-    arbeidsgiverNavn: 'Bedriften',
-    arbeidsgiverId: '12345678',
     arbeidsgiverIdent: '12345678',
     startdato: '2019-01-01',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
@@ -115,8 +113,6 @@ const standardFaktaArbeidstakerAndel2 = {
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
-    arbeidsgiverNavn: 'Bedriften2',
-    arbeidsgiverId: '12345679',
     arbeidsgiverIdent: '12345679',
     startdato: '2019-01-01',
     opphoersdato: '2020-01-01',
@@ -128,8 +124,6 @@ const tidsbegrensetFaktaArbeidstakerAndel = {
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
-    arbeidsgiverNavn: 'Bedriften3',
-    arbeidsgiverId: '12345671',
     arbeidsgiverIdent: '12345671',
     startdato: '2019-09-01',
     opphoersdato: '2020-01-01',
@@ -141,8 +135,6 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
-    arbeidsgiverNavn: 'Bedriften4',
-    arbeidsgiverId: '795349533',
     arbeidsgiverIdent: '795349533',
     startdato: '2019-09-01',
     arbeidsforholdType: OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE,

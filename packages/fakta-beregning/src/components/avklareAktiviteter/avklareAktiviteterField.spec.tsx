@@ -70,10 +70,10 @@ const aktivitetAAP = {
 
 const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
 
-const id1 = '3847238947232019-01-01';
-const id2 = '334534623342efj8343f34f2019-01-01';
-const id3 = '324234234234efj8343f34f2019-01-01';
-const idAAP = 'AAP2019-01-01';
+const id1: string = '3847238947232019-01-01';
+const id2: string = '334534623342efj8343f34f2019-01-01';
+const id3: string = '324234234234efj8343f34f2019-01-01';
+const idAAP: string = 'AAP2019-01-01';
 
 const vilkarPeriode = {
   vurderesIBehandlingen: true,
@@ -174,40 +174,45 @@ describe('<AvklareAktiviteterField>', () => {
     } as AvklarBeregningAktiviteterMap;
     const values = {
       avklarAktiviteter,
-      aktiviteterValues: {},
+      aktiviteterValues: {
+        [id1]: {
+          skalBrukes: 'false',
+          beregningAktivitetNavn: 'test',
+          fom: aktivitet1.fom,
+          tom: aktivitet1.tom,
+        },
+        [id2]: {
+          skalBrukes: 'true',
+          beregningAktivitetNavn: 'test',
+          fom: aktivitet2.fom,
+          tom: aktivitet2.tom,
+        },
+        [id3]: {
+          skalBrukes: 'false',
+          beregningAktivitetNavn: 'test',
+          fom: aktivitet3.fom,
+          tom: aktivitet3.tom,
+        },
+        [idAAP]: {
+          skalBrukes: 'false',
+          beregningAktivitetNavn: 'test',
+          fom: aktivitetAAP.fom,
+          tom: aktivitetAAP.tom,
+        },
+      },
       avklaringsbehov: avklarAktiviteterAvklaringsbehov,
     } as AvklarAktiviteterValues;
-    values.aktiviteterValues[id1] = {
-      skalBrukes: 'false',
-      beregningAktivitetNavn: 'test',
-      fom: aktivitet1.fom,
-      tom: aktivitet1.tom,
-    };
-    values.aktiviteterValues[id2] = {
-      skalBrukes: 'true',
-      beregningAktivitetNavn: 'test',
-      fom: aktivitet2.fom,
-      tom: aktivitet2.tom,
-    };
-    values.aktiviteterValues[id3] = {
-      skalBrukes: 'false',
-      beregningAktivitetNavn: 'test',
-      fom: aktivitet3.fom,
-      tom: aktivitet3.tom,
-    };
-    values.aktiviteterValues[idAAP] = {
-      skalBrukes: 'false',
-      beregningAktivitetNavn: 'test',
-      fom: aktivitetAAP.fom,
-      tom: aktivitetAAP.tom,
-    };
     values.erTilVurdering = true;
 
     const transformed = transformFieldValue(values);
-    expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(3);
-    expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(aktivitet2.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator).toBe(aktivitet3.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType).toBe(
+    expect(transformed?.beregningsaktivitetLagreDtoList.length).toBe(3);
+    expect(transformed?.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(
+      aktivitet2.arbeidsgiverIdent,
+    );
+    expect(transformed?.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator).toBe(
+      aktivitet3.arbeidsgiverIdent,
+    );
+    expect(transformed?.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType).toBe(
       aktivitetAAP.arbeidsforholdType,
     );
   });
@@ -222,46 +227,49 @@ describe('<AvklareAktiviteterField>', () => {
         },
       ],
     } as AvklarBeregningAktiviteterMap;
-    const aps = [];
     const values = {
       avklarAktiviteter,
-      aktiviteterValues: {},
-      aksjonspunkter: aps,
+      aktiviteterValues: {
+        [id1]: {
+          skalBrukes: undefined,
+          beregningAktivitetNavn: 'test',
+          fom: aktivitet1.fom,
+          tom: aktivitet1.tom,
+        },
+        [id2]: {
+          skalBrukes: 'true',
+          beregningAktivitetNavn: 'test',
+          fom: aktivitet2.fom,
+          tom: aktivitet2.tom,
+        },
+        [id3]: {
+          skalBrukes: 'false',
+          beregningAktivitetNavn: 'test',
+          fom: aktivitet3.fom,
+          tom: aktivitet3.tom,
+        },
+        [idAAP]: {
+          skalBrukes: 'true',
+          beregningAktivitetNavn: 'test',
+          fom: aktivitetAAP.fom,
+          tom: aktivitetAAP.tom,
+        },
+      },
     } as AvklarAktiviteterValues;
-    values.aktiviteterValues[id1] = {
-      skalBrukes: null,
-      beregningAktivitetNavn: 'test',
-      fom: aktivitet1.fom,
-      tom: aktivitet1.tom,
-    };
-    values.aktiviteterValues[id2] = {
-      skalBrukes: 'true',
-      beregningAktivitetNavn: 'test',
-      fom: aktivitet2.fom,
-      tom: aktivitet2.tom,
-    };
-    values.aktiviteterValues[id3] = {
-      skalBrukes: 'false',
-      beregningAktivitetNavn: 'test',
-      fom: aktivitet3.fom,
-      tom: aktivitet3.tom,
-    };
-    values.aktiviteterValues[idAAP] = {
-      skalBrukes: 'true',
-      beregningAktivitetNavn: 'test',
-      fom: aktivitetAAP.fom,
-      tom: aktivitetAAP.tom,
-    };
     values.begrunnelseAvklareAktiviteter = 'begrunnelse';
     values.manuellOverstyringBeregningAktiviteter = true;
     values.erTilVurdering = true;
     const transformed = transformFieldValue(values);
-    expect(transformed.beregningsaktivitetLagreDtoList.length).toBe(3);
-    expect(transformed.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(aktivitet2.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator).toBe(aktivitet3.arbeidsgiverIdent);
-    expect(transformed.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType).toBe(
+    expect(transformed?.beregningsaktivitetLagreDtoList.length).toBe(3);
+    expect(transformed?.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(
+      aktivitet2.arbeidsgiverIdent,
+    );
+    expect(transformed?.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator).toBe(
+      aktivitet3.arbeidsgiverIdent,
+    );
+    expect(transformed?.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType).toBe(
       aktivitetAAP.arbeidsforholdType,
     );
-    expect(transformed.begrunnelse).toBe('begrunnelse');
+    expect(transformed?.begrunnelse).toBe('begrunnelse');
   });
 });

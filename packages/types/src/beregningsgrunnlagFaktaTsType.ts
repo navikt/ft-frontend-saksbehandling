@@ -4,7 +4,7 @@ export type FaktaOmBeregningAndel = Readonly<{
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
   andelsnr?: number;
   inntektskategori?: string;
-  aktivitetStatus?: string;
+  aktivitetStatus: string;
 }>;
 
 export type AndelForFaktaOmBeregning = Readonly<{
@@ -12,7 +12,7 @@ export type AndelForFaktaOmBeregning = Readonly<{
   andelsnr?: number;
   refusjonskrav?: number;
   inntektskategori?: string;
-  aktivitetStatus?: string;
+  aktivitetStatus: string;
   belopReadOnly?: number;
   fastsattBelop?: number;
   skalKunneEndreAktivitet?: boolean;
@@ -36,10 +36,9 @@ export type BeregningAktivitet = Readonly<{
   arbeidsgiverIdent?: string;
   eksternArbeidsforholdId?: string;
   fom: string;
-  tom?: string;
+  tom: string;
   arbeidsforholdId?: string;
   arbeidsforholdType: string;
-  aktørIdString?: string;
   skalBrukes?: boolean;
 }>;
 

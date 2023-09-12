@@ -227,7 +227,6 @@ const settOppKomponenterForNæring = (
 };
 
 const settOppKomponenterForATFL = (
-  avklaringsbehov: BeregningAvklaringsbehov,
   kodeverkSamling: KodeverkForPanel,
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -248,7 +247,6 @@ const settOppKomponenterForATFL = (
           formName={formName}
           allePerioder={allePerioder}
           kodeverkSamling={kodeverkSamling}
-          avklaringsbehov={avklaringsbehov}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldIndex={fieldIndex}
         />
@@ -509,7 +507,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     const ab = finnAvklaringsbehov(avklaringsbehovForBG);
     if (lovparagraf === LovParagraf.ÅTTE_TRETTI && ab) {
       return settOppKomponenterForATFL(
-        ab,
         kodeverkSamling,
         bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
         arbeidsgiverOpplysningerPerId,

@@ -30,7 +30,7 @@ type TransformedValues = {
 };
 
 interface StaticFunctions {
-  buildInitialValues: (hentetBegrunnelse: string, begrunnelseFieldName?: string) => FormValues;
+  buildInitialValues: (hentetBegrunnelse: string | undefined, begrunnelseFieldName?: string) => FormValues;
   transformValues: (values: FormValues, name?: string) => TransformedValues;
 }
 
@@ -71,7 +71,7 @@ FaktaBegrunnelseTextField.defaultProps = {
 };
 
 FaktaBegrunnelseTextField.buildInitialValues = (
-  hentetBegrunnelse: string,
+  hentetBegrunnelse: string | undefined,
   begrunnelseFieldName = 'begrunnelse',
 ): FormValues => ({
   [begrunnelseFieldName]: decodeHtmlEntity(hentetBegrunnelse),
