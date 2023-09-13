@@ -250,6 +250,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
               isAksjonspunktClosed={isAksjonspunktClosed}
               readOnly={readOnly}
               tilfeller={tilfeller}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             />
             {renderTextFieldAndSubmitButton()}
           </>
@@ -270,6 +271,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
               isAksjonspunktClosed={isAksjonspunktClosed}
               readOnly={readOnly}
               tilfeller={tilfeller}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             />
             {renderTextFieldAndSubmitButton()}
           </AksjonspunktBoks>

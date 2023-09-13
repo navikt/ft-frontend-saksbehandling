@@ -84,7 +84,7 @@ export type DagpengerinntektValues = {
 
 export type ArbeidstakerInntektValues = {
   fastsattBelop: number;
-  arbeidsgiverId: string;
+  arbeidsgiverIdent: string;
 };
 
 export type TilfellerValues = VurderMilitærValues &

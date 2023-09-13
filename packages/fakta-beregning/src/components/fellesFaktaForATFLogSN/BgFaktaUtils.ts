@@ -183,57 +183,53 @@ const harKunYtelse = (faktaOmBeregning: FaktaOmBeregning): boolean =>
   faktaOmBeregning.faktaOmBeregningTilfeller.find(kode => kode === FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !==
     undefined;
 
-const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag =
-  (
-    values: FaktaOmBeregningAksjonspunktValues,
-    faktaOmBeregning: FaktaOmBeregning,
-    beregningsgrunnlag: Beregningsgrunnlag,
-  ) =>
-  (andel: AndelFieldIdentifikator): boolean => {
-    if (skalHaBesteberegning(values)) {
-      return true;
-    }
-    if (sokerMottarYtelseForAndel(values, andel, faktaOmBeregning, beregningsgrunnlag)) {
-      return true;
-    }
-    if (erATUtenInntektsmeldingMedLonnsendring(andel, values, faktaOmBeregning)) {
-      return true;
-    }
-    if (andelErStatusFLOgHarATISammeOrg(andel, faktaOmBeregning)) {
-      return true;
-    }
-    if (andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg(andel, faktaOmBeregning)) {
-      return true;
-    }
-    if (erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag)) {
-      return true;
-    }
-    if (erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse(andel, beregningsgrunnlag)) {
-      return true;
-    }
-    if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
-      return true;
-    }
-    return false;
-  };
+const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  faktaOmBeregning: FaktaOmBeregning,
+  beregningsgrunnlag: Beregningsgrunnlag,
+) => (andel: AndelFieldIdentifikator): boolean => {
+  if (skalHaBesteberegning(values)) {
+    return true;
+  }
+  if (sokerMottarYtelseForAndel(values, andel, faktaOmBeregning, beregningsgrunnlag)) {
+    return true;
+  }
+  if (erATUtenInntektsmeldingMedLonnsendring(andel, values, faktaOmBeregning)) {
+    return true;
+  }
+  if (andelErStatusFLOgHarATISammeOrg(andel, faktaOmBeregning)) {
+    return true;
+  }
+  if (andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg(andel, faktaOmBeregning)) {
+    return true;
+  }
+  if (erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag)) {
+    return true;
+  }
+  if (erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse(andel, beregningsgrunnlag)) {
+    return true;
+  }
+  if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
+    return true;
+  }
+  return false;
+};
 
-const skalKunneEndreTotaltBeregningsgrunnlag =
-  (
-    values: FaktaOmBeregningAksjonspunktValues,
-    faktaOmBeregning: FaktaOmBeregning,
-    beregningsgrunnlag: Beregningsgrunnlag,
-  ) =>
-  (andel: AndelFieldIdentifikator): boolean => {
-    if (
-      skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel)
-    ) {
-      return true;
-    }
-    if (erNyoppstartetFrilanser(andel, values)) {
-      return true;
-    }
-    return false;
-  };
+const skalKunneEndreTotaltBeregningsgrunnlag = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  faktaOmBeregning: FaktaOmBeregning,
+  beregningsgrunnlag: Beregningsgrunnlag,
+) => (andel: AndelFieldIdentifikator): boolean => {
+  if (
+    skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel)
+  ) {
+    return true;
+  }
+  if (erNyoppstartetFrilanser(andel, values)) {
+    return true;
+  }
+  return false;
+};
 
 // Overstyring
 
@@ -249,15 +245,13 @@ export const erOverstyringAvBeregningsgrunnlag = (values: FaktaOmBeregningAksjon
 export const erInitialOverstyringAvBeregningsgrunnlag = (beregningsgrunnlag: Beregningsgrunnlag) =>
   beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(beregningsgrunnlag.avklaringsbehov);
 
-export const skalFastsetteInntektForAndel =
-  (
-    values: FaktaOmBeregningAksjonspunktValues,
-    faktaOmBeregning: FaktaOmBeregning,
-    beregningsgrunnlag: Beregningsgrunnlag,
-  ) =>
-  (andel: AndelFieldIdentifikator): boolean =>
-    harKunYtelse(faktaOmBeregning) ||
-    skalKunneEndreTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
+export const skalFastsetteInntektForAndel = (
+  values: FaktaOmBeregningAksjonspunktValues,
+  faktaOmBeregning: FaktaOmBeregning,
+  beregningsgrunnlag: Beregningsgrunnlag,
+) => (andel: AndelFieldIdentifikator): boolean =>
+  harKunYtelse(faktaOmBeregning) ||
+  skalKunneEndreTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
 export const kanRedigereInntektForAndel = (values, faktaOmBeregning, beregningsgrunnlag) => andel =>
   erOverstyring(values) || skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel);
@@ -299,10 +293,13 @@ export const mapAndelToField = (
   refusjonskrav: andel.refusjonskrav || andel.refusjonskrav === 0 ? formatCurrencyNoKr(andel.refusjonskrav) : '',
 });
 
-export const getArbeidsgiverIndex = (arbeidstakerInntektValues: ArbeidstakerInntektValues[], arbeidsgiverId: string) =>
-  arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverId === arbeidsgiverId);
+export const getArbeidsgiverIndex = (
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
+  arbeidsgiverIdent: string,
+) => arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverIdent === arbeidsgiverIdent);
 
 export const getFastsattBelopFromArbeidstakerInntekt = (
   arbeidstakerInntektValues: ArbeidstakerInntektValues[],
-  arbeidsgiverId: string,
-) => arbeidstakerInntektValues?.find(arbeidsgiver => arbeidsgiver.arbeidsgiverId === arbeidsgiverId)?.fastsattBelop;
+  arbeidsgiverIdent: string,
+) =>
+  arbeidstakerInntektValues?.find(arbeidsgiver => arbeidsgiver.arbeidsgiverIdent === arbeidsgiverIdent)?.fastsattBelop;

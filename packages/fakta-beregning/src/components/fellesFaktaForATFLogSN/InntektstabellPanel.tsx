@@ -1,7 +1,7 @@
+import { Button, HStack, Heading, Label } from '@navikt/ds-react';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Button, Heading, Label } from '@navikt/ds-react';
+import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
@@ -52,10 +52,10 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
 
   const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
-  const kanOverstyre = useMemo(
-    () => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov),
-    [erOverstyrer, avklaringsbehov],
-  );
+  const kanOverstyre = useMemo(() => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov), [
+    erOverstyrer,
+    avklaringsbehov,
+  ]);
 
   const toggleOverstyring = () => {
     setOverstyring(!erTabellOverstyrt);
@@ -66,27 +66,19 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
       <VerticalSpacer thirtyTwoPx />
       {skalViseTabell && (
         <>
-          <FlexContainer>
-            <FlexRow>
-              <FlexColumn>
-                <Heading level="3" size="xsmall">
-                  <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
-                </Heading>
-              </FlexColumn>
-              {(kanOverstyre || erTabellOverstyrt) && (
-                <FlexColumn>
-                  <OverstyringKnapp
-                    onClick={toggleOverstyring}
-                    erOverstyrt={
-                      readOnly ||
-                      erTabellOverstyrt ||
-                      hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
-                    }
-                  />
-                </FlexColumn>
-              )}
-            </FlexRow>
-          </FlexContainer>
+          <HStack gap="4">
+            <Heading level="3" size="xsmall">
+              <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
+            </Heading>
+            {(kanOverstyre || erTabellOverstyrt) && (
+              <OverstyringKnapp
+                onClick={toggleOverstyring}
+                erOverstyrt={
+                  readOnly || erTabellOverstyrt || hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
+                }
+              />
+            )}
+          </HStack>
           <VerticalSpacer sixteenPx />
           {hjelpeTekstId && (
             <Label size="small">

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { Alert, Button, ErrorMessage, Heading, Label, List, ReadMore } from '@navikt/ds-react';
+import { Alert, Button, ErrorMessage, HStack, Heading, Label, List, ReadMore } from '@navikt/ds-react';
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -10,7 +10,7 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
@@ -221,20 +221,14 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
 
       <VerticalSpacer thirtyTwoPx />
 
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn>
-            <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
-              <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
-            </Label>
-          </FlexColumn>
-          {(erOverstyrer || harOverstyrAvklaringsbehov) && (
-            <FlexColumn>
-              <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
-            </FlexColumn>
-          )}
-        </FlexRow>
-      </FlexContainer>
+      <HStack gap="4">
+        <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
+          <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
+        </Label>
+        {(erOverstyrer || harOverstyrAvklaringsbehov) && (
+          <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
+        )}
+      </HStack>
 
       {erOverstyrtKnappTrykket && (
         <Label size="small">
@@ -271,37 +265,31 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
           {(hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) || erOverstyrtKnappTrykket) && (
             <>
               <VerticalSpacer twentyPx />
-              <FlexContainer>
-                <FlexRow>
-                  <FlexColumn>
-                    <SubmitButton
-                      text={intl.formatMessage({
-                        id: erOverstyrtKnappTrykket
-                          ? 'AvklarAktivitetPanel.OverstyrText'
-                          : 'AvklarAktivitetPanel.ButtonText',
-                      })}
-                      isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
-                      isDirty={fieldIsDirty}
-                      isSubmitting={submitDisabled}
-                      isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
-                      hasEmptyRequiredFields={finnesFeilForBegrunnelse}
-                    />
-                  </FlexColumn>
-                  {!!dirtyFields && fieldIsDirty && (
-                    <FlexColumn>
-                      <Button
-                        variant="secondary"
-                        loading={isSubmitting}
-                        disabled={isSubmitting}
-                        onClick={() => initializeForm(false)}
-                        size="small"
-                      >
-                        <FormattedMessage id="AvklareAktiviteter.Avbryt" />
-                      </Button>
-                    </FlexColumn>
-                  )}
-                </FlexRow>
-              </FlexContainer>
+              <HStack gap="4">
+                <SubmitButton
+                  text={intl.formatMessage({
+                    id: erOverstyrtKnappTrykket
+                      ? 'AvklarAktivitetPanel.OverstyrText'
+                      : 'AvklarAktivitetPanel.ButtonText',
+                  })}
+                  isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
+                  isDirty={fieldIsDirty}
+                  isSubmitting={submitDisabled}
+                  isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
+                  hasEmptyRequiredFields={finnesFeilForBegrunnelse}
+                />
+                {!!dirtyFields && fieldIsDirty && (
+                  <Button
+                    variant="secondary"
+                    loading={isSubmitting}
+                    disabled={isSubmitting}
+                    onClick={() => initializeForm(false)}
+                    size="small"
+                  >
+                    <FormattedMessage id="AvklareAktiviteter.Avbryt" />
+                  </Button>
+                )}
+              </HStack>
             </>
           )}
         </>

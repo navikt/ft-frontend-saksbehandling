@@ -72,7 +72,7 @@ describe('<VurderMottarYtelseForm>', () => {
   it('skal teste at initial values bygges korrekt uten dto til stede', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const initialValues = VurderMottarYtelseForm.buildInitialValues(undefined, tilfeller);
-    expect(initialValues).toBe({});
+    expect(initialValues).toEqual({});
   });
 
   it('skal teste at initial values bygges korrekt med frilans uten definert mottar ytelse', () => {

@@ -102,8 +102,8 @@ describe('<BeregningFaktaIndexSpec', () => {
     render(<ArbeidOgDagpengerAp5058EnPeriode />);
     const radioJa = screen.getByLabelText('Ja');
     await userEvent.click(radioJa);
-    expect(screen.getByLabelText('Månedsinntekt BEDRIFT AS (910909088)')).toBeInTheDocument();
-    expect(screen.getByLabelText('Månedsinntekt dagpenger')).toBeInTheDocument();
+    expect(screen.getByLabelText('Fastsett månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Fastsett månedsinntekt dagpenger')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     const valideringsmeldinger = await screen.findAllByText('Feltet må fylles ut');
     expect(valideringsmeldinger.length).toBe(3);
@@ -113,7 +113,7 @@ describe('<BeregningFaktaIndexSpec', () => {
     render(<ArbeidOgDagpengerAp5058EnPeriode />);
     const secondOverstyrknapp = screen.getAllByTestId('overstyringsknapp')[1];
     await userEvent.click(secondOverstyrknapp);
-    expect(screen.getByLabelText('Månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Fastsett månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     const valideringsmelding = await screen.findByText('Må ha overstyrt inntekt for minst én aktivitet.');
     expect(valideringsmelding).toBeInTheDocument();
@@ -122,13 +122,17 @@ describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne fastsette inntekt for kun ytelse', async () => {
     const lagre = vi.fn();
     render(<FastsettingAvBeregningsgrunnlagForKunYtelseAp5058 submitCallback={lagre} />);
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for ytelse 1'), '1234');
+    await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for ytelse 1'), '1234');
     await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 1'), 'Arbeidstaker');
-    expect(screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[0].selected).toBe(true);
+    expect(
+      screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[0].selected,
+    ).toBe(true);
     await userEvent.click(screen.getByRole('button', { name: 'Legg til aktivitet' }));
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for ytelse 2'), '5678');
+    await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for ytelse 2'), '5678');
     await userEvent.selectOptions(screen.getByLabelText('Inntektskategori for ytelse 2'), 'Arbeidstaker');
-    expect(screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[1].selected).toBe(true);
+    expect(
+      screen.getAllByRole<HTMLOptionElement>('option', { name: 'Arbeidstaker' })[1].selected,
+    ).toBe(true);
     await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     const forventetFeilmelding = await screen.findByText('Andeler for samme aktivitet må ha ulik inntektskategori');
@@ -184,15 +188,15 @@ describe('<BeregningFaktaIndexSpec', () => {
     expect(screen.queryByText('Aktiviteter i beregningsgrunnlaget')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ja'));
     await waitFor(() => {
-      expect(screen.getByLabelText('Månedsinntekt BEDRIFT AS (910909088)')).toBeInTheDocument();
-      expect(screen.getByLabelText('Månedsinntekt dagpenger')).toBeInTheDocument();
+      expect(screen.getByLabelText('Fastsett månedsinntekt for BEDRIFT AS (910909088)')).toBeInTheDocument();
+      expect(screen.getByLabelText('Fastsett månedsinntekt dagpenger')).toBeInTheDocument();
     });
-    await userEvent.type(screen.getByLabelText('Månedsinntekt BEDRIFT AS (910909088)'), '10');
-    await userEvent.type(screen.getByLabelText('Månedsinntekt dagpenger'), '20');
+    await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for BEDRIFT AS (910909088)'), '10');
+    await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt dagpenger'), '20');
     expect(screen.getAllByTestId('sum')[0].innerHTML).toBe('30');
     await userEvent.click(screen.getByLabelText('Nei'));
     await waitFor(() => {
-      expect(screen.queryByLabelText('Månedsinntekt dagpenger')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('Fastsett månedsinntekt dagpenger')).not.toBeInTheDocument();
     });
   });
 
@@ -206,21 +210,17 @@ describe('<BeregningFaktaIndexSpec', () => {
   it('skal kunne fastsette inntekt for arbeidstaker og frilanser i samme organisasjon', async () => {
     const lagre = vi.fn();
     render(<FrilansOgArbeidstakerISammeOrganisasjonAp5058 submitCallback={lagre} />);
-    expect(
-      screen.getByText(
-        'Søker er arbeidstaker og frilans i samme virksomhet og det er ikke mottatt inntektsmelding(er).',
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Søker er arbeidstaker og frilans i samme virksomhet.')).toBeInTheDocument();
     expect(
       screen.getByText(
         // eslint-disable-next-line max-len
         'Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.',
       ),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText('Månedsinntekt Bedriften (12345678)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Fastsett månedsinntekt for Bedriften (12345678)')).toBeInTheDocument();
     expect(screen.getByLabelText('Fastsett månedsinntekt for frilans')).toBeInTheDocument();
-    expect(screen.queryByLabelText('Månedsinntekt Bedriften2 (12345679)')).not.toBeInTheDocument();
-    await userEvent.type(screen.getByLabelText('Månedsinntekt Bedriften (12345678)'), '10');
+    expect(screen.queryByLabelText('Fastsett månedsinntekt for Bedriften (12345679)')).not.toBeInTheDocument();
+    await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for Bedriften (12345678)'), '10');
     await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for frilans'), '20');
     await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
@@ -462,8 +462,8 @@ describe('<BeregningFaktaIndexSpec', () => {
     await userEvent.click(screen.getAllByText('Overstyr')[1]);
     expect(screen.getByText('Har overstyrt')).toBeInTheDocument();
 
-    await userEvent.clear(screen.getByLabelText('Månedsinntekt for Arbeid'));
-    await userEvent.type(screen.getByLabelText('Månedsinntekt for Arbeid'), '50 000');
+    await userEvent.clear(screen.getByLabelText('Fastsett månedsinntekt for Arbeid'));
+    await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for Arbeid'), '50 000');
     expect(screen.getByText('50 000')).toBeInTheDocument();
 
     await userEvent.type(screen.getByLabelText('Begrunnelse'), 'Velbegrunnede endringer');

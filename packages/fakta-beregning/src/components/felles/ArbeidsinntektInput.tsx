@@ -1,5 +1,5 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ATFLSammeOrgAndel, AndelForFaktaOmBeregning } from '@navikt/ft-types';
+import { ATFLSammeOrgAndel, AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -9,19 +9,22 @@ import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningForm
 import { BeregningsgrunnlagIndexContext } from '../fellesFaktaForATFLogSN/VurderFaktaContext';
 import InntektInput from './InntektInput';
 
-export const getArbeidsgiverIndex = (arbeidstakerInntektValues: ArbeidstakerInntektValues[], arbeidsgiverId: string) =>
-  arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverId === arbeidsgiverId);
+export const getArbeidsgiverIndex = (
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
+  arbeidsgiverIdent: string,
+) => arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverIdent === arbeidsgiverIdent);
 
 interface ArbeidsinntektInputProps {
   arbeidsgiver: ATFLSammeOrgAndel;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   label?: React.ReactNode;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 
 export type FormValues = {
   fastsattBelop: number;
-  arbeidsgiverId: string;
+  arbeidsgiverIdent: string;
 };
 
 interface StaticFunctions {
@@ -33,13 +36,15 @@ const ArbeidsinntektInput: FunctionComponent<ArbeidsinntektInputProps> & StaticF
   readOnly,
   isAksjonspunktClosed,
   label,
+  arbeidsgiverOpplysningerPerId,
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues`);
-  const arbeidsgiverIndex = getArbeidsgiverIndex(formValues, arbeidsgiver.arbeidsforhold.arbeidsgiverId);
+  const arbeidsgiverIndex = getArbeidsgiverIndex(formValues, arbeidsgiver.arbeidsforhold.arbeidsgiverIdent);
 
   const fieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${arbeidsgiverIndex}.fastsattBelop`;
+  const arbeidsgiverNavn = arbeidsgiverOpplysningerPerId[arbeidsgiver.arbeidsforhold.arbeidsgiverIdent]?.navn;
 
   return (
     <>
@@ -53,7 +58,7 @@ const ArbeidsinntektInput: FunctionComponent<ArbeidsinntektInputProps> & StaticF
             <FormattedMessage
               id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
               values={{
-                bedrift: `${arbeidsgiver.arbeidsforhold.arbeidsgiverNavn} (${arbeidsgiver.arbeidsforhold.arbeidsgiverId})`,
+                bedrift: `${arbeidsgiverNavn} (${arbeidsgiver.arbeidsforhold.arbeidsgiverIdent})`,
               }}
             />
           )
@@ -70,7 +75,7 @@ ArbeidsinntektInput.buildInitialValues = (andelerForFaktaOmBeregning: AndelForFa
     .forEach(andel => {
       const arbeidsgiver = {
         fastsattBelop: '',
-        arbeidsgiverId: andel.arbeidsforhold.arbeidsgiverId,
+        arbeidsgiverIdent: andel.arbeidsforhold.arbeidsgiverIdent,
       };
       initialValues.push(arbeidsgiver);
     });

@@ -54,9 +54,10 @@ const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   lagtTilAvSaksbehandler: true,
 });
 
-const skalViseSletteknapp = (index, fields, readOnly) => fields[index].skalKunneEndreAktivitet === true && !readOnly;
+const skalViseSletteknapp = (index: number, fields: AndelFieldValue[], readOnly: boolean) =>
+  fields[index].skalKunneEndreAktivitet === true && !readOnly;
 
-const skalViseRefusjon = fields => {
+const skalViseRefusjon = (fields: AndelFieldValue[]) => {
   let skalVise = false;
   fields.forEach(field => {
     if (field.refusjonskrav !== '' && field.refusjonskrav !== null && field.refusjonskrav !== undefined) {
@@ -66,7 +67,7 @@ const skalViseRefusjon = fields => {
   return skalVise;
 };
 
-const skalVisePeriode = fields => {
+const skalVisePeriode = (fields: AndelFieldValue[]) => {
   let skalVise = false;
   fields.forEach(field => {
     if (field.arbeidsgiverId !== '') {
@@ -80,7 +81,11 @@ const removeAndel = (index, remove) => () => {
   remove(index);
 };
 
-const createBruttoBGSummaryRow = (fields, readOnly, beregningsgrunnlag) => (
+const createBruttoBGSummaryRow = (
+  fields: AndelFieldValue[],
+  readOnly: boolean,
+  beregningsgrunnlag: Beregningsgrunnlag,
+) => (
   <SummaryRow
     key="summaryRow"
     readOnly={readOnly}
@@ -258,10 +263,10 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   });
   const intl = useIntl();
 
-  const getKanRedigereInntektCallback = useCallback(
-    () => getKanRedigereInntekt(formValues, beregningsgrunnlag),
-    [formValues, beregningsgrunnlag],
-  );
+  const getKanRedigereInntektCallback = useCallback(() => getKanRedigereInntekt(formValues, beregningsgrunnlag), [
+    formValues,
+    beregningsgrunnlag,
+  ]);
 
   useEffect(() => {
     const currentFields = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`);
@@ -392,7 +397,7 @@ InntektFieldArray.transformValues = (
 ): InntektTransformed[] => {
   if (!values) return null;
 
-  const transformAndel = fieldValue => {
+  const transformAndel = (fieldValue: AndelFieldValue): InntektTransformed => {
     const fastsattBelop =
       (erFrilanser(fieldValue.aktivitetStatus) && frilansInntektValues?.fastsattBelop) ||
       (erArbeidstaker(fieldValue.aktivitetStatus) &&
