@@ -24,6 +24,9 @@ export interface OwnProps {
   alignWithColumn?: number;
 }
 
+/**
+ * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
+ */
 const ExpandableTableRow: FunctionComponent<OwnProps> = ({
   showContent,
   content,

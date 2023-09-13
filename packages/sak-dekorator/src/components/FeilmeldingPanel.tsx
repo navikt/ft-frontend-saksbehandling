@@ -59,7 +59,7 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
         <React.Fragment key={message.melding}>
           <Detail size="small" className={styles.wordWrap}>{`${decodeHtmlEntity(message.melding)} `}</Detail>
           {message.tilleggsInfo && (
-            <Detail size="small">
+            <Detail>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a
                 href=""

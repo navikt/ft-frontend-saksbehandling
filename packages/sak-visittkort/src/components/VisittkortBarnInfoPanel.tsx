@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { StrollerIcon } from '@navikt/aksel-icons';
 
+import { HStack } from '@navikt/ds-react';
 import VisittkortBarnInfoFodselPanel from './VisittkortBarnInfoFodselPanel';
 import VisittkortBarnInfoOmsorgPanel from './VisittkortBarnInfoOmsorgPanel';
 
@@ -23,15 +23,13 @@ const VisittkortBarnInfoPanel: FunctionComponent<OwnProps> = ({ familiehendelse 
 
   return (
     <div className={styles.container}>
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={styles.image}>
-            <StrollerIcon title={intl.formatMessage({ id: 'VisittkortBarnInfoPanel.Barnevogn' })} fontSize="1.5rem" />
-          </FlexColumn>
-          {erFodselEllerTerminSoknad && <VisittkortBarnInfoFodselPanel familiehendelse={familiehendelse} />}
-          {!erFodselEllerTerminSoknad && <VisittkortBarnInfoOmsorgPanel familiehendelse={familiehendelse} />}
-        </FlexRow>
-      </FlexContainer>
+      <HStack>
+        <div className={styles.image}>
+          <StrollerIcon title={intl.formatMessage({ id: 'VisittkortBarnInfoPanel.Barnevogn' })} fontSize="1.5rem" />
+        </div>
+        {erFodselEllerTerminSoknad && <VisittkortBarnInfoFodselPanel familiehendelse={familiehendelse} />}
+        {!erFodselEllerTerminSoknad && <VisittkortBarnInfoOmsorgPanel familiehendelse={familiehendelse} />}
+      </HStack>
     </div>
   );
 };

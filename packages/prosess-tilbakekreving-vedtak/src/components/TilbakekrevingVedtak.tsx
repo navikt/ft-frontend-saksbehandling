@@ -46,7 +46,7 @@ const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
       <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
     </Heading>
     <VerticalSpacer twentyPx />
-    <Detail size="small">
+    <Detail>
       <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
     </Detail>
     <BodyShort size="small">

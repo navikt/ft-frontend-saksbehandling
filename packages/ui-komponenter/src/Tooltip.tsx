@@ -16,6 +16,8 @@ export interface OwnProps {
 
 /**
  * Tooltip
+ *
+ * @deprecated Bruk heller komponentar fra https://aksel.nav.no. Tooltip eller evt ReadMore/Popover for rikt innhold.
  */
 const Tooltip: FunctionComponent<OwnProps> = ({
   children,

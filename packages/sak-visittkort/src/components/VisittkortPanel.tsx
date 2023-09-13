@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { PersonCard, EmptyPersonCard, Gender } from '@navikt/ft-plattform-komponenter';
 import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
 import { RelasjonsRolleType, NavBrukerKjonn } from '@navikt/ft-kodeverk';
 
+import { HStack, Spacer } from '@navikt/ds-react';
 import VisittkortLabels from './VisittkortLabels';
 import VisittkortBarnInfoPanel from './VisittkortBarnInfoPanel';
 
@@ -53,49 +53,38 @@ const VisittkortPanel: FunctionComponent<OwnProps> = ({
 
   return (
     <div className={styles.container}>
-      <FlexContainer>
-        <FlexRow>
-          {soker.aktørId && (
-            <FlexColumn>
-              <PersonCard
-                name={soker.navn}
-                fodselsnummer={soker.fødselsnummer}
-                gender={utledKjonn(soker.kjønn)}
-                url={lenkeTilAnnenPart}
-                renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={soker} harVerge={harVerge} />}
-                isActive={erMor}
-              />
-            </FlexColumn>
-          )}
-          {!soker.aktørId && (
-            <FlexColumn>
-              <EmptyPersonCard namePlaceholder={intl.formatMessage({ id: 'VisittkortPanel.Ukjent' })} />
-            </FlexColumn>
-          )}
-          {annenPart && annenPart.aktørId && (
-            <FlexColumn>
-              <PersonCard
-                name={annenPart.navn}
-                fodselsnummer={annenPart.fødselsnummer}
-                gender={utledKjonn(annenPart.kjønn)}
-                url={lenkeTilAnnenPart}
-                renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={annenPart} harVerge={false} />}
-                isActive={!erMor}
-              />
-            </FlexColumn>
-          )}
-          {annenPart && !annenPart.aktørId && (
-            <FlexColumn>
-              <EmptyPersonCard namePlaceholder={intl.formatMessage({ id: 'VisittkortPanel.Ukjent' })} />
-            </FlexColumn>
-          )}
-          {fagsakPersoner.familiehendelse && (
-            <FlexColumn className={styles.pushRight}>
-              <VisittkortBarnInfoPanel familiehendelse={fagsakPersoner.familiehendelse} />
-            </FlexColumn>
-          )}
-        </FlexRow>
-      </FlexContainer>
+      <HStack>
+        {soker.aktørId && (
+          <PersonCard
+            name={soker.navn}
+            fodselsnummer={soker.fødselsnummer}
+            gender={utledKjonn(soker.kjønn)}
+            url={lenkeTilAnnenPart}
+            renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={soker} harVerge={harVerge} />}
+            isActive={erMor}
+          />
+        )}
+        {!soker.aktørId && <EmptyPersonCard namePlaceholder={intl.formatMessage({ id: 'VisittkortPanel.Ukjent' })} />}
+        {annenPart && annenPart.aktørId && (
+          <PersonCard
+            name={annenPart.navn}
+            fodselsnummer={annenPart.fødselsnummer}
+            gender={utledKjonn(annenPart.kjønn)}
+            url={lenkeTilAnnenPart}
+            renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={annenPart} harVerge={false} />}
+            isActive={!erMor}
+          />
+        )}
+        {annenPart && !annenPart.aktørId && (
+          <EmptyPersonCard namePlaceholder={intl.formatMessage({ id: 'VisittkortPanel.Ukjent' })} />
+        )}
+        {fagsakPersoner.familiehendelse && (
+          <>
+            <Spacer />
+            <VisittkortBarnInfoPanel familiehendelse={fagsakPersoner.familiehendelse} />
+          </>
+        )}
+      </HStack>
     </div>
   );
 };

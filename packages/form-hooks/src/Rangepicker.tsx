@@ -2,14 +2,11 @@ import React, { FunctionComponent, ReactNode, useCallback, useMemo, useState } f
 import { useFormContext, useController } from 'react-hook-form';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
-import { Label, DatePicker, useRangeDatepicker } from '@navikt/ds-react';
+import { Label, DatePicker, useRangeDatepicker, VStack, HStack } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
 import ReadOnlyField from './ReadOnlyField';
-
-import styles from './rangepicker.module.css';
 
 dayjs.extend(customParseFormat);
 
@@ -126,39 +123,31 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
 
   return (
     <DatePicker {...dpProps}>
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={styles.label}>
-            <Label size="small">{label}</Label>
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow>
-          <FlexColumn>
-            <DatePicker.Input
-              {...fromInputProps}
-              onChange={onChangeInputFom}
-              value={fieldValueFom}
-              size="small"
-              hideLabel
-              label=""
-              disabled={disabled}
-              error={getError(errors, fomName)}
-            />
-          </FlexColumn>
-          <FlexColumn>
-            <DatePicker.Input
-              {...toInputProps}
-              onChange={onChangeInputTom}
-              value={fieldValueTom}
-              size="small"
-              label=""
-              hideLabel
-              disabled={disabled}
-              error={getError(errors, tomName)}
-            />
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
+      <VStack gap="2">
+        <Label size="small">{label}</Label>
+        <HStack gap="4">
+          <DatePicker.Input
+            {...fromInputProps}
+            onChange={onChangeInputFom}
+            value={fieldValueFom}
+            size="small"
+            hideLabel
+            label=""
+            disabled={disabled}
+            error={getError(errors, fomName)}
+          />
+          <DatePicker.Input
+            {...toInputProps}
+            onChange={onChangeInputTom}
+            value={fieldValueTom}
+            size="small"
+            label=""
+            hideLabel
+            disabled={disabled}
+            error={getError(errors, tomName)}
+          />
+        </HStack>
+      </VStack>
     </DatePicker>
   );
 };

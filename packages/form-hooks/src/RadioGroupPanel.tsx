@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
-import { RadioGroup, Radio } from '@navikt/ds-react';
-import { FlexContainer, FlexColumn, FlexRow, EditedIcon } from '@navikt/ft-ui-komponenter';
+import { RadioGroup, Radio, HStack } from '@navikt/ds-react';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
 import styles from './radioGroupPanel.module.css';
 
@@ -95,22 +95,18 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
             </Fragment>
           ))}
       {isHorizontal && (
-        <FlexContainer>
-          <FlexRow>
-            {radios
-              .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
-              .map(radio => (
-                <FlexColumn key={radio.value}>
-                  <>
-                    <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
-                      {radio.label}
-                    </Radio>
-                    {field.value === parseValue(radio.value) && radio.element}
-                  </>
-                </FlexColumn>
-              ))}
-          </FlexRow>
-        </FlexContainer>
+        <HStack gap="4">
+          {radios
+            .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
+            .map(radio => (
+              <div key={radio.value}>
+                <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
+                  {radio.label}
+                </Radio>
+                {field.value === parseValue(radio.value) && radio.element}
+              </div>
+            ))}
+        </HStack>
       )}
     </RadioGroup>
   );

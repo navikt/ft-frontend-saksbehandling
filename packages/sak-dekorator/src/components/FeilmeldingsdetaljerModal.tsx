@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Modal, Button, BodyShort, Detail, Heading } from '@navikt/ds-react';
-import { VerticalSpacer, FlexContainer, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
+import { Modal, Button, BodyShort, Detail, Heading, HStack, VStack } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import Feilmelding from '../typer/feilmeldingTsType';
@@ -31,39 +31,30 @@ const FeilmeldingsdetaljerModal: FunctionComponent<OwnProps> = ({ skalViseModal,
       onClose={lukkModal}
     >
       <Modal.Header>
-        <FlexContainer>
-          <FlexRow>
-            <FlexColumn className={styles.firstCol}>
-              <ExclamationmarkTriangleFillIcon className={styles.image} />
-            </FlexColumn>
-            <FlexColumn>
-              <Heading size="small">
-                <FormattedMessage id="FeilmeldingsdetaljerModal.ErrorDetails" />
-              </Heading>
-            </FlexColumn>
-          </FlexRow>
-        </FlexContainer>
+        <HStack gap="4">
+          <ExclamationmarkTriangleFillIcon className={styles.image} />
+          <Heading size="small">
+            <FormattedMessage id="FeilmeldingsdetaljerModal.ErrorDetails" />
+          </Heading>
+        </HStack>
       </Modal.Header>
       <Modal.Body>
-        <FlexContainer>
-          <VerticalSpacer sixteenPx />
-          <FlexRow>
-            <FlexColumn className={styles.firstCol} />
-            <FlexColumn>
-              {feilmeldingsdetaljer &&
-                Object.keys(feilmeldingsdetaljer).map(edKey => (
-                  <React.Fragment key={edKey}>
-                    <Detail size="small">{`${capitalizeFirstLetters(edKey)}:`}</Detail>
-                    <div>
-                      {/* @ts-ignore Fiks */}
-                      <BodyShort size="small">{feilmeldingsdetaljer[edKey]}</BodyShort>
-                    </div>
-                    <VerticalSpacer eightPx />
-                  </React.Fragment>
-                ))}
-            </FlexColumn>
-          </FlexRow>
-        </FlexContainer>
+        <HStack gap="10">
+          <div />
+          <VStack>
+            {feilmeldingsdetaljer &&
+              Object.keys(feilmeldingsdetaljer).map(edKey => (
+                <React.Fragment key={edKey}>
+                  <Detail>{`${capitalizeFirstLetters(edKey)}:`}</Detail>
+                  <div>
+                    {/* @ts-ignore Fiks */}
+                    <BodyShort size="small">{feilmeldingsdetaljer[edKey]}</BodyShort>
+                  </div>
+                  <VerticalSpacer eightPx />
+                </React.Fragment>
+              ))}
+          </VStack>
+        </HStack>
       </Modal.Body>
       <Modal.Footer>
         <Button size="small" variant="secondary" onClick={lukkModal} type="button">

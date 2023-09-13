@@ -19,7 +19,7 @@ type OwnProps = {
 
 const Frisinnpanel: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => (
   <div className={styles.aksjonspunktBehandlerContainer}>
-    <Detail size="small">
+    <Detail>
       <FormattedMessage id="Beregningsgrunnlag.Frisinn.Tittel" />
     </Detail>
     <VerticalSpacer sixteenPx />

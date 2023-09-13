@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Label, Loader, Modal } from '@navikt/ds-react';
+import { HStack, Label, Loader, Modal } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
-
-import FlexRow from './flexGrid/FlexRow';
-import FlexContainer from './flexGrid/FlexContainer';
-import FlexColumn from './flexGrid/FlexColumn';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -65,19 +61,14 @@ class DataFetchPendingModal extends Component<OwnProps, OwnState> {
     return (
       <Modal width="small" open aria-label={pendingMessage} onClose={doNothing}>
         <Modal.Body>
-          <FlexContainer>
-            <FlexRow>
-              <FlexColumn>
-                <Loader size="large" />
-                <div className={styles.divider} />
-              </FlexColumn>
-              <FlexColumn className={styles.modalText}>
-                <Label size="small">
-                  {intl.formatMessage({ id: 'DataFetchPendingModal.LosningenJobberMedBehandlingen' })}
-                </Label>
-              </FlexColumn>
-            </FlexRow>
-          </FlexContainer>
+          <HStack>
+            <Loader size="large" />
+            <div className={styles.modalText}>
+              <Label size="small">
+                {intl.formatMessage({ id: 'DataFetchPendingModal.LosningenJobberMedBehandlingen' })}
+              </Label>
+            </div>
+          </HStack>
         </Modal.Body>
       </Modal>
     );

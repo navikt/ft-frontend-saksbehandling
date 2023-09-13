@@ -10,6 +10,9 @@ export interface OwnProps {
   className?: string;
 }
 
+/**
+ * @deprecated Bruk heller HStack og VStack fra https://aksel.nav.no/komponenter
+ */
 const FlexColumn: FunctionComponent<OwnProps> = ({ children, className }) => (
   <div className={classNames('flexColumnNew', className)}>{children}</div>
 );
