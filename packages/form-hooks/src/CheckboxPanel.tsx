@@ -1,7 +1,7 @@
-import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
+import React, { FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
-import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
-import { FlexContainer, FlexColumn, FlexRow, EditedIcon } from '@navikt/ft-ui-komponenter';
+import { CheckboxGroup, Checkbox, HStack } from '@navikt/ds-react';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from './formUtils';
 
 interface CheckboxProps {
@@ -80,19 +80,19 @@ const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
               </Checkbox>
             ))}
         {isHorizontal && (
-          <FlexContainer>
-            <FlexRow>
-              {checkboxes
-                .filter(checkbox => !isReadOnly || field.value === parse(checkbox.value))
-                .map(checkbox => (
-                  <FlexColumn key={checkbox.value}>
-                    <Checkbox value={parse(checkbox.value)} disabled={checkbox.disabled || disabled || isReadOnly}>
-                      {checkbox.label}
-                    </Checkbox>
-                  </FlexColumn>
-                ))}
-            </FlexRow>
-          </FlexContainer>
+          <HStack gap="4">
+            {checkboxes
+              .filter(checkbox => !isReadOnly || field.value === parse(checkbox.value))
+              .map(checkbox => (
+                <Checkbox
+                  key={checkbox.value}
+                  value={parse(checkbox.value)}
+                  disabled={checkbox.disabled || disabled || isReadOnly}
+                >
+                  {checkbox.label}
+                </Checkbox>
+              ))}
+          </HStack>
         )}
       </CheckboxGroup>
       {isReadOnly && isEdited && <EditedIcon />}

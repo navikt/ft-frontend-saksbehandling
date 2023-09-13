@@ -2,16 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
-import { Button, Label, BodyShort, Detail } from '@navikt/ds-react';
+import { Button, Label, BodyShort, Detail, HStack } from '@navikt/ds-react';
 
-import {
-  VerticalSpacer,
-  AksjonspunktHelpTextTemp,
-  FaktaGruppe,
-  FlexContainer,
-  FlexRow,
-  FlexColumn,
-} from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, AksjonspunktHelpTextTemp, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { TextAreaField, CheckboxField, Form } from '@navikt/ft-form-hooks';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
@@ -165,145 +158,139 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
         onSubmit={(values: FormValues) => submitCallback(transformValues(values, årsaker))}
         setDataOnUnmount={setFormData}
       >
-        <FlexContainer>
-          <FlexRow wrap>
-            <FlexColumn className={styles.leftCol}>
-              <Label size="small">
-                <FormattedMessage id="FeilutbetalingInfoPanel.Feilutbetaling" />
-              </Label>
-              <VerticalSpacer sixteenPx />
-              <FlexContainer>
-                <FlexRow spaceBetween>
-                  <FlexColumn>
-                    <Detail size="small">
-                      <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
-                    </Detail>
-                    <BodyShort size="small">
-                      {`${moment(feilutbetaling.totalPeriodeFom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
-                        feilutbetaling.totalPeriodeTom,
-                      ).format(DDMMYYYY_DATE_FORMAT)}`}
-                    </BodyShort>
-                  </FlexColumn>
-                  <FlexColumn>
-                    <Detail size="small">
-                      <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
-                    </Detail>
-                    <BodyShort size="small" className={styles.redText}>
-                      {feilutbetaling.aktuellFeilUtbetaltBeløp}
-                    </BodyShort>
-                  </FlexColumn>
-                  <FlexColumn>
-                    <Detail size="small">
-                      <FormattedMessage id="FeilutbetalingInfoPanel.TidligereVarseltBeløp" />
-                    </Detail>
-                    <BodyShort size="small">
-                      {feilutbetaling.tidligereVarseltBeløp ? (
-                        feilutbetaling.tidligereVarseltBeløp
-                      ) : (
-                        <FormattedMessage id="FeilutbetalingInfoPanel.IkkeVarslet" />
-                      )}
-                    </BodyShort>
-                  </FlexColumn>
-                </FlexRow>
-              </FlexContainer>
-              <VerticalSpacer sixteenPx />
-              <CheckboxField
-                name="behandlePerioderSamlet"
-                label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.BehandlePerioderSamlet' })}
-                readOnly={readOnly}
-              />
-              <VerticalSpacer sixteenPx />
-              <FaktaGruppe
-                merknaderFraBeslutter={
-                  alleMerknaderFraBeslutter[FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING]
-                }
-                withoutBorder
-              >
-                <FeilutbetalingPerioderFieldArray
-                  perioder={sorterPerioder(feilutbetalingFakta)}
-                  behandlePerioderSamlet={behandlePerioderSamlet}
-                  årsaker={årsaker}
-                  readOnly={readOnly}
-                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-                />
-              </FaktaGruppe>
-            </FlexColumn>
-            <FlexColumn>
-              <Label size="small">
-                <FormattedMessage id="FeilutbetalingInfoPanel.Revurdering" />
-              </Label>
-              <VerticalSpacer sixteenPx />
-              <FlexContainer>
-                <FlexRow spaceBetween>
-                  <FlexColumn>
-                    <Detail size="small">
-                      <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
-                    </Detail>
-                    {feilutbetaling.behandlingÅrsaker && (
-                      <BodyShort size="small">
-                        {feilutbetaling.behandlingÅrsaker
-                          .map(
-                            ba =>
-                              kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
-                                a => a.kode === ba.behandlingArsakType,
-                              )?.navn,
-                          )
-                          .join(', ')}
-                      </BodyShort>
-                    )}
-                  </FlexColumn>
-                  {feilutbetaling.datoForRevurderingsvedtak && (
-                    <FlexColumn>
-                      <Detail size="small">
-                        <FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />
-                      </Detail>
-                      <BodyShort size="small">
-                        {moment(feilutbetaling.datoForRevurderingsvedtak).format(DDMMYYYY_DATE_FORMAT)}
-                      </BodyShort>
-                    </FlexColumn>
+        <HStack gap="10" wrap>
+          <div>
+            <Label size="small">
+              <FormattedMessage id="FeilutbetalingInfoPanel.Feilutbetaling" />
+            </Label>
+            <VerticalSpacer sixteenPx />
+            <HStack justify="space-between">
+              <div>
+                <Detail>
+                  <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
+                </Detail>
+                <BodyShort size="small">
+                  {`${moment(feilutbetaling.totalPeriodeFom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
+                    feilutbetaling.totalPeriodeTom,
+                  ).format(DDMMYYYY_DATE_FORMAT)}`}
+                </BodyShort>
+              </div>
+              <div>
+                <Detail>
+                  <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
+                </Detail>
+                <BodyShort size="small" className={styles.redText}>
+                  {feilutbetaling.aktuellFeilUtbetaltBeløp}
+                </BodyShort>
+              </div>
+              <div>
+                <Detail>
+                  <FormattedMessage id="FeilutbetalingInfoPanel.TidligereVarseltBeløp" />
+                </Detail>
+                <BodyShort size="small">
+                  {feilutbetaling.tidligereVarseltBeløp ? (
+                    feilutbetaling.tidligereVarseltBeløp
+                  ) : (
+                    <FormattedMessage id="FeilutbetalingInfoPanel.IkkeVarslet" />
                   )}
-                </FlexRow>
-              </FlexContainer>
-              <VerticalSpacer sixteenPx />
-              <Detail size="small">
-                <FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />
-              </Detail>
-              {feilutbetaling.behandlingsresultat && (
-                <BodyShort size="small">
-                  {
-                    kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
-                      a => a.kode === feilutbetaling.behandlingsresultat?.type,
-                    )?.navn
-                  }
                 </BodyShort>
+              </div>
+            </HStack>
+            <VerticalSpacer sixteenPx />
+            <CheckboxField
+              name="behandlePerioderSamlet"
+              label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.BehandlePerioderSamlet' })}
+              readOnly={readOnly}
+            />
+            <VerticalSpacer sixteenPx />
+            <FaktaGruppe
+              merknaderFraBeslutter={
+                alleMerknaderFraBeslutter[FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING]
+              }
+              withoutBorder
+            >
+              <FeilutbetalingPerioderFieldArray
+                perioder={sorterPerioder(feilutbetalingFakta)}
+                behandlePerioderSamlet={behandlePerioderSamlet}
+                årsaker={årsaker}
+                readOnly={readOnly}
+                kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
+              />
+            </FaktaGruppe>
+          </div>
+          <div>
+            <Label size="small">
+              <FormattedMessage id="FeilutbetalingInfoPanel.Revurdering" />
+            </Label>
+            <VerticalSpacer sixteenPx />
+            <HStack gap="4">
+              <div>
+                <Detail>
+                  <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
+                </Detail>
+                {feilutbetaling.behandlingÅrsaker && (
+                  <BodyShort size="small">
+                    {feilutbetaling.behandlingÅrsaker
+                      .map(
+                        ba =>
+                          kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
+                            a => a.kode === ba.behandlingArsakType,
+                          )?.navn,
+                      )
+                      .join(', ')}
+                  </BodyShort>
+                )}
+              </div>
+              {feilutbetaling.datoForRevurderingsvedtak && (
+                <div>
+                  <Detail>
+                    <FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />
+                  </Detail>
+                  <BodyShort size="small">
+                    {moment(feilutbetaling.datoForRevurderingsvedtak).format(DDMMYYYY_DATE_FORMAT)}
+                  </BodyShort>
+                </div>
               )}
-              <VerticalSpacer sixteenPx />
-              <Detail size="small">
-                <FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />
-              </Detail>
-              {feilutbetaling.behandlingsresultat && (
-                <BodyShort size="small">
-                  {feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
-                    .map(ba => kodeverkSamlingFpsak[KodeverkType.KONSEKVENS_FOR_YTELSEN].find(k => k.kode === ba)?.navn)
-                    .join(', ')}
-                </BodyShort>
-              )}
-              <VerticalSpacer sixteenPx />
-              <Detail size="small">
-                <FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />
-              </Detail>
-              {feilutbetaling.tilbakekrevingValg && (
-                <BodyShort size="small">
-                  {
-                    kodeverkSamlingFpTilbake[KodeverkType.TILBAKEKR_VIDERE_BEH].find(
-                      tvb => tvb.kode === feilutbetaling.tilbakekrevingValg?.videreBehandling,
-                    )?.navn
-                  }
-                </BodyShort>
-              )}
-            </FlexColumn>
-          </FlexRow>
-        </FlexContainer>
+            </HStack>
+            <VerticalSpacer sixteenPx />
+            <Detail>
+              <FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />
+            </Detail>
+            {feilutbetaling.behandlingsresultat && (
+              <BodyShort size="small">
+                {
+                  kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
+                    a => a.kode === feilutbetaling.behandlingsresultat?.type,
+                  )?.navn
+                }
+              </BodyShort>
+            )}
+            <VerticalSpacer sixteenPx />
+            <Detail>
+              <FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />
+            </Detail>
+            {feilutbetaling.behandlingsresultat && (
+              <BodyShort size="small">
+                {feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
+                  .map(ba => kodeverkSamlingFpsak[KodeverkType.KONSEKVENS_FOR_YTELSEN].find(k => k.kode === ba)?.navn)
+                  .join(', ')}
+              </BodyShort>
+            )}
+            <VerticalSpacer sixteenPx />
+            <Detail>
+              <FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />
+            </Detail>
+            {feilutbetaling.tilbakekrevingValg && (
+              <BodyShort size="small">
+                {
+                  kodeverkSamlingFpTilbake[KodeverkType.TILBAKEKR_VIDERE_BEH].find(
+                    tvb => tvb.kode === feilutbetaling.tilbakekrevingValg?.videreBehandling,
+                  )?.navn
+                }
+              </BodyShort>
+            )}
+          </div>
+        </HStack>
         <VerticalSpacer sixteenPx />
         <div className={styles.textarea}>
           <TextAreaField

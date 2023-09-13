@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { Tag, BodyShort, Heading } from '@navikt/ds-react';
-import { FlexColumn, FlexContainer, FlexRow, Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Tag, BodyShort, Heading, HStack } from '@navikt/ds-react';
+import { Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FagsakYtelseType } from '@navikt/ft-kodeverk';
 
@@ -34,51 +34,26 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <FlexContainer>
-      <FlexRow alignItemsToBaseline wrap>
-        <FlexColumn>
-          <Heading size="medium">{fagsakYtelseType.navn}</Heading>
-        </FlexColumn>
+    <>
+      <HStack gap="4">
+        <Heading size="medium">{fagsakYtelseType.navn}</Heading>
         {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
-          <FlexColumn>
-            <FlexContainer>
-              <FlexRow>
-                <FlexColumn>
-                  <Tooltip
-                    content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })}
-                    alignBottom
-                  >
-                    <Tag variant="info">{`${dekningsgrad}%`}</Tag>
-                  </Tooltip>
-                </FlexColumn>
-              </FlexRow>
-            </FlexContainer>
-          </FlexColumn>
+          <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
+            <Tag variant="info">{`${dekningsgrad}%`}</Tag>
+          </Tooltip>
         )}
         {fagsakMarkeringTekst && (
-          <FlexColumn>
-            <FlexContainer>
-              <FlexRow>
-                <FlexColumn>
-                  <Tooltip
-                    content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
-                    alignBottom
-                  >
-                    <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
-                  </Tooltip>
-                </FlexColumn>
-              </FlexRow>
-            </FlexContainer>
-          </FlexColumn>
+          <Tooltip
+            content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
+            alignBottom
+          >
+            <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
+          </Tooltip>
         )}
-      </FlexRow>
+      </HStack>
       <VerticalSpacer eightPx />
-      <FlexRow>
-        <FlexColumn>
-          <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
-        </FlexColumn>
-      </FlexRow>
-    </FlexContainer>
+      <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
+    </>
   );
 };
 

@@ -30,12 +30,12 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
         <FlexRow>
           <FlexColumn className={beregningStyles.tabellAktivitet} />
           <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail size="small">
+            <Detail>
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
             </Detail>
           </FlexColumn>
           <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail size="small">
+            <Detail>
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
             </Detail>
           </FlexColumn>

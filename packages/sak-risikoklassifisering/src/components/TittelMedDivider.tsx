@@ -1,7 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
+import { BodyShort, HStack } from '@navikt/ds-react';
 
 import styles from './tittelMedDivider.module.css';
 
@@ -16,18 +15,14 @@ export interface OwnProps {
  * Viser et ikon og en tittel skilt med en vertikal grå linje.
  */
 const TittelMedDivider: FunctionComponent<OwnProps> = ({ ikon, tittel }) => (
-  <FlexContainer>
-    <FlexRow>
-      <FlexColumn>{ikon}</FlexColumn>
-      <FlexColumn>
-        <div className={styles.tekst}>
-          <BodyShort size="small">
-            <FormattedMessage id={tittel} />
-          </BodyShort>
-        </div>
-      </FlexColumn>
-    </FlexRow>
-  </FlexContainer>
+  <HStack gap="4">
+    {ikon}
+    <div className={styles.tekst}>
+      <BodyShort size="small">
+        <FormattedMessage id={tittel} />
+      </BodyShort>
+    </div>
+  </HStack>
 );
 
 export default TittelMedDivider;

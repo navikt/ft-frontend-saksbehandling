@@ -17,6 +17,9 @@ export interface OwnProps {
   className?: string;
 }
 
+/**
+ * @deprecated Bruk heller HStack og VStack fra https://aksel.nav.no/komponenter
+ */
 const FlexRow: FunctionComponent<OwnProps> = ({
   children,
   spaceBetween = false,

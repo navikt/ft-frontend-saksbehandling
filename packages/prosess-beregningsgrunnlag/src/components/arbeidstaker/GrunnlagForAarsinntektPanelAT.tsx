@@ -107,7 +107,7 @@ const createArbeidinntektRows = (
           )}
           {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
             <FlexColumn>
-              <Detail size="small">{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
+              <Detail>{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
             </FlexColumn>
           )}
           {andel.erTidsbegrensetArbeidsforhold && (
@@ -182,12 +182,12 @@ const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctio
         <FlexRow>
           <FlexColumn className={beregningStyles.tabellAktivitet} />
           <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail size="small">
+            <Detail>
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
             </Detail>
           </FlexColumn>
           <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail size="small">
+            <Detail>
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
             </Detail>
           </FlexColumn>

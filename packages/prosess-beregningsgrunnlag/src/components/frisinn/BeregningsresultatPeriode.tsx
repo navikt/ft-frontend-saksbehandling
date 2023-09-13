@@ -149,7 +149,7 @@ const lagPeriodeblokk = (
       </FlexRow>
       <FlexRow>
         <FlexColumn className={beregningStyles.tabellAktivitet}>
-          <Detail size="small">
+          <Detail>
             <FormattedMessage id="Beregningsgrunnlag.Resultat.Dagsats" />
           </Detail>
         </FlexColumn>

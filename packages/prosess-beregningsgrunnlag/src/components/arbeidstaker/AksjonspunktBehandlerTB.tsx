@@ -213,7 +213,7 @@ const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement =
       const fraDato = element.periodeFom;
       return (
         <td key={`periodeittel${fraDato}`} colSpan={2}>
-          <Detail size="small">{dateFormat(fraDato)}</Detail>
+          <Detail>{dateFormat(fraDato)}</Detail>
         </td>
       );
     })}
@@ -236,7 +236,7 @@ const createRows = (
       {perioder.map((element, index) => (
         <React.Fragment key={`PeriodeWrapper${index + 1}`}>
           <td key={`Col_Tittel_${element.periodeFom}`} colSpan={2}>
-            <Detail size="small">
+            <Detail>
               <FormattedMessage
                 id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.OmberegnetAar"
                 key={`Tittel_${element.periodeFom}`}
