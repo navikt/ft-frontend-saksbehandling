@@ -16,6 +16,8 @@ export interface OwnProps {
  * TableColumn
  *
  * Presentasjonskomponent. Tabellkolonne som brukes av komponenten Table.
+ *
+ * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
 const TableColumn: FunctionComponent<OwnProps> = ({ children = '', className, hidden = false, colspanAll = false }) => {
   if (hidden) {

@@ -1,10 +1,10 @@
 import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
 import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
-import { Heading, Panel } from '@navikt/ds-react';
+import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
-import { FlexColumn, FlexRow, AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
 
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
@@ -229,17 +229,14 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
       <VerticalSpacer twentyPx />
       {!aksjonspunkt && (
         <>
-          <FlexRow>
-            <FlexColumn>
-              <FormattedMessage id="ForeldelseForm.Foreldelsesloven" />
-            </FlexColumn>
-          </FlexRow>
+          <BodyShort>
+            <FormattedMessage id="ForeldelseForm.Foreldelsesloven" />
+          </BodyShort>
           <VerticalSpacer eightPx />
-          <FlexRow>
-            <FlexColumn>
-              <FormattedMessage id="ForeldelseForm.AutomatiskVurdert" />
-            </FlexColumn>
-          </FlexRow>
+          <BodyShort>
+            <FormattedMessage id="ForeldelseForm.AutomatiskVurdert" />
+          </BodyShort>
+          <VerticalSpacer sixteenPx />
         </>
       )}
       {foreldelseresultatAktiviteter && aksjonspunkt && (

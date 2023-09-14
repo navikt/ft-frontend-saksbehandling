@@ -11,6 +11,9 @@ export interface OwnProps {
   fullHeight?: boolean;
 }
 
+/**
+ * @deprecated Bruk heller HStack og VStack fra https://aksel.nav.no/komponenter
+ */
 const FlexContainer: FunctionComponent<OwnProps> = ({ children, wrap = false, fullHeight = false }) => (
   <div className={classNames('flexContainer', 'fluid', { flexWrap: wrap, fullHeight })}>{children}</div>
 );

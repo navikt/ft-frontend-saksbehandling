@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
+import { Label, BodyShort, HStack, Spacer } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -23,30 +23,22 @@ const PeriodeInformasjon: FunctionComponent<PureOwnProps> = ({ fom, tom, feilutb
   const daysAndWeeks = calcDaysAndWeeks(fom, tom);
   return (
     <div className={styles.infoSummary}>
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn>
-            <Label size="small">
-              {`${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`}
-            </Label>
-          </FlexColumn>
-          <FlexColumn className={styles.marginLeft}>
-            <BodyShort size="small">{daysAndWeeks.formattedString}</BodyShort>
-          </FlexColumn>
-        </FlexRow>
-        <div className={styles.resultSum}>
-          <FlexRow className={styles.redNumbers}>
-            <FlexColumn>
-              <BodyShort size="small" className={styles.resultName}>
-                <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
-                <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>
-                  {formatCurrencyNoKr(feilutbetaling)}
-                </span>
-              </BodyShort>
-            </FlexColumn>
-          </FlexRow>
-        </div>
-      </FlexContainer>
+      <HStack>
+        <Label size="small">
+          {`${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`}
+        </Label>
+        <Spacer />
+        <BodyShort size="small">{daysAndWeeks.formattedString}</BodyShort>
+      </HStack>
+      <VerticalSpacer sixteenPx />
+      <HStack gap="4">
+        <BodyShort size="small" className={styles.resultName}>
+          <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
+          <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>
+            {formatCurrencyNoKr(feilutbetaling)}
+          </span>
+        </BodyShort>
+      </HStack>
     </div>
   );
 };

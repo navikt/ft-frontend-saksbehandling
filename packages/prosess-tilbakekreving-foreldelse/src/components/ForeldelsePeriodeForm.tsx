@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import dayjs from 'dayjs';
-import { Button } from '@navikt/ds-react';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Button, HStack, VStack } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField, Datepicker, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
@@ -17,7 +17,6 @@ import { TilbakekrevingKodeverkType, ForeldelseVurderingType } from '@navikt/ft-
 
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
 
-import styles from './foreldelsePeriodeForm.module.css';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
@@ -74,62 +73,51 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
         readOnly={readOnly}
       />
       <VerticalSpacer twentyPx />
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn>
-            <RadioGroupPanel
-              name="foreldet"
-              label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
-              validate={[required]}
-              radios={foreldelseVurderingTyper.map(type => ({
-                label: type.navn,
-                value: type.kode,
-              }))}
+      <HStack gap="10">
+        <RadioGroupPanel
+          name="foreldet"
+          label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
+          validate={[required]}
+          radios={foreldelseVurderingTyper.map(type => ({
+            label: type.navn,
+            value: type.kode,
+          }))}
+          isReadOnly={readOnly}
+        />
+        <VStack gap="5">
+          {(erForeldet || erMedTilleggsfrist) && (
+            <Datepicker
+              name="foreldelsesfrist"
+              label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
+              validate={[required, hasValidDate]}
               isReadOnly={readOnly}
             />
-          </FlexColumn>
-          <FlexColumn className={styles.rightCol}>
-            {(erForeldet || erMedTilleggsfrist) && (
-              <Datepicker
-                name="foreldelsesfrist"
-                label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
-                validate={[required, hasValidDate]}
-                isReadOnly={readOnly}
-              />
-            )}
-            {erMedTilleggsfrist && (
-              <>
-                <VerticalSpacer sixteenPx />
-                <Datepicker
-                  name="oppdagelsesDato"
-                  label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
-                  validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
-                  isReadOnly={readOnly}
-                  disabledDays={{ fromDate: dayjs('1970-01-01').toDate(), toDate: dayjs().toDate() }}
-                />
-              </>
-            )}
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
+          )}
+          {erMedTilleggsfrist && (
+            <Datepicker
+              name="oppdagelsesDato"
+              label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
+              validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
+              isReadOnly={readOnly}
+              disabledDays={{ fromDate: dayjs('1970-01-01').toDate(), toDate: dayjs().toDate() }}
+            />
+          )}
+        </VStack>
+      </HStack>
       <VerticalSpacer twentyPx />
-      <FlexRow>
-        <FlexColumn>
-          <Button
-            size="small"
-            variant="primary"
-            disabled={!formMethods.formState.isDirty || formMethods.formState.isSubmitting || readOnly}
-            loading={formMethods.formState.isSubmitting}
-          >
-            <FormattedMessage id="ForeldelsePeriodeForm.Oppdater" />
-          </Button>
-        </FlexColumn>
-        <FlexColumn>
-          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
-            <FormattedMessage id="ForeldelsePeriodeForm.Avbryt" />
-          </Button>
-        </FlexColumn>
-      </FlexRow>
+      <HStack gap="4">
+        <Button
+          size="small"
+          variant="primary"
+          disabled={!formMethods.formState.isDirty || formMethods.formState.isSubmitting || readOnly}
+          loading={formMethods.formState.isSubmitting}
+        >
+          <FormattedMessage id="ForeldelsePeriodeForm.Oppdater" />
+        </Button>
+        <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
+          <FormattedMessage id="ForeldelsePeriodeForm.Avbryt" />
+        </Button>
+      </HStack>
     </Form>
   );
 };

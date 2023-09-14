@@ -24,6 +24,8 @@ export interface OwnProps {
  * Table
  *
  * Presentasjonskomponent. Definerer en tabell med rader og kolonner.
+ *
+ * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
 const Table = React.forwardRef<HTMLTableElement, OwnProps>(
   (

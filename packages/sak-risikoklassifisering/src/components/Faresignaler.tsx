@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { FlexColumn, FlexContainer, FlexRow } from '@navikt/ft-ui-komponenter';
 import { BodyShort, Label } from '@navikt/ds-react';
 
 import { decodeHtmlEntity } from '@navikt/ft-utils';
@@ -12,22 +11,18 @@ export const FarePanel: FunctionComponent<{
   };
   labelId: string;
 }> = ({ risikoFaresignaler, labelId }) => (
-  <div>
-    <FlexRow>
-      <FlexColumn>
-        <Label size="small">
-          <FormattedMessage id={labelId} />
-        </Label>
-        <ul>
-          {risikoFaresignaler.faresignaler.map(faresignal => (
-            <li key={faresignal}>
-              <BodyShort size="small">{decodeHtmlEntity(faresignal)}</BodyShort>
-            </li>
-          ))}
-        </ul>
-      </FlexColumn>
-    </FlexRow>
-  </div>
+  <>
+    <Label size="small">
+      <FormattedMessage id={labelId} />
+    </Label>
+    <ul>
+      {risikoFaresignaler.faresignaler.map(faresignal => (
+        <li key={faresignal}>
+          <BodyShort size="small">{decodeHtmlEntity(faresignal)}</BodyShort>
+        </li>
+      ))}
+    </ul>
+  </>
 );
 
 export interface OwnProps {
@@ -40,7 +35,7 @@ export interface OwnProps {
  * Presentasjonskomponent. Viser en liste over faresignaler knyttet til behandlingen.
  */
 const Faresignaler: FunctionComponent<OwnProps> = ({ risikoklassifisering }) => (
-  <FlexContainer>
+  <>
     {risikoklassifisering.medlFaresignaler && risikoklassifisering.medlFaresignaler.faresignaler && (
       <FarePanel risikoFaresignaler={risikoklassifisering.medlFaresignaler} labelId="Risikopanel.Panel.Medlemskap" />
     )}
@@ -50,7 +45,7 @@ const Faresignaler: FunctionComponent<OwnProps> = ({ risikoklassifisering }) => 
         labelId="Risikopanel.Panel.ArbeidsforholdInntekt"
       />
     )}
-  </FlexContainer>
+  </>
 );
 
 export default Faresignaler;

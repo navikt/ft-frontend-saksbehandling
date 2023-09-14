@@ -15,7 +15,7 @@ export interface OwnProps {
  */
 const LabelWithHeader: FunctionComponent<OwnProps> = ({ header, texts }) => (
   <div className={styles.container}>
-    <Detail size="small">{header}</Detail>
+    <Detail>{header}</Detail>
     <div className={styles.text}>
       {texts.map(text => (
         <BodyShort size="small" key={text}>

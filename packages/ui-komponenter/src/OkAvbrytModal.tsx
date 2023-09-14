@@ -2,11 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { Modal, Heading, Button } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
-import FlexColumn from './flexGrid/FlexColumn';
-import FlexContainer from './flexGrid/FlexContainer';
-import FlexRow from './flexGrid/FlexRow';
-
-import VerticalSpacer from './VerticalSpacer';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -29,23 +24,15 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
   <Modal width="small" open={showModal} aria-label={text} onClose={cancel}>
     <Modal.Body>
       <Heading size="small">{text}</Heading>
-      <VerticalSpacer thirtyTwoPx />
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn>
-            <Button variant="primary" size="small" onClick={submit} autoFocus type="button">
-              {okButtonText || intl.formatMessage({ id: 'OkAvbrytModal.Ok' })}
-            </Button>
-          </FlexColumn>
-          <FlexColumn>
-            <Button variant="secondary" size="small" onClick={cancel} type="button">
-              {intl.formatMessage({ id: 'OkAvbrytModal.Avbryt' })}
-            </Button>
-          </FlexColumn>
-        </FlexRow>
-        <VerticalSpacer sixteenPx />
-      </FlexContainer>
     </Modal.Body>
+    <Modal.Footer>
+      <Button variant="primary" size="small" onClick={submit} autoFocus type="button">
+        {okButtonText || intl.formatMessage({ id: 'OkAvbrytModal.Ok' })}
+      </Button>
+      <Button variant="secondary" size="small" onClick={cancel} type="button">
+        {intl.formatMessage({ id: 'OkAvbrytModal.Avbryt' })}
+      </Button>
+    </Modal.Footer>
   </Modal>
 );
 

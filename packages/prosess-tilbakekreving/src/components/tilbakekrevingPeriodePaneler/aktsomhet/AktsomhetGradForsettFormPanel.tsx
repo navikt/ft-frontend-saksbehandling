@@ -58,7 +58,7 @@ const AktsomhetGradForsettFormPanel: FunctionComponent<OwnProps> = ({
         )}
         {!erValgtResultatTypeForstoBurdeForstaatt && (
           <>
-            <Detail size="small">
+            <Detail>
               <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
             </Detail>
             <BodyShort size="small">100 %</BodyShort>

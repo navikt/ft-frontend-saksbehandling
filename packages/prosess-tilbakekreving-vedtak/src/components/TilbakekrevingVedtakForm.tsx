@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { FlexContainer, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { HStack } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Form } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
@@ -167,51 +168,40 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
         erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
       />
       <VerticalSpacer twentyPx />
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn>
-            <ProsessStegSubmitButton
-              text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
-              isReadOnly={readOnly}
-              isSubmittable={
-                perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
+      <HStack gap="10">
+        <ProsessStegSubmitButton
+          text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
+          isReadOnly={readOnly}
+          isSubmittable={
+            perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
+          }
+          isSubmitting={formMethods.formState.isSubmitting}
+          isDirty={formMethods.formState.isDirty}
+          hasEmptyRequiredFields={harObligatoriskeFelterSomIkkeErUtfylt}
+        />
+        {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
+          <div className={styles.padding}>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a
+              href=""
+              onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
+              onKeyDown={e =>
+                e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
               }
-              isSubmitting={formMethods.formState.isSubmitting}
-              isDirty={formMethods.formState.isDirty}
-              hasEmptyRequiredFields={harObligatoriskeFelterSomIkkeErUtfylt}
-            />
-          </FlexColumn>
-          {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
-            <FlexColumn>
-              <div className={styles.padding}>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a
-                  href=""
-                  onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
-                  onKeyDown={e =>
-                    e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
-                  }
-                  className={classNames(styles.buttonLink, 'lenke lenke--frittstaende')}
-                >
-                  <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
-                </a>
-              </div>
-            </FlexColumn>
-          )}
-          {erRevurderingTilbakekrevingKlage && (
-            <FlexColumn className={classNames(styles.infoTextContainer)}>
-              <FlexRow>
-                <FlexColumn className={classNames(styles.padding, styles.infoTextIconColumn)}>
-                  <ExclamationmarkTriangleFillIcon className={styles.infoTextIcon} />
-                </FlexColumn>
-                <FlexColumn className={classNames(styles.infotextColumn)}>
-                  <FormattedMessage id="TilbakekrevingVedtakForm.Infotekst.Klage" />
-                </FlexColumn>
-              </FlexRow>
-            </FlexColumn>
-          )}
-        </FlexRow>
-      </FlexContainer>
+              className={classNames(styles.buttonLink, 'lenke lenke--frittstaende')}
+            >
+              <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
+            </a>
+          </div>
+        )}
+      </HStack>
+      <VerticalSpacer sixteenPx />
+      {erRevurderingTilbakekrevingKlage && (
+        <HStack>
+          <ExclamationmarkTriangleFillIcon className={styles.infoTextIcon} />
+          <FormattedMessage id="TilbakekrevingVedtakForm.Infotekst.Klage" />
+        </HStack>
+      )}
     </Form>
   );
 };

@@ -2,16 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 import { ChevronDownIcon, ChevronUpIcon, StarFillIcon } from '@navikt/aksel-icons';
-import { Panel, BodyShort, Label, Detail } from '@navikt/ds-react';
-import {
-  FlexContainer,
-  FlexRow,
-  FlexColumn,
-  Tooltip,
-  DateLabel,
-  TimeLabel,
-  VerticalSpacer,
-} from '@navikt/ft-ui-komponenter';
+import { Panel, BodyShort, Label, Detail, HStack, Spacer, VStack } from '@navikt/ds-react';
+import { Tooltip, DateLabel, TimeLabel, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BehandlingAppKontekst, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType, BehandlingType, BehandlingArsakType } from '@navikt/ft-kodeverk';
 
@@ -43,87 +35,78 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
   const intl = useIntl();
   return (
     <Panel border>
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={styles.arsakPadding}>
-            <Label size="small">
-              {getKodeverkMedNavn(behandling.type, KodeverkType.BEHANDLING_TYPE, behandling.type)?.navn || ''}
-            </Label>
-          </FlexColumn>
-          {(behandling.type === BehandlingType.REVURDERING || behandling.type === BehandlingType.KLAGE) &&
-            behandling.førsteÅrsak?.behandlingArsakType && (
-              <>
-                <FlexColumn className={styles.arsakPadding}>-</FlexColumn>
-                <FlexColumn>
-                  <BodyShort size="small">
-                    {getKodeverkMedNavn(
-                      behandling.førsteÅrsak.behandlingArsakType,
-                      KodeverkType.BEHANDLING_AARSAK,
-                      BehandlingType.REVURDERING,
-                    )?.navn || ''}
-                  </BodyShort>
-                </FlexColumn>
-              </>
-            )}
-          {behandling.type === BehandlingType.TILBAKEKREVING_REVURDERING &&
-            erTilbakekrevingÅrsakKlage(behandling.førsteÅrsak?.behandlingArsakType) && (
-              <>
-                <FlexColumn className={styles.arsakPadding}>-</FlexColumn>
-                <FlexColumn>
-                  <BodyShort size="small">
-                    <FormattedMessage id="Behandlingspunkt.Årsak.Klage" />
-                  </BodyShort>
-                </FlexColumn>
-              </>
-            )}
-          <FlexColumn className={styles.pushRight}>
-            {behandling.gjeldendeVedtak && (
-              <StarFillIcon
-                className={styles.starImage}
-                title={intl.formatMessage({ id: 'BehandlingPickerItemContent.GjeldendeVedtak' })}
-              />
-            )}
-          </FlexColumn>
-          <FlexColumn>
-            {withChevronDown && (
-              <ChevronDownIcon
-                title={intl.formatMessage({ id: 'BehandlingPickerItemContent.Open' })}
-                className={styles.chevronImage}
-              />
-            )}
-            {withChevronUp && (
-              <ChevronUpIcon
-                title={intl.formatMessage({ id: 'BehandlingPickerItemContent.Close' })}
-                className={styles.chevronImage}
-              />
-            )}
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
+      <HStack gap="4">
+        <div className={styles.arsakPadding}>
+          <Label size="small">
+            {getKodeverkMedNavn(behandling.type, KodeverkType.BEHANDLING_TYPE, behandling.type)?.navn || ''}
+          </Label>
+        </div>
+        {(behandling.type === BehandlingType.REVURDERING || behandling.type === BehandlingType.KLAGE) &&
+          behandling.førsteÅrsak?.behandlingArsakType && (
+            <>
+              -
+              <BodyShort size="small">
+                {getKodeverkMedNavn(
+                  behandling.førsteÅrsak.behandlingArsakType,
+                  KodeverkType.BEHANDLING_AARSAK,
+                  BehandlingType.REVURDERING,
+                )?.navn || ''}
+              </BodyShort>
+            </>
+          )}
+        {behandling.type === BehandlingType.TILBAKEKREVING_REVURDERING &&
+          erTilbakekrevingÅrsakKlage(behandling.førsteÅrsak?.behandlingArsakType) && (
+            <>
+              -
+              <BodyShort size="small">
+                <FormattedMessage id="Behandlingspunkt.Årsak.Klage" />
+              </BodyShort>
+            </>
+          )}
+        <Spacer />
+        {behandling.gjeldendeVedtak && (
+          <StarFillIcon
+            className={styles.starImage}
+            title={intl.formatMessage({ id: 'BehandlingPickerItemContent.GjeldendeVedtak' })}
+          />
+        )}
+        {withChevronDown && (
+          <ChevronDownIcon
+            title={intl.formatMessage({ id: 'BehandlingPickerItemContent.Open' })}
+            className={styles.chevronImage}
+          />
+        )}
+        {withChevronUp && (
+          <ChevronUpIcon
+            title={intl.formatMessage({ id: 'BehandlingPickerItemContent.Close' })}
+            className={styles.chevronImage}
+          />
+        )}
+      </HStack>
       <VerticalSpacer eightPx />
       <hr className={styles.line} />
       <VerticalSpacer sixteenPx />
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={styles.firstColumnWidth}>
+      <VStack>
+        <HStack>
+          <div className={styles.firstColumnWidth}>
             <BodyShort size="small">
               <FormattedMessage id="BehandlingPickerItemContent.Behandlingstatus" />
             </BodyShort>
-          </FlexColumn>
-          <FlexColumn>
+          </div>
+          <div>
             <BodyShort size="small">
               {getKodeverkMedNavn(behandling.status, KodeverkType.BEHANDLING_STATUS, BehandlingType.FORSTEGANGSSOKNAD)
                 ?.navn || ''}
             </BodyShort>
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow>
-          <FlexColumn className={styles.firstColumnWidth}>
+          </div>
+        </HStack>
+        <HStack>
+          <div className={styles.firstColumnWidth}>
             <BodyShort size="small">
               <FormattedMessage id="BehandlingPickerItemContent.Resultat" />
             </BodyShort>
-          </FlexColumn>
-          <FlexColumn>
+          </div>
+          <div>
             <BodyShort size="small">
               {behandling.behandlingsresultat?.type
                 ? getKodeverkMedNavn(
@@ -133,16 +116,16 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
                   )?.navn
                 : '-'}
             </BodyShort>
-          </FlexColumn>
-        </FlexRow>
+          </div>
+        </HStack>
         <VerticalSpacer sixteenPx />
-        <FlexRow>
-          <FlexColumn className={styles.firstColumnWidth}>
+        <HStack>
+          <div className={styles.firstColumnWidth}>
             <BodyShort size="small">
               <FormattedMessage id="BehandlingPickerItemContent.Opprettet" />
             </BodyShort>
-          </FlexColumn>
-          <FlexColumn>
+          </div>
+          <div>
             <BodyShort size="small" className={styles.inline}>
               <DateLabel dateString={behandling.opprettet} />
             </BodyShort>
@@ -152,15 +135,15 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
             <Detail size="small" className={styles.inline}>
               <TimeLabel dateTimeString={behandling.opprettet} />
             </Detail>
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow>
-          <FlexColumn className={styles.firstColumnWidth}>
+          </div>
+        </HStack>
+        <HStack>
+          <div className={styles.firstColumnWidth}>
             <BodyShort size="small">
               <FormattedMessage id="BehandlingPickerItemContent.Avsluttet" />
             </BodyShort>
-          </FlexColumn>
-          <FlexColumn>
+          </div>
+          <div>
             {behandling.avsluttet && (
               <>
                 <BodyShort size="small" className={styles.inline}>
@@ -174,8 +157,8 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
                 </Detail>
               </>
             )}
-          </FlexColumn>
-          <FlexColumn className={styles.pushRightCorner}>
+          </div>
+          <div className={styles.pushRightCorner}>
             <BodyShort size="small" className={styles.inline}>
               <FormattedMessage id="BehandlingPickerItemContent.Enhet" />
             </BodyShort>
@@ -184,9 +167,9 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
                 {behandling.behandlendeEnhetId}
               </BodyShort>
             </Tooltip>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
+          </div>
+        </HStack>
+      </VStack>
       <VerticalSpacer fourPx />
     </Panel>
   );

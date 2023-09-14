@@ -2,19 +2,12 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
-import { Button, BodyShort, Heading } from '@navikt/ds-react';
+import { Button, BodyShort, Heading, HStack } from '@navikt/ds-react';
 
 import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { formatCurrencyNoKr, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import {
-  FlexColumn,
-  FlexRow,
-  WarningModal,
-  VerticalSpacer,
-  usePrevious,
-  FlexContainer,
-} from '@navikt/ft-ui-komponenter';
+import { WarningModal, VerticalSpacer, usePrevious } from '@navikt/ft-ui-komponenter';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn, FeilutbetalingPerioderWrapper, DetaljertFeilutbetalingPeriode } from '@navikt/ft-types';
 
@@ -231,113 +224,107 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
           <VerticalSpacer twentyPx />
         </>
       )}
-      <FlexContainer>
-        <FlexRow wrap>
-          <FlexColumn className={styles.leftColumn}>
-            {data.erForeldet && <ForeldetFormPanel />}
-            {!data.erForeldet && (
-              <>
-                <Heading size="small">
-                  <FormattedMessage id="TilbakekrevingPeriodeForm.VilkarForTilbakekreving" />
-                </Heading>
-                <VerticalSpacer sixteenPx />
-                <TextAreaField
-                  name="begrunnelse"
-                  label={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering' })}
-                  validate={[required, minLength3, maxLength1500, hasValidText]}
-                  maxLength={1500}
+      <HStack gap="4" wrap>
+        <div className={styles.leftColumn}>
+          {data.erForeldet && <ForeldetFormPanel />}
+          {!data.erForeldet && (
+            <>
+              <Heading size="small">
+                <FormattedMessage id="TilbakekrevingPeriodeForm.VilkarForTilbakekreving" />
+              </Heading>
+              <VerticalSpacer sixteenPx />
+              <TextAreaField
+                name="begrunnelse"
+                label={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering' })}
+                validate={[required, minLength3, maxLength1500, hasValidText]}
+                maxLength={1500}
+                readOnly={readOnly}
+                className={styles.explanationTextarea}
+                description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
+              />
+              <VerticalSpacer sixteenPx />
+              <RadioGroupPanel
+                name="valgtVilkarResultatType"
+                label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
+                validate={[required]}
+                radios={vilkarResultatTyper.map(vrt => ({
+                  label: vrt.navn,
+                  value: vrt.kode,
+                }))}
+                isReadOnly={readOnly}
+                onChange={resetVilkarresultatType}
+              />
+            </>
+          )}
+        </div>
+        <div>
+          {valgtVilkarResultatType && (
+            <>
+              <Heading size="small">
+                <FormattedMessage
+                  id={
+                    valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                      ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro'
+                      : 'TilbakekrevingPeriodeForm.Aktsomhet'
+                  }
+                />
+              </Heading>
+              <VerticalSpacer sixteenPx />
+              <TextAreaField
+                name="vurderingBegrunnelse"
+                label={intl.formatMessage({
+                  id:
+                    valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                      ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
+                      : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
+                })}
+                validate={[required, minLength3, maxLength1500, hasValidText]}
+                maxLength={1500}
+                readOnly={readOnly}
+              />
+              <VerticalSpacer eightPx />
+              {valgtVilkarResultatType === VilkarResultat.GOD_TRO && (
+                <BelopetMottattIGodTroFormPanel
+                  name={valgtVilkarResultatType}
                   readOnly={readOnly}
-                  className={styles.explanationTextarea}
-                  description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
+                  erBelopetIBehold={erBelopetIBehold}
+                  feilutbetalingBelop={data.feilutbetaling}
                 />
-                <VerticalSpacer sixteenPx />
-                <RadioGroupPanel
-                  name="valgtVilkarResultatType"
-                  label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
-                  validate={[required]}
-                  radios={vilkarResultatTyper.map(vrt => ({
-                    label: vrt.navn,
-                    value: vrt.kode,
-                  }))}
-                  isReadOnly={readOnly}
-                  onChange={resetVilkarresultatType}
-                />
-              </>
-            )}
-          </FlexColumn>
-          <FlexColumn>
-            {valgtVilkarResultatType && (
-              <>
-                <Heading size="small">
-                  <FormattedMessage
-                    id={
-                      valgtVilkarResultatType === VilkarResultat.GOD_TRO
-                        ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro'
-                        : 'TilbakekrevingPeriodeForm.Aktsomhet'
-                    }
-                  />
-                </Heading>
-                <VerticalSpacer sixteenPx />
-                <TextAreaField
-                  name="vurderingBegrunnelse"
-                  label={intl.formatMessage({
-                    id:
-                      valgtVilkarResultatType === VilkarResultat.GOD_TRO
-                        ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
-                        : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
-                  })}
-                  validate={[required, minLength3, maxLength1500, hasValidText]}
-                  maxLength={1500}
+              )}
+              {valgtVilkarResultatType !== VilkarResultat.GOD_TRO && (
+                <AktsomhetFormPanel
+                  key={valgtVilkarResultatType}
+                  name={valgtVilkarResultatType}
+                  harGrunnerTilReduksjon={harGrunnerTilReduksjon}
                   readOnly={readOnly}
+                  handletUaktsomhetGrad={handletUaktsomhetsgrad}
+                  resetFields={resetUtaktsomhetsgrad}
+                  erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+                  erValgtResultatTypeForstoBurdeForstaatt={
+                    valgtVilkarResultatType === VilkarResultat.FORSTO_BURDE_FORSTAATT
+                  }
+                  // @ts-ignore Fiks
+                  aktsomhetTyper={aktsomhetTyper}
+                  sarligGrunnTyper={sarligGrunnTyper}
+                  antallYtelser={data.ytelser.length}
+                  feilutbetalingBelop={data.feilutbetaling}
+                  erTotalBelopUnder4Rettsgebyr={data.erTotalBelopUnder4Rettsgebyr}
+                  andelSomTilbakekreves={andelSomTilbakekreves}
                 />
-                <VerticalSpacer eightPx />
-                {valgtVilkarResultatType === VilkarResultat.GOD_TRO && (
-                  <BelopetMottattIGodTroFormPanel
-                    name={valgtVilkarResultatType}
-                    readOnly={readOnly}
-                    erBelopetIBehold={erBelopetIBehold}
-                    feilutbetalingBelop={data.feilutbetaling}
-                  />
-                )}
-                {valgtVilkarResultatType !== VilkarResultat.GOD_TRO && (
-                  <AktsomhetFormPanel
-                    key={valgtVilkarResultatType}
-                    name={valgtVilkarResultatType}
-                    harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-                    readOnly={readOnly}
-                    handletUaktsomhetGrad={handletUaktsomhetsgrad}
-                    resetFields={resetUtaktsomhetsgrad}
-                    erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                    erValgtResultatTypeForstoBurdeForstaatt={
-                      valgtVilkarResultatType === VilkarResultat.FORSTO_BURDE_FORSTAATT
-                    }
-                    // @ts-ignore Fiks
-                    aktsomhetTyper={aktsomhetTyper}
-                    sarligGrunnTyper={sarligGrunnTyper}
-                    antallYtelser={data.ytelser.length}
-                    feilutbetalingBelop={data.feilutbetaling}
-                    erTotalBelopUnder4Rettsgebyr={data.erTotalBelopUnder4Rettsgebyr}
-                    andelSomTilbakekreves={andelSomTilbakekreves}
-                  />
-                )}
-              </>
-            )}
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
+              )}
+            </>
+          )}
+        </div>
+      </HStack>
       <VerticalSpacer twentyPx />
-      <FlexRow>
-        <FlexColumn>
-          <Button size="small" variant="primary" disabled={!formMethods.formState.isDirty || readOnly}>
-            <FormattedMessage id="TilbakekrevingPeriodeForm.Oppdater" />
-          </Button>
-        </FlexColumn>
-        <FlexColumn>
-          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
-            <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
-          </Button>
-        </FlexColumn>
-      </FlexRow>
+      <HStack gap="4">
+        <Button size="small" variant="primary" disabled={!formMethods.formState.isDirty || readOnly}>
+          <FormattedMessage id="TilbakekrevingPeriodeForm.Oppdater" />
+        </Button>
+        <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
+          <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
+        </Button>
+      </HStack>
       {showModal && (
         <WarningModal
           bodyText={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr' })}

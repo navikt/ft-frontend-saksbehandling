@@ -84,6 +84,8 @@ export interface OwnProps<ID, MODEL = void> {
  * TableRow
  *
  * Presentasjonskomponent. Tabellrad som brukes av komponenten Table.
+ *
+ * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
 const TableRow = <ID, MODEL = void>({
   id,
