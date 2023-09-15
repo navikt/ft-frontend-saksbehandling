@@ -37,7 +37,7 @@
     "@storybook/addon-links": "7.4.1",
     "@storybook/addons": "7.4.1",
     "@storybook/builder-vite": "7.4.1",
-    "@storybook/cli": "7.4.1",
+    "@storybook/cli": "7.4.2",
     "@storybook/react": "7.4.1",
     "@storybook/theming": "7.4.1",
     "@testing-library/jest-dom": "6.0.0",
