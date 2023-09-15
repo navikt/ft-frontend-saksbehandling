@@ -75,6 +75,7 @@ export const transformFieldValues = (
 
 type OwnProps = {
   readOnly: boolean;
+  formSubmittes: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -87,12 +88,11 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
   beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId,
   vilkårperiodeFieldIndex,
+  formSubmittes,
 }) => {
-  const manglerAksjonspunkt =
-    readOnly &&
-    !beregningsgrunnlag.avklaringsbehov.some(
-      ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
-    );
+  const manglerAksjonspunkt = !beregningsgrunnlag.avklaringsbehov.some(
+    ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
+  );
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
   const ap = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
@@ -115,7 +115,7 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
       {andeler.map(andel => (
         <VurderEndringRefusjonRad
           refusjonAndel={andel}
-          readOnly={manglerAksjonspunkt}
+          readOnly={manglerAksjonspunkt || readOnly}
           erAksjonspunktÅpent={erAksjonspunktÅpent}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           key={lagRadNøkkel(andel)}
@@ -128,14 +128,14 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
       <FaktaBegrunnelseTextField
         name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
         isSubmittable={submittable}
-        isReadOnly={manglerAksjonspunkt}
+        isReadOnly={manglerAksjonspunkt || readOnly}
         hasBegrunnelse={!!begrunnelse}
       />
       <VerticalSpacer twentyPx />
       <SubmitButton
         isSubmittable={submittable}
-        isReadOnly={manglerAksjonspunkt}
-        isSubmitting={formMethods.formState.isSubmitting}
+        isReadOnly={manglerAksjonspunkt || readOnly}
+        isSubmitting={formSubmittes}
         isDirty={formMethods.formState.isDirty}
       />
       <VerticalSpacer sixteenPx />
