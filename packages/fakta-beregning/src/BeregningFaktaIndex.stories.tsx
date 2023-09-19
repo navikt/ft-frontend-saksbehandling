@@ -580,7 +580,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: StoryFn = ({ sub
  * I dette tilfellet må saksbehandler fastsette inntekt for arbeidsforholdet og frilansaktiviteten manuelt
  *
  */
-export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = ({ submitCallback }) => {
+export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = () => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -626,7 +626,7 @@ export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = ({ submitC
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       kodeverkSamling={alleKodeverkMock as any}
-      submitCallback={submitCallback}
+      submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
@@ -640,7 +640,7 @@ export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = ({ submitC
  * Vurder om bruker mottar ytelse for frilansaktivitet
  *
  */
-export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = ({ submitCallback }) => {
+export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = () => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -671,7 +671,52 @@ export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = ({ submitCall
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       kodeverkSamling={alleKodeverkMock as any}
-      submitCallback={submitCallback}
+      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      readOnly={false}
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={vilkar}
+    />
+  );
+};
+
+export const VurderOmBrukerMottarYtelseForArbeidstakerAp5058 = () => {
+  const arbeidstakerBeregningsgrunnlagAndel = {
+    andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
+    aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
+    inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
+  };
+
+  const andeler = [arbeidstakerBeregningsgrunnlagAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel];
+
+  const vurderMottarYtelse = {
+    erFrilans: false,
+    frilansInntektPrMnd: 0,
+    arbeidstakerAndelerUtenIM: [standardFaktaArbeidstakerAndel],
+  };
+
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [VURDER_MOTTAR_YTELSE],
+    andelerForFaktaOmBeregning,
+    vurderMottarYtelse,
+  } as FaktaOmBeregning;
+  const avklaringsbehov = [
+    {
+      definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
+      status: AksjonspunktStatus.OPPRETTET,
+      begrunnelse: undefined,
+      kanLoses: true,
+    },
+  ];
+  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', avklaringsbehov);
+  return (
+    <BeregningFaktaIndex
+      beregningsgrunnlag={[beregningsgrunnlag]}
+      erOverstyrer={false}
+      kodeverkSamling={alleKodeverkMock as any}
+      submitCallback={action('button-click') as (data: any) => Promise<any>}
       readOnly={false}
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}

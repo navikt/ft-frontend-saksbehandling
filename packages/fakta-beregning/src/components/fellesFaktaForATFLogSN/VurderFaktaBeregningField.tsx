@@ -111,11 +111,29 @@ const lagHelpTextsForFakta = (
     );
   }
   if (erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
+    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_frilans`);
     alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpText"
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextFrilans"
+          values={{
+            h3: (...chunks) => (
+              <Heading size="xsmall" level="3">
+                {chunks}
+              </Heading>
+            ),
+          }}
+        />
+      </Alert>,
+    );
+  }
+
+  if (!erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_arbeidstaker`);
+    alerts.push(
+      <Alert size="small" variant="warning">
+        <FormattedMessage
+          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextArbeidstaker"
           values={{
             h3: (...chunks) => (
               <Heading size="xsmall" level="3">
