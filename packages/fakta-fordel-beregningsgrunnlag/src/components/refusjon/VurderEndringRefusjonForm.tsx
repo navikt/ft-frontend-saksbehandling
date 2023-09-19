@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Form } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
@@ -85,6 +85,7 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
       ? formData
       : buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
   });
+  const [formSubmittes, setFormSubmittes] = useState<boolean>(false);
 
   const {
     formState: { dirtyFields, isSubmitted, errors, isDirty },
@@ -112,6 +113,7 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
         formMethods={formMethods}
         onSubmit={values => {
           if (Object.keys(errors).length === 0) {
+            setFormSubmittes(true);
             submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
           }
         }}
@@ -140,6 +142,7 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
                 beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 vilkårperiodeFieldIndex={beregningsgrunnlagIndeks}
+                formSubmittes={formSubmittes}
               />
             </div>
           );
