@@ -20,10 +20,7 @@ describe('<InntektstabellPanel>', () => {
           erOverstyrer
           updateOverstyring={vi.fn()}
           erOverstyrt={false}
-        >
-          <span>test1</span>
-          <span>test2</span>
-        </InntektstabellPanelImpl>
+        />
       </IntlProvider>,
     );
     expect(screen.getByTestId('overstyringsknapp')).toBeInTheDocument();
@@ -47,10 +44,7 @@ describe('<InntektstabellPanel>', () => {
           erOverstyrer
           updateOverstyring={vi.fn()}
           erOverstyrt={false}
-        >
-          <span>test1</span>
-          <span>test2</span>
-        </InntektstabellPanelImpl>
+        />
       </IntlProvider>,
     );
     const overstyringsknapp = screen.getByTestId('overstyringsknapp');
