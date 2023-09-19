@@ -46,18 +46,17 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ rea
       <RadioGroupPanel
         label={
           <>
-            <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
+            <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL" />
             <ReadMore
               size="small"
               header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
             >
-              <List>
-                <List.Item>Gå til Aa-registeret og A-inntekt for å se frilansoppdrag og inntekter.</List.Item>
+              <List size="small">
                 <List.Item>
-                  {`Undersøk om søker faktisk var
-                  nyoppstartet frilanser i beregningsperioden. Frilansere har ofte ujevne utbetalinger, og kan bli meldt
-                  inn/ut av Aa-registeret selvom de fast jobber som frilanser. Hvis dette er tilfelle skal du velge
-                  "nei".`}
+                  <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem2" />
                 </List.Item>
               </List>
             </ReadMore>

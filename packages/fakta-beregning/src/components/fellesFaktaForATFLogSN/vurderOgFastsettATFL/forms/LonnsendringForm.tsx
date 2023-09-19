@@ -44,20 +44,17 @@ const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readO
       <RadioGroupPanel
         label={
           <>
-            <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.HarSokerEndring" />
-            <ReadMore size="small" header="Hva betyr dette?">
-              <List>
+            <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HarSokerEndring" />
+            <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette" />}>
+              <List size="small">
                 <List.Item>
-                  En arbeidstaker som får en varig lønnsendring i eller etter beregningsperioden, men før
-                  skjæringstidsspunktet, skal ha lønnsendringen med i beregningsgrunnlaget.
+                  <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette1" />
                 </List.Item>
                 <List.Item>
-                  Med varig lønnsendring menes alle lønnsendringer som ikke er midlertidige, og gjelder både ved
-                  lønnsøkning og lønnsreduksjon.
+                  <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette2" />
                 </List.Item>
                 <List.Item>
-                  Dette kan eksempelvis være endring av lønn etter lokale lønnsforhandlinger eller tariffendringer. Det
-                  kan også være en varig endring av stillingsprosent med dertil endret lønn.
+                  <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette3" />
                 </List.Item>
               </List>
             </ReadMore>

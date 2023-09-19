@@ -97,7 +97,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List>
+            <List size="small">
               <List.Item>
                 <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1" />
               </List.Item>
@@ -138,7 +138,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List>
+            <List size="small">
               <List.Item>
                 <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate1" />
               </List.Item>
@@ -161,7 +161,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List>
+            <List size="small">
               <List.Item>
                 <FormattedMessage id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1" />
               </List.Item>
@@ -192,7 +192,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List>
+            <List size="small">
               <List.Item>
                 <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1" />
               </List.Item>

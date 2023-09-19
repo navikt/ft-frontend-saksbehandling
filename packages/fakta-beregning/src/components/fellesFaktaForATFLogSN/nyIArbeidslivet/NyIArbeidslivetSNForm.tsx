@@ -47,20 +47,15 @@ const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ 
               size="small"
               header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
             >
-              <List>
+              <List size="small">
                 <List.Item>
-                  En næringsdrivende er “ny i arbeidslivet” når de i løpet av de tre siste årene har begynt i
-                  arbeidslivet, og i den forbindelse startet en virksomhet. Dette kan for eksempel være en student som
-                  etter eksamen oppretter et firma.
+                  <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.HvordanGarJegFrem1" />
                 </List.Item>
                 <List.Item>
-                  For å finne ut når søker ble yrkesaktiv, kan du se i Brønnøysundregistrene når næringsvirksomheten ble
-                  registert. Du kan også bruke A-inntekt for å se om søker har hatt annen inntekt de tre siste
-                  ferdiglignede årene.
+                  <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.HvordanGarJegFrem2" />
                 </List.Item>
                 <List.Item>
-                  Hvis du velger “ja”, kan du skjønnsfastsette næringsinntekten i neste steg, selv om avviket ikke er
-                  over 25 prosent. Hvis du velger “nei”, brukes hovedregler for beregning av næringsinntekt.
+                  <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.HvordanGarJegFrem3" />
                 </List.Item>
               </List>
             </ReadMore>

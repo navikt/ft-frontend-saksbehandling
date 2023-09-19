@@ -211,9 +211,13 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List>
-              <List.Item>Undersøk i Modia om søker har full AAP.</List.Item>
-              <List.Item>Ved full AAP skal arbeidsinntekten ikke benyttes.</List.Item>
+            <List size="small">
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2" />
+              </List.Item>
             </List>
           </ReadMore>
         </Alert>

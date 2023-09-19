@@ -82,9 +82,7 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
                   size="small"
                   header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
                 >
-                  Gå til A-inntekt og sjekk at informasjon om tidsbegrenset arbeidsforhold stemmer overens med
-                  informasjonen her. Ved å velge “ja”, gir det mulighet til å skjønnsfastsette de ulike periodene i
-                  beregning.
+                  <FormattedMessage id="BeregningInfoPanel.TidsbegrensetArbeidsforholdForm.ReadMore" />
                 </ReadMore>
               </>
             }

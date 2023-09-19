@@ -72,14 +72,12 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List>
+            <List size="small">
               <List.Item>
-                {`Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være
-                feilregistreringer fra andre systemer og du skal da velge "nei".`}
+                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem1" />
               </List.Item>
               <List.Item>
-                For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på
-                utbetalinger i Modia eller vedtaksbrev i Gosys.
+                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem2" />
               </List.Item>
             </List>
           </ReadMore>
@@ -168,14 +166,12 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
                   size="small"
                   header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
                 >
-                  <List>
+                  <List size="small">
                     <List.Item>
-                      Undersøk om søker har mottatt ytelse i beregningsperioden. I noen tilfeller kan det være
-                      feilregistreringer fra andre systemer og du skal da velge “nei”.
+                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem1" />
                     </List.Item>
                     <List.Item>
-                      For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på
-                      utbetalinger i Modia eller vedtaksbrev i Gosys.
+                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2" />
                     </List.Item>
                   </List>
                 </ReadMore>

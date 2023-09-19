@@ -39,15 +39,12 @@ const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnl
               size="small"
               header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
             >
-              <List>
+              <List size="small">
                 <List.Item>
-                  Kontakt søker og be om dokumentasjon på avtjent tjeneste i opptjeningsperioden. Vurder om tjenesten
-                  har vart eller var ment å vare mer enn 28 dager i henhold til §8-46. Denne informasjonen er ikke
-                  tilgjengelig i noen registre, og vi må derfor ha dokumentasjon fra søker.
+                  <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem1" />
                 </List.Item>
                 <List.Item>
-                  {`Svarer du "ja" vil utbetalingen bli minst 2G (pleiepenger) / 3G (foreldrepenger). Svarer du "nei"
-                  beregnes det etter vanlige regler.`}
+                  <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem2" />
                 </List.Item>
               </List>
             </ReadMore>

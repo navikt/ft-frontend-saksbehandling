@@ -222,25 +222,24 @@ const lagHelpTextsForFakta = (
             <FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt" />
           }
         >
-          <List>
-            <List.Item>Gå til A-inntekt for å finne brukerens inntekter.</List.Item>
+          <List size="small">
             <List.Item>
-              Bruk først filter §8-28 og finn samlet inntekt for de 3 siste månedene før skjæringstidspunktet
-              (utbetalinger fra Nav ligger ikke i dette filteret, kan derfor være 0). Regn om til årsinntekt.
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1" />
             </List.Item>
             <List.Item>
-              Bruk så filter §8-30 og regn ut den totale inntekten for de siste 12 månedene før skjæringstidspunktet.
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2" />
             </List.Item>
             <List.Item>
-              Regn ut månedsinntekt ved å finne differansen mellom rapportert inntekt (§8-30 filter) og omregnet
-              årsinntekt (§8-28 filter) / 12 måneder.
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3" />
             </List.Item>
             <List.Item>
-              Regn ut avviket ved å bruke månedsinntekt x 100 / rapportert inntekt de siste 12 kalendermånedene = avvik
-              i prosent.
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4" />
             </List.Item>
             <List.Item>
-              Dersom det er mer enn 25 prosent differanse i avviksberegningen skal det fastsettes ved skjønn.
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5" />
+            </List.Item>
+            <List.Item>
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
             </List.Item>
           </List>
         </ReadMore>
@@ -249,15 +248,16 @@ const lagHelpTextsForFakta = (
           size="small"
           header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori" />}
         >
-          <List>
+          <List size="small">
             <List.Item>
-              Inntektskategori er den arbeidsaktiviteten ytelsen som ligger til grunn er beregnet ut ifra.
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1" />
             </List.Item>
             <List.Item>
-              Hvis ytelsen er beregnet fra annen ytelse, skal du ta utgangspunkt i den første ytelsen det ble beregnet
-              grunnlag fra.
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2" />
             </List.Item>
-            <List.Item>Du finner inntektskategorien ytelsen er basert på i Modia.</List.Item>
+            <List.Item>
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3" />
+            </List.Item>
           </List>
         </ReadMore>
       </Alert>,
