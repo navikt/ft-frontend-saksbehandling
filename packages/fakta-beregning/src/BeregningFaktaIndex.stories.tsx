@@ -580,7 +580,7 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: StoryFn = ({ sub
  * I dette tilfellet må saksbehandler fastsette inntekt for arbeidsforholdet og frilansaktiviteten manuelt
  *
  */
-export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = () => {
+export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -626,7 +626,7 @@ export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = () => {
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       kodeverkSamling={alleKodeverkMock as any}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      submitCallback={submitCallback}
       readOnly={false}
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
@@ -640,7 +640,7 @@ export const FrilansOgArbeidstakerISammeOrganisasjonAp5058: StoryFn = () => {
  * Vurder om bruker mottar ytelse for frilansaktivitet
  *
  */
-export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = () => {
+export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -671,7 +671,7 @@ export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = () => {
       beregningsgrunnlag={[beregningsgrunnlag]}
       erOverstyrer={false}
       kodeverkSamling={alleKodeverkMock as any}
-      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      submitCallback={submitCallback}
       readOnly={false}
       submittable
       arbeidsgiverOpplysningerPerId={agOpplysninger}
