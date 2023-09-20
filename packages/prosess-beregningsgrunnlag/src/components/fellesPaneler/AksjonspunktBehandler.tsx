@@ -461,7 +461,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   });
 
   const {
-    formState: { dirtyFields, isSubmitted },
+    formState: { dirtyFields },
     control,
     trigger,
   } = formMethods;
@@ -473,7 +473,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
 
   const panelRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (isSubmitted && dirtyFields[formName]?.[aktivIndex]) {
+    if (finnesFormSomSubmittes && dirtyFields[formName]?.[aktivIndex]) {
       trigger();
     }
     const aktivtBG = beregningsgrunnlagListe[aktivIndex];
