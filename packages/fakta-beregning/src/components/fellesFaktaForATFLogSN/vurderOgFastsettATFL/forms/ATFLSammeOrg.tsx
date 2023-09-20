@@ -1,10 +1,7 @@
-import React, { FunctionComponent } from 'react';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
-import { FaktaOmBeregning, Beregningsgrunnlag } from '@navikt/ft-types';
-import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import { FaktaOmBeregning } from '@navikt/ft-types';
 import { InntektTransformed } from '../../../../typer/FieldValues';
+import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 
 export const transformValuesForATFLISammeOrg = (
   inntektVerdier: InntektTransformed[],
@@ -52,26 +49,3 @@ export const harRiktigTilfelle = beregningsgrunnlag =>
         .map(kode => kode)
         .includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
     : false;
-
-type OwnProps = {
-  beregningsgrunnlag: Beregningsgrunnlag;
-  manglerInntektsmelding: boolean;
-};
-
-export const ATFLSammeOrgTekst: FunctionComponent<OwnProps> = ({ beregningsgrunnlag, manglerInntektsmelding }) => {
-  if (!harRiktigTilfelle(beregningsgrunnlag)) {
-    return null;
-  }
-  if (manglerInntektsmelding) {
-    return (
-      <BodyShort>
-        <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrgUtenIM" />
-      </BodyShort>
-    );
-  }
-  return (
-    <BodyShort>
-      <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ATFLSammeOrg" />
-    </BodyShort>
-  );
-};

@@ -6,10 +6,12 @@
   white-space: nowrap;
   width: 1px;
 }
-.radios :global(.navds-radio-buttons) {
-  /* stylelint-disable-next-line declaration-no-important */
-  margin-top: -6px !important;
-}
+
 .navnKol {
-  width: 500px;
+  max-width: 500px;
+  min-width: 400px;
+}
+
+.table {
+  margin-bottom: 1rem;
 }

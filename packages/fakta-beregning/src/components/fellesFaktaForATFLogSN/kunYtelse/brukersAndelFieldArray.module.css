@@ -10,8 +10,12 @@
 .slettIkon {
   color: var(--a-red-500);
 }
-.rightAlign {
-  text-align: right;
+.rightAlign > div {
+  margin-left: auto;
+}
+.rightAlign > button {
+  margin-left: -1.875rem;
+  margin-right: -0.75rem;
 }
 .rightAlignInput > div > input {
   margin-right: 0;
@@ -20,41 +24,6 @@
 .rightAlignInput > div > p {
   text-align: right;
   width: 140px;
-}
-.inntektTable {
-  border-bottom: 0;
-  margin-bottom: 8px;
-  max-width: 700px;
-}
-.inntektTable > thead > tr > td:first-child {
-  padding-left: 0;
-  text-align: left;
-}
-.inntektTable > tbody > tr > td:nth-child(2) {
-  max-width: 50px;
-}
-.inntektTable > tbody > tr > td {
-  vertical-align: middle;
-}
-.inntektTable > tbody > tr > td:first-child {
-  padding-left: 0;
-  text-align: left;
-}
-.inntektTable > tbody > tr > td:last-child {
-  text-align: right;
-}
-.inntektTable > tbody > tr > td:not(:first-child) > div {
-  margin-bottom: 8px;
-}
-.inntektTable > tbody > tr > td:not(:first-child) > div > div > input {
-  text-align: right;
-}
-.inntektTable > tbody > tr:last-child {
-  padding-bottom: 0;
-  padding-top: 0;
-}
-.inntektTable > tbody > tr:last-child > td {
-  border-top: 0;
 }
 .buttonRow {
   margin-top: 0;

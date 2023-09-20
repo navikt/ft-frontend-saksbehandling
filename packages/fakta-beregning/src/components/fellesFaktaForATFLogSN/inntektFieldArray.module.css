@@ -18,57 +18,7 @@
   text-align: right;
   width: 140px;
 }
-.inntektTable {
-  border-bottom: 0;
-  margin-bottom: 8px;
-}
-.inntektTable > thead > tr > td:first-child {
-  padding-left: 0;
-  text-align: left;
-}
-.inntektTable > tbody > tr > td:nth-child(2) {
-  max-width: 50px;
-  text-align: left;
-}
-.inntektTable > thead > tr > td:nth-child(2) {
-  text-align: left;
-}
-.inntektTable > thead > tr > td:last-child {
-  text-align: right;
-}
-.inntektTable > thead > tr > td {
-  text-align: right;
-}
-.inntektTable > tbody > tr > td {
-  text-align: right;
-  vertical-align: middle;
-}
-.inntektTable > tbody > tr > td:first-child {
-  padding-left: 0;
-  text-align: left;
-}
-.inntektTable > tbody > tr > td:last-child {
-  text-align: right;
-}
-.inntektTable > tbody > tr > td:not(:first-child) > div > div > input {
-  text-align: right;
-}
-.inntektTable > tbody > tr:last-child {
-  padding-bottom: 0;
-  padding-top: 0;
-}
-.inntektTable > tbody > tr:last-child > td {
-  border-top: 0;
-}
-.inntektTable :global(.skjemaelement__label) {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
+
 .buttonRow {
   margin-top: 0;
 }
@@ -99,4 +49,28 @@
 }
 .litenBredde {
   width: 70px;
+}
+.inntekt {
+  display: flex;
+  justify-content: flex-end;
+}
+.inntektNew {
+  margin-left: 0.5rem;
+  margin-right: 0.25rem;
+}
+.inntektOld {
+  display: inline-block;
+}
+.inntektOldStrikethrough {
+  display: inline-block;
+}
+.inntektOldStrikethrough p {
+  color: var(--text-subtle, rgba(0, 0, 0, 0.65));
+  text-decoration: line-through;
+}
+
+.saksbehandlerIcon {
+  color: #c77300;
+  font-size: 1.5rem;
+  margin-right: -1.75rem;
 }
