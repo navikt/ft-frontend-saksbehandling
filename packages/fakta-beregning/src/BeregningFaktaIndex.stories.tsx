@@ -424,6 +424,49 @@ export const FrilansOgArbeidsforholdMedLønnsendringOgNyoppstartetAp5058: StoryF
   );
 };
 
+/**
+ * Vurdering av om frilansaktivitet er nyoppstartet
+ */
+export const FrilansNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
+  const frilansBeregningsgrunnlagAndel = {
+    andelsnr: standardFaktaFrilansAndel.andelsnr,
+    aktivitetStatus: standardFaktaFrilansAndel.aktivitetStatus,
+    inntektskategori: standardFaktaFrilansAndel.inntektskategori,
+    erNyoppstartet: null,
+  };
+  const andeler = [frilansBeregningsgrunnlagAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaFrilansAndel];
+  const vurderMottarYtelse = {
+    erFrilans: true,
+    frilansInntektPrMnd: 20000,
+    arbeidstakerAndelerUtenIM: [],
+  };
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [VURDER_NYOPPSTARTET_FL],
+    vurderMottarYtelse,
+    andelerForFaktaOmBeregning,
+  } as FaktaOmBeregning;
+  const beregningsgrunnlag2 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-15', [opprettetVurderFakta]);
+
+  const callback = submitCallback || (action('button-click') as (data: any) => Promise<any>);
+
+  return (
+    <BeregningFaktaIndex
+      beregningsgrunnlag={[beregningsgrunnlag2]}
+      erOverstyrer={false}
+      kodeverkSamling={alleKodeverkMock as any}
+      submitCallback={callback}
+      readOnly={false}
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={lagVilkar([
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
+      ])}
+    />
+  );
+};
+
 export const ArbeidsforholdMedLønnsendringAp5058: StoryFn = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
