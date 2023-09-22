@@ -75,13 +75,17 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
   }
 
   return (
-    <Modal width="medium" open={skalViseModal} className={styles.modal} onClose={lukkModal}>
+    <Modal width="500px" open={skalViseModal} onClose={lukkModal}>
       <Modal.Header>
         <FormattedMessage id="TilkommetAktivitet.Modal.Tittel" />
       </Modal.Header>
       <Modal.Body>
-        <div className={styles.boks}>
-          <Select label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Select' })} onChange={endreValgtPeriode}>
+        <div>
+          <Select
+            label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Select' })}
+            onChange={endreValgtPeriode}
+            size="small"
+          >
             <option value={undefined}>Velg periode</option>
             {perioder.map(periode => (
               <option key={periode.fom} value={periode.fom}>
@@ -89,19 +93,23 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
               </option>
             ))}
           </Select>
-          <VerticalSpacer sixteenPx />
-          {periodeKanSplittes && (
-            <PeriodesplittDatoValg
-              forhåndsvisPeriodesplitt={forhåndsvisPeriodesplitt}
-              periode={valgtPeriode}
-              setValgtDato={setValgtSplittdato}
-            />
-          )}
         </div>
+        <VerticalSpacer sixteenPx />
+        {periodeKanSplittes && (
+          <FlexContainer>
+            <FlexRow className={styles.datoRad}>
+              <PeriodesplittDatoValg
+                forhåndsvisPeriodesplitt={forhåndsvisPeriodesplitt}
+                periode={valgtPeriode}
+                setValgtDato={setValgtSplittdato}
+              />
+            </FlexRow>
+          </FlexContainer>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <FlexContainer>
-          <FlexRow>
+          <FlexRow className={styles.footerRad}>
             <FlexColumn>
               <Button
                 size="small"
