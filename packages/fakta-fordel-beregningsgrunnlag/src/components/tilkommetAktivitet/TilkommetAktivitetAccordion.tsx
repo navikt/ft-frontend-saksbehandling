@@ -74,11 +74,12 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
     if (vurderInntektsforholdPerioder) {
       const perioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
       setSammenslåttePerioder(perioder);
+      const åpnePanelerOppdatert = openPanels.map(d => d);
       const alleFomIFields = fields.map(field => field.fom);
       const nyeFomDatoer = alleFomIFields.filter(fom => !alleFomDatoer.includes(fom));
       // Nye perioder skal alltid åpne som standard
-      nyeFomDatoer.forEach(fom => openPanels.push(fom));
-      setOpenPanels(openPanels);
+      nyeFomDatoer.forEach(fom => åpnePanelerOppdatert.push(fom));
+      setOpenPanels(åpnePanelerOppdatert);
       setAlleFomDatoer(alleFomIFields);
     }
   }, [beregningsgrunnlag, fields.length]);
