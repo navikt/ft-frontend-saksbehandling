@@ -5,9 +5,18 @@
   padding: 16px;
 }
 
-.modal {
-  height: 360px;
-  /* stylelint-disable-next-line declaration-no-important */
-  overflow: visible !important;
-  width: 500px;
+.boks {
+  width: 50%;
+}
+
+.footerRad {
+  width: 55%;
+}
+
+.datoVelger {
+  padding-top: 3px;
+}
+
+.periodeHeader {
+  padding-left: 20px;
 }

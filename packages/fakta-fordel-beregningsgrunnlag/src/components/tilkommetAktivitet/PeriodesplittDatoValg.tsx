@@ -5,6 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Label } from '@navikt/ds-react/esm/typography';
 import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import styles from './periodesplittModal.module.css';
 
 export type Periode = {
   fom: string;
@@ -53,7 +54,7 @@ const PeriodesplittDatoValg: FC<PeriodesplittModalProps> = ({ periode, forhånds
 
   return (
     <>
-      <FlexColumn>
+      <FlexColumn className={styles.datoVelger}>
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
             {...inputProps}
@@ -64,7 +65,7 @@ const PeriodesplittDatoValg: FC<PeriodesplittModalProps> = ({ periode, forhånds
       </FlexColumn>
       {nyePerioder && (
         <FlexColumn>
-          <Label>
+          <Label size="small" className={styles.periodeHeader}>
             <FormattedMessage id="TilkommetAktivitet.Modal.Resultat" />
           </Label>
           <ul>

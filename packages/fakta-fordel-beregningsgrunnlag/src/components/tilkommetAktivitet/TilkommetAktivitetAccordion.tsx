@@ -65,6 +65,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
 }) => {
   const [sammenslåttePerioder, setSammenslåttePerioder] = useState<VurderInntektsforholdPeriode[]>([]);
   const [openPanels, setOpenPanels] = useState<string[]>([]);
+  const [alleFomDatoer, setAlleFomDatoer] = useState<string[]>([]);
   const formMethods = useFormContext<TilkommetAktivitetFormValues>();
 
   useEffect(() => {
@@ -73,13 +74,15 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
     if (vurderInntektsforholdPerioder) {
       const perioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
       setSammenslåttePerioder(perioder);
-      const åpnePaneler = perioder
-        .filter(p => !erVurdertTidligere(p, beregningsgrunnlag))
-        .filter(periode => !!periode.fom)
-        .map(periode => periode.fom);
-      setOpenPanels(åpnePaneler);
+      const åpnePanelerOppdatert = openPanels.map(d => d);
+      const alleFomIFields = fields.map(field => field.fom);
+      const nyeFomDatoer = alleFomIFields.filter(fom => !alleFomDatoer.includes(fom));
+      // Nye perioder skal alltid åpne som standard
+      nyeFomDatoer.forEach(fom => åpnePanelerOppdatert.push(fom));
+      setOpenPanels(åpnePanelerOppdatert);
+      setAlleFomDatoer(alleFomIFields);
     }
-  }, [beregningsgrunnlag]);
+  }, [beregningsgrunnlag, fields.length]);
 
   const tidligereVurderte = sammenslåttePerioder.filter(p => erVurdertTidligere(p, beregningsgrunnlag));
 
