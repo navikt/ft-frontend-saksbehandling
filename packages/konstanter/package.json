@@ -17,7 +17,7 @@
     "prettier": "prettier --write src"
   },
   "devDependencies": {
-    "@storybook/react": "7.4.2",
+    "@storybook/react": "7.4.5",
     "cross-env": "7.0.3",
     "eslint": "8.49.0",
     "stylelint": "15.10.3",
