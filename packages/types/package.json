@@ -19,9 +19,9 @@
     "@navikt/ft-kodeverk": "2.x"
   },
   "devDependencies": {
-    "@storybook/react": "7.4.2",
+    "@storybook/react": "7.4.5",
     "cross-env": "7.0.3",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "stylelint": "15.10.3",
     "typescript": "5.2.2",
     "vite": "4.4.9",
