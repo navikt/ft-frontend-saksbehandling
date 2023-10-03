@@ -1,4 +1,3 @@
-import { Alert, Heading, List, ReadMore } from '@navikt/ds-react';
 import {
   AktivitetStatus,
   FaktaOmBeregningTilfelle,
@@ -15,12 +14,8 @@ import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
-  RefusjonskravSomKommerForSentListe,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
 import {
   ArbeidstakerInntektValues,
   FaktaOmBeregningAksjonspunktValues,
@@ -36,9 +31,9 @@ import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
+import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
-export const besteberegningField = 'vurderbesteberegningField';
 
 const preutfyllInntektskategori = (andel: AndelForFaktaOmBeregning) =>
   andel.inntektskategori && andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '';
@@ -316,8 +311,6 @@ export const getFastsattBelopFromArbeidstakerInntekt = (
 ) =>
   arbeidstakerInntektValues?.find(arbeidsgiver => arbeidsgiver.arbeidsgiverIdent === arbeidsgiverIdent)?.fastsattBelop;
 
-export const parseStringToBoolean = (value: string) => value === 'true';
-
 export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning => {
   if (!beregningsgrunnlag.faktaOmBeregning) {
     throw new Error('Mangler fakta om beregning, ugyldig tilstand');
@@ -338,286 +331,4 @@ export const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]
       ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   );
   return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
-};
-
-export const lagHelpTextsForFakta = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement => {
-  const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
-  const erFrilans = beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
-  const alerts = [];
-  const keys = [];
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-  if (erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_frilans`);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextFrilans"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (!erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_arbeidstaker`);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextArbeidstaker"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
-    keys.push(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-        <VerticalSpacer fourPx />
-        <ReadMore
-          size="small"
-          header={
-            <FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt" />
-          }
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
-            </List.Item>
-          </List>
-        </ReadMore>
-        <VerticalSpacer fourPx />
-        <ReadMore
-          size="small"
-          header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori" />}
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3" />
-            </List.Item>
-          </List>
-        </ReadMore>
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT)) {
-    const senRefusjonkravListe = beregningsgrunnlag?.faktaOmBeregning?.refusjonskravSomKommerForSentListe;
-    let arbeidsgivereNavn = '';
-    senRefusjonkravListe.forEach((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe, index: number) => {
-      const { arbeidsgiverIdent } = kravPerArbeidsgiver;
-      const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
-      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : arbeidsgiverIdent;
-      if (index === 0) {
-        arbeidsgivereNavn = arbeidsgiverVisningsnavn;
-      } else {
-        arbeidsgivereNavn = `${arbeidsgivereNavn}, ${arbeidsgiverVisningsnavn}`;
-      }
-    });
-
-    keys.push(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText"
-          values={{
-            arbeidsgiverVisningsnavn: arbeidsgivereNavn,
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-  if (alerts.length > 0) {
-    return (
-      <>
-        {alerts.map((alert, index) => (
-          <React.Fragment key={keys[index]}>
-            {index > 0 && <VerticalSpacer sixteenPx />}
-            {alert}
-          </React.Fragment>
-        ))}
-      </>
-    );
-  }
-
-  return (
-    <Alert size="small" variant="warning">
-      <FormattedMessage key="VurderFaktaForBeregningen" id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning" />
-    </Alert>
-  );
 };

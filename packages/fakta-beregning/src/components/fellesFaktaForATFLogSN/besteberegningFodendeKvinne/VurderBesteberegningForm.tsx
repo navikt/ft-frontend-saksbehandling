@@ -12,7 +12,9 @@ import { FaktaBeregningTransformedValues } from '../../../typer/interface/Beregn
 import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
-import { besteberegningField, parseStringToBoolean } from '../BgFaktaUtils';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+
+export const besteberegningField = 'vurderbesteberegningField';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
