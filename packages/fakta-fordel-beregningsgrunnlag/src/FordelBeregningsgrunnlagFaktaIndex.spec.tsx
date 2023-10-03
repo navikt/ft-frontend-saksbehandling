@@ -676,7 +676,7 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
   expect(screen.getByText('Opprett ny vurdering fra')).toBeInTheDocument();
 
   await userEvent.click(screen.getByLabelText('Åpne datovelger'));
-  await userEvent.click(screen.getByLabelText('tirsdag 18'));
+  await userEvent.click(screen.getByText('18'));
   expect(await screen.getAllByText('Del opp periode')[2].closest('button')).toBeEnabled();
   expect(screen.getByText('Nye perioder til vurdering:')).toBeInTheDocument();
   expect(screen.getByText('10.04.2023 - 17.04.2023')).toBeInTheDocument();
