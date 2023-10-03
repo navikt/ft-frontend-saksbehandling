@@ -207,7 +207,9 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
               const alignRight = alginRightHeaders.includes(header);
               return (
                 <Table.HeaderCell key={header} scope="col" align={alignRight ? 'right' : 'left'}>
-                  <FormattedMessage id={header} />
+                  <Label size="small" as="span">
+                    <FormattedMessage id={header} />
+                  </Label>
                 </Table.HeaderCell>
               );
             })}

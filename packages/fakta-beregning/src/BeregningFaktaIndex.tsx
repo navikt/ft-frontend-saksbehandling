@@ -8,9 +8,10 @@ import {
   Vilkar,
   Vilkarperiode,
 } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, createIntl } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.module.css';
@@ -20,6 +21,11 @@ import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
 import KodeverkForPanel from './typer/kodeverkForPanel';
+import {
+  hasAksjonspunkt,
+  isAksjonspunktClosed,
+  lagHelpTextsForFakta,
+} from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
 
 const intl = createIntl(messages);
 
@@ -95,6 +101,16 @@ const BeregningFaktaIndex: FunctionComponent<
 }) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   const [, setVurderFaktaBeregningFormErrors] = useState(undefined);
+  const vilkårsperioder = vilkar?.perioder;
+  useEffect(() => {
+    if (vilkårsperioder) {
+      const periodeMedAksjonspunktIndex = beregningsgrunnlag?.findIndex(bg => skalVurderes(bg, vilkårsperioder));
+      if (periodeMedAksjonspunktIndex > -1) {
+        setAktivtBeregningsgrunnlagIndeks(periodeMedAksjonspunktIndex);
+      }
+    }
+  }, []);
+
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
@@ -103,11 +119,17 @@ const BeregningFaktaIndex: FunctionComponent<
   const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
-  const vilkårsperioder = vilkar.perioder;
 
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
+        {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) &&
+        !isAksjonspunktClosed(aktiveAvklaringsBehov) ? (
+          <>
+            {lagHelpTextsForFakta(aktivtBeregningsgrunnlag, arbeidsgiverOpplysningerPerId)}
+            <VerticalSpacer twentyPx />
+          </>
+        ) : null}
         {skalBrukeTabs && (
           <div className={styles.tabsContainer}>
             <Tabs

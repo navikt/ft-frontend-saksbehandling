@@ -18,7 +18,12 @@ import {
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import ArbeidsinntektInput from '../felles/ArbeidsinntektInput';
-import { erInitialOverstyringAvBeregningsgrunnlag, erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
+import {
+  erInitialOverstyringAvBeregningsgrunnlag,
+  erOverstyringAvBeregningsgrunnlag,
+  getFaktaOmBeregning,
+  getFaktaOmBeregningTilfellerKoder,
+} from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import {
@@ -38,21 +43,11 @@ import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
-export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning => {
-  if (!beregningsgrunnlag.faktaOmBeregning) {
-    throw new Error('Mangler fakta om beregning, ugyldig tilstand');
-  }
-  return beregningsgrunnlag.faktaOmBeregning;
-};
-
 export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold || undefined;
 
 export const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse || undefined;
-
-export const getFaktaOmBeregningTilfellerKoder = (beregningsgrunnlag: Beregningsgrunnlag): string[] =>
-  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller || [];
 
 export const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderMottarYtelse || undefined;

@@ -12,9 +12,7 @@ import { FaktaBeregningTransformedValues } from '../../../typer/interface/Beregn
 import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
-
-export const besteberegningField = 'vurderbesteberegningField';
+import { besteberegningField, parseStringToBoolean } from '../BgFaktaUtils';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
@@ -152,28 +150,34 @@ VurderBesteberegningPanelImpl.transformValues = (
   };
 };
 
-export const vurderBesteberegningTransform = (faktaOmBeregning: FaktaOmBeregning) => (
-  values: FaktaOmBeregningAksjonspunktValues,
-  inntektPrAndel: InntektTransformed[],
-): FaktaBeregningTransformedValues => {
-  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (
-    !(
-      tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-      tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
-    )
-  ) {
-    return {};
-  }
-  const besteberegningValues = VurderBesteberegningPanelImpl.transformValues(values, faktaOmBeregning, inntektPrAndel);
-  const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
-  if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
-    faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
-  }
-  return {
-    faktaOmBeregningTilfeller,
-    ...besteberegningValues,
+export const vurderBesteberegningTransform =
+  (faktaOmBeregning: FaktaOmBeregning) =>
+  (
+    values: FaktaOmBeregningAksjonspunktValues,
+    inntektPrAndel: InntektTransformed[],
+  ): FaktaBeregningTransformedValues => {
+    const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+    if (
+      !(
+        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
+        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+      )
+    ) {
+      return {};
+    }
+    const besteberegningValues = VurderBesteberegningPanelImpl.transformValues(
+      values,
+      faktaOmBeregning,
+      inntektPrAndel,
+    );
+    const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
+    if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
+      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
+    }
+    return {
+      faktaOmBeregningTilfeller,
+      ...besteberegningValues,
+    };
   };
-};
 
 export default VurderBesteberegningPanelImpl;
