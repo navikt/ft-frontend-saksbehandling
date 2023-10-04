@@ -1,53 +1,21 @@
-import { Label, Table } from '@navikt/ds-react';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
-import AndelFieldValue from '../../typer/FieldValues';
+import { useFormContext, useWatch } from 'react-hook-form';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import { erArbeidstaker, erDagpenger, erFrilanser, getArbeidsgiverIndex, getKanRedigereInntekt } from './BgFaktaUtils';
-import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+import { getKanRedigereInntekt } from './BgFaktaUtils';
 import styles from './inntektFieldArray.module.css';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
-const summerBeregnet = (
-  fields: AndelFieldValue[],
-  formValues: FaktaOmBeregningAksjonspunktValues,
-  beregningsgrunnlag: Beregningsgrunnlag,
-) => {
+const summerBeregnet = (fields, formValues, beregningsgrunnlag) => {
   let sum = 0;
-
   fields.forEach(field => {
-    let belop;
-    const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
-
-    if (kanRedigereInntekt) {
-      const erFrilansInntekt = erFrilanser(field);
-      const erArbeidstakerInntekt = erArbeidstaker(field);
-      const erDagpengerInntekt = erDagpenger(field);
-
-      if (erFrilansInntekt && formValues?.frilansInntektValues?.fastsattBelop) {
-        belop = formValues.frilansInntektValues.fastsattBelop;
-      } else if (
-        erArbeidstakerInntekt &&
-        formValues?.arbeidstakerInntektValues[
-          getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
-        ]?.fastsattBelop
-      ) {
-        belop =
-          formValues.arbeidstakerInntektValues[
-            getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
-          ].fastsattBelop;
-      } else if (erDagpengerInntekt && formValues?.dagpengerInntektValues?.fastsattBelop) {
-        belop = formValues.dagpengerInntektValues.fastsattBelop;
-      } else {
-        belop = field.fastsattBelop;
-      }
-    } else {
-      belop = field.belopReadOnly;
-    }
-
+    const belop = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field)
+      ? field.fastsattBelop
+      : field.belopReadOnly;
     sum += belop ? removeSpacesFromNumber(belop) : 0;
   });
   return sum > 0 ? sum : 0;
@@ -77,23 +45,21 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
   const sumBeregnet = summerBeregnet(fields, formValues, beregningsgrunnlag) || 0;
 
   return (
-    <Table.Row>
-      <Table.DataCell>
-        <Label as="p" size="small">
-          <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
-        </Label>
-      </Table.DataCell>
-      {skalVisePeriode && <Table.DataCell />}
-      <Table.DataCell align="right">
+    <TableRow>
+      <TableColumn>
+        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+      </TableColumn>
+      {skalVisePeriode && <TableColumn />}
+      <TableColumn className={styles.rightAlign}>
         <div className={styles.readOnlyContainer}>
-          <Label as="p" data-testid="sum" className={readOnly ? styles.readOnlyContent : ''} size="small">
+          <BodyShort data-testid="sum" className={readOnly ? styles.readOnlyContent : ''}>
             {formatCurrencyNoKr(sumBeregnet)}
-          </Label>
+          </BodyShort>
         </div>
-      </Table.DataCell>
-      {skalViseRefusjon && <Table.DataCell />}
-      <Table.DataCell />
-    </Table.Row>
+      </TableColumn>
+      {skalViseRefusjon && <TableColumn />}
+      <TableColumn />
+    </TableRow>
   );
 };
 export default SummaryRow;

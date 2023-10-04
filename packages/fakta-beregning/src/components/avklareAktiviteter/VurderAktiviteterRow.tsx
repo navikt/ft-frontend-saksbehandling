@@ -1,17 +1,17 @@
-import { BodyShort, Table } from '@navikt/ds-react';
 import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { hasValidDate, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
-import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { DateLabel, EditedIcon, PeriodLabel, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { prettifyDateString } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../ArbeidsforholdHelper';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
 import styles from './vurderAktiviteterTabell.module.css';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 type OwnProps = {
   readOnly: boolean;
@@ -73,31 +73,28 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
   };
 
   return (
-    <Table.Row key={lagAktivitetFieldId(aktivitet)}>
-      <Table.DataCell className={styles.navnKol}>
-        <BodyShort size="small">{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling)}</BodyShort>
-      </Table.DataCell>
-      <Table.DataCell className={styles.rowalign}>
+    <TableRow key={lagAktivitetFieldId(aktivitet)}>
+      <TableColumn className={styles.navnKol}>
+        <BodyShort>{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling)}</BodyShort>
+      </TableColumn>
+      <TableColumn className={styles.rowalign}>
         {!erOverstyrt && (
           <BodyShort>
-            <PeriodLabel size="small" dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
+            <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
           </BodyShort>
         )}
         {erOverstyrt && (
           <div>
-            <BodyShort as="span" size="small">
-              <DateLabel dateString={aktivitet.fom} /> -{' '}
-            </BodyShort>
+            <DateLabel dateString={aktivitet.fom} /> -{' '}
             <Datepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
               validate={[required, hasValidDate]}
               isReadOnly={readOnly}
-              size="small"
             />
           </div>
         )}
-      </Table.DataCell>
-      <Table.DataCell className={styles.radios}>
+      </TableColumn>
+      <TableColumn className={styles.radios}>
         <RadioGroupPanel
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
@@ -122,8 +119,8 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
           hideLegend
           hideRadioLabels
         />
-      </Table.DataCell>
-      <Table.DataCell className={styles.radios}>
+      </TableColumn>
+      <TableColumn className={styles.radios}>
         <RadioGroupPanel
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
@@ -148,19 +145,19 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
           hideLegend
           hideRadioLabels
         />
-      </Table.DataCell>
-      <Table.DataCell>
-        {isAvklaringsbehovClosed &&
-          readOnly &&
-          skalVurdereAktivitet(
+      </TableColumn>
+      {isAvklaringsbehovClosed && readOnly && (
+        <TableColumn>
+          {skalVurdereAktivitet(
             aktivitet,
             erOverstyrt,
             harAvklaringsbehov,
             erValgtSkjæringstidspunktLikEllerFørTomDato,
             ingenAktiviterErBrukt,
           ) && <EditedIcon />}
-      </Table.DataCell>
-    </Table.Row>
+        </TableColumn>
+      )}
+    </TableRow>
   );
 };
 export default VurderAktiviteterTabellRad;

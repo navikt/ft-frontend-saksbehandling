@@ -1,13 +1,13 @@
-import { List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 /**
  * NyIArbeidslivetSNForm
@@ -41,25 +41,9 @@ const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ 
     <div>
       <RadioGroupPanel
         label={
-          <>
+          <BodyShort>
             <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
-            <ReadMore
-              size="small"
-              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-            >
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.HvordanGarJegFrem1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.HvordanGarJegFrem2" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.HvordanGarJegFrem3" />
-                </List.Item>
-              </List>
-            </ReadMore>
-          </>
+          </BodyShort>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${radioGroupFieldName}`}
         validate={[required]}
@@ -69,6 +53,7 @@ const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ 
           { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
         ]}
         parse={parseStringToBoolean}
+        isHorizontal
       />
     </div>
   );
