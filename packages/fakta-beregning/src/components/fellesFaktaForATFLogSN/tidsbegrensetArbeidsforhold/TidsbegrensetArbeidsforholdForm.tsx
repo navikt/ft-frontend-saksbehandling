@@ -1,4 +1,4 @@
-import { ReadMore } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
@@ -7,16 +7,15 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import createVisningsnavnFakta from '../../ArbeidsforholdHelper';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 
@@ -62,14 +61,13 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
 
   return (
     <div>
-      {andelsliste.map((andel, index) => (
+      {andelsliste.map(andel => (
         <div
           key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)}`}
         >
-          {index > 0 && <VerticalSpacer twentyPx />}
           <RadioGroupPanel
             label={
-              <>
+              <BodyShort>
                 <FormattedMessage
                   id={kortvarigStringId}
                   values={{
@@ -78,13 +76,7 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
                     tom: dayjs(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
                   }}
                 />
-                <ReadMore
-                  size="small"
-                  header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-                >
-                  <FormattedMessage id="BeregningInfoPanel.TidsbegrensetArbeidsforholdForm.ReadMore" />
-                </ReadMore>
-              </>
+              </BodyShort>
             }
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
               andel,
@@ -96,6 +88,7 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
             ]}
             validate={[required]}
             parse={parseStringToBoolean}
+            isHorizontal
           />
         </div>
       ))}

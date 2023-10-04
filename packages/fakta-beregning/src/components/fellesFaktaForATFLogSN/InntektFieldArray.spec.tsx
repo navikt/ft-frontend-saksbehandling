@@ -45,7 +45,7 @@ const andelField = {
   fastsattBelop: '0',
   lagtTilAvSaksbehandler: false,
   inntektskategori: 'ARBEIDSTAKER',
-  arbeidsgiverIdent: '233647823',
+  arbeidsgiverId: '233647823',
   arbeidsperiodeFom: '01.01.2018',
   arbeidsperiodeTom: null,
   refusjonskrav: '10 000',

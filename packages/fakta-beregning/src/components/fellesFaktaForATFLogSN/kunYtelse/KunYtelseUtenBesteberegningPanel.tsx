@@ -1,10 +1,10 @@
 import { Label } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BorderBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 import BrukersAndelFieldArray from './BrukersAndelFieldArray';
 import styles from './kunYtelseUtenBesteberegningPanel.module.css';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 type OwnProps = {
   readOnly: boolean;
@@ -26,22 +26,21 @@ const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
   kodeverkSamling,
   isAksjonspunktClosed,
 }) => (
-  <>
+  <BorderBox>
     <FlexRow>
       <FlexColumn className={styles.flexColumn9}>
-        <Label size="medium">
-          <FormattedMessage id="KunYtelsePanel.RapporterteInntekter" />
+        <Label size="small">
+          <FormattedMessage id="KunYtelsePanel.Overskrift" />
         </Label>
       </FlexColumn>
     </FlexRow>
-    <VerticalSpacer eightPx />
     <BrukersAndelFieldArray
       name={brukersAndelFieldArrayName}
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
       kodeverkSamling={kodeverkSamling}
     />
-  </>
+  </BorderBox>
 );
 
 export default KunYtelseUtenBesteberegningPanel;

@@ -74,19 +74,6 @@ export type VurderRefusjonValues = {
   [key: string]: boolean | undefined;
 };
 
-export type FrilansinntektValues = {
-  fastsattBelop: number;
-};
-
-export type DagpengerinntektValues = {
-  fastsattBelop: number;
-};
-
-export type ArbeidstakerInntektValues = {
-  fastsattBelop: number;
-  arbeidsgiverIdent: string;
-};
-
 export type TilfellerValues = VurderMilitærValues &
   NyIArbeidslivetValues &
   LønnsendringValues &
@@ -98,9 +85,6 @@ export type TilfellerValues = VurderMilitærValues &
     tidsbegrensetValues?: TidsbegrensetandelValues;
     vurderMottarYtelseValues?: VurderMottarYtelseValues;
     vurderRefusjonValues?: VurderRefusjonValues;
-    frilansInntektValues?: FrilansinntektValues;
-    arbeidstakerInntektValues?: ArbeidstakerInntektValues[];
-    dagpengerInntektValues?: DagpengerinntektValues;
   };
 
 export type FaktaOmBeregningValues = TilfellerValues & {

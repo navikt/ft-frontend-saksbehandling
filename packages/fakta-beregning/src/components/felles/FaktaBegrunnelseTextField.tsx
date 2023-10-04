@@ -45,7 +45,7 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
   hasVurderingText,
   name,
 }) => {
-  const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.Begrunnelse';
+  const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.BegrunnEndringene';
   const textAreaLabel = label || intl.formatMessage({ id: code });
   return (
     <RawIntlProvider value={intl}>

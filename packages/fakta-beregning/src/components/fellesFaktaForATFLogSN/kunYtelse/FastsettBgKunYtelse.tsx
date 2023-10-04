@@ -15,7 +15,6 @@ export const setFaktaPanelForKunYtelse = (
   isAksjonspunktClosed,
   faktaOmBeregning,
   kodeverkSamling: KodeverkForPanel,
-  renderTextFieldAndSubmitButton: () => React.ReactNode,
 ) => {
   if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
     faktaPanels.push(
@@ -27,7 +26,6 @@ export const setFaktaPanelForKunYtelse = (
           faktaOmBeregning={faktaOmBeregning}
           kodeverkSamling={kodeverkSamling}
         />
-        {renderTextFieldAndSubmitButton()}
       </React.Fragment>,
     );
   }
