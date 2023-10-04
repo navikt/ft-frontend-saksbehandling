@@ -72,7 +72,9 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
         <Table.Row>
           {getHeaderTextCodes().map(header => (
             <Table.HeaderCell key={header} scope="col">
-              <FormattedMessage id={header} />
+              <Label size="small" as="span">
+                <FormattedMessage id={header} />
+              </Label>
             </Table.HeaderCell>
           ))}
           <Table.HeaderCell />

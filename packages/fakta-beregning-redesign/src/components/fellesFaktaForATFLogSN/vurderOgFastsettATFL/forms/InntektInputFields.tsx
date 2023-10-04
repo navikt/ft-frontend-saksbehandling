@@ -9,11 +9,11 @@ import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregni
 import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
 import InntektInput from '../../../felles/InntektInput';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
-import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { lonnsendringField } from './LonnsendringForm';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
 import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
+import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);

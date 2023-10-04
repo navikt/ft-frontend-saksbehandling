@@ -4,12 +4,13 @@ import {
   Inntektskategori,
   KodeverkType,
   OpptjeningAktivitetType as OAType,
+  isAksjonspunktOpen,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import {
+  ATFLSammeOrgAndel,
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
-  ATFLSammeOrgAndel,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
@@ -22,15 +23,15 @@ import {
 } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../ArbeidsforholdHelper';
-import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
@@ -309,3 +310,25 @@ export const getFastsattBelopFromArbeidstakerInntekt = (
   arbeidsgiverIdent: string,
 ) =>
   arbeidstakerInntektValues?.find(arbeidsgiver => arbeidsgiver.arbeidsgiverIdent === arbeidsgiverIdent)?.fastsattBelop;
+
+export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning => {
+  if (!beregningsgrunnlag.faktaOmBeregning) {
+    throw new Error('Mangler fakta om beregning, ugyldig tilstand');
+  }
+  return beregningsgrunnlag.faktaOmBeregning;
+};
+
+export const getFaktaOmBeregningTilfellerKoder = (beregningsgrunnlag: Beregningsgrunnlag): string[] =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller || [];
+
+export const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
+
+export const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
+  const relevantAp = avklaringsbehov.filter(
+    ap =>
+      ap.definisjon === FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN ||
+      ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+  );
+  return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
+};

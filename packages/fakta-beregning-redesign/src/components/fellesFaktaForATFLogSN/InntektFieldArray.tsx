@@ -1,4 +1,4 @@
-import { ErrorMessage, Table } from '@navikt/ds-react';
+import { ErrorMessage, Label, Table } from '@navikt/ds-react';
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import {
@@ -22,6 +22,10 @@ import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import AddDagpengerAndelButton from './AddDagpengerAndelButton';
+import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
+import SummaryRow from './SummaryRow';
+import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import {
   erOverstyring,
   getFastsattBelopFromArbeidstakerInntekt,
@@ -29,10 +33,6 @@ import {
   mapAndelToField,
   skalFastsetteInntektForAndel,
 } from './BgFaktaUtils';
-import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
-import SummaryRow from './SummaryRow';
-import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
-import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
@@ -367,7 +367,9 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
               const alignRight = alginRightHeaders.includes(header);
               return (
                 <Table.HeaderCell key={header} scope="col" align={alignRight ? 'right' : 'left'}>
-                  <FormattedMessage id={header} />
+                  <Label size="small" as="span">
+                    <FormattedMessage id={header} />
+                  </Label>
                 </Table.HeaderCell>
               );
             })}
