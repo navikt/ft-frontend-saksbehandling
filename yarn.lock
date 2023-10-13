@@ -5060,6 +5060,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/client-logger@npm:7.4.6":
+  version: 7.4.6
+  resolution: "@storybook/client-logger@npm:7.4.6"
+  dependencies:
+    "@storybook/global": ^5.0.0
+  checksum: ba5eb76303f316f998ae226fea63ebb835460847aa91f144b420d58500b8bcd6fa371704cd5c82b93c21e2aba01c458d41b3e44e36923b1929102c7247258aef
+  languageName: node
+  linkType: hard
+
 "@storybook/codemod@npm:7.4.5":
   version: 7.4.5
   resolution: "@storybook/codemod@npm:7.4.5"
@@ -5458,6 +5467,21 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: e2cfacbec35e11fcc7d0b66b85044abbde9d0f97e3150729c480a6b33bf4739ca46f501e6356cf9c961ba6268c0750a6da46bb97d857b1e35f3b123b1b22c9e8
+  languageName: node
+  linkType: hard
+
+"@storybook/theming@npm:7.4.6":
+  version: 7.4.6
+  resolution: "@storybook/theming@npm:7.4.6"
+  dependencies:
+    "@emotion/use-insertion-effect-with-fallbacks": ^1.0.0
+    "@storybook/client-logger": 7.4.6
+    "@storybook/global": ^5.0.0
+    memoizerific: ^1.11.3
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: d15b7e67aad39304f4607a564797280eac72b26c7b5be15e36d6834316102dba8deb25b722bb3930d6ea932989bc64ff6c1859aa0ebbe3d9edf44c70f0601def
   languageName: node
   linkType: hard
 
@@ -9905,7 +9929,7 @@ __metadata:
     "@storybook/builder-vite": 7.4.5
     "@storybook/cli": 7.4.5
     "@storybook/react": 7.4.5
-    "@storybook/theming": 7.4.5
+    "@storybook/theming": 7.4.6
     "@testing-library/jest-dom": 6.0.0
     "@types/react": 18.2.24
     "@types/react-collapse": 5.0.2
