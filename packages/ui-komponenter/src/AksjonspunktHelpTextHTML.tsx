@@ -19,7 +19,7 @@ const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({ children }) => 
   }
 
   return (
-    <Alert variant="warning">
+    <Alert variant="warning" size="small">
       <VStack gap="2">
         {React.Children.map(children, child => (
           // @ts-ignore Fiks
