@@ -2330,7 +2330,7 @@ __metadata:
     "@testing-library/user-event": 14.5.1
     core-js: 3.33.0
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     dayjs-plugin-utc: 0.1.2
     eslint: 8.50.0
     react: 18.2.0
@@ -2386,7 +2386,7 @@ __metadata:
     "@testing-library/user-event": 14.5.1
     core-js: 3.33.0
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     dayjs-plugin-utc: 0.1.2
     eslint: 8.50.0
     react: 18.2.0
@@ -2442,7 +2442,7 @@ __metadata:
     classnames: 2.3.2
     core-js: 3.33.0
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     eslint: 8.50.0
     react: 18.2.0
     react-hook-form: 7.47.0
@@ -2537,7 +2537,7 @@ __metadata:
     "@testing-library/user-event": 14.5.1
     classnames: 2.3.2
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     eslint: 8.50.0
     lodash.throttle: 4.1.1
     react: 18.2.0
@@ -2625,7 +2625,7 @@ __metadata:
     "@testing-library/user-event": 14.5.1
     classnames: 2.3.2
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     eslint: 8.50.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
@@ -2677,7 +2677,7 @@ __metadata:
     "@testing-library/user-event": 14.5.1
     classnames: 2.3.2
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     echarts: 5.4.3
     eslint: 8.50.0
     react: 18.2.0
@@ -2731,7 +2731,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.5.1
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     eslint: 8.50.0
     moment: 2.29.4
     react: 18.2.0
@@ -2828,7 +2828,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.5.1
     cross-env: 7.0.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     eslint: 8.50.0
     moment: 2.29.4
     react: 18.2.0
@@ -3311,7 +3311,7 @@ __metadata:
   dependencies:
     "@navikt/ft-kodeverk": ^2.2.3
     "@navikt/ft-types": ^2.2.3
-    dayjs: 1.11.9
+    dayjs: 1.11.10
     eslint: 8.50.0
     react-intl: 6.4.7
     typescript: 5.2.2
@@ -8210,10 +8210,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.9":
-  version: 1.11.9
-  resolution: "dayjs@npm:1.11.9"
-  checksum: a4844d83dc87f921348bb9b1b93af851c51e6f71fa259604809cfe1b49d1230e6b0212dab44d1cb01994c096ad3a77ea1cf18fa55154da6efcc9d3610526ac38
+"dayjs@npm:1.11.10":
+  version: 1.11.10
+  resolution: "dayjs@npm:1.11.10"
+  checksum: a6b5a3813b8884f5cd557e2e6b7fa569f4c5d0c97aca9558e38534af4f2d60daafd3ff8c2000fed3435cfcec9e805bcebd99f90130c6d1c5ef524084ced588c4
   languageName: node
   linkType: hard
 
