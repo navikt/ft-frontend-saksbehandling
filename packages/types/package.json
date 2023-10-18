@@ -22,7 +22,7 @@
     "@storybook/react": "7.4.5",
     "cross-env": "7.0.3",
     "eslint": "8.50.0",
-    "stylelint": "15.10.3",
+    "stylelint": "15.11.0",
     "typescript": "5.2.2",
     "vite": "4.4.9",
     "vitest": "0.34.3"
