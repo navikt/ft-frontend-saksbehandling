@@ -1,5 +1,5 @@
 import { Label, List, ReadMore } from '@navikt/ds-react';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React from 'react';
@@ -44,8 +44,10 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
   const skalRedigereArbeidsinntektRadioValues = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
-    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]);
+  const skalRedigereEtterlønnSluttpakkeRadioValues = getValues([
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
+  ]).includes(true);
   const arbeidstakerAndelerUtenIM =
     beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.arbeidstakerAndelerUtenIM?.filter(andel => {
       const vurderMottarYtelseValues = getValues(
@@ -220,17 +222,24 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
           />
         </>
       )}
-      {skalRedigereArbeidsinntekt
-        ? andelerMedArbeidsinntekt.map(andel => (
-            <ArbeidsinntektInput
-              key={andel.arbeidsforhold.arbeidsgiverIdent}
-              arbeidsgiver={andel}
-              readOnly={readOnly}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              label={getArbeidsinntektInputLabel(andel)}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            />
-          ))
+      {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakkeRadioValues
+        ? andelerMedArbeidsinntekt
+            .filter(andel => {
+              if (skalRedigereEtterlønnSluttpakkeRadioValues && !skalRedigereArbeidsinntekt) {
+                return andel.arbeidsforhold.arbeidsforholdType === OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE;
+              }
+              return true;
+            })
+            .map(andel => (
+              <ArbeidsinntektInput
+                key={andel.arbeidsforhold.arbeidsgiverIdent}
+                arbeidsgiver={andel}
+                readOnly={readOnly}
+                isAksjonspunktClosed={isAksjonspunktClosed}
+                label={getArbeidsinntektInputLabel(andel)}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              />
+            ))
         : arbeidstakerAndelerUtenIM?.map(andel => (
             <ArbeidsinntektInput
               key={andel.arbeidsforhold.arbeidsgiverIdent}
