@@ -233,7 +233,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     if (!vilkarsperiodeSkalVurderesIBehandlingen) {
       return null;
     }
-    if (hasShownPanel) {
+    if (hasShownPanel && !erOverstyring(formValues)) {
       if (readOnly) {
         return (
           <>
