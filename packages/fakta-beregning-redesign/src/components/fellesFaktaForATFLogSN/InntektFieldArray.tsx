@@ -225,6 +225,7 @@ interface StaticFunctions {
     frilansInntektValues: FrilansinntektValues,
     arbeidstakerInntektValues: ArbeidstakerInntektValues[],
     dagpengerInntektValues: DagpengerinntektValues,
+    erOverstyrt: boolean,
   ) => InntektTransformed[];
 }
 
@@ -396,11 +397,13 @@ InntektFieldArray.transformValues = (
   frilansInntektValues: FrilansinntektValues,
   arbeidstakerInntektValues: ArbeidstakerInntektValues[],
   dagpengerInntektValues: DagpengerinntektValues,
+  erOverstyrt: boolean,
 ): InntektTransformed[] => {
   if (!values) return null;
 
   const transformAndel = (fieldValue: AndelFieldValue): InntektTransformed => {
     const fastsattBelop =
+      (erOverstyrt && fieldValue.fastsattBelop) ||
       (erFrilanser(fieldValue.aktivitetStatus) && frilansInntektValues?.fastsattBelop) ||
       (erArbeidstaker(fieldValue.aktivitetStatus) &&
         getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, fieldValue.arbeidsgiverId)) ||
