@@ -110,7 +110,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
     (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop);
   const harEndretInntekt = harEndretFrilansinntekt || harEndretInntektForArbeidsgiver || harEndretInntektForDagpenger;
 
-  const skalViseOverstyrtInntektInput = !harEndretInntekt && erOverstyring(formValues);
+  const skalViseOverstyrtInntektInput = erOverstyring(formValues);
 
   const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);

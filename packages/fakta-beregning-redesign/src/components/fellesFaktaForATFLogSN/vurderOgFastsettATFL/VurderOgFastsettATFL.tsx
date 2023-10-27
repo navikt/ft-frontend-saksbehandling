@@ -233,7 +233,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     if (!vilkarsperiodeSkalVurderesIBehandlingen) {
       return null;
     }
-    if (hasShownPanel) {
+    if (hasShownPanel && !erOverstyring(formValues)) {
       if (readOnly) {
         return (
           <>
@@ -449,6 +449,7 @@ VurderOgFastsettATFL.transformValues =
       values.frilansInntektValues,
       values.arbeidstakerInntektValues,
       values.dagpengerInntektValues,
+      values.manuellOverstyringRapportertInntekt,
     );
     const fastsatteAndelsnr = [];
     const transformed = transformValuesForAksjonspunkt(

@@ -7,7 +7,14 @@ import { FormattedMessage } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import { erArbeidstaker, erDagpenger, erFrilanser, getArbeidsgiverIndex, getKanRedigereInntekt } from './BgFaktaUtils';
+import {
+  erArbeidstaker,
+  erDagpenger,
+  erFrilanser,
+  erOverstyring,
+  getArbeidsgiverIndex,
+  getKanRedigereInntekt,
+} from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import styles from './inntektFieldArray.module.css';
 
@@ -27,7 +34,9 @@ const summerBeregnet = (
       const erArbeidstakerInntekt = erArbeidstaker(field);
       const erDagpengerInntekt = erDagpenger(field);
 
-      if (erFrilansInntekt && formValues?.frilansInntektValues?.fastsattBelop) {
+      if (field.fastsattBelop && erOverstyring(formValues)) {
+        belop = field.fastsattBelop;
+      } else if (erFrilansInntekt && formValues?.frilansInntektValues?.fastsattBelop) {
         belop = formValues.frilansInntektValues.fastsattBelop;
       } else if (
         erArbeidstakerInntekt &&
@@ -41,6 +50,8 @@ const summerBeregnet = (
           ].fastsattBelop;
       } else if (erDagpengerInntekt && formValues?.dagpengerInntektValues?.fastsattBelop) {
         belop = formValues.dagpengerInntektValues.fastsattBelop;
+      } else if (field.fastsattBelop && !erOverstyring(formValues)) {
+        belop = 0;
       } else {
         belop = field.fastsattBelop;
       }
