@@ -33,7 +33,7 @@
     "@formatjs/intl-datetimeformat": "6.11.1",
     "@formatjs/intl-numberformat": "8.8.0",
     "@navikt/aksel-stylelint": "5.7.6",
-    "@storybook/addon-essentials": "7.5.1",
+    "@storybook/addon-essentials": "7.5.2",
     "@storybook/addon-links": "7.5.1",
     "@storybook/addons": "7.5.1",
     "@storybook/builder-vite": "7.5.1",
