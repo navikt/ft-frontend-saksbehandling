@@ -2,7 +2,6 @@ import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import dayjsIsSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import 'dayjs/locale/nb';
 import createIntl from './createIntl';
 import messages from '../i18n/nb_NO.json';
@@ -12,7 +11,6 @@ import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT
 dayjs.extend(utc);
 dayjs.extend(isoWeek);
 dayjs.extend(duration);
-dayjs.extend(dayjsIsSameOrBefore);
 
 const intl = createIntl(messages);
 
@@ -136,6 +134,7 @@ export const addDaysToDate = (dateString: string, nrOfDays: number): string =>
     ? dateString
     : initializeDate(dateString, ISO_DATE_FORMAT).add(nrOfDays, 'days').format(ISO_DATE_FORMAT);
 
+// Inkluderer både start og sluttdato
 export const findDifferenceInMonthsAndDays = (
   fomDate: string,
   tomDate: string,
@@ -150,16 +149,15 @@ export const findDifferenceInMonthsAndDays = (
   let months = 0;
   let days = 0;
 
-  while (fDate.isSameOrBefore(tDate, 'month')) {
-    fDate.add(1, 'month');
-    months += 1;
-  }
+  // Calculate the full months between the two dates
+  months = tDate.diff(fDate, 'month');
+  const remainingDays = tDate.subtract(months, 'month');
 
-  // Subtract back the extra month added in the last iteration of the while loop
-  fDate.subtract(1, 'month');
-  months -= 1;
+  // Calculate the remaining days after full months are taken out
+  days = remainingDays.diff(fDate, 'day');
 
-  days = tDate.diff(fDate, 'day');
+  // Include both the start and end date
+  days += 1;
 
   return {
     months,
