@@ -93,11 +93,19 @@ export const lagHelpTextsForFakta = (
   const alerts = [];
   const keys = [];
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
+    const harInntektsmelding =
+      beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
+        aftlSammeOrg => !!aftlSammeOrg.inntektPrMnd,
+      );
     keys.push(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
     alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg"
+          id={
+            harInntektsmelding
+              ? 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg'
+              : 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM'
+          }
           values={{
             h3: (...chunks) => (
               <Heading size="xsmall" level="3">
