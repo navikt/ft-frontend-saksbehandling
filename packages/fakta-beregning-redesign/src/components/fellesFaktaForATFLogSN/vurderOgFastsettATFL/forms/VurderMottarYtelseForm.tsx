@@ -303,14 +303,12 @@ VurderMottarYtelseForm.buildInitialValues = (
   tilfeller?: string[],
 ): VurderMottarYtelseValues => {
   const initialValues: VurderMottarYtelseValues = {};
-  if (!vurderMottarYtelse) {
-    return initialValues;
-  }
-  if (vurderMottarYtelse.erFrilans) {
+
+  if (vurderMottarYtelse?.erFrilans || erATFLSammeOrg(tilfeller)) {
     initialValues[finnFrilansFieldName()] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse.frilansMottarYtelse;
   }
 
-  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
+  const ATAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM
     ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
     : [];
   if (ATAndelerUtenIM.length < 1) {

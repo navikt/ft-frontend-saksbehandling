@@ -215,7 +215,10 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       );
     }
 
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+    if (
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) ||
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
+    ) {
       hasShownPanel = true;
       keys.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
       forms.push(
