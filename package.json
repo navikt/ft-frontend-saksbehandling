@@ -76,7 +76,7 @@
     "typescript": "5.2.2",
     "vite": "4.5.0",
     "vite-plugin-dts": "3.6.3",
-    "vitest": "0.34.3"
+    "vitest": "0.34.6"
   },
   "resolutions": {
     "glob-parent": "5.1.2",
