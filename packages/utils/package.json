@@ -23,7 +23,7 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "^2.2.4",
     "@navikt/ft-types": "^2.2.4",
-    "dayjs": "1.11.9",
+    "dayjs": "1.11.10",
     "react-intl": "6.5.1"
   },
   "peerDependencies": {
@@ -35,8 +35,8 @@
   "devDependencies": {
     "eslint": "8.52.0",
     "typescript": "5.2.2",
-    "vite": "4.4.9",
-    "vitest": "0.34.3"
+    "vite": "4.5.0",
+    "vitest": "0.34.6"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
