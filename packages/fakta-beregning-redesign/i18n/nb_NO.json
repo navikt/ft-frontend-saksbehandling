@@ -53,6 +53,7 @@
   "BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1": "Fastsett månedsinntekt ut ifra antall måneder/dager med utbetaling.",
   "BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2": "Eksempel: {br} Hvis søker startet som frilanser for 2 mnd siden, skal samlet inntekt deles på 2 og ikke 3. Hvis det er under 1 mnd siden oppstart, må du regne om inntekt til dagsats per virkedag. Dagsats x 260 / 12 mnd = månedsinntekt.",
   "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1": "Trekk fra arbeidsinntekt oppgitt i inntektsmelding eller det arbeidsgiver opplyser på telefon fra totalinntekt i A-inntekt. Ta hensyn til eventuelle lønnsendringer.",
+  "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM": "Trekk fra arbeidsinntekt oppgitt i inntektsmelding fra totalinntekt i A-inntekt. {br} Ta hensyn til eventuelle lønnsendringer.",
   "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2": "Restbeløp er frilansinntekt.",
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem": "Hvordan går jeg frem?",
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt": "Hvordan går jeg frem for å fastsette månedsinntekten for ytelsen?",
@@ -60,7 +61,8 @@
   "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1": "Undersøk i Modia om søker har full AAP.",
   "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2": "Ved full AAP skal arbeidsinntekten ikke benyttes.",
 
-  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er samlet frilansinntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText": "<h3>Vurder om søker har hatt lønnsendring</h3>Det er registrert lønnsendring, men ny inntekt kan ikke fastsettes av systemet. Vurder om registrert lønnsendring er riktig og fastsett ny månedsinntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextFrilans": "<h3>Vurder om søker mottar ytelse for frilansaktivitet</h3>Det er funnet utbetaling av ytelse i beregningsperioden, men utbetalt beløp kan ikke hentes fra registrene.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextArbeidstaker": "<h3>Vurder om søker mottar ytelse for arbeidsforhold</h3>Det er funnet utbetaling av ytelse i beregningsperioden, men utbetalt beløp kan ikke hentes fra registrene.",

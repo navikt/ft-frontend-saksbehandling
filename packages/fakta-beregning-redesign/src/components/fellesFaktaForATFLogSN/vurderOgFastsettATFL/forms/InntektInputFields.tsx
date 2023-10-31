@@ -14,6 +14,7 @@ import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
 import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { getKanRedigereInntekt } from '../../BgFaktaUtils';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
@@ -35,7 +36,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-
+  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const skalRedigereFrilansinntektRadioValues = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
@@ -67,8 +68,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
   );
   const { arbeidstakerOgFrilanserISammeOrganisasjonListe } = beregningsgrunnlag.faktaOmBeregning;
-
-  const atflOgSammeOrgArbeidsgivere =
+  const atflOgSammeOrgArbeidsgivere = (
     erATFLSammeOrg(tilfeller) && skalRedigereArbeidsinntekt
       ? arbeidstakerOgFrilanserISammeOrganisasjonListe?.filter(
           atflSammeOrg =>
@@ -76,7 +76,13 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
               andel => andel.arbeidsforhold.arbeidsgiverIdent === atflSammeOrg.arbeidsforhold.arbeidsgiverIdent,
             ),
         )
-      : arbeidstakerOgFrilanserISammeOrganisasjonListe;
+      : arbeidstakerOgFrilanserISammeOrganisasjonListe
+  )?.filter(andel => getKanRedigereInntekt(formValues, beregningsgrunnlag)(andel));
+
+  const atflSammeOrgHarInntektsmelding =
+    beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
+      aftlSammeOrg => !!aftlSammeOrg.inntektPrMnd,
+    );
 
   const getArbeidsinntektInputLabel = (andel: AndelForFaktaOmBeregning) => {
     const arbeidsgiverNavn = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn;
@@ -193,14 +199,23 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
           >
             <List size="small">
               <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1" />
+                <FormattedMessage
+                  id={
+                    atflSammeOrgHarInntektsmelding
+                      ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
+                      : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
+                  }
+                  values={{
+                    br: <br />,
+                  }}
+                />
               </List.Item>
               <List.Item>
                 <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
               </List.Item>
             </List>
           </ReadMore>
-          {atflOgSammeOrgArbeidsgivere.map(arbeidsgiver => (
+          {atflOgSammeOrgArbeidsgivere?.map(arbeidsgiver => (
             <ArbeidsinntektInput
               key={arbeidsgiver.arbeidsforhold.arbeidsgiverIdent}
               arbeidsgiver={arbeidsgiver}
