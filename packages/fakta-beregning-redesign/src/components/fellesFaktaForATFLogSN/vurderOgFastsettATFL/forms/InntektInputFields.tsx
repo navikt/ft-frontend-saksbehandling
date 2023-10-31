@@ -188,10 +188,16 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
 
   return (
     <>
-      {erATFLSammeOrg(tilfeller) && atflOgSammeOrgArbeidsgivere?.length > 0 ? (
+      {erATFLSammeOrg(tilfeller) ? (
         <>
           <Label>
-            <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet" />
+            <FormattedMessage
+              id={
+                atflSammeOrgHarInntektsmelding
+                  ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
+                  : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
+              }
+            />
           </Label>
           <ReadMore
             size="small"

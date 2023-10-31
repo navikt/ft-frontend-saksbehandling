@@ -26,6 +26,7 @@
   "BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem2": "Undersøk om søker faktisk var nyoppstartet frilanser i beregningsperioden. Frilansere har ofte ujevne utbetalinger, og kan bli meldt inn/ut av Aa-registeret selvom de fast jobber som frilanser. Hvis dette er tilfelle skal du velge ”nei”.",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettFrilans": "Fastsett frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLAlleOppdrag": "Fastsett arbeidsinntekt og samlet frilansinntekt for alle oppdrag.",
+  "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans": "Fastsett samlet frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet": "Fastsett arbeidsinntekt og samlet frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettArbeidsinntekt": "Fastsett arbeidsinntekt",
   "BeregningInfoPanel.LonnsendringForm.HarSokerEndring": "Har søker hatt lønnsendring i løpet av de siste tre månedene?",
