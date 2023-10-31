@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import isoWeek from 'dayjs/plugin/isoWeek';
+import dayjsIsSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import 'dayjs/locale/nb';
 import createIntl from './createIntl';
 import messages from '../i18n/nb_NO.json';
@@ -11,6 +12,7 @@ import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT
 dayjs.extend(utc);
 dayjs.extend(isoWeek);
 dayjs.extend(duration);
+dayjs.extend(dayjsIsSameOrBefore);
 
 const intl = createIntl(messages);
 
@@ -134,50 +136,34 @@ export const addDaysToDate = (dateString: string, nrOfDays: number): string =>
     ? dateString
     : initializeDate(dateString, ISO_DATE_FORMAT).add(nrOfDays, 'days').format(ISO_DATE_FORMAT);
 
-const hentMånederMellom = (fomDate: Dayjs, tomDate: Dayjs) => {
-  const diff = tomDate.startOf('month').diff(fomDate.endOf('month'));
-  const diffDuration = dayjs.duration(diff);
-  return diffDuration.months();
-};
-
 export const findDifferenceInMonthsAndDays = (
   fomDate: string,
   tomDate: string,
 ): { months: number; days: number } | undefined => {
   const fDate = initializeDate(fomDate, ISO_DATE_FORMAT, true);
   const tDate = initializeDate(tomDate, ISO_DATE_FORMAT, true);
+
   if (!fDate.isValid() || !tDate.isValid() || fDate.isAfter(tDate)) {
     return undefined;
   }
 
-  // Datoer i samme måned
-  if (fDate.startOf('month').isSame(tDate.startOf('month'))) {
-    const diff = tDate.add(1, 'day').diff(fDate);
-    const diffDuration = dayjs.duration(diff);
+  let months = 0;
+  let days = 0;
 
-    return {
-      months: diffDuration.months(),
-      days: diffDuration.days(),
-    };
+  while (fDate.isSameOrBefore(tDate, 'month')) {
+    fDate.add(1, 'month');
+    months += 1;
   }
 
-  let antallMåneder = hentMånederMellom(fDate, tDate);
-  let antallDager = 0;
+  // Subtract back the extra month added in the last iteration of the while loop
+  fDate.subtract(1, 'month');
+  months -= 1;
 
-  if (tDate.date() === tDate.daysInMonth()) {
-    antallMåneder += 1;
-  } else {
-    antallDager = tDate.date();
-  }
-  if (fDate.startOf('month').isSame(fDate)) {
-    antallMåneder += 1;
-  } else {
-    antallDager += 1 + fDate.daysInMonth() - fDate.date();
-  }
+  days = tDate.diff(fDate, 'day');
 
   return {
-    months: antallMåneder,
-    days: antallDager,
+    months,
+    days,
   };
 };
 
