@@ -134,50 +134,34 @@ export const addDaysToDate = (dateString: string, nrOfDays: number): string =>
     ? dateString
     : initializeDate(dateString, ISO_DATE_FORMAT).add(nrOfDays, 'days').format(ISO_DATE_FORMAT);
 
-const hentMånederMellom = (fomDate: Dayjs, tomDate: Dayjs) => {
-  const diff = tomDate.startOf('month').diff(fomDate.endOf('month'));
-  const diffDuration = dayjs.duration(diff);
-  return diffDuration.months();
-};
-
+// Inkluderer både start og sluttdato
 export const findDifferenceInMonthsAndDays = (
   fomDate: string,
   tomDate: string,
 ): { months: number; days: number } | undefined => {
   const fDate = initializeDate(fomDate, ISO_DATE_FORMAT, true);
   const tDate = initializeDate(tomDate, ISO_DATE_FORMAT, true);
+
   if (!fDate.isValid() || !tDate.isValid() || fDate.isAfter(tDate)) {
     return undefined;
   }
 
-  // Datoer i samme måned
-  if (fDate.startOf('month').isSame(tDate.startOf('month'))) {
-    const diff = tDate.add(1, 'day').diff(fDate);
-    const diffDuration = dayjs.duration(diff);
+  let months = 0;
+  let days = 0;
 
-    return {
-      months: diffDuration.months(),
-      days: diffDuration.days(),
-    };
-  }
+  // Calculate the full months between the two dates
+  months = tDate.diff(fDate, 'month');
+  const remainingDays = tDate.subtract(months, 'month');
 
-  let antallMåneder = hentMånederMellom(fDate, tDate);
-  let antallDager = 0;
+  // Calculate the remaining days after full months are taken out
+  days = remainingDays.diff(fDate, 'day');
 
-  if (tDate.date() === tDate.daysInMonth()) {
-    antallMåneder += 1;
-  } else {
-    antallDager = tDate.date();
-  }
-  if (fDate.startOf('month').isSame(fDate)) {
-    antallMåneder += 1;
-  } else {
-    antallDager += 1 + fDate.daysInMonth() - fDate.date();
-  }
+  // Include both the start and end date
+  days += 1;
 
   return {
-    months: antallMåneder,
-    days: antallDager,
+    months,
+    days,
   };
 };
 
