@@ -171,7 +171,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   const initializeForm = (skalOverstyre: boolean) => {
     if (skalOverstyre) {
       setErOverstyrtKnappTrykket(!erOverstyrtKnappTrykket);
-    } else if (!skalOverstyre && erOverstyrtKnappTrykket) {
+    } else if (erOverstyrtKnappTrykket) {
       setErOverstyrtKnappTrykket(false);
     }
     resetField(`avklarAktiviteterForm.${fieldId}`, { keepDirty: false });
