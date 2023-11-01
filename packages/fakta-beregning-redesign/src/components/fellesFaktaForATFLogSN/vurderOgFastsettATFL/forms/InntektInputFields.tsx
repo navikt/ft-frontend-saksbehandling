@@ -46,7 +46,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
   ]);
-  const skalRedigereEtterlønnSluttpakkeRadioValues = getValues([
+  const skalRedigereEtterlønnSluttpakke = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]).includes(true);
   const arbeidstakerAndelerUtenIM =
@@ -128,7 +128,12 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
   };
 
   const getFrilansinntektInputLabel = () => {
-    if (erATFLSammeOrg(tilfeller) || skalRedigereFrilansinntektRadioValues.filter(value => value === true).length > 1) {
+    const harFlereTilfellerMedFrilansinntektSomSkalFastsettes =
+      skalRedigereFrilansinntektRadioValues.filter(value => value === true).length > 1;
+    const erNyoppstartetFrilanser = getValues([
+      `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
+    ]);
+    if (erATFLSammeOrg(tilfeller) || harFlereTilfellerMedFrilansinntektSomSkalFastsettes) {
       return <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />;
     }
     if (
@@ -158,7 +163,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
         </>
       );
     }
-    if (getValues([`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`])) {
+    if (erNyoppstartetFrilanser) {
       return (
         <>
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
@@ -188,7 +193,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
 
   return (
     <>
-      {erATFLSammeOrg(tilfeller) ? (
+      {erATFLSammeOrg(tilfeller) && (
         <>
           <Label>
             <FormattedMessage
@@ -231,7 +236,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             />
           ))}
         </>
-      ) : null}
+      )}
       {skalRedigereFrilansinntekt && (
         <>
           <VerticalSpacer thirtyTwoPx />
@@ -243,10 +248,10 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
           />
         </>
       )}
-      {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakkeRadioValues
+      {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
         ? andelerMedArbeidsinntekt
             .filter(andel => {
-              if (skalRedigereEtterlønnSluttpakkeRadioValues && !skalRedigereArbeidsinntekt) {
+              if (skalRedigereEtterlønnSluttpakke && !skalRedigereArbeidsinntekt) {
                 return andel.arbeidsforhold.arbeidsforholdType === OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE;
               }
               return true;

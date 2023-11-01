@@ -1,4 +1,4 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -40,6 +40,7 @@ import NyoppstartetFLForm from './vurderOgFastsettATFL/forms/NyoppstartetFLForm'
 import VurderEtterlonnSluttpakkeForm from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
 import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
+import InntektInput from '../felles/InntektInput';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -297,6 +298,14 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
     ),
     arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(
       beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+    ),
+    frilansInntektValues: InntektInput.buildInitialValues(
+      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      AktivitetStatus.FRILANSER,
+    ),
+    dagpengerInntektValues: InntektInput.buildInitialValues(
+      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      AktivitetStatus.DAGPENGER,
     ),
     vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
       tilfeller,
