@@ -52,6 +52,10 @@ InntektInput.buildInitialValues = (
   const fastsattBelop = andelerForFaktaOmBeregning?.find(andel => andel.aktivitetStatus === aktivitetStatus)
     ?.fastsattBelop;
 
+  if (!fastsattBelop) {
+    return null;
+  }
+
   return { fastsattBelop };
 };
 export default InntektInput;
