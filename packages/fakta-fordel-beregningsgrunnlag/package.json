@@ -38,7 +38,7 @@
     "core-js": "3.33.2",
     "dayjs": "1.11.10",
     "react": "18.2.0",
-    "react-hook-form": "7.47.0",
+    "react-hook-form": "7.48.2",
     "react-intl": "6.5.1",
     "uuid": "9.0.1"
   },
