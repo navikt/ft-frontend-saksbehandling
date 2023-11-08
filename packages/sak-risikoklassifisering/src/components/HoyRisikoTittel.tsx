@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { ExpansionCard } from '@navikt/ds-react';
+import { ExpansionCard, HStack, Label } from '@navikt/ds-react';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { Risikoklassifisering, Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import HoyRisikoPanel from './HoyRisikoPanel';
-import TittelMedDivider from './TittelMedDivider';
 import AvklartRisikoklassifiseringAp from '../types/AvklartRisikoklassifiseringAp';
 
 import styles from './hoyRisikoTittel.module.css';
@@ -44,17 +43,17 @@ const HoyRisikoTittel: FunctionComponent<OwnProps> = ({
     >
       <ExpansionCard.Header onClick={toggleRiskPanel}>
         <ExpansionCard.Title>
-          <TittelMedDivider
-            ikon={
-              <XMarkOctagonFillIcon
-                title={intl.formatMessage({ id: 'Risikopanel.Tittel' })}
-                color="var(--a-red-500)"
-                height={24}
-                width={24}
-              />
-            }
-            tittel="Risikopanel.Tittel.Faresignaler"
-          />
+          <HStack gap="4" align="center">
+            <XMarkOctagonFillIcon
+              title={intl.formatMessage({ id: 'Risikopanel.Tittel' })}
+              color="var(--a-red-500)"
+              height={24}
+              width={24}
+            />
+            <Label size="small">
+              <FormattedMessage id="Risikopanel.Tittel.Faresignaler" />
+            </Label>
+          </HStack>
         </ExpansionCard.Title>
       </ExpansionCard.Header>
       <ExpansionCard.Content>

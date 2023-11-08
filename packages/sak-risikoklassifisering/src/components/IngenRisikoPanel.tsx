@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Box } from '@navikt/ds-react';
+import { Box, HStack, Label } from '@navikt/ds-react';
 import { CheckmarkCircleFillIcon } from '@navikt/aksel-icons';
-
-import { useIntl } from 'react-intl';
-import TittelMedDivider from './TittelMedDivider';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 /**
  * IngenRisikoPanel
@@ -12,17 +10,17 @@ import TittelMedDivider from './TittelMedDivider';
  */
 const IngenRisikoPanel: FunctionComponent = () => (
   <Box background="surface-success-subtle" borderRadius="large" padding="3">
-    <TittelMedDivider
-      ikon={
-        <CheckmarkCircleFillIcon
-          title={useIntl().formatMessage({ id: 'Risikopanel.Tittel' })}
-          height={24}
-          width={24}
-          color="var(--a-surface-success)"
-        />
-      }
-      tittel="Risikopanel.Tittel.IngenFaresignaler"
-    />
+    <HStack gap="4" align="center">
+      <CheckmarkCircleFillIcon
+        title={useIntl().formatMessage({ id: 'Risikopanel.Tittel' })}
+        height={24}
+        width={24}
+        color="var(--a-surface-success)"
+      />
+      <Label size="small">
+        <FormattedMessage id="Risikopanel.Tittel.IngenFaresignaler" />
+      </Label>
+    </HStack>
   </Box>
 );
 
