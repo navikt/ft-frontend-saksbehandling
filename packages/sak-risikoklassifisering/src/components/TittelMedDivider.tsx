@@ -1,8 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, HStack } from '@navikt/ds-react';
-
-import styles from './tittelMedDivider.module.css';
+import { Label, HStack } from '@navikt/ds-react';
 
 export interface OwnProps {
   ikon: ReactElement;
@@ -15,13 +13,11 @@ export interface OwnProps {
  * Viser et ikon og en tittel skilt med en vertikal grå linje.
  */
 const TittelMedDivider: FunctionComponent<OwnProps> = ({ ikon, tittel }) => (
-  <HStack gap="4">
+  <HStack gap="4" align="center">
     {ikon}
-    <div className={styles.tekst}>
-      <BodyShort size="small">
-        <FormattedMessage id={tittel} />
-      </BodyShort>
-    </div>
+    <Label size="small">
+      <FormattedMessage id={tittel} />
+    </Label>
   </HStack>
 );
 

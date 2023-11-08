@@ -48,9 +48,9 @@ const HoyRisikoTittel: FunctionComponent<OwnProps> = ({
             ikon={
               <XMarkOctagonFillIcon
                 title={intl.formatMessage({ id: 'Risikopanel.Tittel' })}
-                color="var(--a-nav-red)"
-                height={30}
-                width={30}
+                color="var(--a-red-500)"
+                height={24}
+                width={24}
               />
             }
             tittel="Risikopanel.Tittel.Faresignaler"

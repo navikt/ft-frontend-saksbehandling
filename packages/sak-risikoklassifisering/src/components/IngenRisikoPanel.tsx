@@ -1,11 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { Panel } from '@navikt/ds-react';
-import { CheckmarkCircleIcon } from '@navikt/aksel-icons';
+import { Box } from '@navikt/ds-react';
+import { CheckmarkCircleFillIcon } from '@navikt/aksel-icons';
 
 import { useIntl } from 'react-intl';
 import TittelMedDivider from './TittelMedDivider';
-
-import styles from './ingenRisikoPanel.module.css';
 
 /**
  * IngenRisikoPanel
@@ -13,19 +11,19 @@ import styles from './ingenRisikoPanel.module.css';
  * Statisk visning av panel som tilsier ingen faresignaler funnet i behandlingen.
  */
 const IngenRisikoPanel: FunctionComponent = () => (
-  <Panel border className={styles.ingenRisikoOppdagetTittel}>
+  <Box background="surface-success-subtle" borderRadius="large" padding="3">
     <TittelMedDivider
       ikon={
-        <CheckmarkCircleIcon
+        <CheckmarkCircleFillIcon
           title={useIntl().formatMessage({ id: 'Risikopanel.Tittel' })}
-          height={30}
-          width={30}
+          height={24}
+          width={24}
           color="var(--a-surface-success)"
         />
       }
       tittel="Risikopanel.Tittel.IngenFaresignaler"
     />
-  </Panel>
+  </Box>
 );
 
 export default IngenRisikoPanel;
