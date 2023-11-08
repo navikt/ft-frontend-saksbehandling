@@ -12,14 +12,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 const ManglendeKlassifiseringPanel: FunctionComponent = () => (
   <Box borderWidth="2" borderColor="border-divider" borderRadius="large" padding="3">
     <HStack gap="4" align="center">
-      <div>
-        <HourglassTopFilledIcon
-          title={useIntl().formatMessage({ id: 'Risikopanel.Tittel' })}
-          color="var(--a-gray-600)"
-          height={24}
-          width={24}
-        />
-      </div>
+      <HourglassTopFilledIcon
+        title={useIntl().formatMessage({ id: 'Risikopanel.Tittel' })}
+        color="var(--a-gray-600)"
+        height={24}
+        width={24}
+      />
       <Label size="small">
         <FormattedMessage id="Risikopanel.Tittel.ManglerKlassifisering" />
       </Label>
