@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { Label, Box } from '@navikt/ds-react';
 import { BehandlingAppKontekst, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 
@@ -56,9 +56,11 @@ const BehandlingerListe: FunctionComponent<OwnProps> = ({
   return (
     <ul className={styles.behandlingList}>
       {behandlinger.length === 0 && (
-        <BodyShort size="small">
-          <FormattedMessage id="BehandlingList.ZeroBehandlinger" />
-        </BodyShort>
+        <Box borderWidth="2" borderColor="border-divider" borderRadius="large" padding="3">
+          <Label size="small">
+            <FormattedMessage id="BehandlingList.ZeroBehandlinger" />
+          </Label>
+        </Box>
       )}
       {behandlinger.length > 0 &&
         sorterteOgFiltrerteBehandlinger.map(behandling => (
