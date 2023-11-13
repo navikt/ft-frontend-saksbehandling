@@ -1,12 +1,6 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import {
-  hasValidDate,
-  required,
-  dateAfterOrEqual,
-  minValueFormatted,
-  maxValueFormatted,
-} from '@navikt/ft-form-validators';
+import { hasValidDate, required, dateAfterOrEqual, maxValueFormatted } from '@navikt/ft-form-validators';
 import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { Datepicker, InputField } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
@@ -128,11 +122,7 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
                   refusjonAndel,
                 )}`}
                 className={styles.bredde}
-                validate={
-                  readOnly
-                    ? []
-                    : [required, minValueFormatted(1), maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]
-                }
+                validate={readOnly ? [] : [required, maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}
                 parse={parseCurrencyInput}
                 readOnly={readOnly}
                 isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}
