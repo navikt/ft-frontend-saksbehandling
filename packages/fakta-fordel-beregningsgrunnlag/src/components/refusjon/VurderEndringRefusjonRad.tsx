@@ -5,8 +5,7 @@ import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyN
 import { Datepicker, InputField } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
-import { BodyShort } from '@navikt/ds-react';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 import { useFormContext } from 'react-hook-form';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
@@ -74,63 +73,59 @@ export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunct
   const valgtStartdato = formMethods.watch(
     `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
   );
-  const erRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
+  const aksjonspunktErLøstUtenDelvisRef =
+    !erAksjonspunktÅpent &&
+    !refusjonAndel.fastsattDelvisRefusjonPrMnd &&
+    refusjonAndel.fastsattDelvisRefusjonPrMnd !== 0;
+  const harValgtRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
   const boldTransformator = useCallback((chunks: any) => <b>{chunks}</b>, []);
+  const skalKunneFastsetteDelvisRef =
+    refusjonAndel.skalKunneFastsetteDelvisRefusjon && refusjonAndel.maksTillattDelvisRefusjonPrMnd;
   return (
-    <>
-      <FlexRow>
-        <FlexColumn className={styles.flexColumn9}>
-          <FormattedMessage
-            id={andelTekst}
-            values={{
-              ag: navn,
-              dato: dateFormat(refusjonAndel.nyttRefusjonskravFom),
-              b: boldTransformator,
-            }}
-          />
-        </FlexColumn>
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn className={styles.flexColumn3}>
-          <BodyShort size="small" className={styles.marginTopp}>
+    <VStack>
+      <BodyShort>
+        <FormattedMessage
+          id={andelTekst}
+          values={{
+            ag: navn,
+            dato: dateFormat(refusjonAndel.nyttRefusjonskravFom),
+            b: boldTransformator,
+          }}
+        />
+      </BodyShort>
+      <HStack gap="6">
+        <div className={styles.tekstMidtstilt}>
+          <BodyShort>
             <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
           </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={styles.flexColumn3}>
-          <Datepicker
-            name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
-            isReadOnly={readOnly}
-            validate={
-              readOnly ? [] : [required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]
-            }
-            isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
+        </div>
+        <Datepicker
+          name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
+          isReadOnly={readOnly}
+          validate={
+            readOnly ? [] : [required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]
+          }
+          isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
+        />
+      </HStack>
+      {skalKunneFastsetteDelvisRef && !harValgtRefusjonFraStart && !aksjonspunktErLøstUtenDelvisRef && (
+        <HStack gap="6">
+          <div className={styles.tekstMidtstilt}>
+            <BodyShort>
+              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
+            </BodyShort>
+          </div>
+          <InputField
+            name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
+            className={styles.bredde}
+            validate={readOnly ? [] : [required, maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}
+            parse={parseCurrencyInput}
+            readOnly={readOnly}
+            isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}
           />
-        </FlexColumn>
-      </FlexRow>
-      {refusjonAndel.skalKunneFastsetteDelvisRefusjon &&
-        !erRefusjonFraStart &&
-        refusjonAndel.maksTillattDelvisRefusjonPrMnd && (
-          <FlexRow>
-            <FlexColumn className={styles.flexColumn3}>
-              <BodyShort size="small" className={styles.marginTopp}>
-                <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.flexColumn3}>
-              <InputField
-                name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(
-                  refusjonAndel,
-                )}`}
-                className={styles.bredde}
-                validate={readOnly ? [] : [required, maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}
-                parse={parseCurrencyInput}
-                readOnly={readOnly}
-                isEdited={!!refusjonAndel.fastsattDelvisRefusjonPrMnd && !erAksjonspunktÅpent}
-              />
-            </FlexColumn>
-          </FlexRow>
-        )}
-    </>
+        </HStack>
+      )}
+    </VStack>
   );
 };
 

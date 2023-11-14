@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -100,9 +100,11 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
     <>
-      <AksjonspunktHelpTextTemp isAksjonspunktOpen={erAksjonspunktÅpent}>
-        {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
-      </AksjonspunktHelpTextTemp>
+      {erAksjonspunktÅpent && (
+        <AksjonspunktHelpTextHTML>
+          {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
+        </AksjonspunktHelpTextHTML>
+      )}
       <VerticalSpacer sixteenPx />
       <Heading size="small">
         <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
@@ -112,6 +114,7 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
         beregningsgrunnlag={beregningsgrunnlag}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
+      <VerticalSpacer sixteenPx />
       {andeler.map(andel => (
         <VurderEndringRefusjonRad
           refusjonAndel={andel}
