@@ -581,7 +581,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
           icon={<PlusCircleIcon aria-hidden />}
           onClick={() => append(defaultBGFordeling(skalIkkeRedigereInntekt))}
           type="button"
-          variant="tertiary"
+          variant="secondary"
         >
           <Detail>
             <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
