@@ -77,12 +77,12 @@ const agOpplysninger = {
     erPrivatPerson: false,
   },
   999999999: {
-    navn: 'KATOLSK KEBAB A/S',
+    navn: 'NAV Gokk',
     identifikator: '999999999',
     erPrivatPerson: false,
   },
   999999998: {
-    navn: 'JENS MAGNE',
+    navn: 'TESTY TEST',
     identifikator: '999999998',
     erPrivatPerson: true,
     fødselsdato: '2000-01-01',
