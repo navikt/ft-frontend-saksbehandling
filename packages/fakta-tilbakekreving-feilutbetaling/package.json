@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
+  "type": "module",
   "version": "2.2.13",
   "license": "MIT",
   "main": "./dist/index.umd.js",
@@ -25,8 +26,8 @@
     "storybook": "storybook dev --quiet -p 7008"
   },
   "dependencies": {
-    "@navikt/ds-css": "5.10.0",
-    "@navikt/ds-react": "5.10.0",
+    "@navikt/ds-css": "5.11.2",
+    "@navikt/ds-react": "5.11.2",
     "@navikt/ft-form-hooks": "^4.2.13",
     "@navikt/ft-form-validators": "^2.1.6",
     "@navikt/ft-kodeverk": "^2.2.6",
@@ -36,7 +37,7 @@
     "moment": "2.29.4",
     "react": "18.2.0",
     "react-hook-form": "7.48.2",
-    "react-intl": "6.5.2"
+    "react-intl": "6.5.5"
   },
   "peerDependencies": {
     "@navikt/ds-css": "2.8.11",
@@ -55,17 +56,17 @@
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.1.13",
     "@navikt/ft-utils-test": "^2.1.6",
-    "@storybook/addon-actions": "7.5.3",
-    "@storybook/react": "7.5.3",
-    "@storybook/react-vite": "7.5.3",
-    "@testing-library/react": "14.1.0",
+    "@storybook/addon-actions": "7.6.0",
+    "@storybook/react": "7.6.0",
+    "@storybook/react-vite": "7.6.0",
+    "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.1",
     "cross-env": "7.0.3",
-    "eslint": "8.53.0",
-    "storybook": "7.5.3",
+    "eslint": "8.54.0",
+    "storybook": "7.6.0",
     "stylelint": "15.11.0",
-    "typescript": "5.2.2",
-    "vite": "4.5.0",
+    "typescript": "5.3.2",
+    "vite": "5.0.2",
     "vitest": "0.34.6"
   },
   "publishConfig": {

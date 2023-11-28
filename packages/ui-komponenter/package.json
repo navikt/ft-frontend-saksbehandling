@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
+  "type": "module",
   "version": "2.1.13",
   "license": "MIT",
   "main": "./dist/index.umd.js",
@@ -25,13 +26,13 @@
     "storybook": "storybook dev --quiet -p 7006"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "5.10.0",
-    "@navikt/ds-css": "5.10.0",
-    "@navikt/ds-react": "5.10.0",
+    "@navikt/aksel-icons": "5.11.2",
+    "@navikt/ds-css": "5.11.2",
+    "@navikt/ds-react": "5.11.2",
     "@navikt/ft-utils": "^2.1.6",
     "classnames": "2.3.2",
     "react": "18.2.0",
-    "react-intl": "6.5.2",
+    "react-intl": "6.5.5",
     "react-modal": "3.16.1"
   },
   "peerDependencies": {
@@ -45,17 +46,17 @@
     "react-modal": "3.16.1"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.5.3",
-    "@storybook/react": "7.5.3",
-    "@storybook/react-vite": "7.5.3",
-    "@testing-library/react": "14.1.0",
+    "@storybook/addon-actions": "7.6.0",
+    "@storybook/react": "7.6.0",
+    "@storybook/react-vite": "7.6.0",
+    "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.1",
     "cross-env": "7.0.3",
-    "eslint": "8.53.0",
-    "storybook": "7.5.3",
+    "eslint": "8.54.0",
+    "storybook": "7.6.0",
     "stylelint": "15.11.0",
-    "typescript": "5.2.2",
-    "vite": "4.5.0",
+    "typescript": "5.3.2",
+    "vite": "5.0.2",
     "vitest": "0.34.6"
   },
   "resolutions": {

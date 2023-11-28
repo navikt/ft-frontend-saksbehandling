@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
+  "type": "module",
   "version": "2.1.6",
   "license": "MIT",
   "main": "./dist/index.umd.js",
@@ -30,11 +31,11 @@
     "moment": "2.29.4"
   },
   "devDependencies": {
-    "@storybook/react": "7.5.3",
+    "@storybook/react": "7.6.0",
     "cross-env": "7.0.3",
-    "eslint": "8.53.0",
-    "typescript": "5.2.2",
-    "vite": "4.5.0",
+    "eslint": "8.54.0",
+    "typescript": "5.3.2",
+    "vite": "5.0.2",
     "vitest": "0.34.6"
   },
   "publishConfig": {
