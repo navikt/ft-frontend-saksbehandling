@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-sak-infosider",
   "description": "Diverse info- og feil-sider",
+  "type": "module",
   "version": "2.1.6",
   "license": "MIT",
   "main": "./dist/index.umd.js",

@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-sak-dokumenter",
   "description": "Viser en dokumentoversikt. Saksbehandler kan velge å åpne en eller flere dokumenter.",
+  "type": "module",
   "version": "2.1.13",
   "license": "MIT",
   "main": "./dist/index.umd.js",

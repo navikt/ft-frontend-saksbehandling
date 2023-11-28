@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-sak-aktor",
   "description": "Komponent som viser en liste med saker knyttet til en aktør-id",
+  "type": "module",
   "version": "2.2.14",
   "license": "MIT",
   "main": "./dist/index.umd.js",

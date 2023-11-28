@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
+  "type": "module",
   "version": "2.1.6",
   "license": "MIT",
   "main": "./dist/index.umd.js",

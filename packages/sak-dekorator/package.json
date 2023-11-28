@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-sak-dekorator",
   "description": "Dekorator for applikasjon",
+  "type": "module",
   "version": "4.1.14",
   "license": "MIT",
   "main": "./dist/index.umd.js",

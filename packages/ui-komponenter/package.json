@@ -1,6 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
+  "type": "module",
   "version": "2.1.13",
   "license": "MIT",
   "main": "./dist/index.umd.js",

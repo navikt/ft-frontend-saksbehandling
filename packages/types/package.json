@@ -1,5 +1,6 @@
 {
   "name": "@navikt/ft-types",
+  "type": "module",
   "version": "2.2.6",
   "license": "MIT",
   "main": "./dist/index.umd.js",
