@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-types",
   "type": "module",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -14,7 +14,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.2.6"
+    "@navikt/ft-kodeverk": "^2.2.7"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "2.x"
