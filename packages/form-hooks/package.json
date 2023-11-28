@@ -4,8 +4,6 @@
   "type": "module",
   "version": "4.2.14",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
