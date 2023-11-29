@@ -3,6 +3,8 @@
   "description": "Fordeling av foreslått beregningsgrunnlag og fastsetting av refusjon",
   "version": "7.3.19",
   "license": "MIT",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
