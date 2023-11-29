@@ -3,6 +3,8 @@
   "description": "Meny som viser diverse handlinger en kan utføre på en fagsak",
   "version": "3.1.17",
   "license": "MIT",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

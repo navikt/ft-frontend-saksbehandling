@@ -3,6 +3,8 @@
   "description": "Oversikt over ulike andeler i beregningsgrunnlaget og hva disse er fastsatt til. Aksjonspunkter relatert til avvik for arbeid, frilans og næring",
   "version": "6.3.19",
   "license": "MIT",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
