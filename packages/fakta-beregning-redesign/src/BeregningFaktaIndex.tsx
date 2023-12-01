@@ -416,13 +416,19 @@ const BeregningFaktaIndex: FunctionComponent<
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
+        <Heading size="small" level="2">
+          <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
+        </Heading>
         {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) &&
         !isAksjonspunktClosed(aktiveAvklaringsBehov) ? (
           <>
+            <VerticalSpacer sixteenPx />
             {lagHelpTextsForFakta(aktivtBeregningsgrunnlag, arbeidsgiverOpplysningerPerId)}
             <VerticalSpacer twentyPx />
           </>
-        ) : null}
+        ) : (
+          <VerticalSpacer eightPx />
+        )}
         {skalBrukeTabs && (
           <div className={styles.tabsContainer}>
             <Tabs

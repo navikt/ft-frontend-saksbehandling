@@ -1,4 +1,5 @@
 {
+  "BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning": "Saksopplysninger beregning",
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning": "Vurder fakta for beregningen",
   "BeregningInfoPanel.AksjonspunktHelpText.ForSentRefusjonskrav": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
   "BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold": "Er arbeidsforholdet i {navn} med varighet {fom} - {tom} tidsbegrenset?",
@@ -80,8 +81,8 @@
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4": "Regn ut månedsinntekt ved å finne differansen mellom rapportert inntekt (§8-30 filter) og omregnet årsinntekt (§8-28 filter) / 12 måneder.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5": "Regn ut avviket ved å bruke månedsinntekt x 100 / rapportert inntekt de siste 12 kalendermånedene = avvik i prosent.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6": "Dersom det er mer enn 25 prosent differanse i avviksberegningen skal det fastsettes ved skjønn.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1": "Inntektskategori er den arbeidsaktiviteten ytelsen som ligger til grunn er beregnet ut ifra.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2": "Hvis ytelsen er beregnet fra annen ytelse, skal du ta utgangspunkt i den første ytelsen det ble beregnet grunnlag fra.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1": "Inntektskategori er den/de arbeidsaktivitetene som beregningsgrunnlaget ble fastsatt ut fra.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2": "Hvis ytelsen er beregnet fra annen ytelse, skal du ta utgangspunkt i aktivitetene den første ytelsen beregnet ut fra.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3": "Du finner inntektskategorien ytelsen er basert på i Modia.",
 
   "BeregningInfoPanel.VurderBestebergning.HarBesteberegning": "Søker har hatt dagpenger i opptjeningsperioden. Skal dette fordeles etter besteberegning?",
