@@ -2647,7 +2647,7 @@ __metadata:
     eslint: 8.54.0
     react: 18.2.0
     react-dom: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -2703,7 +2703,7 @@ __metadata:
     eslint: 8.54.0
     react: 18.2.0
     react-dom: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -2757,7 +2757,7 @@ __metadata:
     dayjs: 1.11.10
     eslint: 8.54.0
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -2807,7 +2807,7 @@ __metadata:
     eslint: 8.54.0
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -2853,7 +2853,7 @@ __metadata:
     eslint: 8.54.0
     lodash.throttle: 4.1.1
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     storybook: 7.6.0
     stylelint: 15.11.0
     typescript: 5.3.2
@@ -2994,7 +2994,7 @@ __metadata:
     eslint: 8.54.0
     react: 18.2.0
     react-collapse: 5.1.1
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -3047,7 +3047,7 @@ __metadata:
     eslint: 8.54.0
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -3095,7 +3095,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.54.0
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -3144,7 +3144,7 @@ __metadata:
     eslint: 8.54.0
     moment: 2.29.4
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -3423,7 +3423,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.54.0
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -3468,7 +3468,7 @@ __metadata:
     react: 18.2.0
     react-collapse: 5.1.1
     react-dom: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     storybook: 7.6.0
     stylelint: 15.11.0
@@ -3543,7 +3543,7 @@ __metadata:
     eslint: 8.54.0
     history: 5.3.0
     react: 18.2.0
-    react-hook-form: 7.48.2
+    react-hook-form: 7.49.0
     react-intl: 6.5.5
     typescript: 5.3.2
     vite: 5.0.2
@@ -14849,12 +14849,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.48.2":
-  version: 7.48.2
-  resolution: "react-hook-form@npm:7.48.2"
+"react-hook-form@npm:7.49.0":
+  version: 7.49.0
+  resolution: "react-hook-form@npm:7.49.0"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 39652d08f78f16e5234049ceeb794d8bcd4d146772aca99c6db8c5aea8926cd4a230d02098886a441074deefbc24ffcb5ed57bc7cb0009d950115f5b3e627f12
+  checksum: 9bfd27cb868f05df8e6e98fda15813ea31220ca643b56d37ea89940e865ed0183087df49b70d4e8e80729ef541ec56e23a0c782c52760a3053751aa506abc150
   languageName: node
   linkType: hard
 
