@@ -47,7 +47,7 @@
     "@types/react-responsive": "8.0.8",
     "@typescript-eslint/eslint-plugin": "6.13.1",
     "@typescript-eslint/parser": "6.13.1",
-    "@vitejs/plugin-react": "4.2.0",
+    "@vitejs/plugin-react": "4.2.1",
     "@vitest/coverage-c8": "0.33.0",
     "body-parser": "1.20.2",
     "cross-env": "7.0.3",
@@ -60,7 +60,7 @@
     "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-testing-library": "6.2.0",
-    "eslint-plugin-vitest": "0.3.10",
+    "eslint-plugin-vitest": "0.3.16",
     "gh-pages": "6.1.0",
     "husky": "8.0.3",
     "jsdom": "23.0.0",
@@ -74,8 +74,8 @@
     "stylelint-order": "6.0.3",
     "typescript": "5.3.2",
     "vite": "5.0.8",
-    "vite-plugin-dts": "3.6.3",
-    "vitest": "0.34.6"
+    "vite-plugin-dts": "3.6.4",
+    "vitest": "1.0.4"
   },
   "resolutions": {
     "react": "18.2.0",
