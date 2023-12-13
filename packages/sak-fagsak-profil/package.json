@@ -54,8 +54,8 @@
     "storybook": "7.6.0",
     "stylelint": "15.11.0",
     "typescript": "5.3.2",
-    "vite": "5.0.2",
-    "vitest": "0.34.6"
+    "vite": "5.0.8",
+    "vitest": "1.0.4"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
