@@ -2779,7 +2779,7 @@ __metadata:
     "@storybook/react-vite": 7.6.0
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    core-js: 3.33.3
+    core-js: 3.34.0
     cross-env: 7.0.3
     dayjs: 1.11.10
     dayjs-plugin-utc: 0.1.2
@@ -2835,7 +2835,7 @@ __metadata:
     "@storybook/react-vite": 7.6.0
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    core-js: 3.33.3
+    core-js: 3.34.0
     cross-env: 7.0.3
     dayjs: 1.11.10
     dayjs-plugin-utc: 0.1.2
@@ -2891,7 +2891,7 @@ __metadata:
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
     classnames: 2.3.2
-    core-js: 3.33.3
+    core-js: 3.34.0
     cross-env: 7.0.3
     dayjs: 1.11.10
     eslint: 8.54.0
@@ -8604,10 +8604,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.33.3":
-  version: 3.33.3
-  resolution: "core-js@npm:3.33.3"
-  checksum: 070b9c696f5a9b22bab0208daf9fcdffbc3b4f4c89ed2be512b7d99d4be363accfbb26fa6eec7261055d89e8ea0a5bcfccad5923fe43f1f2eafca9f568cc5596
+"core-js@npm:3.34.0":
+  version: 3.34.0
+  resolution: "core-js@npm:3.34.0"
+  checksum: 26b0d103716b33fc660ee8737da7bc9475fbc655f93bbf1360ab692966449d18f2fc393805095937283db9f919ca2aa5c88d86d16f2846217983ad7da707e31e
   languageName: node
   linkType: hard
 
