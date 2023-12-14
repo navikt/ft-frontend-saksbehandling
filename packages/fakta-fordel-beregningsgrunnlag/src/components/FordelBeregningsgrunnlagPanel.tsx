@@ -7,7 +7,7 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 
-import { FagsakStatus } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
 import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -91,20 +91,21 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   );
 
   const alleAksjonspunktErLøst =
-    (!fordelAP || fordelAP.status !== FagsakStatus.OPPRETTET) &&
-    (!refusjonAP || refusjonAP.status !== FagsakStatus.OPPRETTET) &&
-    (!nyttInntektsforholdAP || nyttInntektsforholdAP.status !== FagsakStatus.OPPRETTET);
+    (!fordelAP || fordelAP.status !== AksjonspunktStatus.OPPRETTET) &&
+    (!refusjonAP || refusjonAP.status !== AksjonspunktStatus.OPPRETTET) &&
+    (!nyttInntektsforholdAP || nyttInntektsforholdAP.status !== AksjonspunktStatus.OPPRETTET);
 
   const harNyttInntektsforholdAP =
     nyttInntektsforholdAP && harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   const erNyttInntektsforholdFerdigbehandlet =
-    !harNyttInntektsforholdAP || nyttInntektsforholdAP.status !== FagsakStatus.OPPRETTET;
+    !harNyttInntektsforholdAP || nyttInntektsforholdAP.status !== AksjonspunktStatus.OPPRETTET;
 
   const skalViseFordeling =
     fordelAP &&
     harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
-    ((erNyttInntektsforholdFerdigbehandlet && fordelAP.status === FagsakStatus.OPPRETTET) || alleAksjonspunktErLøst);
+    ((erNyttInntektsforholdFerdigbehandlet && fordelAP.status === AksjonspunktStatus.OPPRETTET) ||
+      alleAksjonspunktErLøst);
 
   const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
