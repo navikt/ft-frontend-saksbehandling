@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-visittkort",
   "description": "Komponent som viser informasjon om søker, annen part og barn",
-  "version": "2.1.18",
+  "version": "2.1.19",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -28,11 +28,11 @@
     "@navikt/aksel-icons": "5.11.2",
     "@navikt/ds-css": "5.11.2",
     "@navikt/ds-react": "5.11.2",
-    "@navikt/ft-kodeverk": "^2.2.10",
-    "@navikt/ft-plattform-komponenter": "^2.3.14",
-    "@navikt/ft-types": "^2.2.10",
-    "@navikt/ft-ui-komponenter": "^2.1.17",
-    "@navikt/ft-utils": "^2.1.10",
+    "@navikt/ft-kodeverk": "^2.2.11",
+    "@navikt/ft-plattform-komponenter": "^2.3.15",
+    "@navikt/ft-types": "^2.2.11",
+    "@navikt/ft-ui-komponenter": "^2.1.18",
+    "@navikt/ft-utils": "^2.1.11",
     "moment": "2.29.4",
     "react": "18.2.0",
     "react-intl": "6.5.5"
@@ -51,7 +51,7 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.1.17",
+    "@navikt/ft-storybook-utils": "^2.1.18",
     "@storybook/addon-actions": "7.6.0",
     "@storybook/react": "7.6.0",
     "@storybook/react-vite": "7.6.0",
