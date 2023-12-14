@@ -30,7 +30,7 @@
     "moment": "2.29.4"
   },
   "devDependencies": {
-    "@storybook/react": "7.6.0",
+    "@storybook/react": "7.6.4",
     "cross-env": "7.0.3",
     "eslint": "8.54.0",
     "typescript": "5.3.2",
