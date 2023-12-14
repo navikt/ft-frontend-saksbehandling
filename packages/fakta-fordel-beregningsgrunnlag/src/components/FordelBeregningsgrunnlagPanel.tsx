@@ -106,11 +106,7 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
     harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
     ((erNyttInntektsforholdFerdigbehandlet && fordelAP.status === FagsakStatus.OPPRETTET) || alleAksjonspunktErLøst);
 
-  const skalViseRefusjon =
-    refusjonAP &&
-    harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
-    ((erNyttInntektsforholdFerdigbehandlet && !skalViseFordeling && refusjonAP.status === FagsakStatus.OPPRETTET) ||
-      alleAksjonspunktErLøst);
+  const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   return (
     <>
