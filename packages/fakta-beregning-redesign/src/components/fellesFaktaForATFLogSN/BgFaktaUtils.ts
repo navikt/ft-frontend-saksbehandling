@@ -209,7 +209,13 @@ const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag =
     if (erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag)) {
       return true;
     }
-    if (erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse(andel, beregningsgrunnlag)) {
+    if (
+      erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse(
+        andel,
+        beregningsgrunnlag,
+        andel.arbeidsforholdId,
+      )
+    ) {
       return true;
     }
     if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {

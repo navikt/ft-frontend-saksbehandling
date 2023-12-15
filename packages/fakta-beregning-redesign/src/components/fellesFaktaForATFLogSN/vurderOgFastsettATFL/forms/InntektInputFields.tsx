@@ -14,7 +14,8 @@ import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
 import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { getKanRedigereInntekt } from '../../BgFaktaUtils';
+import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
+import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
@@ -25,7 +26,15 @@ interface InntektInputFieldsProps {
   isAksjonspunktClosed: boolean;
   tilfeller: string[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  kodeverkSamling: KodeverkForPanel;
 }
+
+/**
+ * InntektInputFields
+ *
+ * Presentasjonskomponent. Viser inputfelt for all inntekt som skal legges inn for aksjonspunkter.
+ * Må håndtere hvilke som skal vises og sørge for at ingen vises flere ganger
+ */
 
 const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
   beregningsgrunnlag,
@@ -33,6 +42,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
   isAksjonspunktClosed,
   tilfeller,
   arbeidsgiverOpplysningerPerId,
+  kodeverkSamling,
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -46,9 +56,17 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
   ]);
+  const skalRedigereArbeidsinntekt = skalRedigereArbeidsinntektRadioValues.includes(true);
   const skalRedigereEtterlønnSluttpakke = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]).includes(true);
+
+  const { arbeidstakerOgFrilanserISammeOrganisasjonListe } = beregningsgrunnlag.faktaOmBeregning;
+
+  /**
+   * Henter ut alle arbeidstakerandelene som mangler inntektsmelding
+   *
+   */
   const arbeidstakerAndelerUtenIM =
     beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.arbeidstakerAndelerUtenIM?.filter(andel => {
       const vurderMottarYtelseValues = getValues(
@@ -56,18 +74,27 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
       );
       return vurderMottarYtelseValues?.[utledArbeidsforholdFieldName(andel)];
     });
-  const skalRedigereArbeidsinntekt = skalRedigereArbeidsinntektRadioValues.includes(true);
 
-  const skalRedigereDagpengerInntekt = getValues(
-    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
-  );
+  /**
+   * Henter ut alle arbeidstakerandelene som med inntekt
+   *
+   */
+  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning
+    .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
+    ?.filter(andel =>
+      getKanRedigereInntekt(
+        formValues,
+        beregningsgrunnlag,
+      )(mapAndelToField(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)),
+    );
 
-  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
-  const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
-  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.filter(
-    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  );
-  const { arbeidstakerOgFrilanserISammeOrganisasjonListe } = beregningsgrunnlag.faktaOmBeregning;
+  /**
+   * Henter ut alle andelene der det er frilans og arbeidstaker i samme organisasjon.
+   * Dersom man også har tilfelle for å redigere arbeidsinntekt må andelene som finnes både i
+   * arbeidstakerOgFrilanserISammeOrganisasjonListe og i andelerMedArbeidsinntekt filtreres ut
+   * slik at inputfelt for disse andelene ikke kommer dobbelt opp.
+   *
+   */
   const atflOgSammeOrgArbeidsgivere = (
     erATFLSammeOrg(tilfeller) && skalRedigereArbeidsinntekt
       ? arbeidstakerOgFrilanserISammeOrganisasjonListe?.filter(
@@ -77,13 +104,29 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             ),
         )
       : arbeidstakerOgFrilanserISammeOrganisasjonListe
-  )?.filter(andel => getKanRedigereInntekt(formValues, beregningsgrunnlag)(andel));
+  )?.filter(andel =>
+    getKanRedigereInntekt(
+      formValues,
+      beregningsgrunnlag,
+    )(mapAndelToField({ ...andel, lagtTilAvSaksbehandler: false }, arbeidsgiverOpplysningerPerId, kodeverkSamling)),
+  );
+
+  const skalRedigereDagpengerInntekt = getValues(
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
+  );
+
+  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
+  const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
 
   const atflSammeOrgHarInntektsmelding =
     beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
       aftlSammeOrg => !!aftlSammeOrg.inntektPrMnd,
     );
 
+  /**
+   * Viser label med fremgangsmåte for innfylling for inntektsfelter. Dersom man har flere tilfeller med ulik fremgangsmåte vises en enklere label.
+   *
+   */
   const getArbeidsinntektInputLabel = (andel: AndelForFaktaOmBeregning) => {
     const arbeidsgiverNavn = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn;
     if (
@@ -127,6 +170,10 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     );
   };
 
+  /**
+   * Viser label med fremgangsmåte for innfylling for inntektsfelter. Dersom man har flere tilfeller med ulik fremgangsmåte vises en enklere label.
+   *
+   */
   const getFrilansinntektInputLabel = () => {
     const harFlereTilfellerMedFrilansinntektSomSkalFastsettes =
       skalRedigereFrilansinntektRadioValues.filter(value => value === true).length > 1;
