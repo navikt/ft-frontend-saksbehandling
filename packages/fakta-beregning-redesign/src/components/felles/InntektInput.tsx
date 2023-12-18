@@ -1,7 +1,7 @@
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
-import { parseCurrencyInput } from '@navikt/ft-utils';
+import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent, ReactNode, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
@@ -32,7 +32,7 @@ const InntektInput: FunctionComponent<InntektInputProps> & StaticFunctions = ({
   const intl = useIntl();
 
   const månedsinntektValidator = (number: number): ReactNode | null =>
-    number >= 1 ? null : intl.formatMessage({ id: 'InntektInput.MånedsinntektGyldigVerdi' });
+    removeSpacesFromNumber(number) >= 1 ? null : intl.formatMessage({ id: 'InntektInput.MånedsinntektGyldigVerdi' });
 
   return (
     <InputField
