@@ -2,10 +2,10 @@ import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, ReactNode, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import styles from './inntektInput.module.css';
 
 interface InntektInputProps {
   name: string;
@@ -29,19 +29,21 @@ const InntektInput: FunctionComponent<InntektInputProps> & StaticFunctions = ({
 }) => {
   const { resetField } = useFormContext<VurderFaktaBeregningFormValues>();
   useEffect(() => () => resetField(name as 'vurderFaktaBeregningForm.0.arbeidstakerInntektValues.0.fastsattBelop'), []);
+  const intl = useIntl();
+
+  const månedsinntektValidator = (number: number): ReactNode | null =>
+    number >= 1 ? null : intl.formatMessage({ id: 'InntektInput.MånedsinntektGyldigVerdi' });
+
   return (
-    <div className={styles.inntektInput}>
-      <InputField
-        name={name}
-        htmlSize={8}
-        parse={parseCurrencyInput}
-        readOnly={readOnly}
-        isEdited={isAksjonspunktClosed}
-        validate={[required, maxValueFormatted(178956970)]}
-        label={label}
-      />
-      <p className={styles.krLabel}>kr</p>
-    </div>
+    <InputField
+      name={name}
+      htmlSize={8}
+      parse={parseCurrencyInput}
+      readOnly={readOnly}
+      isEdited={isAksjonspunktClosed}
+      validate={[required, maxValueFormatted(178956970), månedsinntektValidator]}
+      label={label}
+    />
   );
 };
 
