@@ -27,7 +27,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.55.0",
     "typescript": "5.3.3",
-    "vite": "5.0.9"
+    "vite": "5.0.10"
   },
   "exports": {
     ".": {
