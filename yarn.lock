@@ -2618,7 +2618,7 @@ __metadata:
     "@testing-library/user-event": 14.5.1
     cross-env: 7.0.3
     eslint: 8.55.0
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-hook-form: 7.49.2
     react-intl: 6.5.5
@@ -2636,7 +2636,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-hook-form: 7.43.9
     react-intl: 6.3.2
@@ -2696,13 +2696,13 @@ __metadata:
     "@storybook/react": 7.6.4
     cross-env: 7.0.3
     eslint: 8.55.0
-    moment: 2.29.4
+    moment: 2.30.1
     typescript: 5.3.3
     vite: 5.0.9
     vitest: 1.0.4
   peerDependencies:
     "@navikt/ft-utils": 2.x
-    moment: 2.29.4
+    moment: 2.30.1
   languageName: unknown
   linkType: soft
 
@@ -2858,7 +2858,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.10
     eslint: 8.55.0
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-hook-form: 7.49.2
     react-intl: 6.5.5
@@ -2878,7 +2878,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     dayjs: 1.11.7
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-hook-form: 7.43.9
     react-intl: 6.3.2
@@ -2955,7 +2955,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.10
     eslint: 8.55.0
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-hook-form: 7.49.2
     react-intl: 6.5.5
@@ -2975,7 +2975,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     dayjs: 1.11.7
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-hook-form: 7.43.9
     react-intl: 6.3.2
@@ -3044,7 +3044,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.55.0
     history: 5.3.0
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-intl: 6.5.5
     storybook: 7.6.4
@@ -3063,7 +3063,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     classnames: 2.3.2
     history: 5.3.0
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-intl: 6.3.2
   languageName: unknown
@@ -3325,7 +3325,7 @@ __metadata:
     "@testing-library/react": 14.1.2
     cross-env: 7.0.3
     eslint: 8.55.0
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-intl: 6.5.5
     storybook: 7.6.4
@@ -3342,7 +3342,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    moment: 2.29.4
+    moment: 2.30.1
     react: 18.2.0
     react-intl: 6.3.2
   languageName: unknown
@@ -13034,10 +13034,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:2.29.4":
-  version: 2.29.4
-  resolution: "moment@npm:2.29.4"
-  checksum: 0ec3f9c2bcba38dc2451b1daed5daded747f17610b92427bebe1d08d48d8b7bdd8d9197500b072d14e326dd0ccf3e326b9e3d07c5895d3d49e39b6803b76e80e
+"moment@npm:2.30.1":
+  version: 2.30.1
+  resolution: "moment@npm:2.30.1"
+  checksum: 859236bab1e88c3e5802afcf797fc801acdbd0ee509d34ea3df6eea21eb6bcc2abd4ae4e4e64aa7c986aa6cba563c6e62806218e6412a765010712e5fa121ba6
   languageName: node
   linkType: hard
 
