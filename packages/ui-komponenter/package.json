@@ -29,7 +29,7 @@
     "@navikt/ds-css": "5.12.0",
     "@navikt/ds-react": "5.12.0",
     "@navikt/ft-utils": "^2.1.12",
-    "classnames": "2.3.2",
+    "classnames": "2.5.0",
     "react": "18.2.0",
     "react-intl": "6.5.5",
     "react-modal": "3.16.1"
@@ -39,7 +39,7 @@
     "@navikt/ds-css": "2.8.11",
     "@navikt/ds-react": "2.8.11",
     "@navikt/ft-utils": "2.x",
-    "classnames": "2.3.2",
+    "classnames": "2.5.0",
     "react": "18.2.0",
     "react-intl": "6.3.2",
     "react-modal": "3.16.1"

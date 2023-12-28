@@ -2564,7 +2564,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     core-js: 3.34.0
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -2588,7 +2588,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
+    classnames: 2.5.0
     core-js: 3.30.0
     dayjs: 1.11.7
     react: 18.2.0
@@ -2660,7 +2660,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     cross-env: 7.0.3
     dayjs: 1.11.10
     eslint: 8.55.0
@@ -2680,7 +2680,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
+    classnames: 2.5.0
     dayjs: 1.11.7
     lodash.throttle: 4.1.1
     react: 18.2.0
@@ -2748,7 +2748,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     cross-env: 7.0.3
     dayjs: 1.11.10
     eslint: 8.55.0
@@ -2765,7 +2765,7 @@ __metadata:
     vitest: 1.0.4
   peerDependencies:
     "@popperjs/core": 2.11.7
-    classnames: 2.3.2
+    classnames: 2.5.0
     dayjs: 1.11.7
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
@@ -2800,7 +2800,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     cross-env: 7.0.3
     dayjs: 1.11.10
     echarts: 5.4.3
@@ -2825,7 +2825,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
+    classnames: 2.5.0
     dayjs: 1.11.7
     echarts: 5.4.2
     react: 18.2.0
@@ -2904,7 +2904,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -2925,7 +2925,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
+    classnames: 2.5.0
     react: 18.2.0
     react-hook-form: 7.43.9
     react-intl: 6.3.2
@@ -3040,7 +3040,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     cross-env: 7.0.3
     eslint: 8.55.0
     history: 5.3.0
@@ -3061,7 +3061,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
+    classnames: 2.5.0
     history: 5.3.0
     moment: 2.29.4
     react: 18.2.0
@@ -3087,7 +3087,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -3107,7 +3107,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
+    classnames: 2.5.0
     react: 18.2.0
     react-intl: 6.3.2
   languageName: unknown
@@ -3393,7 +3393,7 @@ __metadata:
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
     "@testing-library/user-event": 14.5.1
-    classnames: 2.3.2
+    classnames: 2.5.0
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -3409,7 +3409,7 @@ __metadata:
     "@navikt/ds-css": 2.8.11
     "@navikt/ds-react": 2.8.11
     "@navikt/ft-utils": 2.x
-    classnames: 2.3.2
+    classnames: 2.5.0
     react: 18.2.0
     react-intl: 6.3.2
     react-modal: 3.16.1
@@ -7706,10 +7706,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.3.2":
-  version: 2.3.2
-  resolution: "classnames@npm:2.3.2"
-  checksum: 2c62199789618d95545c872787137262e741f9db13328e216b093eea91c85ef2bfb152c1f9e63027204e2559a006a92eb74147d46c800a9f96297ae1d9f96f4e
+"classnames@npm:2.5.0":
+  version: 2.5.0
+  resolution: "classnames@npm:2.5.0"
+  checksum: 7805e0ed49790dd11da5da4d8509dbad2d9ed8ec817bfa01d3b69d40dc752ee4df757b9e845371a42547989863db76c463619c446aa24cdbd253d65ef927455e
   languageName: node
   linkType: hard
 
