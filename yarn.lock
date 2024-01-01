@@ -2452,7 +2452,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     core-js: 3.34.0
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -2508,7 +2508,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     core-js: 3.34.0
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -2563,7 +2563,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     core-js: 3.34.0
     cross-env: 7.0.3
@@ -2615,7 +2615,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.55.0
     moment: 2.29.4
@@ -2659,7 +2659,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -2747,7 +2747,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -2799,7 +2799,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -2854,7 +2854,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.10
     eslint: 8.55.0
@@ -2903,7 +2903,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     cross-env: 7.0.3
     eslint: 8.55.0
@@ -2951,7 +2951,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.10
     eslint: 8.55.0
@@ -3039,7 +3039,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     cross-env: 7.0.3
     eslint: 8.55.0
@@ -3086,7 +3086,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     cross-env: 7.0.3
     eslint: 8.55.0
@@ -3128,7 +3128,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -3165,7 +3165,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -3198,7 +3198,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -3232,7 +3232,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -3275,7 +3275,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.55.0
     react: 18.2.0
@@ -3392,7 +3392,7 @@ __metadata:
     "@storybook/react": 7.6.4
     "@storybook/react-vite": 7.6.4
     "@testing-library/react": 14.1.2
-    "@testing-library/user-event": 14.5.1
+    "@testing-library/user-event": 14.5.2
     classnames: 2.3.2
     cross-env: 7.0.3
     eslint: 8.55.0
@@ -5638,12 +5638,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:14.5.1":
-  version: 14.5.1
-  resolution: "@testing-library/user-event@npm:14.5.1"
+"@testing-library/user-event@npm:14.5.2":
+  version: 14.5.2
+  resolution: "@testing-library/user-event@npm:14.5.2"
   peerDependencies:
     "@testing-library/dom": ">=7.21.4"
-  checksum: 3e6bc9fd53dfe2f3648190193ed2fd4bca2a1bfb47f68810df3b33f05412526e5fd5c4ef9dc5375635e0f4cdf1859916867b597eed22bda1321e04242ea6c519
+  checksum: d76937dffcf0082fbf3bb89eb2b81a31bf5448048dd61c33928c5f10e33a58e035321d39145cefd469bb5a499c68a5b4086b22f1a44e3e7c7e817dc5f6782867
   languageName: node
   linkType: hard
 
