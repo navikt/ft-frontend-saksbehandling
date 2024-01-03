@@ -23,19 +23,19 @@
   },
   "dependencies": {
     "@navikt/ft-utils": "^2.1.12",
-    "moment": "2.29.4"
+    "moment": "2.30.1"
   },
   "peerDependencies": {
     "@navikt/ft-utils": "2.x",
     "moment": "2.29.4"
   },
   "devDependencies": {
-    "@storybook/react": "7.6.4",
+    "@storybook/react": "7.6.7",
     "cross-env": "7.0.3",
-    "eslint": "8.55.0",
+    "eslint": "8.56.0",
     "typescript": "5.3.3",
-    "vite": "5.0.9",
-    "vitest": "1.0.4"
+    "vite": "5.0.10",
+    "vitest": "1.1.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
