@@ -236,7 +236,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
     if (!vilkarsperiodeSkalVurderesIBehandlingen) {
       return null;
     }
-    if (hasShownPanel && !erOverstyring(formValues)) {
+    if (hasShownPanel) {
       if (readOnly) {
         return (
           <>
@@ -269,14 +269,16 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
                 {form}
               </React.Fragment>
             ))}
-            <InntektInputFields
-              beregningsgrunnlag={beregningsgrunnlag}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              readOnly={readOnly}
-              tilfeller={tilfeller}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              kodeverkSamling={kodeverkSamling}
-            />
+            {!erOverstyring(formValues) && (
+              <InntektInputFields
+                beregningsgrunnlag={beregningsgrunnlag}
+                isAksjonspunktClosed={isAksjonspunktClosed}
+                readOnly={readOnly}
+                tilfeller={tilfeller}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                kodeverkSamling={kodeverkSamling}
+              />
+            )}
             {renderTextFieldAndSubmitButton()}
           </AksjonspunktBoks>
         </>

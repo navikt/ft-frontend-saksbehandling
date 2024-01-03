@@ -184,7 +184,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
         </Table.DataCell>
       )}
       {skalViseOverstyrtInntektInput && (
-        <Table.DataCell align="right">
+        <Table.DataCell align="right" className={styles.rightAlignInput}>
           <InputField
             size="small"
             label={intl.formatMessage(

@@ -43,7 +43,8 @@ type OwnProps = {
   skalKunneAvbryteOverstyring?: boolean;
 };
 
-const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
+const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } =
+  FaktaBeregningAvklaringsbehovCode;
 
 const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
@@ -419,7 +420,8 @@ const BeregningFaktaIndex: FunctionComponent<
         <Heading size="small" level="2">
           <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
         </Heading>
-        {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) &&
+        {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
+          hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&
         !isAksjonspunktClosed(aktiveAvklaringsBehov) ? (
           <>
             <VerticalSpacer sixteenPx />
