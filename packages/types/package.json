@@ -19,13 +19,13 @@
     "@navikt/ft-kodeverk": "2.x"
   },
   "devDependencies": {
-    "@storybook/react": "7.6.4",
+    "@storybook/react": "7.6.7",
     "cross-env": "7.0.3",
-    "eslint": "8.55.0",
+    "eslint": "8.56.0",
     "stylelint": "15.11.0",
     "typescript": "5.3.3",
-    "vite": "5.0.9",
-    "vitest": "1.0.4"
+    "vite": "5.0.10",
+    "vitest": "1.1.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
