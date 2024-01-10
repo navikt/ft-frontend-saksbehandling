@@ -7,7 +7,6 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 
-import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
 import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -90,44 +89,15 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
     VURDER_NYTT_INNTKTSFRHLD,
   );
 
-  const alleAksjonspunktErLøst =
-    (!fordelAP || fordelAP.status !== AksjonspunktStatus.OPPRETTET) &&
-    (!refusjonAP || refusjonAP.status !== AksjonspunktStatus.OPPRETTET) &&
-    (!nyttInntektsforholdAP || nyttInntektsforholdAP.status !== AksjonspunktStatus.OPPRETTET);
-
   const harNyttInntektsforholdAP =
     nyttInntektsforholdAP && harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
-  const erNyttInntektsforholdFerdigbehandlet =
-    !harNyttInntektsforholdAP || nyttInntektsforholdAP.status !== AksjonspunktStatus.OPPRETTET;
-
-  const skalViseFordeling =
-    fordelAP &&
-    harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]) &&
-    ((erNyttInntektsforholdFerdigbehandlet && fordelAP.status === AksjonspunktStatus.OPPRETTET) ||
-      alleAksjonspunktErLøst);
+  const skalViseFordeling = fordelAP && harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   return (
     <>
-      {skalViseRefusjon && (
-        <>
-          <VurderEndringRefusjonForm
-            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            submittable={submittable && !tilkommetAktivitetFormIsDirty && !fordelingFormIsDirty}
-            readOnly={readOnly}
-            submitCallback={submitCallback}
-            beregningsgrunnlagListe={beregningsgrunnlagListe}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            formData={formData as VurderRefusjonFormValues}
-            setFormData={setFormData}
-            vilkarperioder={vilkarperioder}
-            setRefusjonFormIsDirty={setRefusjonFormIsDirty}
-          />
-          <VerticalSpacer fourtyPx />
-        </>
-      )}
       {harNyttInntektsforholdAP && (
         <>
           <TilkommetAktivitet
@@ -141,6 +111,23 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             vilkarperioder={vilkarperioder}
             setTilkommetAktivitetFormIsDirty={setTilkommetAktivitetFormIsDirty}
+          />
+          <VerticalSpacer fourtyPx />
+        </>
+      )}
+      {skalViseRefusjon && (
+        <>
+          <VurderEndringRefusjonForm
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            submittable={submittable && !tilkommetAktivitetFormIsDirty && !fordelingFormIsDirty}
+            readOnly={readOnly}
+            submitCallback={submitCallback}
+            beregningsgrunnlagListe={beregningsgrunnlagListe}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            formData={formData as VurderRefusjonFormValues}
+            setFormData={setFormData}
+            vilkarperioder={vilkarperioder}
+            setRefusjonFormIsDirty={setRefusjonFormIsDirty}
           />
           <VerticalSpacer fourtyPx />
         </>
