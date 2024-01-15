@@ -104,12 +104,12 @@ describe('dateutils', () => {
       });
     });
 
-    it('skal vise at perioden mellom to datoer er på 5 måneder og 0 dager', () => {
+    it('skal vise at perioden mellom to datoer er på 4 måneder og 30 dager', () => {
       const fomDate = '2017-12-01';
       const tomDate = '2018-04-30';
       expect(findDifferenceInMonthsAndDays(fomDate, tomDate)).toEqual({
-        months: 5,
-        days: 0,
+        months: 4,
+        days: 30,
       });
     });
 

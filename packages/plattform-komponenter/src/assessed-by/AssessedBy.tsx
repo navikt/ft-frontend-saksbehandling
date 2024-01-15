@@ -15,7 +15,7 @@ const AssessedBy = ({ name, date }: IAssessedByProps) => {
   return (
     <div className={styles['assessed-by']}>
       <PersonPencilFillIcon height="1.5em" width="1.5em" />
-      <span>{`Vurdering av ${name || ''}${date ? `, ${prettifyDateString(date)}` : ''}`}</span>
+      <span>{`Vurdering av ${name}${date ? `, ${prettifyDateString(date)}` : ''}`}</span>
     </div>
   );
 };

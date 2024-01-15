@@ -9,7 +9,7 @@ const { IngenRisikoklassifisering, LavRisikoklassifisering, HøyRisikoklassifise
 describe('<RisikoklassifiseringSakIndex>', () => {
   it('skal mangle klassifisering', async () => {
     render(<IngenRisikoklassifisering />);
-    expect(await screen.findAllByText('Faresignaler')).toHaveLength(2);
+    expect(await screen.findByText('Venter på mulige faresignaler')).toBeInTheDocument();
   });
 
   it('skal vise ingen faresignaler når en har lav klassifisering', async () => {

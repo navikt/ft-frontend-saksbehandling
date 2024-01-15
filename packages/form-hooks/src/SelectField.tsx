@@ -1,6 +1,6 @@
-import React, { useMemo, FunctionComponent, ReactNode } from 'react';
-import { useController, useFormContext } from 'react-hook-form';
 import { Select as NavSelect } from '@navikt/ds-react';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
@@ -18,6 +18,7 @@ export interface OwnProps {
   className?: string;
   hideLabel?: boolean;
   isEdited?: boolean;
+  size?: 'medium' | 'small';
 }
 
 const SelectField: FunctionComponent<OwnProps> = ({
@@ -33,6 +34,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   className,
   hideLabel,
   isEdited,
+  size,
 }) => {
   const {
     formState: { errors },
@@ -48,7 +50,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   if (readOnly) {
     const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
-    return <ReadOnlyField value={value} label={label} hideLabel={hideLabel} isEdited={isEdited} />;
+    return <ReadOnlyField value={value} label={label} hideLabel={hideLabel} isEdited={isEdited} size={size} />;
   }
 
   const n = field.value || '';

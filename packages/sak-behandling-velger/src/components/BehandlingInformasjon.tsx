@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 import { ChevronDownIcon, ChevronUpIcon, StarFillIcon } from '@navikt/aksel-icons';
-import { Panel, BodyShort, Label, Detail, HStack, Spacer, VStack } from '@navikt/ds-react';
+import { BodyShort, Label, Detail, HStack, Spacer, VStack, Box } from '@navikt/ds-react';
 import { Tooltip, DateLabel, TimeLabel, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BehandlingAppKontekst, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType, BehandlingType, BehandlingArsakType } from '@navikt/ft-kodeverk';
@@ -34,7 +34,7 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <Panel border>
+    <Box borderWidth="2" borderColor="border-divider" borderRadius="large" padding="3">
       <HStack gap="4">
         <div className={styles.arsakPadding}>
           <Label size="small">
@@ -171,7 +171,7 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
         </HStack>
       </VStack>
       <VerticalSpacer fourPx />
-    </Panel>
+    </Box>
   );
 };
 

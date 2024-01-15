@@ -238,7 +238,7 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
           ref={input => {
             this.inputRef = input;
           }}
-          className={`${styles.autocomplete__input} typo-normal`}
+          className="typo-normal"
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={shouldFocusOnMount}
           label={ariaLabel}

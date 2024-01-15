@@ -216,7 +216,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
             <Button
               variant="tertiary"
               loading={false}
-              disabled={false}
+              disabled={readOnly}
               onClick={åpneModal}
               size="small"
               type="button"

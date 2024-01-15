@@ -257,7 +257,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
             </>
           )}
         </div>
-        <div>
+        <div className={styles.rightColumn}>
           {valgtVilkarResultatType && (
             <>
               <Heading size="small">

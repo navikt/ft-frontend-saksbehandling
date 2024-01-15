@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "2.1.1",
+  "version": "2.1.14",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -21,10 +21,10 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.2.1",
-    "@navikt/ft-types": "^2.2.1",
-    "dayjs": "1.11.9",
-    "react-intl": "6.4.6"
+    "@navikt/ft-kodeverk": "^2.2.14",
+    "@navikt/ft-types": "^2.2.14",
+    "dayjs": "1.11.10",
+    "react-intl": "6.5.5"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "2.x",
@@ -33,10 +33,10 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "eslint": "8.49.0",
-    "typescript": "5.2.2",
-    "vite": "4.4.9",
-    "vitest": "0.34.3"
+    "eslint": "8.56.0",
+    "typescript": "5.3.3",
+    "vite": "5.0.11",
+    "vitest": "1.2.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

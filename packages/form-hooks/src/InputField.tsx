@@ -1,6 +1,6 @@
+import { TextField, TextFieldProps } from '@navikt/ds-react';
 import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import { TextField, TextFieldProps } from '@navikt/ds-react';
 import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
@@ -60,7 +60,9 @@ const InputField: FunctionComponent<OwnProps> = ({
   });
 
   if (readOnly) {
-    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} />;
+    return (
+      <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} size={props.size} />
+    );
   }
 
   return (

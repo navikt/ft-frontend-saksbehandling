@@ -1,20 +1,4 @@
-.tabell {
-  animation-duration: 2s;
-  animation-name: fadein;
-  animation-timing-function: ease-out;
-  background-color: var(--a-white);
-  position: relative;
-  transition: all 2s;
-}
-.correctPadding {
-  padding-left: 8px;
-}
-.flexColumn12 {
-  width: 100%;
-}
-.flexColumn9 {
-  width: 75%;
-}
-.flexColumn3 {
-  width: 25%;
+.tabellContainer {
+  min-width: 900px;
+  width: 70%;
 }

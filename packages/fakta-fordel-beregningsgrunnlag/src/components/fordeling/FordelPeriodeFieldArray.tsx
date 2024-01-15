@@ -4,7 +4,7 @@ import { Checkbox, Detail, ErrorMessage, Label, Button } from '@navikt/ds-react'
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { FlexColumn, FlexRow, FloatRight, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { FloatRight, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
   BeregningsgrunnlagAndelType,
@@ -577,20 +577,16 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
         {tablerows}
       </Table>
       {!readOnly && !skalIkkeRedigereInntekt && (
-        <FlexRow className={styles.buttonRow}>
-          <FlexColumn className={styles.flexColumn3}>
-            <Button
-              icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
-              onClick={() => append(defaultBGFordeling(skalIkkeRedigereInntekt))}
-              type="button"
-              variant="tertiary"
-            >
-              <Detail className={styles.imageText}>
-                <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-              </Detail>
-            </Button>
-          </FlexColumn>
-        </FlexRow>
+        <Button
+          icon={<PlusCircleIcon aria-hidden />}
+          onClick={() => append(defaultBGFordeling(skalIkkeRedigereInntekt))}
+          type="button"
+          variant="secondary"
+        >
+          <Detail>
+            <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
+          </Detail>
+        </Button>
       )}
       {!readOnly && !skalIkkeRedigereInntekt && (
         <Checkbox

@@ -110,9 +110,11 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
 
   const skalBrukeSidemeny = listeMedGrunnlag.length > 1;
-  listeMedGrunnlag.sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
-    a.skjaeringstidspunktBeregning.localeCompare(b.skjaeringstidspunktBeregning),
-  );
+  listeMedGrunnlag
+    .sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
+      a.skjaeringstidspunktBeregning.localeCompare(b.skjaeringstidspunktBeregning),
+    )
+    .reverse();
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   const menyProps = lagMenyProps(listeMedGrunnlag, beregningsgrunnlagsvilkar);
