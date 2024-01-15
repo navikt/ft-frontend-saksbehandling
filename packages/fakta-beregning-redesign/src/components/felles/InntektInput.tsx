@@ -41,7 +41,7 @@ const InntektInput: FunctionComponent<InntektInputProps> & StaticFunctions = ({
       parse={parseCurrencyInput}
       readOnly={readOnly}
       isEdited={isAksjonspunktClosed}
-      validate={[required, maxValueFormatted(178956970), månedsinntektValidator]}
+      validate={readOnly ? [] : [required, maxValueFormatted(178956970), månedsinntektValidator]}
       label={label}
     />
   );
