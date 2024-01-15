@@ -74,7 +74,7 @@ ArbeidsinntektInput.buildInitialValues = (andelerForFaktaOmBeregning: AndelForFa
     ?.filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold)
     .forEach(andel => {
       const arbeidsgiver = {
-        fastsattBelop: '',
+        fastsattBelop: andel.fastsattBelop,
         arbeidsgiverIdent: andel.arbeidsforhold.arbeidsgiverIdent,
       };
       initialValues.push(arbeidsgiver);

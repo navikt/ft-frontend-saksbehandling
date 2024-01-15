@@ -43,7 +43,8 @@ type OwnProps = {
   skalKunneAvbryteOverstyring?: boolean;
 };
 
-const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
+const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } =
+  FaktaBeregningAvklaringsbehovCode;
 
 const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
@@ -93,11 +94,19 @@ export const lagHelpTextsForFakta = (
   const alerts = [];
   const keys = [];
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
+    const harInntektsmelding =
+      beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
+        aftlSammeOrg => !!aftlSammeOrg.inntektPrMnd,
+      );
     keys.push(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
     alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg"
+          id={
+            harInntektsmelding
+              ? 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg'
+              : 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM'
+          }
           values={{
             h3: (...chunks) => (
               <Heading size="xsmall" level="3">
@@ -408,13 +417,20 @@ const BeregningFaktaIndex: FunctionComponent<
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
-        {hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) &&
+        <Heading size="small" level="2">
+          <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
+        </Heading>
+        {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
+          hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&
         !isAksjonspunktClosed(aktiveAvklaringsBehov) ? (
           <>
+            <VerticalSpacer sixteenPx />
             {lagHelpTextsForFakta(aktivtBeregningsgrunnlag, arbeidsgiverOpplysningerPerId)}
             <VerticalSpacer twentyPx />
           </>
-        ) : null}
+        ) : (
+          <VerticalSpacer eightPx />
+        )}
         {skalBrukeTabs && (
           <div className={styles.tabsContainer}>
             <Tabs

@@ -1,6 +1,5 @@
-import React from 'react';
 import classnames from 'classnames';
-import { Panel } from '@navikt/ds-react';
+import React from 'react';
 import styles from './infoPanel.module.css';
 
 interface InfoPanel {
@@ -10,7 +9,7 @@ interface InfoPanel {
 
 const InfoPanel = ({ children, type }: InfoPanel) => {
   const cls = classnames(styles.infoPanel, styles[`infoPanel--${type}`]);
-  return <Panel className={cls}>{children}</Panel>;
+  return <div className={cls}>{children}</div>;
 };
 
 export default InfoPanel;

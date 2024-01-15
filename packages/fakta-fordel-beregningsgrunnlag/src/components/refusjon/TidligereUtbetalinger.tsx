@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { FlexColumn, FlexRow, Table } from '@navikt/ft-ui-komponenter';
+import { FormattedMessage } from 'react-intl';
+import { Table } from '@navikt/ds-react';
 import { Beregningsgrunnlag, RefusjonTilVurderingAndel, ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
 import TidligereUtbetalingRad from './TidligereUtbetalingRad';
@@ -27,17 +28,22 @@ export const TidligereUtbetalinger: FunctionComponent<OwnProps> = ({
 }) => {
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
   return (
-    <FlexRow>
-      <FlexColumn className={styles.flexColumn9}>
-        <Table
-          headerTextCodes={[
-            'BeregningInfoPanel.RefusjonBG.Aktivitet',
-            'BeregningInfoPanel.RefusjonBG.TidligereUtb',
-            'BeregningInfoPanel.RefusjonBG.GjeldendeFra',
-          ]}
-          noHover
-          classNameTable={styles.tabell}
-        >
+    <div className={styles.tabellContainer}>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aktivitet" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.TidligereUtb" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.GjeldendeFra" />
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {andeler.map(andel => (
             <TidligereUtbetalingRad
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -45,9 +51,9 @@ export const TidligereUtbetalinger: FunctionComponent<OwnProps> = ({
               key={lagRadNøkkel(andel)}
             />
           ))}
-        </Table>
-      </FlexColumn>
-    </FlexRow>
+        </Table.Body>
+      </Table>
+    </div>
   );
 };
 

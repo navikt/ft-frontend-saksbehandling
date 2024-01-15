@@ -17,6 +17,7 @@ const {
   VurderingAvMilitærAp5058,
   TidsbegrensetArbeidsforholdAp5058,
   KanOverstyreBGUtenAvklaringsbehov,
+  VurderingAvEtterlønnSluttpakkeAp5058,
 } = composeStories(stories);
 
 describe('<BeregningFaktaIndexSpec', () => {
@@ -491,6 +492,46 @@ describe('<BeregningFaktaIndexSpec', () => {
             periode: {
               fom: '2022-01-18',
               tom: '2023-06-30',
+            },
+          },
+        ],
+      },
+    ]);
+  });
+
+  it('skal kunne vurdere etterlønn og sluttpakke', async () => {
+    const lagre = vi.fn();
+    render(<VurderingAvEtterlønnSluttpakkeAp5058 submitCallback={lagre} />);
+    expect(
+      screen.getByText('Vurder om søker har etterlønn eller sluttvederlag i beregningsperioden'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Har søker etterlønn eller sluttvederlag?')).toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText('Ja (månedsinntekt må fastsettes)'));
+    await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for Bedriften4 (795349533)'), '50 000');
+    await userEvent.type(screen.getByLabelText('Begrunnelse'), 'test');
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+
+    expect(lagre).toHaveBeenNthCalledWith(1, [
+      {
+        kode: 'VURDER_FAKTA_ATFL_SN',
+        begrunnelse: 'test',
+        grunnlag: [
+          {
+            fakta: {
+              faktaOmBeregningTilfeller: ['VURDER_ETTERLØNN_SLUTTPAKKE', 'FASTSETT_ETTERLØNN_SLUTTPAKKE'],
+              fastsettEtterlønnSluttpakke: {
+                fastsattPrMnd: 50000,
+              },
+              vurderEtterlønnSluttpakke: {
+                erEtterlønnSluttpakke: true,
+              },
+            },
+            overstyrteAndeler: undefined,
+            begrunnelse: 'test',
+            periode: {
+              fom: '2022-03-02',
+              tom: '2022-03-04',
             },
           },
         ],

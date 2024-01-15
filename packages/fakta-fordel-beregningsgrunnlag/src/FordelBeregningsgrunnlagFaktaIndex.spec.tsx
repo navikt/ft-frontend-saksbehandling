@@ -30,7 +30,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const utils = render(<AapOgRefusjonAp5046 submitCallback={lagre} />);
 
     expect(
-      await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
+      await screen.findByText('Nytt refusjonskrav hos NAV Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
@@ -239,7 +239,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const utils = render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 submitCallback={lagre} />);
 
     expect(
-      await screen.findByText('Nytt refusjonskrav hos KATOLSK KEBAB A/S (999999999)...-001 f.o.m. 27.11.2019.'),
+      await screen.findByText('Nytt refusjonskrav hos NAV Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
     ).toBeInTheDocument();
 
     const knapp = screen.getAllByText('Bekreft og fortsett');
@@ -441,8 +441,8 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
       ),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
-    expect(screen.getAllByText('JENS MAGNE (01.01.2000)')).toHaveLength(2);
-    expect(screen.getByText('krever refusjon fra og med 01.06.2020')).toBeInTheDocument();
+    expect(screen.getAllByText('TESTY TEST (01.01.2000)')).toHaveLength(3);
+    expect(screen.getByText('krever refusjon fra og med 01.07.2020')).toBeInTheDocument();
     expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
 
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
@@ -494,7 +494,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
       ),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
-    expect(screen.getAllByText('KATOLSK KEBAB A/S (999999999)')).toHaveLength(3);
+    expect(screen.getAllByText('NAV Gokk (999999999)')).toHaveLength(3);
     expect(
       screen.getByText('krever refusjon fra og med 01.06.2020. Det er tidligere innvilget et lavere refusjonsbeløp'),
     ).toBeInTheDocument();

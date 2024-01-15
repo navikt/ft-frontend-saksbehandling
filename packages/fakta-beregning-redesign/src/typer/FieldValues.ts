@@ -3,6 +3,7 @@ export type AndelFieldIdentifikator = {
   andelsnr?: number;
   arbeidsgiverId?: string;
   arbeidsforholdType?: string;
+  arbeidsforholdId?: string;
 };
 
 type AndelFieldValue = AndelFieldIdentifikator & {

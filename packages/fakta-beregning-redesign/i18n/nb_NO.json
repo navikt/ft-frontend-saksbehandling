@@ -1,4 +1,5 @@
 {
+  "BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning": "Saksopplysninger beregning",
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning": "Vurder fakta for beregningen",
   "BeregningInfoPanel.AksjonspunktHelpText.ForSentRefusjonskrav": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
   "BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold": "Er arbeidsforholdet i {navn} med varighet {fom} - {tom} tidsbegrenset?",
@@ -26,6 +27,7 @@
   "BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem2": "Undersøk om søker faktisk var nyoppstartet frilanser i beregningsperioden. Frilansere har ofte ujevne utbetalinger, og kan bli meldt inn/ut av Aa-registeret selvom de fast jobber som frilanser. Hvis dette er tilfelle skal du velge ”nei”.",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettFrilans": "Fastsett frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLAlleOppdrag": "Fastsett arbeidsinntekt og samlet frilansinntekt for alle oppdrag.",
+  "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans": "Fastsett samlet frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet": "Fastsett arbeidsinntekt og samlet frilansinntekt",
   "BeregningInfoPanel.VurderOgFastsettATFL.FastsettArbeidsinntekt": "Fastsett arbeidsinntekt",
   "BeregningInfoPanel.LonnsendringForm.HarSokerEndring": "Har søker hatt lønnsendring i løpet av de siste tre månedene?",
@@ -53,6 +55,7 @@
   "BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1": "Fastsett månedsinntekt ut ifra antall måneder/dager med utbetaling.",
   "BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2": "Eksempel: {br} Hvis søker startet som frilanser for 2 mnd siden, skal samlet inntekt deles på 2 og ikke 3. Hvis det er under 1 mnd siden oppstart, må du regne om inntekt til dagsats per virkedag. Dagsats x 260 / 12 mnd = månedsinntekt.",
   "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1": "Trekk fra arbeidsinntekt oppgitt i inntektsmelding eller det arbeidsgiver opplyser på telefon fra totalinntekt i A-inntekt. Ta hensyn til eventuelle lønnsendringer.",
+  "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM": "Trekk fra arbeidsinntekt oppgitt i inntektsmelding fra totalinntekt i A-inntekt. {br} Ta hensyn til eventuelle lønnsendringer.",
   "BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2": "Restbeløp er frilansinntekt.",
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem": "Hvordan går jeg frem?",
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt": "Hvordan går jeg frem for å fastsette månedsinntekten for ytelsen?",
@@ -60,8 +63,9 @@
   "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1": "Undersøk i Modia om søker har full AAP.",
   "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2": "Ved full AAP skal arbeidsinntekten ikke benyttes.",
 
-  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText": "<h3>Vurder om søker har hatt lønnsendring</h3>Det er registrert lønnsendring, men ny inntekt kan ikke fastsettes av systemet. Vurder om registrert lønnsendring er riktig og fastsett ny månedsinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er samlet frilansinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText": "<h3>Vurder om søker har hatt lønnsendring</h3>Det er registrert lønnsendring i Aa-registeret, men ny inntekt kan ikke fastsettes av systemet. Vurder om registrert lønnsendring er riktig og fastsett ny månedsinntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextFrilans": "<h3>Vurder om søker mottar ytelse for frilansaktivitet</h3>Det er funnet utbetaling av ytelse i beregningsperioden, men utbetalt beløp kan ikke hentes fra registrene.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextArbeidstaker": "<h3>Vurder om søker mottar ytelse for arbeidsforhold</h3>Det er funnet utbetaling av ytelse i beregningsperioden, men utbetalt beløp kan ikke hentes fra registrene.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText": "<h3>Vurder om søker har etterlønn eller sluttvederlag i beregningsperioden</h3>Søker har oppgitt etterlønn eller sluttvederlag i søknaden.",
@@ -77,8 +81,8 @@
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4": "Regn ut månedsinntekt ved å finne differansen mellom rapportert inntekt (§8-30 filter) og omregnet årsinntekt (§8-28 filter) / 12 måneder.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5": "Regn ut avviket ved å bruke månedsinntekt x 100 / rapportert inntekt de siste 12 kalendermånedene = avvik i prosent.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6": "Dersom det er mer enn 25 prosent differanse i avviksberegningen skal det fastsettes ved skjønn.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1": "Inntektskategori er den arbeidsaktiviteten ytelsen som ligger til grunn er beregnet ut ifra.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2": "Hvis ytelsen er beregnet fra annen ytelse, skal du ta utgangspunkt i den første ytelsen det ble beregnet grunnlag fra.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1": "Inntektskategori er den/de arbeidsaktivitetene som beregningsgrunnlaget ble fastsatt ut fra.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2": "Hvis ytelsen er beregnet fra annen ytelse, skal du ta utgangspunkt i aktivitetene den første ytelsen beregnet ut fra.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3": "Du finner inntektskategorien ytelsen er basert på i Modia.",
 
   "BeregningInfoPanel.VurderBestebergning.HarBesteberegning": "Søker har hatt dagpenger i opptjeningsperioden. Skal dette fordeles etter besteberegning?",
@@ -131,5 +135,7 @@
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
-  "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
+  "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
+
+  "InntektInput.MånedsinntektGyldigVerdi": "Månedsinntekt må være høyere eller lik 1"
 }

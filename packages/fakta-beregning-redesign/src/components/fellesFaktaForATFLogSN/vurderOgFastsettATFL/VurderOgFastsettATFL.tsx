@@ -215,7 +215,10 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       );
     }
 
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+    if (
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) ||
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
+    ) {
       hasShownPanel = true;
       keys.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
       forms.push(
@@ -250,6 +253,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
               readOnly={readOnly}
               tilfeller={tilfeller}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              kodeverkSamling={kodeverkSamling}
             />
             {renderTextFieldAndSubmitButton()}
           </>
@@ -265,13 +269,16 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
                 {form}
               </React.Fragment>
             ))}
-            <InntektInputFields
-              beregningsgrunnlag={beregningsgrunnlag}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              readOnly={readOnly}
-              tilfeller={tilfeller}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            />
+            {!erOverstyring(formValues) && (
+              <InntektInputFields
+                beregningsgrunnlag={beregningsgrunnlag}
+                isAksjonspunktClosed={isAksjonspunktClosed}
+                readOnly={readOnly}
+                tilfeller={tilfeller}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                kodeverkSamling={kodeverkSamling}
+              />
+            )}
             {renderTextFieldAndSubmitButton()}
           </AksjonspunktBoks>
         </>
@@ -449,6 +456,7 @@ VurderOgFastsettATFL.transformValues =
       values.frilansInntektValues,
       values.arbeidstakerInntektValues,
       values.dagpengerInntektValues,
+      values.manuellOverstyringRapportertInntekt,
     );
     const fastsatteAndelsnr = [];
     const transformed = transformValuesForAksjonspunkt(

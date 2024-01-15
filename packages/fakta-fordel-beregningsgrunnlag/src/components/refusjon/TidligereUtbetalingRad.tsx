@@ -1,28 +1,22 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { BodyShort, Table } from '@navikt/ds-react';
 import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 
-import styles from './tidligereUtbetalinger.module.css';
-
 const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement[] =>
   utbetalinger.map(utbetaling => (
-    <FlexRow
-      className={styles.correctPadding}
-      key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}
-    >
-      <FlexColumn>
-        {utbetaling && utbetaling.erTildeltRefusjon ? (
-          <BodyShort size="small">{andelsnavn}</BodyShort>
-        ) : (
+    <div key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
+      {utbetaling && utbetaling.erTildeltRefusjon ? (
+        <BodyShort>{andelsnavn}</BodyShort>
+      ) : (
+        <BodyShort>
           <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Direkteutbetaling" />
-        )}
-      </FlexColumn>
-    </FlexRow>
+        </BodyShort>
+      )}
+    </div>
   ));
 
 const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined => {
@@ -31,18 +25,18 @@ const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined
   }
   const utbTom = utbetaling.tom === TIDENES_ENDE ? undefined : utbetaling.tom;
   return (
-    <FormattedMessage
-      id="BeregningInfoPanel.RefusjonBG.Periode"
-      values={{ fom: dateFormat(utbetaling.fom), tom: utbTom ? dateFormat(utbTom) : '' }}
-    />
+    <BodyShort>
+      <FormattedMessage
+        id="BeregningInfoPanel.RefusjonBG.Periode"
+        values={{ fom: dateFormat(utbetaling.fom), tom: utbTom ? dateFormat(utbTom) : '' }}
+      />
+    </BodyShort>
   );
 };
 
 const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] =>
   utbetalinger.map(utbetaling => (
-    <FlexRow className={styles.correctPadding} key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
-      <FlexColumn>{lagPeriode(utbetaling)}</FlexColumn>
-    </FlexRow>
+    <div key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>{lagPeriode(utbetaling)}</div>
   ));
 
 type OwnProps = {
@@ -54,16 +48,18 @@ export const TidligereUtbetalingRad: FunctionComponent<OwnProps> = ({
   refusjonAndel,
   arbeidsgiverOpplysningerPerId,
 }) => (
-  <TableRow>
-    <TableColumn>{createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId)}</TableColumn>
-    <TableColumn>
+  <Table.Row>
+    <Table.DataCell>
+      <BodyShort>{createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId)}</BodyShort>
+    </Table.DataCell>
+    <Table.DataCell>
       {utbetalingTil(
         refusjonAndel.tidligereUtbetalinger || [],
         createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId),
       )}
-    </TableColumn>
-    <TableColumn>{perioder(refusjonAndel.tidligereUtbetalinger || [])}</TableColumn>
-  </TableRow>
+    </Table.DataCell>
+    <Table.DataCell>{perioder(refusjonAndel.tidligereUtbetalinger || [])}</Table.DataCell>
+  </Table.Row>
 );
 
 export default TidligereUtbetalingRad;
