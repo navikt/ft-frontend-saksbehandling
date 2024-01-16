@@ -27,7 +27,7 @@
   "dependencies": {
     "@navikt/aksel-icons": "5.13.0",
     "@navikt/ds-css": "5.13.0",
-    "@navikt/ds-react": "5.13.0",
+    "@navikt/ds-react": "5.15.0",
     "@navikt/ft-kodeverk": "^2.2.14",
     "@navikt/ft-plattform-komponenter": "^2.3.18",
     "@navikt/ft-types": "^2.2.14",
