@@ -99,12 +99,18 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
           {radios
             .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
             .map(radio => (
-              <div key={radio.value}>
-                <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
-                  {radio.label}
-                </Radio>
-                {field.value === parseValue(radio.value) && radio.element}
-              </div>
+              <Radio
+                key={radio.value}
+                value={parseValue(radio.value)}
+                disabled={radio.disabled || disabled || isReadOnly}
+              >
+                {radio.label}
+              </Radio>
+            ))}
+          {radios
+            .filter(radio => field.value === parseValue(radio.value))
+            .map(radio => (
+              <React.Fragment key={radio.value}>{radio.element}</React.Fragment>
             ))}
         </HStack>
       )}

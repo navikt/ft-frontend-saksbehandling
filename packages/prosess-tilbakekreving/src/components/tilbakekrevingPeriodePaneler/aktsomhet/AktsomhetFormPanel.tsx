@@ -139,6 +139,12 @@ const parseFloatAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunn
 };
 
 const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]) => {
+  if (aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false) {
+    return {
+      tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr,
+    };
+  }
+
   const sarligeGrunner = sarligGrunnTyper.reduce(
     (acc: string[], type: KodeverkMedNavn) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc),
     [],
