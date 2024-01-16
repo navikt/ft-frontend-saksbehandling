@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
-  "version": "2.2.21",
+  "version": "2.2.22",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@navikt/ds-css": "5.13.0",
     "@navikt/ds-react": "5.13.0",
-    "@navikt/ft-form-hooks": "^4.2.21",
+    "@navikt/ft-form-hooks": "^4.2.22",
     "@navikt/ft-form-validators": "^2.1.14",
     "@navikt/ft-kodeverk": "^2.2.14",
     "@navikt/ft-types": "^2.2.14",
@@ -53,7 +53,7 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.1.21",
+    "@navikt/ft-storybook-utils": "^2.1.22",
     "@navikt/ft-utils-test": "^2.1.14",
     "@storybook/addon-actions": "7.6.8",
     "@storybook/react": "7.6.8",
