@@ -62,7 +62,7 @@
     "eslint-plugin-testing-library": "6.2.0",
     "eslint-plugin-vitest": "0.3.20",
     "gh-pages": "6.1.1",
-    "husky": "8.0.3",
+    "husky": "9.0.3",
     "jsdom": "23.2.0",
     "lerna": "8.0.2",
     "lint-staged": "15.2.0",
