@@ -39,7 +39,7 @@
     "@storybook/builder-vite": "7.6.8",
     "@storybook/cli": "7.6.8",
     "@storybook/react": "7.6.8",
-    "@storybook/theming": "7.6.8",
+    "@storybook/theming": "7.6.12",
     "@testing-library/jest-dom": "6.2.0",
     "@types/react": "18.2.47",
     "@types/react-collapse": "5.0.4",
