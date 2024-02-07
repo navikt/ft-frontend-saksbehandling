@@ -4999,9 +4999,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:7.6.8":
-  version: 7.6.8
-  resolution: "@storybook/addon-links@npm:7.6.8"
+"@storybook/addon-links@npm:7.6.13":
+  version: 7.6.13
+  resolution: "@storybook/addon-links@npm:7.6.13"
   dependencies:
     "@storybook/csf": ^0.1.2
     "@storybook/global": ^5.0.0
@@ -5011,7 +5011,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 1508828f4cca6da8407cfce0fac82d33b71761cb2a200a2009ba7c6dd731d5af7a2faa21c610678e67b1f2f9ee8ce79d40315e31f0a7cdfecda12d9793403c51
+  checksum: 8f15704c7052afb9366339971163461ea5e9ddcd23e24b9ce936867e51d4dda47afd0115e8c97fee6030eef8410e50d73d990f400dd5f95a7df03fd25b18f75a
   languageName: node
   linkType: hard
 
@@ -10193,7 +10193,7 @@ __metadata:
     "@formatjs/intl-numberformat": 8.9.0
     "@navikt/aksel-stylelint": 5.13.0
     "@storybook/addon-essentials": 7.6.8
-    "@storybook/addon-links": 7.6.8
+    "@storybook/addon-links": 7.6.13
     "@storybook/addons": 7.6.8
     "@storybook/builder-vite": 7.6.8
     "@storybook/cli": 7.6.8
