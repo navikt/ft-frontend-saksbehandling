@@ -21,7 +21,6 @@ import {
 import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import AddDagpengerAndelButton from './AddDagpengerAndelButton';
 import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
 import SummaryRow from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
@@ -105,15 +104,12 @@ const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode
   return index;
 };
 
-const harDagpenger = (fields: AndelFieldValue[]) => findAktivitetStatusIndex(fields, AktivitetStatus.DAGPENGER) !== -1;
-
 const fjernEllerLeggTilAktivitetStatus = (
   fields: AndelFieldValue[],
   aktivitetStatusKode: string,
   skalHaAndelMedAktivitetstatus: boolean,
   skalFjerne: (field: AndelFieldValue) => boolean,
   nyStatusAndel: AndelFieldValue,
-  getKanRedigereInntektCallback,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -143,7 +139,6 @@ export const leggTilDagpengerOmBesteberegning = (
   skalHaBesteberegning: boolean,
   aktivitetStatuser: KodeverkMedNavn[],
   skalKunneLeggeTilDagpenger: boolean,
-  getKanRedigereInntektCallback: () => void,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -153,7 +148,6 @@ export const leggTilDagpengerOmBesteberegning = (
     skalHaBesteberegning,
     (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && andel.lagtTilAvSaksbehandler,
     dagpenger(aktivitetStatuser),
-    getKanRedigereInntektCallback,
     remove,
     append,
   );
@@ -173,7 +167,6 @@ const fjernEllerLeggTilMilitær = (
     skalHaMilitær === true,
     () => skalHaMilitær === false,
     lagNyMS(aktivitetStatuser),
-    getKanRedigereInntektCallback,
     remove,
     append,
   );
@@ -286,7 +279,6 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       skalHaBesteberegning,
       aktivitetStatuser,
       skalKunneLeggeTilDagpengerManuelt,
-      getKanRedigereInntektCallback,
       remove,
       // @ts-ignore Fiks
       append,
@@ -339,18 +331,6 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
   ));
 
   if (tablerows.length === 0) {
-    if (skalKunneLeggeTilDagpengerManuelt) {
-      return (
-        <div>
-          {!readOnly && !harDagpenger(fields) && (
-            // @ts-ignore Fiks
-            <AddDagpengerAndelButton leggTilAndel={append} kodeverkSamling={kodeverkSamling} />
-          )}
-          <VerticalSpacer eightPx />
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-        </div>
-      );
-    }
     return null;
   }
   tablerows.push(createBruttoBGSummaryRow(fields, readOnly, beregningsgrunnlag));
@@ -378,10 +358,6 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
         </Table.Header>
         <Table.Body>{tablerows}</Table.Body>
       </Table>
-      {!readOnly && skalKunneLeggeTilDagpengerManuelt && !harDagpenger(fields) && (
-        // @ts-ignore Fiks
-        <AddDagpengerAndelButton leggTilAndel={append} kodeverkSamling={kodeverkSamling} />
-      )}
       <VerticalSpacer eightPx />
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
