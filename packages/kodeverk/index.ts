@@ -4,7 +4,6 @@ export { default as KodeverkType } from './src/kodeverkType';
 export { default as ArbeidType } from './src/arbeidType';
 export {
   default as AktivitetStatus,
-  aktivitetstatusTilAndeltypeMap,
   isStatusArbeidstakerOrKombinasjon,
   isStatusDagpenger,
   isStatusDagpengerOrAAP,
@@ -20,7 +19,6 @@ export { default as FaktaOmBeregningTilfelle } from './src/faktaOmBeregningTilfe
 export { default as BehandlingType } from './src/behandlingType';
 export { default as InntektAktivitetType } from './src/inntektAktivitetType';
 export { default as PgiType } from './src/pgiType';
-export { default as BeregningsgrunnlagAndelType } from './src/beregningsgrunnlagAndelType';
 export { default as VilkarUtfallType } from './src/vilkarUtfallType';
 export { default as PeriodeAarsak } from './src/periodeAarsak';
 export { default as Dekningsgrad } from './src/dekningsgrad';
