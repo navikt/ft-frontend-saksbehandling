@@ -1,5 +1,5 @@
 import { IntlShape } from 'react-intl';
-import { BeregningsgrunnlagAndelType, aktivitetstatusTilAndeltypeMap } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue from '../../typer/FieldValues';
 
@@ -8,6 +8,14 @@ export type SortedAndelInfo = {
   inntektskategori: string;
   arbeidsforholdId?: string;
 };
+
+const typer = ['BRUKERS_ANDEL', 'FRILANSER', 'EGEN_NÆRING'];
+
+const statusTilTypeMap = {
+  [AktivitetStatus.BRUKERS_ANDEL]: 'BRUKERS_ANDEL',
+  [AktivitetStatus.FRILANSER]: 'FRILANSER',
+  [AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE]: 'EGEN_NÆRING',
+} as Record<string, string>;
 
 export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo): number => {
   if (andel1.andelsinfo === andel2.andelsinfo) {
@@ -18,8 +26,7 @@ export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo)
   }
   return andel1.andelsinfo > andel2.andelsinfo ? 1 : -1;
 };
-
-const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
+const mapAndelToSortedObject = (value, andelList: BrukersAndelValues[] | AndelFieldValue[]): SortedAndelInfo => {
   const { nyAndel, andel, inntektskategori, aktivitetStatus, arbeidsforholdId } = value;
   if (nyAndel) {
     if (!Number.isNaN(Number(andel))) {
@@ -28,13 +35,13 @@ const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
         return { andelsinfo: matchendeAndelFraListe[0].andel, inntektskategori };
       }
     }
-    if (BeregningsgrunnlagAndelType[andel]) {
+    if (typer.includes(andel)) {
       return { andelsinfo: andel, inntektskategori };
     }
     return { andelsinfo: andel, inntektskategori };
   }
-  if (aktivitetstatusTilAndeltypeMap[aktivitetStatus]) {
-    return { andelsinfo: aktivitetstatusTilAndeltypeMap[aktivitetStatus], inntektskategori };
+  if (statusTilTypeMap[aktivitetStatus]) {
+    return { andelsinfo: statusTilTypeMap[aktivitetStatus], inntektskategori };
   }
   return { andelsinfo: andel, inntektskategori, arbeidsforholdId };
 };
