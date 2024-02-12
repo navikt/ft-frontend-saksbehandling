@@ -49,7 +49,7 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.6.8",
+    "@storybook/addon-actions": "7.6.14",
     "@storybook/react": "7.6.8",
     "@storybook/react-vite": "7.6.8",
     "@testing-library/react": "14.1.2",
