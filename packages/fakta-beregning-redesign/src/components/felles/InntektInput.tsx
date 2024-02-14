@@ -1,10 +1,9 @@
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
-import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { FunctionComponent, ReactNode, useEffect } from 'react';
+import { parseCurrencyInput } from '@navikt/ft-utils';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 
 interface InntektInputProps {
@@ -29,10 +28,6 @@ const InntektInput: FunctionComponent<InntektInputProps> & StaticFunctions = ({
 }) => {
   const { resetField } = useFormContext<VurderFaktaBeregningFormValues>();
   useEffect(() => () => resetField(name as 'vurderFaktaBeregningForm.0.arbeidstakerInntektValues.0.fastsattBelop'), []);
-  const intl = useIntl();
-
-  const månedsinntektValidator = (number: number): ReactNode | null =>
-    removeSpacesFromNumber(number) >= 1 ? null : intl.formatMessage({ id: 'InntektInput.MånedsinntektGyldigVerdi' });
 
   return (
     <InputField
@@ -41,7 +36,7 @@ const InntektInput: FunctionComponent<InntektInputProps> & StaticFunctions = ({
       parse={parseCurrencyInput}
       readOnly={readOnly}
       isEdited={isAksjonspunktClosed}
-      validate={readOnly ? [] : [required, maxValueFormatted(178956970), månedsinntektValidator]}
+      validate={readOnly ? [] : [required, maxValueFormatted(178956970)]}
       label={label}
     />
   );
@@ -51,8 +46,9 @@ InntektInput.buildInitialValues = (
   andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[],
   aktivitetStatus: string,
 ): { fastsattBelop: number } => {
-  const fastsattBelop = andelerForFaktaOmBeregning?.find(andel => andel.aktivitetStatus === aktivitetStatus)
-    ?.fastsattBelop;
+  const fastsattBelop = andelerForFaktaOmBeregning?.find(
+    andel => andel.aktivitetStatus === aktivitetStatus,
+  )?.fastsattBelop;
 
   if (!fastsattBelop) {
     return null;
