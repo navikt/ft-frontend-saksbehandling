@@ -209,7 +209,7 @@ const Template: StoryFn<{
     setFormData={() => undefined}
     beregningsresultat={beregningsresultat}
     erRevurderingTilbakekrevingKlage={false}
-    erRevurderingTilbakekrevingFeilBeløpBortfalt={false}
+    erRevurderingTilbakekrevingFeilBeløpBortfalt
   />
 );
 
