@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-konstanter",
-  "version": "2.1.14",
+  "version": "2.1.15",
   "license": "MIT",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
