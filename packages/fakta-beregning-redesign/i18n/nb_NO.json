@@ -135,7 +135,5 @@
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
-  "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
-
-  "InntektInput.MånedsinntektGyldigVerdi": "Månedsinntekt må være høyere eller lik 1"
+  "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
 }
