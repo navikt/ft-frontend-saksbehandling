@@ -3,8 +3,6 @@
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
   "version": "2.3.19",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

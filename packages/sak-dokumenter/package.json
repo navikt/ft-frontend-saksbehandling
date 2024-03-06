@@ -3,8 +3,6 @@
   "description": "Viser en dokumentoversikt. Saksbehandler kan velge å åpne en eller flere dokumenter.",
   "version": "2.1.22",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
