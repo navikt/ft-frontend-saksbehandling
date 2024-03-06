@@ -3,8 +3,6 @@
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
   "version": "2.1.22",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

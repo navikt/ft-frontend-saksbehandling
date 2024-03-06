@@ -3,8 +3,6 @@
   "description": "Viser risikoklassifisering for valgt behandling. Viser en av tre komponenter avhengig av: Om ingen klassifisering er utført, om klassifisering er utført og ingen faresignaler er funnet og om klassifisering er utført og faresignaler er funnet",
   "version": "2.2.23",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

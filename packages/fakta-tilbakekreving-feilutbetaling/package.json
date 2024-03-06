@@ -3,8 +3,6 @@
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
   "version": "2.2.23",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

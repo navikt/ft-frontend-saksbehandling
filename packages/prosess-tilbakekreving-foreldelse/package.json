@@ -3,8 +3,6 @@
   "description": "Aksjonspunktet oppstår fordi første periode med feilutbetaling er 2,5 år tilbake i tid eller mer. Saksbehandler tar stilling til om hele eller deler av perioden med feilutbetaling er foreldet. Uten aksjonspunkt: Feilutbetalt(e) periode(r) er under 2,5 år tilbake i tid",
   "version": "3.1.23",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
