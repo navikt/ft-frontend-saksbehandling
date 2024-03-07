@@ -34,7 +34,7 @@
     "@formatjs/intl-numberformat": "8.10.0",
     "@navikt/aksel-stylelint": "5.18.1",
     "@storybook/addon-essentials": "7.6.15",
-    "@storybook/addon-links": "7.6.15",
+    "@storybook/addon-links": "7.6.17",
     "@storybook/addons": "7.6.15",
     "@storybook/builder-vite": "7.6.15",
     "@storybook/cli": "7.6.15",
