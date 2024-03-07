@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "files": [
@@ -26,7 +26,7 @@
     "@navikt/aksel-icons": "5.18.1",
     "@navikt/ds-css": "5.18.1",
     "@navikt/ds-react": "5.18.1",
-    "@navikt/ft-utils": "^2.2.2",
+    "@navikt/ft-utils": "^2.2.3",
     "classnames": "2.5.1"
   },
   "peerDependencies": {
