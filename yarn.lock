@@ -2455,7 +2455,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2511,7 +2511,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2566,7 +2566,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2618,7 +2618,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2662,7 +2662,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2699,7 +2699,7 @@ __metadata:
   resolution: "@navikt/ft-form-validators@workspace:packages/form-validators"
   dependencies:
     "@navikt/ft-utils": ^2.2.3
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     cross-env: 7.0.3
     eslint: 8.56.0
     moment: 2.30.1
@@ -2716,7 +2716,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-kodeverk@workspace:packages/kodeverk"
   dependencies:
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     cross-env: 7.0.3
     eslint: 8.56.0
     stylelint: 15.11.0
@@ -2730,7 +2730,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-konstanter@workspace:packages/konstanter"
   dependencies:
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     cross-env: 7.0.3
     eslint: 8.56.0
     stylelint: 15.11.0
@@ -2750,7 +2750,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@popperjs/core": 2.11.8
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2802,7 +2802,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2857,7 +2857,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2906,7 +2906,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -2954,7 +2954,7 @@ __metadata:
     "@navikt/ft-utils": ^2.2.3
     "@navikt/ft-utils-test": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3002,7 +3002,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     cross-env: 7.0.3
@@ -3042,7 +3042,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3089,7 +3089,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3131,7 +3131,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3168,7 +3168,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3201,7 +3201,7 @@ __metadata:
     "@navikt/ds-react": 5.18.1
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3235,7 +3235,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3278,7 +3278,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -3326,7 +3326,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.2.4
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     cross-env: 7.0.3
@@ -3374,7 +3374,7 @@ __metadata:
   resolution: "@navikt/ft-types@workspace:packages/types"
   dependencies:
     "@navikt/ft-kodeverk": ^2.3.3
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     cross-env: 7.0.3
     eslint: 8.56.0
     stylelint: 15.11.0
@@ -3395,7 +3395,7 @@ __metadata:
     "@navikt/ds-react": 5.18.1
     "@navikt/ft-utils": ^2.2.3
     "@storybook/addon-actions": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/react-vite": 7.6.15
     "@testing-library/react": 14.2.1
     "@testing-library/user-event": 14.5.2
@@ -5408,6 +5408,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/core-client@npm:7.6.17":
+  version: 7.6.17
+  resolution: "@storybook/core-client@npm:7.6.17"
+  dependencies:
+    "@storybook/client-logger": 7.6.17
+    "@storybook/preview-api": 7.6.17
+  checksum: 5bc150d8c636c5ffd40a4a8f72e60d689580508bb41aa6b544c9ff8b20860afd000498bdd77c6de62f56651f99ef88af67e4b47caba41ec27e5a748099f690f0
+  languageName: node
+  linkType: hard
+
 "@storybook/core-common@npm:7.6.15":
   version: 7.6.15
   resolution: "@storybook/core-common@npm:7.6.15"
@@ -5661,6 +5671,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/docs-tools@npm:7.6.17":
+  version: 7.6.17
+  resolution: "@storybook/docs-tools@npm:7.6.17"
+  dependencies:
+    "@storybook/core-common": 7.6.17
+    "@storybook/preview-api": 7.6.17
+    "@storybook/types": 7.6.17
+    "@types/doctrine": ^0.0.3
+    assert: ^2.1.0
+    doctrine: ^3.0.0
+    lodash: ^4.17.21
+  checksum: 62700508d74ab40717095e1684c036c4b2b9e104c397cd2ffcf455e116b90ba8e51cda3f501934eb31c5bc8646a99cd4c46b362bb833772cd0898ba2bd8e2544
+  languageName: node
+  linkType: hard
+
 "@storybook/global@npm:^5.0.0":
   version: 5.0.0
   resolution: "@storybook/global@npm:5.0.0"
@@ -5793,6 +5818,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/react-dom-shim@npm:7.6.17":
+  version: 7.6.17
+  resolution: "@storybook/react-dom-shim@npm:7.6.17"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 24c26515785542b7ad4602f89164413c48b2863e24536e29a30f23e9afad19262e5bdb6b4319a1bda47d7651aa0fa439451ace45ff89966dbbfc0eb9ff32566f
+  languageName: node
+  linkType: hard
+
 "@storybook/react-vite@npm:7.6.15":
   version: 7.6.15
   resolution: "@storybook/react-vite@npm:7.6.15"
@@ -5845,6 +5880,42 @@ __metadata:
     typescript:
       optional: true
   checksum: 2b791fa29039f6c9abf4621b8229c2d586503fff83846c00b3cc98484cc52e672c0a966a43d249ba4a90e358875a2f02fb453e41ecaf2aafaeec82d643363433
+  languageName: node
+  linkType: hard
+
+"@storybook/react@npm:7.6.17":
+  version: 7.6.17
+  resolution: "@storybook/react@npm:7.6.17"
+  dependencies:
+    "@storybook/client-logger": 7.6.17
+    "@storybook/core-client": 7.6.17
+    "@storybook/docs-tools": 7.6.17
+    "@storybook/global": ^5.0.0
+    "@storybook/preview-api": 7.6.17
+    "@storybook/react-dom-shim": 7.6.17
+    "@storybook/types": 7.6.17
+    "@types/escodegen": ^0.0.6
+    "@types/estree": ^0.0.51
+    "@types/node": ^18.0.0
+    acorn: ^7.4.1
+    acorn-jsx: ^5.3.1
+    acorn-walk: ^7.2.0
+    escodegen: ^2.1.0
+    html-tags: ^3.1.0
+    lodash: ^4.17.21
+    prop-types: ^15.7.2
+    react-element-to-jsx-string: ^15.0.0
+    ts-dedent: ^2.0.0
+    type-fest: ~2.19
+    util-deprecate: ^1.0.2
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    typescript: "*"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 4c2bc6a26208e06004a212e485c2a8f24ddec1a53777c04ded415bd2eb32981209f641fe72fb5f951760b0018d4cc2639d74f9997f4967852b03e29292c3ce73
   languageName: node
   linkType: hard
 
@@ -10534,7 +10605,7 @@ __metadata:
     "@storybook/addons": 7.6.15
     "@storybook/builder-vite": 7.6.15
     "@storybook/cli": 7.6.15
-    "@storybook/react": 7.6.15
+    "@storybook/react": 7.6.17
     "@storybook/theming": 7.6.15
     "@testing-library/jest-dom": 6.4.2
     "@types/react": 18.2.55
