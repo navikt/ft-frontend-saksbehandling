@@ -1,8 +1,8 @@
-import React from 'react';
 import { Search } from '@navikt/ds-react';
-import { Suggestion } from './types/Suggestion';
+import React from 'react';
 import AutocompleteSuggestion from './AutocompleteSuggestion';
 import styles from './autocomplete.module.css';
+import { Suggestion } from './types/Suggestion';
 
 export interface AutocompleteProps {
   onSelect: (value: Suggestion) => void;
@@ -223,7 +223,6 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
           variant="primary"
           id={id}
           name={name}
-          type="search"
           aria-label={ariaLabel}
           aria-autocomplete="list"
           aria-controls={`${id}-suggestions`}

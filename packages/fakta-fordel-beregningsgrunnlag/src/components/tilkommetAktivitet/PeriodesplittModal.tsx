@@ -1,12 +1,12 @@
-import React, { FC, useState, useCallback, useMemo } from 'react';
 import { Button, Modal, Select } from '@navikt/ds-react';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { DDMMYYYY_DATE_FORMAT, TIDENES_ENDE, calcDays } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import { calcDays, DDMMYYYY_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import React, { FC, useCallback, useMemo, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import styles from './periodesplittModal.module.css';
 import PeriodesplittDatoValg, { Periode } from './PeriodesplittDatoValg';
+import styles from './periodesplittModal.module.css';
 
 type PeriodesplittModalProps = {
   fields: TilkommetAktivitetValues[];
@@ -75,7 +75,7 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
   }
 
   return (
-    <Modal width="500px" open={skalViseModal} onClose={lukkModal}>
+    <Modal width="500px" open={skalViseModal} onClose={lukkModal} aria-label="Del opp periode">
       <Modal.Header>
         <FormattedMessage id="TilkommetAktivitet.Modal.Tittel" />
       </Modal.Header>
