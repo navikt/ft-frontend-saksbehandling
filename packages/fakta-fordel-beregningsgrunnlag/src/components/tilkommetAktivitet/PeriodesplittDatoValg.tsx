@@ -1,10 +1,9 @@
-import React, { FC, useState, useCallback } from 'react';
-import { DatePicker, useDatepicker } from '@navikt/ds-react';
+import { DatePicker, Label, useDatepicker } from '@navikt/ds-react';
 import { FlexColumn, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Label } from '@navikt/ds-react/esm/typography';
-import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
+import React, { FC, useCallback, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styles from './periodesplittModal.module.css';
 
 export type Periode = {
