@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-fordel-beregningsgrunnlag",
   "description": "Fordeling av foreslått beregningsgrunnlag og fastsetting av refusjon",
-  "version": "7.5.0",
+  "version": "7.5.1",
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "files": [
@@ -26,12 +26,12 @@
     "@navikt/aksel-icons": "6.1.1",
     "@navikt/ds-css": "6.1.1",
     "@navikt/ds-react": "6.1.1",
-    "@navikt/ft-form-hooks": "^4.4.0",
-    "@navikt/ft-form-validators": "^2.3.0",
-    "@navikt/ft-kodeverk": "^2.4.0",
-    "@navikt/ft-types": "^2.4.0",
-    "@navikt/ft-ui-komponenter": "^2.3.0",
-    "@navikt/ft-utils": "^2.3.0",
+    "@navikt/ft-form-hooks": "^4.4.1",
+    "@navikt/ft-form-validators": "^2.3.1",
+    "@navikt/ft-kodeverk": "^2.4.1",
+    "@navikt/ft-types": "^2.4.1",
+    "@navikt/ft-ui-komponenter": "^2.3.1",
+    "@navikt/ft-utils": "^2.3.1",
     "classnames": "2.5.1",
     "core-js": "3.36.0",
     "dayjs": "1.11.10",
@@ -58,8 +58,8 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.3.0",
-    "@navikt/ft-utils-test": "^2.3.0",
+    "@navikt/ft-storybook-utils": "^2.3.1",
+    "@navikt/ft-utils-test": "^2.3.1",
     "@storybook/addon-actions": "8.0.0",
     "@storybook/react": "8.0.0",
     "@storybook/react-vite": "8.0.0",
