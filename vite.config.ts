@@ -1,11 +1,26 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { defineConfig } from 'vitest/config';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import dts from 'vite-plugin-dts';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { defineConfig as defineVitestConfig } from 'vitest/config';
+
+const vitestConfig = defineVitestConfig({
+  test: {
+    deps: { interopDefault: true },
+    environment: 'jsdom',
+    css: false,
+    globals: true,
+    setupFiles: '../../vitest-setup.ts',
+    watch: false,
+    testTimeout: 20000,
+  },
+});
+
+const viteConfig = defineViteConfig({
   plugins: [
     react(),
     dts({
@@ -26,13 +41,6 @@ export default defineConfig({
     },
     sourcemap: true,
   },
-  test: {
-    deps: { interopDefault: true },
-    environment: 'jsdom',
-    css: false,
-    globals: true,
-    setupFiles: '../../vitest-setup.ts',
-    watch: false,
-    testTimeout: 20000,
-  },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);
