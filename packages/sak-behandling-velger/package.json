@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-behandling-velger",
   "description": "Komponent som lar saksbehandler velge behandling i en behandlingsliste",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "files": [
@@ -26,11 +26,11 @@
     "@navikt/aksel-icons": "6.3.6",
     "@navikt/ds-css": "6.3.6",
     "@navikt/ds-react": "6.3.6",
-    "@navikt/ft-kodeverk": "^2.4.1",
-    "@navikt/ft-plattform-komponenter": "^2.5.2",
-    "@navikt/ft-types": "^2.4.1",
-    "@navikt/ft-ui-komponenter": "^2.3.1",
-    "@navikt/ft-utils": "^2.3.1",
+    "@navikt/ft-kodeverk": "^2.4.2",
+    "@navikt/ft-plattform-komponenter": "^2.5.3",
+    "@navikt/ft-types": "^2.4.2",
+    "@navikt/ft-ui-komponenter": "^2.3.2",
+    "@navikt/ft-utils": "^2.3.2",
     "classnames": "2.5.1",
     "history": "5.3.0",
     "moment": "2.30.1",
@@ -53,7 +53,7 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.3.1",
+    "@navikt/ft-storybook-utils": "^2.3.2",
     "@storybook/addon-actions": "8.0.6",
     "@storybook/react": "8.0.6",
     "@storybook/react-vite": "8.0.6",
