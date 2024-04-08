@@ -2773,7 +2773,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-plattform-komponenter@^2.5.1, @navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter":
+"@navikt/ft-plattform-komponenter@^2.5.2, @navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
@@ -2828,7 +2828,7 @@ __metadata:
     "@navikt/ft-form-hooks": ^4.4.1
     "@navikt/ft-form-validators": ^2.3.1
     "@navikt/ft-kodeverk": ^2.4.1
-    "@navikt/ft-plattform-komponenter": ^2.5.1
+    "@navikt/ft-plattform-komponenter": ^2.5.2
     "@navikt/ft-storybook-utils": ^2.3.1
     "@navikt/ft-types": ^2.4.1
     "@navikt/ft-ui-komponenter": ^2.3.1
@@ -3028,8 +3028,8 @@ __metadata:
     "@navikt/ds-css": 6.1.1
     "@navikt/ds-react": 6.1.1
     "@navikt/ft-kodeverk": ^2.4.1
-    "@navikt/ft-plattform-komponenter": ^2.5.1
-    "@navikt/ft-sak-visittkort": ^2.3.1
+    "@navikt/ft-plattform-komponenter": ^2.5.2
+    "@navikt/ft-sak-visittkort": ^2.3.2
     "@navikt/ft-storybook-utils": ^2.3.1
     "@navikt/ft-types": ^2.4.1
     "@navikt/ft-ui-komponenter": ^2.3.1
@@ -3069,7 +3069,7 @@ __metadata:
     "@navikt/ds-css": 6.1.1
     "@navikt/ds-react": 6.1.1
     "@navikt/ft-kodeverk": ^2.4.1
-    "@navikt/ft-plattform-komponenter": ^2.5.1
+    "@navikt/ft-plattform-komponenter": ^2.5.2
     "@navikt/ft-storybook-utils": ^2.3.1
     "@navikt/ft-types": ^2.4.1
     "@navikt/ft-ui-komponenter": ^2.3.1
@@ -3117,7 +3117,7 @@ __metadata:
     "@navikt/ds-react": 6.1.1
     "@navikt/ft-kodeverk": ^2.4.1
     "@navikt/ft-konstanter": ^2.3.1
-    "@navikt/ft-plattform-komponenter": ^2.5.1
+    "@navikt/ft-plattform-komponenter": ^2.5.2
     "@navikt/ft-types": ^2.4.1
     "@navikt/ft-ui-komponenter": ^2.3.1
     "@navikt/ft-utils": ^2.3.1
@@ -3264,7 +3264,7 @@ __metadata:
     "@navikt/ds-react": 6.1.1
     "@navikt/ft-form-hooks": ^4.4.1
     "@navikt/ft-form-validators": ^2.3.1
-    "@navikt/ft-plattform-komponenter": ^2.5.1
+    "@navikt/ft-plattform-komponenter": ^2.5.2
     "@navikt/ft-ui-komponenter": ^2.3.1
     "@navikt/ft-utils": ^2.3.1
     "@storybook/addon-actions": 8.0.0
@@ -3345,7 +3345,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-sak-visittkort@^2.3.1, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
+"@navikt/ft-sak-visittkort@^2.3.2, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-visittkort@workspace:packages/sak-visittkort"
   dependencies:
@@ -3353,7 +3353,7 @@ __metadata:
     "@navikt/ds-css": 6.1.1
     "@navikt/ds-react": 6.1.1
     "@navikt/ft-kodeverk": ^2.4.1
-    "@navikt/ft-plattform-komponenter": ^2.5.1
+    "@navikt/ft-plattform-komponenter": ^2.5.2
     "@navikt/ft-storybook-utils": ^2.3.1
     "@navikt/ft-types": ^2.4.1
     "@navikt/ft-ui-komponenter": ^2.3.1
