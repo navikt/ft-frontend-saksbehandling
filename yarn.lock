@@ -2586,10 +2586,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:6.3.6, @navikt/aksel-icons@npm:^6.3.6":
+"@navikt/aksel-icons@npm:6.3.6":
   version: 6.3.6
   resolution: "@navikt/aksel-icons@npm:6.3.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F6.3.6%2F23f7a3d1b5f319812c079d8ea5faeb1f2af80f45"
   checksum: 792b85deedba7cfc87d1b565e85163af46ec0dfe312773e00e5f7fa580046e8b05892c2f376892ca85473a74852098813ff56eb6e01c7dfec2cbe5afeab4be3b
+  languageName: node
+  linkType: hard
+
+"@navikt/aksel-icons@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "@navikt/aksel-icons@npm:6.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F6.4.1%2Ffee5c6dcfb02ec173a94d24fd57ec3cb4af1d3a0"
+  checksum: 6c2b57c7bc2948ec0b85b493eef957bd47630e0046bdf65ca83ecf5f7251ae54629adbb5ca70e93405a2eb4aef2a70fdf6ba515752676104dfac397d1e51ac98
   languageName: node
   linkType: hard
 
@@ -2607,13 +2614,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ds-react@npm:6.3.6":
-  version: 6.3.6
-  resolution: "@navikt/ds-react@npm:6.3.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F6.3.6%2Fc42674f814c64813e0745a7d2326b3d9ddf3f569"
+"@navikt/ds-react@npm:6.4.1":
+  version: 6.4.1
+  resolution: "@navikt/ds-react@npm:6.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F6.4.1%2Ff47381427c313e887ad8c6ae01aa8f4b7dfb9c09"
   dependencies:
     "@floating-ui/react": 0.25.4
-    "@navikt/aksel-icons": ^6.3.6
-    "@navikt/ds-tokens": ^6.3.6
+    "@navikt/aksel-icons": ^6.4.1
+    "@navikt/ds-tokens": ^6.4.1
     "@radix-ui/react-tabs": 1.0.0
     "@radix-ui/react-toggle-group": 1.0.0
     clsx: ^2.1.0
@@ -2622,14 +2629,14 @@ __metadata:
   peerDependencies:
     "@types/react": ^17.0.30 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
-  checksum: f257230cf5d820fd48f6106b50431ab0c9608011acb4e861e731dd19c16fceda7e2e5d13d0ad2f5d6252041dabfa1e3e18fa077cba8369750a42065d7a850a59
+  checksum: 37ef22d51a7102c9b096efeb9fc332e8aa96a71169fd9fd03b7fa7d076b1db66f10e2464fe94c18f308ea384a2d2788410c1d6a7ed0a3c2cf691da3d20eafe9f
   languageName: node
   linkType: hard
 
-"@navikt/ds-tokens@npm:^6.3.6":
-  version: 6.3.6
-  resolution: "@navikt/ds-tokens@npm:6.3.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F6.3.6%2F430e65e45042b866fdfe8873280d88ffd1ad5d4d"
-  checksum: f57af281f67349f7256e2f4286ac2c3edb0916a0741ccdc2eab1f0551e96b6b4c91e9004e2c14fdab1e797566573c9103a1ae428a42afbb0cf0a41180ca9afe6
+"@navikt/ds-tokens@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "@navikt/ds-tokens@npm:6.4.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F6.4.1%2F97415efe3b21aa121a858f65cc65d1498f277d58"
+  checksum: 9b91947e8fd80ae025f7d4a38cde8b563a8474142e695b5fbe94298ad958f22758729895872a6c3daf096484f91e14d5abd1ca64bd42e599e8d07549cd0efe0c
   languageName: node
   linkType: hard
 
@@ -2639,7 +2646,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -2695,7 +2702,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -2751,7 +2758,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -2803,7 +2810,7 @@ __metadata:
   resolution: "@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling"
   dependencies:
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -2850,7 +2857,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-types": ^2.4.2
     "@navikt/ft-ui-komponenter": ^2.3.2
@@ -2941,7 +2948,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-utils": ^2.3.2
     "@popperjs/core": 2.11.8
     "@storybook/addon-actions": 8.0.6
@@ -2986,7 +2993,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -3042,7 +3049,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -3092,7 +3099,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -3139,7 +3146,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -3188,7 +3195,7 @@ __metadata:
   resolution: "@navikt/ft-sak-aktor@workspace:packages/sak-aktor"
   dependencies:
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-kodeverk": ^2.4.2
     "@navikt/ft-plattform-komponenter": ^2.5.3
     "@navikt/ft-sak-visittkort": ^2.3.3
@@ -3229,7 +3236,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-kodeverk": ^2.4.2
     "@navikt/ft-plattform-komponenter": ^2.5.3
     "@navikt/ft-storybook-utils": ^2.3.2
@@ -3276,7 +3283,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-kodeverk": ^2.4.2
     "@navikt/ft-konstanter": ^2.3.2
     "@navikt/ft-plattform-komponenter": ^2.5.3
@@ -3320,7 +3327,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-kodeverk": ^2.4.2
     "@navikt/ft-types": ^2.4.2
     "@navikt/ft-ui-komponenter": ^2.3.2
@@ -3357,7 +3364,7 @@ __metadata:
   resolution: "@navikt/ft-sak-fagsak-profil@workspace:packages/sak-fagsak-profil"
   dependencies:
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-kodeverk": ^2.4.2
     "@navikt/ft-types": ^2.4.2
     "@navikt/ft-ui-komponenter": ^2.3.2
@@ -3393,7 +3400,7 @@ __metadata:
   resolution: "@navikt/ft-sak-infosider@workspace:packages/sak-infosider"
   dependencies:
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-utils": ^2.3.2
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
@@ -3423,7 +3430,7 @@ __metadata:
   resolution: "@navikt/ft-sak-meny@workspace:packages/sak-meny"
   dependencies:
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-plattform-komponenter": ^2.5.3
@@ -3464,7 +3471,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-form-hooks": ^4.4.2
     "@navikt/ft-form-validators": ^2.3.2
     "@navikt/ft-kodeverk": ^2.4.2
@@ -3513,7 +3520,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-kodeverk": ^2.4.2
     "@navikt/ft-plattform-komponenter": ^2.5.3
     "@navikt/ft-storybook-utils": ^2.3.2
@@ -3587,7 +3594,7 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": 6.3.6
     "@navikt/ds-css": 6.3.6
-    "@navikt/ds-react": 6.3.6
+    "@navikt/ds-react": 6.4.1
     "@navikt/ft-utils": ^2.3.2
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
