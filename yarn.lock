@@ -2652,7 +2652,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     core-js: 3.36.1
     cross-env: 7.0.3
@@ -2708,7 +2708,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     core-js: 3.36.1
     cross-env: 7.0.3
@@ -2763,7 +2763,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     core-js: 3.36.1
@@ -2815,7 +2815,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.57.0
@@ -2859,7 +2859,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -2947,7 +2947,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -2999,7 +2999,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3054,7 +3054,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -3103,7 +3103,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3151,7 +3151,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.10
@@ -3199,7 +3199,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     cross-env: 7.0.3
     eslint: 8.57.0
     react: 18.2.0
@@ -3239,7 +3239,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3286,7 +3286,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3328,7 +3328,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.57.0
@@ -3365,7 +3365,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.57.0
@@ -3398,7 +3398,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.57.0
@@ -3432,7 +3432,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.57.0
@@ -3475,7 +3475,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 8.57.0
@@ -3523,7 +3523,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     cross-env: 7.0.3
     eslint: 8.57.0
     moment: 2.30.1
@@ -3592,7 +3592,7 @@ __metadata:
     "@storybook/addon-actions": 8.0.6
     "@storybook/react": 8.0.6
     "@storybook/react-vite": 8.0.6
-    "@testing-library/react": 14.2.2
+    "@testing-library/react": 15.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -5527,19 +5527,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^9.0.0":
-  version: 9.3.4
-  resolution: "@testing-library/dom@npm:9.3.4"
+"@testing-library/dom@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "@testing-library/dom@npm:10.0.0"
   dependencies:
     "@babel/code-frame": ^7.10.4
     "@babel/runtime": ^7.12.5
     "@types/aria-query": ^5.0.1
-    aria-query: 5.1.3
+    aria-query: 5.3.0
     chalk: ^4.1.0
     dom-accessibility-api: ^0.5.9
     lz-string: ^1.5.0
     pretty-format: ^27.0.2
-  checksum: dfd6fb0d6c7b4dd716ba3c47309bc9541b4a55772cb61758b4f396b3785efe2dbc75dc63423545c039078c7ffcc5e4b8c67c2db1b6af4799580466036f70026f
+  checksum: 682cc22cb3414ffbcf5d9bac777907167c5523f2dcbe5d96cd2e99386009acd879640c7fe5b1c66b199c2d2679f97057410557b3848b871f59c547b1dc8fc28a
   languageName: node
   linkType: hard
 
@@ -5576,17 +5576,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:14.2.2":
-  version: 14.2.2
-  resolution: "@testing-library/react@npm:14.2.2"
+"@testing-library/react@npm:15.0.1":
+  version: 15.0.1
+  resolution: "@testing-library/react@npm:15.0.1"
   dependencies:
     "@babel/runtime": ^7.12.5
-    "@testing-library/dom": ^9.0.0
+    "@testing-library/dom": ^10.0.0
     "@types/react-dom": ^18.0.0
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: cb73df588592d9101429f057eaa6f320fc12524d5eb2acc8a16002c1ee2d9422a49e44841003bba42974c9ae1ced6b134f0d647826eca42ab8f19e4592971b16
+  checksum: 9992087563279bc975e5be69c0d380ecee84eb9e5c5e474b8b01b95804477ecae0978c61ded15821335d926fec058ab6c23442150584b0f19bee72c561ad19b7
   languageName: node
   linkType: hard
 
@@ -6838,16 +6838,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aria-query@npm:5.1.3":
-  version: 5.1.3
-  resolution: "aria-query@npm:5.1.3"
-  dependencies:
-    deep-equal: ^2.0.5
-  checksum: 929ff95f02857b650fb4cbcd2f41072eee2f46159a6605ea03bf63aa572e35ffdff43d69e815ddc462e16e07de8faba3978afc2813650b4448ee18c9895d982b
-  languageName: node
-  linkType: hard
-
-"aria-query@npm:^5.0.0, aria-query@npm:^5.3.0":
+"aria-query@npm:5.3.0, aria-query@npm:^5.0.0, aria-query@npm:^5.3.0":
   version: 5.3.0
   resolution: "aria-query@npm:5.3.0"
   dependencies:
@@ -6856,7 +6847,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"array-buffer-byte-length@npm:^1.0.0, array-buffer-byte-length@npm:^1.0.1":
+"array-buffer-byte-length@npm:^1.0.1":
   version: 1.0.1
   resolution: "array-buffer-byte-length@npm:1.0.1"
   dependencies:
@@ -8348,32 +8339,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-equal@npm:^2.0.5":
-  version: 2.2.3
-  resolution: "deep-equal@npm:2.2.3"
-  dependencies:
-    array-buffer-byte-length: ^1.0.0
-    call-bind: ^1.0.5
-    es-get-iterator: ^1.1.3
-    get-intrinsic: ^1.2.2
-    is-arguments: ^1.1.1
-    is-array-buffer: ^3.0.2
-    is-date-object: ^1.0.5
-    is-regex: ^1.1.4
-    is-shared-array-buffer: ^1.0.2
-    isarray: ^2.0.5
-    object-is: ^1.1.5
-    object-keys: ^1.1.1
-    object.assign: ^4.1.4
-    regexp.prototype.flags: ^1.5.1
-    side-channel: ^1.0.4
-    which-boxed-primitive: ^1.0.2
-    which-collection: ^1.0.1
-    which-typed-array: ^1.1.13
-  checksum: ee8852f23e4d20a5626c13b02f415ba443a1b30b4b3d39eaf366d59c4a85e6545d7ec917db44d476a85ae5a86064f7e5f7af7479f38f113995ba869f3a1ddc53
-  languageName: node
-  linkType: hard
-
 "deep-is@npm:^0.1.3":
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
@@ -8858,23 +8823,6 @@ __metadata:
   version: 1.3.0
   resolution: "es-errors@npm:1.3.0"
   checksum: ec1414527a0ccacd7f15f4a3bc66e215f04f595ba23ca75cdae0927af099b5ec865f9f4d33e9d7e86f512f252876ac77d4281a7871531a50678132429b1271b5
-  languageName: node
-  linkType: hard
-
-"es-get-iterator@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "es-get-iterator@npm:1.1.3"
-  dependencies:
-    call-bind: ^1.0.2
-    get-intrinsic: ^1.1.3
-    has-symbols: ^1.0.3
-    is-arguments: ^1.1.1
-    is-map: ^2.0.2
-    is-set: ^2.0.2
-    is-string: ^1.0.7
-    isarray: ^2.0.5
-    stop-iteration-iterator: ^1.0.0
-  checksum: 8fa118da42667a01a7c7529f8a8cca514feeff243feec1ce0bb73baaa3514560bd09d2b3438873cf8a5aaec5d52da248131de153b28e2638a061b6e4df13267d
   languageName: node
   linkType: hard
 
@@ -11106,7 +11054,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"internal-slot@npm:^1.0.4, internal-slot@npm:^1.0.5, internal-slot@npm:^1.0.7":
+"internal-slot@npm:^1.0.5, internal-slot@npm:^1.0.7":
   version: 1.0.7
   resolution: "internal-slot@npm:1.0.7"
   dependencies:
@@ -11167,7 +11115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-arguments@npm:^1.0.4, is-arguments@npm:^1.1.1":
+"is-arguments@npm:^1.0.4":
   version: 1.1.1
   resolution: "is-arguments@npm:1.1.1"
   dependencies:
@@ -11177,7 +11125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-array-buffer@npm:^3.0.2, is-array-buffer@npm:^3.0.4":
+"is-array-buffer@npm:^3.0.4":
   version: 3.0.4
   resolution: "is-array-buffer@npm:3.0.4"
   dependencies:
@@ -11361,7 +11309,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-map@npm:^2.0.1, is-map@npm:^2.0.2":
+"is-map@npm:^2.0.1":
   version: 2.0.2
   resolution: "is-map@npm:2.0.2"
   checksum: ace3d0ecd667bbdefdb1852de601268f67f2db725624b1958f279316e13fecb8fa7df91fd60f690d7417b4ec180712f5a7ee967008e27c65cfd475cc84337728
@@ -11462,7 +11410,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-set@npm:^2.0.1, is-set@npm:^2.0.2":
+"is-set@npm:^2.0.1":
   version: 2.0.2
   resolution: "is-set@npm:2.0.2"
   checksum: b64343faf45e9387b97a6fd32be632ee7b269bd8183701f3b3f5b71a7cf00d04450ed8669d0bd08753e08b968beda96fca73a10fd0ff56a32603f64deba55a57
@@ -14957,7 +14905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexp.prototype.flags@npm:^1.5.0, regexp.prototype.flags@npm:^1.5.1, regexp.prototype.flags@npm:^1.5.2":
+"regexp.prototype.flags@npm:^1.5.0, regexp.prototype.flags@npm:^1.5.2":
   version: 1.5.2
   resolution: "regexp.prototype.flags@npm:1.5.2"
   dependencies:
@@ -15871,15 +15819,6 @@ __metadata:
   version: 3.7.0
   resolution: "std-env@npm:3.7.0"
   checksum: 4f489d13ff2ab838c9acd4ed6b786b51aa52ecacdfeaefe9275fcb220ff2ac80c6e95674723508fd29850a694569563a8caaaea738eb82ca16429b3a0b50e510
-  languageName: node
-  linkType: hard
-
-"stop-iteration-iterator@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "stop-iteration-iterator@npm:1.0.0"
-  dependencies:
-    internal-slot: ^1.0.4
-  checksum: d04173690b2efa40e24ab70e5e51a3ff31d56d699550cfad084104ab3381390daccb36652b25755e420245f3b0737de66c1879eaa2a8d4fc0a78f9bf892fcb42
   languageName: node
   linkType: hard
 
@@ -17500,7 +17439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"which-typed-array@npm:^1.1.13, which-typed-array@npm:^1.1.14, which-typed-array@npm:^1.1.2, which-typed-array@npm:^1.1.9":
+"which-typed-array@npm:^1.1.14, which-typed-array@npm:^1.1.2, which-typed-array@npm:^1.1.9":
   version: 1.1.14
   resolution: "which-typed-array@npm:1.1.14"
   dependencies:
