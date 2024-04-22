@@ -60,7 +60,7 @@
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.3.3",
     "@navikt/ft-utils-test": "^2.3.3",
-    "@storybook/addon-actions": "8.0.8",
+    "@storybook/addon-actions": "8.0.9",
     "@storybook/react": "8.0.8",
     "@storybook/react-vite": "8.0.8",
     "@testing-library/react": "14.3.1",
