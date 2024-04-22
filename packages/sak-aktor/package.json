@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@navikt/ds-css": "6.5.0",
-    "@navikt/ds-react": "6.5.0",
+    "@navikt/ds-react": "6.6.1",
     "@navikt/ft-kodeverk": "^2.4.3",
     "@navikt/ft-plattform-komponenter": "^2.5.6",
     "@navikt/ft-sak-visittkort": "^2.3.6",
