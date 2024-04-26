@@ -34,7 +34,7 @@
     "@navikt/ft-utils": "^2.3.3",
     "react": "18.2.0",
     "react-collapse": "5.1.1",
-    "react-dom": "18.2.0",
+    "react-dom": "18.3.0",
     "react-hook-form": "7.51.3",
     "react-intl": "6.6.5"
   },
@@ -50,7 +50,7 @@
     "@navikt/ft-utils": "2.x",
     "react": "18.2.0",
     "react-collapse": "5.1.1",
-    "react-dom": "18.2.0",
+    "react-dom": "18.3.0",
     "react-hook-form": "7.43.9",
     "react-intl": "6.3.2"
   },
