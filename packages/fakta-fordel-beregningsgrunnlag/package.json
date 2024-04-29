@@ -34,7 +34,7 @@
     "@navikt/ft-utils": "^2.3.3",
     "classnames": "2.5.1",
     "core-js": "3.36.1",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.11",
     "react": "18.2.0",
     "react-hook-form": "7.51.3",
     "react-intl": "6.6.5",
