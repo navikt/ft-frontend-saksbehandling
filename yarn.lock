@@ -5323,9 +5323,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:6.4.2":
-  version: 6.4.2
-  resolution: "@testing-library/jest-dom@npm:6.4.2"
+"@testing-library/jest-dom@npm:6.4.3":
+  version: 6.4.3
+  resolution: "@testing-library/jest-dom@npm:6.4.3"
   dependencies:
     "@adobe/css-tools": ^4.3.2
     "@babel/runtime": ^7.9.2
@@ -5333,7 +5333,7 @@ __metadata:
     chalk: ^3.0.0
     css.escape: ^1.5.1
     dom-accessibility-api: ^0.6.3
-    lodash: ^4.17.15
+    lodash: ^4.17.21
     redent: ^3.0.0
   peerDependencies:
     "@jest/globals": ">= 28"
@@ -5352,7 +5352,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 631aeadbf4e738080ae095242cf1a29a0b4ee2f09c8bdd0d3f00a923707da64c1617e088ba9a961d098481afabdc1d19149fb7ef98edf15132348eb222f345ae
+  checksum: fa967bf7f735ccbc05fa3ebc55c1fc8db7b53321c37775607aa0dc1d06b915923a46374897dca5685a2593ac8191c1b3f011a2cf528b22ad120321e931f8481f
   languageName: node
   linkType: hard
 
@@ -9918,7 +9918,7 @@ __metadata:
     "@storybook/cli": 8.0.8
     "@storybook/react": 8.0.8
     "@storybook/theming": 8.0.8
-    "@testing-library/jest-dom": 6.4.2
+    "@testing-library/jest-dom": 6.4.3
     "@types/react": 18.2.79
     "@types/react-collapse": 5.0.4
     "@types/react-dom": 18.2.25
@@ -12134,7 +12134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:~4.17.15":
+"lodash@npm:^4.17.21, lodash@npm:~4.17.15":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
