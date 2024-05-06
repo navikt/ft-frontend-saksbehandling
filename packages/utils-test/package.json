@@ -21,7 +21,7 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "^2.4.3",
     "react": "18.2.0",
-    "react-intl": "6.6.5"
+    "react-intl": "6.6.6"
   },
   "devDependencies": {
     "cross-env": "7.0.3",
