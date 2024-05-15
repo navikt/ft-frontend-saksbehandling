@@ -2670,7 +2670,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -2726,7 +2726,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -2781,7 +2781,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -2833,7 +2833,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -2877,7 +2877,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -2965,7 +2965,7 @@ __metadata:
     "@navikt/ds-react": 6.7.1
     "@navikt/ft-utils": ^2.3.4
     "@popperjs/core": 2.11.8
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3017,7 +3017,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3072,7 +3072,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3121,7 +3121,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3169,7 +3169,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
     "@navikt/ft-utils-test": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3217,7 +3217,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3257,7 +3257,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3304,7 +3304,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3346,7 +3346,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3383,7 +3383,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3416,7 +3416,7 @@ __metadata:
     "@navikt/ds-css": 6.7.1
     "@navikt/ds-react": 6.7.1
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3450,7 +3450,7 @@ __metadata:
     "@navikt/ft-plattform-komponenter": ^2.5.8
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3493,7 +3493,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3541,7 +3541,7 @@ __metadata:
     "@navikt/ft-types": ^2.4.4
     "@navikt/ft-ui-komponenter": ^2.3.5
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -3610,7 +3610,7 @@ __metadata:
     "@navikt/ds-css": 6.7.1
     "@navikt/ds-react": 6.7.1
     "@navikt/ft-utils": ^2.3.4
-    "@storybook/addon-actions": 8.0.10
+    "@storybook/addon-actions": 8.1.1
     "@storybook/react": 8.0.10
     "@storybook/react-vite": 8.0.10
     "@testing-library/react": 14.3.1
@@ -4499,6 +4499,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-actions@npm:8.1.1":
+  version: 8.1.1
+  resolution: "@storybook/addon-actions@npm:8.1.1"
+  dependencies:
+    "@storybook/core-events": 8.1.1
+    "@storybook/global": ^5.0.0
+    "@types/uuid": ^9.0.1
+    dequal: ^2.0.2
+    polished: ^4.2.2
+    uuid: ^9.0.0
+  checksum: 94694b75756a90dd34f8187eecb90a871a62f60a24fa64c52a7c35755ab6b81b7e91d5428e65c9851421cba0af49e246fba654b9731939669e4868c70105857f
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-backgrounds@npm:8.0.10":
   version: 8.0.10
   resolution: "@storybook/addon-backgrounds@npm:8.0.10"
@@ -4931,6 +4945,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/core-events@npm:8.1.1":
+  version: 8.1.1
+  resolution: "@storybook/core-events@npm:8.1.1"
+  dependencies:
+    "@storybook/csf": ^0.1.7
+    ts-dedent: ^2.0.0
+  checksum: 6ee283eaafe10ec1253f72a5b33fe554acc32d8e3872b036c6f8a8ade8a300cd4f44bed29a55a02fa5ee45b3fdd93f84fcf77d67413bcf864435daeb5cb5007c
+  languageName: node
+  linkType: hard
+
 "@storybook/core-server@npm:8.0.10":
   version: 8.0.10
   resolution: "@storybook/core-server@npm:8.0.10"
@@ -5018,7 +5042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/csf@npm:^0.1.4":
+"@storybook/csf@npm:^0.1.4, @storybook/csf@npm:^0.1.7":
   version: 0.1.7
   resolution: "@storybook/csf@npm:0.1.7"
   dependencies:
