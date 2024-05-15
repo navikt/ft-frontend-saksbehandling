@@ -4580,19 +4580,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:8.0.10":
-  version: 8.0.10
-  resolution: "@storybook/addon-links@npm:8.0.10"
+"@storybook/addon-links@npm:8.1.1":
+  version: 8.1.1
+  resolution: "@storybook/addon-links@npm:8.1.1"
   dependencies:
-    "@storybook/csf": ^0.1.4
+    "@storybook/csf": ^0.1.7
     "@storybook/global": ^5.0.0
     ts-dedent: ^2.0.0
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: a6870519e8b2aef8588f154b44b0bd801457f998113460f1f5e0989320be9db5687167bb844973e66f3f5d6db4759f349d1b533894ddd39eb1f78351fa90c7b7
+  checksum: e7a607f5816b16305fd1cc310586bf5f83ee8095582c81221035b01b726cec6b579e6a1c409e9977c08122b0d650e0e4c3b6d96d01ea40439b1efaa3734161f8
   languageName: node
   linkType: hard
 
@@ -5018,7 +5018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/csf@npm:^0.1.4":
+"@storybook/csf@npm:^0.1.4, @storybook/csf@npm:^0.1.7":
   version: 0.1.7
   resolution: "@storybook/csf@npm:0.1.7"
   dependencies:
@@ -9934,7 +9934,7 @@ __metadata:
     "@formatjs/intl-numberformat": 8.10.1
     "@navikt/aksel-stylelint": 6.7.1
     "@storybook/addon-essentials": 8.0.10
-    "@storybook/addon-links": 8.0.10
+    "@storybook/addon-links": 8.1.1
     "@storybook/addons": 7.6.19
     "@storybook/builder-vite": 8.0.10
     "@storybook/cli": 8.0.10
