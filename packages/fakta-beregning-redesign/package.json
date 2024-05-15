@@ -33,7 +33,7 @@
     "@navikt/ft-types": "^2.4.4",
     "@navikt/ft-ui-komponenter": "^2.3.5",
     "@navikt/ft-utils": "^2.3.4",
-    "core-js": "3.37.0",
+    "core-js": "3.37.1",
     "dayjs": "1.11.11",
     "dayjs-plugin-utc": "0.1.2",
     "react": "18.3.1",
