@@ -6,16 +6,16 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
+import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
 import InntektInput from '../../../felles/InntektInput';
+import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { lonnsendringField } from './LonnsendringForm';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
 import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
-import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
-import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
-import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
@@ -51,7 +51,22 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
   ]);
-  const skalRedigereFrilansinntekt = skalRedigereFrilansinntektRadioValues.includes(true);
+  const skalRedigereFrilansinntekt = () => {
+    const erVurderMottarYtelseEllerNyoppstartetFL = skalRedigereFrilansinntektRadioValues.includes(true);
+    if (erVurderMottarYtelseEllerNyoppstartetFL) {
+      return true;
+    }
+
+    const erBesteberegning = getValues([
+      `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
+    ]).includes(true);
+    const harFrilansandel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+      andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+    );
+
+    return erBesteberegning && harFrilansandel;
+  };
+
   const skalRedigereArbeidsinntektRadioValues = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
@@ -179,8 +194,11 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
       skalRedigereFrilansinntektRadioValues.filter(value => value === true).length > 1;
     const erNyoppstartetFrilanser = getValues([
       `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
-    ]);
-    if (erATFLSammeOrg(tilfeller) || harFlereTilfellerMedFrilansinntektSomSkalFastsettes) {
+    ]).includes(true);
+    const erBesteberegning = getValues([
+      `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
+    ]).includes(true);
+    if (erATFLSammeOrg(tilfeller) || harFlereTilfellerMedFrilansinntektSomSkalFastsettes || erBesteberegning) {
       return <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />;
     }
     if (
@@ -284,7 +302,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
           ))}
         </>
       )}
-      {skalRedigereFrilansinntekt && (
+      {skalRedigereFrilansinntekt() && (
         <>
           <VerticalSpacer thirtyTwoPx />
           <InntektInput
@@ -326,7 +344,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
 
       {skalRedigereDagpengerInntekt && (
         <>
-          {(skalRedigereFrilansinntekt || skalRedigereArbeidsinntekt) && <VerticalSpacer thirtyTwoPx />}
+          {(skalRedigereFrilansinntekt() || skalRedigereArbeidsinntekt) && <VerticalSpacer thirtyTwoPx />}
           <InntektInput
             name={dagpengerInntektFieldName}
             readOnly={readOnly}
