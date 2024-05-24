@@ -117,7 +117,7 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
       .filter(periode => filtrerForlengelse(beregningsgrunnlag, periode))
       .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
       .filter(periode => !!periode.fom)
-      .map(periode => periode.fom || ''); // Typscript forstår ikke at fom alltid vil være definert her, så må en hack til...
+      .map(periode => periode.fom);
     setOpenPanels(åpnePaneler);
   }, [perioder]);
 
