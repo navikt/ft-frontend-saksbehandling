@@ -67,6 +67,18 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     return erBesteberegning && harFrilansandel;
   };
 
+  const skalRedigereSelvstendigNæringsgivendeInntekt = () => {
+    const harSelvstendigNæringsgivendeAndel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+      andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    );
+
+    const erBesteberegning = getValues([
+      `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
+    ]).includes(true);
+
+    return erBesteberegning && harSelvstendigNæringsgivendeAndel;
+  };
+
   const skalRedigereArbeidsinntektRadioValues = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
@@ -132,6 +144,8 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
 
   const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
   const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
+  // eslint-disable-next-line max-len
+  const selvstendigNæringsdrivendeInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`;
 
   const atflSammeOrgHarInntektsmelding =
     beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
@@ -350,6 +364,17 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             readOnly={readOnly}
             isAksjonspunktClosed={isAksjonspunktClosed}
             label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
+          />
+        </>
+      )}
+      {skalRedigereSelvstendigNæringsgivendeInntekt() && (
+        <>
+          <VerticalSpacer thirtyTwoPx />
+          <InntektInput
+            name={selvstendigNæringsdrivendeInntektFieldName}
+            readOnly={readOnly}
+            isAksjonspunktClosed={isAksjonspunktClosed}
+            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende" />}
           />
         </>
       )}

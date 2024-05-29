@@ -78,6 +78,10 @@ export type FrilansinntektValues = {
   fastsattBelop: number;
 };
 
+export type SelvstendigNæringsdrivendeInntektValues = {
+  fastsattBelop: number;
+};
+
 export type DagpengerinntektValues = {
   fastsattBelop: number;
 };
@@ -101,6 +105,7 @@ export type TilfellerValues = VurderMilitærValues &
     frilansInntektValues?: FrilansinntektValues;
     arbeidstakerInntektValues?: ArbeidstakerInntektValues[];
     dagpengerInntektValues?: DagpengerinntektValues;
+    selvstendigNæringsdrivendeInntektValues?: SelvstendigNæringsdrivendeInntektValues;
   };
 
 export type FaktaOmBeregningValues = TilfellerValues & {

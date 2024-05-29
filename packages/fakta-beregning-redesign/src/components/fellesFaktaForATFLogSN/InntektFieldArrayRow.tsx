@@ -17,6 +17,7 @@ import {
   erDagpenger,
   erFrilanser,
   erOverstyring,
+  erSelvstendigNæringsdrivende,
   getArbeidsgiverIndex,
   getFastsattBelopFromArbeidstakerInntekt,
   getKanRedigereInntekt,
@@ -88,6 +89,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erFrilansInntekt = erFrilanser(field);
   const erInntektDagpenger = erDagpenger(field);
+  const erInntektSelvstendigNæringsdrivende = erSelvstendigNæringsdrivende(field);
   const erArbeidstakerInntekt = erArbeidstaker(field);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
 
@@ -102,13 +104,26 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const harEndretInntektForDagpenger =
     erInntektDagpenger && kanRedigereInntekt && formValues?.dagpengerInntektValues?.fastsattBelop;
 
+  const harEndretInntektForSelvstendigNæringsdrivende =
+    erInntektSelvstendigNæringsdrivende &&
+    kanRedigereInntekt &&
+    formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop;
+
   const visMåFastsettesText =
     (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
     (erArbeidstakerInntekt &&
       kanRedigereInntekt &&
       !getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId)) ||
-    (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop);
-  const harEndretInntekt = harEndretFrilansinntekt || harEndretInntektForArbeidsgiver || harEndretInntektForDagpenger;
+    (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop) ||
+    (erInntektSelvstendigNæringsdrivende &&
+      kanRedigereInntekt &&
+      !formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop);
+
+  const harEndretInntekt =
+    harEndretFrilansinntekt ||
+    harEndretInntektForArbeidsgiver ||
+    harEndretInntektForDagpenger ||
+    harEndretInntektForSelvstendigNæringsdrivende;
 
   const skalViseOverstyrtInntektInput = erOverstyring(formValues);
 
@@ -128,6 +143,9 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
     }
     if (harEndretInntektForDagpenger) {
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
+    }
+    if (harEndretInntektForSelvstendigNæringsdrivende) {
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`;
     }
     return '';
   };

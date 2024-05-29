@@ -12,6 +12,7 @@ import {
   erDagpenger,
   erFrilanser,
   erOverstyring,
+  erSelvstendigNæringsdrivende,
   getArbeidsgiverIndex,
   getKanRedigereInntekt,
 } from './BgFaktaUtils';
@@ -33,6 +34,7 @@ const summerBeregnet = (
       const erFrilansInntekt = erFrilanser(field);
       const erArbeidstakerInntekt = erArbeidstaker(field);
       const erDagpengerInntekt = erDagpenger(field);
+      const erSelvstendigNæringsdrivendeInntekt = erSelvstendigNæringsdrivende(field);
 
       if (field.fastsattBelop && erOverstyring(formValues)) {
         belop = field.fastsattBelop;
@@ -50,6 +52,11 @@ const summerBeregnet = (
           ].fastsattBelop;
       } else if (erDagpengerInntekt && formValues?.dagpengerInntektValues?.fastsattBelop) {
         belop = formValues.dagpengerInntektValues.fastsattBelop;
+      } else if (
+        erSelvstendigNæringsdrivendeInntekt &&
+        formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop
+      ) {
+        belop = formValues.selvstendigNæringsdrivendeInntektValues.fastsattBelop;
       } else if (field.fastsattBelop && !erOverstyring(formValues)) {
         belop = 0;
       } else {
