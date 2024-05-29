@@ -311,6 +311,10 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
       beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
     ),
+    militærEllerSivilInntektValues: InntektInput.buildInitialValues(
+      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      AktivitetStatus.MILITAER_ELLER_SIVIL,
+    ),
     vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
       tilfeller,
       getArbeidsgiverInfoForRefusjonskravSomKommerForSent(beregningsgrunnlag),

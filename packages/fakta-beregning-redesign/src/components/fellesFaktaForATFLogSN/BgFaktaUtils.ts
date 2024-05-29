@@ -104,6 +104,9 @@ export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
 export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
   field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
 
+export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
+
 // Nyoppstartet frilanser
 
 const erNyoppstartetFrilanser = (field: AndelFieldIdentifikator, values: any): boolean => {

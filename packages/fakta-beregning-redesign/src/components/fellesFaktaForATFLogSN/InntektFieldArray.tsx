@@ -17,6 +17,7 @@ import {
   DagpengerinntektValues,
   FaktaOmBeregningAksjonspunktValues,
   FrilansinntektValues,
+  MilitærEllerSivilInntektValues,
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
@@ -136,6 +137,8 @@ const erArbeidstaker = (aktivitetStatus: string): boolean => aktivitetStatus ===
 const erDagpenger = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.DAGPENGER;
 const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean =>
   aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+const erMilitærEllerSivil = (aktivitetStatus: string): boolean =>
+  aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
 
 export const leggTilDagpengerOmBesteberegning = (
   fields: AndelFieldValue[],
@@ -222,6 +225,7 @@ interface StaticFunctions {
     arbeidstakerInntektValues: ArbeidstakerInntektValues[],
     dagpengerInntektValues: DagpengerinntektValues,
     selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues,
+    militærEllerSivilInntektValues: MilitærEllerSivilInntektValues,
     erOverstyrt: boolean,
   ) => InntektTransformed[];
 }
@@ -378,6 +382,7 @@ InntektFieldArray.transformValues = (
   arbeidstakerInntektValues: ArbeidstakerInntektValues[],
   dagpengerInntektValues: DagpengerinntektValues,
   selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues,
+  militærEllerSivilInntektValues: MilitærEllerSivilInntektValues,
   erOverstyrt: boolean,
 ): InntektTransformed[] => {
   if (!values) return null;
@@ -391,6 +396,7 @@ InntektFieldArray.transformValues = (
       (erDagpenger(fieldValue.aktivitetStatus) && dagpengerInntektValues?.fastsattBelop) ||
       (erSelvstendigNæringsdrivende(fieldValue.aktivitetStatus) &&
         selvstendigNæringsdrivendeInntektValues?.fastsattBelop) ||
+      (erMilitærEllerSivil(fieldValue.aktivitetStatus) && militærEllerSivilInntektValues?.fastsattBelop) ||
       fieldValue.fastsattBelop;
 
     return {
@@ -414,7 +420,8 @@ InntektFieldArray.transformValues = (
         (erArbeidstaker(aktivitetStatus) &&
           getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, arbeidsgiverId)) ||
         (erDagpenger(aktivitetStatus) && dagpengerInntektValues.fastsattBelop) ||
-        (erSelvstendigNæringsdrivende(aktivitetStatus) && selvstendigNæringsdrivendeInntektValues.fastsattBelop),
+        (erSelvstendigNæringsdrivende(aktivitetStatus) && selvstendigNæringsdrivendeInntektValues.fastsattBelop) ||
+        (erMilitærEllerSivil(aktivitetStatus) && militærEllerSivilInntektValues.fastsattBelop),
     )
     .map(transformAndel);
 };

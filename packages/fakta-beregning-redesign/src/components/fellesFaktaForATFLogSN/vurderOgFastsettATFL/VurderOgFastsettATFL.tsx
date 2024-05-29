@@ -457,6 +457,7 @@ VurderOgFastsettATFL.transformValues =
       values.arbeidstakerInntektValues,
       values.dagpengerInntektValues,
       values.selvstendigNæringsdrivendeInntektValues,
+      values.militærEllerSivilInntektValues,
       values.manuellOverstyringRapportertInntekt,
     );
     const fastsatteAndelsnr = [];

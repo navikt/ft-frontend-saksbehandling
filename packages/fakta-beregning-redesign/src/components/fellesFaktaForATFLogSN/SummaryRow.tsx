@@ -11,6 +11,7 @@ import {
   erArbeidstaker,
   erDagpenger,
   erFrilanser,
+  erMilitaerEllerSivil,
   erOverstyring,
   erSelvstendigNæringsdrivende,
   getArbeidsgiverIndex,
@@ -35,6 +36,7 @@ const summerBeregnet = (
       const erArbeidstakerInntekt = erArbeidstaker(field);
       const erDagpengerInntekt = erDagpenger(field);
       const erSelvstendigNæringsdrivendeInntekt = erSelvstendigNæringsdrivende(field);
+      const erMilitærEllerSivilInntekt = erMilitaerEllerSivil(field);
 
       if (field.fastsattBelop && erOverstyring(formValues)) {
         belop = field.fastsattBelop;
@@ -57,6 +59,8 @@ const summerBeregnet = (
         formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop
       ) {
         belop = formValues.selvstendigNæringsdrivendeInntektValues.fastsattBelop;
+      } else if (erMilitærEllerSivilInntekt && formValues?.militærEllerSivilInntektValues?.fastsattBelop) {
+        belop = formValues.militærEllerSivilInntektValues.fastsattBelop;
       } else if (field.fastsattBelop && !erOverstyring(formValues)) {
         belop = 0;
       } else {
