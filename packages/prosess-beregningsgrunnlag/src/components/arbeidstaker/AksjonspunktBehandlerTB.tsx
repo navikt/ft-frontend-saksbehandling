@@ -387,7 +387,7 @@ AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (
       } else {
         const matchendeAndelIFørstePeriode = finnAndelIPeriode(andel, førstePeriode);
         const overstyrt = formatCurrencyNoKr(matchendeAndelIFørstePeriode?.overstyrtPrAar);
-        initialValues[createInputFieldKey(andel, førstePeriode)] = overstyrt || '';
+        initialValues[createInputFieldKey(andel, periode)] = overstyrt || '';
       }
     });
   });
