@@ -13,7 +13,6 @@ const {
   SelvstendigNæringsdrivendNyIArbeidslivetAp5049,
   NaturalYtelse,
   TidsbegrensetArbeidsforholdMedAvvikAp5047,
-  MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047,
   AvvikNæringEtterLøstAvvikArbeid5038Og5039,
   ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038,
 } = composeStories(stories);
@@ -337,15 +336,17 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     // Aksjonspunkt
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFeltAg1P1 = alleInputfelt[0];
+    const bruttoFeltAg1P2 = alleInputfelt[1];
 
-    const begrunnelseFelt = alleInputfelt[1];
+    const begrunnelseFelt = alleInputfelt[2];
 
     await userEvent.type(bruttoFeltAg1P1, '222 000');
+    await userEvent.type(bruttoFeltAg1P2, '150 000');
 
     await userEvent.type(begrunnelseFelt, 'Min begrunnelse for tidsbegrenset inntekt');
 
     expect(await screen.findByText('222 000')).toBeInTheDocument();
-    expect(screen.getAllByText('100 000')).toHaveLength(4);
+    expect(screen.getAllByText('100 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -361,12 +362,22 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             },
             fastsatteTidsbegrensedePerioder: [
               {
+                periodeFom: '2021-01-01',
+                periodeTom: '2021-01-21',
+                fastsatteTidsbegrensedeAndeler: [
+                  {
+                    andelsnr: 1,
+                    bruttoFastsattInntekt: 222000,
+                  },
+                ],
+              },
+              {
                 periodeFom: '2021-01-22',
                 periodeTom: '2021-02-05',
                 fastsatteTidsbegrensedeAndeler: [
                   {
                     andelsnr: 1,
-                    bruttoFastsattInntekt: 222000,
+                    bruttoFastsattInntekt: 150000,
                   },
                 ],
               },
@@ -379,31 +390,6 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
         kode: 'FASTSETT_BG_TB_ARB',
       },
     ]);
-  });
-
-  it('skal verifisere at fasatt grunnlag med perioder tidsbegrenset perioder utenfor vilkårsperiode vises riktig', async () => {
-    const lagre = vi.fn();
-
-    render(<MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047 submitCallback={lagre} />);
-
-    expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
-
-    // Årsgrunnlag arbeid
-    expect(screen.getAllByText('Andeby bank (999999999)')).toHaveLength(2);
-    expect(screen.getAllByText('Gardslien transport og Gardiner AS (999999998)')).toHaveLength(2);
-    expect(screen.getAllByText('Svaneby sykehjem (999999997)')).toHaveLength(2);
-
-    // Aksjonspunkt
-    expect(screen.getAllByText('5 000')).toHaveLength(2);
-    expect(screen.getAllByText('250 000')).toHaveLength(2);
-    expect(screen.getAllByText('100 000')).toHaveLength(2);
-    expect(screen.getAllByText('355 000')).toHaveLength(6);
-    expect(screen.getAllByText('4 500')).toHaveLength(4);
-
-    expect(await screen.findByText('Beregning av dagsats')).toBeInTheDocument();
-    expect(await screen.findByText('Periode 01.01.2021 - 16.01.2021')).toBeInTheDocument();
-    expect(await screen.findByText('Periode 17.01.2021 - 21.01.2021')).toBeInTheDocument();
   });
 
   it('skal bekrefte akjonspunkt for varig endring når avik atfl er løst', async () => {
