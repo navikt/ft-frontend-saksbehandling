@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-beregning-redesign",
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "files": [
