@@ -337,15 +337,17 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     // Aksjonspunkt
     const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
     const bruttoFeltAg1P1 = alleInputfelt[0];
+    const bruttoFeltAg1P2 = alleInputfelt[1];
 
-    const begrunnelseFelt = alleInputfelt[1];
+    const begrunnelseFelt = alleInputfelt[2];
 
     await userEvent.type(bruttoFeltAg1P1, '222 000');
+    await userEvent.type(bruttoFeltAg1P2, '150 000');
 
     await userEvent.type(begrunnelseFelt, 'Min begrunnelse for tidsbegrenset inntekt');
 
     expect(await screen.findByText('222 000')).toBeInTheDocument();
-    expect(screen.getAllByText('100 000')).toHaveLength(4);
+    expect(screen.getAllByText('100 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -361,12 +363,22 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
             },
             fastsatteTidsbegrensedePerioder: [
               {
+                periodeFom: '2021-01-01',
+                periodeTom: '2021-01-21',
+                fastsatteTidsbegrensedeAndeler: [
+                  {
+                    andelsnr: 1,
+                    bruttoFastsattInntekt: 222000,
+                  },
+                ],
+              },
+              {
                 periodeFom: '2021-01-22',
                 periodeTom: '2021-02-05',
                 fastsatteTidsbegrensedeAndeler: [
                   {
                     andelsnr: 1,
-                    bruttoFastsattInntekt: 222000,
+                    bruttoFastsattInntekt: 150000,
                   },
                 ],
               },
