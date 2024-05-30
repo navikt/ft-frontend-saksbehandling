@@ -17,14 +17,12 @@ import {
   DagpengerinntektValues,
   FaktaOmBeregningAksjonspunktValues,
   FrilansinntektValues,
+  MilitærEllerSivilInntektValues,
+  SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
-import SummaryRow from './SummaryRow';
-import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
-import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import {
   erOverstyring,
   getFastsattBelopFromArbeidstakerInntekt,
@@ -32,6 +30,10 @@ import {
   mapAndelToField,
   skalFastsetteInntektForAndel,
 } from './BgFaktaUtils';
+import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
+import SummaryRow from './SummaryRow';
+import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
+import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
@@ -133,6 +135,10 @@ const fjernEllerLeggTilAktivitetStatus = (
 const erFrilanser = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.FRILANSER;
 const erArbeidstaker = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 const erDagpenger = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.DAGPENGER;
+const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean =>
+  aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+const erMilitærEllerSivil = (aktivitetStatus: string): boolean =>
+  aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
 
 export const leggTilDagpengerOmBesteberegning = (
   fields: AndelFieldValue[],
@@ -218,6 +224,8 @@ interface StaticFunctions {
     frilansInntektValues: FrilansinntektValues,
     arbeidstakerInntektValues: ArbeidstakerInntektValues[],
     dagpengerInntektValues: DagpengerinntektValues,
+    selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues,
+    militærEllerSivilInntektValues: MilitærEllerSivilInntektValues,
     erOverstyrt: boolean,
   ) => InntektTransformed[];
 }
@@ -373,6 +381,8 @@ InntektFieldArray.transformValues = (
   frilansInntektValues: FrilansinntektValues,
   arbeidstakerInntektValues: ArbeidstakerInntektValues[],
   dagpengerInntektValues: DagpengerinntektValues,
+  selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues,
+  militærEllerSivilInntektValues: MilitærEllerSivilInntektValues,
   erOverstyrt: boolean,
 ): InntektTransformed[] => {
   if (!values) return null;
@@ -384,6 +394,9 @@ InntektFieldArray.transformValues = (
       (erArbeidstaker(fieldValue.aktivitetStatus) &&
         getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, fieldValue.arbeidsgiverId)) ||
       (erDagpenger(fieldValue.aktivitetStatus) && dagpengerInntektValues?.fastsattBelop) ||
+      (erSelvstendigNæringsdrivende(fieldValue.aktivitetStatus) &&
+        selvstendigNæringsdrivendeInntektValues?.fastsattBelop) ||
+      (erMilitærEllerSivil(fieldValue.aktivitetStatus) && militærEllerSivilInntektValues?.fastsattBelop) ||
       fieldValue.fastsattBelop;
 
     return {
@@ -406,7 +419,9 @@ InntektFieldArray.transformValues = (
         (erFrilanser(aktivitetStatus) && frilansInntektValues.fastsattBelop) ||
         (erArbeidstaker(aktivitetStatus) &&
           getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, arbeidsgiverId)) ||
-        (erDagpenger(aktivitetStatus) && dagpengerInntektValues.fastsattBelop),
+        (erDagpenger(aktivitetStatus) && dagpengerInntektValues.fastsattBelop) ||
+        (erSelvstendigNæringsdrivende(aktivitetStatus) && selvstendigNæringsdrivendeInntektValues.fastsattBelop) ||
+        (erMilitærEllerSivil(aktivitetStatus) && militærEllerSivilInntektValues.fastsattBelop),
     )
     .map(transformAndel);
 };

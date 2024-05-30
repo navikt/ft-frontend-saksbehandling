@@ -46,6 +46,8 @@
   "BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2": "For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på utbetalinger i Modia eller vedtaksbrev i Gosys.",
   "BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift": "Fastsett månedsinntekt for {bedrift}",
   "BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger": "Fastsett månedsinntekt dagpenger",
+  "BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende": "Fastsett månedsinntekt selvstendig næringsdrivende",
+  "BeregningInfoPanel.InntektInputFields.MilitærEllerSivil": "Fastsett månedsinntekt militær",
   "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1": "Bruk A-inntekt til å fastsette ny månedsinntekt hvis mulig.",
   "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2": "Hvis ny inntekt ikke fremgår av A-inntekt, kontakt arbeidsgiver og be de sende oppdatert inntektsmelding. Eventuelt kan du kontakte søker og be de dokumentere varig lønnsøkning med kontrakt, lønnslipp eller lignende.",
   "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3": "Eksempel: En person får en varig lønnsendring med virkning fra 5. oktober. Vedkommende har første fraværsdato 20. oktober og beregningsperioden er september, august og juli. Ved fastsettelse av inntekt skal tidsrommet etter lønnsendringen 5. oktober legges til grunn.",

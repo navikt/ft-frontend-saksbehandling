@@ -18,6 +18,7 @@ import {
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import ArbeidsinntektInput from '../felles/ArbeidsinntektInput';
+import InntektInput from '../felles/InntektInput';
 import {
   erInitialOverstyringAvBeregningsgrunnlag,
   erOverstyringAvBeregningsgrunnlag,
@@ -40,7 +41,6 @@ import NyoppstartetFLForm from './vurderOgFastsettATFL/forms/NyoppstartetFLForm'
 import VurderEtterlonnSluttpakkeForm from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import VurderMottarYtelseForm from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
 import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
-import InntektInput from '../felles/InntektInput';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -306,6 +306,14 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
     dagpengerInntektValues: InntektInput.buildInitialValues(
       beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.DAGPENGER,
+    ),
+    selvstendigNæringsdrivendeInntektValues: InntektInput.buildInitialValues(
+      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    ),
+    militærEllerSivilInntektValues: InntektInput.buildInitialValues(
+      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      AktivitetStatus.MILITAER_ELLER_SIVIL,
     ),
     vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
       tilfeller,

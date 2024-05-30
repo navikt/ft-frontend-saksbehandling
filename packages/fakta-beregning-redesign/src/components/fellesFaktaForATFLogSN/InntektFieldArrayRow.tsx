@@ -16,7 +16,9 @@ import {
   erArbeidstaker,
   erDagpenger,
   erFrilanser,
+  erMilitaerEllerSivil,
   erOverstyring,
+  erSelvstendigNæringsdrivende,
   getArbeidsgiverIndex,
   getFastsattBelopFromArbeidstakerInntekt,
   getKanRedigereInntekt,
@@ -88,6 +90,8 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erFrilansInntekt = erFrilanser(field);
   const erInntektDagpenger = erDagpenger(field);
+  const erInntektSelvstendigNæringsdrivende = erSelvstendigNæringsdrivende(field);
+  const erInntektMilitærEllerSivil = erMilitaerEllerSivil(field);
   const erArbeidstakerInntekt = erArbeidstaker(field);
   const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
 
@@ -102,13 +106,31 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const harEndretInntektForDagpenger =
     erInntektDagpenger && kanRedigereInntekt && formValues?.dagpengerInntektValues?.fastsattBelop;
 
+  const harEndretInntektForSelvstendigNæringsdrivende =
+    erInntektSelvstendigNæringsdrivende &&
+    kanRedigereInntekt &&
+    formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop;
+
+  const harEndretInntektForMilitærEllerSivil =
+    erInntektMilitærEllerSivil && kanRedigereInntekt && formValues?.militærEllerSivilInntektValues?.fastsattBelop;
+
   const visMåFastsettesText =
     (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
     (erArbeidstakerInntekt &&
       kanRedigereInntekt &&
       !getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId)) ||
-    (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop);
-  const harEndretInntekt = harEndretFrilansinntekt || harEndretInntektForArbeidsgiver || harEndretInntektForDagpenger;
+    (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop) ||
+    (erInntektSelvstendigNæringsdrivende &&
+      kanRedigereInntekt &&
+      !formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop) ||
+    (erInntektMilitærEllerSivil && kanRedigereInntekt && !formValues?.militærEllerSivilInntektValues?.fastsattBelop);
+
+  const harEndretInntekt =
+    harEndretFrilansinntekt ||
+    harEndretInntektForArbeidsgiver ||
+    harEndretInntektForDagpenger ||
+    harEndretInntektForSelvstendigNæringsdrivende ||
+    harEndretInntektForMilitærEllerSivil;
 
   const skalViseOverstyrtInntektInput = erOverstyring(formValues);
 
@@ -128,6 +150,12 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
     }
     if (harEndretInntektForDagpenger) {
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
+    }
+    if (harEndretInntektForSelvstendigNæringsdrivende) {
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`;
+    }
+    if (harEndretInntektForMilitærEllerSivil) {
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.militærEllerSivilInntektValues.fastsattBelop`;
     }
     return '';
   };
