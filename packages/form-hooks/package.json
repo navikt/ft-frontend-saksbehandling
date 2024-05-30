@@ -34,7 +34,7 @@
     "dayjs": "1.11.11",
     "lodash.throttle": "4.1.1",
     "react": "18.3.1",
-    "react-hook-form": "7.51.4"
+    "react-hook-form": "7.51.5"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "3.1.2",
