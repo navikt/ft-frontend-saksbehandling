@@ -26,12 +26,12 @@ import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregn
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../ArbeidsforholdHelper';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
+import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
-import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
@@ -100,6 +100,12 @@ export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
 
 export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
   field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
+
+export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+
+export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
 
 // Nyoppstartet frilanser
 
