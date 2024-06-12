@@ -3030,7 +3030,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.5
@@ -3086,7 +3086,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.5
@@ -3141,7 +3141,7 @@ __metadata:
     stylelint: 15.11.0
     typescript: 5.4.5
     uuid: 9.0.1
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.5
@@ -3190,7 +3190,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
@@ -3235,7 +3235,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3263,7 +3263,7 @@ __metadata:
     eslint: 8.57.0
     moment: 2.30.1
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ft-utils": 2.x
@@ -3280,7 +3280,7 @@ __metadata:
     eslint: 8.57.0
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   languageName: unknown
   linkType: soft
@@ -3294,7 +3294,7 @@ __metadata:
     eslint: 8.57.0
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   languageName: unknown
   linkType: soft
@@ -3326,7 +3326,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@popperjs/core": 2.11.7
@@ -3377,7 +3377,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3430,7 +3430,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.8
@@ -3478,7 +3478,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3527,7 +3527,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.8
@@ -3571,7 +3571,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
@@ -3615,7 +3615,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3660,7 +3660,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 2.9.5
@@ -3701,7 +3701,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3738,7 +3738,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
@@ -3771,7 +3771,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
@@ -3806,7 +3806,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ds-css": 2.8.11
@@ -3851,7 +3851,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3896,7 +3896,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3924,7 +3924,7 @@ __metadata:
     react-hook-form: 7.51.5
     react-intl: 6.6.8
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
   languageName: unknown
   linkType: soft
 
@@ -3938,7 +3938,7 @@ __metadata:
     eslint: 8.57.0
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ft-kodeverk": 2.x
@@ -3967,7 +3967,7 @@ __metadata:
     storybook: 8.1.5
     stylelint: 15.11.0
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/aksel-icons": 3.1.2
@@ -3991,7 +3991,7 @@ __metadata:
     react: 18.3.1
     react-intl: 6.6.8
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
   languageName: unknown
   linkType: soft
 
@@ -4005,7 +4005,7 @@ __metadata:
     eslint: 8.57.0
     react-intl: 6.6.8
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vitest: 1.6.0
   peerDependencies:
     "@navikt/ft-kodeverk": 2.x
@@ -10837,7 +10837,7 @@ __metadata:
     stylelint: 15.11.0
     stylelint-order: 6.0.4
     typescript: 5.4.5
-    vite: 5.2.12
+    vite: 5.2.13
     vite-plugin-dts: 3.9.1
     vitest: 1.6.0
   languageName: unknown
@@ -18248,9 +18248,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:5.2.12":
-  version: 5.2.12
-  resolution: "vite@npm:5.2.12"
+"vite@npm:5.2.13":
+  version: 5.2.13
+  resolution: "vite@npm:5.2.13"
   dependencies:
     esbuild: ^0.20.1
     fsevents: ~2.3.3
@@ -18284,7 +18284,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 908b8a09460c031fe94c2038a46743a73a70fe76fd1991ae8b51a56eb88dec75128bc7da7ab37d8f84c0e1e3063ce268bdd81cc27d79229f8ea756e752bc83d9
+  checksum: 79620413e45804494bedb81f2b78b48ca1d26fb026894a114a2f40cb1a3ad9b6783e777bc8969a51f8711e168b4db93a9563a5af027c80eecf000ef9b675a3be
   languageName: node
   linkType: hard
 
