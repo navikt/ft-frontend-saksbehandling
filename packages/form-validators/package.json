@@ -28,7 +28,7 @@
     "moment": "2.29.4"
   },
   "devDependencies": {
-    "@storybook/react": "8.1.5",
+    "@storybook/react": "8.1.6",
     "cross-env": "7.0.3",
     "eslint": "8.57.0",
     "typescript": "5.4.5",
