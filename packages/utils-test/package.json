@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils-test",
-  "version": "2.3.6",
+  "version": "2.3.7",
   "license": "MIT",
   "private": true,
   "main": "./dist/index.umd.js",
@@ -19,7 +19,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.4.6",
+    "@navikt/ft-kodeverk": "^2.4.7",
     "react": "18.3.1",
     "react-intl": "6.6.8"
   },
@@ -27,7 +27,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.57.0",
     "typescript": "5.4.5",
-    "vite": "5.2.11"
+    "vite": "5.2.12"
   },
   "exports": {
     ".": {

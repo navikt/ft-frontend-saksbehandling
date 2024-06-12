@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-visittkort",
   "description": "Komponent som viser informasjon om søker, annen part og barn",
-  "version": "2.3.10",
+  "version": "2.3.11",
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "files": [
@@ -23,14 +23,14 @@
     "storybook": "storybook dev --quiet -p 7014"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "6.8.0",
-    "@navikt/ds-css": "6.8.0",
-    "@navikt/ds-react": "6.8.0",
-    "@navikt/ft-kodeverk": "^2.4.6",
-    "@navikt/ft-plattform-komponenter": "^2.5.10",
-    "@navikt/ft-types": "^2.4.6",
-    "@navikt/ft-ui-komponenter": "^2.3.7",
-    "@navikt/ft-utils": "^2.3.6",
+    "@navikt/aksel-icons": "6.10.0",
+    "@navikt/ds-css": "6.10.0",
+    "@navikt/ds-react": "6.10.0",
+    "@navikt/ft-kodeverk": "^2.4.7",
+    "@navikt/ft-plattform-komponenter": "^2.5.11",
+    "@navikt/ft-types": "^2.4.7",
+    "@navikt/ft-ui-komponenter": "^2.3.8",
+    "@navikt/ft-utils": "^2.3.7",
     "moment": "2.30.1",
     "react": "18.3.1",
     "react-intl": "6.6.8"
@@ -49,17 +49,17 @@
     "react-intl": "6.3.2"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.3.7",
-    "@storybook/addon-actions": "8.0.10",
-    "@storybook/react": "8.0.10",
-    "@storybook/react-vite": "8.0.10",
+    "@navikt/ft-storybook-utils": "^2.3.8",
+    "@storybook/addon-actions": "8.1.5",
+    "@storybook/react": "8.1.5",
+    "@storybook/react-vite": "8.1.5",
     "@testing-library/react": "14.3.1",
     "cross-env": "7.0.3",
     "eslint": "8.57.0",
-    "storybook": "8.0.10",
+    "storybook": "8.1.5",
     "stylelint": "15.11.0",
     "typescript": "5.4.5",
-    "vite": "5.2.11",
+    "vite": "5.2.12",
     "vitest": "1.6.0"
   },
   "publishConfig": {
