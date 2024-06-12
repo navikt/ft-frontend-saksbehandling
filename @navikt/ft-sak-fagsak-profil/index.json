@@ -1,1 +1,1 @@
-{"v":4,"entries":{"sak-sak-fagsak-profil--default":{"type":"story","id":"sak-sak-fagsak-profil--default","name":"Default","title":"sak/sak-fagsak-profil","importPath":"./src/FagsakProfilSakIndex.stories.tsx","tags":["story"]}}}
+{"v":5,"entries":{"sak-sak-fagsak-profil--default":{"type":"story","id":"sak-sak-fagsak-profil--default","name":"Default","title":"sak/sak-fagsak-profil","importPath":"./src/FagsakProfilSakIndex.stories.tsx","tags":["dev","test"]}}}

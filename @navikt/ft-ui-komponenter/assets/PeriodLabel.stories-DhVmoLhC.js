@@ -1,0 +1,12 @@
+import{j as e}from"./jsx-runtime-_e34SzbC.js";import{F as i,P as c}from"./index-DehekKaw.js";import{t as u}from"./index.es-Be9oOq7l.js";import{m as b}from"./nb_NO-RinjUwPG.js";import{B as h}from"./Label-DRDoq8-c.js";import"./index-DVXBtNgz.js";import"./tslib.es6-BntfKcQG.js";import"./clsx-B-dksMZM.js";const S=u(b),g=({dateStringFom:P,dateStringTom:o,showTodayString:v=!1,size:f})=>e.jsxs(h,{as:"span",size:f,children:[e.jsx(i,{day:"2-digit",month:"2-digit",year:"numeric",value:new Date(P)})," - ",o&&e.jsx(i,{day:"2-digit",month:"2-digit",year:"numeric",value:new Date(o)}),v&&!o&&e.jsx("span",{children:S.formatMessage({id:"PeriodLabel.DateToday"})})]}),t=g;g.__docgenInfo={description:`PeriodLabel
+
+Presentasjonskomponent. Formaterer til og fra dato til en periode på formatet dd.mm.yyyy - dd.mm.yyyy.
+
+Eksempel:
+\`\`\`html
+<PeriodLabel dateStringFom="2017-08-25" dateStringTom="2017-08-31" />
+\`\`\``,methods:[],displayName:"PeriodLabel",props:{dateStringFom:{required:!0,tsType:{name:"string"},description:""},dateStringTom:{required:!1,tsType:{name:"string"},description:""},showTodayString:{required:!1,tsType:{name:"boolean"},description:"",defaultValue:{value:"false",computed:!1}},size:{required:!1,tsType:{name:"union",raw:"'medium' | 'small'",elements:[{name:"literal",value:"'medium'"},{name:"literal",value:"'small'"}]},description:""}}};const y=u({}),I={title:"PeriodLabel",component:t},r=()=>e.jsx(c,{value:y,children:e.jsx(t,{dateStringFom:"2020-01-02",dateStringTom:"2020-01-04"})}),a=()=>e.jsx(c,{value:y,children:e.jsx(t,{dateStringFom:"2020-01-02",showTodayString:!0})});r.__docgenInfo={description:"",methods:[],displayName:"visPeriodelabel"};a.__docgenInfo={description:"",methods:[],displayName:"visPeriodelabelTilDagensDato"};var s,n,d;r.parameters={...r.parameters,docs:{...(s=r.parameters)==null?void 0:s.docs,source:{originalSource:`() => <RawIntlProvider value={intl}>
+    <PeriodLabel dateStringFom="2020-01-02" dateStringTom="2020-01-04" />
+  </RawIntlProvider>`,...(d=(n=r.parameters)==null?void 0:n.docs)==null?void 0:d.source}}};var l,m,p;a.parameters={...a.parameters,docs:{...(l=a.parameters)==null?void 0:l.docs,source:{originalSource:`() => <RawIntlProvider value={intl}>
+    <PeriodLabel dateStringFom="2020-01-02" showTodayString />
+  </RawIntlProvider>`,...(p=(m=a.parameters)==null?void 0:m.docs)==null?void 0:p.source}}};const R=["visPeriodelabel","visPeriodelabelTilDagensDato"];export{R as __namedExportsOrder,I as default,r as visPeriodelabel,a as visPeriodelabelTilDagensDato};
