@@ -1,6 +1,6 @@
 import { BodyShort, Table } from '@navikt/ds-react';
 import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { hasValidDate, required } from '@navikt/ft-form-validators';
+import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -90,7 +90,7 @@ const VurderAktiviteterTabellRad: FunctionComponent<OwnProps> = ({
             </BodyShort>
             <Datepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
-              validate={[required, hasValidDate]}
+              validate={[required, hasValidDate, dateAfterOrEqual(aktivitet.fom)]}
               isReadOnly={readOnly}
               size="small"
             />
