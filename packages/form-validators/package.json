@@ -3,6 +3,7 @@
   "description": "Valideringsregler for bruk i forms",
   "version": "2.3.10",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

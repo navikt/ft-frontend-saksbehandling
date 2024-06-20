@@ -3,6 +3,7 @@
   "description": "Komponent som viser en liste med saker knyttet til en aktør-id",
   "version": "2.4.14",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

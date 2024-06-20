@@ -3,6 +3,7 @@
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
   "version": "2.4.11",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

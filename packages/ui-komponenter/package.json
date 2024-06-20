@@ -3,6 +3,7 @@
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
   "version": "2.3.11",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
