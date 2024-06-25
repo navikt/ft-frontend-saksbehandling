@@ -24,7 +24,7 @@ updates:
           - 'storybook'
       designsystem:
         patterns:
-          - '@navikt/aksel-icons'
+          - '@navikt/aksel-*'
           - '@navikt/ds-*'
   - package-ecosystem: github-actions
     directory: '/'
