@@ -1,4 +1,4 @@
 {
   "FagsakProfile.Dekningsgrad": "Dekningsgraden er {dekningsgrad}%",
-  "FagsakProfile.FagsakMarkering": "Saken er markert med {fagsakMarkeringTekst}"
+  "FagsakProfile.FagsakMarkering": "Saken er markert med {tekst}"
 }

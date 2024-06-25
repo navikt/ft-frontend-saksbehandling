@@ -17,7 +17,7 @@ export interface OwnProps {
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;
   dekningsgrad?: number;
-  fagsakMarkeringTekst?: string;
+  fagsakMarkeringTekster: string[];
 }
 
 /**
@@ -30,29 +30,30 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
   fagsakYtelseType,
   fagsakStatus,
   dekningsgrad,
-  fagsakMarkeringTekst,
+  fagsakMarkeringTekster,
 }) => {
   const intl = useIntl();
   return (
     <>
-      <HStack gap="4">
-        <Heading size="medium">{fagsakYtelseType.navn}</Heading>
-        {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
-          <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
-            <Tag variant="info">{`${dekningsgrad}%`}</Tag>
-          </Tooltip>
-        )}
-        {fagsakMarkeringTekst && (
-          <Tooltip
-            content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
-            alignBottom
-          >
-            <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
-          </Tooltip>
-        )}
-      </HStack>
+      <Heading size="medium">{fagsakYtelseType.navn}</Heading>
       <VerticalSpacer eightPx />
       <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
+      <HStack gap="4">
+        {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
+          <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
+            <Tag size="small" variant="info">{`${dekningsgrad}%`}</Tag>
+          </Tooltip>
+        )}
+        {fagsakMarkeringTekster.length > 0 && fagsakMarkeringTekster.map((tekst) => (
+          <Tooltip
+            content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
+            alignBottom
+          >
+            <Tag size="small" variant="alt1">{`${tekst}`}</Tag>
+          </Tooltip>
+        ))
+        }
+      </HStack>
     </>
   );
 };
