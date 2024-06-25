@@ -3,6 +3,7 @@
   "description": "Dekorator for applikasjon",
   "version": "4.3.14",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

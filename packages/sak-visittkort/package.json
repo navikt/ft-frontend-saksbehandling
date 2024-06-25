@@ -3,6 +3,7 @@
   "description": "Komponent som viser informasjon om søker, annen part og barn",
   "version": "2.3.14",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

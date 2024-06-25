@@ -3,6 +3,7 @@
   "description": "Viser overordnet informasjon om fagsaken",
   "version": "3.3.11",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

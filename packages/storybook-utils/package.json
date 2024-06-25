@@ -2,6 +2,7 @@
   "name": "@navikt/ft-storybook-utils",
   "version": "2.3.11",
   "license": "MIT",
+  "type": "module",
   "private": true,
   "types": "./dist/index.d.ts",
   "files": [

@@ -3,6 +3,7 @@
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
   "version": "5.2.11",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

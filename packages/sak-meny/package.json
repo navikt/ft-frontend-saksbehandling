@@ -3,6 +3,7 @@
   "description": "Meny som viser diverse handlinger en kan utføre på en fagsak",
   "version": "3.3.14",
   "license": "MIT",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
