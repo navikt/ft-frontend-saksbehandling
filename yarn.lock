@@ -3029,7 +3029,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3085,7 +3085,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3139,7 +3139,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     uuid: 9.0.1
     vite: 5.3.1
     vitest: 1.6.0
@@ -3189,7 +3189,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3234,7 +3234,7 @@ __metadata:
     react-hook-form: 7.52.0
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3262,7 +3262,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.57.0
     moment: 2.30.1
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3279,7 +3279,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.57.0
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   languageName: unknown
@@ -3293,7 +3293,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.57.0
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   languageName: unknown
@@ -3325,7 +3325,7 @@ __metadata:
     react-popper: 2.3.0
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3376,7 +3376,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3429,7 +3429,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3477,7 +3477,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3526,7 +3526,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3570,7 +3570,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3614,7 +3614,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3659,7 +3659,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3700,7 +3700,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3737,7 +3737,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3770,7 +3770,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3805,7 +3805,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3850,7 +3850,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3895,7 +3895,7 @@ __metadata:
     react-intl: 6.6.8
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3923,7 +3923,7 @@ __metadata:
     react: 18.3.1
     react-hook-form: 7.52.0
     react-intl: 6.6.8
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
   languageName: unknown
   linkType: soft
@@ -3937,7 +3937,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.57.0
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3966,7 +3966,7 @@ __metadata:
     react-modal: 3.16.1
     storybook: 8.1.10
     stylelint: 15.11.0
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -3990,7 +3990,7 @@ __metadata:
     eslint: 8.57.0
     react: 18.3.1
     react-intl: 6.6.8
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
   languageName: unknown
   linkType: soft
@@ -4004,7 +4004,7 @@ __metadata:
     dayjs: 1.11.11
     eslint: 8.57.0
     react-intl: 6.6.8
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vitest: 1.6.0
   peerDependencies:
@@ -10817,7 +10817,7 @@ __metadata:
     shelljs: 0.8.5
     stylelint: 15.11.0
     stylelint-order: 6.0.4
-    typescript: 5.4.5
+    typescript: 5.5.2
     vite: 5.3.1
     vite-plugin-dts: 3.9.1
     vitest: 1.6.0
@@ -17801,13 +17801,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.4.5":
-  version: 5.4.5
-  resolution: "typescript@npm:5.4.5"
+"typescript@npm:5.5.2":
+  version: 5.5.2
+  resolution: "typescript@npm:5.5.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 53c879c6fa1e3bcb194b274d4501ba1985894b2c2692fa079db03c5a5a7140587a1e04e1ba03184605d35f439b40192d9e138eb3279ca8eee313c081c8bcd9b0
+  checksum: 9c5a7982dadcb2d38d129c575dd38645ae11588ae0d4a12852fb04482bbc5a1660b2371e48fd5b33b6b605cc57cefe777670054546856945a05e77bd22c8c2cd
   languageName: node
   linkType: hard
 
@@ -17831,13 +17831,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@5.4.5#~builtin<compat/typescript>":
-  version: 5.4.5
-  resolution: "typescript@patch:typescript@npm%3A5.4.5#~builtin<compat/typescript>::version=5.4.5&hash=1f5320"
+"typescript@patch:typescript@5.5.2#~builtin<compat/typescript>":
+  version: 5.5.2
+  resolution: "typescript@patch:typescript@npm%3A5.5.2#~builtin<compat/typescript>::version=5.5.2&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2373c693f3b328f3b2387c3efafe6d257b057a142f9a79291854b14ff4d5367d3d730810aee981726b677ae0fd8329b23309da3b6aaab8263dbdccf1da07a3ba
+  checksum: 9d89bac0de650e15d6846485f238d1e65f1013f2c260d9e53e86a1da6ecf8109d9fad9402575c5c36a6592dc5d4370db090e12971c8630ae84453654baabb6b4
   languageName: node
   linkType: hard
 
