@@ -38,6 +38,7 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
       <Heading size="medium">{fagsakYtelseType.navn}</Heading>
       <VerticalSpacer eightPx />
       <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
+      <VerticalSpacer eightPx />
       <HStack gap="4">
         {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
           <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
