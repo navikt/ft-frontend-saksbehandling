@@ -17,7 +17,7 @@ export interface OwnProps {
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;
   dekningsgrad?: number;
-  fagsakMarkeringTekster: string[];
+  fagsakMarkeringTekster?: string[];
 }
 
 /**
@@ -44,7 +44,7 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
             <Tag size="small" variant="info">{`${dekningsgrad}%`}</Tag>
           </Tooltip>
         )}
-        {fagsakMarkeringTekster.length > 0 && fagsakMarkeringTekster.map((tekst) => (
+        {fagsakMarkeringTekster && fagsakMarkeringTekster.length > 0 && fagsakMarkeringTekster.map((tekst) => (
           <Tooltip
             content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
             alignBottom
