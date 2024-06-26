@@ -24,7 +24,7 @@ const Template: StoryFn = () => (
         kodeverk: FAGSAK_YTELSE_KODEVERK,
         navn: 'Foreldrepenger',
       }}
-      fagsakMarkeringTekster={['Næring']}
+      fagsakMarkeringTekster={['Næring', 'Utland']}
       fagsakStatus={{ kode: FagsakStatus.OPPRETTET, kodeverk: FAGSAK_STATUS_KODEVERK, navn: 'Opprettet' }}
       dekningsgrad={100}
     />
