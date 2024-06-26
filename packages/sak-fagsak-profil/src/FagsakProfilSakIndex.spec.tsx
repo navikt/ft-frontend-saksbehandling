@@ -11,5 +11,7 @@ describe('<FagsakProfile>', () => {
     expect(await screen.findByText('Foreldrepenger')).toBeInTheDocument();
     expect(screen.getByText('Dekningsgraden er 100%')).toBeInTheDocument();
     expect(screen.getByText('232341251 - Opprettet')).toBeInTheDocument();
+    expect(screen.getByText('Næring')).toBeInTheDocument();
+    expect(screen.getByText('Utland')).toBeInTheDocument();
   });
 });

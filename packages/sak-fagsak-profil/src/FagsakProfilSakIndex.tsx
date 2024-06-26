@@ -14,7 +14,7 @@ export interface OwnProps {
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;
   dekningsgrad?: number;
-  fagsakMarkeringTekst?: string;
+  fagsakMarkeringTekster?: string[];
 }
 
 const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
@@ -22,7 +22,7 @@ const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
   fagsakYtelseType,
   fagsakStatus,
   dekningsgrad,
-  fagsakMarkeringTekst,
+  fagsakMarkeringTekster,
 }) => (
   <RawIntlProvider value={intl}>
     <FagsakProfile
@@ -30,7 +30,7 @@ const FagsakProfilSakIndex: FunctionComponent<OwnProps> = ({
       fagsakYtelseType={fagsakYtelseType}
       fagsakStatus={fagsakStatus}
       dekningsgrad={dekningsgrad}
-      fagsakMarkeringTekst={fagsakMarkeringTekst}
+      fagsakMarkeringTekster={fagsakMarkeringTekster}
     />
   </RawIntlProvider>
 );
