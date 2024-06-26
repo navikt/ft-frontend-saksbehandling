@@ -34,31 +34,29 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <>
-      <VStack gap="4">
-        <HStack gap="4">
-          <Heading size="medium">{fagsakYtelseType.navn}</Heading>
-          {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
-            <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
-              <Tag variant="info">{`${dekningsgrad}%`}</Tag>
-            </Tooltip>
-          )}
-        </HStack>
-        <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
-        {fagsakMarkeringTekster && fagsakMarkeringTekster.length > 0 && (
-          <HStack gap="4">
-            {fagsakMarkeringTekster.map((tekst) => (
-              <Tooltip
-                content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
-                alignBottom
-              >
-                <Tag size="small" variant="alt1">{tekst}</Tag>
-              </Tooltip>
-            ))}
-          </HStack>
+    <VStack gap="4">
+      <HStack gap="4">
+        <Heading size="medium">{fagsakYtelseType.navn}</Heading>
+        {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
+          <Tooltip content={intl.formatMessage({ id: 'FagsakProfile.Dekningsgrad' }, { dekningsgrad })} alignBottom>
+            <Tag variant="info">{`${dekningsgrad}%`}</Tag>
+          </Tooltip>
         )}
-      </VStack>
-    </>
+      </HStack>
+      <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
+      {fagsakMarkeringTekster && fagsakMarkeringTekster.length > 0 && (
+        <HStack gap="4">
+          {fagsakMarkeringTekster.map((tekst) => (
+            <Tooltip
+              content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
+              alignBottom
+            >
+              <Tag size="small" variant="alt1">{tekst}</Tag>
+            </Tooltip>
+          ))}
+        </HStack>
+      )}
+    </VStack>
   );
 };
 
