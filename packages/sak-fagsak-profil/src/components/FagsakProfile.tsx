@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { Tag, BodyShort, Heading, HStack } from '@navikt/ds-react';
-import { Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Tag, BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Tooltip } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FagsakYtelseType } from '@navikt/ft-kodeverk';
 
@@ -47,14 +47,14 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
         <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
         {fagsakMarkeringTekster && fagsakMarkeringTekster.length > 0 && (
           <HStack gap="4">
-          fagsakMarkeringTekster.map((tekst) => (
-            <Tooltip
-              content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
-              alignBottom
-            >
-              <Tag size="small" variant="alt1">{tekst}</Tag>
-            </Tooltip>
-          )
+            {fagsakMarkeringTekster.map((tekst) => (
+              <Tooltip
+                content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
+                alignBottom
+              >
+                <Tag size="small" variant="alt1">{tekst}</Tag>
+              </Tooltip>
+            ))}
           </HStack>
         )}
       </VStack>
