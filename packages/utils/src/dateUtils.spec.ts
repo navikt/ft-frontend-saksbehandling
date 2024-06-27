@@ -1,19 +1,36 @@
+import { expect } from 'vitest';
 import {
   addDaysToDate,
   calcDaysAndWeeks,
   calcDaysAndWeeksWithWeekends,
+  createWeekAndDay,
   dateFormat,
   findDifferenceInMonthsAndDays,
   timeFormat,
 } from './dateUtils';
 
 describe('dateutils', () => {
+  describe('createWeekAndDay', () => {
+    it.each([
+      [1, 1, '1 uke 1 dag'],
+      [2, 2, '2 uker 2 dager'],
+      [4, 0, '4 uker'],
+      [0, 1, '1 dag'],
+      [undefined, 2, '2 dager'],
+      [2, undefined, '2 uker'],
+      [undefined, undefined, 'Antall uker og dager -'],
+    ])('skal formatere %s uker og %s dager ', (uker, dager, expectedString) => {
+      const resultat = createWeekAndDay(uker, dager);
+      expect(resultat.formattedString).toEqual(expectedString);
+    });
+  });
+
   describe('calcDaysAndWeeksWithWeekends', () => {
     it('Skal kalkulere antall dager mellom to datoer inkludert helger og skrive det ut som uker og dager', () => {
       const fom = '2018-04-17';
       const tom = '2018-06-02';
       const formatedMessage = {
-        id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker',
+        id: 'Dato.AntallDagerOgUker',
         formattedString: '6 uker 5 dager',
         weeks: 6,
         days: 5,
@@ -27,7 +44,7 @@ describe('dateutils', () => {
       const fom = '2018-04-17';
       const tom = '2018-06-02';
       const formatedMessage = {
-        id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker',
+        id: 'Dato.AntallDagerOgUker',
         formattedString: '6 uker 4 dager',
         weeks: 6,
         days: 4,

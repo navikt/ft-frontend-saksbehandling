@@ -16,8 +16,10 @@ const intl = createIntl(messages);
 
 export const TIDENES_ENDE = '9999-12-31';
 
-// Når konsumenter er gått fra å bruke id til å bruke formattedString kan id fjernes
 type WeekAndDay = {
+  /**
+   * @deprecated Når konsumenter er gått fra å bruke id til å bruke formattedString kan id fjernes
+   */
   id: string;
   formattedString: string;
   weeks?: number;
@@ -33,50 +35,34 @@ export const initializeDate = (
   return dayjs(dateString, supportedFormats, strict).utc(true).startOf('day');
 };
 
-const checkDays = (weeks?: number, days?: number): WeekAndDay => {
-  const weeksDaysObj = {
-    weeks,
-    days,
-  };
-
-  let id = 'UttakInfoPanel.AntallFlereDagerOgFlereUker';
-  let formattedString = intl.formatMessage({ id: 'UttakInfoPanel.AntallFlereDagerOgFlereUker' }, { weeks, days });
-
-  if (weeks === undefined && days === undefined) {
-    id = 'UttakInfoPanel.TidenesEnde';
-    formattedString = intl.formatMessage({ id: 'UttakInfoPanel.TidenesEnde' });
-  }
-
-  if (days === 0) {
-    id = weeks === 1 ? 'UttakInfoPanel.AntallNullDagerOgEnUke' : 'UttakInfoPanel.AntallNullDagerOgFlereUker';
-    formattedString = intl.formatMessage({ id }, { weeks });
-  }
-
-  if (weeks === 0) {
-    id = days === 1 ? 'UttakInfoPanel.AntallEnDagOgNullUker' : 'UttakInfoPanel.AntallFlereDagerOgNullUker';
-    formattedString = intl.formatMessage({ id }, { days });
-  }
-
-  if (days === 1) {
-    id = weeks === 1 ? 'UttakInfoPanel.AntallEnDagOgEnUke' : 'UttakInfoPanel.AntallEnDagOgFlereUker';
-    formattedString = intl.formatMessage({ id }, { weeks, days });
-  }
-
-  if (weeks === 1) {
-    id = 'UttakInfoPanel.AntallFlereDagerOgEnUke';
-    formattedString = intl.formatMessage({ id }, { weeks, days });
+export const createWeekAndDay = (weeks?: number, days?: number): WeekAndDay => {
+  let id = 'Dato.AntallDagerOgUker';
+  if (!weeks && !days) {
+    id = 'Dato.TidenesEnde';
+    return {
+      id,
+      formattedString: intl.formatMessage({ id }),
+    };
   }
   return {
     id,
-    formattedString,
-    ...weeksDaysObj,
+    formattedString: intl.formatMessage(
+      { id },
+      {
+        weeks: weeks ?? 0,
+        days: days ?? 0,
+        seperator: days && weeks ? ' ' : '',
+      },
+    ),
+    weeks,
+    days,
   };
 };
 
 export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeekends = true): number => {
   if (tilDatoPeriode === TIDENES_ENDE) {
     // @ts-ignore Kva er dette?
-    return checkDays();
+    return createWeekAndDay();
   }
 
   const fraDato = initializeDate(fraDatoPeriode, ISO_DATE_FORMAT);
@@ -111,7 +97,7 @@ export const calcDaysAndWeeks = (fraDatoPeriode: string, tilDatoPeriode: string)
   const weeks = Math.floor(numOfDays / 5);
   const days = numOfDays % 5;
 
-  return checkDays(weeks, days);
+  return createWeekAndDay(weeks, days);
 };
 
 export const calcDaysAndWeeksWithWeekends = (fraDatoPeriode: string, tilDatoPeriode: string): WeekAndDay => {
@@ -122,7 +108,7 @@ export const calcDaysAndWeeksWithWeekends = (fraDatoPeriode: string, tilDatoPeri
   const weeks = Math.floor(numOfDays / 7);
   const days = numOfDays % 7;
 
-  return checkDays(weeks, days);
+  return createWeekAndDay(weeks, days);
 };
 
 export const dateFormat = (date?: Date | string): string => initializeDate(date).format(DDMMYYYY_DATE_FORMAT);
