@@ -34,6 +34,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.umd.js"
     }
   }
