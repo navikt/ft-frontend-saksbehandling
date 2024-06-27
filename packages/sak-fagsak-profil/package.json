@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-fagsak-profil",
   "description": "Viser overordnet informasjon om fagsaken",
-  "version": "3.3.12",
+  "version": "3.3.13",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
