@@ -39,19 +39,19 @@
     "react-intl": "6.6.8"
   },
   "peerDependencies": {
-    "@navikt/aksel-icons": "3.1.2",
-    "@navikt/ds-css": "2.8.11",
-    "@navikt/ds-react": "2.8.11",
+    "@navikt/aksel-icons": "6.12.0",
+    "@navikt/ds-css": "6.12.0",
+    "@navikt/ds-react": "6.12.0",
     "@navikt/ft-form-hooks": "4.x",
     "@navikt/ft-form-validators": "2.x",
     "@navikt/ft-kodeverk": "2.x",
     "@navikt/ft-types": "2.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
-    "classnames": "2.3.2",
-    "react": "18.2.0",
-    "react-hook-form": "7.43.9",
-    "react-intl": "6.3.2"
+    "classnames": "2.5.1",
+    "react": "18.3.1",
+    "react-hook-form": "7.52.0",
+    "react-intl": "6.6.8"
   },
   "devDependencies": {
     "@navikt/ft-storybook-utils": "^2.3.15",
