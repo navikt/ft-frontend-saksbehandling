@@ -3332,7 +3332,6 @@ __metadata:
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: 18.3.1
-    react-collapse: 5.1.1
     react-dom: 18.3.1
     react-popper: 2.3.0
     storybook: 8.1.10
@@ -3347,7 +3346,6 @@ __metadata:
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: 18.2.0
-    react-collapse: 5.1.1
     react-dom: 18.2.0
     react-popper: 2.3.0
   peerDependenciesMeta:
@@ -3383,7 +3381,6 @@ __metadata:
     echarts: 5.5.0
     eslint: 8.57.0
     react: 18.3.1
-    react-collapse: 5.1.1
     react-hook-form: 7.52.0
     react-intl: 6.6.8
     storybook: 8.1.10
@@ -3406,7 +3403,6 @@ __metadata:
     dayjs: 1.11.7
     echarts: 5.4.2
     react: 18.2.0
-    react-collapse: 5.1.1
     react-hook-form: 7.43.9
     react-intl: 6.3.2
   languageName: unknown
@@ -3856,7 +3852,6 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.57.0
     react: 18.3.1
-    react-collapse: 5.1.1
     react-dom: 18.3.1
     react-hook-form: 7.52.0
     react-intl: 6.6.8
@@ -3876,7 +3871,6 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     react: 18.2.0
-    react-collapse: 5.1.1
     react-dom: 18.2.0
     react-hook-form: 7.43.9
     react-intl: 6.3.2
@@ -6481,15 +6475,6 @@ __metadata:
   version: 1.2.7
   resolution: "@types/range-parser@npm:1.2.7"
   checksum: 95640233b689dfbd85b8c6ee268812a732cf36d5affead89e806fe30da9a430767af8ef2cd661024fd97e19d61f3dec75af2df5e80ec3bea000019ab7028629a
-  languageName: node
-  linkType: hard
-
-"@types/react-collapse@npm:5.0.4":
-  version: 5.0.4
-  resolution: "@types/react-collapse@npm:5.0.4"
-  dependencies:
-    "@types/react": "*"
-  checksum: b4fecc3245fea612caa940d34deae6d4673068d622e44959d1b716b11431c65e7a5b9ad8f4247cce6adc70d26dca76b629da9701f30f6796402e5f0272c5f788
   languageName: node
   linkType: hard
 
@@ -10818,7 +10803,6 @@ __metadata:
     "@storybook/theming": 8.1.10
     "@testing-library/jest-dom": 6.4.6
     "@types/react": 18.3.3
-    "@types/react-collapse": 5.0.4
     "@types/react-dom": 18.3.0
     "@types/react-responsive": 8.0.8
     "@types/uuid": ^9.0.8
@@ -15238,15 +15222,6 @@ __metadata:
     iconv-lite: 0.4.24
     unpipe: 1.0.0
   checksum: ba1583c8d8a48e8fbb7a873fdbb2df66ea4ff83775421bfe21ee120140949ab048200668c47d9ae3880012f6e217052690628cf679ddfbd82c9fc9358d574676
-  languageName: node
-  linkType: hard
-
-"react-collapse@npm:5.1.1":
-  version: 5.1.1
-  resolution: "react-collapse@npm:5.1.1"
-  peerDependencies:
-    react: ">=16.3.0"
-  checksum: 3c215cf38782bfce2b2a9fccac22d77ce945ceb5b4866bfb9abf33eecb9d1e40555c4d076ae6648d7f1765164e083e1f74a458aeb7f8e74c23ce1bf7bf20d996
   languageName: node
   linkType: hard
 
