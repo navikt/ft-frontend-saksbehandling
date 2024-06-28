@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-fagsak-profil",
   "description": "Viser overordnet informasjon om fagsaken",
-  "version": "3.3.15",
+  "version": "3.3.16",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -25,10 +25,10 @@
   "dependencies": {
     "@navikt/ds-css": "6.12.0",
     "@navikt/ds-react": "6.12.0",
-    "@navikt/ft-kodeverk": "^2.4.12",
-    "@navikt/ft-types": "^2.4.12",
-    "@navikt/ft-ui-komponenter": "^2.3.14",
-    "@navikt/ft-utils": "^2.3.13",
+    "@navikt/ft-kodeverk": "^2.4.13",
+    "@navikt/ft-types": "^2.4.13",
+    "@navikt/ft-ui-komponenter": "^2.3.15",
+    "@navikt/ft-utils": "^2.3.14",
     "react": "18.3.1",
     "react-intl": "6.6.8"
   },
