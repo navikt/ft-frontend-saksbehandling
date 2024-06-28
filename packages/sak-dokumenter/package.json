@@ -37,15 +37,15 @@
     "react-intl": "6.6.8"
   },
   "peerDependencies": {
-    "@navikt/aksel-icons": "3.1.2",
-    "@navikt/ds-css": "2.8.11",
-    "@navikt/ds-react": "2.8.11",
+    "@navikt/aksel-icons": "6.12.0",
+    "@navikt/ds-css": "6.12.0",
+    "@navikt/ds-react": "6.12.0",
     "@navikt/ft-kodeverk": "2.x",
     "@navikt/ft-types": "2.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
-    "react": "18.2.0",
-    "react-intl": "6.3.2"
+    "react": "18.3.1",
+    "react-intl": "6.6.8"
   },
   "devDependencies": {
     "@storybook/addon-actions": "8.1.11",
