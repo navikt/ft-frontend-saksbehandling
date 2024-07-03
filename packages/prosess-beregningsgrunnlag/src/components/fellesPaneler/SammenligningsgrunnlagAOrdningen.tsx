@@ -1,17 +1,17 @@
-import React, { FunctionComponent, ReactElement, useMemo, useCallback } from 'react';
+import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
+import React, { FunctionComponent, ReactElement, useCallback, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort, ReadMore, Label, Heading } from '@navikt/ds-react';
 
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { VerticalSpacer, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
+import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import {
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
   InntektsgrunnlagMåned,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
@@ -21,8 +21,8 @@ import { OptionDataValue } from 'echarts/types/src/util/types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import ReactECharts from '../echart/ReactECharts';
 
-import styles from './sammenligningsgrunnlagAOrdningen.module.css';
 import Ledelinje from './Ledelinje';
+import styles from './sammenligningsgrunnlagAOrdningen.module.css';
 
 const TOM_ARRAY: InntektsgrunnlagMåned[] = [];
 const GRAF_FARGE_AT = '#99bdcd';
@@ -207,7 +207,7 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
 
   return (
     <>
-      <ReadMore size="medium" header={lagOverskrift()} defaultOpen>
+      <ReadMore size="medium" header={lagOverskrift()} defaultOpen className={styles.readMore}>
         <ReactECharts
           option={{
             tooltip: {
