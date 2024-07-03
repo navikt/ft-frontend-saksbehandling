@@ -10,5 +10,5 @@
   min-width: 97px;
 }
 .readMore {
-  overflow-y: auto;
+  overflow-x: auto;
 }
