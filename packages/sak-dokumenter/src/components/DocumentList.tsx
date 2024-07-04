@@ -114,7 +114,7 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
         </Table.Header>
         <Table.Body>
           {sortedDocuments.map(document => (
-            <Table.Row>
+            <Table.Row key={document.dokumentId}>
               <Table.DataCell>
                 <Checkbox
                   hideLabel
