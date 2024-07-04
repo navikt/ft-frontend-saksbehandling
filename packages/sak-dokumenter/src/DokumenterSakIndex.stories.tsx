@@ -22,7 +22,7 @@ const Template: StoryFn<{
   <div
     style={{
       width: '700px',
-      height: "250px",
+      // height: "250px",
       margin: '50px',
       padding: '20px',
       overflow: "scroll",
@@ -65,7 +65,7 @@ Default.args = {
       tittel: 'Dette er et tredje dokument',
       tidspunkt: '2017-01-03T10:54:25.455',
       kommunikasjonsretning: Kommunikasjonsretning.NOTAT,
-      gjelderFor: 'Dette er en lang tekst som skal kuttes',
+      gjelderFor: 'Dette er en lang tekst som ikke skal kuttes',
     },
     {
       journalpostId: '4',
