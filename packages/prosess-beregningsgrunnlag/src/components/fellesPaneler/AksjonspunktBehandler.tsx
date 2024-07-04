@@ -1,42 +1,42 @@
+import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
+  Beregningsgrunnlag as BeregningsgrunnlagProp,
   SammenligningsgrunlagProp,
-  Vilkarperiode,
   Vilkar,
+  Vilkarperiode,
 } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { useFieldArray, useForm } from 'react-hook-form';
-import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
-import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
-import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
-import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
+import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
+import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
+import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
+import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 
-import styles from './aksjonspunktBehandler.module.css';
-import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';
-import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
-import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
-import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
+import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import styles from './aksjonspunktBehandler.module.css';
+import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -547,7 +547,9 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
               avklaringsbehov={finnAvklaringsbehov(bgSomSkalVurderes[index].avklaringsbehov)}
               beregningsgrunnlag={bgSomSkalVurderes[index]}
             />
-            <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder}>
+            <div
+              className={`${readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder} ${styles.aksjonspunktWrapper}`}
+            >
               {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
               <VerticalSpacer sixteenPx />
               {submittKnapp}
