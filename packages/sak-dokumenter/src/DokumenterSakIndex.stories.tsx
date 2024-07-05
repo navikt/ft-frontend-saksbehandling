@@ -25,7 +25,7 @@ const Template: StoryFn<{
       // height: "250px",
       margin: '50px',
       padding: '20px',
-      overflow: "scroll",
+      overflow: 'scroll',
       backgroundColor: 'white',
     }}
   >
