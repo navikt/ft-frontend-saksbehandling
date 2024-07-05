@@ -1,7 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort, Button, Checkbox, Link, SortState, Table } from '@navikt/ds-react';
-import { ChevronLeftCircleIcon, ChevronRightCircleIcon, NotePencilIcon, StarFillIcon } from '@navikt/aksel-icons';
+import {
+  ChevronLeftCircleFillIcon,
+  ChevronRightCircleFillIcon,
+  NotePencilFillIcon,
+  StarFillIcon,
+} from '@navikt/aksel-icons';
 
 import { Kommunikasjonsretning } from '@navikt/ft-kodeverk';
 import { Dokument } from '@navikt/ft-types';
@@ -16,6 +21,47 @@ export interface OwnProps {
 }
 
 type TableHeaders = 'kommunikasjonsretning' | 'tittel' | 'gjelderFor' | 'tidspunkt';
+
+const KommunikasjonsretningIkon = ({ kommunikasjonsretning }: { kommunikasjonsretning: string }) => {
+  const intl = useIntl();
+  if (kommunikasjonsretning === Kommunikasjonsretning.INN) {
+    return (
+      <span className={styles.kommunikasjonsretning}>
+        <ChevronRightCircleFillIcon
+          color="var(--a-purple-500)"
+          width={25}
+          height={25}
+          title={intl.formatMessage({ id: 'DocumentList.Motta' })}
+        />
+        <FormattedMessage id="DocumentList.Motta" />
+      </span>
+    );
+  }
+  if (kommunikasjonsretning === Kommunikasjonsretning.UT) {
+    return (
+      <span className={styles.kommunikasjonsretning}>
+        <ChevronLeftCircleFillIcon
+          color="var(--a-purple-200)"
+          width={25}
+          height={25}
+          title={intl.formatMessage({ id: 'DocumentList.Send' })}
+        />
+        <FormattedMessage id="DocumentList.Send" />
+      </span>
+    );
+  }
+  return (
+    <span className={styles.kommunikasjonsretning}>
+      <NotePencilFillIcon
+        color="var(--a-gray-700)"
+        width={25}
+        height={25}
+        title={intl.formatMessage({ id: 'DocumentList.Intern' })}
+      />
+      <FormattedMessage id="DocumentList.Intern" />
+    </span>
+  );
+};
 
 /**
  * DocumentList
@@ -81,6 +127,24 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
   }
   return (
     <>
+      {valgteDokumentIder.length > 0 && (
+        <Button
+          onClick={event =>
+            valgteDokumentIder.forEach(dokumentId =>
+              selectDocumentCallback(
+                event,
+                dokumentId,
+                documents.find(document => document.dokumentId === dokumentId),
+              ),
+            )
+          }
+          className={styles.openDocumentButton}
+          size="small"
+          variant="primary"
+        >
+          <FormattedMessage id="DocumentList.LastNedKnapp" values={{ antall: valgteDokumentIder.length }} />
+        </Button>
+      )}
       <Table size="small" sort={sort} onSortChange={sortKey => handleSort(sortKey as TableHeaders)}>
         <Table.Header>
           <Table.Row>
@@ -88,11 +152,11 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
               <Checkbox
                 checked={valgteDokumentIder.length === sortedDocuments.length}
                 indeterminate={valgteDokumentIder.length > 0 && valgteDokumentIder.length !== sortedDocuments.length}
-                onChange={() => {
+                onChange={() =>
                   valgteDokumentIder.length > 0
                     ? setValgteDokumentIder([])
-                    : setValgteDokumentIder(sortedDocuments.map(({ dokumentId }) => dokumentId));
-                }}
+                    : setValgteDokumentIder(sortedDocuments.map(({ dokumentId }) => dokumentId))
+                }
                 hideLabel
               >
                 Velg alle rader
@@ -134,7 +198,12 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
                   document.behandlingUuidList.includes(behandlingUuid) && (
                     <StarFillIcon className={styles.image} title={intl.formatMessage({ id: 'DocumentList.IBruk' })} />
                   )}
-                <Link onClick={event => selectDocumentCallback(event, document.dokumentId, document)}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid -- ideelt sett hadde vi brukt en lenke som direkte åpnet dokumentet i ny fane.
+                Men fordi denne komponent kun har ansvar for å gi callback på ønsket dokument så må det brukes onClick */}
+                <Link
+                  className={styles.dokumentlenke}
+                  onClick={event => selectDocumentCallback(event, document.dokumentId, document)}
+                >
                   {document.tittel}
                 </Link>
               </Table.DataCell>
@@ -152,53 +221,7 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
           ))}
         </Table.Body>
       </Table>
-      {valgteDokumentIder.length > 0 && (
-        <div>
-          <Button
-            onClick={event =>
-              valgteDokumentIder.forEach(dokumentId =>
-                selectDocumentCallback(
-                  event,
-                  dokumentId,
-                  documents.find(document => document.dokumentId === dokumentId),
-                ),
-              )
-            }
-            className={styles.openDocumentButton}
-            size="small"
-            variant="secondary"
-          >
-            <FormattedMessage id="DocumentList.LastNedKnapp" values={{ antall: valgteDokumentIder.length }} />
-          </Button>
-        </div>
-      )}
     </>
-  );
-};
-
-const KommunikasjonsretningIkon = ({ kommunikasjonsretning }: { kommunikasjonsretning: string }) => {
-  const intl = useIntl();
-  if (kommunikasjonsretning === Kommunikasjonsretning.INN) {
-    return (
-      <span className={styles.kommunikasjonsretning}>
-        <ChevronRightCircleIcon width={20} height={20} title={intl.formatMessage({ id: 'DocumentList.Motta' })} />
-        <FormattedMessage id="DocumentList.Motta" />
-      </span>
-    );
-  }
-  if (kommunikasjonsretning === Kommunikasjonsretning.UT) {
-    return (
-      <span className={styles.kommunikasjonsretning}>
-        <ChevronLeftCircleIcon width={20} height={20} title={intl.formatMessage({ id: 'DocumentList.Send' })} />
-        <FormattedMessage id="DocumentList.Send" />
-      </span>
-    );
-  }
-  return (
-    <span className={styles.kommunikasjonsretning}>
-      <NotePencilIcon width={20} height={20} title={intl.formatMessage({ id: 'DocumentList.Intern' })} />
-      <FormattedMessage id="DocumentList.Intern" />
-    </span>
   );
 };
 
