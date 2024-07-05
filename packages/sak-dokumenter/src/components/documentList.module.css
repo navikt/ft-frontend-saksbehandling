@@ -7,13 +7,13 @@
   margin-top: 30px;
 }
 .kommunikasjonsretning {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: var(--a-spacing-2);
 }
 .dokumentlenke {
-  display: inline;
   cursor: pointer;
+  display: inline;
 }
 .openDocumentButton {
   margin-top: var(--a-spacing-2);
