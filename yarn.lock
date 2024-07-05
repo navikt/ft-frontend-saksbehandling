@@ -3066,7 +3066,7 @@ __metadata:
     eslint: 8.57.0
     react: 18.3.1
     react-dom: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3089,7 +3089,7 @@ __metadata:
     dayjs-plugin-utc: 0.1.2
     react: 18.3.1
     react-dom: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3122,7 +3122,7 @@ __metadata:
     eslint: 8.57.0
     react: 18.3.1
     react-dom: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3145,7 +3145,7 @@ __metadata:
     dayjs-plugin-utc: 0.1.2
     react: 18.3.1
     react-dom: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3176,7 +3176,7 @@ __metadata:
     dayjs: 1.11.11
     eslint: 8.57.0
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3198,7 +3198,7 @@ __metadata:
     core-js: 3.37.1
     dayjs: 1.11.11
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     uuid: 9.0.1
   languageName: unknown
@@ -3227,7 +3227,7 @@ __metadata:
     eslint: 8.57.0
     moment: 2.30.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3245,7 +3245,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     moment: 2.30.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3273,7 +3273,7 @@ __metadata:
     eslint: 8.57.0
     lodash.throttle: 4.1.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     storybook: 8.1.11
     stylelint: 15.11.0
     typescript: 5.5.2
@@ -3291,7 +3291,7 @@ __metadata:
     dayjs: 1.11.11
     lodash.throttle: 4.1.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
   languageName: unknown
   linkType: soft
 
@@ -3411,7 +3411,7 @@ __metadata:
     echarts: 5.5.1
     eslint: 8.57.0
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3433,7 +3433,7 @@ __metadata:
     dayjs: 1.11.11
     echarts: 5.5.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3463,7 +3463,7 @@ __metadata:
     eslint: 8.57.0
     moment: 2.30.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3483,7 +3483,7 @@ __metadata:
     dayjs: 1.11.11
     moment: 2.30.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3511,7 +3511,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.57.0
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3530,7 +3530,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     classnames: 2.5.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3560,7 +3560,7 @@ __metadata:
     eslint: 8.57.0
     moment: 2.30.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3580,7 +3580,7 @@ __metadata:
     dayjs: 1.11.11
     moment: 2.30.1
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3839,7 +3839,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 8.57.0
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3855,7 +3855,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3883,7 +3883,7 @@ __metadata:
     eslint: 8.57.0
     react: 18.3.1
     react-dom: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     storybook: 8.1.11
     stylelint: 15.11.0
@@ -3902,7 +3902,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     react: 18.3.1
     react-dom: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
   languageName: unknown
   linkType: soft
@@ -3957,7 +3957,7 @@ __metadata:
     eslint: 8.57.0
     history: 5.3.0
     react: 18.3.1
-    react-hook-form: 7.52.0
+    react-hook-form: 7.52.1
     react-intl: 6.6.8
     typescript: 5.5.2
     vite: 5.3.2
@@ -15326,12 +15326,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.52.0":
-  version: 7.52.0
-  resolution: "react-hook-form@npm:7.52.0"
+"react-hook-form@npm:7.52.1":
+  version: 7.52.1
+  resolution: "react-hook-form@npm:7.52.1"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: f6c710dbac4462bf0d5aa25dd7d494815395819fbdf594f9bd736c99f77d63e699b4a41663a32486f7b05a75526d6cceae5eeb502189ffd93d12081c84603a38
+  checksum: 224fec214c5c7093b6949bc0a4fce3cf9b7a567a2f36dc3c7feeb1e721c5cccbd21f0f0ab19aa1f5f912014264f9c2224181370007609693b6c5ef6778f59ca5
   languageName: node
   linkType: hard
 
