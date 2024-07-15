@@ -24,8 +24,8 @@
     "storybook": "storybook dev --quiet -p 7013"
   },
   "dependencies": {
-    "@navikt/ds-css": "6.12.0",
-    "@navikt/ds-react": "6.12.0",
+    "@navikt/ds-css": "6.13.0",
+    "@navikt/ds-react": "6.13.0",
     "@navikt/ft-kodeverk": "^2.4.13",
     "@navikt/ft-plattform-komponenter": "^3.0.1",
     "@navikt/ft-sak-visittkort": "^2.3.19",
@@ -36,8 +36,8 @@
     "react-intl": "6.6.8"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "6.12.0",
-    "@navikt/ds-react": "6.12.0",
+    "@navikt/ds-css": "6.13.0",
+    "@navikt/ds-react": "6.13.0",
     "@navikt/ft-kodeverk": "2.x",
     "@navikt/ft-plattform-komponenter": "2.x",
     "@navikt/ft-sak-visittkort": "2.x",
