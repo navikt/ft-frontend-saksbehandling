@@ -2850,9 +2850,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lerna/create@npm:8.1.5":
-  version: 8.1.5
-  resolution: "@lerna/create@npm:8.1.5"
+"@lerna/create@npm:8.1.7":
+  version: 8.1.7
+  resolution: "@lerna/create@npm:8.1.7"
   dependencies:
     "@npmcli/arborist": 7.5.3
     "@npmcli/package-json": 5.2.0
@@ -2911,6 +2911,8 @@ __metadata:
     signal-exit: 3.0.7
     slash: ^3.0.0
     ssri: ^10.0.6
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
     strong-log-transformer: 2.1.0
     tar: 6.2.1
     temp-dir: 1.0.0
@@ -2923,7 +2925,7 @@ __metadata:
     write-pkg: 4.0.0
     yargs: 17.7.2
     yargs-parser: 21.1.1
-  checksum: 106beac040c5ce14695a2ec12802a51826ae2ae96b01ea552e3612f386fc4e9025c0bc0e322cfb90ef43054a20d9bf72af23ab360b68d2fe8a2d89f841ac25c3
+  checksum: ec7aa7fb5d8485ab0ae838a6aa85f33c1c41fc5da5d3ef02cb686b8a376e47f5533a59b1d83bfa4f76c6bc3d23fd9caae47f7a1f314769447eafb7c714ca6650
   languageName: node
   linkType: hard
 
@@ -10846,7 +10848,7 @@ __metadata:
     gh-pages: 6.1.1
     husky: 9.0.11
     jsdom: 24.1.0
-    lerna: 8.1.5
+    lerna: 8.1.7
     lint-staged: 15.2.7
     postcss-less: 6.0.0
     prettier: 3.3.2
@@ -12762,11 +12764,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lerna@npm:8.1.5":
-  version: 8.1.5
-  resolution: "lerna@npm:8.1.5"
+"lerna@npm:8.1.7":
+  version: 8.1.7
+  resolution: "lerna@npm:8.1.7"
   dependencies:
-    "@lerna/create": 8.1.5
+    "@lerna/create": 8.1.7
     "@npmcli/arborist": 7.5.3
     "@npmcli/package-json": 5.2.0
     "@npmcli/run-script": 8.1.0
@@ -12832,6 +12834,8 @@ __metadata:
     signal-exit: 3.0.7
     slash: 3.0.0
     ssri: ^10.0.6
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
     strong-log-transformer: 2.1.0
     tar: 6.2.1
     temp-dir: 1.0.0
@@ -12847,7 +12851,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     lerna: dist/cli.js
-  checksum: 4402426072a73e69a9ee26abc9558b8036d7378787888af86a6ec20b031f38afde29d4938ef117d308e463e95de21f60576c6967ea81125b64607a7f2a5afc53
+  checksum: ea74fffe1b522259ddbdecd4dc232a3201be27227d617e1f92dc440724d0559bebec2106baec65d05a1e72f53d75d4e7a39d4554bea62cb14dc1d072278fed23
   languageName: node
   linkType: hard
 
