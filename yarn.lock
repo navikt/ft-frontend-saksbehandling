@@ -10844,7 +10844,7 @@ __metadata:
     eslint-plugin-testing-library: 6.2.2
     eslint-plugin-vitest: 0.3.26
     gh-pages: 6.1.1
-    husky: 9.0.11
+    husky: 9.1.2
     jsdom: 24.1.0
     lerna: 8.1.5
     lint-staged: 15.2.7
@@ -11614,12 +11614,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:9.0.11":
-  version: 9.0.11
-  resolution: "husky@npm:9.0.11"
+"husky@npm:9.1.2":
+  version: 9.1.2
+  resolution: "husky@npm:9.1.2"
   bin:
-    husky: bin.mjs
-  checksum: 1aebc3334dc7ac6288ff5e1fb72cfb447cfa474e72cf7ba692e8c5698c573ab725c28c6a5088c9f8e6aca5f47d40fa7261beffbc07a4d307ca21656dc4571f07
+    husky: bin.js
+  checksum: 850662c21b425edf17f81175b109b946a065e2f5509462afce2be466d82a15f5694efcecd41ad2bdfcc304530b3e0e7504392c0e2173a6de72f01c250b4dca57
   languageName: node
   linkType: hard
 
