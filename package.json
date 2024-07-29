@@ -50,6 +50,7 @@
     "body-parser": "1.20.2",
     "cross-env": "7.0.3",
     "eslint": "9.x",
+    "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-vitest": "0.5.4",
     "gh-pages": "6.1.1",
