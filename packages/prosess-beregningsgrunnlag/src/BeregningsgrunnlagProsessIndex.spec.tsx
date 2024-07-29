@@ -45,7 +45,8 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     ).toBeInTheDocument();
   });
 
-  it('skal vise informasjon om arbeidstakerinntekt', async () => {
+  // TODO Fix tekst (Dette er same tekst som i ein annan test)
+  it('skal vise informasjon om arbeidstakerinntekt (Dette er same tekst som over)', async () => {
     render(<ArbeidstakerUtenAvvik />);
     expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();
     await userEvent.click(screen.getByText('Søker har hatt lønnsendring i løpet av de siste tre månedene'));

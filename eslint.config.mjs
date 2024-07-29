@@ -1,5 +1,6 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
+import vitest from 'eslint-plugin-vitest';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
 
@@ -8,20 +9,24 @@ const WARNING = 1;
 const ERROR = 2;
 
 export default [
-  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   {
+    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     settings: {
       react: {
         version: 'detect',
       },
     },
+    plugins: {
+      vitest,
+    },
+    languageOptions: { globals: globals.browser },
   },
-  { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
     rules: {
+      ...vitest.configs.recommended.rules,
       'max-len': [ERROR, 160],
       'no-console': WARNING,
       'no-debugger': WARNING,
