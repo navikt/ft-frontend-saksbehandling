@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import { BehandlingAppKontekst, Behandlingsresultat, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType, BehandlingType, BehandlingStatus } from '@navikt/ft-kodeverk';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';

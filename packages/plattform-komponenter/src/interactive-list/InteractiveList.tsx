@@ -38,6 +38,7 @@ const InteractiveListElement = (props: InteractiveListElement) => {
 const InteractiveList = ({ elements }: InteractiveListProps) => (
   <ul className={styles.interactiveList}>
     {elements.map(elementProps => (
+      // eslint-disable-next-line react/jsx-key
       <InteractiveListElement {...elementProps} />
     ))}
   </ul>

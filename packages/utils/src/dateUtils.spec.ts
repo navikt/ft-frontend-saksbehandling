@@ -19,7 +19,7 @@ describe('dateutils', () => {
       [undefined, 2, '2 dager'],
       [2, undefined, '2 uker'],
       [undefined, undefined, 'Antall uker og dager -'],
-    ])('skal formatere %s uker og %s dager ', (uker, dager, expectedString) => {
+    ])('skal formatere %s uker og %s dager', (uker, dager, expectedString) => {
       const resultat = createWeekAndDay(uker, dager);
       expect(resultat.formattedString).toEqual(expectedString);
     });

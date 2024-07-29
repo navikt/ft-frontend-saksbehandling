@@ -146,6 +146,7 @@ const VurderFaktaBeregningPanelImpl: FunctionComponent<VurderFaktaBeregningPanel
       setSubmitDisabled(true);
       submitCallback(transformValuesVurderFaktaBeregning(values, skalKunneAvbryteOverstyring));
     } else {
+      // eslint-disable-next-line no-console
       console.error(errors);
     }
   };

@@ -181,7 +181,6 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
         />
         {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
           <div className={styles.padding}>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a
               href=""
               onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}

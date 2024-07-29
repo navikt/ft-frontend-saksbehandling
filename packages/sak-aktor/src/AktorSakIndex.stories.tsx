@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import { Aktor } from '@navikt/ft-types';
 import { NavBrukerKjonn, FagsakStatus, RelasjonsRolleType, FagsakYtelseType, KodeverkType } from '@navikt/ft-kodeverk';
 import { alleKodeverk } from '@navikt/ft-storybook-utils';

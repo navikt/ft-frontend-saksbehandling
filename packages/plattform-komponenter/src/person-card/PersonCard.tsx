@@ -115,7 +115,6 @@ const PersonCard = ({
                   renderArrowElement
                   customPopperStyles={{ top: '6px', left: '-1px', zIndex: 2 }}
                   popperProps={{
-                    // eslint-disable-next-line react/no-unstable-nested-components
                     children: (): React.ReactNode =>
                       renderMenuContent && (
                         <div className={styles[personCardCls.element('menu-container')]}>{renderMenuContent()}</div>
@@ -123,7 +122,6 @@ const PersonCard = ({
                     placement: 'bottom-start',
                   }}
                   referenceProps={{
-                    // eslint-disable-next-line react/no-unstable-nested-components
                     children: ({ ref }): React.ReactNode => (
                       <div className={styles[personCardCls.element('menu-button-container')]} ref={ref}>
                         <Menu onClick={onClick} isOpen={isMenuOpen} />

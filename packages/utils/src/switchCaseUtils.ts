@@ -9,7 +9,6 @@
  *       return assertUnreachable(kodeverkType);
  *   }
  */
-// eslint-disable-next-line import/prefer-default-export
 export function assertUnreachable(x: never): never {
   throw new Error('Uventet verdi: alle tilfeller må håndteres:', x);
 }

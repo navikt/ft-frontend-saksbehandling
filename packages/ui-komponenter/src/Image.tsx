@@ -59,7 +59,7 @@ const Image = React.forwardRef<HTMLImageElement, OwnProps>(
     const imgSource = srcHover && isHovering ? srcHover : src;
 
     const image = (
-      <img // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
+      <img
         ref={ref}
         className={className}
         src={imgSource}
@@ -86,5 +86,6 @@ const Image = React.forwardRef<HTMLImageElement, OwnProps>(
     );
   },
 );
+Image.displayName = 'Image';
 
 export default Image;

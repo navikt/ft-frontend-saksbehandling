@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 enum KonsekvensForYtelsen {
   FORELDREPENGER_OPPHØRER = 'FORELDREPENGER_OPPHØRER',
   ENDRING_I_BEREGNING = 'ENDRING_I_BEREGNING',

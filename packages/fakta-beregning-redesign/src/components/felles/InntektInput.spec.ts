@@ -1,7 +1,7 @@
 import InntektInput from './InntektInput';
 
 describe('<InntektInput>', () => {
-  it('skal sette initial values for typen aktivitetsstatus som er angitt ', () => {
+  it('skal sette initial values for typen aktivitetsstatus som er angitt', () => {
     const andelerForFaktaOmBeregning = [
       {
         fastsattBelop: 40000,

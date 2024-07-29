@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-// eslint-disable-next-line react/jsx-pascal-case, camelcase
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';

@@ -60,7 +60,6 @@ const FeilmeldingPanel: FunctionComponent<OwnProps> = ({ feilmeldinger, fjernFei
           <Detail size="small" className={styles.wordWrap}>{`${decodeHtmlEntity(message.melding)} `}</Detail>
           {message.tilleggsInfo && (
             <Detail>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a
                 href=""
                 onClick={event => toggleModalOnClick(event, index)}

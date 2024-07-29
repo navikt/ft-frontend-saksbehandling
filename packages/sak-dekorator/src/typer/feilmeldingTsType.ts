@@ -4,7 +4,6 @@ interface JSONObject {
   [x: string]: JSONValue;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface JSONArray extends Array<JSONValue> {}
 
 type Feilmelding = {
