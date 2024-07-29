@@ -1,6 +1,7 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import vitest from 'eslint-plugin-vitest';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginReact from 'eslint-plugin-react';
@@ -19,6 +20,7 @@ export default [
     },
     plugins: {
       vitest,
+      'jsx-a11y': jsxA11y,
     },
     languageOptions: { globals: globals.browser },
   },
