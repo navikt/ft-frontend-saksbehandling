@@ -8588,7 +8588,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.8.0, eslint@npm:9.x":
+"eslint@npm:9.8.0":
   version: 9.8.0
   resolution: "eslint@npm:9.8.0"
   dependencies:
@@ -9260,7 +9260,7 @@ __metadata:
     "@vitest/coverage-c8": 0.33.0
     body-parser: 1.20.2
     cross-env: 7.0.3
-    eslint: 9.x
+    eslint: 9.8.0
     eslint-config-prettier: 9.1.0
     eslint-plugin-react: 7.35.0
     eslint-plugin-vitest: 0.5.4
