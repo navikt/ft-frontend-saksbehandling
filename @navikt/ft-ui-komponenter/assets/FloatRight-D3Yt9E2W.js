@@ -1,0 +1,1 @@
+import{j as s}from"./jsx-runtime-Cw0GR0a5.js";const e="_floatRight_gekng_1",a={floatRight:e},t=({children:o})=>s.jsx("span",{className:a.floatRight,children:o}),n=t;t.__docgenInfo={description:"",methods:[],displayName:"FloatRight",props:{children:{required:!1,tsType:{name:"ReactNode"},description:""}}};export{n as F};
