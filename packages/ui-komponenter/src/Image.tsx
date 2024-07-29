@@ -59,7 +59,7 @@ const Image = React.forwardRef<HTMLImageElement, OwnProps>(
     const imgSource = srcHover && isHovering ? srcHover : src;
 
     const image = (
-      <img
+      <img // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
         ref={ref}
         className={className}
         src={imgSource}

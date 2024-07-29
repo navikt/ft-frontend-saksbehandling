@@ -20,13 +20,13 @@ export default [
     },
     plugins: {
       vitest,
-      'jsx-a11y': jsxA11y,
     },
     languageOptions: { globals: globals.browser },
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   {
     rules: {
@@ -42,6 +42,7 @@ export default [
         },
       ],
       'react/prop-types': OFF,
+      'jsx-a11y/no-autofocus': OFF,
 
       // Note: you must disable the base rule as it can report incorrect errors
       'no-use-before-define': OFF,
