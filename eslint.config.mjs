@@ -22,10 +22,9 @@ export default [
   pluginReact.configs.flat.recommended,
   {
     rules: {
+      'max-len': [ERROR, 160],
       'no-console': WARNING,
       'no-debugger': WARNING,
-      'max-len': [ERROR, 160],
-      'react/prop-types': OFF,
       'react/function-component-definition': [
         'error',
         {
@@ -33,6 +32,7 @@ export default [
           unnamedComponents: 'arrow-function',
         },
       ],
+      'react/prop-types': OFF,
 
       // Note: you must disable the base rule as it can report incorrect errors
       'no-use-before-define': OFF,
