@@ -25,7 +25,6 @@ const konverterKodeverkTilKode = data => {
     }
   });
 
-  // eslint-disable-next-line consistent-return
   return newData;
 };
 

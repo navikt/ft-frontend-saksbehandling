@@ -22,19 +22,10 @@ export default [
   pluginReact.configs.flat.recommended,
   {
     rules: {
-      'linebreak-style': OFF,
       'no-console': WARNING,
       'no-debugger': WARNING,
       'max-len': [ERROR, 160],
-      'no-undef': OFF,
-      'react/require-default-props': OFF,
-      'react/jsx-filename-extension': OFF,
-      'react/static-property-placement': OFF,
-      'react/state-in-constructor': OFF,
       'react/prop-types': OFF,
-      'no-restricted-exports': OFF,
-      'function-paren-newline': OFF,
-      'function-call-argument-newline': OFF,
       'react/function-component-definition': [
         'error',
         {
@@ -43,7 +34,7 @@ export default [
         },
       ],
 
-      // note you must disable the base rule as it can report incorrect errors
+      // Note: you must disable the base rule as it can report incorrect errors
       'no-use-before-define': OFF,
       '@typescript-eslint/no-use-before-define': [ERROR],
       'no-shadow': OFF,
@@ -52,9 +43,6 @@ export default [
       '@typescript-eslint/no-unused-vars': [ERROR],
 
       // TODO (TOR) Ignorert inntil videre grunnet kost/nytte
-      'max-classes-per-file': OFF,
-      'react/jsx-props-no-spreading': OFF,
-      '@typescript-eslint/no-empty-function': OFF,
       '@typescript-eslint/no-explicit-any': OFF,
       '@typescript-eslint/ban-ts-comment': OFF,
     },
