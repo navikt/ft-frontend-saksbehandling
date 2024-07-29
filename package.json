@@ -36,7 +36,7 @@
     "@navikt/aksel-stylelint": "6.13.0",
     "@storybook/addon-essentials": "8.2.6",
     "@storybook/addon-links": "8.2.6",
-    "@storybook/addons": "7.6.20",
+    "@storybook/addons": "7.6.17",
     "@storybook/builder-vite": "8.2.6",
     "@storybook/cli": "8.2.6",
     "@storybook/react": "8.2.6",
