@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   plugins: ['stylelint-order'],
   extends: ['@navikt/aksel-stylelint/recommended'],
   customSyntax: 'postcss-less',
@@ -45,24 +45,24 @@ module.exports = {
     'unit-allowed-list': [
       'em',
       'ex',
-      'rem', // Font-relative lengths
+      'rem',
       'pt',
-      'px', // Absolute lengths
+      'px',
       'vh',
       'vw',
       'vmin',
-      'vmax', // Viewport-percentage lengths
+      'vmax',
       'deg',
       'grad',
       'rad',
-      'turn', // Angle
+      'turn',
       'ms',
-      's', // Duration
+      's',
       'dpi',
       'dpcm',
-      'dppx', // Resolution
+      'dppx',
       '%',
-      'fr', // Other
+      'fr',
     ],
   },
 };
