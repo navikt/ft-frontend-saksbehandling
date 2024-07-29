@@ -27,7 +27,6 @@ const BoxedListWithSelection: React.FunctionComponent<BoxedListWithSelectionProp
               }`
             : styles[boxedListWithSelectionItemCls.block]
         }
-        // eslint-disable-next-line react/no-array-index-key
         key={`${name}_${index}`}
       >
         <button

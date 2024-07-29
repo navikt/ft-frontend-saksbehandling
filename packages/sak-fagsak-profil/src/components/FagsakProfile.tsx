@@ -46,12 +46,15 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
       <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
       {fagsakMarkeringTekster && fagsakMarkeringTekster.length > 0 && (
         <HStack gap="4">
-          {fagsakMarkeringTekster.map((tekst) => (
+          {fagsakMarkeringTekster.map(tekst => (
             <Tooltip
+              key={tekst}
               content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
               alignBottom
             >
-              <Tag size="small" variant="alt1">{tekst}</Tag>
+              <Tag size="small" variant="alt1">
+                {tekst}
+              </Tag>
             </Tooltip>
           ))}
         </HStack>

@@ -1,11 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import dts from 'vite-plugin-dts';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import react from '@vitejs/plugin-react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 const vitestConfig = defineVitestConfig({

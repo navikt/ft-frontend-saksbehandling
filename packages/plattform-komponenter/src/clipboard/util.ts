@@ -1,6 +1,5 @@
 const copyContentsToClipboard = (node: any): boolean => {
   let didCopy = false;
-  /* eslint-disable no-param-reassign */
   if (node) {
     node.contentEditable = 'true';
     const tempTextContents = node.innerText;
@@ -20,7 +19,6 @@ const copyContentsToClipboard = (node: any): boolean => {
     node.innerText = tempTextContents;
     node.contentEditable = 'false';
   }
-  /* eslint-enable no-param-reassign */
   return didCopy;
 };
 export default copyContentsToClipboard;

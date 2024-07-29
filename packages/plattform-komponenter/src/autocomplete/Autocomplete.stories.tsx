@@ -15,6 +15,7 @@ const AutocompleteTemplate: StoryFn<ComponentProps<typeof AutocompleteComponent>
     id="autocompleteId"
     placeholder=""
     suggestions={[{ key: 'testItem', value: 'Test Item' }]}
+    // eslint-disable-next-line no-console
     onSelect={() => console.log('Selected')}
   />
 );

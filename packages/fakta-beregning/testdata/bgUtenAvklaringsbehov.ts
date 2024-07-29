@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { konverterKodeverkTilKode } from '@navikt/ft-utils-test';
 
 const beregningsgrunnlag = {

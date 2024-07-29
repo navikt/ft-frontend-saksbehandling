@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { TextAreaField, SelectField, CheckboxField, InputField } from '../index';
 import Form from './Form';
@@ -11,8 +11,6 @@ import Datepicker from './Datepicker';
 
 import styles from './formHooks.stories.module.css';
 
-// TODO Kvifor feilar denne kun på Github?
-// eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import NumberField from './NumberField';
 

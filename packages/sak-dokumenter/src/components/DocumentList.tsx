@@ -198,7 +198,7 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
                   document.behandlingUuidList.includes(behandlingUuid) && (
                     <StarFillIcon className={styles.image} title={intl.formatMessage({ id: 'DocumentList.IBruk' })} />
                   )}
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid -- ideelt sett hadde vi brukt en lenke som direkte åpnet dokumentet i ny fane.
+                {/* Ideelt sett hadde vi brukt en lenke som direkte åpnet dokumentet i ny fane.
                 Men fordi denne komponent kun har ansvar for å gi callback på ønsket dokument så må det brukes onClick */}
                 <Link
                   className={styles.dokumentlenke}

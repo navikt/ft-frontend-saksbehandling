@@ -8,6 +8,7 @@ export default {
 };
 
 const Template: StoryFn<ComponentProps<typeof LinkButtonComponent>> = () => (
+  // eslint-disable-next-line no-console
   <LinkButtonComponent onClick={() => console.log('I was clicked')}>Click me</LinkButtonComponent>
 );
 

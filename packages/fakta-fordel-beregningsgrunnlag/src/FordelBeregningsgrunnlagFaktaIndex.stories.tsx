@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import { AktivitetStatus, Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
@@ -39,7 +39,6 @@ import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnl
 
 import '@navikt/ds-css';
 
-// eslint-disable-next-line import/no-unresolved
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
