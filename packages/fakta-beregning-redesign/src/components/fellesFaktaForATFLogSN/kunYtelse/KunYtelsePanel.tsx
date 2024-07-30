@@ -43,7 +43,7 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   faktaOmBeregning,
   isAksjonspunktClosed,
-  skalViseInntektstabell,
+  skalViseInntektstabell = true,
   kodeverkSamling,
 }) => {
   const { kunYtelse } = faktaOmBeregning;
@@ -70,9 +70,6 @@ const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
       )}
     </div>
   );
-};
-KunYtelsePanel.defaultProps = {
-  skalViseInntektstabell: true,
 };
 
 KunYtelsePanel.buildInitialValues = (

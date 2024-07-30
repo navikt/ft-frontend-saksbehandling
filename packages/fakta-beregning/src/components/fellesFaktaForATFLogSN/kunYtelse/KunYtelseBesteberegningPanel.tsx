@@ -26,7 +26,6 @@ type OwnProps = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   brukersAndelFieldArrayName: string;
-  erBesteberegning?: boolean;
   skalViseInntektstabell?: boolean;
   kodeverkSamling: KodeverkForPanel;
 };
@@ -46,7 +45,7 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
   readOnly,
   isAksjonspunktClosed,
   brukersAndelFieldArrayName,
-  skalViseInntektstabell,
+  skalViseInntektstabell = true,
   kodeverkSamling,
 }) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
@@ -106,11 +105,6 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
       )}
     </div>
   );
-};
-
-KunYtelseBesteberegningImpl.defaultProps = {
-  erBesteberegning: undefined,
-  skalViseInntektstabell: true,
 };
 
 KunYtelseBesteberegningImpl.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({

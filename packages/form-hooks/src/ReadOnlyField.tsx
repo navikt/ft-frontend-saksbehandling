@@ -16,7 +16,14 @@ export interface OwnProps {
   size?: 'medium' | 'small';
 }
 
-export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdited, type, hideLabel, size }) => {
+export const ReadOnlyField: FunctionComponent<OwnProps> = ({
+  label,
+  value,
+  isEdited = false,
+  type,
+  hideLabel,
+  size,
+}) => {
   if (!hasValue(value)) {
     return null;
   }
@@ -31,10 +38,6 @@ export const ReadOnlyField: FunctionComponent<OwnProps> = ({ label, value, isEdi
       </div>
     </div>
   );
-};
-
-ReadOnlyField.defaultProps = {
-  isEdited: false,
 };
 
 export default ReadOnlyField;
