@@ -164,10 +164,10 @@ type OwnProps = {
  */
 const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
   relevanteStatuser,
-  allePerioder,
+  allePerioder = undefined,
   gjelderBesteberegning,
   kodeverkSamling,
-  sammenligningsGrunnlagInntekter,
+  sammenligningsGrunnlagInntekter = undefined,
   arbeidsgiverOpplysningerPerId,
   sammenligningsgrunnlag,
 }) => {
@@ -185,11 +185,6 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
     sammenligningsgrunnlag,
     sammenligningsGrunnlagInntekter,
   );
-};
-
-Beregningsgrunnlag.defaultProps = {
-  allePerioder: undefined,
-  sammenligningsGrunnlagInntekter: undefined,
 };
 
 Beregningsgrunnlag.buildInitialValues = (

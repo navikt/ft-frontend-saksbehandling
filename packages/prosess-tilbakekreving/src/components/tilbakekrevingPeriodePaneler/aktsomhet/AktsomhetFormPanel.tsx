@@ -77,8 +77,8 @@ const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   resetFields,
   handletUaktsomhetGrad,
   harGrunnerTilReduksjon,
-  erSerligGrunnAnnetValgt,
-  erValgtResultatTypeForstoBurdeForstaatt,
+  erSerligGrunnAnnetValgt = false,
+  erValgtResultatTypeForstoBurdeForstaatt = false,
   aktsomhetTyper,
   sarligGrunnTyper,
   antallYtelser,
@@ -122,11 +122,6 @@ const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
     )}
   </>
 );
-
-AktsomhetFormPanel.defaultProps = {
-  erSerligGrunnAnnetValgt: false,
-  erValgtResultatTypeForstoBurdeForstaatt: false,
-};
 
 const parseIntAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunnerTilReduksjon: boolean) => {
   const parsedValue = parseInt(andelSomTilbakekreves, 10);

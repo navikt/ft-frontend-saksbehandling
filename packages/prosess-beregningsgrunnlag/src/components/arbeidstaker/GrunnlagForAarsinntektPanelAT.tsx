@@ -200,10 +200,6 @@ const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctio
   );
 };
 
-GrunnlagForAarsinntektPanelAT.defaultProps = {
-  allePerioder: undefined,
-};
-
 GrunnlagForAarsinntektPanelAT.buildInitialValues = (
   alleAndeler: BeregningsgrunnlagAndel[],
 ): ArbeidstakerInntektValues => {
