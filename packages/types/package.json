@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-types",
-  "version": "2.4.13",
+  "version": "2.4.14",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -12,7 +12,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.4.13"
+    "@navikt/ft-kodeverk": "^2.4.14"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "2.x"
