@@ -81,7 +81,7 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
     );
 
   // Logikk for å sortere tabell tilpasset fra Aksel-eksempel: https://aksel.nav.no/komponenter/core/table#tabledemo-sortable
-  const [sort, setSort] = useState<SortState | undefined>({ orderBy: 'tidspunkt', direction: 'ascending' });
+  const [sort, setSort] = useState<SortState | undefined>({ orderBy: 'tidspunkt', direction: 'descending' });
   const handleSort = (sortKey: TableHeaders) => {
     setSort(
       sort && sortKey === sort.orderBy && sort.direction === 'descending'
