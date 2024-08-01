@@ -54,7 +54,7 @@
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-vitest": "0.5.4",
     "gh-pages": "6.1.1",
-    "globals": "15.8.0",
+    "globals": "15.9.0",
     "husky": "9.1.4",
     "jsdom": "24.1.1",
     "lerna": "8.1.7",

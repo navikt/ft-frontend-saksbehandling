@@ -9372,7 +9372,7 @@ __metadata:
     eslint-plugin-react: 7.35.0
     eslint-plugin-vitest: 0.5.4
     gh-pages: 6.1.1
-    globals: 15.8.0
+    globals: 15.9.0
     husky: 9.1.4
     jsdom: 24.1.1
     lerna: 8.1.7
@@ -9707,10 +9707,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:15.8.0":
-  version: 15.8.0
-  resolution: "globals@npm:15.8.0"
-  checksum: 92d0522c47226ca12f6fd8938df04b37852d812cc5a84e31890d919497f102a818d2081570bc08c2dd6353cd8b2699e7180bc468abbbec8c858a19e0fa53aeb8
+"globals@npm:15.9.0":
+  version: 15.9.0
+  resolution: "globals@npm:15.9.0"
+  checksum: 32c4470ffcc26db3ddbc579ddf968b74c26462d1a268039980c2fa2e107090fd442a7a7445d953dc4ee874f68846e713066c5a8e63d146fd9349cd1fc5a6f63d
   languageName: node
   linkType: hard
 
