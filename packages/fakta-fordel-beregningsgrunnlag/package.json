@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-fordel-beregningsgrunnlag",
   "description": "Fordeling av foreslått beregningsgrunnlag og fastsetting av refusjon",
-  "version": "7.5.19",
+  "version": "7.5.20",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -27,7 +27,7 @@
     "@navikt/aksel-icons": "6.13.0",
     "@navikt/ds-css": "6.13.0",
     "@navikt/ds-react": "6.13.0",
-    "@navikt/ft-form-hooks": "^4.4.17",
+    "@navikt/ft-form-hooks": "^4.4.18",
     "@navikt/ft-form-validators": "^2.3.16",
     "@navikt/ft-kodeverk": "^2.4.14",
     "@navikt/ft-types": "^2.4.14",
@@ -60,7 +60,7 @@
     "uuid": "9.0.1"
   },
   "devDependencies": {
-    "@navikt/ft-storybook-utils": "^2.3.17",
+    "@navikt/ft-storybook-utils": "^2.3.18",
     "@navikt/ft-utils-test": "^2.3.14",
     "@storybook/addon-actions": "8.2.6",
     "@storybook/react": "8.2.6",
