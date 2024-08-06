@@ -37,13 +37,24 @@ export const initializeDate = (
 
 export const createWeekAndDay = (weeks?: number, days?: number): WeekAndDay => {
   let id = 'Dato.AntallDagerOgUker';
-  if (!weeks && !days) {
+  if (weeks === undefined && days === undefined) {
     id = 'Dato.TidenesEnde';
     return {
       id,
       formattedString: intl.formatMessage({ id }),
     };
   }
+
+  if (!weeks && !days) {
+    id = 'Dato.NullDager';
+    return {
+      id,
+      formattedString: intl.formatMessage({ id }),
+      weeks: 0,
+      days: 0,
+    };
+  }
+
   return {
     id,
     formattedString: intl.formatMessage(
