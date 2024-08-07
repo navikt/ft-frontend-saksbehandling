@@ -1,4 +1,4 @@
-import { expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
   addDaysToDate,
   calcDaysAndWeeks,
@@ -16,6 +16,8 @@ describe('dateutils', () => {
       [2, 2, '2 uker 2 dager'],
       [4, 0, '4 uker'],
       [0, 1, '1 dag'],
+      [0, 0, '0 dager'],
+      [undefined, 0, '0 dager'],
       [undefined, 2, '2 dager'],
       [2, undefined, '2 uker'],
       [undefined, undefined, 'Antall uker og dager -'],
