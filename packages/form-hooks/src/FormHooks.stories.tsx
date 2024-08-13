@@ -1,13 +1,13 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { StoryFn } from '@storybook/react';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { TextAreaField, SelectField, CheckboxField, InputField } from '../index';
-import Form from './Form';
-import RadioGroupPanel from './RadioGroupPanel';
+import { StoryFn } from '@storybook/react';
+import { useForm } from 'react-hook-form';
+import { CheckboxField, InputField, SelectField, TextAreaField } from '../index';
 import CheckboxPanel from './CheckboxPanel';
-import Rangepicker from './Rangepicker';
 import Datepicker from './Datepicker';
+import Form from './Form';
+import React from 'react';
+import RadioGroupPanel from './RadioGroupPanel';
+import Rangepicker from './Rangepicker';
 
 import styles from './formHooks.stories.module.css';
 
@@ -241,10 +241,8 @@ const Template: StoryFn = () => {
         label="Dette er en datepicker"
         name="datepickerField"
         description="Dette er en mer utfyllende tekst"
-        disabledDays={{
-          fromDate: new Date('2022-10-10'),
-          toDate: new Date('2022-10-14'),
-        }}
+        fromDate={new Date('2022-10-10')}
+        toDate={new Date('2022-10-14')}
       />
       <VerticalSpacer sixteenPx />
       <Datepicker label="Dette er en datepicker der verdi er valgt" name="datepickerFieldPre" />

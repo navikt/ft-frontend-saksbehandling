@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
-import { useForm } from 'react-hook-form';
+import { Alert, BodyShort, Button, Heading, Label, Modal } from '@navikt/ds-react';
 import moment from 'moment/moment';
-import { Modal, Button, Label, BodyShort, Alert, Heading } from '@navikt/ds-react';
+import React, { FunctionComponent } from 'react';
+import { useForm } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
+import { Datepicker, Form } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import { Datepicker, Form } from '@navikt/ft-form-hooks';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import styles from './delOppPeriodeModal.module.css';
@@ -102,7 +102,8 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
             name="forstePeriodeTomDato"
             label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
             validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
-            disabledDays={{ fromDate: moment(periodeData.fom).toDate(), toDate: moment(periodeData.tom).toDate() }}
+            fromDate={moment(periodeData.fom).toDate()}
+            toDate={moment(periodeData.tom).toDate()}
           />
           {finnesBelopMed0Verdi && (
             <Alert variant="error">
