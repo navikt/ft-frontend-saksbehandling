@@ -1,9 +1,9 @@
-import React, { FunctionComponent, ReactNode, useCallback, useMemo, useState } from 'react';
-import { useFormContext, useController } from 'react-hook-form';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import dayjs from 'dayjs';
-import { Label, DatePicker, useRangeDatepicker, VStack, HStack } from '@navikt/ds-react';
+import { DatePicker, HStack, Label, useRangeDatepicker, VStack } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import React, { FunctionComponent, ReactNode, useCallback, useMemo, useState } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 
 import { getError, getValidationRules } from './formUtils';
 import ReadOnlyField from './ReadOnlyField';
@@ -18,10 +18,8 @@ export interface RangepickerProps {
   disabled?: boolean;
   isReadOnly?: boolean;
   onChange?: (value: any) => void;
-  disabledDays?: {
-    fromDate?: Date;
-    toDate?: Date;
-  };
+  fromDate?: Date;
+  toDate?: Date;
   isEdited?: boolean;
 }
 
@@ -33,7 +31,8 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
   disabled = false,
   isReadOnly = false,
   onChange,
-  disabledDays,
+  fromDate,
+  toDate,
   isEdited,
 }): JSX.Element => {
   const {
@@ -117,8 +116,8 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
 
   const dpProps = {
     ...datepickerProps,
-    fromDate: disabledDays?.fromDate,
-    toDate: disabledDays?.toDate,
+    fromDate: fromDate,
+    toDate: toDate,
   };
 
   return (
