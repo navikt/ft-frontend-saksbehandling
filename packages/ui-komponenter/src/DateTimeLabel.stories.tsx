@@ -4,11 +4,12 @@ import { RawIntlProvider } from 'react-intl';
 import { createIntl } from '@navikt/ft-utils';
 
 import DateTimeLabel from './DateTimeLabel';
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 const intl = createIntl({});
 
-export default {
+const meta: Meta<typeof DateTimeLabel> = {
+  title: 'DateTimeLabel',
   component: DateTimeLabel,
   decorators: Story => (
     <RawIntlProvider value={intl}>
@@ -41,3 +42,5 @@ export const MedTilpassetUtrykk: Story = {
     second: '2-digit',
   },
 };
+
+export default meta;
