@@ -7,10 +7,12 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+type DateTimeSeperator = 'dash' | 'kl';
+
+export type OwnProps = {
   dateTimeString: string;
-  useNewFormat?: boolean;
-}
+  separator?: DateTimeSeperator;
+} & Intl.DateTimeFormatOptions;
 
 /**
  * DateTimeLabel
@@ -22,22 +24,32 @@ export interface OwnProps {
  * <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" />
  * ```
  */
-const DateTimeLabel: FunctionComponent<OwnProps> = ({ dateTimeString, useNewFormat = false }) => (
-  <>
-    <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateTimeString)} />
-    {!useNewFormat && (
-      <>
-        -
-        <FormattedTime value={new Date(dateTimeString)} />
-      </>
-    )}
-    {useNewFormat && (
-      <>
-        {intl.formatMessage({ id: 'DateTimeLabel.Kl' })}
-        <FormattedTime value={new Date(dateTimeString)} hour="numeric" minute="numeric" second="numeric" />
-      </>
-    )}
-  </>
-);
+const DateTimeLabel: FunctionComponent<OwnProps> = ({
+  dateTimeString,
+  separator = 'dash' as DateTimeSeperator,
+  year = 'numeric',
+  month = '2-digit',
+  day = '2-digit',
+  hour = 'numeric',
+  minute = 'numeric',
+  second = undefined,
+}: OwnProps) => {
+  const getSeparator = () => {
+    switch (separator) {
+      case 'dash':
+        return ' - ';
+      case 'kl':
+        return intl.formatMessage({ id: 'DateTimeLabel.Kl' });
+    }
+  };
+
+  return (
+    <>
+      <FormattedDate value={new Date(dateTimeString)} day={day} month={month} year={year} />
+      {getSeparator()}
+      <FormattedTime value={new Date(dateTimeString)} hour={hour} minute={minute} second={second} />
+    </>
+  );
+};
 
 export default DateTimeLabel;
