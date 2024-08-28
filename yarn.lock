@@ -2306,14 +2306,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/config-array@npm:^0.17.1":
-  version: 0.17.1
-  resolution: "@eslint/config-array@npm:0.17.1"
+"@eslint/config-array@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "@eslint/config-array@npm:0.18.0"
   dependencies:
     "@eslint/object-schema": ^2.1.4
     debug: ^4.3.1
     minimatch: ^3.1.2
-  checksum: b678a7af5b0be8f1b29deaf751c77c365cf0b24bead3add677edbc7c7793dfb3eb423e33395787ff86fdbd85117a571f2f338d612a23210d9771aedf765d5482
+  checksum: 5ff748e1788745bfb3160c3b3151d62a7c054e336e9fe8069e86cfa6106f3abbd59b24f1253122268295f98c66803e9a7b23d7f947a8c00f62d2060cc44bc7fc
   languageName: node
   linkType: hard
 
@@ -2338,6 +2338,13 @@ __metadata:
   version: 9.8.0
   resolution: "@eslint/js@npm:9.8.0"
   checksum: 8b6e809127edea3bf5b5b3c01ae75290afe5044f950642445a50cb4b86c153ad1512fc417d3cb7b79eb7cd0ce06acd858946b6497ea912750aa54de609064f63
+  languageName: node
+  linkType: hard
+
+"@eslint/js@npm:9.9.1":
+  version: 9.9.1
+  resolution: "@eslint/js@npm:9.9.1"
+  checksum: 24436d7a1023dbc6c63fd199e45afa9eab8537f7bd808872d9d17dd70c5237f599fe3d08f519d55b40e33bfde02a460861df1c96aa07674090c3f98c83b0c178
   languageName: node
   linkType: hard
 
@@ -2911,7 +2918,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.12
     dayjs-plugin-utc: 0.1.2
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.52.2
@@ -2968,7 +2975,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.12
     dayjs-plugin-utc: 0.1.2
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.52.2
@@ -3024,7 +3031,7 @@ __metadata:
     core-js: 3.38.0
     cross-env: 7.0.3
     dayjs: 1.11.12
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-hook-form: 7.52.2
     react-intl: 6.6.8
@@ -3075,7 +3082,7 @@ __metadata:
     "@testing-library/react": 16.0.0
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.52.2
@@ -3122,7 +3129,7 @@ __metadata:
     classnames: 2.5.1
     cross-env: 7.0.3
     dayjs: 1.11.12
-    eslint: 9.8.0
+    eslint: 9.9.1
     lodash.throttle: 4.1.1
     react: 18.3.1
     react-hook-form: 7.52.2
@@ -3154,7 +3161,7 @@ __metadata:
     "@navikt/ft-utils": ^2.3.19
     "@storybook/react": 8.2.7
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     moment: 2.30.1
     typescript: 5.5.4
     vite: 5.3.5
@@ -3171,7 +3178,7 @@ __metadata:
   dependencies:
     "@storybook/react": 8.2.7
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     stylelint: 16.8.1
     typescript: 5.5.4
     vite: 5.3.5
@@ -3185,7 +3192,7 @@ __metadata:
   dependencies:
     "@storybook/react": 8.2.7
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     stylelint: 16.8.1
     typescript: 5.5.4
     vite: 5.3.5
@@ -3211,7 +3218,7 @@ __metadata:
     classnames: 2.5.1
     cross-env: 7.0.3
     dayjs: 1.11.12
-    eslint: 9.8.0
+    eslint: 9.9.1
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: 18.3.1
@@ -3263,7 +3270,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.12
     echarts: 5.5.1
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-hook-form: 7.52.2
     react-intl: 6.6.8
@@ -3315,7 +3322,7 @@ __metadata:
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.12
-    eslint: 9.8.0
+    eslint: 9.9.1
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.52.2
@@ -3365,7 +3372,7 @@ __metadata:
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-hook-form: 7.52.2
     react-intl: 6.6.8
@@ -3414,7 +3421,7 @@ __metadata:
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.12
-    eslint: 9.8.0
+    eslint: 9.9.1
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.52.2
@@ -3461,7 +3468,7 @@ __metadata:
     "@testing-library/dom": 10.4.0
     "@testing-library/react": 16.0.0
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-intl: 6.6.8
     storybook: 8.2.7
@@ -3504,7 +3511,7 @@ __metadata:
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     history: 5.3.0
     moment: 2.30.1
     react: 18.3.1
@@ -3552,7 +3559,7 @@ __metadata:
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-intl: 6.6.8
     storybook: 8.2.7
@@ -3594,7 +3601,7 @@ __metadata:
     "@testing-library/react": 16.0.0
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-intl: 6.6.8
     storybook: 8.2.7
@@ -3632,7 +3639,7 @@ __metadata:
     "@testing-library/react": 16.0.0
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-intl: 6.6.8
     storybook: 8.2.7
@@ -3666,7 +3673,7 @@ __metadata:
     "@testing-library/react": 16.0.0
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-intl: 6.6.8
     storybook: 8.2.7
@@ -3701,7 +3708,7 @@ __metadata:
     "@testing-library/react": 16.0.0
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-hook-form: 7.52.2
     react-intl: 6.6.8
@@ -3745,7 +3752,7 @@ __metadata:
     "@testing-library/react": 16.0.0
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.52.2
@@ -3791,7 +3798,7 @@ __metadata:
     "@testing-library/dom": 10.4.0
     "@testing-library/react": 16.0.0
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     moment: 2.30.1
     react: 18.3.1
     react-intl: 6.6.8
@@ -3820,7 +3827,7 @@ __metadata:
   resolution: "@navikt/ft-storybook-utils@workspace:packages/storybook-utils"
   dependencies:
     "@navikt/ft-form-hooks": ^5.0.2
-    eslint: 9.8.0
+    eslint: 9.9.1
     history: 5.3.0
     react: 18.3.1
     react-hook-form: 7.52.2
@@ -3837,7 +3844,7 @@ __metadata:
     "@navikt/ft-kodeverk": ^2.4.15
     "@storybook/react": 8.2.7
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     stylelint: 16.8.1
     typescript: 5.5.4
     vite: 5.3.5
@@ -3863,7 +3870,7 @@ __metadata:
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-intl: 6.6.8
     react-modal: 3.16.1
@@ -3890,7 +3897,7 @@ __metadata:
   dependencies:
     "@navikt/ft-kodeverk": ^2.4.15
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     react: 18.3.1
     react-intl: 6.6.8
     typescript: 5.5.4
@@ -3905,7 +3912,7 @@ __metadata:
     "@navikt/ft-kodeverk": ^2.4.15
     "@navikt/ft-types": ^2.4.15
     dayjs: 1.11.12
-    eslint: 9.8.0
+    eslint: 9.9.1
     react-intl: 6.6.8
     typescript: 5.5.4
     vite: 5.3.5
@@ -8708,15 +8715,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.8.0":
-  version: 9.8.0
-  resolution: "eslint@npm:9.8.0"
+"eslint@npm:9.9.1":
+  version: 9.9.1
+  resolution: "eslint@npm:9.9.1"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.11.0
-    "@eslint/config-array": ^0.17.1
+    "@eslint/config-array": ^0.18.0
     "@eslint/eslintrc": ^3.1.0
-    "@eslint/js": 9.8.0
+    "@eslint/js": 9.9.1
     "@humanwhocodes/module-importer": ^1.0.1
     "@humanwhocodes/retry": ^0.3.0
     "@nodelib/fs.walk": ^1.2.8
@@ -8746,9 +8753,14 @@ __metadata:
     optionator: ^0.9.3
     strip-ansi: ^6.0.1
     text-table: ^0.2.0
+  peerDependencies:
+    jiti: "*"
+  peerDependenciesMeta:
+    jiti:
+      optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 3fdcf4047ccb2e18bf5d072542d41bd60b5816a68bfbe95dff17cc680c90c29dfb9c595f9691db290190e55219a8088cf09c675095790c80db58f1b4560b8a14
+  checksum: a1ff85cd26a6f138e0f52e17668b7794371c81fd0ac66634c4d554dc2d878dcfbe6047a025e63e85168c897c83dfa453501a10395cbefda7debd79fe6ea00eab
   languageName: node
   linkType: hard
 
@@ -9371,7 +9383,7 @@ __metadata:
     "@vitest/coverage-c8": 0.33.0
     body-parser: 1.20.2
     cross-env: 7.0.3
-    eslint: 9.8.0
+    eslint: 9.9.1
     eslint-config-prettier: 9.1.0
     eslint-plugin-jsx-a11y: 6.9.0
     eslint-plugin-react: 7.35.0
