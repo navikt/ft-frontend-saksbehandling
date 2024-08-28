@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-infosider",
   "description": "Diverse info- og feil-sider",
-  "version": "2.3.19",
+  "version": "2.3.20",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@navikt/ds-css": "6.13.0",
     "@navikt/ds-react": "6.13.0",
-    "@navikt/ft-utils": "^2.3.18",
+    "@navikt/ft-utils": "^2.3.19",
     "react": "18.3.1",
     "react-intl": "6.6.8"
   },
