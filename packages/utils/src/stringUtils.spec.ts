@@ -1,11 +1,11 @@
-import { formaterTekst } from './stringUtils';
+import { formaterFritekst } from './stringUtils';
 
-describe('formaterTekst', () => {
+describe('formaterFritekst', () => {
   it.each([
     ['\uFE58', '-'],
     ['—', '-'],
     ['\t', ' '],
-  ])(`skal erstatte ugyldige karakter (%s) i tekst`, (råTekst, formatertTekst) => {
-    expect(formaterTekst(råTekst)).toEqual(formatertTekst);
+  ])(`skal erstatte ugyldige karakter (%s) i tekst`, (fritekst, formatertFritekst) => {
+    expect(formaterFritekst(fritekst)).toEqual(formatertFritekst);
   });
 });
