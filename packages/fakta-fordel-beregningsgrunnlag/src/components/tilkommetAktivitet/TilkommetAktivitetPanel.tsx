@@ -57,12 +57,6 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
 
   const getAlertHeading = () => {
-    const harSNAktvitet = finnAktivitetStatus(
-      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-      vurderInntektsforholdPerioder,
-    );
-    const harFrilanserAktvitet = finnAktivitetStatus(AktivitetStatus.FRILANSER, vurderInntektsforholdPerioder);
-
     const unikestatuser = vurderInntektsforholdPerioder
       ?.flatMap(p => p.inntektsforholdListe.map(a => a.aktivitetStatus))
       .reduce((liste: string[], a) => {
@@ -78,12 +72,22 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
       return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.FlereStatuser' });
     }
 
+    const harSNAktvitet = finnAktivitetStatus(
+      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      vurderInntektsforholdPerioder,
+    );
     if (harSNAktvitet) {
       return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.SelvstendigNæringsdrivende' });
     }
 
+    const harFrilanserAktvitet = finnAktivitetStatus(AktivitetStatus.FRILANSER, vurderInntektsforholdPerioder);
     if (harFrilanserAktvitet) {
       return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.Frilans' });
+    }
+
+    const harDagpengerAktivitet = finnAktivitetStatus(AktivitetStatus.DAGPENGER, vurderInntektsforholdPerioder);
+    if (harDagpengerAktivitet) {
+      return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.Dagpenger' });
     }
 
     return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.Arbeidsforhold' });
