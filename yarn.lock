@@ -2912,7 +2912,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     core-js: 3.38.1
     cross-env: 7.0.3
@@ -2969,7 +2969,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     core-js: 3.38.1
     cross-env: 7.0.3
@@ -3025,7 +3025,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     core-js: 3.38.1
@@ -3079,7 +3079,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 9.9.1
@@ -3124,7 +3124,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3213,7 +3213,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3264,7 +3264,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3318,7 +3318,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.13
@@ -3368,7 +3368,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3417,7 +3417,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     dayjs: 1.11.13
@@ -3466,7 +3466,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     cross-env: 7.0.3
     eslint: 9.9.1
     react: 18.3.1
@@ -3507,7 +3507,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3555,7 +3555,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -3598,7 +3598,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 9.9.1
@@ -3636,7 +3636,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 9.9.1
@@ -3670,7 +3670,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 9.9.1
@@ -3705,7 +3705,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 9.9.1
@@ -3749,7 +3749,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     cross-env: 7.0.3
     eslint: 9.9.1
@@ -3796,7 +3796,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     cross-env: 7.0.3
     eslint: 9.9.1
     moment: 2.30.1
@@ -3866,7 +3866,7 @@ __metadata:
     "@storybook/react": 8.2.9
     "@storybook/react-vite": 8.2.9
     "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.0
+    "@testing-library/react": 16.0.1
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
@@ -5235,9 +5235,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:16.0.0":
-  version: 16.0.0
-  resolution: "@testing-library/react@npm:16.0.0"
+"@testing-library/react@npm:16.0.1":
+  version: 16.0.1
+  resolution: "@testing-library/react@npm:16.0.1"
   dependencies:
     "@babel/runtime": ^7.12.5
   peerDependencies:
@@ -5251,7 +5251,7 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
-  checksum: 45a35f0b5f34b5a7f4dcefdd3f1d202d5421692e5cc7a491c9bc71e6ed9dd5872a182b80b4dfefb4a56d9c1df35e50f6fa2917bcf657cc26b4bc0d2259df0027
+  checksum: 1837db473ea018cf2b5d0cbfffb7a30d0d759e5a7f23aad431441c77bcc3d2533250cd003a61878fd908267df47404cedcb5914f12d79e413002c659652b37fd
   languageName: node
   linkType: hard
 
