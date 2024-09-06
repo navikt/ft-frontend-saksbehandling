@@ -24,9 +24,9 @@
     "storybook": "storybook dev --quiet -p 7013"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "6.16.2",
-    "@navikt/ds-css": "6.16.2",
-    "@navikt/ds-react": "6.16.2",
+    "@navikt/aksel-icons": "6.16.3",
+    "@navikt/ds-css": "6.16.3",
+    "@navikt/ds-react": "6.16.3",
     "@navikt/ft-kodeverk": "^2.4.16",
     "@navikt/ft-konstanter": "^2.3.16",
     "@navikt/ft-plattform-komponenter": "^3.0.7",
@@ -56,14 +56,14 @@
     "@storybook/react": "8.2.9",
     "@storybook/react-vite": "8.2.9",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.0.0",
+    "@testing-library/react": "16.0.1",
     "@testing-library/user-event": "14.5.2",
     "cross-env": "7.0.3",
     "eslint": "9.9.1",
     "storybook": "8.2.9",
     "stylelint": "16.9.0",
     "typescript": "5.5.4",
-    "vite": "5.3.5",
+    "vite": "5.4.3",
     "vitest": "2.0.5"
   },
   "publishConfig": {
