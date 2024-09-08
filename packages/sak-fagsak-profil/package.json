@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-fagsak-profil",
   "description": "Viser overordnet informasjon om fagsaken",
-  "version": "3.3.24",
+  "version": "3.3.25",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,12 +23,12 @@
     "storybook": "storybook dev --quiet -p 7018"
   },
   "dependencies": {
-    "@navikt/ds-css": "6.16.2",
-    "@navikt/ds-react": "6.16.2",
-    "@navikt/ft-kodeverk": "^2.4.16",
-    "@navikt/ft-types": "^2.4.16",
-    "@navikt/ft-ui-komponenter": "^2.4.3",
-    "@navikt/ft-utils": "^2.3.21",
+    "@navikt/ds-css": "6.16.3",
+    "@navikt/ds-react": "6.16.3",
+    "@navikt/ft-kodeverk": "^2.4.17",
+    "@navikt/ft-types": "^2.4.17",
+    "@navikt/ft-ui-komponenter": "^2.4.4",
+    "@navikt/ft-utils": "^2.3.22",
     "react": "18.3.1",
     "react-intl": "6.6.8"
   },
@@ -47,14 +47,14 @@
     "@storybook/react": "8.2.9",
     "@storybook/react-vite": "8.2.9",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.0.0",
+    "@testing-library/react": "16.0.1",
     "@testing-library/user-event": "14.5.2",
     "cross-env": "7.0.3",
     "eslint": "9.9.1",
     "storybook": "8.2.9",
     "stylelint": "16.9.0",
     "typescript": "5.5.4",
-    "vite": "5.3.5",
+    "vite": "5.4.3",
     "vitest": "2.0.5"
   },
   "publishConfig": {

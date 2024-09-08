@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-kodeverk",
-  "version": "2.4.16",
+  "version": "2.4.17",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -22,7 +22,7 @@
     "eslint": "9.9.1",
     "stylelint": "16.9.0",
     "typescript": "5.5.4",
-    "vite": "5.3.5",
+    "vite": "5.4.3",
     "vitest": "2.0.5"
   },
   "publishConfig": {
