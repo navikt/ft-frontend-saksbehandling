@@ -57,7 +57,7 @@
     "classnames": "2.5.1",
     "cross-env": "7.0.3",
     "dayjs": "1.11.13",
-    "eslint": "9.9.1",
+    "eslint": "9.10.0",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
     "react": "18.3.1",
