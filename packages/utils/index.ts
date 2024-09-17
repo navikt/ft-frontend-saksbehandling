@@ -30,6 +30,7 @@ export {
   ACCEPTED_DATE_INPUT_FORMATS,
 } from './src/formats';
 export { formaterFritekst } from './src/stringUtils';
+export { assertUnreachable } from './src/switchCaseUtils';
 export { default as guid } from './src/guid';
 export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/languageUtils';
 export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMany } from './src/objectUtils';
