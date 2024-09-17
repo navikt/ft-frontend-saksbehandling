@@ -24,8 +24,8 @@
     "storybook": "storybook dev --quiet -p 7013"
   },
   "dependencies": {
-    "@navikt/ds-css": "6.16.3",
-    "@navikt/ds-react": "6.16.3",
+    "@navikt/ds-css": "7.0.0",
+    "@navikt/ds-react": "7.0.0",
     "@navikt/ft-kodeverk": "^2.4.17",
     "@navikt/ft-plattform-komponenter": "^3.0.9",
     "@navikt/ft-sak-visittkort": "^2.3.30",
