@@ -25,9 +25,9 @@
     "storybook": "storybook dev --quiet -p 7007"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "6.16.3",
-    "@navikt/ds-css": "6.16.3",
-    "@navikt/ds-react": "6.16.3",
+    "@navikt/aksel-icons": "7.0.0",
+    "@navikt/ds-css": "7.0.0",
+    "@navikt/ds-react": "7.0.0",
     "@navikt/ft-utils": "^2.3.23",
     "classnames": "2.5.1"
   },
@@ -48,26 +48,26 @@
   },
   "devDependencies": {
     "@popperjs/core": "2.11.8",
-    "@storybook/addon-actions": "8.2.9",
-    "@storybook/react": "8.2.9",
-    "@storybook/react-vite": "8.2.9",
+    "@storybook/addon-actions": "8.3.1",
+    "@storybook/react": "8.3.1",
+    "@storybook/react-vite": "8.3.1",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.0.1",
     "@testing-library/user-event": "14.5.2",
     "classnames": "2.5.1",
     "cross-env": "7.0.3",
     "dayjs": "1.11.13",
-    "eslint": "9.9.1",
+    "eslint": "9.10.0",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-popper": "2.3.0",
-    "storybook": "8.2.9",
+    "storybook": "8.3.1",
     "stylelint": "16.9.0",
-    "typescript": "5.5.4",
-    "vite": "5.4.3",
-    "vitest": "2.0.5"
+    "typescript": "5.6.2",
+    "vite": "5.4.6",
+    "vitest": "2.1.1"
   },
   "resolutions": {
     "react": "18.2.0",
