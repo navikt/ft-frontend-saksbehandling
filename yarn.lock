@@ -2689,9 +2689,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl@npm:2.10.4":
-  version: 2.10.4
-  resolution: "@formatjs/intl@npm:2.10.4"
+"@formatjs/intl@npm:2.10.5":
+  version: 2.10.5
+  resolution: "@formatjs/intl@npm:2.10.5"
   dependencies:
     "@formatjs/ecma402-abstract": 2.0.0
     "@formatjs/fast-memoize": 2.2.0
@@ -2705,7 +2705,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 13a1fada258c528c1617c0a3b49af3d0a6c4ed610e8fc2bd9d6f75909556d9dc1442ec5cb016c81fe1f9482e41611bd7841485d04c1ddbec9f4b2310f80e7259
+  checksum: d4ead05c03dd8bfbf49721b4f05d6afa142fa308126126f5e8dd8282391e3d1b87f0c52ed062dce23c8a0766b3fe094d220a78912c94e1755ffc91ac9a7c3848
   languageName: node
   linkType: hard
 
@@ -3082,7 +3082,7 @@ __metadata:
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3105,7 +3105,7 @@ __metadata:
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3139,7 +3139,7 @@ __metadata:
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3162,7 +3162,7 @@ __metadata:
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3194,7 +3194,7 @@ __metadata:
     eslint: 9.10.0
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3216,7 +3216,7 @@ __metadata:
     dayjs: 1.11.11
     react: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     uuid: 9.0.1
   languageName: unknown
   linkType: soft
@@ -3246,7 +3246,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3264,7 +3264,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3433,7 +3433,7 @@ __metadata:
     eslint: 9.10.0
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3455,7 +3455,7 @@ __metadata:
     echarts: 5.5.1
     react: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3486,7 +3486,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3506,7 +3506,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3535,7 +3535,7 @@ __metadata:
     eslint: 9.10.0
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3554,7 +3554,7 @@ __metadata:
     classnames: 2.5.1
     react: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3585,7 +3585,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3605,7 +3605,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3630,7 +3630,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.10.0
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3646,7 +3646,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3675,7 +3675,7 @@ __metadata:
     history: 5.3.0
     moment: 2.30.1
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3694,7 +3694,7 @@ __metadata:
     history: 5.3.0
     moment: 2.30.1
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3721,7 +3721,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.10.0
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3739,7 +3739,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     classnames: 2.5.1
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3763,7 +3763,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.10.0
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3778,7 +3778,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3801,7 +3801,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.10.0
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3815,7 +3815,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3835,7 +3835,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.10.0
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3846,7 +3846,7 @@ __metadata:
     "@navikt/ds-react": 6.12.0
     "@navikt/ft-utils": 2.x
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3871,7 +3871,7 @@ __metadata:
     eslint: 9.10.0
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3887,7 +3887,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     react: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3916,7 +3916,7 @@ __metadata:
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3935,7 +3935,7 @@ __metadata:
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.52.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3961,7 +3961,7 @@ __metadata:
     eslint: 9.10.0
     moment: 2.30.1
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     storybook: 8.3.1
     stylelint: 16.9.0
     typescript: 5.6.2
@@ -3978,7 +3978,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     moment: 2.30.1
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -3991,7 +3991,7 @@ __metadata:
     history: 5.3.0
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     typescript: 5.6.2
     vite: 5.4.6
   languageName: unknown
@@ -4032,7 +4032,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.10.0
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     react-modal: 3.16.1
     storybook: 8.3.1
     stylelint: 16.9.0
@@ -4046,7 +4046,7 @@ __metadata:
     "@navikt/ft-utils": 2.x
     classnames: 2.5.1
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     react-modal: 3.16.1
   languageName: unknown
   linkType: soft
@@ -4059,7 +4059,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.10.0
     react: 18.3.1
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     typescript: 5.6.2
     vite: 5.4.6
   languageName: unknown
@@ -4073,7 +4073,7 @@ __metadata:
     "@navikt/ft-types": ^2.5.0
     dayjs: 1.11.13
     eslint: 9.10.0
-    react-intl: 6.6.8
+    react-intl: 6.7.0
     typescript: 5.6.2
     vite: 5.4.6
     vitest: 2.1.1
@@ -4081,7 +4081,7 @@ __metadata:
     "@navikt/ft-kodeverk": 2.x
     "@navikt/ft-types": 2.x
     dayjs: 1.11.11
-    react-intl: 6.6.8
+    react-intl: 6.7.0
   languageName: unknown
   linkType: soft
 
@@ -13930,13 +13930,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-intl@npm:6.6.8":
-  version: 6.6.8
-  resolution: "react-intl@npm:6.6.8"
+"react-intl@npm:6.7.0":
+  version: 6.7.0
+  resolution: "react-intl@npm:6.7.0"
   dependencies:
     "@formatjs/ecma402-abstract": 2.0.0
     "@formatjs/icu-messageformat-parser": 2.7.8
-    "@formatjs/intl": 2.10.4
+    "@formatjs/intl": 2.10.5
     "@formatjs/intl-displaynames": 6.6.8
     "@formatjs/intl-listformat": 7.5.7
     "@types/hoist-non-react-statics": ^3.3.1
@@ -13950,7 +13950,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 41e43d1d15f33f4b5abb619645e96f1d81f64bba62745e19a289ea84c1580bf39fd5da6b94104c391ed689f1f1daec512dcb396cac3df58322bc060b9f5bdb01
+  checksum: d76cffefb660c3b7126a46b2adbd95066b375d48351ac1a42d96b60da0ec351ac2a055d6f170f9debdf90f17e21454bb944044246ddd06c6e965805ba928cbd4
   languageName: node
   linkType: hard
 
