@@ -25,9 +25,9 @@
     "storybook": "storybook dev --quiet -p 7007"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.0.0",
-    "@navikt/ds-css": "7.0.0",
-    "@navikt/ds-react": "7.0.0",
+    "@navikt/aksel-icons": "7.1.0",
+    "@navikt/ds-css": "7.1.0",
+    "@navikt/ds-react": "7.1.0",
     "@navikt/ft-utils": "^2.4.0",
     "classnames": "2.5.1"
   },
