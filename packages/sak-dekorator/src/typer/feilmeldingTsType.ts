@@ -1,10 +1,8 @@
-type JSONValue = string | number | boolean | JSONObject | JSONArray;
+type JSONValue = string | number | boolean | JSONObject | Array<JSONValue>;
 
 interface JSONObject {
   [x: string]: JSONValue;
 }
-
-interface JSONArray extends Array<JSONValue> {}
 
 type Feilmelding = {
   melding: string;
