@@ -282,6 +282,9 @@ export const lagHelpTextsForFakta = (
             <List.Item>
               <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
             </List.Item>
+            <List.Item>
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7" />
+            </List.Item>
           </List>
         </ReadMore>
         <VerticalSpacer fourPx />
