@@ -6,6 +6,7 @@ import { Alert, Heading, Panel } from '@navikt/ds-react';
 import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
 import { TilbakekrevingKodeverkType, ForeldelseVurderingType, KodeverkType } from '@navikt/ft-kodeverk';
+import { SubmitButton } from '@navikt/ft-frontend-saksbehandling-internal';
 import {
   KodeverkMedNavn,
   FeilutbetalingPerioderWrapper,
@@ -26,7 +27,6 @@ import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
 import DataForPeriode from '../types/dataForPeriodeTsType';
 import VilkarsVurderingAp from '../types/VilkarsVurderingAp';
 import TilbakekrevingAksjonspunktCodes from '../TilbakekrevingAksjonspunktCodes';
-import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
 import styles from './tilbakekrevingForm.module.css';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
@@ -434,7 +434,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
           <VerticalSpacer twentyPx />
         </>
       )}
-      <ProsessStegSubmitButton
+      <SubmitButton
         isReadOnly={isReadOnly}
         isDirty={isDirty}
         isSubmittable={!isApOpen && !valgtPeriode && !valideringsmeldingId}

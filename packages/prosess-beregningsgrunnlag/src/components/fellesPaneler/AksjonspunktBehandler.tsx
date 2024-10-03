@@ -3,6 +3,8 @@ import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+import { SubmitButton } from '@navikt/ft-frontend-saksbehandling-internal';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -15,10 +17,8 @@ import {
   Vilkar,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { useFieldArray, useForm } from 'react-hook-form';
-import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
 import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
@@ -458,10 +458,11 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
     defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
+    mode: 'onChange',
   });
 
   const {
-    formState: { dirtyFields },
+    formState: { dirtyFields, isValid },
     control,
     trigger,
   } = formMethods;
@@ -485,15 +486,15 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
-
   const submittKnapp = (
     <FlexRow>
       <FlexColumn>
-        <ProsessStegSubmitButton
+        <SubmitButton
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
           isDirty={formMethods.formState.isDirty}
           isSubmitting={finnesFormSomSubmittes}
+          hasErrors={!isValid}
         />
       </FlexColumn>
     </FlexRow>

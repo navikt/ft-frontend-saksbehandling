@@ -29,6 +29,7 @@
     "@navikt/ds-react": "7.1.0",
     "@navikt/ft-form-hooks": "^5.1.1",
     "@navikt/ft-form-validators": "^2.4.1",
+    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^",
     "@navikt/ft-kodeverk": "^2.5.1",
     "@navikt/ft-konstanter": "^2.4.1",
     "@navikt/ft-types": "^2.5.1",

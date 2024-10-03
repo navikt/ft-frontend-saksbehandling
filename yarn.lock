@@ -3068,6 +3068,7 @@ __metadata:
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
+    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-konstanter": ^2.4.1
     "@navikt/ft-storybook-utils": ^2.4.1
@@ -3125,6 +3126,7 @@ __metadata:
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
+    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-konstanter": ^2.4.1
     "@navikt/ft-storybook-utils": ^2.4.1
@@ -3339,6 +3341,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@navikt/ft-frontend-saksbehandling-internal@workspace:^, @navikt/ft-frontend-saksbehandling-internal@workspace:packages/internal":
+  version: 0.0.0-use.local
+  resolution: "@navikt/ft-frontend-saksbehandling-internal@workspace:packages/internal"
+  dependencies:
+    "@navikt/ds-react": 7.1.0
+    eslint: 9.11.1
+    react: 18.3.1
+  languageName: unknown
+  linkType: soft
+
 "@navikt/ft-kodeverk@^2.5.1, @navikt/ft-kodeverk@workspace:packages/kodeverk":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-kodeverk@workspace:packages/kodeverk"
@@ -3420,6 +3432,7 @@ __metadata:
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
+    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-plattform-komponenter": ^3.1.1
     "@navikt/ft-storybook-utils": ^2.4.1
@@ -3475,6 +3488,7 @@ __metadata:
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
+    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-storybook-utils": ^2.4.1
     "@navikt/ft-types": ^2.5.1
@@ -3526,6 +3540,7 @@ __metadata:
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
+    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-storybook-utils": ^2.4.1
     "@navikt/ft-types": ^2.5.1
@@ -3574,6 +3589,7 @@ __metadata:
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
+    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-storybook-utils": ^2.4.1
     "@navikt/ft-types": ^2.5.1

@@ -10,6 +10,7 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
+import { SubmitButton } from '@navikt/ft-frontend-saksbehandling-internal';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
@@ -19,7 +20,6 @@ import { BeregningAktiviteterTransformedValues } from '../../typer/interface/Ber
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
-import SubmitButton from '../felles/SubmitButton';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import {
@@ -280,7 +280,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                   isDirty={fieldIsDirty}
                   isSubmitting={submitDisabled}
                   isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
-                  hasEmptyRequiredFields={finnesFeilForBegrunnelse}
+                  hasErrors={finnesFeilForBegrunnelse}
                 />
                 {!!dirtyFields && fieldIsDirty && (
                   <Button
