@@ -277,7 +277,6 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                       : 'AvklarAktivitetPanel.ButtonText',
                   })}
                   isSubmittable={erSubmittable(submittable, true, finnesFeilForBegrunnelse)}
-                  isDirty={fieldIsDirty}
                   isSubmitting={submitDisabled}
                   isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
                   hasErrors={finnesFeilForBegrunnelse}

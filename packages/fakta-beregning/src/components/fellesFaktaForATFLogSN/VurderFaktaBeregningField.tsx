@@ -97,7 +97,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
 }) => {
   const {
     getValues,
-    formState: { errors, isDirty },
+    formState: { errors },
   } = useFormContext<VurderFaktaBeregningFormValues>();
   const setErrors = React.useContext(GetErrorsContext);
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
@@ -152,7 +152,6 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
               ) && !verdiForAvklarAktivitetErEndret
             }
             isReadOnly={readOnly || !skalVurderes}
-            isDirty={isDirty}
             isSubmitting={submitDisabled}
             hasErrors={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
           />
