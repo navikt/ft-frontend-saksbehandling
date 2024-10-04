@@ -8,7 +8,7 @@ const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: bool
   if (!isDirty) {
     return true;
   }
-  return hasErrors;
+  return !!hasErrors;
 };
 
 export interface OwnProps {
