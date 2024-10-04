@@ -89,12 +89,12 @@ describe('<TilbakekrevingProsessIndex>', () => {
     const utils = render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Tilbakekreving')).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.type(
       utils.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
       'Dette er en vurdering',
     );
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Velg først 'Feil opplysninger' for å sjekke at denne informasjonen blir resatt når en bytter
     await userEvent.click(
