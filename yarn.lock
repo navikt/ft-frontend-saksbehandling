@@ -2716,6 +2716,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ft-frontend-saksbehandling/internal-components@workspace:^, @ft-frontend-saksbehandling/internal-components@workspace:packages/internal":
+  version: 0.0.0-use.local
+  resolution: "@ft-frontend-saksbehandling/internal-components@workspace:packages/internal"
+  dependencies:
+    "@navikt/ds-react": 7.1.0
+    eslint: 9.11.1
+    react: 18.3.1
+  languageName: unknown
+  linkType: soft
+
 "@humanwhocodes/module-importer@npm:^1.0.1":
   version: 1.0.1
   resolution: "@humanwhocodes/module-importer@npm:1.0.1"
@@ -3063,12 +3073,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning-redesign@workspace:packages/fakta-beregning-redesign"
   dependencies:
+    "@ft-frontend-saksbehandling/internal-components": "workspace:^"
     "@navikt/aksel-icons": 7.1.0
     "@navikt/ds-css": 7.1.0
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
-    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-konstanter": ^2.4.1
     "@navikt/ft-storybook-utils": ^2.4.1
@@ -3121,12 +3131,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
+    "@ft-frontend-saksbehandling/internal-components": "workspace:^"
     "@navikt/aksel-icons": 7.1.0
     "@navikt/ds-css": 7.1.0
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
-    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-konstanter": ^2.4.1
     "@navikt/ft-storybook-utils": ^2.4.1
@@ -3341,16 +3351,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-frontend-saksbehandling-internal@workspace:^, @navikt/ft-frontend-saksbehandling-internal@workspace:packages/internal":
-  version: 0.0.0-use.local
-  resolution: "@navikt/ft-frontend-saksbehandling-internal@workspace:packages/internal"
-  dependencies:
-    "@navikt/ds-react": 7.1.0
-    eslint: 9.11.1
-    react: 18.3.1
-  languageName: unknown
-  linkType: soft
-
 "@navikt/ft-kodeverk@^2.5.1, @navikt/ft-kodeverk@workspace:packages/kodeverk":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-kodeverk@workspace:packages/kodeverk"
@@ -3427,12 +3427,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
   dependencies:
+    "@ft-frontend-saksbehandling/internal-components": "workspace:^"
     "@navikt/aksel-icons": 7.1.0
     "@navikt/ds-css": 7.1.0
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
-    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-plattform-komponenter": ^3.1.1
     "@navikt/ft-storybook-utils": ^2.4.1
@@ -3483,12 +3483,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse"
   dependencies:
+    "@ft-frontend-saksbehandling/internal-components": "workspace:^"
     "@navikt/aksel-icons": 7.1.0
     "@navikt/ds-css": 7.1.0
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
-    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-storybook-utils": ^2.4.1
     "@navikt/ft-types": ^2.5.1
@@ -3535,12 +3535,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak"
   dependencies:
+    "@ft-frontend-saksbehandling/internal-components": "workspace:^"
     "@navikt/aksel-icons": 7.1.0
     "@navikt/ds-css": 7.1.0
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
-    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-storybook-utils": ^2.4.1
     "@navikt/ft-types": ^2.5.1
@@ -3584,12 +3584,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving"
   dependencies:
+    "@ft-frontend-saksbehandling/internal-components": "workspace:^"
     "@navikt/aksel-icons": 7.1.0
     "@navikt/ds-css": 7.1.0
     "@navikt/ds-react": 7.1.0
     "@navikt/ft-form-hooks": ^5.1.1
     "@navikt/ft-form-validators": ^2.4.1
-    "@navikt/ft-frontend-saksbehandling-internal": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.1
     "@navikt/ft-storybook-utils": ^2.4.1
     "@navikt/ft-types": ^2.5.1

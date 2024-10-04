@@ -1,5 +1,5 @@
 {
-  "name": "@navikt/ft-frontend-saksbehandling-internal",
+  "name": "@ft-frontend-saksbehandling/internal-components",
   "version": "1.0.0",
   "description": "Intern pakke kun for bruk i ft-frontend-saksbehandling. Skal ikke publiseres",
   "main": "index.ts",

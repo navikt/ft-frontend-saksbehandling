@@ -10,7 +10,7 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@navikt/ft-frontend-saksbehandling-internal';
+import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
