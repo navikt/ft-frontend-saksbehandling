@@ -267,6 +267,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
     formData || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
   );
 
+  const [isDirty, setDirty] = useState(!!formData);
   const [valgtPeriode, setValgtPeriode] = useState<CustomVilkarsVurdertePeriode | undefined>(
     vilkårsvurdertePerioder?.find(harApentAksjonspunkt),
   );
@@ -328,6 +329,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
     setVilkårsvurdertePerioder(sortedActivities);
     setFormData(sortedActivities);
+    setDirty(true);
     lukkPeriode();
 
     const periodeMedApenAksjonspunkt = sortedActivities.find(harApentAksjonspunkt);
@@ -351,6 +353,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
       const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
 
       lukkPeriode();
+      setDirty(true);
       setVilkårsvurdertePerioder(sortedActivities);
       setFormData(sortedActivities);
       setPeriode(nyePerioder[0]);
@@ -433,6 +436,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
       )}
       <SubmitButton
         isReadOnly={isReadOnly}
+        isDirty={isDirty}
         isSubmittable={!isApOpen && !valgtPeriode && !valideringsmeldingId}
         onClick={lagrePerioder}
         isSubmitting={isSubmitting}

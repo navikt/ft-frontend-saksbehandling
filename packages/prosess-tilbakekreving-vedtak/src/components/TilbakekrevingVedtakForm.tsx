@@ -8,7 +8,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Form } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
-import SubmitButton from '@navikt/ft-frontend-saksbehandling-internal/src/SubmitButton';
+import ProsessStegSubmitButton from '@navikt/ft-frontend-saksbehandling-internal/src/SubmitButton';
 
 import underavsnittType from '../kodeverk/avsnittType';
 import TilbakekrevingEditerVedtaksbrevPanel, { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
@@ -136,6 +136,7 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
   const intl = useIntl();
   const formMethods = useForm<FormValues>({
     defaultValues,
+    mode: 'onChange',
   });
 
   const formVerdier = formMethods.watch();
@@ -169,13 +170,14 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
       />
       <VerticalSpacer twentyPx />
       <HStack gap="10">
-        <SubmitButton
+        <ProsessStegSubmitButton
           text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
           isReadOnly={readOnly}
           isSubmittable={
             perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
           }
           isSubmitting={formMethods.formState.isSubmitting}
+          isDirty={formMethods.formState.isDirty}
           hasErrors={harObligatoriskeFelterSomIkkeErUtfylt}
         />
         {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (

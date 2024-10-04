@@ -127,6 +127,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
     foreldelseresultatAktiviteter?.find(harApentAksjonspunkt),
   );
   const [isSubmitting, setSubmitting] = useState(false);
+  const [isDirty, setDirty] = useState(!!formData);
 
   const setPeriode = (periode?: TidslinjePeriode | ForeldelsesresultatActivity): void => {
     const valgt = periode
@@ -165,6 +166,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
       const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
       setForeldelseresultatAktiviteter(sortedActivities);
       setFormData(sortedActivities);
+      setDirty(true);
       lukkPeriode();
 
       const periodeMedApenAksjonspunkt = sortedActivities.find(harApentAksjonspunkt);
@@ -198,6 +200,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
 
       setForeldelseresultatAktiviteter(sortedActivities);
       setFormData(sortedActivities);
+      setDirty(true);
       lukkPeriode();
       setPeriode(nyePerioder[0]);
     },
@@ -281,6 +284,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
           <VerticalSpacer twentyPx />
           <SubmitButton
             isReadOnly={readOnly}
+            isDirty={isDirty}
             isSubmittable={!valgtPeriode && erAlleAksjonspunktLøst}
             onClick={lagrePerioder}
             isSubmitting={isSubmitting}

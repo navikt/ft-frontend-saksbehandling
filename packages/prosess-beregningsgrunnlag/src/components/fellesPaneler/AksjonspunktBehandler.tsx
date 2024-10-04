@@ -458,6 +458,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
     defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
+    mode: 'onChange',
   });
 
   const {
@@ -491,6 +492,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
         <SubmitButton
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
+          isDirty={formMethods.formState.isDirty}
           isSubmitting={finnesFormSomSubmittes}
           hasErrors={!isValid}
         />

@@ -1,17 +1,21 @@
 import React, { FunctionComponent } from 'react';
 import { Button } from '@navikt/ds-react';
 
-const isDisabled = (isSubmitting: boolean, isSubmittable: boolean, hasErrors?: boolean): boolean => {
-  if (!isSubmittable || isSubmitting) {
+const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: boolean, hasErrors?: boolean): boolean => {
+  if ((!isDirty && !isSubmittable) || isSubmitting) {
     return true;
   }
-  return hasErrors;
+  if (hasErrors === undefined) {
+    return !isDirty;
+  }
+  return (!isDirty && hasErrors) || hasErrors;
 };
 
 export interface OwnProps {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;
+  isDirty: boolean;
   text?: string;
   onClick?: (event: React.MouseEvent) => void;
   hasErrors?: boolean;
@@ -21,6 +25,7 @@ const SubmitButton: FunctionComponent<OwnProps> = ({
   isReadOnly,
   isSubmittable,
   isSubmitting,
+  isDirty,
   text,
   onClick,
   hasErrors,
@@ -31,7 +36,7 @@ const SubmitButton: FunctionComponent<OwnProps> = ({
         variant="primary"
         size="small"
         loading={isSubmitting}
-        disabled={isDisabled(isSubmitting, isSubmittable, hasErrors)}
+        disabled={isDisabled(isDirty, isSubmitting, isSubmittable, hasErrors)}
         onClick={onClick}
         type={onClick ? 'button' : 'submit'}
       >
