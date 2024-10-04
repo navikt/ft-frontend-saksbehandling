@@ -2716,9 +2716,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ft-frontend-saksbehandling/internal-components@workspace:^, @ft-frontend-saksbehandling/internal-components@workspace:packages/internal":
+"@ft-frontend-saksbehandling/internal-components@workspace:^, @ft-frontend-saksbehandling/internal-components@workspace:packages/internal-components":
   version: 0.0.0-use.local
-  resolution: "@ft-frontend-saksbehandling/internal-components@workspace:packages/internal"
+  resolution: "@ft-frontend-saksbehandling/internal-components@workspace:packages/internal-components"
   dependencies:
     "@navikt/ds-react": 7.1.0
     eslint: 9.11.1
