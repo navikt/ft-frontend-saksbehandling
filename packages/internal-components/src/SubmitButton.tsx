@@ -2,13 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { Button } from '@navikt/ds-react';
 
 const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: boolean, hasErrors?: boolean): boolean => {
-  if ((!isDirty && !isSubmittable) || isSubmitting) {
+  if (!isSubmittable || isSubmitting) {
     return true;
   }
-  if (hasErrors === undefined) {
-    return !isDirty;
+  if (!isDirty) {
+    return true;
   }
-  return (!isDirty && hasErrors) || hasErrors;
+  return hasErrors;
 };
 
 export interface OwnProps {
