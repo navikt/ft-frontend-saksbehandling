@@ -136,7 +136,6 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
   const intl = useIntl();
   const formMethods = useForm<FormValues>({
     defaultValues,
-    mode: 'onChange',
   });
 
   const formVerdier = formMethods.watch();

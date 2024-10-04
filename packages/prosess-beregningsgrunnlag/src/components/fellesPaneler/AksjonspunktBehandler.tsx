@@ -458,11 +458,10 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
     defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
-    mode: 'onChange',
   });
 
   const {
-    formState: { dirtyFields, isValid },
+    formState: { dirtyFields },
     control,
     trigger,
   } = formMethods;
@@ -494,7 +493,6 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
           isSubmittable={!readOnlySubmitButton}
           isDirty={formMethods.formState.isDirty}
           isSubmitting={finnesFormSomSubmittes}
-          hasErrors={!isValid}
         />
       </FlexColumn>
     </FlexRow>
