@@ -6,7 +6,7 @@ import { RawIntlProvider } from 'react-intl';
 import { createIntl } from '@navikt/ft-utils';
 import { Behandling, FeilutbetalingPerioderWrapper, DetaljerteFeilutbetalingsperioder } from '@navikt/ft-types';
 import { ForeldelseVurderingType, BehandlingStatus, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
+import { alleTilbakekrevingKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
 import TilbakekrevingProsessIndex from './TilbakekrevingProsessIndex';
 
 import messages from '../i18n/nb_NO.json';

@@ -52,7 +52,7 @@
     "react-hook-form": "7.52.0"
   },
   "devDependencies": {
-    "@navikt/ft-utils-test": "^2.4.1",
+    "@ft-frontend-saksbehandling/ft-utils-test": "workspace:^",
     "@storybook/addon-actions": "8.3.3",
     "@storybook/react": "8.3.3",
     "@storybook/react-vite": "8.3.3",

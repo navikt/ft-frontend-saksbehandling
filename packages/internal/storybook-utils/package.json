@@ -1,5 +1,5 @@
 {
-  "name": "@navikt/ft-storybook-utils",
+  "name": "@ft-frontend-saksbehandling/storybook-utils",
   "version": "2.4.1",
   "license": "MIT",
   "type": "module",

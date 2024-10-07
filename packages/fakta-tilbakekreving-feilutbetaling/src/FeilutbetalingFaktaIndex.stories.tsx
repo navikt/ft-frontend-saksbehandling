@@ -9,7 +9,7 @@ import {
   TilbakekrevingVidereBehandling,
   FagsakYtelseType,
 } from '@navikt/ft-kodeverk';
-import { alleTilbakekrevingKodeverk, alleKodeverk } from '@navikt/ft-storybook-utils';
+import { alleTilbakekrevingKodeverk, alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
 import { FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
 import FeilutbetalingFaktaIndex from './FeilutbetalingFaktaIndex';
