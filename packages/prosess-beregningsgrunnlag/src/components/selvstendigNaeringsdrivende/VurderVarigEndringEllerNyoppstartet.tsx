@@ -16,7 +16,8 @@ import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import BeregningFormValues from '../../types/BeregningFormValues';
 
-const maxLength1500 = maxLength(1500);
+const MAX_LENGTH = 4000;
+const maxLength4000 = maxLength(MAX_LENGTH);
 const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
 export const varigEndringRadioname = 'erVarigEndret';
@@ -146,8 +147,8 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
             <TextAreaField
               name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
               label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
-              validate={[required, maxLength1500, minLength3, hasValidText]}
-              maxLength={1500}
+              validate={[required, maxLength4000, minLength3, hasValidText]}
+              maxLength={MAX_LENGTH}
               readOnly={readOnly}
               description={intl.formatMessage({
                 id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',

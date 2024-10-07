@@ -14,7 +14,9 @@ import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { NyIArbeidslivetValues } from '../../types/NaringAksjonspunktTsType';
 
-const maxLength1500 = maxLength(1500);
+const MAX_LENGTH = 4000;
+const maxLength4000 = maxLength(MAX_LENGTH);
+
 const minLength3 = minLength(3);
 export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
@@ -87,9 +89,9 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
             <TextAreaField
               name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
               label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
-              validate={[required, maxLength1500, minLength3, hasValidText]}
+              validate={[required, maxLength4000, minLength3, hasValidText]}
               isEdited={readOnly && isAksjonspunktClosed}
-              maxLength={1500}
+              maxLength={MAX_LENGTH}
               readOnly={readOnly}
               description={intl.formatMessage({
                 id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',

@@ -20,7 +20,8 @@ import KodeverkFpSakForPanel from '../types/kodeverkFpSakForPanel';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
-const maxLength1500 = maxLength(1500);
+const MAX_LENGTH = 4000;
+const maxLength4000 = maxLength(MAX_LENGTH);
 
 export type FormValues = {
   begrunnelse?: string;
@@ -296,8 +297,8 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
           <TextAreaField
             name="begrunnelse"
             label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.Begrunnelse' })}
-            validate={[required, minLength3, maxLength1500, hasValidText]}
-            maxLength={1500}
+            validate={[required, minLength3, maxLength4000, hasValidText]}
+            maxLength={MAX_LENGTH}
             readOnly={readOnly}
           />
         </div>
