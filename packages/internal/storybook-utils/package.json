@@ -12,8 +12,6 @@
     "tsc": "tsc --pretty",
     "eslint": "eslint \"decorators/**/*.ts*\" --color",
     "eslint:fix": "eslint --fix \"decorators/**/*.ts*\" --color",
-    "dev": "vite build --watch --mode development",
-    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
