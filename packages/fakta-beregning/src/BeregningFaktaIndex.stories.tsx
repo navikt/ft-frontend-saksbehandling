@@ -5,7 +5,7 @@ import {
   Inntektskategori,
   OpptjeningAktivitetType,
 } from '@navikt/ft-kodeverk';
-import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-storybook-utils';
+import { alleKodeverk as alleKodeverkMock } from '@ft-frontend-saksbehandling/storybook-utils';
 import {
   AndelForFaktaOmBeregning,
   BeregningAvklaringsbehov,

@@ -1,4 +1,4 @@
-import { konverterKodeverkTilKode } from '@navikt/ft-utils-test';
+import { konverterKodeverkTilKode } from '@ft-frontend-saksbehandling/ft-utils-test';
 
 const beregningsgrunnlag = {
   beregningsgrunnlagListe: [

@@ -5,6 +5,7 @@ import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 import { AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
+import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
 
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
@@ -13,7 +14,6 @@ import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
 import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
 import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
 import PeriodeController, { PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
-import ProsessStegSubmitButton from './ProsessStegSubmitButton';
 
 import styles from './foreldelseForm.module.css';
 import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
@@ -282,7 +282,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
             </div>
           )}
           <VerticalSpacer twentyPx />
-          <ProsessStegSubmitButton
+          <SubmitButton
             isReadOnly={readOnly}
             isDirty={isDirty}
             isSubmittable={!valgtPeriode && erAlleAksjonspunktLøst}

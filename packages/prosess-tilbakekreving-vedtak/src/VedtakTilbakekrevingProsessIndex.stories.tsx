@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 
 import { VedtakResultatType, BehandlingStatus } from '@navikt/ft-kodeverk';
 import { Behandling, BeregningsresultatTilbakekreving } from '@navikt/ft-types';
-import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
+import { alleTilbakekrevingKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
 
 import aktsomhet from './kodeverk/aktsomhet';
 import VedtakTilbakekrevingProsessIndex from './VedtakTilbakekrevingProsessIndex';

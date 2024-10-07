@@ -1,19 +1,14 @@
 {
-  "name": "@navikt/ft-storybook-utils",
+  "name": "@ft-frontend-saksbehandling/storybook-utils",
   "version": "2.4.1",
   "license": "MIT",
   "type": "module",
   "private": true,
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "module": "./index.ts",
   "scripts": {
     "tsc": "tsc --pretty",
     "eslint": "eslint \"decorators/**/*.ts*\" --color",
     "eslint:fix": "eslint --fix \"decorators/**/*.ts*\" --color",
-    "dev": "vite build --watch --mode development",
-    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
@@ -22,13 +17,6 @@
     "react": "18.3.1",
     "react-hook-form": "7.53.0",
     "react-intl": "6.7.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
-    }
   },
   "devDependencies": {
     "eslint": "9.11.1",

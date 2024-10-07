@@ -7,12 +7,12 @@ import {
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 import { FormattedMessage } from 'react-intl';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
-import SubmitButton from '../felles/SubmitButton';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
@@ -141,20 +141,20 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
             />
           )}
           <VerticalSpacer twentyPx />
-          {/* @ts-ignore */}
           <SubmitButton
-            isDisabled={!!verdiForAvklarAktivitetErEndret}
-            isSubmittable={erSubmittable(
-              submittable &&
-                harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, avklaringsbehov) &&
-                !isAksjonspunktClosed(avklaringsbehov),
-              true,
-              finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
-            )}
+            isSubmittable={
+              erSubmittable(
+                submittable &&
+                  harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, avklaringsbehov) &&
+                  !isAksjonspunktClosed(avklaringsbehov),
+                true,
+                finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
+              ) && !verdiForAvklarAktivitetErEndret
+            }
             isReadOnly={readOnly || !skalVurderes}
             isDirty={isDirty}
             isSubmitting={submitDisabled}
-            hasEmptyRequiredFields={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
+            hasErrors={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
           />
         </>
       )}
