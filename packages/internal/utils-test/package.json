@@ -4,12 +4,7 @@
   "license": "MIT",
   "type": "module",
   "private": true,
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "module": "./index.ts",
   "scripts": {
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
@@ -27,13 +22,5 @@
     "eslint": "9.11.1",
     "typescript": "5.6.2",
     "vite": "5.4.8"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
-    },
-    "./dist/style.css": "./dist/style.css"
   }
 }
