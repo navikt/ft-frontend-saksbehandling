@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-beregning-redesign",
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
     "@navikt/aksel-icons": "7.1.0",
     "@navikt/ds-css": "7.1.0",
     "@navikt/ds-react": "7.1.0",
-    "@navikt/ft-form-hooks": "^5.1.1",
+    "@navikt/ft-form-hooks": "^5.1.2",
     "@navikt/ft-form-validators": "^2.4.1",
     "@navikt/ft-kodeverk": "^2.5.1",
     "@navikt/ft-konstanter": "^2.4.1",
