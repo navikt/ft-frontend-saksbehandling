@@ -69,6 +69,7 @@ const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProp
         erNyArbLivet={erNyArbLivet}
         fieldIndex={fieldIndex}
         formName={formName}
+        avklaringsbehov={avklaringsbehov}
       />
     );
   }
@@ -81,6 +82,7 @@ const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProp
       fieldIndex={fieldIndex}
       formName={formName}
       isAksjonspunktClosed={isAksjonspunktClosed}
+      avklaringsbehov={avklaringsbehov}
     />
   );
 };

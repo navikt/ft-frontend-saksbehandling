@@ -7,6 +7,6 @@ export default {
   component: AssessedBy,
 };
 
-const Template: StoryFn<ComponentProps<typeof AssessedBy>> = () => <AssessedBy name="navn" date="2023-01-01" />;
+const Template: StoryFn<ComponentProps<typeof AssessedBy>> = () => <AssessedBy ident="navn" date="2023-01-01" />;
 
 export const Default = Template.bind({});

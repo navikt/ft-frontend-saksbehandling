@@ -37,6 +37,7 @@ import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArb
 import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
 import styles from './aksjonspunktBehandler.module.css';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -191,13 +192,19 @@ const buildFormInitialValues = (
   ),
 });
 
-const settOppKomponenterForNæring = (
-  readOnly: boolean,
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-  avklaringsbehov: BeregningAvklaringsbehov,
-  fieldIndex: number,
-  formName: string,
-): ReactElement | null => {
+const SelvstendigNæringsdrivendeContainer = ({
+  readOnly,
+  allePerioder,
+  avklaringsbehov,
+  fieldIndex,
+  formName,
+}: {
+  readOnly: boolean;
+  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  avklaringsbehov: BeregningAvklaringsbehov;
+  fieldIndex: number;
+  formName: string;
+}): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
@@ -226,15 +233,25 @@ const settOppKomponenterForNæring = (
   );
 };
 
-const settOppKomponenterForATFL = (
-  kodeverkSamling: KodeverkForPanel,
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  readOnly: boolean,
-  intl: IntlShape,
-  fieldIndex: number,
-  formName: string,
-): ReactElement => {
+const ArbeidstakerEllerFrilansContainer = ({
+  kodeverkSamling,
+  allePerioder,
+  arbeidsgiverOpplysningerPerId,
+  readOnly,
+  intl,
+  fieldIndex,
+  formName,
+  avklaringsbehov,
+}: {
+  kodeverkSamling: KodeverkForPanel;
+  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  intl: IntlShape;
+  fieldIndex: number;
+  formName: string;
+  avklaringsbehov: BeregningAvklaringsbehov;
+}): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
@@ -284,6 +301,7 @@ const settOppKomponenterForATFL = (
             })}
             parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
+          <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
         </FlexColumn>
       </FlexRow>
     </>
@@ -503,25 +521,30 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   ): BeregningAvklaringsbehov | undefined => avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
 
   const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement | null => {
-    const ab = finnAvklaringsbehov(avklaringsbehovForBG);
-    if (lovparagraf === LovParagraf.ÅTTE_TRETTI && ab) {
-      return settOppKomponenterForATFL(
-        kodeverkSamling,
-        bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
-        arbeidsgiverOpplysningerPerId,
-        readOnly,
-        intl,
-        index,
-        formName,
+    const avklaringsbehov = finnAvklaringsbehov(avklaringsbehovForBG);
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTI && avklaringsbehov) {
+      return (
+        <ArbeidstakerEllerFrilansContainer
+          kodeverkSamling={kodeverkSamling}
+          allePerioder={bgSomSkalVurderes[index].beregningsgrunnlagPeriode}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          readOnly={readOnly}
+          intl={intl}
+          fieldIndex={index}
+          formName={formName}
+          avklaringsbehov={avklaringsbehov}
+        />
       );
     }
-    if (lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && ab) {
-      return settOppKomponenterForNæring(
-        readOnly,
-        bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
-        ab,
-        index,
-        formName,
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && avklaringsbehov) {
+      return (
+        <SelvstendigNæringsdrivendeContainer
+          readOnly={readOnly}
+          allePerioder={bgSomSkalVurderes[index].beregningsgrunnlagPeriode}
+          fieldIndex={index}
+          formName={formName}
+          avklaringsbehov={avklaringsbehov}
+        />
       );
     }
     return null;
