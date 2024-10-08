@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-internal-components",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Intern pakke kun for bruk i ft-frontend-saksbehandling. Skal ikke publiseres",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
