@@ -2840,14 +2840,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-datetimeformat@npm:6.12.5":
-  version: 6.12.5
-  resolution: "@formatjs/intl-datetimeformat@npm:6.12.5"
+"@formatjs/intl-datetimeformat@npm:6.12.6":
+  version: 6.12.6
+  resolution: "@formatjs/intl-datetimeformat@npm:6.12.6"
   dependencies:
     "@formatjs/ecma402-abstract": 2.0.0
     "@formatjs/intl-localematcher": 0.5.4
     tslib: ^2.4.0
-  checksum: 06f5a3f33fc3c8fc4de65d9f311fdf9c94b782f580c8d3f60f4e78c4e071eb02b3b07c68156f067dc759c09514467827ec058163509ee2762346ed5c1f3054f6
+  checksum: 6a76e0ecb4204191b9fea80220b33d84ac003b51e9f5850c6d6a244c13546c8d1b6a37294e6131cf20df374b0a2fae95f58b7ddd92cede614a140b6bc57869c3
   languageName: node
   linkType: hard
 
@@ -9831,7 +9831,7 @@ __metadata:
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
     "@eslint/js": 9.12.0
-    "@formatjs/intl-datetimeformat": 6.12.5
+    "@formatjs/intl-datetimeformat": 6.12.6
     "@formatjs/intl-numberformat": 8.10.3
     "@navikt/aksel-stylelint": 7.1.2
     "@storybook/addon-essentials": 8.3.5
