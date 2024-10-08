@@ -2,8 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 
 import { Button, ErrorMessage, Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { SubmitButton } from '@navikt/ft-frontend-internal-components';
-import { useCustomValidation } from '@navikt/ft-form-hooks';
+import { useCustomValidation, SubmitButton } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
