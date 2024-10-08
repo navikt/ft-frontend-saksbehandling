@@ -6,6 +6,7 @@ import { Alert, Heading, Panel } from '@navikt/ds-react';
 import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
 import { TilbakekrevingKodeverkType, ForeldelseVurderingType, KodeverkType } from '@navikt/ft-kodeverk';
+import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 import {
   KodeverkMedNavn,
   FeilutbetalingPerioderWrapper,
@@ -14,7 +15,6 @@ import {
   DetaljerteFeilutbetalingsperioder,
   DetaljertFeilutbetalingPeriode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 
 import TilbakekrevingPeriodeForm, {
   CustomPeriode,

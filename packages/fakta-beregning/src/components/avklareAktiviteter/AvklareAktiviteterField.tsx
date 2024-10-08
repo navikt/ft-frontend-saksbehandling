@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 
 import { Button, ErrorMessage, Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -19,7 +20,6 @@ import {
   OverstyringKnapp,
   VerticalSpacer,
 } from '@navikt/ft-ui-komponenter';
-import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
