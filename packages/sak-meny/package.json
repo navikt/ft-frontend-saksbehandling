@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-meny",
   "description": "Meny som viser diverse handlinger en kan utføre på en fagsak",
-  "version": "3.4.6",
+  "version": "3.4.7",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
