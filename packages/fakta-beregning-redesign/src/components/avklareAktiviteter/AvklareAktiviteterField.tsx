@@ -10,7 +10,6 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
@@ -28,6 +27,7 @@ import {
   skalKunneLoseAvklaringsbehov,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
+import { SubmitButton } from '../../../../internal/internal-components';
 import styles from './avklareAktiviteterPanel.module.css';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;

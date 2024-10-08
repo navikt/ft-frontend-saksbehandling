@@ -3,7 +3,6 @@ import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {
@@ -37,6 +36,7 @@ import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArb
 import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
 import styles from './aksjonspunktBehandler.module.css';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { SubmitButton } from '../../../../internal/internal-components';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

@@ -4,7 +4,6 @@ import {
   Beregningsgrunnlag,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
@@ -17,6 +16,7 @@ import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { erOverstyringAvBeregningsgrunnlag, hasAksjonspunkt, isAksjonspunktClosed } from './BgFaktaUtils';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
 import VurderFaktaContext, { BeregningsgrunnlagIndexContext, GetErrorsContext } from './VurderFaktaContext';
+import { SubmitButton } from '../../../../internal/internal-components';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 

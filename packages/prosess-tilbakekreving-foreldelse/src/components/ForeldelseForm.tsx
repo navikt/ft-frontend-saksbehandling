@@ -5,7 +5,6 @@ import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 import { AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
 
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
@@ -20,6 +19,7 @@ import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
 import VurderForeldelseAp from '../types/VurderForeldelseAp';
 import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 import PeriodeInformasjon from './splittePerioder/PeriodeInformasjon';
+import { SubmitButton } from '../../../internal/internal-components';
 
 const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
   dayjs(periode1.fom).diff(dayjs(periode2.fom));

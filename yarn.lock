@@ -3289,7 +3289,6 @@ __metadata:
     "@navikt/ds-react": 7.1.2
     "@navikt/ft-form-hooks": ^5.1.5
     "@navikt/ft-form-validators": ^2.4.2
-    "@navikt/ft-frontend-internal-components": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.2
@@ -3347,7 +3346,6 @@ __metadata:
     "@navikt/ds-react": 7.1.2
     "@navikt/ft-form-hooks": ^5.1.5
     "@navikt/ft-form-validators": ^2.4.2
-    "@navikt/ft-frontend-internal-components": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.2
@@ -3562,7 +3560,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-frontend-internal-components@workspace:^, @navikt/ft-frontend-internal-components@workspace:packages/internal/internal-components":
+"@navikt/ft-frontend-internal-components@workspace:packages/internal/internal-components":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-frontend-internal-components@workspace:packages/internal/internal-components"
   dependencies:
@@ -3683,7 +3681,6 @@ __metadata:
     "@navikt/ds-react": 7.1.2
     "@navikt/ft-form-hooks": ^5.1.5
     "@navikt/ft-form-validators": ^2.4.2
-    "@navikt/ft-frontend-internal-components": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.2
@@ -3739,7 +3736,6 @@ __metadata:
     "@navikt/ds-react": 7.1.2
     "@navikt/ft-form-hooks": ^5.1.5
     "@navikt/ft-form-validators": ^2.4.2
-    "@navikt/ft-frontend-internal-components": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.2
@@ -3791,7 +3787,6 @@ __metadata:
     "@navikt/ds-react": 7.1.2
     "@navikt/ft-form-hooks": ^5.1.5
     "@navikt/ft-form-validators": ^2.4.2
-    "@navikt/ft-frontend-internal-components": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.2
     "@navikt/ft-types": ^2.5.2
@@ -3840,7 +3835,6 @@ __metadata:
     "@navikt/ds-react": 7.1.2
     "@navikt/ft-form-hooks": ^5.1.5
     "@navikt/ft-form-validators": ^2.4.2
-    "@navikt/ft-frontend-internal-components": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.2
