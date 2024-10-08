@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-internal-components",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Intern pakke kun for bruk i ft-frontend-saksbehandling. Skal ikke publiseres",
   "private": true,
   "scripts": {
