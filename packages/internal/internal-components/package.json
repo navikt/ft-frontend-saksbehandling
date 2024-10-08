@@ -1,6 +1,6 @@
 {
   "name": "@ft-frontend-saksbehandling/internal-components",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Intern pakke kun for bruk i ft-frontend-saksbehandling. Skal ikke publiseres",
   "main": "index.ts",
   "private": true,
