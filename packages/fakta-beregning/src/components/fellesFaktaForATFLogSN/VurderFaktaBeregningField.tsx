@@ -7,7 +7,7 @@ import {
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
+import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { FormattedMessage } from 'react-intl';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';

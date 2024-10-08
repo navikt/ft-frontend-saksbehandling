@@ -5,7 +5,7 @@ import commonConfig from '../../../vite.config';
 const config = defineConfig({
   build: {
     lib: {
-      name: '@ft-frontend-saksbehandling/storybook-utils',
+      name: '@navikt/ft-frontend-storybook-utils',
     },
     rollupOptions: {
       external: Object.keys(dependencies),

@@ -24,12 +24,12 @@
     "storybook": "storybook dev --quiet -p 7005"
   },
   "dependencies": {
-    "@ft-frontend-saksbehandling/internal-components": "workspace:^",
     "@navikt/aksel-icons": "7.1.2",
     "@navikt/ds-css": "7.1.2",
     "@navikt/ds-react": "7.1.2",
     "@navikt/ft-form-hooks": "^5.1.4",
     "@navikt/ft-form-validators": "^2.4.2",
+    "@navikt/ft-frontend-internal-components": "workspace:^",
     "@navikt/ft-kodeverk": "^2.5.2",
     "@navikt/ft-plattform-komponenter": "^3.1.2",
     "@navikt/ft-types": "^2.5.2",
@@ -61,8 +61,8 @@
     "react-intl": "6.6.8"
   },
   "devDependencies": {
-    "@ft-frontend-saksbehandling/ft-utils-test": "workspace:^",
-    "@ft-frontend-saksbehandling/storybook-utils": "workspace:^",
+    "@navikt/ft-frontend-storybook-utils": "workspace:^",
+    "@navikt/ft-frontend-utils-test": "workspace:^",
     "@storybook/addon-actions": "8.3.5",
     "@storybook/react": "8.3.5",
     "@storybook/react-vite": "8.3.5",

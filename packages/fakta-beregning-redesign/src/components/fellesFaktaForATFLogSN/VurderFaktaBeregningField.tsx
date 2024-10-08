@@ -4,7 +4,7 @@ import {
   Beregningsgrunnlag,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
+import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';

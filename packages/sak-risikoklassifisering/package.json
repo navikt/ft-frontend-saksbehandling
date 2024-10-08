@@ -54,7 +54,7 @@
     "react-intl": "6.6.8"
   },
   "devDependencies": {
-    "@ft-frontend-saksbehandling/storybook-utils": "workspace:^",
+    "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@storybook/addon-actions": "8.3.5",
     "@storybook/react": "8.3.5",
     "@storybook/react-vite": "8.3.5",

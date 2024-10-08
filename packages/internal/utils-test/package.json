@@ -1,5 +1,5 @@
 {
-  "name": "@ft-frontend-saksbehandling/ft-utils-test",
+  "name": "@navikt/ft-frontend-utils-test",
   "version": "2.4.4",
   "license": "MIT",
   "type": "module",

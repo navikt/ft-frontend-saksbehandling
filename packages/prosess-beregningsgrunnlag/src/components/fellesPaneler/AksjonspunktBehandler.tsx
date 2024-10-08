@@ -3,7 +3,7 @@ import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
+import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {

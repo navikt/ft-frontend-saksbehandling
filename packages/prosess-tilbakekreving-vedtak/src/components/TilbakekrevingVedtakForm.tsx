@@ -8,7 +8,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Form } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
-import ProsessStegSubmitButton from '@ft-frontend-saksbehandling/internal-components/src/SubmitButton';
+import ProsessStegSubmitButton from '@navikt/ft-frontend-internal-components/src/SubmitButton';
 
 import underavsnittType from '../kodeverk/avsnittType';
 import TilbakekrevingEditerVedtaksbrevPanel, { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';

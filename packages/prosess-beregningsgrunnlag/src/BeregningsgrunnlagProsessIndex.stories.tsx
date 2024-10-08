@@ -23,7 +23,7 @@ import {
   SammenligningsgrunlagProp,
   Vilkar,
 } from '@navikt/ft-types';
-import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import dayjs from 'dayjs';
