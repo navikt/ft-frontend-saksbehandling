@@ -19,6 +19,7 @@ import {
   OverstyringKnapp,
   VerticalSpacer,
 } from '@navikt/ft-ui-komponenter';
+import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
 import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
@@ -35,7 +36,6 @@ import {
 import styles from './avklareAktiviteterPanel.module.css';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import { SubmitButton } from '../../../../internal/internal-components';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 

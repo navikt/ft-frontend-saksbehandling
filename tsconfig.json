@@ -13,8 +13,11 @@
     "sourceMap": true,
     "jsx": "react-jsx",
     "typeRoots": ["./node_modules/@types", "./@types", "./node_modules"],
-    "skipLibCheck": true
+    "baseUrl": ".",
+    "paths": {
+      "@ft-frontend-saksbehandling/internal-components": ["packages/internal/internal-components"]
+    }
   },
-  "include": ["packages/**/*", "@types"],
+  "include": ["packages/**/*", "packages/internal/**/*", "@types"],
   "exclude": ["node_modules", "**.spec.ts"]
 }

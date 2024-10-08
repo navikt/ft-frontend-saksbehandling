@@ -14,6 +14,7 @@ import {
   DetaljerteFeilutbetalingsperioder,
   DetaljertFeilutbetalingPeriode,
 } from '@navikt/ft-types';
+import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
 
 import TilbakekrevingPeriodeForm, {
   CustomPeriode,
@@ -32,7 +33,6 @@ import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
 import PeriodeController, { SplittetPeriode } from './splittePerioder/PeriodeController';
 import PeriodeInformasjon from './splittePerioder/PeriodeInformasjon';
-import { SubmitButton } from '../../../internal/internal-components';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));
