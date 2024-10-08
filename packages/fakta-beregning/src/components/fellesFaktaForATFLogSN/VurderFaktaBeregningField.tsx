@@ -7,6 +7,7 @@ import {
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { FormattedMessage } from 'react-intl';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
@@ -18,7 +19,6 @@ import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningForm
 import { findBegrunnelse } from '../avklareAktiviteter/avklareAktiviteterHjelpefunksjoner';
 import VurderFaktaContext, { BeregningsgrunnlagIndexContext, GetErrorsContext } from './VurderFaktaContext';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import { SubmitButton } from '../../../../internal/internal-components';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 

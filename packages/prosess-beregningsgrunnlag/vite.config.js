@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config';
 import { mergeConfig } from 'vite';
-import { dependencies } from './package.json';
+import { peerDependencies } from './package.json';
 import commonConfig from '../../vite.config';
 
 const config = defineConfig({
@@ -9,7 +9,7 @@ const config = defineConfig({
       name: '@navikt/ft-prosess-beregningsgrunnlag',
     },
     rollupOptions: {
-      external: Object.keys(dependencies),
+      external: Object.keys(peerDependencies),
     },
   },
 });

@@ -8,7 +8,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Form } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
-import ProsessStegSubmitButton from '@navikt/ft-frontend-internal-components/src/SubmitButton';
+import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 
 import underavsnittType from '../kodeverk/avsnittType';
 import TilbakekrevingEditerVedtaksbrevPanel, { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
@@ -169,7 +169,7 @@ const TilbakekrevingVedtakForm: FunctionComponent<OwnProps> = ({
       />
       <VerticalSpacer twentyPx />
       <HStack gap="10">
-        <ProsessStegSubmitButton
+        <SubmitButton
           text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
           isReadOnly={readOnly}
           isSubmittable={
