@@ -33,7 +33,7 @@
     "@navikt/ft-utils": "workspace:^",
     "react": "18.3.1",
     "react-hook-form": "7.53.0",
-    "react-intl": "6.7.0"
+    "react-intl": "6.7.1"
   },
   "peerDependencies": {
     "@navikt/ds-css": "7.x",

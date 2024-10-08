@@ -23,7 +23,7 @@
     "@navikt/ft-kodeverk": "workspace:^",
     "@navikt/ft-types": "workspace:^",
     "dayjs": "1.11.13",
-    "react-intl": "6.7.0"
+    "react-intl": "6.7.1"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "2.x",
