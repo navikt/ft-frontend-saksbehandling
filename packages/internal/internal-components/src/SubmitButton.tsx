@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { Button } from '@navikt/ds-react';
-import formik from 'formik';
 
 const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: boolean, hasErrors?: boolean): boolean => {
   if (!isSubmittable || isSubmitting) {
@@ -31,7 +30,6 @@ const SubmitButton: FunctionComponent<OwnProps> = ({
   onClick,
   hasErrors,
 }) => {
-  console.log(formik);
   if (!isReadOnly) {
     return (
       <Button
