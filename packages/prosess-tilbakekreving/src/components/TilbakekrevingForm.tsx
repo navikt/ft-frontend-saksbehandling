@@ -6,6 +6,7 @@ import { Alert, Heading, Panel } from '@navikt/ds-react';
 import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
 import { TilbakekrevingKodeverkType, ForeldelseVurderingType, KodeverkType } from '@navikt/ft-kodeverk';
+import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import {
   KodeverkMedNavn,
   FeilutbetalingPerioderWrapper,
@@ -32,7 +33,6 @@ import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
 import PeriodeController, { SplittetPeriode } from './splittePerioder/PeriodeController';
 import PeriodeInformasjon from './splittePerioder/PeriodeInformasjon';
-import { SubmitButton } from '../../../internal/internal-components';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));
