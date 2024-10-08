@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import { Alert, Button, ErrorMessage, HStack, Heading, Label, List, ReadMore } from '@navikt/ds-react';
-import { useCustomValidation } from '@navikt/ft-form-hooks';
+import { useCustomValidation, SubmitButton } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
@@ -10,7 +10,6 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@navikt/ft-frontend-internal-components';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { UseFormGetValues, useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
