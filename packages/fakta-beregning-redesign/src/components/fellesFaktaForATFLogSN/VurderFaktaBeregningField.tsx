@@ -4,10 +4,11 @@ import {
   Beregningsgrunnlag,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@ft-frontend-saksbehandling/internal-components';
+import { SubmitButton } from '@navikt/ft-form-hooks';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
+
 import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';

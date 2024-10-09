@@ -16,7 +16,7 @@ import {
   FordelBeregningsgrunnlagPeriode,
   Vilkar,
 } from '@navikt/ft-types';
-import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
 import {
   bgMedDelvisRefusjon as vurderDelvisRefBG,
