@@ -3406,6 +3406,7 @@ __metadata:
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
+    "@navikt/ft-plattform-komponenter": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
