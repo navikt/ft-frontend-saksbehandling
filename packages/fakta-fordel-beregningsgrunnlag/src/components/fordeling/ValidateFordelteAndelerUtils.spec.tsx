@@ -1,4 +1,4 @@
-import { getIntlMock } from '@ft-frontend-saksbehandling/ft-utils-test';
+import { getIntlMock } from '@navikt/ft-frontend-utils-test';
 import {
   validateSumFastsattBelop,
   validateTotalRefusjonPrArbeidsforhold,

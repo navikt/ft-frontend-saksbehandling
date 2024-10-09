@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 
 import { AksjonspunktStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, Risikoklassifisering } from '@navikt/ft-types';
-import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
 import kontrollresultatKode from './kodeverk/kontrollresultatKode';
 import RisikoklassifiseringSakIndex from './RisikoklassifiseringSakIndex';

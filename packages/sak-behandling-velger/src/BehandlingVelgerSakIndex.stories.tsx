@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StoryFn } from '@storybook/react';
 import { BehandlingAppKontekst, Behandlingsresultat, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType, BehandlingType, BehandlingStatus } from '@navikt/ft-kodeverk';
-import { alleKodeverk } from '@ft-frontend-saksbehandling/storybook-utils';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 

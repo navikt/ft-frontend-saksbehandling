@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -20,16 +20,17 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^2.5.2",
-    "@navikt/ft-types": "^2.5.2",
+    "@navikt/ft-kodeverk": "workspace:^",
+    "@navikt/ft-types": "workspace:^",
     "dayjs": "1.11.13",
     "react-intl": "6.7.0"
   },
   "peerDependencies": {
     "@navikt/ft-kodeverk": "2.x",
     "@navikt/ft-types": "2.x",
-    "dayjs": "1.11.11",
-    "react-intl": "6.6.8"
+    "dayjs": "1.11.x",
+    "react": "*",
+    "react-intl": "6.x"
   },
   "devDependencies": {
     "eslint": "9.12.0",
