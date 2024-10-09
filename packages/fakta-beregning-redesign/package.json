@@ -31,6 +31,7 @@
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-kodeverk": "workspace:^",
     "@navikt/ft-konstanter": "workspace:^",
+    "@navikt/ft-plattform-komponenter": "workspace:^",
     "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
