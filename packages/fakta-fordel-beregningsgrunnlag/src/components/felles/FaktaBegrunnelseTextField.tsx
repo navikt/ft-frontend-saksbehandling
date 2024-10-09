@@ -45,8 +45,8 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
   isSubmittable,
   hasBegrunnelse,
   label,
-  hasVurderingText,
-  name,
+  hasVurderingText = false,
+  name = 'begrunnelse',
 }) => {
   const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.BegrunnEndringene';
   const textAreaLabel = label || intl.formatMessage({ id: code });
@@ -66,11 +66,6 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
       )}
     </RawIntlProvider>
   );
-};
-
-FaktaBegrunnelseTextField.defaultProps = {
-  name: 'begrunnelse',
-  hasVurderingText: false,
 };
 
 const getBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov): string =>

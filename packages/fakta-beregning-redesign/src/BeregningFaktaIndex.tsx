@@ -5,6 +5,7 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
+  KortvarigAndel,
   RefusjonskravSomKommerForSentListe,
   StandardFaktaPanelProps,
   Vilkar,
@@ -17,6 +18,7 @@ import React, { FunctionComponent, ReactElement, useEffect, useState } from 'rea
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.module.css';
+import createVisningsnavnFakta from './components/ArbeidsforholdHelper';
 import BeregningInfoPanel from './components/BeregningInfoPanel';
 import {
   getFaktaOmBeregningTilfellerKoder,
@@ -28,7 +30,6 @@ import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
 import KodeverkForPanel from './typer/kodeverkForPanel';
-import createVisningsnavnFakta from './components/ArbeidsforholdHelper';
 
 const intl = createIntl(messages);
 
@@ -191,11 +192,27 @@ export const lagHelpTextsForFakta = (
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
     keys.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
+
+    const kortvarigeArbeidsforhold = beregningsgrunnlag?.faktaOmBeregning?.kortvarigeArbeidsforhold;
+
+    let arbeidsgivereNavn = '';
+    kortvarigeArbeidsforhold.forEach((kortvarigArbeidsforhold: KortvarigAndel, index: number) => {
+      const { arbeidsgiverIdent } = kortvarigArbeidsforhold.arbeidsforhold;
+      const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
+      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : arbeidsgiverIdent;
+      if (index === 0) {
+        arbeidsgivereNavn = arbeidsgiverVisningsnavn;
+      } else {
+        arbeidsgivereNavn = `${arbeidsgivereNavn}, ${arbeidsgiverVisningsnavn}`;
+      }
+    });
+
     alerts.push(
       <Alert size="small" variant="warning">
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText"
           values={{
+            arbeidsgiverVisningsnavn: arbeidsgivereNavn,
             h3: (...chunks) => (
               <Heading size="xsmall" level="3">
                 {chunks}
@@ -264,6 +281,9 @@ export const lagHelpTextsForFakta = (
             </List.Item>
             <List.Item>
               <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
+            </List.Item>
+            <List.Item>
+              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7" />
             </List.Item>
           </List>
         </ReadMore>

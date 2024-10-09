@@ -144,3 +144,7 @@
   height: 24px;
   width: 24px;
 }
+
+.aksjonspunktWrapper {
+  overflow-x: auto;
+}

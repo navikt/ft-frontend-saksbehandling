@@ -77,8 +77,8 @@ const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   resetFields,
   handletUaktsomhetGrad,
   harGrunnerTilReduksjon,
-  erSerligGrunnAnnetValgt,
-  erValgtResultatTypeForstoBurdeForstaatt,
+  erSerligGrunnAnnetValgt = false,
+  erValgtResultatTypeForstoBurdeForstaatt = false,
   aktsomhetTyper,
   sarligGrunnTyper,
   antallYtelser,
@@ -123,11 +123,6 @@ const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   </>
 );
 
-AktsomhetFormPanel.defaultProps = {
-  erSerligGrunnAnnetValgt: false,
-  erValgtResultatTypeForstoBurdeForstaatt: false,
-};
-
 const parseIntAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunnerTilReduksjon: boolean) => {
   const parsedValue = parseInt(andelSomTilbakekreves, 10);
   return !harGrunnerTilReduksjon || Number.isNaN(parsedValue) ? {} : { andelTilbakekreves: parsedValue };
@@ -139,6 +134,12 @@ const parseFloatAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunn
 };
 
 const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]) => {
+  if (aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false) {
+    return {
+      tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr,
+    };
+  }
+
   const sarligeGrunner = sarligGrunnTyper.reduce(
     (acc: string[], type: KodeverkMedNavn) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc),
     [],

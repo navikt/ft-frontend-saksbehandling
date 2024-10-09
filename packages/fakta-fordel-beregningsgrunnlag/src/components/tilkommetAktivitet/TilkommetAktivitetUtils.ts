@@ -166,6 +166,10 @@ export const getAktivitetNavnFraInnteksforhold = (
     return 'Selvstendig næringsdrivende';
   }
 
+  if (inntektsforhold.aktivitetStatus === AktivitetStatus.DAGPENGER) {
+    return 'Dagpenger';
+  }
+
   return '';
 };
 

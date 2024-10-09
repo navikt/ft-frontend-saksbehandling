@@ -1,6 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import {
   AktivitetStatus,
   InntektAktivitetType,
@@ -23,7 +23,7 @@ import {
   SammenligningsgrunlagProp,
   Vilkar,
 } from '@navikt/ft-types';
-import { alleKodeverk } from '@navikt/ft-storybook-utils';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import dayjs from 'dayjs';

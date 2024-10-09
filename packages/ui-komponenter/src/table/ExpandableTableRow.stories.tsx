@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 
 import Table from './Table';
 import ExpandableTableRow from './ExpandableTableRow';

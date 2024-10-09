@@ -42,9 +42,9 @@ interface StaticFunctions {
  */
 export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
   tabell,
-  hjelpeTekstId,
+  hjelpeTekstId = undefined,
   children,
-  skalViseTabell,
+  skalViseTabell = true,
   readOnly,
   avklaringsbehov,
   updateOverstyring,
@@ -114,10 +114,5 @@ InntektstabellPanelImpl.buildInitialValues = (erOverstyrt: boolean): ErOverstyri
   // I revurderinger kopieres det ikke med aksjonspunkt, og derfor er det ikke nok å kun se på aksjonspunkt her
   [MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD]: erOverstyrt,
 });
-
-InntektstabellPanelImpl.defaultProps = {
-  hjelpeTekstId: undefined,
-  skalViseTabell: true,
-};
 
 export default InntektstabellPanelImpl;

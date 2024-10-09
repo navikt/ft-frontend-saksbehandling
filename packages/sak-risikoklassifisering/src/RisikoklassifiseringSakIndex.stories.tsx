@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import { AksjonspunktStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, Risikoklassifisering } from '@navikt/ft-types';
-import { alleKodeverk } from '@navikt/ft-storybook-utils';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
 import kontrollresultatKode from './kodeverk/kontrollresultatKode';
 import RisikoklassifiseringSakIndex from './RisikoklassifiseringSakIndex';

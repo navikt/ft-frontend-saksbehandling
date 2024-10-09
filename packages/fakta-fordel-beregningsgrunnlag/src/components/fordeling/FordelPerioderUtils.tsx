@@ -37,10 +37,7 @@ const harPeriodeÅrsak = (periode: BeregningsgrunnlagPeriodeProp, periodeÅrsak:
   !!periode.periodeAarsaker && periode.periodeAarsaker.includes(periodeÅrsak);
 
 const harPeriodeårsakerSomIkkeSlåsSammen = (periode: BeregningsgrunnlagPeriodeProp) =>
-  harPeriodeÅrsak(periode, PeriodeAarsak.ENDRING_I_REFUSJONSKRAV) ||
-  harPeriodeÅrsak(periode, PeriodeAarsak.REFUSJON_OPPHOERER) ||
-  harPeriodeÅrsak(periode, PeriodeAarsak.GRADERING) ||
-  harPeriodeÅrsak(periode, PeriodeAarsak.GRADERING_OPPHOERER);
+  harPeriodeÅrsak(periode, PeriodeAarsak.GRADERING) || harPeriodeÅrsak(periode, PeriodeAarsak.GRADERING_OPPHOERER);
 
 const skalSlåSammenAvsluttetArbeidsforholdPerioder = (
   periode: BeregningsgrunnlagPeriodeProp,
@@ -138,6 +135,23 @@ const harIngenRelevantEndringForFordeling = (
   return !finnesDiffIAndeler(fordelAndeler, forrigeAndeler);
 };
 
+const harEndretRefusjon = (
+  fordelAndeler: FordelBeregningsgrunnlagAndel[],
+  forrigeAndeler: FordelBeregningsgrunnlagAndel[],
+): boolean =>
+  fordelAndeler.some(andelIPeriode => {
+    const andelFraForrige = forrigeAndeler.find(
+      a =>
+        a.aktivitetStatus === andelIPeriode.aktivitetStatus &&
+        a.inntektskategori === andelIPeriode.inntektskategori &&
+        erArbeidsforholdLike(a, andelIPeriode),
+    );
+    if (andelFraForrige === undefined) {
+      return true;
+    }
+    return andelFraForrige.refusjonskravPrAar !== andelIPeriode.refusjonskravPrAar;
+  });
+
 const harPeriodeSomKanKombineresMedForrige = (
   periode: BeregningsgrunnlagPeriodeProp,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
@@ -156,6 +170,14 @@ const harPeriodeSomKanKombineresMedForrige = (
     return false;
   }
   if (harPeriodeårsakerSomIkkeSlåsSammen(periode)) {
+    return false;
+  }
+  if (
+    harEndretRefusjon(
+      fordelPeriode.fordelBeregningsgrunnlagAndeler || [],
+      forrigeFordelPeriode.fordelBeregningsgrunnlagAndeler || [],
+    )
+  ) {
     return false;
   }
   if (

@@ -1,7 +1,7 @@
-import React from 'react';
 import { Button } from '@navikt/ds-react';
-import styles from './form.module.css';
+import React from 'react';
 import Box, { Margin } from '../box/Box';
+import styles from './form.module.css';
 
 export interface FormProps {
   children: React.ReactNode;
@@ -11,6 +11,7 @@ export interface FormProps {
   onAvbryt?: () => void;
   submitButtonDisabled?: boolean;
   cancelButtonDisabled?: boolean;
+  smallButtons?: boolean;
 }
 
 const Form = ({
@@ -21,18 +22,29 @@ const Form = ({
   onAvbryt,
   submitButtonDisabled,
   cancelButtonDisabled,
+  smallButtons,
 }: FormProps): JSX.Element => (
   <form onSubmit={onSubmit}>
     {children}
     {shouldShowSubmitButton !== false && (
       <Box marginTop={Margin.xxLarge}>
         <div className={styles.buttonContainer}>
-          <Button id="submitButton" disabled={submitButtonDisabled === true} loading={submitButtonDisabled === true}>
+          <Button
+            id="submitButton"
+            disabled={submitButtonDisabled === true}
+            loading={submitButtonDisabled === true}
+            size={smallButtons ? 'small' : 'medium'}
+          >
             {buttonLabel}
           </Button>
           {onAvbryt && (
             <div className={styles.buttonContainer__avbryt}>
-              <Button variant="secondary" onClick={onAvbryt} disabled={cancelButtonDisabled === true}>
+              <Button
+                variant="secondary"
+                onClick={onAvbryt}
+                disabled={cancelButtonDisabled === true}
+                size={smallButtons ? 'small' : 'medium'}
+              >
                 Avbryt
               </Button>
             </div>

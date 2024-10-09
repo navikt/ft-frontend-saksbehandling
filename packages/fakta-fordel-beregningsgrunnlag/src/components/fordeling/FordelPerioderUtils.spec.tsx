@@ -213,13 +213,13 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       {
         fom: '2019-01-01',
         tom: '2019-02-01',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, refusjonskravPrAar: 100_000 }],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
       {
         fom: '2019-02-02',
         tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, refusjonskravPrAar: 0 }],
         harPeriodeAarsakGraderingEllerRefusjon: false,
       },
     ];
@@ -250,13 +250,13 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       {
         fom: '2019-01-01',
         tom: '2019-02-01',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, refusjonskravPrAar: 100_000 }],
         harPeriodeAarsakGraderingEllerRefusjon: false,
       },
       {
         fom: '2019-02-02',
         tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, refusjonskravPrAar: 150_000 }],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
     ];
@@ -400,12 +400,17 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].tom).toBe('2022-11-30');
   });
 
-  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om siste periode er kun helg', () => {
+  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om siste periode ikke har fravær', () => {
     const perioder = [
       {
         fom: '2019-01-01',
         tom: '2022-08-12',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [
+          {
+            ...fordelAndel,
+            refusjonskravPrAar: 100_000,
+          },
+        ],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
       {
@@ -414,6 +419,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         fordelBeregningsgrunnlagAndeler: [
           {
             ...fordelAndel,
+            andelIArbeid: [100],
             refusjonskravPrAar: 0,
           },
         ],
@@ -437,10 +443,10 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
-    expect(nyePerioder[0].tom).toBe('2022-08-14');
+    expect(nyePerioder[0].tom).toBe('2022-08-12');
   });
 
-  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om første periode er kun helg', () => {
+  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om første periode ikke har fravær', () => {
     const perioder = [
       {
         fom: '2022-08-13',
@@ -448,6 +454,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         fordelBeregningsgrunnlagAndeler: [
           {
             ...fordelAndel,
+            andelIArbeid: [100],
             refusjonskravPrAar: 0,
           },
         ],
@@ -456,7 +463,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       {
         fom: '2022-08-15',
         tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, refusjonskravPrAar: 100_000 }],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
     ];
@@ -470,13 +477,13 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       {
         beregningsgrunnlagPeriodeFom: '2022-08-15',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR, PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
         bruttoPrAar: 500_000,
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(1);
-    expect(nyePerioder[0].fom).toBe('2022-08-13');
+    expect(nyePerioder[0].fom).toBe('2022-08-15');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
@@ -497,7 +504,12 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       {
         fom: '2022-08-17',
         tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [
+          {
+            ...fordelAndel,
+            refusjonskravPrAar: 100_000,
+          },
+        ],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
     ];
@@ -521,12 +533,17 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
     expect(nyePerioder[0].tom).toBe('9999-12-31');
   });
 
-  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om midterste periode er kun helg', () => {
+  it('skal returnere liste med en periode om andre periode har endring i søkt ytelse med endring i refusjon om midterste periode ikke har fravær', () => {
     const perioder = [
       {
         fom: '2019-01-01',
         tom: '2022-08-12',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [
+          {
+            ...fordelAndel,
+            refusjonskravPrAar: 100_000,
+          },
+        ],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
       {
@@ -535,6 +552,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         fordelBeregningsgrunnlagAndeler: [
           {
             ...fordelAndel,
+            andelIArbeid: [100],
             refusjonskravPrAar: 0,
           },
         ],
@@ -543,7 +561,12 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
       {
         fom: '2022-08-15',
         tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [fordelAndel],
+        fordelBeregningsgrunnlagAndeler: [
+          {
+            ...fordelAndel,
+            refusjonskravPrAar: 100_000,
+          },
+        ],
         harPeriodeAarsakGraderingEllerRefusjon: true,
       },
     ];

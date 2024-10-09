@@ -44,7 +44,7 @@ const redefineIfUndefined = (inputA?: DiffInput | null, inputB?: DiffInput | nul
     try {
       // @ts-ignore Fiks
       return new inputB.constructor();
-    } catch (e) {
+    } catch {
       return null;
     }
   }

@@ -15,6 +15,7 @@ import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
 import BeregningFormValues from '../../types/BeregningFormValues';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
@@ -42,6 +43,7 @@ type OwnProps = {
   fieldIndex: number;
   formName: string;
   isAksjonspunktClosed: boolean;
+  avklaringsbehov: BeregningAvklaringsbehov;
 };
 
 interface StaticFunctions {
@@ -69,6 +71,7 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
   fieldIndex,
   formName,
   isAksjonspunktClosed,
+  avklaringsbehov,
 }) => {
   let radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IngenEndring" />;
   let radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.EndretNaering" />;
@@ -154,6 +157,7 @@ const VurderVarigEndringEllerNyoppstartet: FunctionComponent<OwnProps> & StaticF
               })}
               parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
             />
+            <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
           </FlexColumn>
         </FlexRow>
       </>

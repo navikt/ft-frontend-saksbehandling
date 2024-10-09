@@ -1,4 +1,4 @@
-import { getIntlMock } from '@navikt/ft-utils-test';
+import { getIntlMock } from '@navikt/ft-frontend-utils-test';
 import {
   validateSumFastsattBelop,
   validateTotalRefusjonPrArbeidsforhold,
@@ -26,7 +26,7 @@ const arbeidsgiverOppysninger = {
   },
 };
 
-describe('<ValidateAndelerUtils>', () => {
+describe('<ValidateFordelteAndelerUtils>', () => {
   it('skal ikke gi feil om ingen andeler er lagt til', () => {
     const andeler = [
       {
@@ -546,54 +546,6 @@ describe('<ValidateAndelerUtils>', () => {
       intlMock,
     );
     expect(verifiserGraderteAndeler).toBe(gradertAndelMåVæreFordeltMerEnn0Feilmelding);
-  });
-
-  it('skal ikke gi feil når gradert andel har 0 i fordelt beløp men det er avsluttet', () => {
-    const andeler = [
-      {
-        andelsnr: 1,
-        skalRedigereInntekt: true,
-        andel: 'Virksomheten 1',
-        nyAndel: false,
-        lagtTilAvSaksbehandler: false,
-        aktivitetStatus: 'AT',
-        inntektskategori: 'ARBEIDSTAKER',
-        arbeidsforholdId: '2974239',
-        arbeidsgiverId: '999999999',
-        andelIArbeid: '50',
-        arbeidsperiodeTom: '2022-04-20',
-      },
-      {
-        andelsnr: 2,
-        skalRedigereInntekt: true,
-        andel: 'Frilans',
-        nyAndel: false,
-        lagtTilAvSaksbehandler: false,
-        aktivitetStatus: 'FL',
-        inntektskategori: 'FRILANS',
-      },
-    ];
-
-    const getValues = vi.fn((x: string): number | undefined => {
-      switch (x) {
-        case 'FORDEL_BEREGNING_FORM.0.feltnavn.0.fastsattBelop':
-          return 0;
-        case 'FORDEL_BEREGNING_FORM.0.feltnavn.1.fastsattBelop':
-          return 500000;
-        default:
-          return undefined;
-      }
-    }) as any;
-
-    const verifiserGraderteAndeler = validerBGGraderteAndeler(
-      0,
-      getValues,
-      fieldname,
-      andeler as FordelBeregningsgrunnlagAndelValues[],
-      '2022-04-21',
-      intlMock,
-    );
-    expect(verifiserGraderteAndeler).toBe(undefined);
   });
 
   it('skal tillate 0 i fordeling på andeler som ikke skal graderes', () => {

@@ -1,10 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { defineConfig } from 'vitest/config';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { mergeConfig } from 'vite';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { dependencies, devDependencies } from './package.json';
-// eslint-disable-next-line import/no-relative-packages
+import { peerDependencies } from './package.json';
 import commonConfig from '../../vite.config';
 
 const config = defineConfig({
@@ -13,7 +9,7 @@ const config = defineConfig({
       name: '@navikt/ft-prosess-komponenter',
     },
     rollupOptions: {
-      external: Object.keys(dependencies).concat(Object.keys(devDependencies)),
+      external: Object.keys(peerDependencies),
     },
   },
 });

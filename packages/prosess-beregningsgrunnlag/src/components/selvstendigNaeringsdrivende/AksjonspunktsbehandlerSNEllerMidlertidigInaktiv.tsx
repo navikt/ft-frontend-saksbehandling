@@ -51,9 +51,9 @@ interface StaticFunctions {
 const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
   avklaringsbehov,
-  erNyArbLivet,
-  erVarigEndring,
-  erNyoppstartet,
+  erNyArbLivet = false,
+  erVarigEndring = false,
+  erNyoppstartet = false,
   fieldIndex,
   formName,
 }) => {
@@ -69,6 +69,7 @@ const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProp
         erNyArbLivet={erNyArbLivet}
         fieldIndex={fieldIndex}
         formName={formName}
+        avklaringsbehov={avklaringsbehov}
       />
     );
   }
@@ -81,14 +82,9 @@ const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProp
       fieldIndex={fieldIndex}
       formName={formName}
       isAksjonspunktClosed={isAksjonspunktClosed}
+      avklaringsbehov={avklaringsbehov}
     />
   );
-};
-
-AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.defaultProps = {
-  erNyArbLivet: false,
-  erVarigEndring: false,
-  erNyoppstartet: false,
 };
 
 AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.buildInitialValues = (

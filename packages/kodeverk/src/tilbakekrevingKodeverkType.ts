@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 enum TilbakekrevingKodeverkType {
   AKTSOMHET = 'Aktsomhet',
   SARLIG_GRUNN = 'SærligGrunn',

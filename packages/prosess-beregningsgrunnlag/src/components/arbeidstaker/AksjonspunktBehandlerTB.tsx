@@ -1,6 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { UseFormReturn, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+import dayjs from 'dayjs';
 import { BodyShort, Detail } from '@navikt/ds-react';
 
 import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -35,18 +36,6 @@ const formPrefix = 'inntektField';
 const harPeriodeArbeidsforholdAvsluttet = (periode: BeregningsgrunnlagPeriodeProp): boolean =>
   !!periode.periodeAarsaker &&
   periode.periodeAarsaker.map(kode => kode).includes(PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET);
-
-// Finner sammenslått periode etter opphør av tidsbegrenset arbeid
-const finnPeriodeEtterOpphørAvTidsbegrensetArbeid = (allePerioder: BeregningsgrunnlagPeriodeProp[]) => {
-  let k = 0;
-  while (k < allePerioder.length && !harPeriodeArbeidsforholdAvsluttet(allePerioder[k])) {
-    k += 1;
-  }
-  const periodeUtenKortvarigArbeid = { ...allePerioder[k] };
-  periodeUtenKortvarigArbeid.beregningsgrunnlagPeriodeTom =
-    allePerioder[allePerioder.length - 1].beregningsgrunnlagPeriodeTom;
-  return periodeUtenKortvarigArbeid;
-};
 
 // Kombinerer perioder mellom avsluttede arbeidsforhold
 const finnPerioderMedAvsluttetArbeidsforhold = (
@@ -86,20 +75,6 @@ const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsfo
   return arbeidsforhold ? `${arbeidsforhold.arbeidsgiverIdent}${arbeidsforholdId}` : '';
 };
 
-type InntektMapType = {
-  [key: string]: string | undefined;
-};
-
-// Finner beregnetPrAar for alle andeler, basert på data fra den første perioden
-const createBeregnetInntektForAlleAndeler = (periode: BeregningsgrunnlagPeriodeProp): InntektMapType => {
-  const mapMedInnteker = {} as InntektMapType;
-  const arbeidstakerAndeler = findArbeidstakerAndeler(periode);
-  arbeidstakerAndeler.forEach(andel => {
-    mapMedInnteker[createArbeidsforholdMapKey(andel.arbeidsforhold)] = formatCurrencyNoKr(andel.beregnetPrAar);
-  });
-  return mapMedInnteker;
-};
-
 const lagVisningsnavnForAktivitet = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
   kodeverkSamling: KodeverkForPanel,
@@ -133,7 +108,6 @@ const initializeMap = (
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
-  const inntektMap = createBeregnetInntektForAlleAndeler(periode);
   const alleAndeler = findArbeidstakerAndeler(periode);
   const mapMedAndeler = {} as TidsbegrenseArbeidsforholdTabellData;
   alleAndeler.forEach(andel => {
@@ -152,14 +126,35 @@ const initializeMap = (
     mapValueMedAndelNavn.erTidsbegrenset =
       andel.erTidsbegrensetArbeidsforhold !== undefined ? andel.erTidsbegrensetArbeidsforhold : false;
     mapMedAndeler[andelMapNavn] = [mapValueMedAndelNavn];
-
-    // Andre kolonne er read-only visning av grunnlag
-    const mapValueMedBeregnetForstePeriode = createMapValueObject();
-    mapValueMedBeregnetForstePeriode.erTidsbegrenset = false;
-    mapValueMedBeregnetForstePeriode.tabellInnhold = inntektMap[andelMapNavn] || '';
-    mapMedAndeler[andelMapNavn].push(mapValueMedBeregnetForstePeriode);
   });
   return mapMedAndeler;
+};
+
+const finnFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagPeriodeProp =>
+  allePerioder.sort((a, b) => dayjs(a.beregningsgrunnlagPeriodeFom).diff(dayjs(b.beregningsgrunnlagPeriodeFom)))[0];
+
+const finnAndelIPeriode = (
+  andel: BeregningsgrunnlagAndel,
+  periode: BeregningsgrunnlagPeriodeProp,
+): BeregningsgrunnlagAndel | undefined => {
+  const andeler = periode.beregningsgrunnlagPrStatusOgAndel;
+  if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
+    return andeler?.find(
+      a =>
+        a.arbeidsforhold?.arbeidsgiverIdent === andel.arbeidsforhold?.arbeidsgiverIdent &&
+        a.arbeidsforhold?.arbeidsforholdId === andel.arbeidsforhold?.arbeidsforholdId,
+    );
+  }
+  return andeler?.find(a => a.aktivitetStatus === andel.aktivitetStatus);
+};
+
+const erAndelTidsbegrenset = (
+  andel: BeregningsgrunnlagAndel,
+  allePerioder: BeregningsgrunnlagPeriodeProp[],
+): boolean => {
+  const førstePeriode = finnFørstePeriode(allePerioder);
+  const erTidsbegrenset = finnAndelIPeriode(andel, førstePeriode)?.erTidsbegrensetArbeidsforhold;
+  return !!erTidsbegrenset;
 };
 
 const createTableData = (
@@ -168,23 +163,26 @@ const createTableData = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
-  const relevantPeriode = finnPeriodeEtterOpphørAvTidsbegrensetArbeid(allePerioder);
-  const kopiAvPeriode = { ...relevantPeriode };
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
+  const førstePeriodeFom = allePerioder[0].beregningsgrunnlagPeriodeFom;
   const arbeidsforholdPeriodeMap = initializeMap(allePerioder[0], kodeverkSamling, arbeidsgiverOpplysningerPerId);
 
-  // Oppretter element for redigerbar periode
-  const arbeidstakerAndeler = findArbeidstakerAndeler(kopiAvPeriode);
-  arbeidstakerAndeler.forEach(andel => {
-    const mapKey = createArbeidsforholdMapKey(andel.arbeidsforhold);
-    const newMapValue = createMapValueObject();
-    newMapValue.tabellInnhold =
-      andel.overstyrtPrAar !== undefined && andel.overstyrtPrAar !== null
-        ? formatCurrencyNoKr(andel.overstyrtPrAar)
-        : '';
-    newMapValue.erTidsbegrenset = false;
-    newMapValue.isEditable = true;
-    newMapValue.inputfieldKey = createInputFieldKey(andel, kopiAvPeriode);
-    arbeidsforholdPeriodeMap[mapKey].push(newMapValue);
+  relevantePerioder.forEach(periode => {
+    const erFørstePeriode = periode.beregningsgrunnlagPeriodeFom === førstePeriodeFom;
+    const arbeidstakerAndeler = findArbeidstakerAndeler(periode);
+    arbeidstakerAndeler.forEach(andel => {
+      const erTidsbegrensetAndel = erAndelTidsbegrenset(andel, allePerioder);
+      const mapKey = createArbeidsforholdMapKey(andel.arbeidsforhold);
+      const newMapValue = createMapValueObject();
+      newMapValue.tabellInnhold =
+        andel.overstyrtPrAar !== undefined && andel.overstyrtPrAar !== null
+          ? formatCurrencyNoKr(andel.overstyrtPrAar)
+          : '';
+      newMapValue.erTidsbegrenset = false;
+      newMapValue.isEditable = erTidsbegrensetAndel ? true : erFørstePeriode;
+      newMapValue.inputfieldKey = createInputFieldKey(andel, periode);
+      arbeidsforholdPeriodeMap[mapKey].push(newMapValue);
+    });
   });
   return arbeidsforholdPeriodeMap;
 };
@@ -305,21 +303,6 @@ type BruttoPrPeriode = {
   periodeTom: string;
 };
 
-const lagSummeringsdataForFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BruttoPrPeriode => {
-  const førstePeriode = allePerioder[0];
-  const forstePeriodeATInntekt = !førstePeriode.beregningsgrunnlagPrStatusOgAndel
-    ? []
-    : (førstePeriode.beregningsgrunnlagPrStatusOgAndel
-        .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
-        .map(andel => andel.beregnetPrAar) as number[]);
-  const forstePeriodeInntekt = forstePeriodeATInntekt.reduce((a, b) => a + b);
-  return {
-    brutto: forstePeriodeInntekt,
-    periodeFom: førstePeriode.beregningsgrunnlagPeriodeFom,
-    periodeTom: førstePeriode.beregningsgrunnlagPeriodeTom,
-  };
-};
-
 const lagBruttoPrPeriodeListe = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
   formMethods: UseFormReturn<BeregningFormValues>,
@@ -330,19 +313,20 @@ const lagBruttoPrPeriodeListe = (
   if (allePerioder.length < 1) {
     return bruttoPrPeriodeList;
   }
-  const relevantPeriode = finnPeriodeEtterOpphørAvTidsbegrensetArbeid(allePerioder);
-  bruttoPrPeriodeList.push(lagSummeringsdataForFørstePeriode(allePerioder));
-  const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
-  const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
-    const inputFieldKey = createInputFieldKey(andel, relevantPeriode);
-    const fastsattInntekt = formMethods.watch(`${formName}.${fieldIndex}.${inputFieldKey}`);
-    return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
-  });
-  const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
-  bruttoPrPeriodeList.push({
-    brutto: samletBruttoForPeriode,
-    periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,
-    periodeTom: relevantPeriode.beregningsgrunnlagPeriodeTom,
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
+  relevantePerioder.forEach(relevantPeriode => {
+    const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
+    const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
+      const inputFieldKey = createInputFieldKey(andel, relevantPeriode);
+      const fastsattInntekt = formMethods.watch(`${formName}.${fieldIndex}.${inputFieldKey}`);
+      return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
+    });
+    const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
+    bruttoPrPeriodeList.push({
+      brutto: samletBruttoForPeriode,
+      periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,
+      periodeTom: relevantPeriode.beregningsgrunnlagPeriodeTom,
+    });
   });
   return bruttoPrPeriodeList;
 };
@@ -365,13 +349,12 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
   formName,
 }) => {
   const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
-  const finnesAlleredeLøstPeriode = allePerioder.some(
-    periode =>
-      periode.beregningsgrunnlagPrStatusOgAndel?.some(
-        andel =>
-          andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER &&
-          (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
-      ),
+  const finnesAlleredeLøstPeriode = allePerioder.some(periode =>
+    periode.beregningsgrunnlagPrStatusOgAndel?.some(
+      andel =>
+        andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER &&
+        (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
+    ),
   );
   const formMethods = useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
@@ -389,6 +372,7 @@ AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (
 ): TidsbegrenseArbeidsforholdValues => {
   const initialValues = {} as TidsbegrenseArbeidsforholdValues;
   const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
+  const førstePeriode = finnFørstePeriode(allePerioder);
   relevantePerioder.forEach(periode => {
     const arbeidstakerAndeler = periode.beregningsgrunnlagPrStatusOgAndel
       ? periode.beregningsgrunnlagPrStatusOgAndel.filter(
@@ -396,8 +380,15 @@ AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (
         )
       : [];
     arbeidstakerAndeler.forEach(andel => {
-      const overstyrt = formatCurrencyNoKr(andel.overstyrtPrAar);
-      initialValues[createInputFieldKey(andel, periode)] = overstyrt || '';
+      const erTB = erAndelTidsbegrenset(andel, allePerioder);
+      if (erTB) {
+        const overstyrt = formatCurrencyNoKr(andel.overstyrtPrAar);
+        initialValues[createInputFieldKey(andel, periode)] = overstyrt || '';
+      } else {
+        const matchendeAndelIFørstePeriode = finnAndelIPeriode(andel, førstePeriode);
+        const overstyrt = formatCurrencyNoKr(matchendeAndelIFørstePeriode?.overstyrtPrAar);
+        initialValues[createInputFieldKey(andel, periode)] = overstyrt || '';
+      }
     });
   });
   return initialValues;
@@ -407,25 +398,35 @@ AksjonspunktBehandlerTidsbegrenset.transformValues = (
   values: TidsbegrenseArbeidsforholdValues,
   perioder: BeregningsgrunnlagPeriodeProp[],
 ): TidsbegrensetArbeidsforholdPeriodeResultat[] => {
-  const relevantPeriode = finnPeriodeEtterOpphørAvTidsbegrensetArbeid(perioder);
-  const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
-
-  const fastsatteTidsbegrensedeAndeler = [] as TidsbegrensetArbeidsforholdInntektResultat[];
-  arbeidstakerAndeler.forEach(andel => {
-    const overstyrtInntekt = removeSpacesFromNumber(values[createInputFieldKey(andel, relevantPeriode)]);
-    fastsatteTidsbegrensedeAndeler.push({
-      andelsnr: andel.andelsnr,
-      bruttoFastsattInntekt: overstyrtInntekt,
+  const respons: TidsbegrensetArbeidsforholdPeriodeResultat[] = [];
+  const førstePeriode = finnFørstePeriode(perioder);
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(perioder);
+  relevantePerioder.forEach(relevantPeriode => {
+    const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
+    const fastsatteTidsbegrensedeAndeler = [] as TidsbegrensetArbeidsforholdInntektResultat[];
+    arbeidstakerAndeler.forEach(andel => {
+      const erTB = erAndelTidsbegrenset(andel, perioder);
+      if (erTB) {
+        const overstyrtInntekt = removeSpacesFromNumber(values[createInputFieldKey(andel, relevantPeriode)]);
+        fastsatteTidsbegrensedeAndeler.push({
+          andelsnr: andel.andelsnr,
+          bruttoFastsattInntekt: overstyrtInntekt,
+        });
+      } else {
+        const overstyrtInntekt = removeSpacesFromNumber(values[createInputFieldKey(andel, førstePeriode)]);
+        fastsatteTidsbegrensedeAndeler.push({
+          andelsnr: andel.andelsnr,
+          bruttoFastsattInntekt: overstyrtInntekt,
+        });
+      }
     });
-  });
-
-  return [
-    {
+    respons.push({
       periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,
       periodeTom: relevantPeriode.beregningsgrunnlagPeriodeTom,
       fastsatteTidsbegrensedeAndeler,
-    },
-  ];
+    });
+  });
+  return respons;
 };
 
 export default AksjonspunktBehandlerTidsbegrenset;

@@ -16,11 +16,11 @@ type OwnProps = {
 };
 
 const AvsnittSkiller: FunctionComponent<OwnProps> = ({
-  spaceUnder,
-  spaceAbove,
-  leftPanel,
-  rightPanel,
-  dividerParagraf,
+  spaceUnder = false,
+  spaceAbove = false,
+  leftPanel = false,
+  rightPanel = false,
+  dividerParagraf = false,
   className,
 }) => (
   <>
@@ -36,11 +36,5 @@ const AvsnittSkiller: FunctionComponent<OwnProps> = ({
     {spaceUnder && <VerticalSpacer thirtyTwoPx />}
   </>
 );
-AvsnittSkiller.defaultProps = {
-  spaceUnder: false,
-  spaceAbove: false,
-  leftPanel: false,
-  rightPanel: false,
-  dividerParagraf: false,
-};
+
 export default AvsnittSkiller;

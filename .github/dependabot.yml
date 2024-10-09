@@ -6,14 +6,28 @@ registries:
     token: ${{secrets.READER_TOKEN}}
 updates:
   - package-ecosystem: npm
-    directory: "/"
+    directory: '/'
     schedule:
       interval: daily
     open-pull-requests-limit: 50
     registries:
       - npm-github
+    groups:
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+      storybook:
+        patterns:
+          - '@storybook/*'
+          - 'storybook'
+      designsystem:
+        patterns:
+          - '@navikt/aksel-*'
+          - '@navikt/ds-*'
   - package-ecosystem: github-actions
-    directory: "/"
+    directory: '/'
     schedule:
       interval: daily
     open-pull-requests-limit: 50

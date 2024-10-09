@@ -133,6 +133,11 @@
   width: 20px;
 }
 
+.step__icon--warning {
+  margin-right: 6px;
+  width: 24px;
+}
+
 @media screen and (max-width: 1024px) {
   .step__icon {
     display: block;

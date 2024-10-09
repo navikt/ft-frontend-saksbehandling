@@ -1,10 +1,9 @@
 {
   "name": "@navikt/ft-sak-meny",
   "description": "Meny som viser diverse handlinger en kan utføre på en fagsak",
-  "version": "3.1.22",
+  "version": "3.4.8",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -25,42 +24,43 @@
     "storybook": "storybook dev --quiet -p 7021"
   },
   "dependencies": {
-    "@navikt/ds-css": "5.13.0",
-    "@navikt/ds-react": "5.13.0",
-    "@navikt/ft-form-hooks": "^4.2.21",
-    "@navikt/ft-form-validators": "^2.1.14",
-    "@navikt/ft-plattform-komponenter": "^2.3.18",
-    "@navikt/ft-ui-komponenter": "^2.1.21",
-    "@navikt/ft-utils": "^2.1.14",
-    "react": "18.2.0",
-    "react-hook-form": "7.49.3",
-    "react-intl": "6.5.5"
+    "@navikt/ds-css": "7.1.2",
+    "@navikt/ds-react": "7.1.2",
+    "@navikt/ft-form-hooks": "workspace:^",
+    "@navikt/ft-form-validators": "workspace:^",
+    "@navikt/ft-plattform-komponenter": "workspace:^",
+    "@navikt/ft-ui-komponenter": "workspace:^",
+    "@navikt/ft-utils": "workspace:^",
+    "react": "18.3.1",
+    "react-hook-form": "7.53.0",
+    "react-intl": "6.7.0"
   },
   "peerDependencies": {
-    "@navikt/ds-css": "2.8.11",
-    "@navikt/ds-react": "2.8.11",
-    "@navikt/ft-form-hooks": "4.x",
+    "@navikt/ds-css": "7.x",
+    "@navikt/ds-react": "7.x",
+    "@navikt/ft-form-hooks": "5.x",
     "@navikt/ft-form-validators": "2.x",
     "@navikt/ft-plattform-komponenter": "2.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
-    "react": "18.2.0",
-    "react-hook-form": "7.43.9",
-    "react-intl": "6.3.2"
+    "react": "18.3.1",
+    "react-hook-form": "7.x",
+    "react-intl": "6.x"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.6.8",
-    "@storybook/react": "7.6.8",
-    "@storybook/react-vite": "7.6.8",
-    "@testing-library/react": "14.1.2",
+    "@storybook/addon-actions": "8.3.5",
+    "@storybook/react": "8.3.5",
+    "@storybook/react-vite": "8.3.5",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.0.1",
     "@testing-library/user-event": "14.5.2",
     "cross-env": "7.0.3",
-    "eslint": "8.56.0",
-    "storybook": "7.6.8",
-    "stylelint": "15.11.0",
-    "typescript": "5.3.3",
-    "vite": "5.0.11",
-    "vitest": "1.2.0"
+    "eslint": "9.12.0",
+    "storybook": "8.3.5",
+    "stylelint": "16.9.0",
+    "typescript": "5.6.2",
+    "vite": "5.4.8",
+    "vitest": "2.1.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -72,6 +72,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.umd.js"
     },
     "./dist/style.css": "./dist/style.css"

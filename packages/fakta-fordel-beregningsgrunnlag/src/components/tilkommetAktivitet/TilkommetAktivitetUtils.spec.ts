@@ -15,7 +15,7 @@ const lagInntektsperiode = (fom: string, tom: string, andeler?: Inntektsforhold[
 });
 
 describe('<TilkommetAktivitetUtils>', () => {
-  it('skal slå sammen to perioder som går vegg i vegg ', () => {
+  it('skal slå sammen to perioder som går vegg i vegg', () => {
     const inntektsforhold = lagInntektsforhold('AT', '123');
     const perioder = [
       lagInntektsperiode('2023-04-03', '2023-04-05', [inntektsforhold]),

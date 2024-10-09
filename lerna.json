@@ -19,6 +19,6 @@
       "npmClientArgs": ["--no-package-lock", "--legacy-peer-deps"]
     }
   },
-  "packages": ["packages/*"],
+  "packages": ["packages/*", "packages/internal/*"],
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

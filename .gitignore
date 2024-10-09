@@ -21,5 +21,6 @@ ssh.exe.stackdump
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+vite.config.*.timestamp-*
 
 .nx/cache

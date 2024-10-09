@@ -13,6 +13,7 @@ import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import { NyIArbeidslivetValues } from '../../types/NaringAksjonspunktTsType';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const maxLength1500 = maxLength(1500);
 const minLength3 = minLength(3);
@@ -27,6 +28,7 @@ type OwnProps = {
   erNyArbLivet: boolean;
   fieldIndex: number;
   formName: string;
+  avklaringsbehov: BeregningAvklaringsbehov;
 };
 
 interface StaticFunctions {
@@ -51,6 +53,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
   erNyArbLivet,
   fieldIndex,
   formName,
+  avklaringsbehov,
 }) => {
   const intl = useIntl();
   return (
@@ -96,6 +99,7 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
               })}
               parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
             />
+            <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
           </div>
         </FlexColumn>
       </FlexRow>

@@ -8,7 +8,9 @@ export default {
 };
 
 const Template: StoryFn<ComponentProps<typeof BasicListComponent>> = () => (
-  <BasicListComponent elements={[<p>Dette er et listeelement</p>, <p>Dette er et annet listeelmeent</p>]} />
+  <BasicListComponent
+    elements={[<p key="1">Dette er et listeelement</p>, <p key="2">Dette er et annet listeelmeent</p>]}
+  />
 );
 
 export const BasicList = Template.bind({});

@@ -99,7 +99,8 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
               label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
               validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
               isReadOnly={readOnly}
-              disabledDays={{ fromDate: dayjs('1970-01-01').toDate(), toDate: dayjs().toDate() }}
+              fromDate={dayjs('1970-01-01').toDate()}
+              toDate={dayjs().toDate()}
             />
           )}
         </VStack>

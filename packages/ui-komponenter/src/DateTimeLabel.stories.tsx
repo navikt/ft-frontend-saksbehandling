@@ -4,26 +4,43 @@ import { RawIntlProvider } from 'react-intl';
 import { createIntl } from '@navikt/ft-utils';
 
 import DateTimeLabel from './DateTimeLabel';
+import { Meta, StoryObj } from '@storybook/react';
 
-const intl = createIntl({
-  'OkAvbrytModal.Ok': 'Ok',
-  'OkAvbrytModal.Avbryt': 'Avbryt',
-  'Test.Test': 'Dette er ein test',
-});
+const intl = createIntl({});
 
-export default {
+const meta: Meta<typeof DateTimeLabel> = {
   title: 'DateTimeLabel',
   component: DateTimeLabel,
+  decorators: Story => (
+    <RawIntlProvider value={intl}>
+      <Story />
+    </RawIntlProvider>
+  ),
+  argTypes: {
+    year: { control: 'radio', options: ['numeric', '2-digit', undefined] },
+    month: { control: 'radio', options: ['numeric', '2-digit', 'long', 'short', 'narrow', undefined] },
+    day: { control: 'radio', options: ['numeric', '2-digit', undefined] },
+    hour: { control: 'radio', options: ['numeric', '2-digit', undefined] },
+    minute: { control: 'radio', options: ['numeric', '2-digit', undefined] },
+    second: { control: 'radio', options: ['numeric', '2-digit', undefined] },
+    dateTimeString: { control: 'date' },
+  },
+  args: {
+    dateTimeString: '2024-08-02T10:54:00',
+  },
 };
 
-export const Default = () => (
-  <RawIntlProvider value={intl}>
-    <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" />
-  </RawIntlProvider>
-);
+type Story = StoryObj<typeof DateTimeLabel>;
 
-export const NyttFormat = () => (
-  <RawIntlProvider value={intl}>
-    <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" useNewFormat />
-  </RawIntlProvider>
-);
+export const Default: Story = {};
+
+export const MedTilpassetUtrykk: Story = {
+  args: {
+    separator: 'kl',
+    day: 'numeric',
+    month: 'long',
+    second: '2-digit',
+  },
+};
+
+export default meta;

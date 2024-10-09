@@ -1,9 +1,11 @@
 export { default as CheckboxField } from './src/CheckboxField';
+export { default as CheckboxPanel } from './src/CheckboxPanel';
 export { default as Datepicker } from './src/Datepicker';
 export { default as InputField } from './src/InputField';
 export { default as NumberField } from './src/NumberField';
 export { default as RadioGroupPanel } from './src/RadioGroupPanel';
 export { default as SelectField } from './src/SelectField';
+export { default as SubmitButton } from './src/SubmitButton';
 export { default as TextAreaField } from './src/TextAreaField';
 export { default as Form } from './src/Form';
 export { default as PeriodFieldArray } from './src/PeriodFieldArray';
