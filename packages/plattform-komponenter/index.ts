@@ -34,6 +34,7 @@ export { default as SystemButton } from './src/system-button/SystemButton';
 export { default as UserPanel } from './src/user-panel/UserPanel';
 export { default as Infostripe } from './src/infostripe/Infostripe';
 export { default as AssessedBy } from './src/assessed-by/AssessedBy';
+export { default as SaksbehandlernavnContext } from './src/saksbehandlernavn-context/SaksbehandlernavnContext';
 export { default as PeriodList } from './src/period-list/PeriodList';
 
 /** Ikoner * */

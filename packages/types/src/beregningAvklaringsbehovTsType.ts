@@ -1,8 +1,11 @@
 type BeregningAvklaringsbehov = Readonly<{
   definisjon: string;
   status: string;
-  begrunnelse?: string;
   kanLoses: boolean;
+  erTrukket?: boolean;
+  begrunnelse?: string;
+  vurdertAv?: string;
+  vurdertTidspunkt?: string;
 }>;
 
 export default BeregningAvklaringsbehov;
