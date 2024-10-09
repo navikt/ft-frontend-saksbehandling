@@ -91,7 +91,7 @@ const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]
  *
  * Container komponent.. Inneholder begrunnelsefelt og komponent som innholder panelene for fakta om beregning tilfeller
  */
-const VurderFaktaBeregningPanelImpl: FunctionComponent<VurderFaktaBeregningPanelProps> = ({
+const VurderFaktaBeregningPanel: FunctionComponent<VurderFaktaBeregningPanelProps> = ({
   beregningsgrunnlag,
   submittable,
   readOnly,
@@ -215,4 +215,4 @@ const VurderFaktaBeregningPanelImpl: FunctionComponent<VurderFaktaBeregningPanel
   return null;
 };
 
-export default VurderFaktaBeregningPanelImpl;
+export default VurderFaktaBeregningPanel;
