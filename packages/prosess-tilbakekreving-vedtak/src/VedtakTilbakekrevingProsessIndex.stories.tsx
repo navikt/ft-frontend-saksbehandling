@@ -1,10 +1,10 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import { VedtakResultatType, BehandlingStatus } from '@navikt/ft-kodeverk';
 import { Behandling, BeregningsresultatTilbakekreving } from '@navikt/ft-types';
-import { alleTilbakekrevingKodeverk } from '@navikt/ft-storybook-utils';
+import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
 import aktsomhet from './kodeverk/aktsomhet';
 import VedtakTilbakekrevingProsessIndex from './VedtakTilbakekrevingProsessIndex';
@@ -209,7 +209,7 @@ const Template: StoryFn<{
     setFormData={() => undefined}
     beregningsresultat={beregningsresultat}
     erRevurderingTilbakekrevingKlage={false}
-    erRevurderingTilbakekrevingFeilBeløpBortfalt={false}
+    erRevurderingTilbakekrevingFeilBeløpBortfalt
   />
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 
 import { FagsakStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
 
@@ -24,7 +24,7 @@ const Template: StoryFn = () => (
         kodeverk: FAGSAK_YTELSE_KODEVERK,
         navn: 'Foreldrepenger',
       }}
-      fagsakMarkeringTekst="Næring"
+      fagsakMarkeringTekster={['Næring', 'Utland']}
       fagsakStatus={{ kode: FagsakStatus.OPPRETTET, kodeverk: FAGSAK_STATUS_KODEVERK, navn: 'Opprettet' }}
       dekningsgrad={100}
     />

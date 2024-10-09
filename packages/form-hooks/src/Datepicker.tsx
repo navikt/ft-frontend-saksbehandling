@@ -1,4 +1,4 @@
-import { DatePicker, useDatepicker } from '@navikt/ds-react';
+import { DatePicker, DatePickerProps, useDatepicker } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -13,18 +13,17 @@ dayjs.extend(customParseFormat);
 export interface DatepickerProps {
   name: string;
   label?: string | ReactNode;
-  description?: string;
+  description?: string | ReactNode;
   validate?: ((value: string) => any)[];
   disabled?: boolean;
   isReadOnly?: boolean;
   onChange?: (value: any) => void;
-  disabledDays?: {
-    fromDate?: Date;
-    toDate?: Date;
-  };
+  disabledDays?: DatePickerProps['disabled'];
   isEdited?: boolean;
   defaultMonth?: Date;
   size?: 'medium' | 'small';
+  fromDate?: Date;
+  toDate?: Date;
 }
 
 const Datepicker: FunctionComponent<DatepickerProps> = ({
@@ -38,8 +37,10 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   disabledDays,
   isEdited,
   defaultMonth,
-  size,
-}): JSX.Element => {
+  fromDate,
+  toDate,
+  size = 'small',
+}) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -66,7 +67,8 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
       }
     },
     defaultSelected: field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).toDate() : undefined,
-    defaultMonth: defaultMonth || (!field.value && disabledDays?.toDate ? disabledDays.toDate : undefined),
+    defaultMonth: defaultMonth || (!field.value && toDate ? toDate : undefined),
+    disabled: disabledDays,
   });
 
   const onChangeInput = useCallback(
@@ -96,8 +98,8 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
 
   const dpProps = {
     ...datepickerProps,
-    fromDate: disabledDays?.fromDate,
-    toDate: disabledDays?.toDate,
+    fromDate: fromDate,
+    toDate: toDate,
   };
 
   return (
@@ -106,7 +108,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
         {...inputProps}
         onChange={onChangeInput}
         value={fieldValue}
-        size="small"
+        size={size}
         label={label}
         description={description}
         disabled={disabled}

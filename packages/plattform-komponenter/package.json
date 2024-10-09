@@ -1,9 +1,9 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "2.3.18",
+  "version": "4.0.0",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
+  "type": "module",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -25,21 +25,23 @@
     "storybook": "storybook dev --quiet -p 7007"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "5.13.0",
-    "@navikt/ds-css": "5.13.0",
-    "@navikt/ds-react": "5.13.0",
-    "@navikt/ft-utils": "^2.1.14",
+    "@navikt/aksel-icons": "7.1.2",
+    "@navikt/ds-css": "7.1.2",
+    "@navikt/ds-react": "7.1.2",
+    "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1"
   },
   "peerDependencies": {
-    "@popperjs/core": "2.11.7",
-    "classnames": "2.3.2",
-    "dayjs": "1.11.7",
+    "@navikt/aksel-icons": "7.x",
+    "@navikt/ds-css": "7.x",
+    "@navikt/ds-react": "7.x",
+    "@popperjs/core": "2.11.8",
+    "classnames": "2.5.1",
+    "dayjs": "1.11.x",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
-    "react": "18.2.0",
-    "react-collapse": "5.1.1",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-popper": "2.3.0"
   },
   "peerDependenciesMeta": {
@@ -49,26 +51,26 @@
   },
   "devDependencies": {
     "@popperjs/core": "2.11.8",
-    "@storybook/addon-actions": "7.6.8",
-    "@storybook/react": "7.6.8",
-    "@storybook/react-vite": "7.6.8",
-    "@testing-library/react": "14.1.2",
+    "@storybook/addon-actions": "8.3.5",
+    "@storybook/react": "8.3.5",
+    "@storybook/react-vite": "8.3.5",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.0.1",
     "@testing-library/user-event": "14.5.2",
     "classnames": "2.5.1",
     "cross-env": "7.0.3",
-    "dayjs": "1.11.10",
-    "eslint": "8.56.0",
+    "dayjs": "1.11.13",
+    "eslint": "9.12.0",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
-    "react": "18.2.0",
-    "react-collapse": "5.1.1",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-popper": "2.3.0",
-    "storybook": "7.6.8",
-    "stylelint": "15.11.0",
-    "typescript": "5.3.3",
-    "vite": "5.0.11",
-    "vitest": "1.2.0"
+    "storybook": "8.3.5",
+    "stylelint": "16.9.0",
+    "typescript": "5.6.2",
+    "vite": "5.4.8",
+    "vitest": "2.1.2"
   },
   "resolutions": {
     "react": "18.2.0",
@@ -85,6 +87,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.umd.js"
     },
     "./dist/style.css": "./dist/style.css"

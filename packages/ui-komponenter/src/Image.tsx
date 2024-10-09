@@ -86,5 +86,6 @@ const Image = React.forwardRef<HTMLImageElement, OwnProps>(
     );
   },
 );
+Image.displayName = 'Image';
 
 export default Image;

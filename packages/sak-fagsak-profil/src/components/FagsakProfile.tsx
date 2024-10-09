@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
-import { Tag, BodyShort, Heading, HStack } from '@navikt/ds-react';
-import { Tooltip, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Tag, BodyShort, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Tooltip } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FagsakYtelseType } from '@navikt/ft-kodeverk';
 
@@ -17,7 +17,7 @@ export interface OwnProps {
   fagsakYtelseType: KodeverkMedNavn;
   fagsakStatus: KodeverkMedNavn;
   dekningsgrad?: number;
-  fagsakMarkeringTekst?: string;
+  fagsakMarkeringTekster?: string[];
 }
 
 /**
@@ -30,11 +30,11 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
   fagsakYtelseType,
   fagsakStatus,
   dekningsgrad,
-  fagsakMarkeringTekst,
+  fagsakMarkeringTekster,
 }) => {
   const intl = useIntl();
   return (
-    <>
+    <VStack gap="4">
       <HStack gap="4">
         <Heading size="medium">{fagsakYtelseType.navn}</Heading>
         {visSakDekningsgrad(fagsakYtelseType.kode, dekningsgrad) && (
@@ -42,18 +42,24 @@ const FagsakProfile: FunctionComponent<OwnProps> = ({
             <Tag variant="info">{`${dekningsgrad}%`}</Tag>
           </Tooltip>
         )}
-        {fagsakMarkeringTekst && (
-          <Tooltip
-            content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { fagsakMarkeringTekst })}
-            alignBottom
-          >
-            <Tag variant="alt1">{`${fagsakMarkeringTekst}`}</Tag>
-          </Tooltip>
-        )}
       </HStack>
-      <VerticalSpacer eightPx />
       <BodyShort size="small">{`${saksnummer} - ${fagsakStatus.navn}`}</BodyShort>
-    </>
+      {fagsakMarkeringTekster && fagsakMarkeringTekster.length > 0 && (
+        <HStack gap="4">
+          {fagsakMarkeringTekster.map(tekst => (
+            <Tooltip
+              key={tekst}
+              content={intl.formatMessage({ id: 'FagsakProfile.FagsakMarkering' }, { tekst })}
+              alignBottom
+            >
+              <Tag size="small" variant="alt1">
+                {tekst}
+              </Tag>
+            </Tooltip>
+          ))}
+        </HStack>
+      )}
+    </VStack>
   );
 };
 

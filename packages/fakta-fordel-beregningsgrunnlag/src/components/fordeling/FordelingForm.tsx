@@ -48,6 +48,12 @@ const transformValues = (
   };
 };
 
+function fordelPredicate(bg: Beregningsgrunnlag) {
+  return bg.avklaringsbehov.some(
+    v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
+  );
+}
+
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårsperioder: Vilkarperiode[],
@@ -55,9 +61,7 @@ const buildInitialValues = (
   kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagFormValues => ({
   [FORM_NAME]: beregningsgrunnlagListe
-    .filter(bg =>
-      bg.avklaringsbehov.some(v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG),
-    )
+    .filter(fordelPredicate)
     .map(bg =>
       buildFieldInitialValuesFordelBeregning(
         bg,
@@ -159,7 +163,9 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
                 beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 kodeverkSamling={kodeverkSamling}
-                fieldIndex={beregningsgrunnlagIndeks}
+                fieldIndex={beregningsgrunnlagListe
+                  .filter(fordelPredicate)
+                  .findIndex(bg => bg.skjaeringstidspunktBeregning === field.beregningsgrunnlagStp)}
               />
             </div>
           );

@@ -1,55 +1,18 @@
-import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Button, Checkbox, Link, SortState, Table } from '@navikt/ds-react';
 import {
+  ChevronLeftCircleFillIcon,
+  ChevronRightCircleFillIcon,
+  NotePencilFillIcon,
   StarFillIcon,
-  ChevronRightDoubleIcon,
-  ChevronLeftDoubleIcon,
-  ChevronDownDoubleIcon,
 } from '@navikt/aksel-icons';
 
-import { DateTimeLabel, Table, TableColumn, TableRow, Tooltip } from '@navikt/ft-ui-komponenter';
 import { Kommunikasjonsretning } from '@navikt/ft-kodeverk';
 import { Dokument } from '@navikt/ft-types';
 
+import { DateTimeLabel } from '@navikt/ft-ui-komponenter';
 import styles from './documentList.module.css';
-
-const headerTextCodes = [
-  'DocumentList.Direction',
-  'DocumentList.DocumentType',
-  'DocumentList.Gjelder',
-  'DocumentList.DateTime',
-];
-
-const isTextMoreThan25char = (text: string): boolean => !!text && text.length > 25;
-const trimText = (text: string): string => `${text.substring(0, 24)}...`;
-
-const markerSomValgtEllerÅpneDokumenter = (
-  event: React.SyntheticEvent,
-  setValgteDokumentIder: (ider: any) => void,
-  erIMarkeringsmodus: boolean,
-  id: string,
-  valgteDokumentIder: string[],
-  selectDocumentCallback: (e: React.SyntheticEvent, id?: number | string, dokument?: Dokument) => void,
-  documents: Dokument[],
-): void => {
-  setValgteDokumentIder((ider: string[]) => {
-    if (erIMarkeringsmodus) {
-      return ider.includes(id) ? ider.filter(i => i !== id) : ider.concat([id]);
-    }
-    return ider.includes(id) ? ider : [id];
-  });
-  if (!erIMarkeringsmodus) {
-    const dokumentIderSomSkalÅpnes = valgteDokumentIder.includes(id) ? valgteDokumentIder : [id];
-    dokumentIderSomSkalÅpnes.forEach(dId =>
-      selectDocumentCallback(
-        event,
-        dId,
-        documents.find(d => d.dokumentId === dId),
-      ),
-    );
-  }
-};
 
 export interface OwnProps {
   documents: Dokument[];
@@ -57,7 +20,48 @@ export interface OwnProps {
   selectDocumentCallback: (e: React.SyntheticEvent, id?: number | string, dokument?: Dokument) => void;
 }
 
-type Timeout = ReturnType<typeof setTimeout>;
+type TableHeaders = 'kommunikasjonsretning' | 'tittel' | 'gjelderFor' | 'tidspunkt';
+
+const KommunikasjonsretningIkon = ({ kommunikasjonsretning }: { kommunikasjonsretning: string }) => {
+  const intl = useIntl();
+  if (kommunikasjonsretning === Kommunikasjonsretning.INN) {
+    return (
+      <span className={styles.kommunikasjonsretning}>
+        <ChevronRightCircleFillIcon
+          color="var(--a-purple-500)"
+          width={25}
+          height={25}
+          title={intl.formatMessage({ id: 'DocumentList.Motta' })}
+        />
+        <FormattedMessage id="DocumentList.Motta" />
+      </span>
+    );
+  }
+  if (kommunikasjonsretning === Kommunikasjonsretning.UT) {
+    return (
+      <span className={styles.kommunikasjonsretning}>
+        <ChevronLeftCircleFillIcon
+          color="var(--a-purple-200)"
+          width={25}
+          height={25}
+          title={intl.formatMessage({ id: 'DocumentList.Send' })}
+        />
+        <FormattedMessage id="DocumentList.Send" />
+      </span>
+    );
+  }
+  return (
+    <span className={styles.kommunikasjonsretning}>
+      <NotePencilFillIcon
+        color="var(--a-gray-700)"
+        width={25}
+        height={25}
+        title={intl.formatMessage({ id: 'DocumentList.Intern' })}
+      />
+      <FormattedMessage id="DocumentList.Intern" />
+    </span>
+  );
+};
 
 /**
  * DocumentList
@@ -69,80 +73,50 @@ type Timeout = ReturnType<typeof setTimeout>;
 const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, selectDocumentCallback }) => {
   const intl = useIntl();
 
-  const [isShiftPressed, setShiftPressed] = useState(false);
+  // Logikk for å toggle checkboxes tilpasset fra Aksel-eksempel: https://aksel.nav.no/komponenter/core/table#tabledemo-selectable
   const [valgteDokumentIder, setValgteDokumentIder] = useState<string[]>([]);
-  const timeoutMapRef = React.useRef<Record<string, Timeout | undefined>>({});
+  const toggleValgDokument = (dokumentId: string) =>
+    setValgteDokumentIder(dokumentIder =>
+      dokumentIder.includes(dokumentId) ? dokumentIder.filter(id => id !== dokumentId) : [...dokumentIder, dokumentId],
+    );
 
-  useEffect(
-    () => () => Object.values(timeoutMapRef).forEach((timeout?: Timeout) => timeout && clearTimeout(timeout)),
-    [timeoutMapRef],
-  );
+  // Logikk for å sortere tabell tilpasset fra Aksel-eksempel: https://aksel.nav.no/komponenter/core/table#tabledemo-sortable
+  const [sort, setSort] = useState<SortState | undefined>({ orderBy: 'tidspunkt', direction: 'descending' });
+  const handleSort = (sortKey: TableHeaders) => {
+    setSort(
+      sort && sortKey === sort.orderBy && sort.direction === 'descending'
+        ? undefined
+        : {
+            orderBy: sortKey,
+            direction: sort && sortKey === sort.orderBy && sort.direction === 'ascending' ? 'descending' : 'ascending',
+          },
+    );
+  };
+  const comparator = (a: Dokument, b: Dokument, orderBy: TableHeaders) => {
+    const aValue = a[orderBy];
+    const bValue = b[orderBy];
 
-  const dokumentKeyHandler = useCallback(
-    (event: React.KeyboardEvent, id?: string) => {
-      if (id === undefined) {
-        return;
-      }
-      const isShiftKey = event.key === 'Shift';
-      if (isShiftKey) {
-        setShiftPressed(event.type === 'keydown');
-      }
+    if (!aValue || !bValue) {
+      return -1;
+    }
 
-      if (!isShiftKey) {
-        markerSomValgtEllerÅpneDokumenter(
-          event,
-          setValgteDokumentIder,
-          isShiftPressed,
-          id,
-          valgteDokumentIder,
-          selectDocumentCallback,
-          documents,
-        );
-      }
-    },
-    [valgteDokumentIder, isShiftPressed],
-  );
+    if (bValue < aValue) {
+      return -1;
+    }
+    if (bValue > aValue) {
+      return 1;
+    }
+    return 0;
+  };
 
-  const dokumentMouseHandler = useCallback(
-    (event: React.MouseEvent, id?: string) => {
-      if (id === undefined) {
-        return;
-      }
-      const currentTimeout = timeoutMapRef.current[id];
-      if (currentTimeout) {
-        clearTimeout(currentTimeout);
-        timeoutMapRef.current = { [id]: undefined };
-        markerSomValgtEllerÅpneDokumenter(
-          event,
-          setValgteDokumentIder,
-          false,
-          id,
-          valgteDokumentIder,
-          selectDocumentCallback,
-          documents,
-        );
-      } else {
-        const callback = () => {
-          const cTimeout = timeoutMapRef.current[id];
-          if (cTimeout) {
-            clearTimeout(cTimeout);
-          }
-          timeoutMapRef.current = { [id]: undefined };
-          markerSomValgtEllerÅpneDokumenter(
-            event,
-            setValgteDokumentIder,
-            true,
-            id,
-            valgteDokumentIder,
-            selectDocumentCallback,
-            documents,
-          );
-        };
-        timeoutMapRef.current = { [id]: setTimeout(callback, 500) };
-      }
-    },
-    [valgteDokumentIder],
-  );
+  const sortedDocuments = documents.slice().sort((a, b) => {
+    if (sort) {
+      return sort.direction === 'ascending'
+        ? comparator(b, a, sort.orderBy as TableHeaders)
+        : comparator(a, b, sort.orderBy as TableHeaders);
+    }
+    return 1;
+  });
 
   if (documents.length === 0) {
     return (
@@ -152,69 +126,102 @@ const DocumentList: FunctionComponent<OwnProps> = ({ documents, behandlingUuid, 
     );
   }
   return (
-    <Table headerTextCodes={headerTextCodes}>
-      {documents.map(document => (
-        <TableRow<string>
-          key={document.dokumentId}
-          id={document.dokumentId}
-          onMouseDown={dokumentMouseHandler}
-          onKeyDown={dokumentKeyHandler}
-          isSelected={valgteDokumentIder.some(dokId => dokId === document.dokumentId)}
-          useMultiselect
+    <>
+      {valgteDokumentIder.length > 0 && (
+        <Button
+          onClick={event =>
+            valgteDokumentIder.forEach(dokumentId =>
+              selectDocumentCallback(
+                event,
+                dokumentId,
+                documents.find(document => document.dokumentId === dokumentId),
+              ),
+            )
+          }
+          className={styles.openDocumentButton}
+          size="small"
+          variant="primary"
         >
-          <TableColumn>
-            {document.kommunikasjonsretning === Kommunikasjonsretning.INN && (
-              <ChevronRightDoubleIcon
-                title={intl.formatMessage({ id: 'DocumentList.Motta' })}
-                height={25}
-                width={25}
-                color="var(--a-surface-success)"
-              />
-            )}
-            {document.kommunikasjonsretning === Kommunikasjonsretning.UT && (
-              <ChevronLeftDoubleIcon
-                title={intl.formatMessage({ id: 'DocumentList.Send' })}
-                height={25}
-                width={25}
-                color="var(--a-orange-500)"
-              />
-            )}
-            {document.kommunikasjonsretning !== Kommunikasjonsretning.INN &&
-              document.kommunikasjonsretning !== Kommunikasjonsretning.UT && (
-                <ChevronDownDoubleIcon
-                  title={intl.formatMessage({ id: 'DocumentList.Intern' })}
-                  height={25}
-                  width={25}
-                  color="var(--a-blue-400)"
-                />
-              )}
-          </TableColumn>
-          <TableColumn>
-            {document.tittel}
-            {document.behandlingUuidList && behandlingUuid && document.behandlingUuidList.includes(behandlingUuid) && (
-              <StarFillIcon className={styles.image} title={intl.formatMessage({ id: 'DocumentList.IBruk' })} />
-            )}
-          </TableColumn>
-          <TableColumn>
-            {document.gjelderFor && isTextMoreThan25char(document.gjelderFor) && (
-              <Tooltip content={<BodyShort size="small">{document.gjelderFor}</BodyShort>} alignLeft>
-                {trimText(document.gjelderFor)}
-              </Tooltip>
-            )}
-            {document.gjelderFor && !isTextMoreThan25char(document.gjelderFor) && document.gjelderFor}
-          </TableColumn>
-          <TableColumn>
-            {document.tidspunkt ? (
-              <DateTimeLabel dateTimeString={document.tidspunkt} />
-            ) : (
-              <BodyShort size="small">
-                <FormattedMessage id="DocumentList.IProduksjon" />
-              </BodyShort>
-            )}
-          </TableColumn>
-        </TableRow>
-      ))}
-    </Table>
+          <FormattedMessage id="DocumentList.LastNedKnapp" values={{ antall: valgteDokumentIder.length }} />
+        </Button>
+      )}
+      <Table size="small" sort={sort} onSortChange={sortKey => handleSort(sortKey as TableHeaders)}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>
+              <Checkbox
+                checked={valgteDokumentIder.length === sortedDocuments.length}
+                indeterminate={valgteDokumentIder.length > 0 && valgteDokumentIder.length !== sortedDocuments.length}
+                onChange={() =>
+                  valgteDokumentIder.length > 0
+                    ? setValgteDokumentIder([])
+                    : setValgteDokumentIder(sortedDocuments.map(({ dokumentId }) => dokumentId))
+                }
+                hideLabel
+              >
+                Velg alle rader
+              </Checkbox>
+            </Table.HeaderCell>
+            <Table.ColumnHeader sortKey="kommunikasjonsretning" sortable>
+              <FormattedMessage id="DocumentList.Direction" />
+            </Table.ColumnHeader>
+            <Table.ColumnHeader sortKey="tittel" sortable>
+              <FormattedMessage id="DocumentList.DocumentType" />
+            </Table.ColumnHeader>
+            <Table.ColumnHeader sortKey="gjelderFor" sortable>
+              <FormattedMessage id="DocumentList.Gjelder" />
+            </Table.ColumnHeader>
+            <Table.ColumnHeader sortKey="tidspunkt" sortable>
+              <FormattedMessage id="DocumentList.DateTime" />
+            </Table.ColumnHeader>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {sortedDocuments.map(document => (
+            <Table.Row key={document.dokumentId}>
+              <Table.DataCell>
+                <Checkbox
+                  hideLabel
+                  checked={valgteDokumentIder.includes(document.dokumentId)}
+                  onChange={() => toggleValgDokument(document.dokumentId)}
+                  aria-labelledby={document.tittel}
+                >
+                  {' '}
+                </Checkbox>
+              </Table.DataCell>
+              <Table.DataCell>
+                <KommunikasjonsretningIkon kommunikasjonsretning={document.kommunikasjonsretning} />
+              </Table.DataCell>
+              <Table.DataCell scope="row">
+                {document.behandlingUuidList &&
+                  behandlingUuid &&
+                  document.behandlingUuidList.includes(behandlingUuid) && (
+                    <StarFillIcon className={styles.image} title={intl.formatMessage({ id: 'DocumentList.IBruk' })} />
+                  )}
+                {/* Ideelt sett hadde vi brukt en lenke som direkte åpnet dokumentet i ny fane.
+                Men fordi denne komponent kun har ansvar for å gi callback på ønsket dokument så må det brukes onClick */}
+                <Link
+                  className={styles.dokumentlenke}
+                  onClick={event => selectDocumentCallback(event, document.dokumentId, document)}
+                >
+                  {document.tittel}
+                </Link>
+              </Table.DataCell>
+              <Table.DataCell>{document.gjelderFor}</Table.DataCell>
+              <Table.DataCell>
+                {document.tidspunkt ? (
+                  <DateTimeLabel dateTimeString={document.tidspunkt} />
+                ) : (
+                  <BodyShort size="small">
+                    <FormattedMessage id="DocumentList.IProduksjon" />
+                  </BodyShort>
+                )}
+              </Table.DataCell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </>
   );
 };
 

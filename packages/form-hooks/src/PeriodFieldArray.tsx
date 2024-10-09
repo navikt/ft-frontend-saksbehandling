@@ -28,6 +28,7 @@ function onKeyDown<PERIOD_TYPE>(
 
 const getRemoveButton =
   (index: number, remove: (index?: number | number[]) => void) =>
+  // eslint-disable-next-line react/display-name
   (className?: string): ReactNode | undefined => {
     if (index > 0) {
       return (
@@ -82,7 +83,6 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
     {shouldShowAddButton && (
       <>
         {!createAddButtonInsteadOfImageLink && !readOnly && (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
           <div
             onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
             onKeyDown={onKeyDown<PERIOD_TYPE>(append, emptyPeriodTemplate)}

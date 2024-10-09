@@ -214,7 +214,7 @@ interface StaticFunctions {
  */
 export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
-  skalKunneLeggeTilDagpengerManuelt,
+  skalKunneLeggeTilDagpengerManuelt = false,
   beregningsgrunnlag,
   isAksjonspunktClosed,
   kodeverkSamling,
@@ -350,10 +350,6 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
   );
-};
-
-InntektFieldArray.defaultProps = {
-  skalKunneLeggeTilDagpengerManuelt: false,
 };
 
 InntektFieldArray.transformValues = (values: AndelFieldValue[]): InntektTransformed[] =>

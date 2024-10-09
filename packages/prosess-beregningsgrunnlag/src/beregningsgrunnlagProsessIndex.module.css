@@ -5,7 +5,8 @@
   margin: 0 32px 0 0;
 }
 .mainContainer--withSideMenu {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(1px, 12fr);
   margin-left: -32px;
 }
 .advarselIkon {

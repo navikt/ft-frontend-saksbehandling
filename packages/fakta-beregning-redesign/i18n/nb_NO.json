@@ -46,6 +46,8 @@
   "BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2": "For å se om søker har mottatt ytelse kan du for eksempel bruke A-inntekt (filter 8-30), se på utbetalinger i Modia eller vedtaksbrev i Gosys.",
   "BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift": "Fastsett månedsinntekt for {bedrift}",
   "BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger": "Fastsett månedsinntekt dagpenger",
+  "BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende": "Fastsett månedsinntekt selvstendig næringsdrivende",
+  "BeregningInfoPanel.InntektInputFields.MilitærEllerSivil": "Fastsett månedsinntekt militær",
   "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1": "Bruk A-inntekt til å fastsette ny månedsinntekt hvis mulig.",
   "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2": "Hvis ny inntekt ikke fremgår av A-inntekt, kontakt arbeidsgiver og be de sende oppdatert inntektsmelding. Eventuelt kan du kontakte søker og be de dokumentere varig lønnsøkning med kontrakt, lønnslipp eller lignende.",
   "BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3": "Eksempel: En person får en varig lønnsendring med virkning fra 5. oktober. Vedkommende har første fraværsdato 20. oktober og beregningsperioden er september, august og juli. Ved fastsettelse av inntekt skal tidsrommet etter lønnsendringen 5. oktober legges til grunn.",
@@ -74,13 +76,14 @@
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText": "<h3>Vurder om frilanser er nyoppstartet</h3>Det er funnet frilansoppdrag med oppstartsdato i beregningsperioden. Vurder om frilansoppdrag er nyoppstartet, og om det skal benyttes en kortere periode for å fastsette inntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText": "<h3>Vurder om søker ble yrkesaktiv i løpet av de siste tre årene</h3>Søker har oppgitt i søknaden at de er selvstendig næringsdrivende og ny i arbeidslivet.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText": "<h3>Vurder refusjonskrav som har kommet for sent</h3>{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText": "<h3>Vurder om arbeidsforholdet er tidsbegrenset</h3>Det er funnet sluttdato frem i tid for arbeidsforholdet og arbeidsforholdet er kortere enn 6 måneder.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText": "<h3>Vurder om arbeidsforholdet er tidsbegrenset</h3>Det er funnet sluttdato frem i tid for {arbeidsgiverVisningsnavn} og arbeidsforholdet er kortere enn 6 måneder.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1": "Gå til A-inntekt for å finne brukerens inntekter.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2": "Bruk først filter §8-28 og finn samlet inntekt for de 3 siste månedene før skjæringstidspunktet (utbetalinger fra Nav ligger ikke i dette filteret, kan derfor være 0). Regn om til årsinntekt.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2": "Du skal finne aktuell månedsinntekt etter § 8-28. Utbetalinger fra NAV ligger ikke i dette filteret. Du skal ikke hente opplysninger fra andre steder enn §8-28-filteret og legge det til beregningsgrunnlaget. Regn om aktuell månedsinntekt til årsinntekt ved å gange med 12 måneder.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3": "Bruk så filter §8-30 og regn ut den totale inntekten for de siste 12 månedene før skjæringstidspunktet.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4": "Regn ut månedsinntekt ved å finne differansen mellom rapportert inntekt (§8-30 filter) og omregnet årsinntekt (§8-28 filter) / 12 måneder.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5": "Regn ut avviket ved å bruke månedsinntekt x 100 / rapportert inntekt de siste 12 kalendermånedene = avvik i prosent.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4": "Regn ut differansen mellom aktuell månedsinntekt (§8-28 filter) og rapportert inntekt for de siste 12 månedene (§8-30 filter).",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5": "Regn ut avviket. Differansen mellom omregnet aktuell månedsinntekt (som du fant etter 8-28) og rapportert inntekt de siste 12 kalendermånedene (§ 8-30 filteret) x 100 / rapportert inntekt de siste 12 kalendermånedene = avvik i prosent.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6": "Dersom det er mer enn 25 prosent differanse i avviksberegningen skal det fastsettes ved skjønn.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7": "Når du har funnet ut hva den skjønnsmessige inntekten skal være, skal den legges inn som månedsinntekt i feltet under.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1": "Inntektskategori er den/de arbeidsaktivitetene som beregningsgrunnlaget ble fastsatt ut fra.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2": "Hvis ytelsen er beregnet fra annen ytelse, skal du ta utgangspunkt i aktivitetene den første ytelsen beregnet ut fra.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3": "Du finner inntektskategorien ytelsen er basert på i Modia.",
@@ -135,7 +138,5 @@
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
-  "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
-
-  "InntektInput.MånedsinntektGyldigVerdi": "Månedsinntekt må være høyere eller lik 1"
+  "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
 }

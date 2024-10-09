@@ -1,4 +1,4 @@
-/** Vanlige react-komponenter **/
+/** Vanlige react-komponenter * */
 export { default as BoxedList } from './src/boxed-list/BoxedList';
 export { default as BoxedListWithLinks } from './src/boxed-list-with-links/BoxedListWithLinks';
 export { default as BoxedListWithSelection } from './src/boxed-list-with-selection/BoxedListWithSelection';
@@ -18,8 +18,6 @@ export { default as InfoPanel } from './src/info-panel/InfoPanel';
 export { default as LabelledContent } from './src/labelled-content/LabelledContent';
 export { default as LinkButton } from './src/link-button/LinkButton';
 export { default as TitleWithUnderline } from './src/title-with-underline/TitleWithUnderline';
-export { default as ExpandableLabel } from './src/expandable-label/ExpandableLabel';
-export { default as ExpandablePanel } from './src/expandable-panel/ExpandablePanel';
 export { default as FieldError } from './src/field-error/FieldError';
 export { default as Header } from './src/header/Header';
 export { default as Popover } from './src/popover/Popover';
@@ -31,13 +29,15 @@ export { default as SideMenu } from './src/side-menu/SideMenu';
 export { default as StatefulSideMenu } from './src/side-menu/StatefulSideMenu';
 export { default as PersonCard, Gender } from './src/person-card/PersonCard';
 export { default as EmptyPersonCard } from './src/person-card/EmptyPersonCard';
+export { default as GenderIcon } from './src/person-card/GenderIcon';
 export { default as SystemButton } from './src/system-button/SystemButton';
 export { default as UserPanel } from './src/user-panel/UserPanel';
 export { default as Infostripe } from './src/infostripe/Infostripe';
 export { default as AssessedBy } from './src/assessed-by/AssessedBy';
+export { default as SaksbehandlernavnContext } from './src/saksbehandlernavn-context/SaksbehandlernavnContext';
 export { default as PeriodList } from './src/period-list/PeriodList';
 
-/** Ikoner **/
+/** Ikoner * */
 export { default as ArrowIcon } from './src/icons/ArrowIcon';
 export { default as BucketIcon } from './src/icons/BucketIcon';
 export { default as CalendarIcon } from './src/icons/CalendarIcon';

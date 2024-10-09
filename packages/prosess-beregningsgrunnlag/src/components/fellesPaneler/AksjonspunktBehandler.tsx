@@ -1,6 +1,6 @@
+import { Form, TextAreaField, SubmitButton } from '@navikt/ft-form-hooks';
 import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -9,34 +9,34 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
+  Beregningsgrunnlag as BeregningsgrunnlagProp,
   SammenligningsgrunlagProp,
-  Vilkarperiode,
   Vilkar,
+  Vilkarperiode,
 } from '@navikt/ft-types';
 
 import { useFieldArray, useForm } from 'react-hook-form';
-import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
-import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
-import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
-import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
-import ProsessStegSubmitButton from '../../felles/ProsessStegSubmitButton';
 import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
+import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
+import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
+import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
+import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 
-import styles from './aksjonspunktBehandler.module.css';
-import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 import BeregningFormValues from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';
-import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
-import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
 import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
-import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import KodeverkForPanel from '../../types/kodeverkForPanel';
+import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import styles from './aksjonspunktBehandler.module.css';
+import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -191,13 +191,19 @@ const buildFormInitialValues = (
   ),
 });
 
-const settOppKomponenterForNæring = (
-  readOnly: boolean,
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-  avklaringsbehov: BeregningAvklaringsbehov,
-  fieldIndex: number,
-  formName: string,
-): ReactElement | null => {
+const SelvstendigNæringsdrivendeContainer = ({
+  readOnly,
+  allePerioder,
+  avklaringsbehov,
+  fieldIndex,
+  formName,
+}: {
+  readOnly: boolean;
+  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  avklaringsbehov: BeregningAvklaringsbehov;
+  fieldIndex: number;
+  formName: string;
+}): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
@@ -226,15 +232,25 @@ const settOppKomponenterForNæring = (
   );
 };
 
-const settOppKomponenterForATFL = (
-  kodeverkSamling: KodeverkForPanel,
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  readOnly: boolean,
-  intl: IntlShape,
-  fieldIndex: number,
-  formName: string,
-): ReactElement => {
+const ArbeidstakerEllerFrilansContainer = ({
+  kodeverkSamling,
+  allePerioder,
+  arbeidsgiverOpplysningerPerId,
+  readOnly,
+  intl,
+  fieldIndex,
+  formName,
+  avklaringsbehov,
+}: {
+  kodeverkSamling: KodeverkForPanel;
+  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  intl: IntlShape;
+  fieldIndex: number;
+  formName: string;
+  avklaringsbehov: BeregningAvklaringsbehov;
+}): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
@@ -284,6 +300,7 @@ const settOppKomponenterForATFL = (
             })}
             parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
+          <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
         </FlexColumn>
       </FlexRow>
     </>
@@ -485,11 +502,10 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
-
   const submittKnapp = (
     <FlexRow>
       <FlexColumn>
-        <ProsessStegSubmitButton
+        <SubmitButton
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
           isDirty={formMethods.formState.isDirty}
@@ -504,25 +520,30 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   ): BeregningAvklaringsbehov | undefined => avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
 
   const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement | null => {
-    const ab = finnAvklaringsbehov(avklaringsbehovForBG);
-    if (lovparagraf === LovParagraf.ÅTTE_TRETTI && ab) {
-      return settOppKomponenterForATFL(
-        kodeverkSamling,
-        bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
-        arbeidsgiverOpplysningerPerId,
-        readOnly,
-        intl,
-        index,
-        formName,
+    const avklaringsbehov = finnAvklaringsbehov(avklaringsbehovForBG);
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTI && avklaringsbehov) {
+      return (
+        <ArbeidstakerEllerFrilansContainer
+          kodeverkSamling={kodeverkSamling}
+          allePerioder={bgSomSkalVurderes[index].beregningsgrunnlagPeriode}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          readOnly={readOnly}
+          intl={intl}
+          fieldIndex={index}
+          formName={formName}
+          avklaringsbehov={avklaringsbehov}
+        />
       );
     }
-    if (lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && ab) {
-      return settOppKomponenterForNæring(
-        readOnly,
-        bgSomSkalVurderes[index].beregningsgrunnlagPeriode,
-        ab,
-        index,
-        formName,
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && avklaringsbehov) {
+      return (
+        <SelvstendigNæringsdrivendeContainer
+          readOnly={readOnly}
+          allePerioder={bgSomSkalVurderes[index].beregningsgrunnlagPeriode}
+          fieldIndex={index}
+          formName={formName}
+          avklaringsbehov={avklaringsbehov}
+        />
       );
     }
     return null;
@@ -547,7 +568,9 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
               avklaringsbehov={finnAvklaringsbehov(bgSomSkalVurderes[index].avklaringsbehov)}
               beregningsgrunnlag={bgSomSkalVurderes[index]}
             />
-            <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder}>
+            <div
+              className={`${readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder} ${styles.aksjonspunktWrapper}`}
+            >
               {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
               <VerticalSpacer sixteenPx />
               {submittKnapp}

@@ -41,7 +41,6 @@ class AutocompleteSuggestion extends React.Component<Props, State> {
 
   render() {
     const { match, active, avoidBlur, id } = this.props;
-    // eslint-disable-next-line react/destructuring-assignment
     const { value } = this.state.value;
     const matchFound = value.toLowerCase().startsWith(match.toLowerCase());
 

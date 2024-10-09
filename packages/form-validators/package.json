@@ -1,10 +1,9 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
-  "version": "2.1.14",
+  "version": "2.4.4",
   "license": "MIT",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -22,20 +21,19 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-utils": "^2.1.14",
+    "@navikt/ft-utils": "^2.4.4",
     "moment": "2.30.1"
   },
   "peerDependencies": {
     "@navikt/ft-utils": "2.x",
-    "moment": "2.29.4"
+    "moment": "2.30.1"
   },
   "devDependencies": {
-    "@storybook/react": "7.6.8",
     "cross-env": "7.0.3",
-    "eslint": "8.56.0",
-    "typescript": "5.3.3",
-    "vite": "5.0.11",
-    "vitest": "1.2.0"
+    "eslint": "9.12.0",
+    "typescript": "5.6.2",
+    "vite": "5.4.8",
+    "vitest": "2.1.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -47,6 +45,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.umd.js"
     }
   }

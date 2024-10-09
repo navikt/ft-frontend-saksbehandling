@@ -1,10 +1,10 @@
 import { bemUtils } from '@navikt/ft-utils';
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 import StepType from './StepType';
+import AvslåttValgIcon from './icons/AvslåttIcon';
 import CheckIcon from './icons/CheckIcon';
 import WarningIcon from './icons/WarningIcon';
-import AvslåttValgIcon from './icons/AvslåttIcon';
 import styles from './step.module.css';
 
 interface StepIconProps {
@@ -33,7 +33,7 @@ const StepIcon = ({ type, isFinished, usePartialStatus }: StepIconProps): JSX.El
     return <CheckIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--success']}`} />;
   }
   if (isWarning) {
-    return <WarningIcon className={styles[stepCls.element('icon')]} />;
+    return <WarningIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--warning']} `} />;
   }
   if (isDanger) {
     return <AvslåttValgIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--danger']}`} />;

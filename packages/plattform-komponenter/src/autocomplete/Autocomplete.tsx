@@ -1,8 +1,8 @@
-import React from 'react';
 import { Search } from '@navikt/ds-react';
-import { Suggestion } from './types/Suggestion';
+import React from 'react';
 import AutocompleteSuggestion from './AutocompleteSuggestion';
 import styles from './autocomplete.module.css';
+import { Suggestion } from './types/Suggestion';
 
 export interface AutocompleteProps {
   onSelect: (value: Suggestion) => void;
@@ -25,15 +25,13 @@ interface State {
   shouldShowSuggestions: boolean;
   setAriaActiveDescendant: boolean;
   shouldBlur: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   blurDelay: any;
 }
 
 class Autocomplete extends React.Component<AutocompleteProps, State> {
   // @ts-ignore Fiks
-  input: HTMLInputElement; // eslint-disable-line react/no-unused-class-component-methods
+  input: HTMLInputElement;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   inputRef: any;
 
   constructor(props: AutocompleteProps) {
@@ -48,7 +46,6 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
     };
 
     this.inputRef = (element: any) => {
-      // eslint-disable-next-line react/no-unused-class-component-methods
       this.input = element;
     };
 
@@ -223,7 +220,6 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
           variant="primary"
           id={id}
           name={name}
-          type="search"
           aria-label={ariaLabel}
           aria-autocomplete="list"
           aria-controls={`${id}-suggestions`}
@@ -239,7 +235,6 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
             this.inputRef = input;
           }}
           className="typo-normal"
-          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={shouldFocusOnMount}
           label={ariaLabel}
           hideLabel

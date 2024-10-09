@@ -1,6 +1,6 @@
-import React, { ComponentProps } from 'react';
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { StoryFn } from '@storybook/react';
+import React, { ComponentProps } from 'react';
+import WarningIcon from '../icons/WarningIcon';
 import StatefulSideMenuComponent from './StatefulSideMenu';
 
 export default {
@@ -19,7 +19,7 @@ const Template: StoryFn<ComponentProps<typeof StatefulSideMenuComponent>> = () =
         label: 'en link til',
       },
       {
-        icon: <ExclamationmarkTriangleFillIcon title="Dette er en ikontittel" style={{ color: 'orange' }} />,
+        icon: <WarningIcon />,
         label: 'en link med ikon',
         active: true,
       },

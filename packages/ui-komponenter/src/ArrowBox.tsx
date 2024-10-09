@@ -98,7 +98,6 @@ const ArrowBox: FunctionComponent<OwnProps> = ({
   <>
     <style
       dangerouslySetInnerHTML={{
-        // eslint-disable-line react/no-danger
         __html: getArrowBox(alignOffset, alignLeft, marginTop, marginLeft),
       }}
     />

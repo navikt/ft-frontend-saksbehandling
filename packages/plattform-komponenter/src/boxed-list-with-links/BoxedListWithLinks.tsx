@@ -30,7 +30,6 @@ export const BoxedListWithLinks: React.FunctionComponent<BoxedListWithLinksProps
   <BoxedList>
     {items.map(({ name, href, isExternal }, index) => (
       <li className={styles[listItemCls.block]} key={href}>
-        {/* eslint-disable-next-line react/jsx-no-target-blank */}
         <a
           href={href}
           className={styles[listItemCls.element('anchor')]}

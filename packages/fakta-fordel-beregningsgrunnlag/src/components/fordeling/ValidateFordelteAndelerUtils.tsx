@@ -1,7 +1,6 @@
 import { IntlShape } from 'react-intl';
 import { UseFormGetValues } from 'react-hook-form';
 
-import { dateIsAfter } from '@navikt/ft-form-validators';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
@@ -256,8 +255,7 @@ const validateFordelingForGradertAndel = (
   fieldname: string,
   index: number,
 ): boolean => {
-  const arbeidsforholdIkkeOpphørt = !andel.arbeidsperiodeTom || dateIsAfter(andel.arbeidsperiodeTom, periodeFom);
-  if (!andel.andelIArbeid || !arbeidsforholdIkkeOpphørt) {
+  if (!andel.andelIArbeid) {
     return false;
   }
   const beløpFraSaksbehandler = getValues(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
+import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import {
@@ -9,7 +9,7 @@ import {
   TilbakekrevingVidereBehandling,
   FagsakYtelseType,
 } from '@navikt/ft-kodeverk';
-import { alleTilbakekrevingKodeverk, alleKodeverk } from '@navikt/ft-storybook-utils';
+import { alleTilbakekrevingKodeverk, alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
 import FeilutbetalingFaktaIndex from './FeilutbetalingFaktaIndex';

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import { Alert, Button, ErrorMessage, HStack, Heading, Label, List, ReadMore } from '@navikt/ds-react';
-import { useCustomValidation } from '@navikt/ft-form-hooks';
+import { useCustomValidation, SubmitButton } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
@@ -19,7 +19,6 @@ import { BeregningAktiviteterTransformedValues } from '../../typer/interface/Ber
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
-import SubmitButton from '../felles/SubmitButton';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import VurderAktiviteterPanel from './VurderAktiviteterPanel';
 import {
@@ -280,7 +279,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
                   isDirty={fieldIsDirty}
                   isSubmitting={submitDisabled}
                   isReadOnly={readOnly || (isAvklaringsbehovClosed && !fieldIsDirty)}
-                  hasEmptyRequiredFields={finnesFeilForBegrunnelse}
+                  hasErrors={finnesFeilForBegrunnelse}
                 />
                 {!!dirtyFields && fieldIsDirty && (
                   <Button

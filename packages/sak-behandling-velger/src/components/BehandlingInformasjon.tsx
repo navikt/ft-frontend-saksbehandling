@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import classNames from 'classnames';
 import { ChevronDownIcon, ChevronUpIcon, StarFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Label, Detail, HStack, Spacer, VStack, Box } from '@navikt/ds-react';
-import { Tooltip, DateLabel, TimeLabel, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BodyShort, Label, HStack, Spacer, VStack, Box } from '@navikt/ds-react';
+import { Tooltip, VerticalSpacer, DateTimeLabel } from '@navikt/ft-ui-komponenter';
 import { BehandlingAppKontekst, KodeverkMedNavn } from '@navikt/ft-types';
 import { KodeverkType, BehandlingType, BehandlingArsakType } from '@navikt/ft-kodeverk';
 
@@ -126,15 +125,9 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
             </BodyShort>
           </div>
           <div>
-            <BodyShort size="small" className={styles.inline}>
-              <DateLabel dateString={behandling.opprettet} />
+            <BodyShort size="small">
+              <DateTimeLabel dateTimeString={behandling.opprettet} separator="kl" />
             </BodyShort>
-            <Detail size="small" className={classNames(styles.inline, styles.timePadding)}>
-              <FormattedMessage id="DateTimeLabel.Kl" />
-            </Detail>
-            <Detail size="small" className={styles.inline}>
-              <TimeLabel dateTimeString={behandling.opprettet} />
-            </Detail>
           </div>
         </HStack>
         <HStack>
@@ -145,17 +138,9 @@ const BehandlingInformasjon: FunctionComponent<OwnProps> = ({
           </div>
           <div>
             {behandling.avsluttet && (
-              <>
-                <BodyShort size="small" className={styles.inline}>
-                  <DateLabel dateString={behandling.avsluttet} />
-                </BodyShort>
-                <Detail size="small" className={classNames(styles.inline, styles.timePadding)}>
-                  <FormattedMessage id="DateTimeLabel.Kl" />
-                </Detail>
-                <Detail size="small" className={styles.inline}>
-                  <TimeLabel dateTimeString={behandling.avsluttet} />
-                </Detail>
-              </>
+              <BodyShort size="small">
+                <DateTimeLabel dateTimeString={behandling.avsluttet} separator="kl" />
+              </BodyShort>
             )}
           </div>
           <div className={styles.pushRightCorner}>

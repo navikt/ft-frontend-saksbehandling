@@ -64,5 +64,6 @@ const Table = React.forwardRef<HTMLTableElement, OwnProps>(
     </table>
   ),
 );
+Table.displayName = 'Table';
 
 export default Table;
