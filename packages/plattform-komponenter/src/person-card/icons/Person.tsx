@@ -1,12 +1,12 @@
 import React from 'react';
-import { FigureChildFillIcon } from '@navikt/aksel-icons';
+import { FigureCombinationFillIcon } from '@navikt/aksel-icons';
 
 interface Props {
   size?: number;
 }
 
-const ChildIcon = ({ size = 24 }: Props) => (
-  <FigureChildFillIcon
+const PersonIcon = ({ size = 24 }: Props) => (
+  <FigureCombinationFillIcon
     height={size}
     width={size}
     color="white"
@@ -14,4 +14,4 @@ const ChildIcon = ({ size = 24 }: Props) => (
   />
 );
 
-export default ChildIcon;
+export default PersonIcon;

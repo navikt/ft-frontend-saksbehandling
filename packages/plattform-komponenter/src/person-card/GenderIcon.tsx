@@ -1,40 +1,26 @@
 import React from 'react';
-import { bemUtils } from '@navikt/ft-utils';
 import ChildIcon from './icons/Child';
 import ManIcon from './icons/Man';
 import WomanIcon from './icons/Woman';
-import UnknownIcon from './icons/Unknown';
-import styles from './personCard.module.css';
+import PersonIcon from './icons/Person';
+import { Gender } from './PersonCard';
 
-const cardCls = bemUtils('personCard');
-
-export type GenderType = 'male' | 'female' | 'unknown';
-
-interface GenderIconProps {
-  gender?: GenderType;
+interface Props {
+  gender?: Gender;
   isChild?: boolean;
+  size?: number;
 }
 
-const GenderIcon = ({ gender, isChild }: GenderIconProps): JSX.Element => {
-  let icon;
+const GenderIcon = ({ gender, isChild = false, size = 24 }: Props) => {
+  let Icon = PersonIcon;
   if (isChild) {
-    icon = <ChildIcon />;
-  } else if (gender === 'male') {
-    icon = <ManIcon />;
-  } else if (gender === 'female') {
-    icon = <WomanIcon />;
+    Icon = ChildIcon;
+  } else if (gender === Gender.male) {
+    Icon = ManIcon;
+  } else if (gender === Gender.female) {
+    Icon = WomanIcon;
   }
-  return (
-    <div
-      className={
-        !icon
-          ? `${styles[cardCls.element('gender-icon')]} ${styles['personCard__gender-icon--unknown']}`
-          : styles[cardCls.element('gender-icon')]
-      }
-    >
-      {icon || <UnknownIcon />}
-    </div>
-  );
+  return <Icon size={size} />;
 };
 
 export default GenderIcon;
