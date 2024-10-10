@@ -44,7 +44,7 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
+const VurderBesteberegningPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
@@ -80,7 +80,7 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
   );
 };
 
-VurderBesteberegningPanelImpl.buildInitialValues = (
+VurderBesteberegningPanel.buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   vurderBesteberegning: VurderBesteberegning | undefined,
   faktaOmBeregningTilfeller: string[],
@@ -109,7 +109,7 @@ VurderBesteberegningPanelImpl.buildInitialValues = (
   };
 };
 
-VurderBesteberegningPanelImpl.transformValues = (
+VurderBesteberegningPanel.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
   inntektPrAndel: InntektTransformed[],
@@ -167,11 +167,7 @@ export const vurderBesteberegningTransform =
     ) {
       return {};
     }
-    const besteberegningValues = VurderBesteberegningPanelImpl.transformValues(
-      values,
-      faktaOmBeregning,
-      inntektPrAndel,
-    );
+    const besteberegningValues = VurderBesteberegningPanel.transformValues(values, faktaOmBeregning, inntektPrAndel);
     const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
     if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
@@ -182,4 +178,4 @@ export const vurderBesteberegningTransform =
     };
   };
 
-export default VurderBesteberegningPanelImpl;
+export default VurderBesteberegningPanel;
