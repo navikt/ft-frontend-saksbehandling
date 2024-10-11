@@ -3,34 +3,35 @@ import { useIntl } from 'react-intl';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { StrollerIcon } from '@navikt/aksel-icons';
+import { VisittKort } from '@navikt/ft-plattform-komponenter';
 
-import { HStack } from '@navikt/ds-react';
 import VisittkortBarnInfoFodselPanel from './VisittkortBarnInfoFodselPanel';
 import VisittkortBarnInfoOmsorgPanel from './VisittkortBarnInfoOmsorgPanel';
-
-import styles from './visittkortBarnInfoPanel.module.css';
 
 export interface OwnProps {
   familiehendelse: FagsakHendelse;
 }
-
 const VisittkortBarnInfoPanel: FunctionComponent<OwnProps> = ({ familiehendelse }) => {
   const intl = useIntl();
+  const ikon = (
+    <StrollerIcon
+      title={intl.formatMessage({ id: 'VisittkortBarnInfoPanel.Barnevogn' })}
+      height={24}
+      width={24}
+      color="white"
+      style={{ backgroundColor: 'var(--a-gray-400)', borderRadius: '50%', padding: '2px' }}
+    />
+  );
 
   const erFodselEllerTerminSoknad =
     familiehendelse.hendelseType === FamilieHendelseType.FODSEL ||
     familiehendelse.hendelseType === FamilieHendelseType.TERMIN;
 
   return (
-    <div className={styles.container}>
-      <HStack>
-        <div className={styles.image}>
-          <StrollerIcon title={intl.formatMessage({ id: 'VisittkortBarnInfoPanel.Barnevogn' })} fontSize="1.5rem" />
-        </div>
-        {erFodselEllerTerminSoknad && <VisittkortBarnInfoFodselPanel familiehendelse={familiehendelse} />}
-        {!erFodselEllerTerminSoknad && <VisittkortBarnInfoOmsorgPanel familiehendelse={familiehendelse} />}
-      </HStack>
-    </div>
+    <VisittKort icon={ikon}>
+      {erFodselEllerTerminSoknad && <VisittkortBarnInfoFodselPanel familiehendelse={familiehendelse} />}
+      {!erFodselEllerTerminSoknad && <VisittkortBarnInfoOmsorgPanel familiehendelse={familiehendelse} />}
+    </VisittKort>
   );
 };
 

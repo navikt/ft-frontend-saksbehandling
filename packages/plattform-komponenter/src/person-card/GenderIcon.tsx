@@ -1,40 +1,33 @@
 import React from 'react';
-import { bemUtils } from '@navikt/ft-utils';
-import ChildIcon from './icons/Child';
-import ManIcon from './icons/Man';
-import WomanIcon from './icons/Woman';
-import UnknownIcon from './icons/Unknown';
-import styles from './personCard.module.css';
+import { Gender } from './PersonCard';
+import {
+  FigureChildFillIcon,
+  FigureCombinationFillIcon,
+  FigureOutwardFillIcon,
+  SilhouetteFillIcon,
+} from '@navikt/aksel-icons';
 
-const cardCls = bemUtils('personCard');
-
-export type GenderType = 'male' | 'female' | 'unknown';
-
-interface GenderIconProps {
-  gender?: GenderType;
+interface Props {
+  gender?: Gender;
   isChild?: boolean;
+  size?: number;
 }
 
-const GenderIcon = ({ gender, isChild }: GenderIconProps): JSX.Element => {
-  let icon;
+const GenderIcon = ({ gender, isChild = false, size = 24 }: Props) => {
+  let Icon = FigureCombinationFillIcon;
+
+  let backgroundColor = 'var(--a-gray-400)';
   if (isChild) {
-    icon = <ChildIcon />;
-  } else if (gender === 'male') {
-    icon = <ManIcon />;
-  } else if (gender === 'female') {
-    icon = <WomanIcon />;
+    Icon = FigureChildFillIcon;
+  } else if (gender === Gender.male) {
+    Icon = SilhouetteFillIcon;
+    backgroundColor = 'var(--a-blue-400)';
+  } else if (gender === Gender.female) {
+    Icon = FigureOutwardFillIcon;
+    backgroundColor = 'var(--a-red-300)';
   }
-  return (
-    <div
-      className={
-        !icon
-          ? `${styles[cardCls.element('gender-icon')]} ${styles['personCard__gender-icon--unknown']}`
-          : styles[cardCls.element('gender-icon')]
-      }
-    >
-      {icon || <UnknownIcon />}
-    </div>
-  );
+
+  return <Icon height={size} width={size} color="white" style={{ backgroundColor, borderRadius: '50%' }} />;
 };
 
 export default GenderIcon;

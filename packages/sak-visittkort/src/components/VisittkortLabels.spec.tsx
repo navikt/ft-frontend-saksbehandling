@@ -29,8 +29,8 @@ describe('<VisittkortSakIndex>', () => {
       </RawIntlProvider>,
     );
 
-    expect(await screen.findByText('Personen er død')).toBeInTheDocument();
-    expect(screen.getByText('DØD 01.01.2019')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Personen er død')).toBeInTheDocument();
+    expect(screen.getByText('Død 01.01.2019')).toBeInTheDocument();
   });
 
   it('skal vise etikett for kode 6', async () => {
@@ -46,7 +46,7 @@ describe('<VisittkortSakIndex>', () => {
       </RawIntlProvider>,
     );
 
-    expect(await screen.findByText('Personen har diskresjonsmerking kode 6')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Personen har diskresjonsmerking kode 6')).toBeInTheDocument();
     expect(screen.getByText('Kode 6')).toBeInTheDocument();
   });
 
@@ -63,7 +63,7 @@ describe('<VisittkortSakIndex>', () => {
       </RawIntlProvider>,
     );
 
-    expect(await screen.findByText('Personen har diskresjonsmerking kode 7')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Personen har diskresjonsmerking kode 7')).toBeInTheDocument();
     expect(screen.getByText('Kode 7')).toBeInTheDocument();
   });
 
@@ -74,7 +74,7 @@ describe('<VisittkortSakIndex>', () => {
       </RawIntlProvider>,
     );
 
-    expect(await screen.findByText('Personen har verge')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Personen har verge')).toBeInTheDocument();
     expect(screen.getByText('Verge')).toBeInTheDocument();
   });
 
@@ -91,7 +91,7 @@ describe('<VisittkortSakIndex>', () => {
       </RawIntlProvider>,
     );
 
-    expect(await screen.findByText('Personen er under 18 år')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Personen er under 18 år')).toBeInTheDocument();
     expect(screen.getByText('Under 18')).toBeInTheDocument();
   });
 });
