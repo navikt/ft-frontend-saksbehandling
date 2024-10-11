@@ -1,12 +1,12 @@
+import { SubmitButton } from '@navikt/ft-form-hooks';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   Vilkarperiode,
 } from '@navikt/ft-types';
-import { SubmitButton } from '@navikt/ft-form-hooks';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 
@@ -17,7 +17,7 @@ import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { erOverstyringAvBeregningsgrunnlag, hasAksjonspunkt, isAksjonspunktClosed } from './BgFaktaUtils';
 import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
-import VurderFaktaContext, { BeregningsgrunnlagIndexContext, GetErrorsContext } from './VurderFaktaContext';
+import VurderFaktaContext, { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -78,13 +78,9 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
     getValues,
     formState: { errors, isDirty },
   } = useFormContext<VurderFaktaBeregningFormValues>();
-  const setErrors = React.useContext(GetErrorsContext);
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const skalVæreSynlig = beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks;
-  React.useEffect(() => {
-    setErrors(errors);
-  }, [JSON.stringify(errors)]);
 
   const { avklaringsbehov: avklaringsbehovListe } = beregningsgrunnlag;
   const avklaringsbehov = avklaringsbehovListe.find(

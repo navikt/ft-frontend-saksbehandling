@@ -25,7 +25,6 @@ import {
   hasAksjonspunkt,
   isAksjonspunktClosed,
 } from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
-import { GetErrorsContext } from './components/fellesFaktaForATFLogSN/VurderFaktaContext';
 import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
@@ -414,7 +413,6 @@ const BeregningFaktaIndex: FunctionComponent<
   skalKunneAvbryteOverstyring = false,
 }) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
-  const [, setVurderFaktaBeregningFormErrors] = useState(undefined);
   const vilkårsperioder = vilkar?.perioder;
   useEffect(() => {
     if (vilkårsperioder) {
@@ -475,25 +473,22 @@ const BeregningFaktaIndex: FunctionComponent<
             </Tabs>
           </div>
         )}
-        {/* @ts-ignore Fiks denne */}
-        <GetErrorsContext.Provider value={setVurderFaktaBeregningFormErrors}>
-          <BeregningInfoPanel
-            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            beregningsgrunnlag={beregningsgrunnlag}
-            kodeverkSamling={kodeverkSamling}
-            avklaringsbehov={aktiveAvklaringsBehov}
-            submitCallback={submitCallback}
-            readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
-            submittable={submittable}
-            erOverstyrer={erOverstyrer}
-            skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            setFormData={setFormData}
-            formData={formData}
-            vilkar={vilkar}
-            skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
-          />
-        </GetErrorsContext.Provider>
+        <BeregningInfoPanel
+          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+          beregningsgrunnlag={beregningsgrunnlag}
+          kodeverkSamling={kodeverkSamling}
+          avklaringsbehov={aktiveAvklaringsBehov}
+          submitCallback={submitCallback}
+          readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
+          submittable={submittable}
+          erOverstyrer={erOverstyrer}
+          skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          setFormData={setFormData}
+          formData={formData}
+          vilkar={vilkar}
+          skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
+        />
       </div>
     </RawIntlProvider>
   );
