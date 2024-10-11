@@ -16,7 +16,9 @@ interface PopoverProps {
   customPopperStyles?: React.CSSProperties;
   popperChildrenProps?: PopperChildrenProps;
 }
-
+/*
+ * @deprecated Bruk Popover fra https://aksel.nav.no/komponenter/core/popover.
+ */
 export const Popover: React.FunctionComponent<PopoverProps> = ({
   popperProps,
   referenceProps,
