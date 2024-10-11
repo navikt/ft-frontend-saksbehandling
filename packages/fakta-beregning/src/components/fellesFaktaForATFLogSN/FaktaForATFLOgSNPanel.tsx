@@ -7,10 +7,8 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, ReactElement, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import React, { FunctionComponent, ReactElement } from 'react';
 import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
@@ -21,11 +19,9 @@ import ArbeidsinntektInput from '../felles/ArbeidsinntektInput';
 import InntektInput from '../felles/InntektInput';
 import {
   erInitialOverstyringAvBeregningsgrunnlag,
-  erOverstyringAvBeregningsgrunnlag,
   getFaktaOmBeregning,
   getFaktaOmBeregningTilfellerKoder,
 } from './BgFaktaUtils';
-import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import {
   buildInitialValuesKunYtelse,
@@ -64,18 +60,27 @@ const spacer = (hasShownPanel: boolean): ReactElement => {
   return null;
 };
 
-const getFaktaPanels = (
-  readOnly: boolean,
-  isAksjonspunktClosed: boolean,
-  beregningsgrunnlag: Beregningsgrunnlag,
-  kodeverkSamling: KodeverkForPanel,
-  erOverstyrer: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  updateOverstyring: (index: number, skalOverstyre: boolean) => void,
-  erOverstyrt: boolean,
-  renderTextFieldAndSubmitButton: () => React.ReactNode,
-  vilkarsperiodeSkalVurderesIBehandlingen: boolean,
-) => {
+const getFaktaPanels = ({
+  readOnly,
+  isAksjonspunktClosed,
+  beregningsgrunnlag,
+  kodeverkSamling,
+  erOverstyrer,
+  arbeidsgiverOpplysningerPerId,
+  updateOverstyring,
+  renderTextFieldAndSubmitButton,
+  vilkarsperiodeSkalVurderesIBehandlingen,
+}: {
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  beregningsgrunnlag: Beregningsgrunnlag;
+  kodeverkSamling: KodeverkForPanel;
+  erOverstyrer: boolean;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  updateOverstyring: (index: number, skalOverstyre: boolean) => void;
+  renderTextFieldAndSubmitButton: () => React.ReactNode;
+  vilkarsperiodeSkalVurderesIBehandlingen: boolean;
+}) => {
   const { avklaringsbehov } = beregningsgrunnlag;
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
@@ -140,32 +145,21 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   updateOverstyring,
   renderTextFieldAndSubmitButton,
   vilkarsperiodeSkalVurderesIBehandlingen,
-}) => {
-  const { avklaringsbehov } = beregningsgrunnlag;
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
-  const erOverstyrt = useMemo(
-    () => erOverstyringAvBeregningsgrunnlag(formValues),
-    [formValues, beregningsgrunnlag, avklaringsbehov],
-  );
-  return (
-    <div>
-      {getFaktaPanels(
-        readOnly,
-        isAksjonspunktClosed,
-        beregningsgrunnlag,
-        kodeverkSamling,
-        erOverstyrer,
-        arbeidsgiverOpplysningerPerId,
-        updateOverstyring,
-        erOverstyrt,
-        renderTextFieldAndSubmitButton,
-        vilkarsperiodeSkalVurderesIBehandlingen,
-      ).map(panelOrSpacer => panelOrSpacer)}
-    </div>
-  );
-};
+}) => (
+  <div>
+    {getFaktaPanels({
+      readOnly,
+      isAksjonspunktClosed,
+      beregningsgrunnlag,
+      kodeverkSamling,
+      erOverstyrer,
+      arbeidsgiverOpplysningerPerId,
+      updateOverstyring,
+      renderTextFieldAndSubmitButton,
+      vilkarsperiodeSkalVurderesIBehandlingen,
+    }).map(panelOrSpacer => panelOrSpacer)}
+  </div>
+);
 
 const kunYtelseTransform =
   (faktaOmBeregning: FaktaOmBeregning, aktivePaneler: string[]) =>
