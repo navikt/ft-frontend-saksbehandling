@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Tag, BodyShort } from '@navikt/ds-react';
 import { FagsakHendelse } from '@navikt/ft-types';
@@ -14,9 +14,9 @@ const finnFodselsdatoTekstkode = (antallBarn: number): string => {
 };
 
 const finnAlderTekstProps = (fødselsdato: string) => {
-  const ar = moment().diff(fødselsdato, 'years');
-  const maneder = moment().diff(fødselsdato, 'months');
-  const dager = moment().diff(fødselsdato, 'days');
+  const ar = dayjs().diff(fødselsdato, 'years');
+  const maneder = dayjs().diff(fødselsdato, 'months');
+  const dager = dayjs().diff(fødselsdato, 'days');
 
   if (ar < 0 || maneder < 0 || dager < 0) {
     throw new Error('Fødselsdato kan ikke være i fremtiden');

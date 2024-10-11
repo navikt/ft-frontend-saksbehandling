@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoryFn } from '@storybook/react';
+import dayjs from 'dayjs';
 
-import moment from 'moment/moment';
 import {
   NavBrukerKjonn,
   FagsakStatus,
@@ -131,7 +131,7 @@ MedVergeOgBrukerUnder18.args = {
   fagsak: defaultFagsak,
   harVerge: true,
   fagsakPersoner: {
-    bruker: { ...fagsakPerson, fødselsdato: moment().subtract(17, 'years').format(ISO_DATE_FORMAT) },
+    bruker: { ...fagsakPerson, fødselsdato: dayjs().subtract(17, 'years').format(ISO_DATE_FORMAT) },
   },
 };
 

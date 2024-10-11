@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
 import { BodyShort } from '@navikt/ds-react';
 import { FagsakHendelse } from '@navikt/ft-types';
@@ -26,7 +26,7 @@ const VisittkortBarnInfoOmsorgPanel: FunctionComponent<OwnProps> = ({ familiehen
     <BodyShort>
       <FormattedMessage
         id={erAdopsjon ? adopsjonTekstkode : foreldreansvarTekstkode}
-        values={{ antall: antallBarn, dato: moment(hendelseDato).format(DDMMYYYY_DATE_FORMAT) }}
+        values={{ antall: antallBarn, dato: dayjs(hendelseDato).format(DDMMYYYY_DATE_FORMAT) }}
       />
     </BodyShort>
   );

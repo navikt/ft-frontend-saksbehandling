@@ -1,5 +1,5 @@
 import React, { useMemo, FunctionComponent } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip } from '@navikt/ds-react';
 import { DiskresjonskodeType } from '@navikt/ft-kodeverk';
@@ -13,7 +13,7 @@ interface Props {
 
 const VisittkortLabels: FunctionComponent<Props> = ({ fagsakPerson, harVerge }) => {
   const intl = useIntl();
-  const erSokerUnder18 = useMemo(() => moment().diff(fagsakPerson.fødselsdato, 'years') < 18, [fagsakPerson]);
+  const erSokerUnder18 = useMemo(() => dayjs().diff(fagsakPerson.fødselsdato, 'years') < 18, [fagsakPerson]);
   return (
     <>
       {fagsakPerson.dodsdato && (

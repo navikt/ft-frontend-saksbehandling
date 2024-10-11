@@ -3631,7 +3631,6 @@ __metadata:
     "@testing-library/user-event": 14.5.2
     classnames: 2.5.1
     cross-env: 7.0.3
-    dayjs: 1.11.13
     eslint: 9.12.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
@@ -3649,7 +3648,6 @@ __metadata:
     "@navikt/ds-react": 7.x
     "@popperjs/core": 2.11.8
     classnames: 2.5.1
-    dayjs: 1.11.x
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: 18.3.1
@@ -4214,8 +4212,8 @@ __metadata:
     "@testing-library/dom": 10.4.0
     "@testing-library/react": 16.0.1
     cross-env: 7.0.3
+    dayjs: 1.11.13
     eslint: 9.12.0
-    moment: 2.30.1
     react: 18.3.1
     react-intl: 6.7.0
     storybook: 8.3.5
@@ -4231,7 +4229,7 @@ __metadata:
     "@navikt/ft-plattform-komponenter": 2.x
     "@navikt/ft-types": 2.x
     "@navikt/ft-utils": 2.x
-    moment: 2.30.1
+    dayjs: 1.11.x
     react: 18.3.1
     react-intl: 6.x
   languageName: unknown
