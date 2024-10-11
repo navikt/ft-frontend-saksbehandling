@@ -14,7 +14,7 @@ export type AktiviteterValues = {
 type AvklarAktiviteterValues = {
   manuellOverstyringBeregningAktiviteter?: boolean;
   begrunnelseAvklareAktiviteter?: string;
-  avklaringsbehov: BeregningAvklaringsbehov[];
+  avklaringsbehovListe: BeregningAvklaringsbehov[];
   avklarAktiviteter?: AvklarBeregningAktiviteterMap;
   aktiviteterValues?: AktiviteterValues;
   periode: { fom: string; tom: string };

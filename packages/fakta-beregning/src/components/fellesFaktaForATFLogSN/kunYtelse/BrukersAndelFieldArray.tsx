@@ -1,21 +1,21 @@
-import { Detail, ErrorMessage, Button } from '@navikt/ds-react';
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
+import { BodyShort, Button, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React, { FunctionComponent } from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
+import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from './brukersAndelFieldArray.module.css';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
   andel: kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(
@@ -56,11 +56,13 @@ const createAndelerTableRows = (
   remove,
 ) =>
   fields.map((field, index) => (
-    <TableRow className={styles.row} key={field.id}>
-      <TableColumn>
-        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
-      </TableColumn>
-      <TableColumn className={styles.rightAlignInput}>
+    <Table.Row className={styles.row} key={field.id}>
+      <Table.DataCell>
+        <BodyShort size="small">
+          <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
+        </BodyShort>
+      </Table.DataCell>
+      <Table.DataCell align="right" className={styles.rightAlign}>
         <InputField
           name={`${fieldArrayName}.${index}.fastsattBelop`}
           className={styles.mediumBredde}
@@ -75,9 +77,10 @@ const createAndelerTableRows = (
             { andel: `ytelse ${index + 1}` },
           )}
           hideLabel
+          size="small"
         />
-      </TableColumn>
-      <TableColumn className={styles.rightAlign}>
+      </Table.DataCell>
+      <Table.DataCell align="right" className={styles.rightAlign}>
         <SelectField
           label={intl.formatMessage(
             {
@@ -91,9 +94,10 @@ const createAndelerTableRows = (
           readOnly={readOnly}
           validate={readOnly ? [] : [required]}
           hideLabel
+          size="small"
         />
-      </TableColumn>
-      <TableColumn>
+      </Table.DataCell>
+      <Table.DataCell align="right" className={styles.rightAlign}>
         {skalViseSletteknapp(index, fields, readOnly) && (
           <Button
             icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
@@ -102,19 +106,22 @@ const createAndelerTableRows = (
             variant="tertiary"
           />
         )}
-      </TableColumn>
-    </TableRow>
+      </Table.DataCell>
+    </Table.Row>
   ));
 const createBruttoBGSummaryRow = sumFordeling => (
-  <TableRow key="bruttoBGSummaryRow">
-    <TableColumn>
-      <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
-    </TableColumn>
-    <TableColumn className={styles.rightAlign}>
+  <Table.Row key="bruttoBGSummaryRow">
+    <Table.DataCell>
+      <Label as="p" size="small">
+        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+      </Label>
+    </Table.DataCell>
+    <Table.DataCell align="right">
       <Detail>{sumFordeling}</Detail>
-    </TableColumn>
-    <TableColumn />
-  </TableRow>
+    </Table.DataCell>
+    <Table.DataCell />
+    <Table.DataCell />
+  </Table.Row>
 );
 
 const getHeaderTextCodes = () => [
@@ -173,7 +180,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     control,
   });
   const sumFordeling = summerFordeling(fieldArrayValues) || 0;
-  const tablerows = createAndelerTableRows(
+  const TableRows = createAndelerTableRows(
     fields,
     isAksjonspunktClosed,
     readOnly,
@@ -182,29 +189,48 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     fieldArrayName,
     remove,
   );
-  tablerows.push(createBruttoBGSummaryRow(sumFordeling));
+  TableRows.push(createBruttoBGSummaryRow(sumFordeling));
   const feilmelding = validate(fieldArrayValues, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
   return (
     <div>
-      <Table headerTextCodes={getHeaderTextCodes()} noHover classNameTable={styles.inntektTable}>
-        {tablerows}
+      <Table size="small">
+        <Table.Header>
+          <Table.Row>
+            {getHeaderTextCodes().map(header => {
+              const alginRightHeaders = [
+                'BeregningInfoPanel.FordelingBG.Fordeling',
+                'BeregningInfoPanel.FordelingBG.Inntektskategori',
+              ];
+              const alignRight = alginRightHeaders.includes(header);
+              return (
+                <Table.HeaderCell key={header} scope="col" align={alignRight ? 'right' : 'left'}>
+                  <Label size="small" as="span">
+                    <FormattedMessage id={header} />
+                  </Label>
+                </Table.HeaderCell>
+              );
+            })}
+            <Table.HeaderCell />
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>{TableRows}</Table.Body>
       </Table>
       {!readOnly && (
         <FlexRow className={styles.buttonRow}>
           <FlexColumn className={styles.flexColumn3}>
+            <VerticalSpacer eightPx />
             <Button
               icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
               // @ts-ignore Fiks
               onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
               type="button"
               variant="tertiary"
+              size="small"
             >
-              <Detail className={styles.imageText}>
-                <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-              </Detail>
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
             </Button>
           </FlexColumn>
         </FlexRow>

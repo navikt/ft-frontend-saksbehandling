@@ -1,4 +1,3 @@
-import { BodyShort } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
@@ -11,9 +10,9 @@ import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '
 import { InntektTransformed } from '../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 export const besteberegningField = 'vurderbesteberegningField';
 
@@ -45,20 +44,17 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
+const VurderBesteberegningPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
+
   return (
     <div>
       <FlexRow>
         <FlexColumn className={styles.flexColumn9}>
           <RadioGroupPanel
-            label={
-              <BodyShort>
-                <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
-              </BodyShort>
-            }
+            label={<FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />}
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
             isReadOnly={isReadOnly}
             validate={isReadOnly ? [] : [required]}
@@ -67,7 +63,6 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
               { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
             ]}
             parse={parseStringToBoolean}
-            isHorizontal
           />
         </FlexColumn>
         <FlexColumn className={styles.flexColumn3}>
@@ -85,7 +80,7 @@ const VurderBesteberegningPanelImpl: FunctionComponent<OwnProps> & StaticFunctio
   );
 };
 
-VurderBesteberegningPanelImpl.buildInitialValues = (
+VurderBesteberegningPanel.buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   vurderBesteberegning: VurderBesteberegning | undefined,
   faktaOmBeregningTilfeller: string[],
@@ -114,7 +109,7 @@ VurderBesteberegningPanelImpl.buildInitialValues = (
   };
 };
 
-VurderBesteberegningPanelImpl.transformValues = (
+VurderBesteberegningPanel.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
   inntektPrAndel: InntektTransformed[],
@@ -172,11 +167,7 @@ export const vurderBesteberegningTransform =
     ) {
       return {};
     }
-    const besteberegningValues = VurderBesteberegningPanelImpl.transformValues(
-      values,
-      faktaOmBeregning,
-      inntektPrAndel,
-    );
+    const besteberegningValues = VurderBesteberegningPanel.transformValues(values, faktaOmBeregning, inntektPrAndel);
     const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
     if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
@@ -187,4 +178,4 @@ export const vurderBesteberegningTransform =
     };
   };
 
-export default VurderBesteberegningPanelImpl;
+export default VurderBesteberegningPanel;

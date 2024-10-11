@@ -22,14 +22,12 @@ export const hasOpenAvklarAvklaringsbehov = (avklaringsbehov: BeregningAvklaring
   hasOpenAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) ||
   hasOpenAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
 
-export const findBegrunnelse = (avklaringsbehov: BeregningAvklaringsbehov[]): string | undefined =>
-  avklaringsbehov.some(
+export const findAvklaringsbehovForAktiviteter = (
+  avklaringsbehov: BeregningAvklaringsbehov[],
+): BeregningAvklaringsbehov | undefined =>
+  avklaringsbehov.find(
     ab => ab.definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER || ab.definisjon === AVKLAR_AKTIVITETER,
-  )
-    ? avklaringsbehov.find(
-        ab => ab.definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER || ab.definisjon === AVKLAR_AKTIVITETER,
-      )?.begrunnelse
-    : undefined;
+  );
 
 export const skalViseSubmitknappInneforBorderBox = (
   harAndreAvklaringsbehovIPanel: boolean,

@@ -1,14 +1,14 @@
+import { ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
 import createVisningsnavnFakta from '../../ArbeidsforholdHelper';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
@@ -30,15 +30,22 @@ const lagRefusjonskravRadios = (
 
     return (
       <React.Fragment key={arbeidsgiverIdent}>
-        <VerticalSpacer twentyPx />
         <RadioGroupPanel
           label={
-            <FormattedMessage
-              id="VurderRefusjonForm.ErRefusjonskravGyldig"
-              values={{
-                arbeidsgiverVisningsnavn,
-              }}
-            />
+            <>
+              <FormattedMessage
+                id="VurderRefusjonForm.ErRefusjonskravGyldig"
+                values={{
+                  arbeidsgiverVisningsnavn,
+                }}
+              />
+              <ReadMore
+                size="small"
+                header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+              >
+                <FormattedMessage id="VurderRefusjonForm.ReadMore" />
+              </ReadMore>
+            </>
           }
           name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
             arbeidsgiverIdent,
@@ -50,7 +57,6 @@ const lagRefusjonskravRadios = (
             { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
           ]}
           parse={parseStringToBoolean}
-          isHorizontal
         />
       </React.Fragment>
     );
