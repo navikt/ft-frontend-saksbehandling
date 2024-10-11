@@ -14,7 +14,7 @@
     "@navikt/ft-form-hooks": "workspace:^",
     "react": "18.3.1",
     "react-hook-form": "7.53.0",
-    "react-intl": "6.7.0"
+    "react-intl": "6.7.2"
   },
   "devDependencies": {
     "eslint": "9.12.0",
