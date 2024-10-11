@@ -2810,6 +2810,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/ecma402-abstract@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@formatjs/ecma402-abstract@npm:2.1.0"
+  dependencies:
+    "@formatjs/fast-memoize": 2.2.0
+    "@formatjs/intl-localematcher": 0.5.4
+    tslib: ^2.4.0
+  checksum: 39bad1a40fdb8f4b5af5eed868548c17a7120730fa8593e7a2a40ec80f02e19dfdd2fa82083156aad18e73a4e610fe55292283e06a9dc586a0a43b1b18066ed4
+  languageName: node
+  linkType: hard
+
 "@formatjs/fast-memoize@npm:2.2.0":
   version: 2.2.0
   resolution: "@formatjs/fast-memoize@npm:2.2.0"
@@ -2882,14 +2893,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:8.10.3":
-  version: 8.10.3
-  resolution: "@formatjs/intl-numberformat@npm:8.10.3"
+"@formatjs/intl-numberformat@npm:8.11.0":
+  version: 8.11.0
+  resolution: "@formatjs/intl-numberformat@npm:8.11.0"
   dependencies:
-    "@formatjs/ecma402-abstract": 2.0.0
+    "@formatjs/ecma402-abstract": 2.1.0
     "@formatjs/intl-localematcher": 0.5.4
     tslib: ^2.4.0
-  checksum: 7f7925318f9d404bc66cce4b6a547c1a216636ce150de89b844f022aee923827bcabf2dc08455aa3612459ef9803cb9edeaa9a0b09dd32fd5040b34be59340f7
+  checksum: efeeed4ddcc98baa539d9ae97d3379d527c0a535a3336d77ef58b7adbcae59fe537e6c4ac50cb1cae98a520aa7e24796b5a89dc49e00a2100e87dd0ef93501fd
   languageName: node
   linkType: hard
 
@@ -9829,7 +9840,7 @@ __metadata:
   dependencies:
     "@eslint/js": 9.12.0
     "@formatjs/intl-datetimeformat": 6.12.5
-    "@formatjs/intl-numberformat": 8.10.3
+    "@formatjs/intl-numberformat": 8.11.0
     "@navikt/aksel-stylelint": 7.1.2
     "@storybook/addon-essentials": 8.3.5
     "@storybook/addon-links": 8.3.5
