@@ -1,15 +1,16 @@
+import { List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
-import { BodyShort } from '@navikt/ds-react';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 
 /**
  * NyOppstartetFLForm
@@ -44,20 +45,36 @@ const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ rea
     <div>
       <RadioGroupPanel
         label={
-          <BodyShort>
-            <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.ErSokerNyoppstartetFL" />
-          </BodyShort>
+          <>
+            <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL" />
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem2" />
+                </List.Item>
+              </List>
+            </ReadMore>
+          </>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+          {
+            value: 'true',
+            label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
+          },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
         ]}
         parse={parseStringToBoolean}
-        isHorizontal
       />
+      <VerticalSpacer twentyPx />
     </div>
   );
 };

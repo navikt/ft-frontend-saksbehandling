@@ -3280,64 +3280,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ft-fakta-beregning-redesign@workspace:packages/fakta-beregning-redesign":
-  version: 0.0.0-use.local
-  resolution: "@navikt/ft-fakta-beregning-redesign@workspace:packages/fakta-beregning-redesign"
-  dependencies:
-    "@navikt/aksel-icons": 7.1.2
-    "@navikt/ds-css": 7.1.2
-    "@navikt/ds-react": 7.1.2
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-konstanter": "workspace:^"
-    "@navikt/ft-plattform-komponenter": "workspace:^"
-    "@navikt/ft-types": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
-    "@storybook/addon-actions": 8.3.5
-    "@storybook/react": 8.3.5
-    "@storybook/react-vite": 8.3.5
-    "@testing-library/dom": 10.4.0
-    "@testing-library/react": 16.0.1
-    "@testing-library/user-event": 14.5.2
-    core-js: 3.38.1
-    cross-env: 7.0.3
-    dayjs: 1.11.13
-    dayjs-plugin-utc: 0.1.2
-    eslint: 9.12.0
-    react: 18.3.1
-    react-dom: 18.3.1
-    react-hook-form: 7.53.0
-    react-intl: 6.7.0
-    storybook: 8.3.5
-    stylelint: 16.9.0
-    typescript: 5.6.2
-    vite: 5.4.8
-    vitest: 2.1.2
-  peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
-    "@navikt/ft-kodeverk": 2.x
-    "@navikt/ft-konstanter": 2.x
-    "@navikt/ft-types": 2.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
-    core-js: 3.37.1
-    dayjs: 1.11.x
-    dayjs-plugin-utc: 0.1.2
-    react: 18.3.1
-    react-dom: 18.3.1
-    react-hook-form: 7.x
-    react-intl: 6.x
-  languageName: unknown
-  linkType: soft
-
 "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
@@ -3351,6 +3293,7 @@ __metadata:
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-konstanter": "workspace:^"
+    "@navikt/ft-plattform-komponenter": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"

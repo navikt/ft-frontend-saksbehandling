@@ -1,3 +1,5 @@
+import '@navikt/ds-css';
+import '@navikt/ft-form-hooks/dist/style.css';
 import {
   AksjonspunktStatus,
   AktivitetStatus as aktivitetStatuser,
@@ -16,7 +18,6 @@ import {
   Vilkarperiode,
 } from '@navikt/ft-types';
 import '@navikt/ft-ui-komponenter/dist/style.css';
-import '@navikt/ft-form-hooks/dist/style.css';
 import { action } from '@storybook/addon-actions';
 import type { StoryFn } from '@storybook/react';
 import dayjs from 'dayjs';
@@ -31,16 +32,13 @@ import {
   vilkar as vilkarArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
 import agOpplysninger from '../testdata/arbeidsgiverOpplysninger';
+import { bgOverstyreUtenAvklaringsbehov, vilkarOverstyreUtenAvklaringsbehov } from '../testdata/bgUtenAvklaringsbehov';
 import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
-import { bgOverstyreUtenAvklaringsbehov, vilkarOverstyreUtenAvklaringsbehov } from '../testdata/bgUtenAvklaringsbehov';
-
 import BeregningFaktaIndex from './BeregningFaktaIndex';
 import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
-
-import '@navikt/ds-css';
 
 const opprettetVurderFakta = {
   definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
@@ -106,7 +104,7 @@ const standardFaktaArbeidstakerAndel = {
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '12345678',
-    startdato: '01.01.2019',
+    startdato: '2019-01-01',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
@@ -116,8 +114,8 @@ const standardFaktaArbeidstakerAndel2 = {
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '12345679',
-    startdato: '01.01.2019',
-    opphoersdato: '01.01.2020',
+    startdato: '2019-01-01',
+    opphoersdato: '2020-01-01',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
@@ -127,8 +125,8 @@ const tidsbegrensetFaktaArbeidstakerAndel = {
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '12345671',
-    startdato: '01.09.2019',
-    opphoersdato: '01.01.2020',
+    startdato: '2019-09-01',
+    opphoersdato: '2020-01-01',
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   },
 };
@@ -138,7 +136,7 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '795349533',
-    startdato: '01.09.2019',
+    startdato: '2019-09-01',
     arbeidsforholdType: OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE,
   },
 };
@@ -378,7 +376,7 @@ export const VurderingAvBesteberegningMedDagpengerIOpptjeningsperiodenAp5058: St
  * - Vurdering av om frilansaktivitet er nyoppstartet
  *
  */
-export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
+export const FrilansOgArbeidsforholdMedLønnsendringOgNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
   const arbeidstakerBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
@@ -420,6 +418,85 @@ export const FrilansOgArbeidsforholdMedLønnendringOgNyoppstartetAp5058: StoryFn
       setFormData={() => undefined}
       vilkar={lagVilkar([
         { periode: { fom: '2022-03-02', tom: '2022-03-10' }, vurderesIBehandlingen: false } as Vilkarperiode,
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
+      ])}
+    />
+  );
+};
+
+/**
+ * Vurdering av om frilansaktivitet er nyoppstartet
+ */
+export const FrilansNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
+  const frilansBeregningsgrunnlagAndel = {
+    andelsnr: standardFaktaFrilansAndel.andelsnr,
+    aktivitetStatus: standardFaktaFrilansAndel.aktivitetStatus,
+    inntektskategori: standardFaktaFrilansAndel.inntektskategori,
+    erNyoppstartet: null,
+  };
+  const andeler = [frilansBeregningsgrunnlagAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaFrilansAndel];
+  const vurderMottarYtelse = {
+    erFrilans: true,
+    frilansInntektPrMnd: 20000,
+    arbeidstakerAndelerUtenIM: [],
+  };
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [VURDER_NYOPPSTARTET_FL],
+    vurderMottarYtelse,
+    andelerForFaktaOmBeregning,
+  } as FaktaOmBeregning;
+  const beregningsgrunnlag2 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-15', [opprettetVurderFakta]);
+
+  const callback = submitCallback || (action('button-click') as (data: any) => Promise<any>);
+
+  return (
+    <BeregningFaktaIndex
+      beregningsgrunnlag={[beregningsgrunnlag2]}
+      erOverstyrer={false}
+      kodeverkSamling={alleKodeverkMock as any}
+      submitCallback={callback}
+      readOnly={false}
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={lagVilkar([
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
+      ])}
+    />
+  );
+};
+
+export const ArbeidsforholdMedLønnsendringAp5058: StoryFn = ({ submitCallback }) => {
+  const arbeidstakerBeregningsgrunnlagAndel = {
+    andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
+    aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
+    inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
+  };
+
+  const andeler = [arbeidstakerBeregningsgrunnlagAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel];
+
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [VURDER_LONNSENDRING],
+    arbeidsforholdMedLønnsendringUtenIM: [arbeidstakerBeregningsgrunnlagAndel],
+    andelerForFaktaOmBeregning,
+  } as FaktaOmBeregning;
+  const beregningsgrunnlag2 = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-15', [opprettetVurderFakta]);
+
+  const callback = submitCallback || (action('button-click') as (data: any) => Promise<any>);
+
+  return (
+    <BeregningFaktaIndex
+      beregningsgrunnlag={[beregningsgrunnlag2]}
+      erOverstyrer={false}
+      kodeverkSamling={alleKodeverkMock as any}
+      submitCallback={callback}
+      readOnly={false}
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={lagVilkar([
         { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
       ])}
     />
@@ -647,6 +724,51 @@ export const VurderOmBrukerMottarYtelseForFrilansAp5058: StoryFn = ({ submitCall
   );
 };
 
+export const VurderOmBrukerMottarYtelseForArbeidstakerAp5058 = () => {
+  const arbeidstakerBeregningsgrunnlagAndel = {
+    andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
+    aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
+    inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
+  };
+
+  const andeler = [arbeidstakerBeregningsgrunnlagAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel];
+
+  const vurderMottarYtelse = {
+    erFrilans: false,
+    frilansInntektPrMnd: 0,
+    arbeidstakerAndelerUtenIM: [standardFaktaArbeidstakerAndel],
+  };
+
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [VURDER_MOTTAR_YTELSE],
+    andelerForFaktaOmBeregning,
+    vurderMottarYtelse,
+  } as FaktaOmBeregning;
+  const avklaringsbehov = [
+    {
+      definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
+      status: AksjonspunktStatus.OPPRETTET,
+      begrunnelse: undefined,
+      kanLoses: true,
+    },
+  ];
+  const beregningsgrunnlag = lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', avklaringsbehov);
+  return (
+    <BeregningFaktaIndex
+      beregningsgrunnlag={[beregningsgrunnlag]}
+      erOverstyrer={false}
+      kodeverkSamling={alleKodeverkMock as any}
+      submitCallback={action('button-click') as (data: any) => Promise<any>}
+      readOnly={false}
+      submittable
+      arbeidsgiverOpplysningerPerId={agOpplysninger}
+      setFormData={() => undefined}
+      vilkar={vilkar}
+    />
+  );
+};
+
 /**
  * Vurder om bruker har militærtjeneste
  *
@@ -834,49 +956,49 @@ export const SelvstendigNæringNyIArbeidslivetAp5058: StoryFn = ({ submitCallbac
 export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
   const aapAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.AAP,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
   };
   const arbeidsAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const arbeidsAktivitet2 = {
     ...standardFaktaArbeidstakerAndel2.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const tidsbegrensetarbeidsAktivitet = {
     ...tidsbegrensetFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const næringAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.NARING,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const etterlonnSluttpakkeAktivitet = {
     ...etterlønnSluttpakkeFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const frilansAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const militærAktivitet = {
     arbeidsforholdType: OpptjeningAktivitetType.MILITAR_ELLER_SIVILTJENESTE,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const aktiviteter = [
@@ -1035,14 +1157,14 @@ export const KombinasjonstestForFaktapanelAp5052Ap5058 = () => {
 export const OverstyringAvInntektMedÅpentAksjonspunktAp5058: StoryFn = ({ submitCallback }) => {
   const arbeidsAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const arbeidsAktivitet2 = {
     ...standardFaktaArbeidstakerAndel2.arbeidsforhold,
-    fom: '01-01-2019',
-    tom: '01-04-2020',
+    fom: '2019-01-01',
+    tom: '2020-04-01',
     skalBrukes: true,
   };
   const aktiviteter = [arbeidsAktivitet, arbeidsAktivitet2];

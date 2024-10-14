@@ -1,7 +1,7 @@
+import { Button, HStack, Heading, Label } from '@navikt/ds-react';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { FlexColumn, FlexContainer, FlexRow, OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Button, Label } from '@navikt/ds-react';
+import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { FunctionComponent, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
@@ -20,7 +20,6 @@ const getSkalKunneOverstyre = (erOverstyrer, avklaringsbehov: BeregningAvklaring
   erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
 
 type OwnProps = {
-  children: React.ReactNode | React.ReactNode[];
   tabell: React.ReactNode;
   hjelpeTekstId?: string;
   skalViseTabell?: boolean;
@@ -43,7 +42,6 @@ interface StaticFunctions {
 export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
   tabell,
   hjelpeTekstId = undefined,
-  children,
   skalViseTabell = true,
   readOnly,
   avklaringsbehov,
@@ -64,49 +62,38 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
     updateOverstyring(beregningsgrunnlagIndeks, !erTabellOverstyrt);
   };
   return (
-    <>
-      {children}
-      <div className={styles.fadeinTabell}>
-        <VerticalSpacer sixteenPx />
-        {skalViseTabell && (
-          <>
-            <FlexContainer>
-              <FlexRow>
-                <FlexColumn>
-                  <Label size="small" className={styles.avsnittOverskrift}>
-                    <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
-                  </Label>
-                </FlexColumn>
-                {(kanOverstyre || erTabellOverstyrt) && (
-                  <FlexColumn>
-                    <OverstyringKnapp
-                      onClick={toggleOverstyring}
-                      erOverstyrt={
-                        readOnly ||
-                        erTabellOverstyrt ||
-                        hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
-                      }
-                    />
-                  </FlexColumn>
-                )}
-              </FlexRow>
-            </FlexContainer>
-            <VerticalSpacer sixteenPx />
-            {hjelpeTekstId && (
-              <Label size="small">
-                <FormattedMessage id={hjelpeTekstId} />
-              </Label>
+    <div className={styles.fadeinTabell}>
+      <VerticalSpacer thirtyTwoPx />
+      {skalViseTabell && (
+        <>
+          <HStack gap="4">
+            <Heading level="3" size="xsmall">
+              <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
+            </Heading>
+            {(kanOverstyre || erTabellOverstyrt) && (
+              <OverstyringKnapp
+                onClick={toggleOverstyring}
+                erOverstyrt={
+                  readOnly || erTabellOverstyrt || hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
+                }
+              />
             )}
-            {tabell}
-            {erTabellOverstyrt && !readOnly && (
-              <Button size="small" onClick={toggleOverstyring} variant="secondary">
-                <FormattedMessage id="InntektstabellPanel.Avbryt" />
-              </Button>
-            )}
-          </>
-        )}
-      </div>
-    </>
+          </HStack>
+          <VerticalSpacer sixteenPx />
+          {hjelpeTekstId && (
+            <Label size="small">
+              <FormattedMessage id={hjelpeTekstId} />
+            </Label>
+          )}
+          {tabell}
+          {erTabellOverstyrt && !readOnly && (
+            <Button size="small" onClick={toggleOverstyring} variant="secondary">
+              <FormattedMessage id="InntektstabellPanel.Avbryt" />
+            </Button>
+          )}
+        </>
+      )}
+    </div>
   );
 };
 

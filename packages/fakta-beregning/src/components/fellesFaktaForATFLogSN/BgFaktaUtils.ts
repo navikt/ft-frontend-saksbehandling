@@ -4,29 +4,34 @@ import {
   Inntektskategori,
   KodeverkType,
   OpptjeningAktivitetType as OAType,
+  isAksjonspunktOpen,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import {
+  ATFLSammeOrgAndel,
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
-  ATFLSammeOrgAndel,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { FaktaOmBeregningAksjonspunktValues, GenerellAndelInfo } from '../../typer/FaktaBeregningTypes';
+import {
+  ArbeidstakerInntektValues,
+  FaktaOmBeregningAksjonspunktValues,
+  GenerellAndelInfo,
+} from '../../typer/FaktaBeregningTypes';
 import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
 import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import KodeverkForPanel from '../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../ArbeidsforholdHelper';
-import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
+import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
@@ -87,11 +92,20 @@ const erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon = (
 
 // Aktivitetstatus
 
-const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
+export const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
   field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 
-const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
+export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
   field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
+
+export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
+
+export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+
+export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
+  field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
 
 // Nyoppstartet frilanser
 
@@ -297,3 +311,36 @@ export const mapAndelToField = (
   belopReadOnly: andel.belopReadOnly || andel.belopReadOnly === 0 ? formatCurrencyNoKr(andel.belopReadOnly) : '',
   refusjonskrav: andel.refusjonskrav || andel.refusjonskrav === 0 ? formatCurrencyNoKr(andel.refusjonskrav) : '',
 });
+
+export const getArbeidsgiverIndex = (
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
+  arbeidsgiverIdent: string,
+) => arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverIdent === arbeidsgiverIdent);
+
+export const getFastsattBelopFromArbeidstakerInntekt = (
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
+  arbeidsgiverIdent: string,
+) =>
+  arbeidstakerInntektValues?.find(arbeidsgiver => arbeidsgiver.arbeidsgiverIdent === arbeidsgiverIdent)?.fastsattBelop;
+
+export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): FaktaOmBeregning => {
+  if (!beregningsgrunnlag.faktaOmBeregning) {
+    throw new Error('Mangler fakta om beregning, ugyldig tilstand');
+  }
+  return beregningsgrunnlag.faktaOmBeregning;
+};
+
+export const getFaktaOmBeregningTilfellerKoder = (beregningsgrunnlag: Beregningsgrunnlag): string[] =>
+  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller || [];
+
+export const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
+
+export const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
+  const relevantAp = avklaringsbehov.filter(
+    ap =>
+      ap.definisjon === FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN ||
+      ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+  );
+  return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
+};
