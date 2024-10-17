@@ -13,7 +13,7 @@ interface Props {
   size?: number;
 }
 
-const GenderIcon = ({ gender, isChild = false, size = 24 }: Props) => {
+const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
   let Icon = FigureCombinationFillIcon;
 
   let backgroundColor = 'var(--a-gray-400)';
