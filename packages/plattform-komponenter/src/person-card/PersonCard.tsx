@@ -1,12 +1,9 @@
-import { bemUtils } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
 import React from 'react';
-import Clipboard from '../clipboard/Clipboard';
-import Popover from '../popover/Popover';
-import Card from './Card';
-import GenderIcon, { GenderType } from './GenderIcon';
-import Menu from './Menu';
-import styles from './personCard.module.css';
+import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@navikt/ds-react';
+import { MenuElipsisHorizontalCircleIcon } from '@navikt/aksel-icons';
+
+import VisittKort from './VisittKort';
+import GenderIcon from './GenderIcon';
 
 export enum Gender {
   male = 'male',
@@ -14,10 +11,10 @@ export enum Gender {
   unknown = 'unknown',
 }
 
-export interface PersonCardData {
+export interface Props {
   name: string;
   fodselsnummer: string;
-  gender: GenderType;
+  gender: Gender;
   url?: string;
   isActive?: boolean;
   renderMenuContent?: () => React.ReactNode;
@@ -26,7 +23,9 @@ export interface PersonCardData {
   childAge?: string | React.ReactNode;
 }
 
-const personCardCls = bemUtils('personCard');
+function formaterFnr(fnr: string) {
+  return fnr.slice(0, 6) + ' ' + fnr.slice(6);
+}
 
 const PersonCard = ({
   name,
@@ -38,14 +37,15 @@ const PersonCard = ({
   renderLabelContent,
   isChild,
   childAge,
-}: PersonCardData): JSX.Element => {
+}: Props) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const menuRef = React.useRef<any>(null);
+  const menuRef = React.useRef<HTMLButtonElement>(null);
   const handleClickOutside = (event: any) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setIsMenuOpen(false);
     }
   };
+
   React.useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -53,92 +53,66 @@ const PersonCard = ({
     };
   });
 
-  const onClick = (): void => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-  const userDetails = (
-    <BodyShort
-      size="small"
-      as="span"
-      className={
-        isActive
-          ? `${styles.personCard__name} ${styles['personCard__name--active']}`
-          : styles[personCardCls.element('name')]
-      }
-    >
-      {name}
-    </BodyShort>
-  );
-
   return (
-    <Card active={isActive}>
-      <div className={styles[personCardCls.element('name-gender-container')]}>
-        <GenderIcon gender={gender} isChild={isChild} />
-        {url ? (
-          <a
-            className={styles[personCardCls.element('selector')]}
-            aria-current={isActive}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {userDetails}
-          </a>
-        ) : (
-          <p className={`${styles.personCard__selector} ${styles['personCard__selector--inactive']}`}>{userDetails}</p>
-        )}
-      </div>
+    <VisittKort active={isActive} icon={<GenderIcon gender={gender} isChild={isChild} />}>
+      {url ? (
+        <BodyShort
+          as={Link}
+          variant="neutral"
+          aria-current={isActive}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          weight="semibold"
+          truncate
+          style={{ display: 'block', minWidth: '80px' }}
+        >
+          {name}
+        </BodyShort>
+      ) : (
+        <BodyShort weight="semibold" truncate style={{ minWidth: '80px' }}>
+          {name}
+        </BodyShort>
+      )}
       {isChild ? (
-        <div>
-          {childAge && (
-            <div className={styles[personCardCls.element('child-age')]}>
-              <BodyShort size="small" as="span">
-                ({childAge})
-              </BodyShort>
-            </div>
-          )}
-        </div>
+        <>{childAge && <BodyShort>({childAge})</BodyShort>}</>
       ) : (
         <>
-          <BodyShort size="small" as="span">
-            /
-          </BodyShort>
-          <div className={styles[personCardCls.element('container')]}>
-            <Clipboard buttonLabel={`Kopier ${name}s fødselsnummer til utklippstavlen`}>
-              <BodyShort size="small">{fodselsnummer}</BodyShort>
-            </Clipboard>
+          <HStack align="center" wrap={false} gap="2">
+            <BodyShort textColor="subtle" style={{ whiteSpace: 'nowrap' }}>
+              {formaterFnr(fodselsnummer)}
+            </BodyShort>
+            <Tooltip content={`Kopier ${name}s fødselsnummer til utklippstavlen`}>
+              <CopyButton copyText={fodselsnummer} style={{ padding: 0 }} />
+            </Tooltip>
 
             {!!renderMenuContent && (
-              <div ref={menuRef}>
-                <Popover
-                  popperIsVisible={isMenuOpen}
-                  renderArrowElement
-                  customPopperStyles={{ top: '6px', left: '-1px', zIndex: 2 }}
-                  popperProps={{
-                    children: (): React.ReactNode =>
-                      renderMenuContent && (
-                        <div className={styles[personCardCls.element('menu-container')]}>{renderMenuContent()}</div>
-                      ),
-                    placement: 'bottom-start',
-                  }}
-                  referenceProps={{
-                    children: ({ ref }): React.ReactNode => (
-                      <div className={styles[personCardCls.element('menu-button-container')]} ref={ref}>
-                        <Menu onClick={onClick} isOpen={isMenuOpen} />
-                      </div>
-                    ),
-                  }}
-                  arrowProps={{ style: { left: '8px' } }}
+              <>
+                <Button
+                  variant="tertiary-neutral"
+                  icon={<MenuElipsisHorizontalCircleIcon />}
+                  ref={menuRef}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  aria-expanded={isMenuOpen}
+                  style={{ padding: 0 }}
                 />
-              </div>
+                <Popover
+                  anchorEl={menuRef.current}
+                  onClose={() => setIsMenuOpen(false)}
+                  open={isMenuOpen}
+                  style={{ top: '6px', left: '-1px', zIndex: 2 }}
+                  placement="bottom-start"
+                >
+                  <Popover.Content>{renderMenuContent()}</Popover.Content>
+                </Popover>
+              </>
             )}
-            {renderLabelContent && (
-              <div className={styles[personCardCls.element('labelContainer')]}>{renderLabelContent()}</div>
-            )}
-          </div>
+            {renderLabelContent && renderLabelContent()}
+          </HStack>
         </>
       )}
-    </Card>
+    </VisittKort>
   );
 };
+
 export default PersonCard;

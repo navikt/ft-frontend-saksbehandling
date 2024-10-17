@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
@@ -9,7 +9,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+export interface Props {
   fagsak: Fagsak;
   fagsakPersoner: FagsakPersoner;
   lenkeTilAnnenPart?: string;
@@ -17,13 +17,13 @@ export interface OwnProps {
   erTilbakekreving?: boolean;
 }
 
-const VisittkortSakIndex: FunctionComponent<OwnProps> = ({
+const VisittkortSakIndex = ({
   fagsak,
   fagsakPersoner,
   lenkeTilAnnenPart,
   harVerge = false,
   erTilbakekreving = false,
-}) => (
+}: Props) => (
   <RawIntlProvider value={intl}>
     <VisittkortPanel
       lenkeTilAnnenPart={lenkeTilAnnenPart}

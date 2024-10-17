@@ -70,44 +70,49 @@ const arbeidstakerAndelerUtenIM = [
 
 describe('<VurderMottarYtelseForm>', () => {
   it('skal teste at initial values bygges korrekt uten dto til stede', () => {
-    const initialValues = VurderMottarYtelseForm.buildInitialValues(undefined);
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
+    const initialValues = VurderMottarYtelseForm.buildInitialValues(undefined, tilfeller);
     expect(initialValues).toEqual({});
   });
 
   it('skal teste at initial values bygges korrekt med frilans uten definert mottar ytelse', () => {
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const mottarYtelse = {
       erFrilans: true,
       frilansMottarYtelse: undefined,
     };
-    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse);
+    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
     expect(initialValues[finnFrilansFieldName()]).toBe(undefined);
   });
 
   it('skal teste at initial values bygges korrekt med frilans med mottar ytelse', () => {
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const mottarYtelse = {
       erFrilans: true,
       frilansMottarYtelse: true,
     };
-    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse);
+    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
     expect(initialValues[finnFrilansFieldName()]).toBe(true);
   });
 
   it('skal teste at initial values bygges korrekt med frilans uten mottar ytelse', () => {
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const mottarYtelse = {
       erFrilans: true,
       frilansMottarYtelse: false,
     };
-    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse);
+    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
     expect(initialValues[finnFrilansFieldName()]).toBe(false);
   });
 
   it('skal teste at initial values bygges korrekt med frilans og arbeidsforhold uten inntektsmelding', () => {
+    const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const mottarYtelse = {
       erFrilans: true,
       frilansMottarYtelse: false,
       arbeidstakerAndelerUtenIM,
     };
-    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse);
+    const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
     expect(initialValues[finnFrilansFieldName()]).toBe(false);
     expect(initialValues[utledArbeidsforholdFieldName(andel)]).toBe(undefined);
     expect(initialValues[utledArbeidsforholdFieldName(andel2)]).toBe(false);
@@ -136,6 +141,9 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansInntektValues: {
+        fastsattBelop: 10000,
+      },
     };
     const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
@@ -182,6 +190,9 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansInntektValues: {
+        fastsattBelop: 0,
+      },
     };
     const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
@@ -223,6 +234,9 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansInntektValues: {
+        fastsattBelop: 10000,
+      },
     };
     const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
@@ -270,6 +284,9 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
+      frilansInntektValues: {
+        fastsattBelop: 10000,
+      },
     };
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
