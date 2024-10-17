@@ -40,7 +40,8 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import ProsessStegSubmitButton from '../ProsessStegSubmitButton';
 
 const minLength3 = minLength(3);
-const maxLength1500 = maxLength(1500);
+const MAX_LENGTH = 4000;
+const maxLength4000 = maxLength(MAX_LENGTH);
 
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
@@ -292,8 +293,8 @@ const ArbeidstakerEllerFrilansContainer = ({
           <TextAreaField
             name={`${formName}.${fieldIndex}.ATFLVurdering`}
             label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
-            validate={[required, maxLength1500, minLength3, hasValidText]}
-            maxLength={1500}
+            validate={[required, maxLength4000, minLength3, hasValidText]}
+            maxLength={MAX_LENGTH}
             readOnly={readOnly}
             className={styles.textAreaStyle}
             description={intl.formatMessage({

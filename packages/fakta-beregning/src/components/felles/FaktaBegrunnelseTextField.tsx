@@ -10,7 +10,8 @@ import messages from '../../../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 const minLength3 = minLength(3);
-const maxLength1500 = maxLength(1500);
+const MAX_LENGTH = 4000;
+const maxLength4000 = maxLength(MAX_LENGTH);
 
 type OwnProps = {
   isReadOnly: boolean;
@@ -54,9 +55,9 @@ const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions =
           <TextAreaField
             name={name}
             label={isReadOnly ? '' : textAreaLabel}
-            validate={isReadOnly ? [] : [required, minLength3, maxLength1500, hasValidText]}
+            validate={isReadOnly ? [] : [required, minLength3, maxLength4000, hasValidText]}
             className={isReadOnly ? styles.explanationTextareaReadOnly : styles.explanationTextarea}
-            maxLength={1500}
+            maxLength={MAX_LENGTH}
             readOnly={isReadOnly}
           />
         </div>
