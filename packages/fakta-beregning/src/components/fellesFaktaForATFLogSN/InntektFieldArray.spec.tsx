@@ -45,7 +45,7 @@ const andelField = {
   fastsattBelop: '0',
   lagtTilAvSaksbehandler: false,
   inntektskategori: 'ARBEIDSTAKER',
-  arbeidsgiverId: '233647823',
+  arbeidsgiverIdent: '233647823',
   arbeidsperiodeFom: '01.01.2018',
   arbeidsperiodeTom: null,
   refusjonskrav: '10 000',
@@ -58,20 +58,6 @@ describe('<InntektFieldArray>', () => {
   initial.fieldArrayName = [andelField];
   initial[besteberegningField] = true;
 
-  it('skal fjerne dagpengeandel om dagpenger og lagt til manuelt', () => {
-    const newfields = [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: true }];
-    leggTilDagpengerOmBesteberegning(
-      newfields as any,
-      false,
-      kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
-      false,
-      vi.fn(),
-      (index: number) => newfields.splice(index, 1),
-      (values: any) => newfields.push(values),
-    );
-    expect(newfields.length).toBe(0);
-  });
-
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
     const newfields = [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false }];
     leggTilDagpengerOmBesteberegning(
@@ -79,7 +65,6 @@ describe('<InntektFieldArray>', () => {
       false,
       kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
       false,
-      vi.fn(),
       (index: number) => newfields.splice(index, 1),
       (values: any) => newfields.push(values),
     );

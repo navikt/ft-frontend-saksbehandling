@@ -1,25 +1,18 @@
 import React from 'react';
-import { bemUtils } from '@navikt/ft-utils';
 import { BodyShort } from '@navikt/ds-react';
-import Card from './Card';
+import VisittKort from './VisittKort';
 import GenderIcon from './GenderIcon';
-import styles from './personCard.module.css';
 
-const personCardCls = bemUtils('personCard');
-
-interface EmptyPersonCard {
+interface Props {
   namePlaceholder: string;
 }
 
-const EmptyPersonCard: React.FC<EmptyPersonCard> = ({ namePlaceholder }) => (
-  <Card>
-    <div className={styles[personCardCls.element('container')]}>
-      <GenderIcon />
-      <BodyShort size="small" as="p" className={styles[personCardCls.element('namePlaceholder')]}>
-        {namePlaceholder}
-      </BodyShort>
-    </div>
-  </Card>
+const EmptyPersonCard = ({ namePlaceholder }: Props) => (
+  <VisittKort icon={<GenderIcon />}>
+    <BodyShort textColor="subtle" truncate style={{ minWidth: '80px' }}>
+      {namePlaceholder}
+    </BodyShort>
+  </VisittKort>
 );
 
 export default EmptyPersonCard;

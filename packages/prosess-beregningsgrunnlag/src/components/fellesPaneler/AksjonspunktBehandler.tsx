@@ -1,4 +1,4 @@
-import { Form, TextAreaField, SubmitButton } from '@navikt/ft-form-hooks';
+import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
@@ -37,6 +37,7 @@ import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
 import styles from './aksjonspunktBehandler.module.css';
 import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
+import ProsessStegSubmitButton from '../ProsessStegSubmitButton';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -505,7 +506,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   const submittKnapp = (
     <FlexRow>
       <FlexColumn>
-        <SubmitButton
+        <ProsessStegSubmitButton
           isReadOnly={readOnly}
           isSubmittable={!readOnlySubmitButton}
           isDirty={formMethods.formState.isDirty}

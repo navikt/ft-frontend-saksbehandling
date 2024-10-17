@@ -91,7 +91,7 @@ const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]
  *
  * Container komponent.. Inneholder begrunnelsefelt og komponent som innholder panelene for fakta om beregning tilfeller
  */
-const VurderFaktaBeregningPanelImpl: FunctionComponent<VurderFaktaBeregningPanelProps> = ({
+const VurderFaktaBeregningPanel: FunctionComponent<VurderFaktaBeregningPanelProps> = ({
   beregningsgrunnlag,
   submittable,
   readOnly,
@@ -145,6 +145,9 @@ const VurderFaktaBeregningPanelImpl: FunctionComponent<VurderFaktaBeregningPanel
     if (Object.keys(errors).length === 0) {
       setSubmitDisabled(true);
       submitCallback(transformValuesVurderFaktaBeregning(values, skalKunneAvbryteOverstyring));
+    } else {
+      // eslint-disable-next-line no-console
+      console.error(errors);
     }
   };
 
@@ -212,4 +215,4 @@ const VurderFaktaBeregningPanelImpl: FunctionComponent<VurderFaktaBeregningPanel
   return null;
 };
 
-export default VurderFaktaBeregningPanelImpl;
+export default VurderFaktaBeregningPanel;

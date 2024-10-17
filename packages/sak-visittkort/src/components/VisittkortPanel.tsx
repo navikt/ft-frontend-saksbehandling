@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 import { PersonCard, EmptyPersonCard, Gender } from '@navikt/ft-plattform-komponenter';
 import { Fagsak, FagsakPersoner } from '@navikt/ft-types';
@@ -17,7 +17,7 @@ const utledKjonn = (kjonn: string): Gender => {
   return kjonn === NavBrukerKjonn.MANN ? Gender.male : Gender.unknown;
 };
 
-export interface OwnProps {
+export interface Props {
   fagsak: Fagsak;
   fagsakPersoner: FagsakPersoner;
   lenkeTilAnnenPart?: string;
@@ -25,13 +25,7 @@ export interface OwnProps {
   erTilbakekreving: boolean;
 }
 
-const VisittkortPanel: FunctionComponent<OwnProps> = ({
-  fagsak,
-  fagsakPersoner,
-  lenkeTilAnnenPart,
-  harVerge,
-  erTilbakekreving,
-}) => {
+const VisittkortPanel = ({ fagsak, fagsakPersoner, lenkeTilAnnenPart, harVerge, erTilbakekreving }: Props) => {
   const intl = useIntl();
 
   const fagsakPerson = fagsakPersoner.bruker;
@@ -43,7 +37,7 @@ const VisittkortPanel: FunctionComponent<OwnProps> = ({
           name={fagsakPerson.navn}
           fodselsnummer={fagsakPerson.fødselsnummer}
           gender={fagsakPerson.kjønn === NavBrukerKjonn.KVINNE ? Gender.female : Gender.male}
-          renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={fagsakPerson} harVerge={harVerge} />}
+          renderLabelContent={() => <VisittkortLabels fagsakPerson={fagsakPerson} harVerge={harVerge} />}
         />
       </div>
     );
@@ -53,14 +47,14 @@ const VisittkortPanel: FunctionComponent<OwnProps> = ({
 
   return (
     <div className={styles.container}>
-      <HStack>
+      <HStack wrap={false} align="center">
         {soker.aktørId && (
           <PersonCard
             name={soker.navn}
             fodselsnummer={soker.fødselsnummer}
             gender={utledKjonn(soker.kjønn)}
             url={lenkeTilAnnenPart}
-            renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={soker} harVerge={harVerge} />}
+            renderLabelContent={() => <VisittkortLabels fagsakPerson={soker} harVerge={harVerge} />}
             isActive={erMor}
           />
         )}
@@ -71,7 +65,7 @@ const VisittkortPanel: FunctionComponent<OwnProps> = ({
             fodselsnummer={annenPart.fødselsnummer}
             gender={utledKjonn(annenPart.kjønn)}
             url={lenkeTilAnnenPart}
-            renderLabelContent={(): JSX.Element => <VisittkortLabels fagsakPerson={annenPart} harVerge={false} />}
+            renderLabelContent={() => <VisittkortLabels fagsakPerson={annenPart} harVerge={false} />}
             isActive={!erMor}
           />
         )}

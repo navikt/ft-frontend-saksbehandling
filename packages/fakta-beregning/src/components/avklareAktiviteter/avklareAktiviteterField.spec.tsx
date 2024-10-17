@@ -200,7 +200,7 @@ describe('<AvklareAktiviteterField>', () => {
           tom: aktivitetAAP.tom,
         },
       },
-      avklaringsbehov: avklarAktiviteterAvklaringsbehov,
+      avklaringsbehovListe: avklarAktiviteterAvklaringsbehov,
     } as AvklarAktiviteterValues;
     values.erTilVurdering = true;
 

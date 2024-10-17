@@ -1,13 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Tag, BodyShort } from '@navikt/ds-react';
-import { FlexColumn } from '@navikt/ft-ui-komponenter';
 import { FagsakHendelse } from '@navikt/ft-types';
 import { FamilieHendelseType } from '@navikt/ft-kodeverk';
-import { dateFormat, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-
-import styles from './visittkortBarnInfoFodselPanel.module.css';
+import { dateFormat } from '@navikt/ft-utils';
 
 const finnFodselsdatoTekstkode = (antallBarn: number): string => {
   if (antallBarn === 1) {
@@ -17,9 +14,9 @@ const finnFodselsdatoTekstkode = (antallBarn: number): string => {
 };
 
 const finnAlderTekstProps = (fødselsdato: string) => {
-  const ar = moment().diff(fødselsdato, 'years');
-  const maneder = moment().diff(fødselsdato, 'months');
-  const dager = moment().diff(fødselsdato, 'days');
+  const ar = dayjs().diff(fødselsdato, 'years');
+  const maneder = dayjs().diff(fødselsdato, 'months');
+  const dager = dayjs().diff(fødselsdato, 'days');
 
   if (ar < 0 || maneder < 0 || dager < 0) {
     throw new Error('Fødselsdato kan ikke være i fremtiden');
@@ -59,31 +56,28 @@ const VisittkortBarnInfoFodselPanel: FunctionComponent<OwnProps> = ({ familiehen
 
   return (
     <>
-      <FlexColumn className={styles.text}>
-        <BodyShort size="small">
-          {visFødselsdato && !!hendelseDato && antallBarn > 0 && (
-            <>
-              <FormattedMessage
-                id={finnFodselsdatoTekstkode(antallBarn)}
-                values={{ dato: moment(hendelseDato).format(DDMMYYYY_DATE_FORMAT) }}
-              />
-              {!dødfødsel && <FormattedMessage {...finnAlderTekstProps(hendelseDato)} />}
-            </>
-          )}
-          {visFødselsdato && (!hendelseDato || antallBarn === 0) && (
-            <FormattedMessage id="VisittkortBarnInfoFodselPanel.ManglerFodselOpplysninger" />
-          )}
-          {!visFødselsdato && (
-            <FormattedMessage id="VisittkortBarnInfoFodselPanel.Termin" values={{ dato: dateFormat(hendelseDato) }} />
-          )}
-        </BodyShort>
-      </FlexColumn>
+      <BodyShort>
+        {visFødselsdato && !!hendelseDato && antallBarn > 0 && (
+          <>
+            <FormattedMessage id={finnFodselsdatoTekstkode(antallBarn)} values={{ dato: dateFormat(hendelseDato) }} />
+            {!dødfødsel && <FormattedMessage {...finnAlderTekstProps(hendelseDato)} />}
+          </>
+        )}
+        {visFødselsdato && (!hendelseDato || antallBarn === 0) && (
+          <FormattedMessage id="VisittkortBarnInfoFodselPanel.ManglerFodselOpplysninger" />
+        )}
+        {!visFødselsdato && (
+          <FormattedMessage id="VisittkortBarnInfoFodselPanel.Termin" values={{ dato: dateFormat(hendelseDato) }} />
+        )}
+      </BodyShort>
       {dødfødsel && (
-        <FlexColumn className={styles.etikett}>
-          <Tag variant="info" title={intl.formatMessage({ id: 'VisittkortBarnInfoFodselPanel.DodTittel' })}>
-            <FormattedMessage id="VisittkortBarnInfoFodselPanel.Dod" />
-          </Tag>
-        </FlexColumn>
+        <Tag
+          variant="neutral"
+          size="small"
+          title={intl.formatMessage({ id: 'VisittkortBarnInfoFodselPanel.DodTittel' })}
+        >
+          <FormattedMessage id="VisittkortBarnInfoFodselPanel.Dod" />
+        </Tag>
       )}
     </>
   );

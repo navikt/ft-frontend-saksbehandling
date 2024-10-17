@@ -1,3 +1,4 @@
+import { List, ReadMore } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
@@ -9,16 +10,17 @@ import {
   FaktaOmBeregning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 import createVisningsnavnFakta from '../../../ArbeidsforholdHelper';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,
@@ -26,7 +28,6 @@ import {
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
 } from './VurderMottarYtelseUtils';
-import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
 
 const andreFrilansTilfeller = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -54,7 +55,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   return <FormattedMessage id={mottarYtelseForArbeidMsg()} values={{ arbeid: radioNavn }} />;
 };
 
-const mottarYtelseArbeidsforholdRadio = (
+const mottarYtelseArbeidsforholdRadioAndInputs = (
   andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
   kodeverkSamling: KodeverkForPanel,
@@ -62,12 +63,25 @@ const mottarYtelseArbeidsforholdRadio = (
   aktivtBeregningsgrunnlagIndeks: number,
   intl: IntlShape,
 ): React.ReactNode => (
-  <div key={utledArbeidsforholdFieldName(andel)}>
+  <div>
     <RadioGroupPanel
       label={
-        <BodyShort>
+        <>
           {utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
-        </BodyShort>
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
+            <List size="small">
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem1" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem2" />
+              </List.Item>
+            </List>
+          </ReadMore>
+        </>
       }
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
         andel,
@@ -75,11 +89,10 @@ const mottarYtelseArbeidsforholdRadio = (
       isReadOnly={readOnly}
       radios={[
         { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
       ]}
       parse={parseStringToBoolean}
       validate={readOnly ? [] : [required]}
-      isHorizontal
     />
   </div>
 );
@@ -95,9 +108,11 @@ const finnFrilansTekstKode = tilfeller => {
   return frilansUtenAndreFrilanstilfeller();
 };
 
+const erATFLSammeOrg = (tilfeller: string[]) =>
+  tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+
 type OwnProps = {
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
   tilfeller: string[];
   beregningsgrunnlag: Beregningsgrunnlag;
   kodeverkSamling: KodeverkForPanel;
@@ -112,7 +127,7 @@ interface StaticFunctions {
     beregningsgrunnlag: Beregningsgrunnlag,
     fastsatteAndelsnr: number[],
   ) => FaktaBeregningTransformedValues;
-  buildInitialValues: (vurderMottarYtelse?: VurderMottarYtelse) => VurderMottarYtelseValues;
+  buildInitialValues: (vurderMottarYtelse?: VurderMottarYtelse, tilfeller?: string[]) => VurderMottarYtelseValues;
 }
 
 /**
@@ -141,31 +156,48 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
 
   return (
     <div>
-      {erFrilans && (
+      {erFrilans && !erATFLSammeOrg(tilfeller) && (
         <div>
           <RadioGroupPanel
             label={
-              <div key={finnFrilansFieldName()}>
-                <BodyShort>
-                  <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-                </BodyShort>
-              </div>
+              <>
+                <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
+                <ReadMore
+                  size="small"
+                  header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+                >
+                  <List size="small">
+                    <List.Item>
+                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem1" />
+                    </List.Item>
+                    <List.Item>
+                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2" />
+                    </List.Item>
+                  </List>
+                </ReadMore>
+              </>
             }
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
             isReadOnly={readOnly}
             radios={[
-              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+              {
+                value: 'true',
+                label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
+              },
+              {
+                value: 'false',
+                label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }),
+              },
             ]}
             parse={parseStringToBoolean}
             validate={readOnly ? [] : [required]}
-            isHorizontal
           />
         </div>
       )}
-      {arbeidsforholdUtenIM.map(andel => (
-        <>
-          {mottarYtelseArbeidsforholdRadio(
+      {arbeidsforholdUtenIM.map((andel, index) => (
+        <React.Fragment key={utledArbeidsforholdFieldName(andel)}>
+          {index > 0 && <VerticalSpacer twentyPx />}
+          {mottarYtelseArbeidsforholdRadioAndInputs(
             andel,
             readOnly,
             kodeverkSamling,
@@ -173,8 +205,9 @@ const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
             beregningsgrunnlagIndeks,
             intl,
           )}
-        </>
+        </React.Fragment>
       ))}
+      {erATFLSammeOrg(tilfeller) && arbeidsforholdUtenIM.length > 0 && <VerticalSpacer thirtyTwoPx />}
     </div>
   );
 };
@@ -233,7 +266,7 @@ const transformValuesFrilans = (
       andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
     );
     if (!fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
-      const frilansInntekt = inntektVerdier.find(field => field.andelsnr === frilansAndel.andelsnr);
+      const frilansInntekt = values.frilansInntektValues;
       fastsatteAndelsnr.push(frilansAndel.andelsnr);
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
       return {
@@ -265,16 +298,17 @@ const transformValuesMottarYtelse = (
   };
 };
 
-VurderMottarYtelseForm.buildInitialValues = (vurderMottarYtelse?: VurderMottarYtelse): VurderMottarYtelseValues => {
+VurderMottarYtelseForm.buildInitialValues = (
+  vurderMottarYtelse?: VurderMottarYtelse,
+  tilfeller?: string[],
+): VurderMottarYtelseValues => {
   const initialValues: VurderMottarYtelseValues = {};
-  if (!vurderMottarYtelse) {
-    return initialValues;
-  }
-  if (vurderMottarYtelse.erFrilans) {
-    initialValues[finnFrilansFieldName()] = vurderMottarYtelse.frilansMottarYtelse;
+
+  if (vurderMottarYtelse?.erFrilans || erATFLSammeOrg(tilfeller)) {
+    initialValues[finnFrilansFieldName()] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse.frilansMottarYtelse;
   }
 
-  const ATAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
+  const ATAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM
     ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
     : [];
   if (ATAndelerUtenIM.length < 1) {
