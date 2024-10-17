@@ -18,6 +18,8 @@ import {
   TilkommetAktivitetFormValues,
   TilkommetAktivitetValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
@@ -85,6 +87,9 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
   }, [beregningsgrunnlag, fields.length]);
 
   const tidligereVurderte = sammenslåttePerioder.filter(p => erVurdertTidligere(p, beregningsgrunnlag));
+  const avklaringsbehovTilkommetAktivitet = beregningsgrunnlag?.avklaringsbehov.find(
+    v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_NYTT_INNTKTSFRHLD,
+  );
 
   const showPanel = (fom: string) => {
     if (openPanels.includes(fom)) {
@@ -146,6 +151,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
                 erAksjonspunktÅpent={erAksjonspunktÅpent}
                 submittable={submittable}
                 skalViseBegrunnelse={fields.length === 1}
+                avklaringsbehov={avklaringsbehovTilkommetAktivitet}
               />
             </Accordion.Content>
           </Accordion.Item>
@@ -159,6 +165,10 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
             label="Begrunnelse for alle perioder"
             readOnly={readOnly}
             validate={[required]}
+          />
+          <AssessedBy
+            ident={avklaringsbehovTilkommetAktivitet?.vurdertAv}
+            date={avklaringsbehovTilkommetAktivitet?.vurdertTidspunkt}
           />
           <VerticalSpacer sixteenPx />
           <SubmitButton
