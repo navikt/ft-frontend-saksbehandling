@@ -9,6 +9,7 @@ import {
   Vilkarperiode,
   BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 import { useFormContext } from 'react-hook-form';
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
@@ -106,8 +107,8 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
 }) => {
-  const relevantAp = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
-  const isAksjonspunktClosed = !isAksjonspunktOpen(relevantAp.status);
+  const avklaringsbehovFordelBeregningsgrunnlag = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
+  const isAksjonspunktClosed = !isAksjonspunktOpen(avklaringsbehovFordelBeregningsgrunnlag.status);
   const formMethods = useFormContext<FordelBeregningsgrunnlagFormValues>();
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);
   return (
@@ -128,6 +129,10 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
         isSubmittable={submittable}
         isReadOnly={readOnly}
         hasBegrunnelse={!!begrunnelse}
+      />
+      <AssessedBy
+        ident={avklaringsbehovFordelBeregningsgrunnlag.vurdertAv}
+        date={avklaringsbehovFordelBeregningsgrunnlag.vurdertTidspunkt}
       />
       <VerticalSpacer twentyPx />
       <SubmitButton

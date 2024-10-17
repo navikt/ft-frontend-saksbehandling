@@ -3,7 +3,11 @@ import { FormattedMessage } from 'react-intl';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
-import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  VurderInntektsforholdPeriode,
+} from '@navikt/ft-types';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 import { useFieldArray, useFormContext } from 'react-hook-form';
@@ -12,6 +16,7 @@ import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
 import TilkommetInntektsforholdField from './TilkommetInntektsforholdField';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import styles from './tilkommetAktivitet.module.css';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 type TilkommetAktivitetFieldType = {
   formName: string;
@@ -23,6 +28,7 @@ type TilkommetAktivitetFieldType = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   erAksjonspunktÅpent: boolean;
   skalViseBegrunnelse: boolean;
+  avklaringsbehov?: BeregningAvklaringsbehov;
 };
 
 const erDefinert = (tall?: number) => !!tall && +tall > 0;
@@ -41,6 +47,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   submittable,
   arbeidsgiverOpplysningerPerId,
   skalViseBegrunnelse,
+  avklaringsbehov,
 }) => {
   const { control, formState } = useFormContext<TilkommetAktivitetFormValues>();
   const { fields } = useFieldArray({
@@ -150,6 +157,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
               readOnly={readOnly}
               validate={[required]}
             />
+            <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
             <VerticalSpacer sixteenPx />
             <SubmitButton
               isSubmittable={submittable}

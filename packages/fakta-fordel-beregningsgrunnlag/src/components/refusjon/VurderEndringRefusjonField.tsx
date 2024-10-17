@@ -20,6 +20,7 @@ import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/Fakta
 import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
 import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import SubmitButton from '../felles/SubmitButton';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
@@ -94,8 +95,8 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
     ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   );
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
-  const ap = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
-  const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
+  const avklaringsbehovRefusjon = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
+  const erAksjonspunktÅpent = avklaringsbehovRefusjon ? isAksjonspunktOpen(avklaringsbehovRefusjon.status) : false;
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
@@ -134,6 +135,7 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
         isReadOnly={manglerAksjonspunkt || readOnly}
         hasBegrunnelse={!!begrunnelse}
       />
+      <AssessedBy ident={avklaringsbehovRefusjon?.vurdertAv} date={avklaringsbehovRefusjon?.vurdertTidspunkt} />
       <VerticalSpacer twentyPx />
       <SubmitButton
         isSubmittable={submittable}
