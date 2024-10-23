@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+ 
 import React, { useContext } from 'react';
 import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { prettifyDateString } from '@navikt/ft-utils';
@@ -19,11 +19,13 @@ const AssessedBy = ({ ident, date }: IAssessedByProps) => {
   if (!ident) {
     return null;
   }
+  const name = saksbehandlernavn[ident] || ident;
+  const formattedDate = date ? `, ${prettifyDateString(date)}` : '';
 
   return (
     <div className={styles['assessed-by']}>
       <PersonPencilFillIcon height="1em" width="1em" />
-      <BodyShort size="small">{`Vurdering av ${saksbehandlernavn[ident] ? saksbehandlernavn[ident] : ident}${date ? `, ${prettifyDateString(date)}` : ''}`}</BodyShort>
+      <BodyShort size="small">{`Vurdering av ${name}${formattedDate}`}</BodyShort>
     </div>
   );
 };
