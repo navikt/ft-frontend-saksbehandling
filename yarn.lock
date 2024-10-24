@@ -2883,14 +2883,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:8.12.0":
-  version: 8.12.0
-  resolution: "@formatjs/intl-numberformat@npm:8.12.0"
+"@formatjs/intl-numberformat@npm:8.13.0":
+  version: 8.13.0
+  resolution: "@formatjs/intl-numberformat@npm:8.13.0"
   dependencies:
     "@formatjs/ecma402-abstract": 2.2.0
     "@formatjs/intl-localematcher": 0.5.5
     tslib: ^2.7.0
-  checksum: 36f08af922b594ad636af0eeeac5bfd9659489dc973db871d965b18eee233d0998b9f4b115c19bd5203fd03fac6fadc009ce0988016b862bef0eb6d94330fdc1
+  checksum: a67aa90370871b96fa79185f0965ebea282b4939b343970bce1acc99ea39c291cf2dfd2d503964ce7aefed3c08162dc8631ce2b7b5d91536ddbc0457956930af
   languageName: node
   linkType: hard
 
@@ -9760,7 +9760,7 @@ __metadata:
   dependencies:
     "@eslint/js": 9.12.0
     "@formatjs/intl-datetimeformat": 6.14.0
-    "@formatjs/intl-numberformat": 8.12.0
+    "@formatjs/intl-numberformat": 8.13.0
     "@navikt/aksel-stylelint": 7.2.1
     "@storybook/addon-essentials": 8.3.5
     "@storybook/addon-links": 8.3.5
