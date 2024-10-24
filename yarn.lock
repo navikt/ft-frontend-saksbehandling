@@ -3559,7 +3559,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-plattform-komponenter@^5.0.1, @navikt/ft-plattform-komponenter@workspace:^, @navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter":
+"@navikt/ft-plattform-komponenter@^5.0.2, @navikt/ft-plattform-komponenter@workspace:^, @navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
@@ -3816,8 +3816,8 @@ __metadata:
     "@navikt/ds-react": 7.2.1
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.4
-    "@navikt/ft-plattform-komponenter": ^5.0.1
-    "@navikt/ft-sak-visittkort": ^3.0.1
+    "@navikt/ft-plattform-komponenter": ^5.0.2
+    "@navikt/ft-sak-visittkort": ^3.0.2
     "@navikt/ft-types": ^2.5.5
     "@navikt/ft-ui-komponenter": ^2.5.5
     "@navikt/ft-utils": ^2.4.5
@@ -3858,7 +3858,7 @@ __metadata:
     "@navikt/ds-react": 7.2.1
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-kodeverk": ^2.5.4
-    "@navikt/ft-plattform-komponenter": ^5.0.1
+    "@navikt/ft-plattform-komponenter": ^5.0.2
     "@navikt/ft-types": ^2.5.5
     "@navikt/ft-ui-komponenter": ^2.5.5
     "@navikt/ft-utils": ^2.4.5
@@ -3906,7 +3906,7 @@ __metadata:
     "@navikt/ds-react": 7.2.1
     "@navikt/ft-kodeverk": ^2.5.4
     "@navikt/ft-konstanter": ^2.4.4
-    "@navikt/ft-plattform-komponenter": ^5.0.1
+    "@navikt/ft-plattform-komponenter": ^5.0.2
     "@navikt/ft-types": ^2.5.5
     "@navikt/ft-ui-komponenter": ^2.5.5
     "@navikt/ft-utils": ^2.4.5
@@ -4138,7 +4138,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-sak-visittkort@^3.0.1, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
+"@navikt/ft-sak-visittkort@^3.0.2, @navikt/ft-sak-visittkort@workspace:packages/sak-visittkort":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-sak-visittkort@workspace:packages/sak-visittkort"
   dependencies:

@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-fordel-beregningsgrunnlag",
   "description": "Fordeling av foreslått beregningsgrunnlag og fastsetting av refusjon",
-  "version": "7.6.10",
+  "version": "8.0.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
