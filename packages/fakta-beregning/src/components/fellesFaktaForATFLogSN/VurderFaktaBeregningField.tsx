@@ -114,11 +114,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
             isSubmittable={
               erSubmittable(
                 submittable &&
-                  harIkkeEndringerIAvklarMedFlereAksjonspunkter(
-                    verdiForAvklarAktivitetErEndret,
-                    avklaringsbehovListe,
-                  ) &&
-                  !isAksjonspunktClosed(avklaringsbehovListe),
+                  harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, avklaringsbehovListe),
                 true,
                 finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
               ) && !verdiForAvklarAktivitetErEndret
