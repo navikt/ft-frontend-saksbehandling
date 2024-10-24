@@ -3294,7 +3294,6 @@ __metadata:
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-konstanter": "workspace:^"
-    "@navikt/ft-plattform-komponenter": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3326,6 +3325,7 @@ __metadata:
     "@navikt/ft-form-validators": 2.x
     "@navikt/ft-kodeverk": 2.x
     "@navikt/ft-konstanter": 2.x
+    "@navikt/ft-plattform-komponenter": 5.x
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
@@ -3351,7 +3351,6 @@ __metadata:
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3382,6 +3381,7 @@ __metadata:
     "@navikt/ft-form-hooks": 5.x
     "@navikt/ft-form-validators": 2.x
     "@navikt/ft-kodeverk": 2.x
+    "@navikt/ft-plattform-komponenter": 5.x
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
@@ -3616,7 +3616,6 @@ __metadata:
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3646,7 +3645,7 @@ __metadata:
     "@navikt/ft-form-hooks": 5.x
     "@navikt/ft-form-validators": 2.x
     "@navikt/ft-kodeverk": 2.x
-    "@navikt/ft-plattform-komponenter": 2.x
+    "@navikt/ft-plattform-komponenter": 5.x
     "@navikt/ft-types": 2.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
