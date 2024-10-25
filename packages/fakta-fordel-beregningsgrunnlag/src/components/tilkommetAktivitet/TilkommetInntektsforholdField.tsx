@@ -17,7 +17,7 @@ import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
 
 type TilkommetInntektsforholdFieldType = {
   formName: string;
-  bgIndex: number;
+  formFieldIndex: number;
   periodeFieldIndex: number;
   readOnly: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -41,7 +41,7 @@ export const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold
 
 const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
   formName,
-  bgIndex,
+  formFieldIndex,
   periodeFieldIndex,
   readOnly,
   inntektsforholdFieldIndex,
@@ -51,7 +51,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
   const formMethods = useFormContext<TilkommetAktivitetFormValues>();
   const intl = useIntl();
   const skalRedusereValg = formMethods.watch(
-    `${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`,
+    `${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`,
   );
 
   const lagHjelpetekst = (): ReactElement => {
@@ -84,7 +84,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
     <>
       <RadioGroupPanel
         label={getRadioGroupLabel()}
-        name={`${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
+        name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
         radios={[
           { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' }) },
           { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' }) },
@@ -113,7 +113,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
           <VerticalSpacer eightPx />
           <div className={styles.bruttoInntektContainer}>
             <InputField
-              name={`${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.bruttoInntektPrÅr`}
+              name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.bruttoInntektPrÅr`}
               label="Fastsett årsinntekt"
               hideLabel
               readOnly={readOnly}

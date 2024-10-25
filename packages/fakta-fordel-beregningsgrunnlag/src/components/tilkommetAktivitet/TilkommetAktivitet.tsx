@@ -252,7 +252,7 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
           }}
           setDataOnUnmount={setFormData}
         >
-          {fields.map(field => {
+          {fields.map((field, formFieldIndex) => {
             const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
               bg => bg.skjaeringstidspunktBeregning === field.beregningsgrunnlagStp,
             );
@@ -265,7 +265,7 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
                 <TilkommetAktivitetPanel
                   formName={FORM_NAME}
                   beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
-                  bgIndex={beregningsgrunnlagIndeks}
+                  formFieldIndex={formFieldIndex}
                   readOnly={
                     readOnly ||
                     !vurderesIBehandlingen(

@@ -27,7 +27,7 @@ const finnAktivitetStatus = (
 type TilkommetAktivitetPanelType = {
   formName: string;
   beregningsgrunnlag: Beregningsgrunnlag;
-  bgIndex: number;
+  formFieldIndex: number;
   readOnly: boolean;
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
@@ -37,7 +37,7 @@ type TilkommetAktivitetPanelType = {
 const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   formName,
   beregningsgrunnlag,
-  bgIndex,
+  formFieldIndex,
   readOnly,
   submittable,
   erAksjonspunktÅpent,
@@ -49,7 +49,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   const { control, watch } = useFormContext<TilkommetAktivitetFormValues>();
   const { fields, remove, insert } = useFieldArray({
     control,
-    name: `VURDER_TILKOMMET_AKTIVITET_FORM.${bgIndex}.perioder`,
+    name: `VURDER_TILKOMMET_AKTIVITET_FORM.${formFieldIndex}.perioder`,
   });
   fields.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
 
@@ -122,10 +122,10 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
     andelFieldIndex: number,
   ) => {
     const skalRedusereValg = watch(
-      `${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${andelFieldIndex}.skalRedusereUtbetaling`,
+      `${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${andelFieldIndex}.skalRedusereUtbetaling`,
     );
     const bruttoVerdi = watch(
-      `${formName}.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${andelFieldIndex}.bruttoInntektPrÅr`,
+      `${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${andelFieldIndex}.bruttoInntektPrÅr`,
     );
     return {
       aktivitetStatus: andel.aktivitetStatus,
@@ -245,7 +245,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         formName={formName}
         fields={fields}
-        bgIndex={bgIndex}
+        formFieldIndex={formFieldIndex}
         readOnly={readOnly}
         erAksjonspunktÅpent={erAksjonspunktÅpent}
         submittable={submittable}
