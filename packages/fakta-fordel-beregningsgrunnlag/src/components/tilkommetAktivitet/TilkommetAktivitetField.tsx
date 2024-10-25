@@ -21,7 +21,7 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 type TilkommetAktivitetFieldType = {
   formName: string;
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
-  bgIndex: number;
+  formFieldIndex: number;
   periodeFieldIndex: number;
   readOnly: boolean;
   submittable: boolean;
@@ -40,7 +40,7 @@ export function getPeriodeIdentikator(vurderInntektsforholdPeriode: VurderInntek
 const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   formName,
   vurderInntektsforholdPeriode,
-  bgIndex,
+  formFieldIndex,
   periodeFieldIndex,
   readOnly,
   erAksjonspunktÅpent,
@@ -52,7 +52,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   const { control, formState } = useFormContext<TilkommetAktivitetFormValues>();
   const { fields } = useFieldArray({
     control,
-    name: `VURDER_TILKOMMET_AKTIVITET_FORM.${bgIndex}.perioder.${periodeFieldIndex}.inntektsforhold`,
+    name: `VURDER_TILKOMMET_AKTIVITET_FORM.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold`,
   });
 
   const harInntektsforholdMedÅrsinntekt = vurderInntektsforholdPeriode.inntektsforholdListe.some(
@@ -138,7 +138,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
             <TilkommetInntektsforholdField
               key={field.id}
               formName={formName}
-              bgIndex={bgIndex}
+              formFieldIndex={formFieldIndex}
               periodeFieldIndex={periodeFieldIndex}
               inntektsforholdFieldIndex={index}
               field={field}
@@ -152,7 +152,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
           <>
             <VerticalSpacer fourtyPx />
             <TextAreaField
-              name={`${formName}.${bgIndex}.begrunnelse`}
+              name={`${formName}.${formFieldIndex}.begrunnelse`}
               label="Begrunnelse"
               readOnly={readOnly}
               validate={[required]}
