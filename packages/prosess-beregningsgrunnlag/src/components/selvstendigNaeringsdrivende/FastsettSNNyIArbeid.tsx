@@ -99,7 +99,6 @@ const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
               description={intl.formatMessage({
                 id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
               })}
-              parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
             />
             <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
           </div>
