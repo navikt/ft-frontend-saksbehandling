@@ -48,7 +48,7 @@ type TilkommetAktivitetAccordionType = {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
-  bgIndex: number;
+  formFieldIndex: number;
   readOnly: boolean;
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
@@ -59,7 +59,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
   beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId,
   formName,
-  bgIndex,
+  formFieldIndex,
   readOnly,
   submittable,
   erAksjonspunktÅpent,
@@ -145,7 +145,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 vurderInntektsforholdPeriode={finnMatchendeinntektsperiodeForField(field.fom)}
                 formName={formName}
-                bgIndex={bgIndex}
+                formFieldIndex={formFieldIndex}
                 periodeFieldIndex={index}
                 readOnly={readOnly}
                 erAksjonspunktÅpent={erAksjonspunktÅpent}
@@ -161,7 +161,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
         <div className={styles.aktivitetContainer}>
           <VerticalSpacer fourtyPx />
           <TextAreaField
-            name={`${formName}.${bgIndex}.begrunnelse`}
+            name={`${formName}.${formFieldIndex}.begrunnelse`}
             label="Begrunnelse for alle perioder"
             readOnly={readOnly}
             validate={[required]}
