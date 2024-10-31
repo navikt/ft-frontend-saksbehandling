@@ -32,7 +32,7 @@
   "devDependencies": {
     "@eslint/js": "9.13.0",
     "@formatjs/intl-datetimeformat": "6.15.0",
-    "@formatjs/intl-numberformat": "8.13.0",
+    "@formatjs/intl-numberformat": "8.14.1",
     "@navikt/aksel-stylelint": "7.4.0",
     "@storybook/addon-essentials": "8.3.6",
     "@storybook/addon-links": "8.3.6",
