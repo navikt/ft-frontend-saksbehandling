@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
-  "version": "2.5.11",
+  "version": "2.5.12",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
