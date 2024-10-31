@@ -384,8 +384,8 @@ describe('Validators', () => {
     });
 
     it('skal feile når fødselsnummer har ugyldige tegn', () => {
-      const result = hasValidText('Hei {}*');
-      expect(result).toEqual('Feltet inneholder ugyldige tegn: {}*');
+      const result = hasValidText('Hei \u0000 \u0001');
+      expect(result).toEqual('Feltet inneholder ugyldige tegn: \u0000\u0001');
     });
   });
 
