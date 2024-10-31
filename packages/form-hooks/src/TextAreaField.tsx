@@ -6,7 +6,6 @@ import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
 import styles from './textAreaField.module.css';
-import { formaterFritekst } from '@navikt/ft-utils';
 
 type BadgesType = 'success' | 'info' | 'error' | 'warning';
 
@@ -22,6 +21,7 @@ export interface OwnProps extends TextareaProps {
   maxLength?: number;
   badges?: Badges[];
   validate?: ((value: string) => any)[];
+  parse?: (value: string | number) => string | number;
   className?: string;
   description?: string;
   isEdited?: boolean;
@@ -34,6 +34,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
   maxLength,
   badges,
   validate = [],
+  parse = value => value,
   className,
   description,
   isEdited,
@@ -79,7 +80,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
         className={className}
         autoComplete="off"
         {...field}
-        onChange={event => field.onChange(event.currentTarget.value !== '' ? formaterFritekst(event.currentTarget.value) : null)}
+        onChange={event => field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : null)}
         value={field.value ? field.value : ''}
         error={getError(errors, name)}
         maxLength={maxLength}

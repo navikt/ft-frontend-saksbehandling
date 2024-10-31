@@ -300,6 +300,7 @@ const ArbeidstakerEllerFrilansContainer = ({
             description={intl.formatMessage({
               id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
             })}
+            parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
           />
           <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
         </FlexColumn>

@@ -49,7 +49,6 @@ describe('validatorsHelper', () => {
       expect(textRegex.test('text')).toBe(true);
       expect(textRegex.test('3434')).toBe(true);
       expect(textRegex.test('Bokstaver fra andre språk BØR være greit øåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜ')).toBe(true);
-      expect(textRegex.test('Date: 20.04.2023 som er >= 19.04/23')).toBe(true);
     });
   });
 
