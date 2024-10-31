@@ -9,7 +9,7 @@ export const integerOptionalNegativeRegex = /^\s*-?\d+\s*$/;
 export const decimalRegex = /^\d+(.\d{1,2})?$/;
 export const saksnummerOrFodselsnummerPattern = /^\d{0,18}$/;
 
-export const textRegex = /^[\p{N}\p{L}\p{Z}.'\-/%§!?@_()+:;,="&\n]*$/u; // Tillater farlig tegn som <>/&. Bruk formaterFritekst før innsending av fritekstfelt!
+export const textRegex = /^[\p{N}\p{L}\p{Z}.'\-/%§!?@_()+:;,="&\n]*$/u;
 export const textGyldigRegex = /[\p{N}\p{L}\p{Z}.'\-/%§!?@_()+:;,="&\n]*/ug;
 
 export const nameRegex = /^[0-9\p{L}\p{Z}.'-]*$/u;
