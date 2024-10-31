@@ -22,8 +22,8 @@ jobs:
       - name: Sette opp Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18.8.0
-          cache: "yarn"
+          node-version: '20'
+          cache: 'yarn'
 
       - name: Installere dependencies
         run: yarn install --immutable
