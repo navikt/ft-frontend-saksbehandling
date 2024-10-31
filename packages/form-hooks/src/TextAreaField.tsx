@@ -6,7 +6,7 @@ import ReadOnlyField from './ReadOnlyField';
 import { getError, getValidationRules } from './formUtils';
 
 import styles from './textAreaField.module.css';
-import { formaterFritekst } from '@navikt/ft-utils/src/stringUtils';
+import { formaterFritekst } from '@navikt/ft-utils';
 
 type BadgesType = 'success' | 'info' | 'error' | 'warning';
 
