@@ -9,6 +9,6 @@ describe('<LoadingPanel>', () => {
   it('skal vise lasteikon', async () => {
     render(<Default />);
 
-    expect(await screen.findByText('venter...')).toBeInTheDocument();
+    expect(await screen.findByText('Venter…')).toBeInTheDocument();
   });
 });
