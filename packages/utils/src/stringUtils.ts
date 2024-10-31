@@ -4,7 +4,5 @@ export const formaterFritekst = (value: string | number) =>
     .replace(/[\p{Space_Separator}\t]/gu, ' ')
     .replace(/[“”]/g, '"')
     .replace(/[‘’`]/g, "'")
-    .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\//g, "&quot;")

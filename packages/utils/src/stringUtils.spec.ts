@@ -8,9 +8,7 @@ describe('formaterFritekst', () => {
     ['\u202F', ' '],
     ['“sitat”', '"sitat"'],
     ['‘sitat’', "'sitat'"],
-    ['Ola & co', "Ola &amp; co"],
-    ['<script>malicious code</script>','&lt;script&gt;malicious code&lt;&quot;script&gt;'],
-    ['Flere / som / skal / erstattes', 'Flere &quot; som &quot; skal &quot; erstattes'],
+    ['<script>malicious code</script>','&lt;script&gt;malicious code&lt;/script&gt;'],
 
   ])(`skal erstatte ugyldige karakter (%s) i tekst`, (fritekst, formatertFritekst) => {
     expect(formaterFritekst(fritekst)).toEqual(formatertFritekst);
