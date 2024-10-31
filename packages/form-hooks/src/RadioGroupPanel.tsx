@@ -1,7 +1,7 @@
-import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
-import { useFormContext, useController } from 'react-hook-form';
-import { RadioGroup, Radio, HStack } from '@navikt/ds-react';
+import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
+import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 import { getError, getValidationRules } from './formUtils';
 import styles from './radioGroupPanel.module.css';
 
@@ -84,29 +84,25 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
       hideLegend={hideLegend}
     >
       {!isHorizontal &&
-        radios
-          .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
-          .map(radio => (
-            <Fragment key={radio.value}>
-              <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
-                {radio.label}
-              </Radio>
-              {field.value === parseValue(radio.value) && radio.element}
-            </Fragment>
-          ))}
+        radios.map(radio => (
+          <Fragment key={radio.value}>
+            <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
+              {radio.label}
+            </Radio>
+            {field.value === parseValue(radio.value) && radio.element}
+          </Fragment>
+        ))}
       {isHorizontal && (
         <HStack gap="4">
-          {radios
-            .filter(radio => !isReadOnly || field.value === parseValue(radio.value))
-            .map(radio => (
-              <Radio
-                key={radio.value}
-                value={parseValue(radio.value)}
-                disabled={radio.disabled || disabled || isReadOnly}
-              >
-                {radio.label}
-              </Radio>
-            ))}
+          {radios.map(radio => (
+            <Radio
+              key={radio.value}
+              value={parseValue(radio.value)}
+              disabled={radio.disabled || disabled || isReadOnly}
+            >
+              {radio.label}
+            </Radio>
+          ))}
           {radios
             .filter(radio => field.value === parseValue(radio.value))
             .map(radio => (
