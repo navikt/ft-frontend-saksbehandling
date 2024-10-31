@@ -3112,14 +3112,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lerna/create@npm:8.1.9":
-  version: 8.1.9
-  resolution: "@lerna/create@npm:8.1.9"
+"@lerna/create@npm:8.1.8":
+  version: 8.1.8
+  resolution: "@lerna/create@npm:8.1.8"
   dependencies:
     "@npmcli/arborist": 7.5.4
     "@npmcli/package-json": 5.2.0
     "@npmcli/run-script": 8.1.0
-    "@nx/devkit": ">=17.1.2 < 21"
+    "@nx/devkit": ">=17.1.2 < 20"
     "@octokit/plugin-enterprise-rest": 6.0.1
     "@octokit/rest": 19.0.11
     aproba: 2.0.0
@@ -3132,7 +3132,7 @@ __metadata:
     console-control-strings: ^1.1.0
     conventional-changelog-core: 5.0.1
     conventional-recommended-bump: 7.0.1
-    cosmiconfig: 9.0.0
+    cosmiconfig: ^8.2.0
     dedent: 1.5.3
     execa: 5.0.0
     fs-extra: ^11.2.0
@@ -3158,7 +3158,7 @@ __metadata:
     npm-package-arg: 11.0.2
     npm-packlist: 8.0.2
     npm-registry-fetch: ^17.1.0
-    nx: ">=17.1.2 < 21"
+    nx: ">=17.1.2 < 20"
     p-map: 4.0.0
     p-map-series: 2.1.0
     p-queue: 6.6.2
@@ -3187,7 +3187,7 @@ __metadata:
     write-pkg: 4.0.0
     yargs: 17.7.2
     yargs-parser: 21.1.1
-  checksum: 3c33438b2465bd46634242cf5146a8ea681d4eb5af6ba9edf6bfeba31de7db004b309f2062d0746617d465cee29fe9f21c4ef45d981d51641cc0bf92d43410ea
+  checksum: 6b1d2835c661067a4547034d7beaecc704be691b8ce4ddf1ef77d9652d2735a1f23b0f845f44faa4619a1994df82db148a727dfca121b1a4b58b0ccaffa22dc3
   languageName: node
   linkType: hard
 
@@ -4538,10 +4538,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/devkit@npm:>=17.1.2 < 21":
-  version: 20.0.6
-  resolution: "@nx/devkit@npm:20.0.6"
+"@nrwl/devkit@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nrwl/devkit@npm:19.8.8"
   dependencies:
+    "@nx/devkit": 19.8.8
+  checksum: d0a9a7b295427cce89be900fac2a9fb737b9a34ad00fdac8b67ce8f0c4c02afb5d985a8babb31d295d39e6592f75e664d72fafcc843672f99ac802f72c871322
+  languageName: node
+  linkType: hard
+
+"@nrwl/tao@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nrwl/tao@npm:19.8.8"
+  dependencies:
+    nx: 19.8.8
+    tslib: ^2.3.0
+  bin:
+    tao: index.js
+  checksum: a3c7ac5431ab67d21e25dfb793b0aa6c58f1d4895250cd427dcdae4eba4d946e7433a92b2d49fb422735416d199367a2295be05c407f415804b4ec920dcf002a
+  languageName: node
+  linkType: hard
+
+"@nx/devkit@npm:19.8.8, @nx/devkit@npm:>=17.1.2 < 20":
+  version: 19.8.8
+  resolution: "@nx/devkit@npm:19.8.8"
+  dependencies:
+    "@nrwl/devkit": 19.8.8
     ejs: ^3.1.7
     enquirer: ~2.3.6
     ignore: ^5.0.4
@@ -4552,76 +4574,76 @@ __metadata:
     yargs-parser: 21.1.1
   peerDependencies:
     nx: ">= 19 <= 21"
-  checksum: 804b904d14b09e883c9a43dee7fdce38dca61e8653a4273371ce9a8e37bfecca7fff2993ea6d36987ade8619103b3ff63d2fcbe38e5321ee22ecf334aa74c7ce
+  checksum: a252185db941ae75fb421ba3b20040dd869aa18b94785c68ca0f43782c251c293aca9db3068ec44439459214dcb8aacb0d8a8691eb1582de7d35892a09f333c7
   languageName: node
   linkType: hard
 
-"@nx/nx-darwin-arm64@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-darwin-arm64@npm:20.0.6"
+"@nx/nx-darwin-arm64@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-darwin-arm64@npm:19.8.8"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@nx/nx-darwin-x64@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-darwin-x64@npm:20.0.6"
+"@nx/nx-darwin-x64@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-darwin-x64@npm:19.8.8"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@nx/nx-freebsd-x64@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-freebsd-x64@npm:20.0.6"
+"@nx/nx-freebsd-x64@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-freebsd-x64@npm:19.8.8"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm-gnueabihf@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-linux-arm-gnueabihf@npm:20.0.6"
+"@nx/nx-linux-arm-gnueabihf@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-linux-arm-gnueabihf@npm:19.8.8"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm64-gnu@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-linux-arm64-gnu@npm:20.0.6"
+"@nx/nx-linux-arm64-gnu@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-linux-arm64-gnu@npm:19.8.8"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm64-musl@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-linux-arm64-musl@npm:20.0.6"
+"@nx/nx-linux-arm64-musl@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-linux-arm64-musl@npm:19.8.8"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-x64-gnu@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-linux-x64-gnu@npm:20.0.6"
+"@nx/nx-linux-x64-gnu@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-linux-x64-gnu@npm:19.8.8"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-x64-musl@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-linux-x64-musl@npm:20.0.6"
+"@nx/nx-linux-x64-musl@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-linux-x64-musl@npm:19.8.8"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@nx/nx-win32-arm64-msvc@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-win32-arm64-msvc@npm:20.0.6"
+"@nx/nx-win32-arm64-msvc@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-win32-arm64-msvc@npm:19.8.8"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@nx/nx-win32-x64-msvc@npm:20.0.6":
-  version: 20.0.6
-  resolution: "@nx/nx-win32-x64-msvc@npm:20.0.6"
+"@nx/nx-win32-x64-msvc@npm:19.8.8":
+  version: 19.8.8
+  resolution: "@nx/nx-win32-x64-msvc@npm:19.8.8"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -7587,7 +7609,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:9.0.0, cosmiconfig@npm:^9.0.0":
+"cosmiconfig@npm:^8.2.0":
+  version: 8.3.6
+  resolution: "cosmiconfig@npm:8.3.6"
+  dependencies:
+    import-fresh: ^3.3.0
+    js-yaml: ^4.1.0
+    parse-json: ^5.2.0
+    path-type: ^4.0.0
+  peerDependencies:
+    typescript: ">=4.9.5"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: dc339ebea427898c9e03bf01b56ba7afbac07fc7d2a2d5a15d6e9c14de98275a9565da949375aee1809591c152c0a3877bb86dbeaf74d5bd5aaa79955ad9e7a0
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^9.0.0":
   version: 9.0.0
   resolution: "cosmiconfig@npm:9.0.0"
   dependencies:
@@ -9386,7 +9425,7 @@ __metadata:
     globals: 15.11.0
     husky: 9.1.6
     jsdom: 25.0.1
-    lerna: 8.1.9
+    lerna: 8.1.8
     lint-staged: 15.2.10
     postcss-less: 6.0.0
     prettier: 3.3.3
@@ -11181,15 +11220,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lerna@npm:8.1.9":
-  version: 8.1.9
-  resolution: "lerna@npm:8.1.9"
+"lerna@npm:8.1.8":
+  version: 8.1.8
+  resolution: "lerna@npm:8.1.8"
   dependencies:
-    "@lerna/create": 8.1.9
+    "@lerna/create": 8.1.8
     "@npmcli/arborist": 7.5.4
     "@npmcli/package-json": 5.2.0
     "@npmcli/run-script": 8.1.0
-    "@nx/devkit": ">=17.1.2 < 21"
+    "@nx/devkit": ">=17.1.2 < 20"
     "@octokit/plugin-enterprise-rest": 6.0.1
     "@octokit/rest": 19.0.11
     aproba: 2.0.0
@@ -11203,7 +11242,7 @@ __metadata:
     conventional-changelog-angular: 7.0.0
     conventional-changelog-core: 5.0.1
     conventional-recommended-bump: 7.0.1
-    cosmiconfig: 9.0.0
+    cosmiconfig: ^8.2.0
     dedent: 1.5.3
     envinfo: 7.13.0
     execa: 5.0.0
@@ -11234,7 +11273,7 @@ __metadata:
     npm-package-arg: 11.0.2
     npm-packlist: 8.0.2
     npm-registry-fetch: ^17.1.0
-    nx: ">=17.1.2 < 21"
+    nx: ">=17.1.2 < 20"
     p-map: 4.0.0
     p-map-series: 2.1.0
     p-pipe: 3.1.0
@@ -11268,7 +11307,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     lerna: dist/cli.js
-  checksum: 2e604325eb455f34b021ccf95ef94796a84ba1dc20f1c2bfa9f74f9e337cdb41ab0d6d997971424ec8b9967b45c55ca0b318432bc7f3de7f92333ba6b65bf82a
+  checksum: 20e6a434fe27dc231ea172747abed6e468d11ab5dde00514f5fe873b21916d3a5adb4aaf49507d505a42f1ea8fbac55a7cf1895bdd9d7adac51e4e584c48428a
   languageName: node
   linkType: hard
 
@@ -12393,21 +12432,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:>=17.1.2 < 21":
-  version: 20.0.6
-  resolution: "nx@npm:20.0.6"
+"nx@npm:19.8.8, nx@npm:>=17.1.2 < 20":
+  version: 19.8.8
+  resolution: "nx@npm:19.8.8"
   dependencies:
     "@napi-rs/wasm-runtime": 0.2.4
-    "@nx/nx-darwin-arm64": 20.0.6
-    "@nx/nx-darwin-x64": 20.0.6
-    "@nx/nx-freebsd-x64": 20.0.6
-    "@nx/nx-linux-arm-gnueabihf": 20.0.6
-    "@nx/nx-linux-arm64-gnu": 20.0.6
-    "@nx/nx-linux-arm64-musl": 20.0.6
-    "@nx/nx-linux-x64-gnu": 20.0.6
-    "@nx/nx-linux-x64-musl": 20.0.6
-    "@nx/nx-win32-arm64-msvc": 20.0.6
-    "@nx/nx-win32-x64-msvc": 20.0.6
+    "@nrwl/tao": 19.8.8
+    "@nx/nx-darwin-arm64": 19.8.8
+    "@nx/nx-darwin-x64": 19.8.8
+    "@nx/nx-freebsd-x64": 19.8.8
+    "@nx/nx-linux-arm-gnueabihf": 19.8.8
+    "@nx/nx-linux-arm64-gnu": 19.8.8
+    "@nx/nx-linux-arm64-musl": 19.8.8
+    "@nx/nx-linux-x64-gnu": 19.8.8
+    "@nx/nx-linux-x64-musl": 19.8.8
+    "@nx/nx-win32-arm64-msvc": 19.8.8
+    "@nx/nx-win32-x64-msvc": 19.8.8
     "@yarnpkg/lockfile": ^1.1.0
     "@yarnpkg/parsers": 3.0.0-rc.46
     "@zkochan/js-yaml": 0.0.7
@@ -12433,6 +12473,7 @@ __metadata:
     ora: 5.3.0
     semver: ^7.5.3
     string-width: ^4.2.3
+    strong-log-transformer: ^2.1.0
     tar-stream: ~2.2.0
     tmp: ~0.2.1
     tsconfig-paths: ^4.1.2
@@ -12471,7 +12512,7 @@ __metadata:
   bin:
     nx: bin/nx.js
     nx-cloud: bin/nx-cloud.js
-  checksum: 316a61e592bf18f3abbfe005b1cc7c7c3fd4f071e2d00a8e1f7350466b1562b413cebd1a0a3b46df5eb67555393c6b900be458bade8ee4975b569514edb99f08
+  checksum: a6409e4d4096aed5ceb57684545a1d31cbf6d877a47c4059b6316075d1a9a22937dbcf1ccd806e57db29daecee6d4790e08e40340d04b2074afc6eff97a01407
   languageName: node
   linkType: hard
 
@@ -14861,7 +14902,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strong-log-transformer@npm:2.1.0":
+"strong-log-transformer@npm:2.1.0, strong-log-transformer@npm:^2.1.0":
   version: 2.1.0
   resolution: "strong-log-transformer@npm:2.1.0"
   dependencies:
