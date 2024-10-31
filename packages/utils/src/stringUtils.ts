@@ -1,6 +1,5 @@
 export const formaterFritekst = (value: string | number) =>
-  value
-    .toString()
+  value.toString()
     .replace(/\p{Dash_Punctuation}/gu, '-')
     .replace(/[\p{Space_Separator}\t]/gu, ' ')
     .replace(/[“”]/g, '"')

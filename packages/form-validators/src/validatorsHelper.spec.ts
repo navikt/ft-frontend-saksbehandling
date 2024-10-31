@@ -48,6 +48,7 @@ describe('validatorsHelper', () => {
     it('Skal sjekke om input er tekst', () => {
       expect(textRegex.test('text')).toBe(true);
       expect(textRegex.test('3434')).toBe(true);
+      expect(textRegex.test('Bokstaver fra andre språk BØR være greit øåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜ')).toBe(true);
     });
   });
 
@@ -60,6 +61,7 @@ describe('validatorsHelper', () => {
   describe('nameRegex', () => {
     it('Skal sjekke om input er et navn', () => {
       expect(nameRegex.test('Ola Nordmann')).toBe(true);
+      expect(nameRegex.test("Jan-Ole O'Brian Jr")).toBe(true);
       expect(nameRegex.test('Ola Nordmann!')).toBe(false);
     });
   });

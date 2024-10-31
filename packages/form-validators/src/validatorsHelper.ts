@@ -9,14 +9,11 @@ export const integerOptionalNegativeRegex = /^\s*-?\d+\s*$/;
 export const decimalRegex = /^\d+(.\d{1,2})?$/;
 export const saksnummerOrFodselsnummerPattern = /^\d{0,18}$/;
 
-export const textRegex =
-  /^[0-9a-zA-ZæøåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜÄ .'\-/%§!?@_()+:;,="&\n]*$/;
-export const textGyldigRegex =
-  /[0-9a-zA-ZæøåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜÄ .'\-/%§!?@_()+:;,="&\n]*/g;
+export const textRegex = /^[\p{N}\p{L}\p{Z}.'\-/%§!?@_()+:;,="&\n]*$/u;
+export const textGyldigRegex = /[\p{N}\p{L}\p{Z}.'\-/%§!?@_()+:;,="&\n]*/ug;
 
-export const nameRegex = /^[0-9a-zA-ZæøåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜÄ .'-]*$/;
-export const nameGyldigRegex =
-  /[0-9a-zA-ZæøåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜÄ .'-]*/g;
+export const nameRegex = /^[0-9\p{L}\p{Z}.'-]*$/u;
+export const nameGyldigRegex = /[0-9\p{L}\p{Z}.'-]*/ug;
 
 export const isEmpty = (text?: string | number | boolean | moment.Moment | null) =>
   text === null || text === undefined || text.toString().trim().length === 0;
