@@ -2811,12 +2811,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/ecma402-abstract@npm:2.2.1":
+  version: 2.2.1
+  resolution: "@formatjs/ecma402-abstract@npm:2.2.1"
+  dependencies:
+    "@formatjs/fast-memoize": 2.2.2
+    "@formatjs/intl-localematcher": 0.5.6
+    tslib: 2
+  checksum: c94481ef52a7a2667561103e01dc50c7097e1604443c19e6465dd570692f5bc856744d75290ebc1d33d2597e116c6a400716dd889206fc48710615551541d2d1
+  languageName: node
+  linkType: hard
+
 "@formatjs/fast-memoize@npm:2.2.1":
   version: 2.2.1
   resolution: "@formatjs/fast-memoize@npm:2.2.1"
   dependencies:
     tslib: ^2.7.0
   checksum: 7bb12904d4c93cfae17006388b26d97cc0e32fef5af510f80974437382cd13a88b439b4407d96b6646af1806977cf34113f3dc8f1c96b28f73856700ee7857fd
+  languageName: node
+  linkType: hard
+
+"@formatjs/fast-memoize@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@formatjs/fast-memoize@npm:2.2.2"
+  dependencies:
+    tslib: 2
+  checksum: c6e958753eb41bb0875734762a44126a0d570706a31b32bb409e759cd372184c28e294b02fce0b0f0999c171ef717d513eaf7936862c498d78428b97db446ff8
   languageName: node
   linkType: hard
 
@@ -2841,14 +2861,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-datetimeformat@npm:6.15.0":
-  version: 6.15.0
-  resolution: "@formatjs/intl-datetimeformat@npm:6.15.0"
+"@formatjs/intl-datetimeformat@npm:6.16.1":
+  version: 6.16.1
+  resolution: "@formatjs/intl-datetimeformat@npm:6.16.1"
   dependencies:
-    "@formatjs/ecma402-abstract": 2.2.0
-    "@formatjs/intl-localematcher": 0.5.5
-    tslib: ^2.7.0
-  checksum: 9d3f0f0525149e863cdcb978d6696129fd60d46b264ac618210874942fb61315ee715aecc72dd93b542d20f8f90156bb778038ad543e53c244f035d5ee139a3e
+    "@formatjs/ecma402-abstract": 2.2.1
+    "@formatjs/intl-localematcher": 0.5.6
+    tslib: 2
+  checksum: 2226450f73321f9c54045eb30cc36dae0721cf7b1063626f030399639c66dd3ad338121c60bf1bc5c51e2163c56907d00832261f41d16b03107ee323488989d6
   languageName: node
   linkType: hard
 
@@ -2880,6 +2900,15 @@ __metadata:
   dependencies:
     tslib: ^2.7.0
   checksum: 3821b84e3565aef4dfcc32b128aba26bf8e0b9d80a73804857fee32064a644cc9f06a186248264a2e4a268dec4c72962f6e8a41154bc9da60ca81525e31b5051
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-localematcher@npm:0.5.6":
+  version: 0.5.6
+  resolution: "@formatjs/intl-localematcher@npm:0.5.6"
+  dependencies:
+    tslib: 2
+  checksum: f109874af02364023b401161ee9d2fec369a334034843062a5d44f903aa6832a65c7b17112bbb0dd847b4283f521337a9ab8755570391e9c08e32ef4f502afd4
   languageName: node
   linkType: hard
 
@@ -9737,7 +9766,7 @@ __metadata:
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
     "@eslint/js": 9.13.0
-    "@formatjs/intl-datetimeformat": 6.15.0
+    "@formatjs/intl-datetimeformat": 6.16.1
     "@formatjs/intl-numberformat": 8.13.0
     "@navikt/aksel-stylelint": 7.4.0
     "@storybook/addon-essentials": 8.3.6
@@ -15857,6 +15886,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:2, tslib@npm:^2.7.0":
+  version: 2.8.0
+  resolution: "tslib@npm:2.8.0"
+  checksum: de852ecd81adfdb4870927e250763345f07dc13fe7f395ce261424966bb122a0992ad844c3ec875c9e63e72afe2220a150712984e44dfd1a8a7e538a064e3d46
+  languageName: node
+  linkType: hard
+
 "tslib@npm:2.3.0":
   version: 2.3.0
   resolution: "tslib@npm:2.3.0"
@@ -15868,13 +15904,6 @@ __metadata:
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.7.0":
-  version: 2.8.0
-  resolution: "tslib@npm:2.8.0"
-  checksum: de852ecd81adfdb4870927e250763345f07dc13fe7f395ce261424966bb122a0992ad844c3ec875c9e63e72afe2220a150712984e44dfd1a8a7e538a064e3d46
   languageName: node
   linkType: hard
 
