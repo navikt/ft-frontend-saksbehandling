@@ -2724,6 +2724,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/js@npm:9.14.0":
+  version: 9.14.0
+  resolution: "@eslint/js@npm:9.14.0"
+  checksum: 727767d3c80bf88e08565af10cc3732ca0d272c729bbd39043722a203eea289ec6149ab42d977d2d28a81d99329dceeed091b70db37b868e6659913a0840e17b
+  languageName: node
+  linkType: hard
+
 "@eslint/object-schema@npm:^2.1.4":
   version: 2.1.4
   resolution: "@eslint/object-schema@npm:2.1.4"
@@ -9371,7 +9378,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
-    "@eslint/js": 9.13.0
+    "@eslint/js": 9.14.0
     "@formatjs/intl-datetimeformat": 6.16.1
     "@formatjs/intl-numberformat": 8.14.1
     "@navikt/aksel-stylelint": 7.4.2
