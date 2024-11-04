@@ -46,7 +46,7 @@ import KodeverkForPanel from './types/kodeverkForPanel';
 
 const agOpplysninger = {
   874652202: {
-    navn: 'NAV Innlandet',
+    navn: 'Nav Innlandet',
     identifikator: '874652202',
     erPrivatPerson: false,
   },
@@ -66,17 +66,17 @@ const agOpplysninger = {
     erPrivatPerson: false,
   },
   974652293: {
-    navn: 'NAV Troms og Finnmark',
+    navn: 'Nav Troms og Finnmark',
     identifikator: '974652293',
     erPrivatPerson: false,
   },
   974239965: {
-    navn: 'NAV Trøndelag',
+    navn: 'Nav Trøndelag',
     identifikator: '974239965',
     erPrivatPerson: false,
   },
   999999999: {
-    navn: 'NAV Gokk',
+    navn: 'Nav Gokk',
     identifikator: '999999999',
     erPrivatPerson: false,
   },

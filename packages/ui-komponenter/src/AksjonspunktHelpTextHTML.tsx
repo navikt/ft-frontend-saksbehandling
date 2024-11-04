@@ -10,7 +10,7 @@ export interface OwnProps {
 /**
  * AksjonspunktHelpTextHTML
  *
- * Viser hjelpetekster som forteller NAV-ansatt hva som må gjøres for
+ * Viser hjelpetekster som forteller Nav-ansatt hva som må gjøres for
  * å avklare en eller flere aksjonspunkter.
  */
 const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({ children }) => {

@@ -18,16 +18,16 @@ const Template: StoryFn<{
   <MenyEndreBehandlendeEnhetIndex
     behandlingVersjon={2}
     behandlendeEnhetId="4292"
-    behandlendeEnhetNavn="NAV Klageinstans Midt-Norge"
+    behandlendeEnhetNavn="Nav klageinstans Midt-Norge"
     nyBehandlendeEnhet={lagreNyBehandlendeEnhet}
     behandlendeEnheter={[
       {
         enhetId: '4292',
-        enhetNavn: 'NAV Klageinstans Midt-Norge',
+        enhetNavn: 'Nav klageinstans Midt-Norge',
       },
       {
         enhetId: '1000',
-        enhetNavn: 'NAV Viken',
+        enhetNavn: 'Nav Vikafossen',
       },
     ]}
     lukkModal={lukkModal}

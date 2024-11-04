@@ -259,7 +259,7 @@
     },
     {
       "kode": "NAV_TILTAK",
-      "navn": "Tiltak i regi av NAV",
+      "navn": "Tiltak i regi av Nav",
       "kodeverk": "UTTAK_UTSETTELSE_TYPE"
     },
     {
@@ -5663,7 +5663,7 @@
     },
     {
       "kode": "NAV_TILTAK",
-      "navn": "Tiltak i regi av NAV",
+      "navn": "Tiltak i regi av Nav",
       "kodeverk": "UTSETTELSE_AARSAK_TYPE"
     }
   ],

@@ -21,13 +21,13 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title, titleHref,
           className={styles[headerCls.element('title-anchor')]}
         >
           <h1 className={styles[headerCls.element('title')]}>
-            NAV
+            Nav
             <span className={styles[headerCls.element('subtitle')]}>{title}</span>
           </h1>
         </a>
       ) : (
         <h1 className={styles[headerCls.element('title')]}>
-          NAV
+          Nav
           <span className={styles[headerCls.element('subtitle')]}>{title}</span>
         </h1>
       )}

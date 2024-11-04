@@ -9,7 +9,7 @@ const { UtenFeilmeldinger, MedFeilmeldinger, MedFeilmeldingDetaljer } = composeS
 describe('<DekoratorSakIndex>', () => {
   it('skal vise dekoratør uten feilmeldinger', async () => {
     render(<UtenFeilmeldinger />);
-    expect(await screen.findByText('NAV')).toBeInTheDocument();
+    expect(await screen.findByText('Nav')).toBeInTheDocument();
     expect(screen.getByText('Svangerskap, fødsel og adopsjon')).toBeInTheDocument();
     expect(screen.getByText('Espen Utvikler')).toBeInTheDocument();
   });
