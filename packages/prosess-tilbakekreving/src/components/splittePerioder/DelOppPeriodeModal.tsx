@@ -1,9 +1,8 @@
-import { Alert, BodyShort, Button, Heading, Label, Modal } from '@navikt/ds-react';
-import moment from 'moment/moment';
 import React, { FunctionComponent } from 'react';
+import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
+import { Alert, BodyShort, Button, Heading, Label, Modal } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-
 import { Datepicker, Form } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
@@ -30,7 +29,7 @@ const validerMotPeriode =
   (tomDato: string): any => {
     if (
       tomDato &&
-      (dateAfterOrEqual(tomDato)(moment(periodeData.tom.toString()).subtract(1, 'day')) ||
+      (dateAfterOrEqual(tomDato)(dayjs(periodeData.tom.toString()).subtract(1, 'day')) ||
         dateBeforeOrEqual(tomDato)(periodeData.fom))
     ) {
       return intl.formatMessage({ id: 'DelOppPeriodeModalImpl.DatoUtenforPeriode' });
@@ -39,7 +38,7 @@ const validerMotPeriode =
   };
 
 const transformValues = (values: FormValues, periodeData: Periode): any => {
-  const addDay = moment(values.forstePeriodeTomDato).add(1, 'days');
+  const addDay = dayjs(values.forstePeriodeTomDato).add(1, 'days');
   const forstePeriode = {
     fom: periodeData.fom,
     tom: values.forstePeriodeTomDato,
@@ -93,7 +92,7 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
             <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
           </Label>
           <BodyShort size="small">
-            {`${moment(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
+            {`${dayjs(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(
               periodeData.tom.toString(),
             ).format(DDMMYYYY_DATE_FORMAT)}`}
           </BodyShort>
@@ -102,8 +101,8 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
             name="forstePeriodeTomDato"
             label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
             validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
-            fromDate={moment(periodeData.fom).toDate()}
-            toDate={moment(periodeData.tom).toDate()}
+            fromDate={dayjs(periodeData.fom).toDate()}
+            toDate={dayjs(periodeData.tom).toDate()}
           />
           {finnesBelopMed0Verdi && (
             <Alert variant="error">

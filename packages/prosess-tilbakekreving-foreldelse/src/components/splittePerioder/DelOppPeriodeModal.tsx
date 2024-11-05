@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import dayjs from 'dayjs';
 import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
 import { useForm } from 'react-hook-form';
-import moment from 'moment';
 import { Modal, Button, Label, BodyShort, Alert, Heading } from '@navikt/ds-react';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
@@ -30,7 +30,7 @@ const validerMotPeriode =
   (tomDato: string): any => {
     if (
       tomDato &&
-      (dateAfterOrEqual(tomDato)(moment(periodeData.tom.toString()).subtract(1, 'day')) ||
+      (dateAfterOrEqual(tomDato)(dayjs(periodeData.tom.toString()).subtract(1, 'day')) ||
         dateBeforeOrEqual(tomDato)(periodeData.fom))
     ) {
       return intl.formatMessage({ id: 'DelOppPeriodeModalImpl.DatoUtenforPeriode' });
@@ -39,7 +39,7 @@ const validerMotPeriode =
   };
 
 const transformValues = (values: FormValues, periodeData: Periode): any => {
-  const addDay = moment(values.forstePeriodeTomDato).add(1, 'days');
+  const addDay = dayjs(values.forstePeriodeTomDato).add(1, 'days');
   const forstePeriode = {
     fom: periodeData.fom,
     tom: values.forstePeriodeTomDato,
@@ -93,7 +93,7 @@ const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
             <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
           </Label>
           <BodyShort size="small">
-            {`${moment(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
+            {`${dayjs(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(
               periodeData.tom.toString(),
             ).format(DDMMYYYY_DATE_FORMAT)}`}
           </BodyShort>
@@ -102,8 +102,8 @@ const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
             name="forstePeriodeTomDato"
             label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
             validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
-            fromDate={moment(periodeData.fom).toDate()}
-            toDate={moment(periodeData.tom).toDate()}
+            fromDate={dayjs(periodeData.fom).toDate()}
+            toDate={dayjs(periodeData.tom).toDate()}
           />
           {finnesBelopMed0Verdi && (
             <Alert variant="error">

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import {
   dateRangesAreSequential,
   decimalRegex,
@@ -48,7 +48,11 @@ describe('validatorsHelper', () => {
     it('Skal sjekke om input er tekst', () => {
       expect(textRegex.test('text')).toBe(true);
       expect(textRegex.test('3434')).toBe(true);
-      expect(textRegex.test('Bokstaver fra andre språk BØR være greit øåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜ')).toBe(true);
+      expect(
+        textRegex.test(
+          'Bokstaver fra andre språk BØR være greit øåÆØÅAaÁáBbCcČčDdĐđEeFfGgHhIiJjKkLlMmNnŊŋOoPpRrSsŠšTtŦŧUuVvZzŽžéôèÉöüäÖÜ',
+        ),
+      ).toBe(true);
     });
   });
 
@@ -83,13 +87,13 @@ describe('validatorsHelper', () => {
 
   describe('yesterday', () => {
     it('Skal sjekke om dato er i går', () => {
-      expect(yesterday()).toEqual(moment().subtract(1, 'days').startOf('day'));
+      expect(yesterday()).toEqual(dayjs().subtract(1, 'days').startOf('day'));
     });
   });
 
   describe('tomorrow', () => {
     it('Skal sjekke om dato er i morgen', () => {
-      expect(tomorrow()).toEqual(moment().add(1, 'days').startOf('day'));
+      expect(tomorrow()).toEqual(dayjs().add(1, 'days').startOf('day'));
     });
   });
 
