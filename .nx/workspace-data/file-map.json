@@ -103,11 +103,11 @@
       },
       {
         "file": "LICENSE.md",
-        "hash": "1866770666458928550"
+        "hash": "268517473486001537"
       },
       {
         "file": "README.md",
-        "hash": "5423973866340621277"
+        "hash": "10447394868390292158"
       },
       {
         "file": "eslint.config.mjs",
@@ -123,7 +123,7 @@
       },
       {
         "file": "package.json",
-        "hash": "14513199324269969615"
+        "hash": "3375938947867014474"
       },
       {
         "file": "scripts/.nojekyll",
@@ -159,2363 +159,10 @@
       },
       {
         "file": "yarn.lock",
-        "hash": "12283434680626126841"
+        "hash": "16845020563702071829"
       }
     ],
     "projectFileMap": {
-      "@navikt/ft-prosess-tilbakekreving-foreldelse": [
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/i18n/nb_NO.json",
-          "hash": "69581340139712920"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/index.ts",
-          "hash": "10156939741431164732"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/package.json",
-          "hash": "7606825288879784767",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-form-hooks",
-            "@navikt/ft-form-validators",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:dayjs",
-            "npm:moment",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:react-intl",
-            "@navikt/ft-frontend-storybook-utils",
-            "@navikt/ft-frontend-utils-test",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseAksjonspunktCodes.ts",
-          "hash": "3294935387563311938"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseProsessIndex.spec.tsx",
-          "hash": "1669357606341325277"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseProsessIndex.stories.tsx",
-          "hash": "11005505661761585085"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseProsessIndex.tsx",
-          "hash": "4710142768254245912"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/ForeldelseForm.tsx",
-          "hash": "6467682111939205079"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/ForeldelsePeriodeForm.tsx",
-          "hash": "3279083735706457898"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/foreldelseForm.module.css",
-          "hash": "10051327470175028758"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/DelOppPeriodeModal.tsx",
-          "hash": "10660772279129111770"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/PeriodeController.tsx",
-          "hash": "12378167457034977507"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/PeriodeInformasjon.tsx",
-          "hash": "5840844385363963163"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/delOppPeriodeModal.module.css",
-          "hash": "5253748275858057823"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/periodeController.module.css",
-          "hash": "13622090973170955042"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/periodeInformasjon.module.css",
-          "hash": "1272596076407147077"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/timeline/TilbakekrevingTimeline.tsx",
-          "hash": "9272549863163864356"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/timeline/tilbakekrevingTimeline.module.css",
-          "hash": "2670478459933601929"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/VurderForeldelseAp.ts",
-          "hash": "17818376799737607172"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/foreldelsesresultatActivitytsType.ts",
-          "hash": "3687140940350345817"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/kodeverkFpTilbakeForPanel.ts",
-          "hash": "9537651806209688309"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/tidslinjePeriodeTsType.ts",
-          "hash": "444859227751963761"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/tsconfig.json",
-          "hash": "4228433193664026631"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving-foreldelse/vite.config.js",
-          "hash": "1466035741200140851"
-        }
-      ],
-      "@navikt/ft-sak-visittkort": [
-        {
-          "file": "packages/sak-visittkort/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-visittkort/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-visittkort/i18n/nb_NO.json",
-          "hash": "12532133064615360730"
-        },
-        {
-          "file": "packages/sak-visittkort/index.ts",
-          "hash": "2821931354021856790"
-        },
-        {
-          "file": "packages/sak-visittkort/package.json",
-          "hash": "15860917671151033685",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-plattform-komponenter",
-            "@navikt/ft-types",
-            "@navikt/ft-utils",
-            "npm:dayjs",
-            "npm:react",
-            "npm:react-intl",
-            "@navikt/ft-frontend-storybook-utils",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-visittkort/src/VisittkortSakIndex.spec.tsx",
-          "hash": "15506564129639480115"
-        },
-        {
-          "file": "packages/sak-visittkort/src/VisittkortSakIndex.stories.tsx",
-          "hash": "12848715066230556512"
-        },
-        {
-          "file": "packages/sak-visittkort/src/VisittkortSakIndex.tsx",
-          "hash": "12417843990544785022"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoFodselPanel.tsx",
-          "hash": "6081050854017289752"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoOmsorgPanel.tsx",
-          "hash": "15824464430058606434"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoPanel.spec.tsx",
-          "hash": "3322853850604630690"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoPanel.tsx",
-          "hash": "6503623481438672979"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/VisittkortLabels.spec.tsx",
-          "hash": "4372849495103577068"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/VisittkortLabels.tsx",
-          "hash": "15088140973765090629"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/VisittkortPanel.tsx",
-          "hash": "11802934350085530434"
-        },
-        {
-          "file": "packages/sak-visittkort/src/components/visittkortPanel.module.css",
-          "hash": "14792934638425891256"
-        },
-        {
-          "file": "packages/sak-visittkort/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-visittkort/vite.config.js",
-          "hash": "5069970122333961111"
-        }
-      ],
-      "@navikt/ft-frontend-utils-test": [
-        {
-          "file": "packages/internal/utils-test/index.ts",
-          "hash": "13573161928253648408"
-        },
-        {
-          "file": "packages/internal/utils-test/package.json",
-          "hash": "9503705240145149167",
-          "deps": [
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:typescript",
-            "@navikt/ft-kodeverk",
-            "npm:react",
-            "npm:react-intl"
-          ]
-        },
-        {
-          "file": "packages/internal/utils-test/src/intl-test-helper.ts",
-          "hash": "9903359713748540952"
-        },
-        {
-          "file": "packages/internal/utils-test/src/legacyKodeverktUtils.ts",
-          "hash": "11210660456223855665"
-        },
-        {
-          "file": "packages/internal/utils-test/tsconfig.json",
-          "hash": "5377905226098476047"
-        }
-      ],
-      "@navikt/ft-frontend-storybook-utils": [
-        {
-          "file": "packages/internal/storybook-utils/decorators/withIntl.tsx",
-          "hash": "11691432957784915504"
-        },
-        {
-          "file": "packages/internal/storybook-utils/decorators/withReactHookForm.tsx",
-          "hash": "7432717551954211114"
-        },
-        {
-          "file": "packages/internal/storybook-utils/index.ts",
-          "hash": "307989129743798612"
-        },
-        {
-          "file": "packages/internal/storybook-utils/mocks/alleKodeverk.json",
-          "hash": "14646290667354023485"
-        },
-        {
-          "file": "packages/internal/storybook-utils/mocks/alleTilbakekrevingKodeverk.json",
-          "hash": "18432823318732569889"
-        },
-        {
-          "file": "packages/internal/storybook-utils/package.json",
-          "hash": "7654157766084665619",
-          "deps": [
-            "npm:eslint",
-            "npm:typescript",
-            "@navikt/ft-form-hooks",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:react-intl"
-          ]
-        },
-        {
-          "file": "packages/internal/storybook-utils/tsconfig.json",
-          "hash": "3995108690483914464"
-        }
-      ],
-      "@navikt/ft-prosess-beregningsgrunnlag": [
-        {
-          "file": "packages/prosess-beregningsgrunnlag/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/.storybook/preview.tsx",
-          "hash": "8379413221048067804"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/i18n/nb_NO.json",
-          "hash": "5613234949572205891"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/index.ts",
-          "hash": "876111820023157572"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/package.json",
-          "hash": "7963318081765271047",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-form-hooks",
-            "@navikt/ft-form-validators",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-plattform-komponenter",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:classnames",
-            "npm:dayjs",
-            "npm:echarts",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:react-intl",
-            "@navikt/ft-frontend-storybook-utils",
-            "@navikt/ft-frontend-utils-test",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.spec.tsx",
-          "hash": "4012392686075026794"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.stories.tsx",
-          "hash": "9061818188865597267"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.tsx",
-          "hash": "7196158767182020960"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/beregningsgrunnlagProsessIndex.module.css",
-          "hash": "8217302165682342092"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/BeregningFP.tsx",
-          "hash": "2807747059438896634"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/ProsessStegSubmitButton.tsx",
-          "hash": "18081205529623658529"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/AksjonspunktBehandlerAT.tsx",
-          "hash": "8433075481092778620"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/AksjonspunktBehandlerTB.tsx",
-          "hash": "5004523543719640833"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/GrunnlagForAarsinntektPanelAT.tsx",
-          "hash": "6836102524559800770"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/NaturalytelsePanel.tsx",
-          "hash": "16156484120055191551"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningForm/BeregningForm.tsx",
-          "hash": "17674757967131719128"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsgrunnlagPanel/Beregningsgrunnlag.tsx",
-          "hash": "5274655717047638734"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsgrunnlagPanel/beregningsgrunnlag.module.css",
-          "hash": "17656685138306498851"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsresultat/BeregningsresultatPanel.tsx",
-          "hash": "16543883063003909080"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsresultat/OppsummertGrunnlagPanel.tsx",
-          "hash": "7696664719466658849"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsresultat/beregningsresultat.module.css",
-          "hash": "4787929034205962269"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/besteberegning/BesteberegningResultatGrunnlagPanel.tsx",
-          "hash": "4629113495573350605"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/echart/ReactECharts.tsx",
-          "hash": "14514599929782699074"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/AksjonspunktBehandler.tsx",
-          "hash": "14638366479490379546"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/AksjonspunktBehandlerHeader.tsx",
-          "hash": "2790672875072576774"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/AksjonspunktTittel.tsx",
-          "hash": "9598380662510321773"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/Ledelinje.tsx",
-          "hash": "9244913071068728659"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SaksopplysningPanel.tsx",
-          "hash": "7921931711976708661"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningForklaringPanel.tsx",
-          "hash": "13101096339418360895"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningOgFastsettelsePanel.tsx",
-          "hash": "14576311779296983975"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningsgrunnlagAOrdningen.tsx",
-          "hash": "13059391838064562549"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningsgrunnlagPanel.tsx",
-          "hash": "2293691611798424119"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SkjeringspunktOgStatusPanel.tsx",
-          "hash": "7635722035241945336"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/aksjonspunktBehandler.module.css",
-          "hash": "13748307495023505463"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/avvikopplysningerPanel.module.css",
-          "hash": "16784791589707725975"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/ledelinje.module.css",
-          "hash": "6659825998884748795"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/lovparagraf.tsx",
-          "hash": "7579996559914295773"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/sammenligningsgrunnlagAOrdningen.module.css",
-          "hash": "4807848865757013377"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frilanser/AksjonspunktBehandlerFL.tsx",
-          "hash": "7038007248563603063"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frilanser/GrunnlagForAarsinntektPanelFL.tsx",
-          "hash": "8669390601458755255"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Beregningsresultat.tsx",
-          "hash": "16869585107061902688"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/BeregningsresultatPeriode.tsx",
-          "hash": "10760291537358130682"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/FrisinnUtils.tsx",
-          "hash": "107138182566150036"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Frisinnpanel.tsx",
-          "hash": "437491346204836022"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Grenseverdi.tsx",
-          "hash": "10232602599586273763"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Inntektsopplysninger.tsx",
-          "hash": "954129401209830362"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Søknadsopplysninger.tsx",
-          "hash": "13917542417652875330"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/YtelsegrunnlagPanel.tsx",
-          "hash": "14983435275900619785"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/søknadsopplysninger.module.css",
-          "hash": "14244963176426475017"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/gradering/GraderingUtenBGReadOnly.tsx",
-          "hash": "6482745767673942213"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/gradering/graderingUtenBGReadOnly.module.css",
-          "hash": "4473278700579395213"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/militar/MilitaerPanel.tsx",
-          "hash": "17170749570302520815"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.tsx",
-          "hash": "11560762238195199282"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/FastsettSNNyIArbeid.tsx",
-          "hash": "6418210315229741368"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN.tsx",
-          "hash": "17230865344624073577"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/NaeringsOpplysningsPanel.tsx",
-          "hash": "4652133919799696578"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/VurderVarigEndringEllerNyoppstartet.tsx",
-          "hash": "10197768991105794437"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/naeringsOpplysningsPanel.module.css",
-          "hash": "17913097377226922262"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/tilstotendeYtelser/TilstotendeYtelser.tsx",
-          "hash": "2827000148953088435"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/components/tilstotendeYtelser/YtelserFraInfotrygd.tsx",
-          "hash": "10553041273665079538"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/ATFLAksjonspunktTsType.tsx",
-          "hash": "8083927696558564956"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningFormValues.ts",
-          "hash": "11221314948738031749"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningsgrunnlagAksjonspunktTsType.tsx",
-          "hash": "8456165571314882004"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningsresultatPeriodeTabellType.tsx",
-          "hash": "746025192984329809"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningsresultatTabellType.tsx",
-          "hash": "6327922115855082748"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/NaringAksjonspunktTsType.tsx",
-          "hash": "18260034253111080059"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/NaturalytelseTableTsType.tsx",
-          "hash": "2654675187769357740"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/RelevanteStatuserTsType.tsx",
-          "hash": "4223666568803721456"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/AvklaringsbehovMapping.tsx",
-          "hash": "7162719534739723506"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/BeregningsgrunnlagAP.ts",
-          "hash": "18058273795898944310"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/GamleKoder.ts",
-          "hash": "15441080240142818913"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode.ts",
-          "hash": "6154301580940285375"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/types/kodeverkForPanel.ts",
-          "hash": "3988455891767259971"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/src/util/createVisningsnavnForAktivitet.ts",
-          "hash": "14309441004079030297"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/tsconfig.json",
-          "hash": "4235612727165863082"
-        },
-        {
-          "file": "packages/prosess-beregningsgrunnlag/vite.config.js",
-          "hash": "2220818063426475378"
-        }
-      ],
-      "@navikt/ft-sak-aktor": [
-        {
-          "file": "packages/sak-aktor/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-aktor/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-aktor/i18n/nb_NO.json",
-          "hash": "12012519502357208821"
-        },
-        {
-          "file": "packages/sak-aktor/index.ts",
-          "hash": "1496625154217720206"
-        },
-        {
-          "file": "packages/sak-aktor/package.json",
-          "hash": "13142110438711444566",
-          "deps": [
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-plattform-komponenter",
-            "@navikt/ft-sak-visittkort",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:react",
-            "npm:react-intl",
-            "@navikt/ft-frontend-storybook-utils",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-aktor/src/AktorSakIndex.spec.tsx",
-          "hash": "1840539472519942944"
-        },
-        {
-          "file": "packages/sak-aktor/src/AktorSakIndex.stories.tsx",
-          "hash": "12194692387479548399"
-        },
-        {
-          "file": "packages/sak-aktor/src/AktorSakIndex.tsx",
-          "hash": "12226737230604865019"
-        },
-        {
-          "file": "packages/sak-aktor/src/components/AktoerGrid.tsx",
-          "hash": "3741412319067729749"
-        },
-        {
-          "file": "packages/sak-aktor/src/components/aktoerGrid.module.css",
-          "hash": "5657589202235590080"
-        },
-        {
-          "file": "packages/sak-aktor/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-aktor/vite.config.js",
-          "hash": "16274936412690211978"
-        }
-      ],
-      "@navikt/ft-sak-behandling-velger": [
-        {
-          "file": "packages/sak-behandling-velger/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-behandling-velger/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-behandling-velger/i18n/nb_NO.json",
-          "hash": "15163984280633041646"
-        },
-        {
-          "file": "packages/sak-behandling-velger/index.ts",
-          "hash": "11554342401060712908"
-        },
-        {
-          "file": "packages/sak-behandling-velger/package.json",
-          "hash": "16128527154235945398",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-plattform-komponenter",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:classnames",
-            "npm:history",
-            "npm:moment",
-            "npm:react",
-            "npm:react-intl",
-            "@navikt/ft-frontend-storybook-utils",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/BehandlingVelgerSakIndex.spec.tsx",
-          "hash": "14396766522556507746"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/BehandlingVelgerSakIndex.stories.tsx",
-          "hash": "15625827432315713515"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/BehandlingVelgerSakIndex.tsx",
-          "hash": "5235337284665758832"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/components/BehandlingInformasjon.tsx",
-          "hash": "5535373911422452966"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/components/BehandlingListeRad.tsx",
-          "hash": "8150915067718446441"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/components/BehandlingerListe.tsx",
-          "hash": "1101536740261269653"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/components/behandlingInformasjon.module.css",
-          "hash": "9278437932667865003"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/components/behandlingListeRad.module.css",
-          "hash": "12103786934720367876"
-        },
-        {
-          "file": "packages/sak-behandling-velger/src/components/behandlingerListe.module.css",
-          "hash": "2495595132064687489"
-        },
-        {
-          "file": "packages/sak-behandling-velger/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-behandling-velger/vite.config.js",
-          "hash": "2941698892437995398"
-        }
-      ],
-      "@navikt/ft-sak-dokumenter": [
-        {
-          "file": "packages/sak-dokumenter/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-dokumenter/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-dokumenter/i18n/nb_NO.json",
-          "hash": "1548194581508319717"
-        },
-        {
-          "file": "packages/sak-dokumenter/index.ts",
-          "hash": "11506343567974804720"
-        },
-        {
-          "file": "packages/sak-dokumenter/package.json",
-          "hash": "11554196892376293608",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:react",
-            "npm:react-intl",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-dokumenter/src/DokumenterSakIndex.spec.tsx",
-          "hash": "12149038150861463618"
-        },
-        {
-          "file": "packages/sak-dokumenter/src/DokumenterSakIndex.stories.tsx",
-          "hash": "2348993588551820396"
-        },
-        {
-          "file": "packages/sak-dokumenter/src/DokumenterSakIndex.tsx",
-          "hash": "1375802133859544617"
-        },
-        {
-          "file": "packages/sak-dokumenter/src/components/DocumentList.tsx",
-          "hash": "18028015022353943724"
-        },
-        {
-          "file": "packages/sak-dokumenter/src/components/documentList.module.css",
-          "hash": "7087832167555690455"
-        },
-        {
-          "file": "packages/sak-dokumenter/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-dokumenter/vite.config.js",
-          "hash": "14533881455248996835"
-        }
-      ],
-      "@navikt/ft-form-hooks": [
-        {
-          "file": "packages/form-hooks/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/form-hooks/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/form-hooks/index.ts",
-          "hash": "17304376638115161402"
-        },
-        {
-          "file": "packages/form-hooks/package.json",
-          "hash": "16881379999111142822",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-form-validators",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:classnames",
-            "npm:dayjs",
-            "npm:lodash.throttle",
-            "npm:react",
-            "npm:react-dom",
-            "npm:react-hook-form",
-            "@navikt/ft-frontend-utils-test",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/form-hooks/src/CheckboxField.tsx",
-          "hash": "11504255158522495602"
-        },
-        {
-          "file": "packages/form-hooks/src/CheckboxPanel.tsx",
-          "hash": "15747682340088541735"
-        },
-        {
-          "file": "packages/form-hooks/src/Datepicker.tsx",
-          "hash": "9423194011496307819"
-        },
-        {
-          "file": "packages/form-hooks/src/Form.tsx",
-          "hash": "14595215096071688376"
-        },
-        {
-          "file": "packages/form-hooks/src/FormHooks.spec.tsx",
-          "hash": "12577123814076383032"
-        },
-        {
-          "file": "packages/form-hooks/src/FormHooks.stories.tsx",
-          "hash": "15656291220242338320"
-        },
-        {
-          "file": "packages/form-hooks/src/InputField.tsx",
-          "hash": "5500893510055944274"
-        },
-        {
-          "file": "packages/form-hooks/src/NumberField.tsx",
-          "hash": "2468079815968059644"
-        },
-        {
-          "file": "packages/form-hooks/src/PeriodFieldArray.tsx",
-          "hash": "13799524851727140127"
-        },
-        {
-          "file": "packages/form-hooks/src/RadioGroupPanel.tsx",
-          "hash": "15286367517134322307"
-        },
-        {
-          "file": "packages/form-hooks/src/Rangepicker.tsx",
-          "hash": "4684138286332328632"
-        },
-        {
-          "file": "packages/form-hooks/src/ReadOnlyField.tsx",
-          "hash": "10828736316524425746"
-        },
-        {
-          "file": "packages/form-hooks/src/SelectField.tsx",
-          "hash": "3246007359998901607"
-        },
-        {
-          "file": "packages/form-hooks/src/SubmitButton.tsx",
-          "hash": "6506399257067011582"
-        },
-        {
-          "file": "packages/form-hooks/src/TextAreaField.tsx",
-          "hash": "17389103747982992130"
-        },
-        {
-          "file": "packages/form-hooks/src/formHooks.stories.module.css",
-          "hash": "4918225565826046519"
-        },
-        {
-          "file": "packages/form-hooks/src/formUtils.ts",
-          "hash": "14489221195507050740"
-        },
-        {
-          "file": "packages/form-hooks/src/periodFieldArray.module.css",
-          "hash": "17408682117303723995"
-        },
-        {
-          "file": "packages/form-hooks/src/pure/FieldError.tsx",
-          "hash": "16695283695563613573"
-        },
-        {
-          "file": "packages/form-hooks/src/pure/fieldError.module.css",
-          "hash": "12171810557347562610"
-        },
-        {
-          "file": "packages/form-hooks/src/radioGroupPanel.module.css",
-          "hash": "6890804733043067618"
-        },
-        {
-          "file": "packages/form-hooks/src/readOnlyField.module.css",
-          "hash": "8313426672414716516"
-        },
-        {
-          "file": "packages/form-hooks/src/textAreaField.module.css",
-          "hash": "12868603445112991030"
-        },
-        {
-          "file": "packages/form-hooks/src/useCustomValidation.tsx",
-          "hash": "17123777976218798708"
-        },
-        {
-          "file": "packages/form-hooks/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/form-hooks/vite.config.js",
-          "hash": "236371943673710048"
-        }
-      ],
-      "@navikt/ft-kodeverk": [
-        {
-          "file": "packages/kodeverk/index.ts",
-          "hash": "5174229726696681773"
-        },
-        {
-          "file": "packages/kodeverk/package.json",
-          "hash": "16856635146739907171",
-          "deps": [
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/kodeverk/src/aksjonspunktStatus.ts",
-          "hash": "2005225092993321006"
-        },
-        {
-          "file": "packages/kodeverk/src/aktivitetStatus.ts",
-          "hash": "6553456771038438122"
-        },
-        {
-          "file": "packages/kodeverk/src/arbeidType.ts",
-          "hash": "16425187287524612068"
-        },
-        {
-          "file": "packages/kodeverk/src/behandlingArsakType.ts",
-          "hash": "3722670896593671724"
-        },
-        {
-          "file": "packages/kodeverk/src/behandlingResultatType.ts",
-          "hash": "5340494332314585530"
-        },
-        {
-          "file": "packages/kodeverk/src/behandlingStatus.ts",
-          "hash": "7006894300871754727"
-        },
-        {
-          "file": "packages/kodeverk/src/behandlingType.ts",
-          "hash": "5146833097472999322"
-        },
-        {
-          "file": "packages/kodeverk/src/beregningsgrunnlagAndelType.ts",
-          "hash": "1682645820788332153"
-        },
-        {
-          "file": "packages/kodeverk/src/dekningsgrad.ts",
-          "hash": "18314616986337091114"
-        },
-        {
-          "file": "packages/kodeverk/src/diskresjonskodeType.ts",
-          "hash": "18034814944132037698"
-        },
-        {
-          "file": "packages/kodeverk/src/fagsakStatus.ts",
-          "hash": "16212648147593662146"
-        },
-        {
-          "file": "packages/kodeverk/src/fagsakYtelseType.ts",
-          "hash": "13596060827513217804"
-        },
-        {
-          "file": "packages/kodeverk/src/faktaOmBeregningTilfelle.ts",
-          "hash": "16854077807893808478"
-        },
-        {
-          "file": "packages/kodeverk/src/familieHendelseType.ts",
-          "hash": "8833225066346696504"
-        },
-        {
-          "file": "packages/kodeverk/src/foreldelseVurderingType.ts",
-          "hash": "15165728055759765983"
-        },
-        {
-          "file": "packages/kodeverk/src/inntektAktivitetType.ts",
-          "hash": "17182311141116754058"
-        },
-        {
-          "file": "packages/kodeverk/src/inntektskategori.ts",
-          "hash": "12590308011214531152"
-        },
-        {
-          "file": "packages/kodeverk/src/kodeverkType.ts",
-          "hash": "13010737814529891304"
-        },
-        {
-          "file": "packages/kodeverk/src/kommunikasjonsretning.ts",
-          "hash": "17845647685136992811"
-        },
-        {
-          "file": "packages/kodeverk/src/konsekvensForYtelsen.ts",
-          "hash": "17758079786240652176"
-        },
-        {
-          "file": "packages/kodeverk/src/lønnsendringScenario.ts",
-          "hash": "7305890184945056215"
-        },
-        {
-          "file": "packages/kodeverk/src/navBrukerKjonn.ts",
-          "hash": "4939962689917069348"
-        },
-        {
-          "file": "packages/kodeverk/src/opptjeningAktivitetType.ts",
-          "hash": "2798641730959147874"
-        },
-        {
-          "file": "packages/kodeverk/src/organisasjonstype.ts",
-          "hash": "11799202700237080"
-        },
-        {
-          "file": "packages/kodeverk/src/periodeAarsak.ts",
-          "hash": "13173271081067663961"
-        },
-        {
-          "file": "packages/kodeverk/src/personstatusType.ts",
-          "hash": "533350774648087063"
-        },
-        {
-          "file": "packages/kodeverk/src/pgiType.ts",
-          "hash": "12729697727495713176"
-        },
-        {
-          "file": "packages/kodeverk/src/relasjonsRolleType.ts",
-          "hash": "15011769747147614826"
-        },
-        {
-          "file": "packages/kodeverk/src/sammenligningType.ts",
-          "hash": "12606073120084890350"
-        },
-        {
-          "file": "packages/kodeverk/src/tilbakekrevingKodeverkType.ts",
-          "hash": "7291722369710049168"
-        },
-        {
-          "file": "packages/kodeverk/src/tilbakekrevingVidereBehandling.ts",
-          "hash": "3024927480962650426"
-        },
-        {
-          "file": "packages/kodeverk/src/vedtakResultatType.ts",
-          "hash": "10788614624753556082"
-        },
-        {
-          "file": "packages/kodeverk/src/vilkarType.ts",
-          "hash": "17090855629199388834"
-        },
-        {
-          "file": "packages/kodeverk/src/vilkarUtfallType.ts",
-          "hash": "13554085285634093433"
-        },
-        {
-          "file": "packages/kodeverk/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/kodeverk/vite.config.js",
-          "hash": "14902864115622997798"
-        }
-      ],
-      "@navikt/ft-sak-meny": [
-        {
-          "file": "packages/sak-meny/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-meny/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-meny/i18n/nb_NO.json",
-          "hash": "16050827483915893859"
-        },
-        {
-          "file": "packages/sak-meny/index.ts",
-          "hash": "12422741781240138841"
-        },
-        {
-          "file": "packages/sak-meny/package.json",
-          "hash": "4190488155073445699",
-          "deps": [
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-form-hooks",
-            "@navikt/ft-form-validators",
-            "@navikt/ft-plattform-komponenter",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:react-intl",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-meny/src/endreEnhet/MenyEndreBehandlendeEnhetIndex.spec.tsx",
-          "hash": "18292479310657254171"
-        },
-        {
-          "file": "packages/sak-meny/src/endreEnhet/MenyEndreBehandlendeEnhetIndex.stories.tsx",
-          "hash": "12675725993585295541"
-        },
-        {
-          "file": "packages/sak-meny/src/endreEnhet/MenyEndreBehandlendeEnhetIndex.tsx",
-          "hash": "11608072701412104287"
-        },
-        {
-          "file": "packages/sak-meny/src/endreEnhet/modal/EndreBehandlendeEnhetModal.tsx",
-          "hash": "9604962701852274456"
-        },
-        {
-          "file": "packages/sak-meny/src/endreEnhet/modal/endreBehandlendeEnhetModal.module.css",
-          "hash": "5029054358864263355"
-        },
-        {
-          "file": "packages/sak-meny/src/taAvVent/MenyTaAvVentIndex.spec.tsx",
-          "hash": "14695428994226580790"
-        },
-        {
-          "file": "packages/sak-meny/src/taAvVent/MenyTaAvVentIndex.stories.tsx",
-          "hash": "10316789549504262349"
-        },
-        {
-          "file": "packages/sak-meny/src/taAvVent/MenyTaAvVentIndex.tsx",
-          "hash": "407554810752241200"
-        },
-        {
-          "file": "packages/sak-meny/src/verge/MenyVergeIndex.spec.tsx",
-          "hash": "11439293542680012611"
-        },
-        {
-          "file": "packages/sak-meny/src/verge/MenyVergeIndex.stories.tsx",
-          "hash": "942719522905463110"
-        },
-        {
-          "file": "packages/sak-meny/src/verge/MenyVergeIndex.tsx",
-          "hash": "9804261490038796204"
-        },
-        {
-          "file": "packages/sak-meny/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-meny/vite.config.js",
-          "hash": "5202433205205244011"
-        }
-      ],
-      "@navikt/ft-sak-fagsak-profil": [
-        {
-          "file": "packages/sak-fagsak-profil/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/i18n/nb_NO.json",
-          "hash": "546429107502915158"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/index.ts",
-          "hash": "10006424870171033318"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/package.json",
-          "hash": "3948853001982163440",
-          "deps": [
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:react",
-            "npm:react-intl",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-fagsak-profil/src/FagsakProfilSakIndex.spec.tsx",
-          "hash": "3407425110716181517"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/src/FagsakProfilSakIndex.stories.tsx",
-          "hash": "16746069400481965574"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/src/FagsakProfilSakIndex.tsx",
-          "hash": "10925597661381821377"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/src/components/FagsakProfile.tsx",
-          "hash": "14331025973518276660"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-fagsak-profil/vite.config.js",
-          "hash": "7323484829093205380"
-        }
-      ],
-      "@navikt/ft-utils": [
-        {
-          "file": "packages/utils/i18n/nb_NO.json",
-          "hash": "4883761389944256217"
-        },
-        {
-          "file": "packages/utils/index.ts",
-          "hash": "7777387161494643682"
-        },
-        {
-          "file": "packages/utils/package.json",
-          "hash": "14727798464071664088",
-          "deps": [
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-types",
-            "npm:dayjs",
-            "npm:react",
-            "npm:react-intl",
-            "npm:eslint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/utils/src/Period.ts",
-          "hash": "2273272682495580192"
-        },
-        {
-          "file": "packages/utils/src/arrayUtils.spec.ts",
-          "hash": "6854246129884673238"
-        },
-        {
-          "file": "packages/utils/src/arrayUtils.ts",
-          "hash": "6038207871934087210"
-        },
-        {
-          "file": "packages/utils/src/bemUtils.spec.ts",
-          "hash": "8436250457176993809"
-        },
-        {
-          "file": "packages/utils/src/bemUtils.ts",
-          "hash": "6447271863323661474"
-        },
-        {
-          "file": "packages/utils/src/browserUtils.spec.ts",
-          "hash": "12213290046642810677"
-        },
-        {
-          "file": "packages/utils/src/browserUtils.ts",
-          "hash": "3551535944010983173"
-        },
-        {
-          "file": "packages/utils/src/createIntl.ts",
-          "hash": "5978410925265115596"
-        },
-        {
-          "file": "packages/utils/src/currencyUtils.spec.ts",
-          "hash": "7865433032787222168"
-        },
-        {
-          "file": "packages/utils/src/currencyUtils.ts",
-          "hash": "18399113382168110227"
-        },
-        {
-          "file": "packages/utils/src/dateUtils.spec.ts",
-          "hash": "18352464211189910813"
-        },
-        {
-          "file": "packages/utils/src/dateUtils.ts",
-          "hash": "2742151812430493747"
-        },
-        {
-          "file": "packages/utils/src/decodeHtmlEntity.spec.ts",
-          "hash": "4535038544547727609"
-        },
-        {
-          "file": "packages/utils/src/decodeHtmlEntity.ts",
-          "hash": "16000504288972368718"
-        },
-        {
-          "file": "packages/utils/src/fodselsnummerUtils.spec.ts",
-          "hash": "4615892367879683203"
-        },
-        {
-          "file": "packages/utils/src/fodselsnummerUtils.ts",
-          "hash": "3358003865055623948"
-        },
-        {
-          "file": "packages/utils/src/formats.ts",
-          "hash": "4643258055615316012"
-        },
-        {
-          "file": "packages/utils/src/guid.ts",
-          "hash": "2981634874621734830"
-        },
-        {
-          "file": "packages/utils/src/languageUtils.spec.ts",
-          "hash": "1845632042025960805"
-        },
-        {
-          "file": "packages/utils/src/languageUtils.ts",
-          "hash": "13361778891182781315"
-        },
-        {
-          "file": "packages/utils/src/objectUtils.spec.ts",
-          "hash": "17283377230707388777"
-        },
-        {
-          "file": "packages/utils/src/objectUtils.ts",
-          "hash": "15348565689765909713"
-        },
-        {
-          "file": "packages/utils/src/periodUtils.ts",
-          "hash": "3208576041489827381"
-        },
-        {
-          "file": "packages/utils/src/stringUtils.spec.ts",
-          "hash": "8475832808378468340"
-        },
-        {
-          "file": "packages/utils/src/stringUtils.ts",
-          "hash": "480218130810304913"
-        },
-        {
-          "file": "packages/utils/src/switchCaseUtils.ts",
-          "hash": "5528170771972179350"
-        },
-        {
-          "file": "packages/utils/src/urlUtils.spec.ts",
-          "hash": "313723352221890757"
-        },
-        {
-          "file": "packages/utils/src/urlUtils.ts",
-          "hash": "12256410559473640405"
-        },
-        {
-          "file": "packages/utils/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/utils/vite.config.js",
-          "hash": "3231877262972146259"
-        }
-      ],
-      "@navikt/ft-sak-infosider": [
-        {
-          "file": "packages/sak-infosider/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-infosider/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-infosider/i18n/nb_NO.json",
-          "hash": "11310782894153083477"
-        },
-        {
-          "file": "packages/sak-infosider/index.ts",
-          "hash": "6992694734458032139"
-        },
-        {
-          "file": "packages/sak-infosider/package.json",
-          "hash": "9903434874247473871",
-          "deps": [
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-utils",
-            "npm:react",
-            "npm:react-intl",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-infosider/src/ErrorPage.tsx",
-          "hash": "7478966581278833584"
-        },
-        {
-          "file": "packages/sak-infosider/src/ForbiddenPage.spec.tsx",
-          "hash": "6915671267349530983"
-        },
-        {
-          "file": "packages/sak-infosider/src/ForbiddenPage.tsx",
-          "hash": "14075859924642973384"
-        },
-        {
-          "file": "packages/sak-infosider/src/InfosiderSakIndex.stories.tsx",
-          "hash": "1804702545084322650"
-        },
-        {
-          "file": "packages/sak-infosider/src/IngenBehandlingValgtPanel.spec.tsx",
-          "hash": "12124232102673027470"
-        },
-        {
-          "file": "packages/sak-infosider/src/IngenBehandlingValgtPanel.tsx",
-          "hash": "14896601218656954154"
-        },
-        {
-          "file": "packages/sak-infosider/src/NotFoundPage.spec.tsx",
-          "hash": "10073668738003326444"
-        },
-        {
-          "file": "packages/sak-infosider/src/NotFoundPage.tsx",
-          "hash": "5643065980441630717"
-        },
-        {
-          "file": "packages/sak-infosider/src/UnauthorizedPage.spec.tsx",
-          "hash": "18299609687871762594"
-        },
-        {
-          "file": "packages/sak-infosider/src/UnauthorizedPage.tsx",
-          "hash": "4541821208864645509"
-        },
-        {
-          "file": "packages/sak-infosider/src/components/ErrorPageWrapper.tsx",
-          "hash": "10158238148189921123"
-        },
-        {
-          "file": "packages/sak-infosider/src/components/errorPageWrapper.module.css",
-          "hash": "9318698629317822937"
-        },
-        {
-          "file": "packages/sak-infosider/src/ingenBehandlingValgtPanel.module.css",
-          "hash": "2453781370068457193"
-        },
-        {
-          "file": "packages/sak-infosider/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-infosider/vite.config.js",
-          "hash": "14145855587534110169"
-        }
-      ],
-      "@navikt/ft-prosess-tilbakekreving": [
-        {
-          "file": "packages/prosess-tilbakekreving/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/i18n/nb_NO.json",
-          "hash": "8837223722516611903"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/index.ts",
-          "hash": "1540127166023583229"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/package.json",
-          "hash": "2168473484607961933",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-form-hooks",
-            "@navikt/ft-form-validators",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:dayjs",
-            "npm:moment",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:react-intl",
-            "@navikt/ft-frontend-storybook-utils",
-            "@navikt/ft-frontend-utils-test",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingAksjonspunktCodes.ts",
-          "hash": "12319073250885976347"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingProsessIndex.spec.tsx",
-          "hash": "12971729492706189272"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingProsessIndex.stories.tsx",
-          "hash": "7060222293230583320"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingProsessIndex.tsx",
-          "hash": "1212044586284456886"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/TilbakekrevingForm.tsx",
-          "hash": "2986830406695772240"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/TilbakekrevingPeriodeForm.tsx",
-          "hash": "15398654081703681195"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/DelOppPeriodeModal.tsx",
-          "hash": "6367322353171879470"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/PeriodeController.tsx",
-          "hash": "10347373278567482673"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/PeriodeInformasjon.tsx",
-          "hash": "12348586013618046709"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/delOppPeriodeModal.module.css",
-          "hash": "5253748275858057823"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/periodeController.module.css",
-          "hash": "13622090973170955042"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/periodeInformasjon.module.css",
-          "hash": "4333385830376186971"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingForm.module.css",
-          "hash": "10051327470175028758"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodeForm.module.css",
-          "hash": "11236207468658053628"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/ForeldetFormPanel.tsx",
-          "hash": "13427559820961250675"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell.tsx",
-          "hash": "3503320379512042924"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel.tsx",
-          "hash": "14814723660594138816"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetGradFormPanel.tsx",
-          "hash": "3450112437651601960"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetGradForsettFormPanel.tsx",
-          "hash": "6194633747163272145"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetGradUaktsomhetFormPanel.tsx",
-          "hash": "11956375852795458685"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetReduksjonAvBelopFormPanel.tsx",
-          "hash": "17978893998473136707"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetSarligeGrunnerFormPanel.tsx",
-          "hash": "584828688134363552"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/aktsomhetGradUaktsomhetFormPanel.module.css",
-          "hash": "8246083204973070668"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/aktsomhetReduksjonAvBelopFormPanel.module.css",
-          "hash": "4248739780472977131"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel.tsx",
-          "hash": "6953203534296527426"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/godTro/belopetMottattIGodTroFormPanel.module.css",
-          "hash": "6749819303818621413"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/tilbakekrevingAktivitetTabell.module.css",
-          "hash": "16982805444854274165"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/timeline/TilbakekrevingTimeline.tsx",
-          "hash": "5977713206324081833"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/components/timeline/tilbakekrevingTimeline.module.css",
-          "hash": "2670478459933601929"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/kodeverk/aktsomhet.tsx",
-          "hash": "3044421731603998550"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/kodeverk/sarligGrunn.tsx",
-          "hash": "5183176103432347300"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/kodeverk/vilkarResultat.tsx",
-          "hash": "13938010582892777834"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/types/VilkarsVurderingAp.ts",
-          "hash": "13301146520657723674"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/types/dataForPeriodeTsType.ts",
-          "hash": "15157590449764608278"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/types/kodeverkFpTilbakeForPanel.ts",
-          "hash": "8053035482697378712"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/src/types/tidslinjePeriodeTsType.ts",
-          "hash": "444859227751963761"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/tsconfig.json",
-          "hash": "4228433193664026631"
-        },
-        {
-          "file": "packages/prosess-tilbakekreving/vite.config.js",
-          "hash": "10783342473997633316"
-        }
-      ],
-      "@navikt/ft-sak-risikoklassifisering": [
-        {
-          "file": "packages/sak-risikoklassifisering/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/i18n/nb_NO.json",
-          "hash": "13109669468142383188"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/index.ts",
-          "hash": "18260668890906677332"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/package.json",
-          "hash": "9735671559772264463",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-form-hooks",
-            "@navikt/ft-form-validators",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
-            "@navikt/ft-utils",
-            "npm:react",
-            "npm:react-dom",
-            "npm:react-hook-form",
-            "npm:react-intl",
-            "@navikt/ft-frontend-storybook-utils",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringAksjonspunktCode.ts",
-          "hash": "10352209836970092671"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringSakIndex.spec.tsx",
-          "hash": "7818547623042757880"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringSakIndex.stories.tsx",
-          "hash": "9252710701442902521"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringSakIndex.tsx",
-          "hash": "1363843593036054254"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/components/AvklarFaresignalerForm.tsx",
-          "hash": "9159985447005826703"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/components/Faresignaler.tsx",
-          "hash": "8776221660419075535"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/components/HoyRisikoPanel.tsx",
-          "hash": "16825421088456173493"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/components/HoyRisikoTittel.tsx",
-          "hash": "17783598614424393815"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/components/IngenRisikoPanel.tsx",
-          "hash": "6199383970710897222"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/components/ManglendeKlassifiseringPanel.tsx",
-          "hash": "7811184310346570140"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/components/hoyRisikoTittel.module.css",
-          "hash": "3803638264294645280"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/kodeverk/faresignalVurdering.ts",
-          "hash": "12448622576150704881"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/kodeverk/kontrollresultatKode.ts",
-          "hash": "7214839592371149651"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/src/types/AvklartRisikoklassifiseringAp.ts",
-          "hash": "13858735575877696884"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/tsconfig.json",
-          "hash": "17809664984697173256"
-        },
-        {
-          "file": "packages/sak-risikoklassifisering/vite.config.js",
-          "hash": "4106716189357500408"
-        }
-      ],
-      "@navikt/ft-ui-komponenter": [
-        {
-          "file": "packages/ui-komponenter/.storybook/main.ts",
-          "hash": "16037028598835203451"
-        },
-        {
-          "file": "packages/ui-komponenter/.storybook/preview.tsx",
-          "hash": "5715388699489233354"
-        },
-        {
-          "file": "packages/ui-komponenter/i18n/nb_NO.json",
-          "hash": "17358971651730540915"
-        },
-        {
-          "file": "packages/ui-komponenter/index.ts",
-          "hash": "9658641021264566333"
-        },
-        {
-          "file": "packages/ui-komponenter/package.json",
-          "hash": "5921574835634802805",
-          "deps": [
-            "npm:@navikt/aksel-icons",
-            "npm:@navikt/ds-css",
-            "npm:@navikt/ds-react",
-            "@navikt/ft-utils",
-            "npm:classnames",
-            "npm:react",
-            "npm:react-dom",
-            "npm:react-intl",
-            "npm:react-modal",
-            "npm:@storybook/addon-actions",
-            "npm:@storybook/react",
-            "npm:@storybook/react-vite",
-            "npm:@testing-library/dom",
-            "npm:@testing-library/react",
-            "npm:@testing-library/user-event",
-            "npm:cross-env",
-            "npm:eslint",
-            "npm:storybook",
-            "npm:stylelint",
-            "npm:typescript",
-            "npm:vite",
-            "npm:vitest"
-          ]
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktBox.stories.tsx",
-          "hash": "13659149613875386248"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktBox.tsx",
-          "hash": "929883535944159239"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextHTML.spec.tsx",
-          "hash": "10050618011569631368"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextHTML.stories.tsx",
-          "hash": "5053490216970122121"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextHTML.tsx",
-          "hash": "17611546587846277970"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.module.css",
-          "hash": "8709122249808880022"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.spec.tsx",
-          "hash": "7769744355387911035"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.stories.tsx",
-          "hash": "3897363997212879152"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.tsx",
-          "hash": "11543943525640299495"
-        },
-        {
-          "file": "packages/ui-komponenter/src/ArrowBox.stories.tsx",
-          "hash": "4403241037903594372"
-        },
-        {
-          "file": "packages/ui-komponenter/src/ArrowBox.tsx",
-          "hash": "11735222798349753598"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AvsnittSkiller.stories.tsx",
-          "hash": "14862794839613174884"
-        },
-        {
-          "file": "packages/ui-komponenter/src/AvsnittSkiller.tsx",
-          "hash": "1471895935586887724"
-        },
-        {
-          "file": "packages/ui-komponenter/src/BorderBox.stories.tsx",
-          "hash": "8348883782129219"
-        },
-        {
-          "file": "packages/ui-komponenter/src/BorderBox.tsx",
-          "hash": "12071980877090680593"
-        },
-        {
-          "file": "packages/ui-komponenter/src/DataFetchPendingModal.stories.tsx",
-          "hash": "13505226864454703875"
-        },
-        {
-          "file": "packages/ui-komponenter/src/DataFetchPendingModal.tsx",
-          "hash": "7339810099072456402"
-        },
-        {
-          "file": "packages/ui-komponenter/src/DateLabel.stories.tsx",
-          "hash": "12121311753328213570"
-        },
-        {
-          "file": "packages/ui-komponenter/src/DateLabel.tsx",
-          "hash": "11743133918401153057"
-        },
-        {
-          "file": "packages/ui-komponenter/src/DateTimeLabel.stories.tsx",
-          "hash": "4473840865227034727"
-        },
-        {
-          "file": "packages/ui-komponenter/src/DateTimeLabel.tsx",
-          "hash": "8578410088044489842"
-        },
-        {
-          "file": "packages/ui-komponenter/src/EditedIcon.stories.tsx",
-          "hash": "1276390721455953183"
-        },
-        {
-          "file": "packages/ui-komponenter/src/EditedIcon.tsx",
-          "hash": "9396733343444289582"
-        },
-        {
-          "file": "packages/ui-komponenter/src/FadingPanel.stories.tsx",
-          "hash": "2182622839621567052"
-        },
-        {
-          "file": "packages/ui-komponenter/src/FadingPanel.tsx",
-          "hash": "10349553366136486988"
-        },
-        {
-          "file": "packages/ui-komponenter/src/FaktaGruppe.stories.tsx",
-          "hash": "9512234439214365756"
-        },
-        {
-          "file": "packages/ui-komponenter/src/FaktaGruppe.tsx",
-          "hash": "12274055312489682"
-        },
-        {
-          "file": "packages/ui-komponenter/src/FloatRight.stories.tsx",
-          "hash": "3450426607997429477"
-        },
-        {
-          "file": "packages/ui-komponenter/src/FloatRight.tsx",
-          "hash": "18140602409292136675"
-        },
-        {
-          "file": "packages/ui-komponenter/src/Image.tsx",
-          "hash": "12070861270596471726"
-        },
-        {
-          "file": "packages/ui-komponenter/src/LabelWithHeader.stories.tsx",
-          "hash": "17240055318561325658"
-        },
-        {
-          "file": "packages/ui-komponenter/src/LabelWithHeader.tsx",
-          "hash": "50579915806060208"
-        },
-        {
-          "file": "packages/ui-komponenter/src/LoadingPanel.spec.tsx",
-          "hash": "14987440787380128072"
-        },
-        {
-          "file": "packages/ui-komponenter/src/LoadingPanel.stories.tsx",
-          "hash": "10186519769814548265"
-        },
-        {
-          "file": "packages/ui-komponenter/src/LoadingPanel.tsx",
-          "hash": "15343883132103980765"
-        },
-        {
-          "file": "packages/ui-komponenter/src/OkAvbrytModal.stories.tsx",
-          "hash": "11585979021366850705"
-        },
-        {
-          "file": "packages/ui-komponenter/src/OkAvbrytModal.tsx",
-          "hash": "8996483160973621530"
-        },
-        {
-          "file": "packages/ui-komponenter/src/OverstyringKnapp.stories.tsx",
-          "hash": "2301118297477720732"
-        },
-        {
-          "file": "packages/ui-komponenter/src/OverstyringKnapp.tsx",
-          "hash": "4090187841896436971"
-        },
-        {
-          "file": "packages/ui-komponenter/src/PeriodLabel.stories.tsx",
-          "hash": "13246887451766330090"
-        },
-        {
-          "file": "packages/ui-komponenter/src/PeriodLabel.tsx",
-          "hash": "14090923677971219773"
-        },
-        {
-          "file": "packages/ui-komponenter/src/TimeLabel.stories.tsx",
-          "hash": "12667864541526378283"
-        },
-        {
-          "file": "packages/ui-komponenter/src/TimeLabel.tsx",
-          "hash": "16800772930374498273"
-        },
-        {
-          "file": "packages/ui-komponenter/src/Tooltip.stories.tsx",
-          "hash": "6289003095073940478"
-        },
-        {
-          "file": "packages/ui-komponenter/src/Tooltip.tsx",
-          "hash": "7769943065861761483"
-        },
-        {
-          "file": "packages/ui-komponenter/src/VerticalSpacer.stories.tsx",
-          "hash": "173957205940411042"
-        },
-        {
-          "file": "packages/ui-komponenter/src/VerticalSpacer.tsx",
-          "hash": "10321117874786070006"
-        },
-        {
-          "file": "packages/ui-komponenter/src/WarningModal.spec.tsx",
-          "hash": "2018296184125058328"
-        },
-        {
-          "file": "packages/ui-komponenter/src/WarningModal.stories.tsx",
-          "hash": "14940197227977141225"
-        },
-        {
-          "file": "packages/ui-komponenter/src/WarningModal.tsx",
-          "hash": "9013659293188831576"
-        },
-        {
-          "file": "packages/ui-komponenter/src/aksjonspunktBox.module.css",
-          "hash": "14506434785946794691"
-        },
-        {
-          "file": "packages/ui-komponenter/src/avsnittSkiller.module.css",
-          "hash": "9917055389751408129"
-        },
-        {
-          "file": "packages/ui-komponenter/src/blaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe.stories.tsx",
-          "hash": "9700009711226629979"
-        },
-        {
-          "file": "packages/ui-komponenter/src/blaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe.tsx",
-          "hash": "15646278161038230294"
-        },
-        {
-          "file": "packages/ui-komponenter/src/blaBoksMedCheckmarkListe/blaBoksMedCheckmarkListe.module.css",
-          "hash": "17998329700673504387"
-        },
-        {
-          "file": "packages/ui-komponenter/src/borderBox.module.css",
-          "hash": "10455182168708448002"
-        },
-        {
-          "file": "packages/ui-komponenter/src/dataFetchPendingModal.module.css",
-          "hash": "9923131107882674480"
-        },
-        {
-          "file": "packages/ui-komponenter/src/dateLabel.spec.tsx",
-          "hash": "1124394256226152822"
-        },
-        {
-          "file": "packages/ui-komponenter/src/editedIcon.module.css",
-          "hash": "12104222011859724901"
-        },
-        {
-          "file": "packages/ui-komponenter/src/error-boundary/ErrorBoundary.tsx",
-          "hash": "8981149872355940426"
-        },
-        {
-          "file": "packages/ui-komponenter/src/fadingPanel.module.css",
-          "hash": "889826720123644635"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/FlexColumn.tsx",
-          "hash": "17042736492333759259"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/FlexContainer.stories.tsx",
-          "hash": "48825632752497220"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/FlexContainer.tsx",
-          "hash": "4038816911338305916"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/FlexRow.tsx",
-          "hash": "12897205649739318930"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/flexColumn.module.css",
-          "hash": "17550011946110645570"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/flexContainer.module.css",
-          "hash": "12867845804426568281"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/flexContainer.spec.tsx",
-          "hash": "12561394969414419553"
-        },
-        {
-          "file": "packages/ui-komponenter/src/flexGrid/flexRow.module.css",
-          "hash": "4178791988821226426"
-        },
-        {
-          "file": "packages/ui-komponenter/src/floatRight.module.css",
-          "hash": "3973424785516234118"
-        },
-        {
-          "file": "packages/ui-komponenter/src/hooks/usePrevious.tsx",
-          "hash": "5357645285395649253"
-        },
-        {
-          "file": "packages/ui-komponenter/src/labelWithHeader.module.css",
-          "hash": "1414311039526084455"
-        },
-        {
-          "file": "packages/ui-komponenter/src/loadingPanel.module.css",
-          "hash": "8325269342008112571"
-        },
-        {
-          "file": "packages/ui-komponenter/src/okAvbrytModal.spec.tsx",
-          "hash": "2106244920576806011"
-        },
-        {
-          "file": "packages/ui-komponenter/src/overstyringKnapp.module.css",
-          "hash": "10773945613675883362"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/ExpandableTableRow.spec.tsx",
-          "hash": "12117863003473035483"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/ExpandableTableRow.stories.tsx",
-          "hash": "12695180686941718854"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/ExpandableTableRow.tsx",
-          "hash": "10555617777932246602"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/Table.stories.tsx",
-          "hash": "3748131713008699946"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/Table.tsx",
-          "hash": "17455753294705006833"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/TableColumn.tsx",
-          "hash": "17667200390523675656"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/TableRow.tsx",
-          "hash": "8592385982730215424"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/expandableTableRow.module.css",
-          "hash": "15600521902009175199"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/index.tsx",
-          "hash": "15847543224589984237"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/table.module.css",
-          "hash": "8410262776256423313"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/table.spec.tsx",
-          "hash": "14842028663759888673"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/tableColumn.module.css",
-          "hash": "16303896457252215029"
-        },
-        {
-          "file": "packages/ui-komponenter/src/table/tableRow.module.css",
-          "hash": "163450974932867266"
-        },
-        {
-          "file": "packages/ui-komponenter/src/tooltip.module.css",
-          "hash": "14126547798707411572"
-        },
-        {
-          "file": "packages/ui-komponenter/src/verticalSpacer.module.css",
-          "hash": "3020152095787035238"
-        },
-        {
-          "file": "packages/ui-komponenter/src/warningModal.module.css",
-          "hash": "4172337931426922069"
-        },
-        {
-          "file": "packages/ui-komponenter/tsconfig.json",
-          "hash": "13454511841889097846"
-        },
-        {
-          "file": "packages/ui-komponenter/vite.config.js",
-          "hash": "2109782830818244650"
-        }
-      ],
       "@navikt/ft-fakta-fordel-beregningsgrunnlag": [
         {
           "file": "packages/fakta-fordel-beregningsgrunnlag/.storybook/main.ts",
@@ -2535,7 +182,7 @@
         },
         {
           "file": "packages/fakta-fordel-beregningsgrunnlag/package.json",
-          "hash": "18297598030572114953",
+          "hash": "14296721589481979482",
           "deps": [
             "npm:@navikt/aksel-icons",
             "npm:@navikt/ds-css",
@@ -2573,11 +220,11 @@
         },
         {
           "file": "packages/fakta-fordel-beregningsgrunnlag/src/FordelBeregningsgrunnlagFaktaIndex.spec.tsx",
-          "hash": "15287217086251703868"
+          "hash": "14628482063300667469"
         },
         {
           "file": "packages/fakta-fordel-beregningsgrunnlag/src/FordelBeregningsgrunnlagFaktaIndex.stories.tsx",
-          "hash": "16715547161449932586"
+          "hash": "6290836380554944288"
         },
         {
           "file": "packages/fakta-fordel-beregningsgrunnlag/src/FordelBeregningsgrunnlagFaktaIndex.tsx",
@@ -2833,7 +480,7 @@
         },
         {
           "file": "packages/fakta-fordel-beregningsgrunnlag/testdata/TilkommetAktivitetMedForlengelseLukketAP.ts",
-          "hash": "14064739176099542575"
+          "hash": "4290258615351628949"
         },
         {
           "file": "packages/fakta-fordel-beregningsgrunnlag/testdata/TilkommetAktivitetRevurderingLøstTidligere.ts",
@@ -2860,6 +507,1248 @@
           "hash": "6519302581026906832"
         }
       ],
+      "@navikt/ft-konstanter": [
+        {
+          "file": "packages/konstanter/index.ts",
+          "hash": "13963160418797000049"
+        },
+        {
+          "file": "packages/konstanter/package.json",
+          "hash": "11577546005511341029",
+          "deps": [
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/konstanter/src/eksterneLenker.ts",
+          "hash": "15608010545545336459"
+        },
+        {
+          "file": "packages/konstanter/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/konstanter/vite.config.js",
+          "hash": "3268988086156914968"
+        }
+      ],
+      "@navikt/ft-sak-behandling-velger": [
+        {
+          "file": "packages/sak-behandling-velger/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-behandling-velger/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-behandling-velger/i18n/nb_NO.json",
+          "hash": "15163984280633041646"
+        },
+        {
+          "file": "packages/sak-behandling-velger/index.ts",
+          "hash": "11554342401060712908"
+        },
+        {
+          "file": "packages/sak-behandling-velger/package.json",
+          "hash": "2663823866841037466",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-plattform-komponenter",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:classnames",
+            "npm:history",
+            "npm:moment",
+            "npm:react",
+            "npm:react-intl",
+            "@navikt/ft-frontend-storybook-utils",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/BehandlingVelgerSakIndex.spec.tsx",
+          "hash": "13235409309660115989"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/BehandlingVelgerSakIndex.stories.tsx",
+          "hash": "15767372222509824993"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/BehandlingVelgerSakIndex.tsx",
+          "hash": "5235337284665758832"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/components/BehandlingInformasjon.tsx",
+          "hash": "5535373911422452966"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/components/BehandlingListeRad.tsx",
+          "hash": "8150915067718446441"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/components/BehandlingerListe.tsx",
+          "hash": "1101536740261269653"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/components/behandlingInformasjon.module.css",
+          "hash": "9278437932667865003"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/components/behandlingListeRad.module.css",
+          "hash": "12103786934720367876"
+        },
+        {
+          "file": "packages/sak-behandling-velger/src/components/behandlingerListe.module.css",
+          "hash": "2495595132064687489"
+        },
+        {
+          "file": "packages/sak-behandling-velger/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/sak-behandling-velger/vite.config.js",
+          "hash": "2941698892437995398"
+        }
+      ],
+      "@navikt/ft-prosess-tilbakekreving": [
+        {
+          "file": "packages/prosess-tilbakekreving/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/i18n/nb_NO.json",
+          "hash": "8837223722516611903"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/index.ts",
+          "hash": "1540127166023583229"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/package.json",
+          "hash": "17164800410233197468",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-form-hooks",
+            "@navikt/ft-form-validators",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:dayjs",
+            "npm:moment",
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:react-intl",
+            "@navikt/ft-frontend-storybook-utils",
+            "@navikt/ft-frontend-utils-test",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingAksjonspunktCodes.ts",
+          "hash": "12319073250885976347"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingProsessIndex.spec.tsx",
+          "hash": "12971729492706189272"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingProsessIndex.stories.tsx",
+          "hash": "7060222293230583320"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/TilbakekrevingProsessIndex.tsx",
+          "hash": "1212044586284456886"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/TilbakekrevingForm.tsx",
+          "hash": "2986830406695772240"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/TilbakekrevingPeriodeForm.tsx",
+          "hash": "15398654081703681195"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/DelOppPeriodeModal.tsx",
+          "hash": "6367322353171879470"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/PeriodeController.tsx",
+          "hash": "10347373278567482673"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/PeriodeInformasjon.tsx",
+          "hash": "12348586013618046709"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/delOppPeriodeModal.module.css",
+          "hash": "5253748275858057823"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/periodeController.module.css",
+          "hash": "13622090973170955042"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/splittePerioder/periodeInformasjon.module.css",
+          "hash": "4333385830376186971"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingForm.module.css",
+          "hash": "10051327470175028758"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodeForm.module.css",
+          "hash": "11236207468658053628"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/ForeldetFormPanel.tsx",
+          "hash": "13427559820961250675"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell.tsx",
+          "hash": "3503320379512042924"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel.tsx",
+          "hash": "14814723660594138816"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetGradFormPanel.tsx",
+          "hash": "3450112437651601960"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetGradForsettFormPanel.tsx",
+          "hash": "6194633747163272145"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetGradUaktsomhetFormPanel.tsx",
+          "hash": "11956375852795458685"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetReduksjonAvBelopFormPanel.tsx",
+          "hash": "17978893998473136707"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetSarligeGrunnerFormPanel.tsx",
+          "hash": "584828688134363552"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/aktsomhetGradUaktsomhetFormPanel.module.css",
+          "hash": "8246083204973070668"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/aktsomhet/aktsomhetReduksjonAvBelopFormPanel.module.css",
+          "hash": "4248739780472977131"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel.tsx",
+          "hash": "6953203534296527426"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/godTro/belopetMottattIGodTroFormPanel.module.css",
+          "hash": "6749819303818621413"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/tilbakekrevingPeriodePaneler/tilbakekrevingAktivitetTabell.module.css",
+          "hash": "16982805444854274165"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/timeline/TilbakekrevingTimeline.tsx",
+          "hash": "5977713206324081833"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/components/timeline/tilbakekrevingTimeline.module.css",
+          "hash": "2670478459933601929"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/kodeverk/aktsomhet.tsx",
+          "hash": "3044421731603998550"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/kodeverk/sarligGrunn.tsx",
+          "hash": "5183176103432347300"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/kodeverk/vilkarResultat.tsx",
+          "hash": "13938010582892777834"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/types/VilkarsVurderingAp.ts",
+          "hash": "13301146520657723674"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/types/dataForPeriodeTsType.ts",
+          "hash": "15157590449764608278"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/types/kodeverkFpTilbakeForPanel.ts",
+          "hash": "8053035482697378712"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/src/types/tidslinjePeriodeTsType.ts",
+          "hash": "444859227751963761"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/tsconfig.json",
+          "hash": "4228433193664026631"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving/vite.config.js",
+          "hash": "10783342473997633316"
+        }
+      ],
+      "@navikt/ft-sak-dekorator": [
+        {
+          "file": "packages/sak-dekorator/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-dekorator/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-dekorator/i18n/nb_NO.json",
+          "hash": "9418660285137588806"
+        },
+        {
+          "file": "packages/sak-dekorator/index.ts",
+          "hash": "12945327526695096683"
+        },
+        {
+          "file": "packages/sak-dekorator/package.json",
+          "hash": "5505640767595412262",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-konstanter",
+            "@navikt/ft-plattform-komponenter",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:classnames",
+            "npm:react",
+            "npm:react-intl",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/sak-dekorator/src/DekoratorMedFeilviserSakIndex.spec.tsx",
+          "hash": "14527725537180560944"
+        },
+        {
+          "file": "packages/sak-dekorator/src/DekoratorMedFeilviserSakIndex.stories.tsx",
+          "hash": "347435128495626404"
+        },
+        {
+          "file": "packages/sak-dekorator/src/DekoratorMedFeilviserSakIndex.tsx",
+          "hash": "8510859636315745748"
+        },
+        {
+          "file": "packages/sak-dekorator/src/components/FeilmeldingPanel.tsx",
+          "hash": "10540281066788034920"
+        },
+        {
+          "file": "packages/sak-dekorator/src/components/FeilmeldingsdetaljerModal.tsx",
+          "hash": "5174126629690468727"
+        },
+        {
+          "file": "packages/sak-dekorator/src/components/feilmeldingPanel.module.css",
+          "hash": "13748881358865440472"
+        },
+        {
+          "file": "packages/sak-dekorator/src/components/feilmeldingsdetaljerModal.module.css",
+          "hash": "6973082278811906216"
+        },
+        {
+          "file": "packages/sak-dekorator/src/dekoratorMedFeilviserSakIndex.module.css",
+          "hash": "14714473186189574488"
+        },
+        {
+          "file": "packages/sak-dekorator/src/typer/dekoratorLenke.ts",
+          "hash": "16985272773553405807"
+        },
+        {
+          "file": "packages/sak-dekorator/src/typer/feilmeldingTsType.ts",
+          "hash": "16492639002178728021"
+        },
+        {
+          "file": "packages/sak-dekorator/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/sak-dekorator/vite.config.js",
+          "hash": "3306276852455635042"
+        }
+      ],
+      "@navikt/ft-sak-meny": [
+        {
+          "file": "packages/sak-meny/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-meny/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-meny/i18n/nb_NO.json",
+          "hash": "16050827483915893859"
+        },
+        {
+          "file": "packages/sak-meny/index.ts",
+          "hash": "12422741781240138841"
+        },
+        {
+          "file": "packages/sak-meny/package.json",
+          "hash": "9443057181052649432",
+          "deps": [
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-form-hooks",
+            "@navikt/ft-form-validators",
+            "@navikt/ft-plattform-komponenter",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:react-intl",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/sak-meny/src/endreEnhet/MenyEndreBehandlendeEnhetIndex.spec.tsx",
+          "hash": "15476237189473600500"
+        },
+        {
+          "file": "packages/sak-meny/src/endreEnhet/MenyEndreBehandlendeEnhetIndex.stories.tsx",
+          "hash": "12357425856448931137"
+        },
+        {
+          "file": "packages/sak-meny/src/endreEnhet/MenyEndreBehandlendeEnhetIndex.tsx",
+          "hash": "11608072701412104287"
+        },
+        {
+          "file": "packages/sak-meny/src/endreEnhet/modal/EndreBehandlendeEnhetModal.tsx",
+          "hash": "9604962701852274456"
+        },
+        {
+          "file": "packages/sak-meny/src/endreEnhet/modal/endreBehandlendeEnhetModal.module.css",
+          "hash": "5029054358864263355"
+        },
+        {
+          "file": "packages/sak-meny/src/taAvVent/MenyTaAvVentIndex.spec.tsx",
+          "hash": "14695428994226580790"
+        },
+        {
+          "file": "packages/sak-meny/src/taAvVent/MenyTaAvVentIndex.stories.tsx",
+          "hash": "10316789549504262349"
+        },
+        {
+          "file": "packages/sak-meny/src/taAvVent/MenyTaAvVentIndex.tsx",
+          "hash": "407554810752241200"
+        },
+        {
+          "file": "packages/sak-meny/src/verge/MenyVergeIndex.spec.tsx",
+          "hash": "11439293542680012611"
+        },
+        {
+          "file": "packages/sak-meny/src/verge/MenyVergeIndex.stories.tsx",
+          "hash": "942719522905463110"
+        },
+        {
+          "file": "packages/sak-meny/src/verge/MenyVergeIndex.tsx",
+          "hash": "9804261490038796204"
+        },
+        {
+          "file": "packages/sak-meny/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/sak-meny/vite.config.js",
+          "hash": "5202433205205244011"
+        }
+      ],
+      "@navikt/ft-sak-fagsak-profil": [
+        {
+          "file": "packages/sak-fagsak-profil/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/i18n/nb_NO.json",
+          "hash": "546429107502915158"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/index.ts",
+          "hash": "10006424870171033318"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/package.json",
+          "hash": "10844261777885928173",
+          "deps": [
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:react",
+            "npm:react-intl",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/sak-fagsak-profil/src/FagsakProfilSakIndex.spec.tsx",
+          "hash": "3407425110716181517"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/src/FagsakProfilSakIndex.stories.tsx",
+          "hash": "16746069400481965574"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/src/FagsakProfilSakIndex.tsx",
+          "hash": "10925597661381821377"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/src/components/FagsakProfile.tsx",
+          "hash": "14331025973518276660"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/sak-fagsak-profil/vite.config.js",
+          "hash": "7323484829093205380"
+        }
+      ],
+      "@navikt/ft-form-validators": [
+        {
+          "file": "packages/form-validators/i18n/nb_NO.json",
+          "hash": "15161004326552877096"
+        },
+        {
+          "file": "packages/form-validators/index.ts",
+          "hash": "17430564754507065232"
+        },
+        {
+          "file": "packages/form-validators/package.json",
+          "hash": "16973531206719556385",
+          "deps": [
+            "@navikt/ft-utils",
+            "npm:moment",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/form-validators/src/messages.ts",
+          "hash": "10981162845834831977"
+        },
+        {
+          "file": "packages/form-validators/src/validators.spec.ts",
+          "hash": "16945961846815815388"
+        },
+        {
+          "file": "packages/form-validators/src/validators.ts",
+          "hash": "9796316541445989252"
+        },
+        {
+          "file": "packages/form-validators/src/validatorsHelper.spec.ts",
+          "hash": "3180551197382316127"
+        },
+        {
+          "file": "packages/form-validators/src/validatorsHelper.ts",
+          "hash": "5455302282968173381"
+        },
+        {
+          "file": "packages/form-validators/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/form-validators/vite.config.js",
+          "hash": "6455597545137468959"
+        }
+      ],
+      "@navikt/ft-sak-dokumenter": [
+        {
+          "file": "packages/sak-dokumenter/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-dokumenter/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-dokumenter/i18n/nb_NO.json",
+          "hash": "1548194581508319717"
+        },
+        {
+          "file": "packages/sak-dokumenter/index.ts",
+          "hash": "11506343567974804720"
+        },
+        {
+          "file": "packages/sak-dokumenter/package.json",
+          "hash": "860022134385611797",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:react",
+            "npm:react-intl",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/sak-dokumenter/src/DokumenterSakIndex.spec.tsx",
+          "hash": "12149038150861463618"
+        },
+        {
+          "file": "packages/sak-dokumenter/src/DokumenterSakIndex.stories.tsx",
+          "hash": "2348993588551820396"
+        },
+        {
+          "file": "packages/sak-dokumenter/src/DokumenterSakIndex.tsx",
+          "hash": "1375802133859544617"
+        },
+        {
+          "file": "packages/sak-dokumenter/src/components/DocumentList.tsx",
+          "hash": "18028015022353943724"
+        },
+        {
+          "file": "packages/sak-dokumenter/src/components/documentList.module.css",
+          "hash": "7087832167555690455"
+        },
+        {
+          "file": "packages/sak-dokumenter/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/sak-dokumenter/vite.config.js",
+          "hash": "14533881455248996835"
+        }
+      ],
+      "@navikt/ft-utils": [
+        {
+          "file": "packages/utils/i18n/nb_NO.json",
+          "hash": "4883761389944256217"
+        },
+        {
+          "file": "packages/utils/index.ts",
+          "hash": "7777387161494643682"
+        },
+        {
+          "file": "packages/utils/package.json",
+          "hash": "13131420593778509398",
+          "deps": [
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-types",
+            "npm:dayjs",
+            "npm:react",
+            "npm:react-intl",
+            "npm:eslint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/utils/src/Period.ts",
+          "hash": "2273272682495580192"
+        },
+        {
+          "file": "packages/utils/src/arrayUtils.spec.ts",
+          "hash": "6854246129884673238"
+        },
+        {
+          "file": "packages/utils/src/arrayUtils.ts",
+          "hash": "6038207871934087210"
+        },
+        {
+          "file": "packages/utils/src/bemUtils.spec.ts",
+          "hash": "8436250457176993809"
+        },
+        {
+          "file": "packages/utils/src/bemUtils.ts",
+          "hash": "6447271863323661474"
+        },
+        {
+          "file": "packages/utils/src/browserUtils.spec.ts",
+          "hash": "12213290046642810677"
+        },
+        {
+          "file": "packages/utils/src/browserUtils.ts",
+          "hash": "3551535944010983173"
+        },
+        {
+          "file": "packages/utils/src/createIntl.ts",
+          "hash": "5978410925265115596"
+        },
+        {
+          "file": "packages/utils/src/currencyUtils.spec.ts",
+          "hash": "7865433032787222168"
+        },
+        {
+          "file": "packages/utils/src/currencyUtils.ts",
+          "hash": "18399113382168110227"
+        },
+        {
+          "file": "packages/utils/src/dateUtils.spec.ts",
+          "hash": "18352464211189910813"
+        },
+        {
+          "file": "packages/utils/src/dateUtils.ts",
+          "hash": "2742151812430493747"
+        },
+        {
+          "file": "packages/utils/src/decodeHtmlEntity.spec.ts",
+          "hash": "4535038544547727609"
+        },
+        {
+          "file": "packages/utils/src/decodeHtmlEntity.ts",
+          "hash": "16000504288972368718"
+        },
+        {
+          "file": "packages/utils/src/fodselsnummerUtils.spec.ts",
+          "hash": "4615892367879683203"
+        },
+        {
+          "file": "packages/utils/src/fodselsnummerUtils.ts",
+          "hash": "3358003865055623948"
+        },
+        {
+          "file": "packages/utils/src/formats.ts",
+          "hash": "4643258055615316012"
+        },
+        {
+          "file": "packages/utils/src/guid.ts",
+          "hash": "2981634874621734830"
+        },
+        {
+          "file": "packages/utils/src/languageUtils.spec.ts",
+          "hash": "1845632042025960805"
+        },
+        {
+          "file": "packages/utils/src/languageUtils.ts",
+          "hash": "13361778891182781315"
+        },
+        {
+          "file": "packages/utils/src/objectUtils.spec.ts",
+          "hash": "17283377230707388777"
+        },
+        {
+          "file": "packages/utils/src/objectUtils.ts",
+          "hash": "15348565689765909713"
+        },
+        {
+          "file": "packages/utils/src/periodUtils.ts",
+          "hash": "3208576041489827381"
+        },
+        {
+          "file": "packages/utils/src/stringUtils.spec.ts",
+          "hash": "8475832808378468340"
+        },
+        {
+          "file": "packages/utils/src/stringUtils.ts",
+          "hash": "480218130810304913"
+        },
+        {
+          "file": "packages/utils/src/switchCaseUtils.ts",
+          "hash": "5528170771972179350"
+        },
+        {
+          "file": "packages/utils/src/urlUtils.spec.ts",
+          "hash": "313723352221890757"
+        },
+        {
+          "file": "packages/utils/src/urlUtils.ts",
+          "hash": "12256410559473640405"
+        },
+        {
+          "file": "packages/utils/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/utils/vite.config.js",
+          "hash": "3231877262972146259"
+        }
+      ],
+      "@navikt/ft-sak-visittkort": [
+        {
+          "file": "packages/sak-visittkort/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-visittkort/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-visittkort/i18n/nb_NO.json",
+          "hash": "12532133064615360730"
+        },
+        {
+          "file": "packages/sak-visittkort/index.ts",
+          "hash": "2821931354021856790"
+        },
+        {
+          "file": "packages/sak-visittkort/package.json",
+          "hash": "12539995429638057472",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-plattform-komponenter",
+            "@navikt/ft-types",
+            "@navikt/ft-utils",
+            "npm:dayjs",
+            "npm:react",
+            "npm:react-intl",
+            "@navikt/ft-frontend-storybook-utils",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/sak-visittkort/src/VisittkortSakIndex.spec.tsx",
+          "hash": "15506564129639480115"
+        },
+        {
+          "file": "packages/sak-visittkort/src/VisittkortSakIndex.stories.tsx",
+          "hash": "12848715066230556512"
+        },
+        {
+          "file": "packages/sak-visittkort/src/VisittkortSakIndex.tsx",
+          "hash": "12417843990544785022"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoFodselPanel.tsx",
+          "hash": "6081050854017289752"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoOmsorgPanel.tsx",
+          "hash": "15824464430058606434"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoPanel.spec.tsx",
+          "hash": "3322853850604630690"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/VisittkortBarnInfoPanel.tsx",
+          "hash": "6503623481438672979"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/VisittkortLabels.spec.tsx",
+          "hash": "4372849495103577068"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/VisittkortLabels.tsx",
+          "hash": "15088140973765090629"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/VisittkortPanel.tsx",
+          "hash": "11802934350085530434"
+        },
+        {
+          "file": "packages/sak-visittkort/src/components/visittkortPanel.module.css",
+          "hash": "14792934638425891256"
+        },
+        {
+          "file": "packages/sak-visittkort/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/sak-visittkort/vite.config.js",
+          "hash": "5069970122333961111"
+        }
+      ],
+      "@navikt/ft-prosess-tilbakekreving-vedtak": [
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/i18n/nb_NO.json",
+          "hash": "13945816198577265797"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/index.ts",
+          "hash": "5589693497535634838"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/package.json",
+          "hash": "5157655917458623911",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-form-hooks",
+            "@navikt/ft-form-validators",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:classnames",
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:react-intl",
+            "@navikt/ft-frontend-storybook-utils",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakAksjonspunktCode.ts",
+          "hash": "4140263537501159609"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakTilbakekrevingProsessIndex.spec.tsx",
+          "hash": "11982585577023685106"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakTilbakekrevingProsessIndex.stories.tsx",
+          "hash": "7370494096617507102"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakTilbakekrevingProsessIndex.tsx",
+          "hash": "583022210677507832"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/TilbakekrevingVedtak.tsx",
+          "hash": "1134814124685581423"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/TilbakekrevingVedtakForm.tsx",
+          "hash": "16936970621696387464"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/TilbakekrevingVedtakPeriodeTabell.tsx",
+          "hash": "11790238524438123231"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/TilbakekrevingEditerVedtaksbrevPanel.tsx",
+          "hash": "16907830977869597327"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/TilbakekrevingVedtakUtdypendeTekstPanel.tsx",
+          "hash": "9755319191554595983"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/tilbakekrevingEditerVedtaksbrevPanel.module.css",
+          "hash": "16713475925770082542"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/tilbakekrevingVedtakUtdypendeTekstPanel.module.css",
+          "hash": "7610343907934913314"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/tilbakekrevingVedtakForm.module.css",
+          "hash": "9120228309595694089"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/components/tilbakekrevingVedtakPeriodeTabell.module.css",
+          "hash": "2045712125737870084"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/kodeverk/aktsomhet.tsx",
+          "hash": "3044421731603998550"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/kodeverk/avsnittType.ts",
+          "hash": "7467185017386066476"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/types/ForeslaVedtakTilbakekrevingAp.ts",
+          "hash": "5194003771536858624"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/src/types/kodeverkFpTilbakeForPanel.ts",
+          "hash": "3560043496187000002"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/tsconfig.json",
+          "hash": "4228433193664026631"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-vedtak/vite.config.js",
+          "hash": "14173043536692240280"
+        }
+      ],
+      "@navikt/ft-form-hooks": [
+        {
+          "file": "packages/form-hooks/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/form-hooks/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/form-hooks/index.ts",
+          "hash": "17304376638115161402"
+        },
+        {
+          "file": "packages/form-hooks/package.json",
+          "hash": "6165280597558939701",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-form-validators",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:classnames",
+            "npm:dayjs",
+            "npm:lodash.throttle",
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-hook-form",
+            "@navikt/ft-frontend-utils-test",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/form-hooks/src/CheckboxField.tsx",
+          "hash": "11504255158522495602"
+        },
+        {
+          "file": "packages/form-hooks/src/CheckboxPanel.tsx",
+          "hash": "15747682340088541735"
+        },
+        {
+          "file": "packages/form-hooks/src/Datepicker.tsx",
+          "hash": "9423194011496307819"
+        },
+        {
+          "file": "packages/form-hooks/src/Form.tsx",
+          "hash": "14595215096071688376"
+        },
+        {
+          "file": "packages/form-hooks/src/FormHooks.spec.tsx",
+          "hash": "12577123814076383032"
+        },
+        {
+          "file": "packages/form-hooks/src/FormHooks.stories.tsx",
+          "hash": "15656291220242338320"
+        },
+        {
+          "file": "packages/form-hooks/src/InputField.tsx",
+          "hash": "5500893510055944274"
+        },
+        {
+          "file": "packages/form-hooks/src/NumberField.tsx",
+          "hash": "2468079815968059644"
+        },
+        {
+          "file": "packages/form-hooks/src/PeriodFieldArray.tsx",
+          "hash": "13799524851727140127"
+        },
+        {
+          "file": "packages/form-hooks/src/RadioGroupPanel.tsx",
+          "hash": "15286367517134322307"
+        },
+        {
+          "file": "packages/form-hooks/src/Rangepicker.tsx",
+          "hash": "4684138286332328632"
+        },
+        {
+          "file": "packages/form-hooks/src/ReadOnlyField.tsx",
+          "hash": "10828736316524425746"
+        },
+        {
+          "file": "packages/form-hooks/src/SelectField.tsx",
+          "hash": "3246007359998901607"
+        },
+        {
+          "file": "packages/form-hooks/src/SubmitButton.tsx",
+          "hash": "6506399257067011582"
+        },
+        {
+          "file": "packages/form-hooks/src/TextAreaField.tsx",
+          "hash": "17389103747982992130"
+        },
+        {
+          "file": "packages/form-hooks/src/formHooks.stories.module.css",
+          "hash": "4918225565826046519"
+        },
+        {
+          "file": "packages/form-hooks/src/formUtils.ts",
+          "hash": "14489221195507050740"
+        },
+        {
+          "file": "packages/form-hooks/src/periodFieldArray.module.css",
+          "hash": "17408682117303723995"
+        },
+        {
+          "file": "packages/form-hooks/src/pure/FieldError.tsx",
+          "hash": "16695283695563613573"
+        },
+        {
+          "file": "packages/form-hooks/src/pure/fieldError.module.css",
+          "hash": "12171810557347562610"
+        },
+        {
+          "file": "packages/form-hooks/src/radioGroupPanel.module.css",
+          "hash": "6890804733043067618"
+        },
+        {
+          "file": "packages/form-hooks/src/readOnlyField.module.css",
+          "hash": "8313426672414716516"
+        },
+        {
+          "file": "packages/form-hooks/src/textAreaField.module.css",
+          "hash": "12868603445112991030"
+        },
+        {
+          "file": "packages/form-hooks/src/useCustomValidation.tsx",
+          "hash": "17123777976218798708"
+        },
+        {
+          "file": "packages/form-hooks/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/form-hooks/vite.config.js",
+          "hash": "236371943673710048"
+        }
+      ],
       "@navikt/ft-types": [
         {
           "file": "packages/types/index.ts",
@@ -2867,7 +1756,7 @@
         },
         {
           "file": "packages/types/package.json",
-          "hash": "10000519051917443988",
+          "hash": "10974731917879743027",
           "deps": [
             "@navikt/ft-kodeverk",
             "npm:cross-env",
@@ -3027,55 +1916,166 @@
           "hash": "13198795850177354140"
         }
       ],
-      "@navikt/ft-form-validators": [
+      "@navikt/ft-kodeverk": [
         {
-          "file": "packages/form-validators/i18n/nb_NO.json",
-          "hash": "15161004326552877096"
+          "file": "packages/kodeverk/index.ts",
+          "hash": "5174229726696681773"
         },
         {
-          "file": "packages/form-validators/index.ts",
-          "hash": "17430564754507065232"
-        },
-        {
-          "file": "packages/form-validators/package.json",
-          "hash": "13135598378326560552",
+          "file": "packages/kodeverk/package.json",
+          "hash": "12540001931544238180",
           "deps": [
-            "@navikt/ft-utils",
-            "npm:moment",
             "npm:cross-env",
             "npm:eslint",
+            "npm:stylelint",
             "npm:typescript",
             "npm:vite",
             "npm:vitest"
           ]
         },
         {
-          "file": "packages/form-validators/src/messages.ts",
-          "hash": "10981162845834831977"
+          "file": "packages/kodeverk/src/aksjonspunktStatus.ts",
+          "hash": "2005225092993321006"
         },
         {
-          "file": "packages/form-validators/src/validators.spec.ts",
-          "hash": "16945961846815815388"
+          "file": "packages/kodeverk/src/aktivitetStatus.ts",
+          "hash": "6553456771038438122"
         },
         {
-          "file": "packages/form-validators/src/validators.ts",
-          "hash": "9796316541445989252"
+          "file": "packages/kodeverk/src/arbeidType.ts",
+          "hash": "16425187287524612068"
         },
         {
-          "file": "packages/form-validators/src/validatorsHelper.spec.ts",
-          "hash": "3180551197382316127"
+          "file": "packages/kodeverk/src/behandlingArsakType.ts",
+          "hash": "3722670896593671724"
         },
         {
-          "file": "packages/form-validators/src/validatorsHelper.ts",
-          "hash": "5455302282968173381"
+          "file": "packages/kodeverk/src/behandlingResultatType.ts",
+          "hash": "5340494332314585530"
         },
         {
-          "file": "packages/form-validators/tsconfig.json",
+          "file": "packages/kodeverk/src/behandlingStatus.ts",
+          "hash": "7006894300871754727"
+        },
+        {
+          "file": "packages/kodeverk/src/behandlingType.ts",
+          "hash": "5146833097472999322"
+        },
+        {
+          "file": "packages/kodeverk/src/beregningsgrunnlagAndelType.ts",
+          "hash": "1682645820788332153"
+        },
+        {
+          "file": "packages/kodeverk/src/dekningsgrad.ts",
+          "hash": "18314616986337091114"
+        },
+        {
+          "file": "packages/kodeverk/src/diskresjonskodeType.ts",
+          "hash": "18034814944132037698"
+        },
+        {
+          "file": "packages/kodeverk/src/fagsakStatus.ts",
+          "hash": "16212648147593662146"
+        },
+        {
+          "file": "packages/kodeverk/src/fagsakYtelseType.ts",
+          "hash": "13596060827513217804"
+        },
+        {
+          "file": "packages/kodeverk/src/faktaOmBeregningTilfelle.ts",
+          "hash": "16854077807893808478"
+        },
+        {
+          "file": "packages/kodeverk/src/familieHendelseType.ts",
+          "hash": "8833225066346696504"
+        },
+        {
+          "file": "packages/kodeverk/src/foreldelseVurderingType.ts",
+          "hash": "15165728055759765983"
+        },
+        {
+          "file": "packages/kodeverk/src/inntektAktivitetType.ts",
+          "hash": "17182311141116754058"
+        },
+        {
+          "file": "packages/kodeverk/src/inntektskategori.ts",
+          "hash": "12590308011214531152"
+        },
+        {
+          "file": "packages/kodeverk/src/kodeverkType.ts",
+          "hash": "13010737814529891304"
+        },
+        {
+          "file": "packages/kodeverk/src/kommunikasjonsretning.ts",
+          "hash": "17845647685136992811"
+        },
+        {
+          "file": "packages/kodeverk/src/konsekvensForYtelsen.ts",
+          "hash": "17758079786240652176"
+        },
+        {
+          "file": "packages/kodeverk/src/lønnsendringScenario.ts",
+          "hash": "7305890184945056215"
+        },
+        {
+          "file": "packages/kodeverk/src/navBrukerKjonn.ts",
+          "hash": "4939962689917069348"
+        },
+        {
+          "file": "packages/kodeverk/src/opptjeningAktivitetType.ts",
+          "hash": "2798641730959147874"
+        },
+        {
+          "file": "packages/kodeverk/src/organisasjonstype.ts",
+          "hash": "11799202700237080"
+        },
+        {
+          "file": "packages/kodeverk/src/periodeAarsak.ts",
+          "hash": "13173271081067663961"
+        },
+        {
+          "file": "packages/kodeverk/src/personstatusType.ts",
+          "hash": "533350774648087063"
+        },
+        {
+          "file": "packages/kodeverk/src/pgiType.ts",
+          "hash": "12729697727495713176"
+        },
+        {
+          "file": "packages/kodeverk/src/relasjonsRolleType.ts",
+          "hash": "15011769747147614826"
+        },
+        {
+          "file": "packages/kodeverk/src/sammenligningType.ts",
+          "hash": "12606073120084890350"
+        },
+        {
+          "file": "packages/kodeverk/src/tilbakekrevingKodeverkType.ts",
+          "hash": "7291722369710049168"
+        },
+        {
+          "file": "packages/kodeverk/src/tilbakekrevingVidereBehandling.ts",
+          "hash": "3024927480962650426"
+        },
+        {
+          "file": "packages/kodeverk/src/vedtakResultatType.ts",
+          "hash": "10788614624753556082"
+        },
+        {
+          "file": "packages/kodeverk/src/vilkarType.ts",
+          "hash": "17090855629199388834"
+        },
+        {
+          "file": "packages/kodeverk/src/vilkarUtfallType.ts",
+          "hash": "13554085285634093433"
+        },
+        {
+          "file": "packages/kodeverk/tsconfig.json",
           "hash": "17809664984697173256"
         },
         {
-          "file": "packages/form-validators/vite.config.js",
-          "hash": "6455597545137468959"
+          "file": "packages/kodeverk/vite.config.js",
+          "hash": "14902864115622997798"
         }
       ],
       "@navikt/ft-fakta-beregning": [
@@ -3089,7 +2089,7 @@
         },
         {
           "file": "packages/fakta-beregning/i18n/nb_NO.json",
-          "hash": "9764389707419492811"
+          "hash": "8587785606905934241"
         },
         {
           "file": "packages/fakta-beregning/index.ts",
@@ -3097,7 +2097,7 @@
         },
         {
           "file": "packages/fakta-beregning/package.json",
-          "hash": "16129986384725836332",
+          "hash": "818954112238839372",
           "deps": [
             "npm:@navikt/aksel-icons",
             "npm:@navikt/ds-css",
@@ -3579,37 +2579,30 @@
           "hash": "5087991290269076234"
         }
       ],
-      "@navikt/ft-sak-dekorator": [
+      "@navikt/ft-sak-infosider": [
         {
-          "file": "packages/sak-dekorator/.storybook/main.ts",
+          "file": "packages/sak-infosider/.storybook/main.ts",
           "hash": "16037028598835203451"
         },
         {
-          "file": "packages/sak-dekorator/.storybook/preview.tsx",
+          "file": "packages/sak-infosider/.storybook/preview.tsx",
           "hash": "5715388699489233354"
         },
         {
-          "file": "packages/sak-dekorator/i18n/nb_NO.json",
-          "hash": "9418660285137588806"
+          "file": "packages/sak-infosider/i18n/nb_NO.json",
+          "hash": "11310782894153083477"
         },
         {
-          "file": "packages/sak-dekorator/index.ts",
-          "hash": "12945327526695096683"
+          "file": "packages/sak-infosider/index.ts",
+          "hash": "6992694734458032139"
         },
         {
-          "file": "packages/sak-dekorator/package.json",
-          "hash": "9961921742834212608",
+          "file": "packages/sak-infosider/package.json",
+          "hash": "14075055182698461916",
           "deps": [
-            "npm:@navikt/aksel-icons",
             "npm:@navikt/ds-css",
             "npm:@navikt/ds-react",
-            "@navikt/ft-kodeverk",
-            "@navikt/ft-konstanter",
-            "@navikt/ft-plattform-komponenter",
-            "@navikt/ft-types",
-            "@navikt/ft-ui-komponenter",
             "@navikt/ft-utils",
-            "npm:classnames",
             "npm:react",
             "npm:react-intl",
             "npm:@storybook/addon-actions",
@@ -3628,74 +2621,86 @@
           ]
         },
         {
-          "file": "packages/sak-dekorator/src/DekoratorMedFeilviserSakIndex.spec.tsx",
-          "hash": "9945028747113622051"
+          "file": "packages/sak-infosider/src/ErrorPage.tsx",
+          "hash": "7478966581278833584"
         },
         {
-          "file": "packages/sak-dekorator/src/DekoratorMedFeilviserSakIndex.stories.tsx",
-          "hash": "10659222731535725802"
+          "file": "packages/sak-infosider/src/ForbiddenPage.spec.tsx",
+          "hash": "6915671267349530983"
         },
         {
-          "file": "packages/sak-dekorator/src/DekoratorMedFeilviserSakIndex.tsx",
-          "hash": "2628077505227147604"
+          "file": "packages/sak-infosider/src/ForbiddenPage.tsx",
+          "hash": "8810243173468594925"
         },
         {
-          "file": "packages/sak-dekorator/src/components/FeilmeldingPanel.tsx",
-          "hash": "10540281066788034920"
+          "file": "packages/sak-infosider/src/InfosiderSakIndex.stories.tsx",
+          "hash": "1804702545084322650"
         },
         {
-          "file": "packages/sak-dekorator/src/components/FeilmeldingsdetaljerModal.tsx",
-          "hash": "5174126629690468727"
+          "file": "packages/sak-infosider/src/IngenBehandlingValgtPanel.spec.tsx",
+          "hash": "12124232102673027470"
         },
         {
-          "file": "packages/sak-dekorator/src/components/feilmeldingPanel.module.css",
-          "hash": "13748881358865440472"
+          "file": "packages/sak-infosider/src/IngenBehandlingValgtPanel.tsx",
+          "hash": "14896601218656954154"
         },
         {
-          "file": "packages/sak-dekorator/src/components/feilmeldingsdetaljerModal.module.css",
-          "hash": "6973082278811906216"
+          "file": "packages/sak-infosider/src/NotFoundPage.spec.tsx",
+          "hash": "10073668738003326444"
         },
         {
-          "file": "packages/sak-dekorator/src/dekoratorMedFeilviserSakIndex.module.css",
-          "hash": "14714473186189574488"
+          "file": "packages/sak-infosider/src/NotFoundPage.tsx",
+          "hash": "1250374023620630404"
         },
         {
-          "file": "packages/sak-dekorator/src/typer/dekoratorLenke.ts",
-          "hash": "16985272773553405807"
+          "file": "packages/sak-infosider/src/UnauthorizedPage.spec.tsx",
+          "hash": "18299609687871762594"
         },
         {
-          "file": "packages/sak-dekorator/src/typer/feilmeldingTsType.ts",
-          "hash": "16492639002178728021"
+          "file": "packages/sak-infosider/src/UnauthorizedPage.tsx",
+          "hash": "2983370445715396452"
         },
         {
-          "file": "packages/sak-dekorator/tsconfig.json",
+          "file": "packages/sak-infosider/src/components/ErrorPageWrapper.tsx",
+          "hash": "372154792094331498"
+        },
+        {
+          "file": "packages/sak-infosider/src/components/errorPageWrapper.module.css",
+          "hash": "9318698629317822937"
+        },
+        {
+          "file": "packages/sak-infosider/src/ingenBehandlingValgtPanel.module.css",
+          "hash": "2453781370068457193"
+        },
+        {
+          "file": "packages/sak-infosider/tsconfig.json",
           "hash": "17809664984697173256"
         },
         {
-          "file": "packages/sak-dekorator/vite.config.js",
-          "hash": "3306276852455635042"
+          "file": "packages/sak-infosider/vite.config.js",
+          "hash": "14145855587534110169"
         }
       ],
-      "@navikt/ft-prosess-tilbakekreving-vedtak": [
+      "@navikt/ft-prosess-tilbakekreving-foreldelse": [
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/.storybook/main.ts",
+          "file": "packages/prosess-tilbakekreving-foreldelse/.storybook/main.ts",
           "hash": "16037028598835203451"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/.storybook/preview.tsx",
+          "file": "packages/prosess-tilbakekreving-foreldelse/.storybook/preview.tsx",
           "hash": "5715388699489233354"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/i18n/nb_NO.json",
-          "hash": "13945816198577265797"
+          "file": "packages/prosess-tilbakekreving-foreldelse/i18n/nb_NO.json",
+          "hash": "69581340139712920"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/index.ts",
-          "hash": "5589693497535634838"
+          "file": "packages/prosess-tilbakekreving-foreldelse/index.ts",
+          "hash": "10156939741431164732"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/package.json",
-          "hash": "6721662786032990091",
+          "file": "packages/prosess-tilbakekreving-foreldelse/package.json",
+          "hash": "11653056925193094686",
           "deps": [
             "npm:@navikt/aksel-icons",
             "npm:@navikt/ds-css",
@@ -3706,8 +2711,250 @@
             "@navikt/ft-types",
             "@navikt/ft-ui-komponenter",
             "@navikt/ft-utils",
-            "npm:classnames",
+            "npm:dayjs",
+            "npm:moment",
             "npm:react",
+            "npm:react-hook-form",
+            "npm:react-intl",
+            "@navikt/ft-frontend-storybook-utils",
+            "@navikt/ft-frontend-utils-test",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseAksjonspunktCodes.ts",
+          "hash": "3294935387563311938"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseProsessIndex.spec.tsx",
+          "hash": "1669357606341325277"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseProsessIndex.stories.tsx",
+          "hash": "11005505661761585085"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/ForeldelseProsessIndex.tsx",
+          "hash": "4710142768254245912"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/ForeldelseForm.tsx",
+          "hash": "6467682111939205079"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/ForeldelsePeriodeForm.tsx",
+          "hash": "3279083735706457898"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/foreldelseForm.module.css",
+          "hash": "10051327470175028758"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/DelOppPeriodeModal.tsx",
+          "hash": "10660772279129111770"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/PeriodeController.tsx",
+          "hash": "12378167457034977507"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/PeriodeInformasjon.tsx",
+          "hash": "5840844385363963163"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/delOppPeriodeModal.module.css",
+          "hash": "5253748275858057823"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/periodeController.module.css",
+          "hash": "13622090973170955042"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/splittePerioder/periodeInformasjon.module.css",
+          "hash": "1272596076407147077"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/timeline/TilbakekrevingTimeline.tsx",
+          "hash": "9272549863163864356"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/components/timeline/tilbakekrevingTimeline.module.css",
+          "hash": "2670478459933601929"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/VurderForeldelseAp.ts",
+          "hash": "17818376799737607172"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/foreldelsesresultatActivitytsType.ts",
+          "hash": "3687140940350345817"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/kodeverkFpTilbakeForPanel.ts",
+          "hash": "9537651806209688309"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/src/types/tidslinjePeriodeTsType.ts",
+          "hash": "444859227751963761"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/tsconfig.json",
+          "hash": "4228433193664026631"
+        },
+        {
+          "file": "packages/prosess-tilbakekreving-foreldelse/vite.config.js",
+          "hash": "1466035741200140851"
+        }
+      ],
+      "@navikt/ft-sak-aktor": [
+        {
+          "file": "packages/sak-aktor/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-aktor/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-aktor/i18n/nb_NO.json",
+          "hash": "12012519502357208821"
+        },
+        {
+          "file": "packages/sak-aktor/index.ts",
+          "hash": "1496625154217720206"
+        },
+        {
+          "file": "packages/sak-aktor/package.json",
+          "hash": "10138751268208729721",
+          "deps": [
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-plattform-komponenter",
+            "@navikt/ft-sak-visittkort",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:react",
+            "npm:react-intl",
+            "@navikt/ft-frontend-storybook-utils",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "packages/sak-aktor/src/AktorSakIndex.spec.tsx",
+          "hash": "1840539472519942944"
+        },
+        {
+          "file": "packages/sak-aktor/src/AktorSakIndex.stories.tsx",
+          "hash": "12194692387479548399"
+        },
+        {
+          "file": "packages/sak-aktor/src/AktorSakIndex.tsx",
+          "hash": "12226737230604865019"
+        },
+        {
+          "file": "packages/sak-aktor/src/components/AktoerGrid.tsx",
+          "hash": "3741412319067729749"
+        },
+        {
+          "file": "packages/sak-aktor/src/components/aktoerGrid.module.css",
+          "hash": "5657589202235590080"
+        },
+        {
+          "file": "packages/sak-aktor/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/sak-aktor/vite.config.js",
+          "hash": "16274936412690211978"
+        }
+      ],
+      "@navikt/ft-frontend-utils-test": [
+        {
+          "file": "packages/internal/utils-test/index.ts",
+          "hash": "13573161928253648408"
+        },
+        {
+          "file": "packages/internal/utils-test/package.json",
+          "hash": "614895619699114382",
+          "deps": [
+            "npm:cross-env",
+            "npm:eslint",
+            "npm:typescript",
+            "@navikt/ft-kodeverk",
+            "npm:react",
+            "npm:react-intl"
+          ]
+        },
+        {
+          "file": "packages/internal/utils-test/src/intl-test-helper.ts",
+          "hash": "9903359713748540952"
+        },
+        {
+          "file": "packages/internal/utils-test/src/legacyKodeverktUtils.ts",
+          "hash": "11210660456223855665"
+        },
+        {
+          "file": "packages/internal/utils-test/tsconfig.json",
+          "hash": "5377905226098476047"
+        }
+      ],
+      "@navikt/ft-sak-risikoklassifisering": [
+        {
+          "file": "packages/sak-risikoklassifisering/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/sak-risikoklassifisering/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/sak-risikoklassifisering/i18n/nb_NO.json",
+          "hash": "13109669468142383188"
+        },
+        {
+          "file": "packages/sak-risikoklassifisering/index.ts",
+          "hash": "18260668890906677332"
+        },
+        {
+          "file": "packages/sak-risikoklassifisering/package.json",
+          "hash": "13181183255511134522",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-form-hooks",
+            "@navikt/ft-form-validators",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:react",
+            "npm:react-dom",
             "npm:react-hook-form",
             "npm:react-intl",
             "@navikt/ft-frontend-storybook-utils",
@@ -3727,80 +2974,101 @@
           ]
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakAksjonspunktCode.ts",
-          "hash": "4140263537501159609"
+          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringAksjonspunktCode.ts",
+          "hash": "10352209836970092671"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakTilbakekrevingProsessIndex.spec.tsx",
-          "hash": "11982585577023685106"
+          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringSakIndex.spec.tsx",
+          "hash": "7818547623042757880"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakTilbakekrevingProsessIndex.stories.tsx",
-          "hash": "18259842630819971291"
+          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringSakIndex.stories.tsx",
+          "hash": "9252710701442902521"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/VedtakTilbakekrevingProsessIndex.tsx",
-          "hash": "583022210677507832"
+          "file": "packages/sak-risikoklassifisering/src/RisikoklassifiseringSakIndex.tsx",
+          "hash": "1363843593036054254"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/TilbakekrevingVedtak.tsx",
-          "hash": "1134814124685581423"
+          "file": "packages/sak-risikoklassifisering/src/components/AvklarFaresignalerForm.tsx",
+          "hash": "9159985447005826703"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/TilbakekrevingVedtakForm.tsx",
-          "hash": "16936970621696387464"
+          "file": "packages/sak-risikoklassifisering/src/components/Faresignaler.tsx",
+          "hash": "8776221660419075535"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/TilbakekrevingVedtakPeriodeTabell.tsx",
-          "hash": "11790238524438123231"
+          "file": "packages/sak-risikoklassifisering/src/components/HoyRisikoPanel.tsx",
+          "hash": "16825421088456173493"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/TilbakekrevingEditerVedtaksbrevPanel.tsx",
-          "hash": "16907830977869597327"
+          "file": "packages/sak-risikoklassifisering/src/components/HoyRisikoTittel.tsx",
+          "hash": "17783598614424393815"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/TilbakekrevingVedtakUtdypendeTekstPanel.tsx",
-          "hash": "9755319191554595983"
+          "file": "packages/sak-risikoklassifisering/src/components/IngenRisikoPanel.tsx",
+          "hash": "6199383970710897222"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/tilbakekrevingEditerVedtaksbrevPanel.module.css",
-          "hash": "16713475925770082542"
+          "file": "packages/sak-risikoklassifisering/src/components/ManglendeKlassifiseringPanel.tsx",
+          "hash": "7811184310346570140"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/brev/tilbakekrevingVedtakUtdypendeTekstPanel.module.css",
-          "hash": "7610343907934913314"
+          "file": "packages/sak-risikoklassifisering/src/components/hoyRisikoTittel.module.css",
+          "hash": "3803638264294645280"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/tilbakekrevingVedtakForm.module.css",
-          "hash": "9120228309595694089"
+          "file": "packages/sak-risikoklassifisering/src/kodeverk/faresignalVurdering.ts",
+          "hash": "12448622576150704881"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/components/tilbakekrevingVedtakPeriodeTabell.module.css",
-          "hash": "2045712125737870084"
+          "file": "packages/sak-risikoklassifisering/src/kodeverk/kontrollresultatKode.ts",
+          "hash": "7214839592371149651"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/kodeverk/aktsomhet.tsx",
-          "hash": "3044421731603998550"
+          "file": "packages/sak-risikoklassifisering/src/types/AvklartRisikoklassifiseringAp.ts",
+          "hash": "13858735575877696884"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/kodeverk/avsnittType.ts",
-          "hash": "7467185017386066476"
+          "file": "packages/sak-risikoklassifisering/tsconfig.json",
+          "hash": "17809664984697173256"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/types/ForeslaVedtakTilbakekrevingAp.ts",
-          "hash": "5194003771536858624"
+          "file": "packages/sak-risikoklassifisering/vite.config.js",
+          "hash": "4106716189357500408"
+        }
+      ],
+      "@navikt/ft-hooks": [
+        {
+          "file": "packages/hooks/index.ts",
+          "hash": "9388319028965992731"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/src/types/kodeverkFpTilbakeForPanel.ts",
-          "hash": "3560043496187000002"
+          "file": "packages/hooks/package.json",
+          "hash": "3844245732199001593",
+          "deps": [
+            "npm:react",
+            "npm:eslint",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/tsconfig.json",
-          "hash": "4228433193664026631"
+          "file": "packages/hooks/src/useStorageToggle.spec.tsx",
+          "hash": "16416953079518353505"
         },
         {
-          "file": "packages/prosess-tilbakekreving-vedtak/vite.config.js",
-          "hash": "14173043536692240280"
+          "file": "packages/hooks/src/useStorageToggle.tsx",
+          "hash": "9513653215860011881"
+        },
+        {
+          "file": "packages/hooks/tsconfig.json",
+          "hash": "17809664984697173256"
+        },
+        {
+          "file": "packages/hooks/vite.config.js",
+          "hash": "5574057211895321430"
         }
       ],
       "@navikt/ft-fakta-tilbakekreving-feilutbetaling": [
@@ -3822,7 +3090,7 @@
         },
         {
           "file": "packages/fakta-tilbakekreving-feilutbetaling/package.json",
-          "hash": "3389839503165806215",
+          "hash": "18068090235173070104",
           "deps": [
             "npm:@navikt/ds-css",
             "npm:@navikt/ds-react",
@@ -3906,17 +3174,83 @@
           "hash": "16216515958615549735"
         }
       ],
-      "@navikt/ft-konstanter": [
+      "@navikt/ft-frontend-storybook-utils": [
         {
-          "file": "packages/konstanter/index.ts",
-          "hash": "13963160418797000049"
+          "file": "packages/internal/storybook-utils/decorators/withIntl.tsx",
+          "hash": "11691432957784915504"
         },
         {
-          "file": "packages/konstanter/package.json",
-          "hash": "7911068179928774145",
+          "file": "packages/internal/storybook-utils/decorators/withReactHookForm.tsx",
+          "hash": "7432717551954211114"
+        },
+        {
+          "file": "packages/internal/storybook-utils/index.ts",
+          "hash": "307989129743798612"
+        },
+        {
+          "file": "packages/internal/storybook-utils/mocks/alleKodeverk.json",
+          "hash": "4031906590162425714"
+        },
+        {
+          "file": "packages/internal/storybook-utils/mocks/alleTilbakekrevingKodeverk.json",
+          "hash": "5844039074433461349"
+        },
+        {
+          "file": "packages/internal/storybook-utils/package.json",
+          "hash": "15396325871079076710",
           "deps": [
+            "npm:eslint",
+            "npm:typescript",
+            "@navikt/ft-form-hooks",
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:react-intl"
+          ]
+        },
+        {
+          "file": "packages/internal/storybook-utils/tsconfig.json",
+          "hash": "3995108690483914464"
+        }
+      ],
+      "@navikt/ft-ui-komponenter": [
+        {
+          "file": "packages/ui-komponenter/.storybook/main.ts",
+          "hash": "16037028598835203451"
+        },
+        {
+          "file": "packages/ui-komponenter/.storybook/preview.tsx",
+          "hash": "5715388699489233354"
+        },
+        {
+          "file": "packages/ui-komponenter/i18n/nb_NO.json",
+          "hash": "17358971651730540915"
+        },
+        {
+          "file": "packages/ui-komponenter/index.ts",
+          "hash": "9658641021264566333"
+        },
+        {
+          "file": "packages/ui-komponenter/package.json",
+          "hash": "3632247585747955539",
+          "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-utils",
+            "npm:classnames",
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-intl",
+            "npm:react-modal",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
             "npm:cross-env",
             "npm:eslint",
+            "npm:storybook",
             "npm:stylelint",
             "npm:typescript",
             "npm:vite",
@@ -3924,16 +3258,376 @@
           ]
         },
         {
-          "file": "packages/konstanter/src/eksterneLenker.ts",
-          "hash": "15608010545545336459"
+          "file": "packages/ui-komponenter/src/AksjonspunktBox.stories.tsx",
+          "hash": "13659149613875386248"
         },
         {
-          "file": "packages/konstanter/tsconfig.json",
-          "hash": "17809664984697173256"
+          "file": "packages/ui-komponenter/src/AksjonspunktBox.tsx",
+          "hash": "929883535944159239"
         },
         {
-          "file": "packages/konstanter/vite.config.js",
-          "hash": "3268988086156914968"
+          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextHTML.spec.tsx",
+          "hash": "10050618011569631368"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextHTML.stories.tsx",
+          "hash": "5053490216970122121"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextHTML.tsx",
+          "hash": "10588444597268635523"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.module.css",
+          "hash": "8709122249808880022"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.spec.tsx",
+          "hash": "7769744355387911035"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.stories.tsx",
+          "hash": "3897363997212879152"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AksjonspunktHelpTextTemp.tsx",
+          "hash": "11543943525640299495"
+        },
+        {
+          "file": "packages/ui-komponenter/src/ArrowBox.stories.tsx",
+          "hash": "4403241037903594372"
+        },
+        {
+          "file": "packages/ui-komponenter/src/ArrowBox.tsx",
+          "hash": "11735222798349753598"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AvsnittSkiller.stories.tsx",
+          "hash": "14862794839613174884"
+        },
+        {
+          "file": "packages/ui-komponenter/src/AvsnittSkiller.tsx",
+          "hash": "1471895935586887724"
+        },
+        {
+          "file": "packages/ui-komponenter/src/BorderBox.stories.tsx",
+          "hash": "8348883782129219"
+        },
+        {
+          "file": "packages/ui-komponenter/src/BorderBox.tsx",
+          "hash": "12071980877090680593"
+        },
+        {
+          "file": "packages/ui-komponenter/src/DataFetchPendingModal.stories.tsx",
+          "hash": "13505226864454703875"
+        },
+        {
+          "file": "packages/ui-komponenter/src/DataFetchPendingModal.tsx",
+          "hash": "7339810099072456402"
+        },
+        {
+          "file": "packages/ui-komponenter/src/DateLabel.stories.tsx",
+          "hash": "12121311753328213570"
+        },
+        {
+          "file": "packages/ui-komponenter/src/DateLabel.tsx",
+          "hash": "11743133918401153057"
+        },
+        {
+          "file": "packages/ui-komponenter/src/DateTimeLabel.stories.tsx",
+          "hash": "4473840865227034727"
+        },
+        {
+          "file": "packages/ui-komponenter/src/DateTimeLabel.tsx",
+          "hash": "8578410088044489842"
+        },
+        {
+          "file": "packages/ui-komponenter/src/EditedIcon.stories.tsx",
+          "hash": "1276390721455953183"
+        },
+        {
+          "file": "packages/ui-komponenter/src/EditedIcon.tsx",
+          "hash": "9396733343444289582"
+        },
+        {
+          "file": "packages/ui-komponenter/src/FadingPanel.stories.tsx",
+          "hash": "2182622839621567052"
+        },
+        {
+          "file": "packages/ui-komponenter/src/FadingPanel.tsx",
+          "hash": "10349553366136486988"
+        },
+        {
+          "file": "packages/ui-komponenter/src/FaktaGruppe.stories.tsx",
+          "hash": "9512234439214365756"
+        },
+        {
+          "file": "packages/ui-komponenter/src/FaktaGruppe.tsx",
+          "hash": "12274055312489682"
+        },
+        {
+          "file": "packages/ui-komponenter/src/FloatRight.stories.tsx",
+          "hash": "3450426607997429477"
+        },
+        {
+          "file": "packages/ui-komponenter/src/FloatRight.tsx",
+          "hash": "18140602409292136675"
+        },
+        {
+          "file": "packages/ui-komponenter/src/Image.tsx",
+          "hash": "12070861270596471726"
+        },
+        {
+          "file": "packages/ui-komponenter/src/LabelWithHeader.stories.tsx",
+          "hash": "17240055318561325658"
+        },
+        {
+          "file": "packages/ui-komponenter/src/LabelWithHeader.tsx",
+          "hash": "50579915806060208"
+        },
+        {
+          "file": "packages/ui-komponenter/src/LoadingPanel.spec.tsx",
+          "hash": "14987440787380128072"
+        },
+        {
+          "file": "packages/ui-komponenter/src/LoadingPanel.stories.tsx",
+          "hash": "10186519769814548265"
+        },
+        {
+          "file": "packages/ui-komponenter/src/LoadingPanel.tsx",
+          "hash": "15343883132103980765"
+        },
+        {
+          "file": "packages/ui-komponenter/src/OkAvbrytModal.stories.tsx",
+          "hash": "11585979021366850705"
+        },
+        {
+          "file": "packages/ui-komponenter/src/OkAvbrytModal.tsx",
+          "hash": "8996483160973621530"
+        },
+        {
+          "file": "packages/ui-komponenter/src/OverstyringKnapp.stories.tsx",
+          "hash": "2301118297477720732"
+        },
+        {
+          "file": "packages/ui-komponenter/src/OverstyringKnapp.tsx",
+          "hash": "4090187841896436971"
+        },
+        {
+          "file": "packages/ui-komponenter/src/PeriodLabel.stories.tsx",
+          "hash": "13246887451766330090"
+        },
+        {
+          "file": "packages/ui-komponenter/src/PeriodLabel.tsx",
+          "hash": "14090923677971219773"
+        },
+        {
+          "file": "packages/ui-komponenter/src/TimeLabel.stories.tsx",
+          "hash": "12667864541526378283"
+        },
+        {
+          "file": "packages/ui-komponenter/src/TimeLabel.tsx",
+          "hash": "16800772930374498273"
+        },
+        {
+          "file": "packages/ui-komponenter/src/Tooltip.stories.tsx",
+          "hash": "6289003095073940478"
+        },
+        {
+          "file": "packages/ui-komponenter/src/Tooltip.tsx",
+          "hash": "7769943065861761483"
+        },
+        {
+          "file": "packages/ui-komponenter/src/VerticalSpacer.stories.tsx",
+          "hash": "173957205940411042"
+        },
+        {
+          "file": "packages/ui-komponenter/src/VerticalSpacer.tsx",
+          "hash": "10321117874786070006"
+        },
+        {
+          "file": "packages/ui-komponenter/src/WarningModal.spec.tsx",
+          "hash": "2018296184125058328"
+        },
+        {
+          "file": "packages/ui-komponenter/src/WarningModal.stories.tsx",
+          "hash": "14940197227977141225"
+        },
+        {
+          "file": "packages/ui-komponenter/src/WarningModal.tsx",
+          "hash": "9013659293188831576"
+        },
+        {
+          "file": "packages/ui-komponenter/src/aksjonspunktBox.module.css",
+          "hash": "14506434785946794691"
+        },
+        {
+          "file": "packages/ui-komponenter/src/avsnittSkiller.module.css",
+          "hash": "9917055389751408129"
+        },
+        {
+          "file": "packages/ui-komponenter/src/blaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe.stories.tsx",
+          "hash": "9700009711226629979"
+        },
+        {
+          "file": "packages/ui-komponenter/src/blaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe.tsx",
+          "hash": "15646278161038230294"
+        },
+        {
+          "file": "packages/ui-komponenter/src/blaBoksMedCheckmarkListe/blaBoksMedCheckmarkListe.module.css",
+          "hash": "17998329700673504387"
+        },
+        {
+          "file": "packages/ui-komponenter/src/borderBox.module.css",
+          "hash": "10455182168708448002"
+        },
+        {
+          "file": "packages/ui-komponenter/src/dataFetchPendingModal.module.css",
+          "hash": "9923131107882674480"
+        },
+        {
+          "file": "packages/ui-komponenter/src/dateLabel.spec.tsx",
+          "hash": "1124394256226152822"
+        },
+        {
+          "file": "packages/ui-komponenter/src/editedIcon.module.css",
+          "hash": "12104222011859724901"
+        },
+        {
+          "file": "packages/ui-komponenter/src/error-boundary/ErrorBoundary.tsx",
+          "hash": "8981149872355940426"
+        },
+        {
+          "file": "packages/ui-komponenter/src/fadingPanel.module.css",
+          "hash": "889826720123644635"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/FlexColumn.tsx",
+          "hash": "17042736492333759259"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/FlexContainer.stories.tsx",
+          "hash": "48825632752497220"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/FlexContainer.tsx",
+          "hash": "4038816911338305916"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/FlexRow.tsx",
+          "hash": "12897205649739318930"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/flexColumn.module.css",
+          "hash": "17550011946110645570"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/flexContainer.module.css",
+          "hash": "12867845804426568281"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/flexContainer.spec.tsx",
+          "hash": "12561394969414419553"
+        },
+        {
+          "file": "packages/ui-komponenter/src/flexGrid/flexRow.module.css",
+          "hash": "4178791988821226426"
+        },
+        {
+          "file": "packages/ui-komponenter/src/floatRight.module.css",
+          "hash": "3973424785516234118"
+        },
+        {
+          "file": "packages/ui-komponenter/src/hooks/usePrevious.tsx",
+          "hash": "5357645285395649253"
+        },
+        {
+          "file": "packages/ui-komponenter/src/labelWithHeader.module.css",
+          "hash": "1414311039526084455"
+        },
+        {
+          "file": "packages/ui-komponenter/src/loadingPanel.module.css",
+          "hash": "8325269342008112571"
+        },
+        {
+          "file": "packages/ui-komponenter/src/okAvbrytModal.spec.tsx",
+          "hash": "2106244920576806011"
+        },
+        {
+          "file": "packages/ui-komponenter/src/overstyringKnapp.module.css",
+          "hash": "10773945613675883362"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/ExpandableTableRow.spec.tsx",
+          "hash": "12117863003473035483"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/ExpandableTableRow.stories.tsx",
+          "hash": "12695180686941718854"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/ExpandableTableRow.tsx",
+          "hash": "10555617777932246602"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/Table.stories.tsx",
+          "hash": "3748131713008699946"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/Table.tsx",
+          "hash": "17455753294705006833"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/TableColumn.tsx",
+          "hash": "17667200390523675656"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/TableRow.tsx",
+          "hash": "8592385982730215424"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/expandableTableRow.module.css",
+          "hash": "15600521902009175199"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/index.tsx",
+          "hash": "15847543224589984237"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/table.module.css",
+          "hash": "8410262776256423313"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/table.spec.tsx",
+          "hash": "14842028663759888673"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/tableColumn.module.css",
+          "hash": "16303896457252215029"
+        },
+        {
+          "file": "packages/ui-komponenter/src/table/tableRow.module.css",
+          "hash": "163450974932867266"
+        },
+        {
+          "file": "packages/ui-komponenter/src/tooltip.module.css",
+          "hash": "14126547798707411572"
+        },
+        {
+          "file": "packages/ui-komponenter/src/verticalSpacer.module.css",
+          "hash": "3020152095787035238"
+        },
+        {
+          "file": "packages/ui-komponenter/src/warningModal.module.css",
+          "hash": "4172337931426922069"
+        },
+        {
+          "file": "packages/ui-komponenter/tsconfig.json",
+          "hash": "13454511841889097846"
+        },
+        {
+          "file": "packages/ui-komponenter/vite.config.js",
+          "hash": "2109782830818244650"
         }
       ],
       "@navikt/ft-plattform-komponenter": [
@@ -3951,7 +3645,7 @@
         },
         {
           "file": "packages/plattform-komponenter/package.json",
-          "hash": "11257317328227877568",
+          "hash": "4103605589335727029",
           "deps": [
             "npm:@navikt/aksel-icons",
             "npm:@navikt/ds-css",
@@ -4133,7 +3827,7 @@
         },
         {
           "file": "packages/plattform-komponenter/src/header/Header.tsx",
-          "hash": "10583101550359462792"
+          "hash": "1455232552008475834"
         },
         {
           "file": "packages/plattform-komponenter/src/header/header.module.css",
@@ -4500,37 +4194,343 @@
           "hash": "13753363116505528777"
         }
       ],
-      "@navikt/ft-hooks": [
+      "@navikt/ft-prosess-beregningsgrunnlag": [
         {
-          "file": "packages/hooks/index.ts",
-          "hash": "9388319028965992731"
+          "file": "packages/prosess-beregningsgrunnlag/.storybook/main.ts",
+          "hash": "16037028598835203451"
         },
         {
-          "file": "packages/hooks/package.json",
-          "hash": "12632925294948486642",
+          "file": "packages/prosess-beregningsgrunnlag/.storybook/preview.tsx",
+          "hash": "8379413221048067804"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/i18n/nb_NO.json",
+          "hash": "17585503047878755489"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/index.ts",
+          "hash": "876111820023157572"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/package.json",
+          "hash": "5621006283036027645",
           "deps": [
+            "npm:@navikt/aksel-icons",
+            "npm:@navikt/ds-css",
+            "npm:@navikt/ds-react",
+            "@navikt/ft-form-hooks",
+            "@navikt/ft-form-validators",
+            "@navikt/ft-kodeverk",
+            "@navikt/ft-plattform-komponenter",
+            "@navikt/ft-types",
+            "@navikt/ft-ui-komponenter",
+            "@navikt/ft-utils",
+            "npm:classnames",
+            "npm:dayjs",
+            "npm:echarts",
             "npm:react",
+            "npm:react-hook-form",
+            "npm:react-intl",
+            "@navikt/ft-frontend-storybook-utils",
+            "@navikt/ft-frontend-utils-test",
+            "npm:@storybook/addon-actions",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:cross-env",
             "npm:eslint",
+            "npm:storybook",
+            "npm:stylelint",
             "npm:typescript",
             "npm:vite",
             "npm:vitest"
           ]
         },
         {
-          "file": "packages/hooks/src/useStorageToggle.spec.tsx",
-          "hash": "16416953079518353505"
+          "file": "packages/prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.spec.tsx",
+          "hash": "4012392686075026794"
         },
         {
-          "file": "packages/hooks/src/useStorageToggle.tsx",
-          "hash": "9513653215860011881"
+          "file": "packages/prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.stories.tsx",
+          "hash": "9061818188865597267"
         },
         {
-          "file": "packages/hooks/tsconfig.json",
-          "hash": "17809664984697173256"
+          "file": "packages/prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.tsx",
+          "hash": "7196158767182020960"
         },
         {
-          "file": "packages/hooks/vite.config.js",
-          "hash": "5574057211895321430"
+          "file": "packages/prosess-beregningsgrunnlag/src/beregningsgrunnlagProsessIndex.module.css",
+          "hash": "8217302165682342092"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/BeregningFP.tsx",
+          "hash": "2807747059438896634"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/ProsessStegSubmitButton.tsx",
+          "hash": "18081205529623658529"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/AksjonspunktBehandlerAT.tsx",
+          "hash": "8433075481092778620"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/AksjonspunktBehandlerTB.tsx",
+          "hash": "5004523543719640833"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/GrunnlagForAarsinntektPanelAT.tsx",
+          "hash": "6836102524559800770"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/arbeidstaker/NaturalytelsePanel.tsx",
+          "hash": "16156484120055191551"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningForm/BeregningForm.tsx",
+          "hash": "17674757967131719128"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsgrunnlagPanel/Beregningsgrunnlag.tsx",
+          "hash": "5274655717047638734"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsgrunnlagPanel/beregningsgrunnlag.module.css",
+          "hash": "17656685138306498851"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsresultat/BeregningsresultatPanel.tsx",
+          "hash": "16543883063003909080"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsresultat/OppsummertGrunnlagPanel.tsx",
+          "hash": "7696664719466658849"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/beregningsresultat/beregningsresultat.module.css",
+          "hash": "4787929034205962269"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/besteberegning/BesteberegningResultatGrunnlagPanel.tsx",
+          "hash": "4629113495573350605"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/echart/ReactECharts.tsx",
+          "hash": "14514599929782699074"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/AksjonspunktBehandler.tsx",
+          "hash": "14638366479490379546"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/AksjonspunktBehandlerHeader.tsx",
+          "hash": "2790672875072576774"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/AksjonspunktTittel.tsx",
+          "hash": "9598380662510321773"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/Ledelinje.tsx",
+          "hash": "9244913071068728659"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SaksopplysningPanel.tsx",
+          "hash": "7921931711976708661"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningForklaringPanel.tsx",
+          "hash": "13101096339418360895"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningOgFastsettelsePanel.tsx",
+          "hash": "14576311779296983975"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningsgrunnlagAOrdningen.tsx",
+          "hash": "13059391838064562549"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SammenligningsgrunnlagPanel.tsx",
+          "hash": "2293691611798424119"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/SkjeringspunktOgStatusPanel.tsx",
+          "hash": "7635722035241945336"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/aksjonspunktBehandler.module.css",
+          "hash": "13748307495023505463"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/avvikopplysningerPanel.module.css",
+          "hash": "16784791589707725975"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/ledelinje.module.css",
+          "hash": "6659825998884748795"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/lovparagraf.tsx",
+          "hash": "7579996559914295773"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/fellesPaneler/sammenligningsgrunnlagAOrdningen.module.css",
+          "hash": "4807848865757013377"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frilanser/AksjonspunktBehandlerFL.tsx",
+          "hash": "7038007248563603063"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frilanser/GrunnlagForAarsinntektPanelFL.tsx",
+          "hash": "8669390601458755255"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Beregningsresultat.tsx",
+          "hash": "16869585107061902688"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/BeregningsresultatPeriode.tsx",
+          "hash": "10760291537358130682"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/FrisinnUtils.tsx",
+          "hash": "107138182566150036"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Frisinnpanel.tsx",
+          "hash": "437491346204836022"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Grenseverdi.tsx",
+          "hash": "10232602599586273763"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Inntektsopplysninger.tsx",
+          "hash": "954129401209830362"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/Søknadsopplysninger.tsx",
+          "hash": "13917542417652875330"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/YtelsegrunnlagPanel.tsx",
+          "hash": "14983435275900619785"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/frisinn/søknadsopplysninger.module.css",
+          "hash": "14244963176426475017"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/gradering/GraderingUtenBGReadOnly.tsx",
+          "hash": "6482745767673942213"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/gradering/graderingUtenBGReadOnly.module.css",
+          "hash": "4473278700579395213"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/militar/MilitaerPanel.tsx",
+          "hash": "17170749570302520815"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.tsx",
+          "hash": "11560762238195199282"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/FastsettSNNyIArbeid.tsx",
+          "hash": "6418210315229741368"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN.tsx",
+          "hash": "17230865344624073577"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/NaeringsOpplysningsPanel.tsx",
+          "hash": "4652133919799696578"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/VurderVarigEndringEllerNyoppstartet.tsx",
+          "hash": "10197768991105794437"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/selvstendigNaeringsdrivende/naeringsOpplysningsPanel.module.css",
+          "hash": "17913097377226922262"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/tilstotendeYtelser/TilstotendeYtelser.tsx",
+          "hash": "2827000148953088435"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/components/tilstotendeYtelser/YtelserFraInfotrygd.tsx",
+          "hash": "10553041273665079538"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/ATFLAksjonspunktTsType.tsx",
+          "hash": "8083927696558564956"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningFormValues.ts",
+          "hash": "11221314948738031749"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningsgrunnlagAksjonspunktTsType.tsx",
+          "hash": "8456165571314882004"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningsresultatPeriodeTabellType.tsx",
+          "hash": "746025192984329809"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/BeregningsresultatTabellType.tsx",
+          "hash": "6327922115855082748"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/NaringAksjonspunktTsType.tsx",
+          "hash": "18260034253111080059"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/NaturalytelseTableTsType.tsx",
+          "hash": "2654675187769357740"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/RelevanteStatuserTsType.tsx",
+          "hash": "4223666568803721456"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/AvklaringsbehovMapping.tsx",
+          "hash": "7162719534739723506"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/BeregningsgrunnlagAP.ts",
+          "hash": "18058273795898944310"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/GamleKoder.ts",
+          "hash": "15441080240142818913"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode.ts",
+          "hash": "6154301580940285375"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/types/kodeverkForPanel.ts",
+          "hash": "3988455891767259971"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/src/util/createVisningsnavnForAktivitet.ts",
+          "hash": "14309441004079030297"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/tsconfig.json",
+          "hash": "4235612727165863082"
+        },
+        {
+          "file": "packages/prosess-beregningsgrunnlag/vite.config.js",
+          "hash": "2220818063426475378"
         }
       ]
     }
