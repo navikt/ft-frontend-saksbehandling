@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import {
   removeSpacesFromNumber,
   fodselsnummerPattern,
@@ -54,7 +54,13 @@ import {
   integerOptionalNegativeRegex,
 } from './validatorsHelper';
 
-type DateType = moment.Moment | Date | string;
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
+
+type DateType = dayjs.Dayjs | Date | string;
 
 type InputValue = string | number | boolean;
 
@@ -153,43 +159,43 @@ export const hasValidDate = (text: string): FormValidationResult =>
   isEmpty(text) || isoDateRegex.test(text) ? null : invalidDateMessage();
 export const dateBeforeOrEqual =
   (latest: DateType) =>
-  (text?: moment.Moment | string): FormValidationResult =>
-    isEmpty(text) || moment(text, ISO_DATE_FORMAT).isSameOrBefore(moment(latest, ISO_DATE_FORMAT).startOf('day'))
+  (text?: dayjs.Dayjs | string): FormValidationResult =>
+    isEmpty(text) || dayjs(text, ISO_DATE_FORMAT).isSameOrBefore(dayjs(latest, ISO_DATE_FORMAT).startOf('day'))
       ? null
-      : dateNotBeforeOrEqualMessage(moment(latest, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT));
+      : dateNotBeforeOrEqualMessage(dayjs(latest, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT));
+
 const getErrorMessage = (
   earliest: DateType,
   customErrorMessage?: (date: string) => FormValidationResult,
 ): FormValidationResult => {
-  const date = moment(earliest, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT);
+  const date = dayjs(earliest, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT);
   return customErrorMessage ? customErrorMessage(date) : dateNotAfterOrEqualMessage(date);
 };
 export const dateAfterOrEqual =
   (earliest: DateType, customErrorMessageFunction?: (date: string) => FormValidationResult) =>
-  (text?: moment.Moment | string): FormValidationResult =>
-    isEmpty(text) || moment(text, ISO_DATE_FORMAT).isSameOrAfter(moment(earliest, ISO_DATE_FORMAT).startOf('day'))
+  (text?: dayjs.Dayjs | string): FormValidationResult =>
+    isEmpty(text) || dayjs(text, ISO_DATE_FORMAT).isSameOrAfter(dayjs(earliest, ISO_DATE_FORMAT).startOf('day'))
       ? null
       : getErrorMessage(earliest, customErrorMessageFunction);
 export const dateIsBefore =
   (dateToCheckAgainst: string, errorMessageFunction: (date: string) => FormValidationResult) =>
   (inputDate: string): FormValidationResult =>
-    isEmpty(inputDate) || moment(inputDate).isBefore(moment(dateToCheckAgainst).startOf('day'))
+    isEmpty(inputDate) || dayjs(inputDate).isBefore(dayjs(dateToCheckAgainst).startOf('day'))
       ? null
-      : errorMessageFunction(moment(dateToCheckAgainst).format(DDMMYYYY_DATE_FORMAT));
+      : errorMessageFunction(dayjs(dateToCheckAgainst).format(DDMMYYYY_DATE_FORMAT));
 
 export const dateRangesNotOverlapping = (ranges: string[][]): FormValidationResult =>
   dateRangesAreSequential(ranges) ? null : dateRangesOverlappingMessage();
 export const dateRangesNotOverlappingCrossTypes = (ranges: string[][]): FormValidationResult =>
   dateRangesAreSequential(ranges) ? null : dateRangesOverlappingBetweenPeriodTypesMessage();
 
-export const dateBeforeToday = (text?: moment.Moment | string): FormValidationResult =>
+export const dateBeforeToday = (text?: dayjs.Dayjs | string): FormValidationResult =>
   dateBeforeOrEqual(yesterday())(text);
-export const dateBeforeOrEqualToToday = (text?: moment.Moment | string): FormValidationResult =>
-  dateBeforeOrEqual(moment().startOf('day'))(text);
-export const dateAfterToday = (text?: moment.Moment | string): FormValidationResult =>
-  dateAfterOrEqual(tomorrow())(text);
-export const dateAfterOrEqualToToday = (text?: moment.Moment | string): FormValidationResult =>
-  dateAfterOrEqual(moment().startOf('day'))(text);
+export const dateBeforeOrEqualToToday = (text?: dayjs.Dayjs | string): FormValidationResult =>
+  dateBeforeOrEqual(dayjs().startOf('day'))(text);
+export const dateAfterToday = (text?: dayjs.Dayjs | string): FormValidationResult => dateAfterOrEqual(tomorrow())(text);
+export const dateAfterOrEqualToToday = (text?: dayjs.Dayjs | string): FormValidationResult =>
+  dateAfterOrEqual(dayjs().startOf('day'))(text);
 
 export const hasValidFodselsnummerFormat = (text: string): FormValidationResult =>
   !fodselsnummerPattern.test(text) ? invalidFodselsnummerFormatMessage() : null;
@@ -221,15 +227,15 @@ export const arrayMinLength =
   (value: string | any[]): FormValidationResult =>
     value && value.length >= length ? null : arrayMinLengthMessage(length);
 
-export const dateIsAfter = (date: string, checkAgainsDate: string): boolean => moment(date).isAfter(checkAgainsDate);
+export const dateIsAfter = (date: string, checkAgainsDate: string): boolean => dayjs(date).isAfter(checkAgainsDate);
 export const isDatesEqual = (date1: string, date2: string): FormValidationResult =>
-  date1 !== date2 ? datesNotEqual(moment(date2).format(DDMMYYYY_DATE_FORMAT)) : null;
+  date1 !== date2 ? datesNotEqual(dayjs(date2).format(DDMMYYYY_DATE_FORMAT)) : null;
 
 export const validPeriodeFomTom = (fomDate: string, tomDate: string): FormValidationResult => {
   if (isEmpty(fomDate) && isEmpty(tomDate)) {
     return null;
   }
-  return moment(fomDate).isSameOrBefore(moment(tomDate).startOf('day')) ? null : invalidPeriodMessage();
+  return dayjs(fomDate).isSameOrBefore(dayjs(tomDate).startOf('day')) ? null : invalidPeriodMessage();
 };
 
 export const hasValidPeriod = (fomDate: string, tomDate: string): FormValidationResult => {
@@ -239,14 +245,14 @@ export const hasValidPeriod = (fomDate: string, tomDate: string): FormValidation
   if (!isoDateRegex.test(fomDate) || !isoDateRegex.test(tomDate)) {
     return invalidDatesInPeriodMessage();
   }
-  return moment(fomDate).isSameOrBefore(moment(tomDate).startOf('day')) ? null : invalidPeriodMessage();
+  return dayjs(fomDate).isSameOrBefore(dayjs(tomDate).startOf('day')) ? null : invalidPeriodMessage();
 };
 
 export const isWithinOpptjeningsperiode =
   (fomDateLimit: string, tomDateLimit: string) =>
   (fom: string, tom: string): FormValidationResult => {
-    const isBefore = moment(fom).isBefore(moment(fomDateLimit));
-    const isAfter = moment(tom).isAfter(moment(tomDateLimit));
+    const isBefore = dayjs(fom).isBefore(dayjs(fomDateLimit));
+    const isAfter = dayjs(tom).isAfter(dayjs(tomDateLimit));
     return isBefore || isAfter ? invalidPeriodRangeMessage() : null;
   };
 

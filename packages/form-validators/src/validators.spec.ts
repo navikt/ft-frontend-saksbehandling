@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import {
@@ -29,7 +29,7 @@ import {
   requiredIfNotPristine,
 } from './validators';
 
-const today = moment();
+const today = dayjs();
 const todayAsISO = today.format(ISO_DATE_FORMAT);
 
 describe('Validators', () => {
@@ -216,7 +216,7 @@ describe('Validators', () => {
 
   describe('dateBeforeOrEqual', () => {
     it('skal ikke feile når dato er før spesifisert dato', () => {
-      const result = dateBeforeOrEqual(moment().toDate())('2000-12-10');
+      const result = dateBeforeOrEqual(dayjs().toDate())('2000-12-10');
       expect(result).toBeNull();
     });
 
@@ -227,7 +227,7 @@ describe('Validators', () => {
 
     it('skal feile når dato ikke er før eller lik spesifisert dato', () => {
       const result = dateBeforeOrEqual(today)('2100-12-10');
-      expect(result).toEqual(`Dato må være før eller lik ${moment().format(DDMMYYYY_DATE_FORMAT)}`);
+      expect(result).toEqual(`Dato må være før eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
@@ -238,7 +238,7 @@ describe('Validators', () => {
 
   describe('dateAfterOrEqual', () => {
     it('skal ikke feile når dato er etter spesifisert dato', () => {
-      const result = dateAfterOrEqual(moment().toDate())('2100-12-10');
+      const result = dateAfterOrEqual(dayjs().toDate())('2100-12-10');
       expect(result).toBeNull();
     });
 
@@ -249,7 +249,7 @@ describe('Validators', () => {
 
     it('skal feile når dato er før spesifisert dato', () => {
       const result = dateAfterOrEqual(today)('2000-12-10');
-      expect(result).toEqual(`Dato må være etter eller lik ${moment().format(DDMMYYYY_DATE_FORMAT)}`);
+      expect(result).toEqual(`Dato må være etter eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
@@ -286,7 +286,7 @@ describe('Validators', () => {
 
     it('skal feile når dato er lik dagens dato', () => {
       const result = dateBeforeToday(todayAsISO);
-      expect(result).toEqual(`Dato må være før eller lik ${moment().subtract(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`);
+      expect(result).toEqual(`Dato må være før eller lik ${dayjs().subtract(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
@@ -308,7 +308,7 @@ describe('Validators', () => {
 
     it('skal feile når dato er etter dagens dato', () => {
       const result = dateBeforeOrEqualToToday('2100-10-10');
-      expect(result).toEqual(`Dato må være før eller lik ${moment().format(DDMMYYYY_DATE_FORMAT)}`);
+      expect(result).toEqual(`Dato må være før eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
@@ -325,7 +325,7 @@ describe('Validators', () => {
 
     it('skal feile når dato er i dag', () => {
       const result = dateAfterToday(todayAsISO);
-      expect(result).toEqual(`Dato må være etter eller lik ${moment().add(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`);
+      expect(result).toEqual(`Dato må være etter eller lik ${dayjs().add(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
@@ -342,7 +342,7 @@ describe('Validators', () => {
 
     it('skal feile når dato er historisk', () => {
       const result = dateAfterOrEqualToToday('2000-10-10');
-      expect(result).toEqual(`Dato må være etter eller lik ${moment().format(DDMMYYYY_DATE_FORMAT)}`);
+      expect(result).toEqual(`Dato må være etter eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
