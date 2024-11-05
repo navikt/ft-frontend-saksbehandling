@@ -199,7 +199,7 @@ export function isSameOrBefore(date: string | Dayjs | Date, otherDate: string | 
   return dateInQuestion.isBefore(formattedOtherDate) || dateInQuestion.isSame(formattedOtherDate);
 }
 
-export const isValidDate = (date: any) => !Number.isNaN(new Date(date) as any);
+export const isValidDate = (date: any) => !Number.isNaN(new Date(date).valueOf());
 
 export const getDateAndTime = (tidspunkt?: string): { date: string; time: string } | undefined => {
   if (!tidspunkt) {
