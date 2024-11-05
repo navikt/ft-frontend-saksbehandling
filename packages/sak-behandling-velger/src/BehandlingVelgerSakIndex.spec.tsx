@@ -18,7 +18,7 @@ describe('<BehandlingVelgerSakIndex>', () => {
     expect(screen.getByText(/02.08.2017/)).toBeInTheDocument();
     expect(screen.getByText(/02.08.2017/)).toBeInTheDocument();
     expect(screen.getByText('Enhet')).toBeInTheDocument();
-    expect(screen.getByText('NAV Familie- og pensjonsytelser Bergen')).toBeInTheDocument();
+    expect(screen.getByText('Nav familie- og pensjonsytelser Bergen')).toBeInTheDocument();
     expect(screen.getByText('4812')).toBeInTheDocument();
   });
 

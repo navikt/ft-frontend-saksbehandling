@@ -32,7 +32,7 @@ const EMPTY_ARRAY = [] as DekoratorLenke[];
  * DekoratorMedFeilviserSakIndex
  *
  * Definerer header-linjen som alltid vises øverst nettleservinduet.
- * Denne viser lenke tilbake til hovedsiden, nettside-navnet, NAV-ansatt navn og lenker i meny.
+ * Denne viser lenke tilbake til hovedsiden, nettside-navnet, Nav-ansatt navn og lenker i meny.
  * I tillegg vil den vise potensielle feilmeldinger i FeilmeldingPanel.
  */
 const DekoratorMedFeilviserSakIndex: FunctionComponent<OwnProps> = ({

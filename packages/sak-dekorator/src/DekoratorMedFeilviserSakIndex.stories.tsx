@@ -27,7 +27,7 @@ const Template: StoryFn<{
         feilmeldinger={errorMessages}
         eksterneLenker={[
           {
-            tekst: 'NAV',
+            tekst: 'Nav',
           },
         ]}
         interneLenker={

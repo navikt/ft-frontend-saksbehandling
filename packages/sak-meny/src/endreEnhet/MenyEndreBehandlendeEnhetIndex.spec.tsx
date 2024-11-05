@@ -27,7 +27,7 @@ describe('<MenyEndreBehandlendeEnhetIndex>', () => {
     expect(lagreNyBehandlendeEnhet).toHaveBeenNthCalledWith(1, {
       begrunnelse: 'Dette er en begrunnelse',
       enhetId: '1000',
-      enhetNavn: 'NAV Viken',
+      enhetNavn: 'Nav Vikafossen',
     });
   });
 

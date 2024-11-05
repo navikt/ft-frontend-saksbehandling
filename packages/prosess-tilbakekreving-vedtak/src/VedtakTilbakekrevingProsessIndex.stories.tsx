@@ -98,7 +98,7 @@ const vedtaksbrev = {
         {
           overskrift: 'Skatt',
           brødtekst:
-            'NAV gir opplysninger til skatteetaten når det feilutbetalte beløpet er tilbakebetalt. Skatteetaten vil da vurdere om det er ' +
+            'Nav gir opplysninger til skatteetaten når det feilutbetalte beløpet er tilbakebetalt. Skatteetaten vil da vurdere om det er ' +
             'grunnlag for å endre tidligere skatteoppgjør.',
           fritekstTillatt: false,
           fritekstPåkrevet: false,
@@ -106,8 +106,8 @@ const vedtaksbrev = {
         {
           overskrift: 'Hvordan betale tilbake pengene du skylder',
           brødtekst:
-            'Vi har overført beløpet du skylder til NAV Innkreving, som vil sende deg et krav om å betale tilbake det feilutbetalte beløpet. ' +
-            'Har du spørsmål om dette, kan du kontakte NAV Innkreving på telefon 21 05 11 00.',
+            'Vi har overført beløpet du skylder til Nav Innkreving, som vil sende deg et krav om å betale tilbake det feilutbetalte beløpet. ' +
+            'Har du spørsmål om dette, kan du kontakte Nav Innkreving på telefon 21 05 11 00.',
           fritekstTillatt: false,
           fritekstPåkrevet: false,
         },
@@ -143,7 +143,7 @@ const vedtaksbrev = {
           fritekstPåkrevet: false,
         },
         {
-          brødtekst: 'NAV Familie- og pensjonsytelser',
+          brødtekst: 'Nav familie- og pensjonsytelser',
           fritekstTillatt: false,
           fritekstPåkrevet: false,
         },

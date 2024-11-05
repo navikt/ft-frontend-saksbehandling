@@ -30,7 +30,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const utils = render(<AapOgRefusjonAp5046 submitCallback={lagre} />);
 
     expect(
-      await screen.findByText('Nytt refusjonskrav hos NAV Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
+      await screen.findByText('Nytt refusjonskrav hos Nav Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
@@ -239,7 +239,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const utils = render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 submitCallback={lagre} />);
 
     expect(
-      await screen.findByText('Nytt refusjonskrav hos NAV Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
+      await screen.findByText('Nytt refusjonskrav hos Nav Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
     ).toBeInTheDocument();
 
     const knapp = screen.getAllByText('Bekreft og fortsett');
@@ -494,7 +494,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
       ),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
-    expect(screen.getAllByText('NAV Gokk (999999999)')).toHaveLength(3);
+    expect(screen.getAllByText('Nav Gokk (999999999)')).toHaveLength(3);
     expect(
       screen.getByText('krever refusjon fra og med 01.06.2020. Det er tidligere innvilget et lavere refusjonsbeløp'),
     ).toBeInTheDocument();
@@ -597,7 +597,7 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
   expect(screen.getAllByText('Arbeidsgiveren (999999997)...123')).toHaveLength(2);
   expect(screen.getAllByText('Nei')).toHaveLength(3);
 
-  expect(screen.getAllByText('NAV Troms og Finnmark (974652293)...456')).toHaveLength(2);
+  expect(screen.getAllByText('Nav Troms og Finnmark (974652293)...456')).toHaveLength(2);
   expect(screen.getAllByText('Ja')).toHaveLength(3);
 
   expect(screen.getByText('300 000 kr')).toBeInTheDocument();
@@ -608,7 +608,7 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
   await userEvent.click(screen.getAllByLabelText('Nei')[0]);
 
   expect(
-    screen.getByText('Har søker inntekt fra NAV Troms og Finnmark (974652293)...456 som reduserer søkers inntektstap?'),
+    screen.getByText('Har søker inntekt fra Nav Troms og Finnmark (974652293)...456 som reduserer søkers inntektstap?'),
   ).toBeInTheDocument();
 
   await userEvent.click(screen.getAllByLabelText('Ja')[1]);

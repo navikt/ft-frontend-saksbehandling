@@ -8,7 +8,7 @@ const beregningsgrunnlag = [
         definisjon: 'VURDER_NYTT_INNTKTSFRHLD',
         status: 'UTFO',
         kanLoses: true,
-        begrunnelse: 'Oppstart hos Arbeidsgiveren er utsatt grunnet sykdom. Mottar løpende inntekt fra NAV i perioden.',
+        begrunnelse: 'Oppstart hos Arbeidsgiveren er utsatt grunnet sykdom. Mottar løpende inntekt fra Nav i perioden.',
       },
     ],
     skjaeringstidspunktBeregning: '2022-11-08',
