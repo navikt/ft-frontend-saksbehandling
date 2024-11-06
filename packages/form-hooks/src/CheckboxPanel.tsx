@@ -1,7 +1,8 @@
-import React, { FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
+import React, { ReactElement, ReactNode, useMemo } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
 import { CheckboxGroup, Checkbox, HStack } from '@navikt/ds-react';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
+
 import { getError, getValidationRules } from './formUtils';
 
 interface CheckboxProps {
@@ -26,7 +27,7 @@ interface CheckboxPanelProps {
   isEdited?: boolean;
 }
 
-const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
+const CheckboxPanel = ({
   label,
   name,
   description,
@@ -39,7 +40,7 @@ const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
   parse = value => value,
   hideLegend = false,
   isEdited = false,
-}) => {
+}: CheckboxPanelProps) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -50,53 +51,53 @@ const CheckboxPanel: FunctionComponent<CheckboxPanelProps> = ({
     },
   });
 
-  return (
+  const legend = (
     <>
-      <CheckboxGroup
-        name={name}
-        description={description}
-        value={field.value !== undefined ? field.value : []}
-        onChange={value => {
-          if (onChange) {
-            onChange(value);
-          }
-          field.onChange(value);
-        }}
-        size="small"
-        legend={label}
-        error={getError(errors, name)}
-        hideLegend={hideLegend}
-      >
-        {!isHorizontal &&
-          checkboxes
-            .filter(checkbox => !isReadOnly || field.value === parse(checkbox.value))
-            .map(checkbox => (
-              <Checkbox
-                key={checkbox.value}
-                value={parse(checkbox.value)}
-                disabled={checkbox.disabled || disabled || isReadOnly}
-              >
-                {checkbox.label}
-              </Checkbox>
-            ))}
-        {isHorizontal && (
-          <HStack gap="4">
-            {checkboxes
-              .filter(checkbox => !isReadOnly || field.value === parse(checkbox.value))
-              .map(checkbox => (
-                <Checkbox
-                  key={checkbox.value}
-                  value={parse(checkbox.value)}
-                  disabled={checkbox.disabled || disabled || isReadOnly}
-                >
-                  {checkbox.label}
-                </Checkbox>
-              ))}
-          </HStack>
-        )}
-      </CheckboxGroup>
+      {label}
       {isReadOnly && isEdited && <EditedIcon />}
     </>
+  );
+
+  return (
+    <CheckboxGroup
+      name={name}
+      description={description}
+      value={field.value !== undefined ? field.value : []}
+      onChange={value => {
+        if (onChange) {
+          onChange(value);
+        }
+        field.onChange(value);
+      }}
+      size="small"
+      legend={legend}
+      error={getError(errors, name)}
+      hideLegend={hideLegend}
+    >
+      {!isHorizontal &&
+        checkboxes.map(checkbox => (
+          <Checkbox
+            key={checkbox.value}
+            value={parse(checkbox.value)}
+            disabled={checkbox.disabled || disabled || isReadOnly}
+          >
+            {checkbox.label}
+          </Checkbox>
+        ))}
+      {isHorizontal && (
+        <HStack gap="4">
+          {checkboxes.map(checkbox => (
+            <Checkbox
+              key={checkbox.value}
+              value={parse(checkbox.value)}
+              disabled={checkbox.disabled || disabled || isReadOnly}
+            >
+              {checkbox.label}
+            </Checkbox>
+          ))}
+        </HStack>
+      )}
+    </CheckboxGroup>
   );
 };
 

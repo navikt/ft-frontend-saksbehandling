@@ -1,9 +1,10 @@
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react';
 import { useController, useFormContext } from 'react-hook-form';
-import { getError, getValidationRules } from './formUtils';
 
-export interface OwnProps {
+import { getError, getValidationRules } from '../formUtils';
+
+export interface Props {
   name: string;
   label: string | ReactNode;
   validate?: ((value: string) => any)[];
@@ -14,7 +15,7 @@ export interface OwnProps {
   disabled?: boolean;
 }
 
-const CheckboxField: FunctionComponent<OwnProps> = ({
+const CheckboxField = ({
   name,
   label,
   validate = [],
@@ -23,7 +24,7 @@ const CheckboxField: FunctionComponent<OwnProps> = ({
   onClick,
   className,
   disabled,
-}) => {
+}: Props) => {
   const {
     formState: { errors },
   } = useFormContext();

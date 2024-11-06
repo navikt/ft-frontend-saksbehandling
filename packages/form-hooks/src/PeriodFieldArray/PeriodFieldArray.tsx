@@ -45,7 +45,7 @@ const getRemoveButton =
     return undefined;
   };
 
-export interface OwnProps<PERIOD_TYPE> {
+export interface Props<PERIOD_TYPE> {
   children: (id: any, index: number, removeButtonElmt?: (className?: string) => ReactNode) => ReactNode;
   fields: PERIOD_TYPE[];
   readOnly?: boolean;
@@ -77,7 +77,7 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
   children,
   remove,
   append,
-}: OwnProps<PERIOD_TYPE>) => (
+}: Props<PERIOD_TYPE>) => (
   <Fieldset legend={titleText}>
     {fields.map((field, index) => children(field, index, getRemoveButton(index, remove)))}
     {shouldShowAddButton && (

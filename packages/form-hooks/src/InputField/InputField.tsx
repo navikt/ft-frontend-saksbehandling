@@ -1,10 +1,10 @@
 import { TextField, TextFieldProps } from '@navikt/ds-react';
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
-import ReadOnlyField from './ReadOnlyField';
-import { getError, getValidationRules } from './formUtils';
+import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { getError, getValidationRules } from '../formUtils';
 
-export interface OwnProps extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
+export interface Props extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
   name: string;
   label?: string | ReactNode;
   validate?: ((value: string) => any)[] | ((value: number) => any)[];
@@ -26,7 +26,7 @@ export interface OwnProps extends Omit<TextFieldProps, 'label' | 'autoComplete'>
   hideLabel?: boolean;
 }
 
-const InputField: FunctionComponent<OwnProps> = ({
+const InputField = ({
   name,
   label,
   validate = [],
@@ -47,7 +47,7 @@ const InputField: FunctionComponent<OwnProps> = ({
   className,
   hideLabel,
   ...props
-}) => {
+}: Props) => {
   const {
     formState: { errors },
     trigger,

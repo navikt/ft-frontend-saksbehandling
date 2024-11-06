@@ -29,12 +29,10 @@ const useCustomValidation = (stateName: string, message?: string): string | unde
   }
 
   const parts = stateName.split('.');
-  // @ts-ignore Fiks
+
   const errors = parts.reduce((prev, current) => prev[current] || {}, formState.errors);
 
-  // @ts-ignore Fiks
-  const errorMessage = errors?.notRegisteredInput?.message;
-  return errorMessage;
+  return errors?.notRegisteredInput?.message;
 };
 
 export default useCustomValidation;

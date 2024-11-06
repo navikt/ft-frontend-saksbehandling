@@ -1,12 +1,12 @@
+import React, { ReactNode, useCallback, useMemo, useState } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 import { DatePicker, HStack, Label, useRangeDatepicker, VStack } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import React, { FunctionComponent, ReactNode, useCallback, useMemo, useState } from 'react';
-import { useController, useFormContext } from 'react-hook-form';
 
-import { getError, getValidationRules } from './formUtils';
-import ReadOnlyField from './ReadOnlyField';
+import { getError, getValidationRules } from '../formUtils';
+import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
@@ -23,7 +23,8 @@ export interface RangepickerProps {
   isEdited?: boolean;
 }
 
-const Rangepicker: FunctionComponent<RangepickerProps> = ({
+// @deprecated brukes ikke(?)
+const Rangepicker = ({
   fomName,
   tomName,
   label,
@@ -34,7 +35,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
   fromDate,
   toDate,
   isEdited,
-}): JSX.Element => {
+}: RangepickerProps) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -132,6 +133,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
             size="small"
             hideLabel
             label=""
+            aria-label="Fra dato"
             disabled={disabled}
             error={getError(errors, fomName)}
           />
@@ -141,6 +143,7 @@ const Rangepicker: FunctionComponent<RangepickerProps> = ({
             value={fieldValueTom}
             size="small"
             label=""
+            aria-label="Til dato"
             hideLabel
             disabled={disabled}
             error={getError(errors, tomName)}

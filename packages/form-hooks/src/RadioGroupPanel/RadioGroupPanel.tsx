@@ -1,8 +1,9 @@
+import React, { Fragment, ReactElement, ReactNode, useMemo } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
-import React, { Fragment, FunctionComponent, ReactElement, ReactNode, useMemo } from 'react';
-import { useController, useFormContext } from 'react-hook-form';
-import { getError, getValidationRules } from './formUtils';
+
+import { getError, getValidationRules } from '../formUtils';
 import styles from './radioGroupPanel.module.css';
 
 interface RadioProps {
@@ -29,7 +30,7 @@ interface RadioGroupPanelProps {
   isEdited?: boolean;
 }
 
-const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
+const RadioGroupPanel = ({
   label,
   description,
   name,
@@ -44,7 +45,7 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
   hideLegend = false,
   hideRadioLabels = false,
   isEdited = false,
-}) => {
+}: RadioGroupPanelProps) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -57,14 +58,12 @@ const RadioGroupPanel: FunctionComponent<RadioGroupPanelProps> = ({
 
   const parseValue = isTrueOrFalseSelection ? (value: string) => value === 'true' : parse;
 
-  const legend =
-    isReadOnly && isEdited ? (
-      <>
-        {label} <EditedIcon />
-      </>
-    ) : (
-      label
-    );
+  const legend = (
+    <>
+      {label}
+      {isReadOnly && isEdited && <EditedIcon />}
+    </>
+  );
 
   return (
     <RadioGroup
