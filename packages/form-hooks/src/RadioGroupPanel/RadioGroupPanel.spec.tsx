@@ -4,7 +4,7 @@ import { expect } from 'vitest';
 import { composeStories } from '@storybook/react';
 import * as stories from './RadioGroupPanel.stories';
 
-export const { Default } = composeStories(stories);
+const { Default } = composeStories(stories);
 
 describe('<RadioGroupPanel>', () => {
   it('skal sette verdi', async () => {

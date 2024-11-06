@@ -1,8 +1,8 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import RadioGroupPanel from './RadioGroupPanel';
 import { rhfDecorator } from '../../.storybook/decorators';
-import React from 'react';
 
 export default {
   component: RadioGroupPanel,

@@ -13,7 +13,7 @@ interface RadioProps {
   element?: ReactElement;
 }
 
-interface RadioGroupPanelProps {
+export interface RadioGroupPanelProps {
   name: string;
   description?: string;
   label?: string | ReactNode;

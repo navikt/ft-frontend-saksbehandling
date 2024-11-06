@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { NumberField } from '../../index';
+import NumberField from './NumberField';
 import { rhfDecorator } from '../../.storybook/decorators';
 
 export default {

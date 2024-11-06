@@ -1,12 +1,12 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { InputField } from '../../index';
+import InputField from './InputField';
 import { rhfDecorator } from '../../.storybook/decorators';
 
 export default {
   component: InputField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testinputpre: 'Hei hei' }),
-} as Meta<typeof InputField>;
+} satisfies Meta<typeof InputField>;
 
 type Story = StoryObj<typeof InputField>;
 

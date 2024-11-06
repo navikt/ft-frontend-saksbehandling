@@ -12,7 +12,7 @@ interface CheckboxProps {
   element?: ReactElement;
 }
 
-interface CheckboxPanelProps {
+export interface CheckboxPanelProps {
   name: string;
   label?: string | ReactNode;
   description?: string;

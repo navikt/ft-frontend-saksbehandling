@@ -12,18 +12,9 @@ export default {
 type Story = StoryObj<typeof CheckboxPanel>;
 
 const defaultCheckboxes = [
-  {
-    label: 'Verdi 1',
-    value: 'verdi1',
-  },
-  {
-    label: 'Verdi 2',
-    value: 'verdi2',
-  },
-  {
-    label: 'Verdi 3',
-    value: 'verdi3',
-  },
+  { label: 'Verdi 1', value: 'verdi1' },
+  { label: 'Verdi 2', value: 'verdi2' },
+  { label: 'Verdi 3', value: 'verdi3' },
 ];
 
 export const Default: Story = {
