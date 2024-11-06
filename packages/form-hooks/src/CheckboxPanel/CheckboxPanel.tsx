@@ -3,7 +3,7 @@ import { useFormContext, useController } from 'react-hook-form';
 import { CheckboxGroup, Checkbox, HStack } from '@navikt/ds-react';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import { getError, getValidationRules } from './formUtils';
+import { getError, getValidationRules } from '../formUtils';
 
 interface CheckboxProps {
   value: string;

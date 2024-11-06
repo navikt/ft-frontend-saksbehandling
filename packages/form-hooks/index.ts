@@ -1,5 +1,5 @@
 export { default as CheckboxField } from './src/CheckboxField/CheckboxField';
-export { default as CheckboxPanel } from './src/CheckboxPanel';
+export { default as CheckboxPanel } from './src/CheckboxPanel/CheckboxPanel';
 export { default as Datepicker } from './src/Datepicker/Datepicker';
 export { default as InputField } from './src/InputField/InputField';
 export { default as NumberField } from './src/NumberField/NumberField';

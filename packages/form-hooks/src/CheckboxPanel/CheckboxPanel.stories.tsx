@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import CheckboxPanel from '../CheckboxPanel';
+import CheckboxPanel from './CheckboxPanel';
 import { rhfDecorator } from '../../.storybook/decorators';
 
 export default {
