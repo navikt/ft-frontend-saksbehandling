@@ -5,7 +5,7 @@ import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
 import { getError, getValidationRules } from '../formUtils';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
-const DECIMAL_REGEXP = /^(\d+[,]?(\d+)?)$/;
+const DECIMAL_REGEXP = /^\d+[,]?\d+?$/;
 
 export interface Props {
   name: string;
