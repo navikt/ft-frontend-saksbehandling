@@ -1,13 +1,13 @@
-import React, { FunctionComponent, ReactNode, useMemo, useState } from 'react';
+import React, { ReactNode, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { TextField } from '@navikt/ds-react';
-import ReadOnlyField from './ReadOnlyField';
-import { getError, getValidationRules } from './formUtils';
+import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { getError, getValidationRules } from '../formUtils';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
-const DECIMAL_REGEXP = /^(\d+[,]?(\d+)?)$/;
+const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
 
-export interface OwnProps {
+export interface Props {
   name: string;
   label?: string | ReactNode;
   hideLabel?: boolean;
@@ -22,7 +22,7 @@ export interface OwnProps {
   onChange?: (value: any) => void;
 }
 
-const NumberField: FunctionComponent<OwnProps> = ({
+const NumberField = ({
   name,
   label,
   hideLabel,
@@ -35,7 +35,7 @@ const NumberField: FunctionComponent<OwnProps> = ({
   disabled,
   className,
   onChange,
-}) => {
+}: Props) => {
   const [hasFocus, setFocus] = useState(false);
 
   const {
@@ -79,7 +79,7 @@ const NumberField: FunctionComponent<OwnProps> = ({
         let newValue;
         if (targetValue === '') {
           newValue = null;
-        } else if (targetValue.match(regex)) {
+        } else if (regex.test(targetValue)) {
           newValue = targetValue.replace(',', '.');
         } else {
           newValue = field.value;

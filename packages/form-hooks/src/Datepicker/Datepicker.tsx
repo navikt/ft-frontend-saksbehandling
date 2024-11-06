@@ -1,12 +1,12 @@
+import React, { ReactNode, useCallback, useMemo, useState } from 'react';
+import dayjs from 'dayjs';
 import { DatePicker, DatePickerProps, useDatepicker } from '@navikt/ds-react';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import React, { FunctionComponent, ReactNode, useCallback, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
-import { getError, getValidationRules } from './formUtils';
-import ReadOnlyField from './ReadOnlyField';
+import { getError, getValidationRules } from '../formUtils';
+import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
@@ -26,7 +26,7 @@ export interface DatepickerProps {
   toDate?: Date;
 }
 
-const Datepicker: FunctionComponent<DatepickerProps> = ({
+const Datepicker = ({
   name,
   label,
   description,
@@ -40,7 +40,7 @@ const Datepicker: FunctionComponent<DatepickerProps> = ({
   fromDate,
   toDate,
   size = 'small',
-}) => {
+}: DatepickerProps) => {
   const {
     formState: { errors },
   } = useFormContext();

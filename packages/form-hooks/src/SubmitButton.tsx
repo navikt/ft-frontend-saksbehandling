@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { Button } from '@navikt/ds-react';
 
 const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: boolean, hasErrors?: boolean): boolean => {
@@ -11,7 +11,7 @@ const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: bool
   return !!hasErrors;
 };
 
-export interface OwnProps {
+export interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;
@@ -21,15 +21,7 @@ export interface OwnProps {
   hasErrors?: boolean;
 }
 
-const SubmitButton: FunctionComponent<OwnProps> = ({
-  isReadOnly,
-  isSubmittable,
-  isSubmitting,
-  isDirty,
-  text,
-  onClick,
-  hasErrors,
-}) => {
+const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, onClick, hasErrors }: Props) => {
   if (!isReadOnly) {
     return (
       <Button

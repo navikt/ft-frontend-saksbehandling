@@ -1,11 +1,11 @@
 import { Select as NavSelect } from '@navikt/ds-react';
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
-import ReadOnlyField from './ReadOnlyField';
-import { getError, getValidationRules } from './formUtils';
+import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { getError, getValidationRules } from '../formUtils';
 
-export interface OwnProps {
+export interface Props {
   name: string;
   label: string | ReactNode;
   onChange?: (event: any) => void;
@@ -21,7 +21,7 @@ export interface OwnProps {
   size?: 'medium' | 'small';
 }
 
-const SelectField: FunctionComponent<OwnProps> = ({
+const SelectField = ({
   name,
   label,
   selectValues,
@@ -35,7 +35,7 @@ const SelectField: FunctionComponent<OwnProps> = ({
   hideLabel,
   isEdited,
   size,
-}) => {
+}: Props) => {
   const {
     formState: { errors },
   } = useFormContext();

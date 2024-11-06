@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from 'react-hook-form';
 
-export interface OwnProps<FormValues extends FieldValues> {
+export interface Props<FormValues extends FieldValues> {
   formMethods: UseFormReturn<FormValues>;
   onSubmit?: SubmitHandler<FormValues>;
   children: ReactNode;
@@ -15,7 +15,7 @@ const Form = <FormValues extends FieldValues>({
   children,
   className,
   setDataOnUnmount,
-}: OwnProps<FormValues>) => {
+}: Props<FormValues>) => {
   const { handleSubmit, getValues } = formMethods;
 
   useEffect(

@@ -1,9 +1,9 @@
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { Textarea, TextareaProps, Tag } from '@navikt/ds-react';
 
-import ReadOnlyField from './ReadOnlyField';
-import { getError, getValidationRules } from './formUtils';
+import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { getError, getValidationRules } from '../formUtils';
 
 import styles from './textAreaField.module.css';
 
@@ -14,7 +14,7 @@ interface Badges {
   titleText: string;
 }
 
-export interface OwnProps extends TextareaProps {
+export interface Props extends TextareaProps {
   name: string;
   label: string | ReactNode;
   readOnly?: boolean;
@@ -27,7 +27,7 @@ export interface OwnProps extends TextareaProps {
   isEdited?: boolean;
 }
 
-const TextAreaField: FunctionComponent<OwnProps> = ({
+const TextAreaField = ({
   name,
   label,
   readOnly,
@@ -39,7 +39,7 @@ const TextAreaField: FunctionComponent<OwnProps> = ({
   description,
   isEdited,
   ...props
-}) => {
+}: Props) => {
   const {
     formState: { errors },
   } = useFormContext();

@@ -1,13 +1,12 @@
+import React, { ReactNode } from 'react';
 import { BodyLong, Label } from '@navikt/ds-react';
-import React, { FunctionComponent, ReactNode } from 'react';
-
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './readOnlyField.module.css';
 
 const hasValue = (value: any): boolean => value !== undefined && value !== null && value !== '';
 
-export interface OwnProps {
+export interface Props {
   label?: string | ReactNode;
   isEdited?: boolean;
   value?: string | ReactNode;
@@ -16,14 +15,7 @@ export interface OwnProps {
   size?: 'medium' | 'small';
 }
 
-export const ReadOnlyField: FunctionComponent<OwnProps> = ({
-  label,
-  value,
-  isEdited = false,
-  type,
-  hideLabel,
-  size,
-}) => {
+export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel, size }: Props) => {
   if (!hasValue(value)) {
     return null;
   }
