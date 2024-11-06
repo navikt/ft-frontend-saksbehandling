@@ -5,7 +5,7 @@ import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
 import { getError, getValidationRules } from '../formUtils';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
-const DECIMAL_REGEXP = /^\d+[,]?\d+?$/;
+const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
 
 export interface Props {
   name: string;
@@ -79,7 +79,7 @@ const NumberField = ({
         let newValue;
         if (targetValue === '') {
           newValue = null;
-        } else if (targetValue.match(regex)) {
+        } else if (regex.test(targetValue)) {
           newValue = targetValue.replace(',', '.');
         } else {
           newValue = field.value;
