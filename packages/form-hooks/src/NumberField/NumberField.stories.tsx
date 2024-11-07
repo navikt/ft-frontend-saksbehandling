@@ -2,13 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import NumberField from './NumberField';
 import { rhfDecorator } from '../../.storybook/decorators';
 
-export default {
+const meta = {
   component: NumberField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testnumberpre: 45.1 }),
 } satisfies Meta<typeof NumberField>;
 
-type Story = StoryObj<typeof NumberField>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

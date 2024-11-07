@@ -3,13 +3,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CheckboxPanel from './CheckboxPanel';
 import { rhfDecorator } from '../../.storybook/decorators';
 
-export default {
+const meta = {
   component: CheckboxPanel,
   tags: ['autodocs'],
   decorators: rhfDecorator({ checkboxpanelpre: ['verdi1', 'verdi3'] }),
 } satisfies Meta<typeof CheckboxPanel>;
 
-type Story = StoryObj<typeof CheckboxPanel>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const defaultCheckboxes = [
   { label: 'Verdi 1', value: 'verdi1' },

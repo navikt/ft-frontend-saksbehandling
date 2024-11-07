@@ -3,13 +3,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { rhfDecorator } from '../../.storybook/decorators';
 import Rangepicker from './Rangepicker';
 
-export default {
+const meta = {
   component: Rangepicker,
   tags: ['autodocs'],
   decorators: rhfDecorator({ fomPre: '2022-10-22', tomPre: '2022-10-27' }),
 } satisfies Meta<typeof Rangepicker>;
 
-type Story = StoryObj<typeof Rangepicker>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

@@ -4,13 +4,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SelectField from './SelectField';
 import { rhfDecorator } from '../../.storybook/decorators';
 
-export default {
+const meta = {
   component: SelectField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testSelectFieldpre: 'value3' }),
 } satisfies Meta<typeof SelectField>;
 
-type Story = StoryObj<typeof SelectField>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
