@@ -3,13 +3,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import TextAreaField from './TextAreaField';
 import { rhfDecorator } from '../../.storybook/decorators';
 
-export default {
+const meta = {
   component: TextAreaField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testTextAreaFieldPre: 'Dette er en begrunnelse' }),
 } satisfies Meta<typeof TextAreaField>;
 
-type Story = StoryObj<typeof TextAreaField>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

@@ -3,13 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Datepicker from './Datepicker';
 import { rhfDecorator } from '../../.storybook/decorators';
 
-export default {
+const meta = {
   component: Datepicker,
   tags: ['autodocs'],
   decorators: rhfDecorator({ datepickerFieldPre: '2022-10-11' }),
 } satisfies Meta<typeof Datepicker>;
+export default meta;
 
-type Story = StoryObj<typeof Datepicker>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

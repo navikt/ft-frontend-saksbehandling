@@ -3,13 +3,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CheckboxField from './CheckboxField';
 import { rhfDecorator } from '../../.storybook/decorators';
 
-export default {
+const meta = {
   component: CheckboxField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testcheckboxpre: true }),
 } satisfies Meta<typeof CheckboxField>;
 
-type Story = StoryObj<typeof CheckboxField>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

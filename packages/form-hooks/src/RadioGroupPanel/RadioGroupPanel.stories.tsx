@@ -4,13 +4,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import RadioGroupPanel from './RadioGroupPanel';
 import { rhfDecorator } from '../../.storybook/decorators';
 
-export default {
+const meta = {
   component: RadioGroupPanel,
   tags: ['autodocs'],
   decorators: rhfDecorator({ radiopre: 'no' }),
 } satisfies Meta<typeof RadioGroupPanel>;
 
-type Story = StoryObj<typeof RadioGroupPanel>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const defaultRadios = [
   { label: 'Oppfylt', value: 'yes' },
