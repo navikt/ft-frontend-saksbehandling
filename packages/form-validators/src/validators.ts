@@ -4,7 +4,6 @@ import {
   fodselsnummerPattern,
   isValidFodselsnummer,
   DDMMYYYY_DATE_FORMAT,
-  ISO_DATE_FORMAT,
 } from '@navikt/ft-utils';
 
 import {
@@ -52,6 +51,7 @@ import {
   yesterday,
   numberOptionalNegativeRegex,
   integerOptionalNegativeRegex,
+  today,
 } from './validatorsHelper';
 
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
@@ -60,7 +60,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
-type DateType = dayjs.Dayjs | Date | string;
+type DateType = dayjs.Dayjs | string;
 
 type InputValue = string | number | boolean;
 
@@ -157,26 +157,25 @@ export const hasValidSaksnummerOrFodselsnummerFormat = (text: string): FormValid
 
 export const hasValidDate = (text: string): FormValidationResult =>
   isEmpty(text) || isoDateRegex.test(text) ? null : invalidDateMessage();
+
 export const dateBeforeOrEqual =
   (latest: DateType) =>
-  (text?: dayjs.Dayjs | string): FormValidationResult =>
-    isEmpty(text) || dayjs(text, ISO_DATE_FORMAT).isSameOrBefore(dayjs(latest, ISO_DATE_FORMAT).startOf('day'))
+  (text: dayjs.Dayjs | string | undefined): FormValidationResult => {
+    const latestDate = dayjs(latest).endOf('day');
+    return isEmpty(text) || dayjs(text).isSameOrBefore(latestDate)
       ? null
-      : dateNotBeforeOrEqualMessage(dayjs(latest, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT));
+      : dateNotBeforeOrEqualMessage(latestDate.format(DDMMYYYY_DATE_FORMAT));
+  };
 
-const getErrorMessage = (
-  earliest: DateType,
-  customErrorMessage?: (date: string) => FormValidationResult,
-): FormValidationResult => {
-  const date = dayjs(earliest, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT);
-  return customErrorMessage ? customErrorMessage(date) : dateNotAfterOrEqualMessage(date);
-};
 export const dateAfterOrEqual =
-  (earliest: DateType, customErrorMessageFunction?: (date: string) => FormValidationResult) =>
-  (text?: dayjs.Dayjs | string): FormValidationResult =>
-    isEmpty(text) || dayjs(text, ISO_DATE_FORMAT).isSameOrAfter(dayjs(earliest, ISO_DATE_FORMAT).startOf('day'))
+  (earliest: DateType) =>
+  (text: dayjs.Dayjs | string | undefined): FormValidationResult => {
+    const earliestDate = dayjs(earliest).startOf('day');
+    return isEmpty(text) || dayjs(text).isSameOrAfter(earliestDate)
       ? null
-      : getErrorMessage(earliest, customErrorMessageFunction);
+      : dateNotAfterOrEqualMessage(earliestDate.format(DDMMYYYY_DATE_FORMAT));
+  };
+
 export const dateIsBefore =
   (dateToCheckAgainst: string, errorMessageFunction: (date: string) => FormValidationResult) =>
   (inputDate: string): FormValidationResult =>
@@ -189,13 +188,14 @@ export const dateRangesNotOverlapping = (ranges: string[][]): FormValidationResu
 export const dateRangesNotOverlappingCrossTypes = (ranges: string[][]): FormValidationResult =>
   dateRangesAreSequential(ranges) ? null : dateRangesOverlappingBetweenPeriodTypesMessage();
 
-export const dateBeforeToday = (text?: dayjs.Dayjs | string): FormValidationResult =>
+export const dateBeforeToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
   dateBeforeOrEqual(yesterday())(text);
-export const dateBeforeOrEqualToToday = (text?: dayjs.Dayjs | string): FormValidationResult =>
-  dateBeforeOrEqual(dayjs().startOf('day'))(text);
-export const dateAfterToday = (text?: dayjs.Dayjs | string): FormValidationResult => dateAfterOrEqual(tomorrow())(text);
-export const dateAfterOrEqualToToday = (text?: dayjs.Dayjs | string): FormValidationResult =>
-  dateAfterOrEqual(dayjs().startOf('day'))(text);
+export const dateBeforeOrEqualToToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
+  dateBeforeOrEqual(today())(text);
+export const dateAfterToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
+  dateAfterOrEqual(tomorrow())(text);
+export const dateAfterOrEqualToToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
+  dateAfterOrEqual(today())(text);
 
 export const hasValidFodselsnummerFormat = (text: string): FormValidationResult =>
   !fodselsnummerPattern.test(text) ? invalidFodselsnummerFormatMessage() : null;
