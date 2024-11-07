@@ -19,6 +19,7 @@ export const isEmpty = (text?: string | number | boolean | dayjs.Dayjs | null) =
   text === null || text === undefined || text.toString().trim().length === 0;
 
 export const yesterday = (): dayjs.Dayjs => dayjs().subtract(1, 'days').startOf('day');
+export const today = (): dayjs.Dayjs => dayjs().startOf('day');
 export const tomorrow = (): dayjs.Dayjs => dayjs().add(1, 'days').startOf('day');
 
 export const dateRangesAreSequential = (ranges: string[][]): boolean => {

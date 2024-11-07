@@ -28,9 +28,11 @@ import {
   requiredIfCustomFunctionIsTrue,
   requiredIfNotPristine,
 } from './validators';
+import { today } from './validatorsHelper';
 
-const today = dayjs();
-const todayAsISO = today.format(ISO_DATE_FORMAT);
+const todayAsISO = today().format(ISO_DATE_FORMAT);
+const farFutureDate = dayjs().add(200, 'years').format(ISO_DATE_FORMAT);
+const farPastDate = dayjs().subtract(200, 'years').format(ISO_DATE_FORMAT);
 
 describe('Validators', () => {
   describe('required', () => {
@@ -214,47 +216,91 @@ describe('Validators', () => {
     });
   });
 
+  describe('dateIsBefore', () => {
+    const errorMessageFunction = (): string => 'Dette er en feilmelding';
+    const dateToCheckAgainst = '2019-08-05';
+    it('skal ikke feile når input datoene er før datoen som blir sjekket mot', () => {
+      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-04');
+      expect(result).toBeNull();
+    });
+    it('skal feile når input datoene er lik datoen som blir sjekket mot', () => {
+      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-05');
+      expect(result).toEqual('Dette er en feilmelding');
+    });
+    it('skal feile når input datoene er etter datoen som blir sjekket mot', () => {
+      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-06');
+      expect(result).toEqual('Dette er en feilmelding');
+    });
+  });
+
   describe('dateBeforeOrEqual', () => {
-    it('skal ikke feile når dato er før spesifisert dato', () => {
-      const result = dateBeforeOrEqual(dayjs().toDate())('2000-12-10');
+    it.each([
+      ['datostring', farPastDate],
+      ['dato', dayjs(farPastDate)],
+      ['timestamp', `${farPastDate}T10:00:00.000Z`],
+    ])('skal godta %s som er før spesifisert dato', (name, dato) => {
+      const result = dateBeforeOrEqual(today())(dato);
       expect(result).toBeNull();
     });
 
-    it('skal ikke feile når dato er lik spesifisert dato', () => {
-      const result = dateBeforeOrEqual(today)(todayAsISO);
+    it('skal godta samme dag med ulike tidspunkt', () => {
+      const result = dateBeforeOrEqual(dayjs().startOf('day'))(today().endOf('day'));
       expect(result).toBeNull();
     });
 
-    it('skal feile når dato ikke er før eller lik spesifisert dato', () => {
-      const result = dateBeforeOrEqual(today)('2100-12-10');
-      expect(result).toEqual(`Dato må være før eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
+    it.each([
+      ['datostring', farPastDate],
+      ['dato', dayjs(farPastDate)],
+      ['timestamp', `${farPastDate}T10:00:00.000Z`],
+    ])('skal godta identisk %s', (name, dato) => {
+      const result = dateBeforeOrEqual(dato)(dato);
+      expect(result).toBeNull();
+    });
+
+    it.each([
+      ['datostring', farFutureDate],
+      ['dato', dayjs(farFutureDate)],
+      ['timestamp', `${farFutureDate}T10:00:00.000Z`],
+    ])('skal feile for %s som er etter spesifisert dato', (name, dato) => {
+      const result = dateBeforeOrEqual(today())(dato);
+      expect(result).toEqual(`Dato må være før eller lik ${today().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
-      const result = dateBeforeOrEqual(today)();
-      expect(result).toBeNull();
+      expect(dateBeforeOrEqual(today())('')).toBeNull();
+      expect(dateBeforeOrEqual(today())(undefined)).toBeNull();
     });
   });
 
   describe('dateAfterOrEqual', () => {
-    it('skal ikke feile når dato er etter spesifisert dato', () => {
-      const result = dateAfterOrEqual(dayjs().toDate())('2100-12-10');
+    it.each([
+      ['datostring', farFutureDate],
+      ['dato', dayjs(farFutureDate)],
+      ['timestamp', `${farFutureDate}T10:00:00.000Z`],
+    ])('skal godta  %s som er etter spesifisert dato', (name, dato) => {
+      const result = dateAfterOrEqual(today())(dato);
       expect(result).toBeNull();
     });
 
-    it('skal ikke feile når dato er lik spesifisert dato', () => {
-      const result = dateAfterOrEqual(today)(todayAsISO);
-      expect(result).toBeNull();
+    it('skal godta samme dag med ulikt tidspunkt', () => {
+      const startOfDay = dayjs().startOf('day');
+      const endOfDay = dayjs().endOf('day');
+      expect(dateAfterOrEqual(endOfDay)(startOfDay)).toBeNull();
+      expect(dateAfterOrEqual(startOfDay)(endOfDay)).toBeNull();
     });
 
-    it('skal feile når dato er før spesifisert dato', () => {
-      const result = dateAfterOrEqual(today)('2000-12-10');
-      expect(result).toEqual(`Dato må være etter eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
+    it.each([
+      ['datostring', farPastDate],
+      ['dato', dayjs(farPastDate)],
+      ['timestamp', `${farPastDate}T10:00:00.000Z`],
+    ])('skal feile %s som er før spesifisert dato', (name, dato) => {
+      const result = dateAfterOrEqual(today())(dato);
+      expect(result).toEqual(`Dato må være etter eller lik ${today().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
-      const result = dateAfterOrEqual(today.add(1, 'days'))();
-      expect(result).toBeNull();
+      expect(dateAfterOrEqual(today())('')).toBeNull();
+      expect(dateAfterOrEqual(today())(undefined)).toBeNull();
     });
   });
 
@@ -280,7 +326,7 @@ describe('Validators', () => {
 
   describe('dateBeforeToday', () => {
     it('skal ikke feile når dato er før dagens dato', () => {
-      const result = dateBeforeToday('2000-10-10');
+      const result = dateBeforeToday(farPastDate);
       expect(result).toBeNull();
     });
 
@@ -290,14 +336,14 @@ describe('Validators', () => {
     });
 
     it('skal ikke feile når dato er tom', () => {
-      const result = dateBeforeToday();
-      expect(result).toBeNull();
+      expect(dateBeforeToday('')).toBeNull();
+      expect(dateBeforeToday(undefined)).toBeNull();
     });
   });
 
   describe('dateBeforeOrEqualToToday', () => {
     it('skal ikke feile når dato er før dagens dato', () => {
-      const result = dateBeforeOrEqualToToday('2000-10-10');
+      const result = dateBeforeOrEqualToToday(farPastDate);
       expect(result).toBeNull();
     });
 
@@ -307,19 +353,19 @@ describe('Validators', () => {
     });
 
     it('skal feile når dato er etter dagens dato', () => {
-      const result = dateBeforeOrEqualToToday('2100-10-10');
+      const result = dateBeforeOrEqualToToday(farFutureDate);
       expect(result).toEqual(`Dato må være før eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
-      const result = dateBeforeOrEqualToToday();
-      expect(result).toBeNull();
+      expect(dateBeforeOrEqualToToday('')).toBeNull();
+      expect(dateBeforeOrEqualToToday(undefined)).toBeNull();
     });
   });
 
   describe('dateAfterToday', () => {
     it('skal ikke feile når dato etter etter i dag', () => {
-      const result = dateAfterToday('2100-10-10');
+      const result = dateAfterToday(farFutureDate);
       expect(result).toBeNull();
     });
 
@@ -329,8 +375,8 @@ describe('Validators', () => {
     });
 
     it('skal ikke feile når dato er tom', () => {
-      const result = dateAfterToday();
-      expect(result).toBeNull();
+      expect(dateAfterToday('')).toBeNull();
+      expect(dateAfterToday(undefined)).toBeNull();
     });
   });
 
@@ -341,13 +387,13 @@ describe('Validators', () => {
     });
 
     it('skal feile når dato er historisk', () => {
-      const result = dateAfterOrEqualToToday('2000-10-10');
+      const result = dateAfterOrEqualToToday(farPastDate);
       expect(result).toEqual(`Dato må være etter eller lik ${dayjs().format(DDMMYYYY_DATE_FORMAT)}`);
     });
 
     it('skal ikke feile når dato er tom', () => {
-      const result = dateAfterOrEqualToToday();
-      expect(result).toBeNull();
+      expect(dateAfterOrEqualToToday('')).toBeNull();
+      expect(dateAfterOrEqualToToday(undefined)).toBeNull();
     });
   });
 
@@ -459,23 +505,6 @@ describe('Validators', () => {
     it('skal feile når tom-dato er utenfor opptjeningsperiode', () => {
       const result = isWithinOpptjeningsperiode(opptjeningFom, opptjeningTom)('2017-02-01', '2018-03-01');
       expect(result).toEqual('Periode er utenfor opptjeningsperioden');
-    });
-  });
-
-  describe('dateIsBefore', () => {
-    const errorMessageFunction = (): string => 'Dette er en feilmelding';
-    const dateToCheckAgainst = '2019-08-05';
-    it('skal ikke feile når input datoene er før datoen som blir sjekket mot', () => {
-      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-04');
-      expect(result).toBeNull();
-    });
-    it('skal feile når input datoene er lik datoen som blir sjekket mot', () => {
-      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-05');
-      expect(result).toEqual('Dette er en feilmelding');
-    });
-    it('skal feile når input datoene er etter datoen som blir sjekket mot', () => {
-      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-06');
-      expect(result).toEqual('Dette er en feilmelding');
     });
   });
 });
