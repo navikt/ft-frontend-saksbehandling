@@ -7,10 +7,8 @@ import {
 } from '@navikt/ft-utils';
 
 import {
-  arrayMinLengthMessage,
   dateNotAfterOrEqualMessage,
   dateNotBeforeOrEqualMessage,
-  dateRangesOverlappingBetweenPeriodTypesMessage,
   dateRangesOverlappingMessage,
   datesNotEqual,
   invalidDateMessage,
@@ -47,7 +45,6 @@ import {
   saksnummerOrFodselsnummerPattern,
   textGyldigRegex,
   textRegex,
-  tomorrow,
   yesterday,
   numberOptionalNegativeRegex,
   integerOptionalNegativeRegex,
@@ -117,10 +114,6 @@ export const maxValue =
   (number: number): FormValidationResult =>
     number <= length ? null : maxValueMessage(length);
 
-export const minValueFormatted =
-  (min: number) =>
-  (number: number): FormValidationResult =>
-    removeSpacesFromNumber(number) >= min ? null : minValueMessage(min);
 export const maxValueFormatted =
   (max: number) =>
   (number: number): FormValidationResult =>
@@ -176,24 +169,14 @@ export const dateAfterOrEqual =
       : dateNotAfterOrEqualMessage(earliestDate.format(DDMMYYYY_DATE_FORMAT));
   };
 
-export const dateIsBefore =
-  (dateToCheckAgainst: string, errorMessageFunction: (date: string) => FormValidationResult) =>
-  (inputDate: string): FormValidationResult =>
-    isEmpty(inputDate) || dayjs(inputDate).isBefore(dayjs(dateToCheckAgainst).startOf('day'))
-      ? null
-      : errorMessageFunction(dayjs(dateToCheckAgainst).format(DDMMYYYY_DATE_FORMAT));
-
 export const dateRangesNotOverlapping = (ranges: string[][]): FormValidationResult =>
   dateRangesAreSequential(ranges) ? null : dateRangesOverlappingMessage();
-export const dateRangesNotOverlappingCrossTypes = (ranges: string[][]): FormValidationResult =>
-  dateRangesAreSequential(ranges) ? null : dateRangesOverlappingBetweenPeriodTypesMessage();
 
 export const dateBeforeToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
   dateBeforeOrEqual(yesterday())(text);
 export const dateBeforeOrEqualToToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
   dateBeforeOrEqual(today())(text);
-export const dateAfterToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
-  dateAfterOrEqual(tomorrow())(text);
+
 export const dateAfterOrEqualToToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
   dateAfterOrEqual(today())(text);
 
@@ -222,12 +205,7 @@ export const hasValidValue =
   (value: string) =>
   (invalidValue: string): FormValidationResult =>
     value === invalidValue ? invalidValueMessage(value) : null;
-export const arrayMinLength =
-  (length: number) =>
-  (value: string | any[]): FormValidationResult =>
-    value && value.length >= length ? null : arrayMinLengthMessage(length);
 
-export const dateIsAfter = (date: string, checkAgainsDate: string): boolean => dayjs(date).isAfter(checkAgainsDate);
 export const isDatesEqual = (date1: string, date2: string): FormValidationResult =>
   date1 !== date2 ? datesNotEqual(dayjs(date2).format(DDMMYYYY_DATE_FORMAT)) : null;
 
@@ -255,9 +233,6 @@ export const isWithinOpptjeningsperiode =
     const isAfter = dayjs(tom).isAfter(dayjs(tomDateLimit));
     return isBefore || isAfter ? invalidPeriodRangeMessage() : null;
   };
-
-export const validateProsentandel = (prosentandel: string | number): FormValidationResult =>
-  required(prosentandel) || hasValidDecimal(prosentandel) || hasValidNumber(prosentandel.toString().replace('.', ''));
 
 export const ariaCheck = (): void => {
   let errors: any;

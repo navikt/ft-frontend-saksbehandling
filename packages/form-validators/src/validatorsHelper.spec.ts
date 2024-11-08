@@ -10,7 +10,6 @@ import {
   saksnummerOrFodselsnummerPattern,
   textGyldigRegex,
   textRegex,
-  tomorrow,
   yesterday,
 } from './validatorsHelper';
 
@@ -88,12 +87,6 @@ describe('validatorsHelper', () => {
   describe('yesterday', () => {
     it('Skal sjekke om dato er i går', () => {
       expect(yesterday()).toEqual(dayjs().subtract(1, 'days').startOf('day'));
-    });
-  });
-
-  describe('tomorrow', () => {
-    it('Skal sjekke om dato er i morgen', () => {
-      expect(tomorrow()).toEqual(dayjs().add(1, 'days').startOf('day'));
     });
   });
 

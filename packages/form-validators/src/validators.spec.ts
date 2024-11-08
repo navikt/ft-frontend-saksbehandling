@@ -4,11 +4,9 @@ import { ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   dateAfterOrEqual,
   dateAfterOrEqualToToday,
-  dateAfterToday,
   dateBeforeOrEqual,
   dateBeforeOrEqualToToday,
   dateBeforeToday,
-  dateIsBefore,
   dateRangesNotOverlapping,
   hasValidDate,
   hasValidDecimal,
@@ -216,23 +214,6 @@ describe('Validators', () => {
     });
   });
 
-  describe('dateIsBefore', () => {
-    const errorMessageFunction = (): string => 'Dette er en feilmelding';
-    const dateToCheckAgainst = '2019-08-05';
-    it('skal ikke feile når input datoene er før datoen som blir sjekket mot', () => {
-      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-04');
-      expect(result).toBeNull();
-    });
-    it('skal feile når input datoene er lik datoen som blir sjekket mot', () => {
-      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-05');
-      expect(result).toEqual('Dette er en feilmelding');
-    });
-    it('skal feile når input datoene er etter datoen som blir sjekket mot', () => {
-      const result = dateIsBefore(dateToCheckAgainst, errorMessageFunction)('2019-08-06');
-      expect(result).toEqual('Dette er en feilmelding');
-    });
-  });
-
   describe('dateBeforeOrEqual', () => {
     it.each([
       ['datostring', farPastDate],
@@ -360,23 +341,6 @@ describe('Validators', () => {
     it('skal ikke feile når dato er tom', () => {
       expect(dateBeforeOrEqualToToday('')).toBeNull();
       expect(dateBeforeOrEqualToToday(undefined)).toBeNull();
-    });
-  });
-
-  describe('dateAfterToday', () => {
-    it('skal ikke feile når dato etter etter i dag', () => {
-      const result = dateAfterToday(farFutureDate);
-      expect(result).toBeNull();
-    });
-
-    it('skal feile når dato er i dag', () => {
-      const result = dateAfterToday(todayAsISO);
-      expect(result).toEqual(`Dato må være etter eller lik ${dayjs().add(1, 'days').format(DDMMYYYY_DATE_FORMAT)}`);
-    });
-
-    it('skal ikke feile når dato er tom', () => {
-      expect(dateAfterToday('')).toBeNull();
-      expect(dateAfterToday(undefined)).toBeNull();
     });
   });
 
