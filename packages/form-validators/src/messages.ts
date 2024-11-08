@@ -2,59 +2,52 @@ import { createIntl } from '@navikt/ft-utils';
 
 import messages from '../i18n/nb_NO.json';
 
-const intl = createIntl(messages);
+const { formatMessage } = createIntl(messages);
 
-export const isRequiredMessage = (): string => intl.formatMessage({ id: 'ValidationMessage.NotEmpty' });
-export const minLengthMessage = (length: number): string =>
-  intl.formatMessage({ id: 'ValidationMessage.MinLength' }, { length });
-export const maxLengthMessage = (length: number): string =>
-  intl.formatMessage({ id: 'ValidationMessage.MaxLength' }, { length });
-export const maxLengthOrFodselsnrMessage = (length: number): string =>
-  intl.formatMessage({ id: 'ValidationMessage.maxLengthOrFodselsnr' }, { length });
-export const minValueMessage = (length: number): string =>
-  intl.formatMessage({ id: 'ValidationMessage.MinValue' }, { length });
-export const maxValueMessage = (length: number): string =>
-  intl.formatMessage({ id: 'ValidationMessage.MaxValue' }, { length });
-export const invalidDateMessage = (): string => intl.formatMessage({ id: 'ValidationMessage.InvalidDate' });
-export const invalidIntegerMessage = (text: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidInteger' }, { text });
-export const invalidDecimalMessage = (text: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidDecimal' }, { text });
 export const dateNotBeforeOrEqualMessage = (limit: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.DateNotBeforeOrEqual' }, { limit });
+  formatMessage({ id: 'DateNotBeforeOrEqual' }, { limit });
 export const dateNotAfterOrEqualMessage = (limit: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.DateNotAfterOrEqual' }, { limit });
-export const dateRangesOverlappingMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.DateRangesOverlapping' });
-export const datesNotEqual = (value: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.DatesNotEqual' }, { value });
-export const invalidFodselsnummerFormatMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidFodselsnummerFormat' });
-export const invalidFodselsnummerMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidFodselsnummer' });
-export const sammeFodselsnummerSomSokerMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.SammeFodselsnummerSomSoker' });
-export const invalidSaksnummerOrFodselsnummerFormatMessage = (): string =>
-  intl.formatMessage({
-    id: 'ValidationMessage.InvalidSaksnummerOrFodselsnummerFormat',
-  });
-export const invalidTextMessage = (text: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidText' }, { text });
-export const invalidValueMessage = (value: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidValue' }, { value });
-export const arrayMinLengthMessage = (length: number): string =>
-  intl.formatMessage({ id: 'ValidationMessage.ArrayMinLength' }, { length });
-export const invalidDatesInPeriodMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidDatesInPeriod' });
-export const invalidPeriodMessage = (): string => intl.formatMessage({ id: 'ValidationMessage.InvalidPeriod' });
-export const invalidPeriodRangeMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidPeriodRange' });
-export const invalidNumberMessage = (text: string): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidNumber' }, { text });
+  formatMessage({ id: 'DateNotAfterOrEqual' }, { limit });
+export const dateRangesOverlappingMessage = (): string => formatMessage({ id: 'DateRangesOverlapping' });
 export const dateRangesOverlappingBetweenPeriodTypesMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.DateRangesOverlappingPeriodTypes' });
-export const invalidOrgNumberMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidOrganisasjonsnummer' });
-export const invalidOrgNumberOrFodselsnrMessage = (): string =>
-  intl.formatMessage({ id: 'ValidationMessage.InvalidOrganisasjonsnummerOrFodselsnr' });
-export const hasWhiteSpace = (): string => intl.formatMessage({ id: 'ValidationMessage.NoWhiteSpace' });
+  formatMessage({ id: 'DateRangesOverlappingPeriodTypes' });
+export const datesNotEqual = (value: string): string => formatMessage({ id: 'DatesNotEqual' }, { value });
+
+export const invalidDateMessage = (): string => formatMessage({ id: 'InvalidDate' });
+export const invalidDatesInPeriodMessage = (): string => formatMessage({ id: 'InvalidDatesInPeriod' });
+
+export const invalidDecimalMessage = (text: string): string => formatMessage({ id: 'InvalidDecimal' }, { text });
+export const invalidIntegerMessage = (text: string): string => formatMessage({ id: 'InvalidInteger' }, { text });
+export const invalidNumberMessage = (text: string): string => formatMessage({ id: 'InvalidNumber' }, { text });
+
+export const invalidFodselsnrMessage = (): string => formatMessage({ id: 'InvalidFodselsnr' });
+export const invalidFodselsnrFormatMessage = (): string => formatMessage({ id: 'InvalidFodselsnrFormat' });
+
+export const invalidOrgNumberMessage = (): string => formatMessage({ id: 'InvalidOrgnr' });
+export const invalidOrgNumberOrFodselsnrMessage = (): string => formatMessage({ id: 'InvalidOrgnrOrFodselsnr' });
+
+export const invalidPeriodMessage = (): string => formatMessage({ id: 'InvalidPeriod' });
+export const invalidPeriodRangeMessage = (): string => formatMessage({ id: 'InvalidPeriodRange' });
+
+export const invalidSaksnrOrFodselsnrFormatMessage = (): string =>
+  formatMessage({
+    id: 'InvalidSaksnrOrFodselsnrFormat',
+  });
+
+export const invalidTextMessage = (text: string): string => formatMessage({ id: 'InvalidText' }, { text });
+export const invalidValueMessage = (value: string): string => formatMessage({ id: 'InvalidValue' }, { value });
+
+export const illegalWhiteSpaceMessage = (): string => formatMessage({ id: 'IllegalWhiteSpace' });
+
+export const isRequiredMessage = (): string => formatMessage({ id: 'IsRequired' });
+
+export const maxLengthMessage = (length: number): string => formatMessage({ id: 'MaxLength' }, { length });
+export const minLengthMessage = (length: number): string => formatMessage({ id: 'MinLength' }, { length });
+
+export const maxLengthOrFodselsnrMessage = (length: number): string =>
+  formatMessage({ id: 'MaxLengthOrFodselsnr' }, { length });
+
+export const maxValueMessage = (length: number): string => formatMessage({ id: 'MaxValue' }, { length });
+export const minValueMessage = (length: number): string => formatMessage({ id: 'MinValue' }, { length });
+
+export const sammeFodselsnrSomSokerMessage = (): string => formatMessage({ id: 'SammeFodselsnrSomSoker' });

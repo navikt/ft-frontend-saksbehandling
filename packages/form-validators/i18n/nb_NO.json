@@ -1,31 +1,42 @@
 {
-  "ValidationMessage.NotEmpty": "Feltet må fylles ut",
-  "ValidationMessage.MinLength": "Du må skrive minst {length} tegn",
-  "ValidationMessage.MaxLength": "Du kan skrive maksimalt {length} tegn",
-  "ValidationMessage.MinValue": "Feltet må være større eller lik {length}",
-  "ValidationMessage.MaxValue": "Feltet må være mindre eller lik {length}",
-  "ValidationMessage.InvalidDate": "Dato må skrives slik : dd.mm.åååå",
-  "ValidationMessage.DateNotBeforeOrEqual": "Dato må være før eller lik {limit}",
-  "ValidationMessage.DateNotAfterOrEqual": "Dato må være etter eller lik {limit}",
-  "ValidationMessage.DateRangesOverlapping": "Perioder kan ikke overlappe i tid",
-  "ValidationMessage.DateRangesOverlappingPeriodTypes": "Perioder kan ikke overlappe i tid (uttak, utsettelse, gradering, overforing, opphold)",
-  "ValidationMessage.DatesNotEqual": "Dato må være lik {value}",
-  "ValidationMessage.InvalidInteger": "Tallet kan ikke ha desimaler",
-  "ValidationMessage.InvalidDecimal": "Tallet kan ikke inneholde mer enn to desimaler",
-  "ValidationMessage.InvalidDatesInPeriod": "Periode må skrives slik : dd.mm.åååå - dd.mm.åååå",
-  "ValidationMessage.InvalidPeriod": "Startdato må være før eller lik sluttdato",
-  "ValidationMessage.InvalidPeriodRange": "Periode er utenfor opptjeningsperioden",
-  "ValidationMessage.InvalidNumber": "Feltet kan kun inneholde tall",
-  "ValidationMessage.maxLengthOrFodselsnr": "Du kan skrive maksimalt {length} tegn eller et fødselsnummer (11 siffer)",
-  "ValidationMessage.Registrering.TerminEllerFoedselMessage": "Fyll ut informasjon om termindato eller fødselsdato",
-  "ValidationMessage.InvalidFodselsnummerFormat": "Feltet må være et fødselsnummer (11 siffer)",
-  "ValidationMessage.InvalidFodselsnummer": "Ugyldig fødselsnummer",
-  "ValidationMessage.SammeFodselsnummerSomSoker": "Fødselsnummer til den andre forelderen kan ikke være det samme som søker.",
-  "ValidationMessage.InvalidText": "Feltet inneholder ugyldige tegn: {text}",
-  "ValidationMessage.InvalidValue": "Feltet inneholder en ugyldig verdi: {value}",
-  "ValidationMessage.ArrayMinLength": "Listen må ha lengde større enn: {length}",
-  "ValidationMessage.InvalidSaksnummerOrFodselsnummerFormat": "Ugyldig saksnummer eller fødselsnummer",
-  "ValidationMessage.InvalidOrganisasjonsnummer": "Ugyldig organisasjonsnummer.",
-  "ValidationMessage.InvalidOrganisasjonsnummerOrFodselsnr": "Ugyldig organisasjonsnummer eller fødselsnummer.",
-  "ValidationMessage.NoWhiteSpace": "Feltet kan ikke inneholde mellomrom."
+  "DateNotBeforeOrEqual": "Dato må være før eller lik {limit}",
+  "DateNotAfterOrEqual": "Dato må være etter eller lik {limit}",
+  "DateRangesOverlapping": "Perioder kan ikke overlappe i tid",
+  "DateRangesOverlappingPeriodTypes": "Perioder kan ikke overlappe i tid (uttak, utsettelse, gradering, overforing, opphold)",
+  "DatesNotEqual": "Dato må være lik {value}",
+
+  "InvalidDate": "Dato må skrives slik: dd.mm.åååå",
+  "InvalidDatesInPeriod": "Periode må skrives slik: dd.mm.åååå - dd.mm.åååå",
+
+  "InvalidDecimal": "Tallet kan ikke inneholde mer enn to desimaler",
+  "InvalidInteger": "Tallet kan ikke ha desimaler",
+  "InvalidNumber": "Feltet kan kun inneholde tall",
+
+  "InvalidFodselsnr": "Ugyldig fødselsnummer",
+  "InvalidFodselsnrFormat": "Feltet må være et fødselsnummer (11 siffer)",
+
+  "InvalidOrgnr": "Ugyldig organisasjonsnummer.",
+  "InvalidOrgnrOrFodselsnr": "Ugyldig organisasjonsnummer eller fødselsnummer",
+
+  "InvalidPeriod": "Startdato må være før eller lik sluttdato",
+  "InvalidPeriodRange": "Periode er utenfor opptjeningsperioden",
+
+  "InvalidSaksnrOrFodselsnrFormat": "Ugyldig saksnummer eller fødselsnummer",
+
+  "InvalidText": "Feltet inneholder ugyldige tegn: {text}",
+  "InvalidValue": "Feltet inneholder en ugyldig verdi: {value}",
+
+  "IllegalWhiteSpace": "Feltet kan ikke inneholde mellomrom",
+
+  "IsRequired": "Feltet må fylles ut",
+
+  "MaxLength": "Du kan skrive maksimalt {length} tegn",
+  "MinLength": "Du må skrive minst {length} tegn",
+
+  "MaxLengthOrFodselsnr": "Du kan skrive maksimalt {length} tegn eller et fødselsnummer (11 siffer)",
+
+  "MaxValue": "Feltet må være mindre eller lik {length}",
+  "MinValue": "Feltet må være større eller lik {length}",
+
+  "SammeFodselsnrSomSoker": "Fødselsnummer til den andre forelderen kan ikke være det samme som søker"
 }

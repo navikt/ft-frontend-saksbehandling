@@ -1,5 +1,5 @@
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 export const isoDateRegex = /(19|20)\d{2}-(0?[1-9]|1[0-2])-(0?[1-9]|1\d|2\d|3[01])$/;
 export const numberRegex = /^\d+([,.]\d+)?$/;
@@ -15,12 +15,11 @@ export const textGyldigRegex = /[\p{N}\p{L}\p{Z}.'\-/%§!?@_()+:;,="&\n]*/gu;
 export const nameRegex = /^[0-9\p{L}\p{Z}.'-]*$/u;
 export const nameGyldigRegex = /[0-9\p{L}\p{Z}.'-]*/gu;
 
-export const isEmpty = (text?: string | number | boolean | dayjs.Dayjs | null) =>
+export const isEmpty = (text: string | number | boolean | dayjs.Dayjs | null | undefined) =>
   text === null || text === undefined || text.toString().trim().length === 0;
 
 export const yesterday = (): dayjs.Dayjs => dayjs().subtract(1, 'days').startOf('day');
 export const today = (): dayjs.Dayjs => dayjs().startOf('day');
-export const tomorrow = (): dayjs.Dayjs => dayjs().add(1, 'days').startOf('day');
 
 export const dateRangesAreSequential = (ranges: string[][]): boolean => {
   if (Array.isArray(ranges)) {
