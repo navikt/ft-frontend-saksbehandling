@@ -15,17 +15,21 @@ export interface OwnProps {
 
 const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: OwnProps) => (
   <div className={styles.container}>
-    {saksopplysninger.map(opplysning => (
-      <div key={opplysning.textId} className={styles.rad}>
-        {!opplysning.readMoreContent && <CheckmarkIcon className={styles.checkBlaIkon} height={35} width={35} />}
-        <BodyShort size="small">
-          {opplysning.readMoreContent && (
-            <ReadMore size="small" header={<FormattedMessage id={opplysning.textId} />}>
-              {opplysning.readMoreContent}
-            </ReadMore>
-          )}
-          {!opplysning.readMoreContent && <FormattedMessage id={opplysning.textId} />}
-        </BodyShort>
+    {saksopplysninger.map((opplysning, index) => (
+      <div key={`BlaBoksMedCheckmarkListe-${opplysning.textId}-${index}`} className={styles.rad}>
+        {opplysning.readMoreContent && (
+          <ReadMore size="small" header={<FormattedMessage id={opplysning.textId} />}>
+            {opplysning.readMoreContent}
+          </ReadMore>
+        )}
+        {!opplysning.readMoreContent && (
+          <>
+            <CheckmarkIcon className={styles.checkBlaIkon} height={35} width={35} />
+            <BodyShort size="small">
+              <FormattedMessage id={opplysning.textId} />
+            </BodyShort>
+          </>
+        )}
       </div>
     ))}
   </div>
