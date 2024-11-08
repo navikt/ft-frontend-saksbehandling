@@ -9,6 +9,7 @@ export {
   hasValidText,
   hasValidFodselsnummer,
   hasValidFodselsnummerFormat,
+  harSammeFodselsnummerSomSoker,
   dateAfterOrEqualToToday,
   dateBeforeOrEqualToToday,
   dateBeforeToday,
