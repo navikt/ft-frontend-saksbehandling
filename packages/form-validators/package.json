@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
