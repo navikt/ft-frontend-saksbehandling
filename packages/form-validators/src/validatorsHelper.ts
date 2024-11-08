@@ -15,7 +15,7 @@ export const textGyldigRegex = /[\p{N}\p{L}\p{Z}.'\-/%§!?@_()+:;,="&\n]*/gu;
 export const nameRegex = /^[0-9\p{L}\p{Z}.'-]*$/u;
 export const nameGyldigRegex = /[0-9\p{L}\p{Z}.'-]*/gu;
 
-export const isEmpty = (text?: string | number | boolean | dayjs.Dayjs | null) =>
+export const isEmpty = (text: string | number | boolean | dayjs.Dayjs | null | undefined) =>
   text === null || text === undefined || text.toString().trim().length === 0;
 
 export const yesterday = (): dayjs.Dayjs => dayjs().subtract(1, 'days').startOf('day');

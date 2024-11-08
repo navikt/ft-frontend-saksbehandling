@@ -38,7 +38,6 @@ export {
 
 export {
   isRequiredMessage,
-  sammeFodselsnummerSomSokerMessage,
   dateRangesOverlappingMessage,
   dateRangesOverlappingBetweenPeriodTypesMessage,
   invalidPeriodMessage,

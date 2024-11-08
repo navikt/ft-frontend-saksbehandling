@@ -8,6 +8,7 @@ import {
   dateBeforeOrEqualToToday,
   dateBeforeToday,
   dateRangesNotOverlapping,
+  harSammeFodselsnummerSomSoker,
   hasValidDate,
   hasValidDecimal,
   hasValidFodselsnummer,
@@ -27,6 +28,7 @@ import {
   requiredIfNotPristine,
 } from './validators';
 import { today } from './validatorsHelper';
+import { expect } from 'vitest';
 
 const todayAsISO = today().format(ISO_DATE_FORMAT);
 const farFutureDate = dayjs().add(200, 'years').format(ISO_DATE_FORMAT);
@@ -189,17 +191,17 @@ describe('Validators', () => {
   describe('hasValidDate', () => {
     it('skal feile når dag i dato er utenfor lovlig område', () => {
       const result = hasValidDate('2017-10-40');
-      expect(result).toEqual('Dato må skrives slik : dd.mm.åååå');
+      expect(result).toEqual('Dato må skrives slik: dd.mm.åååå');
     });
 
     it('skal feile når måned i dato er utenfor lovlig område', () => {
       const result = hasValidDate('2017-13-20');
-      expect(result).toEqual('Dato må skrives slik : dd.mm.åååå');
+      expect(result).toEqual('Dato må skrives slik: dd.mm.åååå');
     });
 
     it('skal feile når dato er på feil format', () => {
       const result = hasValidDate('10.10.2017');
-      expect(result).toEqual('Dato må skrives slik : dd.mm.åååå');
+      expect(result).toEqual('Dato må skrives slik: dd.mm.åååå');
     });
 
     it('skal ikke feile når dato er korrekt', () => {
@@ -385,6 +387,18 @@ describe('Validators', () => {
     });
   });
 
+  describe('harSammeFodselsnummerSomSoker', () => {
+    it('skal godta fødselsnummer som er ulikt sokers', () => {
+      const result = harSammeFodselsnummerSomSoker('12121200000')('11223344444');
+      expect(result).toBeNull();
+    });
+
+    it('skal feile når fødselsnummer er samme som soker', () => {
+      const result = harSammeFodselsnummerSomSoker('12121200000')('12121200000');
+      expect(result).toEqual('Fødselsnummer til den andre forelderen kan ikke være det samme som søker');
+    });
+  });
+
   describe('hasValidText', () => {
     it('skal ikke feile når tekst ikke har ugyldig tegn', () => {
       const result = hasValidText(
@@ -430,12 +444,12 @@ describe('Validators', () => {
 
     it('skal feile når fomDato er på feil format', () => {
       const result = hasValidPeriod('2017-06-0', '2017-06-01');
-      expect(result).toEqual('Periode må skrives slik : dd.mm.åååå - dd.mm.åååå');
+      expect(result).toEqual('Periode må skrives slik: dd.mm.åååå - dd.mm.åååå');
     });
 
     it('skal feile når tomDato er på feil format', () => {
       const result = hasValidPeriod('2017-06-01', '2017-06-0');
-      expect(result).toEqual('Periode må skrives slik : dd.mm.åååå - dd.mm.åååå');
+      expect(result).toEqual('Periode må skrives slik: dd.mm.åååå - dd.mm.åååå');
     });
 
     it('skal ikke feile når fomDato er før tomDato', () => {

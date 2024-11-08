@@ -14,15 +14,15 @@ import {
   invalidDateMessage,
   invalidDatesInPeriodMessage,
   invalidDecimalMessage,
-  invalidFodselsnummerFormatMessage,
-  invalidFodselsnummerMessage,
+  invalidFodselsnrFormatMessage,
+  invalidFodselsnrMessage,
   invalidIntegerMessage,
   invalidNumberMessage,
   invalidOrgNumberMessage,
   invalidOrgNumberOrFodselsnrMessage,
   invalidPeriodMessage,
   invalidPeriodRangeMessage,
-  invalidSaksnummerOrFodselsnummerFormatMessage,
+  invalidSaksnrOrFodselsnrFormatMessage,
   invalidTextMessage,
   invalidValueMessage,
   isRequiredMessage,
@@ -31,7 +31,8 @@ import {
   maxValueMessage,
   minLengthMessage,
   minValueMessage,
-  hasWhiteSpace,
+  illegalWhiteSpaceMessage,
+  sammeFodselsnrSomSokerMessage,
 } from './messages';
 import {
   dateRangesAreSequential,
@@ -125,7 +126,8 @@ export const hasValidOrgNumberOrFodselsnr = (number: number): FormValidationResu
   number.toString().trim().length === 9 || number.toString().trim().length === 11
     ? null
     : invalidOrgNumberOrFodselsnrMessage();
-export const hasNoWhiteSpace = (value: string): FormValidationResult => (/\s/g.test(value) ? hasWhiteSpace() : null);
+export const hasNoWhiteSpace = (value: string): FormValidationResult =>
+  /\s/g.test(value) ? illegalWhiteSpaceMessage() : null;
 
 const hasValidNumber = (text: string | number): FormValidationResult =>
   isEmpty(text) || numberRegex.test(text.toString()) ? null : invalidNumberMessage(text.toString());
@@ -146,7 +148,7 @@ export const hasValidPosOrNegInteger = (text: string): FormValidationResult =>
   hasValidPosOrNegNumber(text) || hasValidPosOrNegInt(text);
 
 export const hasValidSaksnummerOrFodselsnummerFormat = (text: string): FormValidationResult =>
-  isEmpty(text) || saksnummerOrFodselsnummerPattern.test(text) ? null : invalidSaksnummerOrFodselsnummerFormatMessage();
+  isEmpty(text) || saksnummerOrFodselsnummerPattern.test(text) ? null : invalidSaksnrOrFodselsnrFormatMessage();
 
 export const hasValidDate = (text: string): FormValidationResult =>
   isEmpty(text) || isoDateRegex.test(text) ? null : invalidDateMessage();
@@ -181,9 +183,12 @@ export const dateAfterOrEqualToToday = (text: dayjs.Dayjs | string | undefined):
   dateAfterOrEqual(today())(text);
 
 export const hasValidFodselsnummerFormat = (text: string): FormValidationResult =>
-  !fodselsnummerPattern.test(text) ? invalidFodselsnummerFormatMessage() : null;
+  !fodselsnummerPattern.test(text) ? invalidFodselsnrFormatMessage() : null;
 export const hasValidFodselsnummer = (text: string): FormValidationResult =>
-  !isValidFodselsnummer(text) ? invalidFodselsnummerMessage() : null;
+  !isValidFodselsnummer(text) ? invalidFodselsnrMessage() : null;
+
+export const harSammeFodselsnummerSomSoker = (fodeslnrSoker: string) => (foedselsnummer: string) =>
+  foedselsnummer === fodeslnrSoker ? sammeFodselsnrSomSokerMessage() : null;
 
 export const hasValidText = (text: string): FormValidationResult => {
   if (!textRegex.test(text)) {
