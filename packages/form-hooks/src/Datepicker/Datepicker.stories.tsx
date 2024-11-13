@@ -24,8 +24,9 @@ export const MedDisabledDatoer: Story = {
   args: {
     name: 'datepickerField',
     label: 'Dette er en datepicker med disabled datoer',
-    fromDate: new Date('2022-10-02'),
-    toDate: new Date('2022-10-24'),
+    fromDate: new Date('2024-10-12'),
+    toDate: new Date('2025-02-24'),
+    defaultMonth: new Date('2024-11-11'),
   },
 };
 
