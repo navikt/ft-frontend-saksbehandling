@@ -100,7 +100,7 @@ const Datepicker = ({
     ...datepickerProps,
     fromDate: fromDate,
     toDate: toDate,
-    dropdownCaption: true,
+    dropdownCaption: fromDate && toDate ? true : undefined,
   };
 
   return (
