@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-sak-infosider",
   "description": "Diverse info- og feil-sider",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
