@@ -9,7 +9,7 @@ import styles from './textAreaField.module.css';
 
 type BadgesType = 'success' | 'info' | 'error' | 'warning';
 
-interface Badges {
+export interface Badges {
   type: BadgesType;
   titleText: string;
 }
