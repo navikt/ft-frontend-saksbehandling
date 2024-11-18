@@ -2832,6 +2832,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/ecma402-abstract@npm:2.2.4":
+  version: 2.2.4
+  resolution: "@formatjs/ecma402-abstract@npm:2.2.4"
+  dependencies:
+    "@formatjs/fast-memoize": 2.2.3
+    "@formatjs/intl-localematcher": 0.5.8
+    tslib: 2
+  checksum: 48e9ea01b0e1bdf9af9ccd68019b7026bc5e1c43f2cebfad2011504f8de533545bf862c42272f6fbcede13731d78a9cb98aec546fd9bdc52877e9cff5d7ff34d
+  languageName: node
+  linkType: hard
+
 "@formatjs/fast-memoize@npm:2.2.3":
   version: 2.2.3
   resolution: "@formatjs/fast-memoize@npm:2.2.3"
@@ -2862,14 +2873,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-datetimeformat@npm:6.16.4":
-  version: 6.16.4
-  resolution: "@formatjs/intl-datetimeformat@npm:6.16.4"
+"@formatjs/intl-datetimeformat@npm:6.16.5":
+  version: 6.16.5
+  resolution: "@formatjs/intl-datetimeformat@npm:6.16.5"
   dependencies:
-    "@formatjs/ecma402-abstract": 2.2.3
-    "@formatjs/intl-localematcher": 0.5.7
+    "@formatjs/ecma402-abstract": 2.2.4
+    "@formatjs/intl-localematcher": 0.5.8
     tslib: 2
-  checksum: 967b6ce7dd0a110ba924fd8c4bba499221a60d5b2f3d5b6ccff0215cd5edc06f90edb351038ee60e1e90cf08684991138a5449a3762651bf81207b9d2aae198a
+  checksum: 31abbdb6149b5c4cc4834f38019e756c77342e4d23a4de7894e843e2ef3f411354816697a0bb4055769f3c2c5eb953a9f0fdbb1f96128fd13631dbf08dca68b9
   languageName: node
   linkType: hard
 
@@ -2901,6 +2912,15 @@ __metadata:
   dependencies:
     tslib: 2
   checksum: eb54f852585d826d7e1b198a7b0bce467bc231d334bae8c92eac52fc67d5e6888fcc300639f62c712b5ae91b675ace917719b95737db2e3ac66256bb01e6d292
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-localematcher@npm:0.5.8":
+  version: 0.5.8
+  resolution: "@formatjs/intl-localematcher@npm:0.5.8"
+  dependencies:
+    tslib: 2
+  checksum: db1a06d6ee929497e73536f9f53e4a8698e0a648fad2fbeec1a32b8786c78627ad996b6da6b8fecb2686bbc6011e09c2a5206742a22f42ef4c5c67b190de760a
   languageName: node
   linkType: hard
 
@@ -8999,7 +9019,7 @@ __metadata:
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
     "@eslint/js": 9.14.0
-    "@formatjs/intl-datetimeformat": 6.16.4
+    "@formatjs/intl-datetimeformat": 6.16.5
     "@formatjs/intl-numberformat": 8.14.4
     "@navikt/aksel-stylelint": 7.5.1
     "@storybook/addon-essentials": 8.4.2
