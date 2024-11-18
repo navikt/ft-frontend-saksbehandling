@@ -3347,7 +3347,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3404,7 +3404,7 @@ __metadata:
     stylelint: 16.10.0
     typescript: 5.6.3
     uuid: 11.0.2
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3456,7 +3456,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/ds-css": 7.x
@@ -3503,7 +3503,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3531,7 +3531,7 @@ __metadata:
     dayjs: 1.11.13
     eslint: 9.14.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/ft-utils": 2.x
@@ -3571,7 +3571,7 @@ __metadata:
   dependencies:
     eslint: 9.14.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     react: 18.3.1
@@ -3586,7 +3586,7 @@ __metadata:
     eslint: 9.14.0
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   languageName: unknown
   linkType: soft
@@ -3599,7 +3599,7 @@ __metadata:
     eslint: 9.14.0
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   languageName: unknown
   linkType: soft
@@ -3630,7 +3630,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3681,7 +3681,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3734,7 +3734,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3782,7 +3782,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3832,7 +3832,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3861,7 +3861,7 @@ __metadata:
     eslint: 9.14.0
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/ft-kodeverk": 2.x
@@ -3892,7 +3892,7 @@ __metadata:
     storybook: 8.4.2
     stylelint: 16.10.0
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3917,7 +3917,7 @@ __metadata:
     eslint: 9.14.0
     react-intl: 6.8.7
     typescript: 5.6.3
-    vite: 5.4.10
+    vite: 5.4.11
     vitest: 2.1.4
   peerDependencies:
     "@navikt/ft-kodeverk": 2.x
@@ -9036,7 +9036,7 @@ __metadata:
     stylelint-order: 6.0.4
     typescript: 5.6.3
     typescript-eslint: 8.13.0
-    vite: 5.4.10
+    vite: 5.4.11
     vite-plugin-dts: 4.3.0
     vitest: 2.1.4
   languageName: unknown
@@ -15433,9 +15433,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:5.4.10":
-  version: 5.4.10
-  resolution: "vite@npm:5.4.10"
+"vite@npm:5.4.11":
+  version: 5.4.11
+  resolution: "vite@npm:5.4.11"
   dependencies:
     esbuild: ^0.21.3
     fsevents: ~2.3.3
@@ -15472,7 +15472,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 4db3b8ca3eddbc312d0a95f505d16656e74c6dfa68d3b5eb54b6d6b0f7be1df348d469c43dc69db27dadc06b802f029d654da48f392324efd665ef2c0ca9ba9e
+  checksum: 8c5b31d17487b69c40a30419dc0ade9f33360eb6893dbfa33a90980271bd74d35ae550b5cbb2a9e640f0df41ea36fd1bb4f222c98f6d02e607080f20832e69e8
   languageName: node
   linkType: hard
 
