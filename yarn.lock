@@ -2832,6 +2832,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/ecma402-abstract@npm:2.2.4":
+  version: 2.2.4
+  resolution: "@formatjs/ecma402-abstract@npm:2.2.4"
+  dependencies:
+    "@formatjs/fast-memoize": 2.2.3
+    "@formatjs/intl-localematcher": 0.5.8
+    tslib: 2
+  checksum: 48e9ea01b0e1bdf9af9ccd68019b7026bc5e1c43f2cebfad2011504f8de533545bf862c42272f6fbcede13731d78a9cb98aec546fd9bdc52877e9cff5d7ff34d
+  languageName: node
+  linkType: hard
+
 "@formatjs/fast-memoize@npm:2.2.3":
   version: 2.2.3
   resolution: "@formatjs/fast-memoize@npm:2.2.3"
@@ -2904,14 +2915,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:8.14.4":
-  version: 8.14.4
-  resolution: "@formatjs/intl-numberformat@npm:8.14.4"
+"@formatjs/intl-localematcher@npm:0.5.8":
+  version: 0.5.8
+  resolution: "@formatjs/intl-localematcher@npm:0.5.8"
   dependencies:
-    "@formatjs/ecma402-abstract": 2.2.3
-    "@formatjs/intl-localematcher": 0.5.7
     tslib: 2
-  checksum: 817e5f8229d970dd8620e4521bbcb4f6a9522f5d30b334b09626881fc120a437f4c5e84ab53429da8c0b7c241024c985bbc8e6eeb49cc64b729d2afbdfca81d9
+  checksum: db1a06d6ee929497e73536f9f53e4a8698e0a648fad2fbeec1a32b8786c78627ad996b6da6b8fecb2686bbc6011e09c2a5206742a22f42ef4c5c67b190de760a
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-numberformat@npm:8.14.5":
+  version: 8.14.5
+  resolution: "@formatjs/intl-numberformat@npm:8.14.5"
+  dependencies:
+    "@formatjs/ecma402-abstract": 2.2.4
+    "@formatjs/intl-localematcher": 0.5.8
+    tslib: 2
+  checksum: 56f55de77095872db240c2325f99b9a9797b117b1f4c261a5f2bd60d291e3740d368fd6becba9fb5b438718e7b2952dbdf169ae3ce5177e1fbef65d422c19f70
   languageName: node
   linkType: hard
 
@@ -9000,7 +9020,7 @@ __metadata:
   dependencies:
     "@eslint/js": 9.14.0
     "@formatjs/intl-datetimeformat": 6.16.4
-    "@formatjs/intl-numberformat": 8.14.4
+    "@formatjs/intl-numberformat": 8.14.5
     "@navikt/aksel-stylelint": 7.5.1
     "@storybook/addon-essentials": 8.4.2
     "@storybook/addon-links": 8.4.2
