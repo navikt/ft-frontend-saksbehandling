@@ -6,7 +6,7 @@ import { EditedIcon } from '@navikt/ft-ui-komponenter';
 import { getError, getValidationRules } from '../formUtils';
 import styles from './radioGroupPanel.module.css';
 
-interface RadioProps {
+export interface RadioProps {
   value: string;
   label: string | ReactNode;
   disabled?: boolean;
@@ -92,22 +92,24 @@ const RadioGroupPanel = ({
           </Fragment>
         ))}
       {isHorizontal && (
-        <HStack gap="4">
-          {radios.map(radio => (
-            <Radio
-              key={radio.value}
-              value={parseValue(radio.value)}
-              disabled={radio.disabled || disabled || isReadOnly}
-            >
-              {radio.label}
-            </Radio>
-          ))}
+        <>
+          <HStack gap="4">
+            {radios.map(radio => (
+              <Radio
+                key={radio.value}
+                value={parseValue(radio.value)}
+                disabled={radio.disabled || disabled || isReadOnly}
+              >
+                {radio.label}
+              </Radio>
+            ))}
+          </HStack>
           {radios
             .filter(radio => field.value === parseValue(radio.value))
             .map(radio => (
-              <React.Fragment key={radio.value}>{radio.element}</React.Fragment>
+              <Fragment key={radio.value}>{radio.element}</Fragment>
             ))}
-        </HStack>
+        </>
       )}
     </RadioGroup>
   );
