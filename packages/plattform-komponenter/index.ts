@@ -26,7 +26,6 @@ export { default as StatefulProcessMenu } from './src/process-menu/StatefulProce
 export { default as Step } from './src/process-menu/Step';
 export { default as ProcessMenuStepType } from './src/process-menu/StepType';
 export { default as SideMenu } from './src/side-menu/SideMenu';
-export { default as StatefulSideMenu } from './src/side-menu/StatefulSideMenu';
 export { default as PersonCard, Gender } from './src/person-card/PersonCard';
 export { default as EmptyPersonCard } from './src/person-card/EmptyPersonCard';
 export { default as VisittKort } from './src/person-card/VisittKort';
