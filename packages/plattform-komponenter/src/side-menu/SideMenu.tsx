@@ -18,20 +18,18 @@ interface SideMenuProps {
 
 const SideMenu = ({ links, heading, onClick }: SideMenuProps) => {
   return (
-    <div>
-      <nav className={styles.sideMenu__container}>
-        {heading && (
-          <Detail uppercase className={styles.sideMenu__heading}>
-            {heading}
-          </Detail>
-        )}
-        <ul className={styles.sideMenu__linkList}>
-          {links.map(({ label, active, icon }, index) => (
-            <MenuLink key={label} label={label} active={active} onClick={() => onClick(index)} icon={icon} />
-          ))}
-        </ul>
-      </nav>
-    </div>
+    <nav className={styles.sideMenu__container}>
+      {heading && (
+        <Detail uppercase className={styles.sideMenu__heading}>
+          {heading}
+        </Detail>
+      )}
+      <ul className={styles.sideMenu__linkList}>
+        {links.map(({ label, active, icon }, index) => (
+          <MenuLink key={label} label={label} active={active} onClick={() => onClick(index)} icon={icon} />
+        ))}
+      </ul>
+    </nav>
   );
 };
 
