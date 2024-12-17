@@ -21,10 +21,10 @@ export { default as TitleWithUnderline } from './src/title-with-underline/TitleW
 export { default as FieldError } from './src/field-error/FieldError';
 export { default as Header } from './src/header/Header';
 export { default as Popover } from './src/popover/Popover';
-export { default as ProcessMenu } from './src/process-menu/ProcessMenu';
-export { default as StatefulProcessMenu } from './src/process-menu/StatefulProcessMenu';
-export { default as Step } from './src/process-menu/Step';
-export { default as ProcessMenuStepType } from './src/process-menu/StepType';
+
+export { ProcessMenu } from './src/process-menu/ProcessMenu';
+export { StepType as ProcessMenuStepType } from './src/process-menu/StepType';
+
 export { default as SideMenu } from './src/side-menu/SideMenu';
 export { default as PersonCard, Gender } from './src/person-card/PersonCard';
 export { default as EmptyPersonCard } from './src/person-card/EmptyPersonCard';

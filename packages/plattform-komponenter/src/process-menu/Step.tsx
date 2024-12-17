@@ -1,14 +1,15 @@
 import React from 'react';
-import { bemUtils } from '@navikt/ft-utils';
+
 import classnames from 'classnames';
-import { BodyShort } from '@navikt/ds-react';
-import StepIcon from './StepIcon';
-import StepType from './StepType';
+import { Detail, Tooltip } from '@navikt/ds-react';
+
+import { StepIcon } from './StepIcon';
+import { StepType } from './StepType';
+
 import styles from './step.module.css';
 
 export interface StepProps {
   label: string;
-  isFinished?: boolean;
   usePartialStatus?: boolean;
   isActive?: boolean;
   type?: StepType;
@@ -20,69 +21,47 @@ interface ComponentProps {
   stepArrowContainerStyle?: string;
 }
 
-const stepCls = bemUtils('step');
+export const Step = ({
+  label,
+  index,
+  type = StepType.default,
+  isActive = false,
+  usePartialStatus = false,
+  onClick,
+  stepArrowContainerStyle,
+}: StepProps & ComponentProps) => {
+  const handleButtonClick = (event: React.FormEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+    if (onClick) {
+      onClick(index);
+    }
+  };
 
-// eslint-disable-next-line react/display-name
-export const Step = React.memo(
-  ({
-    label,
-    index,
-    isActive,
-    onClick,
-    isFinished,
-    type = StepType.default,
-    usePartialStatus,
-    stepArrowContainerStyle,
-  }: StepProps & ComponentProps): JSX.Element => {
-    const handleButtonClick = (event: React.FormEvent<HTMLButtonElement>): void => {
-      event.preventDefault();
-      if (onClick) {
-        onClick(index);
-      }
-    };
+  const stepIndicatorCls = classnames(`${styles.step__button} ${styles[type]}`, {
+    [styles['active']]: isActive,
+    [styles['partial']]: usePartialStatus,
+  });
 
-    const stepIndicatorCls = classnames(
-      `${styles[stepCls.element('indicator')]} ${styles[`step__indicator--${type}`]}`,
-      {
-        [styles['step__indicator--active']]: isActive,
-        [styles['step__indicator--partial']]: usePartialStatus,
-      },
-    );
-
-    return (
-      <li
-        key={label.split(' ').join('')}
-        className={styles[stepCls.block]}
-        aria-current={isActive ? 'step' : undefined}
-      >
-        <button
-          className={
-            isActive
-              ? `${styles[stepCls.element('button')]} ${styles['step__button--active']}`
-              : styles[stepCls.element('button')]
-          }
-          type="button"
-          onClick={handleButtonClick}
-          data-tooltip={label}
-        >
-          <span className={styles[stepCls.element('text-icon-container')]}>
-            <StepIcon type={type} isFinished={isFinished} usePartialStatus={usePartialStatus} />
-            <BodyShort size="small" as="span">
-              {label}
-            </BodyShort>
-          </span>
-          <span className={stepIndicatorCls} />
+  return (
+    <li key={label} className={styles.step} aria-current={isActive ? 'step' : undefined}>
+      <Tooltip content={label} placement="bottom">
+        <button className={stepIndicatorCls} type="button" onClick={handleButtonClick}>
+          <StepIcon type={type} usePartialStatus={usePartialStatus} />
+          <Detail as="span" className={styles.step__text}>
+            {label}
+          </Detail>
         </button>
-        {isActive && (
-          <div
-            className={classnames(
-              stepArrowContainerStyle,
-              `${styles[stepCls.element('arrow-container')]} step__arrow-container`,
-            )}
-          />
-        )}
-      </li>
-    );
-  },
-);
-export default Step;
+      </Tooltip>
+      {isActive && <div className={classnames(stepArrowContainerStyle, `${styles['step__arrow-container']}`)} />}
+    </li>
+  );
+};
+/* <div style={{ display: 'flex' }}>
+            <div className={styles.button}>
+              <span className={styles.button__icon}>
+                <PersonIcon />
+              </span>
+              <span className={styles.button__text}>This is some text that might overflow</span>
+            </div>
+          </div>
+*/

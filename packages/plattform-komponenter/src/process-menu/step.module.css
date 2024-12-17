@@ -1,178 +1,109 @@
+@value default-color: var(--a-border-subtle);
+@value default-color-active: var(--a-border-default);
+@value success-color: var(--a-surface-success-subtle-hover);
+@value success-color-active: var(--a-green-300);
+@value danger-color: var(--a-surface-danger-subtle-hover);
+@value danger-color-active: var(--a-red-400);
+@value warning-color: var(--a-orange-300);
+@value warning-color-active: var(--a-orange-500);
+
 .step {
   display: flex;
   flex: 1;
   flex-direction: column;
   min-width: 0;
-  padding: 0 4px;
   position: relative;
 }
+
 .step__button {
+  align-items: center;
   background: transparent;
   border: none;
   border-radius: 4px;
-  color: #3e3832;
-  cursor: pointer;
-  flex: 1;
-  height: 48px;
-  padding: 8px 0 6px;
-}
-.step__button:disabled {
-  color: #3e3832;
-}
-.step__button:hover {
-  background-color: #e7e9e9;
-}
-.step__button:hover .step__indicator--default {
-  background-color: #78706a;
-  border: solid 1px #78706a;
-}
-.step__button:hover .step__indicator--success {
-  background-color: #1c6937;
-  border: solid 1px #1c6937;
-}
-.step__button:hover .step__indicator--success.step__indicator--partial {
-  background: repeating-linear-gradient(-45deg, #1c6937, #1c6937 10px, #fff 10px, #fff 20px);
-}
-.step__button:hover .step__indicator--warning {
-  background-color: #ffa733;
-  border: solid 1px #b26d14;
-}
-.step__button:hover .step__indicator--warning.step__indicator--partial {
-  /* stylelint-disable-next-line declaration-no-important */
-  background: #ffa733 !important;
-}
-.step__button:hover .step__indicator--danger {
-  background-color: #a13a28;
-  border: solid 1px #88392b;
-}
-.step__button:hover .step__indicator--danger.step__indicator--partial {
-  background: repeating-linear-gradient(-45deg, #a13a28, #a13a28 10px, #fff 10px, #fff 20px);
-}
-.step__button:focus {
-  border: solid 3px #254b6d;
-  margin: -3px;
-  outline: none;
-}
-.step__button--active {
-  font-weight: 600;
-}
-.step__button--active:hover {
-  font-weight: 400;
-}
-.step__text-icon-container {
-  display: block;
+  display: inline-flex;
+  height: 38px;
+  justify-content: center;
   overflow: hidden;
+  padding: 4px;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.step__text-icon-container {
-  line-height: 1.375rem;
-}
-.step__indicator {
-  background-color: #e7e9e9;
-  border: solid 1px #78706a;
-  border-radius: 3px;
-  display: block;
-  height: 8px;
-  margin-bottom: -6px;
-  margin-top: 6px;
-}
-.step__indicator--active {
-  background-color: #78706a;
-  border: solid 1px #78706a;
-}
-.step__indicator--active.step__indicator--success {
-  background-color: #1c6937;
-  border: solid 1px #1c6937;
-}
-.step__indicator--active.step__indicator--success.step__indicator--partial {
-  background: repeating-linear-gradient(-45deg, #1c6937, #1c6937 10px, #fff 10px, #fff 20px);
-}
-.step__indicator--active.step__indicator--warning {
-  background-color: #ffa733;
-  border: solid 1px #b26d14;
-}
-.step__indicator--active.step__indicator--warning.step__indicator--partial {
-  /* stylelint-disable-next-line declaration-no-important */
-  background: #ffa733 !important;
-}
-.step__indicator--active.step__indicator--danger {
-  background-color: #a13a28;
-  border: solid 1px #88392b;
-}
-.step__indicator--active.step__indicator--danger.step__indicator--partial {
-  background: repeating-linear-gradient(-45deg, #a13a28, #a13a28 10px, #fff 10px, #fff 20px);
-}
-.step__indicator--success {
-  background-color: #9bd0b0;
-  border: solid 1px #1c6937;
-}
-.step__indicator--success.step__indicator--partial {
-  background: repeating-linear-gradient(-45deg, #9bd0b0, #9bd0b0 10px, #fff 10px, #fff 20px);
-}
-.step__indicator--warning {
-  background-color: #ffe5c2;
-  border: solid 1px #b26d14;
-}
-.step__indicator--warning.step__indicator--partial {
-  /* stylelint-disable-next-line declaration-no-important */
-  background: #ffe5c2 !important;
-}
-.step__indicator--danger {
-  background-color: #e3b0a8;
-  border: solid 1px #88392b;
-}
-.step__indicator--danger.step__indicator--partial {
-  background: repeating-linear-gradient(-45deg, #e3b0a8, #e3b0a8 10px, #fff 10px, #fff 20px);
-}
-.step__icon {
-  display: inline;
-  height: 20px;
-  margin-right: 8px;
-  vertical-align: sub;
-  width: 20px;
-}
 
-.step__icon--warning {
-  margin-right: 6px;
-  width: 24px;
-}
-
-@media screen and (max-width: 1024px) {
-  .step__icon {
-    display: block;
-    margin: 0 auto;
+  &:hover {
+    background-color: var(--a-surface-hover);
   }
-}
 
-.step__icon--partial {
-  border-radius: 50%;
-  display: inline-block;
-  height: 18px;
-  width: 18px;
-}
-
-@media screen and (max-width: 1024px) {
-  .step__icon--partial {
+  &:after {
+    background: default-color;
+    border-radius: 3px;
+    bottom: 0;
+    content: '';
     display: block;
-    margin: 0 auto;
+    height: 6px;
+    left: 0;
+    position: absolute;
+    width: 100%;
   }
-}
 
-.step__icon--partial.step__icon--success {
-  background: linear-gradient(-45deg, #1c6937, #1c6937 49%, #1c6937 49%, #1c6937 51%, white 51%);
-  border: 1px solid #1c6937;
-}
-.step__icon--partial.step__icon--danger {
-  background: linear-gradient(-45deg, #a13a28, #a13a28 49%, #a13a28 49%, #a13a28 51%, white 51%);
-  border: 1px solid #a13a28;
-}
+  &.active {
+    text-shadow: 0 0 0.1px #333; /* bruker text-shadow i steden for font-weight for å unngå endring i bredde */
 
-@media screen and (max-width: 1024px) {
-  .step__icon-placeholder {
-    display: block;
-    height: 20px;
-    width: 20px;
+    &:after {
+      background: default-color-active;
+    }
+  }
+
+  &.success {
+    &:after {
+      background: success-color;
+    }
+
+    &.active:after {
+      background: success-color-active;
+    }
+
+    &.partial:after {
+      background: repeating-linear-gradient(-45deg, success-color, success-color 10px, white 10px, white 20px);
+      border: 1px solid success-color;
+    }
+
+    &.partial.active:after {
+      background: repeating-linear-gradient(-45deg, success-color-active, success-color-active 10px, white 10px, white 20px);
+      border: 1px solid success-color-active;
+    }
+  }
+
+  &.warning {
+    &:after {
+      background: warning-color;
+    }
+
+    &.active:after {
+      background: warning-color-active;
+    }
+
+    &.active.partial:after {
+      background: warning-color-active;
+    }
+  }
+
+  &.danger {
+    &:after {
+      background: danger-color;
+    }
+
+    &.active:after {
+      background: danger-color-active;
+    }
+
+    &.partial:after {
+      background: repeating-linear-gradient(-45deg, danger-color, danger-color 10px, white 10px, white 20px);
+      border: 1px solid danger-color;
+    }
+
+    &.active.partial:after {
+      background: repeating-linear-gradient(-45deg, danger-color-active, danger-color-active 10px, white 10px, white 20px);
+      border: 1px solid danger-color-active;
+    }
   }
 }
 
@@ -184,36 +115,52 @@
   right: 0;
   width: 100%;
 }
-.step__button[data-tooltip]:before {
-  background-color: #fff2e0;
-  border-radius: 4px;
-  bottom: -30px;
-  box-shadow: 0 1px 2px 0 #b7b1a9;
-  color: #3e3832;
-  content: attr(data-tooltip);
-  font-family: 'Source Sans Pro', Arial, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  left: 20px;
-  margin: 0 -20px;
-  opacity: 0;
-  padding: 2px 8px;
-  pointer-events: none;
-  position: absolute;
-  z-index: 2;
-}
-.step__button[data-tooltip]:hover:before {
-  animation-delay: 0.4s;
-  animation-duration: 0.1s;
-  animation-fill-mode: forwards;
-  animation-name: showTooltip;
+
+/* Label truncation */
+.step__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-@keyframes showTooltip {
-  from {
-    opacity: 0;
+
+/* StepIcon */
+.step__icon {
+  display: flex;
+  height: 24px;
+  margin-right: 8px;
+  min-width: 24px;
+
+  &.step__icon--danger {
+    color: var(--a-icon-danger);
   }
-  to {
-    opacity: 1;
+
+  &.step__icon--partial {
+    border-radius: 50%;
+    display: inline-block;
+    height: 16px;
+    min-width: 16px;
+
+    &.step__icon--success {
+      background: linear-gradient(-45deg, success-color-active, success-color-active 49%, success-color-active 49%, success-color-active 51%, white 51%);
+      border: 1px solid success-color-active;
+    }
+
+    &.step__icon--danger {
+      background: linear-gradient(-45deg, danger-color-active, danger-color-active 49%, danger-color-active 49%, danger-color-active 51%, white 51%);
+      border: 1px solid danger-color-active;
+    }
   }
 }
+
+
+@media screen and (max-width: 1024px) {
+  .step__icon {
+    display: none;
+
+    &.step__icon--partial {
+      display: none;
+    }
+  }
+}
+
