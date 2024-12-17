@@ -9,9 +9,6 @@ const meta = {
   args: {
     onClick: action('onClick'),
   },
-  parameters: {
-    layout: 'fullscreen', // or `padded` by default
-  },
   render: ({ steps, onClick }) => {
     const [activeIndex, setActiveIndex] = React.useState(0);
     const handleOnClick = (index: number): void => {
