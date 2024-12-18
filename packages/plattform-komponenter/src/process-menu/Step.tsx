@@ -56,12 +56,3 @@ export const Step = ({
     </li>
   );
 };
-/* <div style={{ display: 'flex' }}>
-            <div className={styles.button}>
-              <span className={styles.button__icon}>
-                <PersonIcon />
-              </span>
-              <span className={styles.button__text}>This is some text that might overflow</span>
-            </div>
-          </div>
-*/
