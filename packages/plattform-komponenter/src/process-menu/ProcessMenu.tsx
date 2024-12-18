@@ -1,7 +1,7 @@
-import { bemUtils } from '@navikt/ft-utils';
 import React from 'react';
-import Step, { StepProps } from './Step';
-import styles from './processMenu.module.css';
+import { HStack } from '@navikt/ds-react';
+
+import { Step, StepProps } from './Step';
 
 interface ProcessMenuProps {
   steps: StepProps[];
@@ -9,19 +9,16 @@ interface ProcessMenuProps {
   stepArrowContainerStyle?: string;
 }
 
-const processMenuCls = bemUtils('processMenu');
-
 export const ProcessMenu = ({ steps, onClick, stepArrowContainerStyle }: ProcessMenuProps): JSX.Element => (
-  <ol className={styles[processMenuCls.block]}>
+  <HStack as="ol" justify="space-between" padding="0" align="end" gap="4">
     {steps.map((step, index) => (
       <Step
-        key={step.label.split(' ').join('')}
+        key={step.label}
         index={index}
         onClick={onClick}
         {...step}
         stepArrowContainerStyle={stepArrowContainerStyle}
       />
     ))}
-  </ol>
+  </HStack>
 );
-export default ProcessMenu;
