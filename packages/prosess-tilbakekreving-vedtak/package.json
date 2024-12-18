@@ -62,9 +62,9 @@
     "@testing-library/react": "16.1.0",
     "@testing-library/user-event": "14.5.2",
     "cross-env": "7.0.3",
-    "eslint": "9.16.0",
+    "eslint": "9.17.0",
     "storybook": "8.4.7",
-    "stylelint": "16.11.0",
+    "stylelint": "16.12.0",
     "typescript": "5.7.2",
     "vite": "5.4.11",
     "vitest": "2.1.8"
