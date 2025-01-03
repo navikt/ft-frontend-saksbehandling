@@ -20,7 +20,6 @@ export { default as LinkButton } from './src/link-button/LinkButton';
 export { default as TitleWithUnderline } from './src/title-with-underline/TitleWithUnderline';
 export { default as FieldError } from './src/field-error/FieldError';
 export { default as Header } from './src/header/Header';
-export { default as Popover } from './src/popover/Popover';
 
 export { ProcessMenu } from './src/process-menu/ProcessMenu';
 export { StepType as ProcessMenuStepType } from './src/process-menu/StepType';
