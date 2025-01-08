@@ -36,7 +36,7 @@
     "classnames": "2.5.1",
     "react": "19.0.0",
     "react-hook-form": "7.53.2",
-    "react-intl": "7.0.1"
+    "react-intl": "7.1.0"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -50,8 +50,7 @@
     "@navikt/ft-utils": "2.x",
     "classnames": "2.5.1",
     "react": "19.0.0",
-    "react-hook-form": "7.x",
-    "react-intl": "6.x"
+    "react-hook-form": "7.x"
   },
   "devDependencies": {
     "@navikt/ft-frontend-storybook-utils": "workspace:^",

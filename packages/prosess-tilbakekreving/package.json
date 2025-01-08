@@ -37,7 +37,7 @@
     "moment": "2.30.1",
     "react": "19.0.0",
     "react-hook-form": "7.53.2",
-    "react-intl": "7.0.1"
+    "react-intl": "7.1.0"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -52,8 +52,7 @@
     "dayjs": "1.11.x",
     "moment": "2.30.1",
     "react": "19.0.0",
-    "react-hook-form": "7.53.0",
-    "react-intl": "6.x"
+    "react-hook-form": "7.53.0"
   },
   "devDependencies": {
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
