@@ -3161,8 +3161,8 @@ __metadata:
     dayjs: 1.11.13
     dayjs-plugin-utc: 0.1.2
     eslint: 9.16.0
-    react: 18.3.1
-    react-dom: 18.3.1
+    react: 19.0.0
+    react-dom: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     storybook: 8.4.7
@@ -3218,7 +3218,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.13
     eslint: 9.16.0
-    react: 18.3.1
+    react: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     storybook: 8.4.7
@@ -3271,7 +3271,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.16.0
     moment: 2.30.1
-    react: 18.3.1
+    react: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     storybook: 8.4.7
@@ -3318,8 +3318,8 @@ __metadata:
     dayjs: 1.11.13
     eslint: 9.16.0
     lodash.throttle: 4.1.1
-    react: 18.3.1
-    react-dom: 18.3.1
+    react: 19.0.0
+    react-dom: 19.0.0
     react-hook-form: 7.53.2
     storybook: 8.4.7
     stylelint: 16.11.0
@@ -3366,7 +3366,7 @@ __metadata:
   dependencies:
     "@navikt/ft-form-hooks": "workspace:^"
     eslint: 9.16.0
-    react: 18.3.1
+    react: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     typescript: 5.7.2
@@ -3380,7 +3380,7 @@ __metadata:
     "@navikt/ft-kodeverk": ^2.5.10
     cross-env: 7.0.3
     eslint: 9.16.0
-    react: 18.3.1
+    react: 19.0.0
     react-intl: 7.0.1
     typescript: 5.7.2
   languageName: unknown
@@ -3445,8 +3445,8 @@ __metadata:
     eslint: 9.16.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
-    react: 18.3.1
-    react-dom: 18.3.1
+    react: 19.0.0
+    react-dom: 19.0.0
     storybook: 8.4.7
     stylelint: 16.11.0
     typescript: 5.7.2
@@ -3491,7 +3491,7 @@ __metadata:
     dayjs: 1.11.13
     echarts: 5.5.1
     eslint: 9.16.0
-    react: 18.3.1
+    react: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     storybook: 8.4.7
@@ -3544,7 +3544,7 @@ __metadata:
     dayjs: 1.11.13
     eslint: 9.16.0
     moment: 2.30.1
-    react: 18.3.1
+    react: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     storybook: 8.4.7
@@ -3592,7 +3592,7 @@ __metadata:
     classnames: 2.5.1
     cross-env: 7.0.3
     eslint: 9.16.0
-    react: 18.3.1
+    react: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     storybook: 8.4.7
@@ -3642,7 +3642,7 @@ __metadata:
     dayjs: 1.11.13
     eslint: 9.16.0
     moment: 2.30.1
-    react: 18.3.1
+    react: 19.0.0
     react-hook-form: 7.53.2
     react-intl: 7.0.1
     storybook: 8.4.7
@@ -3701,8 +3701,8 @@ __metadata:
     classnames: 2.5.1
     cross-env: 7.0.3
     eslint: 9.16.0
-    react: 18.3.1
-    react-dom: 18.3.1
+    react: 19.0.0
+    react-dom: 19.0.0
     react-intl: 7.0.1
     react-modal: 3.16.1
     storybook: 8.4.7
@@ -5134,21 +5134,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.3.1":
-  version: 18.3.1
-  resolution: "@types/react-dom@npm:18.3.1"
-  dependencies:
-    "@types/react": "*"
-  checksum: ad28ecce3915d30dc76adc2a1373fda1745ba429cea290e16c6628df9a05fd80b6403c8e87d78b45e6c60e51df7a67add389ab62b90070fbfdc9bda8307d9953
+"@types/react-dom@npm:19.0.2":
+  version: 19.0.2
+  resolution: "@types/react-dom@npm:19.0.2"
+  peerDependencies:
+    "@types/react": ^19.0.0
+  checksum: d2ae81ec0b8eee7a4bf31918796fdaa34e8db68f69682163bc212d759de76783e6ffcc02c02722dcf508429067148841e6da81414cc730ca2a28c9c2b350c880
   languageName: node
   linkType: hard
 
-"@types/react-responsive@npm:8.0.8":
-  version: 8.0.8
-  resolution: "@types/react-responsive@npm:8.0.8"
+"@types/react-responsive@npm:9.0.0":
+  version: 9.0.0
+  resolution: "@types/react-responsive@npm:9.0.0"
   dependencies:
-    "@types/react": "*"
-  checksum: 18c097f6fb55f1c53d22f83cf218dae64df9ea43c1311d29044a8101ebeb9df5a605522c5c02fe9b44b8e781a424e98111f6385861f70ff9612c9c78a236efb6
+    react-responsive: "*"
+  checksum: 4a30d1ce2bfa91cd084d1f0a0a1547db23eff3cfce771771344d23098d5d652235b621f79d317925c3e458f3ae9955a817e38e3745264f7adc6862c508cb3d69
   languageName: node
   linkType: hard
 
@@ -5163,13 +5163,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:16 || 17 || 18, @types/react@npm:18.3.12":
+"@types/react@npm:16 || 17 || 18":
   version: 18.3.12
   resolution: "@types/react@npm:18.3.12"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
   checksum: 4ab1577a8c2105a5e316536f724117c90eee5f4bd5c137fc82a2253d8c1fd299dedaa07e8dfc95d6e2f04a4be3cb8b0e1b06098c6233ebd55c508d88099395b7
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:19.0.3":
+  version: 19.0.3
+  resolution: "@types/react@npm:19.0.3"
+  dependencies:
+    csstype: ^3.0.2
+  checksum: a6c2bcd032522f5c041601a0df1c56288ad66c7973fa672b6c375334dd93295a4d1bfebf9c3498bafb86525f1fd8f4d58175267ed41ef5534b64ba28bd274bb6
   languageName: node
   linkType: hard
 
@@ -7111,6 +7120,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-mediaquery@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "css-mediaquery@npm:0.1.2"
+  checksum: 8e26ae52d8aaaa71893f82fc485363ff0fab494b7d3b3464572aaed50714b8b538d33dbdaa69f0c02cf7f80d1f4d9a77519306c0492223ce91b3987475031a69
+  languageName: node
+  linkType: hard
+
 "css-tree@npm:^3.0.1":
   version: 3.0.1
   resolution: "css-tree@npm:3.0.1"
@@ -8750,9 +8766,9 @@ __metadata:
     "@storybook/react": 8.4.7
     "@storybook/theming": 8.4.7
     "@testing-library/jest-dom": 6.6.3
-    "@types/react": 18.3.12
-    "@types/react-dom": 18.3.1
-    "@types/react-responsive": 8.0.8
+    "@types/react": 19.0.3
+    "@types/react-dom": 19.0.2
+    "@types/react-responsive": 9.0.0
     "@types/uuid": ^10.0.0
     "@vitejs/plugin-react": 4.3.4
     "@vitest/coverage-c8": 0.33.0
@@ -9451,6 +9467,13 @@ __metadata:
   bin:
     husky: bin.js
   checksum: c2412753f15695db369634ba70f50f5c0b7e5cb13b673d0826c411ec1bd9ddef08c1dad89ea154f57da2521d2605bd64308af748749b27d08c5f563bcd89975f
+  languageName: node
+  linkType: hard
+
+"hyphenate-style-name@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "hyphenate-style-name@npm:1.1.0"
+  checksum: b9ed74e29181d96bd58a2d0e62fc4a19879db591dba268275829ff0ae595fcdf11faafaeaa63330a45c3004664d7db1f0fc7cdb372af8ee4615ed8260302c207
   languageName: node
   linkType: hard
 
@@ -11044,6 +11067,15 @@ __metadata:
   version: 1.5.0
   resolution: "map-or-similar@npm:1.5.0"
   checksum: f65c0d420e272d0fce4e24db35f6a08109218480bca1d61eaa442cbe6cf46270b840218d3b5e94e4bfcc2595f1d0a1fa5885df750b52aac9ab1d437b29dcce38
+  languageName: node
+  linkType: hard
+
+"matchmediaquery@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "matchmediaquery@npm:0.4.2"
+  dependencies:
+    css-mediaquery: ^0.1.2
+  checksum: 0d495dd20a4bdd4c6485c43fe9363d41de6c8cbe3bb4c259f39b885f1d2627f102ac21a759b6108a313d0dbd3445edb9847b734cff2f06b5b19fed62dbb7856f
   languageName: node
   linkType: hard
 
@@ -12745,7 +12777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:15.8.1, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:15.8.1, prop-types@npm:^15.6.1, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -12945,6 +12977,20 @@ __metadata:
   version: 0.14.2
   resolution: "react-refresh@npm:0.14.2"
   checksum: d80db4bd40a36dab79010dc8aa317a5b931f960c0d83c4f3b81f0552cbcf7f29e115b84bb7908ec6a1eb67720fff7023084eff73ece8a7ddc694882478464382
+  languageName: node
+  linkType: hard
+
+"react-responsive@npm:*":
+  version: 10.0.0
+  resolution: "react-responsive@npm:10.0.0"
+  dependencies:
+    hyphenate-style-name: ^1.0.0
+    matchmediaquery: ^0.4.2
+    prop-types: ^15.6.1
+    shallow-equal: ^3.1.0
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 49580f3fd333316704f774a241dc733506a27b23d1f397fc63e100df08a80ee4ae14cb2b2b1e2bf79e0ee2989d73761f10ec5f9e0caa208a907aee548d85818e
   languageName: node
   linkType: hard
 
@@ -13651,6 +13697,13 @@ __metadata:
   dependencies:
     kind-of: ^6.0.2
   checksum: 39b3dd9630a774aba288a680e7d2901f5c0eae7b8387fc5c8ea559918b29b3da144b7bdb990d7ccd9e11be05508ac9e459ce51d01fd65e583282f6ffafcba2e7
+  languageName: node
+  linkType: hard
+
+"shallow-equal@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "shallow-equal@npm:3.1.0"
+  checksum: 7eab4ae9fbd79c8913a88d6af873548b6ce619baab2e9e0a2f11696881cdaae289d51423837f6aca38de874581609c8e5e2fa052d8b79c10b55ac9fe7bd2f2f2
   languageName: node
   linkType: hard
 
