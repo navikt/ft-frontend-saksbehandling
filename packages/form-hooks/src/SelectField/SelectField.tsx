@@ -11,7 +11,7 @@ export interface Props {
   onChange?: (event: any) => void;
   validate?: ((value: string) => any)[];
   readOnly?: boolean;
-  selectValues: React.ReactElement[];
+  selectValues: React.ReactElement<any>[];
   description?: ReactNode;
   hideValueOnDisable?: boolean;
   disabled?: boolean;

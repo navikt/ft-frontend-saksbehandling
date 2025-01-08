@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-const EditedBySaksbehandlerIcon = (): JSX.Element => (
+const EditedBySaksbehandlerIcon = (): ReactElement<any> => (
   <svg
     className="editedBySaksbehandlerIcon"
     width="44"

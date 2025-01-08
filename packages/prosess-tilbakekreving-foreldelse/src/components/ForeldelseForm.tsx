@@ -25,7 +25,7 @@ const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: Foreldelse
   dayjs(periode1.fom).diff(dayjs(periode2.fom));
 
 const getDate = (): string => dayjs().subtract(30, 'months').format(DDMMYYYY_DATE_FORMAT);
-const getApTekst = (aksjonspunkt: Aksjonspunkt): ReactElement[] =>
+const getApTekst = (aksjonspunkt: Aksjonspunkt): ReactElement<any>[] =>
   aksjonspunkt
     ? [
         <FormattedMessage

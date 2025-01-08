@@ -21,7 +21,7 @@ const lagRefusjonskravRadios = (
   readOnly: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
-): ReactElement[] =>
+): ReactElement<any>[] =>
   senRefusjonkravListe.map((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe) => {
     const { arbeidsgiverIdent } = kravPerArbeidsgiver;
     const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];

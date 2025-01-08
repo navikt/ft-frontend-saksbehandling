@@ -1,19 +1,19 @@
 import { ReactElement } from 'react';
 
 export type AvkortetRadType = {
-  ledetekst: ReactElement;
+  ledetekst: ReactElement<any>;
   verdi: string | null;
   display?: boolean | null;
 };
 
 export type RedusertRadType = {
-  ledetekst: ReactElement;
+  ledetekst: ReactElement<any>;
   verdi: string | null;
   display?: boolean | null;
 };
 
 export type BruttoRadType = {
-  ledetekst: ReactElement;
+  ledetekst: ReactElement<any>;
   verdi: string | null;
   display?: boolean | null;
   grunnlag: string | null;
@@ -26,7 +26,7 @@ export type DagsatsRadType = {
 };
 
 export type BeregningsresultatAndelElementType = {
-  ledetekst?: ReactElement;
+  ledetekst?: ReactElement<any>;
   erOverstyrt?: boolean;
   pgiSnitt?: number;
   skalFastsetteGrunnlag: boolean;
@@ -35,13 +35,13 @@ export type BeregningsresultatAndelElementType = {
 };
 
 export type BeregningsresultatPeriodeTabellType = {
-  headers: ReactElement[];
+  headers: ReactElement<any>[];
   rowsAndeler: BeregningsresultatAndelElementType[];
   avkortetRad: AvkortetRadType;
   redusertRad: RedusertRadType;
   bruttoRad: BruttoRadType;
   dagsatser: DagsatsRadType;
-  rowsForklaringer: ReactElement[];
+  rowsForklaringer: ReactElement<any>[];
 };
 
 export default BeregningsresultatPeriodeTabellType;

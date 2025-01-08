@@ -116,8 +116,8 @@ const createGraderingOrRefusjonString = (
   refusjonArbeidsforhold: ArbeidsforholdTilFordeling[],
   permisjonMedGraderingEllerRefusjon: ArbeidsforholdTilFordeling[],
   endringYtelse: ArbeidsforholdTilFordeling[],
-): ReactElement[] => {
-  const text: ReactElement[] = [];
+): ReactElement<any>[] => {
+  const text: ReactElement<any>[] = [];
 
   if (
     endringYtelse.length === 0 &&
@@ -144,28 +144,25 @@ const harGraderingEllerRefusjon = (perioderMedGraderingEllerRefusjon: PerioderMe
   perioderMedGraderingEllerRefusjon.map(({ erRefusjon }) => erRefusjon).includes(true) ||
   perioderMedGraderingEllerRefusjon.map(({ erGradering }) => erGradering).includes(true);
 
-const lagHelpTextsFordelBG = (endredeArbeidsforhold: ArbeidsforholdTilFordeling[]): ReactElement[] => {
-  const gradering = endredeArbeidsforhold.filter(
-    ({ perioderMedGraderingEllerRefusjon }) =>
-      perioderMedGraderingEllerRefusjon?.map(({ erGradering }) => erGradering).includes(true),
+const lagHelpTextsFordelBG = (endredeArbeidsforhold: ArbeidsforholdTilFordeling[]): ReactElement<any>[] => {
+  const gradering = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
+    perioderMedGraderingEllerRefusjon?.map(({ erGradering }) => erGradering).includes(true),
   );
-  const refusjon = endredeArbeidsforhold.filter(
-    ({ perioderMedGraderingEllerRefusjon }) =>
-      perioderMedGraderingEllerRefusjon?.map(({ erRefusjon }) => erRefusjon).includes(true),
+  const refusjon = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
+    perioderMedGraderingEllerRefusjon?.map(({ erRefusjon }) => erRefusjon).includes(true),
   );
   const permisjonMedGraderingEllerRefusjon = endredeArbeidsforhold
     .filter(({ permisjon }) => permisjon !== undefined && permisjon !== null)
     .filter(({ perioderMedGraderingEllerRefusjon }) =>
       harGraderingEllerRefusjon(perioderMedGraderingEllerRefusjon || []),
     );
-  const endringYtelse = endredeArbeidsforhold.filter(
-    ({ perioderMedGraderingEllerRefusjon }) =>
-      perioderMedGraderingEllerRefusjon?.map(({ erSøktYtelse }) => erSøktYtelse).includes(true),
+  const endringYtelse = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
+    perioderMedGraderingEllerRefusjon?.map(({ erSøktYtelse }) => erSøktYtelse).includes(true),
   );
   return createGraderingOrRefusjonString(gradering, refusjon, permisjonMedGraderingEllerRefusjon, endringYtelse);
 };
 
-export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag): ReactElement[] => {
+export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag): ReactElement<any>[] => {
   const endredeArbeidsforhold =
     beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling || [];
   return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import classnames from 'classnames/bind';
 import { bemUtils } from '@navikt/ft-utils';
 import ClipboardIcon from './ClipboardIcon';
@@ -15,10 +15,10 @@ interface ClipboardProps {
 
 const clipboardCls = bemUtils('clipboard');
 
-const Clipboard = ({ children, buttonLabel = 'Kopier', className }: ClipboardProps): JSX.Element => {
+const Clipboard = ({ children, buttonLabel = 'Kopier', className }: ClipboardProps): ReactElement<any> => {
   const [didCopy, setDidCopy] = React.useState(false);
   const [shouldAnimate, setShouldAnimate] = React.useState(false);
-  const ref = React.useRef<any>();
+  const ref = React.useRef<any>(undefined);
 
   const copy = (): void => {
     if (!didCopy && ref.current) {

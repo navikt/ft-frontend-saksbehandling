@@ -72,7 +72,7 @@ const createArbeidinntektRows = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement[] => {
+): ReactElement<any>[] => {
   const beregnetAarsinntekt = relevanteAndeler.reduce((acc, andel) => acc + finnBeregnetEller0(andel), 0);
   const beregnetMaanedsinntekt = beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0;
   const rows = relevanteAndeler.map((andel, index) => (

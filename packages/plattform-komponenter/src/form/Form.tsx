@@ -1,5 +1,5 @@
 import { Button } from '@navikt/ds-react';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Box, { Margin } from '../box/Box';
 import styles from './form.module.css';
 
@@ -23,7 +23,7 @@ const Form = ({
   submitButtonDisabled,
   cancelButtonDisabled,
   smallButtons,
-}: FormProps): JSX.Element => (
+}: FormProps): ReactElement<any> => (
   <form onSubmit={onSubmit}>
     {children}
     {shouldShowSubmitButton !== false && (

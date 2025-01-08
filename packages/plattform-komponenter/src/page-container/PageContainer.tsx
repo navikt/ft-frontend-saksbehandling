@@ -1,5 +1,5 @@
 import { Loader } from '@navikt/ds-react';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PageError from '../page-error/PageError';
 import styles from './pageContainer.module.css';
 
@@ -10,7 +10,7 @@ interface PageContainerProps {
   children?: React.ReactNode;
 }
 
-const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageContainerProps): JSX.Element => {
+const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageContainerProps): ReactElement<any> => {
   const shouldHideChildren = isLoading || hasError;
 
   const renderChildrenContent = () => {

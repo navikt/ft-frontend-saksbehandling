@@ -33,7 +33,7 @@ const PERIODE_STATUS_IKON_MAP = {
   danger: <XMarkOctagonIcon />,
   success: <CheckmarkCircleIcon />,
   warning: <ExclamationmarkTriangleIcon />,
-} as Record<string, ReactElement>;
+} as Record<string, ReactElement<any>>;
 
 const sortByDate = (a: TidslinjePeriode, b: TidslinjePeriode) => {
   if (a.fom < b.fom) {
@@ -56,7 +56,7 @@ const formaterPerioder = (periodItems: TidslinjePeriode[] = []): Periode[] =>
     status: finnStatus(p),
   }));
 
-const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
+const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement<any> => {
   if (relasjonsRolleType === RelasjonsRolleType.MOR || relasjonsRolleType === RelasjonsRolleType.MEDMOR) {
     return <FigureOutwardFillIcon width={20} height={20} color="var(--a-red-200)" />;
   }

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, FunctionComponent } from 'react';
 import { init, getInstanceByDom } from 'echarts';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactElement } from 'react';
 import type { EChartsOption, ECharts } from 'echarts';
 
 export interface OwnProps {
@@ -9,7 +9,7 @@ export interface OwnProps {
   height: number;
 }
 
-const ReactECharts: FunctionComponent<OwnProps> = ({ option, style, height }): JSX.Element => {
+const ReactECharts: FunctionComponent<OwnProps> = ({ option, style, height }): ReactElement<any> => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

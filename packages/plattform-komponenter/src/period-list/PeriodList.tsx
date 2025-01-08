@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Period, sortPeriodsByFomDate } from '@navikt/ft-utils';
 import { Heading, Label, BodyShort } from '@navikt/ds-react';
@@ -19,7 +19,7 @@ type Periode = {
 type OwnProps = {
   perioder: Periode[];
   tittel: string;
-  customRenderFunc?: (items: { label: string; value: string }[]) => JSX.Element | null;
+  customRenderFunc?: (items: { label: string; value: string }[]) => ReactElement<any> | null;
 };
 const PeriodList = ({ perioder, tittel, customRenderFunc }: OwnProps) => {
   if (!perioder || !Array.isArray(perioder)) {

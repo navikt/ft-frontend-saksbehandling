@@ -205,7 +205,7 @@ const SelvstendigNæringsdrivendeContainer = ({
   avklaringsbehov: BeregningAvklaringsbehov;
   fieldIndex: number;
   formName: string;
-}): ReactElement | null => {
+}): ReactElement<any> | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
@@ -252,7 +252,7 @@ const ArbeidstakerEllerFrilansContainer = ({
   fieldIndex: number;
   formName: string;
   avklaringsbehov: BeregningAvklaringsbehov;
-}): ReactElement => {
+}): ReactElement<any> => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
@@ -521,7 +521,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     avklaringsbehovForBG: BeregningAvklaringsbehov[],
   ): BeregningAvklaringsbehov | undefined => avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
 
-  const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement | null => {
+  const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement<any> | null => {
     const avklaringsbehov = finnAvklaringsbehov(avklaringsbehovForBG);
     if (lovparagraf === LovParagraf.ÅTTE_TRETTI && avklaringsbehov) {
       return (

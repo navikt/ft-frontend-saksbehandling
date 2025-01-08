@@ -6,7 +6,7 @@ import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbe
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 
-const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement[] =>
+const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement<any>[] =>
   utbetalinger.map(utbetaling => (
     <div key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
       {utbetaling && utbetaling.erTildeltRefusjon ? (
@@ -19,7 +19,7 @@ const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string
     </div>
   ));
 
-const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined => {
+const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement<any> | undefined => {
   if (!utbetaling) {
     return undefined;
   }
@@ -34,7 +34,7 @@ const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined
   );
 };
 
-const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] =>
+const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement<any>[] =>
   utbetalinger.map(utbetaling => (
     <div key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>{lagPeriode(utbetaling)}</div>
   ));

@@ -91,7 +91,7 @@ const lagAksjonspunktHelpText = (
   åpneAvklaringsbehov: BeregningAvklaringsbehov[],
   sammenligningsgrunnlag: SammenligningsgrunlagProp[],
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-): ReactElement => {
+): ReactElement<any> => {
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );

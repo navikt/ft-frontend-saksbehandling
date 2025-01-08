@@ -35,7 +35,7 @@ type statusObjekt = {
   tagType: TagType;
 };
 
-const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: KodeverkForPanel): ReactElement => {
+const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: KodeverkForPanel): ReactElement<any> => {
   const statusList = [] as statusObjekt[];
   const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex(t => t === status));
   unikeStatuser.forEach(status => {

@@ -9,7 +9,7 @@ export interface CheckboxProps {
   value: string;
   label: string | ReactNode;
   disabled?: boolean;
-  element?: ReactElement;
+  element?: ReactElement<any>;
 }
 
 export interface CheckboxPanelProps {

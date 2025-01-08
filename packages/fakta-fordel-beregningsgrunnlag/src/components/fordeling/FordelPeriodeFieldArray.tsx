@@ -69,7 +69,7 @@ const arbeidsgiverSelectValues = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement[] =>
+): ReactElement<any>[] =>
   arbeidsforholdList.map(arbeidsforhold => (
     <option value={arbeidsforhold.andelsnr.toString()} key={arbeidsforhold.andelsnr}>
       {lagVisningsnavn(arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
@@ -81,7 +81,7 @@ const arbeidsgiverSelectValuesForKunYtelse = (
   intl: IntlShape,
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement[] => {
+): ReactElement<any>[] => {
   const nedtrekksvalgListe = arbeidsforholdList.map(arbeidsforhold => (
     <option value={arbeidsforhold.andelsnr.toString()} key={arbeidsforhold.andelsnr}>
       {lagVisningsnavn(arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
@@ -95,7 +95,7 @@ const arbeidsgiverSelectValuesForKunYtelse = (
   return nedtrekksvalgListe;
 };
 
-const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactElement[] =>
+const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactElement<any>[] =>
   kategorier.map(ik => (
     <option value={ik.kode} key={ik.kode}>
       {ik.navn}
@@ -192,12 +192,12 @@ const setArbeidsforholdInfo = (
 const arbeidsforholdReadOnlyOrSelect = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   index: number,
-  selectVals: ReactElement[],
+  selectVals: ReactElement<any>[],
   isReadOnly: boolean,
   arbeidsforholdList: BGFordelArbeidsforhold[],
   updateFieldMethod: (index: number, obj: object) => void,
   lagFeltNavn: (fieldIndex: number) => string,
-): ReactElement => (
+): ReactElement<any> => (
   <>
     {!fields[index].nyAndel && (
       <InputField name={`${lagFeltNavn(index)}.andel`} className={styles.storBredde} readOnly />
@@ -223,7 +223,7 @@ const grunnlagInputKolonne = (
   skalIkkeRedigereInntekt: boolean,
   isAksjonspunktClosed: boolean,
   fieldNavn: string,
-): ReactElement => {
+): ReactElement<any> => {
   if (skalIkkeRedigereInntekt) {
     return (
       <TableColumn>
@@ -264,12 +264,12 @@ const skalViseSletteknapp = (
 const tittelKolonne = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   index: number,
-  selectVals: ReactElement[],
+  selectVals: ReactElement<any>[],
   skalIkkeEndres: boolean,
   arbeidsforholdList: BGFordelArbeidsforhold[],
   updateFieldMethod: any,
   lagFeltNavn: (fieldIndex: number) => string,
-): ReactElement => (
+): ReactElement<any> => (
   <TableColumn>
     {arbeidsforholdReadOnlyOrSelect(
       fields,
@@ -291,7 +291,7 @@ const tittelKolonne = (
   </TableColumn>
 );
 
-const graderingKolonne = (gjelderGradering: boolean, fieldNavn: string): ReactElement | null => {
+const graderingKolonne = (gjelderGradering: boolean, fieldNavn: string): ReactElement<any> | null => {
   if (!gjelderGradering) return null;
   return (
     <TableColumn>
@@ -310,7 +310,7 @@ const refusjonKolonne = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   index: number,
   lagFeltNavn: (fieldIndex: number) => string,
-): ReactElement => (
+): ReactElement<any> => (
   <TableColumn className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}>
     <FloatRight>
       <InputField
@@ -324,7 +324,7 @@ const refusjonKolonne = (
   </TableColumn>
 );
 
-const grunnlagKolonne = (fieldNavn: string): ReactElement => (
+const grunnlagKolonne = (fieldNavn: string): ReactElement<any> => (
   <TableColumn>
     <InputField
       name={`${fieldNavn}.beregningsgrunnlagPrAar`}
@@ -339,7 +339,7 @@ const inntektskategoriKolonne = (
   skalIkkeEndres: boolean,
   fieldNavn: string,
   inntektskategoriKoder: KodeverkMedNavn[],
-): ReactElement => (
+): ReactElement<any> => (
   <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
     <FloatRight>
       <SelectField
@@ -359,7 +359,7 @@ const knappKolonne = (
   index: number,
   skalIkkeEndres: boolean,
   removeFromFieldsMethod: (index?: number | number[]) => void,
-): ReactElement => (
+): ReactElement<any> => (
   <TableColumn>
     {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
       <Button
@@ -376,7 +376,7 @@ const createBruttoBGSummaryRow = (
   sumFordeling: string,
   sumBeregningsgrunnlagPrAar: string,
   gjelderGradering: boolean,
-): ReactElement => (
+): ReactElement<any> => (
   <TableRow key="bruttoBGSummaryRow">
     <TableColumn>
       <FormattedMessage id="BeregningInfoPanel.FordelBG.Sum" />

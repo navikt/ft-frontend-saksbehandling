@@ -54,7 +54,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
     `${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`,
   );
 
-  const lagHjelpetekst = (): ReactElement => {
+  const lagHjelpetekst = (): ReactElement<any> => {
     switch (field.aktivitetStatus) {
       case AktivitetStatus.ARBEIDSTAKER:
         return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerArbeid" values={{ br: <br /> }} />;

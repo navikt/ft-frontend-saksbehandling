@@ -64,7 +64,7 @@ const createRelevantePaneler = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   sammenligningsgrunnlag?: SammenligningsgrunlagProp[],
   sammenligningsGrunnlagInntekter?: Inntektsgrunnlag,
-): ReactElement => ( // NOSONAR TODO splitte i flere komponenter?
+): ReactElement<any> => ( // NOSONAR TODO splitte i flere komponenter?
   <div className={beregningStyles.panelLeft}>
     {relevanteStatuser.isArbeidstaker && (
       <GrunnlagForAarsinntektPanelAT
@@ -102,7 +102,6 @@ const createRelevantePaneler = (
         <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />
       </>
     )}
-
     {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
       <>
         {storSpacer}

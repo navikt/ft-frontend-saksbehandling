@@ -1,7 +1,7 @@
 import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styles from './tilkommetAktivitet.module.css';
@@ -20,8 +20,8 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
   vurderInntektsforholdPeriode,
 }) => {
   const intl = useIntl();
-  const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): JSX.Element[] => {
-    const tableRows: JSX.Element[] = [];
+  const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): ReactElement[] => {
+    const tableRows: ReactElement[] = [];
     inntektsforholdPeriode.inntektsforholdListe.forEach(inntektsforhold => {
       const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
       const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);

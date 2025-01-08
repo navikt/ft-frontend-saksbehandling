@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 type Type = 'copy' | 'check';
 
@@ -13,7 +13,7 @@ const defaultIconProps = {
   fill: 'none',
 };
 
-const svgForType = (type: string): JSX.Element => {
+const svgForType = (type: string): ReactElement<any> => {
   switch (type) {
     case 'check':
       return (
@@ -40,7 +40,7 @@ const svgForType = (type: string): JSX.Element => {
   }
 };
 
-const ClipboardIcon = ({ size = 24, type }: ClipboardIconProps): JSX.Element => (
+const ClipboardIcon = ({ size = 24, type }: ClipboardIconProps): ReactElement<any> => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24">
     {svgForType(type)}
   </svg>

@@ -78,8 +78,10 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
     </Label>
   ));
 
-  const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): React.ReactElement[] => {
-    const tableRows: React.ReactElement[] = [];
+  const getInntektsforholdTableRows = (
+    inntektsforholdPeriode: VurderInntektsforholdPeriode,
+  ): React.ReactElement<any>[] => {
+    const tableRows: React.ReactElement<any>[] = [];
     const { inntektsforholdListe } = inntektsforholdPeriode;
     inntektsforholdListe.forEach(inntektsforhold => {
       const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);

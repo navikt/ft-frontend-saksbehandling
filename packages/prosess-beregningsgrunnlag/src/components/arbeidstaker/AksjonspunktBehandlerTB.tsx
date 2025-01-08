@@ -187,7 +187,7 @@ const createTableData = (
   return arbeidsforholdPeriodeMap;
 };
 
-const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactElement => (
+const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactElement<any> => (
   <tr id="bruttoPrPeriodeRad" key="bruttoPrPeriodeRad">
     <td key="bruttoTittel" colSpan={2}>
       <BodyShort size="small">
@@ -204,7 +204,7 @@ const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactE
   </tr>
 );
 
-const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement => (
+const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement<any> => (
   <tr key="PeriodeHeaderRad">
     <td />
     {relevantePerioder.map(element => {
@@ -225,7 +225,7 @@ const createRows = (
   perioder: BruttoPrPeriode[],
   fieldIndex: number,
   formName: string,
-): ReactElement[] => {
+): ReactElement<any>[] => {
   const rows = [];
   rows.push(createPerioderRow(perioder));
   rows.push(

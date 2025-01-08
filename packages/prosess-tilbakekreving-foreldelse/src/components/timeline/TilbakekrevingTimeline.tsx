@@ -43,7 +43,7 @@ const formaterPerioder = (perioder: TidslinjePeriode[] = []): Periode[] =>
     status: finnStatus(periode),
   }));
 
-const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
+const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement<any> => {
   if (relasjonsRolleType === RelasjonsRolleType.MOR || relasjonsRolleType === RelasjonsRolleType.MEDMOR) {
     return <FigureOutwardFillIcon width={20} height={20} color="var(--a-red-200)" />;
   }
@@ -57,7 +57,7 @@ const PERIODE_STATUS_IKON_MAP = {
   danger: <XMarkOctagonIcon />,
   success: <CheckmarkCircleIcon />,
   warning: <ExclamationmarkTriangleIcon />,
-} as Record<string, ReactElement>;
+} as Record<string, ReactElement<any>>;
 
 interface PureOwnProps {
   perioder: TidslinjePeriode[];

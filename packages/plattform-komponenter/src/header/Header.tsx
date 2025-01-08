@@ -6,7 +6,7 @@ export interface HeaderProps {
   title: string;
   titleHref?: string;
   changeLocation?: (event: React.SyntheticEvent) => void;
-  children: ReactElement | ReactElement[];
+  children: ReactElement<any> | ReactElement<any>[];
 }
 
 const headerCls = bemUtils('header');

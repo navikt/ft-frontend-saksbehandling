@@ -88,7 +88,7 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[])
 export const lagHelpTextsForFakta = (
   beregningsgrunnlag: Beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement => {
+): ReactElement<any> => {
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const erFrilans = beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
   const alerts = [];

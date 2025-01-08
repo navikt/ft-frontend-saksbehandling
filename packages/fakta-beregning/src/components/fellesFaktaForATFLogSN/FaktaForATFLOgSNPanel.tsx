@@ -53,7 +53,7 @@ export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) 
 export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe || [];
 
-const spacer = (hasShownPanel: boolean): ReactElement => {
+const spacer = (hasShownPanel: boolean): ReactElement<any> => {
   if (hasShownPanel) {
     return <VerticalSpacer twentyPx />;
   }

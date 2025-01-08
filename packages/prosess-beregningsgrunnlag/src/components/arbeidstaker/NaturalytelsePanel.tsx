@@ -167,7 +167,7 @@ const lagPeriodeTekst = (endring: NaturalytelseEndring): string => {
   return `${dateFormat(endring.fom)} -`;
 };
 
-const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
+const lagTabell = (data: NaturalytelseTabellData): ReactElement<any>[] =>
   data.rader.map(rad => (
     <div key={rad.nøkkel}>
       <FlexRow>

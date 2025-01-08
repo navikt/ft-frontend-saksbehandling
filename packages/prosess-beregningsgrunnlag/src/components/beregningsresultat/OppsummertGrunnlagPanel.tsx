@@ -76,7 +76,7 @@ const finnStatusBeskrivelse = (andel: TabellRadData): string => {
   return beskrivelseId || 'Ukjent andel';
 };
 
-const ikkeBeregnetTekst = (): ReactElement => (
+const ikkeBeregnetTekst = (): ReactElement<any> => (
   <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.IkkeBeregnet" />
 );
 
@@ -90,9 +90,9 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
   return tabellData.dagsats || 0;
 };
 
-const skilleRad = (): ReactElement => <div className={styles.radEnkelLinje} />;
+const skilleRad = (): ReactElement<any> => <div className={styles.radEnkelLinje} />;
 
-const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement => (
+const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement<any> => (
   <FlexContainer>
     <VerticalSpacer twentyPx />
     <FlexRow>
@@ -127,7 +127,7 @@ const lagResultatRader = (
   vilkårPeriode: Vilkarperiode,
   beregningsgrunnlag: Beregningsgrunnlag,
   harFlereAndeler: boolean,
-): ReactElement | null => {
+): ReactElement<any> | null => {
   const sumBrutto = tabellData.andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
   if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT) {
     return null;

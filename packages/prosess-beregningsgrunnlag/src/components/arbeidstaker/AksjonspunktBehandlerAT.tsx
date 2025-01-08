@@ -40,7 +40,7 @@ const createRows = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   fieldIndex: number,
   formName: string,
-): ReactElement[] =>
+): ReactElement<any>[] =>
   relevanteAndelerAT.map((andel, index) => (
     <FlexRow key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
       <FlexColumn className={styles.atflAvvikAktivitet}>

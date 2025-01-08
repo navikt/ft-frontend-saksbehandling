@@ -35,7 +35,7 @@ const lagTabellData = (pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React
   return relevanteÅr.map(år => lagTabellRad(år, pgiVerdier, pgiGrunnlag));
 };
 
-const lagOppsummeringRad = (pgiSnitt: number): React.ReactElement => (
+const lagOppsummeringRad = (pgiSnitt: number): React.ReactElement<any> => (
   <Table.Row shadeOnHover key="PGI-Oppsumert">
     <Table.DataCell>
       <Label>

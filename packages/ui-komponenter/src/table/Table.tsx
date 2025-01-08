@@ -13,8 +13,8 @@ const EMPTY_STRING = 'EMPTY';
 
 export interface OwnProps {
   headerTextCodes?: string[];
-  headerColumnContent?: ReactElement[];
-  children: ReactElement | ReactElement[];
+  headerColumnContent?: ReactElement<any>[];
+  children: ReactElement<any> | ReactElement<any>[];
   classNameTable?: string;
   noHover?: boolean;
   hasGrayHeader?: boolean;
@@ -59,7 +59,7 @@ const Table = React.forwardRef<HTMLTableElement, OwnProps>(
       <tbody>
         {Array.isArray(children)
           ? React.Children.map(children, child => React.cloneElement(child as any, { noHover })) // NOSONAR
-          : React.cloneElement(children, { noHover })}
+          : React.cloneElement(children as any, { noHover })}
       </tbody>
     </table>
   ),

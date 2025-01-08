@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styles from './infostripe.module.css';
 
 interface BaseInfostripeProps {
@@ -6,7 +6,7 @@ interface BaseInfostripeProps {
 }
 
 interface ElementInfostripeProps extends BaseInfostripeProps {
-  element: JSX.Element;
+  element: ReactElement<any>;
   text?: never;
 }
 interface TextInfostripeProps extends BaseInfostripeProps {

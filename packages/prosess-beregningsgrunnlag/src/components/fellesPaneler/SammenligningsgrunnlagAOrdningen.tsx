@@ -29,7 +29,10 @@ const GRAF_FARGE_AT = '#99bdcd';
 const GRAF_FARGE_FL = '#c1b5d0';
 const GRAF_FARGE_YTELSE = '#C6C2BF';
 
-const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStatuser: Inntektstyper): ReactElement => {
+const lagSumRad = (
+  månederMedInntekter: InntektsgrunnlagMåned[],
+  relevanteStatuser: Inntektstyper,
+): ReactElement<any> => {
   const sumATAndeler = månederMedInntekter
     .flatMap(måned => måned.inntekter)
     .filter(innt => innt.inntektAktivitetType === InntektAktivitetType.ARBEID)
@@ -128,7 +131,7 @@ const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], sammenligningsgrunnla
   return data;
 };
 
-const lagOverskrift = (): ReactElement => (
+const lagOverskrift = (): ReactElement<any> => (
   <>
     <FlexRow key="SamenenligningsGrunnlagOverskrift">
       <FlexColumn>

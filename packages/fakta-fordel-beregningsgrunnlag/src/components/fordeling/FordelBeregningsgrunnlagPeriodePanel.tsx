@@ -31,7 +31,7 @@ const classNames = classnames.bind(styles);
 
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
-const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
+const renderDateHeading = (fom: string, tom: string | undefined): ReactElement<any> => {
   if (!tom) {
     return (
       <Label size="small">

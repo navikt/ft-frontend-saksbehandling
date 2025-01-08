@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import classnames from 'classnames';
 import styles from './contentWithTooltip.module.css';
 
@@ -16,7 +16,7 @@ const ContentWithTooltip = ({
   tooltipClassName,
   children,
   inline,
-}: ContentWithTooltipProps): JSX.Element => {
+}: ContentWithTooltipProps): ReactElement<any> => {
   const tooltipCls = classnames(styles.contentWithTooltip__tooltipText, {
     [styles['contentWithTooltip__tooltipText--right']]: tooltipDirectionRight,
   });
