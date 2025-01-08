@@ -20,7 +20,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "peerDependencies": {
-    "react": "18.3.1"
+    "react": "19.0.0"
   },
   "devDependencies": {
     "eslint": "9.16.0",

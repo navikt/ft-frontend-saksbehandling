@@ -70,11 +70,6 @@
     "vite-plugin-dts": "4.3.0",
     "vitest": "2.1.8"
   },
-  "resolutions": {
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-test-renderer": "18.3.1"
-  },
   "workspaces": {
     "packages": [
       "packages/*",

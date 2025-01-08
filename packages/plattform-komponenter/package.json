@@ -39,7 +39,7 @@
     "classnames": "2.5.1",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
-    "react": "18.3.1",
+    "react": "19.0.0",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
@@ -62,11 +62,6 @@
     "typescript": "5.7.2",
     "vite": "5.4.11",
     "vitest": "2.1.8"
-  },
-  "resolutions": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-test-renderer": "18.2.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
