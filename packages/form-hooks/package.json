@@ -44,7 +44,7 @@
     "@navikt/aksel-icons": "7.6.0",
     "@navikt/ds-css": "7.6.0",
     "@navikt/ds-react": "7.6.0",
-    "@navikt/ft-frontend-utils-test": "workspace:^",
+    "@navikt/ft-frontend-utils-test": "2.4.14",
     "@storybook/addon-actions": "8.4.7",
     "@storybook/react": "8.4.7",
     "@storybook/react-vite": "8.4.7",

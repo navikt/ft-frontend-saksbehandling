@@ -20,11 +20,11 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "workspace:^",
-    "@navikt/ft-types": "workspace:^",
     "dayjs": "1.11.13"
   },
   "peerDependencies": {
+    "@navikt/ft-kodeverk": "2.5.10",
+    "@navikt/ft-types": "2.5.11",
     "react": "*",
     "react-intl": "7.x"
   },

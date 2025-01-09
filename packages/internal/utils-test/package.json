@@ -12,7 +12,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "workspace:^"
+    "@navikt/ft-kodeverk": "2.5.10"
   },
   "peerDependencies": {
     "react": "18.3.1",

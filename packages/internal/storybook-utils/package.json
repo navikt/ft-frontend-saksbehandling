@@ -11,7 +11,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-hooks": "5.2.9"
   },
   "peerDependencies": {
     "@navikt/ds-css": "7.x",
