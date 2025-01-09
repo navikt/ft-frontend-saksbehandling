@@ -14,9 +14,6 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "workspace:^"
   },
-  "peerDependencies": {
-    "@navikt/ft-kodeverk": "2.x"
-  },
   "devDependencies": {
     "cross-env": "7.0.3",
     "eslint": "9.16.0",

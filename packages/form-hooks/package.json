@@ -36,13 +36,6 @@
     "@navikt/aksel-icons": "7.x",
     "@navikt/ds-css": "7.x",
     "@navikt/ds-react": "7.x",
-    "@navikt/ft-form-validators": "2.x",
-    "@navikt/ft-types": "2.x",
-    "@navikt/ft-ui-komponenter": "2.x",
-    "@navikt/ft-utils": "2.x",
-    "classnames": "2.5.1",
-    "dayjs": "1.11.x",
-    "lodash.throttle": "4.1.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "7.x"
