@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-hooks",
-  "version": "2.0.2-alpha.0",
+  "version": "2.0.2-alpha.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
