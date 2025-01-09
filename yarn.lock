@@ -3188,7 +3188,7 @@ __metadata:
     react: 18.3.1
     react-dom: 18.3.1
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -3243,7 +3243,7 @@ __metadata:
     dayjs: 1.11.x
     react: 18.3.1
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
     uuid: 9.0.1
   languageName: unknown
   linkType: soft
@@ -3291,7 +3291,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -3515,7 +3515,7 @@ __metadata:
     echarts: 5.5.1
     react: 18.3.1
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -3565,7 +3565,7 @@ __metadata:
     dayjs: 1.11.x
     react: 18.3.1
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -3613,7 +3613,7 @@ __metadata:
     classnames: 2.5.1
     react: 18.3.1
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -3664,7 +3664,7 @@ __metadata:
     moment: 2.30.1
     react: 18.3.1
     react-hook-form: 7.53.0
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -3718,8 +3718,7 @@ __metadata:
     classnames: 2.5.1
     react: 18.3.1
     react-dom: 18.3.1
-    react-intl: 6.x
-    react-modal: 3.16.1
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -3740,7 +3739,7 @@ __metadata:
     "@navikt/ft-types": 2.x
     dayjs: 1.11.x
     react: "*"
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 

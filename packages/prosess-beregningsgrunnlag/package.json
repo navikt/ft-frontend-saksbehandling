@@ -24,9 +24,6 @@
     "storybook": "storybook dev --quiet -p 7005"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.6.0",
-    "@navikt/ds-css": "7.6.0",
-    "@navikt/ds-react": "7.6.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-kodeverk": "workspace:^",
@@ -35,10 +32,7 @@
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
     "dayjs": "1.11.13",
-    "echarts": "5.5.1",
-    "react": "18.3.1",
-    "react-hook-form": "7.53.2",
-    "react-intl": "7.0.1"
+    "echarts": "5.5.1"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -56,9 +50,12 @@
     "echarts": "5.5.1",
     "react": "18.3.1",
     "react-hook-form": "7.x",
-    "react-intl": "6.x"
+    "react-intl": "7.x"
   },
   "devDependencies": {
+    "@navikt/aksel-icons": "7.6.0",
+    "@navikt/ds-css": "7.6.0",
+    "@navikt/ds-react": "7.6.0",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@navikt/ft-frontend-utils-test": "workspace:^",
     "@storybook/addon-actions": "8.4.7",
@@ -69,6 +66,9 @@
     "@testing-library/user-event": "14.5.2",
     "cross-env": "7.0.3",
     "eslint": "9.16.0",
+    "react": "18.3.1",
+    "react-hook-form": "7.53.2",
+    "react-intl": "7.0.1",
     "storybook": "8.4.7",
     "stylelint": "16.11.0",
     "typescript": "5.7.2",
