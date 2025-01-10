@@ -151,7 +151,6 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
                 label: `${menyProp.stp}`,
               }))}
               onClick={setAktivtBeregningsgrunnlagIndeks}
-              theme="arrow"
             />
           </div>
         )}
