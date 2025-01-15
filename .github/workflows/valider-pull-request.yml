@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.8.0
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Installere dependencies
         run: yarn install --immutable
@@ -32,7 +32,7 @@ jobs:
         run: yarn build
 
       - name: Typescript and linting
-        run: yarn stylelint && yarn eslint:changed && yarn tsc:changed
+        run: yarn stylelint && yarn eslint:changed && yarn tsc
 
       - name: Run test
-        run: yarn test:changed
+        run: yarn test
