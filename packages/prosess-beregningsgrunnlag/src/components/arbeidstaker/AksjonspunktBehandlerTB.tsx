@@ -225,6 +225,7 @@ const createRows = (
   perioder: BruttoPrPeriode[],
   fieldIndex: number,
   formName: string,
+  skalValideres: boolean,
 ): ReactElement[] => {
   const rows = [];
   rows.push(createPerioderRow(perioder));
@@ -264,7 +265,7 @@ const createRows = (
                 <div className={finnesAlleredeLøstPeriode && readOnly ? styles.adjustedField : undefined}>
                   <InputField
                     name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
-                    validate={[required, maxValueFormatted(178956970)]}
+                    validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
                     readOnly={readOnly}
                     isEdited={readOnly && finnesAlleredeLøstPeriode}
                     parse={parseCurrencyInput}
@@ -338,6 +339,7 @@ type OwnProps = {
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   kodeverkSamling: KodeverkForPanel;
   fieldIndex: number;
+  skalValideres: boolean;
 };
 
 const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFunctions = ({
@@ -347,6 +349,7 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
   formName,
+  skalValideres,
 }) => {
   const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
   const finnesAlleredeLøstPeriode = allePerioder.some(periode =>
@@ -361,7 +364,15 @@ const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFu
   return (
     <table className={styles.inntektTableTB}>
       <tbody>
-        {createRows(tabellData, readOnly, finnesAlleredeLøstPeriode, bruttoPrPeriodeList, fieldIndex, formName)}
+        {createRows(
+          tabellData,
+          readOnly,
+          finnesAlleredeLøstPeriode,
+          bruttoPrPeriodeList,
+          fieldIndex,
+          formName,
+          skalValideres,
+        )}
       </tbody>
     </table>
   );

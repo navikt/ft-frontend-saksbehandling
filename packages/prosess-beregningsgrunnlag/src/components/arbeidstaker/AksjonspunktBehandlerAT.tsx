@@ -40,6 +40,7 @@ const createRows = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   fieldIndex: number,
   formName: string,
+  skalValideres: boolean,
 ): ReactElement[] =>
   relevanteAndelerAT.map((andel, index) => (
     <FlexRow key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
@@ -52,7 +53,7 @@ const createRows = (
         <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
           <InputField
             name={`${formName}.${fieldIndex}.inntekt${index}`}
-            validate={[required, maxValueFormatted(178956970)]}
+            validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             readOnly={readOnly}
             parse={parseCurrencyInput}
             className={styles.breddeInntekt}
@@ -77,6 +78,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
   formName: string;
+  skalValideres: boolean;
 };
 const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = ({
   readOnly,
@@ -85,11 +87,20 @@ const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = (
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
   formName,
+  skalValideres,
 }) => {
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
     <>
-      {createRows(relevanteAndelerAT, kodeverkSamling, readOnly, arbeidsgiverOpplysningerPerId, fieldIndex, formName)}
+      {createRows(
+        relevanteAndelerAT,
+        kodeverkSamling,
+        readOnly,
+        arbeidsgiverOpplysningerPerId,
+        fieldIndex,
+        formName,
+        skalValideres,
+      )}
     </>
   );
 };
