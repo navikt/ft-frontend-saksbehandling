@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classnames from 'classnames';
-import { Detail, Tooltip } from '@navikt/ds-react';
+import { Label, Tooltip } from '@navikt/ds-react';
 
 import { StepIcon } from './StepIcon';
 import { StepType } from './StepType';
@@ -47,9 +47,9 @@ export const Step = ({
       <Tooltip content={label} placement="bottom">
         <button className={stepIndicatorCls} type="button" onClick={handleButtonClick}>
           <StepIcon type={type} usePartialStatus={usePartialStatus} />
-          <Detail as="span" className={styles.step__text}>
+          <Label as="span" size="small" className={styles.step__text}>
             {label}
-          </Detail>
+          </Label>
         </button>
       </Tooltip>
       {isActive && <div className={classnames(stepArrowContainerStyle, `${styles['step__arrow-container']}`)} />}

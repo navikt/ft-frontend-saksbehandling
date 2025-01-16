@@ -45,7 +45,7 @@
   }
 
   &.active {
-    text-shadow: 0 0 0.1px #333; /* bruker text-shadow i steden for font-weight for å unngå endring i bredde */
+    text-shadow: 0 0 0.2px #333; /* bruker text-shadow i steden for font-weight for å unngå endring i bredde */
 
     &:after {
       background: default-color-active;

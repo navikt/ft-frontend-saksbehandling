@@ -29,10 +29,10 @@ export const StepIcon = ({ type, usePartialStatus }: StepIconProps) => {
   }
 
   if (isSuccess) {
-    return <CheckmarkIcon className={`${styles.step__icon} ${styles['step__icon--success']}`} />;
+    return <CheckmarkIcon className={styles.step__icon} />;
   }
   if (isWarning) {
-    return <ExclamationmarkIcon className={`${styles.step__icon} ${styles['step__icon--warning']} `} />;
+    return <ExclamationmarkIcon className={styles.step__icon} />;
   }
   if (isDanger) {
     return <XMarkOctagonFillIcon className={`${styles.step__icon} ${styles['step__icon--danger']}`} />;
