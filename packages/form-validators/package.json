@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
-  "version": "2.5.9",
+  "version": "2.5.10",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -21,7 +21,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-utils": "^2.5.6",
+    "@navikt/ft-utils": "^2.5.7",
     "dayjs": "1.11.13"
   },
   "peerDependencies": {
@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "eslint": "9.16.0",
-    "typescript": "5.7.2",
-    "vite": "5.4.11",
-    "vitest": "2.1.8"
+    "eslint": "9.18.0",
+    "typescript": "5.7.3",
+    "vite": "6.0.7",
+    "vitest": "3.0.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

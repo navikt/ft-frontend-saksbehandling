@@ -34,6 +34,7 @@ const viteConfig = defineViteConfig({
       entry: 'index.ts',
       formats: ['es', 'umd'],
       fileName: format => `index.${format}.js`,
+      cssFileName: 'style',
     },
     sourcemap: true,
   },

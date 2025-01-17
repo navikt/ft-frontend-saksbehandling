@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving",
   "description": "Saksbehandler vurderer om hovedvilkår for tilbakekreving er oppfylt, dvs om perioder med feilutbetaling kan kreves tilbake eller ikke, periode kan deles opp. Med to perioder: samme som over, men hvor flere perioder vurderes",
-  "version": "3.5.12",
+  "version": "3.5.13",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -24,9 +24,9 @@
     "storybook": "storybook dev --quiet -p 7010"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.6.0",
-    "@navikt/ds-css": "7.6.0",
-    "@navikt/ds-react": "7.6.0",
+    "@navikt/aksel-icons": "7.9.1",
+    "@navikt/ds-css": "7.9.1",
+    "@navikt/ds-react": "7.9.1",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-kodeverk": "workspace:^",
@@ -36,8 +36,8 @@
     "dayjs": "1.11.13",
     "moment": "2.30.1",
     "react": "18.3.1",
-    "react-hook-form": "7.53.2",
-    "react-intl": "7.0.1"
+    "react-hook-form": "7.54.2",
+    "react-intl": "7.1.1"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -58,19 +58,19 @@
   "devDependencies": {
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@navikt/ft-frontend-utils-test": "workspace:^",
-    "@storybook/addon-actions": "8.4.7",
-    "@storybook/react": "8.4.7",
-    "@storybook/react-vite": "8.4.7",
+    "@storybook/addon-actions": "8.5.0",
+    "@storybook/react": "8.5.0",
+    "@storybook/react-vite": "8.5.0",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.1.0",
-    "@testing-library/user-event": "14.5.2",
+    "@testing-library/react": "16.2.0",
+    "@testing-library/user-event": "14.6.0",
     "cross-env": "7.0.3",
-    "eslint": "9.16.0",
-    "storybook": "8.4.7",
-    "stylelint": "16.11.0",
-    "typescript": "5.7.2",
-    "vite": "5.4.11",
-    "vitest": "2.1.8"
+    "eslint": "9.18.0",
+    "storybook": "8.5.0",
+    "stylelint": "16.13.2",
+    "typescript": "5.7.3",
+    "vite": "6.0.7",
+    "vitest": "3.0.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
