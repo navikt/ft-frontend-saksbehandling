@@ -29,8 +29,8 @@
     "@navikt/ds-react": "7.9.1",
     "@navikt/ft-utils": "^2.5.7",
     "classnames": "2.5.1",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-intl": "7.1.1",
     "react-modal": "3.16.3"
   },
@@ -40,8 +40,8 @@
     "@navikt/ds-react": "7.x",
     "@navikt/ft-utils": "2.x",
     "classnames": "2.5.1",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-intl": "6.x",
     "react-modal": "3.16.1"
   },
