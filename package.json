@@ -25,7 +25,7 @@
     "storybook-clean-deploy-folder": "rm -rf ./.storybook-static-build",
     "storybook-build-all": "lerna run build-storybook --stream",
     "storybook-create-deploy-folder": "node scripts/create-storybook-index.cjs",
-    "storybook-deploy-to-github": "gh-pages -d .storybook-static-build -t true",
+    "storybook-deploy-to-github": "gh-pages -d .storybook-static-build -t",
     "deploy-storybook": "yarn storybook-clean-deploy-folder && yarn storybook-build-all && yarn storybook-create-deploy-folder && yarn storybook-deploy-to-github",
     "prepare": "husky install"
   },
