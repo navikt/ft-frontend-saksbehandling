@@ -25,9 +25,9 @@
     "storybook": "storybook dev --quiet -p 7007"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.9.1",
-    "@navikt/ds-css": "7.9.1",
-    "@navikt/ds-react": "7.9.1",
+    "@navikt/aksel-icons": "7.9.2",
+    "@navikt/ds-css": "7.9.2",
+    "@navikt/ds-react": "7.9.2",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1"
   },
@@ -39,8 +39,8 @@
     "classnames": "2.5.1",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@popperjs/core": "2.11.8",
@@ -55,18 +55,19 @@
     "eslint": "9.18.0",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "storybook": "8.5.0",
     "stylelint": "16.13.2",
     "typescript": "5.7.3",
-    "vite": "6.0.7",
-    "vitest": "3.0.1"
+    "vite": "6.0.8",
+    "vitest": "3.0.2"
   },
   "resolutions": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-test-renderer": "18.2.0"
+    "@types/react": "19.0.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-test-renderer": "19.0.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
