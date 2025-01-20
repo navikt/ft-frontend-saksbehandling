@@ -1,0 +1,3 @@
+import{j as t}from"./jsx-runtime-CLpGMVip.js";import{D as a}from"./DetailView-Dzq1fDly.js";import"./index-1UYGcO_B.js";import"./_commonjsHelpers-CqkleIqs.js";import"./Label-BPD8KVQ7.js";import"./index-CYQpqK1Q.js";const d={title:"Detail view",component:a},s=()=>t.jsx(a,{title:"Tittel",children:t.jsx("p",{children:"Detaljer"})}),e=s.bind({});e.args={};var i,r,o;e.parameters={...e.parameters,docs:{...(i=e.parameters)==null?void 0:i.docs,source:{originalSource:`() => <DetailViewComponent title="Tittel">
+    <p>Detaljer</p>
+  </DetailViewComponent>`,...(o=(r=e.parameters)==null?void 0:r.docs)==null?void 0:o.source}}};const w=["DetailView"];export{e as DetailView,w as __namedExportsOrder,d as default};
