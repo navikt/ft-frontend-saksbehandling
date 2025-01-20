@@ -71,7 +71,13 @@
     }
 
     &.partial.active:after {
-      background: repeating-linear-gradient(-45deg, success-color-active, success-color-active 10px, white 10px, white 20px);
+      background: repeating-linear-gradient(
+        -45deg,
+        success-color-active,
+        success-color-active 10px,
+        white 10px,
+        white 20px
+      );
       border: 1px solid success-color-active;
     }
   }
@@ -101,7 +107,13 @@
     }
 
     &.active.partial:after {
-      background: repeating-linear-gradient(-45deg, danger-color-active, danger-color-active 10px, white 10px, white 20px);
+      background: repeating-linear-gradient(
+        -45deg,
+        danger-color-active,
+        danger-color-active 10px,
+        white 10px,
+        white 20px
+      );
       border: 1px solid danger-color-active;
     }
   }
@@ -122,7 +134,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 
 /* StepIcon */
 .step__icon {
@@ -146,17 +157,30 @@
     min-width: 16px;
 
     &.step__icon--success {
-      background: linear-gradient(-45deg, success-color-icon, success-color-icon 49%, success-color-icon 49%, success-color-icon 51%, white 51%);
+      background: linear-gradient(
+        -45deg,
+        success-color-icon,
+        success-color-icon 49%,
+        success-color-icon 49%,
+        success-color-icon 51%,
+        white 51%
+      );
       border: 1px solid success-color-icon;
     }
 
     &.step__icon--danger {
-      background: linear-gradient(-45deg, danger-color-icon, danger-color-icon 49%, danger-color-icon 49%, danger-color-icon 51%, white 51%);
+      background: linear-gradient(
+        -45deg,
+        danger-color-icon,
+        danger-color-icon 49%,
+        danger-color-icon 49%,
+        danger-color-icon 51%,
+        white 51%
+      );
       border: 1px solid danger-color-icon;
     }
   }
 }
-
 
 @media screen and (max-width: 1024px) {
   .step__icon {
@@ -167,4 +191,3 @@
     }
   }
 }
-
