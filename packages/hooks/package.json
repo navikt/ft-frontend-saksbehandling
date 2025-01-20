@@ -20,13 +20,13 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "peerDependencies": {
-    "react": "18.3.1"
+    "react": "19.0.0"
   },
   "devDependencies": {
     "eslint": "9.18.0",
     "typescript": "5.7.3",
-    "vite": "6.0.7",
-    "vitest": "3.0.1"
+    "vite": "6.0.8",
+    "vitest": "3.0.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

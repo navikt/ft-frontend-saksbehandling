@@ -1,7 +1,7 @@
 import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import React, { FC } from 'react';
+import React, { FC, JSX } from 'react';
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styles from './tilkommetAktivitet.module.css';
