@@ -1,11 +1,14 @@
 @value default-color: var(--a-border-subtle);
-@value default-color-active: var(--a-border-default);
-@value success-color: var(--a-surface-success-subtle-hover);
+@value default-color-active: var(--a-border-subtle-hover);
+@value success-color-icon: var(--a-icon-success);
+@value success-color: var(--a-surface-success-moderate);
 @value success-color-active: var(--a-green-300);
-@value danger-color: var(--a-surface-danger-subtle-hover);
-@value danger-color-active: var(--a-red-400);
-@value warning-color: var(--a-orange-300);
-@value warning-color-active: var(--a-orange-500);
+@value danger-color-icon: var(--a-icon-danger);
+@value danger-color: var(--a-surface-danger-moderate);
+@value danger-color-active: var(--a-surface-danger);
+@value warning-color-icon: var(--a-icon-warning);
+@value warning-color: var(--a-surface-warning-moderate);
+@value warning-color-active: var(--a-border-warning);
 
 .step {
   display: flex;
@@ -23,8 +26,9 @@
   display: inline-flex;
   height: 38px;
   justify-content: center;
+  margin-bottom: 6px;
   overflow: hidden;
-  padding: 4px;
+  padding-top: 4px;
   text-overflow: ellipsis;
   white-space: nowrap;
 
@@ -80,10 +84,6 @@
     &.active:after {
       background: warning-color-active;
     }
-
-    &.active.partial:after {
-      background: warning-color-active;
-    }
   }
 
   &.danger {
@@ -128,11 +128,15 @@
 .step__icon {
   display: flex;
   height: 24px;
-  margin-right: 8px;
+  margin-right: 10px;
   min-width: 24px;
 
   &.step__icon--danger {
-    color: var(--a-icon-danger);
+    color: danger-color-icon;
+  }
+
+  &.step__icon--warning {
+    color: warning-color-icon;
   }
 
   &.step__icon--partial {
@@ -142,13 +146,13 @@
     min-width: 16px;
 
     &.step__icon--success {
-      background: linear-gradient(-45deg, success-color-active, success-color-active 49%, success-color-active 49%, success-color-active 51%, white 51%);
-      border: 1px solid success-color-active;
+      background: linear-gradient(-45deg, success-color-icon, success-color-icon 49%, success-color-icon 49%, success-color-icon 51%, white 51%);
+      border: 1px solid success-color-icon;
     }
 
     &.step__icon--danger {
-      background: linear-gradient(-45deg, danger-color-active, danger-color-active 49%, danger-color-active 49%, danger-color-active 51%, white 51%);
-      border: 1px solid danger-color-active;
+      background: linear-gradient(-45deg, danger-color-icon, danger-color-icon 49%, danger-color-icon 49%, danger-color-icon 51%, white 51%);
+      border: 1px solid danger-color-icon;
     }
   }
 }
