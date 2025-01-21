@@ -1,5 +1,5 @@
 import { Loader } from '@navikt/ds-react';
-import React from 'react';
+import React, { JSX } from 'react';
 import PageError from '../page-error/PageError';
 import styles from './pageContainer.module.css';
 

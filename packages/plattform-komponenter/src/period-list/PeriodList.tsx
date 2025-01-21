@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
 import { Period, sortPeriodsByFomDate } from '@navikt/ft-utils';
 import { Heading, Label, BodyShort } from '@navikt/ds-react';

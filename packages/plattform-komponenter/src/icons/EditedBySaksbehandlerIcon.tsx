@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
 const EditedBySaksbehandlerIcon = (): JSX.Element => (
   <svg
