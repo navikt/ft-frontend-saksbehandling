@@ -27,6 +27,7 @@ type OwnProps = {
   fieldIndex: number;
   formName: string;
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
+  skalValideres: boolean;
 };
 
 /**
@@ -39,6 +40,7 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
   fieldIndex,
   formName,
   alleAndelerIForstePeriode,
+  skalValideres,
 }) => (
   <FlexRow className={styles.verticalAlignMiddle}>
     <FlexColumn className={styles.atflAvvikAktivitet}>
@@ -50,7 +52,7 @@ const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = (
       <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
         <InputField
           name={`${formName}.${fieldIndex}.inntektFrilanser`}
-          validate={[required, maxValueFormatted(178956970)]}
+          validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
           readOnly={readOnly}
           parse={parseCurrencyInput}
           className={styles.breddeInntekt}
