@@ -1,4 +1,8 @@
+import React, { ReactElement } from 'react';
 import { KodeverkType } from '@navikt/ft-kodeverk';
+import dayjs from 'dayjs';
+import { FormattedMessage } from 'react-intl';
+
 import {
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
@@ -6,11 +10,9 @@ import {
   Beregningsgrunnlag,
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
-import { AksjonspunktHelpTextTemp } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import React, { FunctionComponent, ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
+
 import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
@@ -145,22 +147,19 @@ const harGraderingEllerRefusjon = (perioderMedGraderingEllerRefusjon: PerioderMe
   perioderMedGraderingEllerRefusjon.map(({ erGradering }) => erGradering).includes(true);
 
 const lagHelpTextsFordelBG = (endredeArbeidsforhold: ArbeidsforholdTilFordeling[]): ReactElement[] => {
-  const gradering = endredeArbeidsforhold.filter(
-    ({ perioderMedGraderingEllerRefusjon }) =>
-      perioderMedGraderingEllerRefusjon?.map(({ erGradering }) => erGradering).includes(true),
+  const gradering = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
+    perioderMedGraderingEllerRefusjon?.map(({ erGradering }) => erGradering).includes(true),
   );
-  const refusjon = endredeArbeidsforhold.filter(
-    ({ perioderMedGraderingEllerRefusjon }) =>
-      perioderMedGraderingEllerRefusjon?.map(({ erRefusjon }) => erRefusjon).includes(true),
+  const refusjon = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
+    perioderMedGraderingEllerRefusjon?.map(({ erRefusjon }) => erRefusjon).includes(true),
   );
   const permisjonMedGraderingEllerRefusjon = endredeArbeidsforhold
     .filter(({ permisjon }) => permisjon !== undefined && permisjon !== null)
     .filter(({ perioderMedGraderingEllerRefusjon }) =>
       harGraderingEllerRefusjon(perioderMedGraderingEllerRefusjon || []),
     );
-  const endringYtelse = endredeArbeidsforhold.filter(
-    ({ perioderMedGraderingEllerRefusjon }) =>
-      perioderMedGraderingEllerRefusjon?.map(({ erSøktYtelse }) => erSøktYtelse).includes(true),
+  const endringYtelse = endredeArbeidsforhold.filter(({ perioderMedGraderingEllerRefusjon }) =>
+    perioderMedGraderingEllerRefusjon?.map(({ erSøktYtelse }) => erSøktYtelse).includes(true),
   );
   return createGraderingOrRefusjonString(gradering, refusjon, permisjonMedGraderingEllerRefusjon, endringYtelse);
 };
@@ -173,14 +172,14 @@ export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag): Re
     : [];
 };
 
-type OwnProps = {
+type Props = {
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const FordelingHelpText: FunctionComponent<OwnProps> = ({ isAksjonspunktClosed, beregningsgrunnlag }) => {
+const FordelingHelpText = ({ isAksjonspunktClosed, beregningsgrunnlag }: Props) => {
   const helpText = getHelpTextsFordelBG(beregningsgrunnlag);
-  return <AksjonspunktHelpTextTemp isAksjonspunktOpen={!isAksjonspunktClosed}>{helpText}</AksjonspunktHelpTextTemp>;
+  return isAksjonspunktClosed ? <></> : <AksjonspunktHelpTextHTML>{helpText}</AksjonspunktHelpTextHTML>;
 };
 
 export default FordelingHelpText;
