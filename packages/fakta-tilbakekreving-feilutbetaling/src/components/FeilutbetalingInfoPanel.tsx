@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
 import { Button, Label, BodyShort, Detail, HStack } from '@navikt/ds-react';
 
-import { VerticalSpacer, AksjonspunktHelpTextTemp, FaktaGruppe } from '@navikt/ft-ui-komponenter';
+import { VerticalSpacer, AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { TextAreaField, CheckboxField, Form } from '@navikt/ft-form-hooks';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
@@ -150,9 +150,11 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
 
   return (
     <>
-      <AksjonspunktHelpTextTemp isAksjonspunktOpen={hasOpenAksjonspunkter}>
-        {[<FormattedMessage key="1" id="FeilutbetalingInfoPanel.Aksjonspunkt" />]}
-      </AksjonspunktHelpTextTemp>
+      {hasOpenAksjonspunkter && (
+        <AksjonspunktHelpTextHTML>
+          <FormattedMessage id="FeilutbetalingInfoPanel.Aksjonspunkt" />
+        </AksjonspunktHelpTextHTML>
+      )}
       <VerticalSpacer sixteenPx />
       <Form
         formMethods={formMethods}
