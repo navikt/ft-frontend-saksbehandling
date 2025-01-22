@@ -3,7 +3,7 @@ import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 import { Alert, Heading, Panel } from '@navikt/ds-react';
 
-import { FaktaGruppe, AksjonspunktHelpTextTemp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FaktaGruppe, AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
 import { TilbakekrevingKodeverkType, ForeldelseVurderingType, KodeverkType } from '@navikt/ft-kodeverk';
 import { SubmitButton } from '@navikt/ft-form-hooks';
@@ -370,9 +370,11 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
         <FormattedMessage id="Behandlingspunkt.Tilbakekreving" />
       </Heading>
       <VerticalSpacer twentyPx />
-      <AksjonspunktHelpTextTemp isAksjonspunktOpen={isApOpen}>
-        {[<FormattedMessage key="AksjonspunktHjelpetekst" id="TilbakekrevingForm.AksjonspunktHjelpetekst" />]}
-      </AksjonspunktHelpTextTemp>
+      {isApOpen && (
+        <AksjonspunktHelpTextHTML>
+          <FormattedMessage id="TilbakekrevingForm.AksjonspunktHjelpetekst" />
+        </AksjonspunktHelpTextHTML>
+      )}
       <VerticalSpacer twentyPx />
       {vilkårsvurdertePerioder && (
         <>
