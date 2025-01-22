@@ -93,7 +93,7 @@ const NumberField = ({
 
         if (returnAsNumber) {
           newValue = parseFloat(newValue);
-          if (Number.isNaN(newValue)) newValue = undefined;
+          if (Number.isNaN(newValue)) newValue = null;
         }
 
         return field.onChange(newValue);
