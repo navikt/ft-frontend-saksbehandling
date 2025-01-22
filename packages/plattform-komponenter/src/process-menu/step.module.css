@@ -26,8 +26,8 @@
   display: inline-flex;
   height: 38px;
   justify-content: center;
-  margin-bottom: 6px;
   overflow: hidden;
+  padding-bottom: 10px;
   padding-top: 4px;
   text-overflow: ellipsis;
   white-space: nowrap;
