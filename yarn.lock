@@ -3359,7 +3359,7 @@ __metadata:
     "@navikt/ft-form-validators": ^3.0.0
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-types": ^3.0.0
-    "@navikt/ft-ui-komponenter": ^3.0.0
+    "@navikt/ft-ui-komponenter": ^3.0.1
     "@navikt/ft-utils": ^3.0.0
     "@storybook/addon-actions": 8.5.0
     "@storybook/react": 8.5.0
@@ -3738,7 +3738,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-ui-komponenter@^3.0.0, @navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
+"@navikt/ft-ui-komponenter@^3.0.1, @navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:

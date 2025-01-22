@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import React from 'react';
 import { HStack } from '@navikt/ds-react';
 
 import { Step, StepProps } from './Step';
@@ -9,7 +9,7 @@ interface ProcessMenuProps {
   stepArrowContainerStyle?: string;
 }
 
-export const ProcessMenu = ({ steps, onClick, stepArrowContainerStyle }: ProcessMenuProps): JSX.Element => (
+export const ProcessMenu = ({ steps, onClick, stepArrowContainerStyle }: ProcessMenuProps) => (
   <HStack as="ol" justify="space-between" padding="0" align="end" gap="4">
     {steps.map((step, index) => (
       <Step

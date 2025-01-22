@@ -1,11 +1,29 @@
-@value default-color: var(--a-border-subtle);
-@value default-color-active: var(--a-border-default);
-@value success-color: var(--a-surface-success-subtle-hover);
-@value success-color-active: var(--a-green-300);
-@value danger-color: var(--a-surface-danger-subtle-hover);
-@value danger-color-active: var(--a-red-400);
-@value warning-color: var(--a-orange-300);
-@value warning-color-active: var(--a-orange-500);
+.default {
+  --status-color: var(--a-gray-200);
+  --status-color-hover: var(--a-gray-300);
+  --status-color-active: var(--a-gray-400);
+}
+
+.success {
+  --status-color: var(--a-green-200);
+  --status-color-hover: var(--a-green-300);
+  --status-color-active: var(--a-green-400);
+  --icon-color: var(--a-icon-success);
+}
+
+.warning {
+  --status-color: var(--a-orange-200);
+  --status-color-hover: var(--a-orange-300);
+  --status-color-active: var(--a-orange-400);
+  --icon-color: var(--a-icon-warning);
+}
+
+.danger {
+  --status-color: var(--a-red-200);
+  --status-color-hover: var(--a-red-300);
+  --status-color-active: var(--a-red-400);
+  --icon-color: var(--a-icon-danger);
+}
 
 .step {
   display: flex;
@@ -24,7 +42,8 @@
   height: 38px;
   justify-content: center;
   overflow: hidden;
-  padding: 4px;
+  padding-bottom: 10px;
+  padding-top: 4px;
   text-overflow: ellipsis;
   white-space: nowrap;
 
@@ -32,8 +51,12 @@
     background-color: var(--a-surface-hover);
   }
 
+  &.active {
+    text-shadow: 0 0 0.2px #333; /* bruker text-shadow i steden for font-weight for å unngå endring i bredde */
+  }
+
   &:after {
-    background: default-color;
+    background: var(--status-color);
     border-radius: 3px;
     bottom: 0;
     content: '';
@@ -44,66 +67,49 @@
     width: 100%;
   }
 
-  &.active {
-    text-shadow: 0 0 0.1px #333; /* bruker text-shadow i steden for font-weight for å unngå endring i bredde */
-
-    &:after {
-      background: default-color-active;
-    }
+  &:hover:after {
+    background: var(--status-color-hover);
   }
 
-  &.success {
-    &:after {
-      background: success-color;
-    }
+  &.active:after {
+    background: var(--status-color-active);
+  }
+}
 
-    &.active:after {
-      background: success-color-active;
-    }
+.icon {
+  color: var(--icon-color);
+  display: flex;
+  height: 24px;
+  margin-right: 10px;
+  min-width: 24px;
 
-    &.partial:after {
-      background: repeating-linear-gradient(-45deg, success-color, success-color 10px, white 10px, white 20px);
-      border: 1px solid success-color;
-    }
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+}
 
-    &.partial.active:after {
-      background: repeating-linear-gradient(-45deg, success-color-active, success-color-active 10px, white 10px, white 20px);
-      border: 1px solid success-color-active;
-    }
+.partial:not(.warning) {
+  > .icon {
+    background: linear-gradient(-45deg, var(--icon-color), var(--icon-color) 50%, var(--icon-color) 50%, var(--icon-color) 50%, white 50%);
+    border: 1px solid var(--icon-color);
+    border-radius: 50%;
+    height: 16px;
+    min-width: 16px;
   }
 
-  &.warning {
-    &:after {
-      background: warning-color;
-    }
+  --partial-color: var(--status-color);
 
-    &.active:after {
-      background: warning-color-active;
-    }
-
-    &.active.partial:after {
-      background: warning-color-active;
-    }
+  &:after {
+    background: repeating-linear-gradient(-45deg, var(--partial-color), var(--partial-color) 10px, white 10px, white 20px);
+    border: 1px solid var(--partial-color);
   }
 
-  &.danger {
-    &:after {
-      background: danger-color;
-    }
+  &:hover:after {
+    --partial-color: var(--status-color-hover);
+  }
 
-    &.active:after {
-      background: danger-color-active;
-    }
-
-    &.partial:after {
-      background: repeating-linear-gradient(-45deg, danger-color, danger-color 10px, white 10px, white 20px);
-      border: 1px solid danger-color;
-    }
-
-    &.active.partial:after {
-      background: repeating-linear-gradient(-45deg, danger-color-active, danger-color-active 10px, white 10px, white 20px);
-      border: 1px solid danger-color-active;
-    }
+  &.active:after {
+    --partial-color: var(--status-color-active);
   }
 }
 
@@ -116,51 +122,8 @@
   width: 100%;
 }
 
-/* Label truncation */
 .step__text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-
-/* StepIcon */
-.step__icon {
-  display: flex;
-  height: 24px;
-  margin-right: 8px;
-  min-width: 24px;
-
-  &.step__icon--danger {
-    color: var(--a-icon-danger);
-  }
-
-  &.step__icon--partial {
-    border-radius: 50%;
-    display: inline-block;
-    height: 16px;
-    min-width: 16px;
-
-    &.step__icon--success {
-      background: linear-gradient(-45deg, success-color-active, success-color-active 49%, success-color-active 49%, success-color-active 51%, white 51%);
-      border: 1px solid success-color-active;
-    }
-
-    &.step__icon--danger {
-      background: linear-gradient(-45deg, danger-color-active, danger-color-active 49%, danger-color-active 49%, danger-color-active 51%, white 51%);
-      border: 1px solid danger-color-active;
-    }
-  }
-}
-
-
-@media screen and (max-width: 1024px) {
-  .step__icon {
-    display: none;
-
-    &.step__icon--partial {
-      display: none;
-    }
-  }
-}
-
