@@ -10,21 +10,14 @@ import styles from './step.module.css';
 interface StepIconProps {
   type: string;
   usePartialStatus: boolean;
-  isActive: boolean;
 }
 
-export const StepIcon = ({ type, usePartialStatus, isActive }: StepIconProps) => {
+export const StepIcon = ({ type, usePartialStatus }: StepIconProps) => {
   const isWarning = type === StepType.warning;
   const isDanger = type === StepType.danger;
   const isSuccess = type === StepType.success;
 
-  const classes = classnames(`${styles.step__icon}`, {
-    [styles['step__icon--active']]: isActive,
-    [styles['step__icon--partial']]: usePartialStatus && (isDanger || isSuccess),
-    [styles['step__icon--warning']]: isWarning,
-    [styles['step__icon--success']]: isSuccess,
-    [styles['step__icon--danger']]: isDanger,
-  });
+  const classes = classnames(`${styles.icon}`);
 
   if (usePartialStatus && (isDanger || isSuccess)) {
     return <div className={classes} />;

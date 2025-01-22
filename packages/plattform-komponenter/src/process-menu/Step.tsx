@@ -46,7 +46,7 @@ export const Step = ({
     <li key={label} className={styles.step} aria-current={isActive ? 'step' : undefined}>
       <Tooltip content={label} placement="bottom">
         <button className={stepIndicatorCls} type="button" onClick={handleButtonClick}>
-          <StepIcon type={type} usePartialStatus={usePartialStatus} isActive={isActive} />
+          <StepIcon type={type} usePartialStatus={usePartialStatus} />
           <BodyShort as="span" size="small" className={styles.step__text}>
             {label}
           </BodyShort>
