@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
-import { AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
@@ -241,7 +241,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
       )}
       {foreldelseresultatAktiviteter && aksjonspunkt && (
         <>
-          <AksjonspunktHelpTextTemp isAksjonspunktOpen={isApOpen}>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextTemp>
+          {isApOpen && <AksjonspunktHelpTextHTML>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextHTML>}
           <VerticalSpacer twentyPx />
           <TilbakekrevingTimeline
             perioder={perioderFormatertForTidslinje}

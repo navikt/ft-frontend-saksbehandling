@@ -1,9 +1,9 @@
- 
 import React, { useContext } from 'react';
 import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { prettifyDateString } from '@navikt/ft-utils';
-import styles from './assessedBy.module.css';
 import { BodyShort } from '@navikt/ds-react';
+
+import styles from './assessedBy.module.css';
 import SaksbehandlernavnContext from '../saksbehandlernavn-context/SaksbehandlernavnContext';
 
 export interface IAssessedByProps {
