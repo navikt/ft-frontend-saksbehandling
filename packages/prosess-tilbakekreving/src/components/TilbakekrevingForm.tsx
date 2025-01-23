@@ -40,7 +40,7 @@ const harApentAksjonspunkt = (periode: CustomVilkarsVurdertePeriode) =>
   !periode.erForeldet && (periode.begrunnelse === undefined || periode.erSplittet);
 
 const emptyFeltverdiOmFinnes = (periode: CustomVilkarsVurdertePeriode) => {
-  // @ts-ignore Fiks
+  // @ts-expect-error Fiks
   const valgtVilkarResultatType = periode[periode.valgtVilkarResultatType];
   const handletUaktsomhetGrad = valgtVilkarResultatType[valgtVilkarResultatType.handletUaktsomhetGrad];
 
@@ -75,7 +75,7 @@ const formaterPerioderForTidslinje = (
       (p: CustomVilkarsVurdertePeriode) => p.fom === periode.fom && p.tom === periode.tom,
     );
     const erBelopetIBehold =
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
       per && per[per.valgtVilkarResultatType] ? per[per.valgtVilkarResultatType].erBelopetIBehold : undefined;
     const erSplittet = per ? !!per.erSplittet : false;
     return {
@@ -92,7 +92,7 @@ const finnOriginalPeriode = (
   perioder: DetaljertFeilutbetalingPeriode[] | CustomPeriode[],
 ) =>
   perioder.find(
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     (periode: CustomPeriode) =>
       !moment(lagretPeriode.fom).isBefore(moment(periode.fom)) &&
       !moment(lagretPeriode.tom).isAfter(moment(periode.tom)),
@@ -124,7 +124,7 @@ export const slaSammenOriginaleOgLagredePeriode = (
       ...originalPeriode,
       harMerEnnEnYtelse: originalPeriode && originalPeriode.ytelser.length > 1,
       ...omitOne(lagretPeriode, 'feilutbetalingBelop'),
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
       feilutbetaling: lagretPeriode.feilutbetalingBelop,
       erTotalBelopUnder4Rettsgebyr,
     };
@@ -208,7 +208,7 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
 
   const antallValgt = vilkarsVurdertePerioder.reduce((sum: number, periode: CustomVilkarsVurdertePeriode) => {
     const { valgtVilkarResultatType } = periode;
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     const vilkarResultatInfo = periode[valgtVilkarResultatType];
     const { handletUaktsomhetGrad } = vilkarResultatInfo;
     const info = vilkarResultatInfo[handletUaktsomhetGrad];

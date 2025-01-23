@@ -151,7 +151,7 @@ AktsomhetFormPanel.transformValues = (
   sarligGrunnTyper: KodeverkMedNavn[],
   vurderingBegrunnelse: string,
 ) => {
-  // @ts-ignore Fiks
+  // @ts-expect-error Fiks
   const aktsomhet = info[info.handletUaktsomhetGrad];
   return {
     '@type': 'annet',

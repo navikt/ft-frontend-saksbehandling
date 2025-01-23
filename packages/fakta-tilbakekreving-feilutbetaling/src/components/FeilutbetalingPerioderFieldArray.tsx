@@ -64,7 +64,7 @@ export const FeilutbetalingPerioderFieldArray = ({
           if (årsak) {
             const feltÅrsak = getValues(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`);
             if (feltÅrsak === årsak) {
-              // @ts-ignore Fiks. Må legge til årsak.underÅrsak i FormValues
+              // @ts-expect-error Fiks. Må legge til årsak.underÅrsak i FormValues
               setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.${årsak}.underÅrsak`, verdi);
             }
           } else {

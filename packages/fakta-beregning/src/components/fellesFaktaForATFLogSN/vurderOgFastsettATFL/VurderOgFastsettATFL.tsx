@@ -142,7 +142,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       keys.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
       forms.push(
-        // @ts-ignore Fiks
+        // @ts-expect-error Fiks
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
           <NyIArbeidslivetSNForm readOnly={readOnly} />
         </React.Fragment>,

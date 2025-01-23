@@ -546,7 +546,7 @@ const lagBG = (
     erOverstyrtInntekt: false,
     inntektsgrunnlag,
   };
-  // @ts-ignore
+  // @ts-expect-error
   return beregningsgrunnlag;
 };
 

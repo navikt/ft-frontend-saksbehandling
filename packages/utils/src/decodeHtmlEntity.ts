@@ -186,7 +186,7 @@ export const decodeHtmlEntity = (str?: string): string | undefined => {
         Omega: 937,
         omega: 969,
       };
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
       const charCode = chars[dec];
       if (charCode !== undefined) {
         return String.fromCharCode(charCode);

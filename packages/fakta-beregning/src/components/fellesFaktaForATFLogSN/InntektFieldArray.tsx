@@ -279,7 +279,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       aktivitetStatuser,
       getKanRedigereInntektCallback,
       remove,
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
       append,
     );
     leggTilDagpengerOmBesteberegning(
@@ -288,7 +288,7 @@ export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = 
       aktivitetStatuser,
       skalKunneLeggeTilDagpengerManuelt,
       remove,
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
       append,
     );
   }, [skalHaBesteberegning, skalHaMilitær, skalKunneLeggeTilDagpengerManuelt]);

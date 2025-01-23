@@ -139,7 +139,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                 label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiBelopSomSkalTilbakekreves" />}
                 validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
                 readOnly={readOnly}
-                // @ts-ignore Fiks
+                // @ts-expect-error Fiks
                 format={formatCurrencyNoKr}
                 parse={parseCurrencyInput}
               />

@@ -69,7 +69,7 @@ const transformValues = (
     const feilutbetalingÅrsak = årsaker.find(el => el.hendelseType === periode.årsak);
     const feilutbetalingUnderÅrsak = feilutbetalingÅrsak?.hendelseUndertyper
       ? feilutbetalingÅrsak.hendelseUndertyper
-          // @ts-ignore Fiks
+          // @ts-expect-error Fiks
           .find(el => el === periode[periode.årsak]?.underÅrsak)
       : undefined;
 
@@ -104,7 +104,7 @@ const getSortedFeilutbetalingArsaker = (
     const hendelseType2ErParagraf = hendelseType2.startsWith('§');
     const ht1v = hendelseType1ErParagraf ? hendelseType1.replace(/\D/g, '') : hendelseType1;
     const ht2v = hendelseType2ErParagraf ? hendelseType2.replace(/\D/g, '') : hendelseType2;
-    // @ts-ignore Kan ein ikkje alltid bruka localeCompare?
+    // @ts-expect-error Kan ein ikkje alltid bruka localeCompare?
     return hendelseType1ErParagraf && hendelseType2ErParagraf ? ht1v - ht2v : ht1v.localeCompare(ht2v);
   });
 };

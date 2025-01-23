@@ -215,7 +215,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
           (field, index) =>
             aktivtBeregningsgrunnlagIndeks === index && (
               <AvklareAktiviteterField
-                // @ts-ignore Fiks
+                // @ts-expect-error Fiks
                 aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
                 key={field.id}
                 fieldId={index}

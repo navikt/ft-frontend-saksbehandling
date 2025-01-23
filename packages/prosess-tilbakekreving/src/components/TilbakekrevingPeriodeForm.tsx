@@ -125,7 +125,7 @@ export const TilbakekrevingPeriodeForm = ({
     const fomTom = event.target.value.split('_');
     const kopierDenne = vurdertePerioder.find(per => per.fom === fomTom[0] && per.tom === fomTom[1]);
     const vilkårResultatType = kopierDenne?.valgtVilkarResultatType;
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     const resultatType = kopierDenne && vilkårResultatType ? kopierDenne[vilkårResultatType] : undefined;
 
     const resultatTypeKopi = JSON.parse(JSON.stringify(resultatType));
@@ -306,7 +306,7 @@ export const TilbakekrevingPeriodeForm = ({
                   erValgtResultatTypeForstoBurdeForstaatt={
                     valgtVilkarResultatType === VilkårResultat.FORSTO_BURDE_FORSTAATT
                   }
-                  // @ts-ignore Fiks
+                  // @ts-expect-error Fiks
                   aktsomhetTyper={aktsomhetTyper}
                   sarligGrunnTyper={sarligGrunnTyper}
                   antallYtelser={data.ytelser.length}
@@ -376,7 +376,7 @@ export const periodeFormBuildInitialValues = (
       : {};
   return {
     ...initialValues,
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     vurderingBegrunnelse: vilkarResultatInfo ? decodeHtmlEntity(vilkarResultatInfo.begrunnelse) : undefined,
     [initialValues.valgtVilkarResultatType]: {
       ...godTroData,
@@ -390,7 +390,7 @@ export const periodeFormTransformValues = (
   sarligGrunnTyper: KodeverkMedNavn[],
 ) => {
   const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
-  // @ts-ignore Fiks
+  // @ts-expect-error Fiks
   const info = values[valgtVilkarResultatType];
 
   const godTroData =

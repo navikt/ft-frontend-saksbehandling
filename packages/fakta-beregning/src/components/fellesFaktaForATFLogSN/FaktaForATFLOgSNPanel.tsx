@@ -96,7 +96,7 @@ const getFaktaPanels = ({
     renderTextFieldAndSubmitButton,
   );
   faktaPanels.push(
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     <React.Fragment key="VurderOgFastsettATFL">
       {spacer(true)}
       {/* @ts-ignore */}

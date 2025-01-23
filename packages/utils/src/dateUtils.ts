@@ -72,7 +72,7 @@ export const createWeekAndDay = (weeks?: number, days?: number): WeekAndDay => {
 
 export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeekends = true): number => {
   if (tilDatoPeriode === TIDENES_ENDE) {
-    // @ts-ignore Kva er dette?
+    // @ts-expect-error Kva er dette?
     return createWeekAndDay();
   }
 

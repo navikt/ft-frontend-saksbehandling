@@ -11,7 +11,7 @@ export interface PropsWrapper {
   className: string;
 }
 
-// @ts-ignore fiks
+// @ts-expect-error fiks
 const Wrapper = ({ withoutBorder, error, children, className }: PropsWrapper) => {
   if (withoutBorder) {
     return children;

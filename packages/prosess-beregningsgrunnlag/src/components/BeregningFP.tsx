@@ -78,7 +78,7 @@ type OwnProps = {
 };
 
 const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
-  // @ts-ignore
+  // @ts-expect-error
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 /**
@@ -100,7 +100,7 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   setFormData,
 }) => {
   const aktivtBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
-  // @ts-ignore
+  // @ts-expect-error
   const relevanteStatuser = getRelevanteStatuser(aktivtBeregningsgrunnlag.aktivitetStatus);
   const aksjonspunktGraderingPaaAndelUtenBG = getAvklaringsbehovForGraderingPaaAndelUtenBG(
     aktivtBeregningsgrunnlag.avklaringsbehov,

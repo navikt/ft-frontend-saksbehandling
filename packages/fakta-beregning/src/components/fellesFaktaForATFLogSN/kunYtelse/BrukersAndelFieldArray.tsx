@@ -224,7 +224,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
             <VerticalSpacer eightPx />
             <Button
               icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
-              // @ts-ignore Fiks
+              // @ts-expect-error Fiks
               onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
               type="button"
               variant="tertiary"

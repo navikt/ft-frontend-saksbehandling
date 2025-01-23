@@ -185,7 +185,7 @@ const lagBG = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   skjæringstidspunkt = '2019-09-16',
 ): Beregningsgrunnlag =>
-  // @ts-ignore
+  // @ts-expect-error
   ({
     avklaringsbehov,
     skjaeringstidspunktBeregning: skjæringstidspunkt,

@@ -7,7 +7,7 @@ const { Default } = composeStories(stories);
 
 describe('<FlexContainer>', () => {
   it('skal rendre korrekt', async () => {
-    // @ts-ignore Fjern når fiksa
+    // @ts-expect-error Fjern når fiksa
     render(<Default />);
 
     expect(await screen.findByText('Tekst 1')).toBeInTheDocument();

@@ -67,7 +67,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
               validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
               readOnly={readOnly}
               className={styles.tilbakekrevdBelopInput}
-              // @ts-ignore Fiks
+              // @ts-expect-error Fiks
               format={formatCurrencyNoKr}
               parse={parseCurrencyInput}
             />

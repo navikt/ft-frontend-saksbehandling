@@ -42,7 +42,7 @@ const isNotNullAndObject = (obj?: DiffInput | null): boolean =>
 const redefineIfUndefined = (inputA?: DiffInput | null, inputB?: DiffInput | null): DiffInput | null | undefined => {
   if (isNullOrUndefined(inputA) && isNotNullAndObject(inputB)) {
     try {
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
       return new inputB.constructor();
     } catch {
       return null;
@@ -70,10 +70,10 @@ export const diff = (a?: DiffInput | null, b?: DiffInput | null): boolean | Reco
       return true;
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     return (
       [...new Set([...Object.keys(thing1 as object), ...Object.keys(thing2 as object)])]
-        // @ts-ignore
+        // @ts-expect-error
         .reduce((diffs, key) => ({ ...diffs, [key]: diff(thing1[key], thing2[key]) }), {})
     );
   };

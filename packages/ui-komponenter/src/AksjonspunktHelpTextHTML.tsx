@@ -22,7 +22,7 @@ export const AksjonspunktHelpTextHTML = ({ children }: Props) => {
     <Alert variant="warning" size="small">
       <VStack gap="2">
         {React.Children.map(children, child => (
-          // @ts-ignore Fiks
+          // @ts-expect-error Fiks
           <BodyShort key={isObject(child) ? child.key : child} size="small">
             {child}
           </BodyShort>

@@ -29,7 +29,7 @@ interface State {
 }
 
 export class Autocomplete extends React.Component<AutocompleteProps, State> {
-  // @ts-ignore Fiks
+  // @ts-expect-error Fiks
   input: HTMLInputElement;
 
   inputRef: any;
