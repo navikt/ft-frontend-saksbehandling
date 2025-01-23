@@ -9,7 +9,7 @@ import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagGenerellAndelValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 

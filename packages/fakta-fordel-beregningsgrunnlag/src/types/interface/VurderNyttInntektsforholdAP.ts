@@ -1,5 +1,5 @@
-import { AvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
-import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvklaringsbehovCode';
+import { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type VurderNyttInntektsforholdAndelTransformedValues = {
   aktivitetStatus: string;
@@ -19,9 +19,7 @@ export type VurderNyttInntektsforholTransformedValues = {
   tilkomneInntektsforhold: TilkommetInntektPeriodeTransformedValues[];
 };
 
-type VurderNyttInntektsforholdAP = AvklaringsbehovTilBekreftelse<
+export type VurderNyttInntektsforholdAP = BeregningAvklaringsbehovTilBekreftelse<
   FaktaFordelBeregningAvklaringsbehovCode.VURDER_NYTT_INNTKTSFRHLD,
   VurderNyttInntektsforholTransformedValues
 >;
-
-export default VurderNyttInntektsforholdAP;

@@ -1,13 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { Table } from '@navikt/ds-react';
-import { Beregningsgrunnlag, RefusjonTilVurderingAndel, ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, RefusjonTilVurderingAndel } from '@navikt/ft-types';
+import { FormattedMessage } from 'react-intl';
 
-import TidligereUtbetalingRad from './TidligereUtbetalingRad';
+import { TidligereUtbetalingRad } from './TidligereUtbetalingRad';
 
 import styles from './tidligereUtbetalinger.module.css';
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
@@ -22,10 +21,7 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
   return `${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef})`;
 };
 
-export const TidligereUtbetalinger: FunctionComponent<OwnProps> = ({
-  beregningsgrunnlag,
-  arbeidsgiverOpplysningerPerId,
-}) => {
+export const TidligereUtbetalinger = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId }: Props) => {
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
   return (
     <div className={styles.tabellContainer}>
@@ -56,5 +52,3 @@ export const TidligereUtbetalinger: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default TidligereUtbetalinger;

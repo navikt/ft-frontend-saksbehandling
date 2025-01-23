@@ -1,5 +1,5 @@
 import classnames from 'classnames/bind';
-import VerticalSpacer from './VerticalSpacer';
+import { VerticalSpacer } from './VerticalSpacer';
 import styles from './avsnittSkiller.module.css';
 
 const classNames = classnames.bind(styles);

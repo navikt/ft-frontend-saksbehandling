@@ -1,25 +1,25 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { Accordion, Label } from '@navikt/ds-react';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-import { FormattedMessage } from 'react-intl';
-import dayjs from 'dayjs';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
+import { ReactElement, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import styles from './tilkommetAktivitetAccordion.module.css';
-import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
-import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
-import TidligereVurderteAktiviteterPanel from './TidligereVurderteAktiviteterPanel';
-import TilkommetAktivitetField from './TilkommetAktivitetField';
-import SubmitButton from '../felles/SubmitButton';
+import { FormattedMessage } from 'react-intl';
 import {
   TilkommetAktivitetFormValues,
   TilkommetAktivitetValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { SubmitButton } from '../felles/SubmitButton';
+import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
+import { TidligereVurderteAktiviteterPanel } from './TidligereVurderteAktiviteterPanel';
+import styles from './tilkommetAktivitetAccordion.module.css';
+import { TilkommetAktivitetField } from './TilkommetAktivitetField';
+import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 
 const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
 
@@ -44,7 +44,7 @@ const renderDateHeading = (fom: string, tom: string | undefined): ReactElement =
   );
 };
 
-type TilkommetAktivitetAccordionType = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
@@ -55,7 +55,7 @@ type TilkommetAktivitetAccordionType = {
   fields: TilkommetAktivitetValues[];
 };
 
-const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
+export const TilkommetAktivitetAccordion = ({
   beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId,
   formName,
@@ -64,7 +64,7 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
   submittable,
   erAksjonspunktÅpent,
   fields,
-}) => {
+}: Props) => {
   const [sammenslåttePerioder, setSammenslåttePerioder] = useState<VurderInntektsforholdPeriode[]>([]);
   const [openPanels, setOpenPanels] = useState<string[]>([]);
   const [alleFomDatoer, setAlleFomDatoer] = useState<string[]>([]);
@@ -182,4 +182,3 @@ const TilkommetAktivitetAccordion: FC<TilkommetAktivitetAccordionType> = ({
     </>
   );
 };
-export default TilkommetAktivitetAccordion;

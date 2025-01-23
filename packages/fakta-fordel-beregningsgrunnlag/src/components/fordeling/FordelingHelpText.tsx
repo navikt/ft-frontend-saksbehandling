@@ -13,7 +13,7 @@ import {
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
@@ -177,9 +177,7 @@ type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const FordelingHelpText = ({ isAksjonspunktClosed, beregningsgrunnlag }: Props) => {
+export const FordelingHelpText = ({ isAksjonspunktClosed, beregningsgrunnlag }: Props) => {
   const helpText = getHelpTextsFordelBG(beregningsgrunnlag);
   return isAksjonspunktClosed ? <></> : <AksjonspunktHelpTextHTML>{helpText}</AksjonspunktHelpTextHTML>;
 };
-
-export default FordelingHelpText;

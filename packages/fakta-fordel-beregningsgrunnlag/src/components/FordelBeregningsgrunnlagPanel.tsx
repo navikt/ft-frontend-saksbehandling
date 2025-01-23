@@ -1,26 +1,26 @@
-import React, { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  Vilkarperiode,
+  Vilkårperiode,
 } from '@navikt/ft-types';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import FordelBeregningsgrunnlagAP from '../types/interface/FordelBeregningsgrunnlagAP';
-import VurderRefusjonBeregningsgrunnlagAP from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import VurderEndringRefusjonForm from './refusjon/VurderEndringRefusjonForm';
-import FordelingForm from './fordeling/FordelingForm';
 import {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
-import TilkommetAktivitet from './tilkommetAktivitet/TilkommetAktivitet';
-import FaktaFordelBeregningAvklaringsbehovCode from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import VurderNyttInntektsforholdAP from '../types/interface/VurderNyttInntektsforholdAP';
-import KodeverkForPanel from '../types/kodeverkForPanel';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsgrunnlagAP';
+import { VurderNyttInntektsforholdAP } from '../types/interface/VurderNyttInntektsforholdAP';
+import { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import { KodeverkForPanel } from '../types/kodeverkForPanel';
+import { FordelingForm } from './fordeling/FordelingForm';
+import { VurderEndringRefusjonForm } from './refusjon/VurderEndringRefusjonForm';
+import { TilkommetAktivitet } from './tilkommetAktivitet/TilkommetAktivitet';
 
 const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
   FaktaFordelBeregningAvklaringsbehovCode;
@@ -39,7 +39,7 @@ const getAvklaringsbehov = (
 ): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov && def ? avklaringsbehov.find(ap => ap.definisjon === def) : undefined;
 
-export interface OwnProps {
+export interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   readOnly: boolean;
   submitCallback: (
@@ -47,7 +47,7 @@ export interface OwnProps {
   ) => Promise<void>;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  vilkarperioder: Vilkarperiode[];
+  vilkarperioder: Vilkårperiode[];
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues;
@@ -61,7 +61,7 @@ export interface OwnProps {
  *
  * Har ansvar for å sette opp Formen for "avklar fakta om fordeling" panel.
  */
-const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
+export const FordelBeregningsgrunnlagPanel = ({
   aktivtBeregningsgrunnlagIndeks,
   readOnly,
   submitCallback,
@@ -72,7 +72,7 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-}) => {
+}: Props) => {
   const [tilkommetAktivitetFormIsDirty, setTilkommetAktivitetFormIsDirty] = useState(false);
   const [refusjonFormIsDirty, setRefusjonFormIsDirty] = useState(false);
   const [fordelingFormIsDirty, setFordelingFormIsDirty] = useState(false);
@@ -150,5 +150,3 @@ const FordelBeregningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default FordelBeregningsgrunnlagPanel;

@@ -8,7 +8,7 @@ import {
   settAndelIArbeid,
   settFastsattBelop,
 } from './BgFordelingUtils';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',

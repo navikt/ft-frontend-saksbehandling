@@ -1,39 +1,39 @@
-import React, { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import dayjs from 'dayjs';
 import { Tabs } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   StandardFaktaPanelProps,
-  Vilkar,
-  Vilkarperiode,
+  Vilkår,
+  Vilkårperiode,
 } from '@navikt/ft-types';
 
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
-import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagPanel from './components/FordelBeregningsgrunnlagPanel';
+import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import messages from '../i18n/nb_NO.json';
+import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
+import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
 import {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAvklaringsbehovCode from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
-import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
-import KodeverkForPanel from './types/kodeverkForPanel';
+import { FaktaFordelBeregningAvklaringsbehovCode } from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
+import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
+import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import { KodeverkForPanel } from './types/kodeverkForPanel';
 
 const intl = createIntl(messages);
 
 const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
   FaktaFordelBeregningAvklaringsbehovCode;
 
-const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]): string => {
+const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]): string => {
   const vilkårPeriode = finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;
@@ -53,11 +53,11 @@ const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
       a.definisjon === VURDER_NYTT_INNTKTSFRHLD,
   );
 
-const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) =>
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) =>
   kreverManuellBehandlingFn(bg) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
 
 type OwnProps = {
-  beregningsgrunnlagVilkår: Vilkar;
+  beregningsgrunnlagVilkår: Vilkår;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
@@ -70,7 +70,7 @@ type Props = OwnProps &
     FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues
   >;
 
-const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
+export const FordelBeregningsgrunnlagFaktaIndex = ({
   beregningsgrunnlagVilkår,
   beregningsgrunnlagListe,
   kodeverkSamling,
@@ -80,7 +80,7 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-}) => {
+}: Props) => {
   const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
@@ -127,5 +127,3 @@ const FordelBeregningsgrunnlagFaktaIndex: FunctionComponent<Props> = ({
     </RawIntlProvider>
   );
 };
-
-export default FordelBeregningsgrunnlagFaktaIndex;

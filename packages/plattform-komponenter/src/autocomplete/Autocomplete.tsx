@@ -1,6 +1,6 @@
 import { Search } from '@navikt/ds-react';
 import React from 'react';
-import AutocompleteSuggestion from './AutocompleteSuggestion';
+import { AutocompleteSuggestion } from './AutocompleteSuggestion';
 import styles from './autocomplete.module.css';
 import { Suggestion } from './types/Suggestion';
 

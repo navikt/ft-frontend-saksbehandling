@@ -3,7 +3,7 @@ import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import 'dayjs/locale/nb';
-import createIntl from './createIntl';
+import { createIntl } from './createIntl';
 import messages from '../i18n/nb_NO.json';
 
 import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';

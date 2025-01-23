@@ -1,4 +1,4 @@
-import createIntl from './createIntl';
+import { createIntl } from './createIntl';
 import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);

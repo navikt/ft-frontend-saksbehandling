@@ -1,24 +1,24 @@
+import { BodyShort, Label, Tag } from '@navikt/ds-react';
 import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import React, { FC, JSX } from 'react';
-import { BodyShort, Label, Tag } from '@navikt/ds-react';
+import { JSX } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styles from './tilkommetAktivitet.module.css';
-import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
+import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 
-type TidligereVurderteAktiviteterPanelType = {
+type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
 };
 
 const erDefinert = (tall?: number) => !!tall && +tall > 0;
 
-const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelType> = ({
+export const TidligereVurderteAktiviteterPanel = ({
   arbeidsgiverOpplysningerPerId,
   vurderInntektsforholdPeriode,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
@@ -90,4 +90,3 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
     </div>
   );
 };
-export default TidligereVurderteAktiviteterPanel;

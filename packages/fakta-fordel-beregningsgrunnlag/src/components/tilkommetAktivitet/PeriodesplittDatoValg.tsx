@@ -2,7 +2,7 @@ import { DatePicker, Label, useDatepicker } from '@navikt/ds-react';
 import { FlexColumn, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import React, { FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styles from './periodesplittModal.module.css';
 
@@ -11,7 +11,7 @@ export type Periode = {
   tom: string;
 };
 
-type PeriodesplittModalProps = {
+type Props = {
   periode: Periode;
   forhåndsvisPeriodesplitt: (nyFom: string) => Periode[];
   setValgtDato: (dato: string) => void;
@@ -24,7 +24,7 @@ const formaterTomForVisning = (tom: string): string => {
   return dayjs(tom).format(DDMMYYYY_DATE_FORMAT);
 };
 
-const PeriodesplittDatoValg: FC<PeriodesplittModalProps> = ({ periode, forhåndsvisPeriodesplitt, setValgtDato }) => {
+export const PeriodesplittDatoValg = ({ periode, forhåndsvisPeriodesplitt, setValgtDato }: Props) => {
   const intl = useIntl();
   const [nyePerioder, setNyePerioder] = useState<Periode[]>();
 
@@ -93,4 +93,3 @@ const PeriodesplittDatoValg: FC<PeriodesplittModalProps> = ({ periode, forhånds
     </>
   );
 };
-export default PeriodesplittDatoValg;

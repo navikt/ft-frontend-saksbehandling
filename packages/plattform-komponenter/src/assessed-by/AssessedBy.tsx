@@ -3,7 +3,7 @@ import { BodyShort } from '@navikt/ds-react';
 import { prettifyDateString } from '@navikt/ft-utils';
 import { useContext } from 'react';
 
-import SaksbehandlernavnContext from '../saksbehandlernavn-context/SaksbehandlernavnContext';
+import { SaksbehandlernavnContext } from '../saksbehandlernavn-context/SaksbehandlernavnContext';
 import styles from './assessedBy.module.css';
 
 export interface IAssessedByProps {
