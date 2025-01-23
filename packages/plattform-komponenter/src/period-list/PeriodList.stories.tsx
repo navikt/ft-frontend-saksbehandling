@@ -1,7 +1,6 @@
-import React from 'react';
 import { StoryFn } from '@storybook/react';
 
-import PeriodList from './PeriodList';
+import { PeriodList } from './PeriodList';
 
 export default {
   title: 'Period list',

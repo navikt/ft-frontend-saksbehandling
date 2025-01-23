@@ -1,6 +1,6 @@
 import { StoryFn } from '@storybook/react';
 import React, { ComponentProps } from 'react';
-import Box, { Margin } from './Box';
+import { Box, Margin } from './Box';
 
 export default {
   title: 'Box',

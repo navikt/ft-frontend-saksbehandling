@@ -1,10 +1,9 @@
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button, HStack, Heading, Modal } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
 
 import styles from './warningModal.module.css';
 
-export interface OwnProps {
+export interface Props {
   headerText?: string;
   bodyText: string;
   showModal: boolean;
@@ -16,7 +15,7 @@ export interface OwnProps {
  *
  * Modal med advarselikon og som viser en valgfri tekst i tillegg til knappen OK.
  */
-const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showModal, submit }) => (
+export const WarningModal = ({ bodyText, headerText, showModal, submit }: Props) => (
   <Modal open={showModal} onClose={submit} width="small" aria-label={headerText || 'Advarsel'}>
     <Modal.Body>
       <HStack gap="4">
@@ -34,5 +33,3 @@ const WarningModal: FunctionComponent<OwnProps> = ({ bodyText, headerText, showM
     </Modal.Footer>
   </Modal>
 );
-
-export default WarningModal;

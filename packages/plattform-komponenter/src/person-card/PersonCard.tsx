@@ -2,8 +2,8 @@ import React from 'react';
 import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@navikt/ds-react';
 import { MenuElipsisHorizontalCircleIcon } from '@navikt/aksel-icons';
 
-import VisittKort from './VisittKort';
-import GenderIcon from './GenderIcon';
+import { VisittKort } from './VisittKort';
+import { GenderIcon } from './GenderIcon';
 
 export enum Gender {
   male = 'male',
@@ -27,7 +27,7 @@ function formaterFnr(fnr: string) {
   return fnr.slice(0, 6) + ' ' + fnr.slice(6);
 }
 
-const PersonCard = ({
+export const PersonCard = ({
   name,
   gender,
   fodselsnummer,
@@ -114,5 +114,3 @@ const PersonCard = ({
     </VisittKort>
   );
 };
-
-export default PersonCard;

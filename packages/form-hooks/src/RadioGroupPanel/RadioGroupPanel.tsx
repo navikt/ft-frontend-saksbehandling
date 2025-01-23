@@ -30,7 +30,7 @@ export interface RadioGroupPanelProps {
   isEdited?: boolean;
 }
 
-const RadioGroupPanel = ({
+export const RadioGroupPanel = ({
   label,
   description,
   name,
@@ -114,5 +114,3 @@ const RadioGroupPanel = ({
     </RadioGroup>
   );
 };
-
-export default RadioGroupPanel;

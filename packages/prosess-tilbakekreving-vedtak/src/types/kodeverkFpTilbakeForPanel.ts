@@ -5,6 +5,4 @@ export enum KodeverkType {
   VEDTAK_RESULTAT_TYPE = 'VedtakResultatType',
 }
 
-type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
-
-export default KodeverkFpTilbakeForPanel;
+export type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;

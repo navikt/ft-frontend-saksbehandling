@@ -10,17 +10,18 @@ import {
   FagsakYtelseType,
 } from '@navikt/ft-kodeverk';
 import { alleTilbakekrevingKodeverk, alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import { FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
 
-import FeilutbetalingFaktaIndex from './FeilutbetalingFaktaIndex';
-import AvklartFaktaFeilutbetalingAp from './types/AvklartFaktaFeilutbetalingAp';
+import { FeilutbetalingFaktaIndex } from './FeilutbetalingFaktaIndex';
+import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
 
 import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
-import KodeverkFpSakForPanel from './types/kodeverkFpSakForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanel';
+import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
+import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
 
 const feilutbetalingFakta = {
   behandlingFakta: {
@@ -79,7 +80,7 @@ const feilutbetalingAarsak = [
       },
     ],
   },
-] as FeilutbetalingAarsak[];
+] as FeilutbetalingÅrsak[];
 
 const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
 const fpSakAlleKodeverk = alleKodeverk as KodeverkFpSakForPanel;

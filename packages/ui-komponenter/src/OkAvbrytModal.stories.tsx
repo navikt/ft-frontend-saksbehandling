@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { StoryFn } from '@storybook/react';
 
-import OkAvbrytModal from './OkAvbrytModal';
+import { OkAvbrytModal } from './OkAvbrytModal';
 
 export default {
   title: 'OkAvbrytModal',

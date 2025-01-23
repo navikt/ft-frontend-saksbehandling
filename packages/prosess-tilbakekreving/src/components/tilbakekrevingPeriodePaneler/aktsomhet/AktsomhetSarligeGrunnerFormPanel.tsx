@@ -1,19 +1,19 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage, Label } from '@navikt/ds-react';
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { CheckboxField, TextAreaField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { useFormContext } from 'react-hook-form';
-import AktsomhetReduksjonAvBelopFormPanel from './AktsomhetReduksjonAvBelopFormPanel';
+import { AktsomhetReduksjonAvBelopFormPanel } from './AktsomhetReduksjonAvBelopFormPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-export interface OwnProps {
+export interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: string;
@@ -25,7 +25,7 @@ export interface OwnProps {
   name: string;
 }
 
-const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
+export const AktsomhetSarligeGrunnerFormPanel = ({
   name,
   harGrunnerTilReduksjon,
   readOnly,
@@ -35,7 +35,7 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
   harMerEnnEnYtelse,
   feilutbetalingBelop,
   andelSomTilbakekreves,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const { watch } = useFormContext();
 
@@ -79,5 +79,3 @@ const AktsomhetSarligeGrunnerFormPanel: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default AktsomhetSarligeGrunnerFormPanel;

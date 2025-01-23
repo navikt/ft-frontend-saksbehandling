@@ -1,6 +1,4 @@
-import React from 'react';
-
-const ChildIcon = () => (
+export const ChildIcon = () => (
   <svg width="32" height="46" viewBox="0 0 32 46" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
@@ -11,5 +9,3 @@ const ChildIcon = () => (
     />
   </svg>
 );
-
-export default ChildIcon;

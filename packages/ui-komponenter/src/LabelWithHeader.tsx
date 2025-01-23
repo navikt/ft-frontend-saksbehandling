@@ -1,9 +1,9 @@
-import React, { ReactNode, FunctionComponent } from 'react';
 import { BodyShort, Detail } from '@navikt/ds-react';
+import { ReactNode } from 'react';
 
 import styles from './labelWithHeader.module.css';
 
-export interface OwnProps {
+export interface Props {
   header: string | ReactNode;
   texts: string[];
 }
@@ -13,7 +13,7 @@ export interface OwnProps {
  *
  * Presentasjonskomponent. Presenterer tekst med en overskrift. (På samme måte som input-felter med overskrifter)
  */
-const LabelWithHeader: FunctionComponent<OwnProps> = ({ header, texts }) => (
+export const LabelWithHeader = ({ header, texts }: Props) => (
   <div className={styles.container}>
     <Detail>{header}</Detail>
     <div className={styles.text}>
@@ -25,5 +25,3 @@ const LabelWithHeader: FunctionComponent<OwnProps> = ({ header, texts }) => (
     </div>
   </div>
 );
-
-export default LabelWithHeader;

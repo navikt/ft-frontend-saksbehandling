@@ -6,6 +6,4 @@ export enum KodeverkType {
   TILBAKEKR_VIDERE_BEH = 'VidereBehandling',
 }
 
-type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
-
-export default KodeverkFpTilbakeForPanel;
+export type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;

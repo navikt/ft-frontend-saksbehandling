@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoryFn } from '@storybook/react';
 
-import AksjonspunktHelpTextHTML from './AksjonspunktHelpTextHTML';
+import { AksjonspunktHelpTextHTML } from './AksjonspunktHelpTextHTML';
 
 export default {
   title: 'AksjonspunktHelpTextHTML',

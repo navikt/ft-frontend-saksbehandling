@@ -1,30 +1,29 @@
-import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { createIntl } from '@navikt/ft-utils';
 import {
-  DetaljerteFeilutbetalingsperioder,
-  VilkarsVurdertePerioderWrapper,
-  FeilutbetalingPerioderWrapper,
   Behandling,
-  StandardProsessPanelProps,
+  FeilutbetalingPerioderWrapper,
   KodeverkMedNavn,
+  StandardProsessPanelProps,
 } from '@navikt/ft-types';
+import { createIntl } from '@navikt/ft-utils';
 
-import TilbakekrevingForm from './components/TilbakekrevingForm';
-import VilkarsVurderingAp from './types/VilkarsVurderingAp';
+import { TilbakekrevingForm } from './components/TilbakekrevingForm';
 import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
+import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 
 import messages from '../i18n/nb_NO.json';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
+import { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+export interface Props {
   behandling: Behandling;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
-  vilkarvurdering: VilkarsVurdertePerioderWrapper;
+  vilkarvurdering: VilkårsvurdertePerioderWrapper;
   beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
@@ -32,9 +31,7 @@ export interface OwnProps {
   relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
 }
 
-const TilbakekrevingProsessIndex: FunctionComponent<
-  OwnProps & StandardProsessPanelProps<VilkarsVurderingAp, CustomVilkarsVurdertePeriode[]>
-> = ({
+export const TilbakekrevingProsessIndex = ({
   behandling,
   perioderForeldelse,
   vilkarvurderingsperioder,
@@ -48,7 +45,7 @@ const TilbakekrevingProsessIndex: FunctionComponent<
   setFormData,
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
-}) => (
+}: Props & StandardProsessPanelProps<VilkårsvurderingAp, CustomVilkarsVurdertePeriode[]>) => (
   <RawIntlProvider value={intl}>
     <TilbakekrevingForm
       behandlingUuid={behandling.uuid}
@@ -68,5 +65,3 @@ const TilbakekrevingProsessIndex: FunctionComponent<
     />
   </RawIntlProvider>
 );
-
-export default TilbakekrevingProsessIndex;

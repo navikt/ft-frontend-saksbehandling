@@ -1,15 +1,15 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { required } from '@navikt/ft-form-validators';
-import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { KodeverkMedNavn, AktsomhetInfo } from '@navikt/ft-types';
+import { required } from '@navikt/ft-form-validators';
+import { KodeverkMedNavn } from '@navikt/ft-types';
+import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import Aktsomhet from '../../../kodeverk/aktsomhet';
-import AktsomhetGradFormPanel from './AktsomhetGradFormPanel';
+import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './AktsomhetReduksjonAvBelopFormPanel';
+import { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 
 const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
 
@@ -37,14 +37,7 @@ export interface InitialValuesAktsomhetForm {
   [Aktsomhet.SIMPEL_UAKTSOM]?: AktsomhetData;
 }
 
-interface TransformedValuesAktsomhetForm {
-  '@type': string;
-  aktsomhet: any;
-  begrunnelse: string;
-  aktsomhetInfo: any;
-}
-
-export interface OwnProps {
+export interface Props {
   readOnly: boolean;
   resetFields: (...args: any[]) => any;
   harGrunnerTilReduksjon?: boolean;
@@ -60,19 +53,7 @@ export interface OwnProps {
   name: string;
 }
 
-interface StaticFunctions {
-  buildInitalValues: (vilkarResultatInfo: {
-    aktsomhet: string | any;
-    aktsomhetInfo?: AktsomhetInfo;
-  }) => InitialValuesAktsomhetForm;
-  transformValues: (
-    info: { handletUaktsomhetGrad: string },
-    sarligGrunnTyper: KodeverkMedNavn[],
-    vurderingBegrunnelse: string,
-  ) => TransformedValuesAktsomhetForm;
-}
-
-const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const AktsomhetFormPanel = ({
   readOnly,
   resetFields,
   handletUaktsomhetGrad,
@@ -86,7 +67,7 @@ const AktsomhetFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
   erTotalBelopUnder4Rettsgebyr,
   andelSomTilbakekreves,
   name,
-}) => (
+}: Props) => (
   <>
     <VerticalSpacer sixteenPx />
     <RadioGroupPanel
@@ -165,7 +146,11 @@ const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]
   };
 };
 
-AktsomhetFormPanel.transformValues = (info, sarligGrunnTyper, vurderingBegrunnelse) => {
+AktsomhetFormPanel.transformValues = (
+  info: { handletUaktsomhetGrad: string },
+  sarligGrunnTyper: KodeverkMedNavn[],
+  vurderingBegrunnelse: string,
+) => {
   // @ts-ignore Fiks
   const aktsomhet = info[info.handletUaktsomhetGrad];
   return {
@@ -197,7 +182,10 @@ const lagAktsomhetData = (
     : {}),
 });
 
-AktsomhetFormPanel.buildInitalValues = vilkarResultatInfo => {
+AktsomhetFormPanel.buildInitalValues = (vilkarResultatInfo: {
+  aktsomhet: string | any;
+  aktsomhetInfo?: AktsomhetInfo;
+}) => {
   const { aktsomhet, aktsomhetInfo } = vilkarResultatInfo;
   const andelSomTilbakekreves =
     aktsomhetInfo && aktsomhetInfo.andelTilbakekreves !== undefined ? `${aktsomhetInfo.andelTilbakekreves}` : undefined;
@@ -215,5 +203,3 @@ AktsomhetFormPanel.buildInitalValues = vilkarResultatInfo => {
     ...aktsomhetData,
   };
 };
-
-export default AktsomhetFormPanel;

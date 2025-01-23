@@ -2,7 +2,7 @@ import React from 'react';
 import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import WarningModal from './WarningModal';
+import { WarningModal } from './WarningModal';
 
 export default {
   title: 'WarningModal',

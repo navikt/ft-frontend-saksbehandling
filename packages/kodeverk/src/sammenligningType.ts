@@ -1,4 +1,4 @@
-enum SammenligningType {
+export enum SammenligningType {
   FL = 'SAMMENLIGNING_FL',
   SN = 'SAMMENLIGNING_SN',
   AT = 'SAMMENLIGNING_AT',
@@ -6,5 +6,3 @@ enum SammenligningType {
   ATFLSN = 'SAMMENLIGNING_ATFL_SN',
   MIDLERTIDIG_INAKTIV = 'SAMMENLIGNING_MIDL_INAKTIV',
 }
-
-export default SammenligningType;

@@ -31,5 +31,3 @@ export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel,
     </div>
   );
 };
-
-export default ReadOnlyField;

@@ -4,7 +4,7 @@ import { Detail, HStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 
-const ForeldetFormPanel = () => (
+export const ForeldetFormPanel = () => (
   <HStack gap="4">
     <TextAreaField name="foreldetBegrunnelse" label={<FormattedMessage id="ForeldetPanel.Vurdering" />} readOnly />
     <RadioGroupPanel
@@ -24,5 +24,3 @@ const ForeldetFormPanel = () => (
     />
   </HStack>
 );
-
-export default ForeldetFormPanel;

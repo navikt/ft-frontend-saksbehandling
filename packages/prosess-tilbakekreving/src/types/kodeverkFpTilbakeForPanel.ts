@@ -7,6 +7,4 @@ export enum KodeverkType {
   VILKAR_RESULTAT = 'VilkårResultat',
 }
 
-type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
-
-export default KodeverkFpTilbakeForPanel;
+export type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;

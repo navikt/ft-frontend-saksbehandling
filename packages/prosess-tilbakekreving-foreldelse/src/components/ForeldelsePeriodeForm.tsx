@@ -1,30 +1,29 @@
-import React, { FunctionComponent } from 'react';
-import { useForm } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
-import dayjs from 'dayjs';
 import { Button, HStack, VStack } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { TextAreaField, Datepicker, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { Datepicker, Form, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
+  hasValidDate,
   hasValidText,
   maxLength,
   minLength,
   required,
-  hasValidDate,
 } from '@navikt/ft-form-validators';
-import { TilbakekrevingKodeverkType, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import dayjs from 'dayjs';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
-
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
+import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
 export type FormValues = ForeldelsesresultatActivity;
 
-export interface OwnProps {
+export interface Props {
   periode: ForeldelsesresultatActivity;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
@@ -42,13 +41,13 @@ const buildInitialValues = (periode: ForeldelsesresultatActivity): FormValues =>
   foreldet: checkForeldetValue(periode),
 });
 
-const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
+export const ForeldelsePeriodeForm = ({
   skjulPeriode,
   readOnly,
   periode,
   oppdaterPeriode,
   kodeverkSamlingFpTilbake,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const formMethods = useForm<FormValues>({
     defaultValues: buildInitialValues(periode),
@@ -122,5 +121,3 @@ const ForeldelsePeriodeForm: FunctionComponent<OwnProps> = ({
     </Form>
   );
 };
-
-export default ForeldelsePeriodeForm;

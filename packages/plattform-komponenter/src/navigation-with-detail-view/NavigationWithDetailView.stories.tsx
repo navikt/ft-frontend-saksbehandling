@@ -1,7 +1,7 @@
-import React, { ComponentProps } from 'react';
 import { StoryFn } from '@storybook/react';
-import NavigationWithDetailView from './NavigationWithDetailView';
-import DetailView from '../detail-view/DetailView';
+import { ComponentProps } from 'react';
+import { DetailView } from '../detail-view/DetailView';
+import { NavigationWithDetailView } from './NavigationWithDetailView';
 
 export default {
   title: 'Navigation with detail',

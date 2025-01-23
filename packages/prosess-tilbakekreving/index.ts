@@ -1,4 +1,5 @@
-export type { default as VilkarsVurderingAp } from './src/types/VilkarsVurderingAp';
-export { default as ForeldelseAksjonspunktCodes } from './src/TilbakekrevingAksjonspunktCodes';
-export { default as TilbakekrevingProsessIndex } from './src/TilbakekrevingProsessIndex';
-export type { DetaljerteFeilutbetalingsperioder, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+export type { VilkårsvurderingAp } from './src/types/VilkårsvurderingAp';
+export type { FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+export type { DetaljerteFeilutbetalingsperioder } from './src/types/DetaljerteFeilutbetalingsperioder';
+export { TilbakekrevingAksjonspunktCodes } from './src/TilbakekrevingAksjonspunktCodes';
+export { TilbakekrevingProsessIndex } from './src/TilbakekrevingProsessIndex';

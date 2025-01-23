@@ -63,7 +63,7 @@ export interface Props<PERIOD_TYPE> {
  *
  * Håndterer å legge til og fjerne perioder
  */
-const PeriodFieldArray = <PERIOD_TYPE,>({
+export const PeriodFieldArray = <PERIOD_TYPE,>({
   fields,
   readOnly = true,
   titleText,
@@ -108,5 +108,3 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
     )}
   </Fieldset>
 );
-
-export default PeriodFieldArray;

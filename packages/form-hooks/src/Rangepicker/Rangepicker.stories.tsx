@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { rhfDecorator } from '../../.storybook/decorators';
-import Rangepicker from './Rangepicker';
+import { Rangepicker } from './Rangepicker';
 
 const meta = {
   component: Rangepicker,

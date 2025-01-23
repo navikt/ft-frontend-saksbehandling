@@ -5,6 +5,4 @@ export enum KodeverkType {
   KONSEKVENS_FOR_YTELSEN = 'KonsekvensForYtelsen',
 }
 
-type KodeverkFpSakForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
-
-export default KodeverkFpSakForPanel;
+export type KodeverkFpSakForPanel = Record<KodeverkType, KodeverkMedNavn[]>;

@@ -1,6 +1,6 @@
 // TODO Fjern denne fila når k9 er over på kodeverk-string
 
-const konverterKodeverkTilKode = (data: any) => {
+export const konverterKodeverkTilKode = (data: any) => {
   if (data === undefined || data === null) {
     return;
   }
@@ -27,5 +27,3 @@ const konverterKodeverkTilKode = (data: any) => {
 
   return newData;
 };
-
-export default konverterKodeverkTilKode;

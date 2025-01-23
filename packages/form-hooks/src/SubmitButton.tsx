@@ -21,7 +21,7 @@ export interface Props {
   hasErrors?: boolean;
 }
 
-const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, onClick, hasErrors }: Props) => {
+export const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, onClick, hasErrors }: Props) => {
   if (!isReadOnly) {
     return (
       <Button
@@ -38,5 +38,3 @@ const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, 
   }
   return null;
 };
-
-export default SubmitButton;

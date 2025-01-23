@@ -1,8 +1,8 @@
-import React, { ReactNode, FunctionComponent } from 'react';
+import { ReactNode } from 'react';
 
 import styles from './fadingPanel.module.css';
 
-export interface OwnProps {
+export interface Props {
   withoutTopMargin?: boolean;
   children: ReactNode | ReactNode[];
 }
@@ -12,8 +12,6 @@ export interface OwnProps {
  *
  * Animerer(fade-in) innholdet i panelet.
  */
-const FadingPanel: FunctionComponent<OwnProps> = ({ withoutTopMargin = false, children }) => (
+export const FadingPanel = ({ withoutTopMargin = false, children }: Props) => (
   <div className={withoutTopMargin ? styles.containerWithoutTopMargin : styles.container}>{children}</div>
 );
-
-export default FadingPanel;

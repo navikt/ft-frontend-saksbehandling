@@ -4,6 +4,4 @@ export enum KodeverkType {
   FORELDELSE_VURDERING = 'ForeldelseVurderingType',
 }
 
-type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
-
-export default KodeverkFpTilbakeForPanel;
+export type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;

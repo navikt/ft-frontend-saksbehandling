@@ -1,6 +1,6 @@
-import React, { ComponentProps } from 'react';
 import { StoryFn } from '@storybook/react';
-import Header from './Header';
+import { ComponentProps } from 'react';
+import { Header } from './Header';
 
 export default {
   title: 'Header',

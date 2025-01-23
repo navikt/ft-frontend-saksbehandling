@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
 import { PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { prettifyDateString } from '@navikt/ft-utils';
 import { BodyShort } from '@navikt/ds-react';
+import { prettifyDateString } from '@navikt/ft-utils';
+import { useContext } from 'react';
 
-import styles from './assessedBy.module.css';
 import SaksbehandlernavnContext from '../saksbehandlernavn-context/SaksbehandlernavnContext';
+import styles from './assessedBy.module.css';
 
 export interface IAssessedByProps {
   ident?: string;
@@ -14,7 +14,7 @@ export interface IAssessedByProps {
 /* For å få opp saksbehandlerens navn må sette saksbehandlernavn i SaksbehandlernavnContext.Provider
  */
 
-const AssessedBy = ({ ident, date }: IAssessedByProps) => {
+export const AssessedBy = ({ ident, date }: IAssessedByProps) => {
   const saksbehandlernavn = useContext(SaksbehandlernavnContext);
   if (!ident) {
     return null;
@@ -29,5 +29,3 @@ const AssessedBy = ({ ident, date }: IAssessedByProps) => {
     </div>
   );
 };
-
-export default AssessedBy;

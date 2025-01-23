@@ -7,6 +7,4 @@ import React from 'react';
 }
 */
 
-const SaksbehandlernavnContext = React.createContext<Record<string, string>>({});
-
-export default SaksbehandlernavnContext;
+export const SaksbehandlernavnContext = React.createContext<Record<string, string>>({});

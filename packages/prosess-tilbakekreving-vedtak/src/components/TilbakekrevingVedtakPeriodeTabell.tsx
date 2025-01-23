@@ -1,14 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { BodyShort, Label } from '@navikt/ds-react';
+import { FormattedMessage } from 'react-intl';
 
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
-import { BeregningResultatPeriode } from '@navikt/ft-types';
 import { KodeverkType } from '@navikt/ft-kodeverk';
+import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
+import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
+import { KodeverkFpTilbakeForPanel } from '../types/kodeverkFpTilbakeForPanel';
 import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const headerTextCodes = [
   'TilbakekrevingVedtakPeriodeTabell.Periode',
@@ -20,12 +19,12 @@ const headerTextCodes = [
   'TilbakekrevingVedtakPeriodeTabell.BelopSomTilbakekreves',
 ];
 
-export interface OwnProps {
+export interface Props {
   perioder: BeregningResultatPeriode[];
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
 }
 
-const TilbakekrevingVedtakPeriodeTabell: FunctionComponent<OwnProps> = ({ perioder, kodeverkSamlingFpTilbake }) => {
+export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpTilbake }: Props) => {
   const rader = perioder
     .map(periode => (
       <TableRow key={periode.periode.fom}>
@@ -94,5 +93,3 @@ const TilbakekrevingVedtakPeriodeTabell: FunctionComponent<OwnProps> = ({ period
     </div>
   );
 };
-
-export default TilbakekrevingVedtakPeriodeTabell;

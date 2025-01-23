@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import CheckboxPanel from './CheckboxPanel';
 import { rhfDecorator } from '../../.storybook/decorators';
-import React from 'react';
+import { CheckboxPanel } from './CheckboxPanel';
 
 const meta = {
   component: CheckboxPanel,

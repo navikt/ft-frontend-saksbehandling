@@ -1,17 +1,17 @@
 import React, { ComponentProps } from 'react';
 import { StoryFn } from '@storybook/react';
-import DetailViewComponent from './DetailView';
+import { DetailView } from './DetailView';
 
 export default {
   title: 'Detail view',
-  component: DetailViewComponent,
+  component: DetailView,
 };
 
-const Template: StoryFn<ComponentProps<typeof DetailViewComponent>> = () => (
-  <DetailViewComponent title="Tittel">
+const Template: StoryFn<ComponentProps<typeof DetailView>> = () => (
+  <DetailView title="Tittel">
     <p>Detaljer</p>
-  </DetailViewComponent>
+  </DetailView>
 );
 
-export const DetailView = Template.bind({});
-DetailView.args = {};
+export const Default = Template.bind({});
+Default.args = {};

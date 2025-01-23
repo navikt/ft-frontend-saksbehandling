@@ -1,4 +1,4 @@
-enum KonsekvensForYtelsen {
+export enum KonsekvensForYtelsen {
   FORELDREPENGER_OPPHØRER = 'FORELDREPENGER_OPPHØRER',
   ENDRING_I_BEREGNING = 'ENDRING_I_BEREGNING',
   ENDRING_I_UTTAK = 'ENDRING_I_UTTAK',
@@ -7,5 +7,3 @@ enum KonsekvensForYtelsen {
   ENDRING_I_BEREGNING_OG_UTTAK = 'ENDRING_I_BEREGNING_OG_UTTAK',
   UDEFINERT = '-',
 }
-
-export default KonsekvensForYtelsen;

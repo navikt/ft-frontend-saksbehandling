@@ -87,7 +87,7 @@ export interface OwnProps<ID, MODEL = void> {
  *
  * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
-const TableRow = <ID, MODEL = void>({
+export const TableRow = <ID, MODEL = void>({
   id,
   model,
   isHeader = false,
@@ -126,5 +126,3 @@ const TableRow = <ID, MODEL = void>({
     {children}
   </tr>
 );
-
-export default TableRow;

@@ -1,6 +1,6 @@
 import { Label } from '@navikt/ds-react';
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 import styles from './labelledContent.module.css';
 
 export interface LabelledContentProps {
@@ -10,7 +10,7 @@ export interface LabelledContentProps {
   indentContent?: boolean;
 }
 
-const LabelledContent = ({ label, content, labelTag, indentContent }: LabelledContentProps) => {
+export const LabelledContent = ({ label, content, labelTag, indentContent }: LabelledContentProps) => {
   const cl = classNames(styles.labelledContent__content, {
     [styles.labelledContent__indentation]: indentContent,
   });
@@ -25,5 +25,3 @@ const LabelledContent = ({ label, content, labelTag, indentContent }: LabelledCo
     </div>
   );
 };
-
-export default LabelledContent;

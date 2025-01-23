@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EditedIcon from './EditedIcon';
+import { EditedIcon } from './EditedIcon';
 
 export default {
   title: 'EditedIcon',

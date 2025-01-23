@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
-import ChevronIconBlack from '../icons/ChevronIconBlack';
-import ChevronIconGray from '../icons/ChevronIconGray';
+import { ChevronIconBlack } from '../icons/ChevronIconBlack';
+import { ChevronIconGray } from '../icons/ChevronIconGray';
 import styles from './interactiveList.module.css';
 
 export interface InteractiveListElement {
@@ -35,7 +35,7 @@ const InteractiveListElement = (props: InteractiveListElement) => {
   );
 };
 
-const InteractiveList = ({ elements }: InteractiveListProps) => (
+export const InteractiveList = ({ elements }: InteractiveListProps) => (
   <ul className={styles.interactiveList}>
     {elements.map((elementProps, index) => {
       const { key, ...rest } = elementProps;
@@ -43,5 +43,3 @@ const InteractiveList = ({ elements }: InteractiveListProps) => (
     })}
   </ul>
 );
-
-export default InteractiveList;

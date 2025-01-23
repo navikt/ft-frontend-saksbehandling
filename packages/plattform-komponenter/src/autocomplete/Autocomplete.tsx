@@ -28,7 +28,7 @@ interface State {
   blurDelay: any;
 }
 
-class Autocomplete extends React.Component<AutocompleteProps, State> {
+export class Autocomplete extends React.Component<AutocompleteProps, State> {
   // @ts-ignore Fiks
   input: HTMLInputElement;
 
@@ -265,5 +265,3 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
     );
   }
 }
-
-export default Autocomplete;

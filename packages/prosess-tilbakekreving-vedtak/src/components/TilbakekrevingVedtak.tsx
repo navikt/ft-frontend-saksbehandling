@@ -1,18 +1,18 @@
-import React, { FunctionComponent } from 'react';
+import { BodyShort, Detail, Heading } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, Heading, Detail } from '@navikt/ds-react';
 
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { BeregningResultatPeriode, VedtaksbrevAvsnitt } from '@navikt/ft-types';
 
+import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
+import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
+import { KodeverkFpTilbakeForPanel } from '../types/kodeverkFpTilbakeForPanel';
+import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
-import TilbakekrevingVedtakPeriodeTabell from './TilbakekrevingVedtakPeriodeTabell';
-import TilbakekrevingVedtakForm, { ForhandsvisData } from './TilbakekrevingVedtakForm';
-import ForeslaVedtakTilbakekrevingAp from '../types/ForeslaVedtakTilbakekrevingAp';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
+import { ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
+import { TilbakekrevingVedtakPeriodeTabell } from './TilbakekrevingVedtakPeriodeTabell';
 
-export interface OwnProps {
+export interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   readOnly: boolean;
   resultat: string;
@@ -27,7 +27,7 @@ export interface OwnProps {
   setFormData: (data: FormValues) => void;
 }
 
-const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
+export const TilbakekrevingVedtak = ({
   submitCallback,
   readOnly,
   resultat,
@@ -40,7 +40,7 @@ const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
   formData,
   setFormData,
-}) => (
+}: Props) => (
   <>
     <Heading size="small">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
@@ -68,5 +68,3 @@ const TilbakekrevingVedtak: FunctionComponent<OwnProps> = ({
     />
   </>
 );
-
-export default TilbakekrevingVedtak;

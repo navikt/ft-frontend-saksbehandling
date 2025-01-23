@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from 'react-hook-form';
 
 export interface Props<FormValues extends FieldValues> {
@@ -9,7 +9,7 @@ export interface Props<FormValues extends FieldValues> {
   setDataOnUnmount?: (data?: any) => void;
 }
 
-const Form = <FormValues extends FieldValues>({
+export const Form = <FormValues extends FieldValues>({
   formMethods,
   onSubmit,
   children,
@@ -35,5 +35,3 @@ const Form = <FormValues extends FieldValues>({
     </FormProvider>
   );
 };
-
-export default Form;

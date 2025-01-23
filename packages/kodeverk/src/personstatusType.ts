@@ -1,4 +1,4 @@
-enum PersonstatusType {
+export enum PersonstatusType {
   DOD = 'DØD',
   BOSATT = 'BOSA',
   UTVANDRET = 'UTVA',
@@ -12,5 +12,3 @@ enum PersonstatusType {
   UTGATTPERSON = 'UTPE',
   UDEFINERT = '-',
 }
-
-export default PersonstatusType;

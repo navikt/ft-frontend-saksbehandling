@@ -3,7 +3,7 @@ import { RawIntlProvider } from 'react-intl';
 import { StoryFn } from '@storybook/react';
 
 import { createIntl } from '@navikt/ft-utils';
-import DataFetchPendingModal from './DataFetchPendingModal';
+import { DataFetchPendingModal } from './DataFetchPendingModal';
 
 const intl = createIntl({
   'DataFetchPendingModal.LosningenJobberMedBehandlingen': 'Løsningen jobber med behandlingen...',

@@ -1,4 +1,4 @@
-enum KodeverkType {
+export enum KodeverkType {
   BEHANDLING_AARSAK = 'BehandlingÅrsakType',
   OVERFOERING_AARSAK_TYPE = 'OverføringÅrsak',
   FAGSAK_STATUS = 'FagsakStatus',
@@ -17,5 +17,3 @@ enum KodeverkType {
   HENDELSE_UNDERTYPE = 'HendelseUnderType',
   FARESIGNAL_VURDERING = 'FaresignalVurdering',
 }
-
-export default KodeverkType;

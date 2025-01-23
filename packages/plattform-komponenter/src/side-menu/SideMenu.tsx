@@ -1,6 +1,6 @@
-import React from 'react';
 import { Detail } from '@navikt/ds-react';
-import MenuLink from './MenuLink';
+import React from 'react';
+import { MenuLink } from './MenuLink';
 
 import styles from './sideMenu.module.css';
 
@@ -16,7 +16,7 @@ interface SideMenuProps {
   onClick: (index: number) => void;
 }
 
-const SideMenu = ({ links, heading, onClick }: SideMenuProps) => {
+export const SideMenu = ({ links, heading, onClick }: SideMenuProps) => {
   return (
     <nav className={styles.sideMenu__container}>
       {heading && (
@@ -32,5 +32,3 @@ const SideMenu = ({ links, heading, onClick }: SideMenuProps) => {
     </nav>
   );
 };
-
-export default SideMenu;

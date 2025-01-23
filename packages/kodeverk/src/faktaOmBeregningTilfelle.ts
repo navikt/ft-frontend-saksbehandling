@@ -1,4 +1,4 @@
-enum FaktaOmBeregningTilfelle {
+export enum FaktaOmBeregningTilfelle {
   VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD = 'VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD',
   VURDER_SN_NY_I_ARBEIDSLIVET = 'VURDER_SN_NY_I_ARBEIDSLIVET',
   VURDER_NYOPPSTARTET_FL = 'VURDER_NYOPPSTARTET_FL',
@@ -69,5 +69,3 @@ export const harFastsettATFLInntektTilfelleUtenomBesteberegning = (tilfeller: st
     tilfelle =>
       vurderOgFastsettATFLTilfeller.some(t => t === tilfelle) && !besteberegningTilfeller.some(t => t === tilfelle),
   );
-
-export default FaktaOmBeregningTilfelle;

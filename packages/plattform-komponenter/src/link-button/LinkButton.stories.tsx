@@ -1,16 +1,16 @@
-import React, { ComponentProps } from 'react';
 import { StoryFn } from '@storybook/react';
-import LinkButtonComponent from './LinkButton';
+import { ComponentProps } from 'react';
+import { LinkButton } from './LinkButton';
 
 export default {
   title: 'Link button',
-  component: LinkButtonComponent,
+  component: LinkButton,
 };
 
-const Template: StoryFn<ComponentProps<typeof LinkButtonComponent>> = () => (
+const Template: StoryFn<ComponentProps<typeof LinkButton>> = () => (
   // eslint-disable-next-line no-console
-  <LinkButtonComponent onClick={() => console.log('I was clicked')}>Click me</LinkButtonComponent>
+  <LinkButton onClick={() => console.log('I was clicked')}>Click me</LinkButton>
 );
 
-export const LinkButton = Template.bind({});
-LinkButton.args = {};
+export const Default = Template.bind({});
+Default.args = {};

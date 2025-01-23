@@ -1,6 +1,6 @@
 import { Loader } from '@navikt/ds-react';
 import React, { JSX } from 'react';
-import PageError from '../page-error/PageError';
+import { PageError } from '../page-error/PageError';
 import styles from './pageContainer.module.css';
 
 interface PageContainerProps {
@@ -10,7 +10,7 @@ interface PageContainerProps {
   children?: React.ReactNode;
 }
 
-const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageContainerProps): JSX.Element => {
+export const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageContainerProps): JSX.Element => {
   const shouldHideChildren = isLoading || hasError;
 
   const renderChildrenContent = () => {
@@ -31,5 +31,3 @@ const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageCo
     </>
   );
 };
-
-export default PageContainer;

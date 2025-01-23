@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import SideMenu from './SideMenu';
+import { SideMenu } from './SideMenu';
 import { HStack } from '@navikt/ds-react';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 

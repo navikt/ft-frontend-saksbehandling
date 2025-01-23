@@ -1,7 +1,7 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
-import VedtakAksjonspunktCode from '../VedtakAksjonspunktCode';
+import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
 
-type ForeslaVedtakTilbakekrevingAp = {
+export type ForeslaVedtakTilbakekrevingAp = {
   perioderMedTekst: {
     fom: string;
     tom: string;
@@ -12,5 +12,3 @@ type ForeslaVedtakTilbakekrevingAp = {
   }[];
   oppsummeringstekst?: string;
 } & AksjonspunktTilBekreftelse<VedtakAksjonspunktCode.FORESLA_VEDTAK>;
-
-export default ForeslaVedtakTilbakekrevingAp;

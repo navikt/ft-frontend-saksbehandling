@@ -14,7 +14,7 @@ export interface UserPanelProps {
   isToggled?: boolean;
 }
 
-const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClick, isToggled }) => {
+export const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClick, isToggled }) => {
   if (onClick) {
     return (
       <button
@@ -55,5 +55,3 @@ const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClic
     </div>
   );
 };
-
-export default UserPanel;

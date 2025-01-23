@@ -1,38 +1,37 @@
-import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
-import moment from 'moment';
-import { FormattedMessage } from 'react-intl';
 import { Alert, Heading, Panel } from '@navikt/ds-react';
+import moment from 'moment';
+import { useCallback, useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
-import { FaktaGruppe, AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { omitOne } from '@navikt/ft-utils';
-import { TilbakekrevingKodeverkType, ForeldelseVurderingType, KodeverkType } from '@navikt/ft-kodeverk';
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import {
-  KodeverkMedNavn,
-  FeilutbetalingPerioderWrapper,
-  VilkarsVurdertePerioderWrapper,
-  VilkarsVurdertPeriode,
-  DetaljerteFeilutbetalingsperioder,
-  DetaljertFeilutbetalingPeriode,
-} from '@navikt/ft-types';
+import { ForeldelseVurderingType, KodeverkType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
+import { FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
+import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { omitOne } from '@navikt/ft-utils';
 
-import TilbakekrevingPeriodeForm, {
+import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
+import { DataForPeriode } from '../types/DataForPeriode';
+import { TidslinjePeriode } from '../types/TidslinjePeriode';
+import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
+import {
   CustomPeriode,
   CustomPerioder,
-  periodeFormTransformValues,
-  periodeFormBuildInitialValues,
   CustomVilkarsVurdertePeriode,
+  periodeFormBuildInitialValues,
+  periodeFormTransformValues,
+  TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
-import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
-import DataForPeriode from '../types/dataForPeriodeTsType';
-import VilkarsVurderingAp from '../types/VilkarsVurderingAp';
-import TilbakekrevingAksjonspunktCodes from '../TilbakekrevingAksjonspunktCodes';
 
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
+import { PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
+import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import styles from './tilbakekrevingForm.module.css';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
-import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
-import PeriodeController, { SplittetPeriode } from './splittePerioder/PeriodeController';
-import PeriodeInformasjon from './splittePerioder/PeriodeInformasjon';
+import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
+import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
+import {
+  DetaljerteFeilutbetalingsperioder,
+  DetaljertFeilutbetalingPeriode,
+} from '../types/DetaljerteFeilutbetalingsperioder';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));
@@ -89,7 +88,7 @@ const formaterPerioderForTidslinje = (
   });
 
 const finnOriginalPeriode = (
-  lagretPeriode: CustomVilkarsVurdertePeriode | VilkarsVurdertPeriode,
+  lagretPeriode: CustomVilkarsVurdertePeriode | VilkårsvurdertPeriode,
   perioder: DetaljertFeilutbetalingPeriode[] | CustomPeriode[],
 ) =>
   perioder.find(
@@ -109,7 +108,7 @@ const erIkkeLagret = (periode: DetaljertFeilutbetalingPeriode, lagredePerioder: 
 
 export const slaSammenOriginaleOgLagredePeriode = (
   perioder: DetaljertFeilutbetalingPeriode[],
-  vilkarsvurdering: VilkarsVurdertePerioderWrapper,
+  vilkarsvurdering: VilkårsvurdertePerioderWrapper,
   rettsgebyr: DetaljerteFeilutbetalingsperioder['rettsgebyr'],
 ): CustomPerioder => {
   const totalbelop = perioder.reduce(
@@ -119,7 +118,7 @@ export const slaSammenOriginaleOgLagredePeriode = (
   const erTotalBelopUnder4Rettsgebyr = totalbelop < rettsgebyr * 4;
   const lagredeVilkarsvurdertePerioder = vilkarsvurdering.vilkarsVurdertePerioder;
 
-  const lagredePerioder = lagredeVilkarsvurdertePerioder.map((lagretPeriode: VilkarsVurdertPeriode): CustomPeriode => {
+  const lagredePerioder = lagredeVilkarsvurdertePerioder.map((lagretPeriode: VilkårsvurdertPeriode): CustomPeriode => {
     const originalPeriode = finnOriginalPeriode(lagretPeriode, perioder);
     return {
       ...originalPeriode,
@@ -188,7 +187,7 @@ export const buildInitialValues = (
 export const transformValues = (
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[],
   sarligGrunnTyper: KodeverkMedNavn[],
-): VilkarsVurderingAp => ({
+): VilkårsvurderingAp => ({
   kode: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
   vilkarsVurdertePerioder: vilkarsVurdertePerioder
     .filter((p: CustomVilkarsVurdertePeriode) => !p.erForeldet)
@@ -224,14 +223,14 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
   return undefined;
 };
 
-export interface OwnProps {
+export interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
-  submitCallback: (aksjonspunktData: VilkarsVurderingAp) => Promise<void>;
+  submitCallback: (aksjonspunktData: VilkårsvurderingAp) => Promise<void>;
   readOnly: boolean;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   perioder: DetaljertFeilutbetalingPeriode[];
-  vilkarvurdering: VilkarsVurdertePerioderWrapper;
+  vilkarvurdering: VilkårsvurdertePerioderWrapper;
   rettsgebyr: DetaljerteFeilutbetalingsperioder['rettsgebyr'];
   relasjonsRolleType: string;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
@@ -246,7 +245,7 @@ export interface OwnProps {
  *
  * Behandlingspunkt Tilbakekreving. Setter opp en tidslinje som lar en velge periode. Ved valg blir et detaljevindu vist.
  */
-const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
+export const TilbakekrevingForm = ({
   perioderForeldelse,
   kodeverkSamlingFpTilbake,
   submitCallback,
@@ -261,7 +260,7 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
   behandlingUuid,
   formData,
   setFormData,
-}) => {
+}: Props) => {
   const sammenslåttePerioder = slaSammenOriginaleOgLagredePeriode(perioder, vilkarvurdering, rettsgebyr);
   const [vilkårsvurdertePerioder, setVilkårsvurdertePerioder] = useState<CustomVilkarsVurdertePeriode[]>(
     formData || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
@@ -446,5 +445,3 @@ const TilbakekrevingForm: FunctionComponent<OwnProps> = ({
     </FaktaGruppe>
   );
 };
-
-export default TilbakekrevingForm;

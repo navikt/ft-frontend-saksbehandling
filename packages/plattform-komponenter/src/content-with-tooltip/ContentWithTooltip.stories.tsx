@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentWithTooltip from './ContentWithTooltip';
+import { ContentWithTooltip } from './ContentWithTooltip';
 
 export default {
   title: 'Content with tooltip',

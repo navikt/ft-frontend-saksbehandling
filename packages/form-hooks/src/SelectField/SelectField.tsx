@@ -2,7 +2,7 @@ import { Select as NavSelect } from '@navikt/ds-react';
 import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 import { getError, getValidationRules } from '../formUtils';
 
 export interface Props {
@@ -21,7 +21,7 @@ export interface Props {
   size?: 'medium' | 'small';
 }
 
-const SelectField = ({
+export const SelectField = ({
   name,
   label,
   selectValues,
@@ -81,5 +81,3 @@ const SelectField = ({
     </NavSelect>
   );
 };
-
-export default SelectField;

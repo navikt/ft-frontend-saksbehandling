@@ -10,7 +10,8 @@ export interface HeaderProps {
 }
 
 const headerCls = bemUtils('header');
-export const Header: React.FunctionComponent<HeaderProps> = ({ title, titleHref, changeLocation, children }) => (
+
+export const Header = ({ title, titleHref, changeLocation, children }: HeaderProps) => (
   <header className={styles[headerCls.block]}>
     <div className={styles[headerCls.element('column')]}>
       {titleHref || changeLocation ? (
@@ -35,5 +36,3 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ title, titleHref,
     <div className={styles[headerCls.element('column')]}>{children}</div>
   </header>
 );
-
-export default Header;

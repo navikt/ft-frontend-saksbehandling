@@ -1,4 +1,4 @@
-enum BehandlingArsakType {
+export enum BehandlingArsakType {
   FEIL_I_LOVANDVENDELSE = 'RE-LOV',
   FEIL_REGELVERKSFORSTAELSE = 'RE-RGLF',
   FEIL_ELLER_ENDRET_FAKTA = 'RE-FEFAKTA',
@@ -28,5 +28,3 @@ enum BehandlingArsakType {
   RE_FEILUTBETALT_BELØP_REDUSERT = 'RE_FEILUTBETALT_BELØP_REDUSERT',
   REBEREGN_FERIEPENGER = 'REBEREGN-FERIEPENGER',
 }
-
-export default BehandlingArsakType;

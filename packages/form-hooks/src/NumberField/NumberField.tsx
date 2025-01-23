@@ -1,7 +1,7 @@
 import React, { ReactNode, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { TextField } from '@navikt/ds-react';
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 import { getError, getValidationRules } from '../formUtils';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
@@ -23,7 +23,7 @@ export interface Props {
   onChange?: (value: any) => void;
 }
 
-const NumberField = ({
+export const NumberField = ({
   name,
   label,
   hideLabel,
@@ -109,5 +109,3 @@ const NumberField = ({
     />
   );
 };
-
-export default NumberField;
