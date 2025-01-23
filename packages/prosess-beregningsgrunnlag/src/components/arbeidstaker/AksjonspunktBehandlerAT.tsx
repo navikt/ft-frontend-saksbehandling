@@ -1,19 +1,19 @@
-import React, { FunctionComponent, ReactElement } from 'react';
 import { BodyShort } from '@navikt/ds-react';
+import { ReactElement } from 'react';
 
 import { InputField } from '@navikt/ft-form-hooks';
-import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
+import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
@@ -63,14 +63,7 @@ const createRows = (
     </FlexRow>
   ));
 
-interface StaticFunctions {
-  transformValues: (
-    values: ArbeidstakerInntektValues,
-    alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-  ) => ArbeidsinntektResultat[];
-}
-
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
   kodeverkSamling: KodeverkForPanel;
@@ -78,14 +71,15 @@ type OwnProps = {
   fieldIndex: number;
   formName: string;
 };
-const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = ({
+
+export const AksjonspunktBehandlerAT = ({
   readOnly,
   alleAndelerIForstePeriode,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
   formName,
-}) => {
+}: Props) => {
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
     <>
@@ -114,5 +108,3 @@ AksjonspunktBehandlerAT.transformValues = (
   }
   return inntektPrAndelList;
 };
-
-export default AksjonspunktBehandlerAT;

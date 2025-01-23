@@ -1,19 +1,18 @@
-import React, { FunctionComponent } from 'react';
 import { BodyShort, Label } from '@navikt/ds-react';
 
-import { FormattedMessage } from 'react-intl';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { FormattedMessage } from 'react-intl';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const Inntektsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
+export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   // Vi ønsker alltid kun å vise data fra siste beregnede periode, dvs nest siste periode (koronologisk) i grunnlaget
   if (beregningsgrunnlag.beregningsgrunnlagPeriode.length < 2) {
     return null;
@@ -71,4 +70,3 @@ const Inntektsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag 
     </div>
   );
 };
-export default Inntektsopplysninger;

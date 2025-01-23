@@ -1,6 +1,6 @@
 import { SammenligningType, isStatusSNOrKombinasjon } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
@@ -10,7 +10,7 @@ const {
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
-enum LovParagraf {
+export enum LovParagraf {
   ÅTTE_TRETTIFEM = '8-35',
   ÅTTE_TRETTI = '8-30',
 }
@@ -42,5 +42,3 @@ export const mapAvklaringsbehovTilLovparagraf = (a: BeregningAvklaringsbehov): s
   }
   return null;
 };
-
-export default LovParagraf;

@@ -38,7 +38,7 @@ export type NyIArbeidslivetruttoNæringResultatAP = {
   bruttoBeregningsgrunnlag: number;
 } & Begrunnelse;
 
-type BeregningsgrunnlagResultatAP =
+export type BeregningsgrunnlagResultatAP =
   | NyIArbeidslivetruttoNæringResultatAP
   | VurderVarigEndretNyoppstartetResultatAP
   | FastsettAvvikATFLTidsbegrensetResultatAP
@@ -64,5 +64,3 @@ export type GruppertAksjonspunktData = {
   kode: string;
   aksjonspunktData: BeregningsgrunnlagResultatAP;
 };
-
-export default BeregningsgrunnlagResultatAP;

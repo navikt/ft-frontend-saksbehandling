@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { Heading, Label, Table } from '@navikt/ds-react';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PgiVerdier, PGIPrÅr } from '@navikt/ft-types';
 
 const TOM_ARRAY: PGIPrÅr[] = [];
 
@@ -51,7 +51,7 @@ const lagOppsummeringRad = (pgiSnitt: number): React.ReactElement => (
   </Table.Row>
 );
 
-type OwnProps = {
+type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
   inntektsgrunnlag?: Inntektsgrunnlag;
 };
@@ -62,7 +62,7 @@ type OwnProps = {
  * Presentasjonskomponent. Viser PGI-verdier for selvstendig næringsdrivende.
  * Vises også hvis status er en kombinasjonsstatus som inkluderer selvstendig næringsdrivende.
  */
-const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndeler, inntektsgrunnlag }) => {
+export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }: Props) => {
   const andel = alleAndeler.find(
     a =>
       a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
@@ -106,5 +106,3 @@ const GrunnlagForAarsinntektPanelSN: FunctionComponent<OwnProps> = ({ alleAndele
     </>
   );
 };
-
-export default GrunnlagForAarsinntektPanelSN;

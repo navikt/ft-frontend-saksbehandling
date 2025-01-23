@@ -19,5 +19,3 @@ export type NyIArbeidslivetruttoNæringTransformed = {
   begrunnelse: string;
   bruttoBeregningsgrunnlag: number;
 };
-
-export default VurderVarigEndretTransformed;

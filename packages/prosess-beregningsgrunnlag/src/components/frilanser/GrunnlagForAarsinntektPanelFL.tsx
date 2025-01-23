@@ -1,16 +1,15 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { DateLabel, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { DateLabel, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import Ledelinje from '../fellesPaneler/Ledelinje';
+import { Ledelinje } from '../fellesPaneler/Ledelinje';
 
-type OwnProps = {
+type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
 };
 
@@ -21,7 +20,7 @@ type OwnProps = {
  * Viser kun én frilanserinntekt.
  * Vises også hvis status er en kombinasjonsstatus som inkluderer frilanser.
  */
-const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
+export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
   const relevantAndel = alleAndeler.find(
     andel => !andel.erTilkommetAndel && andel.aktivitetStatus === AktivitetStatus.FRILANSER,
   );
@@ -75,5 +74,3 @@ const GrunnlagForAarsinntektPanelFL: FunctionComponent<OwnProps> = ({ alleAndele
     </>
   );
 };
-
-export default GrunnlagForAarsinntektPanelFL;

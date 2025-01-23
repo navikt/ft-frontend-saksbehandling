@@ -1,15 +1,14 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { BlaBoksMedCheckmarkListe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, unique, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
-import { DDMMYYYY_DATE_FORMAT, unique, YYYY_MM_FORMAT } from '@navikt/ft-utils';
-import { BlaBoksMedCheckmarkListe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FormattedMessage } from 'react-intl';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning, Saksopplysninger } from '@navikt/ft-types';
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
+import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
-type OwnProps = {
+type Props = {
   skjeringstidspunktDato: string;
   saksopplysninger?: Saksopplysninger;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -132,11 +131,11 @@ function lagLesMer(
  * Viser skjæringstidspunkt for beregningen og en liste med aktivitetsstatuser.
  */
 
-const SaksopplysningPanel: FunctionComponent<OwnProps> = ({
+export const SaksopplysningPanel = ({
   skjeringstidspunktDato,
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
-}) => {
+}: Props) => {
   const saksopplysningerTilBlaBoksMedCheckmarkListe = [];
   if (
     saksopplysninger &&
@@ -154,5 +153,3 @@ const SaksopplysningPanel: FunctionComponent<OwnProps> = ({
   }
   return <BlaBoksMedCheckmarkListe saksopplysninger={saksopplysningerTilBlaBoksMedCheckmarkListe} />;
 };
-
-export default SaksopplysningPanel;

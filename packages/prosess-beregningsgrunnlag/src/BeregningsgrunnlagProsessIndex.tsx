@@ -1,22 +1,22 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps, Vilkar } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps, Vilkår } from '@navikt/ft-types';
+import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { useEffect, useState } from 'react';
+import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 
-import classNames from 'classnames/bind';
-import dayjs from 'dayjs';
 import { Heading } from '@navikt/ds-react';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import styles from './beregningsgrunnlagProsessIndex.module.css';
+import classNames from 'classnames/bind';
+import dayjs from 'dayjs';
 import messages from '../i18n/nb_NO.json';
-import BeregningFP from './components/BeregningFP';
+import styles from './beregningsgrunnlagProsessIndex.module.css';
+import { BeregningFP } from './components/BeregningFP';
+import { BeregningFormValues } from './types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
-import BeregningFormValues from './types/BeregningFormValues';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import KodeverkForPanel from './types/kodeverkForPanel';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { KodeverkForPanel } from './types/KodeverkForPanel';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -33,7 +33,7 @@ const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
-const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkar) => {
+const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår) => {
   const ikkeTilstrekkeligInntektsgrunnlag = beregningsgrunnlagsvilkar?.perioder?.some(
     periode => periode.avslagKode === '1043',
   );
@@ -62,7 +62,7 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkar) => {
 type OwnProps = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  beregningsgrunnlagsvilkar: Vilkar;
+  beregningsgrunnlagsvilkar: Vilkår;
   readOnlySubmitButton: boolean;
   kodeverkSamling: KodeverkForPanel;
 };
@@ -73,7 +73,7 @@ type MenyProp = {
   stp: string;
 };
 
-const erBGTilVurdering = (bgVilkar: Vilkar, beregningsgrunnlag: Beregningsgrunnlag) => {
+const erBGTilVurdering = (bgVilkar: Vilkår, beregningsgrunnlag: Beregningsgrunnlag) => {
   const vilårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
   const perioderTilVurdering =
     bgVilkar && bgVilkar.perioder
@@ -87,16 +87,14 @@ const harAvklaringsbehovSomkanLøses = (beregningsgrunnlag: Beregningsgrunnlag) 
     ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon) && ab.kanLoses,
   );
 
-const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vilkar): MenyProp[] =>
+const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vilkår): MenyProp[] =>
   kronologiskeGrunnlag.map(gr => ({
     skalVurderes: erBGTilVurdering(bgVilkår, gr),
     harAvklaringsbehov: harAvklaringsbehovSomkanLøses(gr),
     stp: dayjs(gr.skjaeringstidspunktBeregning).format(DDMMYYYY_DATE_FORMAT),
   }));
 
-const BeregningsgrunnlagProsessIndex: FunctionComponent<
-  OwnProps & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>
-> = ({
+export const BeregningsgrunnlagProsessIndex = ({
   beregningsgrunnlagListe,
   submitCallback,
   isReadOnly,
@@ -106,7 +104,7 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-}) => {
+}: OwnProps & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
   const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
 
   const skalBrukeSidemeny = listeMedGrunnlag.length > 1;
@@ -172,5 +170,3 @@ const BeregningsgrunnlagProsessIndex: FunctionComponent<
     </RawIntlProvider>
   );
 };
-
-export default BeregningsgrunnlagProsessIndex;

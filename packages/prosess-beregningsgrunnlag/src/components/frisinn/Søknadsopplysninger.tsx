@@ -1,14 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import { Label, BodyShort } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
 
 const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
   <FlexRow>
@@ -39,10 +38,11 @@ const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
   );
 };
 //
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
-const Søknadsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
+
+export const Søknadsopplysninger = ({ beregningsgrunnlag }: Props) => {
   const ytelsegrunnlag = beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag;
   const { frisinnPerioder } = ytelsegrunnlag;
   return (
@@ -60,5 +60,3 @@ const Søknadsopplysninger: FunctionComponent<OwnProps> = ({ beregningsgrunnlag 
     </div>
   );
 };
-
-export default Søknadsopplysninger;

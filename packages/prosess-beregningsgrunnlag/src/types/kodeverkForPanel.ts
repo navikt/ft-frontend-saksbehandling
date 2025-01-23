@@ -6,6 +6,4 @@ export enum KodeverkType {
   OVERFOERING_AARSAK_TYPE = 'OverføringÅrsak',
 }
 
-type KodeverkForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
-
-export default KodeverkForPanel;
+export type KodeverkForPanel = Record<KodeverkType, KodeverkMedNavn[]>;

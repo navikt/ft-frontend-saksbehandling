@@ -1,17 +1,17 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Label } from '@navikt/ds-react';
+import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
 import {
-  Beregningsgrunnlag as BeregningsgrunnlagProp,
+  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
+  Beregningsgrunnlag as BeregningsgrunnlagProp,
   SammenligningsgrunlagProp,
-  BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
-import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
-import { Label } from '@navikt/ds-react';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -120,12 +120,12 @@ const lagAksjonspunktHelpText = (
   );
 };
 
-type OwnProps = {
+type Props = {
   avklaringsbehov: BeregningAvklaringsbehov[];
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const AksjonspunktTittel: FunctionComponent<OwnProps> = ({ avklaringsbehov, beregningsgrunnlag }) => {
+export const AksjonspunktTittel = ({ avklaringsbehov, beregningsgrunnlag }: Props) => {
   const førstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode
     ? beregningsgrunnlag.beregningsgrunnlagPeriode[0]
     : undefined;
@@ -146,5 +146,3 @@ const AksjonspunktTittel: FunctionComponent<OwnProps> = ({ avklaringsbehov, bere
     </>
   );
 };
-
-export default AksjonspunktTittel;

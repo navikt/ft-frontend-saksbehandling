@@ -1,6 +1,5 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -9,29 +8,27 @@ import {
   Inntektsgrunnlag,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import {
   FastsettAvvikATFLResultatAP,
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
+import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTB';
+import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
+import { SammenligningsgrunnlagAOrdningen } from '../fellesPaneler/SammenligningsgrunnlagAOrdningen';
+import { GrunnlagForAarsinntektPanelFL } from '../frilanser/GrunnlagForAarsinntektPanelFL';
+import { MilitaerPanel } from '../militar/MilitaerPanel';
+import { GrunnlagForAarsinntektPanelSN } from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';
+import { TilstotendeYtelser } from '../tilstotendeYtelser/TilstotendeYtelser';
+import { YtelserFraInfotrygd } from '../tilstotendeYtelser/YtelserFraInfotrygd';
 
-import YtelserFraInfotrygd from '../tilstotendeYtelser/YtelserFraInfotrygd';
-import GrunnlagForAarsinntektPanelSN from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';
-import TilstotendeYtelser from '../tilstotendeYtelser/TilstotendeYtelser';
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
-
-import MilitaerPanel from '../militar/MilitaerPanel';
-import AksjonspunktBehandlerTidsbegrenset from '../arbeidstaker/AksjonspunktBehandlerTB';
-import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
-
-import GrunnlagForAarsinntektPanelFL from '../frilanser/GrunnlagForAarsinntektPanelFL';
-import SammenlignsgrunnlagAOrdningen from '../fellesPaneler/SammenligningsgrunnlagAOrdningen';
-import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
-
-import NaeringsopplysningsPanel from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
+import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { NaeringsopplysningsPanel } from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import beregningStyles from './beregningsgrunnlag.module.css';
-import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   ProsessBeregningsgrunnlagAvklaringsbehovCode;
@@ -122,7 +119,7 @@ const createRelevantePaneler = (
       sammenligningsgrunnlag && (
         <>
           {storSpacer}
-          <SammenlignsgrunnlagAOrdningen
+          <SammenligningsgrunnlagAOrdningen
             sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
             sammenligningsgrunnlag={sammenligningsgrunnlag}
           />
@@ -131,19 +128,7 @@ const createRelevantePaneler = (
   </div>
 );
 
-interface StaticFunctions {
-  buildInitialValues: (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]) => ATFLBegrunnelseValues;
-  transformATFLValues: (
-    values: ATFLValues,
-    alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
-  ) => FastsettAvvikATFLResultatAP;
-  transformATFLTidsbegrensetValues: (
-    values: ATFLTidsbegrensetValues,
-    allePerioder: BeregningsgrunnlagPeriodeProp[],
-  ) => FastsettAvvikATFLTidsbegrensetResultatAP;
-}
-
-type OwnProps = {
+type Props = {
   relevanteStatuser: RelevanteStatuserProp;
   allePerioder?: BeregningsgrunnlagPeriodeProp[];
   gjelderBesteberegning: boolean;
@@ -162,7 +147,7 @@ type OwnProps = {
  * Presentasjonsskomponent. Holder på alle komponenter relatert til å vise beregningsgrunnlaget til de forskjellige
  * statusene og viser disse samlet i en faktagruppe.
  */
-const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const Beregningsgrunnlag = ({
   relevanteStatuser,
   allePerioder = undefined,
   gjelderBesteberegning,
@@ -170,7 +155,7 @@ const Beregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
   sammenligningsGrunnlagInntekter = undefined,
   arbeidsgiverOpplysningerPerId,
   sammenligningsgrunnlag,
-}) => {
+}: Props) => {
   if (!allePerioder) {
     return null;
   }
@@ -213,5 +198,3 @@ Beregningsgrunnlag.transformATFLTidsbegrensetValues = (
   fastsatteTidsbegrensedePerioder: AksjonspunktBehandlerTidsbegrenset.transformValues(values, allePerioder),
   frilansInntekt: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,
 });
-
-export default Beregningsgrunnlag;

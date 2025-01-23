@@ -1,9 +1,8 @@
 import { Form, TextAreaField } from '@navikt/ft-form-hooks';
-import React, { FunctionComponent, ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -13,31 +12,32 @@ import {
   BeregningsgrunnlagPeriodeProp,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   SammenligningsgrunlagProp,
-  Vilkar,
-  Vilkarperiode,
+  Vilkår,
+  Vilkårperiode,
 } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { useFieldArray, useForm } from 'react-hook-form';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import AksjonspunktBehandlerAT from '../arbeidstaker/AksjonspunktBehandlerAT';
-import AksjonspunktBehandlerTB from '../arbeidstaker/AksjonspunktBehandlerTB';
-import BeregningsgrunnlagPanel from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import AksjonspunktBehandlerFL from '../frilanser/AksjonspunktBehandlerFL';
-import AksjonspunktBehandlerSNEllerMidlInakt from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
+import { AksjonspunktBehandlerTidsbegrenset as AksjonspunktBehandlerTB } from '../arbeidstaker/AksjonspunktBehandlerTB';
+import { Beregningsgrunnlag as BeregningsgrunnlagPanel } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
+import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
+import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 
-import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunktTsType';
-import BeregningFormValues from '../../types/BeregningFormValues';
-import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunktTsType';
-import { VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
-import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
-import GrunnlagForAarsinntektPanelAT from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
-import FastsettSNNyIArbeid from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
-import AksjonspunktBehandlerHeader from './AksjonspunktBehandlerHeader';
-import styles from './aksjonspunktBehandler.module.css';
-import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import ProsessStegSubmitButton from '../ProsessStegSubmitButton';
+import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
+import { BeregningFormValues } from '../../types/BeregningFormValues';
+import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
+import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
+import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
+import { AksjonspunktBehandlerHeader } from './AksjonspunktBehandlerHeader';
+import styles from './aksjonspunktBehandler.module.css';
+import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 
 const minLength3 = minLength(3);
 const MAX_LENGTH = 4000;
@@ -86,7 +86,7 @@ const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: Beregningsgrunnlag
       periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET),
   );
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
+const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
   // @ts-expect-error
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
@@ -118,7 +118,7 @@ const buildInitialValues = (
     ...GrunnlagForAarsinntektPanelAT.buildInitialValues(arbeidstakerAndeler),
   };
   const valuesSNEllerMidlInaktiv = {
-    ...AksjonspunktBehandlerSNEllerMidlInakt.buildInitialValues(
+    ...AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.buildInitialValues(
       snEllerMidlertidigInaktivAndeler,
       beregningsgrunnlag.avklaringsbehov,
     ),
@@ -157,7 +157,7 @@ const buildInitialValues = (
 
 const buildFieldInitialValue = (
   beregningsgrunnlag: Beregningsgrunnlag,
-  vilkårsperiode: Vilkarperiode,
+  vilkårsperiode: Vilkårperiode,
   avklaringsbehov?: BeregningAvklaringsbehov,
   sammenligningsgrunnlag?: SammenligningsgrunlagProp,
 ): BeregningsgrunnlagValues => {
@@ -177,7 +177,7 @@ const buildFieldInitialValue = (
 
 const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
-  vilkår: Vilkar,
+  vilkår: Vilkår,
   formName: string,
   lovparagraf: LovParagraf,
 ): BeregningFormValues => ({
@@ -221,7 +221,7 @@ const SelvstendigNæringsdrivendeContainer = ({
   return (
     <>
       <VerticalSpacer eightPx />
-      <AksjonspunktBehandlerSNEllerMidlInakt
+      <AksjonspunktsbehandlerSNEllerMidlertidigInaktiv
         readOnly={readOnly}
         avklaringsbehov={avklaringsbehov}
         erNyArbLivet={erNyArbLivet}
@@ -379,7 +379,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return [
       {
         kode: VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlInakt.transformValues(
+        aksjonspunktData: AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues(
           values as VurderOgFastsettValues,
           values.gjeldendeAvklaringsbehov,
         ),
@@ -390,7 +390,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return [
       {
         kode: VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlInakt.transformValues(
+        aksjonspunktData: AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues(
           values as VurderOgFastsettValues,
           values.gjeldendeAvklaringsbehov,
         ),
@@ -401,7 +401,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return [
       {
         kode: FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlInakt.transformValues(
+        aksjonspunktData: AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues(
           values as VurderOgFastsettValues,
           values.gjeldendeAvklaringsbehov,
         ),
@@ -433,13 +433,13 @@ const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) 
   return aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   kodeverkSamling: KodeverkForPanel;
   readOnlySubmitButton: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  vilkår: Vilkar;
+  vilkår: Vilkår;
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
@@ -449,7 +449,7 @@ type OwnProps = {
   setSubmitting: (toggle: boolean) => void;
 };
 
-const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
+export const AksjonspunktBehandler = ({
   readOnly,
   readOnlySubmitButton,
   kodeverkSamling,
@@ -463,7 +463,7 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
   lovparagraf,
   finnesFormSomSubmittes,
   setSubmitting,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
@@ -584,5 +584,3 @@ const AksjonspunktBehandler: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default AksjonspunktBehandler;

@@ -42,5 +42,3 @@ export type ArbeidstakerFrilansValues = FrilansInntektValues & {
 export type ATFLBegrunnelseValues = {
   ATFLVurdering: string;
 };
-
-export default ArbeidstakerFrilansValues;

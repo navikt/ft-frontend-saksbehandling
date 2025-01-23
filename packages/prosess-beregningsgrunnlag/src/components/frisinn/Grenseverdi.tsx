@@ -1,11 +1,10 @@
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react';
-import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
-import dayjs from 'dayjs';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
+import dayjs from 'dayjs';
+import { FormattedMessage } from 'react-intl';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import {
   erSøktForAndelISøknadsperiode,
@@ -125,7 +124,7 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
   );
 };
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
@@ -134,7 +133,7 @@ type OwnProps = {
  * Om det er søkt to perioder i en måned skal disse vises som en rad der vi tar utgangspunkt i den siste, fordi denne alltid
  * vil vare ut måneden.
  */
-const Grenseverdi: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
+export const Grenseverdi = ({ beregningsgrunnlag }: Props) => {
   const relevanteFrisinnperioder = finnFrisinnperioderSomSkalVises(
     beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
   );
@@ -150,5 +149,3 @@ const Grenseverdi: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
     </>
   );
 };
-
-export default Grenseverdi;

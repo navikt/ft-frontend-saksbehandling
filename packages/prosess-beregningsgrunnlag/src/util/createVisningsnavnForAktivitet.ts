@@ -2,11 +2,11 @@ import { ArbeidsgiverOpplysninger, ArbeidsgiverOpplysningerPerId, Beregningsgrun
 import dayjs from 'dayjs';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import KodeverkForPanel from '../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../types/kodeverkForPanel';
 
 const getEndCharFromId = (id: string | undefined): string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
 
-const createVisningsnavnForAktivitet = (
+export const createVisningsnavnForAktivitet = (
   arbeidsgiverOpplysninger: ArbeidsgiverOpplysninger,
   eksternReferanse: string | undefined,
 ): string => {
@@ -39,5 +39,3 @@ export const createVisningsnavnForAndel = (
   }
   return lagVisningFraArbeidType(andel, kodeverkSamling);
 };
-
-export default createVisningsnavnForAktivitet;

@@ -14,5 +14,3 @@ export type NaturalytelseTabellRad = {
 export type NaturalytelseTabellData = {
   rader: NaturalytelseTabellRad[];
 };
-
-export default NaturalytelseTabellData;

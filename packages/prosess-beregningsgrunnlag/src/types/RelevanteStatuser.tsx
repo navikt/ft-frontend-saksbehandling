@@ -1,4 +1,4 @@
-type RelevanteStatuserProp = Readonly<{
+export type RelevanteStatuserProp = Readonly<{
   isArbeidstaker: boolean;
   isFrilanser: boolean;
   isSelvstendigNaeringsdrivende: boolean;
@@ -11,5 +11,3 @@ type RelevanteStatuserProp = Readonly<{
   isKombinasjonsstatus: boolean;
   isMilitaer: boolean;
 }>;
-
-export default RelevanteStatuserProp;

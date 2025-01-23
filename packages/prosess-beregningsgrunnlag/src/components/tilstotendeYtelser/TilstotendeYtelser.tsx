@@ -1,15 +1,14 @@
-import React, { FunctionComponent } from 'react';
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
+import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
-import Ledelinje from '../fellesPaneler/Ledelinje';
+import { Ledelinje } from '../fellesPaneler/Ledelinje';
 
 export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
@@ -29,13 +28,13 @@ export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel):
 const isAktivitetKodeDagpenger = (aktivitetStatusKode: string): boolean =>
   aktivitetStatusKode === AktivitetStatus.DAGPENGER;
 
-type OwnProps = {
+type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
   relevanteStatuser: RelevanteStatuserProp;
   gjelderBesteberegning: boolean;
 };
 
-const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevanteStatuser, gjelderBesteberegning }) => {
+export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBesteberegning }: Props) => {
   const relevanteAndeler = alleAndeler.filter(andel => isStatusDagpengerOrAAP(andel.aktivitetStatus));
   const harFlereYtelser = relevanteAndeler.length > 1;
   return (
@@ -97,5 +96,3 @@ const TilstotendeYtelser: FunctionComponent<OwnProps> = ({ alleAndeler, relevant
     </>
   );
 };
-
-export default TilstotendeYtelser;

@@ -1,12 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react';
 
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer, Table, TableColumn, TableRow, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 
-export interface OwnProps {
+export interface Props {
   periode: BeregningsgrunnlagPeriodeProp;
   besteMåneder?: Månedsgrunnlag[];
 }
@@ -50,7 +49,7 @@ const headerColumnContent = [
  *
  * Presentasjonskomponent. Viser sammenligning av kap 8 beregning og §14-7, ledd 3 beregning.
  */
-const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ periode, besteMåneder }) => {
+export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: Props) => {
   if (!besteMåneder || besteMåneder.length < 1) {
     return null;
   }
@@ -98,5 +97,3 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ peri
     </div>
   );
 };
-
-export default BesteberegningResultatGrunnlagPanel;
