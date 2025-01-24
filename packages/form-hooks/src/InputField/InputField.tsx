@@ -1,9 +1,10 @@
 import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
 import { TextField, TextFieldProps } from '@navikt/ds-react';
 
-import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 import { getError, getValidationRules } from '../formUtils';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 export interface Props extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
   name: string;

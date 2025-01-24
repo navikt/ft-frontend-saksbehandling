@@ -1,5 +1,7 @@
 import React, { ComponentProps } from 'react';
+
 import { StoryFn } from '@storybook/react';
+
 import { DetailView } from './DetailView';
 
 export default {

@@ -1,4 +1,9 @@
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { ReadMore } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
@@ -9,14 +14,12 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 

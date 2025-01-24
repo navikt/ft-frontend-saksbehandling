@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ContentWithTooltip } from './ContentWithTooltip';
 
 export default {

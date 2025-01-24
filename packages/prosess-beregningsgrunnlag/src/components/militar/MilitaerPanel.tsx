@@ -1,5 +1,6 @@
-import { Heading, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
+
+import { Heading, Label } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';

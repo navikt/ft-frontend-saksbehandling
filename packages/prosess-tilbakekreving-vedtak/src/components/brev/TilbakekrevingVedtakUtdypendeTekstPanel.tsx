@@ -1,13 +1,14 @@
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { PlusCircleIcon } from '@navikt/aksel-icons';
 import { Detail } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
 
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import { useFormContext } from 'react-hook-form';
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
 const minLength3 = minLength(3);

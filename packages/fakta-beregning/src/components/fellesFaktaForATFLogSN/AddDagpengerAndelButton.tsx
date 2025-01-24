@@ -1,12 +1,16 @@
+import { UseFieldArrayAppend } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+
 import { PlusCircleIcon } from '@navikt/aksel-icons';
 import { Button, Detail } from '@navikt/ds-react';
+
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import { UseFieldArrayAppend } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
+
 import { AndelFieldValue } from '../../typer/FieldValues';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+
 import styles from './addAndelButton.module.css';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({

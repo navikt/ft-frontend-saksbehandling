@@ -1,8 +1,11 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
+
+import { render, screen } from '@testing-library/react';
+
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { InntektstabellPanel } from './InntektstabellPanel';
+
 import messages from '../../../i18n/nb_NO.json';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;

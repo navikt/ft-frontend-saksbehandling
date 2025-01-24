@@ -4,6 +4,7 @@ import {
   FigureOutwardFillIcon,
   SilhouetteFillIcon,
 } from '@navikt/aksel-icons';
+
 import { Gender } from './PersonCard';
 
 interface Props {

@@ -1,10 +1,12 @@
+import { FormattedMessage } from 'react-intl';
+
 import { Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import dayjs from 'dayjs';
-import { FormattedMessage } from 'react-intl';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+
 import { BeregningsresultatPeriode } from './BeregningsresultatPeriode';
 import {
   erSøktForAndelISøknadsperiode,
@@ -13,6 +15,8 @@ import {
   FrisinnGrunnlag,
   FrisinnPeriode,
 } from './FrisinnUtils';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const finnInntektstak = (bg: Beregningsgrunnlag) => (bg.grunnbeløp ? bg.grunnbeløp * 6 : 0);
 

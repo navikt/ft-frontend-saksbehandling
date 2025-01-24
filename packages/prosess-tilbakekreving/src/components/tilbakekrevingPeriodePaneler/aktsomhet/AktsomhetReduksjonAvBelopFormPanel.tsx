@@ -1,16 +1,17 @@
-import { BodyShort, Detail, HStack, Label } from '@navikt/ds-react';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
+import { BodyShort, Detail, HStack, Label } from '@navikt/ds-react';
 
 import { InputField, RadioGroupPanel, SelectField } from '@navikt/ft-form-hooks';
 import { maxValue, minValue, required } from '@navikt/ft-form-validators';
+import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { useFormContext } from 'react-hook-form';
+import { Aktsomhet } from '../../../kodeverk/aktsomhet';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
-import { Aktsomhet } from '../../../kodeverk/aktsomhet';
 
 const minValue1 = minValue(0.0);
 const maxValue100 = maxValue(99.99);

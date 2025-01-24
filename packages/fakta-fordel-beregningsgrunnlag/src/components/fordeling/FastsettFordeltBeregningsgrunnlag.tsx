@@ -6,9 +6,8 @@ import {
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
 
-import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
-
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { FordelBeregningsgrunnlagForm } from './FordelBeregningsgrunnlagForm';
 

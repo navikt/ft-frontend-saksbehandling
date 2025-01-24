@@ -1,18 +1,18 @@
+import { useEffect, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+
 import { Form } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkårperiode } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
-import { useEffect, useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
 
 import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { VurderRefusjonAksjonspunktSubmitType } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import {
-  VurderEndringRefusjonField,
   buildFieldInitialValues,
   transformFieldValues,
+  VurderEndringRefusjonField,
 } from './VurderEndringRefusjonField';
 
 export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';

@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
+
 import { BodyLong, Label } from '@navikt/ds-react';
+
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './readOnlyField.module.css';

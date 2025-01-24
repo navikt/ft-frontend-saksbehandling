@@ -1,6 +1,8 @@
+import { useState } from 'react';
+
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkår } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { useState } from 'react';
+
 import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';

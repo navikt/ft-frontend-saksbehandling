@@ -1,6 +1,7 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { VurderBesteberegningPanel, besteberegningField } from './VurderBesteberegningForm';
+import { besteberegningField, VurderBesteberegningPanel } from './VurderBesteberegningForm';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 

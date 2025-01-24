@@ -1,5 +1,7 @@
 import React, { ComponentProps } from 'react';
+
 import { StoryFn } from '@storybook/react';
+
 import { Autocomplete } from './Autocomplete';
 
 export default {

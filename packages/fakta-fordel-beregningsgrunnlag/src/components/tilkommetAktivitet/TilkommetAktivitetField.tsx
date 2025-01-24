@@ -1,4 +1,9 @@
+import React from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
+
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -9,14 +14,13 @@ import {
 } from '@navikt/ft-types';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import React from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
+
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { SubmitButton } from '../felles/SubmitButton';
-import styles from './tilkommetAktivitet.module.css';
 import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
 import { TilkommetInntektsforholdField } from './TilkommetInntektsforholdField';
+
+import styles from './tilkommetAktivitet.module.css';
 
 type Props = {
   formName: string;

@@ -1,13 +1,17 @@
-import { Button, HStack, Heading, Label } from '@navikt/ds-react';
+import React, { useMemo, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import { Button, Heading, HStack, Label } from '@navikt/ds-react';
+
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { useMemo, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import styles from './InntektstabellPanel.module.css';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+
+import styles from './InntektstabellPanel.module.css';
 
 export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringRapportertInntekt';
 

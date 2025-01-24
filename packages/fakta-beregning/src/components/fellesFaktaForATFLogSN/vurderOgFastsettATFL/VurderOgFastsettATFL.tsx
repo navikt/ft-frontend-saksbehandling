@@ -1,3 +1,6 @@
+import React, { useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -6,32 +9,31 @@ import {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { AksjonspunktBoks } from '../../felles/AksjonspunktBoks';
-import { INNTEKT_FIELD_ARRAY_NAME, erOverstyring, erOverstyringAvBeregningsgrunnlag } from '../BgFaktaUtils';
-import { InntektFieldArray } from '../InntektFieldArray';
-import { InntektstabellPanel } from '../InntektstabellPanel';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import {
-  VurderBesteberegningPanel,
   besteberegningField,
+  VurderBesteberegningPanel,
   vurderBesteberegningTransform,
 } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { erOverstyring, erOverstyringAvBeregningsgrunnlag, INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
+import { InntektFieldArray } from '../InntektFieldArray';
+import { InntektstabellPanel } from '../InntektstabellPanel';
 import { NyIArbeidslivetSNForm } from '../nyIArbeidslivet/NyIArbeidslivetSNForm';
 import { TidsbegrensetArbeidsforholdForm } from '../tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { VurderMilitaer } from '../vurderMilitaer/VurderMilitaer';
 import { VurderRefusjonForm } from '../vurderrefusjon/VurderRefusjonForm';
-import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import { transformValuesArbeidUtenInntektsmelding } from './forms/ArbeidUtenInntektsmelding';
+import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import { InntektInputFields } from './forms/InntektInputFields';
 import { LonnsendringForm } from './forms/LonnsendringForm';
 import { NyoppstartetFLForm } from './forms/NyoppstartetFLForm';

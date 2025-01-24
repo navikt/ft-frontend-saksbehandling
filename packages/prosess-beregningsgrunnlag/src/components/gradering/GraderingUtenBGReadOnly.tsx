@@ -1,5 +1,6 @@
-import { BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { EditedIcon, VerticalSpacer } from '@navikt/ft-ui-komponenter';

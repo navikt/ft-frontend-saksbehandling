@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+
 import { BehandlingArsakType } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 export type FrisinnAndel = Readonly<{
   oppgittInntekt: number;

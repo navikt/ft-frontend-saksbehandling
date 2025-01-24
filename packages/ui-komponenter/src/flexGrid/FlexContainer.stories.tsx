@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { FlexColumn } from './FlexColumn';
 import { FlexContainer } from './FlexContainer';
 import { FlexRow } from './FlexRow';
-import { FlexColumn } from './FlexColumn';
 
 export default {
   title: 'FlexContainer',

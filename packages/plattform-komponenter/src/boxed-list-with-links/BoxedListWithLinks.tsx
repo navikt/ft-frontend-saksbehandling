@@ -1,7 +1,11 @@
 import React from 'react';
-import { bemUtils } from '@navikt/ft-utils';
+
 import { BodyShort } from '@navikt/ds-react';
+
+import { bemUtils } from '@navikt/ft-utils';
+
 import { BoxedList } from '../boxed-list/BoxedList';
+
 import styles from './boxedListWithLinks.module.css';
 
 interface ListItemProps {

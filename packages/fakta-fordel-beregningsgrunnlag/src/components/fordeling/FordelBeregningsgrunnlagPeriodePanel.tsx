@@ -1,3 +1,10 @@
+import { ReactElement } from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import { Accordion, Label } from '@navikt/ds-react';
+import classnames from 'classnames/bind';
+import dayjs from 'dayjs';
+
 import {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -7,13 +14,10 @@ import {
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import classnames from 'classnames/bind';
-import { ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
 
-import { Accordion, Label } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
 import {
   finnFastsattPrAar,
   setArbeidsforholdInitialValues,
@@ -23,8 +27,6 @@ import {
 } from './BgFordelingUtils';
 import { FordelPeriodeFieldArray } from './FordelPeriodeFieldArray';
 
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
 import styles from './fordelBeregningsgrunnlagPeriodePanel.module.css';
 
 const classNames = classnames.bind(styles);

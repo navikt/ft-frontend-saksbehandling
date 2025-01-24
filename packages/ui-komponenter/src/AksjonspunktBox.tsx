@@ -1,5 +1,6 @@
-import classnames from 'classnames/bind';
 import { ReactNode } from 'react';
+
+import classnames from 'classnames/bind';
 
 import styles from './aksjonspunktBox.module.css';
 

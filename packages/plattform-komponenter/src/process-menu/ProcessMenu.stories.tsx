@@ -1,8 +1,10 @@
 import React from 'react';
-import { ProcessMenu } from './ProcessMenu';
-import { StepType } from './StepType';
+
 import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
+
+import { ProcessMenu } from './ProcessMenu';
+import { StepType } from './StepType';
 
 const meta = {
   component: ProcessMenu,

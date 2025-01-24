@@ -1,4 +1,5 @@
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 

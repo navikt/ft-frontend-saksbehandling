@@ -1,27 +1,25 @@
-import React from 'react';
-import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { StoryFn } from '@storybook/react';
 
+import { alleKodeverk, alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import {
-  BehandlingResultatType,
   BehandlingArsakType,
+  BehandlingResultatType,
+  FagsakYtelseType,
   KonsekvensForYtelsen,
   TilbakekrevingVidereBehandling,
-  FagsakYtelseType,
 } from '@navikt/ft-kodeverk';
-import { alleTilbakekrevingKodeverk, alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
 import { FeilutbetalingFaktaIndex } from './FeilutbetalingFaktaIndex';
 import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
-
-import '@navikt/ds-css';
-
-import '@navikt/ft-ui-komponenter/dist/style.css';
-import '@navikt/ft-form-hooks/dist/style.css';
+import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
+import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
 import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanelFtf';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelFtf';
-import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
+
+import '@navikt/ds-css';
+import '@navikt/ft-form-hooks/dist/style.css';
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
 const feilutbetalingFakta = {
   behandlingFakta: {

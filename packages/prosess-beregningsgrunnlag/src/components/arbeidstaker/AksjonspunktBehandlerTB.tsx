@@ -1,8 +1,9 @@
+import React, { ReactElement } from 'react';
+import { useFormContext, UseFormReturn } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+
 import { BodyShort, Detail } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import React, { ReactElement } from 'react';
-import { UseFormReturn, useFormContext } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -14,21 +15,21 @@ import {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import {
-  TidsbegrensetArbeidsforholdInntektResultat,
-  TidsbegrensetArbeidsforholdPeriodeResultat,
-} from '../../types/interface/BeregningsgrunnlagAP';
 
 import {
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
 } from '../../types/ATFLAksjonspunkt';
-import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-
 import { BeregningFormValues } from '../../types/BeregningFormValues';
+import {
+  TidsbegrensetArbeidsforholdInntektResultat,
+  TidsbegrensetArbeidsforholdPeriodeResultat,
+} from '../../types/interface/BeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const formPrefix = 'inntektField';

@@ -1,5 +1,5 @@
-import { GamleKoder } from './GamleKoder';
 import { FaktaBeregningAvklaringsbehovCode } from './FaktaBeregningAvklaringsbehovCode';
+import { GamleKoder } from './GamleKoder';
 
 export const mapAvklaringsbehovKode = (kode: string): string => {
   if (GamleKoder.AVKLAR_AKTIVITETER === kode) {

@@ -1,5 +1,7 @@
-import classNames from 'classnames';
 import React, { JSX } from 'react';
+
+import classNames from 'classnames';
+
 import styles from './box.module.css';
 
 export enum Margin {

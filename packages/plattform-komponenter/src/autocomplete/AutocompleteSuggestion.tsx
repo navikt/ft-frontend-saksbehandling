@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Suggestion } from './types/Suggestion';
+
 import styles from './autocompleteSuggestion.module.css';
 
 interface Props {

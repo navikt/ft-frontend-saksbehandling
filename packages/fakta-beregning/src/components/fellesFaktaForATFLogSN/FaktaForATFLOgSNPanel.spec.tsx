@@ -5,12 +5,13 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
+
+import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
 import { transformValues, transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 
 const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrunnlag =>
   ({

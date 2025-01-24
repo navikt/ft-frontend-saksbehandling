@@ -1,13 +1,16 @@
+import { FormattedMessage } from 'react-intl';
+
 import { Label, Table } from '@navikt/ds-react';
-import { hasValidDate } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import dayjs from 'dayjs';
 
+import { hasValidDate } from '@navikt/ft-form-validators';
 import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import { FormattedMessage } from 'react-intl';
+
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
+
 import styles from './vurderAktiviteterTabell.module.css';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {

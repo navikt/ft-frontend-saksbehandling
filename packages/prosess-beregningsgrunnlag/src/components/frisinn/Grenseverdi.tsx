@@ -1,11 +1,13 @@
+import { FormattedMessage } from 'react-intl';
+
 import { BodyShort, Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import { FormattedMessage } from 'react-intl';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+
 import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,
@@ -13,6 +15,8 @@ import {
   FrisinnGrunnlag,
   FrisinnPeriode,
 } from './FrisinnUtils';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const førsteDato = dayjs('2020-04-01');
 

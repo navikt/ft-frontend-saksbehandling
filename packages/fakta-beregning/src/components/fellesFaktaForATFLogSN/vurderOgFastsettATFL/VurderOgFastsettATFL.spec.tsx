@@ -1,5 +1,6 @@
 import { AktivitetStatus as aktivitetStatuser, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+
 import { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
 import { lonnsendringField } from './forms/LonnsendringForm';

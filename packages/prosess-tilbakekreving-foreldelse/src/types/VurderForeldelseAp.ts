@@ -1,4 +1,5 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
+
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
 
 export type VurderForeldelseAp = {

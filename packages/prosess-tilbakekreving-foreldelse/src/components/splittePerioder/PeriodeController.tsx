@@ -1,9 +1,11 @@
-import { Button, HStack, Label, Spacer } from '@navikt/ds-react';
-import { EditedIcon } from '@navikt/ft-ui-komponenter';
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ArrowLeftIcon, ArrowRightIcon, ScissorsIcon, XMarkIcon } from '@navikt/aksel-icons';
+import { Button, HStack, Label, Spacer } from '@navikt/ds-react';
+
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
+
 import { ForeldelsesresultatActivity } from '../../types/ForeldelsesresultatActivity';
 import { DelOppPeriodeModal, PerioderData } from './DelOppPeriodeModal';
 

@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -11,13 +13,13 @@ import {
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { Ledelinje } from '../fellesPaneler/Ledelinje';
 import { NaturalytelsePanel } from './NaturalytelsePanel';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen

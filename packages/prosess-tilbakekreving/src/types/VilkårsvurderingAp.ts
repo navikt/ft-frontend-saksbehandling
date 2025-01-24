@@ -1,4 +1,5 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
+
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
 
 type VilkårResultatAktsomhet = {

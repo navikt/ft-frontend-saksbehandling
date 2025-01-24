@@ -15,15 +15,14 @@ import {
   Vilkår,
   Vilkårperiode,
 } from '@navikt/ft-types';
+
+import { BeregningFormValues } from '../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-
+import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../types/RelevanteStatuser';
 import { BeregningForm } from './beregningForm/BeregningForm';
 import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
-
-import { BeregningFormValues } from '../types/BeregningFormValues';
-import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,

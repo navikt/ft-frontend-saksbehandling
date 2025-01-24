@@ -1,12 +1,13 @@
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
+
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './AvsluttetArbeidsforhold';
 import { harFieldKunstigArbeidsforhold } from './KunstigArbeidsforhold';
 import { harFieldLønnsendring } from './LonnsendringForm';
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
 
 export const transformValuesArbeidUtenInntektsmelding = (
   values: FaktaOmBeregningAksjonspunktValues,

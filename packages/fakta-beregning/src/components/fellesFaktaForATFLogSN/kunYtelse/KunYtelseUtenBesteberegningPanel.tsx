@@ -1,8 +1,12 @@
-import { Label } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FormattedMessage } from 'react-intl';
+
+import { Label } from '@navikt/ds-react';
+
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
+
 import styles from './kunYtelseUtenBesteberegningPanel.module.css';
 
 type Props = {

@@ -2,6 +2,7 @@ import React from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
+
 import { TimeLabel } from './TimeLabel';
 
 const intl = createIntl({});

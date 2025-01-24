@@ -1,10 +1,10 @@
-import { Button, HStack, Label, Spacer } from '@navikt/ds-react';
 import React, { useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { EditedIcon } from '@navikt/ft-ui-komponenter';
-
 import { ArrowLeftIcon, ArrowRightIcon, ScissorsIcon, XMarkIcon } from '@navikt/aksel-icons';
+import { Button, HStack, Label, Spacer } from '@navikt/ds-react';
+
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { DataForPeriode } from '../../types/DataForPeriode';
 import { DelOppPeriodeModal, PerioderData } from './DelOppPeriodeModal';

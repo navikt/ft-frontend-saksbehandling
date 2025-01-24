@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
-import { ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { expect } from 'vitest';
+
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import {
   dateAfterOrEqual,
@@ -28,7 +30,6 @@ import {
   requiredIfNotPristine,
 } from './validators';
 import { today } from './validatorsHelper';
-import { expect } from 'vitest';
 
 const todayAsISO = today().format(ISO_DATE_FORMAT);
 const farFutureDate = dayjs().add(200, 'years').format(ISO_DATE_FORMAT);

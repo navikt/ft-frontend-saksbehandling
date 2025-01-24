@@ -1,8 +1,9 @@
-import { BodyShort, Button, Heading, HStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { BodyShort, Button, Heading, HStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import { Form, RadioGroupPanel, SelectField, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -15,6 +16,8 @@ import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
 import { SærligGrunn } from '../kodeverk/særligGrunn';
 import { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { DataForPeriode } from '../types/DataForPeriode';
+import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import {
   AktsomhetFormPanel,
   InitialValuesAktsomhetForm,
@@ -26,9 +29,7 @@ import {
 } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingAktivitetTabell } from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
 
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import styles from './tilbakekrevingPeriodeForm.module.css';
-import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

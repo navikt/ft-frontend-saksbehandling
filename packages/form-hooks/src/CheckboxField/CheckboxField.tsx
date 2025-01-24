@@ -1,6 +1,7 @@
-import { ErrorMessage, Checkbox as NavCheckbox } from '@navikt/ds-react';
 import { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
+import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react';
 
 import { getError, getValidationRules } from '../formUtils';
 

@@ -1,6 +1,9 @@
-import { Loader } from '@navikt/ds-react';
 import React, { JSX } from 'react';
+
+import { Loader } from '@navikt/ds-react';
+
 import { PageError } from '../page-error/PageError';
+
 import styles from './pageContainer.module.css';
 
 interface PageContainerProps {

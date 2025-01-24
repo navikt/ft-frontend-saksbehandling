@@ -1,12 +1,14 @@
+import { useCallback } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, HStack, VStack } from '@navikt/ds-react';
+
 import { Datepicker, InputField } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HStack, VStack } from '@navikt/ds-react';
-import { useFormContext } from 'react-hook-form';
 import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';

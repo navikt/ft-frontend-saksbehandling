@@ -11,10 +11,9 @@ import {
   Vilkår,
   Vilkårperiode,
 } from '@navikt/ft-types';
-
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import messages from '../i18n/nb_NO.json';
+
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
 import {
@@ -27,6 +26,8 @@ import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgr
 import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { KodeverkForPanel } from './types/kodeverkForPanel';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 

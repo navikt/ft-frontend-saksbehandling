@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { CheckboxField } from './CheckboxField';
 import { rhfDecorator } from '../../.storybook/decorators';
+import { CheckboxField } from './CheckboxField';
 
 const meta = {
   component: CheckboxField,

@@ -1,4 +1,8 @@
+import React from 'react';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { List, ReadMore } from '@navikt/ds-react';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
@@ -12,8 +16,7 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import React from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';

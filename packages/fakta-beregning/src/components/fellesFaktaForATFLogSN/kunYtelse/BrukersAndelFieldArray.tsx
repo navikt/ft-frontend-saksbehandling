@@ -1,20 +1,24 @@
+import React from 'react';
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
+
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import React from 'react';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+
 import styles from './brukersAndelFieldArray.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({

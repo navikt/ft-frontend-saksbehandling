@@ -1,7 +1,8 @@
-import type { ECharts, EChartsOption } from 'echarts';
-import { getInstanceByDom, init } from 'echarts';
 import type { CSSProperties, JSX } from 'react';
 import { useEffect, useRef } from 'react';
+
+import type { ECharts, EChartsOption } from 'echarts';
+import { getInstanceByDom, init } from 'echarts';
 
 export interface Props {
   option: EChartsOption;

@@ -1,31 +1,33 @@
 import { FormattedMessage } from 'react-intl';
 
 import { Heading } from '@navikt/ds-react';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
-  BeregningsgrunnlagPeriodeProp,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
+  BeregningsgrunnlagPeriodeProp,
   FaktaOmBeregning,
   Vilkår,
   Vilkårperiode,
   YtelseGrunnlag,
 } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
+import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { BeregningsresultatPanel } from '../beregningsresultat/BeregningsresultatPanel';
 import { BesteberegningResultatGrunnlagPanel } from '../besteberegning/BesteberegningResultatGrunnlagPanel';
 import { AksjonspunktTittel } from '../fellesPaneler/AksjonspunktTittel';
 import { SammenligningOgFastsettelsePanel } from '../fellesPaneler/SammenligningOgFastsettelsePanel';
 import { SkjeringspunktOgStatusPanel } from '../fellesPaneler/SkjeringspunktOgStatusPanel';
 import { YtelsegrunnlagPanel } from '../frisinn/YtelsegrunnlagPanel';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller

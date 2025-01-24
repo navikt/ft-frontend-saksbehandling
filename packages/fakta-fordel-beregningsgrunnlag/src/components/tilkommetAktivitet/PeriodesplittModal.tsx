@@ -1,11 +1,15 @@
-import { Button, Modal, Select } from '@navikt/ds-react';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, TIDENES_ENDE, calcDays } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
 import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { Button, Modal, Select } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { calcDays, DDMMYYYY_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+
 import { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { PeriodesplittDatoValg, Periode } from './PeriodesplittDatoValg';
+import { Periode, PeriodesplittDatoValg } from './PeriodesplittDatoValg';
+
 import styles from './periodesplittModal.module.css';
 
 type Props = {

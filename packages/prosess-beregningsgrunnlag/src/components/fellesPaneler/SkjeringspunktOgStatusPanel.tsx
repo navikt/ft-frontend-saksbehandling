@@ -1,13 +1,16 @@
-import { DateLabel, FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Tag } from '@navikt/ds-react';
+
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
+import { DateLabel, FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { SaksopplysningPanel } from './SaksopplysningPanel';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 enum TagType {
   BLÅ = 'alt3',

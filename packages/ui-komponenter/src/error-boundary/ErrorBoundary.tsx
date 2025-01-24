@@ -1,5 +1,6 @@
-import { Alert } from '@navikt/ds-react';
 import React, { Component, ErrorInfo } from 'react';
+
+import { Alert } from '@navikt/ds-react';
 
 type Props = {
   children: React.ReactNode;

@@ -2,6 +2,7 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import vitest from 'eslint-plugin-vitest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginReact from 'eslint-plugin-react';
@@ -20,6 +21,7 @@ export default [
     },
     plugins: {
       vitest,
+      'simple-import-sort': simpleImportSort,
     },
     languageOptions: { globals: globals.browser },
   },
@@ -56,6 +58,13 @@ export default [
       // TODO (TOR) Ignorert inntil videre grunnet kost/nytte
       '@typescript-eslint/no-explicit-any': OFF,
       '@typescript-eslint/ban-ts-comment': OFF,
+
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [['^react'], ['^@?\\w'], ['^@navikt/ft-*'], ['@/(.*)'], ['^[./]'], ['./*.module.css'], ['./*.json']],
+        },
+      ],
     },
   },
 ];

@@ -1,12 +1,15 @@
+import { FormattedMessage } from 'react-intl';
+
 import { BodyShort, Label } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { FormattedMessage } from 'react-intl';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;

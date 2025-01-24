@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react';
+
 import { StoryFn } from '@storybook/react';
 
-import { Table } from './Table';
 import { ExpandableTableRow } from './ExpandableTableRow';
+import { Table } from './Table';
 import { TableColumn } from './TableColumn';
 
 export default {

@@ -1,3 +1,5 @@
+import { useFormContext } from 'react-hook-form';
+
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
@@ -10,7 +12,6 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import { useFormContext } from 'react-hook-form';
 import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagMedAksjonspunktValues,

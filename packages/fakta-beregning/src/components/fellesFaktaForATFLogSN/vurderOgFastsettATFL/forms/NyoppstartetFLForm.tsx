@@ -1,16 +1,19 @@
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { List, ReadMore } from '@navikt/ds-react';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 /**
  * NyOppstartetFLForm

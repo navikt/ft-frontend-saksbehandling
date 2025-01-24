@@ -1,18 +1,19 @@
-import { BodyShort } from '@navikt/ds-react';
 import { ReactElement } from 'react';
+
+import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
-import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
+import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
+import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
+
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {

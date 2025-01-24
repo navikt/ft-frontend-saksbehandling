@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -7,23 +9,23 @@ import {
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
 import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { useEffect, useState } from 'react';
+
+import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
   FordelBeregningsgrunnlagPerioderTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
-
-import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
-import styles from './fordelBeregningsgrunnlagForm.module.css';
+import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
 import {
   fordelBGFieldArrayNamePrefix,
   getFieldNameKey,
   lagPerioderForSubmit,
   slaaSammenPerioder,
 } from './FordelPerioderUtils';
+
+import styles from './fordelBeregningsgrunnlagForm.module.css';
 
 const finnRiktigBgPeriode = (
   periode: FordelBeregningsgrunnlagPeriode,

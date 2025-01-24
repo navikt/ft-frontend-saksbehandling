@@ -1,10 +1,12 @@
 import dayjs from 'dayjs';
+
 import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
-import { AvklarAktiviteterValues, AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
+
+import { AktiviteterValues, AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på

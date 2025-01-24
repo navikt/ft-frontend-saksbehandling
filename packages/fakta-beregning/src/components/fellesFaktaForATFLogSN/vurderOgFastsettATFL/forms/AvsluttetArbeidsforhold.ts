@@ -1,5 +1,6 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
+
 import { AndelFieldIdentifikator, InntektTransformed } from '../../../../typer/FieldValues';
 
 export const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse = (

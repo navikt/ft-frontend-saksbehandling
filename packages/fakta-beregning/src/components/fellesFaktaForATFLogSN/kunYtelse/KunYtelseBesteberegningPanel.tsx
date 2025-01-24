@@ -1,12 +1,15 @@
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-form-validators';
-import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
-// TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
-import { Label } from '@navikt/ds-react';
-import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+// TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
+import { Label } from '@navikt/ds-react';
+
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { required } from '@navikt/ft-form-validators';
+import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
+import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+
 import {
   FaktaOmBeregningAksjonspunktValues,
   VurderBesteberegningMedKunYtelseValues,
@@ -17,6 +20,7 @@ import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
+
 import styles from './kunYtelseBesteberegningPanel.module.css';
 
 export const besteberegningField = 'besteberegningField';

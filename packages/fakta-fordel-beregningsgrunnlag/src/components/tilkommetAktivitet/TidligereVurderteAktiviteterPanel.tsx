@@ -1,12 +1,16 @@
+import { JSX } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
+
 import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import { JSX } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import styles from './tilkommetAktivitet.module.css';
+
 import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
 import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
+
+import styles from './tilkommetAktivitet.module.css';
 
 type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;

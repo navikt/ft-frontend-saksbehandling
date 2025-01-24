@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { composeStories } from '@storybook/react';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
+
 import * as stories from './LoadingPanel.stories';
 
 const { Default } = composeStories(stories);

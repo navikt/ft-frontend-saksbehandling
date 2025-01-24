@@ -1,6 +1,10 @@
 import React from 'react';
+
 import { action } from '@storybook/addon-actions';
 import { StoryFn } from '@storybook/react';
+import dayjs from 'dayjs';
+
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import {
   AktivitetStatus,
   InntektAktivitetType,
@@ -23,20 +27,17 @@ import {
   SammenligningsgrunlagProp,
   Vilkår,
 } from '@navikt/ft-types';
-import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import dayjs from 'dayjs';
+import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
+import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
 
 import '@navikt/ds-css';
-
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
-import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
 
 const STP = '2021-01-01';
 

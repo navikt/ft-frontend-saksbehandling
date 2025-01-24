@@ -1,7 +1,8 @@
-import { BodyShort, Heading, Panel } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Heading, Panel } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
@@ -9,17 +10,17 @@ import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, Kod
 import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
+import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
+import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
 import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
 import { PeriodeController, PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
+import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
-import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
-import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
 import styles from './foreldelseForm.module.css';
-import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 
 const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
   dayjs(periode1.fom).diff(dayjs(periode2.fom));

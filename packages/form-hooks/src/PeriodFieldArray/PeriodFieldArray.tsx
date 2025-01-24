@@ -1,8 +1,10 @@
 import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
-import { Button, Detail, Fieldset } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
+import { Button, Detail, Fieldset } from '@navikt/ds-react';
+
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import styles from './periodFieldArray.module.css';
 

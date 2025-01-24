@@ -1,6 +1,8 @@
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading } from '@navikt/ds-react';
+
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
@@ -12,7 +14,7 @@ import {
   Vilkårperiode,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { useFormContext } from 'react-hook-form';
+
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';

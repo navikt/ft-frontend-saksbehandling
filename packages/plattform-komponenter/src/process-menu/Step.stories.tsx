@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
+
 import { Step } from './Step';
 import { StepType } from './StepType';
 

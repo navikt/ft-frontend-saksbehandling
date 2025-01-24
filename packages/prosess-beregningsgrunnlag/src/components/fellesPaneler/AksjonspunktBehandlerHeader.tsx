@@ -1,5 +1,8 @@
+import { FormattedMessage } from 'react-intl';
+
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
+
 import {
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
@@ -7,8 +10,9 @@ import {
 } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { FormattedMessage } from 'react-intl';
+
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+
 import styles from './aksjonspunktBehandler.module.css';
 
 const {

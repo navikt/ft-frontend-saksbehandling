@@ -1,5 +1,7 @@
 import { IntlShape } from 'react-intl';
-import { BeregningsgrunnlagAndelType, aktivitetstatusTilAndeltypeMap } from '@navikt/ft-kodeverk';
+
+import { aktivitetstatusTilAndeltypeMap, BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
+
 import { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldValue } from '../../typer/FieldValues';
 

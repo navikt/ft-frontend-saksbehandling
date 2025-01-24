@@ -1,8 +1,10 @@
 import React from 'react';
-import { bemUtils } from '@navikt/ft-utils';
-import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
+
+import { bemUtils } from '@navikt/ft-utils';
+
 import styles from './userPanel.module.css';
 
 const userCls = bemUtils('user');

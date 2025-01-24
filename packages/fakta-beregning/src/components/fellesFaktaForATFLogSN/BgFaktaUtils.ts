@@ -2,31 +2,32 @@ import {
   AktivitetStatus,
   FaktaOmBeregningTilfelle,
   Inntektskategori,
+  isAksjonspunktOpen,
   KodeverkType,
   OpptjeningAktivitetType as OAType,
-  isAksjonspunktOpen,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import {
-  ATFLSammeOrgAndel,
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
+  ATFLSammeOrgAndel,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+
 import {
   ArbeidstakerInntektValues,
   FaktaOmBeregningAksjonspunktValues,
   GenerellAndelInfo,
 } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldValue, AndelFieldIdentifikator } from '../../typer/FieldValues';
+import { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
-import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';

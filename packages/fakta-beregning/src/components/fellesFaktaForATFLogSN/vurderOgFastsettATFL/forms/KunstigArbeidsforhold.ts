@@ -1,5 +1,6 @@
 import { FaktaOmBeregningTilfelle, Organisasjonstype as organisasjonstyper } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
+
 import { InntektTransformed } from '../../../../typer/FieldValues';
 
 const harAndelKunstigArbeidsforhold = andel =>

@@ -1,13 +1,15 @@
 import { FormattedMessage } from 'react-intl';
 
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { DateLabel, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { Ledelinje } from '../fellesPaneler/Ledelinje';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];

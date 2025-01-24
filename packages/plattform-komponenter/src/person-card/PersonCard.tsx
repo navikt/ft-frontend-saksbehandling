@@ -1,9 +1,10 @@
 import React from 'react';
-import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@navikt/ds-react';
-import { MenuElipsisHorizontalCircleIcon } from '@navikt/aksel-icons';
 
-import { VisittKort } from './VisittKort';
+import { MenuElipsisHorizontalCircleIcon } from '@navikt/aksel-icons';
+import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@navikt/ds-react';
+
 import { GenderIcon } from './GenderIcon';
+import { VisittKort } from './VisittKort';
 
 export enum Gender {
   male = 'male',

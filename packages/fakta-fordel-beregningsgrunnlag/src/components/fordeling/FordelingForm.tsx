@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+
 import { Form } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkårperiode } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
-import { useEffect } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
 
 import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
@@ -10,8 +11,8 @@ import { FordelBeregningsgrunnlagAP } from '../../types/interface/FordelBeregnin
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import {
-  FordelingField,
   buildFieldInitialValuesFordelBeregning,
+  FordelingField,
   transformFieldValuesFordelBeregning,
 } from './FordelingField';
 

@@ -1,6 +1,7 @@
-import { Heading, Label, Table } from '@navikt/ds-react';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import { Heading, Label, Table } from '@navikt/ds-react';
 
 import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';

@@ -1,7 +1,9 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
+import { action } from '@storybook/addon-actions';
+import { StoryFn } from '@storybook/react';
+
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { AktivitetStatus, Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   Aksjonspunkt,
@@ -16,33 +18,30 @@ import {
   FordelBeregningsgrunnlagPeriode,
   Vilkår,
 } from '@navikt/ft-types';
-import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
-import {
-  bgMedDelvisRefusjon as vurderDelvisRefBG,
-  bgUtenDelvisRefusjon as vurderRefusjonBG,
-} from '../testdata/VurderRefusjon';
-import { FordelBeregningsgrunnlagFaktaIndex } from './FordelBeregningsgrunnlagFaktaIndex';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
-import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
-import { beregningsgrunnlag as bgFlerePerioderMedHelg } from '../testdata/FlerePerioderMedHelg';
 import { beregningsgrunnlag as bgFlerePerioderMedForlengelse } from '../testdata/FlerePerioderMedForlengelse';
+import { beregningsgrunnlag as bgFlerePerioderMedHelg } from '../testdata/FlerePerioderMedHelg';
+import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
 import { beregningsgrunnlag as bgTilkommetInntektsforholdMedForlengelse } from '../testdata/TilkommetAktivitetMedForlengelse';
 import { beregningsgrunnlag as bgTilkommetInntektsforholdMedForlengelseLukketAP } from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
 import { beregningsgrunnlag as bgTilkommetInntektsforholdMedRevurdering } from '../testdata/TilkommetAktivitetRevurderingLøstTidligere';
 import { beregningsgrunnlag as bgTilkommetInntektsforholdMedRevurdering1MaiSplitt } from '../testdata/TilkommetAktivitetRevurderingLøstTidligere1MaiKryss';
 import { beregningsgrunnlag as bgTilkommetAktivitetTrePerioderHelgMellom } from '../testdata/TilkommetAktivitetTrePerioderHelgMellom';
-
-import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
-import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import {
+  bgMedDelvisRefusjon as vurderDelvisRefBG,
+  bgUtenDelvisRefusjon as vurderRefusjonBG,
+} from '../testdata/VurderRefusjon';
+import { FordelBeregningsgrunnlagFaktaIndex } from './FordelBeregningsgrunnlagFaktaIndex';
 import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
+import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
+import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import { KodeverkForPanel } from './types/kodeverkForPanel';
 
 import '@navikt/ds-css';
-
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
-import { KodeverkForPanel } from './types/kodeverkForPanel';
 
 const agOpplysninger = {
   874652202: {

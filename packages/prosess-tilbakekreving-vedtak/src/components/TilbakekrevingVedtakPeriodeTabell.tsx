@@ -1,5 +1,6 @@
-import { BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
@@ -7,6 +8,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTv';
+
 import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
 
 const headerTextCodes = [

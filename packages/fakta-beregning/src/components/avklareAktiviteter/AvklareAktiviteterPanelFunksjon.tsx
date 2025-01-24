@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Form } from '@navikt/ft-form-hooks';
 import {
@@ -10,7 +11,7 @@ import {
   Vilkårperiode,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { useFieldArray, useForm } from 'react-hook-form';
+
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';

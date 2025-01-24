@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+
 import { HStack, Label, Loader, Modal } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import messages from '../i18n/nb_NO.json';
-
 import styles from './dataFetchPendingModal.module.css';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 

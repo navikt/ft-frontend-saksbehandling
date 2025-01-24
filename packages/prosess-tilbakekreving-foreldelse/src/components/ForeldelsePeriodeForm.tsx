@@ -1,4 +1,10 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { Button, HStack, VStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { Datepicker, Form, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
@@ -10,10 +16,6 @@ import {
 } from '@navikt/ft-form-validators';
 import { ForeldelseVurderingType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import dayjs from 'dayjs';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';

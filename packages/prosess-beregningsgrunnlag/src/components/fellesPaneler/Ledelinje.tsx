@@ -1,4 +1,5 @@
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+
 import styles from './ledelinje.module.css';
 
 export interface Props {

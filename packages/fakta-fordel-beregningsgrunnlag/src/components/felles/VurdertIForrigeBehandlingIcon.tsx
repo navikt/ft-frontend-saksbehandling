@@ -1,6 +1,8 @@
+import { useIntl } from 'react-intl';
+
 import { Tag } from '@navikt/ds-react';
 import classnames from 'classnames/bind';
-import { useIntl } from 'react-intl';
+
 import styles from './vurdertIForrigeBehandlingIcon.module.css';
 
 const classNames = classnames.bind(styles);

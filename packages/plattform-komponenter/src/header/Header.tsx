@@ -1,5 +1,7 @@
-import { bemUtils } from '@navikt/ft-utils';
 import React, { ReactElement } from 'react';
+
+import { bemUtils } from '@navikt/ft-utils';
+
 import styles from './header.module.css';
 
 export interface HeaderProps {

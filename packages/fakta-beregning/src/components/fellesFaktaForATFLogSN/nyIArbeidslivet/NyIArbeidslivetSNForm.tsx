@@ -1,13 +1,16 @@
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { List, ReadMore } from '@navikt/ds-react';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 /**
  * NyIArbeidslivetSNForm
