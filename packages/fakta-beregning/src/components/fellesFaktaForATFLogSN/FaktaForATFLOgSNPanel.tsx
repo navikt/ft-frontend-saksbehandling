@@ -9,7 +9,7 @@ import {
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React, { ReactElement } from 'react';
 import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,

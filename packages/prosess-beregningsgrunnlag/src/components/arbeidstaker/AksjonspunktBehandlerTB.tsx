@@ -28,7 +28,7 @@ import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnFor
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const formPrefix = 'inntektField';

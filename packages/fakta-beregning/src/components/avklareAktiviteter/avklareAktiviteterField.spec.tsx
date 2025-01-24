@@ -4,7 +4,7 @@ import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterFie
 import { agOpplysninger as arbeidsgiverOpplysninger } from '../../../testdata/arbeidsgiverOpplysninger';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 

@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';

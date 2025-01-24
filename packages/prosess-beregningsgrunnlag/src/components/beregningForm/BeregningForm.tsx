@@ -16,7 +16,7 @@ import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';

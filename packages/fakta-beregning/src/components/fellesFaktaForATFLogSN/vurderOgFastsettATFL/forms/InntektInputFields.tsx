@@ -5,7 +5,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { ArbeidsinntektInput } from '../../../felles/ArbeidsinntektInput';
 import { InntektInput } from '../../../felles/InntektInput';

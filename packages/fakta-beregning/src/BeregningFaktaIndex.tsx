@@ -28,7 +28,7 @@ import {
 import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from './typer/KodeverkForPanel';
+import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
 
 const intl = createIntl(messages);
 

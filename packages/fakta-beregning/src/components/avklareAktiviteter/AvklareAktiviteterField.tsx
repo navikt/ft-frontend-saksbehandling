@@ -18,7 +18,7 @@ import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';

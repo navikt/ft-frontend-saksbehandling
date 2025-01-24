@@ -36,7 +36,7 @@ import '@navikt/ds-css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
+import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
 
 const STP = '2021-01-01';
 

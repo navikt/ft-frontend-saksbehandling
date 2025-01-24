@@ -17,7 +17,7 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.modul
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { AksjonspunktBehandler, finnFormName } from './AksjonspunktBehandler';
 import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';

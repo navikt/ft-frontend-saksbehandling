@@ -2,7 +2,7 @@ import { FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
 import { KunYtelseBesteberegning } from './KunYtelseBesteberegningPanel';
 import { KunYtelseUtenBesteberegningPanel } from './KunYtelseUtenBesteberegningPanel';

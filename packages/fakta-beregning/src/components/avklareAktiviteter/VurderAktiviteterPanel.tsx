@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   buildInitialValues as buildInitialValuesForTabell,
   lagAktivitetFieldId,

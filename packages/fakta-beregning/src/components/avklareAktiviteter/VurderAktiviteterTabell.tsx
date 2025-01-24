@@ -4,7 +4,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-ty
 import { AvklarAktiviteterValues, AktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på

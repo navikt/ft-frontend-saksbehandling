@@ -6,7 +6,7 @@ import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { UseFieldArrayAppend } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { AndelFieldValue } from '../../typer/FieldValues';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import styles from './addAndelButton.module.css';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({

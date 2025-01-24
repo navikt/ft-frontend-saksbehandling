@@ -29,7 +29,7 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
 import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';

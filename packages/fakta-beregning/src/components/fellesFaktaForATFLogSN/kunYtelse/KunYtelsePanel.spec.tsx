@@ -2,7 +2,7 @@ import { Inntektskategori } from '@navikt/ft-kodeverk';
 
 import { KunYtelsePanel, brukersAndelFieldArrayName } from './KunYtelsePanel';
 import { besteberegningField } from './KunYtelseBesteberegningPanel';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 
 const faktaOmBeregningAndel1 = {
   andelsnr: 1,

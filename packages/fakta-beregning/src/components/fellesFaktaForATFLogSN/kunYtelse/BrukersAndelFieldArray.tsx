@@ -10,7 +10,7 @@ import React from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';

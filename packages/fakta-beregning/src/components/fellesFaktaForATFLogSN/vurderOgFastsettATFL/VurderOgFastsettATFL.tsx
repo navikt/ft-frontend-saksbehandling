@@ -10,7 +10,7 @@ import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import {
   BeregningFaktaTransformedValues,

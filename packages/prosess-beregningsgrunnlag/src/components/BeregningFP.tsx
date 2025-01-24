@@ -23,7 +23,7 @@ import { BeregningForm } from './beregningForm/BeregningForm';
 import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 
 import { BeregningFormValues } from '../types/BeregningFormValues';
-import { KodeverkForPanel } from '../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,

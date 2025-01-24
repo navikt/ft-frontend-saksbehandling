@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Tag } from '@navikt/ds-react';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { SaksopplysningPanel } from './SaksopplysningPanel';
 

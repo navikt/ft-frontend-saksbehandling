@@ -12,7 +12,7 @@ import { ArbeidsinntektResultat } from '../../types/interface/Beregningsgrunnlag
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {

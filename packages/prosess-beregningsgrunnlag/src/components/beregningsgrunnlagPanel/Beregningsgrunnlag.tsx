@@ -26,7 +26,7 @@ import { TilstotendeYtelser } from '../tilstotendeYtelser/TilstotendeYtelser';
 import { YtelserFraInfotrygd } from '../tilstotendeYtelser/YtelserFraInfotrygd';
 
 import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { NaeringsopplysningsPanel } from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import beregningStyles from './beregningsgrunnlag.module.css';
 

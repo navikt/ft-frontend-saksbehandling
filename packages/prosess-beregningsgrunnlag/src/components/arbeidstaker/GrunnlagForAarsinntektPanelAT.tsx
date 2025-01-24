@@ -13,7 +13,7 @@ import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { Ledelinje } from '../fellesPaneler/Ledelinje';

@@ -17,7 +17,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
 import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';

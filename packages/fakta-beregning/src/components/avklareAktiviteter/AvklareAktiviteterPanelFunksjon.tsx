@@ -14,7 +14,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 import { AvklareAktiviteterField, buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';

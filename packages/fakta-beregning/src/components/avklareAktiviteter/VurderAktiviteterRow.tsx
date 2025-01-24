@@ -7,7 +7,7 @@ import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { prettifyDateString } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import { useIntl } from 'react-intl';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
 import styles from './vurderAktiviteterTabell.module.css';

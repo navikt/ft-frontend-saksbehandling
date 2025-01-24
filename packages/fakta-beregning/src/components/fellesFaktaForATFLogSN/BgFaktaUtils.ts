@@ -23,7 +23,7 @@ import {
 } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldValue, AndelFieldIdentifikator } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';

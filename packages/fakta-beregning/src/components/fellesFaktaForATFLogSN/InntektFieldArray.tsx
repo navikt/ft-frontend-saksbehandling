@@ -21,7 +21,7 @@ import {
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erOverstyring,

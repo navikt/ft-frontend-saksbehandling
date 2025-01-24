@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { FormattedMessage } from 'react-intl';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
 import styles from './vurderAktiviteterTabell.module.css';
 

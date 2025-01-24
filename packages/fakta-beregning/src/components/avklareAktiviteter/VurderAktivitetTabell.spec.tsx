@@ -6,7 +6,7 @@ import {
   skalVurdereAktivitet,
   transformValues,
 } from './VurderAktiviteterTabell';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { AvklarAktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 
 const aktivitet1 = {
