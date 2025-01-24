@@ -1,11 +1,10 @@
-import React, { FunctionComponent } from 'react';
-import { RawIntlProvider } from 'react-intl';
-import { decodeHtmlEntity, createIntl } from '@navikt/ft-utils';
-import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { TextAreaField } from '@navikt/ft-form-hooks';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
+import { RawIntlProvider } from 'react-intl';
 
-import styles from './faktaBegrunnelseTextField.module.css';
 import messages from '../../../i18n/nb_NO.json';
+import styles from './faktaBegrunnelseTextField.module.css';
 
 const intl = createIntl(messages);
 
@@ -13,7 +12,7 @@ const minLength3 = minLength(3);
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 
-type OwnProps = {
+type Props = {
   isReadOnly: boolean;
   isSubmittable: boolean;
   hasBegrunnelse: boolean;
@@ -30,22 +29,17 @@ type TransformedValues = {
   begrunnelse: string;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (hentetBegrunnelse: string | undefined, begrunnelseFieldName?: string) => FormValues;
-  transformValues: (values: FormValues, name?: string) => TransformedValues;
-}
-
 /**
  * FaktaBegrunnelseTextField
  */
-const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const FaktaBegrunnelseTextField = ({
   isReadOnly,
   isSubmittable,
   hasBegrunnelse,
   label,
   hasVurderingText = false,
   name = 'begrunnelse',
-}) => {
+}: Props) => {
   const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.Begrunnelse';
   const textAreaLabel = label || intl.formatMessage({ id: code });
   return (
@@ -76,5 +70,3 @@ FaktaBegrunnelseTextField.buildInitialValues = (
 FaktaBegrunnelseTextField.transformValues = (values: FormValues, name = 'begrunnelse'): TransformedValues => ({
   begrunnelse: values[name] as string,
 });
-
-export default FaktaBegrunnelseTextField;

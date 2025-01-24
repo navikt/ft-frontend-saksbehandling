@@ -1,6 +1,6 @@
 import { FaktaOmBeregning } from '@navikt/ft-types';
 
-import VurderMilitaer, { vurderMilitaerField } from './VurderMilitaer';
+import { VurderMilitaer, vurderMilitaerField } from './VurderMilitaer';
 
 const mockBGMedStatus = mili => ({
   vurderMilitaer: {

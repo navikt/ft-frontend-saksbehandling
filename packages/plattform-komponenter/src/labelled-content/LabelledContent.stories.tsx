@@ -1,15 +1,15 @@
-import React, { ComponentProps } from 'react';
 import { StoryFn } from '@storybook/react';
-import LabelledContentComponent from './LabelledContent';
+import { ComponentProps } from 'react';
+import { LabelledContent } from './LabelledContent';
 
 export default {
   title: 'Labelled content',
-  component: LabelledContentComponent,
+  component: LabelledContent,
 };
 
-const Template: StoryFn<ComponentProps<typeof LabelledContentComponent>> = () => (
-  <LabelledContentComponent label="Label" content="Content" />
+const Template: StoryFn<ComponentProps<typeof LabelledContent>> = () => (
+  <LabelledContent label="Label" content="Content" />
 );
 
-export const LabelledContent = Template.bind({});
-LabelledContent.args = {};
+export const Default = Template.bind({});
+Default.args = {};

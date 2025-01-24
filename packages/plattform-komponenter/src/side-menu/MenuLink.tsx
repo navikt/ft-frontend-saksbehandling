@@ -1,5 +1,5 @@
-import React from 'react';
 import { BodyShort } from '@navikt/ds-react';
+import React from 'react';
 
 import styles from './menuLink.module.css';
 
@@ -10,7 +10,7 @@ interface MenuLinkProps {
   icon?: React.ReactNode;
 }
 
-const MenuLink = ({ label, active, onClick, icon }: MenuLinkProps) => {
+export const MenuLink = ({ label, active, onClick, icon }: MenuLinkProps) => {
   const handleOnClick = (event: React.FormEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     onClick();
@@ -27,4 +27,3 @@ const MenuLink = ({ label, active, onClick, icon }: MenuLinkProps) => {
     </li>
   );
 };
-export default MenuLink;

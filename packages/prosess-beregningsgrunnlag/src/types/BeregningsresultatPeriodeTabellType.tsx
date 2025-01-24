@@ -43,5 +43,3 @@ export type BeregningsresultatPeriodeTabellType = {
   dagsatser: DagsatsRadType;
   rowsForklaringer: ReactElement[];
 };
-
-export default BeregningsresultatPeriodeTabellType;

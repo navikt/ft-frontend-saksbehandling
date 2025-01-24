@@ -1,7 +1,6 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
-const BucketIcon = () => (
+export const BucketIcon = () => (
   <Icon size={24}>
     <path
       fillRule="evenodd"
@@ -24,5 +23,3 @@ const BucketIcon = () => (
     </g>
   </Icon>
 );
-
-export default BucketIcon;

@@ -1,8 +1,8 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { BodyShort, Table } from '@navikt/ds-react';
-import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
+import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
+import { ReactElement } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 
@@ -39,15 +39,12 @@ const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] =>
     <div key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>{lagPeriode(utbetaling)}</div>
   ));
 
-type OwnProps = {
+type Props = {
   refusjonAndel: RefusjonTilVurderingAndel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-export const TidligereUtbetalingRad: FunctionComponent<OwnProps> = ({
-  refusjonAndel,
-  arbeidsgiverOpplysningerPerId,
-}) => (
+export const TidligereUtbetalingRad = ({ refusjonAndel, arbeidsgiverOpplysningerPerId }: Props) => (
   <Table.Row>
     <Table.DataCell>
       <BodyShort>{createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId)}</BodyShort>
@@ -61,5 +58,3 @@ export const TidligereUtbetalingRad: FunctionComponent<OwnProps> = ({
     <Table.DataCell>{perioder(refusjonAndel.tidligereUtbetalinger || [])}</Table.DataCell>
   </Table.Row>
 );
-
-export default TidligereUtbetalingRad;

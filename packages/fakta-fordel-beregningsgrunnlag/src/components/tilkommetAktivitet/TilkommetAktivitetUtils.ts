@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { calcDays } from '@navikt/ft-utils';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import isBetween from 'dayjs/plugin/isBetween';
-import erPeriodeTilVurdering from '../util/ForlengelseUtils';
+import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
@@ -37,7 +37,6 @@ const oppdaterTomOgInntektsforholdForSistePeriode = (
     return;
   }
   const inntektsforholdListe = forrigePeriode.inntektsforholdListe ? [...forrigePeriode.inntektsforholdListe] : [];
-  // @ts-ignore
   periode.inntektsforholdListe.forEach(it => inntektsforholdListe.push(it));
   const endretPeriode = {
     ...forrigePeriode,

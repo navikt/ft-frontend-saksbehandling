@@ -6,12 +6,12 @@ import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   erArbeidstaker,
   erDagpenger,
@@ -54,7 +54,7 @@ export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: Kodeverk
 
 const getMåFastsettesText = () => <ErrorMessage size="small">Må fastsettes</ErrorMessage>;
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   field: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>;
   skalVisePeriode: boolean;
@@ -72,7 +72,7 @@ type OwnProps = {
  *
  * Presentasjonskomponent: Viser en rad korresponderende til ein andel i beregning.
  */
-const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
+export const InntektFieldArrayAndelRow = ({
   field,
   skalVisePeriode,
   skalViseRefusjon,
@@ -83,7 +83,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   kodeverkSamling,
   rowName,
   skalFastsetteInntektForAndel,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -266,5 +266,3 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
     </Table.Row>
   );
 };
-
-export default InntektFieldArrayAndelRow;

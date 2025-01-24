@@ -1,16 +1,15 @@
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
+import { FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
-import KunYtelseBesteberegningPanel from './KunYtelseBesteberegningPanel';
-import KunYtelseUtenBesteberegningPanel from './KunYtelseUtenBesteberegningPanel';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
+import { KunYtelseBesteberegning } from './KunYtelseBesteberegningPanel';
+import { KunYtelseUtenBesteberegningPanel } from './KunYtelseUtenBesteberegningPanel';
 
 export const brukersAndelFieldArrayName = 'brukersAndelBG';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   skalSjekkeBesteberegning: boolean;
@@ -19,40 +18,26 @@ type OwnProps = {
   faktaOmBeregning: FaktaOmBeregning;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (
-    kunYtelse: KunYtelse | undefined,
-    faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-    kodeverkSamling: KodeverkForPanel,
-  ) => KunYtelseValues;
-  summerFordeling: (values: any) => number;
-  transformValues: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    kunYtelse: KunYtelse,
-  ) => FaktaBeregningTransformedValues;
-}
-
 /**
  * KunYtelsePanel
  *
  * Presentasjonskomponent. Behandling av aksjonspunktet for fastsetting av bg for kun ytelse.
  */
 
-const KunYtelsePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const KunYtelsePanel = ({
   readOnly,
   faktaOmBeregning,
   isAksjonspunktClosed,
   skalViseInntektstabell = true,
   kodeverkSamling,
-}) => {
+}: Props) => {
   const { kunYtelse } = faktaOmBeregning;
   const skalSjekkeBesteberegning = kunYtelse.fodendeKvinneMedDP;
 
   return (
     <div>
       {skalSjekkeBesteberegning && (
-        <KunYtelseBesteberegningPanel
+        <KunYtelseBesteberegning
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
           brukersAndelFieldArrayName={brukersAndelFieldArrayName}
@@ -97,7 +82,7 @@ KunYtelsePanel.buildInitialValues = (
   };
   if (kunYtelse.fodendeKvinneMedDP) {
     return {
-      ...KunYtelseBesteberegningPanel.buildInitialValues(kunYtelse),
+      ...KunYtelseBesteberegning.buildInitialValues(kunYtelse),
       ...initialValues,
     };
   }
@@ -121,8 +106,6 @@ KunYtelsePanel.transformValues = (
       nyAndel: fieldValue.nyAndel,
       lagtTilAvSaksbehandler: fieldValue.lagtTilAvSaksbehandler,
     })),
-    skalBrukeBesteberegning: kunYtelse.fodendeKvinneMedDP ? KunYtelseBesteberegningPanel.transformValues(values) : null,
+    skalBrukeBesteberegning: kunYtelse.fodendeKvinneMedDP ? KunYtelseBesteberegning.transformValues(values) : null,
   },
 });
-
-export default KunYtelsePanel;

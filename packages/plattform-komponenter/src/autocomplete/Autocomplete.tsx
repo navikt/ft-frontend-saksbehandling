@@ -1,6 +1,6 @@
 import { Search } from '@navikt/ds-react';
 import React from 'react';
-import AutocompleteSuggestion from './AutocompleteSuggestion';
+import { AutocompleteSuggestion } from './AutocompleteSuggestion';
 import styles from './autocomplete.module.css';
 import { Suggestion } from './types/Suggestion';
 
@@ -28,8 +28,8 @@ interface State {
   blurDelay: any;
 }
 
-class Autocomplete extends React.Component<AutocompleteProps, State> {
-  // @ts-ignore Fiks
+export class Autocomplete extends React.Component<AutocompleteProps, State> {
+  // @ts-expect-error Fiks
   input: HTMLInputElement;
 
   inputRef: any;
@@ -265,5 +265,3 @@ class Autocomplete extends React.Component<AutocompleteProps, State> {
     );
   }
 }
-
-export default Autocomplete;

@@ -1,7 +1,7 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import NyoppstartetFLForm, { erNyoppstartetFLField } from './NyoppstartetFLForm';
+import { NyoppstartetFLForm, erNyoppstartetFLField } from './NyoppstartetFLForm';
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 

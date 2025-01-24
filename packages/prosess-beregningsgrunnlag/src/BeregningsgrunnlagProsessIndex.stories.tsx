@@ -21,22 +21,22 @@ import {
   Næring,
   Saksopplysninger,
   SammenligningsgrunlagProp,
-  Vilkar,
+  Vilkår,
 } from '@navikt/ft-types';
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import dayjs from 'dayjs';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import BeregningsgrunnlagProsessIndex from './BeregningsgrunnlagProsessIndex';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
 
 import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
-import KodeverkForPanel from './types/kodeverkForPanel';
+import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
 
 const STP = '2021-01-01';
 
@@ -166,7 +166,7 @@ const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Beregni
   kanLoses: true,
 });
 
-const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkar =>
+const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår =>
   ({
     vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
     perioder: [
@@ -180,7 +180,7 @@ const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkar =>
         merknadParametere: {},
       },
     ],
-  }) as Vilkar;
+  }) as Vilkår;
 
 const arbeidsgiverOpplysninger = {
   999999996: {
@@ -546,7 +546,7 @@ const lagBG = (
     erOverstyrtInntekt: false,
     inntektsgrunnlag,
   };
-  // @ts-ignore
+  // @ts-expect-error
   return beregningsgrunnlag;
 };
 
@@ -557,7 +557,7 @@ export default {
 
 const Template: StoryFn<{
   readOnly: boolean;
-  vilkar: Vilkar;
+  vilkar: Vilkår;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
 }> = ({ readOnly, vilkar, beregningsgrunnlagListe, submitCallback }) => (
@@ -786,7 +786,7 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038.args = {
         merknadParametere: {},
       },
     ],
-  } as Vilkar,
+  } as Vilkår,
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 
@@ -838,7 +838,7 @@ ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038.args = {
         merknadParametere: {},
       },
     ],
-  } as Vilkar,
+  } as Vilkår,
   submitCallback: action('button-click') as (data: any) => Promise<any>,
 };
 

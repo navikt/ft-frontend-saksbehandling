@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LabelWithHeader from './LabelWithHeader';
+import { LabelWithHeader } from './LabelWithHeader';
 
 export default {
   title: 'LabelWithHeader',

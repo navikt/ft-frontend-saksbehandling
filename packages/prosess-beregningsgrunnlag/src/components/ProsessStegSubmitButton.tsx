@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
 import { Button } from '@navikt/ds-react';
-import { createIntl } from '@navikt/ft-utils';
 import { ariaCheck } from '@navikt/ft-form-validators';
+import { createIntl } from '@navikt/ft-utils';
+import React from 'react';
 import messages from '../../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
@@ -19,7 +19,7 @@ const isDisabled = (
   }
   return (!isDirty && hasEmptyRequiredFields) || hasEmptyRequiredFields;
 };
-export interface OwnProps {
+export interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;
@@ -31,7 +31,7 @@ export interface OwnProps {
 /**
  * ProsessStegSubmitButton
  */
-const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
+export const ProsessStegSubmitButton = ({
   isReadOnly,
   isSubmittable,
   isSubmitting,
@@ -39,7 +39,7 @@ const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
   text,
   onClick,
   hasEmptyRequiredFields,
-}) => {
+}: Props) => {
   if (!isReadOnly) {
     return (
       <Button
@@ -56,4 +56,3 @@ const ProsessStegSubmitButton: FunctionComponent<OwnProps> = ({
   }
   return null;
 };
-export default ProsessStegSubmitButton;

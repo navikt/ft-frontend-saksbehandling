@@ -9,11 +9,11 @@ export type Saksopplysning = {
   readMoreContent: ReactNode | ReactNode[] | string;
 };
 
-export interface OwnProps {
+interface Props {
   saksopplysninger: Saksopplysning[];
 }
 
-const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: OwnProps) => (
+export const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: Props) => (
   <div className={styles.container}>
     {saksopplysninger.map((opplysning, index) => (
       <div key={`BlaBoksMedCheckmarkListe-${opplysning.textId}-${index}`} className={styles.rad}>
@@ -34,5 +34,3 @@ const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: OwnProps) => (
     ))}
   </div>
 );
-
-export default BlaBoksMedCheckmarkListe;

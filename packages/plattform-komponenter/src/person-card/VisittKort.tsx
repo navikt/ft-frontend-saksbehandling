@@ -7,7 +7,7 @@ interface CardProps {
   icon: React.ReactNode;
 }
 
-const VisittKort = ({ children, active, icon }: CardProps) => (
+export const VisittKort = ({ children, active, icon }: CardProps) => (
   <HStack
     gap="4"
     align="center"
@@ -23,5 +23,3 @@ const VisittKort = ({ children, active, icon }: CardProps) => (
     {children}
   </HStack>
 );
-
-export default VisittKort;

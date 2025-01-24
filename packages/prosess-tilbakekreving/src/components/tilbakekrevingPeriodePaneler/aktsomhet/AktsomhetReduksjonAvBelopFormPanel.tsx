@@ -1,16 +1,16 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
-import { BodyShort, Label, Detail, HStack } from '@navikt/ds-react';
+import { BodyShort, Detail, HStack, Label } from '@navikt/ds-react';
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { useEffect } from 'react';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { InputField, RadioGroupPanel, SelectField } from '@navikt/ft-form-hooks';
+import { maxValue, minValue, required } from '@navikt/ft-form-validators';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { minValue, maxValue, required } from '@navikt/ft-form-validators';
 
 import { useFormContext } from 'react-hook-form';
-import aktsomhet from '../../../kodeverk/aktsomhet';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
+import { Aktsomhet } from '../../../kodeverk/aktsomhet';
 
 const minValue1 = minValue(0.0);
 const maxValue100 = maxValue(99.99);
@@ -31,7 +31,7 @@ const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (be
 export const EGENDEFINERT = 'Egendefinert';
 export const ANDELER = ['30', '50', '70', EGENDEFINERT];
 
-export interface OwnProps {
+export interface Props {
   name: string;
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
@@ -41,7 +41,7 @@ export interface OwnProps {
   andelSomTilbakekreves?: string;
 }
 
-const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
+export const AktsomhetReduksjonAvBelopFormPanel = ({
   name,
   harGrunnerTilReduksjon,
   readOnly,
@@ -49,7 +49,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
   harMerEnnEnYtelse,
   feilutbetalingBelop,
   andelSomTilbakekreves,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const context = useFormContext();
@@ -125,7 +125,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                   />
                   <div
                     className={
-                      handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM ? styles.suffixGrovText : styles.suffix
+                      handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? styles.suffixGrovText : styles.suffix
                     }
                   >
                     %
@@ -139,12 +139,12 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                 label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiBelopSomSkalTilbakekreves" />}
                 validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
                 readOnly={readOnly}
-                // @ts-ignore Fiks
+                // @ts-expect-error Fiks
                 format={formatCurrencyNoKr}
                 parse={parseCurrencyInput}
               />
             )}
-            {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
+            {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
               <div>
                 <Detail>
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
@@ -172,7 +172,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
             {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
           </BodyShort>
           <VerticalSpacer sixteenPx />
-          {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
+          {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
             <RadioGroupPanel
               name={tilleggesRenterFelt}
               label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
@@ -197,5 +197,3 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default AktsomhetReduksjonAvBelopFormPanel;

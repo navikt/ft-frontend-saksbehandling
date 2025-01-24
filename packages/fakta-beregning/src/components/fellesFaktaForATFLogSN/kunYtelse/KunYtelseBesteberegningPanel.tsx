@@ -3,26 +3,25 @@ import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
 import { Label } from '@navikt/ds-react';
-import { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   FaktaOmBeregningAksjonspunktValues,
   VurderBesteberegningMedKunYtelseValues,
 } from '../../../typer/FaktaBeregningTypes';
-import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
-import BrukersAndelFieldArray from './BrukersAndelFieldArray';
+import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 import styles from './kunYtelseBesteberegningPanel.module.css';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
 
 export const besteberegningField = 'besteberegningField';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   brukersAndelFieldArrayName: string;
@@ -30,24 +29,19 @@ type OwnProps = {
   kodeverkSamling: KodeverkForPanel;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (kunYtelse: KunYtelse) => VurderBesteberegningMedKunYtelseValues;
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues) => boolean;
-}
-
 /**
  * KunYtelseBesteberegningPanel
  *
  * Presentasjonskomponent. Behandling av aksjonspunktet for fastsetting av bg for kun ytelse
  *  med vurdering av besteberegning.
  */
-const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const KunYtelseBesteberegning = ({
   readOnly,
   isAksjonspunktClosed,
   brukersAndelFieldArrayName,
   skalViseInntektstabell = true,
   kodeverkSamling,
-}) => {
+}: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
@@ -107,11 +101,9 @@ const KunYtelseBesteberegningImpl: FunctionComponent<OwnProps> & StaticFunctions
   );
 };
 
-KunYtelseBesteberegningImpl.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({
+KunYtelseBesteberegning.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({
   [besteberegningField]: kunYtelse.erBesteberegning,
 });
 
-KunYtelseBesteberegningImpl.transformValues = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
+KunYtelseBesteberegning.transformValues = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
   values[besteberegningField];
-
-export default KunYtelseBesteberegningImpl;

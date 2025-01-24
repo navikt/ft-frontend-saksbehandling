@@ -1,10 +1,9 @@
-import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
-import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { TextAreaField } from '@navikt/ft-form-hooks';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
 
 import styles from './faktaBegrunnelseTextField.module.css';
 
@@ -15,7 +14,7 @@ const intl = createIntl(messages);
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-type OwnProps = {
+type Props = {
   isReadOnly: boolean;
   isSubmittable: boolean;
   hasBegrunnelse: boolean;
@@ -32,22 +31,17 @@ type TransformedValues = {
   begrunnelse: string;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (aksjonspunkt: BeregningAvklaringsbehov, begrunnelseFieldName?: string) => FormValues;
-  transformValues: (values: FormValues, name?: string) => TransformedValues;
-}
-
 /**
  * FaktaBegrunnelseTextField
  */
-const FaktaBegrunnelseTextField: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const FaktaBegrunnelseTextField = ({
   isReadOnly,
   isSubmittable,
   hasBegrunnelse,
   label,
   hasVurderingText = false,
   name = 'begrunnelse',
-}) => {
+}: Props) => {
   const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.BegrunnEndringene';
   const textAreaLabel = label || intl.formatMessage({ id: code });
   return (
@@ -81,5 +75,3 @@ FaktaBegrunnelseTextField.buildInitialValues = (
 FaktaBegrunnelseTextField.transformValues = (values: FormValues, name = 'begrunnelse'): TransformedValues => ({
   begrunnelse: values[name] as string,
 });
-
-export default FaktaBegrunnelseTextField;

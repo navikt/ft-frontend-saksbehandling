@@ -1,7 +1,6 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
-const ExclamationMarkIcon = () => (
+export const ExclamationMarkIcon = () => (
   <Icon size={27}>
     <path
       // eslint-disable-next-line max-len
@@ -17,5 +16,3 @@ const ExclamationMarkIcon = () => (
     />
   </Icon>
 );
-
-export default ExclamationMarkIcon;

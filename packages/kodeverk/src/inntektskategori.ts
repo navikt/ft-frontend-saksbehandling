@@ -1,4 +1,4 @@
-enum Inntektskategori {
+export enum Inntektskategori {
   ARBEIDSTAKER = 'ARBEIDSTAKER',
   FRILANSER = 'FRILANSER',
   SELVSTENDIG_NÆRINGSDRIVENDE = 'SELVSTENDIG_NÆRINGSDRIVENDE',
@@ -21,5 +21,3 @@ const SELVSTENDIG_NÆRINGSDRIVENDE_INNTEKTSKATEGORIER = [
 
 export const isSelvstendigNæringsdrivende = (inntektskategori: string): boolean =>
   SELVSTENDIG_NÆRINGSDRIVENDE_INNTEKTSKATEGORIER.some(s => s === inntektskategori);
-
-export default Inntektskategori;

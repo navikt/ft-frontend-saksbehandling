@@ -14,7 +14,7 @@ import {
   FaktaOmFordeling,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
-  Vilkar,
+  Vilkår,
 } from '@navikt/ft-types';
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
@@ -22,27 +22,27 @@ import {
   bgMedDelvisRefusjon as vurderDelvisRefBG,
   bgUtenDelvisRefusjon as vurderRefusjonBG,
 } from '../testdata/VurderRefusjon';
-import FordelBeregningsgrunnlagFaktaIndex from './FordelBeregningsgrunnlagFaktaIndex';
+import { FordelBeregningsgrunnlagFaktaIndex } from './FordelBeregningsgrunnlagFaktaIndex';
 import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
 import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
-import bgFlerePerioderMedHelg from '../testdata/FlerePerioderMedHelg';
-import bgFlerePerioderMedForlengelse from '../testdata/FlerePerioderMedForlengelse';
-import bgTilkommetInntektsforholdMedForlengelse from '../testdata/TilkommetAktivitetMedForlengelse';
-import bgTilkommetInntektsforholdMedForlengelseLukketAP from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
-import bgTilkommetInntektsforholdMedRevurdering from '../testdata/TilkommetAktivitetRevurderingLøstTidligere';
-import bgTilkommetInntektsforholdMedRevurdering1MaiSplitt from '../testdata/TilkommetAktivitetRevurderingLøstTidligere1MaiKryss';
-import bgTilkommetAktivitetTrePerioderHelgMellom from '../testdata/TilkommetAktivitetTrePerioderHelgMellom';
+import { beregningsgrunnlag as bgFlerePerioderMedHelg } from '../testdata/FlerePerioderMedHelg';
+import { beregningsgrunnlag as bgFlerePerioderMedForlengelse } from '../testdata/FlerePerioderMedForlengelse';
+import { beregningsgrunnlag as bgTilkommetInntektsforholdMedForlengelse } from '../testdata/TilkommetAktivitetMedForlengelse';
+import { beregningsgrunnlag as bgTilkommetInntektsforholdMedForlengelseLukketAP } from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
+import { beregningsgrunnlag as bgTilkommetInntektsforholdMedRevurdering } from '../testdata/TilkommetAktivitetRevurderingLøstTidligere';
+import { beregningsgrunnlag as bgTilkommetInntektsforholdMedRevurdering1MaiSplitt } from '../testdata/TilkommetAktivitetRevurderingLøstTidligere1MaiKryss';
+import { beregningsgrunnlag as bgTilkommetAktivitetTrePerioderHelgMellom } from '../testdata/TilkommetAktivitetTrePerioderHelgMellom';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
-import VurderRefusjonBeregningsgrunnlagAP from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagAP from './types/interface/FordelBeregningsgrunnlagAP';
+import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
 
 import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import VurderNyttInntektsforholdAP from './types/interface/VurderNyttInntektsforholdAP';
-import KodeverkForPanel from './types/kodeverkForPanel';
+import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
+import { KodeverkForPanel } from './types/kodeverkForPanel';
 
 const agOpplysninger = {
   874652202: {
@@ -106,7 +106,7 @@ export default {
   component: FordelBeregningsgrunnlagFaktaIndex,
 };
 
-const lagVilkår = (perioder: any[]): Vilkar => ({
+const lagVilkår = (perioder: any[]): Vilkår => ({
   vilkarType: 'VK_41',
   overstyrbar: false,
   perioder: perioder.map(p => ({
@@ -185,7 +185,7 @@ const lagBG = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   skjæringstidspunkt = '2019-09-16',
 ): Beregningsgrunnlag =>
-  // @ts-ignore
+  // @ts-expect-error
   ({
     avklaringsbehov,
     skjaeringstidspunktBeregning: skjæringstidspunkt,

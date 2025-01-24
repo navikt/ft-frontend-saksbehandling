@@ -1,5 +1,5 @@
-import { AvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
-import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvklaringsbehovCode';
+import { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type VurderRefusjonAndelTransformedValues = {
   arbeidsgiverOrgnr?: string;
@@ -21,9 +21,7 @@ export type VurderRefusjonBeregningsgrunnlagAP = VurderRefusjonTransformedValues
   };
 };
 
-export type VurderRefusjonAksjonspunktSubmitType = AvklaringsbehovTilBekreftelse<
+export type VurderRefusjonAksjonspunktSubmitType = BeregningAvklaringsbehovTilBekreftelse<
   FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   VurderRefusjonTransformedValues
 >;
-
-export default VurderRefusjonAksjonspunktSubmitType;

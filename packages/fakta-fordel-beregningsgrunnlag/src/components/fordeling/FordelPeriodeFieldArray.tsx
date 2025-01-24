@@ -1,10 +1,7 @@
-import React, { FunctionComponent, ReactElement, useEffect } from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Checkbox, Detail, ErrorMessage, Label, Button } from '@navikt/ds-react';
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { Button, Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { FloatRight, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import {
   AktivitetStatus,
   BeregningsgrunnlagAndelType,
@@ -12,9 +9,19 @@ import {
   isSelvstendigNæringsdrivende,
   KodeverkType,
 } from '@navikt/ft-kodeverk';
-import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
-import { UseFormGetValues, useFieldArray, useFormContext } from 'react-hook-form';
+import { FloatRight, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { ReactElement, useEffect } from 'react';
+import { useFieldArray, useFormContext, UseFormGetValues } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import {
+  BGFordelArbeidsforhold,
+  FordelBeregningsgrunnlagAndelValues,
+  FordelBeregningsgrunnlagFormValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
+import { finnUnikeArbeidsforhold } from './FinnUnikeArbeidsforhold';
 import {
   validateSumFastsattBelop,
   validateSumFastsattForUgraderteAktiviteter,
@@ -23,16 +30,9 @@ import {
   validateUlikeAndeler,
   validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
-import {
-  BGFordelArbeidsforhold,
-  FordelBeregningsgrunnlagAndelValues,
-  FordelBeregningsgrunnlagFormValues,
-} from '../../types/FordelBeregningsgrunnlagPanelValues';
-import finnUnikeArbeidsforhold from './FinnUnikeArbeidsforhold';
 
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import styles from './renderFordelBGFieldArray.module.css';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
@@ -407,7 +407,7 @@ const getHeaderTextCodes = (gjelderGradering: boolean): string[] => {
   return headerCodes;
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   skalIkkeRedigereInntekt: boolean;
@@ -435,7 +435,7 @@ const getGjelderGradering = (beregningsgrunnlag: Beregningsgrunnlag): boolean =>
  * Presentasjonskomponent: Viser fordeling av brutto beregningsgrunnlag ved endret beregningsgrunnlag
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
+export const FordelPeriodeFieldArray = ({
   fieldName,
   readOnly,
   skalIkkeRedigereInntekt,
@@ -449,7 +449,7 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
   vilkårperiodeFieldIndex,
   setFieldArrayToRepeat,
   fieldArrayToRepeat,
-}) => {
+}: Props) => {
   const { control, watch, getValues } = useFormContext<FordelBeregningsgrunnlagFormValues>();
   const fieldArrayName = `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`;
   const { fields, append, remove, update } = useFieldArray({
@@ -601,5 +601,3 @@ const FordelPeriodeFieldArray: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default FordelPeriodeFieldArray;

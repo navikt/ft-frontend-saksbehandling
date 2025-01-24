@@ -1,23 +1,22 @@
-import React, { FunctionComponent } from 'react';
 import { Detail } from '@navikt/ds-react';
 
-import { FormattedMessage } from 'react-intl';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FormattedMessage } from 'react-intl';
+import { Beregningsresultat } from './Beregningsresultat';
+import { Grenseverdi } from './Grenseverdi';
+import { Inntektsopplysninger } from './Inntektsopplysninger';
+import { Søknadsopplysninger } from './Søknadsopplysninger';
 import styles from './søknadsopplysninger.module.css';
-import Søknadsopplysninger from './Søknadsopplysninger';
-import Beregningsresultat from './Beregningsresultat';
-import Inntektsopplysninger from './Inntektsopplysninger';
-import Grenseverdi from './Grenseverdi';
 
 const erDagsatsBeregnet = (bg: Beregningsgrunnlag) =>
   bg.beregningsgrunnlagPeriode.some(p => p.dagsats || p.dagsats === 0);
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const Frisinnpanel: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => (
+export const Frisinnpanel = ({ beregningsgrunnlag }: Props) => (
   <div className={styles.aksjonspunktBehandlerContainer}>
     <Detail>
       <FormattedMessage id="Beregningsgrunnlag.Frisinn.Tittel" />
@@ -36,5 +35,3 @@ const Frisinnpanel: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => (
     )}
   </div>
 );
-
-export default Frisinnpanel;

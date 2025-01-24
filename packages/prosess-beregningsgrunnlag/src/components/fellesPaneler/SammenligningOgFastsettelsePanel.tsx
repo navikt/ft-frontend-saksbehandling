@@ -1,7 +1,7 @@
-import React, { FunctionComponent, ReactNode, useState } from 'react';
 import { Heading } from '@navikt/ds-react';
-import { FormattedMessage } from 'react-intl';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ReactNode, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { AktivitetStatus, SammenligningType } from '@navikt/ft-kodeverk';
 import {
@@ -9,19 +9,19 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
-  Vilkar,
+  Vilkår,
 } from '@navikt/ft-types';
+import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
 
-import SammenligningForklaringPanel from './SammenligningForklaringPanel';
-import SammenligningsgrunnlagPanel from './SammenligningsgrunnlagPanel';
-import AksjonspunktBehandler, { finnFormName } from './AksjonspunktBehandler';
+import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
-import BeregningFormValues from '../../types/BeregningFormValues';
-import LovParagraf, { mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { AksjonspunktBehandler, finnFormName } from './AksjonspunktBehandler';
+import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';
+import { SammenligningsgrunnlagPanel } from './SammenligningsgrunnlagPanel';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -139,7 +139,7 @@ const finnBeregnetInntekt = (
   };
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   kodeverkSamling: KodeverkForPanel;
   readOnlySubmitButton: boolean;
@@ -148,7 +148,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   gjelderBesteberegning: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  vilkår: Vilkar;
+  vilkår: Vilkår;
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
@@ -198,7 +198,7 @@ const grupperPrLovparagraf = (beregningsgrunnlagListe: Beregningsgrunnlag[]) =>
     return nyGruppert;
   }, {} as GruppertPrLovparagraf);
 
-const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
+export const SammenligningOgFastsettelsePanel = ({
   readOnly,
   readOnlySubmitButton,
   kodeverkSamling,
@@ -212,7 +212,7 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
   aktivIndex,
-}) => {
+}: Props) => {
   const gruppertPrLovparagraf = grupperPrLovparagraf(beregningsgrunnlagListe);
   const [finnesFormSomSubmittes, setSubmitting] = useState(false);
 
@@ -300,5 +300,3 @@ const SammenligningOgFastsettelsePanel: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default SammenligningOgFastsettelsePanel;

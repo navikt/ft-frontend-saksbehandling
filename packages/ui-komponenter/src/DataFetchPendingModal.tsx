@@ -15,11 +15,11 @@ const doNothing = () => undefined;
 // Vent to sekund med å vise melding
 const MESSAGE_DELAY_MILLIS = 2000;
 
-export interface OwnProps {
+export interface Props {
   pendingMessage: string;
 }
 
-interface OwnState {
+interface State {
   displayMessage: boolean;
 }
 
@@ -28,10 +28,10 @@ interface OwnState {
  *
  * Denne modalen vises når det går mer enn to sekund å polle etter serverdata.
  */
-class DataFetchPendingModal extends Component<OwnProps, OwnState> {
+export class DataFetchPendingModal extends Component<Props, State> {
   timer: ReturnType<typeof setTimeout>;
 
-  constructor(props: OwnProps) {
+  constructor(props: Props) {
     super(props);
     this.enableMessage = this.enableMessage.bind(this);
 
@@ -74,5 +74,3 @@ class DataFetchPendingModal extends Component<OwnProps, OwnState> {
     );
   }
 }
-
-export default DataFetchPendingModal;

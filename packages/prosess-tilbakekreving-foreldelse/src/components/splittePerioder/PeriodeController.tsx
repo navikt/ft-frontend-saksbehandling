@@ -1,11 +1,11 @@
-import React, { FunctionComponent, useState } from 'react';
 import { Button, HStack, Label, Spacer } from '@navikt/ds-react';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
+import React, { useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ArrowLeftIcon, ArrowRightIcon, ScissorsIcon, XMarkIcon } from '@navikt/aksel-icons';
-import ForeldelsesresultatActivity from '../../types/foreldelsesresultatActivitytsType';
-import DelOppPeriodeModal, { PerioderData } from './DelOppPeriodeModal';
+import { ForeldelsesresultatActivity } from '../../types/ForeldelsesresultatActivity';
+import { DelOppPeriodeModal, PerioderData } from './DelOppPeriodeModal';
 
 import styles from './periodeController.module.css';
 
@@ -24,7 +24,7 @@ export type PeriodeMedFeilutbetaling = {
   feilutbetaling: number;
 };
 
-interface PureOwnProps {
+interface Props {
   behandlingUuid: string;
   beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
   oppdaterSplittedePerioder: (data: PeriodeMedFeilutbetaling[]) => void;
@@ -35,7 +35,7 @@ interface PureOwnProps {
   lukkPeriode: () => void;
 }
 
-const PeriodeController: FunctionComponent<PureOwnProps> = ({
+export const PeriodeController = ({
   valgtPeriode,
   beregnBelop: callBeregnBelop,
   behandlingUuid: selectedBehandlingUuid,
@@ -44,7 +44,7 @@ const PeriodeController: FunctionComponent<PureOwnProps> = ({
   setForrigePeriode,
   readOnly,
   lukkPeriode,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const [showDelPeriodeModal, setShowDelPeriodeModal] = useState(false);
@@ -168,5 +168,3 @@ const PeriodeController: FunctionComponent<PureOwnProps> = ({
     </HStack>
   );
 };
-
-export default PeriodeController;

@@ -1,7 +1,6 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
-const RedCrossIconFilled = () => (
+export const RedCrossIconFilled = () => (
   <Icon size={24}>
     <path
       // eslint-disable-next-line max-len
@@ -15,5 +14,3 @@ const RedCrossIconFilled = () => (
     />
   </Icon>
 );
-
-export default RedCrossIconFilled;

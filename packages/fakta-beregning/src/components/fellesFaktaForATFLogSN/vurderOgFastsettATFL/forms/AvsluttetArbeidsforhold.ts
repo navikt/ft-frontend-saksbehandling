@@ -2,7 +2,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AndelFieldIdentifikator, InntektTransformed } from '../../../../typer/FieldValues';
 
-const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse = (
+export const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse = (
   andel: AndelFieldIdentifikator | InntektTransformed,
   beregningsgrunnlag: Beregningsgrunnlag,
   arbeidsforholdId?: string,
@@ -17,5 +17,3 @@ const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse = (
   }
   return false;
 };
-
-export default erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse;

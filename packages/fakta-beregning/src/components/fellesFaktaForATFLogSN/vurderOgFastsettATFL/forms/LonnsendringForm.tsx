@@ -4,7 +4,7 @@ import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
@@ -23,19 +23,11 @@ import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner
 
 export const lonnsendringField = 'lonnsendringField';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => LønnsendringValues;
-  transformValues: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    faktaOmBeregning: FaktaOmBeregning,
-  ) => FaktaBeregningTransformedValues;
-}
-
-const LonnsendringForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+export const LonnsendringForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
@@ -124,5 +116,3 @@ LonnsendringForm.transformValues = (
     vurdertLonnsendring: { erLønnsendringIBeregningsperioden: values[lonnsendringField] },
   };
 };
-
-export default LonnsendringForm;

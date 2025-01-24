@@ -1,32 +1,31 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { Heading } from '@navikt/ds-react';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
-  Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagPeriodeProp,
+  Beregningsgrunnlag as BeregningsgrunnlagProp,
   FaktaOmBeregning,
-  Vilkarperiode,
+  Vilkår,
+  Vilkårperiode,
   YtelseGrunnlag,
-  Vilkar,
 } from '@navikt/ft-types';
-import { Heading } from '@navikt/ds-react';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 
-import BesteberegningResultatGrunnlagPanel from '../besteberegning/BesteberegningResultatGrunnlagPanel';
-import SkjeringspunktOgStatusPanel from '../fellesPaneler/SkjeringspunktOgStatusPanel';
-import Beregningsgrunnlag from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
+import { BeregningFormValues } from '../../types/BeregningFormValues';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
-import AksjonspunktTittel from '../fellesPaneler/AksjonspunktTittel';
-import YtelsegrunnlagPanel from '../frisinn/YtelsegrunnlagPanel';
-import SammenligningOgFastsettelsePanel from '../fellesPaneler/SammenligningOgFastsettelsePanel';
-import BeregningFormValues from '../../types/BeregningFormValues';
-import BeregningsresultatPanel from '../beregningsresultat/BeregningsresultatPanel';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { BeregningsresultatPanel } from '../beregningsresultat/BeregningsresultatPanel';
+import { BesteberegningResultatGrunnlagPanel } from '../besteberegning/BesteberegningResultatGrunnlagPanel';
+import { AksjonspunktTittel } from '../fellesPaneler/AksjonspunktTittel';
+import { SammenligningOgFastsettelsePanel } from '../fellesPaneler/SammenligningOgFastsettelsePanel';
+import { SkjeringspunktOgStatusPanel } from '../fellesPaneler/SkjeringspunktOgStatusPanel';
+import { YtelsegrunnlagPanel } from '../frisinn/YtelsegrunnlagPanel';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
@@ -45,17 +44,17 @@ const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp
         .map(statusAndel => statusAndel.aktivitetStatus)
     : [];
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   relevanteStatuser: RelevanteStatuserProp;
   readOnlySubmitButton: boolean;
   valgtBeregningsgrunnlag: BeregningsgrunnlagProp;
   kodeverkSamling: KodeverkForPanel;
-  vilkarPeriode?: Vilkarperiode;
+  vilkarPeriode?: Vilkårperiode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[];
   alleBeregningsgrunnlag: BeregningsgrunnlagProp[];
-  vilkår: Vilkar;
+  vilkår: Vilkår;
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
@@ -73,7 +72,7 @@ type OwnProps = {
  * relatert til beregning.
  *
  */
-const BeregningForm: FunctionComponent<OwnProps> = ({
+export const BeregningForm = ({
   readOnly,
   valgtBeregningsgrunnlag,
   relevanteStatuser,
@@ -88,7 +87,7 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
   aktivIndex,
-}) => {
+}: Props) => {
   const { skjaeringstidspunktBeregning, beregningsgrunnlagPeriode, faktaOmBeregning, ytelsesspesifiktGrunnlag } =
     valgtBeregningsgrunnlag;
 
@@ -177,5 +176,3 @@ const BeregningForm: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default BeregningForm;

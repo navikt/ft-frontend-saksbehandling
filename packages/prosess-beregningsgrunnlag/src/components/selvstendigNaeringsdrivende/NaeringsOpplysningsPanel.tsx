@@ -1,15 +1,15 @@
-import React, { FunctionComponent } from 'react';
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
 
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import { Ledelinje } from '../fellesPaneler/Ledelinje';
 import styles from './naeringsOpplysningsPanel.module.css';
-import Ledelinje from '../fellesPaneler/Ledelinje';
 
 const finnVirksomhetTypeTekst = (næring: Næring): string => {
   const kode = næring?.virksomhetType;
@@ -90,15 +90,12 @@ const lagBeskrivelsePanel = (næringsAndel: Næring): React.ReactNode => {
 
 const søkerHarOppgittInntekt = (næring: Næring): boolean => !!næring.oppgittInntekt || næring.oppgittInntekt === 0;
 
-type OwnProps = {
+type Props = {
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
-  alleAndelerIForstePeriode,
-  arbeidsgiverOpplysningerPerId,
-}) => {
+export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiverOpplysningerPerId }: Props) => {
   const snAndel = alleAndelerIForstePeriode.find(
     andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
   );
@@ -172,5 +169,3 @@ const NaeringsopplysningsPanel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default NaeringsopplysningsPanel;

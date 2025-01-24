@@ -1,25 +1,25 @@
-import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
-import dayjs from 'dayjs';
-import { FormattedMessage } from 'react-intl';
 import { BodyShort, Heading, Panel } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
-import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
-import { AksjonspunktHelpTextHTML, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
+import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
-import ForeldelsePeriodeForm, { FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
-import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
-import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
-import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
-import PeriodeController, { PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
+import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
+import { TidslinjePeriode } from '../types/TidslinjePeriode';
+import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
+import { PeriodeController, PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
+import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
+import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
+import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
 import styles from './foreldelseForm.module.css';
-import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
-import VurderForeldelseAp from '../types/VurderForeldelseAp';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
-import PeriodeInformasjon from './splittePerioder/PeriodeInformasjon';
+import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 
 const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
   dayjs(periode1.fom).diff(dayjs(periode2.fom));
@@ -85,7 +85,7 @@ export const lagForeldelsesresultatAktiviteter = (
     begrunnelse: decodeHtmlEntity(p.begrunnelse),
   }));
 
-export interface OwnProps {
+export interface Props {
   behandlingUuid: string;
   aksjonspunkt: Aksjonspunkt;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
@@ -100,7 +100,7 @@ export interface OwnProps {
   setFormData: (data: ForeldelsesresultatActivity[]) => void;
 }
 
-const ForeldelseForm: FunctionComponent<OwnProps> = ({
+export const ForeldelseForm = ({
   submitCallback,
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
@@ -113,7 +113,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
   behandlingUuid,
   formData,
   setFormData,
-}) => {
+}: Props) => {
   const alleForeldelseresultatAktiviteter = useMemo(
     () => lagForeldelsesresultatAktiviteter(perioderForeldelse.perioder),
     [perioderForeldelse.perioder],
@@ -294,5 +294,3 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
     </FaktaGruppe>
   );
 };
-
-export default ForeldelseForm;

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
@@ -6,7 +6,7 @@ import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } fro
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Heading, BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
-import { Beregningsgrunnlag, Vilkarperiode, YtelseGrunnlag } from '@navikt/ft-types';
+import { Beregningsgrunnlag, Vilkårperiode, YtelseGrunnlag } from '@navikt/ft-types';
 
 import { TabellRadData, TabellData } from '../../types/BeregningsresultatTabellType';
 import styles from './beregningsresultat.module.css';
@@ -124,7 +124,7 @@ const sjekkErMidlertidigInaktiv = (beregningsgrunnlag: Beregningsgrunnlag): bool
 
 const lagResultatRader = (
   tabellData: TabellData,
-  vilkårPeriode: Vilkarperiode,
+  vilkårPeriode: Vilkårperiode,
   beregningsgrunnlag: Beregningsgrunnlag,
   harFlereAndeler: boolean,
 ): ReactElement | null => {
@@ -191,19 +191,14 @@ const lagResultatRader = (
   );
 };
 
-type OwnProps = {
+type Props = {
   tabellData: TabellData;
   skalVisePeriode: boolean;
-  vilkårsperiode: Vilkarperiode;
+  vilkårsperiode: Vilkårperiode;
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
-  tabellData,
-  skalVisePeriode,
-  vilkårsperiode,
-  beregningsgrunnlag,
-}) => {
+export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsperiode, beregningsgrunnlag }: Props) => {
   const skalViseOppsummeringsrad =
     tabellData.andeler.length > 1 && !tabellData.andeler.some(andel => !andel.erFerdigBeregnet);
   tabellData.andeler.sort((a, b) => finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b));
@@ -283,5 +278,3 @@ const OppsummertGrunnlagPanel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default OppsummertGrunnlagPanel;

@@ -1,4 +1,4 @@
-export const underavsnittType = {
+export const UnderavsnittType = {
   OPPSUMMERING: 'OPPSUMMERING',
   FAKTA: 'FAKTA',
   FORELDELSE: 'FORELDELSE',
@@ -6,5 +6,3 @@ export const underavsnittType = {
   SARLIGEGRUNNER: 'SÆRLIGEGRUNNER',
   SARLIGEGRUNNER_ANNET: 'SÆRLIGEGRUNNER_ANNET',
 };
-
-export default underavsnittType;

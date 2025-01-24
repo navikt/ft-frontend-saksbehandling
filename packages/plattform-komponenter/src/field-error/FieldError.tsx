@@ -5,6 +5,4 @@ interface FieldErrorProps {
   message?: string;
 }
 
-const FieldError = ({ message }: FieldErrorProps): JSX.Element => <p className={styles.fieldError}>{message}</p>;
-
-export default FieldError;
+export const FieldError = ({ message }: FieldErrorProps): JSX.Element => <p className={styles.fieldError}>{message}</p>;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OverstyringKnapp from './OverstyringKnapp';
+import { OverstyringKnapp } from './OverstyringKnapp';
 
 export default {
   title: 'OverstyringKnapp',

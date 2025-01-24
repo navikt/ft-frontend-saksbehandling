@@ -10,14 +10,14 @@ import {
   RelasjonsRolleType,
 } from '@navikt/ft-kodeverk';
 import { Behandling, Aksjonspunkt, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
-import ForeldelseProsessIndex from './ForeldelseProsessIndex';
-import ForeldelseAksjonspunktCodes from './ForeldelseAksjonspunktCodes';
+import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
+import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 
 import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
 
 const perioderForeldelse = {
   perioder: [

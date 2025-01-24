@@ -1,4 +1,3 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
@@ -9,7 +8,7 @@ const intl = createIntl(messages);
 
 type DateTimeSeperator = 'dash' | 'kl';
 
-export type OwnProps = {
+export type Props = {
   dateTimeString: string;
   separator?: DateTimeSeperator;
 } & Intl.DateTimeFormatOptions;
@@ -24,7 +23,7 @@ export type OwnProps = {
  * <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" />
  * ```
  */
-const DateTimeLabel: FunctionComponent<OwnProps> = ({
+export const DateTimeLabel = ({
   dateTimeString,
   separator = 'dash' as DateTimeSeperator,
   year = 'numeric',
@@ -33,7 +32,7 @@ const DateTimeLabel: FunctionComponent<OwnProps> = ({
   hour = 'numeric',
   minute = 'numeric',
   second = undefined,
-}: OwnProps) => {
+}: Props) => {
   const getSeparator = () => {
     switch (separator) {
       case 'dash':
@@ -51,5 +50,3 @@ const DateTimeLabel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default DateTimeLabel;

@@ -3,7 +3,7 @@ import { RawIntlProvider } from 'react-intl';
 import { StoryFn } from '@storybook/react';
 
 import { createIntl } from '@navikt/ft-utils';
-import DateLabel from './DateLabel';
+import { DateLabel } from './DateLabel';
 
 const intl = createIntl({
   'OkAvbrytModal.Ok': 'Ok',

@@ -1,6 +1,6 @@
 import React, { ComponentProps, useState } from 'react';
 import { StoryFn } from '@storybook/react';
-import UserPanel from './UserPanel';
+import { UserPanel } from './UserPanel';
 
 export default {
   title: 'UserPanel',

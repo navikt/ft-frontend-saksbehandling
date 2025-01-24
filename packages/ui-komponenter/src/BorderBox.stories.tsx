@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BorderBox from './BorderBox';
+import { BorderBox } from './BorderBox';
 
 export default {
   title: 'BorderBox',

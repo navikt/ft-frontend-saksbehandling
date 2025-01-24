@@ -1,11 +1,11 @@
-import React, { ReactNode, FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
+import { ReactNode } from 'react';
 
 import styles from './flexColumn.module.css';
 
 const classNames = classnames.bind(styles);
 
-export interface OwnProps {
+interface Props {
   children?: ReactNode | ReactNode[];
   className?: string;
 }
@@ -13,8 +13,6 @@ export interface OwnProps {
 /**
  * @deprecated Bruk heller HStack og VStack fra https://aksel.nav.no/komponenter
  */
-const FlexColumn: FunctionComponent<OwnProps> = ({ children, className }) => (
+export const FlexColumn = ({ children, className }: Props) => (
   <div className={classNames('flexColumnNew', className)}>{children}</div>
 );
-
-export default FlexColumn;

@@ -1,7 +1,3 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
-import classnames from 'classnames/bind';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -10,9 +6,14 @@ import {
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
+import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import classnames from 'classnames/bind';
+import { ReactElement } from 'react';
+import { FormattedMessage } from 'react-intl';
 
-import dayjs from 'dayjs';
 import { Accordion, Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
   finnFastsattPrAar,
   setArbeidsforholdInitialValues,
@@ -20,12 +21,11 @@ import {
   settAndelIArbeid,
   settFastsattBelop,
 } from './BgFordelingUtils';
-import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FordelPeriodeFieldArray from './FordelPeriodeFieldArray';
+import { FordelPeriodeFieldArray } from './FordelPeriodeFieldArray';
 
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
 import styles from './fordelBeregningsgrunnlagPeriodePanel.module.css';
-import VurdertIForrigeBehandlingIcon from '../felles/VurdertIForrigeBehandlingIcon';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const classNames = classnames.bind(styles);
 
@@ -76,7 +76,7 @@ const finnSumIPeriode = (bgPerioder: BeregningsgrunnlagPeriodeProp[], fom: strin
     .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   fordelBGFieldArrayName: string;
   open?: boolean;
@@ -92,24 +92,13 @@ type OwnProps = {
   erVurdertTidligere: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (
-    periode: FordelBeregningsgrunnlagPeriode,
-    bgPeriode: BeregningsgrunnlagPeriodeProp,
-    skjaeringstidspunktBeregning: string,
-    harKunYtelse: boolean,
-    kodeverkSamling: KodeverkForPanel,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  ) => FordelBeregningsgrunnlagAndelValues[];
-}
-
 /**
  * FordelBeregningsgrunnlagPeriodePanel
  *
  * Presentasjonskomponent. Viser ekspanderbart panel for perioder i nytt/endret beregningsgrunnlag
  */
 
-const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const FordelBeregningsgrunnlagPeriodePanel = ({
   readOnly,
   erVurdertTidligere,
   isAksjonspunktClosed,
@@ -123,7 +112,7 @@ const FordelBeregningsgrunnlagPeriodePanel: FunctionComponent<OwnProps> & Static
   fieldIndex,
   setFieldArrayToRepeat,
   fieldArrayToRepeat,
-}) => {
+}: Props) => {
   if (!fordelingsperiode.fom) {
     return null;
   }
@@ -253,5 +242,3 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
     };
   });
 };
-
-export default FordelBeregningsgrunnlagPeriodePanel;

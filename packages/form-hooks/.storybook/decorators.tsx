@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from './../src/Form';
+import { Form } from './../src/Form';
 import { action } from '@storybook/addon-actions';
 import { Button, VStack } from '@navikt/ds-react';
 import { useForm, UseFormProps } from 'react-hook-form';

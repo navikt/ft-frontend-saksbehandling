@@ -1,7 +1,7 @@
 import React from 'react';
 import { bemUtils } from '@navikt/ft-utils';
 import { BodyShort } from '@navikt/ds-react';
-import BoxedList from '../boxed-list/BoxedList';
+import { BoxedList } from '../boxed-list/BoxedList';
 import styles from './boxedListWithLinks.module.css';
 
 interface ListItemProps {
@@ -23,10 +23,7 @@ interface BoxedListWithLinksProps {
 const listItemCls = bemUtils('boxedList__item');
 
 /** Bordered list with links */
-export const BoxedListWithLinks: React.FunctionComponent<BoxedListWithLinksProps> = ({
-  items,
-  onClick,
-}: BoxedListWithLinksProps) => (
+export const BoxedListWithLinks = ({ items, onClick }: BoxedListWithLinksProps) => (
   <BoxedList>
     {items.map(({ name, href, isExternal }, index) => (
       <li className={styles[listItemCls.block]} key={href}>
@@ -45,5 +42,3 @@ export const BoxedListWithLinks: React.FunctionComponent<BoxedListWithLinksProps
     ))}
   </BoxedList>
 );
-
-export default BoxedListWithLinks;

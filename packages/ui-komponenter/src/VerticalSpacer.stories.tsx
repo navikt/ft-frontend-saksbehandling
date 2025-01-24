@@ -1,6 +1,6 @@
 import React from 'react';
 
-import VerticalSpacer from './VerticalSpacer';
+import { VerticalSpacer } from './VerticalSpacer';
 
 export default {
   title: 'VerticalSpacer',

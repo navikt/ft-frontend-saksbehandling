@@ -1,4 +1,4 @@
-enum FagsakYtelseType {
+export enum FagsakYtelseType {
   ENGANGSSTONAD = 'ES',
   FORELDREPENGER = 'FP',
   SVANGERSKAPSPENGER = 'SVP',
@@ -10,5 +10,3 @@ enum FagsakYtelseType {
   FRISINN = 'FRISINN',
   PLEIEPENGER_SLUTTFASE = 'PPN',
 }
-
-export default FagsakYtelseType;

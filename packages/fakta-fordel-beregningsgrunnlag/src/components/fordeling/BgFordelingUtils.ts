@@ -9,7 +9,7 @@ import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagGenerellAndelValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 
@@ -20,7 +20,7 @@ export const settAndelIArbeid = (andelerIArbeid: number[]): string => {
     return '';
   }
   if (andelerIArbeid.length === 1) {
-    // @ts-ignore fiks
+    // @ts-expect-error fiks
     return `${parseFloat(andelerIArbeid[0]).toFixed(2)}`;
   }
   const minAndel = Math.min(...andelerIArbeid);

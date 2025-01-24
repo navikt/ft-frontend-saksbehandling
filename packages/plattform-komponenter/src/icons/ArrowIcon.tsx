@@ -1,7 +1,6 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
-const ArrowIcon = () => (
+export const ArrowIcon = () => (
   <Icon size={24}>
     <path
       fillRule="evenodd"
@@ -11,5 +10,3 @@ const ArrowIcon = () => (
     />
   </Icon>
 );
-
-export default ArrowIcon;

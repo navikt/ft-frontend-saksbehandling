@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { getError, getValidationRules } from '../formUtils';
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
@@ -24,7 +24,7 @@ export interface RangepickerProps {
 }
 
 // @deprecated brukes ikke(?)
-const Rangepicker = ({
+export const Rangepicker = ({
   fomName,
   tomName,
   label,
@@ -153,5 +153,3 @@ const Rangepicker = ({
     </DatePicker>
   );
 };
-
-export default Rangepicker;

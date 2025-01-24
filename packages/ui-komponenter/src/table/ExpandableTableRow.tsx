@@ -1,13 +1,13 @@
-import React, { FunctionComponent, ReactNode } from 'react';
-import classnames from 'classnames/bind';
-import { ChevronUpIcon, ChevronDownIcon } from '@navikt/aksel-icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 import { createIntl } from '@navikt/ft-utils';
+import classnames from 'classnames/bind';
+import { ReactNode } from 'react';
 
-import TableColumn from './TableColumn';
-import TableRow from './TableRow';
+import { TableColumn } from './TableColumn';
+import { TableRow } from './TableRow';
 
 import messages from '../../i18n/nb_NO.json';
-import FloatRight from '../FloatRight';
+import { FloatRight } from '../FloatRight';
 
 import styles from './expandableTableRow.module.css';
 
@@ -15,7 +15,7 @@ const classNames = classnames.bind(styles);
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+export interface Props {
   showContent: boolean;
   content: ReactNode;
   toggleContent: () => void;
@@ -27,14 +27,14 @@ export interface OwnProps {
 /**
  * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
-const ExpandableTableRow: FunctionComponent<OwnProps> = ({
+export const ExpandableTableRow = ({
   showContent,
   content,
   toggleContent,
   children,
   isApLeftBorder = false,
   alignWithColumn = 0,
-}) => (
+}: Props) => (
   <>
     <TableRow
       onMouseDown={toggleContent}
@@ -71,5 +71,3 @@ const ExpandableTableRow: FunctionComponent<OwnProps> = ({
     </TableRow>
   </>
 );
-
-export default ExpandableTableRow;

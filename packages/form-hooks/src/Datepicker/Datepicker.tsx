@@ -6,7 +6,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { useController, useFormContext } from 'react-hook-form';
 
 import { getError, getValidationRules } from '../formUtils';
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
@@ -26,7 +26,7 @@ export interface DatepickerProps {
   toDate?: Date;
 }
 
-const Datepicker = ({
+export const Datepicker = ({
   name,
   label,
   description,
@@ -118,5 +118,3 @@ const Datepicker = ({
     </DatePicker>
   );
 };
-
-export default Datepicker;

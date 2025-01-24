@@ -210,7 +210,7 @@ describe('Validators', () => {
     });
 
     it('skal ikke feile når dato er tom', () => {
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
       const result = hasValidDate();
       expect(result).toBeNull();
     });

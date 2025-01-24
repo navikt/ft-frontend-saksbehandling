@@ -3,7 +3,7 @@ import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import DateTimeLabel from './DateTimeLabel';
+import { DateTimeLabel } from './DateTimeLabel';
 import { Meta, StoryObj } from '@storybook/react';
 
 const intl = createIntl({});

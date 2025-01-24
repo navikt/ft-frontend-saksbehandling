@@ -1,6 +1,6 @@
 import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
-// @ts-ignore
+// @ts-expect-error
 export const bgUtenDelvisRefusjon = {
   avklaringsbehov: [
     {
@@ -48,7 +48,7 @@ export const bgUtenDelvisRefusjon = {
   },
 } as Beregningsgrunnlag;
 
-// @ts-ignore
+// @ts-expect-error
 export const bgMedDelvisRefusjon = {
   avklaringsbehov: [
     {

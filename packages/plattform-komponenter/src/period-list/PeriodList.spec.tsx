@@ -1,6 +1,5 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { composeStories } from '@storybook/react';
+import { render, screen } from '@testing-library/react';
 
 import * as stories from './PeriodList.stories';
 

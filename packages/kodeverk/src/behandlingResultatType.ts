@@ -1,4 +1,4 @@
-enum BehandlingResultatType {
+export enum BehandlingResultatType {
   IKKE_FASTSATT = 'IKKE_FASTSATT',
   INNVILGET = 'INNVILGET',
   AVSLATT = 'AVSLÅTT',
@@ -46,5 +46,3 @@ export const isAvslag = (behandlingResultatTypeKode: string): boolean =>
 
 export const isOpphor = (behandlingResultatTypeKode: string): boolean =>
   behandlingResultatTypeKode === BehandlingResultatType.OPPHOR;
-
-export default BehandlingResultatType;

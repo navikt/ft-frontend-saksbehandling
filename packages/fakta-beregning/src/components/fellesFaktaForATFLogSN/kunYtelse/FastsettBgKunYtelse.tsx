@@ -3,8 +3,8 @@ import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, KunYtelse } fr
 import React from 'react';
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import KunYtelsePanel from './KunYtelsePanel';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
+import { KunYtelsePanel } from './KunYtelsePanel';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 
 const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
 

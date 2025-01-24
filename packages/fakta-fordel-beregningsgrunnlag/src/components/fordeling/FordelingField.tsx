@@ -1,28 +1,27 @@
-import React, { FunctionComponent } from 'react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  FordelBeregningsgrunnlagPeriode,
-  Vilkarperiode,
   BeregningsgrunnlagTilBekreftelse,
+  FordelBeregningsgrunnlagPeriode,
+  Vilkårperiode,
 } from '@navikt/ft-types';
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { useFormContext } from 'react-hook-form';
-import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import FordelingHelpText from './FordelingHelpText';
-import FastsettFordeltBeregningsgrunnlag from './FastsettFordeltBeregningsgrunnlag';
 import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagMedAksjonspunktValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
-import SubmitButton from '../felles/SubmitButton';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
+import { SubmitButton } from '../felles/SubmitButton';
+import { FastsettFordeltBeregningsgrunnlag } from './FastsettFordeltBeregningsgrunnlag';
+import { FordelingHelpText } from './FordelingHelpText';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
@@ -64,7 +63,7 @@ export const transformFieldValuesFordelBeregning = (
 
 export const buildFieldInitialValuesFordelBeregning = (
   beregningsgrunnlag: Beregningsgrunnlag,
-  vilkårsperiode: Vilkarperiode,
+  vilkårsperiode: Vilkårperiode,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagMedAksjonspunktValues => {
@@ -85,7 +84,7 @@ export const buildFieldInitialValuesFordelBeregning = (
   } as FordelBeregningsgrunnlagMedAksjonspunktValues;
 };
 
-interface PureOwnProps {
+interface Props {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -99,14 +98,14 @@ interface PureOwnProps {
  *
  * Container komponent
  */
-const FordelingField: FunctionComponent<PureOwnProps> = ({
+export const FordelingField = ({
   readOnly,
   submittable,
   beregningsgrunnlag,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
-}) => {
+}: Props) => {
   const avklaringsbehovFordelBeregningsgrunnlag = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const isAksjonspunktClosed = !isAksjonspunktOpen(avklaringsbehovFordelBeregningsgrunnlag.status);
   const formMethods = useFormContext<FordelBeregningsgrunnlagFormValues>();
@@ -144,5 +143,3 @@ const FordelingField: FunctionComponent<PureOwnProps> = ({
     </>
   );
 };
-
-export default FordelingField;

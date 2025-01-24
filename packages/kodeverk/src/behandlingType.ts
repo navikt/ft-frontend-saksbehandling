@@ -1,4 +1,4 @@
-enum BehandlingType {
+export enum BehandlingType {
   FORSTEGANGSSOKNAD = 'BT-002',
   KLAGE = 'BT-003',
   REVURDERING = 'BT-004',
@@ -7,5 +7,3 @@ enum BehandlingType {
   ANKE = 'BT-008',
   TILBAKEKREVING_REVURDERING = 'BT-009',
 }
-
-export default BehandlingType;

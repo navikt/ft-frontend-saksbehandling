@@ -1,7 +1,7 @@
-export type { default as Aksjonspunkt } from './src/aksjonspunktTsType';
-export type { default as Behandlingsresultat } from './src/behandlingsresultatTsType';
+export type { Aksjonspunkt } from './src/Aksjonspunkt';
+export type { Behandlingsresultat } from './src/Behandlingsresultat';
 export type {
-  default as Beregningsgrunnlag,
+  Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
   YtelseGrunnlag,
@@ -14,9 +14,9 @@ export type {
   ForlengelsePeriodeProp,
   PGIGrunnlag,
   PGIPrÅr,
-} from './src/beregningsgrunnlagTsType';
+} from './src/Beregningsgrunnlag';
 export type {
-  default as FaktaOmBeregning,
+  FaktaOmBeregning,
   FaktaOmBeregningAndel,
   AvklarBeregningAktiviteterMap,
   AvklarBeregningAktiviteter,
@@ -31,9 +31,9 @@ export type {
   RefusjonskravSomKommerForSentListe,
   Saksopplysninger,
   LønnsendringSaksopplysning,
-} from './src/beregningsgrunnlagFaktaTsType';
-export type { default as Personadresse } from './src/personadresseTsType';
-export type { default as BeregningsgrunnlagArbeidsforhold } from './src/beregningsgrunnlagArbeidsforholdTsType';
+} from './src/BeregningsgrunnlagFakta';
+export type { Personadresse } from './src/Personadresse';
+export type { BeregningsgrunnlagArbeidsforhold } from './src/BeregningsgrunnlagArbeidsforhold';
 export type {
   RefusjonTilVurderingAndel,
   TidligereUtbetalinger,
@@ -44,48 +44,28 @@ export type {
   FaktaOmFordeling,
   Inntektsforhold,
   VurderInntektsforholdPeriode,
-} from './src/beregningsgrunnlagFordelingTsType';
-export type { default as KodeverkMedNavn } from './src/kodeverkMedNavnTsType';
-export type { FamilieHendelse, FamilieHendelseSamling, AvklartBarn } from './src/familieHendelseTsType';
-export type { default as Fagsak } from './src/fagsakTsType';
+} from './src/BeregningsgrunnlagFordeling';
+export type { KodeverkMedNavn } from './src/KodeverkMedNavn';
+export type { FamilieHendelse, FamilieHendelseSamling, AvklartBarn } from './src/FamilieHendelse';
+export type { Fagsak } from './src/Fagsak';
 export type {
-  default as ArbeidsgiverOpplysningerPerId,
+  ArbeidsgiverOpplysningerPerId,
   ArbeidsgiverOpplysningerWrapper,
   ArbeidsgiverOpplysninger,
-} from './src/arbeidsgiverOpplysningerTsType';
-export type { default as StandardFaktaPanelProps } from './src/standardFaktaPanelPropsTsType';
-export type { default as StandardProsessPanelProps } from './src/standardProsessPanelPropsTsType';
-export type { default as AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
-export type { default as Vilkar } from './src/vilkarTsType';
-export type { default as Dokument } from './src/dokumentTsType';
-export type { default as Behandling, BehandlingAppKontekst } from './src/behandlingTsType';
-export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/besteberegningTsTypes';
-export type { default as BeregningAvklaringsbehov } from './src/beregningAvklaringsbehovTsType';
-export type { default as AvklaringsbehovTilBekreftelse } from './src/BeregningAvklaringsbehovTilBekreftelse';
-export type { default as BeregningsgrunnlagTilBekreftelse } from './src/BeregningsgrunnlagTilBekreftelse';
-export type { default as Vilkarperiode } from './src/vilkarperiodeTsType';
-export type { default as FeilutbetalingFakta } from './src/feilutbetalingFaktaTsType';
-export type { default as FeilutbetalingAarsak } from './src/feilutbetalingAarsakTsType';
-export type { Kjønnkode } from './src/Kjonnkode';
-export type { default as Vedtaksbrev } from './src/vedtaksbrevTsType';
-export type { default as VedtaksbrevAvsnitt } from './src/vedtaksbrevAvsnittTsType';
-export type { default as Aktor } from './src/aktorTsType';
-export type { default as Risikoklassifisering } from './src/risikoklassifiseringTsType';
-export type { default as FagsakPersoner, FagsakHendelse, FagsakPerson } from './src/fagsakPersonerTsType';
-export type {
-  default as BeregningsresultatTilbakekreving,
-  BeregningResultatPeriode,
-} from './src/beregningsresultatTilbakekrevingTsType';
-export type {
-  default as DetaljerteFeilutbetalingsperioder,
-  DetaljertFeilutbetalingPeriode,
-} from './src/detaljerteFeilutbetalingsperioderTsType';
-export type {
-  default as VilkarsVurdertePerioderWrapper,
-  VilkarsVurdertPeriode,
-  AktsomhetInfo,
-} from './src/vilkarsVurdertePerioderTsType';
-export type {
-  default as FeilutbetalingPerioderWrapper,
-  FeilutbetalingPeriode,
-} from './src/feilutbetalingPerioderTsType';
+} from './src/ArbeidsgiverOpplysninger';
+export type { StandardFaktaPanelProps } from './src/StandardFaktaPanelProps';
+export type { StandardProsessPanelProps } from './src/StandardProsessPanelProps';
+export type { AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
+export type { Vilkår } from './src/Vilkår';
+export type { Dokument } from './src/Dokument';
+export type { Behandling, BehandlingAppKontekst } from './src/Behandling';
+export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/Besteberegning';
+export type { BeregningAvklaringsbehov } from './src/BeregningAvklaringsbehov';
+export type { BeregningAvklaringsbehovTilBekreftelse } from './src/BeregningAvklaringsbehovTilBekreftelse';
+export type { BeregningsgrunnlagTilBekreftelse } from './src/BeregningsgrunnlagTilBekreftelse';
+export type { Vilkårperiode } from './src/Vilkårperiode';
+export type { Kjønnkode } from './src/Kjønnkode';
+export type { Aktør } from './src/Aktør';
+export type { Risikoklassifisering } from './src/Risikoklassifisering';
+export type { FagsakPersoner, FagsakHendelse, FagsakPerson } from './src/FagsakPersoner';
+export type { FeilutbetalingPerioderWrapper, FeilutbetalingPeriode } from './src/FeilutbetalingPerioder';

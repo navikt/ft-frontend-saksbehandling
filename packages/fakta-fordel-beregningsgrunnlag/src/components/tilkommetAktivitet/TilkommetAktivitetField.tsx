@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { BodyShort, Label, Tag } from '@navikt/ds-react';
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { BodyShort, Label, Tag } from '@navikt/ds-react';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -10,15 +9,16 @@ import {
 } from '@navikt/ft-types';
 import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
+import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import SubmitButton from '../felles/SubmitButton';
-import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
-import TilkommetInntektsforholdField from './TilkommetInntektsforholdField';
+import { FormattedMessage } from 'react-intl';
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { SubmitButton } from '../felles/SubmitButton';
 import styles from './tilkommetAktivitet.module.css';
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
+import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
+import { TilkommetInntektsforholdField } from './TilkommetInntektsforholdField';
 
-type TilkommetAktivitetFieldType = {
+type Props = {
   formName: string;
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
   formFieldIndex: number;
@@ -37,7 +37,7 @@ export function getPeriodeIdentikator(vurderInntektsforholdPeriode: VurderInntek
   return `${vurderInntektsforholdPeriode.fom}_${vurderInntektsforholdPeriode.tom}`;
 }
 
-const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
+export const TilkommetAktivitetField = ({
   formName,
   vurderInntektsforholdPeriode,
   formFieldIndex,
@@ -48,7 +48,7 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
   arbeidsgiverOpplysningerPerId,
   skalViseBegrunnelse,
   avklaringsbehov,
-}) => {
+}: Props) => {
   const { control, formState } = useFormContext<TilkommetAktivitetFormValues>();
   const { fields } = useFieldArray({
     control,
@@ -171,4 +171,3 @@ const TilkommetAktivitetField: FC<TilkommetAktivitetFieldType> = ({
     </>
   );
 };
-export default TilkommetAktivitetField;

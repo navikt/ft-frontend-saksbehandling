@@ -4,10 +4,10 @@ import { action } from '@storybook/addon-actions';
 import { RawIntlProvider } from 'react-intl';
 
 import { createIntl } from '@navikt/ft-utils';
-import { Behandling, FeilutbetalingPerioderWrapper, DetaljerteFeilutbetalingsperioder } from '@navikt/ft-types';
+import { Behandling, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
 import { ForeldelseVurderingType, BehandlingStatus, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import TilbakekrevingProsessIndex from './TilbakekrevingProsessIndex';
+import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -15,7 +15,8 @@ import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
+import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 
 const intl = createIntl(messages);
 

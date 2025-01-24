@@ -1,19 +1,20 @@
-import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
+import { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
-import { Behandling, BeregningsresultatTilbakekreving, StandardProsessPanelProps, Vedtaksbrev } from '@navikt/ft-types';
 
-import { FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
-import TilbakekrevingVedtak from './components/TilbakekrevingVedtak';
-import ForeslaVedtakTilbakekrevingAp from './types/ForeslaVedtakTilbakekrevingAp';
 import messages from '../i18n/nb_NO.json';
+import { FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
+import { TilbakekrevingVedtak } from './components/TilbakekrevingVedtak';
 import { ForhandsvisData } from './components/TilbakekrevingVedtakForm';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
+import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
+import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTv';
+import { Vedtaksbrev } from './types/Vedtaksbrev';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+interface Props {
   behandling: Behandling;
   beregningsresultat: BeregningsresultatTilbakekreving;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
@@ -23,9 +24,7 @@ export interface OwnProps {
   erRevurderingTilbakekrevingFeilBeløpBortfalt: boolean;
 }
 
-const VedtakTilbakekrevingProsessIndex: FunctionComponent<
-  OwnProps & StandardProsessPanelProps<ForeslaVedtakTilbakekrevingAp, FormValues>
-> = ({
+export const VedtakTilbakekrevingProsessIndex = ({
   behandling,
   beregningsresultat,
   isReadOnly,
@@ -37,7 +36,7 @@ const VedtakTilbakekrevingProsessIndex: FunctionComponent<
   fetchPreviewVedtaksbrev,
   erRevurderingTilbakekrevingKlage,
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
-}) => (
+}: Props & StandardProsessPanelProps<ForeslaVedtakTilbakekrevingAp, FormValues>) => (
   <RawIntlProvider value={intl}>
     <TilbakekrevingVedtak
       behandlingUuid={behandling.uuid}
@@ -55,5 +54,3 @@ const VedtakTilbakekrevingProsessIndex: FunctionComponent<
     />
   </RawIntlProvider>
 );
-
-export default VedtakTilbakekrevingProsessIndex;

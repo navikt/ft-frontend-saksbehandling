@@ -1,4 +1,4 @@
-enum TilbakekrevingKodeverkType {
+export enum TilbakekrevingKodeverkType {
   AKTSOMHET = 'Aktsomhet',
   SARLIG_GRUNN = 'SærligGrunn',
   VENTEARSAK = 'Venteårsak',
@@ -9,5 +9,3 @@ enum TilbakekrevingKodeverkType {
   VURDER_AARSAK = 'VurderÅrsak',
   VERGE_TYPE = 'VergeType',
 }
-
-export default TilbakekrevingKodeverkType;

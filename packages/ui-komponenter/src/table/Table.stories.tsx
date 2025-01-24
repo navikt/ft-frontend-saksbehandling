@@ -1,9 +1,9 @@
 import React from 'react';
 import { StoryFn } from '@storybook/react';
 
-import Table from './Table';
-import TableRow from './TableRow';
-import TableColumn from './TableColumn';
+import { Table } from './Table';
+import { TableRow } from './TableRow';
+import { TableColumn } from './TableColumn';
 
 export default {
   title: 'Table',

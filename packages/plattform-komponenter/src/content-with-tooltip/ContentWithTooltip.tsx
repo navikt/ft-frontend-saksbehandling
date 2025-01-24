@@ -10,7 +10,7 @@ export interface ContentWithTooltipProps {
   inline?: boolean;
 }
 
-const ContentWithTooltip = ({
+export const ContentWithTooltip = ({
   tooltipText,
   tooltipDirectionRight,
   tooltipClassName,
@@ -30,5 +30,3 @@ const ContentWithTooltip = ({
     </div>
   );
 };
-
-export default ContentWithTooltip;

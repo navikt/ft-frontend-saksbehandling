@@ -1,7 +1,6 @@
-// eslint-disable-next-line max-len
 import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
-const beregningsgrunnlag = [
+export const beregningsgrunnlag = [
   {
     avklaringsbehov: [
       {
@@ -1747,5 +1746,3 @@ const beregningsgrunnlag = [
     forlengelseperioder: [{ fom: '2021-07-26', tom: '2021-08-10' }],
   },
 ] as Beregningsgrunnlag[];
-
-export default beregningsgrunnlag;

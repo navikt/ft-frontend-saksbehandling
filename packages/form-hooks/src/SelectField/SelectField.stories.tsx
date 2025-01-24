@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import SelectField from './SelectField';
+import { SelectField } from './SelectField';
 import { rhfDecorator } from '../../.storybook/decorators';
 
 const meta = {

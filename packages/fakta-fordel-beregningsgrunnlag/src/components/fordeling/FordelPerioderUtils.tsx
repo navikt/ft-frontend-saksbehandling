@@ -16,7 +16,7 @@ import {
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import erPeriodeTilVurdering from '../util/ForlengelseUtils';
+import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
 
 export const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 

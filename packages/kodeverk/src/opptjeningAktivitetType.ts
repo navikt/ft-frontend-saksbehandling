@@ -1,4 +1,4 @@
-enum OpptjeningAktivitetType {
+export enum OpptjeningAktivitetType {
   ARBEID = 'ARBEID',
   AAP = 'AAP',
   DAGPENGER = 'DAGPENGER',
@@ -17,5 +17,3 @@ enum OpptjeningAktivitetType {
   VENTELØNN_VARTPENGER = 'VENTELØNN_VARTPENGER',
   ETTERLONN_SLUTTPAKKE = 'ETTERLØNN_SLUTTPAKKE',
 }
-
-export default OpptjeningAktivitetType;

@@ -11,7 +11,7 @@ import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 
 const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
 

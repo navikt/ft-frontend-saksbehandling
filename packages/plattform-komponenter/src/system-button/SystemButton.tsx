@@ -1,7 +1,7 @@
+import { MenuGridIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
 import { bemUtils } from '@navikt/ft-utils';
 import React from 'react';
-import { Button } from '@navikt/ds-react';
-import { MenuGridIcon } from '@navikt/aksel-icons';
 import styles from './systemButton.module.css';
 
 const systemsCls = bemUtils('systems');
@@ -11,7 +11,7 @@ export interface SystemButtonProps {
   isToggled?: boolean;
 }
 
-const SystemButton: React.FunctionComponent<SystemButtonProps> = ({ onClick, isToggled }) => (
+export const SystemButton = ({ onClick, isToggled }: SystemButtonProps) => (
   <div className={styles[systemsCls.block]}>
     <Button
       variant="tertiary"
@@ -25,5 +25,3 @@ const SystemButton: React.FunctionComponent<SystemButtonProps> = ({ onClick, isT
     </Button>
   </div>
 );
-
-export default SystemButton;

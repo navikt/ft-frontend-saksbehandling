@@ -1,26 +1,26 @@
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkar } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkår } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, useState } from 'react';
-import AvklarAktiviteterFormValues from '../typer/AvklarAktiviteterFormValues';
-import FaktaBeregningAvklaringsbehovCode from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import SubmitBeregningType from '../typer/interface/SubmitBeregningTsType';
-import VurderFaktaBeregningFormValues from '../typer/VurderFaktaBeregningFormValues';
-import AvklareAktiviteterPanel from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
+import { useState } from 'react';
+import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
+import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
+import { KodeverkForPanel } from '../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
+import { AvklareAktiviteterPanel } from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
 import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from './BeregningFormUtils';
 import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
-import VurderFaktaBeregningPanel from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
-import KodeverkForPanel from '../typer/kodeverkForPanel';
+import { VurderFaktaBeregningPanel } from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 
 const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } =
   FaktaBeregningAvklaringsbehovCode;
 
 const relevanteKoder = [OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER];
 
-type OwnProps = {
+type Props = {
   submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
-  vilkar: Vilkar;
+  vilkar: Vilkår;
   submittable: boolean;
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter: boolean;
@@ -38,7 +38,7 @@ type OwnProps = {
  *
  * Container komponent.. Har ansvar for å sette opp Formen for "avklar fakta om beregning" panel.
  */
-const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
+export const BeregningInfoPanel = ({
   readOnly,
   avklaringsbehov,
   submittable,
@@ -53,7 +53,7 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
   formData,
   vilkar,
   skalKunneAvbryteOverstyring,
-}) => {
+}: Props) => {
   const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter(
     ap => relevanteKoder.some(kode => kode === ap.definisjon) && ap.kanLoses,
   );
@@ -100,5 +100,3 @@ const BeregningInfoPanel: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default BeregningInfoPanel;

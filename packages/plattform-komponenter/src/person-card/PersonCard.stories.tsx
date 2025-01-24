@@ -1,8 +1,8 @@
-import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
-import EmptyPersonCard from './EmptyPersonCard';
-import PersonCard, { Gender } from './PersonCard';
 import { HStack, Tag, VStack } from '@navikt/ds-react';
+import { StoryFn } from '@storybook/react';
+import { ComponentProps } from 'react';
+import { EmptyPersonCard } from './EmptyPersonCard';
+import { Gender, PersonCard } from './PersonCard';
 
 export default {
   title: 'Person card',

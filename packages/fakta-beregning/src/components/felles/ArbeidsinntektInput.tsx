@@ -1,20 +1,20 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ATFLSammeOrgAndel, AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { ArbeidstakerInntektValues } from '../../typer/FaktaBeregningTypes';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../fellesFaktaForATFLogSN/VurderFaktaContext';
-import InntektInput from './InntektInput';
+import { InntektInput } from './InntektInput';
 
 export const getArbeidsgiverIndex = (
   arbeidstakerInntektValues: ArbeidstakerInntektValues[],
   arbeidsgiverIdent: string,
 ) => arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverIdent === arbeidsgiverIdent);
 
-interface ArbeidsinntektInputProps {
+interface Props {
   arbeidsgiver: ATFLSammeOrgAndel;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
@@ -27,17 +27,13 @@ export type FormValues = {
   arbeidsgiverIdent: string;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[]) => FormValues[];
-}
-
-const ArbeidsinntektInput: FunctionComponent<ArbeidsinntektInputProps> & StaticFunctions = ({
+export const ArbeidsinntektInput = ({
   arbeidsgiver,
   readOnly,
   isAksjonspunktClosed,
   label,
   arbeidsgiverOpplysningerPerId,
-}) => {
+}: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues`);
@@ -82,5 +78,3 @@ ArbeidsinntektInput.buildInitialValues = (andelerForFaktaOmBeregning: AndelForFa
 
   return initialValues;
 };
-
-export default ArbeidsinntektInput;

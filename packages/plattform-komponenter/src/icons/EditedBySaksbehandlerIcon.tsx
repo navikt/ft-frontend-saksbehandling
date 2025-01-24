@@ -1,6 +1,6 @@
-import React, { JSX } from 'react';
+import { JSX } from 'react';
 
-const EditedBySaksbehandlerIcon = (): JSX.Element => (
+export const EditedBySaksbehandlerIcon = (): JSX.Element => (
   <svg
     className="editedBySaksbehandlerIcon"
     width="44"
@@ -18,5 +18,3 @@ const EditedBySaksbehandlerIcon = (): JSX.Element => (
     />
   </svg>
 );
-
-export default EditedBySaksbehandlerIcon;

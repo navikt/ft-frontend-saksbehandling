@@ -3,10 +3,10 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
-import createVisningsnavnFakta from '../../ArbeidsforholdHelper';
+import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 
@@ -62,30 +62,18 @@ const lagRefusjonskravRadios = (
     );
   });
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
-
-interface StaticFunctions {
-  transformValues: (arbeidsgiverListe: RefusjonskravSomKommerForSentListe[]) => any;
-  buildInitialValues: (
-    tilfeller: string[],
-    arbeidsgiverListe: RefusjonskravSomKommerForSentListe[],
-  ) => VurderRefusjonValues;
-}
 
 /**
  * VurderRefusjonForm
  *
  * Container komponent. Har ansvar for å sette opp Formen for vurdering av refusjonskrav som har kommet for sent.
  */
-export const VurderRefusjonForm: FunctionComponent<OwnProps> & StaticFunctions = ({
-  readOnly,
-  faktaOmBeregning,
-  arbeidsgiverOpplysningerPerId,
-}) => {
+export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpplysningerPerId }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
   return (
@@ -119,5 +107,3 @@ VurderRefusjonForm.buildInitialValues = (tilfeller, arbeidsgiverListe): VurderRe
     ...initialValues,
   };
 };
-
-export default VurderRefusjonForm;

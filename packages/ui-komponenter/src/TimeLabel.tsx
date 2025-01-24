@@ -1,7 +1,6 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedTime } from 'react-intl';
 
-export interface OwnProps {
+export interface Props {
   dateTimeString: string;
 }
 
@@ -15,8 +14,6 @@ export interface OwnProps {
  * <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" />
  * ```
  */
-const TimeLabel: FunctionComponent<OwnProps> = ({ dateTimeString }) => (
+export const TimeLabel = ({ dateTimeString }: Props) => (
   <FormattedTime value={new Date(dateTimeString)} hour="numeric" minute="numeric" second="numeric" />
 );
-
-export default TimeLabel;

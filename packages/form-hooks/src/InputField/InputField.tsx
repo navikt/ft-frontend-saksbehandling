@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { TextField, TextFieldProps } from '@navikt/ds-react';
 
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 import { getError, getValidationRules } from '../formUtils';
 
 export interface Props extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
@@ -27,7 +27,7 @@ export interface Props extends Omit<TextFieldProps, 'label' | 'autoComplete'> {
   hideLabel?: boolean;
 }
 
-const InputField = ({
+export const InputField = ({
   name,
   label,
   validate = [],
@@ -106,5 +106,3 @@ const InputField = ({
     />
   );
 };
-
-export default InputField;

@@ -10,11 +10,11 @@ import {
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import createVisningsnavnFakta from '../../ArbeidsforholdHelper';
+import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 
@@ -33,16 +33,11 @@ const lagVisningsnavn = (
   return createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
-
-interface StaticFunctions {
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues, andeler: KortvarigAndel[]) => any;
-  buildInitialValues: (andeler?: KortvarigAndel[]) => TidsbegrensetandelValues;
-}
 
 /**
  * TidsbegrensetArbeidsforholdForm
@@ -51,11 +46,11 @@ interface StaticFunctions {
  * bruker bestemme om en liste med arbeidsforhold er tidsbegrenset eller ikke.
  */
 
-export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const TidsbegrensetArbeidsforholdForm = ({
   readOnly,
   faktaOmBeregning,
   arbeidsgiverOpplysningerPerId,
-}) => {
+}: Props) => {
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
@@ -135,5 +130,3 @@ TidsbegrensetArbeidsforholdForm.transformValues = (
     vurderTidsbegrensetArbeidsforhold: { fastsatteArbeidsforhold: newValues },
   };
 };
-
-export default TidsbegrensetArbeidsforholdForm;

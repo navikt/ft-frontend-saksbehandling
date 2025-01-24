@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoryFn } from '@storybook/react';
 
-import LoadingPanel from './LoadingPanel';
+import { LoadingPanel } from './LoadingPanel';
 
 export default {
   title: 'LoadingPanel',

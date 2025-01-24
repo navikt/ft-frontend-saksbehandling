@@ -12,15 +12,15 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
-import createVisningsnavnFakta from '../../../ArbeidsforholdHelper';
-import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
+import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,
@@ -111,7 +111,7 @@ const finnFrilansTekstKode = tilfeller => {
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   tilfeller: string[];
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -119,30 +119,19 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-interface StaticFunctions {
-  transformValues: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    inntektVerdier: InntektTransformed[],
-    faktaOmBeregning: FaktaOmBeregning,
-    beregningsgrunnlag: Beregningsgrunnlag,
-    fastsatteAndelsnr: number[],
-  ) => FaktaBeregningTransformedValues;
-  buildInitialValues: (vurderMottarYtelse?: VurderMottarYtelse, tilfeller?: string[]) => VurderMottarYtelseValues;
-}
-
 /**
  * VurderMottarYtelseForm
  *
  * Presentasjonskomponent. Setter opp aksjonspunktet VURDER_FAKTA_FOR_ATFL_SN for tilfelle VURDER_MOTTAR_YTELSE som ber
  * bruker vurder om bruker har mottatt ytelse for en eller flere aktiviteter.
  */
-const VurderMottarYtelseForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const VurderMottarYtelseForm = ({
   readOnly,
   beregningsgrunnlag,
   tilfeller,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
-}) => {
+}: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
@@ -346,5 +335,3 @@ VurderMottarYtelseForm.transformValues = (
     faktaOmBeregningTilfeller,
   };
 };
-
-export default VurderMottarYtelseForm;

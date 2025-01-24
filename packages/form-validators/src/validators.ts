@@ -74,20 +74,20 @@ export const notDash = (value: InputValue): FormValidationResult => (value === '
 
 export const requiredIfNotPristine = (
   value?: InputValue | null, // NOSONAR
-  // @ts-ignore Fiks
+  // @ts-expect-error Fiks
   _allValues: any,
   props: { pristine: boolean },
 ): FormValidationResult => (props.pristine || !isEmpty(value) ? undefined : isRequiredMessage());
 
 export const requiredIfCustomFunctionIsTrue =
   (
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     isRequiredFunction: (values?: InputValue | null, props: { pristine: boolean }) => any,
   ) =>
   (
     value?: InputValue | null, // NOSONAR
     allValues?: InputValue | null, // NOSONAR
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     props: { pristine: boolean },
   ): FormValidationResult =>
     isEmpty(value) && isRequiredFunction(allValues, props) ? isRequiredMessage() : undefined;

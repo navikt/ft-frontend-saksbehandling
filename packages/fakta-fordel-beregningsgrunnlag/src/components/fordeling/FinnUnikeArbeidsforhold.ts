@@ -1,10 +1,10 @@
 import {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
+  BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
-  BeregningsgrunnlagArbeidsforhold,
 } from '@navikt/ft-types';
 import { BGFordelArbeidsforhold } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
@@ -77,11 +77,9 @@ const getUniqueListOfArbeidsforholdFromPerioder = (
     finnAndelerFraBgperioder(bgPerioder),
   );
 
-const finnUnikeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag): BGFordelArbeidsforhold[] => {
+export const finnUnikeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag): BGFordelArbeidsforhold[] => {
   const fordelBGPerioder =
     beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
   const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   return getUniqueListOfArbeidsforholdFromPerioder(fordelBGPerioder, bgPerioder);
 };
-
-export default finnUnikeArbeidsforhold;

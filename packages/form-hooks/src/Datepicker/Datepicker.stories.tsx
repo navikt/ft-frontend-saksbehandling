@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Datepicker from './Datepicker';
+import { Datepicker } from './Datepicker';
 import { rhfDecorator } from '../../.storybook/decorators';
 
 const meta = {

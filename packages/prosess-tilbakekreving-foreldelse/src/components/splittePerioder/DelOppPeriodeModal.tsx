@@ -1,9 +1,8 @@
-import React, { FunctionComponent } from 'react';
-import dayjs from 'dayjs';
-import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
-import { useForm } from 'react-hook-form';
-import { Modal, Button, Label, BodyShort, Alert, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, Label, Modal } from '@navikt/ds-react';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import dayjs from 'dayjs';
+import { useForm } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { Datepicker, Form } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
@@ -54,7 +53,7 @@ const transformValues = (values: FormValues, periodeData: Periode): any => {
   };
 };
 
-interface PureOwnProps {
+interface Props {
   periodeData: Periode;
   showModal: boolean;
   finnesBelopMed0Verdi: boolean;
@@ -62,13 +61,13 @@ interface PureOwnProps {
   cancelEvent: () => void;
 }
 
-const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
+export const DelOppPeriodeModal = ({
   periodeData,
   showModal,
   cancelEvent,
   finnesBelopMed0Verdi,
   splitPeriod,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const formMethods = useForm<FormValues>();
 
@@ -124,5 +123,3 @@ const DelOppPeriodeModal: FunctionComponent<PureOwnProps> = ({
     </Form>
   );
 };
-
-export default DelOppPeriodeModal;

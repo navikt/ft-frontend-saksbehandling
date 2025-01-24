@@ -1,6 +1,6 @@
-import React, { ComponentProps } from 'react';
 import { StoryFn } from '@storybook/react';
-import AssessedBy from './AssessedBy';
+import { ComponentProps } from 'react';
+import { AssessedBy } from './AssessedBy';
 
 export default {
   title: 'AssessedBy',

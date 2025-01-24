@@ -1,10 +1,10 @@
-import { Vilkarperiode, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { Vilkårperiode, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
-import arbeidsgiverOpplysninger from '../../../testdata/arbeidsgiverOpplysninger';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { agOpplysninger as arbeidsgiverOpplysninger } from '../../../testdata/arbeidsgiverOpplysninger';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
@@ -82,7 +82,7 @@ const vilkarPeriode = {
     tom: '2019-02-03',
   },
   vilkarStatus: 'IKKE_VURDERT',
-} as Vilkarperiode;
+} as Vilkårperiode;
 
 const avklarAktiviteterAvklaringsbehov = [
   {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoryFn } from '@storybook/react';
 
-import AvsnittSkiller from './AvsnittSkiller';
+import { AvsnittSkiller } from './AvsnittSkiller';
 
 export default {
   title: 'AvsnittSkiller',

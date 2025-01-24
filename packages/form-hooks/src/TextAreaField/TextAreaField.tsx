@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { Textarea, TextareaProps, Tag } from '@navikt/ds-react';
 
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 import { getError, getValidationRules } from '../formUtils';
 
 import styles from './textAreaField.module.css';
@@ -27,7 +27,7 @@ export interface Props extends TextareaProps {
   isEdited?: boolean;
 }
 
-const TextAreaField = ({
+export const TextAreaField = ({
   name,
   label,
   readOnly,
@@ -89,5 +89,3 @@ const TextAreaField = ({
     </div>
   );
 };
-
-export default TextAreaField;

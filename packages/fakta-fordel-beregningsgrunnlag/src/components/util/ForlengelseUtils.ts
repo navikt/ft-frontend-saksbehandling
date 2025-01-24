@@ -14,7 +14,7 @@ function overlapper(periode1: { fom: string; tom?: string }, periode2: { fom: st
   return inneholderPeriode(periode1, periode2) || inneholderPeriode(periode2, periode1);
 }
 
-function erPeriodeTilVurdering(
+export function erPeriodeTilVurdering(
   periode: FordelBeregningsgrunnlagPeriode,
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): boolean {
@@ -28,5 +28,3 @@ function erPeriodeTilVurdering(
     !forlengelseperioder || forlengelseperioder.length === 0 || forlengelseperioder.some(fp => overlapper(fp, periode))
   );
 }
-
-export default erPeriodeTilVurdering;

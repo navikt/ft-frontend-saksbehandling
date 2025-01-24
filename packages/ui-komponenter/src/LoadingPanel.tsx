@@ -8,10 +8,8 @@ import styles from './loadingPanel.module.css';
  *
  * Presentasjonskomponent. Viser lasteikon.
  */
-const LoadingPanel = () => (
+export const LoadingPanel = () => (
   <div className={styles.container}>
     <Loader size="2xlarge" />
   </div>
 );
-
-export default LoadingPanel;

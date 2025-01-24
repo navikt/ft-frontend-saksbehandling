@@ -1,8 +1,6 @@
-enum TilbakekrevingVidereBehandling {
+export enum TilbakekrevingVidereBehandling {
   TILBAKEKR_INFOTRYGD = 'TILBAKEKR_OPPRETT',
   TILBAKEKR_IGNORER = 'TILBAKEKR_IGNORER',
   TILBAKEKR_INNTREKK = 'TILBAKEKR_INNTREKK',
   TILBAKEKR_OPPDATER = 'TILBAKEKR_OPPDATER',
 }
-
-export default TilbakekrevingVidereBehandling;

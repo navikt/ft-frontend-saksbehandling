@@ -1,6 +1,4 @@
-import React from 'react';
-
-const ChevronIconBlue = () => (
+export const ChevronIconBlue = () => (
   <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       // eslint-disable-next-line max-len
@@ -9,5 +7,3 @@ const ChevronIconBlue = () => (
     />
   </svg>
 );
-
-export default ChevronIconBlue;

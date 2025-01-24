@@ -1,4 +1,4 @@
-import React, { ReactNode, FunctionComponent } from 'react';
+import { ReactNode } from 'react';
 
 const navGra40 = '#B7B1A9';
 const borderRadius = 4;
@@ -73,7 +73,7 @@ const getClassName = (alignOffset?: number, alignLeft?: boolean, hideBorder?: bo
   return alignLeft ? `arrowBoxLeft${alignOffset}` : `arrowBoxTop${alignOffset}`;
 };
 
-export interface OwnProps {
+export interface Props {
   alignOffset?: number;
   alignLeft?: boolean;
   hideBorder?: boolean;
@@ -87,14 +87,14 @@ export interface OwnProps {
  *
  * Vise innhold med ramme og pil
  */
-const ArrowBox: FunctionComponent<OwnProps> = ({
+export const ArrowBox = ({
   children,
   alignOffset = 0,
   alignLeft = false,
   marginTop = 0,
   marginLeft = 0,
   hideBorder = false,
-}) => (
+}: Props) => (
   <>
     <style
       dangerouslySetInnerHTML={{
@@ -104,5 +104,3 @@ const ArrowBox: FunctionComponent<OwnProps> = ({
     <div className={getClassName(alignOffset, alignLeft, hideBorder)}>{children}</div>
   </>
 );
-
-export default ArrowBox;

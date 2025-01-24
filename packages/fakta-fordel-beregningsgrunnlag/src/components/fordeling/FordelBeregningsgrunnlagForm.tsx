@@ -1,6 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -8,22 +6,24 @@ import {
   FordelBeregningsgrunnlagPeriode,
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
+import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import React, { useEffect, useState } from 'react';
 import {
   FordelBeregningsgrunnlagPerioderTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import FordelBeregningsgrunnlagPeriodePanel from './FordelBeregningsgrunnlagPeriodePanel';
+import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
 
-import styles from './fordelBeregningsgrunnlagForm.module.css';
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
+import styles from './fordelBeregningsgrunnlagForm.module.css';
 import {
   fordelBGFieldArrayNamePrefix,
   getFieldNameKey,
   lagPerioderForSubmit,
   slaaSammenPerioder,
 } from './FordelPerioderUtils';
-import erPeriodeTilVurdering from '../util/ForlengelseUtils';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const finnRiktigBgPeriode = (
   periode: FordelBeregningsgrunnlagPeriode,
@@ -55,7 +55,7 @@ export const transformPerioder = (
   return fordelBeregningsgrunnlagPerioder;
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   perioder: FordelBeregningsgrunnlagPeriode[];
   isAksjonspunktClosed: boolean;
@@ -65,21 +65,6 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 };
-
-interface StaticFunctions {
-  buildInitialValues: (
-    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-    bg: Beregningsgrunnlag,
-    kodeverkSamling: KodeverkForPanel,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  ) => FordelBeregningsgrunnlagValues;
-  transformValues: (
-    values: FordelBeregningsgrunnlagValues,
-    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-    bgPerioder: BeregningsgrunnlagPeriodeProp[],
-    forlengelseperioder?: ForlengelsePeriodeProp[],
-  ) => FordelBeregningsgrunnlagPerioderTransformedValues;
-}
 
 function filtrerForlengelse(beregningsgrunnlag: Beregningsgrunnlag, periode: FordelBeregningsgrunnlagPeriode) {
   return erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder);
@@ -100,7 +85,7 @@ function erVurdertTidligere(periode: FordelBeregningsgrunnlagPeriode, beregnings
  * Container komponent. Behandling av aksjonspunktet for ny fordeling av beregningsgrunnlag.
  */
 
-const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const FordelBeregningsgrunnlagForm = ({
   readOnly,
   perioder,
   isAksjonspunktClosed,
@@ -109,7 +94,7 @@ const FordelBeregningsgrunnlagForm: FunctionComponent<OwnProps> & StaticFunction
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
-}) => {
+}: Props) => {
   const [openPanels, setOpenPanels] = useState<string[]>([]);
   const [fieldArrayToRepeat, setFieldArrayToRepeat] = useState('');
   useEffect(() => {
@@ -196,4 +181,3 @@ FordelBeregningsgrunnlagForm.buildInitialValues = (
   });
   return initialValues;
 };
-export default FordelBeregningsgrunnlagForm;

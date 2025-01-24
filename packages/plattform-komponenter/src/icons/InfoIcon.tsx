@@ -1,7 +1,6 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
-const InfoIcon = () => (
+export const InfoIcon = () => (
   <Icon size={24}>
     <path
       fillRule="evenodd"
@@ -23,5 +22,3 @@ const InfoIcon = () => (
     />
   </Icon>
 );
-
-export default InfoIcon;

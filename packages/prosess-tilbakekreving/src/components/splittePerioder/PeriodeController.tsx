@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useCallback, useState } from 'react';
 import { Button, HStack, Label, Spacer } from '@navikt/ds-react';
+import React, { useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { ArrowLeftIcon, ArrowRightIcon, ScissorsIcon, XMarkIcon } from '@navikt/aksel-icons';
 
-import DelOppPeriodeModal, { PerioderData } from './DelOppPeriodeModal';
-import DataForPeriode from '../../types/dataForPeriodeTsType';
+import { DataForPeriode } from '../../types/DataForPeriode';
+import { DelOppPeriodeModal, PerioderData } from './DelOppPeriodeModal';
 
 import styles from './periodeController.module.css';
 
@@ -19,7 +19,7 @@ export type SplittetPeriode = {
   feilutbetaling: number;
 };
 
-export interface OwnProps {
+export interface Props {
   behandlingUuid: string;
   beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
   oppdaterSplittedePerioder: (oppdatertePerioder: SplittetPeriode[]) => void;
@@ -30,7 +30,7 @@ export interface OwnProps {
   lukkPeriode: () => void;
 }
 
-const PeriodeController: FunctionComponent<OwnProps> = ({
+export const PeriodeController = ({
   setNestePeriode,
   setForrigePeriode,
   readOnly,
@@ -39,7 +39,7 @@ const PeriodeController: FunctionComponent<OwnProps> = ({
   beregnBelop,
   behandlingUuid,
   oppdaterSplittedePerioder,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const [showDelPeriodeModal, setShowDelPeriodeModall] = useState(false);
@@ -166,5 +166,3 @@ const PeriodeController: FunctionComponent<OwnProps> = ({
     </HStack>
   );
 };
-
-export default PeriodeController;
