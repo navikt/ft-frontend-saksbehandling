@@ -6,6 +6,4 @@ export enum KodeverkType {
   OPPTJENING_AKTIVITET_TYPE = 'OpptjeningAktivitetType',
 }
 
-type KodeverkForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
-
-export default KodeverkForPanel;
+export type KodeverkForPanel = Record<KodeverkType, KodeverkMedNavn[]>;

@@ -1,8 +1,6 @@
 import { formNameAvklarAktiviteter } from '../components/BeregningFormUtils';
-import AvklarAktiviteterValues from './AvklarAktivitetTypes';
+import { AvklarAktiviteterValues } from './AvklarAktivitetTypes';
 
-type AvklarAktiviteterFormValues = {
+export type AvklarAktiviteterFormValues = {
   [formNameAvklarAktiviteter]: AvklarAktiviteterValues[];
 };
-
-export default AvklarAktiviteterFormValues;

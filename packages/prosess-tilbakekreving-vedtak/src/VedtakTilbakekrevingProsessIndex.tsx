@@ -5,11 +5,11 @@ import { createIntl } from '@navikt/ft-utils';
 
 import messages from '../i18n/nb_NO.json';
 import { FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
-import TilbakekrevingVedtak from './components/TilbakekrevingVedtak';
+import { TilbakekrevingVedtak } from './components/TilbakekrevingVedtak';
 import { ForhandsvisData } from './components/TilbakekrevingVedtakForm';
 import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
-import { KodeverkFpTilbakeForPanel } from './types/kodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
 import { Vedtaksbrev } from './types/Vedtaksbrev';
 
 const intl = createIntl(messages);

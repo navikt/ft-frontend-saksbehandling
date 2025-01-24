@@ -4,26 +4,26 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  Vilkarperiode,
+  Vilkårperiode,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
-import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
+import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { erOverstyringAvBeregningsgrunnlag, hasAksjonspunkt, isAksjonspunktClosed } from './BgFaktaUtils';
-import FaktaForATFLOgSNPanel from './FaktaForATFLOgSNPanel';
-import VurderFaktaContext, { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+import { FaktaForATFLOgSNPanel } from './FaktaForATFLOgSNPanel';
+import { BeregningsgrunnlagIndexContext, VurderFaktaContext } from './VurderFaktaContext';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
 export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
 
-export interface OwnProps {
+export interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   erOverstyrer: boolean;
   readOnly: boolean;
@@ -31,7 +31,7 @@ export interface OwnProps {
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
-  vilkarsperiode: Vilkarperiode;
+  vilkarsperiode: Vilkårperiode;
   verdiForAvklarAktivitetErEndret: boolean;
   submitDisabled: boolean;
 }
@@ -62,7 +62,7 @@ const finnesFeilForBegrunnelse = (
   errors: FieldErrors<VurderFaktaBeregningFormValues>,
 ): boolean => !!errors.vurderFaktaBeregningForm?.[beregningsgrunnlagIndeks]?.begrunnelseFaktaTilfeller;
 
-const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
+export const VurderFaktaBeregningField = ({
   beregningsgrunnlag,
   erOverstyrer,
   readOnly,
@@ -73,7 +73,7 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
   vilkarsperiode,
   verdiForAvklarAktivitetErEndret,
   submitDisabled,
-}) => {
+}: Props) => {
   const {
     getValues,
     formState: { errors, isDirty },
@@ -145,5 +145,3 @@ const VurderFaktaBeregningField: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default VurderFaktaBeregningField;

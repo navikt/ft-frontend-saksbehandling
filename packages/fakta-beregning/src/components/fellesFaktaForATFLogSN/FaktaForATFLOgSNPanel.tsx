@@ -7,36 +7,36 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import ArbeidsinntektInput from '../felles/ArbeidsinntektInput';
-import InntektInput from '../felles/InntektInput';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { ArbeidsinntektInput } from '../felles/ArbeidsinntektInput';
+import { InntektInput } from '../felles/InntektInput';
 import {
   erInitialOverstyringAvBeregningsgrunnlag,
   getFaktaOmBeregning,
   getFaktaOmBeregningTilfellerKoder,
 } from './BgFaktaUtils';
-import VurderBesteberegningForm from './besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { VurderBesteberegningPanel } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import {
   buildInitialValuesKunYtelse,
   setFaktaPanelForKunYtelse,
   transformValuesForKunYtelse,
 } from './kunYtelse/FastsettBgKunYtelse';
-import NyIArbeidslivetSNForm from './nyIArbeidslivet/NyIArbeidslivetSNForm';
-import TidsbegrensetArbeidsforholdForm from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
-import VurderMilitaer from './vurderMilitaer/VurderMilitaer';
-import VurderOgFastsettATFL from './vurderOgFastsettATFL/VurderOgFastsettATFL';
-import LonnsendringForm from './vurderOgFastsettATFL/forms/LonnsendringForm';
-import NyoppstartetFLForm from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
-import VurderEtterlonnSluttpakkeForm from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
-import VurderMottarYtelseForm from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
-import VurderRefusjonForm from './vurderrefusjon/VurderRefusjonForm';
+import { NyIArbeidslivetSNForm } from './nyIArbeidslivet/NyIArbeidslivetSNForm';
+import { TidsbegrensetArbeidsforholdForm } from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
+import { VurderMilitaer } from './vurderMilitaer/VurderMilitaer';
+import { VurderOgFastsettATFL } from './vurderOgFastsettATFL/VurderOgFastsettATFL';
+import { LonnsendringForm } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { NyoppstartetFLForm } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
+import { VurderEtterlonnSluttpakkeForm } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
+import { VurderMottarYtelseForm } from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
+import { VurderRefusjonForm } from './vurderrefusjon/VurderRefusjonForm';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -96,7 +96,6 @@ const getFaktaPanels = ({
     renderTextFieldAndSubmitButton,
   );
   faktaPanels.push(
-    // @ts-expect-error Fiks
     <React.Fragment key="VurderOgFastsettATFL">
       {spacer(true)}
       {/* @ts-ignore */}
@@ -118,7 +117,7 @@ const getFaktaPanels = ({
   return faktaPanels;
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -135,7 +134,7 @@ type OwnProps = {
  *
  * Container komponent.. Inneholder paneler for felles faktaavklaring for aksjonspunktet Vurder fakta for arbeidstaker, frilans og selvstendig næringsdrivende
  */
-export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
+export const FaktaForATFLOgSNPanel = ({
   readOnly,
   isAksjonspunktClosed,
   beregningsgrunnlag,
@@ -145,7 +144,7 @@ export const FaktaForATFLOgSNPanelImpl: FunctionComponent<OwnProps> = ({
   updateOverstyring,
   renderTextFieldAndSubmitButton,
   vilkarsperiodeSkalVurderesIBehandlingen,
-}) => (
+}: Props) => (
   <div>
     {getFaktaPanels({
       readOnly,
@@ -321,7 +320,7 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
       beregningsgrunnlag,
       getVurderFaktaAksjonspunkt(beregningsgrunnlag.avklaringsbehov),
     ),
-    ...VurderBesteberegningForm.buildInitialValues(
+    ...VurderBesteberegningPanel.buildInitialValues(
       beregningsgrunnlag.avklaringsbehov,
       getVurderBesteberegning(beregningsgrunnlag),
       tilfeller,
@@ -342,5 +341,3 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
     ),
   };
 };
-
-export default FaktaForATFLOgSNPanelImpl;

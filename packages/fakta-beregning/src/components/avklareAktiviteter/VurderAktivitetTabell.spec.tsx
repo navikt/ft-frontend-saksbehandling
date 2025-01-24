@@ -6,8 +6,8 @@ import {
   skalVurdereAktivitet,
   transformValues,
 } from './VurderAktiviteterTabell';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import AvklarAktiviteterValues, { AktivitetValues } from '../../typer/AvklarAktivitetTypes';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { AvklarAktiviteterValues, AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',

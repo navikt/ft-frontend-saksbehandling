@@ -1,5 +1,5 @@
-export type { default as FordelBeregningsgrunnlagAP } from './src/types/interface/FordelBeregningsgrunnlagAP';
-export type { default as VurderRefusjonBeregningsgrunnlagAP } from './src/types/interface/VurderRefusjonBeregningsgrunnlagAP';
-export { default as FaktaFordelBeregningAvklaringsbehovCode } from './src/types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-export { default as FordelBeregningsgrunnlagFaktaIndex } from './src/FordelBeregningsgrunnlagFaktaIndex';
-export type { Vilkar as FtVilkar, Beregningsgrunnlag as FtBeregningsgrunnlag } from '@navikt/ft-types';
+export type { FordelBeregningsgrunnlagAP } from './src/types/interface/FordelBeregningsgrunnlagAP';
+export type { VurderRefusjonBeregningsgrunnlagAP } from './src/types/interface/VurderRefusjonBeregningsgrunnlagAP';
+export { FaktaFordelBeregningAvklaringsbehovCode } from './src/types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+export { FordelBeregningsgrunnlagFaktaIndex } from './src/FordelBeregningsgrunnlagFaktaIndex';
+export type { Vilkår as FtVilkar, Beregningsgrunnlag as FtBeregningsgrunnlag } from '@navikt/ft-types';

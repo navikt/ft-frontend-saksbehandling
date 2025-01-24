@@ -6,12 +6,12 @@ import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
-import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
@@ -133,7 +133,7 @@ const getHeaderTextCodes = () => [
 const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
   kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
-type OwnProps = {
+type Props = {
   name: string;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
@@ -159,12 +159,7 @@ const validate = (values: BrukersAndelValues[], intl: IntlShape) => {
  * Presentasjonskomponent: Viser fordeling for brukers andel ved kun ytelse
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
-  name,
-  readOnly,
-  isAksjonspunktClosed,
-  kodeverkSamling,
-}) => {
+export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, kodeverkSamling }: Props) => {
   const intl = useIntl();
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -240,5 +235,3 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default BrukersAndelFieldArray;

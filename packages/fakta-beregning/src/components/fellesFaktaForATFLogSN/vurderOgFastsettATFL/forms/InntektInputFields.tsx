@@ -5,10 +5,10 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
-import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
-import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
-import InntektInput from '../../../felles/InntektInput';
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
+import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
+import { ArbeidsinntektInput } from '../../../felles/ArbeidsinntektInput';
+import { InntektInput } from '../../../felles/InntektInput';
 import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
@@ -20,7 +20,7 @@ import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMott
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
-interface InntektInputFieldsProps {
+interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
@@ -36,14 +36,14 @@ interface InntektInputFieldsProps {
  * Må håndtere hvilke som skal vises og sørge for at ingen vises flere ganger
  */
 
-const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
+export const InntektInputFields = ({
   beregningsgrunnlag,
   readOnly,
   isAksjonspunktClosed,
   tilfeller,
   arbeidsgiverOpplysningerPerId,
   kodeverkSamling,
-}) => {
+}: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
@@ -405,5 +405,3 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     </>
   );
 };
-
-export default InntektInputFields;

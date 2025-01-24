@@ -6,7 +6,7 @@ import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
-import { KodeverkFpTilbakeForPanel } from '../types/kodeverkFpTilbakeForPanel';
+import type { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
 import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import { ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';

@@ -1,8 +1,8 @@
 {
-    "include": ["./", "../../@types/externals.d.ts"],
-    "exclude": ["node_modules", "**.spec.ts", "dist"],
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "strict": true,
-    },
+  "include": ["./src/", "../../@types/externals.d.ts"],
+  "exclude": ["node_modules", "**.spec.ts", "dist"],
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "strict": true
+  }
 }

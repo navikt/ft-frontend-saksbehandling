@@ -4,7 +4,7 @@ import { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteb
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
 import { lonnsendringField } from './forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './forms/NyoppstartetFLForm';
-import VurderOgFastsettATFL from './VurderOgFastsettATFL';
+import { VurderOgFastsettATFL } from './VurderOgFastsettATFL';
 
 const {
   VURDER_BESTEBEREGNING,

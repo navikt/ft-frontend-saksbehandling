@@ -8,27 +8,27 @@ import {
   KortvarigAndel,
   RefusjonskravSomKommerForSentListe,
   StandardFaktaPanelProps,
-  Vilkar,
-  Vilkarperiode,
+  Vilkår,
+  Vilkårperiode,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, createIntl } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
-import React, { FunctionComponent, ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import messages from '../i18n/nb_NO.json';
 import styles from './beregningFaktaIndex.module.css';
-import createVisningsnavnFakta from './components/ArbeidsforholdHelper';
-import BeregningInfoPanel from './components/BeregningInfoPanel';
+import { createVisningsnavnFakta } from './components/ArbeidsforholdHelper';
+import { BeregningInfoPanel } from './components/BeregningInfoPanel';
 import {
   getFaktaOmBeregningTilfellerKoder,
   hasAksjonspunkt,
   isAksjonspunktClosed,
 } from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
-import AvklarAktiviteterFormValues from './typer/AvklarAktiviteterFormValues';
-import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
-import SubmitBeregningType from './typer/interface/SubmitBeregningTsType';
-import KodeverkForPanel from './typer/kodeverkForPanel';
+import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
+import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
+import { KodeverkForPanel } from './typer/KodeverkForPanel';
 
 const intl = createIntl(messages);
 
@@ -37,7 +37,7 @@ type OwnProps = {
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter?: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  vilkar: Vilkar;
+  vilkar: Vilkår;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
   skalKunneAvbryteOverstyring?: boolean;
@@ -46,12 +46,12 @@ type OwnProps = {
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } =
   FaktaBeregningAvklaringsbehovCode;
 
-const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
+const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
   return vilkårPeriode?.erForlengelse === true;
 };
 
-const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
+const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const stpOpptjening = bg.vilkårsperiodeFom;
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
   if (vilkårPeriode) {
@@ -76,7 +76,7 @@ const harAvklaringsbehovIPanel = (avklaringsbehov: BeregningAvklaringsbehov[]): 
   return false;
 };
 
-const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const aktuellPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.skjaeringstidspunktBeregning);
   return (
     harAvklaringsbehovIPanel(bg.avklaringsbehov) &&
@@ -396,9 +396,7 @@ export const lagHelpTextsForFakta = (
 
 type AksjonspunktDataDef = SubmitBeregningType[];
 
-const BeregningFaktaIndex: FunctionComponent<
-  OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>
-> = ({
+export const BeregningFaktaIndex = ({
   beregningsgrunnlag = [],
   kodeverkSamling,
   submitCallback,
@@ -411,7 +409,7 @@ const BeregningFaktaIndex: FunctionComponent<
   setFormData,
   vilkar,
   skalKunneAvbryteOverstyring = false,
-}) => {
+}: OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   const vilkårsperioder = vilkar?.perioder;
   useEffect(() => {
@@ -493,5 +491,3 @@ const BeregningFaktaIndex: FunctionComponent<
     </RawIntlProvider>
   );
 };
-
-export default BeregningFaktaIndex;

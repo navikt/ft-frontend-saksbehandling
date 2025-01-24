@@ -1,12 +1,11 @@
 import { Label } from '@navikt/ds-react';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
-import BrukersAndelFieldArray from './BrukersAndelFieldArray';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 import styles from './kunYtelseUtenBesteberegningPanel.module.css';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   brukersAndelFieldArrayName: string;
   isAksjonspunktClosed: boolean;
@@ -20,12 +19,12 @@ type OwnProps = {
  *  kun ytelse uten vurdering av besteberegning.
  */
 
-const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
+export const KunYtelseUtenBesteberegningPanel = ({
   readOnly,
   brukersAndelFieldArrayName,
   kodeverkSamling,
   isAksjonspunktClosed,
-}) => (
+}: Props) => (
   <>
     <FlexRow>
       <FlexColumn className={styles.flexColumn9}>
@@ -43,5 +42,3 @@ const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
     />
   </>
 );
-
-export default KunYtelseUtenBesteberegningPanel;

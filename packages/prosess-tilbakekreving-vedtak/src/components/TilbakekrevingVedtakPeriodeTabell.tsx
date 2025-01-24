@@ -6,7 +6,7 @@ import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-kompone
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
-import { KodeverkFpTilbakeForPanel } from '../types/kodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
 import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
 
 const headerTextCodes = [

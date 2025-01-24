@@ -20,7 +20,7 @@ import {
   utledArbeidsforholdFieldName,
 } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',

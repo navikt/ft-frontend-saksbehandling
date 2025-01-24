@@ -1,6 +1,6 @@
 import { RawIntlProvider } from 'react-intl';
 
-import { FeilutbetalingFakta, FeilutbetalingÅrsak, StandardProsessPanelProps } from '@navikt/ft-types';
+import { StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { FeilutbetalingInfoPanel, FormValues } from './components/FeilutbetalingInfoPanel';
@@ -9,6 +9,8 @@ import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetaling
 import messages from '../i18n/nb_NO.json';
 import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanel';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
+import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
 
 const intl = createIntl(messages);
 

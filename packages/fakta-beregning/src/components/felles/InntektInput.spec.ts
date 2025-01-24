@@ -1,4 +1,4 @@
-import InntektInput from './InntektInput';
+import { InntektInput } from './InntektInput';
 
 describe('<InntektInput>', () => {
   it('skal sette initial values for typen aktivitetsstatus som er angitt', () => {

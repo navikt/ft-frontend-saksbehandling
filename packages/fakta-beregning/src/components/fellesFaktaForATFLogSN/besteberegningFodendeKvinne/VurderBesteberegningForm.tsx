@@ -4,12 +4,12 @@ import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
@@ -18,24 +18,10 @@ export const besteberegningField = 'vurderbesteberegningField';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   erOverstyrt: boolean;
 };
-
-interface StaticFunctions {
-  buildInitialValues: (
-    avklaringsbehov: BeregningAvklaringsbehov[],
-    vurderBesteberegning: VurderBesteberegning | undefined,
-    faktaOmBeregningTilfeller: string[],
-    erOverstyrt: boolean,
-  ) => VurderBesteberegningValues;
-  transformValues: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    faktaOmBeregning: FaktaOmBeregning,
-    inntektPrAndel: InntektTransformed[],
-  ) => FaktaBeregningTransformedValues;
-}
 
 /**
  * VurderBesteberegningPanel
@@ -44,7 +30,7 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
+export const VurderBesteberegningPanel = ({ readOnly, erOverstyrt }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
@@ -177,5 +163,3 @@ export const vurderBesteberegningTransform =
       ...besteberegningValues,
     };
   };
-
-export default VurderBesteberegningPanel;

@@ -9,7 +9,7 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { FunctionComponent, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { UseFieldArrayAppend, UseFieldArrayRemove, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import {
@@ -20,9 +20,9 @@ import {
   MilitærEllerSivilInntektValues,
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
-import AndelFieldValue, { InntektTransformed } from '../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erOverstyring,
   getFastsattBelopFromArbeidstakerInntekt,
@@ -30,8 +30,8 @@ import {
   mapAndelToField,
   skalFastsetteInntektForAndel,
 } from './BgFaktaUtils';
-import InntektFieldArrayAndelRow, { getHeaderTextCodes } from './InntektFieldArrayRow';
-import SummaryRow from './SummaryRow';
+import { InntektFieldArrayAndelRow, getHeaderTextCodes } from './InntektFieldArrayRow';
+import { SummaryRow } from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
@@ -205,7 +205,7 @@ const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors, intl) 
   return null;
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   skalKunneLeggeTilDagpengerManuelt: boolean;
   skalHaMilitær?: boolean;
@@ -213,35 +213,18 @@ type OwnProps = {
   kodeverkSamling: KodeverkForPanel;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (
-    andeler: AndelForFaktaOmBeregning[],
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-    kodeverkSamling: KodeverkForPanel,
-  ) => AndelFieldValue[];
-  transformValues: (
-    values: AndelFieldValue[],
-    frilansInntektValues: FrilansinntektValues,
-    arbeidstakerInntektValues: ArbeidstakerInntektValues[],
-    dagpengerInntektValues: DagpengerinntektValues,
-    selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues,
-    militærEllerSivilInntektValues: MilitærEllerSivilInntektValues,
-    erOverstyrt: boolean,
-  ) => InntektTransformed[];
-}
-
 /**
  *  InntektFieldArray
  *
  * Presentasjonskomponent: Viser fordeling for andeler
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-export const InntektFieldArray: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const InntektFieldArray = ({
   readOnly,
   skalKunneLeggeTilDagpengerManuelt = false,
   beregningsgrunnlag,
   kodeverkSamling,
-}) => {
+}: Props) => {
   const { getValues, control, formState } = useFormContext<VurderFaktaBeregningFormValues>();
   const { errors } = formState;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -432,5 +415,3 @@ InntektFieldArray.buildInitialValues = (
   }
   return andeler.map(a => mapAndelToField(a, arbeidsgiverOpplysningerPerId, kodeverkSamling));
 };
-
-export default InntektFieldArray;

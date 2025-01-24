@@ -4,23 +4,23 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  Vilkar,
-  Vilkarperiode,
+  Vilkår,
+  Vilkårperiode,
 } from '@navikt/ft-types';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
-import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
+import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import transformValuesVurderFaktaBeregning from './transformValuesHjelpefunksjoner';
-import VurderFaktaContext, { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
-import VurderFaktaBeregningField, { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
+import { VurderFaktaBeregningField, BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
+import { BeregningsgrunnlagIndexContext, VurderFaktaContext } from './VurderFaktaContext';
 
 const {
   VURDER_FAKTA_FOR_ATFL_SN,
@@ -41,7 +41,7 @@ const findAvklaringsbehovMedBegrunnelse = (
 const hasOpenAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
 
-type VurderFaktaBeregningPanelProps = {
+type Props = {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag[];
@@ -52,7 +52,7 @@ type VurderFaktaBeregningPanelProps = {
   aktivtBeregningsgrunnlagIndeks: number;
   setFormData: (data: VurderFaktaBeregningFormValues) => void;
   formData?: VurderFaktaBeregningFormValues;
-  vilkar: Vilkar;
+  vilkar: Vilkår;
   avklarAktiviteterErEndret: boolean;
   skalKunneAvbryteOverstyring: boolean;
 };
@@ -61,7 +61,7 @@ const buildInitialValuesVurderFaktaBeregning = (
   alleBeregningsgrunnlag: Beregningsgrunnlag[],
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkar: Vilkar,
+  vilkar: Vilkår,
 ): VurderFaktaBeregningFormValues => ({
   [formNameVurderFaktaBeregning]: alleBeregningsgrunnlag.map(bg => {
     const vilkarsperiode = vilkar.perioder.find(p => p.periode.fom === bg.vilkårsperiodeFom);
@@ -82,7 +82,7 @@ const buildInitialValuesVurderFaktaBeregning = (
 });
 
 const relevanteKoder = [VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG];
-const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]) => {
+const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
   return vilkårPeriode?.erForlengelse === true;
 };
@@ -91,7 +91,7 @@ const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkarperiode[]
  *
  * Container komponent.. Inneholder begrunnelsefelt og komponent som innholder panelene for fakta om beregning tilfeller
  */
-const VurderFaktaBeregningPanel: FunctionComponent<VurderFaktaBeregningPanelProps> = ({
+export const VurderFaktaBeregningPanel = ({
   beregningsgrunnlag,
   submittable,
   readOnly,
@@ -105,7 +105,7 @@ const VurderFaktaBeregningPanel: FunctionComponent<VurderFaktaBeregningPanelProp
   vilkar,
   avklarAktiviteterErEndret,
   skalKunneAvbryteOverstyring,
-}) => {
+}: Props) => {
   const verdiForAvklarAktivitetErEndret = avklarAktiviteterErEndret;
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
@@ -214,5 +214,3 @@ const VurderFaktaBeregningPanel: FunctionComponent<VurderFaktaBeregningPanelProp
   }
   return null;
 };
-
-export default VurderFaktaBeregningPanel;

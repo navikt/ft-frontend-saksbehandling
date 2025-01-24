@@ -1,29 +1,29 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useFieldArray, useForm } from 'react-hook-form';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Form } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  Vilkar,
-  Vilkarperiode,
-  BeregningAvklaringsbehov,
   AvklarBeregningAktiviteterMap,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  Vilkår,
+  Vilkårperiode,
 } from '@navikt/ft-types';
-import { Form } from '@navikt/ft-form-hooks';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
-import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
-import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
-import SubmitBeregningType from '../../typer/interface/SubmitBeregningTsType';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { AvklareAktiviteterField, buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 
 const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode => {
+const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode => {
   const vp = vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
   if (!vp) {
     throw new Error(`Finner ikke vilkårsperiode med fom ${vilkårsperiodeFom}`);
@@ -36,7 +36,7 @@ const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOver
   !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov) &&
   !erOverstyrer;
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   submittable: boolean;
   harAndreAvklaringsbehovIPanel: boolean;
@@ -46,7 +46,7 @@ type OwnProps = {
   erOverstyrer: boolean;
   submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  vilkår: Vilkar;
+  vilkår: Vilkår;
   setFormData: (data: AvklarAktiviteterFormValues) => void;
   formData?: AvklarAktiviteterFormValues;
   setAvklarAktiviteterErEndret: (value: boolean) => void;
@@ -104,7 +104,7 @@ const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkår: Vilkar,
+  vilkår: Vilkår,
 ): AvklarAktiviteterFormValues => ({
   [formNameAvklarAktiviteter]: beregningsgrunnlag.map(bg =>
     buildInitialValues(
@@ -130,7 +130,7 @@ const getAvklarAktiviteter = (alleGrunnlag: Beregningsgrunnlag[], index: number)
  * Container komponent.. Inneholder panel for å avklare om aktivitet fra opptjening skal tas med i beregning
  */
 
-const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
+export const AvklareAktiviteterPanel = ({
   harAndreAvklaringsbehovIPanel,
   erOverstyrer,
   readOnly,
@@ -144,7 +144,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   setFormData,
   formData,
   setAvklarAktiviteterErEndret,
-}) => {
+}: Props) => {
   const formMethods = useForm<AvklarAktiviteterFormValues>({
     defaultValues:
       formData || buildFormInitialValues(beregningsgrunnlag, kodeverkSamling, arbeidsgiverOpplysningerPerId, vilkår),
@@ -236,5 +236,3 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default AvklareAktiviteterPanelImpl;

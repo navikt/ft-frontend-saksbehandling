@@ -3,7 +3,7 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
@@ -18,22 +18,11 @@ import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 
 const radioGroupFieldName = 'erSNNyIArbeidslivet';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
 };
 
-type TansformedProps = {
-  vurderNyIArbeidslivet: {
-    erNyIArbeidslivet: boolean;
-  };
-};
-
-interface StaticFunctions {
-  buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => NyIArbeidslivetValues;
-  transformValues: (values: any) => TansformedProps;
-}
-
-const NyIArbeidslivetSNForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
@@ -94,5 +83,3 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
 NyIArbeidslivetSNForm.transformValues = values => ({
   vurderNyIArbeidslivet: { erNyIArbeidslivet: values[radioGroupFieldName] },
 });
-
-export default NyIArbeidslivetSNForm;

@@ -4,7 +4,7 @@ import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
@@ -23,21 +23,11 @@ import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner
 
 export const erNyoppstartetFLField = 'NyoppstartetFLField';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => NyoppstartetFLValues;
-  transformValues: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    inntektPrMnd: InntektTransformed[],
-    faktaOmBeregning: FaktaOmBeregning,
-    fastsatteAndelsnr: number[],
-  ) => FaktaBeregningTransformedValues;
-}
-
-const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+export const NyoppstartetFLForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
@@ -135,5 +125,3 @@ NyoppstartetFLForm.transformValues = (
     vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
   };
 };
-
-export default NyoppstartetFLForm;

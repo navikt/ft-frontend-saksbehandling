@@ -21,13 +21,13 @@ import {
   FaktaOmBeregningAksjonspunktValues,
   GenerellAndelInfo,
 } from '../../typer/FaktaBeregningTypes';
-import AndelFieldValue, { AndelFieldIdentifikator } from '../../typer/FieldValues';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import createVisningsnavnFakta from '../ArbeidsforholdHelper';
+import { AndelFieldValue, AndelFieldIdentifikator } from '../../typer/FieldValues';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
-import erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
+import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';

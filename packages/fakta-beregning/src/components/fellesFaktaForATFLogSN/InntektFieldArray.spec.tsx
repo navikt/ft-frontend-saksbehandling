@@ -1,7 +1,7 @@
 import { AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { InntektFieldArray, leggTilDagpengerOmBesteberegning } from './InntektFieldArray';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 
 const kodeverkSamling = {
   [KodeverkType.AKTIVITET_STATUS]: [
