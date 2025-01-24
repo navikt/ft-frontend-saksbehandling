@@ -1,4 +1,9 @@
+import React, { useCallback, useEffect } from 'react';
+import { useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { ErrorMessage, Label, Table } from '@navikt/ds-react';
+
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import {
@@ -9,9 +14,7 @@ import {
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { useCallback, useEffect } from 'react';
-import { UseFieldArrayAppend, UseFieldArrayRemove, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import {
   ArbeidstakerInntektValues,
   DagpengerinntektValues,
@@ -30,7 +33,7 @@ import {
   mapAndelToField,
   skalFastsetteInntektForAndel,
 } from './BgFaktaUtils';
-import { InntektFieldArrayAndelRow, getHeaderTextCodes } from './InntektFieldArrayRow';
+import { getHeaderTextCodes, InntektFieldArrayAndelRow } from './InntektFieldArrayRow';
 import { SummaryRow } from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';

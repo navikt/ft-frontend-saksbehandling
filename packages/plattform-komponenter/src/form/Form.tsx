@@ -1,6 +1,9 @@
-import { Button } from '@navikt/ds-react';
 import React, { JSX } from 'react';
+
+import { Button } from '@navikt/ds-react';
+
 import { Box, Margin } from '../box/Box';
+
 import styles from './form.module.css';
 
 export interface FormProps {

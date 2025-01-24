@@ -1,14 +1,16 @@
-import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): boolean =>

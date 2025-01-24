@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { NumberField } from './NumberField';
+
 import { rhfDecorator } from '../../.storybook/decorators';
+import { NumberField } from './NumberField';
 
 const meta = {
   component: NumberField,

@@ -1,5 +1,6 @@
-import { BodyShort } from '@navikt/ds-react';
 import React from 'react';
+
+import { BodyShort } from '@navikt/ds-react';
 
 import styles from './menuLink.module.css';
 

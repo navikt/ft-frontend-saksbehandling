@@ -4,9 +4,10 @@ import {
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { lonnsendringField } from './LonnsendringForm';
-import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
+
 import { InntektTransformed } from '../../../../typer/FieldValues';
+import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
+import { lonnsendringField } from './LonnsendringForm';
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 

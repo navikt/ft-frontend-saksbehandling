@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehov, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { AvklarBeregningAktiviteterMap, BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 export type AktivitetValues = {
   beregningAktivitetNavn: string;

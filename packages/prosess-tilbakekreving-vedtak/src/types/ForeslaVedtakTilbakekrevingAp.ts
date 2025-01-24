@@ -1,4 +1,5 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
+
 import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
 
 export type ForeslaVedtakTilbakekrevingAp = {

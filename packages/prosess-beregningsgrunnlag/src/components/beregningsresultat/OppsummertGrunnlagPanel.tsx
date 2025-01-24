@@ -1,14 +1,17 @@
 import React, { ReactElement } from 'react';
-import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Heading, BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
-import { Beregningsgrunnlag, Vilkårperiode, YtelseGrunnlag } from '@navikt/ft-types';
 
-import { TabellRadData, TabellData } from '../../types/BeregningsresultatTabellType';
+import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
+import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
+import { Beregningsgrunnlag, Vilkårperiode, YtelseGrunnlag } from '@navikt/ft-types';
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+
+import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
+
 import styles from './beregningsresultat.module.css';
 
 const VIRKEDAGER_PR_AAR = 260;

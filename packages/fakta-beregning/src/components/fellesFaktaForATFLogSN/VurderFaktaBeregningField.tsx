@@ -1,3 +1,6 @@
+import React from 'react';
+import { FieldErrors, useFormContext, UseFormGetValues } from 'react-hook-form';
+
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
@@ -7,8 +10,6 @@ import {
   Vilkårperiode,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React from 'react';
-import { FieldErrors, UseFormGetValues, useFormContext } from 'react-hook-form';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';

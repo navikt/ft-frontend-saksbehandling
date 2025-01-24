@@ -1,12 +1,15 @@
+import { FormattedMessage } from 'react-intl';
+
 import { Detail } from '@navikt/ds-react';
 
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { FormattedMessage } from 'react-intl';
+
 import { Beregningsresultat } from './Beregningsresultat';
 import { Grenseverdi } from './Grenseverdi';
 import { Inntektsopplysninger } from './Inntektsopplysninger';
 import { Søknadsopplysninger } from './Søknadsopplysninger';
+
 import styles from './søknadsopplysninger.module.css';
 
 const erDagsatsBeregnet = (bg: Beregningsgrunnlag) =>

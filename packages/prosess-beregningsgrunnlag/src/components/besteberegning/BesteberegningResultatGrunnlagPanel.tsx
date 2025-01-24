@@ -1,5 +1,6 @@
-import { BodyShort, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';

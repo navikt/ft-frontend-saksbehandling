@@ -1,19 +1,23 @@
+import { ReactElement } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { Alert, Label, ReadMore } from '@navikt/ds-react';
+
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import { ReactElement } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import {
   TilkommetAktivitetFormValues,
   TilkommetInntektsforholdFieldValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import styles from './tilkommetAktivitet.module.css';
 import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
+
+import styles from './tilkommetAktivitet.module.css';
 
 type Props = {
   formName: string;

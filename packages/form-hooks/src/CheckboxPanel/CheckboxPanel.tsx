@@ -1,7 +1,9 @@
-import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
-import { EditedIcon } from '@navikt/ft-ui-komponenter';
 import { Fragment, ReactElement, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
+import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
+
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules } from '../formUtils';
 

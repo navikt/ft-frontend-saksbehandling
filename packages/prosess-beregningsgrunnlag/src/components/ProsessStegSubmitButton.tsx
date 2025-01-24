@@ -1,7 +1,10 @@
+import React from 'react';
+
 import { Button } from '@navikt/ds-react';
+
 import { ariaCheck } from '@navikt/ft-form-validators';
 import { createIntl } from '@navikt/ft-utils';
-import React from 'react';
+
 import messages from '../../i18n/nb_NO.json';
 const intl = createIntl(messages);
 

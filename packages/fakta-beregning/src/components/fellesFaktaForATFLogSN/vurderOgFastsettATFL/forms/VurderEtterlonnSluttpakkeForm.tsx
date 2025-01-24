@@ -1,19 +1,23 @@
-import { ReadMore } from '@navikt/ds-react';
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { required } from '@navikt/ft-form-validators';
-import { FaktaOmBeregningTilfelle, OpptjeningAktivitetType as OAType, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
-import 'core-js/features/array/flat-map';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { ReadMore } from '@navikt/ds-react';
+
+import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { required } from '@navikt/ft-form-validators';
+import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+
 import {
   FaktaOmBeregningAksjonspunktValues,
   VurderEtterlønnSluttpakkeValues,
 } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+
+import 'core-js/features/array/flat-map';
 
 /**
  * VurderEtterlønnSluttpakkeForm

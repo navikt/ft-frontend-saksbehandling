@@ -1,23 +1,24 @@
 import React from 'react';
-import { StoryFn } from '@storybook/react';
+
 import { action } from '@storybook/addon-actions';
+import { StoryFn } from '@storybook/react';
 
 import {
-  ForeldelseVurderingType,
   AksjonspunktStatus,
-  TilbakekrevingKodeverkType,
   BehandlingStatus,
+  ForeldelseVurderingType,
   RelasjonsRolleType,
+  TilbakekrevingKodeverkType,
 } from '@navikt/ft-kodeverk';
-import { Behandling, Aksjonspunkt, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
-import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
+import { Aksjonspunkt, Behandling, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
+import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
 
 import '@navikt/ds-css';
-
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
 
 const perioderForeldelse = {
   perioder: [

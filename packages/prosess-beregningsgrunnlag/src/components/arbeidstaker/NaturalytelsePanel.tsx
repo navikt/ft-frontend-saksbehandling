@@ -1,6 +1,8 @@
-import { BodyShort, Detail, Label } from '@navikt/ds-react';
 import { ReactElement, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -10,9 +12,9 @@ import {
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import dayjs from 'dayjs';
-import { NaturalytelseTabellData, NaturalytelseEndring, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
+import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 type Props = {

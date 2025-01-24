@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { HStack } from '@navikt/ds-react';
 
 import { Step, StepProps } from './Step';

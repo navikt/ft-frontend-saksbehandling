@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
+
 import { BlaBoksMedCheckmarkListe } from './BlaBoksMedCheckmarkListe';
 
 const withIntlProvider = getIntlDecorator({

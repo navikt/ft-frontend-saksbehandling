@@ -1,9 +1,12 @@
+import { FormattedMessage } from 'react-intl';
+
+import dayjs from 'dayjs';
+
 import { hasValidDate } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import { FormattedMessage } from 'react-intl';
+
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';

@@ -1,9 +1,11 @@
+import React, { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React, { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 
 interface Props {

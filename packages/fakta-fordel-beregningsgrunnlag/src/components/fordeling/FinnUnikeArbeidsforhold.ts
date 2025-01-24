@@ -6,6 +6,7 @@ import {
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
+
 import { BGFordelArbeidsforhold } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const arbeidsforholdEksistererIListen = (

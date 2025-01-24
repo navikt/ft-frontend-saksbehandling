@@ -1,9 +1,10 @@
-import { Select as NavSelect } from '@navikt/ds-react';
 import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
-import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
+import { Select as NavSelect } from '@navikt/ds-react';
+
 import { getError, getValidationRules } from '../formUtils';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 export interface Props {
   name: string;

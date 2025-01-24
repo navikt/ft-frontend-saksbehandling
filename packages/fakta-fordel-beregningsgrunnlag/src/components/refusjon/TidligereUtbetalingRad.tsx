@@ -1,8 +1,10 @@
-import { BodyShort, Table } from '@navikt/ds-react';
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
-import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Table } from '@navikt/ds-react';
+
+import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
+import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 

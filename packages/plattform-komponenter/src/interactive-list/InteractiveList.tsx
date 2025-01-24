@@ -1,7 +1,10 @@
-import classnames from 'classnames';
 import React from 'react';
+
+import classnames from 'classnames';
+
 import { ChevronIconBlack } from '../icons/ChevronIconBlack';
 import { ChevronIconGray } from '../icons/ChevronIconGray';
+
 import styles from './interactiveList.module.css';
 
 export interface InteractiveListElement {

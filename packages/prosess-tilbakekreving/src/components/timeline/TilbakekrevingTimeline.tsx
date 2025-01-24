@@ -1,3 +1,6 @@
+import { ReactElement, useCallback, useState } from 'react';
+import { useIntl } from 'react-intl';
+
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -10,16 +13,15 @@ import {
   SilhouetteFillIcon,
   XMarkOctagonIcon,
 } from '@navikt/aksel-icons';
+import { Button, Timeline } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import { ReactElement, useCallback, useState } from 'react';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-
-import { Button, Timeline } from '@navikt/ds-react';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { useIntl } from 'react-intl';
+
 import { TidslinjePeriode } from '../../types/TidslinjePeriode';
+
 import styles from './tilbakekrevingTimeline.module.css';
 
 type Periode = {

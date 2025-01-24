@@ -1,11 +1,12 @@
-import { KeyVerticalFillIcon, KeyVerticalIcon } from '@navikt/aksel-icons';
 import { useEffect, useState } from 'react';
+
+import { KeyVerticalFillIcon, KeyVerticalIcon } from '@navikt/aksel-icons';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import messages from '../i18n/nb_NO.json';
-
 import styles from './overstyringKnapp.module.css';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 

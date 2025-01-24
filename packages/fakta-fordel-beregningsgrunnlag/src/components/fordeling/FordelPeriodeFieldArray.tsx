@@ -1,5 +1,10 @@
+import { ReactElement, useEffect } from 'react';
+import { useFieldArray, useFormContext, UseFormGetValues } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import {
@@ -12,14 +17,13 @@ import {
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { FloatRight, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { ReactElement, useEffect } from 'react';
-import { useFieldArray, useFormContext, UseFormGetValues } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import {
   BGFordelArbeidsforhold,
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import { finnUnikeArbeidsforhold } from './FinnUnikeArbeidsforhold';
 import {
@@ -31,7 +35,6 @@ import {
   validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
 
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import styles from './renderFordelBGFieldArray.module.css';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';

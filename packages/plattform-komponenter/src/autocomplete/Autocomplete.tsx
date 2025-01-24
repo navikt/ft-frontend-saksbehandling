@@ -1,8 +1,11 @@
-import { Search } from '@navikt/ds-react';
 import React from 'react';
+
+import { Search } from '@navikt/ds-react';
+
 import { AutocompleteSuggestion } from './AutocompleteSuggestion';
-import styles from './autocomplete.module.css';
 import { Suggestion } from './types/Suggestion';
+
+import styles from './autocomplete.module.css';
 
 export interface AutocompleteProps {
   onSelect: (value: Suggestion) => void;

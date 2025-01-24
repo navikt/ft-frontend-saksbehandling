@@ -1,5 +1,7 @@
-import { StoryFn } from '@storybook/react';
 import { ComponentProps } from 'react';
+
+import { StoryFn } from '@storybook/react';
+
 import { LabelledContent } from './LabelledContent';
 
 export default {

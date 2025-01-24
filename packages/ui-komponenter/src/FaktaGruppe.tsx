@@ -1,5 +1,6 @@
-import { Label } from '@navikt/ds-react';
 import { ReactNode } from 'react';
+
+import { Label } from '@navikt/ds-react';
 
 import { BorderBox } from './BorderBox';
 import { VerticalSpacer } from './VerticalSpacer';

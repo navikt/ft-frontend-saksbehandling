@@ -1,7 +1,10 @@
+import React from 'react';
+
 import { MenuGridIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
+
 import { bemUtils } from '@navikt/ft-utils';
-import React from 'react';
+
 import styles from './systemButton.module.css';
 
 const systemsCls = bemUtils('systems');

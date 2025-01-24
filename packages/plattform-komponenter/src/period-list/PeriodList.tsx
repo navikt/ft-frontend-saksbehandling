@@ -1,9 +1,11 @@
 import { JSX } from 'react';
 
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
+
 import { Period, sortPeriodsByFomDate } from '@navikt/ft-utils';
 
 import { CalendarIcon } from '../icons/CalendarIcon';
+
 import styles from './periodList.module.css';
 
 type Item = {

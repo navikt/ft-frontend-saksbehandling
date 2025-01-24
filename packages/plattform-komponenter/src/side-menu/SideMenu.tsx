@@ -1,5 +1,7 @@
-import { Detail } from '@navikt/ds-react';
 import React from 'react';
+
+import { Detail } from '@navikt/ds-react';
+
 import { MenuLink } from './MenuLink';
 
 import styles from './sideMenu.module.css';

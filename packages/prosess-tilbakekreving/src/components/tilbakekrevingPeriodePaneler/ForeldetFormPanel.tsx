@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import { Detail, HStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';

@@ -1,22 +1,25 @@
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps, Vilkår } from '@navikt/ft-types';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
-import { SideMenu } from '@navikt/ft-plattform-komponenter';
-
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Heading } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
-import messages from '../i18n/nb_NO.json';
-import styles from './beregningsgrunnlagProsessIndex.module.css';
+
+import { SideMenu } from '@navikt/ft-plattform-komponenter';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps, Vilkår } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+
 import { BeregningFP } from './components/BeregningFP';
 import { BeregningFormValues } from './types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
+
+import styles from './beregningsgrunnlagProsessIndex.module.css';
+
+import messages from '../i18n/nb_NO.json';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,

@@ -1,7 +1,7 @@
 import React from 'react';
-import classnames from 'classnames';
 
 import { CheckmarkIcon, ExclamationmarkTriangleFillIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons';
+import classnames from 'classnames';
 
 import { StepType } from './StepType';
 

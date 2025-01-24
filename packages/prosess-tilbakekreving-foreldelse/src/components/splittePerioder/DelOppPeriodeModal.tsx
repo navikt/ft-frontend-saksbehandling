@@ -1,11 +1,12 @@
-import { Alert, BodyShort, Button, Heading, Label, Modal } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
+import { Alert, BodyShort, Button, Heading, Label, Modal } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { Datepicker, Form } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import styles from './delOppPeriodeModal.module.css';

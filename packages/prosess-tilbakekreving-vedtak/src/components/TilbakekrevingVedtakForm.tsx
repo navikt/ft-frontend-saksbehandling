@@ -1,19 +1,21 @@
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { HStack } from '@navikt/ds-react';
-import { Form, SubmitButton } from '@navikt/ft-form-hooks';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { omit } from '@navikt/ft-utils';
-import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { UnderavsnittType } from '../kodeverk/avsnittType';
-import { TilbakekrevingEditerVedtaksbrevPanel, FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
+import { HStack } from '@navikt/ds-react';
+import classNames from 'classnames';
 
+import { Form, SubmitButton } from '@navikt/ft-form-hooks';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { omit } from '@navikt/ft-utils';
+
+import { UnderavsnittType } from '../kodeverk/avsnittType';
 import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
 import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
+import { FormValues, TilbakekrevingEditerVedtaksbrevPanel } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
+
 import styles from './tilbakekrevingVedtakForm.module.css';
 
 type VedtakData = {

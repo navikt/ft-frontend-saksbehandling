@@ -1,13 +1,14 @@
-import { ErrorMessage, Label } from '@navikt/ds-react';
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { ErrorMessage, Label } from '@navikt/ds-react';
 
 import { CheckboxField, TextAreaField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import { useFormContext } from 'react-hook-form';
 import { AktsomhetReduksjonAvBelopFormPanel } from './AktsomhetReduksjonAvBelopFormPanel';
 
 const minLength3 = minLength(3);

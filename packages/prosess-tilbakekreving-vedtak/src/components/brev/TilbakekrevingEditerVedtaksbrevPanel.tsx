@@ -1,14 +1,15 @@
-import { BodyShort, ExpansionCard, Heading, Label } from '@navikt/ds-react';
 import React from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
+
+import { BodyShort, ExpansionCard, Heading, Label } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import { UnderavsnittType } from '../../kodeverk/avsnittType';
+import { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
 import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
-import { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
 
 export type FormValues = Record<string, Record<string, string> | string>;

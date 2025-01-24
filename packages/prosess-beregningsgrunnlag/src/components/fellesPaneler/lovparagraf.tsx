@@ -1,5 +1,6 @@
-import { SammenligningType, isStatusSNOrKombinasjon } from '@navikt/ft-kodeverk';
+import { isStatusSNOrKombinasjon, SammenligningType } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {

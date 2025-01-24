@@ -1,10 +1,12 @@
+import { RawIntlProvider } from 'react-intl';
+
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
-import { RawIntlProvider } from 'react-intl';
+
+import styles from './faktaBegrunnelseTextField.module.css';
 
 import messages from '../../../i18n/nb_NO.json';
-import styles from './faktaBegrunnelseTextField.module.css';
 
 const intl = createIntl(messages);
 

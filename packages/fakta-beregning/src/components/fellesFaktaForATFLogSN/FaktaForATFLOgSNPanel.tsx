@@ -1,3 +1,5 @@
+import React, { ReactElement } from 'react';
+
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -7,22 +9,22 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { ReactElement } from 'react';
+
 import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { ArbeidsinntektInput } from '../felles/ArbeidsinntektInput';
 import { InntektInput } from '../felles/InntektInput';
+import { VurderBesteberegningPanel } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import {
   erInitialOverstyringAvBeregningsgrunnlag,
   getFaktaOmBeregning,
   getFaktaOmBeregningTilfellerKoder,
 } from './BgFaktaUtils';
-import { VurderBesteberegningPanel } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import {
   buildInitialValuesKunYtelse,
   setFaktaPanelForKunYtelse,
@@ -31,11 +33,11 @@ import {
 import { NyIArbeidslivetSNForm } from './nyIArbeidslivet/NyIArbeidslivetSNForm';
 import { TidsbegrensetArbeidsforholdForm } from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import { VurderMilitaer } from './vurderMilitaer/VurderMilitaer';
-import { VurderOgFastsettATFL } from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 import { LonnsendringForm } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { NyoppstartetFLForm } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { VurderEtterlonnSluttpakkeForm } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { VurderMottarYtelseForm } from './vurderOgFastsettATFL/forms/VurderMottarYtelseForm';
+import { VurderOgFastsettATFL } from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 import { VurderRefusjonForm } from './vurderrefusjon/VurderRefusjonForm';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;

@@ -1,5 +1,6 @@
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 
 import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -7,8 +8,9 @@ import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import { Ledelinje } from '../fellesPaneler/Ledelinje';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {

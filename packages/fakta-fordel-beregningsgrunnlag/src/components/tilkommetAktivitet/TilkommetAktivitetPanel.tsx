@@ -1,17 +1,21 @@
+import { useCallback, useState } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+
 import { ScissorsIcon } from '@navikt/aksel-icons';
 import { Alert, BodyShort, Button, Heading, Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import { useCallback, useState } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { Periode } from './PeriodesplittDatoValg';
 import { PeriodesplittModal } from './PeriodesplittModal';
 import { TilkommetAktivitetAccordion } from './TilkommetAktivitetAccordion';
+
 import styles from './tilkommetAktivitet.module.css';
 
 const finnAktivitetStatus = (

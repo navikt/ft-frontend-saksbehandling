@@ -1,5 +1,10 @@
+import React, { ReactElement, useEffect, useState } from 'react';
+import { FormattedMessage, RawIntlProvider } from 'react-intl';
+
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Alert, Heading, List, ReadMore, Tabs } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -12,12 +17,8 @@ import {
   Vilkårperiode,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, createIntl } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { FormattedMessage, RawIntlProvider } from 'react-intl';
-import messages from '../i18n/nb_NO.json';
-import styles from './beregningFaktaIndex.module.css';
+import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+
 import { createVisningsnavnFakta } from './components/ArbeidsforholdHelper';
 import { BeregningInfoPanel } from './components/BeregningInfoPanel';
 import {
@@ -29,6 +30,10 @@ import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
 import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
+
+import styles from './beregningFaktaIndex.module.css';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 

@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+
 import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
@@ -7,8 +10,7 @@ import {
   Vilkår,
   Vilkårperiode,
 } from '@navikt/ft-types';
-import { useEffect, useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
@@ -19,7 +21,7 @@ import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
-import { VurderFaktaBeregningField, BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
+import { BEGRUNNELSE_FAKTA_TILFELLER_NAME, VurderFaktaBeregningField } from './VurderFaktaBeregningField';
 import { BeregningsgrunnlagIndexContext, VurderFaktaContext } from './VurderFaktaContext';
 
 const {

@@ -2,15 +2,17 @@ import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Label } from '@navikt/ds-react';
+
 import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
 import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  BeregningsgrunnlagAndel,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
+  BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {

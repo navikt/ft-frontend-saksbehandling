@@ -1,18 +1,20 @@
-import { BodyShort } from '@navikt/ds-react';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { BodyShort } from '@navikt/ds-react';
 
 import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
+
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const MAX_LENGTH = 4000;

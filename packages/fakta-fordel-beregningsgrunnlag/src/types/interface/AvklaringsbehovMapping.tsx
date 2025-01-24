@@ -1,5 +1,5 @@
-import { GamleKoder } from './GamleKoder';
 import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
+import { GamleKoder } from './GamleKoder';
 
 export const mapAvklaringsbehovKode = (kode: string): string => {
   if (GamleKoder.FORDEL_BEREGNINGSGRUNNLAG === kode) {

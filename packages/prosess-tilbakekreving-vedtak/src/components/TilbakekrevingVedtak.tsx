@@ -1,5 +1,6 @@
-import { BodyShort, Detail, Heading } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Detail, Heading } from '@navikt/ds-react';
 
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';

@@ -5,12 +5,12 @@ import { createIntl } from '@navikt/ft-utils';
 
 import { FeilutbetalingInfoPanel, FormValues } from './components/FeilutbetalingInfoPanel';
 import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
-
-import messages from '../i18n/nb_NO.json';
+import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
+import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
 import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanelFtf';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelFtf';
-import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 

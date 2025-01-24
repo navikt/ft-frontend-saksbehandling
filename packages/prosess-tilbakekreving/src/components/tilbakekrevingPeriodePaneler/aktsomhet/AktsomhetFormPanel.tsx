@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './AktsomhetReduksjonAvBelopFormPanel';
-import { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 
 const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
 

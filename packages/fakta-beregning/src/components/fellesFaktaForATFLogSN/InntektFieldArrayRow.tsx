@@ -1,17 +1,20 @@
+import React from 'react';
+import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage, Table } from '@navikt/ds-react';
+
 import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React from 'react';
-import { FieldArrayWithId, useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
   erDagpenger,
@@ -25,6 +28,7 @@ import {
   getSkalRedigereInntektskategori,
 } from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+
 import styles from './inntektFieldArray.module.css';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {

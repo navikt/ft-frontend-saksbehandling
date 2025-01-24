@@ -1,7 +1,7 @@
-import { Heading } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import { Heading } from '@navikt/ds-react';
 
 import { AktivitetStatus, SammenligningType } from '@navikt/ft-kodeverk';
 import {
@@ -11,17 +11,19 @@ import {
   SammenligningsgrunlagProp,
   Vilkår,
 } from '@navikt/ft-types';
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { AksjonspunktBehandler, finnFormName } from './AksjonspunktBehandler';
 import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';
 import { SammenligningsgrunnlagPanel } from './SammenligningsgrunnlagPanel';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen

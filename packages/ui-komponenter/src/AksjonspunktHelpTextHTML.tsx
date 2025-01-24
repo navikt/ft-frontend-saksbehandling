@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import { Alert, BodyShort, VStack } from '@navikt/ds-react';
+
 import { isObject } from '@navikt/ft-utils';
 
 export interface Props {

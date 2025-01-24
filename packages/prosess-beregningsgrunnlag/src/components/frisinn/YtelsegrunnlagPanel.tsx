@@ -1,5 +1,6 @@
 import { FagsakYtelseType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
+
 import { Frisinnpanel } from './Frisinnpanel';
 
 const lagFrisinnpaneler = (beregningsgrunnlag: Beregningsgrunnlag) => (

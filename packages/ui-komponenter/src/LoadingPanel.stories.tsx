@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { StoryFn } from '@storybook/react';
 
 import { LoadingPanel } from './LoadingPanel';

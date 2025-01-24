@@ -1,7 +1,7 @@
 import React from 'react';
 
-import classnames from 'classnames';
 import { BodyShort, Tooltip } from '@navikt/ds-react';
+import classnames from 'classnames';
 
 import { StepIcon } from './StepIcon';
 import { StepType } from './StepType';

@@ -1,6 +1,8 @@
-import { Table } from '@navikt/ds-react';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { FormattedMessage } from 'react-intl';
+
+import { Table } from '@navikt/ds-react';
+
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
 import { TidligereUtbetalingRad } from './TidligereUtbetalingRad';
 

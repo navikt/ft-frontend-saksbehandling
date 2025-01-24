@@ -1,8 +1,10 @@
+import { FormattedMessage } from 'react-intl';
+
 import { BodyShort, HStack, Label, Spacer } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import { FormattedMessage } from 'react-intl';
 
 import styles from './periodeInformasjon.module.css';
 

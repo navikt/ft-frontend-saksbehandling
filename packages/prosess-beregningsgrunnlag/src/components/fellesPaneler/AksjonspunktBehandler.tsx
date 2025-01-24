@@ -1,43 +1,43 @@
-import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { ReactElement, useEffect, useRef } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
+import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
+  Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
-  Beregningsgrunnlag as BeregningsgrunnlagProp,
   SammenligningsgrunlagProp,
   Vilkår,
   Vilkårperiode,
 } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import { useFieldArray, useForm } from 'react-hook-form';
-import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
-import { AksjonspunktBehandlerTidsbegrenset as AksjonspunktBehandlerTB } from '../arbeidstaker/AksjonspunktBehandlerTB';
-import { Beregningsgrunnlag as BeregningsgrunnlagPanel } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
-import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
-import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
-
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
+import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
-import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
-import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
+import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
+import { AksjonspunktBehandlerTidsbegrenset as AksjonspunktBehandlerTB } from '../arbeidstaker/AksjonspunktBehandlerTB';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
+import { Beregningsgrunnlag as BeregningsgrunnlagPanel } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
+import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
+import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
+import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import { AksjonspunktBehandlerHeader } from './AksjonspunktBehandlerHeader';
-import styles from './aksjonspunktBehandler.module.css';
 import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+
+import styles from './aksjonspunktBehandler.module.css';
 
 const minLength3 = minLength(3);
 const MAX_LENGTH = 4000;

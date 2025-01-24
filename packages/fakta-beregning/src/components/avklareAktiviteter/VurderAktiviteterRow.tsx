@@ -1,15 +1,19 @@
+import { useIntl } from 'react-intl';
+
 import { BodyShort, Table } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { prettifyDateString } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import { useIntl } from 'react-intl';
+
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
+
 import styles from './vurderAktiviteterTabell.module.css';
 
 type Props = {

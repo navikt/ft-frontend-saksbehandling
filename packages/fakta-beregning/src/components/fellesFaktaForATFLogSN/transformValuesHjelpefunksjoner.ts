@@ -1,11 +1,12 @@
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
+import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 
 const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 

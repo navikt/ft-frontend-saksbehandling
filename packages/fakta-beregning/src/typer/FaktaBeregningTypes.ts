@@ -6,6 +6,7 @@ import {
   KunYtelse,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
+
 import { AndelFieldValue } from './FieldValues';
 
 export type TidsbegrensetandelValues = {

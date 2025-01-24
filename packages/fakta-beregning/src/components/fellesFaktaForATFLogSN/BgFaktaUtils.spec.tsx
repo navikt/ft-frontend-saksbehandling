@@ -1,26 +1,27 @@
 import {
   AktivitetStatus as aktivitetStatuser,
-  Organisasjonstype as organisasjonstyper,
   FaktaOmBeregningTilfelle,
   KodeverkType,
+  Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
-import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
-import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
+
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
+  kanRedigereInntektForAndel,
   mapAndelToField,
   mapToBelop,
   setGenerellAndelsinfo,
   skalFastsetteInntektForAndel,
-  kanRedigereInntektForAndel,
   skalRedigereInntektskategoriForAndel,
 } from './BgFaktaUtils';
+import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
+import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import {
   finnFrilansFieldName,
   utledArbeidsforholdFieldName,
 } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
-import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',

@@ -1,4 +1,5 @@
 import { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+
 import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type VurderNyttInntektsforholdAndelTransformedValues = {

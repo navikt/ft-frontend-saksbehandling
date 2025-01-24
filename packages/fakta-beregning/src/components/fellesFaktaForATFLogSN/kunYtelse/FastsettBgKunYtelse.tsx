@@ -1,10 +1,12 @@
+import React from 'react';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, KunYtelse } from '@navikt/ft-types';
-import React from 'react';
+
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { KunYtelsePanel } from './KunYtelsePanel';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KunYtelsePanel } from './KunYtelsePanel';
 
 const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
 

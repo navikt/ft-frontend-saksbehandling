@@ -1,8 +1,9 @@
 import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt } from '@navikt/ft-types';
-import { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
+
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
+import { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
 
 const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 

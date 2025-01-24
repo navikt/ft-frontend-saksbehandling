@@ -1,12 +1,14 @@
 import { getIntlMock } from '@navikt/ft-frontend-utils-test';
+
+import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
   validateSumFastsattBelop,
   validateTotalRefusjonPrArbeidsforhold,
   validateUlikeAndeler,
   validerBGGraderteAndeler,
 } from './ValidateFordelteAndelerUtils';
+
 import messages from '../../../i18n/nb_NO.json';
-import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const intlMock = getIntlMock(messages);
 const fieldname = 'feltnavn';

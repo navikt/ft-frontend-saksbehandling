@@ -1,6 +1,6 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
-import { VurderRefusjonForm, lagFieldName } from './VurderRefusjonForm';
+import { lagFieldName, VurderRefusjonForm } from './VurderRefusjonForm';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 

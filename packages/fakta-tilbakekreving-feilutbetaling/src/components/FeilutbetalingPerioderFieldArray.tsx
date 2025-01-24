@@ -1,15 +1,17 @@
+import { useFieldArray, useFormContext } from 'react-hook-form';
+
 import moment from 'moment';
 
 import { SelectField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
 import { Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
+import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
+
 import styles from './feilutbetalingPerioderFieldArray.module.css';
 
 const FIELD_ARRAY_NAME = 'perioder';

@@ -1,14 +1,17 @@
+import React, { ReactElement } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { ReadMore } from '@navikt/ds-react';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
-import React, { ReactElement } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 

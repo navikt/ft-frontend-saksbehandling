@@ -1,5 +1,6 @@
-import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
+import { BodyShort } from '@navikt/ds-react';
 
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { minValue, required } from '@navikt/ft-form-validators';

@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
-import { KodeverkType } from '@navikt/ft-kodeverk';
-import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
 
+import dayjs from 'dayjs';
+
+import { KodeverkType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,

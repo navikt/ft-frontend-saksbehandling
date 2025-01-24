@@ -10,12 +10,12 @@ import { createIntl } from '@navikt/ft-utils';
 
 import { TilbakekrevingForm } from './components/TilbakekrevingForm';
 import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
+import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
 import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
+import { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
 
 import messages from '../i18n/nb_NO.json';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
-import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
-import { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
 
 const intl = createIntl(messages);
 

@@ -1,17 +1,20 @@
-import { Label, List, ReadMore } from '@navikt/ds-react';
-import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+
+import { Label, List, ReadMore } from '@navikt/ds-react';
+
+import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { ArbeidsinntektInput } from '../../../felles/ArbeidsinntektInput';
 import { InntektInput } from '../../../felles/InntektInput';
+import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
-import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { lonnsendringField } from './LonnsendringForm';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';

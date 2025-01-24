@@ -3,7 +3,6 @@ import { RawIntlProvider } from 'react-intl';
 import { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import messages from '../i18n/nb_NO.json';
 import { FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
 import { TilbakekrevingVedtak } from './components/TilbakekrevingVedtak';
 import { ForhandsvisData } from './components/TilbakekrevingVedtakForm';
@@ -11,6 +10,8 @@ import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilb
 import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTv';
 import { Vedtaksbrev } from './types/Vedtaksbrev';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 

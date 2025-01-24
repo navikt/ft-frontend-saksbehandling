@@ -1,4 +1,5 @@
 import { BodyShort } from '@navikt/ds-react';
+
 import { GenderIcon } from './GenderIcon';
 import { VisittKort } from './VisittKort';
 

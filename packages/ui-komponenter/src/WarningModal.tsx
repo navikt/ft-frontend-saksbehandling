@@ -1,5 +1,5 @@
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Button, HStack, Heading, Modal } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, HStack, Modal } from '@navikt/ds-react';
 
 import styles from './warningModal.module.css';
 

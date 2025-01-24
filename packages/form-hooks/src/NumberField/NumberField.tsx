@@ -1,8 +1,10 @@
 import React, { ReactNode, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
 import { TextField } from '@navikt/ds-react';
-import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
+
 import { getError, getValidationRules } from '../formUtils';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
 const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;

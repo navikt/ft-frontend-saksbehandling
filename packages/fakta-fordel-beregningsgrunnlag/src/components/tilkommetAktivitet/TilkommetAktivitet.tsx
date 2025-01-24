@@ -1,3 +1,9 @@
+import { useEffect } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+
 import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
@@ -11,10 +17,7 @@ import {
 } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween';
-import { useEffect } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+
 import {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,

@@ -1,9 +1,12 @@
-import { PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { BodyShort } from '@navikt/ds-react';
-import { prettifyDateString } from '@navikt/ft-utils';
 import { useContext } from 'react';
 
+import { PersonPencilFillIcon } from '@navikt/aksel-icons';
+import { BodyShort } from '@navikt/ds-react';
+
+import { prettifyDateString } from '@navikt/ft-utils';
+
 import { SaksbehandlernavnContext } from '../saksbehandlernavn-context/SaksbehandlernavnContext';
+
 import styles from './assessedBy.module.css';
 
 export interface IAssessedByProps {

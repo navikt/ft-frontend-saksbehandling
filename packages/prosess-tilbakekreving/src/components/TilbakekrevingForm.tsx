@@ -1,7 +1,8 @@
-import { Alert, Heading, Panel } from '@navikt/ds-react';
-import moment from 'moment';
 import { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import { Alert, Heading, Panel } from '@navikt/ds-react';
+import moment from 'moment';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, KodeverkType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
@@ -11,8 +12,16 @@ import { omitOne } from '@navikt/ft-utils';
 
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
 import { DataForPeriode } from '../types/DataForPeriode';
+import {
+  DetaljerteFeilutbetalingsperioder,
+  DetaljertFeilutbetalingPeriode,
+} from '../types/DetaljerteFeilutbetalingsperioder';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
+import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
+import { PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
+import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import {
   CustomPeriode,
   CustomPerioder,
@@ -21,17 +30,9 @@ import {
   periodeFormTransformValues,
   TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
-
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
-import { PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
-import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
-import styles from './tilbakekrevingForm.module.css';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
-import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
-import {
-  DetaljerteFeilutbetalingsperioder,
-  DetaljertFeilutbetalingPeriode,
-} from '../types/DetaljerteFeilutbetalingsperioder';
+
+import styles from './tilbakekrevingForm.module.css';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));

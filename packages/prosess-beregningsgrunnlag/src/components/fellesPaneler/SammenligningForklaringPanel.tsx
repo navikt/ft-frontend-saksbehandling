@@ -1,10 +1,10 @@
-import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BodyShort } from '@navikt/ds-react';
 
 import { SammenligningType } from '@navikt/ft-kodeverk';
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 

@@ -1,4 +1,5 @@
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+
 import { VurderEtterlonnSluttpakkeForm } from './VurderEtterlonnSluttpakkeForm';
 
 describe('<VurderEtterlonnSluttpakkeForm>', () => {

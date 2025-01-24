@@ -1,11 +1,12 @@
-import { BodyShort, Detail, Label } from '@navikt/ds-react';
 import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { useFormContext } from 'react-hook-form';
 
 export interface Props {
   name: string;

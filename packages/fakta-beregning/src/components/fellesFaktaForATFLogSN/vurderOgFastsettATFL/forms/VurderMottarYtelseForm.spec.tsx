@@ -1,5 +1,6 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { VurderMottarYtelseForm } from './VurderMottarYtelseForm';
 import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';

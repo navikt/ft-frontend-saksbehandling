@@ -1,4 +1,5 @@
 import React, { JSX } from 'react';
+
 import styles from './infostripe.module.css';
 
 interface BaseInfostripeProps {

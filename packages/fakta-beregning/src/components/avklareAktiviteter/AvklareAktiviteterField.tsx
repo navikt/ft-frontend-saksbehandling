@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useFormContext, UseFormGetValues } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { Alert, Button, ErrorMessage, HStack, Heading, Label, List, ReadMore } from '@navikt/ds-react';
+import { Alert, Button, ErrorMessage, Heading, HStack, Label, List, ReadMore } from '@navikt/ds-react';
+
 import { SubmitButton, useCustomValidation } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
@@ -12,22 +15,22 @@ import {
   Vilkårperiode,
 } from '@navikt/ft-types';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { UseFormGetValues, useFormContext } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
-import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
+import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import {
   erSubmittable,
   findAvklaringsbehovForAktiviteter,
   skalKunneLoseAvklaringsbehov,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
+import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
+
 import styles from './avklareAktiviteterPanel.module.css';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;

@@ -1,14 +1,14 @@
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import {
   setArbeidsforholdInitialValues,
   setGenerellAndelsinfo,
   settAndelIArbeid,
   settFastsattBelop,
 } from './BgFordelingUtils';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',

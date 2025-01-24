@@ -1,5 +1,6 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,

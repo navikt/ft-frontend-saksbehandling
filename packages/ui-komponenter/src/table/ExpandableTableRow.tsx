@@ -1,15 +1,17 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
-import { createIntl } from '@navikt/ft-utils';
-import classnames from 'classnames/bind';
 import { ReactNode } from 'react';
 
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
+import classnames from 'classnames/bind';
+
+import { createIntl } from '@navikt/ft-utils';
+
+import { FloatRight } from '../FloatRight';
 import { TableColumn } from './TableColumn';
 import { TableRow } from './TableRow';
 
-import messages from '../../i18n/nb_NO.json';
-import { FloatRight } from '../FloatRight';
-
 import styles from './expandableTableRow.module.css';
+
+import messages from '../../i18n/nb_NO.json';
 
 const classNames = classnames.bind(styles);
 

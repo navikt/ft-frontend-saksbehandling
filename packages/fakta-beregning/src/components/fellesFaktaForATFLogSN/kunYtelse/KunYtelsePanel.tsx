@@ -1,5 +1,6 @@
 import { FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';

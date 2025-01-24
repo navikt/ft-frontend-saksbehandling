@@ -1,9 +1,12 @@
-import { Label, Table } from '@navikt/ds-react';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+
+import { Label, Table } from '@navikt/ds-react';
+
+import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldValue } from '../../typer/FieldValues';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
@@ -18,6 +21,7 @@ import {
   getKanRedigereInntekt,
 } from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+
 import styles from './inntektFieldArray.module.css';
 
 const summerBeregnet = (

@@ -1,5 +1,6 @@
-import { Label } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
+import { Label } from '@navikt/ds-react';
 
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';

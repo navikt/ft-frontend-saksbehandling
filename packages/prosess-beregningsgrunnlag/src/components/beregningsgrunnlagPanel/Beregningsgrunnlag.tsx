@@ -9,11 +9,14 @@ import {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
+
+import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import {
   FastsettAvvikATFLResultatAP,
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTB';
@@ -22,12 +25,10 @@ import { SammenligningsgrunnlagAOrdningen } from '../fellesPaneler/Sammenligning
 import { GrunnlagForAarsinntektPanelFL } from '../frilanser/GrunnlagForAarsinntektPanelFL';
 import { MilitaerPanel } from '../militar/MilitaerPanel';
 import { GrunnlagForAarsinntektPanelSN } from '../selvstendigNaeringsdrivende/GrunnlagForAarsinntektPanelSN';
+import { NaeringsopplysningsPanel } from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import { TilstotendeYtelser } from '../tilstotendeYtelser/TilstotendeYtelser';
 import { YtelserFraInfotrygd } from '../tilstotendeYtelser/YtelserFraInfotrygd';
 
-import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
-import { NaeringsopplysningsPanel } from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import beregningStyles from './beregningsgrunnlag.module.css';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =

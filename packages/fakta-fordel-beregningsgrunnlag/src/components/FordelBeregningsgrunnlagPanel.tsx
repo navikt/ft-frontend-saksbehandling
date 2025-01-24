@@ -6,8 +6,8 @@ import {
   Beregningsgrunnlag,
   Vilkårperiode,
 } from '@navikt/ft-types';
-
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,

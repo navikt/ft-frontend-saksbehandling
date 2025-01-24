@@ -1,22 +1,23 @@
-import { BodyShort, Button, Detail, HStack, Label } from '@navikt/ds-react';
-import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { BodyShort, Button, Detail, HStack, Label } from '@navikt/ds-react';
+import moment from 'moment';
 
 import { CheckboxField, Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
 import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
 
-import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
-
 import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCode';
 import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
+import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
+import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
 import { KodeverkFpSakForPanel } from '../types/KodeverkFpSakForPanelFtf';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
+import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
+
 import styles from './feilutbetalingInfoPanel.module.css';
 
 const minLength3 = minLength(3);

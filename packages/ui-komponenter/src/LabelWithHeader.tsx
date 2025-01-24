@@ -1,5 +1,6 @@
-import { BodyShort, Detail } from '@navikt/ds-react';
 import { ReactNode } from 'react';
+
+import { BodyShort, Detail } from '@navikt/ds-react';
 
 import styles from './labelWithHeader.module.css';
 

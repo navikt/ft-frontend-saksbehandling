@@ -1,6 +1,7 @@
+import { ReactNode } from 'react';
+
 import { Panel } from '@navikt/ds-react';
 import classnames from 'classnames/bind';
-import { ReactNode } from 'react';
 
 import styles from './borderBox.module.css';
 
