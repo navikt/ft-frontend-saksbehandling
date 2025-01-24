@@ -26,7 +26,7 @@ import {
 } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingAktivitetTabell } from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
 
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import styles from './tilbakekrevingPeriodeForm.module.css';
 import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
 

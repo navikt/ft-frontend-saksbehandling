@@ -18,8 +18,8 @@ import '@navikt/ds-css';
 
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
-import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanel';
+import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanelFtf';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelFtf';
 import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
 import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
 

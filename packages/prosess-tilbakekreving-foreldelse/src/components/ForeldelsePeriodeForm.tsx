@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

@@ -13,7 +13,7 @@ import messages from '../i18n/nb_NO.json';
 import { ForeldelseForm } from './components/ForeldelseForm';
 import { VurderForeldelseAp } from './types/VurderForeldelseAp';
 import { ForeldelsesresultatActivity } from './types/ForeldelsesresultatActivity';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
 
 const intl = createIntl(messages);
 

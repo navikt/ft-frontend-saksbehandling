@@ -13,7 +13,7 @@ import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriode
 import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 
 import messages from '../i18n/nb_NO.json';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
 

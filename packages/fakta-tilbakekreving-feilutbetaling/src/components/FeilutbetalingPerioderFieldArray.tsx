@@ -9,7 +9,7 @@ import { Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
 import styles from './feilutbetalingPerioderFieldArray.module.css';
 
 const FIELD_ARRAY_NAME = 'perioder';

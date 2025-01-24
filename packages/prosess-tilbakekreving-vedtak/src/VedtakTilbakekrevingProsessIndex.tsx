@@ -9,7 +9,7 @@ import { TilbakekrevingVedtak } from './components/TilbakekrevingVedtak';
 import { ForhandsvisData } from './components/TilbakekrevingVedtakForm';
 import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTv';
 import { Vedtaksbrev } from './types/Vedtaksbrev';
 
 const intl = createIntl(messages);

@@ -7,8 +7,8 @@ import { FeilutbetalingInfoPanel, FormValues } from './components/Feilutbetaling
 import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
 
 import messages from '../i18n/nb_NO.json';
-import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanel';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanelFtf';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelFtf';
 import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
 import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
 

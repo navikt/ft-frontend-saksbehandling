@@ -15,8 +15,8 @@ import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } fro
 
 import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCode';
 import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
-import { KodeverkFpSakForPanel } from '../types/KodeverkFpSakForPanel';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpSakForPanel } from '../types/KodeverkFpSakForPanelFtf';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
 import styles from './feilutbetalingInfoPanel.module.css';
 
 const minLength3 = minLength(3);

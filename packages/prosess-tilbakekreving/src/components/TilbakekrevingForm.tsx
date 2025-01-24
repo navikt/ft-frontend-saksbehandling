@@ -22,7 +22,7 @@ import {
   TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
 
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import { PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import styles from './tilbakekrevingForm.module.css';

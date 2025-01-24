@@ -13,7 +13,7 @@ import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTv';
 
 const vedtaksbrev = {
   avsnittsliste: [

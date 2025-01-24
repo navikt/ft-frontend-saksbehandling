@@ -17,7 +17,7 @@ import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
 import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanel';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
 import styles from './foreldelseForm.module.css';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 
