@@ -35,7 +35,7 @@ export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, label }: Pr
 InntektInput.buildInitialValues = (
   andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[],
   aktivitetStatus: string,
-): { fastsattBelop: number } => {
+): { fastsattBelop: number } | null => {
   const fastsattBelop = andelerForFaktaOmBeregning?.find(
     andel => andel.aktivitetStatus === aktivitetStatus,
   )?.fastsattBelop;

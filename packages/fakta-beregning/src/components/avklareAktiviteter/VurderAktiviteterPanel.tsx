@@ -162,8 +162,8 @@ const utledGjeldendeSkjæringstidspunkt = (
   return undefined;
 };
 
-const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string) => {
-  const datoFeil = hasValidDate(skjaeringstidspunkt);
+const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string | undefined) => {
+  const datoFeil = !skjaeringstidspunkt || hasValidDate(skjaeringstidspunkt);
   return datoFeil ? '' : dayjs(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
 };
 

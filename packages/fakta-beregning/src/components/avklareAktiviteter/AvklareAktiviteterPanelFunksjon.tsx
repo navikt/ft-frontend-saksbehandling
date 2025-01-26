@@ -67,7 +67,7 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
 
   if (overstyrteGrunnlag.length > 0) {
     const beg = overstyrteGrunnlag
-      .map(({ begrunnelse }) => begrunnelse)
+      .map(og => og?.begrunnelse)
       .reduce(
         (samletBegrunnelse, begrunnelse) =>
           samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`,
@@ -83,7 +83,7 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
 
   if (avklarGrunnlag.length > 0) {
     const beg = avklarGrunnlag
-      .map(({ begrunnelse }) => begrunnelse)
+      .map(ag => ag?.begrunnelse)
       .reduce(
         (samletBegrunnelse, begrunnelse) =>
           samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`,

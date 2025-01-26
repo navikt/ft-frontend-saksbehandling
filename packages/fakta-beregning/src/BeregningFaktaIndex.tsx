@@ -93,10 +93,10 @@ export const lagHelpTextsForFakta = (
   beregningsgrunnlag: Beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement => {
-  const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
-  const erFrilans = beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
-  const alerts = [];
-  const keys = [];
+  const tilfeller: string[] = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
+  const erFrilans: boolean = !!beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
+  const alerts: ReactElement[] = [];
+  const keys: string[] = [];
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
     const harInntektsmelding =
       beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
@@ -196,13 +196,16 @@ export const lagHelpTextsForFakta = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
     keys.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
 
-    const kortvarigeArbeidsforhold = beregningsgrunnlag?.faktaOmBeregning?.kortvarigeArbeidsforhold;
+    const kortvarigeArbeidsforhold = beregningsgrunnlag?.faktaOmBeregning?.kortvarigeArbeidsforhold || [];
 
     let arbeidsgivereNavn = '';
     kortvarigeArbeidsforhold.forEach((kortvarigArbeidsforhold: KortvarigAndel, index: number) => {
-      const { arbeidsgiverIdent } = kortvarigArbeidsforhold.arbeidsforhold;
-      const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
-      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : arbeidsgiverIdent;
+      const agi = kortvarigArbeidsforhold.arbeidsforhold?.arbeidsgiverIdent;
+      if (!agi) {
+        throw new Error("Må ha arbeidsgiverIdent på kortvarige andeler");
+      }
+      const opplysninger = arbeidsgiverOpplysningerPerId[agi];
+      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : agi;
       if (index === 0) {
         arbeidsgivereNavn = arbeidsgiverVisningsnavn;
       } else {
@@ -348,7 +351,7 @@ export const lagHelpTextsForFakta = (
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT)) {
-    const senRefusjonkravListe = beregningsgrunnlag?.faktaOmBeregning?.refusjonskravSomKommerForSentListe;
+    const senRefusjonkravListe = beregningsgrunnlag?.faktaOmBeregning?.refusjonskravSomKommerForSentListe || [];
     let arbeidsgivereNavn = '';
     senRefusjonkravListe.forEach((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe, index: number) => {
       const { arbeidsgiverIdent } = kravPerArbeidsgiver;
