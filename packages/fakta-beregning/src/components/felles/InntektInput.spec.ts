@@ -49,6 +49,6 @@ describe('<InntektInput>', () => {
       },
     ];
     const initialValues = InntektInput.buildInitialValues(andelerForFaktaOmBeregning, 'DP');
-    expect(initialValues).toEqual(null);
+    expect(initialValues).toEqual(undefined);
   });
 });

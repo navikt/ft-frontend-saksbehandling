@@ -37,13 +37,13 @@ export const setFaktaPanelForKunYtelse = (
 
 export const transformValuesForKunYtelse = (
   values: FaktaOmBeregningAksjonspunktValues,
-  kunYtelse: KunYtelse,
+  kunYtelse: KunYtelse | undefined,
   tilfeller: string[],
 ): FaktaBeregningTransformedValues => {
-  if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
+  if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE) && !!kunYtelse) {
     const kunYtelseTransformedValues = KunYtelsePanel.transformValues(values, kunYtelse);
     const faktaOmBeregningTilfeller = [FASTSETT_BG_KUN_YTELSE];
-    if (kunYtelse.fodendeKvinneMedDP) {
+    if (kunYtelse?.fodendeKvinneMedDP) {
       faktaOmBeregningTilfeller.push(VURDER_BESTEBEREGNING);
     }
     return {

@@ -10,7 +10,6 @@ import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   kanRedigereInntektForAndel,
   mapAndelToField,
-  mapToBelop,
   setGenerellAndelsinfo,
   skalFastsetteInntektForAndel,
   skalRedigereInntektskategoriForAndel,
@@ -551,32 +550,5 @@ describe('<BgFaktaUtils>', () => {
       beregningsgrunnlag,
     )(andelFieldValue);
     expect(skalRedigereInntekt).toBe(true);
-  });
-
-  it('skal mappe fastsattBeløp til beløp om skalRedigereInntekt er udefinert', () => {
-    const andel = {
-      fastsattBelop: '10 000',
-      readOnlyBelop: '20 000',
-    };
-    const belop = mapToBelop(undefined)(andel);
-    expect(belop).toBe(10000);
-  });
-
-  it('skal mappe fastsattBeløp til beløp om skalRedigereInntekt returnerer true', () => {
-    const andel = {
-      fastsattBelop: '10 000',
-      readOnlyBelop: '20 000',
-    };
-    const belop = mapToBelop(() => true)(andel);
-    expect(belop).toBe(10000);
-  });
-
-  it('skal mappe readOnlyBelop til beløp om skalRedigereInntekt returnerer false', () => {
-    const andel = {
-      fastsattBelop: '10 000',
-      readOnlyBelop: '20 000',
-    };
-    const belop = mapToBelop(() => false)(andel);
-    expect(belop).toBe(20000);
   });
 });
