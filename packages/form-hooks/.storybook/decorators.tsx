@@ -1,9 +1,11 @@
 import React from 'react';
-import { Form } from './../src/Form';
-import { action } from '@storybook/addon-actions';
-import { Button, VStack } from '@navikt/ds-react';
 import { useForm, UseFormProps } from 'react-hook-form';
+
+import { Button, VStack } from '@navikt/ds-react';
+import { action } from '@storybook/addon-actions';
 import type { Meta } from '@storybook/react';
+
+import { Form } from './../src/Form';
 
 export const rhfDecorator =
   (defaultValues: UseFormProps['defaultValues']): Meta['decorators'] =>

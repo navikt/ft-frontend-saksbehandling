@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 
 import * as stories from './PeriodList.stories';
 
-const { Perioder } = composeStories(stories);
+const { Default } = composeStories(stories);
 
 describe('<PeriodList>', () => {
   it('skal vise alle perioder', async () => {
-    render(<Perioder />);
+    render(<Default />);
 
     expect(await screen.findByText('Perioder')).toBeInTheDocument();
     expect(screen.getByText('16.01.2022 - 23.01.2022')).toBeInTheDocument();

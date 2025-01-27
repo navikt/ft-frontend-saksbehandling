@@ -16,7 +16,7 @@ export interface UserPanelProps {
   isToggled?: boolean;
 }
 
-export const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClick, isToggled }) => {
+export const UserPanel = ({ name, unit, onClick, isToggled }: UserPanelProps) => {
   if (onClick) {
     return (
       <button

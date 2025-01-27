@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { action } from '@storybook/addon-actions';
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import {
   AksjonspunktStatus,
@@ -10,15 +8,15 @@ import {
   RelasjonsRolleType,
   TilbakekrevingKodeverkType,
 } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, Behandling, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+import { Behandling, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
 
 import '@navikt/ds-css';
-import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
 const perioderForeldelse = {
   perioder: [
@@ -74,56 +72,52 @@ const kodeverkSamling = {
   ],
 } as KodeverkFpTilbakeForPanel;
 
-export default {
+const meta = {
   title: 'prosess-foreldelse',
   component: ForeldelseProsessIndex,
-};
-
-const Template: StoryFn<{
-  submitCallback: (aksjonspunktData: any) => Promise<void>;
-  aksjonspunkter?: Aksjonspunkt[];
-}> = ({ submitCallback, aksjonspunkter = [] }) => (
-  <ForeldelseProsessIndex
-    behandling={
-      {
-        uuid: '1',
-        versjon: 1,
-        status: BehandlingStatus.BEHANDLING_UTREDES,
-      } as Behandling
-    }
-    kodeverkSamlingFpTilbake={kodeverkSamling}
-    submitCallback={submitCallback}
-    isReadOnly={false}
-    setFormData={() => undefined}
-    perioderForeldelse={perioderForeldelse}
-    aksjonspunkter={aksjonspunkter}
-    relasjonsRolleType={RelasjonsRolleType.MOR}
-    beregnBelop={(params?: any) => Promise.resolve(params)}
-    alleMerknaderFraBeslutter={{}}
-    relasjonsRolleTypeKodeverk={[
+  args: {
+    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    behandling: {
+      uuid: '1',
+      versjon: 1,
+      status: BehandlingStatus.BEHANDLING_UTREDES,
+    } as Behandling,
+    kodeverkSamlingFpTilbake: kodeverkSamling,
+    isReadOnly: false,
+    setFormData: () => undefined,
+    perioderForeldelse,
+    relasjonsRolleType: RelasjonsRolleType.MOR,
+    beregnBelop: (params?: any) => Promise.resolve(params),
+    alleMerknaderFraBeslutter: {},
+    relasjonsRolleTypeKodeverk: [
       {
         kode: 'MORA',
         kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },
-    ]}
-  />
-);
+    ],
+  },
+} satisfies Meta<typeof ForeldelseProsessIndex>;
 
-export const Default = Template.bind({});
-Default.args = {
-  submitCallback: action('button-click') as (data: any) => Promise<any>,
-  aksjonspunkter: [
-    {
-      definisjon: ForeldelseAksjonspunktCodes.VURDER_FORELDELSE,
-      status: AksjonspunktStatus.OPPRETTET,
-      begrunnelse: undefined,
-      kanLoses: true,
-    },
-  ],
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    aksjonspunkter: [
+      {
+        definisjon: ForeldelseAksjonspunktCodes.VURDER_FORELDELSE,
+        status: AksjonspunktStatus.OPPRETTET,
+        begrunnelse: undefined,
+        kanLoses: true,
+      },
+    ],
+  },
 };
 
-export const UtenAksjonspunkt = Template.bind({});
-UtenAksjonspunkt.args = {
-  submitCallback: action('button-click') as (data: any) => Promise<any>,
+export const UtenAksjonspunkt: Story = {
+  args: {
+    aksjonspunkter: [],
+  },
 };

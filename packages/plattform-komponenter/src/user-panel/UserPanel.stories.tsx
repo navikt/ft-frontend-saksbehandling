@@ -1,26 +1,36 @@
-import React, { ComponentProps, useState } from 'react';
+import { useState } from 'react';
 
-import { StoryFn } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { UserPanel } from './UserPanel';
 
-export default {
+const meta = {
   title: 'UserPanel',
   component: UserPanel,
-};
+  args: {
+    onClick: action('button-click'),
+    isToggled: false,
+    name: 'navn',
+  },
+  render: storyArgs => {
+    const [args, setArgs] = useState(storyArgs);
 
-const Template: StoryFn<ComponentProps<typeof UserPanel>> = () => {
-  const [isToggled, toggle] = useState(false);
+    const onClick = (e: React.FormEvent<HTMLButtonElement>) => {
+      args.onClick?.(e);
+      setArgs(oldArgs => ({ ...oldArgs, isToggled: !args.isToggled }));
+    };
 
-  const doToggle = () => {
-    toggle(!isToggled);
-  };
+    return (
+      <div style={{ backgroundColor: 'black', width: '100px' }}>
+        <UserPanel name="navn" onClick={onClick} isToggled={args.isToggled} />
+      </div>
+    );
+  },
+} satisfies Meta<typeof UserPanel>;
 
-  return (
-    <div style={{ backgroundColor: 'black', width: '100px' }}>
-      <UserPanel name="navn" onClick={doToggle} isToggled={isToggled} />
-    </div>
-  );
-};
+export default meta;
 
-export const Default = Template.bind({});
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
