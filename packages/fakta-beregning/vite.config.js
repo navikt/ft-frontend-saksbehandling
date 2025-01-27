@@ -11,7 +11,7 @@ const config = defineConfig({
       name: '@navikt/ft-fakta-beregning',
     },
     rollupOptions: {
-      external: Object.keys(peerDependencies),
+      external: Object.keys(peerDependencies).filter(key => key !== '@navikt/ft-kodeverk'),
     },
   },
 });
