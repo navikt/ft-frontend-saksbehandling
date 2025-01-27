@@ -28,7 +28,6 @@
     "@navikt/ds-react": "7.10.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
-    "@navikt/ft-kodeverk": "workspace:^",
     "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",

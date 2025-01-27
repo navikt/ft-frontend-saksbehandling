@@ -3199,7 +3199,6 @@ __metadata:
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-konstanter": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
@@ -3257,7 +3256,6 @@ __metadata:
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3312,7 +3310,6 @@ __metadata:
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3531,7 +3528,6 @@ __metadata:
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3585,7 +3581,6 @@ __metadata:
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3634,7 +3629,6 @@ __metadata:
     "@navikt/ft-form-hooks": "workspace:^"
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3683,7 +3677,6 @@ __metadata:
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -3782,7 +3775,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-utils@workspace:packages/utils"
   dependencies:
-    "@navikt/ft-kodeverk": "workspace:^"
     dayjs: 1.11.13
     eslint: 9.19.0
     react-intl: 7.1.5
@@ -3790,7 +3782,6 @@ __metadata:
     vite: 6.0.11
     vitest: 3.0.4
   peerDependencies:
-    "@navikt/ft-kodeverk": 3.x
     dayjs: 1.11.x
     react: "*"
     react-intl: 6.x
