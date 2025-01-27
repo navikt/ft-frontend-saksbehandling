@@ -1,7 +1,9 @@
-import { defineConfig } from 'vitest/config';
 import { mergeConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
+
+import commonConfig from '../../../vite.config';
+
 import { peerDependencies } from './package.json';
-import commonConfig from '../../vite.config';
 
 const config = defineConfig({
   build: {
