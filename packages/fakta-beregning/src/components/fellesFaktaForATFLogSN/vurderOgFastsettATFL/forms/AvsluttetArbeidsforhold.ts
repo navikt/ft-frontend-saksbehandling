@@ -8,9 +8,9 @@ export const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedRefera
   beregningsgrunnlag: Beregningsgrunnlag,
   arbeidsforholdId?: string,
 ): boolean => {
-  if (!arbeidsforholdId) {
-    const antallAndelerISammeVirksomhetMedReferanse =
-      beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel
+  const andeler = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel;
+  if (!arbeidsforholdId && andeler) {
+    const antallAndelerISammeVirksomhetMedReferanse = andeler
         .filter(a => a.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
         .filter(a => a.arbeidsforhold && a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId)
         .filter(a => a.arbeidsforhold && a.arbeidsforhold.arbeidsforholdId).length;

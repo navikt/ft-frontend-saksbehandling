@@ -102,7 +102,7 @@ export const harFieldLønnsendring = (
   faktaOmBeregning: FaktaOmBeregning,
   values: FaktaOmBeregningAksjonspunktValues,
 ): boolean =>
-  values[lonnsendringField] &&
+  !!values[lonnsendringField] &&
   !!faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM &&
   faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM.find(andel => andel.andelsnr === field.andelsnr) !== undefined;
 
@@ -116,6 +116,6 @@ LonnsendringForm.transformValues = (
   }
   return {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
-    vurdertLonnsendring: { erLønnsendringIBeregningsperioden: values[lonnsendringField] },
+    vurdertLonnsendring: { erLønnsendringIBeregningsperioden: !!values[lonnsendringField] },
   };
 };

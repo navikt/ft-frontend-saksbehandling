@@ -113,7 +113,7 @@ VurderEtterlonnSluttpakkeForm.transformValues = (
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
-      vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
+      vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },
     };
   }
   const etterlønnSluttpakkeAndelsnr = finnEtterlønnSluttpakkeAndelNr(faktaOmBeregning);
@@ -124,16 +124,16 @@ VurderEtterlonnSluttpakkeForm.transformValues = (
   if (!etterlonnSluttpakkeField) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
-      vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
+      vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },
     };
   }
-  if (fastsatteAndelsnr.includes(etterlonnSluttpakkeField.andelsnr)) {
+  if (etterlonnSluttpakkeField.andelsnr && fastsatteAndelsnr.includes(etterlonnSluttpakkeField.andelsnr)) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
-      vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
+      vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },
     };
   }
-  fastsatteAndelsnr.push(etterlonnSluttpakkeField.andelsnr);
+  if (etterlonnSluttpakkeField.andelsnr) fastsatteAndelsnr.push(etterlonnSluttpakkeField.andelsnr);
   const inntekt = {
     fastsettEtterlønnSluttpakke: { fastsattPrMnd: etterlonnSluttpakkeField.fastsattBelop },
   };
@@ -143,6 +143,6 @@ VurderEtterlonnSluttpakkeForm.transformValues = (
       FaktaOmBeregningTilfelle.FASTSETT_ETTERLONN_SLUTTPAKKE,
     ],
     ...inntekt,
-    vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: values[harEtterlonnSluttpakkeField] },
+    vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },
   };
 };

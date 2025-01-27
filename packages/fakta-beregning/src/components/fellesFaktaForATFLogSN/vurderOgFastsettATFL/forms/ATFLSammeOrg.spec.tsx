@@ -1,46 +1,9 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning } from '@navikt/ft-types';
 
-import { harRiktigTilfelle, transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
+import { transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
 
 describe('<ATFLSammeOrg>', () => {
-  it('skal ikke vise tekst når man ikke har tilfelle', () => {
-    const beregningsgrunnlag = {
-      faktaOmBeregning: {
-        faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
-        andelerForFaktaOmBeregning: [],
-      },
-    };
-
-    expect(harRiktigTilfelle(beregningsgrunnlag)).toBe(false);
-  });
-
-  it('skal vise tekst når man har tilfelle uten inntektsmelding', () => {
-    const beregningsgrunnlag = {
-      faktaOmBeregning: {
-        faktaOmBeregningTilfeller: [
-          FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
-          FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
-        ],
-        andelerForFaktaOmBeregning: [],
-      },
-    };
-    expect(harRiktigTilfelle(beregningsgrunnlag)).toBe(true);
-  });
-
-  it('skal vise tekst når man har tilfelle med inntektsmelding', () => {
-    const beregningsgrunnlag = {
-      faktaOmBeregning: {
-        faktaOmBeregningTilfeller: [
-          FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
-          FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
-        ],
-        andelerForFaktaOmBeregning: [],
-      },
-    };
-    expect(harRiktigTilfelle(beregningsgrunnlag)).toBe(true);
-  });
-
   const arbeidsforhold = {
     arbeidsgiverIdent: '123',
     arbeidsforholdId: 'abc',

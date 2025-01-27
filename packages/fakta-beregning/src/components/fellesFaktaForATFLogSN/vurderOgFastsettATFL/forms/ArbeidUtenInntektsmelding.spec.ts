@@ -13,7 +13,7 @@ const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '
 
 describe('<ArbeidUtenInntektsmelding>', () => {
   it('skal ikke transform values uten tilfelle', () => {
-    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000 }];
+    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
@@ -122,7 +122,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: true,
     };
-    const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1 }];
+    const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
@@ -194,6 +194,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           andelsnr: 1,
           arbeidsgiverId: '2134567',
           arbeidsforholdId: undefined,
+          inntektskategori: 'ARBEIDSTAKER',
         },
       ];
       const faktaOmBeregning = {

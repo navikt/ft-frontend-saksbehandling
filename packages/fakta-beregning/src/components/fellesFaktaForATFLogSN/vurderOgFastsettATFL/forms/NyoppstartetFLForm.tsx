@@ -99,23 +99,23 @@ NyoppstartetFLForm.transformValues = (
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
-      vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+      vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
   const frilansField = inntektPrMnd.find(field => field.aktivitetStatus === AktivitetStatus.FRILANSER);
   if (!frilansField) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
-      vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+      vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
-  if (fastsatteAndelsnr.includes(frilansField.andelsnr)) {
+  if (frilansField.andelsnr && fastsatteAndelsnr.includes(frilansField.andelsnr)) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
-      vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+      vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
-  fastsatteAndelsnr.push(frilansField.andelsnr);
+  if (frilansField.andelsnr) fastsatteAndelsnr.push(frilansField.andelsnr)
   const inntekt = {
     fastsettMaanedsinntektFL: { maanedsinntekt: frilansField.fastsattBelop },
   };
@@ -125,6 +125,6 @@ NyoppstartetFLForm.transformValues = (
       FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL,
     ],
     ...inntekt,
-    vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+    vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
   };
 };
