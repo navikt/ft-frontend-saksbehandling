@@ -1,0 +1,3 @@
+import{j as o}from"./jsx-runtime-CLpGMVip.js";import{L as r}from"./Loader-ByyM_uPu.js";import"./clsx-B-dksMZM.js";import"./index-CYQpqK1Q.js";import"./_commonjsHelpers-CqkleIqs.js";const i="_container_dr0yo_1",c={container:i},t=()=>o.jsx("div",{className:c.container,children:o.jsx(r,{size:"2xlarge"})});t.__docgenInfo={description:`LoadingPanel
+
+Presentasjonskomponent. Viser lasteikon.`,methods:[],displayName:"LoadingPanel"};const u={title:"LoadingPanel",component:t},e={};var n,a,s;e.parameters={...e.parameters,docs:{...(n=e.parameters)==null?void 0:n.docs,source:{originalSource:"{}",...(s=(a=e.parameters)==null?void 0:a.docs)==null?void 0:s.source}}};const x=["Default"];export{e as Default,x as __namedExportsOrder,u as default};
