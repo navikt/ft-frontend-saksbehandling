@@ -8,16 +8,20 @@ import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
 
-import { VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
+import {
+  FaktaOmBeregningAksjonspunktValues,
+  VurderRefusjonValues
+} from '../../../typer/FaktaBeregningTypes';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import {RefusjonskravPrArbeidsgiverVurderingTransformedValues} from "../../../typer/interface/BeregningFaktaAP";
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
 const erRefusjonskravGyldigFieldPrefix = 'erKravGyldig_';
 
-export const lagFieldName = arbeidsgiverId => erRefusjonskravGyldigFieldPrefix + arbeidsgiverId;
+export const lagFieldName = (arbeidsgiverId: string): string => erRefusjonskravGyldigFieldPrefix + arbeidsgiverId;
 
 const lagRefusjonskravRadios = (
   senRefusjonkravListe: RefusjonskravSomKommerForSentListe[],
@@ -79,6 +83,9 @@ type Props = {
 export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpplysningerPerId }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
+  if (!senRefusjonkravListe) {
+    return null;
+  }
   return (
     <>
       {lagRefusjonskravRadios(senRefusjonkravListe, readOnly, arbeidsgiverOpplysningerPerId, beregningsgrunnlagIndeks)}
@@ -86,19 +93,19 @@ export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpp
   );
 };
 
-VurderRefusjonForm.transformValues = arbeidsgiverListe => values => {
+VurderRefusjonForm.transformValues = (arbeidsgiverListe: RefusjonskravSomKommerForSentListe[]) => (values: FaktaOmBeregningAksjonspunktValues) => {
   if (arbeidsgiverListe.length === 0) {
     return {};
   }
   return {
     refusjonskravGyldighet: arbeidsgiverListe.map(({ arbeidsgiverIdent }) => ({
       arbeidsgiverId: arbeidsgiverIdent,
-      skalUtvideGyldighet: values.vurderRefusjonValues[lagFieldName(arbeidsgiverIdent)],
+      skalUtvideGyldighet: values.vurderRefusjonValues && values.vurderRefusjonValues[lagFieldName(arbeidsgiverIdent)],
     })),
   };
 };
 
-VurderRefusjonForm.buildInitialValues = (tilfeller, arbeidsgiverListe): VurderRefusjonValues => {
+VurderRefusjonForm.buildInitialValues = (tilfeller: string[], arbeidsgiverListe: RefusjonskravSomKommerForSentListe[]): VurderRefusjonValues => {
   const initialValues: VurderRefusjonValues = {};
   if (!tilfeller.includes(VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT) || arbeidsgiverListe.length === 0) {
     return initialValues;

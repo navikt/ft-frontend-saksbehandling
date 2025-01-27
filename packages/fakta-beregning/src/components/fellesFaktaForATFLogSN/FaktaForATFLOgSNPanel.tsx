@@ -203,8 +203,8 @@ const vurderMilitaerSiviltjenesteTransform = (vurderFaktaValues: FaktaBeregningT
 
 const vurderRefusjonskravTransform = (faktaOmBeregning: FaktaOmBeregning) => (vurderFaktaValues: FaktaBeregningTransformedValues,
                                                                               values: FaktaOmBeregningAksjonspunktValues) => {
-  if (!vurderFaktaValues.faktaOmBeregningTilfeller) {
-    throw new Error("Har ikke definert en liste med tilfeller, ugyldig tilstand")
+  if (!vurderFaktaValues.faktaOmBeregningTilfeller || !faktaOmBeregning.refusjonskravSomKommerForSentListe) {
+    throw new Error("Mangler tilfelle eller andeler, ugyldig tilstand")
   }
   vurderFaktaValues.faktaOmBeregningTilfeller.push(
     FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,

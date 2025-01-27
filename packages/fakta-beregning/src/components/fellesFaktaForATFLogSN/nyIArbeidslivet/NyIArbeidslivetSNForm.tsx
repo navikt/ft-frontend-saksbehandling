@@ -8,7 +8,7 @@ import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
+import {FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues} from '../../../typer/FaktaBeregningTypes';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
@@ -83,6 +83,6 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
   return initialValues;
 };
 
-NyIArbeidslivetSNForm.transformValues = values => ({
+NyIArbeidslivetSNForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues) => ({
   vurderNyIArbeidslivet: { erNyIArbeidslivet: values[radioGroupFieldName] },
 });
