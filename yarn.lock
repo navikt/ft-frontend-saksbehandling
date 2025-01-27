@@ -3454,9 +3454,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-kodeverk@^3.0.0, @navikt/ft-kodeverk@workspace:^, @navikt/ft-kodeverk@workspace:packages/kodeverk":
+"@navikt/ft-kodeverk@^3.0.0, @navikt/ft-kodeverk@workspace:^, @navikt/ft-kodeverk@workspace:packages/internal/kodeverk":
   version: 0.0.0-use.local
-  resolution: "@navikt/ft-kodeverk@workspace:packages/kodeverk"
+  resolution: "@navikt/ft-kodeverk@workspace:packages/internal/kodeverk"
   dependencies:
     cross-env: 7.0.3
     eslint: 9.18.0
@@ -3723,9 +3723,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-types@^3.0.0, @navikt/ft-types@workspace:^, @navikt/ft-types@workspace:packages/types":
+"@navikt/ft-types@^3.0.0, @navikt/ft-types@workspace:^, @navikt/ft-types@workspace:packages/internal/types":
   version: 0.0.0-use.local
-  resolution: "@navikt/ft-types@workspace:packages/types"
+  resolution: "@navikt/ft-types@workspace:packages/internal/types"
   dependencies:
     "@navikt/ft-kodeverk": "workspace:^"
     cross-env: 7.0.3

@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "license": "MIT",
   "type": "module",
+  "private": true,
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -24,18 +25,10 @@
     "vite": "6.0.11",
     "vitest": "3.0.3"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
-  },
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
+      "types": "./dist/index.d.ts"
     }
   }
 }
