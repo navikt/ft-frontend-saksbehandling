@@ -102,7 +102,7 @@ export type FastsattBrukersAndelTransformedValues = {
 
 export type FastsettBgKunYtelseTransformedValues = {
   andeler: FastsattBrukersAndelTransformedValues[];
-  skalBrukeBesteberegning: boolean;
+  skalBrukeBesteberegning: boolean | null;
 };
 
 export type VurderEtterlønnSluttpakkeTransformedValues = {

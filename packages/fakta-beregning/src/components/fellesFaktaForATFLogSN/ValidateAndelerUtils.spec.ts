@@ -141,7 +141,7 @@ describe('<ValidateAndelerUtils>', () => {
       },
     ];
     const ulikeAndelerError = validateUlikeAndeler(andeler, intlMock);
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal ikkje gi error om det er andeler lagt til av saksbehandler og ingen har lik inntektskategori og andelsnr', () => {
@@ -171,7 +171,7 @@ describe('<ValidateAndelerUtils>', () => {
       } as AndelFieldValue,
     ];
     const ulikeAndelerError = validateUlikeAndeler(andeler, intlMock);
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi error om det er nye andeler to har lik inntektskategori og andelsnr', () => {
@@ -276,7 +276,7 @@ describe('<ValidateAndelerUtils>', () => {
       } as AndelFieldValue,
     ];
     const ulikeAndelerError = validateUlikeAndeler(andeler, intlMock);
-    expect(ulikeAndelerError).toBe(null);
+    expect(ulikeAndelerError).toBe(undefined);
   });
 
   it('skal gi error om det er nye andeler der to har lik inntektskategori og andelstype', () => {

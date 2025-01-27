@@ -53,7 +53,7 @@ export const validateUlikeAndelerWithGroupingFunction = (
   andelList: BrukersAndelValues[] | AndelFieldValue[],
   mapToSort: (andel: any, andelList: BrukersAndelValues[] | AndelFieldValue[]) => SortedAndelInfo,
   intl: IntlShape,
-): string | null => {
+): string | undefined => {
   const mappedAndeler = andelList.map(value => mapToSort(value, andelList));
   const sortedAndeler = mappedAndeler.slice().sort((andel1, andel2) => compareAndeler(andel1, andel2));
   for (let i = 0; i < sortedAndeler.length - 1; i += 1) {
@@ -61,16 +61,16 @@ export const validateUlikeAndelerWithGroupingFunction = (
       return ulikeAndelerErrorMessage(intl);
     }
   }
-  return null;
+  return undefined;
 };
 
-export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string | null =>
+export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string | undefined =>
   validateUlikeAndelerWithGroupingFunction(andelList, mapAndelToSortedObject, intl);
 
 const minstEnFastsattErrorMessage = (intl: IntlShape): string =>
   intl.formatMessage({ id: 'BeregningInfoPanel.Validation.MinstEnFastsatt' });
 
-export const validateMinstEnFastsatt = (andelList: AndelFieldValue[], intl: IntlShape): string => {
+export const validateMinstEnFastsatt = (andelList: AndelFieldValue[], intl: IntlShape): string | null => {
   const harAndelMedFastsattInntekt = andelList.some(
     ({ fastsattBelop }) => fastsattBelop !== null && fastsattBelop !== '' && fastsattBelop !== undefined,
   );

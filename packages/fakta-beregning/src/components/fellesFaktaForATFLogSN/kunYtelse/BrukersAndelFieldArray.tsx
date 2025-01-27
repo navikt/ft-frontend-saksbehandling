@@ -1,5 +1,5 @@
-import React from 'react';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import React, {ReactElement} from 'react';
+import {FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, useWatch} from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
@@ -38,7 +38,7 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
     </option>
   ));
 
-const summerFordeling = fields => {
+const summerFordeling = (fields: BrukersAndelValues[]): string | undefined => {
   let sum = 0;
   fields.forEach(field => {
     sum += field.fastsattBelop ? removeSpacesFromNumber(field.fastsattBelop) : 0;
@@ -46,19 +46,19 @@ const summerFordeling = fields => {
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-function skalViseSletteknapp(index, fields, readOnly) {
+function skalViseSletteknapp(index: number, fields: any, readOnly: boolean) {
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
 
 const createAndelerTableRows = (
-  fields,
-  isAksjonspunktClosed,
-  readOnly,
+  fields: FieldArrayWithId<VurderFaktaBeregningFormValues>[],
+  isAksjonspunktClosed: boolean,
+  readOnly: boolean,
   inntektskategoriKoder: KodeverkMedNavn[],
-  intl,
-  fieldArrayName,
-  remove,
-) =>
+  intl: IntlShape,
+  fieldArrayName: string,
+  remove: UseFieldArrayRemove,
+): ReactElement[] =>
   fields.map((field, index) => (
     <Table.Row className={styles.row} key={field.id}>
       <Table.DataCell>
@@ -113,7 +113,7 @@ const createAndelerTableRows = (
       </Table.DataCell>
     </Table.Row>
   ));
-const createBruttoBGSummaryRow = sumFordeling => (
+const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElement => (
   <Table.Row key="bruttoBGSummaryRow">
     <Table.DataCell>
       <Label as="p" size="small">
@@ -149,12 +149,12 @@ const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInf
   return { andelsinfo: andel, inntektskategori };
 };
 
-const validate = (values: BrukersAndelValues[], intl: IntlShape) => {
-  const ulikeAndelerFeilmelding = validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl);
+const validate = (values: BrukersAndelValues[] | undefined, intl: IntlShape): string | undefined => {
+  const ulikeAndelerFeilmelding = values ? validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl) : undefined;
   if (ulikeAndelerFeilmelding) {
     return ulikeAndelerFeilmelding;
   }
-  return null;
+  return undefined;
 };
 
 /**
@@ -178,8 +178,8 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
     control,
   });
-  const sumFordeling = summerFordeling(fieldArrayValues) || 0;
-  const TableRows = createAndelerTableRows(
+  const sumFordeling = fieldArrayValues ? summerFordeling(fieldArrayValues) : '0';
+  const tableRows = createAndelerTableRows(
     fields,
     isAksjonspunktClosed,
     readOnly,
@@ -188,7 +188,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
     fieldArrayName,
     remove,
   );
-  TableRows.push(createBruttoBGSummaryRow(sumFordeling));
+  tableRows.push(createBruttoBGSummaryRow(sumFordeling));
   const feilmelding = validate(fieldArrayValues, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
@@ -215,7 +215,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
-        <Table.Body>{TableRows}</Table.Body>
+        <Table.Body>{tableRows}</Table.Body>
       </Table>
       {!readOnly && (
         <FlexRow className={styles.buttonRow}>

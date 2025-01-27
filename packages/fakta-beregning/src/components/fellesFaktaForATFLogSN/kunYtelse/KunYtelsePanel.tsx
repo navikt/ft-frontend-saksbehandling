@@ -1,7 +1,11 @@
-import { FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
+import {AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse} from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
+import {
+  BrukersAndelValues,
+  FaktaOmBeregningAksjonspunktValues,
+  KunYtelseValues
+} from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
@@ -33,7 +37,7 @@ export const KunYtelsePanel = ({
   kodeverkSamling,
 }: Props) => {
   const { kunYtelse } = faktaOmBeregning;
-  const skalSjekkeBesteberegning = kunYtelse.fodendeKvinneMedDP;
+  const skalSjekkeBesteberegning = kunYtelse?.fodendeKvinneMedDP;
 
   return (
     <div>
@@ -59,10 +63,10 @@ export const KunYtelsePanel = ({
 };
 
 KunYtelsePanel.buildInitialValues = (
-  kunYtelse,
-  faktaOmBeregningAndeler,
-  arbeidsgiverOpplysningerPerId,
-  kodeverkSamling,
+  kunYtelse: KunYtelse | undefined,
+  faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  kodeverkSamling: KodeverkForPanel,
 ): KunYtelseValues => {
   if (!kunYtelse || !kunYtelse.andeler || kunYtelse.andeler.length === 0) {
     return {};
@@ -90,17 +94,12 @@ KunYtelsePanel.buildInitialValues = (
   return initialValues;
 };
 
-KunYtelsePanel.summerFordeling = values =>
-  values[brukersAndelFieldArrayName]
-    .map(({ fastsattBelop }) => (fastsattBelop ? removeSpacesFromNumber(fastsattBelop) : 0))
-    .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
-
 KunYtelsePanel.transformValues = (
-  values: FaktaOmBeregningAksjonspunktValues,
+  values: any,
   kunYtelse: KunYtelse,
 ): FaktaBeregningTransformedValues => ({
   kunYtelseFordeling: {
-    andeler: values[brukersAndelFieldArrayName].map(fieldValue => ({
+    andeler: values[brukersAndelFieldArrayName].map((fieldValue: BrukersAndelValues) => ({
       andelsnr: fieldValue.andelsnr,
       fastsattBeløp: removeSpacesFromNumber(fieldValue.fastsattBelop),
       inntektskategori: fieldValue.inntektskategori,

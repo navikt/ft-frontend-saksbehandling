@@ -22,6 +22,7 @@ import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
 import styles from './kunYtelseBesteberegningPanel.module.css';
+import {KunYtelse} from "@navikt/ft-types";
 
 export const besteberegningField = 'besteberegningField';
 
@@ -48,7 +49,7 @@ export const KunYtelseBesteberegning = ({
 }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
+  const formValues: any = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
   const erBesteberegning = formValues[besteberegningField];
   const intl = useIntl();
   return (
@@ -105,9 +106,9 @@ export const KunYtelseBesteberegning = ({
   );
 };
 
-KunYtelseBesteberegning.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({
+KunYtelseBesteberegning.buildInitialValues = (kunYtelse: KunYtelse): VurderBesteberegningMedKunYtelseValues => ({
   [besteberegningField]: kunYtelse.erBesteberegning,
 });
 
-KunYtelseBesteberegning.transformValues = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
+KunYtelseBesteberegning.transformValues = (values: any): boolean =>
   values[besteberegningField];
