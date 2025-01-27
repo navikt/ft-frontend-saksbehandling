@@ -11,7 +11,9 @@ const config = defineConfig({
       name: '@navikt/ft-prosess-tilbakekreving-vedtak',
     },
     rollupOptions: {
-      external: Object.keys(peerDependencies).filter(key => key !== '@navikt/ft-kodeverk'),
+      external: Object.keys(peerDependencies).filter(
+        key => key !== '@navikt/ft-kodeverk' && key !== '@navikt/ft-types',
+      ),
     },
   },
 });

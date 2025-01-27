@@ -11,7 +11,7 @@ const config = defineConfig({
       name: '@navikt/ft-form-hooks',
     },
     rollupOptions: {
-      external: Object.keys(peerDependencies),
+      external: Object.keys(peerDependencies).filter(key => key !== '@navikt/ft-types'),
     },
   },
 });
