@@ -18,7 +18,7 @@
     "@navikt/ft-kodeverk": "workspace:^"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "2.x"
+    "@navikt/ft-kodeverk": "3.x"
   },
   "devDependencies": {
     "cross-env": "7.0.3",
