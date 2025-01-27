@@ -10,7 +10,10 @@ import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import {
+  BesteberegningFødendeKvinneAndelTransformedValues,
+  FaktaBeregningTransformedValues
+} from '../../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
@@ -98,6 +101,13 @@ VurderBesteberegningPanel.buildInitialValues = (
   };
 };
 
+const krevVerdiEllerKastFeil = (verdi: string | undefined): string => {
+  if (!verdi) {
+    throw new Error("Påkrev verdi er undefined");
+  }
+  return verdi;
+}
+
 VurderBesteberegningPanel.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
@@ -114,15 +124,15 @@ VurderBesteberegningPanel.transformValues = (
       },
     };
   }
-  const transformedValues = inntektPrAndel
+  const transformedValues: BesteberegningFødendeKvinneAndelTransformedValues[] = inntektPrAndel
     .filter(({ nyAndel }) => nyAndel !== true)
     .map(verdi => ({
       andelsnr: verdi.andelsnr,
-      nyAndel: verdi.nyAndel,
-      lagtTilAvSaksbehandler: verdi.lagtTilAvSaksbehandler,
+      nyAndel: !!verdi.nyAndel,
+      lagtTilAvSaksbehandler: !!verdi.lagtTilAvSaksbehandler,
       fastsatteVerdier: {
         fastsattBeløp: verdi.fastsattBelop,
-        inntektskategori: verdi.inntektskategori,
+        inntektskategori: krevVerdiEllerKastFeil(verdi.inntektskategori),
       },
     }));
   const nyDagpengeAndel = inntektPrAndel.find(a => a.nyAndel && a.aktivitetStatus === AktivitetStatus.DAGPENGER);
@@ -133,10 +143,10 @@ VurderBesteberegningPanel.transformValues = (
         ? {
             fastsatteVerdier: {
               fastsattBeløp: nyDagpengeAndel.fastsattBelop,
-              inntektskategori: nyDagpengeAndel.inntektskategori,
+              inntektskategori: krevVerdiEllerKastFeil(nyDagpengeAndel.inntektskategori),
             },
           }
-        : null,
+        : undefined,
     },
   };
 };
@@ -158,7 +168,8 @@ export const vurderBesteberegningTransform =
     }
     const besteberegningValues = VurderBesteberegningPanel.transformValues(values, faktaOmBeregning, inntektPrAndel);
     const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
-    if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
+    if (besteberegningValues.besteberegningAndeler?.besteberegningAndelListe
+      && besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
     }
     return {

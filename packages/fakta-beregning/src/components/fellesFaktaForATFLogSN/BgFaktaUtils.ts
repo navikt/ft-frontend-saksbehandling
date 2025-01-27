@@ -313,7 +313,7 @@ export const getArbeidsgiverIndex = (
 ) => arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverIdent === arbeidsgiverIdent);
 
 export const getFastsattBelopFromArbeidstakerInntekt = (
-  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[] | undefined,
   arbeidsgiverIdent: string,
 ) =>
   arbeidstakerInntektValues?.find(arbeidsgiver => arbeidsgiver.arbeidsgiverIdent === arbeidsgiverIdent)?.fastsattBelop;

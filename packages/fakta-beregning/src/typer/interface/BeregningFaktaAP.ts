@@ -77,7 +77,7 @@ export type FastsatteVerdierForBesteberegningTransformedValues = {
 };
 
 export type BesteberegningFødendeKvinneAndelTransformedValues = {
-  andelsnr: number;
+  andelsnr?: number;
   nyAndel: boolean;
   lagtTilAvSaksbehandler: boolean;
   fastsatteVerdier: FastsatteVerdierForBesteberegningTransformedValues;

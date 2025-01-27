@@ -21,7 +21,7 @@ export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo)
   return andel1.andelsinfo > andel2.andelsinfo ? 1 : -1;
 };
 
-const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
+const mapAndelToSortedObject = (value: any, andelList: BrukersAndelValues[] | AndelFieldValue[]): SortedAndelInfo => {
   const { nyAndel, andel, inntektskategori, aktivitetStatus, arbeidsforholdId } = value;
   if (nyAndel) {
     if (!Number.isNaN(Number(andel))) {
@@ -51,9 +51,9 @@ const erAndelerLike = (andel1: SortedAndelInfo, andel2: SortedAndelInfo): boolea
 
 export const validateUlikeAndelerWithGroupingFunction = (
   andelList: BrukersAndelValues[] | AndelFieldValue[],
-  mapToSort: (andel: BrukersAndelValues, andelList: BrukersAndelValues[] | AndelFieldValue[]) => SortedAndelInfo,
+  mapToSort: (andel: any, andelList: BrukersAndelValues[] | AndelFieldValue[]) => SortedAndelInfo,
   intl: IntlShape,
-): string => {
+): string | null => {
   const mappedAndeler = andelList.map(value => mapToSort(value, andelList));
   const sortedAndeler = mappedAndeler.slice().sort((andel1, andel2) => compareAndeler(andel1, andel2));
   for (let i = 0; i < sortedAndeler.length - 1; i += 1) {
@@ -64,7 +64,7 @@ export const validateUlikeAndelerWithGroupingFunction = (
   return null;
 };
 
-export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string =>
+export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string | null =>
   validateUlikeAndelerWithGroupingFunction(andelList, mapAndelToSortedObject, intl);
 
 const minstEnFastsattErrorMessage = (intl: IntlShape): string =>

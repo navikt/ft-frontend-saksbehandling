@@ -38,8 +38,16 @@ import { SummaryRow } from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
+const finnStatus = (aktivitetStatuser: KodeverkMedNavn[], status: string): string => {
+  const navn = aktivitetStatuser.find(({ kode }) => kode === status)?.navn;
+  if (!navn) {
+    throw new Error("Fant ikke aktivitetstatus med navn" + status);
+  }
+  return navn;
+}
+
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
-  andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.DAGPENGER).navn,
+  andel: finnStatus(aktivitetStatuser, AktivitetStatus.DAGPENGER),
   aktivitetStatus: AktivitetStatus.DAGPENGER,
   fastsattBelop: '',
   inntektskategori: Inntektskategori.DAGPENGER,
@@ -49,7 +57,7 @@ const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
 });
 
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
-  andel: aktivitetStatuser.find(({ kode }) => kode === AktivitetStatus.MILITAER_ELLER_SIVIL).navn,
+  andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITAER_ELLER_SIVIL),
   aktivitetStatus: AktivitetStatus.MILITAER_ELLER_SIVIL,
   fastsattBelop: '',
   inntektskategori: Inntektskategori.ARBEIDSTAKER,
@@ -81,7 +89,7 @@ const skalVisePeriode = (fields: AndelFieldValue[]) => {
   return skalVise;
 };
 
-const removeAndel = (index, remove) => () => {
+const removeAndel = (index: number, remove: UseFieldArrayRemove) => () => {
   remove(index);
 };
 
@@ -155,7 +163,7 @@ export const leggTilDagpengerOmBesteberegning = (
     fields,
     AktivitetStatus.DAGPENGER,
     skalHaBesteberegning,
-    (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && andel.lagtTilAvSaksbehandler,
+    (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && !!andel.lagtTilAvSaksbehandler,
     dagpenger(aktivitetStatuser),
     remove,
     append,
@@ -189,20 +197,23 @@ const validateEnFastsattVedOverstyring = (values: AndelFieldValue[], intl: IntlS
   return null;
 };
 
-const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors, intl) => {
+const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors: any, intl: IntlShape) => {
   const harFeltFeil = errors && errors.length > 0;
   if (harFeltFeil) {
     return null;
   }
-
-  const ulikeAndelerError = validateUlikeAndeler(formValues.inntektFieldArray, intl);
+  const fields = formValues.inntektFieldArray;
+  if (!fields) {
+    return;
+  }
+  const ulikeAndelerError = validateUlikeAndeler(fields, intl);
 
   if (ulikeAndelerError) {
     return ulikeAndelerError;
   }
 
   if (erOverstyring(formValues)) {
-    return validateEnFastsattVedOverstyring(formValues.inntektFieldArray, intl);
+    return validateEnFastsattVedOverstyring(fields, intl);
   }
 
   return null;
@@ -259,24 +270,26 @@ export const InntektFieldArray = ({
   useEffect(() => {
     const currentFields = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`);
     const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS];
-    fjernEllerLeggTilMilitær(
-      currentFields,
-      skalHaMilitær,
-      aktivitetStatuser,
-      getKanRedigereInntektCallback,
-      remove,
-      // @ts-expect-error Fiks
-      append,
-    );
-    leggTilDagpengerOmBesteberegning(
-      currentFields,
-      skalHaBesteberegning,
-      aktivitetStatuser,
-      skalKunneLeggeTilDagpengerManuelt,
-      remove,
-      // @ts-expect-error Fiks
-      append,
-    );
+    if (currentFields) {
+      fjernEllerLeggTilMilitær(
+        currentFields,
+        !!skalHaMilitær,
+        aktivitetStatuser,
+        getKanRedigereInntektCallback,
+        remove,
+        // @ts-expect-error Fiks
+        append,
+      );
+      leggTilDagpengerOmBesteberegning(
+        currentFields,
+        !!skalHaBesteberegning,
+        aktivitetStatuser,
+        skalKunneLeggeTilDagpengerManuelt,
+        remove,
+        // @ts-expect-error Fiks
+        append,
+      );
+    }
   }, [skalHaBesteberegning, skalHaMilitær, skalKunneLeggeTilDagpengerManuelt]);
 
   const updateKanRedigereInntekt = (index: number, kanRedigereInntekt: boolean): void => {
@@ -303,26 +316,31 @@ export const InntektFieldArray = ({
   const feilmelding = validate(formValues, inntektFieldArrayErrors, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
-
-  const tablerows = fields.map((field, index) => (
-    <InntektFieldArrayAndelRow
-      key={field.id}
-      field={field}
-      skalVisePeriode={skalVisePeriode(fields)}
-      skalViseRefusjon={skalViseRefusjon(fields)}
-      skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
-      readOnly={readOnly}
-      removeAndel={removeAndel(index, remove)}
-      beregningsgrunnlag={beregningsgrunnlag}
-      kodeverkSamling={kodeverkSamling}
-      rowName={`${fieldArrayName}.${index}`}
-      skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(
-        formValues,
-        beregningsgrunnlag.faktaOmBeregning,
-        beregningsgrunnlag,
-      )}
-    />
-  ));
+  const faktaOmBeregning = beregningsgrunnlag.faktaOmBeregning;
+  if (!faktaOmBeregning) {
+    return null;
+  }
+  const tablerows = fields.map((field, index) => {
+    return (
+      <InntektFieldArrayAndelRow
+        key={field.id}
+        field={field}
+        skalVisePeriode={skalVisePeriode(fields)}
+        skalViseRefusjon={skalViseRefusjon(fields)}
+        skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
+        readOnly={readOnly}
+        removeAndel={removeAndel(index, remove)}
+        beregningsgrunnlag={beregningsgrunnlag}
+        kodeverkSamling={kodeverkSamling}
+        rowName={`${fieldArrayName}.${index}`}
+        skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(
+          formValues,
+          faktaOmBeregning,
+          beregningsgrunnlag,
+        )}
+      />
+    );
+  });
 
   if (tablerows.length === 0) {
     return null;
@@ -367,7 +385,7 @@ InntektFieldArray.transformValues = (
   militærEllerSivilInntektValues: MilitærEllerSivilInntektValues,
   erOverstyrt: boolean,
 ): InntektTransformed[] => {
-  if (!values) return null;
+  if (!values) return [];
 
   const transformAndel = (fieldValue: AndelFieldValue): InntektTransformed => {
     const fastsattBelop =

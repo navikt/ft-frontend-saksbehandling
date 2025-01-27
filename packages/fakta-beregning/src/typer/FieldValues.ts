@@ -22,7 +22,7 @@ export type AndelFieldValue = AndelFieldIdentifikator & {
 };
 
 export type InntektTransformed = {
-  andelsnr: number;
+  andelsnr?: number;
   fastsattBelop: number;
   inntektskategori?: string;
   nyAndel?: boolean;
