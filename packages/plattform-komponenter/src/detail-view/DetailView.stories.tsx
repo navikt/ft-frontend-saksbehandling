@@ -1,19 +1,19 @@
-import React, { ComponentProps } from 'react';
-
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { DetailView } from './DetailView';
 
-export default {
+const meta = {
   title: 'Detail view',
   component: DetailView,
+} satisfies Meta<typeof DetailView>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    title: 'Tittel',
+    children: <p>Detaljer</p>,
+  },
 };
-
-const Template: StoryFn<ComponentProps<typeof DetailView>> = () => (
-  <DetailView title="Tittel">
-    <p>Detaljer</p>
-  </DetailView>
-);
-
-export const Default = Template.bind({});
-Default.args = {};

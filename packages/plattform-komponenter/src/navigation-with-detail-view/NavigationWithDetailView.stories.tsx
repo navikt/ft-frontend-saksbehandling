@@ -1,31 +1,25 @@
-import { ComponentProps } from 'react';
-
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { DetailView } from '../detail-view/DetailView';
 import { NavigationWithDetailView } from './NavigationWithDetailView';
 
-export default {
+const meta = {
   title: 'Navigation with detail',
   component: NavigationWithDetailView,
-};
+} satisfies Meta<typeof NavigationWithDetailView>;
 
-const Template: StoryFn<ComponentProps<typeof NavigationWithDetailView>> = args => {
-  const navigationSection = () => <p>Navigasjon</p>;
-  const detailSection = () => (
-    <DetailView title="Tittel">
-      <p>Detaljer</p>
-    </DetailView>
-  );
-  return (
-    <NavigationWithDetailView
-      {...args}
-      navigationSection={navigationSection}
-      showDetailSection
-      detailSection={detailSection}
-    />
-  );
-};
+export default meta;
 
-export const NavigationWithDetail = Template.bind({});
-NavigationWithDetail.args = {};
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    showDetailSection: true,
+    navigationSection: () => <p>Navigasjon</p>,
+    detailSection: () => (
+      <DetailView title="Tittel">
+        <p>Detaljer</p>
+      </DetailView>
+    ),
+  },
+};

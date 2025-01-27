@@ -4,13 +4,13 @@ import userEvent from '@testing-library/user-event';
 
 import * as stories from './FeilutbetalingFaktaIndex.stories';
 
-const { AksjonspunktForFeilutbetaling } = composeStories(stories);
+const { Default } = composeStories(stories);
 
 describe('<FeilutbetalingFaktaIndex>', () => {
   it('skal legge til hendelse for alle perioder og så lagre', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
+    const utils = render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
   it('skal legge til hendelse-undertype for perioder og så lagre', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
+    const utils = render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();
@@ -121,7 +121,7 @@ describe('<FeilutbetalingFaktaIndex>', () => {
   it('skal behandle alle perioder samlet', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<AksjonspunktForFeilutbetaling submitCallback={lagre} />);
+    const utils = render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();

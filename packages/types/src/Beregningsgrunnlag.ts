@@ -1,8 +1,8 @@
 import { BeregningAvklaringsbehov } from './BeregningAvklaringsbehov';
-import { RefusjonTilVurdering, FaktaOmFordeling } from './BeregningsgrunnlagFordeling';
-import { Besteberegninggrunnlag } from './Besteberegning';
 import { BeregningsgrunnlagArbeidsforhold } from './BeregningsgrunnlagArbeidsforhold';
 import { FaktaOmBeregning } from './BeregningsgrunnlagFakta';
+import { FaktaOmFordeling, RefusjonTilVurdering } from './BeregningsgrunnlagFordeling';
+import { Besteberegninggrunnlag } from './Besteberegning';
 
 export type InntektsgrunnlagInntekt = Readonly<{
   inntektAktivitetType: string;

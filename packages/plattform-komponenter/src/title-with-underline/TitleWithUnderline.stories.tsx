@@ -1,17 +1,18 @@
-import { ComponentProps } from 'react';
-
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { TitleWithUnderline } from './TitleWithUnderline';
 
-export default {
+const meta = {
   title: 'Title with underline',
   component: TitleWithUnderline,
+} satisfies Meta<typeof TitleWithUnderline>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: 'Title',
+  },
 };
-
-const Template: StoryFn<ComponentProps<typeof TitleWithUnderline>> = () => (
-  <TitleWithUnderline>Title</TitleWithUnderline>
-);
-
-export const Default = Template.bind({});
-Default.args = {};

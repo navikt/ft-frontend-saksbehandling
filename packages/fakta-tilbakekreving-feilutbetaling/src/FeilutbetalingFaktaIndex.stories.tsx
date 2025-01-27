@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions';
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { alleKodeverk, alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import {
@@ -83,29 +83,25 @@ const feilutbetalingAarsak = [
 const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
 const fpSakAlleKodeverk = alleKodeverk as KodeverkFpSakForPanel;
 
-export default {
+const meta = {
   title: 'fakta-feilutbetaling',
   component: FeilutbetalingFaktaIndex,
-};
+  args: {
+    submitCallback: action('button-click') as (data: AvklartFaktaFeilutbetalingAp) => Promise<any>,
+    isReadOnly: false,
+    setFormData: () => undefined,
+    feilutbetalingFakta: feilutbetalingFakta as FeilutbetalingFakta,
+    feilutbetalingAarsak,
+    kodeverkSamlingFpsak: fpSakAlleKodeverk,
+    kodeverkSamlingFpTilbake: fpTilbakekrevingAlleKodeverk,
+    fagsakYtelseTypeKode: FagsakYtelseType.FORELDREPENGER,
+    alleMerknaderFraBeslutter: {},
+    isAksjonspunktOpen: true,
+  },
+} satisfies Meta<typeof FeilutbetalingFaktaIndex>;
 
-const Template: StoryFn<{
-  submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
-}> = ({ submitCallback }) => (
-  <FeilutbetalingFaktaIndex
-    submitCallback={submitCallback}
-    isReadOnly={false}
-    setFormData={() => undefined}
-    feilutbetalingFakta={feilutbetalingFakta as FeilutbetalingFakta}
-    feilutbetalingAarsak={feilutbetalingAarsak}
-    kodeverkSamlingFpsak={fpSakAlleKodeverk}
-    kodeverkSamlingFpTilbake={fpTilbakekrevingAlleKodeverk}
-    fagsakYtelseTypeKode={FagsakYtelseType.FORELDREPENGER}
-    alleMerknaderFraBeslutter={{}}
-    isAksjonspunktOpen
-  />
-);
+export default meta;
 
-export const AksjonspunktForFeilutbetaling = Template.bind({});
-AksjonspunktForFeilutbetaling.args = {
-  submitCallback: action('button-click') as (data: any) => Promise<any>,
-};
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
