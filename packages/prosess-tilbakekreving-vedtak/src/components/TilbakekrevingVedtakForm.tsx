@@ -138,7 +138,6 @@ export const TilbakekrevingVedtakForm = ({
   const formMethods = useForm<FormValues>({
     defaultValues,
   });
-
   const formVerdier = formMethods.watch();
 
   const fritekstOppsummeringPakrevdMenIkkeUtfylt = harFritekstOppsummeringPakrevdMenIkkeUtfylt(
