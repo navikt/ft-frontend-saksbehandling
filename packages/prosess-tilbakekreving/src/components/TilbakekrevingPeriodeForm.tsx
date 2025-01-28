@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { Form, RadioGroupPanel, SelectField, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import { FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
+import { KodeverkMedNavn } from '@navikt/ft-types';
 import { usePrevious, VerticalSpacer, WarningModal } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -17,6 +17,7 @@ import { SærligGrunn } from '../kodeverk/særligGrunn';
 import { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { DataForPeriode } from '../types/DataForPeriode';
 import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
+import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import {
   AktsomhetFormPanel,

@@ -23,13 +23,13 @@ import {
   Næring,
   Saksopplysninger,
   SammenligningsgrunlagProp,
-  Vilkår,
 } from '@navikt/ft-types';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
+import { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';

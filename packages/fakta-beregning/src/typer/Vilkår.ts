@@ -8,3 +8,9 @@ export type Vilkårperiode = Readonly<{
   periode: { fom: string; tom: string };
   vilkarStatus: string;
 }>;
+
+export type Vilkår = Readonly<{
+  vilkarType: string;
+  overstyrbar: boolean;
+  perioder: Vilkårperiode[];
+}>;

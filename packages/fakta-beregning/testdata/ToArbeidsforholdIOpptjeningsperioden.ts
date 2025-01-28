@@ -1,4 +1,6 @@
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel, Vilkår } from '@navikt/ft-types';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+
+import { Vilkår } from '../src/typer/Vilkår';
 
 export const beregningsgrunnlag = [
   {

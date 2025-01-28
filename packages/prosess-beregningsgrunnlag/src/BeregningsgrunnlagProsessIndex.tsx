@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps, Vilkår } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
@@ -16,6 +16,7 @@ import { BeregningFormValues } from './types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
+import { Vilkår } from './types/Vilkår';
 
 import styles from './beregningsgrunnlagProsessIndex.module.css';
 

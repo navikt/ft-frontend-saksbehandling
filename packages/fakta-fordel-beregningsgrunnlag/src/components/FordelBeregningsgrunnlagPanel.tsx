@@ -1,11 +1,6 @@
 import { useState } from 'react';
 
-import {
-  ArbeidsgiverOpplysningerPerId,
-  BeregningAvklaringsbehov,
-  Beregningsgrunnlag,
-  Vilkårperiode,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import {
@@ -18,6 +13,7 @@ import { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsg
 import { VurderNyttInntektsforholdAP } from '../types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../types/kodeverkForPanel';
+import { Vilkårperiode } from '../types/Vilkår';
 import { FordelingForm } from './fordeling/FordelingForm';
 import { VurderEndringRefusjonForm } from './refusjon/VurderEndringRefusjonForm';
 import { TilkommetAktivitet } from './tilkommetAktivitet/TilkommetAktivitet';

@@ -13,8 +13,6 @@ import {
   KortvarigAndel,
   RefusjonskravSomKommerForSentListe,
   StandardFaktaPanelProps,
-  Vilkår,
-  Vilkårperiode,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
@@ -30,6 +28,7 @@ import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
 import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
+import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
 import styles from './beregningFaktaIndex.module.css';
 

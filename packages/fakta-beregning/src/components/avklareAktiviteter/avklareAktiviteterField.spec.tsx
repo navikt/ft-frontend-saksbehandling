@@ -1,10 +1,11 @@
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { AvklarBeregningAktiviteterMap, Vilkårperiode } from '@navikt/ft-types';
+import { AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
 
 import { agOpplysninger as arbeidsgiverOpplysninger } from '../../../testdata/arbeidsgiverOpplysninger';
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { Vilkårperiode } from '../../typer/Vilkår';
 import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;

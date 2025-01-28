@@ -13,7 +13,6 @@ import {
   FaktaOmFordeling,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
-  Vilkår,
 } from '@navikt/ft-types';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
@@ -35,6 +34,7 @@ import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgr
 import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { KodeverkForPanel } from './types/kodeverkForPanel';
+import { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';

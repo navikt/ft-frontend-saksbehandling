@@ -5,4 +5,5 @@ export type { BeregningOverstyringAP } from './src/typer/interface/BeregningFakt
 export type { SubmitBeregningType } from './src/typer/interface/SubmitBeregningTsType';
 export { FaktaBeregningAvklaringsbehovCode } from './src/typer/interface/FaktaBeregningAvklaringsbehovCode';
 export { BeregningFaktaIndex } from './src/BeregningFaktaIndex';
-export type { Vilkår as FtVilkar, Beregningsgrunnlag as FtBeregningsgrunnlag } from '@navikt/ft-types';
+export type { Vilkår as FtVilkar } from './src/typer/Vilkår';
+export type { Beregningsgrunnlag as FtBeregningsgrunnlag } from '@navikt/ft-types';

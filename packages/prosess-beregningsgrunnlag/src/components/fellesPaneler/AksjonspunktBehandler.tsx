@@ -14,8 +14,6 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
-  Vilkår,
-  Vilkårperiode,
 } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
@@ -26,6 +24,7 @@ import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../..
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset as AksjonspunktBehandlerTB } from '../arbeidstaker/AksjonspunktBehandlerTB';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';

@@ -12,7 +12,6 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagTilBekreftelse,
   Inntektsforhold,
-  Vilkårperiode,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
@@ -29,6 +28,7 @@ import {
   VurderNyttInntektsforholdAP,
   VurderNyttInntektsforholTransformedValues,
 } from '../../types/interface/VurderNyttInntektsforholdAP';
+import { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { TilkommetAktivitetPanel } from './TilkommetAktivitetPanel';
 import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';

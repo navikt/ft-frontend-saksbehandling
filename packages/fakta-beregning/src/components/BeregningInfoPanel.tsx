@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag, Vilkår } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
 import { KodeverkForPanel } from '../typer/KodeverkForPanelForFb';
+import { Vilkår } from '../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
 import { AvklareAktiviteterPanel } from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
 import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from './BeregningFormUtils';

@@ -56,16 +56,13 @@ export type {
 export type { StandardFaktaPanelProps } from './src/StandardFaktaPanelProps';
 export type { StandardProsessPanelProps } from './src/StandardProsessPanelProps';
 export type { AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
-export type { Vilkår } from './src/Vilkår';
 export type { Dokument } from './src/Dokument';
 export type { Behandling, BehandlingAppKontekst } from './src/Behandling';
 export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/Besteberegning';
 export type { BeregningAvklaringsbehov } from './src/BeregningAvklaringsbehov';
 export type { BeregningAvklaringsbehovTilBekreftelse } from './src/BeregningAvklaringsbehovTilBekreftelse';
 export type { BeregningsgrunnlagTilBekreftelse } from './src/BeregningsgrunnlagTilBekreftelse';
-export type { Vilkårperiode } from './src/Vilkårperiode';
 export type { Kjønnkode } from './src/Kjønnkode';
 export type { Aktør } from './src/Aktør';
 export type { Risikoklassifisering } from './src/Risikoklassifisering';
 export type { FagsakPersoner, FagsakHendelse, FagsakPerson } from './src/FagsakPersoner';
-export type { FeilutbetalingPerioderWrapper, FeilutbetalingPeriode } from './src/FeilutbetalingPerioder';

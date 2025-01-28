@@ -3,10 +3,11 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 import { BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { Behandling, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+import { Behandling } from '@navikt/ft-types';
 
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
+import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
 
 import messages from '../i18n/nb_NO.json';

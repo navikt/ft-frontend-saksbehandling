@@ -9,8 +9,6 @@ import {
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   BeregningsgrunnlagPeriodeProp,
   FaktaOmBeregning,
-  Vilkår,
-  Vilkårperiode,
   YtelseGrunnlag,
 } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
@@ -19,6 +17,7 @@ import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
 import { BeregningsresultatPanel } from '../beregningsresultat/BeregningsresultatPanel';
 import { BesteberegningResultatGrunnlagPanel } from '../besteberegning/BesteberegningResultatGrunnlagPanel';

@@ -12,7 +12,6 @@ import {
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
   BeregningsgrunnlagTilBekreftelse,
-  Vilkårperiode,
 } from '@navikt/ft-types';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
@@ -21,6 +20,7 @@ import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { Vilkårperiode } from '../../typer/Vilkår';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import {

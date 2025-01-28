@@ -8,10 +8,11 @@ import {
   RelasjonsRolleType,
   TilbakekrevingKodeverkType,
 } from '@navikt/ft-kodeverk';
-import { Behandling, FeilutbetalingPerioderWrapper } from '@navikt/ft-types';
+import { Behandling } from '@navikt/ft-types';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
+import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
 
 import '@navikt/ds-css';

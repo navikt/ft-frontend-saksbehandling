@@ -8,19 +8,14 @@ import {
   isStatusSNOrKombinasjon,
   isStatusTilstotendeYtelse,
 } from '@navikt/ft-kodeverk';
-import {
-  ArbeidsgiverOpplysningerPerId,
-  BeregningAvklaringsbehov,
-  Beregningsgrunnlag,
-  Vilkår,
-  Vilkårperiode,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { BeregningFormValues } from '../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../types/RelevanteStatuser';
+import { Vilkår, Vilkårperiode } from '../types/Vilkår';
 import { BeregningForm } from './beregningForm/BeregningForm';
 import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 

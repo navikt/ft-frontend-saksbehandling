@@ -4,13 +4,7 @@ import { RawIntlProvider } from 'react-intl';
 import { Tabs } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import {
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  StandardFaktaPanelProps,
-  Vilkår,
-  Vilkårperiode,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
@@ -26,6 +20,7 @@ import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgr
 import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { KodeverkForPanel } from './types/kodeverkForPanel';
+import { Vilkår, Vilkårperiode } from './types/Vilkår';
 
 import messages from '../i18n/nb_NO.json';
 

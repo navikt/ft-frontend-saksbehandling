@@ -9,7 +9,6 @@ import {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
-  Vilkår,
 } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
@@ -18,6 +17,7 @@ import { BeregningAksjonspunktSubmitType } from '../../types/interface/Beregning
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import { Vilkår } from '../../types/Vilkår';
 import { AksjonspunktBehandler, finnFormName } from './AksjonspunktBehandler';
 import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';

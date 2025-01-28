@@ -1,15 +1,10 @@
 import { RawIntlProvider } from 'react-intl';
 
-import {
-  Aksjonspunkt,
-  Behandling,
-  FeilutbetalingPerioderWrapper,
-  KodeverkMedNavn,
-  StandardProsessPanelProps,
-} from '@navikt/ft-types';
+import { Aksjonspunkt, Behandling, KodeverkMedNavn, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { ForeldelseForm } from './components/ForeldelseForm';
+import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import { ForeldelsesresultatActivity } from './types/ForeldelsesresultatActivity';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
 import { VurderForeldelseAp } from './types/VurderForeldelseAp';

@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, KodeverkType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import { FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
+import { KodeverkMedNavn } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
 
@@ -16,6 +16,7 @@ import {
   DetaljerteFeilutbetalingsperioder,
   DetaljertFeilutbetalingPeriode,
 } from '../types/DetaljerteFeilutbetalingsperioder';
+import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';

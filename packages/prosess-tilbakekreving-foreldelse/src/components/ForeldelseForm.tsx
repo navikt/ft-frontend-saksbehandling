@@ -6,11 +6,12 @@ import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
+import { Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
+import { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';

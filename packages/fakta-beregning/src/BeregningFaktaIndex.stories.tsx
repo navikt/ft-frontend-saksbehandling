@@ -16,8 +16,6 @@ import {
   Beregningsgrunnlag,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
-  Vilkår,
-  Vilkårperiode,
 } from '@navikt/ft-types';
 
 import {
@@ -37,6 +35,7 @@ import {
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';

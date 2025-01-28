@@ -1,4 +1,4 @@
-import { FeilutbetalingPeriode } from '@navikt/ft-types';
+import { FeilutbetalingPeriode } from './FeilutbetalingPerioder';
 
 export type ForeldelsesresultatActivity = Readonly<{
   feilutbetaling: number;
