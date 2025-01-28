@@ -88,7 +88,7 @@ NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag)
 
 NyoppstartetFLForm.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
-  inntektPrMnd: InntektTransformed[],
+  inntektPrMnd: InntektTransformed[] | null,
   faktaOmBeregning: FaktaOmBeregning,
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {

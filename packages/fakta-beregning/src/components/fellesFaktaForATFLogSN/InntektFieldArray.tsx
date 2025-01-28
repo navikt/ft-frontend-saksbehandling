@@ -377,12 +377,12 @@ export const InntektFieldArray = ({
 };
 
 InntektFieldArray.transformValues = (
-  values: AndelFieldValue[],
-  frilansInntektValues: FrilansinntektValues,
-  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
-  dagpengerInntektValues: DagpengerinntektValues,
-  selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues,
-  militærEllerSivilInntektValues: MilitærEllerSivilInntektValues,
+  values: AndelFieldValue[] | undefined,
+  frilansInntektValues: FrilansinntektValues | undefined,
+  arbeidstakerInntektValues: ArbeidstakerInntektValues[] | undefined,
+  dagpengerInntektValues: DagpengerinntektValues | undefined,
+  selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues | undefined,
+  militærEllerSivilInntektValues: MilitærEllerSivilInntektValues | undefined,
   erOverstyrt: boolean,
 ): InntektTransformed[] => {
   if (!values) return [];

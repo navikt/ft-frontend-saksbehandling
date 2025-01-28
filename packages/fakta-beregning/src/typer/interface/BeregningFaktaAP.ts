@@ -55,7 +55,7 @@ export type VurderLønnsendringTransformedValues = {
 export type FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues = {
   andelsnr: number;
   fastsattBeløp: number;
-  inntektskategori: string;
+  inntektskategori?: string;
 };
 
 export type FastsettMånedsinntektUtenInntektsmeldingTransformedValues = {

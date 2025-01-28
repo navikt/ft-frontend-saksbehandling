@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, {ReactElement, useMemo} from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
@@ -14,7 +14,7 @@ import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '
 import { InntektTransformed } from '../../../typer/FieldValues';
 import {
   BeregningFaktaTransformedValues,
-  FaktaBeregningTransformedValues,
+  FaktaBeregningTransformedValues, FastsettBeregningsgrunnlagAndelTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
@@ -110,10 +110,13 @@ export const VurderOgFastsettATFL = ({
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
 
   const byggForms = () => {
-    const forms = [];
-    const keys = [];
+    const forms: ReactElement[] = [];
+    const keys: string[] = [];
     let hasShownPanel = false;
     const { faktaOmBeregning } = beregningsgrunnlag;
+    if (!faktaOmBeregning) {
+      return null;
+    }
 
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
       hasShownPanel = true;
@@ -331,9 +334,16 @@ const concatTilfeller = (
   ...transformed,
   ...newTransformedValues,
   faktaOmBeregningTilfeller: newTransformedValues.faktaOmBeregningTilfeller
-    ? transformed.faktaOmBeregningTilfeller.concat(newTransformedValues.faktaOmBeregningTilfeller)
+    ? transformed.faktaOmBeregningTilfeller?.concat(newTransformedValues.faktaOmBeregningTilfeller)
     : transformed.faktaOmBeregningTilfeller,
 });
+
+const krevAndelsnr = (andelsnr: number | undefined): number => {
+  if (!andelsnr) {
+    throw new Error("Forventer andelsnr");
+  }
+  return andelsnr;
+}
 
 const transformValuesForOverstyring = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -342,12 +352,12 @@ const transformValuesForOverstyring = (
   fastsatteAndelsnr: number[],
 ): BeregningFaktaTransformedValues => {
   if (erOverstyring(values)) {
-    const overstyrteAndeler = inntektVerdier
-      .filter(andel => !fastsatteAndelsnr.includes(andel.andelsnr))
+    const overstyrteAndeler: FastsettBeregningsgrunnlagAndelTransformedValues[] = inntektVerdier
+      .filter(andel => !fastsatteAndelsnr.includes(krevAndelsnr(andel.andelsnr)))
       .filter(verdi => verdi.fastsattBelop != null)
       .map(verdi => ({
         andelsnr: verdi.andelsnr,
-        nyAndel: verdi.nyAndel,
+        nyAndel: !!verdi.nyAndel,
         aktivitetStatus: verdi.aktivitetStatus,
         lagtTilAvSaksbehandler: verdi.lagtTilAvSaksbehandler,
         fastsatteVerdier: {
@@ -447,9 +457,9 @@ VurderOgFastsettATFL.transformValues =
       values.dagpengerInntektValues,
       values.selvstendigNæringsdrivendeInntektValues,
       values.militærEllerSivilInntektValues,
-      values.manuellOverstyringRapportertInntekt,
+      !!values.manuellOverstyringRapportertInntekt,
     );
-    const fastsatteAndelsnr = [];
+    const fastsatteAndelsnr: number[] = [];
     const transformed = transformValuesForAksjonspunkt(
       values,
       inntektVerdier,

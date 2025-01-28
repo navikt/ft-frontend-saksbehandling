@@ -15,7 +15,7 @@ const krevVerdi = (andelsnr: number | undefined): number => {
 }
 
 export const transformValuesForATFLISammeOrg = (
-  inntektVerdier: InntektTransformed[],
+  inntektVerdier: InntektTransformed[] | null,
   faktaOmBeregning: FaktaOmBeregning,
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {

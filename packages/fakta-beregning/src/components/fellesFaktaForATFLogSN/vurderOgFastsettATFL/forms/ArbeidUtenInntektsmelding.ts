@@ -28,7 +28,7 @@ const krevInntektskategori = (inntektskategori: string | undefined): string => {
 
 export const transformValuesArbeidUtenInntektsmelding = (
   values: FaktaOmBeregningAksjonspunktValues,
-  inntektVerdier: InntektTransformed[],
+  inntektVerdier: InntektTransformed[] | null,
   faktaOmBeregning: FaktaOmBeregning,
   bg: Beregningsgrunnlag,
   fastsatteAndelsnr: number[],
