@@ -12,7 +12,6 @@ import { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
-import { RefusjonskravPrArbeidsgiverVurderingTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 

@@ -1,8 +1,8 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { lonnsendringField, LonnsendringForm } from './LonnsendringForm';
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import { lonnsendringField, LonnsendringForm } from './LonnsendringForm';
 
 describe('<LonnsendringForm>', () => {
   const faktaOmBeregning = {

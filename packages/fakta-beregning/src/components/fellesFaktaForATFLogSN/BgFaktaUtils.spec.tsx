@@ -12,6 +12,7 @@ import {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 
+import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   kanRedigereInntektForAndel,
@@ -27,7 +28,6 @@ import {
   finnFrilansFieldName,
   utledArbeidsforholdFieldName,
 } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
-import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
