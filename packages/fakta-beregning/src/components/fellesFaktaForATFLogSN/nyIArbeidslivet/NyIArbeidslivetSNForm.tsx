@@ -84,5 +84,5 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
 };
 
 NyIArbeidslivetSNForm.transformValues = (values: FaktaOmBeregningAksjonspunktValues) => ({
-  vurderNyIArbeidslivet: { erNyIArbeidslivet: values[radioGroupFieldName] },
+  vurderNyIArbeidslivet: { erNyIArbeidslivet: !!values[radioGroupFieldName] },
 });

@@ -71,5 +71,5 @@ VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): Vurder
 };
 
 VurderMilitaer.transformValues = (values: FaktaOmBeregningAksjonspunktValues) => ({
-  vurderMilitaer: { harMilitaer: values[vurderMilitaerField] },
+  vurderMilitaer: { harMilitaer: !!values[vurderMilitaerField] },
 });

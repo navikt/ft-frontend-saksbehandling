@@ -163,7 +163,7 @@ const sokerMottarYtelseForAndel = (
     return false;
   }
   const mottarYtelseMap = andelsnrMottarYtelseMap(values, faktaOmBeregning.vurderMottarYtelse, beregningsgrunnlag);
-  return !!field.andelsnr && mottarYtelseMap[field.andelsnr];
+  return !!field.andelsnr && !!mottarYtelseMap[field.andelsnr];
 };
 
 // Etterlønn / sluttpakke
