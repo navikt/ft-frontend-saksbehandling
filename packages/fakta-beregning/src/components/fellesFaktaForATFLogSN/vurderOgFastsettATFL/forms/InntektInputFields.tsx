@@ -173,7 +173,9 @@ export const InntektInputFields = ({
    *
    */
   const getArbeidsinntektInputLabel = (andel: AndelForFaktaOmBeregning) => {
-    const arbeidsgiverNavn = andel.arbeidsforhold?.arbeidsgiverIdent ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn : undefined;
+    const arbeidsgiverNavn = andel.arbeidsforhold?.arbeidsgiverIdent
+      ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn
+      : undefined;
     if (
       getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`) &&
       skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1

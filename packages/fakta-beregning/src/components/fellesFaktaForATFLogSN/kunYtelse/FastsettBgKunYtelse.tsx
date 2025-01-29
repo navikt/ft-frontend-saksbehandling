@@ -1,7 +1,7 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse} from '@navikt/ft-types';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';

@@ -1,5 +1,5 @@
 import { FaktaOmBeregningTilfelle, Organisasjonstype as organisasjonstyper } from '@navikt/ft-kodeverk';
-import {Beregningsgrunnlag, BeregningsgrunnlagAndel} from '@navikt/ft-types';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { InntektTransformed } from '../../../../typer/FieldValues';
 
@@ -11,7 +11,9 @@ const harAndelKunstigArbeidsforhold = (andel: BeregningsgrunnlagAndel) =>
 export const harKunstigArbeidsforhold = (tilfeller: string[], beregningsgrunnlag: Beregningsgrunnlag) => {
   if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)) {
     return (
-      beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(harAndelKunstigArbeidsforhold) !== undefined
+      beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
+        harAndelKunstigArbeidsforhold,
+      ) !== undefined
     );
   }
   return false;

@@ -1,4 +1,4 @@
-import React, {ReactElement, useMemo} from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
@@ -14,7 +14,8 @@ import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '
 import { InntektTransformed } from '../../../typer/FieldValues';
 import {
   BeregningFaktaTransformedValues,
-  FaktaBeregningTransformedValues, FastsettBeregningsgrunnlagAndelTransformedValues,
+  FaktaBeregningTransformedValues,
+  FastsettBeregningsgrunnlagAndelTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
@@ -340,10 +341,10 @@ const concatTilfeller = (
 
 const krevAndelsnr = (andelsnr: number | undefined): number => {
   if (!andelsnr) {
-    throw new Error("Forventer andelsnr");
+    throw new Error('Forventer andelsnr');
   }
   return andelsnr;
-}
+};
 
 const transformValuesForOverstyring = (
   values: FaktaOmBeregningAksjonspunktValues,

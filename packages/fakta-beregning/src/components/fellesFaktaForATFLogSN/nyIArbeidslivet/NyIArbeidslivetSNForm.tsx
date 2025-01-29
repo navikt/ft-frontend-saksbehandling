@@ -8,7 +8,7 @@ import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import {FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues} from '../../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 

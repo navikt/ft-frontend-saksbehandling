@@ -21,7 +21,7 @@ import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '..
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import {
   FaktaBeregningTransformedValues,
-  FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues
+  FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
 import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
@@ -47,7 +47,9 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): React.ReactNode => {
-  const agOpplysning = arbeidsforhold.arbeidsgiverIdent ? arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent] : undefined;
+  const agOpplysning = arbeidsforhold.arbeidsgiverIdent
+    ? arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]
+    : undefined;
   let radioNavn;
   if (!agOpplysning) {
     radioNavn = arbeidsforhold.arbeidsforholdType
@@ -73,7 +75,8 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
     <RadioGroupPanel
       label={
         <>
-          {andel.arbeidsforhold && utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
+          {andel.arbeidsforhold &&
+            utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
           <ReadMore
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
@@ -255,7 +258,8 @@ const transformValuesFrilans = (
   if (inntektVerdier === null) {
     return {};
   }
-  const skalFastsetteInntektFrilans = values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[finnFrilansFieldName()];
+  const skalFastsetteInntektFrilans =
+    values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[finnFrilansFieldName()];
   if (skalFastsetteInntektFrilans) {
     const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
       andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
@@ -263,7 +267,7 @@ const transformValuesFrilans = (
     if (frilansAndel && !fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
       const frilansInntekt = values.frilansInntektValues;
       if (!frilansInntekt) {
-        throw new Error("Har ikke fastsatt påkrevd frilansinntekt")
+        throw new Error('Har ikke fastsatt påkrevd frilansinntekt');
       }
       fastsatteAndelsnr.push(frilansAndel.andelsnr);
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL);
@@ -277,10 +281,10 @@ const transformValuesFrilans = (
 };
 const krevVerdi = (verdi: number | undefined): number => {
   if (!verdi) {
-    throw new Error("Mangler påkrevd verdi for vurderMottarYtelse")
+    throw new Error('Mangler påkrevd verdi for vurderMottarYtelse');
   }
   return verdi;
-}
+};
 const transformValuesMottarYtelse = (
   values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
@@ -292,10 +296,12 @@ const transformValuesMottarYtelse = (
   faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
   return {
     mottarYtelse: {
-      frilansMottarYtelse: !!values.vurderMottarYtelseValues && !!values.vurderMottarYtelseValues[finnFrilansFieldName()],
+      frilansMottarYtelse:
+        !!values.vurderMottarYtelseValues && !!values.vurderMottarYtelseValues[finnFrilansFieldName()],
       arbeidstakerUtenIMMottarYtelse: ATAndelerUtenIM.map(andel => ({
         andelsnr: krevVerdi(andel.andelsnr),
-        mottarYtelse: !!values.vurderMottarYtelseValues && !!values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
+        mottarYtelse:
+          !!values.vurderMottarYtelseValues && !!values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
       })),
     },
   };

@@ -41,10 +41,10 @@ import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 const finnStatus = (aktivitetStatuser: KodeverkMedNavn[], status: string): string => {
   const navn = aktivitetStatuser.find(({ kode }) => kode === status)?.navn;
   if (!navn) {
-    throw new Error("Fant ikke aktivitetstatus med navn" + status);
+    throw new Error('Fant ikke aktivitetstatus med navn' + status);
   }
   return navn;
-}
+};
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: finnStatus(aktivitetStatuser, AktivitetStatus.DAGPENGER),
@@ -333,11 +333,7 @@ export const InntektFieldArray = ({
         beregningsgrunnlag={beregningsgrunnlag}
         kodeverkSamling={kodeverkSamling}
         rowName={`${fieldArrayName}.${index}`}
-        skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(
-          formValues,
-          faktaOmBeregning,
-          beregningsgrunnlag,
-        )}
+        skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(formValues, faktaOmBeregning, beregningsgrunnlag)}
       />
     );
   });

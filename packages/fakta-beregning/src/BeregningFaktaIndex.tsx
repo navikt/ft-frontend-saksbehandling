@@ -202,7 +202,7 @@ export const lagHelpTextsForFakta = (
     kortvarigeArbeidsforhold.forEach((kortvarigArbeidsforhold: KortvarigAndel, index: number) => {
       const agi = kortvarigArbeidsforhold.arbeidsforhold?.arbeidsgiverIdent;
       if (!agi) {
-        throw new Error("Må ha arbeidsgiverIdent på kortvarige andeler");
+        throw new Error('Må ha arbeidsgiverIdent på kortvarige andeler');
       }
       const opplysninger = arbeidsgiverOpplysningerPerId[agi];
       const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : agi;

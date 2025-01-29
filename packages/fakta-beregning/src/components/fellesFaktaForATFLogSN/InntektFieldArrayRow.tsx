@@ -13,7 +13,7 @@ import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldIdentifikator } from "../../typer/FieldValues";
+import { AndelFieldIdentifikator } from '../../typer/FieldValues';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {

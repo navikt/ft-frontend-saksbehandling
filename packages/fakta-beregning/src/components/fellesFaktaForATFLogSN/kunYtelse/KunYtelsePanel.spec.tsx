@@ -1,5 +1,8 @@
 import { Inntektskategori } from '@navikt/ft-kodeverk';
+import { KunYtelse } from '@navikt/ft-types';
+import { KunYtelseAndel } from '@navikt/ft-types/dist/packages/types/src/BeregningsgrunnlagFakta';
 
+import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { besteberegningField } from './KunYtelseBesteberegningPanel';
 import { brukersAndelFieldArrayName, KunYtelsePanel } from './KunYtelsePanel';
@@ -58,45 +61,47 @@ describe('<KunYtelsePanel>', () => {
       fastsattBelop: '20 000',
       inntektskategori: Inntektskategori.SJØMANN,
     };
-    const values = { ...emptyValues };
-    values[`${brukersAndelFieldArrayName}`] = [andel1, andel2];
+    const values = {
+      ...emptyValues,
+      [`${brukersAndelFieldArrayName}`]: [andel1, andel2],
+    };
     const transformedValues = KunYtelsePanel.transformValues(values, kunYtelse);
-    expect(transformedValues.kunYtelseFordeling.skalBrukeBesteberegning).toBe(null);
-    expect(transformedValues.kunYtelseFordeling.andeler).toHaveLength(2);
-    expect(transformedValues.kunYtelseFordeling.andeler[0].andelsnr).toBe(1);
-    expect(transformedValues.kunYtelseFordeling.andeler[0].fastsattBeløp).toBe(10000);
-    expect(transformedValues.kunYtelseFordeling.andeler[0].inntektskategori).toBe(Inntektskategori.ARBEIDSTAKER);
-    expect(transformedValues.kunYtelseFordeling.andeler[0].nyAndel).toBe(false);
-    expect(transformedValues.kunYtelseFordeling.andeler[0].lagtTilAvSaksbehandler).toBe(false);
+    expect(transformedValues.kunYtelseFordeling?.skalBrukeBesteberegning).toBe(null);
+    expect(transformedValues.kunYtelseFordeling?.andeler).toHaveLength(2);
+    expect(transformedValues.kunYtelseFordeling?.andeler[0].andelsnr).toBe(1);
+    expect(transformedValues.kunYtelseFordeling?.andeler[0].fastsattBeløp).toBe(10000);
+    expect(transformedValues.kunYtelseFordeling?.andeler[0].inntektskategori).toBe(Inntektskategori.ARBEIDSTAKER);
+    expect(transformedValues.kunYtelseFordeling?.andeler[0].nyAndel).toBe(false);
+    expect(transformedValues.kunYtelseFordeling?.andeler[0].lagtTilAvSaksbehandler).toBe(false);
 
-    expect(transformedValues.kunYtelseFordeling.andeler[1].andelsnr).toBe(null);
-    expect(transformedValues.kunYtelseFordeling.andeler[1].fastsattBeløp).toBe(20000);
-    expect(transformedValues.kunYtelseFordeling.andeler[1].inntektskategori).toBe(Inntektskategori.SJØMANN);
-    expect(transformedValues.kunYtelseFordeling.andeler[1].nyAndel).toBe(true);
-    expect(transformedValues.kunYtelseFordeling.andeler[1].lagtTilAvSaksbehandler).toBe(true);
+    expect(transformedValues.kunYtelseFordeling?.andeler[1].andelsnr).toBe(null);
+    expect(transformedValues.kunYtelseFordeling?.andeler[1].fastsattBeløp).toBe(20000);
+    expect(transformedValues.kunYtelseFordeling?.andeler[1].inntektskategori).toBe(Inntektskategori.SJØMANN);
+    expect(transformedValues.kunYtelseFordeling?.andeler[1].nyAndel).toBe(true);
+    expect(transformedValues.kunYtelseFordeling?.andeler[1].lagtTilAvSaksbehandler).toBe(true);
   });
 
   it('skal bygge initial values', () => {
-    const andel1 = {
+    const andel1: KunYtelseAndel = {
       andelsnr: 1,
       fastsattBelopPrMnd: null,
       lagtTilAvSaksbehandler: false,
       inntektskategori: Inntektskategori.UDEFINERT,
       aktivitetStatus: 'BA',
     };
-    const andel2 = {
+    const andel2: KunYtelseAndel = {
       andelsnr: 2,
       fastsattBelopPrMnd: 10000,
-      lagtTilAvSaksbehandler: true,
       inntektskategori: Inntektskategori.ARBEIDSTAKER,
       aktivitetStatus: 'BA',
     };
-    const kunYtelse = {
+    const kunYtelse: KunYtelse = {
       fodendeKvinneMedDP: false,
       andeler: [andel1, andel2],
     };
     const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
-    const andeler = initialValues[`${brukersAndelFieldArrayName}`];
+    // @ts-ignore
+    const andeler: BrukersAndelValues[] = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
     expect(andeler[0].andel).toBe('Brukers andel');
@@ -130,12 +135,13 @@ describe('<KunYtelsePanel>', () => {
       inntektskategori: Inntektskategori.ARBEIDSTAKER,
       aktivitetStatus: 'BA',
     };
-    const kunYtelse = {
+    const kunYtelse: KunYtelse = {
       andeler: [andel1, andel2],
       fodendeKvinneMedDP: true,
       erBesteberegning: true,
     };
     const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
+    // @ts-ignore
     const andeler = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
@@ -154,6 +160,7 @@ describe('<KunYtelsePanel>', () => {
     expect(andeler[1].nyAndel).toBe(false);
     expect(andeler[1].lagtTilAvSaksbehandler).toBe(true);
 
+    // @ts-ignore
     const erBesteberegning = initialValues[`${besteberegningField}`];
     expect(erBesteberegning).toBe(true);
   });
@@ -173,12 +180,13 @@ describe('<KunYtelsePanel>', () => {
       inntektskategori: Inntektskategori.ARBEIDSTAKER,
       aktivitetStatus: 'BA',
     };
-    const kunYtelse = {
+    const kunYtelse: KunYtelse = {
       andeler: [andel1, andel2],
       fodendeKvinneMedDP: true,
       erBesteberegning: false,
     };
     const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
+    // @ts-ignore
     const andeler = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
@@ -197,6 +205,7 @@ describe('<KunYtelsePanel>', () => {
     expect(andeler[1].nyAndel).toBe(false);
     expect(andeler[1].lagtTilAvSaksbehandler).toBe(true);
 
+    // @ts-ignore
     const erBesteberegning = initialValues[`${besteberegningField}`];
     expect(erBesteberegning).toBe(false);
   });

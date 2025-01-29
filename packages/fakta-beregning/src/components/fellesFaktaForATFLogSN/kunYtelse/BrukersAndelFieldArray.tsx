@@ -1,5 +1,5 @@
-import React, {ReactElement} from 'react';
-import {FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, useWatch} from 'react-hook-form';
+import React, { ReactElement } from 'react';
+import { FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
@@ -150,7 +150,9 @@ const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInf
 };
 
 const validate = (values: BrukersAndelValues[] | undefined, intl: IntlShape): string | undefined => {
-  const ulikeAndelerFeilmelding = values ? validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl) : undefined;
+  const ulikeAndelerFeilmelding = values
+    ? validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl)
+    : undefined;
   if (ulikeAndelerFeilmelding) {
     return ulikeAndelerFeilmelding;
   }

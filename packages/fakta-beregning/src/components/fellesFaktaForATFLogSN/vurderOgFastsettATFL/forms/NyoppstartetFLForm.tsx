@@ -115,7 +115,7 @@ NyoppstartetFLForm.transformValues = (
       vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
-  if (frilansField.andelsnr) fastsatteAndelsnr.push(frilansField.andelsnr)
+  if (frilansField.andelsnr) fastsatteAndelsnr.push(frilansField.andelsnr);
   const inntekt = {
     fastsettMaanedsinntektFL: { maanedsinntekt: frilansField.fastsattBelop },
   };

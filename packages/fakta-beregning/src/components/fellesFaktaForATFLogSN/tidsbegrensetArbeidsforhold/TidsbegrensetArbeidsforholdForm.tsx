@@ -18,7 +18,7 @@ import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import {
   FaktaBeregningTransformedValues,
-  VurderteArbeidsforholdTransformedValues
+  VurderteArbeidsforholdTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
@@ -36,7 +36,7 @@ const lagVisningsnavn = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
   if (!arbeidsforhold.arbeidsgiverIdent) {
-    throw new Error("Ikke arbeidsgiverident på kortvarig andel, ugyldig tilstand")
+    throw new Error('Ikke arbeidsgiverident på kortvarig andel, ugyldig tilstand');
   }
   const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
   return createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
@@ -44,10 +44,10 @@ const lagVisningsnavn = (
 
 const krevArbeidsforhold = (arbfor: BeregningsgrunnlagArbeidsforhold | undefined): BeregningsgrunnlagArbeidsforhold => {
   if (!arbfor) {
-    throw new Error("Mangler arbeidsforhold på kortvarig andel, ugyldig tilstand");
+    throw new Error('Mangler arbeidsforhold på kortvarig andel, ugyldig tilstand');
   }
   return arbfor;
-}
+};
 
 type Props = {
   readOnly: boolean;
@@ -138,7 +138,7 @@ TidsbegrensetArbeidsforholdForm.transformValues = (
     const fieldName = createArbeidsforholdRadioKey(andel);
     const booleanValue = !!values.tidsbegrensetValues && values.tidsbegrensetValues[fieldName];
     if (!andel.andelsnr) {
-      throw new Error("Ikke satt andelsnr på tidsbegrense andel, ugyldig tilstand")
+      throw new Error('Ikke satt andelsnr på tidsbegrense andel, ugyldig tilstand');
     }
     const valueObject = {
       andelsnr: andel.andelsnr,

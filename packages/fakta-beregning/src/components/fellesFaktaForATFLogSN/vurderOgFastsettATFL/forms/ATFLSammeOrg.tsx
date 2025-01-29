@@ -4,15 +4,15 @@ import { FaktaOmBeregning } from '@navikt/ft-types';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import {
   FaktaBeregningTransformedValues,
-  VurderATFLISammeOrAndelTransformedValues
+  VurderATFLISammeOrAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
 
 const krevVerdi = (andelsnr: number | undefined): number => {
   if (!andelsnr) {
-    throw new Error("Verdi er ikke satt for atfl samme org.");
+    throw new Error('Verdi er ikke satt for atfl samme org.');
   }
   return andelsnr;
-}
+};
 
 export const transformValuesForATFLISammeOrg = (
   inntektVerdier: InntektTransformed[] | null,
@@ -26,17 +26,22 @@ export const transformValuesForATFLISammeOrg = (
   ) {
     const andelsliste: VurderATFLISammeOrAndelTransformedValues[] = inntektVerdier
       .filter(field => field.andelsnr && !fastsatteAndelsnr.includes(field.andelsnr))
-      .filter(field =>
-        faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe && faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe
-          .map(({ andelsnr }) => andelsnr)
-          .includes(field.andelsnr),
+      .filter(
+        field =>
+          faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe &&
+          faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe
+            .map(({ andelsnr }) => andelsnr)
+            .includes(field.andelsnr),
       )
       .map(field => ({
         andelsnr: krevVerdi(field.andelsnr),
         arbeidsinntekt: field.fastsattBelop,
       }));
 
-    if (faktaOmBeregning.frilansAndel?.andelsnr && !fastsatteAndelsnr.includes(faktaOmBeregning.frilansAndel.andelsnr)) {
+    if (
+      faktaOmBeregning.frilansAndel?.andelsnr &&
+      !fastsatteAndelsnr.includes(faktaOmBeregning.frilansAndel.andelsnr)
+    ) {
       const frilansVerdi = inntektVerdier.find(verdi => verdi.andelsnr === faktaOmBeregning.frilansAndel?.andelsnr);
       andelsliste.push({
         andelsnr: faktaOmBeregning.frilansAndel.andelsnr,

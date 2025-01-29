@@ -38,7 +38,7 @@ export const ArbeidsinntektInput = ({
 }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues`) ;
+  const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues`);
   if (!formValues) {
     return null;
   }

@@ -8,12 +8,10 @@ import { Label } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
+import { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
-import {
-  FaktaOmBeregningAksjonspunktValues,
-  VurderBesteberegningMedKunYtelseValues,
-} from '../../../typer/FaktaBeregningTypes';
+import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
@@ -22,7 +20,6 @@ import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
 import styles from './kunYtelseBesteberegningPanel.module.css';
-import {KunYtelse} from "@navikt/ft-types";
 
 export const besteberegningField = 'besteberegningField';
 
@@ -110,5 +107,4 @@ KunYtelseBesteberegning.buildInitialValues = (kunYtelse: KunYtelse): VurderBeste
   [besteberegningField]: kunYtelse.erBesteberegning,
 });
 
-KunYtelseBesteberegning.transformValues = (values: any): boolean =>
-  values[besteberegningField];
+KunYtelseBesteberegning.transformValues = (values: any): boolean => values[besteberegningField];

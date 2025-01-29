@@ -12,7 +12,7 @@ import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '
 import { InntektTransformed } from '../../../typer/FieldValues';
 import {
   BesteberegningFødendeKvinneAndelTransformedValues,
-  FaktaBeregningTransformedValues
+  FaktaBeregningTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
@@ -103,10 +103,10 @@ VurderBesteberegningPanel.buildInitialValues = (
 
 const krevVerdiEllerKastFeil = (verdi: string | undefined): string => {
   if (!verdi) {
-    throw new Error("Påkrev verdi er undefined");
+    throw new Error('Påkrev verdi er undefined');
   }
   return verdi;
-}
+};
 
 VurderBesteberegningPanel.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -168,8 +168,10 @@ export const vurderBesteberegningTransform =
     }
     const besteberegningValues = VurderBesteberegningPanel.transformValues(values, faktaOmBeregning, inntektPrAndel);
     const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
-    if (besteberegningValues.besteberegningAndeler?.besteberegningAndelListe
-      && besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
+    if (
+      besteberegningValues.besteberegningAndeler?.besteberegningAndelListe &&
+      besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0
+    ) {
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
     }
     return {

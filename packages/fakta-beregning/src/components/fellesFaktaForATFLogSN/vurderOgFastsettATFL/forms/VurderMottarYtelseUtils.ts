@@ -20,7 +20,10 @@ export const skalFastsetteInntektATUtenInntektsmelding = (
       : [];
   return (
     atAndelerUtenIM
-      .map(andel => values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)])
+      .map(
+        andel =>
+          values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
+      )
       .find(mottarYtelse => mottarYtelse) !== undefined
   );
 };
@@ -41,7 +44,9 @@ export const andelsnrMottarYtelseMap = (
     ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
     : [];
   atAndelerUtenIM.forEach(andel => {
-    const mottarYtelse = values.vurderMottarYtelseValues ? values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] : undefined;
+    const mottarYtelse = values.vurderMottarYtelseValues
+      ? values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)]
+      : undefined;
     if (andel.andelsnr) mottarYtelseMap[andel.andelsnr] = mottarYtelse;
   });
   if (!beregningsgrunnlag) {
@@ -71,7 +76,10 @@ export const harVurdertMottarYtelse = (
     : [];
   if (atAndelerUtenIM.length > 0) {
     const harAndelSomIkkeErVurdert = atAndelerUtenIM
-      .map(andel => values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)])
+      .map(
+        andel =>
+          values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
+      )
       .some(mottarYtelse => mottarYtelse === undefined || mottarYtelse === null);
     if (harAndelSomIkkeErVurdert) {
       return false;

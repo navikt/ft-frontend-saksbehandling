@@ -6,7 +6,7 @@ import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBereg
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import {
   FaktaBeregningTransformedValues,
-  FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues
+  FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './AvsluttetArbeidsforhold';
 import { harFieldKunstigArbeidsforhold } from './KunstigArbeidsforhold';
@@ -14,17 +14,17 @@ import { harFieldLønnsendring } from './LonnsendringForm';
 
 const krevAndelsnr = (andelsnr: number | undefined): number => {
   if (!andelsnr) {
-    throw new Error("Mangler andelsnr på arbeid uten inntektsmelding, ugyldig tilstand");
+    throw new Error('Mangler andelsnr på arbeid uten inntektsmelding, ugyldig tilstand');
   }
   return andelsnr;
-}
+};
 
 const krevInntektskategori = (inntektskategori: string | undefined): string => {
   if (!inntektskategori) {
-    throw new Error("Mangler inntektskategori på arbeid uten inntektsmelding, ugyldig tilstand");
+    throw new Error('Mangler inntektskategori på arbeid uten inntektsmelding, ugyldig tilstand');
   }
   return inntektskategori;
-}
+};
 
 export const transformValuesArbeidUtenInntektsmelding = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -56,11 +56,12 @@ export const transformValuesArbeidUtenInntektsmelding = (
     );
 
   arbeidUtenInntektsmelding.forEach(field => fastsatteAndelsnr.push(krevAndelsnr(field.andelsnr)));
-  const fastsattInntekt: FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues[] = arbeidUtenInntektsmelding.map(field => ({
-    andelsnr: krevAndelsnr(field.andelsnr),
-    fastsattBeløp: removeSpacesFromNumber(field.fastsattBelop),
-    inntektskategori: krevInntektskategori(field.inntektskategori),
-  }));
+  const fastsattInntekt: FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues[] =
+    arbeidUtenInntektsmelding.map(field => ({
+      andelsnr: krevAndelsnr(field.andelsnr),
+      fastsattBeløp: removeSpacesFromNumber(field.fastsattBelop),
+      inntektskategori: krevInntektskategori(field.inntektskategori),
+    }));
   if (fastsattInntekt.length > 0) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING],

@@ -1,11 +1,7 @@
-import {AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse} from '@navikt/ft-types';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
-  BrukersAndelValues,
-  FaktaOmBeregningAksjonspunktValues,
-  KunYtelseValues
-} from '../../../typer/FaktaBeregningTypes';
+import { BrukersAndelValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
@@ -94,10 +90,7 @@ KunYtelsePanel.buildInitialValues = (
   return initialValues;
 };
 
-KunYtelsePanel.transformValues = (
-  values: any,
-  kunYtelse: KunYtelse,
-): FaktaBeregningTransformedValues => ({
+KunYtelsePanel.transformValues = (values: any, kunYtelse: KunYtelse): FaktaBeregningTransformedValues => ({
   kunYtelseFordeling: {
     andeler: values[brukersAndelFieldArrayName].map((fieldValue: BrukersAndelValues) => ({
       andelsnr: fieldValue.andelsnr,
