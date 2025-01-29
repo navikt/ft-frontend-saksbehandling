@@ -79,7 +79,7 @@ VurderEtterlonnSluttpakkeForm.buildInitialValues = (
     .filter(andel => andel?.arbeidsforhold && andel?.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE);
   if (relevanteAndeler.length > 0) {
     initialValues[harEtterlonnSluttpakkeField] =
-      apErTidligereLost && relevanteAndeler[0]?.beregnetPrAar !== undefined
+      apErTidligereLost && (relevanteAndeler[0]?.beregnetPrAar || relevanteAndeler[0]?.beregnetPrAar === 0)
         ? relevanteAndeler[0]?.beregnetPrAar > 0
         : undefined;
   }

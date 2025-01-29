@@ -2,6 +2,7 @@ import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { lonnsendringField, LonnsendringForm } from './LonnsendringForm';
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 
 describe('<LonnsendringForm>', () => {
   const faktaOmBeregning = {
@@ -15,7 +16,7 @@ describe('<LonnsendringForm>', () => {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: true,
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformedObject = LonnsendringForm.transformValues(values, faktaOmBeregning);
     expect(transformedObject.vurdertLonnsendring?.erLønnsendringIBeregningsperioden).toBe(true);
   });
@@ -25,7 +26,7 @@ describe('<LonnsendringForm>', () => {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: false,
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformedObject = LonnsendringForm.transformValues(values, faktaOmBeregning);
     expect(transformedObject.vurdertLonnsendring?.erLønnsendringIBeregningsperioden).toBe(false);
   });

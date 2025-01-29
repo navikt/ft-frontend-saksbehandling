@@ -34,7 +34,7 @@ export const frilansMottarYtelse = (values: FaktaOmBeregningAksjonspunktValues):
 export const andelsnrMottarYtelseMap = (
   values: FaktaOmBeregningAksjonspunktValues,
   vurderMottarYtelse: VurderMottarYtelse | undefined,
-  beregningsgrunnlag: Beregningsgrunnlag,
+  beregningsgrunnlag: Beregningsgrunnlag | undefined,
 ): AndelMottarYtelseMap => {
   if (!vurderMottarYtelse) {
     return {};

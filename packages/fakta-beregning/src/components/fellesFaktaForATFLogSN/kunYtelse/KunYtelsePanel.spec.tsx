@@ -85,7 +85,6 @@ describe('<KunYtelsePanel>', () => {
     const andel1: KunYtelseAndel = {
       andelsnr: 1,
       fastsattBelopPrMnd: null,
-      lagtTilAvSaksbehandler: false,
       inntektskategori: Inntektskategori.UDEFINERT,
       aktivitetStatus: 'BA',
     };

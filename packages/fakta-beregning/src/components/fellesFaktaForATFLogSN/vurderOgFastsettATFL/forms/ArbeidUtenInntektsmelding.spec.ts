@@ -5,11 +5,15 @@ import {
 } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
 import { lonnsendringField } from './LonnsendringForm';
 
-const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+const emptyValues = {
+  erTilVurdering: true,
+  periode: { fom: '2022-01-01', tom: '2022-02-01' },
+} as FaktaOmBeregningAksjonspunktValues;
 
 describe('<ArbeidUtenInntektsmelding>', () => {
   it('skal ikke transform values uten tilfelle', () => {
@@ -121,7 +125,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: true,
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
@@ -159,7 +163,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: false,
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const inntektVerdier: InntektTransformed[] = [{ andelsnr: 1 } as InntektTransformed];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],

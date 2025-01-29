@@ -1,6 +1,7 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { erNyoppstartetFLField, NyoppstartetFLForm } from './NyoppstartetFLForm';
 
@@ -13,10 +14,12 @@ describe('<NyoppstartetFLForm>', () => {
   };
 
   it('skal teste at transformValues gir korrekt output', () => {
-    const values = { ...emptyValues };
-    values[erNyoppstartetFLField] = true;
+    const values = {
+      ...emptyValues,
+      [erNyoppstartetFLField]: true,
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformedObject = NyoppstartetFLForm.transformValues(values, null, faktaOmBeregning, []);
-    expect(transformedObject.vurderNyoppstartetFL.erNyoppstartetFL).toBe(true);
+    expect(transformedObject.vurderNyoppstartetFL?.erNyoppstartetFL).toBe(true);
   });
 
   const frilansAndelInntekt = {
@@ -38,25 +41,27 @@ describe('<NyoppstartetFLForm>', () => {
   };
 
   it('skal teste transform values med inntekter', () => {
-    const values = { ...emptyValues };
-    values[erNyoppstartetFLField] = true;
+    const values = {
+      ...emptyValues,
+      [erNyoppstartetFLField]: true,
+    } as FaktaOmBeregningAksjonspunktValues;
     const inntekterPrMnd = [frilansAndelInntekt as InntektTransformed, arbeidstakerInntekt as InntektTransformed];
-    const fastsatteAndeler = [];
+    const fastsatteAndeler: number[] = [];
     const transformedObject = NyoppstartetFLForm.transformValues(
       values,
       inntekterPrMnd,
       faktaOmBeregning,
       fastsatteAndeler,
     );
-    expect(transformedObject.vurderNyoppstartetFL.erNyoppstartetFL).toBe(true);
-    expect(transformedObject.faktaOmBeregningTilfeller.length).toBe(2);
-    expect(transformedObject.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toBe(
+    expect(transformedObject.vurderNyoppstartetFL?.erNyoppstartetFL).toBe(true);
+    expect(transformedObject.faktaOmBeregningTilfeller?.length).toBe(2);
+    expect(transformedObject.faktaOmBeregningTilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toBe(
       true,
     );
     expect(
-      transformedObject.faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL),
+      transformedObject.faktaOmBeregningTilfeller?.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL),
     ).toBe(true);
-    expect(transformedObject.fastsettMaanedsinntektFL.maanedsinntekt).toBe(10000);
+    expect(transformedObject.fastsettMaanedsinntektFL?.maanedsinntekt).toBe(10000);
     expect(fastsatteAndeler.length).toBe(1);
   });
 
