@@ -331,7 +331,7 @@ export const TilbakekrevingPeriodeForm = ({
           <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
         </Button>
       </HStack>
-      <TotalbelopetUnder4RettsgebyrModal showModal={showModal} submit={saveForm} />
+      {showModal && <TotalbelopetUnder4RettsgebyrModal showModal submit={saveForm} />}
     </Form>
   );
 };

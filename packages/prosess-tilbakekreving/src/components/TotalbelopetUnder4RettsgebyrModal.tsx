@@ -5,20 +5,20 @@ import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyLong, Button, HStack, Modal } from '@navikt/ds-react';
 
 export const TotalbelopetUnder4RettsgebyrModal = ({
-  showModal,
+  showModal = false,
   submit,
 }: {
-  showModal: boolean;
+  showModal?: boolean;
   submit: () => void;
 }) => {
   return (
-    <Modal open={showModal} onClose={submit} width="small" aria-label="Advarsel">
+    <Modal open={showModal} onClose={submit} aria-label="Advarsel">
       <Modal.Body>
         <HStack gap="4" wrap={false}>
           <div>
             <ExclamationmarkTriangleFillIcon height={35} width={35} color="var(--a-orange-600)" />
           </div>
-          <BodyLong size="small">
+          <BodyLong>
             <FormattedMessage id="TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr" />
           </BodyLong>
         </HStack>
