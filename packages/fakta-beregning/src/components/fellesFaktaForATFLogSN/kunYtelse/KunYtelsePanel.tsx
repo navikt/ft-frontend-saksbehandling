@@ -73,9 +73,11 @@ KunYtelsePanel.buildInitialValues = (
       throw new Error(`Finner ikke faktaAndel med andelsnr ${andel.andelsnr}`);
     }
 
+    const fastsattBelop = andel.fastsattBelopPrMnd !== null ? formatCurrencyNoKr(andel.fastsattBelopPrMnd) : '';
+
     return {
       ...setGenerellAndelsinfo(andelMedInfo, arbeidsgiverOpplysningerPerId, kodeverkSamling),
-      fastsattBelop: formatCurrencyNoKr(andel.fastsattBelopPrMnd) || '',
+      fastsattBelop: fastsattBelop ?? '',
     };
   });
   const initialValues: KunYtelseValues = {

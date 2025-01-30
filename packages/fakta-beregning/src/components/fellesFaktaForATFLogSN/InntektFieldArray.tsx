@@ -388,6 +388,7 @@ InntektFieldArray.transformValues = (
       (erOverstyrt && fieldValue.fastsattBelop) ||
       (erFrilanser(fieldValue.aktivitetStatus) && frilansInntektValues?.fastsattBelop) ||
       (erArbeidstaker(fieldValue.aktivitetStatus) &&
+        fieldValue.arbeidsgiverId &&
         getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, fieldValue.arbeidsgiverId)) ||
       (erDagpenger(fieldValue.aktivitetStatus) && dagpengerInntektValues?.fastsattBelop) ||
       (erSelvstendigNæringsdrivende(fieldValue.aktivitetStatus) &&
@@ -412,12 +413,13 @@ InntektFieldArray.transformValues = (
     .filter(
       ({ fastsattBelop, aktivitetStatus, arbeidsgiverId }) =>
         (fastsattBelop !== null && fastsattBelop !== '') ||
-        (erFrilanser(aktivitetStatus) && frilansInntektValues.fastsattBelop) ||
+        (erFrilanser(aktivitetStatus) && frilansInntektValues?.fastsattBelop) ||
         (erArbeidstaker(aktivitetStatus) &&
+          arbeidsgiverId &&
           getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, arbeidsgiverId)) ||
-        (erDagpenger(aktivitetStatus) && dagpengerInntektValues.fastsattBelop) ||
-        (erSelvstendigNæringsdrivende(aktivitetStatus) && selvstendigNæringsdrivendeInntektValues.fastsattBelop) ||
-        (erMilitærEllerSivil(aktivitetStatus) && militærEllerSivilInntektValues.fastsattBelop),
+        (erDagpenger(aktivitetStatus) && dagpengerInntektValues?.fastsattBelop) ||
+        (erSelvstendigNæringsdrivende(aktivitetStatus) && selvstendigNæringsdrivendeInntektValues?.fastsattBelop) ||
+        (erMilitærEllerSivil(aktivitetStatus) && militærEllerSivilInntektValues?.fastsattBelop),
     )
     .map(transformAndel);
 };

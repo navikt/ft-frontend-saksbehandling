@@ -48,7 +48,8 @@ const summerBeregnet = (
         belop = formValues.frilansInntektValues.fastsattBelop;
       } else if (
         erArbeidstakerInntekt &&
-        formValues?.arbeidstakerInntektValues[
+        field.arbeidsgiverId &&
+        formValues?.arbeidstakerInntektValues?.[
           getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
         ]?.fastsattBelop
       ) {
@@ -95,7 +96,7 @@ export const SummaryRow = ({ skalVisePeriode, skalViseRefusjon, readOnly, beregn
     name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`,
   });
 
-  const sumBeregnet = summerBeregnet(fields, formValues, beregningsgrunnlag) || 0;
+  const sumBeregnet = fields ? summerBeregnet(fields, formValues, beregningsgrunnlag) : 0;
 
   return (
     <Table.Row>

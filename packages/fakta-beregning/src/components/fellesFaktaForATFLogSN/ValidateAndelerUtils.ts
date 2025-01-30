@@ -21,8 +21,12 @@ export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo)
   return andel1.andelsinfo > andel2.andelsinfo ? 1 : -1;
 };
 
-const mapAndelToSortedObject = (value: any, andelList: BrukersAndelValues[] | AndelFieldValue[]): SortedAndelInfo => {
-  const { nyAndel, andel, inntektskategori, aktivitetStatus, arbeidsforholdId } = value;
+const mapAndelToSortedObject = (
+  value: BrukersAndelValues | AndelFieldValue,
+  andelList: BrukersAndelValues[] | AndelFieldValue[],
+): SortedAndelInfo => {
+  const { nyAndel, andel, inntektskategori, aktivitetStatus } = value;
+  const arbeidsforholdId = 'arbeidsforholdId' in value ? value.arbeidsforholdId : undefined;
   if (nyAndel) {
     if (!Number.isNaN(Number(andel))) {
       const matchendeAndelFraListe = andelList.filter(andelValue => andelValue.andelsnr === parseFloat(andel));
@@ -30,7 +34,7 @@ const mapAndelToSortedObject = (value: any, andelList: BrukersAndelValues[] | An
         return { andelsinfo: matchendeAndelFraListe[0].andel, inntektskategori };
       }
     }
-    if (BeregningsgrunnlagAndelType[andel]) {
+    if (BeregningsgrunnlagAndelType[andel as keyof typeof BeregningsgrunnlagAndelType]) {
       return { andelsinfo: andel, inntektskategori };
     }
     return { andelsinfo: andel, inntektskategori };
