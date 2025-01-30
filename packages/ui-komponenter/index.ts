@@ -23,7 +23,6 @@ export { DataFetchPendingModal } from './src/DataFetchPendingModal';
 export { FaktaGruppe } from './src/FaktaGruppe';
 export { AvsnittSkiller } from './src/AvsnittSkiller';
 export { EditedIcon } from './src/EditedIcon';
-export { WarningModal } from './src/WarningModal';
 export { LabelWithHeader } from './src/LabelWithHeader';
 export { usePrevious } from './src/hooks/usePrevious';
 export { BlaBoksMedCheckmarkListe } from './src/blaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe';
