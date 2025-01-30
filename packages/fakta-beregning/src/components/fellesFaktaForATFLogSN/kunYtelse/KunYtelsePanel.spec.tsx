@@ -1,6 +1,5 @@
 import { Inntektskategori } from '@navikt/ft-kodeverk';
 import { KunYtelse } from '@navikt/ft-types';
-import { KunYtelseAndel } from '@navikt/ft-types/dist/packages/types/src/BeregningsgrunnlagFakta';
 
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
@@ -82,13 +81,13 @@ describe('<KunYtelsePanel>', () => {
   });
 
   it('skal bygge initial values', () => {
-    const andel1: KunYtelseAndel = {
+    const andel1 = {
       andelsnr: 1,
       fastsattBelopPrMnd: null,
       inntektskategori: Inntektskategori.UDEFINERT,
       aktivitetStatus: 'BA',
     };
-    const andel2: KunYtelseAndel = {
+    const andel2 = {
       andelsnr: 2,
       fastsattBelopPrMnd: 10000,
       inntektskategori: Inntektskategori.ARBEIDSTAKER,

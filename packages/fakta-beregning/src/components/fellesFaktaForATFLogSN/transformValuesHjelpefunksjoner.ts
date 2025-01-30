@@ -70,7 +70,7 @@ export const transformValuesVurderFaktaBeregning = (
     .map(v => transformFieldValue(v, false))
     .filter(v => v);
 
-  const apDataTilSubmit: BeregningFaktaOgOverstyringAP[] = [];
+  const apDataTilSubmit: any[] = [];
 
   if (overstyrteGrunnlag.length > 0) {
     const beg = overstyrteGrunnlag
