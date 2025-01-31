@@ -16,7 +16,7 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }));
 
-describe('<TilbakekrevingProsessIndex>', () => {
+describe('TilbakekrevingProsessIndex', () => {
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);

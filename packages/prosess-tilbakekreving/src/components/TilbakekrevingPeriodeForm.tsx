@@ -9,7 +9,7 @@ import { Form, RadioGroupPanel, SelectField, TextAreaField } from '@navikt/ft-fo
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { usePrevious, VerticalSpacer, WarningModal } from '@navikt/ft-ui-komponenter';
+import { usePrevious, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
@@ -29,6 +29,7 @@ import {
   InitialValuesGodTroForm,
 } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingAktivitetTabell } from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
+import { TotalbelopetUnder4RettsgebyrModal } from './TotalbelopetUnder4RettsgebyrModal';
 
 import styles from './tilbakekrevingPeriodeForm.module.css';
 
@@ -330,13 +331,7 @@ export const TilbakekrevingPeriodeForm = ({
           <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
         </Button>
       </HStack>
-      {showModal && (
-        <WarningModal
-          bodyText={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr' })}
-          showModal
-          submit={saveForm}
-        />
-      )}
+      {showModal && <TotalbelopetUnder4RettsgebyrModal showModal submit={saveForm} />}
     </Form>
   );
 };
