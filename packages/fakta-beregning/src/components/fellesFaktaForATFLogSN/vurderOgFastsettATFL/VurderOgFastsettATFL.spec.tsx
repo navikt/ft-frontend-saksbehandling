@@ -1,6 +1,9 @@
 import { AktivitetStatus as aktivitetStatuser, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning, FaktaOmBeregningAndel } from '@navikt/ft-types';
+import { ATFLSammeOrgAndel } from '@navikt/ft-types/src/BeregningsgrunnlagFakta';
 
+import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import { AndelFieldValue } from '../../../typer/FieldValues';
 import { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
 import { lonnsendringField } from './forms/LonnsendringForm';
@@ -17,7 +20,7 @@ const {
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 
-const lagBeregningsgrunnlag = andeler =>
+const lagBeregningsgrunnlag = (andeler: BeregningsgrunnlagAndel[]): Beregningsgrunnlag =>
   ({
     vilkårsperiodeFom: '2022-01-01',
     beregningsgrunnlagPeriode: [
@@ -33,50 +36,55 @@ const lagBeregningsgrunnlag = andeler =>
   }) as Beregningsgrunnlag;
 
 const lagFaktaOmBeregning = (
-  tilfeller,
-  arbeidsforholdMedLønnsendringUtenIM,
-  arbeidstakerOgFrilanserISammeOrganisasjonListe,
+  tilfeller: string[],
+  arbeidsforholdMedLønnsendringUtenIM: FaktaOmBeregningAndel[] | undefined,
+  arbeidstakerOgFrilanserISammeOrganisasjonListe: ATFLSammeOrgAndel[] | undefined,
   vurderMottarYtelse = {},
-) => ({
-  faktaOmBeregningTilfeller: tilfeller,
-  vurderBesteberegning: {},
-  arbeidsforholdMedLønnsendringUtenIM,
-  arbeidstakerOgFrilanserISammeOrganisasjonListe,
-  vurderMottarYtelse,
-});
+): FaktaOmBeregning =>
+  ({
+    faktaOmBeregningTilfeller: tilfeller,
+    vurderBesteberegning: {},
+    arbeidsforholdMedLønnsendringUtenIM,
+    arbeidstakerOgFrilanserISammeOrganisasjonListe,
+    vurderMottarYtelse,
+  }) as FaktaOmBeregning;
 
-const lagAndel = (andelsnr, aktivitetStatus, inntektskategori) => ({
+const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: string) => ({
   andelsnr,
   aktivitetStatus,
   inntektskategori,
 });
 
 const lagAndelValues = (
-  andelsnr,
-  fastsattBelop,
-  inntektskategori,
-  aktivitetStatus,
+  andelsnr: number | undefined,
+  fastsattBelop: string,
+  inntektskategori: string,
+  aktivitetStatus: string,
   lagtTilAvSaksbehandler = false,
   nyAndel = false,
   kanRedigereInntekt = true,
-) => ({
-  nyAndel,
-  andelsnr,
-  fastsattBelop,
-  inntektskategori,
-  aktivitetStatus,
-  lagtTilAvSaksbehandler,
-  kanRedigereInntekt,
-});
+): AndelFieldValue =>
+  ({
+    nyAndel,
+    andelsnr,
+    fastsattBelop,
+    inntektskategori,
+    aktivitetStatus,
+    lagtTilAvSaksbehandler,
+    kanRedigereInntekt,
+  }) as AndelFieldValue;
 
 describe('<VurderOgFastsettATFL>', () => {
   it('skal transform values om besteberegning', () => {
-    const values = { ...emptyValues };
-    values[besteberegningField] = true;
-    values[INNTEKT_FIELD_ARRAY_NAME] = [
+    const andelerFields: AndelFieldValue[] = [
       lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
       lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
     ];
+    const values = {
+      ...emptyValues,
+      [besteberegningField]: true,
+      [INNTEKT_FIELD_ARRAY_NAME]: andelerFields,
+    } as FaktaOmBeregningAksjonspunktValues;
     const andeler = [lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER)];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
     const faktaOmBeregning = lagFaktaOmBeregning([VURDER_BESTEBEREGNING], undefined, undefined);
@@ -84,28 +92,33 @@ describe('<VurderOgFastsettATFL>', () => {
       faktaOmBeregning as FaktaOmBeregning,
       beregningsgrunnlag,
     )(values);
-    expect(transformed.fakta.besteberegningAndeler.besteberegningAndelListe.length).toBe(1);
-    expect(transformed.fakta.besteberegningAndeler.besteberegningAndelListe[0].andelsnr).toBe(1);
-    expect(transformed.fakta.besteberegningAndeler.besteberegningAndelListe[0].fastsatteVerdier.fastsattBeløp).toBe(
+    expect(transformed.fakta.besteberegningAndeler?.besteberegningAndelListe.length).toBe(1);
+    expect(transformed.fakta.besteberegningAndeler?.besteberegningAndelListe[0].andelsnr).toBe(1);
+    expect(transformed.fakta.besteberegningAndeler?.besteberegningAndelListe[0].fastsatteVerdier.fastsattBeløp).toBe(
       10000,
     );
-    expect(transformed.fakta.besteberegningAndeler.besteberegningAndelListe[0].fastsatteVerdier.inntektskategori).toBe(
+    expect(transformed.fakta.besteberegningAndeler?.besteberegningAndelListe[0].fastsatteVerdier.inntektskategori).toBe(
       'ARBEIDSTAKER',
     );
-    expect(transformed.fakta.besteberegningAndeler.nyDagpengeAndel.fastsatteVerdier.inntektskategori).toBe('DAGPENGER');
-    expect(transformed.fakta.besteberegningAndeler.nyDagpengeAndel.fastsatteVerdier.fastsattBeløp).toBe(20000);
+    expect(transformed.fakta.besteberegningAndeler?.nyDagpengeAndel?.fastsatteVerdier.inntektskategori).toBe(
+      'DAGPENGER',
+    );
+    expect(transformed.fakta.besteberegningAndeler?.nyDagpengeAndel?.fastsatteVerdier.fastsattBeløp).toBe(20000);
   });
 
   it('skal ikkje transform inntekt for nyoppstartetFL og lønnsendring når man har besteberegning', () => {
-    const values = { ...emptyValues };
-    values[besteberegningField] = true;
-    values[lonnsendringField] = true;
-    values[erNyoppstartetFLField] = true;
-    values[INNTEKT_FIELD_ARRAY_NAME] = [
+    const andelerFields = [
       lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
       lagAndelValues(2, '30 000', Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
       lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
     ];
+    const values = {
+      ...emptyValues,
+      [besteberegningField]: true,
+      [lonnsendringField]: true,
+      [erNyoppstartetFLField]: true,
+      [INNTEKT_FIELD_ARRAY_NAME]: andelerFields,
+    } as FaktaOmBeregningAksjonspunktValues;
     const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
     const andeler = [andelMedLonnsendring, lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER)];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
@@ -118,20 +131,23 @@ describe('<VurderOgFastsettATFL>', () => {
       faktaOmBeregning as FaktaOmBeregning,
       beregningsgrunnlag,
     )(values);
-    expect(transformed.fakta.besteberegningAndeler.besteberegningAndelListe.length).toBe(2);
-    expect(transformed.fakta.besteberegningAndeler.nyDagpengeAndel === null).toBe(false);
-    expect(transformed.fakta.faktaOmBeregningTilfeller.length).toBe(4);
+    expect(transformed.fakta.besteberegningAndeler?.besteberegningAndelListe.length).toBe(2);
+    expect(transformed.fakta.besteberegningAndeler?.nyDagpengeAndel === null).toBe(false);
+    expect(transformed.fakta.faktaOmBeregningTilfeller?.length).toBe(4);
   });
 
   it('skal fastsette inntekt for nyoppstartetFL og arbeidstaker uten inntektsmelding med lønnendring', () => {
-    const values = { ...emptyValues };
-    values[lonnsendringField] = true;
-    values[erNyoppstartetFLField] = true;
-    values[INNTEKT_FIELD_ARRAY_NAME] = [
+    const andelerFields = [
       lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
       lagAndelValues(2, '30 000', Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
       lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
     ];
+    const values = {
+      ...emptyValues,
+      [lonnsendringField]: true,
+      [erNyoppstartetFLField]: true,
+      [INNTEKT_FIELD_ARRAY_NAME]: andelerFields,
+    } as FaktaOmBeregningAksjonspunktValues;
     const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
     const andeler = [
       andelMedLonnsendring,
@@ -150,16 +166,16 @@ describe('<VurderOgFastsettATFL>', () => {
       faktaOmBeregning as FaktaOmBeregning,
       beregningsgrunnlag,
     )(values).fakta;
-    expect(transformed.fastsattUtenInntektsmelding.andelListe.length).toBe(1);
-    expect(transformed.fastsattUtenInntektsmelding.andelListe[0].andelsnr).toBe(1);
-    expect(transformed.fastsattUtenInntektsmelding.andelListe[0].fastsattBeløp).toBe(10000);
-    expect(transformed.fastsettMaanedsinntektFL.maanedsinntekt).toBe(30000);
-    expect(transformed.faktaOmBeregningTilfeller.length).toBe(4);
-    expect(transformed.faktaOmBeregningTilfeller.includes(VURDER_NYOPPSTARTET_FL)).toBe(true);
-    expect(transformed.faktaOmBeregningTilfeller.includes(VURDER_LONNSENDRING)).toBe(true);
-    expect(transformed.faktaOmBeregningTilfeller.includes(FASTSETT_MAANEDSINNTEKT_FL)).toBe(true);
-    expect(transformed.faktaOmBeregningTilfeller.includes(FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toBe(
-      true,
-    );
+    expect(transformed.fastsattUtenInntektsmelding?.andelListe.length).toBe(1);
+    expect(transformed.fastsattUtenInntektsmelding?.andelListe[0].andelsnr).toBe(1);
+    expect(transformed.fastsattUtenInntektsmelding?.andelListe[0].fastsattBeløp).toBe(10000);
+    expect(transformed.fastsettMaanedsinntektFL?.maanedsinntekt).toBe(30000);
+    expect(transformed.faktaOmBeregningTilfeller?.length).toBe(4);
+    expect(transformed.faktaOmBeregningTilfeller?.includes(VURDER_NYOPPSTARTET_FL)).toBe(true);
+    expect(transformed.faktaOmBeregningTilfeller?.includes(VURDER_LONNSENDRING)).toBe(true);
+    expect(transformed.faktaOmBeregningTilfeller?.includes(FASTSETT_MAANEDSINNTEKT_FL)).toBe(true);
+    expect(
+      transformed.faktaOmBeregningTilfeller?.includes(FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING),
+    ).toBe(true);
   });
 });

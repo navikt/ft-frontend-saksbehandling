@@ -92,8 +92,8 @@ export type DagpengerinntektValues = {
 };
 
 export type ArbeidstakerInntektValues = {
-  fastsattBelop: number;
-  arbeidsgiverIdent: string;
+  fastsattBelop?: number;
+  arbeidsgiverIdent?: string;
 };
 
 export type TilfellerValues = VurderMilitærValues &
@@ -115,10 +115,10 @@ export type TilfellerValues = VurderMilitærValues &
   };
 
 export type FaktaOmBeregningValues = TilfellerValues & {
-  tilfeller?: string[];
-  kortvarigeArbeidsforhold?: KortvarigAndel[];
-  faktaOmBeregning?: FaktaOmBeregning;
-  beregningsgrunnlag?: Beregningsgrunnlag;
+  tilfeller: string[];
+  kortvarigeArbeidsforhold: KortvarigAndel[];
+  faktaOmBeregning: FaktaOmBeregning;
+  beregningsgrunnlag: Beregningsgrunnlag;
   vurderMottarYtelse?: VurderMottarYtelse;
   kunYtelse?: KunYtelse;
 };

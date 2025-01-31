@@ -43,7 +43,7 @@ import { VurderRefusjonForm } from './vurderrefusjon/VurderRefusjonForm';
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
 export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold || undefined;
+  getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold || [];
 
 export const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse || undefined;
@@ -55,7 +55,7 @@ export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) 
 export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe || [];
 
-const spacer = (hasShownPanel: boolean): ReactElement => {
+const spacer = (hasShownPanel: boolean): ReactElement | null => {
   if (hasShownPanel) {
     return <VerticalSpacer twentyPx />;
   }
@@ -86,7 +86,7 @@ const getFaktaPanels = ({
   const { avklaringsbehov } = beregningsgrunnlag;
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
-  const faktaPanels = [];
+  const faktaPanels: ReactElement[] = [];
 
   setFaktaPanelForKunYtelse(
     faktaPanels,
@@ -100,7 +100,7 @@ const getFaktaPanels = ({
   faktaPanels.push(
     <React.Fragment key="VurderOgFastsettATFL">
       {spacer(true)}
-      {/* @ts-ignore */}
+      {/* @ts-expect-error */}
       <VurderOgFastsettATFL
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
@@ -167,7 +167,13 @@ const kunYtelseTransform =
   (values: FaktaOmBeregningAksjonspunktValues): FaktaBeregningTransformedValues =>
     transformValuesForKunYtelse(values, faktaOmBeregning.kunYtelse, aktivePaneler);
 
-const nyIArbeidslivetTransform = (vurderFaktaValues, values) => {
+const nyIArbeidslivetTransform = (
+  vurderFaktaValues: FaktaBeregningTransformedValues,
+  values: FaktaOmBeregningAksjonspunktValues,
+) => {
+  if (!vurderFaktaValues.faktaOmBeregningTilfeller) {
+    throw new Error('Har ikke definert en liste med tilfeller, ugyldig tilstand');
+  }
   vurderFaktaValues.faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
   return {
     ...vurderFaktaValues,
@@ -176,7 +182,11 @@ const nyIArbeidslivetTransform = (vurderFaktaValues, values) => {
 };
 
 const kortvarigeArbeidsforholdTransform =
-  (kortvarigeArbeidsforhold: KortvarigAndel[]) => (vurderFaktaValues, values: FaktaOmBeregningAksjonspunktValues) => {
+  (kortvarigeArbeidsforhold: KortvarigAndel[]) =>
+  (vurderFaktaValues: FaktaBeregningTransformedValues, values: FaktaOmBeregningAksjonspunktValues) => {
+    if (!vurderFaktaValues.faktaOmBeregningTilfeller) {
+      throw new Error('Har ikke definert en liste med tilfeller, ugyldig tilstand');
+    }
     vurderFaktaValues.faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
     return {
       ...vurderFaktaValues,
@@ -184,7 +194,13 @@ const kortvarigeArbeidsforholdTransform =
     };
   };
 
-const vurderMilitaerSiviltjenesteTransform = (vurderFaktaValues, values) => {
+const vurderMilitaerSiviltjenesteTransform = (
+  vurderFaktaValues: FaktaBeregningTransformedValues,
+  values: FaktaOmBeregningAksjonspunktValues,
+) => {
+  if (!vurderFaktaValues.faktaOmBeregningTilfeller) {
+    throw new Error('Har ikke definert en liste med tilfeller, ugyldig tilstand');
+  }
   vurderFaktaValues.faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
   return {
     ...vurderFaktaValues,
@@ -192,19 +208,42 @@ const vurderMilitaerSiviltjenesteTransform = (vurderFaktaValues, values) => {
   };
 };
 
-const vurderRefusjonskravTransform = faktaOmBeregning => (vurderFaktaValues, values) => {
-  vurderFaktaValues.faktaOmBeregningTilfeller.push(
-    FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
-  );
-  return {
-    ...vurderFaktaValues,
-    ...VurderRefusjonForm.transformValues(faktaOmBeregning.refusjonskravSomKommerForSentListe)(values),
+const vurderRefusjonskravTransform =
+  (faktaOmBeregning: FaktaOmBeregning) =>
+  (vurderFaktaValues: FaktaBeregningTransformedValues, values: FaktaOmBeregningAksjonspunktValues) => {
+    if (!vurderFaktaValues.faktaOmBeregningTilfeller || !faktaOmBeregning.refusjonskravSomKommerForSentListe) {
+      throw new Error('Mangler tilfelle eller andeler, ugyldig tilstand');
+    }
+    vurderFaktaValues.faktaOmBeregningTilfeller.push(
+      FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
+    );
+    return {
+      ...vurderFaktaValues,
+      ...VurderRefusjonForm.transformValues(faktaOmBeregning.refusjonskravSomKommerForSentListe)(values),
+    };
   };
-};
 
 export const transformValues =
-  (aktivePaneler, nyIArbTransform, kortvarigTransform, militaerTransform, vurderRefusjonTransform) =>
-  (vurderFaktaValues, values) => {
+  (
+    aktivePaneler: string[],
+    nyIArbTransform: (
+      vurderFaktaValues: FaktaBeregningTransformedValues,
+      values: FaktaOmBeregningAksjonspunktValues,
+    ) => FaktaBeregningTransformedValues,
+    kortvarigTransform: (
+      vurderFaktaValues: FaktaBeregningTransformedValues,
+      values: FaktaOmBeregningAksjonspunktValues,
+    ) => FaktaBeregningTransformedValues,
+    militaerTransform: (
+      vurderFaktaValues: FaktaBeregningTransformedValues,
+      values: FaktaOmBeregningAksjonspunktValues,
+    ) => FaktaBeregningTransformedValues,
+    vurderRefusjonTransform: (
+      vurderFaktaValues: FaktaBeregningTransformedValues,
+      values: FaktaOmBeregningAksjonspunktValues,
+    ) => FaktaBeregningTransformedValues,
+  ) =>
+  (vurderFaktaValues: FaktaBeregningTransformedValues, values: FaktaOmBeregningAksjonspunktValues) => {
     let transformed = { ...vurderFaktaValues };
     aktivePaneler.forEach(kode => {
       if (kode === FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET) {
@@ -291,23 +330,21 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
       getVurderMottarYtelse(beregningsgrunnlag),
       tilfeller,
     ),
-    arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(
-      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
-    ),
+    arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(faktaOmBeregning.andelerForFaktaOmBeregning),
     frilansInntektValues: InntektInput.buildInitialValues(
-      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.FRILANSER,
     ),
     dagpengerInntektValues: InntektInput.buildInitialValues(
-      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.DAGPENGER,
     ),
     selvstendigNæringsdrivendeInntektValues: InntektInput.buildInitialValues(
-      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
     ),
     militærEllerSivilInntektValues: InntektInput.buildInitialValues(
-      beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning,
+      faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.MILITAER_ELLER_SIVIL,
     ),
     vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(

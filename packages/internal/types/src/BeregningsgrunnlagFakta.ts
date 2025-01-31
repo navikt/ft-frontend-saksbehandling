@@ -53,7 +53,7 @@ export type AvklarBeregningAktiviteterMap = Readonly<{
 }>;
 
 export interface KunYtelseAndel extends FaktaOmBeregningAndel {
-  fastsattBelopPrMnd: number;
+  fastsattBelopPrMnd: number | null;
 }
 
 export interface KortvarigAndel extends AndelForFaktaOmBeregning {

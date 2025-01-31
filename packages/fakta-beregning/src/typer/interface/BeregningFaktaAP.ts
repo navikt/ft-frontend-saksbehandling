@@ -55,7 +55,7 @@ export type VurderLønnsendringTransformedValues = {
 export type FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues = {
   andelsnr: number;
   fastsattBeløp: number;
-  inntektskategori: string;
+  inntektskategori?: string;
 };
 
 export type FastsettMånedsinntektUtenInntektsmeldingTransformedValues = {
@@ -77,7 +77,7 @@ export type FastsatteVerdierForBesteberegningTransformedValues = {
 };
 
 export type BesteberegningFødendeKvinneAndelTransformedValues = {
-  andelsnr: number;
+  andelsnr?: number;
   nyAndel: boolean;
   lagtTilAvSaksbehandler: boolean;
   fastsatteVerdier: FastsatteVerdierForBesteberegningTransformedValues;
@@ -102,7 +102,7 @@ export type FastsattBrukersAndelTransformedValues = {
 
 export type FastsettBgKunYtelseTransformedValues = {
   andeler: FastsattBrukersAndelTransformedValues[];
-  skalBrukeBesteberegning: boolean;
+  skalBrukeBesteberegning: boolean | null;
 };
 
 export type VurderEtterlønnSluttpakkeTransformedValues = {

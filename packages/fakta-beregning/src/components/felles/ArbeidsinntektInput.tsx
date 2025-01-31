@@ -13,7 +13,7 @@ import { InntektInput } from './InntektInput';
 
 export const getArbeidsgiverIndex = (
   arbeidstakerInntektValues: ArbeidstakerInntektValues[],
-  arbeidsgiverIdent: string,
+  arbeidsgiverIdent?: string,
 ) => arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverIdent === arbeidsgiverIdent);
 
 interface Props {
@@ -25,8 +25,8 @@ interface Props {
 }
 
 export type FormValues = {
-  fastsattBelop: number;
-  arbeidsgiverIdent: string;
+  fastsattBelop: number | undefined;
+  arbeidsgiverIdent: string | undefined;
 };
 
 export const ArbeidsinntektInput = ({
@@ -39,10 +39,14 @@ export const ArbeidsinntektInput = ({
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues`);
-  const arbeidsgiverIndex = getArbeidsgiverIndex(formValues, arbeidsgiver.arbeidsforhold.arbeidsgiverIdent);
+  if (!formValues) {
+    return null;
+  }
+  const agIdent = arbeidsgiver.arbeidsforhold?.arbeidsgiverIdent;
+  const arbeidsgiverIndex = getArbeidsgiverIndex(formValues, agIdent);
 
   const fieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${arbeidsgiverIndex}.fastsattBelop`;
-  const arbeidsgiverNavn = arbeidsgiverOpplysningerPerId[arbeidsgiver.arbeidsforhold.arbeidsgiverIdent]?.navn;
+  const arbeidsgiverNavn = agIdent ? arbeidsgiverOpplysningerPerId[agIdent]?.navn : undefined;
 
   return (
     <>
@@ -56,7 +60,7 @@ export const ArbeidsinntektInput = ({
             <FormattedMessage
               id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
               values={{
-                bedrift: `${arbeidsgiverNavn} (${arbeidsgiver.arbeidsforhold.arbeidsgiverIdent})`,
+                bedrift: `${arbeidsgiverNavn} (${agIdent})`,
               }}
             />
           )
@@ -67,13 +71,13 @@ export const ArbeidsinntektInput = ({
 };
 
 ArbeidsinntektInput.buildInitialValues = (andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[]): FormValues[] => {
-  const initialValues = [];
+  const initialValues: FormValues[] = [];
   andelerForFaktaOmBeregning
     ?.filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold)
     .forEach(andel => {
       const arbeidsgiver = {
         fastsattBelop: andel.fastsattBelop,
-        arbeidsgiverIdent: andel.arbeidsforhold.arbeidsgiverIdent,
+        arbeidsgiverIdent: andel.arbeidsforhold?.arbeidsgiverIdent,
       };
       initialValues.push(arbeidsgiver);
     });

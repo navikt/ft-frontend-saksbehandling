@@ -44,7 +44,7 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
               arbeidsforhold: {
                 arbeidsforholdType: 'ETTERLØNN_SLUTTPAKKE',
               },
-              beregnetPrAar: null,
+              beregnetPrAar: undefined,
             } as BeregningsgrunnlagAndel,
           ],
         },
@@ -52,7 +52,7 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
     } as Beregningsgrunnlag;
     const values = VurderEtterlonnSluttpakkeForm.buildInitialValues(bg, ap);
     const testobj = {
-      vurderEtterlønnSluttpakke: false,
+      vurderEtterlønnSluttpakke: undefined,
     };
     expect(values).toEqual(testobj);
   });

@@ -1,1 +1,1 @@
-export type AndelMottarYtelseMap = Record<number, boolean>;
+export type AndelMottarYtelseMap = Record<number, boolean | null | undefined>;

@@ -8,12 +8,10 @@ import { Label } from '@navikt/ds-react';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
+import { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
-import {
-  FaktaOmBeregningAksjonspunktValues,
-  VurderBesteberegningMedKunYtelseValues,
-} from '../../../typer/FaktaBeregningTypes';
+import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
@@ -49,7 +47,8 @@ export const KunYtelseBesteberegning = ({
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
-  const erBesteberegning = formValues[besteberegningField];
+
+  const erBesteberegning = besteberegningField in formValues ? formValues[besteberegningField] : undefined;
   const intl = useIntl();
   return (
     <div>
@@ -105,9 +104,9 @@ export const KunYtelseBesteberegning = ({
   );
 };
 
-KunYtelseBesteberegning.buildInitialValues = (kunYtelse): VurderBesteberegningMedKunYtelseValues => ({
+KunYtelseBesteberegning.buildInitialValues = (kunYtelse: KunYtelse): VurderBesteberegningMedKunYtelseValues => ({
   [besteberegningField]: kunYtelse.erBesteberegning,
 });
 
-KunYtelseBesteberegning.transformValues = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
-  values[besteberegningField];
+KunYtelseBesteberegning.transformValues = (values: VurderBesteberegningMedKunYtelseValues): boolean =>
+  !!values[besteberegningField];

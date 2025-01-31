@@ -1,20 +1,21 @@
 import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt } from '@navikt/ft-types';
+import { BeregningAvklaringsbehov, FaktaOmBeregning } from '@navikt/ft-types';
 
+import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
 import { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
 
 const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
-const avklarAktiviteterAp = {
-  id: 1,
+const avklarAktiviteterAp: BeregningAvklaringsbehov = {
   definisjon: AVKLAR_AKTIVITETER,
   status: AksjonspunktStatus.OPPRETTET,
   kanLoses: true,
-} as Aksjonspunkt;
+};
 
-const aksjonspunkter = [
+const aksjonspunkter: BeregningAvklaringsbehov[] = [
   {
     definisjon: VURDER_FAKTA_FOR_ATFL_SN,
     status: 'OPPR',
@@ -24,17 +25,17 @@ const aksjonspunkter = [
 
 describe('<VurderFaktaBeregningPanel>', () => {
   it('skal ikkje transformValues uten aksjonspunkt', () => {
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
     };
-    const values = {
+    const values: VurderFaktaBeregningFormValues = {
       vurderFaktaBeregningForm: [
         {
           avklaringsbehov: [avklarAktiviteterAp],
           faktaOmBeregning,
           erTilVurdering: true,
           periode: { fom: '2022-01-01', tom: '2022-02-01' },
-        },
+        } as FaktaOmBeregningAksjonspunktValues,
       ],
     };
     const transformed = transformValuesVurderFaktaBeregning(values);
@@ -42,11 +43,11 @@ describe('<VurderFaktaBeregningPanel>', () => {
   });
 
   it('skal transformValues med aksjonspunkt', () => {
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
     };
-    const tilfeller = [];
-    const values = {
+    const tilfeller: string[] = [];
+    const values: VurderFaktaBeregningFormValues = {
       vurderFaktaBeregningForm: [
         {
           [BEGRUNNELSE_FAKTA_TILFELLER_NAME]: 'begrunnelse',
@@ -55,7 +56,7 @@ describe('<VurderFaktaBeregningPanel>', () => {
           tilfeller,
           erTilVurdering: true,
           periode: { fom: '2022-01-01', tom: '2022-02-01' },
-        },
+        } as FaktaOmBeregningAksjonspunktValues,
       ],
     };
     const transformed = transformValuesVurderFaktaBeregning(values);

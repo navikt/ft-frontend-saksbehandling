@@ -13,6 +13,7 @@ import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
+import { AndelFieldIdentifikator } from '../../typer/FieldValues';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
@@ -64,11 +65,11 @@ type Props = {
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
-  removeAndel: (...args: any[]) => any;
+  removeAndel: () => void;
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
-  skalFastsetteInntektForAndel: (andel) => boolean;
+  skalFastsetteInntektForAndel: (andel: AndelFieldIdentifikator) => boolean;
 };
 
 /**
@@ -105,6 +106,7 @@ export const InntektFieldArrayAndelRow = ({
   const harEndretInntektForArbeidsgiver =
     erArbeidstakerInntekt &&
     kanRedigereInntekt &&
+    field.arbeidsgiverId &&
     !!getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId);
 
   const harEndretInntektForDagpenger =
@@ -122,6 +124,7 @@ export const InntektFieldArrayAndelRow = ({
     (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
     (erArbeidstakerInntekt &&
       kanRedigereInntekt &&
+      field.arbeidsgiverId &&
       !getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId)) ||
     (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop) ||
     (erInntektSelvstendigNæringsdrivende &&
@@ -143,7 +146,7 @@ export const InntektFieldArrayAndelRow = ({
   const harPeriode = field.arbeidsperiodeFom || field.arbeidsperiodeTom;
 
   const getInputFieldName = () => {
-    if (harEndretInntektForArbeidsgiver) {
+    if (harEndretInntektForArbeidsgiver && formValues.arbeidstakerInntektValues && field.arbeidsgiverId) {
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${getArbeidsgiverIndex(
         formValues.arbeidstakerInntektValues,
         field.arbeidsgiverId,
@@ -170,7 +173,7 @@ export const InntektFieldArrayAndelRow = ({
         <InputField size="small" name={`${rowName}.andel`} className={styles.storBredde} readOnly />
       </Table.DataCell>
       <Table.DataCell>
-        {skalVisePeriode && harPeriode && (
+        {skalVisePeriode && harPeriode && field.arbeidsperiodeFom && (
           <ReadOnlyField
             value={
               <PeriodLabel

@@ -49,7 +49,7 @@ export const harIkkeEndringerIAvklarMedFlereAksjonspunkter = (
   return true;
 };
 
-const erOverstyrt = (index: number, getValues: UseFormGetValues<any>) => {
+const erOverstyrt = (index: number, getValues: UseFormGetValues<VurderFaktaBeregningFormValues>) => {
   const formValue = getValues(`${formNameVurderFaktaBeregning}.${index}`);
   return erOverstyringAvBeregningsgrunnlag(formValue);
 };

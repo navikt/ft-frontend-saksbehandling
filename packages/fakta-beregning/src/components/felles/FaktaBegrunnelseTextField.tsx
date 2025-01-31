@@ -24,7 +24,7 @@ type Props = {
 };
 
 export type FormValues = {
-  [key: string]: any;
+  [key: string]: string | undefined;
 };
 
 type TransformedValues = {

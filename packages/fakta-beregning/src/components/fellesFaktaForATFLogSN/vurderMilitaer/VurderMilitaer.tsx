@@ -7,7 +7,7 @@ import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningAksjonspunktValues, VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
@@ -70,6 +70,6 @@ VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): Vurder
   return initialValues;
 };
 
-VurderMilitaer.transformValues = values => ({
-  vurderMilitaer: { harMilitaer: values[vurderMilitaerField] },
+VurderMilitaer.transformValues = (values: FaktaOmBeregningAksjonspunktValues) => ({
+  vurderMilitaer: { harMilitaer: !!values[vurderMilitaerField] },
 });

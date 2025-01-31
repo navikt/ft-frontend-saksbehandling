@@ -5,15 +5,19 @@ import {
 } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
 import { lonnsendringField } from './LonnsendringForm';
 
-const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+const emptyValues = {
+  erTilVurdering: true,
+  periode: { fom: '2022-01-01', tom: '2022-02-01' },
+} as FaktaOmBeregningAksjonspunktValues;
 
 describe('<ArbeidUtenInntektsmelding>', () => {
   it('skal ikke transform values uten tilfelle', () => {
-    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000 }];
+    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
@@ -121,8 +125,8 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: true,
-    };
-    const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1 }];
+    } as FaktaOmBeregningAksjonspunktValues;
+    const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
@@ -159,7 +163,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: false,
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const inntektVerdier: InntektTransformed[] = [{ andelsnr: 1 } as InntektTransformed];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
@@ -194,6 +198,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           andelsnr: 1,
           arbeidsgiverId: '2134567',
           arbeidsforholdId: undefined,
+          inntektskategori: 'ARBEIDSTAKER',
         },
       ];
       const faktaOmBeregning = {

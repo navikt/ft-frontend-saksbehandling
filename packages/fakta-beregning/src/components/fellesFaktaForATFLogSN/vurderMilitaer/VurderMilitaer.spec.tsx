@@ -1,8 +1,9 @@
 import { FaktaOmBeregning } from '@navikt/ft-types';
 
+import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { VurderMilitaer, vurderMilitaerField } from './VurderMilitaer';
 
-const mockBGMedStatus = mili => ({
+const mockBGMedStatus = (mili: boolean) => ({
   vurderMilitaer: {
     harMilitaer: mili,
   },
@@ -11,7 +12,7 @@ const mockBGMedStatus = mili => ({
 describe('<VurderMilitaer>', () => {
   it('Skal teste at buildInitialvalues bygges korrekt når vi ikke har satt verdi i fakta om beregning', () => {
     const faktaBg = {
-      vurderMilitaer: null,
+      vurderMilitaer: undefined,
     };
     const acutalValues = VurderMilitaer.buildInitialValues(faktaBg as FaktaOmBeregning);
     expect(acutalValues).toEqual({});
@@ -35,8 +36,8 @@ describe('<VurderMilitaer>', () => {
 
   it('Skal teste at transformValues bygger korrekt objekt gitt at vurderMilitaerField er true', () => {
     const values = {
-      [vurderMilitaerField]: true,
-    };
+      vurderMilitær: true,
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformedValues = VurderMilitaer.transformValues(values);
     const expectedValues = {
       vurderMilitaer: {
@@ -48,8 +49,8 @@ describe('<VurderMilitaer>', () => {
 
   it('Skal teste at transformValues bygger korrekt objekt gitt at vurderMilitaerField er false', () => {
     const values = {
-      [vurderMilitaerField]: false,
-    };
+      vurderMilitær: false,
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformedValues = VurderMilitaer.transformValues(values);
     const expectedValues = {
       vurderMilitaer: {

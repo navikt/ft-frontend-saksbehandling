@@ -4,14 +4,31 @@ import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import {
+  FaktaBeregningTransformedValues,
+  FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
+} from '../../../../typer/interface/BeregningFaktaAP';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './AvsluttetArbeidsforhold';
 import { harFieldKunstigArbeidsforhold } from './KunstigArbeidsforhold';
 import { harFieldLønnsendring } from './LonnsendringForm';
 
+const krevAndelsnr = (andelsnr: number | undefined): number => {
+  if (!andelsnr) {
+    throw new Error('Mangler andelsnr på arbeid uten inntektsmelding, ugyldig tilstand');
+  }
+  return andelsnr;
+};
+
+const krevInntektskategori = (inntektskategori: string | undefined): string => {
+  if (!inntektskategori) {
+    throw new Error('Mangler inntektskategori på arbeid uten inntektsmelding, ugyldig tilstand');
+  }
+  return inntektskategori;
+};
+
 export const transformValuesArbeidUtenInntektsmelding = (
   values: FaktaOmBeregningAksjonspunktValues,
-  inntektVerdier: InntektTransformed[],
+  inntektVerdier: InntektTransformed[] | null,
   faktaOmBeregning: FaktaOmBeregning,
   bg: Beregningsgrunnlag,
   fastsatteAndelsnr: number[],
@@ -30,7 +47,7 @@ export const transformValuesArbeidUtenInntektsmelding = (
     return {};
   }
   const arbeidUtenInntektsmelding = inntektVerdier
-    .filter(field => !fastsatteAndelsnr.includes(field.andelsnr))
+    .filter(field => field.andelsnr && !fastsatteAndelsnr.includes(field.andelsnr))
     .filter(
       field =>
         erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse(field, bg, field.arbeidsforholdId) ||
@@ -38,12 +55,13 @@ export const transformValuesArbeidUtenInntektsmelding = (
         harFieldLønnsendring(field, faktaOmBeregning, values),
     );
 
-  arbeidUtenInntektsmelding.forEach(field => fastsatteAndelsnr.push(field.andelsnr));
-  const fastsattInntekt = arbeidUtenInntektsmelding.map(field => ({
-    andelsnr: field.andelsnr,
-    fastsattBeløp: removeSpacesFromNumber(field.fastsattBelop),
-    inntektskategori: field.inntektskategori,
-  }));
+  arbeidUtenInntektsmelding.forEach(field => fastsatteAndelsnr.push(krevAndelsnr(field.andelsnr)));
+  const fastsattInntekt: FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues[] =
+    arbeidUtenInntektsmelding.map(field => ({
+      andelsnr: krevAndelsnr(field.andelsnr),
+      fastsattBeløp: removeSpacesFromNumber(field.fastsattBelop),
+      inntektskategori: krevInntektskategori(field.inntektskategori),
+    }));
   if (fastsattInntekt.length > 0) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING],

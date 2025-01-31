@@ -63,7 +63,7 @@ export const InntektInputFields = ({
     const erBesteberegning = getValues([
       `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
     ]).includes(true);
-    const harFrilansandel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+    const harFrilansandel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
       andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
     );
 
@@ -71,7 +71,7 @@ export const InntektInputFields = ({
   };
 
   const skalRedigereSelvstendigNæringsgivendeInntekt = () => {
-    const harSelvstendigNæringsgivendeAndel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+    const harSelvstendigNæringsgivendeAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
       andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
     );
 
@@ -83,7 +83,7 @@ export const InntektInputFields = ({
   };
 
   const skalRedigereMilitærEllerSivilInntekt = () => {
-    const harMilitærEllerSivilAndel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+    const harMilitærEllerSivilAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
       andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL,
     );
 
@@ -103,7 +103,7 @@ export const InntektInputFields = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]).includes(true);
 
-  const { arbeidstakerOgFrilanserISammeOrganisasjonListe } = beregningsgrunnlag.faktaOmBeregning;
+  const atflSammeOrgListe = beregningsgrunnlag.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe;
 
   /**
    * Henter ut alle arbeidstakerandelene som mangler inntektsmelding
@@ -121,7 +121,7 @@ export const InntektInputFields = ({
    * Henter ut alle arbeidstakerandelene som med inntekt
    *
    */
-  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning
+  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning
     .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
     ?.filter(andel =>
       getKanRedigereInntekt(
@@ -139,13 +139,13 @@ export const InntektInputFields = ({
    */
   const atflOgSammeOrgArbeidsgivere = (
     erATFLSammeOrg(tilfeller) && skalRedigereArbeidsinntekt
-      ? arbeidstakerOgFrilanserISammeOrganisasjonListe?.filter(
+      ? atflSammeOrgListe?.filter(
           atflSammeOrg =>
             !andelerMedArbeidsinntekt?.find(
-              andel => andel.arbeidsforhold.arbeidsgiverIdent === atflSammeOrg.arbeidsforhold.arbeidsgiverIdent,
+              andel => andel.arbeidsforhold?.arbeidsgiverIdent === atflSammeOrg.arbeidsforhold?.arbeidsgiverIdent,
             ),
         )
-      : arbeidstakerOgFrilanserISammeOrganisasjonListe
+      : atflSammeOrgListe
   )?.filter(andel =>
     getKanRedigereInntekt(
       formValues,
@@ -173,7 +173,9 @@ export const InntektInputFields = ({
    *
    */
   const getArbeidsinntektInputLabel = (andel: AndelForFaktaOmBeregning) => {
-    const arbeidsgiverNavn = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn;
+    const arbeidsgiverNavn = andel.arbeidsforhold?.arbeidsgiverIdent
+      ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn
+      : undefined;
     if (
       getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`) &&
       skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1
@@ -183,7 +185,7 @@ export const InntektInputFields = ({
           <FormattedMessage
             id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{
-              bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold.arbeidsgiverIdent})`,
+              bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold?.arbeidsgiverIdent})`,
             }}
           />
           <ReadMore
@@ -209,7 +211,7 @@ export const InntektInputFields = ({
       <FormattedMessage
         id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
         values={{
-          bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold.arbeidsgiverIdent})`,
+          bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold?.arbeidsgiverIdent})`,
         }}
       />
     );
@@ -323,7 +325,7 @@ export const InntektInputFields = ({
           </ReadMore>
           {atflOgSammeOrgArbeidsgivere?.map(arbeidsgiver => (
             <ArbeidsinntektInput
-              key={arbeidsgiver.arbeidsforhold.arbeidsgiverIdent}
+              key={arbeidsgiver.arbeidsforhold?.arbeidsgiverIdent}
               arbeidsgiver={arbeidsgiver}
               readOnly={readOnly}
               isAksjonspunktClosed={isAksjonspunktClosed}
@@ -345,15 +347,15 @@ export const InntektInputFields = ({
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
         ? andelerMedArbeidsinntekt
-            .filter(andel => {
+            ?.filter(andel => {
               if (skalRedigereEtterlønnSluttpakke && !skalRedigereArbeidsinntekt) {
-                return andel.arbeidsforhold.arbeidsforholdType === OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE;
+                return andel.arbeidsforhold?.arbeidsforholdType === OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE;
               }
               return true;
             })
             .map(andel => (
               <ArbeidsinntektInput
-                key={andel.arbeidsforhold.arbeidsgiverIdent}
+                key={andel.arbeidsforhold?.arbeidsgiverIdent}
                 arbeidsgiver={andel}
                 readOnly={readOnly}
                 isAksjonspunktClosed={isAksjonspunktClosed}
@@ -363,7 +365,7 @@ export const InntektInputFields = ({
             ))
         : arbeidstakerAndelerUtenIM?.map(andel => (
             <ArbeidsinntektInput
-              key={andel.arbeidsforhold.arbeidsgiverIdent}
+              key={andel.arbeidsforhold?.arbeidsgiverIdent}
               arbeidsgiver={andel}
               readOnly={readOnly}
               isAksjonspunktClosed={isAksjonspunktClosed}
