@@ -110,12 +110,15 @@ export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
 
 // Nyoppstartet frilanser
-const erNyoppstartetFrilanser = (field: AndelFieldIdentifikator, values: any): boolean => {
+const erNyoppstartetFrilanser = (
+  field: AndelFieldIdentifikator,
+  values: FaktaOmBeregningAksjonspunktValues,
+): boolean => {
   const val = values;
   if (!val) {
     return false;
   }
-  return erFrilanser(field) && values[erNyoppstartetFLField];
+  return erFrilanser(field) && !!values[erNyoppstartetFLField];
 };
 
 // Besteberegning
@@ -133,7 +136,7 @@ const harLonnsendringUtenInntektsmelding = (
 
 const erATUtenInntektsmeldingMedLonnsendring = (
   field: AndelFieldIdentifikator,
-  values: any,
+  values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
 ) => erArbeidstaker(field) && harLonnsendringUtenInntektsmelding(values, field, faktaOmBeregning);
 
@@ -167,9 +170,12 @@ const sokerMottarYtelseForAndel = (
 };
 
 // Etterlønn / sluttpakke
-const andelErEtterlønnSluttpakkeOgSkalFastsettes = (andel: AndelFieldIdentifikator, values: any): boolean => {
+const andelErEtterlønnSluttpakkeOgSkalFastsettes = (
+  andel: AndelFieldIdentifikator,
+  values: FaktaOmBeregningAksjonspunktValues,
+): boolean => {
   if (andel.arbeidsforholdType && andel.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE) {
-    return values[harEtterlonnSluttpakkeField];
+    return !!values[harEtterlonnSluttpakkeField];
   }
   return false;
 };

@@ -46,8 +46,9 @@ export const KunYtelseBesteberegning = ({
 }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const formValues: any = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
-  const erBesteberegning = formValues[besteberegningField];
+  const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
+
+  const erBesteberegning = besteberegningField in formValues ? formValues[besteberegningField] : undefined;
   const intl = useIntl();
   return (
     <div>
@@ -107,4 +108,5 @@ KunYtelseBesteberegning.buildInitialValues = (kunYtelse: KunYtelse): VurderBeste
   [besteberegningField]: kunYtelse.erBesteberegning,
 });
 
-KunYtelseBesteberegning.transformValues = (values: any): boolean => values[besteberegningField];
+KunYtelseBesteberegning.transformValues = (values: VurderBesteberegningMedKunYtelseValues): boolean =>
+  !!values[besteberegningField];

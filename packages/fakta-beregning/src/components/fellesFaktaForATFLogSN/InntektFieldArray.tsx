@@ -189,7 +189,7 @@ const fjernEllerLeggTilMilitær = (
   );
 };
 
-const validateEnFastsattVedOverstyring = (values: AndelFieldValue[], intl: IntlShape): any => {
+const validateEnFastsattVedOverstyring = (values: AndelFieldValue[], intl: IntlShape): string | null => {
   const minstEnFastsattFeilmelding = validateMinstEnFastsatt(values, intl);
   if (minstEnFastsattFeilmelding != null) {
     return minstEnFastsattFeilmelding;
@@ -315,7 +315,7 @@ export const InntektFieldArray = ({
 
   const feilmelding = validate(formValues, inntektFieldArrayErrors, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
-  const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
+  const errorMessage = useCustomValidation(skjemaNavn, feilmelding ?? undefined);
   const faktaOmBeregning = beregningsgrunnlag.faktaOmBeregning;
   if (!faktaOmBeregning) {
     return null;

@@ -65,7 +65,7 @@ type Props = {
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
-  removeAndel: (...args: any[]) => any;
+  removeAndel: () => void;
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;

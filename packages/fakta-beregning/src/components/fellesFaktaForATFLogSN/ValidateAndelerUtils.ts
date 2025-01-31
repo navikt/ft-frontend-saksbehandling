@@ -55,7 +55,10 @@ const erAndelerLike = (andel1: SortedAndelInfo, andel2: SortedAndelInfo): boolea
 
 export const validateUlikeAndelerWithGroupingFunction = (
   andelList: BrukersAndelValues[] | AndelFieldValue[],
-  mapToSort: (andel: any, andelList: BrukersAndelValues[] | AndelFieldValue[]) => SortedAndelInfo,
+  mapToSort: (
+    andel: BrukersAndelValues | AndelFieldValue,
+    andelList: BrukersAndelValues[] | AndelFieldValue[],
+  ) => SortedAndelInfo,
   intl: IntlShape,
 ): string | undefined => {
   const mappedAndeler = andelList.map(value => mapToSort(value, andelList));

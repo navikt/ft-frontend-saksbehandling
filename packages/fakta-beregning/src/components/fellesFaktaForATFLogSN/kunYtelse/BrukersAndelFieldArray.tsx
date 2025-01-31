@@ -13,6 +13,7 @@ import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
+import { AndelFieldValue } from '../../../typer/FieldValues';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
@@ -46,12 +47,16 @@ const summerFordeling = (fields: BrukersAndelValues[]): string | undefined => {
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-function skalViseSletteknapp(index: number, fields: any, readOnly: boolean) {
+function skalViseSletteknapp(
+  index: number,
+  fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
+  readOnly: boolean,
+) {
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
 
 const createAndelerTableRows = (
-  fields: FieldArrayWithId<VurderFaktaBeregningFormValues>[],
+  fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
   isAksjonspunktClosed: boolean,
   readOnly: boolean,
   inntektskategoriKoder: KodeverkMedNavn[],
@@ -144,7 +149,7 @@ type Props = {
   kodeverkSamling: KodeverkForPanel;
 };
 
-const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInfo => {
+const mapBrukesAndelToSortedObject = (value: BrukersAndelValues | AndelFieldValue): SortedAndelInfo => {
   const { andel, inntektskategori } = value;
   return { andelsinfo: andel, inntektskategori };
 };

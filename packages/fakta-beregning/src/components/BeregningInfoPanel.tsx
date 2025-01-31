@@ -31,7 +31,7 @@ type Props = {
   beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  setFormData: (data: any) => void;
+  setFormData: (data: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues) => void;
   formData?: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
   skalKunneAvbryteOverstyring: boolean;
 };

@@ -29,6 +29,7 @@ import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregn
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
 import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
 import { Vilkår, Vilkårperiode } from './typer/Vilkår';
+import { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
 
 import styles from './beregningFaktaIndex.module.css';
 
@@ -416,7 +417,8 @@ export const BeregningFaktaIndex = ({
   setFormData,
   vilkar,
   skalKunneAvbryteOverstyring = false,
-}: OwnProps & StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues>) => {
+}: OwnProps &
+  StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues>) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
   const vilkårsperioder = vilkar?.perioder;
   useEffect(() => {
