@@ -100,7 +100,7 @@ const getFaktaPanels = ({
   faktaPanels.push(
     <React.Fragment key="VurderOgFastsettATFL">
       {spacer(true)}
-      {/* @ts-ignore */}
+      {/* @ts-expect-error */}
       <VurderOgFastsettATFL
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}

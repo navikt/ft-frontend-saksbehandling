@@ -171,7 +171,7 @@ export const AvklareAktiviteterField = ({
       setErOverstyrtKnappTrykket(false);
     }
     resetField(`avklarAktiviteterForm.${fieldId}`, { keepDirty: false });
-    /* @ts-ignore */
+    /* @ts-expect-error */
     resetField(`vurderAktiviteterSkjema.${fieldId}`, { keepDirty: false });
     updateOverstyring(fieldId, skalOverstyre);
   };

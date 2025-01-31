@@ -22,7 +22,7 @@ export const setFaktaPanelForKunYtelse = (
   if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
     faktaPanels.push(
       <React.Fragment key="FASTSETT_BG_KUN_YTELSE">
-        {/* @ts-ignore TODO Denne bør fiksast */}
+        {/* @ts-expect-error TODO Denne bør fiksast */}
         <KunYtelsePanel
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
