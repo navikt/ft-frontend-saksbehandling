@@ -5,7 +5,7 @@ import { StoryFn } from '@storybook/react';
 import { Autocomplete } from './Autocomplete';
 
 export default {
-  title: 'Autocomplete',
+  title: 'plattform-komponenter/Autocomplete',
   component: Autocomplete,
 };
 

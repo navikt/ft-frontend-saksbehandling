@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { TitleWithUnderline } from './TitleWithUnderline';
 
 const meta = {
-  title: 'Title with underline',
+  title: 'plattform-komponenter/Title with underline',
   component: TitleWithUnderline,
 } satisfies Meta<typeof TitleWithUnderline>;
 

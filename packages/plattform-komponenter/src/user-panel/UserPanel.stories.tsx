@@ -6,7 +6,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { UserPanel } from './UserPanel';
 
 const meta = {
-  title: 'UserPanel',
+  title: 'plattform-komponenter/UserPanel',
   component: UserPanel,
   args: {
     onClick: action('button-click'),

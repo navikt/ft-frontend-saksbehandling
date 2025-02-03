@@ -11,7 +11,7 @@ const withIntl = getIntlDecorator({
 });
 
 const meta = {
-  title: 'DateLabel',
+  title: 'ui-komponenter/DateLabel',
   component: DateLabel,
   decorators: [withIntl],
 } satisfies Meta<typeof DateLabel>;

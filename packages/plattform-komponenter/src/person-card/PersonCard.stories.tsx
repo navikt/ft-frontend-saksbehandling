@@ -5,7 +5,7 @@ import { EmptyPersonCard } from './EmptyPersonCard';
 import { Gender, PersonCard } from './PersonCard';
 
 const meta = {
-  title: 'Person card',
+  title: 'plattform-komponenter/Person card',
   component: PersonCard,
   args: {
     name: 'Ekstremt Langt Navn Navnesen For Å Teste Hva Som Skjer Med Brytningen',

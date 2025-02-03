@@ -4,6 +4,7 @@ import { rhfDecorator } from '../../.storybook/decorators';
 import { TextAreaField } from './TextAreaField';
 
 const meta = {
+  title: 'form-hooks/TextAreaField',
   component: TextAreaField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testTextAreaFieldPre: 'Dette er en begrunnelse' }),

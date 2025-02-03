@@ -4,7 +4,7 @@ import { DetailView } from '../detail-view/DetailView';
 import { NavigationWithDetailView } from './NavigationWithDetailView';
 
 const meta = {
-  title: 'Navigation with detail',
+  title: 'plattform-komponenter/Navigation with detail',
   component: NavigationWithDetailView,
 } satisfies Meta<typeof NavigationWithDetailView>;
 
