@@ -1,142 +1,177 @@
-
-  <!DOCTYPE html>
-  <html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Storybook - FT-FRONTEND-SAKSBEHANDLING</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="monorepo-index.css">
+
+    <title>@storybook/core - Storybook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    
+    <style>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-regular.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-italic.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold-italic.woff2') format('woff2');
+      }
+    </style>
+
+    <link href="./sb-manager/runtime.js" rel="modulepreload" />
+
+    
+    <link href="./sb-addons/storybook-core-core-server-presets-0/common-manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/links-1/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-controls-2/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-actions-3/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-docs-4/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-backgrounds-5/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-viewport-6/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-toolbars-7/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-measure-8/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/essentials-outline-9/manager-bundle.js" rel="modulepreload" />
+       
+
+    <style>
+      #storybook-root[hidden] {
+        display: none !important;
+      }
+    </style>
+
+    
   </head>
   <body>
-    <h1 class="main-header">Storybook for FT-FRONTEND-SAKSBEHANDLING</h1>
-    <h2 class="header">Faktapaneler:</h3>
-    <div class="grid-container">
+    <div id="root"></div>
+
+    
+    <script>
       
-  <div class="box">
-    <a href="@navikt/ft-fakta-tilbakekreving-feilutbetaling/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-fakta-tilbakekreving-feilutbetaling
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode
-    </div>
-  </div>
-
-  <div class="box">
-    <a href="@navikt/ft-fakta-fordel-beregningsgrunnlag/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-fakta-fordel-beregningsgrunnlag
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Fordeling av foreslått beregningsgrunnlag og fastsetting av refusjon
-    </div>
-  </div>
-
-  <div class="box">
-    <a href="@navikt/ft-fakta-beregning/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-fakta-beregning
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget
-    </div>
-  </div>
-
-    </div>
-    <br />
-    <h2 class="header">Prosesspaneler:</h3>
-    <div class="grid-container">
+        
+          window['FEATURES'] = {
+  "argTypeTargetsV7": true,
+  "legacyDecoratorFileOrder": false,
+  "disallowImplicitActionsInRenderV8": true
+};
+        
       
-  <div class="box">
-    <a href="@navikt/ft-prosess-tilbakekreving-vedtak/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-prosess-tilbakekreving-vedtak
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Vedtaksbilde hvor saksbehandler ferdigstiller vedtaksbrev, med mulighet for å legge til utdypende tekst. I noen tilfeller vil utdypende tekst være obligatorisk, for eksempel ved revurderingsbehandling.
-    </div>
-  </div>
-
-  <div class="box">
-    <a href="@navikt/ft-prosess-tilbakekreving-foreldelse/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-prosess-tilbakekreving-foreldelse
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Aksjonspunktet oppstår fordi første periode med feilutbetaling er 2,5 år tilbake i tid eller mer. Saksbehandler tar stilling til om hele eller deler av perioden med feilutbetaling er foreldet. Uten aksjonspunkt: Feilutbetalt(e) periode(r) er under 2,5 år tilbake i tid
-    </div>
-  </div>
-
-  <div class="box">
-    <a href="@navikt/ft-prosess-tilbakekreving/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-prosess-tilbakekreving
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Saksbehandler vurderer om hovedvilkår for tilbakekreving er oppfylt, dvs om perioder med feilutbetaling kan kreves tilbake eller ikke, periode kan deles opp. Med to perioder: samme som over, men hvor flere perioder vurderes
-    </div>
-  </div>
-
-  <div class="box">
-    <a href="@navikt/ft-prosess-beregningsgrunnlag/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-prosess-beregningsgrunnlag
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Oversikt over ulike andeler i beregningsgrunnlaget og hva disse er fastsatt til. Aksjonspunkter relatert til avvik for arbeid, frilans og næring
-    </div>
-  </div>
-
-    </div>
-    <br />
-    <h2 class="header">Sak-paneler:</h3>
-    <div class="grid-container">
+        
+          window['REFS'] = {};
+        
       
-    </div>
-    <h2 class="header">Andre:</h3>
-    <div class="grid-container">
+        
+          window['LOGLEVEL'] = "info";
+        
       
-  <div class="box">
-    <a href="@navikt/ft-ui-komponenter/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-ui-komponenter
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Pakke som tilbyr generelle komponenter som grid og tabell
-    </div>
-  </div>
+        
+          window['DOCS_OPTIONS'] = {
+  "defaultName": "Docs",
+  "autodocs": "tag"
+};
+        
+      
+        
+          window['CONFIG_TYPE'] = "PRODUCTION";
+        
+      
+        
+      
+        
+      
+        
+          window['TAGS_OPTIONS'] = {
+  "dev-only": {
+    "excludeFromDocsStories": true
+  },
+  "docs-only": {
+    "excludeFromSidebar": true
+  },
+  "test-only": {
+    "excludeFromSidebar": true,
+    "excludeFromDocsStories": true
+  }
+};
+        
+      
+        
+          window['STORYBOOK_RENDERER'] = "react";
+        
+      
+        
+          window['STORYBOOK_BUILDER'] = "@storybook/builder-vite";
+        
+      
+        
+          window['STORYBOOK_FRAMEWORK'] = "@storybook/react-vite";
+        
+      
+    </script>
+    
 
-  <div class="box">
-    <a href="@navikt/ft-plattform-komponenter/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-plattform-komponenter
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Pakke som tilbyr sammensatte komponenter som f.eks. menyer
-    </div>
-  </div>
+    <script type="module">
+      import './sb-manager/globals-runtime.js';
+      
+      
+        import './sb-addons/storybook-core-core-server-presets-0/common-manager-bundle.js';
+      
+        import './sb-addons/links-1/manager-bundle.js';
+      
+        import './sb-addons/essentials-controls-2/manager-bundle.js';
+      
+        import './sb-addons/essentials-actions-3/manager-bundle.js';
+      
+        import './sb-addons/essentials-docs-4/manager-bundle.js';
+      
+        import './sb-addons/essentials-backgrounds-5/manager-bundle.js';
+      
+        import './sb-addons/essentials-viewport-6/manager-bundle.js';
+      
+        import './sb-addons/essentials-toolbars-7/manager-bundle.js';
+      
+        import './sb-addons/essentials-measure-8/manager-bundle.js';
+      
+        import './sb-addons/essentials-outline-9/manager-bundle.js';
+      
+      
+      import './sb-manager/runtime.js';
+    </script>
 
-  <div class="box">
-    <a href="@navikt/ft-form-hooks/index.html" class="package-row" target="blank">
-      <div class="title">
-        @navikt/ft-form-hooks
-      </div>
-    </a>
-    <div class="description">
-      Beskrivelse: Overbygg over react-hook-form. Tilbyr form-komponenter som radioknapp og textarea
-    </div>
-  </div>
-
-    </div>
+    
+    <link href="./sb-preview/runtime.js" rel="prefetch" as="script" />
+    
   </body>
-  </html>
+</html>

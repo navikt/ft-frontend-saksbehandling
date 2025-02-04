@@ -1,0 +1,17 @@
+import{g as O,a as p,r as R}from"./formUtils-CxXcBrDP.js";import{j as e}from"./jsx-runtime-CLpGMVip.js";import{r as j}from"./index-B5OHeJSP.js";import{u as w,a as F}from"./ReadOnlyIcon-3mCRcvzc.js";import{C as V}from"./Checkbox-CHErwGPi.js";import{E as M}from"./Label-ZYbyet41.js";import"./chunk-D5ZWXAHU-DlerbUHg.js";import"./v4-CtRu48qb.js";import"./VStack-BtUbcfLF.js";import"./clsx-B-dksMZM.js";import"./Theme-6IdwQf2V.js";import"./create-context-BlrHNsQj.js";import"./omit-B7stZg_p.js";import"./useId-e75EoDiw.js";import"./Button-C4dKKha_.js";import"./Loader-CoAqN6Lw.js";import"./Provider-B_QIWjIe.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./useId-B9OmVTHV.js";import"./useFormField-BKpVC0Pg.js";import"./Fieldset-Cs108nF-.js";const C=({name:o,label:D,validate:n=[],readOnly:T=!1,onChange:i,onClick:c,className:q,disabled:E})=>{const{formState:{errors:m}}=w(),{field:s}=F({name:o,rules:{validate:j.useMemo(()=>O(n),[n])}}),d=p(m,o);return e.jsxs(e.Fragment,{children:[e.jsx(V,{size:"small",disabled:E||T,checked:s.value===!0,className:q,error:!!d,...s,onChange:l=>{s.onChange(l),i&&i(l.currentTarget.checked)},onClick:()=>{c&&c()},children:D}),d&&e.jsx(M,{children:p(m,o)})]})};C.__docgenInfo={description:"",methods:[],displayName:"CheckboxField",props:{name:{required:!0,tsType:{name:"string"},description:""},label:{required:!0,tsType:{name:"union",raw:"string | ReactNode",elements:[{name:"string"},{name:"ReactNode"}]},description:""},validate:{required:!1,tsType:{name:"Array",elements:[{name:"unknown"}],raw:"((value: string) => any)[]"},description:"",defaultValue:{value:"[]",computed:!1}},readOnly:{required:!1,tsType:{name:"boolean"},description:"",defaultValue:{value:"false",computed:!1}},onChange:{required:!1,tsType:{name:"signature",type:"function",raw:"(isChecked: boolean) => void",signature:{arguments:[{type:{name:"boolean"},name:"isChecked"}],return:{name:"void"}}},description:""},onClick:{required:!1,tsType:{name:"signature",type:"function",raw:"() => void",signature:{arguments:[],return:{name:"void"}}},description:""},className:{required:!1,tsType:{name:"string"},description:""},disabled:{required:!1,tsType:{name:"boolean"},description:""}}};const re={title:"form-hooks/CheckboxField",component:C,tags:["autodocs"],decorators:R({testcheckboxpre:!0})},r={args:{label:"Dette er en checkbox",name:"testcheckbox"}},t={args:{label:"Dette er en checkbox der verdi er valgt",name:"testcheckboxpre"}},a={args:{label:"Dette er en checkbox som er readonly",name:"testcheckboxpre",readOnly:!0}};var u,g,b;r.parameters={...r.parameters,docs:{...(u=r.parameters)==null?void 0:u.docs,source:{originalSource:`{
+  args: {
+    label: 'Dette er en checkbox',
+    name: 'testcheckbox'
+  }
+}`,...(b=(g=r.parameters)==null?void 0:g.docs)==null?void 0:b.source}}};var f,h,x;t.parameters={...t.parameters,docs:{...(f=t.parameters)==null?void 0:f.docs,source:{originalSource:`{
+  args: {
+    label: 'Dette er en checkbox der verdi er valgt',
+    name: 'testcheckboxpre'
+  }
+}`,...(x=(h=t.parameters)==null?void 0:h.docs)==null?void 0:x.source}}};var k,y,v;a.parameters={...a.parameters,docs:{...(k=a.parameters)==null?void 0:k.docs,source:{originalSource:`{
+  args: {
+    label: 'Dette er en checkbox som er readonly',
+    name: 'testcheckboxpre',
+    readOnly: true
+  }
+}`,...(v=(y=a.parameters)==null?void 0:y.docs)==null?void 0:v.source}}};const te=["Default","MedVerdi","ReadOnly"];export{r as Default,t as MedVerdi,a as ReadOnly,te as __namedExportsOrder,re as default};
