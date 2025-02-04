@@ -1,41 +1,33 @@
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAvklaringsbehovCode from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
-import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
+import {
+  BesteberegningFødendeKvinneAndelTransformedValues,
+  FaktaBeregningTransformedValues,
+} from '../../../typer/interface/BeregningFaktaAP';
+import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+
+import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
 
 export const besteberegningField = 'vurderbesteberegningField';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   erOverstyrt: boolean;
 };
-
-interface StaticFunctions {
-  buildInitialValues: (
-    avklaringsbehov: BeregningAvklaringsbehov[],
-    vurderBesteberegning: VurderBesteberegning | undefined,
-    faktaOmBeregningTilfeller: string[],
-    erOverstyrt: boolean,
-  ) => VurderBesteberegningValues;
-  transformValues: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    faktaOmBeregning: FaktaOmBeregning,
-    inntektPrAndel: InntektTransformed[],
-  ) => FaktaBeregningTransformedValues;
-}
 
 /**
  * VurderBesteberegningPanel
@@ -44,7 +36,7 @@ interface StaticFunctions {
  *  med vurdering av besteberegning.
  */
 
-const VurderBesteberegningPanel: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly, erOverstyrt }) => {
+export const VurderBesteberegningPanel = ({ readOnly, erOverstyrt }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
@@ -109,6 +101,13 @@ VurderBesteberegningPanel.buildInitialValues = (
   };
 };
 
+const krevVerdiEllerKastFeil = (verdi: string | undefined): string => {
+  if (!verdi) {
+    throw new Error('Påkrev verdi er undefined');
+  }
+  return verdi;
+};
+
 VurderBesteberegningPanel.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
@@ -125,15 +124,15 @@ VurderBesteberegningPanel.transformValues = (
       },
     };
   }
-  const transformedValues = inntektPrAndel
+  const transformedValues: BesteberegningFødendeKvinneAndelTransformedValues[] = inntektPrAndel
     .filter(({ nyAndel }) => nyAndel !== true)
     .map(verdi => ({
       andelsnr: verdi.andelsnr,
-      nyAndel: verdi.nyAndel,
-      lagtTilAvSaksbehandler: verdi.lagtTilAvSaksbehandler,
+      nyAndel: !!verdi.nyAndel,
+      lagtTilAvSaksbehandler: !!verdi.lagtTilAvSaksbehandler,
       fastsatteVerdier: {
         fastsattBeløp: verdi.fastsattBelop,
-        inntektskategori: verdi.inntektskategori,
+        inntektskategori: krevVerdiEllerKastFeil(verdi.inntektskategori),
       },
     }));
   const nyDagpengeAndel = inntektPrAndel.find(a => a.nyAndel && a.aktivitetStatus === AktivitetStatus.DAGPENGER);
@@ -144,10 +143,10 @@ VurderBesteberegningPanel.transformValues = (
         ? {
             fastsatteVerdier: {
               fastsattBeløp: nyDagpengeAndel.fastsattBelop,
-              inntektskategori: nyDagpengeAndel.inntektskategori,
+              inntektskategori: krevVerdiEllerKastFeil(nyDagpengeAndel.inntektskategori),
             },
           }
-        : null,
+        : undefined,
     },
   };
 };
@@ -169,7 +168,10 @@ export const vurderBesteberegningTransform =
     }
     const besteberegningValues = VurderBesteberegningPanel.transformValues(values, faktaOmBeregning, inntektPrAndel);
     const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
-    if (besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0) {
+    if (
+      besteberegningValues.besteberegningAndeler?.besteberegningAndelListe &&
+      besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0
+    ) {
       faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
     }
     return {
@@ -177,5 +179,3 @@ export const vurderBesteberegningTransform =
       ...besteberegningValues,
     };
   };
-
-export default VurderBesteberegningPanel;

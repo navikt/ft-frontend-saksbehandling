@@ -1,15 +1,19 @@
-import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
-import LabelledContentComponent from './LabelledContent';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
+import { LabelledContent } from './LabelledContent';
+
+const meta = {
   title: 'Labelled content',
-  component: LabelledContentComponent,
+  component: LabelledContent,
+} satisfies Meta<typeof LabelledContent>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    label: 'Label',
+    content: 'Content',
+  },
 };
-
-const Template: StoryFn<ComponentProps<typeof LabelledContentComponent>> = () => (
-  <LabelledContentComponent label="Label" content="Content" />
-);
-
-export const LabelledContent = Template.bind({});
-LabelledContent.args = {};

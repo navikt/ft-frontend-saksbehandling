@@ -1,6 +1,6 @@
 import { initializeDate, isSameOrBefore, isValidDate, prettifyDateString } from './dateUtils';
 
-class Period {
+export class Period {
   fom: string;
 
   tom: string;
@@ -86,5 +86,3 @@ class Period {
     };
   }
 }
-
-export default Period;

@@ -1,16 +1,14 @@
-import React, { FunctionComponent } from 'react';
-
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+
 import {
   NyIArbeidslivetruttoNæringResultatAP,
   VurderVarigEndretNyoppstartetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-
-import FastsettSNNyIArbeid from './FastsettSNNyIArbeid';
-import VurderVarigEndringEllerNyoppstartet from './VurderVarigEndringEllerNyoppstartet';
-import { NyIArbeidslivetValues, VurderOgFastsettValues } from '../../types/NaringAksjonspunktTsType';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { NyIArbeidslivetValues, VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import { FastsettSNNyIArbeid } from './FastsettSNNyIArbeid';
+import { VurderVarigEndringEllerNyoppstartet } from './VurderVarigEndringEllerNyoppstartet';
 
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
@@ -27,7 +25,7 @@ const skalFastsette = (ap: BeregningAvklaringsbehov): boolean =>
     ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET ||
     ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON);
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov;
   erNyArbLivet?: boolean;
@@ -37,18 +35,7 @@ type OwnProps = {
   formName: string;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (
-    relevanteAndeler: BeregningsgrunnlagAndel[],
-    avklaringsbehov: BeregningAvklaringsbehov[],
-  ) => VurderOgFastsettValues | NyIArbeidslivetValues;
-  transformValues: (
-    values: VurderOgFastsettValues | NyIArbeidslivetValues,
-    gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
-  ) => VurderVarigEndretNyoppstartetResultatAP | NyIArbeidslivetruttoNæringResultatAP;
-}
-
-const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
   readOnly,
   avklaringsbehov,
   erNyArbLivet = false,
@@ -56,7 +43,7 @@ const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv: FunctionComponent<OwnProp
   erNyoppstartet = false,
   fieldIndex,
   formName,
-}) => {
+}: Props) => {
   if (!skalFastsette(avklaringsbehov)) {
     return null;
   }
@@ -108,5 +95,3 @@ AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues = (
   }
   return VurderVarigEndringEllerNyoppstartet.transformValues(values as Required<VurderOgFastsettValues>);
 };
-
-export default AksjonspunktsbehandlerSNEllerMidlertidigInaktiv;

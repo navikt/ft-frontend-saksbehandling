@@ -1,11 +1,10 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
 interface GreenCheckIconProps {
   size?: number;
 }
 
-const GreenCheckIcon = ({ size }: GreenCheckIconProps) => (
+export const GreenCheckIcon = ({ size }: GreenCheckIconProps) => (
   <Icon size={size || 24}>
     <path
       fillRule="evenodd"
@@ -16,5 +15,3 @@ const GreenCheckIcon = ({ size }: GreenCheckIconProps) => (
     />
   </Icon>
 );
-
-export default GreenCheckIcon;

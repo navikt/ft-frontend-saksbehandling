@@ -1,15 +1,14 @@
-import React, { FunctionComponent } from 'react';
-import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BodyShort } from '@navikt/ds-react';
 
 import { SammenligningType } from '@navikt/ft-kodeverk';
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import RelevanteStatuserProp from '../../types/RelevanteStatuserTsType';
+import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 
-type OwnProps = {
+type Props = {
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];
   relevanteStatuser: RelevanteStatuserProp;
   erManueltBesteberegnet: boolean;
@@ -21,12 +20,12 @@ type OwnProps = {
  *
  * Panel som vises uavhengig av sammenligningsgrunnlag for å forklare hvorfor ulike statuser ikke er avviksvurdert
  */
-const SammenligningForklaringPanel: FunctionComponent<OwnProps> = ({
+export const SammenligningForklaringPanel = ({
   relevanteStatuser,
   erManueltBesteberegnet,
   erNyIArbeidslivet,
   sammenligningsgrunnlag,
-}) => {
+}: Props) => {
   if (erNyIArbeidslivet) {
     return (
       <BodyShort size="small">
@@ -98,5 +97,3 @@ const SammenligningForklaringPanel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default SammenligningForklaringPanel;

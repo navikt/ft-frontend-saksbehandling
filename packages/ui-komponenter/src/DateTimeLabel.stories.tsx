@@ -1,10 +1,11 @@
 import React from 'react';
 import { RawIntlProvider } from 'react-intl';
 
+import { Meta, StoryObj } from '@storybook/react';
+
 import { createIntl } from '@navikt/ft-utils';
 
-import DateTimeLabel from './DateTimeLabel';
-import { Meta, StoryObj } from '@storybook/react';
+import { DateTimeLabel } from './DateTimeLabel';
 
 const intl = createIntl({});
 

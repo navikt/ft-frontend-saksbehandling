@@ -1,4 +1,4 @@
-import Period from './Period';
+import { Period } from './Period';
 
 export const sortPeriodsByFomDate = (period1: Period, period2: Period): number => {
   if (period1.startsBefore(period2)) {

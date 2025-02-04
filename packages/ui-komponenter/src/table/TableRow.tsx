@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import classnames from 'classnames/bind';
 
 import styles from './tableRow.module.css';
@@ -13,7 +14,7 @@ const createMouseDownHandler =
     }
   };
 
-// @ts-ignore Fiks
+// @ts-expect-error Fiks
 const findNearestRow = (element: EventTarget<HTMLElement>) =>
   element.tagName === 'TR' ? element : findNearestRow(element.parentElement);
 
@@ -40,11 +41,11 @@ const createKeyDownHandler =
       setFocus(e, true);
     } else if (e.key === 'ArrowUp') {
       setFocus(e, false);
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
     } else if (onKeyDown && e.target.tagName !== 'TD' && (e.key === 'Enter' || e.key === ' ')) {
       onKeyDown(e, id, model);
       e.preventDefault();
-      // @ts-ignore Fiks
+      // @ts-expect-error Fiks
     } else if (useMultiselect && onKeyDown && e.target.tagName !== 'TD' && e.key === 'Shift') {
       onKeyDown(e);
       e.preventDefault();
@@ -54,7 +55,7 @@ const createKeyDownHandler =
 const createKeyUpHandler =
   <ID, MODEL>(onKeyDown?: (e: React.KeyboardEvent, id?: ID, model?: MODEL) => void) =>
   (e: React.KeyboardEvent): void => {
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     if (onKeyDown && e.target.tagName !== 'TD' && e.key === 'Shift') {
       onKeyDown(e);
       e.preventDefault();
@@ -87,7 +88,7 @@ export interface OwnProps<ID, MODEL = void> {
  *
  * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
-const TableRow = <ID, MODEL = void>({
+export const TableRow = <ID, MODEL = void>({
   id,
   model,
   isHeader = false,
@@ -126,5 +127,3 @@ const TableRow = <ID, MODEL = void>({
     {children}
   </tr>
 );
-
-export default TableRow;

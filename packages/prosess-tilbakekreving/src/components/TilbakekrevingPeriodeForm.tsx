@@ -1,31 +1,37 @@
-import React, { FunctionComponent, useCallback, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+import { BodyShort, Button, Heading, HStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import { Button, BodyShort, Heading, HStack } from '@navikt/ds-react';
 
-import { TextAreaField, SelectField, Form, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { formatCurrencyNoKr, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
+import { Form, RadioGroupPanel, SelectField, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { WarningModal, VerticalSpacer, usePrevious } from '@navikt/ft-ui-komponenter';
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn, FeilutbetalingPerioderWrapper, DetaljertFeilutbetalingPeriode } from '@navikt/ft-types';
+import { KodeverkMedNavn } from '@navikt/ft-types';
+import { usePrevious, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import sarligGrunn from '../kodeverk/sarligGrunn';
-import Aktsomhet, { AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
-import VilkarResultat from '../kodeverk/vilkarResultat';
-import TilbakekrevingAktivitetTabell from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
-import ForeldetFormPanel from './tilbakekrevingPeriodePaneler/ForeldetFormPanel';
-import BelopetMottattIGodTroFormPanel, {
-  InitialValuesGodTroForm,
-} from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
-import AktsomhetFormPanel, {
+import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
+import { SærligGrunn } from '../kodeverk/særligGrunn';
+import { VilkårResultat } from '../kodeverk/vilkarResultat';
+import { DataForPeriode } from '../types/DataForPeriode';
+import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
+import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
+import {
+  AktsomhetFormPanel,
   InitialValuesAktsomhetForm,
 } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
-import DataForPeriode from '../types/dataForPeriodeTsType';
+import { ForeldetFormPanel } from './tilbakekrevingPeriodePaneler/ForeldetFormPanel';
+import {
+  BelopetMottattIGodTroFormPanel,
+  InitialValuesGodTroForm,
+} from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
+import { TilbakekrevingAktivitetTabell } from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
+import { TotalbelopetUnder4RettsgebyrModal } from './TotalbelopetUnder4RettsgebyrModal';
 
 import styles from './tilbakekrevingPeriodeForm.module.css';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -51,10 +57,10 @@ export interface InitialValuesDetailForm {
   foreldetBegrunnelse?: string;
   vurderingBegrunnelse: string;
   harMerEnnEnYtelse: boolean;
-  [VilkarResultat.FEIL_OPPLYSNINGER]?: InitialValuesAktsomhetForm;
-  [VilkarResultat.FORSTO_BURDE_FORSTAATT]?: InitialValuesAktsomhetForm;
-  [VilkarResultat.MANGELFULL_OPPLYSNING]?: InitialValuesAktsomhetForm;
-  [VilkarResultat.GOD_TRO]?: InitialValuesGodTroForm;
+  [VilkårResultat.FEIL_OPPLYSNINGER]?: InitialValuesAktsomhetForm;
+  [VilkårResultat.FORSTO_BURDE_FORSTAATT]?: InitialValuesAktsomhetForm;
+  [VilkårResultat.MANGELFULL_OPPLYSNING]?: InitialValuesAktsomhetForm;
+  [VilkårResultat.GOD_TRO]?: InitialValuesGodTroForm;
 }
 
 export type CustomVilkarsVurdertePeriode = {
@@ -64,7 +70,7 @@ export type CustomVilkarsVurdertePeriode = {
   feilutbetaling?: number;
 } & InitialValuesDetailForm;
 
-export interface OwnProps {
+export interface Props {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
   skjulPeriode: (...args: any[]) => any;
@@ -75,7 +81,7 @@ export interface OwnProps {
   antallPerioderMedAksjonspunkt: number;
 }
 
-const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
+export const TilbakekrevingPeriodeForm = ({
   data,
   periode,
   skjulPeriode,
@@ -84,7 +90,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
   vilkarsVurdertePerioder,
   kodeverkSamlingFpTilbake,
   antallPerioderMedAksjonspunkt,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
 
@@ -104,7 +110,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
     `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`,
   );
   const erSerligGrunnAnnetValgt = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${sarligGrunn.ANNET}`,
+    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${SærligGrunn.ANNET}`,
   );
   const erBelopetIBehold = formMethods.watch(`${valgtVilkarResultatType}.erBelopetIBehold`);
 
@@ -122,11 +128,11 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
     const fomTom = event.target.value.split('_');
     const kopierDenne = vurdertePerioder.find(per => per.fom === fomTom[0] && per.tom === fomTom[1]);
     const vilkårResultatType = kopierDenne?.valgtVilkarResultatType;
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     const resultatType = kopierDenne && vilkårResultatType ? kopierDenne[vilkårResultatType] : undefined;
 
     const resultatTypeKopi = JSON.parse(JSON.stringify(resultatType));
-    if (vilkårResultatType !== VilkarResultat.GOD_TRO) {
+    if (vilkårResultatType !== VilkårResultat.GOD_TRO) {
       const { handletUaktsomhetGrad } = resultatTypeKopi;
       if (
         handletUaktsomhetGrad !== Aktsomhet.FORSETT &&
@@ -263,7 +269,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
               <Heading size="small">
                 <FormattedMessage
                   id={
-                    valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                    valgtVilkarResultatType === VilkårResultat.GOD_TRO
                       ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro'
                       : 'TilbakekrevingPeriodeForm.Aktsomhet'
                   }
@@ -274,7 +280,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                 name="vurderingBegrunnelse"
                 label={intl.formatMessage({
                   id:
-                    valgtVilkarResultatType === VilkarResultat.GOD_TRO
+                    valgtVilkarResultatType === VilkårResultat.GOD_TRO
                       ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
                       : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
                 })}
@@ -283,7 +289,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                 readOnly={readOnly}
               />
               <VerticalSpacer eightPx />
-              {valgtVilkarResultatType === VilkarResultat.GOD_TRO && (
+              {valgtVilkarResultatType === VilkårResultat.GOD_TRO && (
                 <BelopetMottattIGodTroFormPanel
                   name={valgtVilkarResultatType}
                   readOnly={readOnly}
@@ -291,7 +297,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                   feilutbetalingBelop={data.feilutbetaling}
                 />
               )}
-              {valgtVilkarResultatType !== VilkarResultat.GOD_TRO && (
+              {valgtVilkarResultatType !== VilkårResultat.GOD_TRO && (
                 <AktsomhetFormPanel
                   key={valgtVilkarResultatType}
                   name={valgtVilkarResultatType}
@@ -301,9 +307,9 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
                   resetFields={resetUtaktsomhetsgrad}
                   erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
                   erValgtResultatTypeForstoBurdeForstaatt={
-                    valgtVilkarResultatType === VilkarResultat.FORSTO_BURDE_FORSTAATT
+                    valgtVilkarResultatType === VilkårResultat.FORSTO_BURDE_FORSTAATT
                   }
-                  // @ts-ignore Fiks
+                  // @ts-expect-error Fiks
                   aktsomhetTyper={aktsomhetTyper}
                   sarligGrunnTyper={sarligGrunnTyper}
                   antallYtelser={data.ytelser.length}
@@ -325,13 +331,7 @@ const TilbakekrevingPeriodeForm: FunctionComponent<OwnProps> = ({
           <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
         </Button>
       </HStack>
-      {showModal && (
-        <WarningModal
-          bodyText={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr' })}
-          showModal
-          submit={saveForm}
-        />
-      )}
+      {showModal && <TotalbelopetUnder4RettsgebyrModal showModal submit={saveForm} />}
     </Form>
   );
 };
@@ -364,16 +364,16 @@ export const periodeFormBuildInitialValues = (
   };
 
   const godTroData =
-    vilkarResultatKode === VilkarResultat.GOD_TRO
+    vilkarResultatKode === VilkårResultat.GOD_TRO
       ? BelopetMottattIGodTroFormPanel.buildIntialValues(vilkarResultatInfo)
       : {};
   const annetData =
-    vilkarResultatKode !== undefined && vilkarResultatKode !== VilkarResultat.GOD_TRO
+    vilkarResultatKode !== undefined && vilkarResultatKode !== VilkårResultat.GOD_TRO
       ? AktsomhetFormPanel.buildInitalValues(vilkarResultatInfo)
       : {};
   return {
     ...initialValues,
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     vurderingBegrunnelse: vilkarResultatInfo ? decodeHtmlEntity(vilkarResultatInfo.begrunnelse) : undefined,
     [initialValues.valgtVilkarResultatType]: {
       ...godTroData,
@@ -387,15 +387,15 @@ export const periodeFormTransformValues = (
   sarligGrunnTyper: KodeverkMedNavn[],
 ) => {
   const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
-  // @ts-ignore Fiks
+  // @ts-expect-error Fiks
   const info = values[valgtVilkarResultatType];
 
   const godTroData =
-    valgtVilkarResultatType === VilkarResultat.GOD_TRO
+    valgtVilkarResultatType === VilkårResultat.GOD_TRO
       ? BelopetMottattIGodTroFormPanel.transformValues(info, vurderingBegrunnelse)
       : {};
   const annetData =
-    valgtVilkarResultatType !== VilkarResultat.GOD_TRO
+    valgtVilkarResultatType !== VilkårResultat.GOD_TRO
       ? AktsomhetFormPanel.transformValues(info, sarligGrunnTyper, vurderingBegrunnelse)
       : {};
 
@@ -410,5 +410,3 @@ export const periodeFormTransformValues = (
     },
   };
 };
-
-export default TilbakekrevingPeriodeForm;

@@ -1,12 +1,12 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { UseFormReturn, useFormContext } from 'react-hook-form';
+import React, { ReactElement } from 'react';
+import { useFormContext, UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import dayjs from 'dayjs';
-import { BodyShort, Detail } from '@navikt/ds-react';
 
-import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import { maxValueFormatted, required } from '@navikt/ft-form-validators';
+import { BodyShort, Detail } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { InputField } from '@navikt/ft-form-hooks';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -14,22 +14,23 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import {
-  TidsbegrensetArbeidsforholdInntektResultat,
-  TidsbegrensetArbeidsforholdPeriodeResultat,
-} from '../../types/interface/BeregningsgrunnlagAP';
+import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import {
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
-} from '../../types/ATFLAksjonspunktTsType';
+} from '../../types/ATFLAksjonspunkt';
+import { BeregningFormValues } from '../../types/BeregningFormValues';
+import {
+  TidsbegrensetArbeidsforholdInntektResultat,
+  TidsbegrensetArbeidsforholdPeriodeResultat,
+} from '../../types/interface/BeregningsgrunnlagAP';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-import BeregningFormValues from '../../types/BeregningFormValues';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const formPrefix = 'inntektField';
 
@@ -290,14 +291,6 @@ const createRows = (
   return rows;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (allePerioder: BeregningsgrunnlagPeriodeProp[]) => TidsbegrenseArbeidsforholdValues;
-  transformValues: (
-    values: TidsbegrenseArbeidsforholdValues,
-    perioder: BeregningsgrunnlagPeriodeProp[],
-  ) => TidsbegrensetArbeidsforholdPeriodeResultat[];
-}
-
 type BruttoPrPeriode = {
   brutto: number;
   periodeFom: string;
@@ -332,7 +325,7 @@ const lagBruttoPrPeriodeListe = (
   return bruttoPrPeriodeList;
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
@@ -342,7 +335,7 @@ type OwnProps = {
   skalValideres: boolean;
 };
 
-const AksjonspunktBehandlerTidsbegrenset: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const AksjonspunktBehandlerTidsbegrenset = ({
   readOnly,
   allePerioder,
   kodeverkSamling,
@@ -439,5 +432,3 @@ AksjonspunktBehandlerTidsbegrenset.transformValues = (
   });
   return respons;
 };
-
-export default AksjonspunktBehandlerTidsbegrenset;

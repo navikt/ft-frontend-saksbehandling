@@ -1,14 +1,19 @@
-import React, { FunctionComponent, useMemo } from 'react';
-import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel, Vilkarperiode } from '@navikt/ft-types';
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-kodeverk';
-import { Heading } from '@navikt/ds-react';
+import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import { Heading } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
+import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { TabellRadData, TabellData, TabellMap } from '../../types/BeregningsresultatTabellType';
-import OppsummertGrunnlagPanel from './OppsummertGrunnlagPanel';
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+
+import { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { Vilkårperiode } from '../../types/Vilkår';
+import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [
@@ -157,12 +162,12 @@ const utledTabellData = (beregningsgrunnlag: Beregningsgrunnlag): TabellData[] =
   return tabellData;
 };
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
-  vilkårsperiode: Vilkarperiode;
+  vilkårsperiode: Vilkårperiode;
 };
 
-const BeregningsresultatPanel: FunctionComponent<OwnProps> = ({ beregningsgrunnlag, vilkårsperiode }) => {
+export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }: Props) => {
   const tabellData = useMemo(() => utledTabellData(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalVisePeriodePrTabell = tabellData.length > 1;
   return (
@@ -185,5 +190,3 @@ const BeregningsresultatPanel: FunctionComponent<OwnProps> = ({ beregningsgrunnl
     </div>
   );
 };
-
-export default BeregningsresultatPanel;

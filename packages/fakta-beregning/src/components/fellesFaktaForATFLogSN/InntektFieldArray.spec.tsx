@@ -1,7 +1,7 @@
 import { AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
-import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
+
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { InntektFieldArray, leggTilDagpengerOmBesteberegning } from './InntektFieldArray';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const kodeverkSamling = {
   [KodeverkType.AKTIVITET_STATUS]: [
@@ -38,34 +38,16 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-const andelField = {
-  nyAndel: false,
-  andel: 'Sopra Steria AS (233647823)',
-  andelsnr: 1,
-  fastsattBelop: '0',
-  lagtTilAvSaksbehandler: false,
-  inntektskategori: 'ARBEIDSTAKER',
-  arbeidsgiverIdent: '233647823',
-  arbeidsperiodeFom: '01.01.2018',
-  arbeidsperiodeTom: null,
-  refusjonskrav: '10 000',
-};
-
 describe('<InntektFieldArray>', () => {
-  const initial = {
-    fieldArrayName: null,
-  };
-  initial.fieldArrayName = [andelField];
-  initial[besteberegningField] = true;
-
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
     const newfields = [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false }];
+    const rm = (index: number) => newfields.splice(index, 1);
     leggTilDagpengerOmBesteberegning(
       newfields as any,
       false,
       kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
       false,
-      (index: number) => newfields.splice(index, 1),
+      rm as any,
       (values: any) => newfields.push(values),
     );
     expect(newfields.length).toBe(1);

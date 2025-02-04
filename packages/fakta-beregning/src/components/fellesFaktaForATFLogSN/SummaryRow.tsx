@@ -1,12 +1,15 @@
-import { Label, Table } from '@navikt/ds-react';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+
+import { Label, Table } from '@navikt/ds-react';
+
+import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
-import AndelFieldValue from '../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
+import { AndelFieldValue } from '../../typer/FieldValues';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
   erDagpenger,
@@ -18,6 +21,7 @@ import {
   getKanRedigereInntekt,
 } from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+
 import styles from './inntektFieldArray.module.css';
 
 const summerBeregnet = (
@@ -44,7 +48,8 @@ const summerBeregnet = (
         belop = formValues.frilansInntektValues.fastsattBelop;
       } else if (
         erArbeidstakerInntekt &&
-        formValues?.arbeidstakerInntektValues[
+        field.arbeidsgiverId &&
+        formValues?.arbeidstakerInntektValues?.[
           getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
         ]?.fastsattBelop
       ) {
@@ -75,19 +80,14 @@ const summerBeregnet = (
   return sum > 0 ? sum : 0;
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const SummaryRow: FunctionComponent<OwnProps> = ({
-  skalVisePeriode,
-  skalViseRefusjon,
-  readOnly,
-  beregningsgrunnlag,
-}) => {
+export const SummaryRow = ({ skalVisePeriode, skalViseRefusjon, readOnly, beregningsgrunnlag }: Props) => {
   const { control, getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
@@ -96,7 +96,7 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
     name: `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`,
   });
 
-  const sumBeregnet = summerBeregnet(fields, formValues, beregningsgrunnlag) || 0;
+  const sumBeregnet = fields ? summerBeregnet(fields, formValues, beregningsgrunnlag) : 0;
 
   return (
     <Table.Row>
@@ -118,4 +118,3 @@ const SummaryRow: FunctionComponent<OwnProps> = ({
     </Table.Row>
   );
 };
-export default SummaryRow;

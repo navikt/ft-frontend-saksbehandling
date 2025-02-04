@@ -1,4 +1,4 @@
-export { default as Table } from './Table';
-export { default as TableRow } from './TableRow';
-export { default as TableColumn } from './TableColumn';
-export { default as ExpandableTableRow } from './ExpandableTableRow';
+export { Table } from './Table';
+export { TableRow } from './TableRow';
+export { TableColumn } from './TableColumn';
+export { ExpandableTableRow } from './ExpandableTableRow';

@@ -1,14 +1,16 @@
-import { Label, Table } from '@navikt/ds-react';
-import { hasValidDate } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
-import dayjs from 'dayjs';
-import React, { FunctionComponent } from 'react';
-
-import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 import { FormattedMessage } from 'react-intl';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import VurderAktiviteterTabellRad from './VurderAktiviteterRow';
+
+import { Label, Table } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
+import { hasValidDate } from '@navikt/ft-form-validators';
+import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
+
 import styles from './vurderAktiviteterTabell.module.css';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], erOverstyrt: boolean, skjaeringstidspunkt: string) => {
@@ -38,7 +40,7 @@ const getHeaderTextCodes = (): string[] => [
   'VurderAktiviteterTabell.Header.IkkeBenytt',
 ];
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
   aktiviteter: BeregningAktivitet[];
@@ -52,7 +54,7 @@ type OwnProps = {
   fieldId: number;
 };
 
-const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
+export const VurderAktiviteterTabellReactHookForm = ({
   readOnly,
   isAvklaringsbehovClosed,
   aktiviteter,
@@ -64,7 +66,7 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
   ingenAktiviterErBrukt,
   arbeidsgiverOpplysningerPerId,
   fieldId,
-}) => (
+}: Props) => (
   <>
     <Label size="small">{finnHeading(aktiviteter, erOverstyrt, tomDatoForAktivitetGruppe)}</Label>
     <Table size="small" className={styles.table}>
@@ -101,4 +103,3 @@ const VurderAktiviteterTabellReactHookForm: FunctionComponent<OwnProps> = ({
     </Table>
   </>
 );
-export default VurderAktiviteterTabellReactHookForm;

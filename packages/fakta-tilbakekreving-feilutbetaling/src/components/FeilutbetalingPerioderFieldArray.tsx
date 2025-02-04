@@ -1,16 +1,18 @@
-import React, { FunctionComponent } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+
 import moment from 'moment';
 
-import { Table, TableRow, TableColumn } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import { required } from '@navikt/ft-form-validators';
 import { SelectField } from '@navikt/ft-form-hooks';
+import { required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { FeilutbetalingAarsak, FeilutbetalingFakta } from '@navikt/ft-types';
+import { Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
+import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
+
 import styles from './feilutbetalingPerioderFieldArray.module.css';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const FIELD_ARRAY_NAME = 'perioder';
 
@@ -21,7 +23,7 @@ const headerTextCodes = [
 ];
 
 const getHendelseUndertyper = (
-  årsaker: FeilutbetalingAarsak['hendelseTyper'],
+  årsaker: FeilutbetalingÅrsak['hendelseTyper'],
   årsakNavn?: string,
 ): string[] | undefined => {
   const årsak = årsaker.find(a => a.hendelseType === årsakNavn);
@@ -36,21 +38,21 @@ export type FormValues = {
   }[];
 };
 
-type OwnProps = {
+type Props = {
   perioder: FeilutbetalingFakta['behandlingFakta']['perioder'];
-  årsaker: FeilutbetalingAarsak['hendelseTyper'];
+  årsaker: FeilutbetalingÅrsak['hendelseTyper'];
   readOnly: boolean;
   behandlePerioderSamlet: boolean;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
 };
 
-const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
+export const FeilutbetalingPerioderFieldArray = ({
   perioder,
   årsaker,
   readOnly,
   behandlePerioderSamlet,
   kodeverkSamlingFpTilbake,
-}) => {
+}: Props) => {
   const { control, watch, setValue, getValues } = useFormContext<FormValues>();
   const { fields } = useFieldArray({
     control,
@@ -64,7 +66,7 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
           if (årsak) {
             const feltÅrsak = getValues(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`);
             if (feltÅrsak === årsak) {
-              // @ts-ignore Fiks. Må legge til årsak.underÅrsak i FormValues
+              // @ts-expect-error Fiks. Må legge til årsak.underÅrsak i FormValues
               setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.${årsak}.underÅrsak`, verdi);
             }
           } else {
@@ -127,5 +129,3 @@ const FeilutbetalingPerioderFieldArray: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default FeilutbetalingPerioderFieldArray;

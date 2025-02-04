@@ -1,19 +1,20 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import { BodyShort, Label, Heading, ExpansionCard } from '@navikt/ds-react';
+
+import { BodyShort, ExpansionCard, Heading, Label } from '@navikt/ds-react';
 
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
-import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
 
-import TilbakekrevingVedtakUtdypendeTekstPanel from './TilbakekrevingVedtakUtdypendeTekstPanel';
-import underavsnittType from '../../kodeverk/avsnittType';
+import { UnderavsnittType } from '../../kodeverk/avsnittType';
+import { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
+import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
 
 export type FormValues = Record<string, Record<string, string> | string>;
 
-export interface OwnProps {
+export interface Props {
   intl: IntlShape;
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[];
   readOnly: boolean;
@@ -22,18 +23,14 @@ export interface OwnProps {
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;
 }
 
-interface StaticFunctions {
-  buildInitialValues: (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]) => FormValues;
-}
-
-export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const TilbakekrevingEditerVedtaksbrevPanel = ({
   intl,
   vedtaksbrevAvsnitt,
   readOnly,
   perioderSomIkkeHarUtfyltObligatoriskVerdi,
   fritekstOppsummeringPakrevdMenIkkeUtfylt = false,
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
-}) => (
+}: Props) => (
   <div className={styles.container}>
     <VerticalSpacer twentyPx />
     <Heading size="small">
@@ -45,7 +42,7 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
       const periode = `${avsnitt.fom}_${avsnitt.tom}`;
       const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some(p => p === periode);
       const visApen =
-        avsnitt.avsnittstype === underavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
+        avsnitt.avsnittstype === UnderavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
           <ExpansionCard
@@ -117,5 +114,3 @@ TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: V
 
       return { ...acc, ...nyeFritekster };
     }, {});
-
-export default TilbakekrevingEditerVedtaksbrevPanel;

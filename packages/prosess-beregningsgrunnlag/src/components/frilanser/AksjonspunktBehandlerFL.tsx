@@ -1,16 +1,17 @@
-import React, { FunctionComponent } from 'react';
-import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
-import { InputField } from '@navikt/ft-form-hooks';
-import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
-import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { BodyShort } from '@navikt/ds-react';
 
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { InputField } from '@navikt/ft-form-hooks';
+import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
+
+import { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-import { FrilansInntektValues } from '../../types/ATFLAksjonspunktTsType';
 
 const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): boolean =>
   alleAndelerIForstePeriode.some(
@@ -18,11 +19,7 @@ const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[])
       andel.aktivitetStatus === AktivitetStatus.FRILANSER && (andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
   );
 
-interface StaticFunctions {
-  buildInitialValues: (relevanteAndeler: BeregningsgrunnlagAndel[]) => FrilansInntektValues;
-}
-
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   fieldIndex: number;
   formName: string;
@@ -73,5 +70,3 @@ AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: Beregningsgrunnl
   }
   return {};
 };
-
-export default AksjonspunktBehandlerFL;

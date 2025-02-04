@@ -1,7 +1,7 @@
-import GamleKoder from './GamleKoder';
-import FaktaFordelBeregningAvklaringsbehovCode from './FaktaFordelBeregningAvklaringsbehovCode';
+import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
+import { GamleKoder } from './GamleKoder';
 
-const mapAvklaringsbehovKode = (kode: string): string => {
+export const mapAvklaringsbehovKode = (kode: string): string => {
   if (GamleKoder.FORDEL_BEREGNINGSGRUNNLAG === kode) {
     return FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG;
   }
@@ -10,5 +10,3 @@ const mapAvklaringsbehovKode = (kode: string): string => {
   }
   return kode;
 };
-
-export default mapAvklaringsbehovKode;

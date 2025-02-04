@@ -1,12 +1,14 @@
 import dayjs, { Dayjs } from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import 'dayjs/locale/nb';
-import createIntl from './createIntl';
+import utc from 'dayjs/plugin/utc';
+
+import { createIntl } from './createIntl';
+import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
+
 import messages from '../i18n/nb_NO.json';
 
-import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
+import 'dayjs/locale/nb';
 
 dayjs.extend(utc);
 dayjs.extend(isoWeek);
@@ -72,7 +74,7 @@ export const createWeekAndDay = (weeks?: number, days?: number): WeekAndDay => {
 
 export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeekends = true): number => {
   if (tilDatoPeriode === TIDENES_ENDE) {
-    // @ts-ignore Kva er dette?
+    // @ts-expect-error Kva er dette?
     return createWeekAndDay();
   }
 

@@ -1,12 +1,19 @@
-import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
-import AssessedBy from './AssessedBy';
+import { Meta, StoryObj } from '@storybook/react/*';
 
-export default {
+import { AssessedBy } from './AssessedBy';
+
+const meta = {
   title: 'AssessedBy',
   component: AssessedBy,
+} satisfies Meta<typeof AssessedBy>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    ident: 'navn',
+    date: '2023-01-01',
+  },
 };
-
-const Template: StoryFn<ComponentProps<typeof AssessedBy>> = () => <AssessedBy ident="navn" date="2023-01-01" />;
-
-export const Default = Template.bind({});

@@ -1,13 +1,16 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
-import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
+
 import { finnOppgittInntektForAndelIPeriode, FrisinnAndel, FrisinnGrunnlag } from './FrisinnUtils';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const lagPeriodeHeader = (fom: string, originalTom: string) => {
   let tom = null;
@@ -161,19 +164,14 @@ const lagPeriodeblokk = (
   );
 };
 
-type OwnProps = {
+type Props = {
   bgperiode: BeregningsgrunnlagPeriodeProp;
   ytelsegrunnlag: FrisinnGrunnlag;
   frilansGrunnlag: number;
   næringGrunnlag: number;
 };
 
-const BeregningsresultatPeriode: FunctionComponent<OwnProps> = ({
-  bgperiode,
-  ytelsegrunnlag,
-  frilansGrunnlag,
-  næringGrunnlag,
-}) => {
+export const BeregningsresultatPeriode = ({ bgperiode, ytelsegrunnlag, frilansGrunnlag, næringGrunnlag }: Props) => {
   const statuserDetErSøktOm = statuserDetErSøktOmIPerioden(bgperiode, ytelsegrunnlag);
   if (!statuserDetErSøktOm || statuserDetErSøktOm.length < 1) {
     return null;
@@ -194,5 +192,3 @@ const BeregningsresultatPeriode: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default BeregningsresultatPeriode;

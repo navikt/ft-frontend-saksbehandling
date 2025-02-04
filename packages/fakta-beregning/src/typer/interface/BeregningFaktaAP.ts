@@ -1,5 +1,6 @@
-import { AvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
-import FaktaBeregningAvklaringsbehovCode from './FaktaBeregningAvklaringsbehovCode';
+import { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+
+import { FaktaBeregningAvklaringsbehovCode } from './FaktaBeregningAvklaringsbehovCode';
 
 export type BeregningAktivitetTransformedValues = {
   opptjeningAktivitetType: string;
@@ -15,12 +16,12 @@ export type BeregningAktiviteterTransformedValues = {
   beregningsaktivitetLagreDtoList: BeregningAktivitetTransformedValues[];
 };
 
-export type OverstyrBeregningsaktiviteterAP = AvklaringsbehovTilBekreftelse<
+export type OverstyrBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
   BeregningAktiviteterTransformedValues
 >;
 
-export type AvklarBeregningsaktiviteterAP = AvklaringsbehovTilBekreftelse<
+export type AvklarBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER,
   BeregningAktiviteterTransformedValues
 >;
@@ -54,7 +55,7 @@ export type VurderLønnsendringTransformedValues = {
 export type FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues = {
   andelsnr: number;
   fastsattBeløp: number;
-  inntektskategori: string;
+  inntektskategori?: string;
 };
 
 export type FastsettMånedsinntektUtenInntektsmeldingTransformedValues = {
@@ -76,7 +77,7 @@ export type FastsatteVerdierForBesteberegningTransformedValues = {
 };
 
 export type BesteberegningFødendeKvinneAndelTransformedValues = {
-  andelsnr: number;
+  andelsnr?: number;
   nyAndel: boolean;
   lagtTilAvSaksbehandler: boolean;
   fastsatteVerdier: FastsatteVerdierForBesteberegningTransformedValues;
@@ -101,7 +102,7 @@ export type FastsattBrukersAndelTransformedValues = {
 
 export type FastsettBgKunYtelseTransformedValues = {
   andeler: FastsattBrukersAndelTransformedValues[];
-  skalBrukeBesteberegning: boolean;
+  skalBrukeBesteberegning: boolean | null;
 };
 
 export type VurderEtterlønnSluttpakkeTransformedValues = {
@@ -180,16 +181,14 @@ export type BeregningFaktaTransformedValues = {
   overstyrteAndeler?: FastsettBeregningsgrunnlagAndelTransformedValues[];
 };
 
-export type BeregningFaktaAP = AvklaringsbehovTilBekreftelse<
+export type BeregningFaktaAP = BeregningAvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
   BeregningFaktaTransformedValues
 >;
 
-export type BeregningOverstyringAP = AvklaringsbehovTilBekreftelse<
+export type BeregningOverstyringAP = BeregningAvklaringsbehovTilBekreftelse<
   FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   BeregningFaktaTransformedValues
 >;
 
 export type BeregningFaktaOgOverstyringAP = BeregningFaktaAP | BeregningOverstyringAP;
-
-export default BeregningFaktaAP;

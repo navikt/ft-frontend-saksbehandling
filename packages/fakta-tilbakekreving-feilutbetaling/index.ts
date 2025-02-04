@@ -1,3 +1,4 @@
-export { default as FeilutbetalingAksjonspunktCode } from './src/FeilutbetalingAksjonspunktCode';
-export { default as FeilutbetalingFaktaIndex } from './src/FeilutbetalingFaktaIndex';
-export type { FeilutbetalingAarsak, FeilutbetalingFakta } from '@navikt/ft-types';
+export { FeilutbetalingAksjonspunktCode } from './src/FeilutbetalingAksjonspunktCode';
+export { FeilutbetalingFaktaIndex } from './src/FeilutbetalingFaktaIndex';
+export type { FeilutbetalingÅrsak } from './src/types/FeilutbetalingÅrsak';
+export type { FeilutbetalingFakta } from './src/types/FeilutbetalingFakta';

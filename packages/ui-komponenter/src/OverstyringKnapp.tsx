@@ -1,15 +1,16 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { KeyVerticalIcon, KeyVerticalFillIcon } from '@navikt/aksel-icons';
+import { useEffect, useState } from 'react';
+
+import { KeyVerticalFillIcon, KeyVerticalIcon } from '@navikt/aksel-icons';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import messages from '../i18n/nb_NO.json';
-
 import styles from './overstyringKnapp.module.css';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+export interface Props {
   onClick?: (overstyrt: boolean) => void;
   erOverstyrt?: boolean;
 }
@@ -17,7 +18,7 @@ export interface OwnProps {
 /*
  * OverstyringKnapp
  */
-const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefined, erOverstyrt = false }) => {
+export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = false }: Props) => {
   const [isOverstyrt, setOverstyrt] = useState(erOverstyrt);
   const setOverstyrtFn = () => {
     if (!isOverstyrt) {
@@ -58,5 +59,3 @@ const OverstyringKnapp: FunctionComponent<OwnProps> = ({ onClick = () => undefin
     </button>
   );
 };
-
-export default OverstyringKnapp;

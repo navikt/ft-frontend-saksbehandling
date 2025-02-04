@@ -1,5 +1,6 @@
-import { Alert } from '@navikt/ds-react';
 import React, { Component, ErrorInfo } from 'react';
+
+import { Alert } from '@navikt/ds-react';
 
 type Props = {
   children: React.ReactNode;
@@ -10,7 +11,7 @@ type State = {
   hasError: boolean;
 };
 
-class ErrorBoundary extends Component<Props, State> {
+export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
@@ -35,5 +36,3 @@ class ErrorBoundary extends Component<Props, State> {
     return children;
   }
 }
-
-export default ErrorBoundary;

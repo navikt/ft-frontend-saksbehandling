@@ -1,9 +1,12 @@
 import React, { Fragment, ReactElement, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
 import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
+
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules } from '../formUtils';
+
 import styles from './radioGroupPanel.module.css';
 
 export interface RadioProps {
@@ -30,7 +33,7 @@ export interface RadioGroupPanelProps {
   isEdited?: boolean;
 }
 
-const RadioGroupPanel = ({
+export const RadioGroupPanel = ({
   label,
   description,
   name,
@@ -114,5 +117,3 @@ const RadioGroupPanel = ({
     </RadioGroup>
   );
 };
-
-export default RadioGroupPanel;

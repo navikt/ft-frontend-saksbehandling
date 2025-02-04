@@ -1,12 +1,14 @@
+import dayjs from 'dayjs';
+
+import { PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
-import { PeriodeAarsak } from '@navikt/ft-kodeverk';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
+
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagValues,
@@ -16,7 +18,7 @@ import {
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import erPeriodeTilVurdering from '../util/ForlengelseUtils';
+import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
 
 export const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 

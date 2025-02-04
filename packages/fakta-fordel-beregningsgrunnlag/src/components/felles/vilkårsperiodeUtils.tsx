@@ -1,6 +1,6 @@
-import { Vilkarperiode } from '@navikt/ft-types';
+import { Vilkårperiode } from '../../types/Vilkår';
 
-export function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string): Vilkarperiode {
+export function finnVilkårsperiode(vilkårsperioder: Vilkårperiode[], vilkårsperiodeFom: string): Vilkårperiode {
   const periode = vilkårsperioder.find(p => p.periode.fom === vilkårsperiodeFom);
   if (!periode) {
     throw Error(`Mangler vilkårsperiode for vilkårsperiodeFom ${vilkårsperiodeFom}`);
@@ -8,6 +8,6 @@ export function finnVilkårsperiode(vilkårsperioder: Vilkarperiode[], vilkårsp
   return periode;
 }
 
-export function vurderesIBehandlingen(vilkårsperioder: Vilkarperiode[], vilkårsperiodeFom: string) {
+export function vurderesIBehandlingen(vilkårsperioder: Vilkårperiode[], vilkårsperiodeFom: string) {
   return finnVilkårsperiode(vilkårsperioder, vilkårsperiodeFom).vurderesIBehandlingen;
 }

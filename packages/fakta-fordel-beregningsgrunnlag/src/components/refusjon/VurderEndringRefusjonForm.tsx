@@ -1,18 +1,20 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+
 import { Form } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
-import VurderRefusjonAksjonspunktSubmitType from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-
-import VurderEndringRefusjonField, {
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { VurderRefusjonAksjonspunktSubmitType } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import { Vilkårperiode } from '../../types/Vilkår';
+import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
+import {
   buildFieldInitialValues,
   transformFieldValues,
+  VurderEndringRefusjonField,
 } from './VurderEndringRefusjonField';
-import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 
 export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
@@ -20,7 +22,7 @@ const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
-  vilkårperioder: Vilkarperiode[],
+  vilkårperioder: Vilkårperiode[],
 ): VurderRefusjonFormValues => ({
   [FORM_NAME]: beregningsgrunnlagListe.map(bg =>
     buildFieldInitialValues(bg, finnVilkårsperiode(vilkårperioder, bg.vilkårsperiodeFom)),
@@ -41,7 +43,7 @@ const finnBeregningsgrunnlag = (
 const transformValues = (
   values: VurderRefusjonFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
-  vilkårsperioder: Vilkarperiode[],
+  vilkårsperioder: Vilkårperiode[],
 ): VurderRefusjonAksjonspunktSubmitType => {
   const fields = values[FORM_NAME];
   const grunnlag = fields
@@ -55,20 +57,20 @@ const transformValues = (
   };
 };
 
-type OwnProps = {
+type Props = {
   aktivtBeregningsgrunnlagIndeks: number;
   submitCallback: (aksjonspunktData: VurderRefusjonAksjonspunktSubmitType) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  vilkarperioder: Vilkarperiode[];
+  vilkarperioder: Vilkårperiode[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: VurderRefusjonFormValues;
   setFormData: (data: VurderRefusjonFormValues) => void;
   setRefusjonFormIsDirty: (isDirty: boolean) => void;
 };
 
-const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
+export const VurderEndringRefusjonForm = ({
   aktivtBeregningsgrunnlagIndeks,
   submittable,
   readOnly,
@@ -79,7 +81,7 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
   formData,
   submitCallback,
   setRefusjonFormIsDirty,
-}) => {
+}: Props) => {
   const formMethods = useForm<VurderRefusjonFormValues>({
     defaultValues: formData?.VURDER_REFUSJON_BERGRUNN_FORM
       ? formData
@@ -151,5 +153,3 @@ const VurderEndringRefusjonForm: FunctionComponent<OwnProps> = ({
     </ErrorBoundary>
   );
 };
-
-export default VurderEndringRefusjonForm;

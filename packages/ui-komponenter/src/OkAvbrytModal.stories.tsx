@@ -1,16 +1,22 @@
-import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import OkAvbrytModal from './OkAvbrytModal';
+import { OkAvbrytModal } from './OkAvbrytModal';
 
-export default {
+const meta = {
   title: 'OkAvbrytModal',
   component: OkAvbrytModal,
+} satisfies Meta<typeof OkAvbrytModal>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    text: 'Dette er ein test',
+    showModal: true,
+    submit: action('button-click'),
+    cancel: action('button-click'),
+  },
 };
-
-const Template: StoryFn = () => (
-  <OkAvbrytModal text="Dette er ein test" showModal submit={action('button-click')} cancel={action('button-click')} />
-);
-
-export const Default = Template.bind({});

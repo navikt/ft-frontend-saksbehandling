@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import TextAreaField from './TextAreaField';
 import { rhfDecorator } from '../../.storybook/decorators';
+import { TextAreaField } from './TextAreaField';
 
 const meta = {
   component: TextAreaField,

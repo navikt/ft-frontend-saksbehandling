@@ -16,6 +16,4 @@ const getIntlObject = (moduleMessages: Record<string, string>) => {
   );
 };
 
-const getIntlMock = (customMessages: Record<string, string>): IntlShape => getIntlObject(customMessages);
-
-export default getIntlMock;
+export const getIntlMock = (customMessages: Record<string, string>): IntlShape => getIntlObject(customMessages);

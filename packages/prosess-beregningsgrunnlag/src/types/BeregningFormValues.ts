@@ -1,7 +1,5 @@
-import { BeregningsgrunnlagValues } from './BeregningsgrunnlagAksjonspunktTsType';
+import { BeregningsgrunnlagValues } from './BeregningsgrunnlagAksjonspunkt';
 
-type BeregningFormValues = {
+export type BeregningFormValues = {
   [key: string]: BeregningsgrunnlagValues[];
 };
-
-export default BeregningFormValues;

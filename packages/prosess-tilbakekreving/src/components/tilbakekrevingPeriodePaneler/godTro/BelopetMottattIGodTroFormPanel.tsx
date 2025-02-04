@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { BodyShort } from '@navikt/ds-react';
 
-import { minValue, required } from '@navikt/ft-form-validators';
-import { removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { minValue, required } from '@navikt/ft-form-validators';
+import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import styles from './belopetMottattIGodTroFormPanel.module.css';
 
@@ -29,32 +29,14 @@ export interface InitialValuesGodTroForm {
   tilbakekrevdBelop?: number;
 }
 
-export interface OwnProps {
+export interface Props {
   name: string;
   readOnly: boolean;
   erBelopetIBehold?: boolean;
   feilutbetalingBelop: number;
 }
 
-interface StaticFunctions {
-  buildIntialValues: (info: { erBelopetIBehold: boolean; tilbakekrevesBelop: number }) => InitialValuesGodTroForm;
-  transformValues: (
-    info: { erBelopetIBehold: boolean; tilbakekrevdBelop: number },
-    vurderingBegrunnelse: string,
-  ) => {
-    '@type': string;
-    begrunnelse: string;
-    erBelopetIBehold: boolean;
-    tilbakekrevesBelop?: number;
-  };
-}
-
-const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
-  name,
-  readOnly,
-  erBelopetIBehold,
-  feilutbetalingBelop,
-}) => {
+export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehold, feilutbetalingBelop }: Props) => {
   const intl = useIntl();
   return (
     <>
@@ -86,7 +68,7 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
               validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
               readOnly={readOnly}
               className={styles.tilbakekrevdBelopInput}
-              // @ts-ignore Fiks
+              // @ts-expect-error Fiks
               format={formatCurrencyNoKr}
               parse={parseCurrencyInput}
             />
@@ -104,16 +86,20 @@ const BelopetMottattIGodTroFormPanel: FunctionComponent<OwnProps> & StaticFuncti
   );
 };
 
-BelopetMottattIGodTroFormPanel.transformValues = (info, vurderingBegrunnelse) => ({
+BelopetMottattIGodTroFormPanel.transformValues = (
+  info: { erBelopetIBehold: boolean; tilbakekrevdBelop: number },
+  vurderingBegrunnelse: string,
+) => ({
   '@type': 'godTro',
   begrunnelse: vurderingBegrunnelse,
   erBelopetIBehold: info.erBelopetIBehold,
   tilbakekrevesBelop: info.erBelopetIBehold ? removeSpacesFromNumber(info.tilbakekrevdBelop) : undefined,
 });
 
-BelopetMottattIGodTroFormPanel.buildIntialValues = info => ({
+BelopetMottattIGodTroFormPanel.buildIntialValues = (info: {
+  erBelopetIBehold: boolean;
+  tilbakekrevesBelop: number;
+}) => ({
   erBelopetIBehold: info.erBelopetIBehold,
   tilbakekrevdBelop: info.tilbakekrevesBelop,
 });
-
-export default BelopetMottattIGodTroFormPanel;

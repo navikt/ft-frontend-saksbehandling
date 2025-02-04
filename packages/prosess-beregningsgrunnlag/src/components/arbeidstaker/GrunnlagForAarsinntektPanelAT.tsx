@@ -1,23 +1,25 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { VerticalSpacer, FlexColumn, FlexRow, FlexContainer } from '@navikt/ft-ui-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Label, Detail, BodyShort, Heading } from '@navikt/ds-react';
+import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
-import NaturalytelsePanel from './NaturalytelsePanel';
+import { Ledelinje } from '../fellesPaneler/Ledelinje';
+import { NaturalytelsePanel } from './NaturalytelsePanel';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
-import Ledelinje from '../fellesPaneler/Ledelinje';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -144,11 +146,7 @@ const createArbeidinntektRows = (
   return rows;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (alleAndeler: BeregningsgrunnlagAndel[]) => ArbeidstakerInntektValues;
-}
-
-type OwnProps = {
+type Props = {
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -161,12 +159,12 @@ type OwnProps = {
  * Presentasjonskomponent. Viser beregningsgrunnlagstabellen for arbeidstakere.
  * Vises også hvis status er en kombinasjonsstatus som inkluderer arbeidstaker.
  */
-const GrunnlagForAarsinntektPanelAT: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const GrunnlagForAarsinntektPanelAT = ({
   alleAndelerIFørstePeriode,
   allePerioder,
   arbeidsgiverOpplysningerPerId,
   kodeverkSamling,
-}) => {
+}: Props) => {
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIFørstePeriode);
   if (!relevanteAndeler || relevanteAndeler.length === 0) return null;
   return (
@@ -210,4 +208,3 @@ GrunnlagForAarsinntektPanelAT.buildInitialValues = (
   });
   return initialValues;
 };
-export default GrunnlagForAarsinntektPanelAT;

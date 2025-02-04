@@ -1,19 +1,18 @@
-import React from 'react';
-import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { VedtakResultatType, BehandlingStatus } from '@navikt/ft-kodeverk';
-import { Behandling, BeregningsresultatTilbakekreving } from '@navikt/ft-types';
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
+import { BehandlingStatus, VedtakResultatType } from '@navikt/ft-kodeverk';
+import { Behandling } from '@navikt/ft-types';
 
-import aktsomhet from './kodeverk/aktsomhet';
-import VedtakTilbakekrevingProsessIndex from './VedtakTilbakekrevingProsessIndex';
+import { Aktsomhet } from './kodeverk/aktsomhet';
+import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTv';
+import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';
 
 import '@navikt/ds-css';
-
-import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
 const vedtaksbrev = {
   avsnittsliste: [
@@ -161,7 +160,7 @@ const beregningsresultat = {
         tom: '2019-01-01',
       },
       feilutbetaltBeløp: 10000,
-      vurdering: aktsomhet.FORSETT,
+      vurdering: Aktsomhet.FORSETT,
       andelAvBeløp: 50,
       renterProsent: 0,
       tilbakekrevingBeløp: 5000,
@@ -173,7 +172,7 @@ const beregningsresultat = {
         tom: '2019-01-01',
       },
       feilutbetaltBeløp: 1000,
-      vurdering: aktsomhet.FORSETT,
+      vurdering: Aktsomhet.FORSETT,
       andelAvBeløp: 50,
       renterProsent: 80,
       tilbakekrevingBeløp: 500,
@@ -185,35 +184,28 @@ const beregningsresultat = {
 
 const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
 
-export default {
+const meta = {
   title: 'prosess-vedtak-tilbakekreving',
   component: VedtakTilbakekrevingProsessIndex,
-};
+  args: {
+    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    behandling: {
+      uuid: '1',
+      versjon: 1,
+      status: BehandlingStatus.BEHANDLING_UTREDES,
+    } as Behandling,
+    vedtaksbrev,
+    fetchPreviewVedtaksbrev: () => Promise.resolve(),
+    kodeverkSamlingFpTilbake,
+    isReadOnly: false,
+    setFormData: () => undefined,
+    beregningsresultat,
+    erRevurderingTilbakekrevingKlage: false,
+    erRevurderingTilbakekrevingFeilBeløpBortfalt: true,
+  },
+} satisfies Meta<typeof VedtakTilbakekrevingProsessIndex>;
+export default meta;
 
-const Template: StoryFn<{
-  submitCallback: (aksjonspunktData: any) => Promise<void>;
-}> = ({ submitCallback }) => (
-  <VedtakTilbakekrevingProsessIndex
-    behandling={
-      {
-        uuid: '1',
-        versjon: 1,
-        status: BehandlingStatus.BEHANDLING_UTREDES,
-      } as Behandling
-    }
-    vedtaksbrev={vedtaksbrev}
-    fetchPreviewVedtaksbrev={() => Promise.resolve()}
-    kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-    submitCallback={submitCallback}
-    isReadOnly={false}
-    setFormData={() => undefined}
-    beregningsresultat={beregningsresultat}
-    erRevurderingTilbakekrevingKlage={false}
-    erRevurderingTilbakekrevingFeilBeløpBortfalt
-  />
-);
+type Story = StoryObj<typeof meta>;
 
-export const Default = Template.bind({});
-Default.args = {
-  submitCallback: action('button-click') as (data: any) => Promise<any>,
-};
+export const Default: Story = {};

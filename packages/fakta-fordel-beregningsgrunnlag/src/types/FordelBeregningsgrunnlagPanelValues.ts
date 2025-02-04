@@ -130,6 +130,4 @@ export type TilkommetAktivitetFormValues = {
   [key: string]: TilkommetAktivitetFieldValues[];
 };
 
-type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonFormValues;
-
-export default FormValues;
+export type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonFormValues;

@@ -1,5 +1,7 @@
 import React, { JSX } from 'react';
+
 import classnames from 'classnames';
+
 import styles from './contentWithTooltip.module.css';
 
 export interface ContentWithTooltipProps {
@@ -10,7 +12,7 @@ export interface ContentWithTooltipProps {
   inline?: boolean;
 }
 
-const ContentWithTooltip = ({
+export const ContentWithTooltip = ({
   tooltipText,
   tooltipDirectionRight,
   tooltipClassName,
@@ -30,5 +32,3 @@ const ContentWithTooltip = ({
     </div>
   );
 };
-
-export default ContentWithTooltip;

@@ -1,14 +1,14 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { Label } from '@navikt/ds-react';
 
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
+import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import aktsomhet from '../../../kodeverk/aktsomhet';
-import AktsomhetSarligeGrunnerFormPanel from './AktsomhetSarligeGrunnerFormPanel';
+import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
 
 import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
 
@@ -34,7 +34,7 @@ const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: Intl
   </div>
 );
 
-export interface OwnProps {
+export interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: string;
@@ -48,7 +48,7 @@ export interface OwnProps {
   name: string;
 }
 
-const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
+export const AktsomhetGradUaktsomhetFormPanel = ({
   harGrunnerTilReduksjon,
   readOnly,
   handletUaktsomhetGrad,
@@ -60,13 +60,13 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
   andelSomTilbakekreves,
   erValgtResultatTypeForstoBurdeForstaatt,
   name,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const grovUaktsomOffset = erValgtResultatTypeForstoBurdeForstaatt ? 180 : 200;
   return (
-    <ArrowBox alignOffset={handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
+    <ArrowBox alignOffset={handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
       <div className={styles.panelWidth}>
-        {handletUaktsomhetGrad === aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
+        {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
           <>
             <RadioGroupPanel
               name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
@@ -114,7 +114,7 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
             <VerticalSpacer eightPx />
           </>
         )}
-        {(handletUaktsomhetGrad !== aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
+        {(handletUaktsomhetGrad !== Aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
           <>
             {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
             <AktsomhetSarligeGrunnerFormPanel
@@ -134,5 +134,3 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
     </ArrowBox>
   );
 };
-
-export default AktsomhetGradUaktsomhetFormPanel;

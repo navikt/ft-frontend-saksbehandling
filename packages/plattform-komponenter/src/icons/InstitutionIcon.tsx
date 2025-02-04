@@ -1,6 +1,4 @@
-import React from 'react';
-
-const InstitutionIcon = () => (
+export const InstitutionIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect y="10" width="24" height="15" fill="white" />
     <rect x="6" y="2" width="14" height="8" fill="white" />
@@ -13,5 +11,3 @@ const InstitutionIcon = () => (
     />
   </svg>
 );
-
-export default InstitutionIcon;

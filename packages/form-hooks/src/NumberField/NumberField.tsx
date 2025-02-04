@@ -1,8 +1,10 @@
 import React, { ReactNode, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
 import { TextField } from '@navikt/ds-react';
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+
 import { getError, getValidationRules } from '../formUtils';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
 const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
@@ -19,10 +21,11 @@ export interface Props {
   forceTwoDecimalDigits?: boolean;
   disabled?: boolean;
   className?: string;
+  returnAsNumber?: boolean;
   onChange?: (value: any) => void;
 }
 
-const NumberField = ({
+export const NumberField = ({
   name,
   label,
   hideLabel,
@@ -34,6 +37,7 @@ const NumberField = ({
   forceTwoDecimalDigits = false,
   disabled,
   className,
+  returnAsNumber = false,
   onChange,
 }: Props) => {
   const [hasFocus, setFocus] = useState(false);
@@ -88,6 +92,12 @@ const NumberField = ({
         if (onChange) {
           onChange(newValue);
         }
+
+        if (returnAsNumber) {
+          newValue = parseFloat(newValue);
+          if (Number.isNaN(newValue)) newValue = null;
+        }
+
         return field.onChange(newValue);
       }}
       onBlur={() => {
@@ -101,5 +111,3 @@ const NumberField = ({
     />
   );
 };
-
-export default NumberField;

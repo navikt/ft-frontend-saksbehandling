@@ -1,12 +1,6 @@
-import React from 'react';
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import PeriodList from './PeriodList';
-
-export default {
-  title: 'Period list',
-  component: PeriodList,
-};
+import { PeriodList } from './PeriodList';
 
 const perioder = [
   {
@@ -103,6 +97,17 @@ const perioder = [
   },
 ];
 
-const Template: StoryFn = () => <PeriodList perioder={perioder} tittel="Perioder" />;
+const meta = {
+  title: 'Period list',
+  component: PeriodList,
+  args: {
+    perioder,
+    tittel: 'Perioder',
+  },
+} satisfies Meta<typeof PeriodList>;
 
-export const Perioder = Template.bind({});
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};

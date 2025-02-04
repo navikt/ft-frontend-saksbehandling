@@ -1,23 +1,22 @@
-import React from 'react';
-import { StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { RawIntlProvider } from 'react-intl';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { createIntl } from '@navikt/ft-utils';
-import { Behandling, FeilutbetalingPerioderWrapper, DetaljerteFeilutbetalingsperioder } from '@navikt/ft-types';
-import { ForeldelseVurderingType, BehandlingStatus, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import TilbakekrevingProsessIndex from './TilbakekrevingProsessIndex';
+import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
+import { BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { Behandling } from '@navikt/ft-types';
+
+import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
+import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
+import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
 
 import messages from '../i18n/nb_NO.json';
 
 import '@navikt/ds-css';
-
-import '@navikt/ft-ui-komponenter/dist/style.css';
 import '@navikt/ft-form-hooks/dist/style.css';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
-const intl = createIntl(messages);
+const withIntl = getIntlDecorator(messages);
 
 const perioderForeldelse = {
   perioder: [
@@ -63,78 +62,72 @@ const vilkarvurdering = {
 
 const kodeverkSamling = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
 
-export default {
+const meta = {
   title: 'prosess-tilbakekreving',
   component: TilbakekrevingProsessIndex,
-};
-
-const Template: StoryFn<{
-  submitCallback: (aksjonspunktData: any) => Promise<void>;
-  vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
-}> = ({ submitCallback, vilkarvurderingsperioder }) => (
-  <RawIntlProvider value={intl}>
-    <TilbakekrevingProsessIndex
-      behandling={
-        {
-          uuid: '1',
-          versjon: 1,
-          status: BehandlingStatus.BEHANDLING_UTREDES,
-        } as Behandling
-      }
-      kodeverkSamlingFpTilbake={kodeverkSamling}
-      isReadOnly={false}
-      setFormData={() => undefined}
-      submitCallback={submitCallback}
-      perioderForeldelse={perioderForeldelse}
-      vilkarvurderingsperioder={vilkarvurderingsperioder}
-      vilkarvurdering={vilkarvurdering}
-      beregnBelop={(params?: any) => Promise.resolve(params)}
-      alleMerknaderFraBeslutter={{}}
-      relasjonsRolleType={RelasjonsRolleType.MOR}
-      relasjonsRolleTypeKodeverk={[
-        {
-          kode: 'MORA',
-          kodeverk: 'RELASJONSROLLE_TYPE',
-          navn: 'Mor',
-        },
-      ]}
-    />
-  </RawIntlProvider>
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  submitCallback: action('button-click') as (data: any) => Promise<any>,
-  vilkarvurderingsperioder: defaultVilkarvurderingsperioder,
-};
-
-export const MedToPerioder = Template.bind({});
-MedToPerioder.args = {
-  submitCallback: action('button-click') as (data: any) => Promise<any>,
-  vilkarvurderingsperioder: {
-    perioder: [
-      defaultVilkarvurderingsperioder.perioder[0],
+  decorators: [withIntl],
+  args: {
+    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    behandling: {
+      uuid: '1',
+      versjon: 1,
+      status: BehandlingStatus.BEHANDLING_UTREDES,
+    } as Behandling,
+    kodeverkSamlingFpTilbake: kodeverkSamling,
+    isReadOnly: false,
+    setFormData: () => undefined,
+    perioderForeldelse,
+    vilkarvurdering,
+    beregnBelop: (params?: any) => Promise.resolve(params),
+    alleMerknaderFraBeslutter: {},
+    relasjonsRolleType: RelasjonsRolleType.MOR,
+    relasjonsRolleTypeKodeverk: [
       {
-        fom: '2019-04-01',
-        tom: '2019-10-01',
-        foreldet: false,
-        feilutbetaling: 100,
-        årsak: {
-          hendelseType: {
-            kode: 'MEDLEM',
-            kodeverk: '',
-            navn: '§22 Medlemskap',
-          },
-        },
-        redusertBeloper: [],
-        ytelser: [
-          {
-            aktivitet: 'Arbeidstaker',
-            belop: 2050,
-          },
-        ],
+        kode: 'MORA',
+        kodeverk: 'RELASJONSROLLE_TYPE',
+        navn: 'Mor',
       },
     ],
-    rettsgebyr: 1000,
-  } as DetaljerteFeilutbetalingsperioder,
+  },
+} satisfies Meta<typeof TilbakekrevingProsessIndex>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    vilkarvurderingsperioder: defaultVilkarvurderingsperioder,
+  },
+};
+
+export const MedToPerioder: Story = {
+  args: {
+    vilkarvurderingsperioder: {
+      perioder: [
+        defaultVilkarvurderingsperioder.perioder[0],
+        {
+          fom: '2019-04-01',
+          tom: '2019-10-01',
+          foreldet: false,
+          feilutbetaling: 100,
+          årsak: {
+            hendelseType: {
+              kode: 'MEDLEM',
+              kodeverk: '',
+              navn: '§22 Medlemskap',
+            },
+          },
+          redusertBeloper: [],
+          ytelser: [
+            {
+              aktivitet: 'Arbeidstaker',
+              belop: 2050,
+            },
+          ],
+        },
+      ],
+      rettsgebyr: 1000,
+    } as DetaljerteFeilutbetalingsperioder,
+  },
 };

@@ -1,6 +1,8 @@
-import React, { Fragment, ReactElement, ReactNode, useMemo } from 'react';
-import { useFormContext, useController } from 'react-hook-form';
-import { CheckboxGroup, Checkbox, HStack } from '@navikt/ds-react';
+import { Fragment, ReactElement, ReactNode, useMemo } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
+
+import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
+
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules } from '../formUtils';
@@ -27,7 +29,7 @@ export interface CheckboxPanelProps {
   isEdited?: boolean;
 }
 
-const CheckboxPanel = ({
+export const CheckboxPanel = ({
   label,
   name,
   description,
@@ -106,5 +108,3 @@ const CheckboxPanel = ({
     </CheckboxGroup>
   );
 };
-
-export default CheckboxPanel;

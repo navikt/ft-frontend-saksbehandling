@@ -1,4 +1,4 @@
-type InntektPrAndelProp = {
+export type InntektPrAndelProp = {
   andelsnr: number;
   fastsattBelop: number;
   inntektskategori?: string;
@@ -8,4 +8,3 @@ type InntektPrAndelProp = {
   arbeidsforholdId?: string;
   arbeidsgiverId?: string;
 };
-export default InntektPrAndelProp;

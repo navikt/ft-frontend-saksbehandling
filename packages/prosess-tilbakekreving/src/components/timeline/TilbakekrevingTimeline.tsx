@@ -1,26 +1,28 @@
-import React, { ReactElement, FunctionComponent, useState, useCallback } from 'react';
-import dayjs from 'dayjs';
+import { ReactElement, useCallback, useState } from 'react';
+import { useIntl } from 'react-intl';
+
 import {
-  XMarkOctagonIcon,
-  CheckmarkCircleIcon,
-  ExclamationmarkTriangleIcon,
-  FigureOutwardFillIcon,
-  SilhouetteFillIcon,
-  FigureCombinationIcon,
-  PlusIcon,
-  MinusIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
+  CheckmarkCircleIcon,
+  ExclamationmarkTriangleIcon,
+  FigureCombinationIcon,
+  FigureOutwardFillIcon,
+  MinusIcon,
+  PlusIcon,
+  SilhouetteFillIcon,
+  XMarkOctagonIcon,
 } from '@navikt/aksel-icons';
+import { Button, Timeline } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-
-import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { Button, Timeline } from '@navikt/ds-react';
-import { useIntl } from 'react-intl';
 import { KodeverkMedNavn } from '@navikt/ft-types';
+import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
+import { TidslinjePeriode } from '../../types/TidslinjePeriode';
+
 import styles from './tilbakekrevingTimeline.module.css';
-import TidslinjePeriode from '../../types/tidslinjePeriodeTsType';
 
 type Periode = {
   id: number;
@@ -66,7 +68,7 @@ const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
   return <FigureCombinationIcon width={20} height={20} />;
 };
 
-export interface OwnProps {
+export interface Props {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   setPeriode: (periode?: TidslinjePeriode) => void;
@@ -79,13 +81,13 @@ export interface OwnProps {
  *
  * Masserer data og populerer felten samt formatterar tidslinjen for tilbakekreving
  */
-const TilbakekrevingTimeline: FunctionComponent<OwnProps> = ({
+export const TilbakekrevingTimeline = ({
   perioder,
   valgtPeriode,
   setPeriode,
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const formatertePerioder = formaterPerioder(perioder);
@@ -199,5 +201,3 @@ const TilbakekrevingTimeline: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default TilbakekrevingTimeline;

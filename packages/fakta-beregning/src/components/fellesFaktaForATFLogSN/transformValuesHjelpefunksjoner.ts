@@ -1,11 +1,12 @@
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
+import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 
 const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
@@ -45,7 +46,7 @@ const transformFieldValue = (values: FaktaOmBeregningAksjonspunktValues, transfo
   };
 };
 
-const transformValuesVurderFaktaBeregning = (
+export const transformValuesVurderFaktaBeregning = (
   values: VurderFaktaBeregningFormValues,
   skalKunneAvbryteOverstyring = true,
 ): BeregningFaktaOgOverstyringAP[] => {
@@ -69,7 +70,7 @@ const transformValuesVurderFaktaBeregning = (
     .map(v => transformFieldValue(v, false))
     .filter(v => v);
 
-  const apDataTilSubmit = [];
+  const apDataTilSubmit: any[] = [];
 
   if (overstyrteGrunnlag.length > 0) {
     const beg = overstyrteGrunnlag
@@ -106,5 +107,3 @@ const transformValuesVurderFaktaBeregning = (
 
   return apDataTilSubmit;
 };
-
-export default transformValuesVurderFaktaBeregning;

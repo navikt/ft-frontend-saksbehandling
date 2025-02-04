@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Heading } from '@navikt/ds-react';
+
 import styles from './titleWithUnderline.module.css';
 
 export interface TitleWithUnderlineProps {
@@ -8,7 +10,7 @@ export interface TitleWithUnderlineProps {
   contentAfterTitleRenderer?: () => React.ReactNode;
 }
 
-const TitleWithUnderline = ({ children, titleClass, contentAfterTitleRenderer }: TitleWithUnderlineProps) => (
+export const TitleWithUnderline = ({ children, titleClass, contentAfterTitleRenderer }: TitleWithUnderlineProps) => (
   <>
     <div className={styles.titleWithUnderline}>
       <Heading size="small" level="2" className={titleClass}>
@@ -19,5 +21,3 @@ const TitleWithUnderline = ({ children, titleClass, contentAfterTitleRenderer }:
     <hr style={{ color: '#B7B1A9' }} />
   </>
 );
-
-export default TitleWithUnderline;

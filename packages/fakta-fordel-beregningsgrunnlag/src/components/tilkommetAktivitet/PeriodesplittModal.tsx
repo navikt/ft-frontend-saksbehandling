@@ -1,14 +1,18 @@
-import { Button, Modal, Select } from '@navikt/ds-react';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, TIDENES_ENDE, calcDays } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { Button, Modal, Select } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
+import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { calcDays, DDMMYYYY_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+
 import { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import PeriodesplittDatoValg, { Periode } from './PeriodesplittDatoValg';
+import { Periode, PeriodesplittDatoValg } from './PeriodesplittDatoValg';
+
 import styles from './periodesplittModal.module.css';
 
-type PeriodesplittModalProps = {
+type Props = {
   fields: TilkommetAktivitetValues[];
   forhåndsvisPeriodesplitt: (nyFom: string) => Periode[];
   utførPeriodesplitt: (nyFom: string) => void;
@@ -39,13 +43,13 @@ const lagPeriodeString = (fom: string, tom: string): string => {
   return fomString.concat(' - ');
 };
 
-const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
+export const PeriodesplittModal = ({
   fields,
   forhåndsvisPeriodesplitt,
   utførPeriodesplitt,
   skalViseModal,
   lukkModal,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const [valgtSplittdato, setValgtSplittdato] = useState<string | undefined>(undefined);
   const [valgtPeriode, setValgtPeriode] = useState<Periode | undefined>(undefined);
@@ -133,4 +137,3 @@ const PeriodesplittModal: FC<PeriodesplittModalProps> = ({
     </Modal>
   );
 };
-export default PeriodesplittModal;

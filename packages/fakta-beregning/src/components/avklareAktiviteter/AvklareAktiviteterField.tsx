@@ -1,34 +1,37 @@
-import React, { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
+import { useFormContext, UseFormGetValues } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { Alert, Button, ErrorMessage, HStack, Heading, Label, List, ReadMore } from '@navikt/ds-react';
-import { useCustomValidation, SubmitButton } from '@navikt/ft-form-hooks';
+import { Alert, Button, ErrorMessage, Heading, HStack, Label, List, ReadMore } from '@navikt/ds-react';
+
+import { SubmitButton, useCustomValidation } from '@navikt/ft-form-hooks';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
   BeregningsgrunnlagTilBekreftelse,
-  Vilkarperiode,
 } from '@navikt/ft-types';
 import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { UseFormGetValues, useFormContext } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import AvklarAktiviteterValues from '../../typer/AvklarAktivitetTypes';
-import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
+
+import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { Vilkårperiode } from '../../typer/Vilkår';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
-import VurderAktiviteterPanel from './VurderAktiviteterPanel';
+import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import {
   erSubmittable,
   findAvklaringsbehovForAktiviteter,
   skalKunneLoseAvklaringsbehov,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
+import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
+
 import styles from './avklareAktiviteterPanel.module.css';
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
@@ -40,7 +43,7 @@ export const buildInitialValues = (
   avklarAktiviteter: AvklarBeregningAktiviteterMap | undefined,
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkårsperiode: Vilkarperiode,
+  vilkårsperiode: Vilkårperiode,
 ): AvklarAktiviteterValues => {
   const harAvklarAktiviteterAvklaringsbehov = hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehovListe);
   const erOverstyrt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehovListe);
@@ -96,7 +99,7 @@ export const transformFieldValue = (
   };
 };
 
-export interface OwnProps {
+export interface Props {
   avklarAktiviteter: AvklarBeregningAktiviteterMap;
   avklaringsbehovListe: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
@@ -131,7 +134,7 @@ const validate = (
   return undefined;
 };
 
-const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
+export const AvklareAktiviteterField = ({
   avklarAktiviteter,
   avklaringsbehovListe,
   erOverstyrer,
@@ -142,7 +145,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
   fieldId,
   updateOverstyring,
   submitDisabled,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const {
     resetField,
@@ -168,7 +171,7 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
       setErOverstyrtKnappTrykket(false);
     }
     resetField(`avklarAktiviteterForm.${fieldId}`, { keepDirty: false });
-    /* @ts-ignore */
+    /* @ts-expect-error */
     resetField(`vurderAktiviteterSkjema.${fieldId}`, { keepDirty: false });
     updateOverstyring(fieldId, skalOverstyre);
   };
@@ -302,5 +305,3 @@ const AvklareAktiviteterField: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default AvklareAktiviteterField;

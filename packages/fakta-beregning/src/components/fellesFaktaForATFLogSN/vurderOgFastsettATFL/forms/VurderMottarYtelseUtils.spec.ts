@@ -1,5 +1,7 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold, VurderMottarYtelse } from '@navikt/ft-types';
+
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import {
   andelsnrMottarYtelseMap,
   finnFrilansFieldName,
@@ -78,12 +80,14 @@ describe('<VurderMottarYtelseUtils>', () => {
       erFrilans: true,
       arbeidstakerAndelerUtenIM: [],
     };
+    const vurderMottarYtelseValues = {
+      [finnFrilansFieldName()]: undefined,
+    };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = null;
+    } as FaktaOmBeregningAksjonspunktValues;
     const harVurdert = harVurdertMottarYtelse(values, vurderMottarYtelse);
     expect(harVurdert).toBe(false);
   });
@@ -93,12 +97,14 @@ describe('<VurderMottarYtelseUtils>', () => {
       erFrilans: true,
       arbeidstakerAndelerUtenIM: [],
     };
+    const vurderMottarYtelseValues = {
+      [finnFrilansFieldName()]: true,
+    };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
+    } as FaktaOmBeregningAksjonspunktValues;
     const harVurdert = harVurdertMottarYtelse(values, vurderMottarYtelse);
     expect(harVurdert).toBe(true);
   });
@@ -107,15 +113,17 @@ describe('<VurderMottarYtelseUtils>', () => {
     const vurderMottarYtelse = {
       erFrilans: false,
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [utledArbeidsforholdFieldName(andel)]: true,
+      [utledArbeidsforholdFieldName(andel2)]: false,
+      [utledArbeidsforholdFieldName(andel3)]: false,
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = false;
+    } as FaktaOmBeregningAksjonspunktValues;
     const harVurdert = harVurdertMottarYtelse(values, vurderMottarYtelse);
     expect(harVurdert).toBe(true);
   });
@@ -124,22 +132,24 @@ describe('<VurderMottarYtelseUtils>', () => {
     const vurderMottarYtelse = {
       erFrilans: false,
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [utledArbeidsforholdFieldName(andel)]: true,
+      [utledArbeidsforholdFieldName(andel2)]: false,
+      [utledArbeidsforholdFieldName(andel3)]: null,
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = null;
+    } as FaktaOmBeregningAksjonspunktValues;
     const harVurdert = harVurdertMottarYtelse(values, vurderMottarYtelse);
     expect(harVurdert).toBe(false);
   });
 
   it('skal returnere tomt objekt om vurderMottarYtelseDto ikkje er tilstades', () => {
     const mottarYtelseMap = andelsnrMottarYtelseMap(
-      { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } },
+      { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } } as FaktaOmBeregningAksjonspunktValues,
       undefined,
       undefined,
     );
@@ -149,15 +159,17 @@ describe('<VurderMottarYtelseUtils>', () => {
   it('skal vurdering av mottar ytelse for arbeidstakerandeler', () => {
     const vurderMottarYtelse = {
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [utledArbeidsforholdFieldName(andel)]: true,
+      [utledArbeidsforholdFieldName(andel2)]: false,
+      [utledArbeidsforholdFieldName(andel3)]: null,
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = null;
+    } as FaktaOmBeregningAksjonspunktValues;
     const mottarYtelseMap = andelsnrMottarYtelseMap(values, vurderMottarYtelse, beregningsgrunnlag);
     expect(mottarYtelseMap[1]).toBe(true);
     expect(mottarYtelseMap[2]).toBe(false);
@@ -167,16 +179,18 @@ describe('<VurderMottarYtelseUtils>', () => {
   it('skal vurdering av mottar ytelse for arbeidstakerandeler og frilans', () => {
     const vurderMottarYtelse = {
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [utledArbeidsforholdFieldName(andel)]: true,
+      [utledArbeidsforholdFieldName(andel2)]: false,
+      [utledArbeidsforholdFieldName(andel3)]: null,
+      [finnFrilansFieldName()]: true,
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = null;
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
+    } as FaktaOmBeregningAksjonspunktValues;
     const mottarYtelseMap = andelsnrMottarYtelseMap(values, vurderMottarYtelse, beregningsgrunnlag);
     expect(mottarYtelseMap[1]).toBe(true);
     expect(mottarYtelseMap[2]).toBe(false);
@@ -187,16 +201,19 @@ describe('<VurderMottarYtelseUtils>', () => {
   it('skalFastsetteInntektATUtenInntektsmelding skal returnere true om det er minst ein AT-andel som skal fastsett inntekt', () => {
     const vurderMottarYtelse = {
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [utledArbeidsforholdFieldName(andel)]: true,
+      [utledArbeidsforholdFieldName(andel2)]: false,
+      [utledArbeidsforholdFieldName(andel3)]: null,
+      [finnFrilansFieldName()]: true,
     };
+
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = true;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = null;
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
+    } as FaktaOmBeregningAksjonspunktValues;
     const skalFastsetteAT = skalFastsetteInntektATUtenInntektsmelding(values, vurderMottarYtelse);
     expect(skalFastsetteAT).toBe(true);
   });
@@ -204,13 +221,15 @@ describe('<VurderMottarYtelseUtils>', () => {
   it('skalFastsetteInntektATUtenInntektsmelding skal returnere false om ingen AT andeler eksisterer i values', () => {
     const vurderMottarYtelse = {
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [finnFrilansFieldName()]: true,
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
+    } as FaktaOmBeregningAksjonspunktValues;
     const skalFastsetteAT = skalFastsetteInntektATUtenInntektsmelding(values, vurderMottarYtelse);
     expect(skalFastsetteAT).toBe(false);
   });
@@ -218,16 +237,18 @@ describe('<VurderMottarYtelseUtils>', () => {
   it('skalFastsetteInntektATUtenInntektsmelding skal returnere false om mottarYtelse for alle AT-andeler i values er satt til null', () => {
     const vurderMottarYtelse = {
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [utledArbeidsforholdFieldName(andel)]: null,
+      [utledArbeidsforholdFieldName(andel2)]: null,
+      [utledArbeidsforholdFieldName(andel3)]: null,
+      [finnFrilansFieldName()]: true,
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = null;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = null;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = null;
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
+    } as FaktaOmBeregningAksjonspunktValues;
     const skalFastsetteAT = skalFastsetteInntektATUtenInntektsmelding(values, vurderMottarYtelse);
     expect(skalFastsetteAT).toBe(false);
   });
@@ -235,16 +256,18 @@ describe('<VurderMottarYtelseUtils>', () => {
   it('skalFastsetteInntektATUtenInntektsmelding skal returnere false om mottarYtelse for alle AT-andeler i values er satt til false', () => {
     const vurderMottarYtelse = {
       arbeidstakerAndelerUtenIM,
+    } as VurderMottarYtelse;
+    const vurderMottarYtelseValues = {
+      [utledArbeidsforholdFieldName(andel)]: false,
+      [utledArbeidsforholdFieldName(andel2)]: false,
+      [utledArbeidsforholdFieldName(andel3)]: false,
+      [finnFrilansFieldName()]: true,
     };
     const values = {
-      vurderMottarYtelseValues: {},
+      vurderMottarYtelseValues: vurderMottarYtelseValues,
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel2)] = false;
-    values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel3)] = false;
-    values.vurderMottarYtelseValues[finnFrilansFieldName()] = true;
+    } as FaktaOmBeregningAksjonspunktValues;
     const skalFastsetteAT = skalFastsetteInntektATUtenInntektsmelding(values, vurderMottarYtelse);
     expect(skalFastsetteAT).toBe(false);
   });

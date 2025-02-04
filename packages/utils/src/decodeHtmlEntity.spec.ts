@@ -1,4 +1,4 @@
-import decodeHtmlEntity from './decodeHtmlEntity';
+import { decodeHtmlEntity } from './decodeHtmlEntity';
 
 describe('decode-Html-Entity', () => {
   it('skal sjekke at html entity med navn og kode er decodert', () => {

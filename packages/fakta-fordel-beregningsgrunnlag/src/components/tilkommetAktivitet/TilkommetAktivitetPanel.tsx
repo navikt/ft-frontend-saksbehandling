@@ -1,18 +1,22 @@
-import React, { FC, useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { Alert, BodyShort, Heading, Label, Button } from '@navikt/ds-react';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+
 import { ScissorsIcon } from '@navikt/aksel-icons';
+import { Alert, BodyShort, Button, Heading, Label } from '@navikt/ds-react';
 import dayjs from 'dayjs';
+
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { useFieldArray, useFormContext } from 'react-hook-form';
-import TilkommetAktivitetAccordion from './TilkommetAktivitetAccordion';
-import styles from './tilkommetAktivitet.module.css';
-import PeriodesplittModal from './PeriodesplittModal';
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { Periode } from './PeriodesplittDatoValg';
+import { PeriodesplittModal } from './PeriodesplittModal';
+import { TilkommetAktivitetAccordion } from './TilkommetAktivitetAccordion';
+
+import styles from './tilkommetAktivitet.module.css';
 
 const finnAktivitetStatus = (
   aktivitetStatus: AktivitetStatus,
@@ -24,7 +28,7 @@ const finnAktivitetStatus = (
     ),
   );
 
-type TilkommetAktivitetPanelType = {
+type Props = {
   formName: string;
   beregningsgrunnlag: Beregningsgrunnlag;
   formFieldIndex: number;
@@ -34,7 +38,7 @@ type TilkommetAktivitetPanelType = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
 
-const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
+export const TilkommetAktivitetPanel = ({
   formName,
   beregningsgrunnlag,
   formFieldIndex,
@@ -42,7 +46,7 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
   submittable,
   erAksjonspunktÅpent,
   arbeidsgiverOpplysningerPerId,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const [modalErÅpen, setModalErÅpen] = useState<boolean>(false);
 
@@ -253,4 +257,3 @@ const TilkommetAktivitetPanel: FC<TilkommetAktivitetPanelType> = ({
     </>
   );
 };
-export default TilkommetAktivitetPanel;

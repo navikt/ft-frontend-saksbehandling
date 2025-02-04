@@ -1,9 +1,8 @@
-import React, { FunctionComponent } from 'react';
-
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+
 import styles from './ledelinje.module.css';
 
-export interface OwnProps {
+export interface Props {
   prosentBredde: number;
 }
 
@@ -12,7 +11,7 @@ export interface OwnProps {
  *
  * Presentasjonskomponent. Legger inn en horisontal ledelinje for å skille på innhold.
  */
-const Ledelinje: FunctionComponent<OwnProps> = ({ prosentBredde }) => {
+export const Ledelinje = ({ prosentBredde }: Props) => {
   const styleBredde = `${prosentBredde}%`;
   return (
     <FlexRow>
@@ -24,5 +23,3 @@ const Ledelinje: FunctionComponent<OwnProps> = ({ prosentBredde }) => {
     </FlexRow>
   );
 };
-
-export default Ledelinje;

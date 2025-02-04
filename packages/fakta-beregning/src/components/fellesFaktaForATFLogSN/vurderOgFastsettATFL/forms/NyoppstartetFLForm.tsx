@@ -1,16 +1,19 @@
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { List, ReadMore } from '@navikt/ds-react';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 /**
  * NyOppstartetFLForm
@@ -23,21 +26,11 @@ import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner
 
 export const erNyoppstartetFLField = 'NyoppstartetFLField';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (beregningsgrunnlag: Beregningsgrunnlag) => NyoppstartetFLValues;
-  transformValues: (
-    values: FaktaOmBeregningAksjonspunktValues,
-    inntektPrMnd: InntektTransformed[],
-    faktaOmBeregning: FaktaOmBeregning,
-    fastsatteAndelsnr: number[],
-  ) => FaktaBeregningTransformedValues;
-}
-
-const NyoppstartetFLForm: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+export const NyoppstartetFLForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
@@ -95,7 +88,7 @@ NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag)
 
 NyoppstartetFLForm.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
-  inntektPrMnd: InntektTransformed[],
+  inntektPrMnd: InntektTransformed[] | null,
   faktaOmBeregning: FaktaOmBeregning,
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
@@ -106,23 +99,23 @@ NyoppstartetFLForm.transformValues = (
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
-      vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+      vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
   const frilansField = inntektPrMnd.find(field => field.aktivitetStatus === AktivitetStatus.FRILANSER);
   if (!frilansField) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
-      vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+      vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
-  if (fastsatteAndelsnr.includes(frilansField.andelsnr)) {
+  if (frilansField.andelsnr && fastsatteAndelsnr.includes(frilansField.andelsnr)) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
-      vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+      vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
-  fastsatteAndelsnr.push(frilansField.andelsnr);
+  if (frilansField.andelsnr) fastsatteAndelsnr.push(frilansField.andelsnr);
   const inntekt = {
     fastsettMaanedsinntektFL: { maanedsinntekt: frilansField.fastsattBelop },
   };
@@ -132,8 +125,6 @@ NyoppstartetFLForm.transformValues = (
       FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL,
     ],
     ...inntekt,
-    vurderNyoppstartetFL: { erNyoppstartetFL: values[erNyoppstartetFLField] },
+    vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
   };
 };
-
-export default NyoppstartetFLForm;

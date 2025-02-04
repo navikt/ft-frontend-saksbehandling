@@ -1,12 +1,14 @@
 import React, { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
 import { DatePicker, HStack, Label, useRangeDatepicker, VStack } from '@navikt/ds-react';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+
 import { getError, getValidationRules } from '../formUtils';
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
@@ -24,7 +26,7 @@ export interface RangepickerProps {
 }
 
 // @deprecated brukes ikke(?)
-const Rangepicker = ({
+export const Rangepicker = ({
   fomName,
   tomName,
   label,
@@ -153,5 +155,3 @@ const Rangepicker = ({
     </DatePicker>
   );
 };
-
-export default Rangepicker;

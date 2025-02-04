@@ -1,24 +1,19 @@
-import React, { FunctionComponent } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
+import { Aksjonspunkt, Behandling, KodeverkMedNavn, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
-import {
-  Aksjonspunkt,
-  Behandling,
-  FeilutbetalingPerioderWrapper,
-  KodeverkMedNavn,
-  StandardProsessPanelProps,
-} from '@navikt/ft-types';
 
-import ForeldelseForm from './components/ForeldelseForm';
+import { ForeldelseForm } from './components/ForeldelseForm';
+import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
+import { ForeldelsesresultatActivity } from './types/ForeldelsesresultatActivity';
+import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
+import { VurderForeldelseAp } from './types/VurderForeldelseAp';
+
 import messages from '../i18n/nb_NO.json';
-import VurderForeldelseAp from './types/VurderForeldelseAp';
-import ForeldelsesresultatActivity from './types/foreldelsesresultatActivitytsType';
-import KodeverkFpTilbakeForPanel from './types/kodeverkFpTilbakeForPanel';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+export interface Props {
   behandling: Behandling;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
@@ -29,9 +24,7 @@ export interface OwnProps {
   relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
 }
 
-const ForeldelseProsessIndex: FunctionComponent<
-  OwnProps & StandardProsessPanelProps<VurderForeldelseAp, ForeldelsesresultatActivity[]>
-> = ({
+export const ForeldelseProsessIndex = ({
   perioderForeldelse,
   relasjonsRolleType,
   beregnBelop,
@@ -44,7 +37,7 @@ const ForeldelseProsessIndex: FunctionComponent<
   formData,
   setFormData,
   relasjonsRolleTypeKodeverk,
-}) => (
+}: Props & StandardProsessPanelProps<VurderForeldelseAp, ForeldelsesresultatActivity[]>) => (
   <RawIntlProvider value={intl}>
     <ForeldelseForm
       behandlingUuid={behandling.uuid}
@@ -62,5 +55,3 @@ const ForeldelseProsessIndex: FunctionComponent<
     />
   </RawIntlProvider>
 );
-
-export default ForeldelseProsessIndex;

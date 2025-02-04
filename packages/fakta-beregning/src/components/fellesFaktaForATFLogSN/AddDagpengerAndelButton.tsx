@@ -1,14 +1,17 @@
-import { Detail, Button } from '@navikt/ds-react';
+import { UseFieldArrayAppend } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+
 import { PlusCircleIcon } from '@navikt/aksel-icons';
+import { Button, Detail } from '@navikt/ds-react';
+
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
-import { UseFieldArrayAppend } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
-import AndelFieldValue from '../../typer/FieldValues';
+
+import { AndelFieldValue } from '../../typer/FieldValues';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+
 import styles from './addAndelButton.module.css';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
   andel: aktivitetStatuser.filter(({ kode }) => kode === AktivitetStatus.DAGPENGER)[0].navn,
@@ -20,12 +23,12 @@ const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]) => ({
   lagtTilAvSaksbehandler: true,
 });
 
-type OwnProps = {
+type Props = {
   leggTilAndel: UseFieldArrayAppend<AndelFieldValue>;
   kodeverkSamling: KodeverkForPanel;
 };
 
-export const AddDagpengerAndelButton: FunctionComponent<OwnProps> = ({ leggTilAndel, kodeverkSamling }) => {
+export const AddDagpengerAndelButton = ({ leggTilAndel, kodeverkSamling }: Props) => {
   const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS];
   return (
     <FlexRow className={styles.buttonRow}>
@@ -44,5 +47,3 @@ export const AddDagpengerAndelButton: FunctionComponent<OwnProps> = ({ leggTilAn
     </FlexRow>
   );
 };
-
-export default AddDagpengerAndelButton;

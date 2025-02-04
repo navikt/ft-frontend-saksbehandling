@@ -1,15 +1,18 @@
-import React, { FunctionComponent } from 'react';
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Beregningsgrunnlag, BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { FormattedMessage } from 'react-intl';
+
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
+
 import {
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
   isStatusFrilanserOrKombinasjon,
 } from '@navikt/ft-kodeverk';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+
 import styles from './aksjonspunktBehandler.module.css';
 
 const {
@@ -81,17 +84,13 @@ const finnTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgru
   }
 };
 
-type OwnProps = {
+type Props = {
   avklaringsbehov?: BeregningAvklaringsbehov;
   beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
 };
 
-const AksjonspunktBehandlerHeader: FunctionComponent<OwnProps> = ({
-  avklaringsbehov,
-  beregningsgrunnlag,
-  readOnly,
-}) => {
+export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnlag, readOnly }: Props) => {
   if (!avklaringsbehov) {
     return null;
   }
@@ -121,5 +120,3 @@ const AksjonspunktBehandlerHeader: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default AksjonspunktBehandlerHeader;

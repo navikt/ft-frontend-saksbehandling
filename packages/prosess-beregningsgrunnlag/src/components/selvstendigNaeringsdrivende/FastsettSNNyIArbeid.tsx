@@ -1,19 +1,21 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+
 import { BodyShort } from '@navikt/ds-react';
 
-import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
+import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-import { NyIArbeidslivetValues } from '../../types/NaringAksjonspunktTsType';
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
@@ -23,7 +25,7 @@ export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
 export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
-type OwnProps = {
+type Props = {
   endretTekst?: React.ReactNode;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
@@ -33,14 +35,6 @@ type OwnProps = {
   avklaringsbehov: BeregningAvklaringsbehov;
 };
 
-interface StaticFunctions {
-  buildInitialValuesNyIArbeidslivet: (
-    relevanteAndeler: BeregningsgrunnlagAndel[],
-    avklaringsbehov: BeregningAvklaringsbehov[],
-  ) => NyIArbeidslivetValues;
-  transformValuesNyIArbeidslivet: (values: Required<NyIArbeidslivetValues>) => NyIArbeidslivetruttoNæringResultatAP;
-}
-
 /**
  * FastsettSN
  *
@@ -49,14 +43,14 @@ interface StaticFunctions {
  * Presentasjonskomponent. Setter opp inputfelt som lar saksbehandler fastsette
  * næringsinntekt for selvstendig næringsdrivende. Opprettes enten hvis det er varig endret / nyoppstartet næring eller søker er ny i arbeidslivet.
  */
-const FastsettSNNyIArbeid: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const FastsettSNNyIArbeid = ({
   readOnly,
   isAksjonspunktClosed,
   erNyArbLivet,
   fieldIndex,
   formName,
   avklaringsbehov,
-}) => {
+}: Props) => {
   const intl = useIntl();
   return (
     <>
@@ -132,5 +126,3 @@ FastsettSNNyIArbeid.transformValuesNyIArbeidslivet = (
   begrunnelse: values[begrunnelseFieldname],
   bruttoBeregningsgrunnlag: removeSpacesFromNumber(values[fastsettInntektFieldname]),
 });
-
-export default FastsettSNNyIArbeid;

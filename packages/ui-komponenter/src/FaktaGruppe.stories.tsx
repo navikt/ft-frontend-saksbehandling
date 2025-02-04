@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FaktaGruppe from './FaktaGruppe';
+import { FaktaGruppe } from './FaktaGruppe';
 
 export default {
   title: 'FaktaGruppe',

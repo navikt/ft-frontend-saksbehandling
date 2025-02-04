@@ -1,25 +1,27 @@
-import React from 'react';
-import { RawIntlProvider } from 'react-intl';
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { createIntl } from '@navikt/ft-utils';
-import DateLabel from './DateLabel';
+import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 
-const intl = createIntl({
+import { DateLabel } from './DateLabel';
+
+const withIntl = getIntlDecorator({
   'OkAvbrytModal.Ok': 'Ok',
   'OkAvbrytModal.Avbryt': 'Avbryt',
   'Test.Test': 'Dette er ein test',
 });
 
-export default {
+const meta = {
   title: 'DateLabel',
   component: DateLabel,
+  decorators: [withIntl],
+} satisfies Meta<typeof DateLabel>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    dateString: '2017-10-02',
+  },
 };
-
-const Template: StoryFn = () => (
-  <RawIntlProvider value={intl}>
-    <DateLabel dateString="2017-10-02" />
-  </RawIntlProvider>
-);
-
-export const Default = Template.bind({});

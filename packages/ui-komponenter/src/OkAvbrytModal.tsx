@@ -1,5 +1,4 @@
-import React, { FunctionComponent } from 'react';
-import { Modal, Heading, Button } from '@navikt/ds-react';
+import { Button, Heading, Modal } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 
@@ -7,7 +6,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+export interface Props {
   text: string;
   okButtonText?: string;
   showModal: boolean;
@@ -20,7 +19,7 @@ export interface OwnProps {
  *
  * Modal som viser en valgfri tekst i tillegg til knappene OK og Avbryt.
  */
-const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showModal, cancel, submit }) => (
+export const OkAvbrytModal = ({ text, okButtonText, showModal, cancel, submit }: Props) => (
   <Modal width="small" open={showModal} aria-label={text} onClose={cancel}>
     <Modal.Body>
       <Heading size="small">{text}</Heading>
@@ -35,5 +34,3 @@ const OkAvbrytModal: FunctionComponent<OwnProps> = ({ text, okButtonText, showMo
     </Modal.Footer>
   </Modal>
 );
-
-export default OkAvbrytModal;

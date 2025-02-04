@@ -1,7 +1,9 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
-import VurderMottarYtelseForm from './VurderMottarYtelseForm';
+import { VurderMottarYtelseForm } from './VurderMottarYtelseForm';
 import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 
 const beregningsgrunnlag = {
@@ -144,7 +146,7 @@ describe('<VurderMottarYtelseForm>', () => {
       frilansInntektValues: {
         fastsattBelop: 10000,
       },
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
@@ -193,7 +195,7 @@ describe('<VurderMottarYtelseForm>', () => {
       frilansInntektValues: {
         fastsattBelop: 0,
       },
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
@@ -237,7 +239,7 @@ describe('<VurderMottarYtelseForm>', () => {
       frilansInntektValues: {
         fastsattBelop: 10000,
       },
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const fastsatteAndelsnr: number[] = [];
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
@@ -287,7 +289,7 @@ describe('<VurderMottarYtelseForm>', () => {
       frilansInntektValues: {
         fastsattBelop: 10000,
       },
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,
@@ -339,7 +341,7 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,
@@ -372,7 +374,7 @@ describe('<VurderMottarYtelseForm>', () => {
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformed = VurderMottarYtelseForm.transformValues(
       values,
       inntektPrMnd,

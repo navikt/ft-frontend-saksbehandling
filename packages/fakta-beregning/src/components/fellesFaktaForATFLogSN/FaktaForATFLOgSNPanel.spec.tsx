@@ -5,12 +5,13 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
+
+import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
 import { transformValues, transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 
 const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrunnlag =>
   ({
@@ -43,8 +44,9 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         },
       ],
     } as Beregningsgrunnlag;
-    const values = {
+    const values: FaktaOmBeregningAksjonspunktValues = {
       tilfeller: aktivePaneler,
+      kortvarigeArbeidsforhold: [],
       vurderMottarYtelse: undefined,
       faktaOmBeregning,
       beregningsgrunnlag,
@@ -131,8 +133,9 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       frilansAndel,
     };
     const beregningsgrunnlag = lagBeregningsgrunnlag([forholdMedLonnsendringUtenIM, frilansAndel]);
-    const values = {
+    const values: FaktaOmBeregningAksjonspunktValues = {
       tilfeller: aktivePaneler,
+      kortvarigeArbeidsforhold: [],
       vurderMottarYtelse: undefined,
       faktaOmBeregning,
       beregningsgrunnlag,
@@ -142,6 +145,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       [erNyoppstartetFLField]: true,
       [INNTEKT_FIELD_ARRAY_NAME]: [
         {
+          aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
           andel: 'Arbeid',
           fastsattBelop: '10 000',
           inntektskategori: 'ARBEIDSTAKER',
@@ -158,7 +162,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         },
       ],
     };
-    const transformedValues = transformValuesFaktaForATFLOgSN(values as FaktaOmBeregningAksjonspunktValues);
+    const transformedValues = transformValuesFaktaForATFLOgSN(values);
     const tilfeller = transformedValues.fakta.faktaOmBeregningTilfeller || [];
     expect(tilfeller).toHaveLength(4);
     expect(tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)).toEqual(true);
@@ -187,7 +191,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       kortvarigTransform,
       lonnsendringTransform,
       vurderRefusjonTransform,
-    )({}, {});
+    )({}, {} as FaktaOmBeregningAksjonspunktValues);
     expect(nyIArbTransform).toHaveProperty('callCount', 1);
     expect(kortvarigTransform).toHaveProperty('callCount', 0);
     expect(lonnsendringTransform).toHaveProperty('callCount', 0);
@@ -210,7 +214,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       kortvarigTransform,
       lonnsendringTransform,
       vurderRefusjonTransform,
-    )({}, {});
+    )({}, {} as FaktaOmBeregningAksjonspunktValues);
     expect(nyIArbTransform).toHaveProperty('callCount', 1);
     expect(kortvarigTransform).toHaveProperty('callCount', 1);
     expect(lonnsendringTransform).toHaveProperty('callCount', 0);

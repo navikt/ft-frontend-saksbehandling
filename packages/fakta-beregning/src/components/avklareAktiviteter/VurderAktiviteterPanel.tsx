@@ -1,19 +1,21 @@
-import React, { FunctionComponent } from 'react';
-import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
-import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
+
+import dayjs from 'dayjs';
+
 import { hasValidDate } from '@navikt/ft-form-validators';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+
+import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   buildInitialValues as buildInitialValuesForTabell,
   lagAktivitetFieldId,
   transformValues as transformValuesForTabell,
 } from './VurderAktiviteterTabell';
-import AvklarAktiviteterValues, { AktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import VurderAktiviteterTabellReactHookForm from './VurderAktiviteterTabellReactHookForm';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { VurderAktiviteterTabellReactHookForm } from './VurderAktiviteterTabellReactHookForm';
 
 const harListeAktivitetSomSkalBrukes = (
   mapping: AvklarBeregningAktiviteter,
@@ -160,12 +162,12 @@ const utledGjeldendeSkjæringstidspunkt = (
   return undefined;
 };
 
-const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string) => {
-  const datoFeil = hasValidDate(skjaeringstidspunkt);
+const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string | undefined) => {
+  const datoFeil = !skjaeringstidspunkt || hasValidDate(skjaeringstidspunkt);
   return datoFeil ? '' : dayjs(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
 };
 
-type OwnProps = {
+type Props = {
   erOverstyrt: boolean;
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
@@ -177,32 +179,12 @@ type OwnProps = {
   fieldId: number;
 };
 
-interface StaticFunctions {
-  transformValues: (
-    values: AvklarAktiviteterValues,
-    aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-    erOverstyrt: boolean,
-  ) => BeregningAktivitetTransformedValues[];
-  harIngenAktiviteter: (
-    values: AvklarAktiviteterValues,
-    aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-    erOverstyrt: boolean,
-  ) => boolean;
-  buildInitialValues: (
-    aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-    kodeverkSamling: KodeverkForPanel,
-    erOverstyrt: boolean,
-    harAvklaringsbehov: boolean,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  ) => AktiviteterValues;
-}
-
 /**
  * VurderAktiviteterPanel
  *
  * Presentasjonskomponent.. Inneholder tabeller for avklaring av skjæringstidspunkt
  */
-export const VurderAktiviteterPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const VurderAktiviteterPanel = ({
   readOnly,
   isAvklaringsbehovClosed,
   values,
@@ -212,7 +194,7 @@ export const VurderAktiviteterPanel: FunctionComponent<OwnProps> & StaticFunctio
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldId,
-}) => {
+}: Props) => {
   const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
 
@@ -347,5 +329,3 @@ VurderAktiviteterPanel.buildInitialValues = (
   });
   return initialValues;
 };
-
-export default VurderAktiviteterPanel;

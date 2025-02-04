@@ -1,16 +1,19 @@
-import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
-import LinkButtonComponent from './LinkButton';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
+import { LinkButton } from './LinkButton';
+
+const meta = {
   title: 'Link button',
-  component: LinkButtonComponent,
+  component: LinkButton,
+} satisfies Meta<typeof LinkButton>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    onClick: () => console.log('I was clicked'),
+    children: 'Click me',
+  },
 };
-
-const Template: StoryFn<ComponentProps<typeof LinkButtonComponent>> = () => (
-  // eslint-disable-next-line no-console
-  <LinkButtonComponent onClick={() => console.log('I was clicked')}>Click me</LinkButtonComponent>
-);
-
-export const LinkButton = Template.bind({});
-LinkButton.args = {};

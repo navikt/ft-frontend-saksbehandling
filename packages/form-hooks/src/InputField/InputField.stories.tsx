@@ -1,6 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import InputField from './InputField';
+
 import { rhfDecorator } from '../../.storybook/decorators';
+import { InputField } from './InputField';
 
 const meta = {
   component: InputField,

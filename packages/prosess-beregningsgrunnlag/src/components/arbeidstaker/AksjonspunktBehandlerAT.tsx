@@ -1,19 +1,20 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import { ReactElement } from 'react';
+
 import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
-import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+
+import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunktTsType';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
@@ -64,14 +65,7 @@ const createRows = (
     </FlexRow>
   ));
 
-interface StaticFunctions {
-  transformValues: (
-    values: ArbeidstakerInntektValues,
-    alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-  ) => ArbeidsinntektResultat[];
-}
-
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
   kodeverkSamling: KodeverkForPanel;
@@ -80,7 +74,8 @@ type OwnProps = {
   formName: string;
   skalValideres: boolean;
 };
-const AksjonspunktBehandlerAT: FunctionComponent<OwnProps> & StaticFunctions = ({
+
+export const AksjonspunktBehandlerAT = ({
   readOnly,
   alleAndelerIForstePeriode,
   kodeverkSamling,
@@ -125,5 +120,3 @@ AksjonspunktBehandlerAT.transformValues = (
   }
   return inntektPrAndelList;
 };
-
-export default AksjonspunktBehandlerAT;

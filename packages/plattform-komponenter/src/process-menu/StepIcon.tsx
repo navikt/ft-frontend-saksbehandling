@@ -1,7 +1,7 @@
 import React from 'react';
-import classnames from 'classnames';
 
-import { CheckmarkIcon, ExclamationmarkIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons';
+import { CheckmarkIcon, ExclamationmarkTriangleFillIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons';
+import classnames from 'classnames';
 
 import { StepType } from './StepType';
 
@@ -17,25 +17,19 @@ export const StepIcon = ({ type, usePartialStatus }: StepIconProps) => {
   const isDanger = type === StepType.danger;
   const isSuccess = type === StepType.success;
 
-  if (usePartialStatus && (isDanger || isSuccess)) {
-    return (
-      <div
-        className={classnames(`${styles.step__icon} ${styles['step__icon--partial']}`, {
-          [styles['step__icon--success']]: isSuccess,
-          [styles['step__icon--danger']]: isDanger,
-        })}
-      />
-    );
-  }
+  const classes = classnames(`${styles.icon}`);
 
+  if (usePartialStatus && (isDanger || isSuccess)) {
+    return <div className={classes} />;
+  }
   if (isSuccess) {
-    return <CheckmarkIcon className={`${styles.step__icon} ${styles['step__icon--success']}`} />;
+    return <CheckmarkIcon className={classes} />;
   }
   if (isWarning) {
-    return <ExclamationmarkIcon className={`${styles.step__icon} ${styles['step__icon--warning']} `} />;
+    return <ExclamationmarkTriangleFillIcon className={classes} />;
   }
   if (isDanger) {
-    return <XMarkOctagonFillIcon className={`${styles.step__icon} ${styles['step__icon--danger']}`} />;
+    return <XMarkOctagonFillIcon className={classes} />;
   }
   return <></>;
 };

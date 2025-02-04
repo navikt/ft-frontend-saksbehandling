@@ -1,12 +1,13 @@
-import React, { ReactNode, FunctionComponent } from 'react';
-import classnames from 'classnames/bind';
+import { ReactNode } from 'react';
+
 import { Panel } from '@navikt/ds-react';
+import classnames from 'classnames/bind';
 
 import styles from './borderBox.module.css';
 
 const classNames = classnames.bind(styles);
 
-export interface OwnProps {
+export interface Props {
   error?: boolean;
   className?: string;
   children?: ReactNode | ReactNode[];
@@ -17,10 +18,8 @@ export interface OwnProps {
  *
  * Valideringskomponent. Visar en box kring noe som skall fikses.
  */
-const BorderBox: FunctionComponent<OwnProps> = ({ error = false, className, children }) => (
+export const BorderBox = ({ error = false, className, children }: Props) => (
   <Panel border className={classNames('borderbox', { error }, className)}>
     {children}
   </Panel>
 );
-
-export default BorderBox;

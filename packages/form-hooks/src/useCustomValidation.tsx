@@ -8,7 +8,7 @@ type ErrorMessageType = {
 /**
  * Bruk denne når en må validere og vise feilmelding som ikke er knyttet til ett spesifikt felt.
  */
-const useCustomValidation = (stateName: string, message?: string): string | undefined => {
+export const useCustomValidation = (stateName: string, message?: string): string | undefined => {
   const { setError, clearErrors, formState } = useFormContext<{ [key: string]: ErrorMessageType }>();
   const hasError = !!message;
 
@@ -34,5 +34,3 @@ const useCustomValidation = (stateName: string, message?: string): string | unde
 
   return errors?.notRegisteredInput?.message;
 };
-
-export default useCustomValidation;

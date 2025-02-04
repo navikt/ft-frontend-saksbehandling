@@ -1,13 +1,14 @@
-import React from 'react';
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import LoadingPanel from './LoadingPanel';
+import { LoadingPanel } from './LoadingPanel';
 
-export default {
+const meta = {
   title: 'LoadingPanel',
   component: LoadingPanel,
-};
+} satisfies Meta<typeof LoadingPanel>;
 
-const Template: StoryFn = () => <LoadingPanel />;
+export default meta;
 
-export const Default = Template.bind({});
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};

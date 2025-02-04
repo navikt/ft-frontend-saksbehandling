@@ -1,8 +1,10 @@
 import React, { ReactNode } from 'react';
 import { FieldArrayMethodProps } from 'react-hook-form';
-import { Button, Detail, Fieldset } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
+import { Button, Detail, Fieldset } from '@navikt/ds-react';
+
+import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import styles from './periodFieldArray.module.css';
 
@@ -63,7 +65,7 @@ export interface Props<PERIOD_TYPE> {
  *
  * Håndterer å legge til og fjerne perioder
  */
-const PeriodFieldArray = <PERIOD_TYPE,>({
+export const PeriodFieldArray = <PERIOD_TYPE,>({
   fields,
   readOnly = true,
   titleText,
@@ -108,5 +110,3 @@ const PeriodFieldArray = <PERIOD_TYPE,>({
     )}
   </Fieldset>
 );
-
-export default PeriodFieldArray;

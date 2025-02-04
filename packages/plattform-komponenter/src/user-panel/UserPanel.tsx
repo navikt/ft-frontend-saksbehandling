@@ -1,8 +1,10 @@
 import React from 'react';
-import { bemUtils } from '@navikt/ft-utils';
-import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
+
+import { bemUtils } from '@navikt/ft-utils';
+
 import styles from './userPanel.module.css';
 
 const userCls = bemUtils('user');
@@ -14,7 +16,7 @@ export interface UserPanelProps {
   isToggled?: boolean;
 }
 
-const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClick, isToggled }) => {
+export const UserPanel = ({ name, unit, onClick, isToggled }: UserPanelProps) => {
   if (onClick) {
     return (
       <button
@@ -55,5 +57,3 @@ const UserPanel: React.FunctionComponent<UserPanelProps> = ({ name, unit, onClic
     </div>
   );
 };
-
-export default UserPanel;

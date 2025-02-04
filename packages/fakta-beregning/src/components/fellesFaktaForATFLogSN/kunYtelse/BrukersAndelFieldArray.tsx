@@ -1,20 +1,25 @@
+import React, { ReactElement } from 'react';
+import { FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
+
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
-import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
+import { AndelFieldValue } from '../../../typer/FieldValues';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+
 import styles from './brukersAndelFieldArray.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
@@ -34,7 +39,7 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
     </option>
   ));
 
-const summerFordeling = fields => {
+const summerFordeling = (fields: BrukersAndelValues[]): string | undefined => {
   let sum = 0;
   fields.forEach(field => {
     sum += field.fastsattBelop ? removeSpacesFromNumber(field.fastsattBelop) : 0;
@@ -42,19 +47,23 @@ const summerFordeling = fields => {
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-function skalViseSletteknapp(index, fields, readOnly) {
+function skalViseSletteknapp(
+  index: number,
+  fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
+  readOnly: boolean,
+) {
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
 
 const createAndelerTableRows = (
-  fields,
-  isAksjonspunktClosed,
-  readOnly,
+  fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
+  isAksjonspunktClosed: boolean,
+  readOnly: boolean,
   inntektskategoriKoder: KodeverkMedNavn[],
-  intl,
-  fieldArrayName,
-  remove,
-) =>
+  intl: IntlShape,
+  fieldArrayName: string,
+  remove: UseFieldArrayRemove,
+): ReactElement[] =>
   fields.map((field, index) => (
     <Table.Row className={styles.row} key={field.id}>
       <Table.DataCell>
@@ -109,7 +118,7 @@ const createAndelerTableRows = (
       </Table.DataCell>
     </Table.Row>
   ));
-const createBruttoBGSummaryRow = sumFordeling => (
+const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElement => (
   <Table.Row key="bruttoBGSummaryRow">
     <Table.DataCell>
       <Label as="p" size="small">
@@ -133,24 +142,26 @@ const getHeaderTextCodes = () => [
 const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
   kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
-type OwnProps = {
+type Props = {
   name: string;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   kodeverkSamling: KodeverkForPanel;
 };
 
-const mapBrukesAndelToSortedObject = (value: BrukersAndelValues): SortedAndelInfo => {
+const mapBrukesAndelToSortedObject = (value: BrukersAndelValues | AndelFieldValue): SortedAndelInfo => {
   const { andel, inntektskategori } = value;
   return { andelsinfo: andel, inntektskategori };
 };
 
-const validate = (values: BrukersAndelValues[], intl: IntlShape) => {
-  const ulikeAndelerFeilmelding = validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl);
+const validate = (values: BrukersAndelValues[] | undefined, intl: IntlShape): string | undefined => {
+  const ulikeAndelerFeilmelding = values
+    ? validateUlikeAndelerWithGroupingFunction(values, mapBrukesAndelToSortedObject, intl)
+    : undefined;
   if (ulikeAndelerFeilmelding) {
     return ulikeAndelerFeilmelding;
   }
-  return null;
+  return undefined;
 };
 
 /**
@@ -159,12 +170,7 @@ const validate = (values: BrukersAndelValues[], intl: IntlShape) => {
  * Presentasjonskomponent: Viser fordeling for brukers andel ved kun ytelse
  * Komponenten må rendres som komponenten til et FieldArray.
  */
-export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
-  name,
-  readOnly,
-  isAksjonspunktClosed,
-  kodeverkSamling,
-}) => {
+export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, kodeverkSamling }: Props) => {
   const intl = useIntl();
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -179,8 +185,8 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
     control,
   });
-  const sumFordeling = summerFordeling(fieldArrayValues) || 0;
-  const TableRows = createAndelerTableRows(
+  const sumFordeling = fieldArrayValues ? summerFordeling(fieldArrayValues) : '0';
+  const tableRows = createAndelerTableRows(
     fields,
     isAksjonspunktClosed,
     readOnly,
@@ -189,7 +195,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     fieldArrayName,
     remove,
   );
-  TableRows.push(createBruttoBGSummaryRow(sumFordeling));
+  tableRows.push(createBruttoBGSummaryRow(sumFordeling));
   const feilmelding = validate(fieldArrayValues, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
@@ -216,7 +222,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
-        <Table.Body>{TableRows}</Table.Body>
+        <Table.Body>{tableRows}</Table.Body>
       </Table>
       {!readOnly && (
         <FlexRow className={styles.buttonRow}>
@@ -224,7 +230,7 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
             <VerticalSpacer eightPx />
             <Button
               icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
-              // @ts-ignore Fiks
+              // @ts-expect-error Fiks
               onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
               type="button"
               variant="tertiary"
@@ -240,5 +246,3 @@ export const BrukersAndelFieldArray: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default BrukersAndelFieldArray;

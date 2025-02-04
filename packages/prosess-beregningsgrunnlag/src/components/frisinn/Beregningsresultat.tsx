@@ -1,12 +1,13 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import { Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
-import dayjs from 'dayjs';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import BeregningsresultatPeriode from './BeregningsresultatPeriode';
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+
+import { BeregningsresultatPeriode } from './BeregningsresultatPeriode';
 import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,
@@ -14,6 +15,8 @@ import {
   FrisinnGrunnlag,
   FrisinnPeriode,
 } from './FrisinnUtils';
+
+import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const finnInntektstak = (bg: Beregningsgrunnlag) => (bg.grunnbeløp ? bg.grunnbeløp * 6 : 0);
 
@@ -68,11 +71,11 @@ const overlapperMedFrisinnPeriode = (bgPeriode: BeregningsgrunnlagPeriodeProp, f
   );
 };
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
-const Beregningsresultat: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
+export const Beregningsresultat = ({ beregningsgrunnlag }: Props) => {
   const frisinnPerioderSomSkalVises = finnFrisinnperioderSomSkalVises(
     beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
   );
@@ -104,4 +107,3 @@ const Beregningsresultat: FunctionComponent<OwnProps> = ({ beregningsgrunnlag })
     </div>
   );
 };
-export default Beregningsresultat;

@@ -1,6 +1,7 @@
-import React, { ReactNode, useMemo } from 'react';
-import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react';
+import { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
+import { Checkbox as NavCheckbox, ErrorMessage } from '@navikt/ds-react';
 
 import { getError, getValidationRules } from '../formUtils';
 
@@ -15,7 +16,7 @@ export interface Props {
   disabled?: boolean;
 }
 
-const CheckboxField = ({
+export const CheckboxField = ({
   name,
   label,
   validate = [],
@@ -65,5 +66,3 @@ const CheckboxField = ({
     </>
   );
 };
-
-export default CheckboxField;

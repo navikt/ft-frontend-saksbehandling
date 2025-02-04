@@ -1,9 +1,11 @@
-import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
-import React, { FunctionComponent, ReactElement, useCallback, useMemo } from 'react';
+import { ReactElement, useCallback, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+import norskFormat from 'dayjs/locale/nb';
+import { CallbackDataParams } from 'echarts/types/dist/shared';
+import { OptionDataValue } from 'echarts/types/src/util/types';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import {
@@ -12,16 +14,13 @@ import {
   InntektsgrunnlagMåned,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import dayjs from 'dayjs';
-import norskFormat from 'dayjs/locale/nb';
+import { ReactECharts } from '../echart/ReactECharts';
+import { Ledelinje } from './Ledelinje';
 
-import { CallbackDataParams } from 'echarts/types/dist/shared';
-import { OptionDataValue } from 'echarts/types/src/util/types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import ReactECharts from '../echart/ReactECharts';
-
-import Ledelinje from './Ledelinje';
 import styles from './sammenligningsgrunnlagAOrdningen.module.css';
 
 const TOM_ARRAY: InntektsgrunnlagMåned[] = [];
@@ -161,15 +160,15 @@ const utledRelevanteStatuser = (måneder: InntektsgrunnlagMåned[]): Inntektstyp
   harYtelseinntekt: finnesInntektAvType(måneder, InntektAktivitetType.YTELSE),
 });
 
-type OwnProps = {
+type Props = {
   sammenligningsGrunnlagInntekter: Inntektsgrunnlag;
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];
 };
 
-const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
+export const SammenligningsgrunnlagAOrdningen = ({
   sammenligningsGrunnlagInntekter,
   sammenligningsgrunnlag,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const måneder = sammenligningsGrunnlagInntekter?.måneder || TOM_ARRAY;
   const relevanteStatuser = useMemo(() => utledRelevanteStatuser(måneder), [måneder]);
@@ -320,5 +319,3 @@ const SammenligningsgrunnlagAOrdningen: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default SammenligningsgrunnlagAOrdningen;

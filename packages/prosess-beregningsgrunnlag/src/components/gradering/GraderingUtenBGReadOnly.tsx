@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react';
+
+import { BodyShort, Label } from '@navikt/ds-react';
 
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { VerticalSpacer, EditedIcon } from '@navikt/ft-ui-komponenter';
+import { EditedIcon, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import styles from './graderingUtenBGReadOnly.module.css';
 
-type OwnProps = {
+type Props = {
   avklaringsbehov: BeregningAvklaringsbehov;
 };
 
@@ -16,7 +16,7 @@ type OwnProps = {
  * Vil ikke lenger oppstå men vi må kunne vise begrunnelsen som ble
  * oppgitt av saksbehandler og en kort beskrivelse av aksjonspunktet.
  */
-const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ avklaringsbehov }) => {
+export const GraderingUtenBGReadOnly = ({ avklaringsbehov }: Props) => {
   if (!avklaringsbehov || !avklaringsbehov.begrunnelse) {
     return null;
   }
@@ -32,5 +32,3 @@ const GraderingUtenBGReadOnly: FunctionComponent<OwnProps> = ({ avklaringsbehov 
     </>
   );
 };
-
-export default GraderingUtenBGReadOnly;

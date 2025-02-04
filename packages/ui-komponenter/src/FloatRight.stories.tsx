@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FloatRight from './FloatRight';
+import { FloatRight } from './FloatRight';
 
 export default {
   title: 'FloatRight',

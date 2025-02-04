@@ -1,4 +1,4 @@
-import ArbeidsinntektInput from './ArbeidsinntektInput';
+import { ArbeidsinntektInput } from './ArbeidsinntektInput';
 
 describe('<ArbeidsinntektInput>', () => {
   it('skal sette initial values fra alle andeler som ardeidstaker', () => {

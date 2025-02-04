@@ -1,7 +1,7 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 
-const beregningsgrunnlag = [
+export const beregningsgrunnlag = [
   {
     avklaringsbehov: [
       {
@@ -559,5 +559,3 @@ const beregningsgrunnlag = [
     forlengelseperioder: [{ fom: '2022-11-16', tom: '2022-11-20' }],
   } as Beregningsgrunnlag,
 ];
-
-export default beregningsgrunnlag;

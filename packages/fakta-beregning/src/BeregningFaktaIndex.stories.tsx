@@ -1,5 +1,8 @@
-import '@navikt/ds-css';
-import '@navikt/ft-form-hooks/dist/style.css';
+import { action } from '@storybook/addon-actions';
+import type { StoryFn } from '@storybook/react';
+import dayjs from 'dayjs';
+
+import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-frontend-storybook-utils';
 import {
   AksjonspunktStatus,
   AktivitetStatus as aktivitetStatuser,
@@ -7,21 +10,14 @@ import {
   Inntektskategori,
   OpptjeningAktivitetType,
 } from '@navikt/ft-kodeverk';
-import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-frontend-storybook-utils';
 import {
   AndelForFaktaOmBeregning,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
-  Vilkar,
-  Vilkarperiode,
 } from '@navikt/ft-types';
-import '@navikt/ft-ui-komponenter/dist/style.css';
-import { action } from '@storybook/addon-actions';
-import type { StoryFn } from '@storybook/react';
-import dayjs from 'dayjs';
-import React from 'react';
+
 import {
   beregningsgrunnlag as bgArbeidOgAAP,
   vilkar as vilkarArbeidOgAAP,
@@ -31,14 +27,19 @@ import {
   beregningsgrunnlag as bgMedArbeidOgDagpenger,
   vilkar as vilkarArbeidOgDagpenger,
 } from '../testdata/ArbeidMedDagpengerIOpptjeningsperioden';
-import agOpplysninger from '../testdata/arbeidsgiverOpplysninger';
+import { agOpplysninger } from '../testdata/arbeidsgiverOpplysninger';
 import { bgOverstyreUtenAvklaringsbehov, vilkarOverstyreUtenAvklaringsbehov } from '../testdata/bgUtenAvklaringsbehov';
 import {
   beregningsgrunnlag as bgToArbeidsforholdIOpptjeningsperioden,
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
-import BeregningFaktaIndex from './BeregningFaktaIndex';
-import FaktaBeregningAvklaringsbehovCode from './typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { BeregningFaktaIndex } from './BeregningFaktaIndex';
+import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { Vilkår, Vilkårperiode } from './typer/Vilkår';
+
+import '@navikt/ds-css';
+import '@navikt/ft-form-hooks/dist/style.css';
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
 const opprettetVurderFakta = {
   definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
@@ -171,7 +172,7 @@ const standardFaktaAAPAndel = {
   lagtTilAvSaksbehandler: false,
 };
 
-const vilkar: Vilkar = {
+const vilkar: Vilkår = {
   vilkarType: '',
   overstyrbar: true,
   perioder: [
@@ -187,7 +188,7 @@ const vilkar: Vilkar = {
   ],
 };
 
-const lagVilkar = (perioder: Vilkarperiode[]): Vilkar => ({
+const lagVilkar = (perioder: Vilkårperiode[]): Vilkår => ({
   vilkarType: '',
   overstyrbar: true,
   perioder: perioder.map(p => ({
@@ -417,8 +418,8 @@ export const FrilansOgArbeidsforholdMedLønnsendringOgNyoppstartetAp5058: StoryF
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
       vilkar={lagVilkar([
-        { periode: { fom: '2022-03-02', tom: '2022-03-10' }, vurderesIBehandlingen: false } as Vilkarperiode,
-        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
+        { periode: { fom: '2022-03-02', tom: '2022-03-10' }, vurderesIBehandlingen: false } as Vilkårperiode,
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkårperiode,
       ])}
     />
   );
@@ -461,7 +462,7 @@ export const FrilansNyoppstartetAp5058: StoryFn = ({ submitCallback }) => {
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
       vilkar={lagVilkar([
-        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkårperiode,
       ])}
     />
   );
@@ -497,7 +498,7 @@ export const ArbeidsforholdMedLønnsendringAp5058: StoryFn = ({ submitCallback }
       arbeidsgiverOpplysningerPerId={agOpplysninger}
       setFormData={() => undefined}
       vilkar={lagVilkar([
-        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkarperiode,
+        { periode: { fom: '2022-03-15', tom: '2022-04-02' }, vurderesIBehandlingen: true } as Vilkårperiode,
       ])}
     />
   );

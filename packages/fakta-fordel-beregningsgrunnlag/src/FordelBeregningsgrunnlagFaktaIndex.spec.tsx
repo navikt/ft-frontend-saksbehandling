@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+
 import { composeStories } from '@storybook/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import * as stories from './FordelBeregningsgrunnlagFaktaIndex.stories';
 
 const {
@@ -267,7 +269,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
 
     await userEvent.type(fordelingAAP, '200 000');
     await userEvent.clear(refkravAT);
-    // @ts-ignore
+    // @ts-expect-error
     refkravAT.setSelectionRange(0, 6);
     await userEvent.type(refkravAT, `{backspace}`);
     await userEvent.type(refkravAT, '200 000');
@@ -302,7 +304,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     const begrunnelseFelt2 = alleInputfelt[7];
 
     await userEvent.type(fordelingAAP2, '200 000');
-    // @ts-ignore
+    // @ts-expect-error
     refkravAT2.setSelectionRange(0, 6);
     await userEvent.type(refkravAT2, `{backspace}`);
     await userEvent.type(refkravAT2, '200 000');

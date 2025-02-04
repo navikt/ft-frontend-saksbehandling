@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
+
 import { Button } from '@navikt/ds-react';
 
 import { ariaCheck } from '@navikt/ft-form-validators';
@@ -15,7 +16,7 @@ const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: bool
   return !isDirty;
 };
 
-export interface OwnProps {
+export interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;
@@ -26,7 +27,7 @@ export interface OwnProps {
 /**
  * ProsessStegSubmitButton
  */
-const SubmitButton: FunctionComponent<OwnProps> = ({ isReadOnly, isSubmittable, onClick, isSubmitting, isDirty }) => {
+export const SubmitButton = ({ isReadOnly, isSubmittable, onClick, isSubmitting, isDirty }: Props) => {
   if (!isReadOnly) {
     return (
       <Button
@@ -42,5 +43,3 @@ const SubmitButton: FunctionComponent<OwnProps> = ({ isReadOnly, isSubmittable, 
   }
   return null;
 };
-
-export default SubmitButton;

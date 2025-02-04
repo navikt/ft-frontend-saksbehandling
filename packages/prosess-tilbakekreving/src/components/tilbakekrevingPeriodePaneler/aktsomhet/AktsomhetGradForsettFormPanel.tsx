@@ -1,23 +1,20 @@
-import React, { useEffect, FunctionComponent } from 'react';
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+
 import { BodyShort, Detail, Label } from '@navikt/ds-react';
 
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { useFormContext } from 'react-hook-form';
+import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-export interface OwnProps {
+export interface Props {
   name: string;
   readOnly: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
 }
 
-const AktsomhetGradForsettFormPanel: FunctionComponent<OwnProps> = ({
-  name,
-  readOnly,
-  erValgtResultatTypeForstoBurdeForstaatt,
-}) => {
+export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatTypeForstoBurdeForstaatt }: Props) => {
   const context = useFormContext();
   const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter`;
   useEffect(() => {
@@ -72,5 +69,3 @@ const AktsomhetGradForsettFormPanel: FunctionComponent<OwnProps> = ({
     </div>
   );
 };
-
-export default AktsomhetGradForsettFormPanel;

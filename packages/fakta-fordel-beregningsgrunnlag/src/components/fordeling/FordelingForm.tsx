@@ -1,18 +1,21 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+
 import { Form } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Vilkarperiode } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
-import FordelBeregningsgrunnlagAP from '../../types/interface/FordelBeregningsgrunnlagAP';
 import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import FordelingField, {
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import { FordelBeregningsgrunnlagAP } from '../../types/interface/FordelBeregningsgrunnlagAP';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { Vilkårperiode } from '../../types/Vilkår';
+import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
+import {
   buildFieldInitialValuesFordelBeregning,
+  FordelingField,
   transformFieldValuesFordelBeregning,
 } from './FordelingField';
-import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
@@ -32,7 +35,7 @@ const finnBeregningsgrunnlag = (
 const transformValues = (
   values: FordelBeregningsgrunnlagFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
-  vilkårsperioder: Vilkarperiode[],
+  vilkårsperioder: Vilkårperiode[],
 ): FordelBeregningsgrunnlagAP => {
   const fields = values[FORM_NAME];
   const grunnlag = fields
@@ -56,7 +59,7 @@ function fordelPredicate(bg: Beregningsgrunnlag) {
 
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
-  vilkårsperioder: Vilkarperiode[],
+  vilkårsperioder: Vilkårperiode[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagFormValues => ({
@@ -72,13 +75,13 @@ const buildInitialValues = (
     ),
 });
 
-interface PureOwnProps {
+interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  vilkårsperioder: Vilkarperiode[];
+  vilkårsperioder: Vilkårperiode[];
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues;
@@ -91,7 +94,7 @@ interface PureOwnProps {
  *
  * Container komponent. Har ansvar for å sette opp Formen for å fordele beregningsgrunnlag.
  */
-const FordelingForm: FunctionComponent<PureOwnProps> = ({
+export const FordelingForm = ({
   aktivtBeregningsgrunnlagIndeks,
   readOnly,
   submittable,
@@ -103,7 +106,7 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
   formData,
   setFormData,
   setFordelingFormIsDirty,
-}) => {
+}: Props) => {
   const formMethods = useForm<FordelBeregningsgrunnlagFormValues>({
     defaultValues: formData?.FORDEL_BEREGNING_FORM
       ? formData
@@ -174,5 +177,3 @@ const FordelingForm: FunctionComponent<PureOwnProps> = ({
     </ErrorBoundary>
   );
 };
-
-export default FordelingForm;

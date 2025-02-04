@@ -1,3 +1,9 @@
+import { useEffect } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+
 import { Form } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import {
@@ -5,29 +11,27 @@ import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagTilBekreftelse,
-  Vilkarperiode,
   Inntektsforhold,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
-import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween';
-import React, { FC, useEffect } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+
 import {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,
   TilkommetAktivitetValues,
   TilkommetInntektsforholdFieldValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import VurderNyttInntektsforholdAP, {
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
+import {
+  VurderNyttInntektsforholdAP,
   VurderNyttInntektsforholTransformedValues,
 } from '../../types/interface/VurderNyttInntektsforholdAP';
-import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
-import TilkommetAktivitetPanel from './TilkommetAktivitetPanel';
+import { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
+import { TilkommetAktivitetPanel } from './TilkommetAktivitetPanel';
+import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 
 import styles from './tilkommetAktivitet.module.css';
 
@@ -82,7 +86,7 @@ const buildInitialValuesPeriode = (periode: VurderInntektsforholdPeriode): Tilko
 
 const buildFieldInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag,
-  vilkarperioder: Vilkarperiode[],
+  vilkarperioder: Vilkårperiode[],
 ): TilkommetAktivitetFieldValues => {
   const avklaringsbehov = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const perioderTilVurdering = finnPerioderTilVurdering(beregningsgrunnlag);
@@ -97,7 +101,7 @@ const buildFieldInitialValues = (
 
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
-  vilkarperioder: Vilkarperiode[],
+  vilkarperioder: Vilkårperiode[],
 ): TilkommetAktivitetFormValues => ({
   [`${FORM_NAME}`]: beregningsgrunnlagListe
     .filter(bg =>
@@ -170,7 +174,7 @@ export const transformFieldValues = (
 const transformValues = (
   values: TilkommetAktivitetFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
-  vilkarperioder: Vilkarperiode[],
+  vilkarperioder: Vilkårperiode[],
 ): VurderNyttInntektsforholdAP => {
   const fields = values[FORM_NAME];
   const grunnlag = fields
@@ -184,7 +188,7 @@ const transformValues = (
   };
 };
 
-type TilkommetAktivitetProps = {
+type Props = {
   aktivtBeregningsgrunnlagIndeks: number;
   formData?: TilkommetAktivitetFormValues;
   setFormData: (data: TilkommetAktivitetFormValues) => void;
@@ -193,11 +197,11 @@ type TilkommetAktivitetProps = {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  vilkarperioder: Vilkarperiode[];
+  vilkarperioder: Vilkårperiode[];
   setTilkommetAktivitetFormIsDirty: (isDirty: boolean) => void;
 };
 
-const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
+export const TilkommetAktivitet = ({
   aktivtBeregningsgrunnlagIndeks,
   formData,
   setFormData,
@@ -208,7 +212,7 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
   vilkarperioder,
   arbeidsgiverOpplysningerPerId,
   setTilkommetAktivitetFormIsDirty,
-}) => {
+}: Props) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
     defaultValues: formData?.VURDER_TILKOMMET_AKTIVITET_FORM
       ? formData
@@ -285,4 +289,3 @@ const TilkommetAktivitet: FC<TilkommetAktivitetProps> = ({
     </ErrorBoundary>
   );
 };
-export default TilkommetAktivitet;

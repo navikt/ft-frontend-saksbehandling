@@ -1,21 +1,20 @@
-import React, { FunctionComponent } from 'react';
 import { BodyShort } from '@navikt/ds-react';
 
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import styles from './tilbakekrevingAktivitetTabell.module.css';
 
 const headerTextCodes = ['TilbakekrevingAktivitetTabell.Aktivitet', 'TilbakekrevingAktivitetTabell.FeilutbetaltBelop'];
 
-export interface OwnProps {
+export interface Props {
   ytelser: {
     aktivitet: string;
     belop: number;
   }[];
 }
 
-const TilbakekrevingAktivitetTabell: FunctionComponent<OwnProps> = ({ ytelser }) => {
+export const TilbakekrevingAktivitetTabell = ({ ytelser }: Props) => {
   if (ytelser.length === 0) {
     return null;
   }
@@ -38,5 +37,3 @@ const TilbakekrevingAktivitetTabell: FunctionComponent<OwnProps> = ({ ytelser })
     </Table>
   );
 };
-
-export default TilbakekrevingAktivitetTabell;

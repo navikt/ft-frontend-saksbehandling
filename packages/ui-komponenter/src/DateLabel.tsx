@@ -1,7 +1,6 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedDate } from 'react-intl';
 
-export interface OwnProps {
+export interface Props {
   dateString: string;
 }
 
@@ -15,8 +14,6 @@ export interface OwnProps {
  * <DateLabel dateString="2017-08-31" />
  * ```
  */
-const DateLabel: FunctionComponent<OwnProps> = ({ dateString }) => (
+export const DateLabel = ({ dateString }: Props) => (
   <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateString)} />
 );
-
-export default DateLabel;

@@ -1,13 +1,14 @@
-import React, { FunctionComponent } from 'react';
-import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, HStack, Spacer } from '@navikt/ds-react';
+
+import { BodyShort, HStack, Label, Spacer } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import styles from './periodeInformasjon.module.css';
 
-export interface OwnProps {
+export interface Props {
   fom: string;
   tom: string;
   feilutbetaling: number;
@@ -21,7 +22,7 @@ export interface OwnProps {
  *
  * Presentationskomponent
  */
-const PeriodeInformasjon: FunctionComponent<OwnProps> = ({ fom, tom, feilutbetaling, arsakHendelseNavn }) => {
+export const PeriodeInformasjon = ({ fom, tom, feilutbetaling, arsakHendelseNavn }: Props) => {
   const daysAndWeeks = calcDaysAndWeeks(fom, tom);
   return (
     <div className={styles.infoSummary}>
@@ -49,5 +50,3 @@ const PeriodeInformasjon: FunctionComponent<OwnProps> = ({ fom, tom, feilutbetal
     </div>
   );
 };
-
-export default PeriodeInformasjon;

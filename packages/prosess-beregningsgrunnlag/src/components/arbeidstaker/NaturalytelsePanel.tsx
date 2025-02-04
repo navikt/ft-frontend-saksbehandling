@@ -1,24 +1,23 @@
-import React, { FunctionComponent, ReactElement, useMemo } from 'react';
+import { ReactElement, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail } from '@navikt/ds-react';
 
-import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
+import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import dayjs from 'dayjs';
+import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
+import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import NaturalytelseTabellData, {
-  NaturalytelseEndring,
-  NaturalytelseTabellRad,
-} from '../../types/NaturalytelseTableTsType';
-import createVisningsnavnForAktivitet from '../../util/createVisningsnavnForAktivitet';
 
-type OwnProps = {
+type Props = {
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
@@ -197,7 +196,7 @@ const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
  * Presentasjonskomponent. Viser en tabell med oversikt over hvilke arbeidsgivere som har hatt bortfall
  * av naturalytelse og for hvilke perioder det gjelder.
  */
-const NaturalytelsePanel: FunctionComponent<OwnProps> = ({ allePerioder, arbeidsgiverOpplysningerPerId }) => {
+export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId }: Props) => {
   const tableData = useMemo(
     () => lagNaturalytelseTabelldata(allePerioder, arbeidsgiverOpplysningerPerId),
     [allePerioder],
@@ -228,5 +227,3 @@ const NaturalytelsePanel: FunctionComponent<OwnProps> = ({ allePerioder, arbeids
     </>
   );
 };
-
-export default NaturalytelsePanel;

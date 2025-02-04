@@ -1,13 +1,16 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { DateLabel, FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
+import { BodyShort, Tag } from '@navikt/ds-react';
 
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
-import { BodyShort, Tag } from '@navikt/ds-react';
+import { DateLabel, FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
+import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { SaksopplysningPanel } from './SaksopplysningPanel';
+
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
-import SaksopplysningPanel from './SaksopplysningPanel';
 
 enum TagType {
   BLÅ = 'alt3',
@@ -56,7 +59,7 @@ const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: Kode
   );
 };
 
-type OwnProps = {
+type Props = {
   skjeringstidspunktDato: string;
   aktivitetStatusList: string[];
   kodeverkSamling: KodeverkForPanel;
@@ -70,13 +73,13 @@ type OwnProps = {
  * Viser skjæringstidspunkt for beregningen og en liste med aktivitetsstatuser.
  */
 
-const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
+export const SkjeringspunktOgStatusPanel = ({
   skjeringstidspunktDato,
   aktivitetStatusList,
   kodeverkSamling,
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
-}) => (
+}: Props) => (
   <div className={beregningStyles.panelLeft}>
     {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
     <VerticalSpacer sixteenPx />
@@ -112,5 +115,3 @@ const SkjeringspunktOgStatusPanel: FunctionComponent<OwnProps> = ({
     </FlexContainer>
   </div>
 );
-
-export default SkjeringspunktOgStatusPanel;

@@ -1,6 +1,6 @@
-import bem from './bemUtils';
+import { bemUtils } from './bemUtils';
 
-const testCls = bem('block');
+const testCls = bemUtils('block');
 
 test('Element gets block class', () => {
   expect(testCls.block).toBe('block');
