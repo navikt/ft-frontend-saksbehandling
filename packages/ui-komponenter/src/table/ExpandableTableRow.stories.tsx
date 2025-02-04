@@ -7,7 +7,7 @@ import { Table } from './Table';
 import { TableColumn } from './TableColumn';
 
 const meta = {
-  title: 'TableMedEkspanderbarRad',
+  title: 'ui-komponenter/TableMedEkspanderbarRad',
   component: Table,
   args: {
     children: <></>,

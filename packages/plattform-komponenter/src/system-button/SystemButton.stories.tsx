@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { SystemButton } from './SystemButton';
 
 const meta = {
-  title: 'System button',
+  title: 'plattform-komponenter/System button',
   component: SystemButton,
 } satisfies Meta<typeof SystemButton>;
 

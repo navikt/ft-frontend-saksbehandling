@@ -7,7 +7,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { SideMenu } from './SideMenu';
 
 const meta = {
-  title: 'Side menu',
+  title: 'plattform-komponenter/Side menu',
   component: SideMenu,
   render: ({ heading, links, onClick }) => {
     const [currentIndex, setCurrentIndex] = useState(links.findIndex(({ active }) => active) ?? 0);

@@ -1,7 +1,7 @@
 import { AksjonspunktBox } from './AksjonspunktBox';
 
 export default {
-  title: 'AksjonspunktBox',
+  title: 'ui-komponenter/AksjonspunktBox',
   component: AksjonspunktBox,
 };
 

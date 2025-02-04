@@ -10,7 +10,7 @@ const withIntlProvider = getIntlDecorator({
 });
 
 const meta = {
-  title: 'BlaBoksMedCheckmarkListe',
+  title: 'ui-komponenter/BlaBoksMedCheckmarkListe',
   component: BlaBoksMedCheckmarkListe,
   decorators: [withIntlProvider],
 } satisfies Meta<typeof BlaBoksMedCheckmarkListe>;

@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { LinkButton } from './LinkButton';
 
 const meta = {
-  title: 'Link button',
+  title: 'plattform-komponenter/Link button',
   component: LinkButton,
 } satisfies Meta<typeof LinkButton>;
 

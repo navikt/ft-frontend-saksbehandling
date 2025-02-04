@@ -10,7 +10,7 @@ import { DateTimeLabel } from './DateTimeLabel';
 const intl = createIntl({});
 
 const meta: Meta<typeof DateTimeLabel> = {
-  title: 'DateTimeLabel',
+  title: 'ui-komponenter/DateTimeLabel',
   component: DateTimeLabel,
   decorators: Story => (
     <RawIntlProvider value={intl}>

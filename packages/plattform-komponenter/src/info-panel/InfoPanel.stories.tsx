@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { InfoPanel } from './InfoPanel';
 
 const meta = {
-  title: 'Info panel',
+  title: 'plattform-komponenter/Info panel',
   component: InfoPanel,
 } satisfies Meta<typeof InfoPanel>;
 

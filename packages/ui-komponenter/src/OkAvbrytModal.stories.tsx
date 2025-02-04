@@ -4,7 +4,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { OkAvbrytModal } from './OkAvbrytModal';
 
 const meta = {
-  title: 'OkAvbrytModal',
+  title: 'ui-komponenter/OkAvbrytModal',
   component: OkAvbrytModal,
 } satisfies Meta<typeof OkAvbrytModal>;
 
