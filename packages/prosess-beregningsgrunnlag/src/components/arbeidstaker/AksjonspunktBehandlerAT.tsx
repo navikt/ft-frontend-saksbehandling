@@ -83,7 +83,7 @@ export const AksjonspunktBehandlerAT = ({
   fieldIndex,
   formName,
   skalValideres,
-}) => {
+}: Props) => {
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
     <>

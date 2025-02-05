@@ -343,7 +343,7 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
   fieldIndex,
   formName,
   skalValideres,
-}) => {
+}: Props) => {
   const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
   const finnesAlleredeLøstPeriode = allePerioder.some(periode =>
     periode.beregningsgrunnlagPrStatusOgAndel?.some(

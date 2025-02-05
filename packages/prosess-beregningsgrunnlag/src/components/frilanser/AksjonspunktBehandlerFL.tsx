@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort } from '@navikt/ds-react';
@@ -19,6 +20,10 @@ const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[])
       andel.aktivitetStatus === AktivitetStatus.FRILANSER && (andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
   );
 
+interface StaticFunctions {
+  buildInitialValues: (relevanteAndeler: BeregningsgrunnlagAndel[]) => FrilansInntektValues;
+}
+
 type Props = {
   readOnly: boolean;
   fieldIndex: number;
@@ -32,7 +37,7 @@ type Props = {
  *
  * Viser et inputfelt for å sette frilansinntekt ved aksjonspunkt.
  */
-const AksjonspunktBehandlerFL: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const AksjonspunktBehandlerFL: FunctionComponent<Props> & StaticFunctions = ({
   readOnly,
   fieldIndex,
   formName,
@@ -70,3 +75,5 @@ AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: Beregningsgrunnl
   }
   return {};
 };
+
+export default AksjonspunktBehandlerFL;
