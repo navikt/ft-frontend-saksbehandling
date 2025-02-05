@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort } from '@navikt/ds-react';
@@ -19,11 +20,16 @@ const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[])
       andel.aktivitetStatus === AktivitetStatus.FRILANSER && (andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
   );
 
+interface StaticFunctions {
+  buildInitialValues: (relevanteAndeler: BeregningsgrunnlagAndel[]) => FrilansInntektValues;
+}
+
 type Props = {
   readOnly: boolean;
   fieldIndex: number;
   formName: string;
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
+  skalValideres: boolean;
 };
 
 /**
@@ -31,7 +37,13 @@ type Props = {
  *
  * Viser et inputfelt for å sette frilansinntekt ved aksjonspunkt.
  */
-export const AksjonspunktBehandlerFL = ({ readOnly, fieldIndex, formName, alleAndelerIForstePeriode }: Props) => (
+export const AksjonspunktBehandlerFL: FunctionComponent<Props> & StaticFunctions = ({
+  readOnly,
+  fieldIndex,
+  formName,
+  alleAndelerIForstePeriode,
+  skalValideres,
+}) => (
   <FlexRow className={styles.verticalAlignMiddle}>
     <FlexColumn className={styles.atflAvvikAktivitet}>
       <BodyShort size="small">
@@ -42,7 +54,7 @@ export const AksjonspunktBehandlerFL = ({ readOnly, fieldIndex, formName, alleAn
       <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
         <InputField
           name={`${formName}.${fieldIndex}.inntektFrilanser`}
-          validate={[required, maxValueFormatted(178956970)]}
+          validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
           readOnly={readOnly}
           parse={parseCurrencyInput}
           className={styles.breddeInntekt}
@@ -63,3 +75,5 @@ AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: Beregningsgrunnl
   }
   return {};
 };
+
+export default AksjonspunktBehandlerFL;

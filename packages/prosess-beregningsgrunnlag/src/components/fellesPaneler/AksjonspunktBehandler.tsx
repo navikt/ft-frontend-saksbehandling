@@ -242,6 +242,7 @@ const ArbeidstakerEllerFrilansContainer = ({
   fieldIndex,
   formName,
   avklaringsbehov,
+  skalValideres,
 }: {
   kodeverkSamling: KodeverkForPanel;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
@@ -251,6 +252,7 @@ const ArbeidstakerEllerFrilansContainer = ({
   fieldIndex: number;
   formName: string;
   avklaringsbehov: BeregningAvklaringsbehov;
+  skalValideres: boolean;
 }): ReactElement => {
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
@@ -266,6 +268,7 @@ const ArbeidstakerEllerFrilansContainer = ({
           kodeverkSamling={kodeverkSamling}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldIndex={fieldIndex}
+          skalValideres={skalValideres}
         />
       )}
       {!erTidsbegrenset && visAT && (
@@ -276,6 +279,7 @@ const ArbeidstakerEllerFrilansContainer = ({
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldIndex={fieldIndex}
           formName={formName}
+          skalValideres={skalValideres}
         />
       )}
       {visFL && (
@@ -284,6 +288,7 @@ const ArbeidstakerEllerFrilansContainer = ({
           fieldIndex={fieldIndex}
           formName={formName}
           alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+          skalValideres={skalValideres}
         />
       )}
       <VerticalSpacer sixteenPx />
@@ -470,6 +475,11 @@ export const AksjonspunktBehandler = ({
     submitCallback(transformFields(values, lp));
   };
 
+  const utledSkalValideres = (beregningsgrunnlag: Beregningsgrunnlag) => {
+    const periode = finnVilkårperiode(vilkår, beregningsgrunnlag.vilkårsperiodeFom);
+    return periode.vurderesIBehandlingen && !periode.erForlengelse;
+  };
+
   const bgSomSkalVurderes = beregningsgrunnlagListe.filter(bg =>
     harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf),
   );
@@ -521,6 +531,7 @@ export const AksjonspunktBehandler = ({
   ): BeregningAvklaringsbehov | undefined => avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
 
   const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement | null => {
+    const skalValideres = utledSkalValideres(bgSomSkalVurderes[index]);
     const avklaringsbehov = finnAvklaringsbehov(avklaringsbehovForBG);
     if (lovparagraf === LovParagraf.ÅTTE_TRETTI && avklaringsbehov) {
       return (
@@ -533,6 +544,7 @@ export const AksjonspunktBehandler = ({
           fieldIndex={index}
           formName={formName}
           avklaringsbehov={avklaringsbehov}
+          skalValideres={skalValideres}
         />
       );
     }
