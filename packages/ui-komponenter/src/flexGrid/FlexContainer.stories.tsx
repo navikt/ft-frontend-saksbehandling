@@ -5,7 +5,7 @@ import { FlexContainer } from './FlexContainer';
 import { FlexRow } from './FlexRow';
 
 export default {
-  title: 'FlexContainer',
+  title: 'ui-komponenter/FlexContainer',
 };
 export const Default = () => (
   <FlexContainer>

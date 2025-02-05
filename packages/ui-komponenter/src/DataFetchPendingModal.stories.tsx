@@ -16,7 +16,7 @@ const withWidth: DecoratorFunction<ReactRenderer> = Story => (
 );
 
 const meta = {
-  title: 'DataFetchPendingModal',
+  title: 'ui-komponenter/DataFetchPendingModal',
   component: DataFetchPendingModal,
   decorators: [withWidth, withIntl],
 } satisfies Meta<typeof DataFetchPendingModal>;

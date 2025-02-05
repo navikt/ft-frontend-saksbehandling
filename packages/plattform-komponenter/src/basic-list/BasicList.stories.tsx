@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { BasicList } from './BasicList';
 
 const meta = {
-  title: 'BasicList',
+  title: 'plattform-komponenter/BasicList',
   component: BasicList,
 } satisfies Meta<typeof BasicList>;
 

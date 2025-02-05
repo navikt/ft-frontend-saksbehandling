@@ -7,6 +7,7 @@ import { Step } from './Step';
 import { StepType } from './StepType';
 
 const meta = {
+  title: 'plattform-komponenter/Step',
   component: Step,
   args: {
     onClick: action('onClick'),

@@ -5,7 +5,7 @@ import { StoryFn } from '@storybook/react';
 import { Header } from './Header';
 
 export default {
-  title: 'Header',
+  title: 'plattform-komponenter/Header',
   component: Header,
 };
 

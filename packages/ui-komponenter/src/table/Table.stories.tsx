@@ -7,7 +7,7 @@ import { TableColumn } from './TableColumn';
 import { TableRow } from './TableRow';
 
 const meta = {
-  title: 'Table',
+  title: 'ui-komponenter/Table',
   component: Table,
   args: {
     children: <></>,

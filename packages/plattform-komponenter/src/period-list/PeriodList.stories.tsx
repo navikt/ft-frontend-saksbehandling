@@ -98,7 +98,7 @@ const perioder = [
 ];
 
 const meta = {
-  title: 'Period list',
+  title: 'plattform-komponenter/Period list',
   component: PeriodList,
   args: {
     perioder,

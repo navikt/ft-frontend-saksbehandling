@@ -74,7 +74,7 @@ const kodeverkSamling = {
 } as KodeverkFpTilbakeForPanel;
 
 const meta = {
-  title: 'prosess-foreldelse',
+  title: 'prosess-tilbakekreving-foreldelse/ForeldelseProsessIndex',
   component: ForeldelseProsessIndex,
   args: {
     submitCallback: action('button-click') as (data: any) => Promise<void>,

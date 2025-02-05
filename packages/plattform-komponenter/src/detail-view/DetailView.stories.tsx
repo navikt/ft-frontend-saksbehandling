@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { DetailView } from './DetailView';
 
 const meta = {
-  title: 'Detail view',
+  title: 'plattform-komponenter/Detail view',
   component: DetailView,
 } satisfies Meta<typeof DetailView>;
 

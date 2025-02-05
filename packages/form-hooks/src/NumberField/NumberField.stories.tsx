@@ -4,6 +4,7 @@ import { rhfDecorator } from '../../.storybook/decorators';
 import { NumberField } from './NumberField';
 
 const meta = {
+  title: 'form-hooks/NumberField',
   component: NumberField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testnumberpre: 45.1 }),

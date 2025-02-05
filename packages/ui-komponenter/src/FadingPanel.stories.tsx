@@ -3,7 +3,7 @@ import React from 'react';
 import { FadingPanel } from './FadingPanel';
 
 export default {
-  title: 'FadingPanel',
+  title: 'ui-komponenter/FadingPanel',
   component: FadingPanel,
 };
 

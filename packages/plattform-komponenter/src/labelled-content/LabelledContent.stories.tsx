@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { LabelledContent } from './LabelledContent';
 
 const meta = {
-  title: 'Labelled content',
+  title: 'plattform-komponenter/Labelled content',
   component: LabelledContent,
 } satisfies Meta<typeof LabelledContent>;
 

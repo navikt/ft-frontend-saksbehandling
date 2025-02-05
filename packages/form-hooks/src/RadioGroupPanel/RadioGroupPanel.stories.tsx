@@ -6,6 +6,7 @@ import { rhfDecorator } from '../../.storybook/decorators';
 import { RadioGroupPanel } from './RadioGroupPanel';
 
 const meta = {
+  title: 'form-hooks/RadioGroupPanel',
   component: RadioGroupPanel,
   tags: ['autodocs'],
   args: {

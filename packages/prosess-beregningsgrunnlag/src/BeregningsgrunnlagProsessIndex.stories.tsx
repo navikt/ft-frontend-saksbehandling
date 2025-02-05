@@ -549,7 +549,7 @@ const lagBG = (
 };
 
 const meta = {
-  title: 'prosess-beregningsgrunnlag',
+  title: 'prosess-beregningsgrunnlag/BeregningsgrunnlagProsessIndex',
   component: BeregningsgrunnlagProsessIndex,
   args: {
     submitCallback: action('button-click') as (data: any) => Promise<void>,

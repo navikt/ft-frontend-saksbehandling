@@ -7,6 +7,7 @@ import { ProcessMenu } from './ProcessMenu';
 import { StepType } from './StepType';
 
 const meta = {
+  title: 'plattform-komponenter/ProcessMenu',
   component: ProcessMenu,
   args: {
     onClick: action('onClick'),
