@@ -266,7 +266,7 @@ const transformValuesFrilans = (
     );
     if (frilansAndel && !fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
       const frilansInntekt = values.frilansInntektValues;
-      if (!frilansInntekt) {
+      if (!frilansInntekt && frilansInntekt !== 0) {
         throw new Error('Har ikke fastsatt påkrevd frilansinntekt');
       }
       fastsatteAndelsnr.push(frilansAndel.andelsnr);
