@@ -2588,6 +2588,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/core@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "@eslint/core@npm:0.11.0"
+  dependencies:
+    "@types/json-schema": ^7.0.15
+  checksum: 9038b006bdb6a1a5b942e45d217598aaaec86cc97f8e891964e5220bc5514015981152cc999ea4196ee66d1f6ca5b3f8e8de404d5d8890d50142aee9e15495d1
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^3.2.0":
   version: 3.2.0
   resolution: "@eslint/eslintrc@npm:3.2.0"
@@ -2605,10 +2614,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.19.0":
-  version: 9.19.0
-  resolution: "@eslint/js@npm:9.19.0"
-  checksum: bf4077b390894408408c8b5ca48c2cdaf91bce94e0a3b7ff4e79a2cb2d3ecc76d87b52b30af812285acf550e7a849138d2aad2cab0b0b5c0c9f7944fd45ba31f
+"@eslint/js@npm:9.20.0":
+  version: 9.20.0
+  resolution: "@eslint/js@npm:9.20.0"
+  checksum: e49dcbcea1a7892222988ba410b3f1e2b756177558f3f11fa3627682c3aca7585f8124c128711035e176daf56f82b4af47dc5655ca7a825057451607e42e5d13
   languageName: node
   linkType: hard
 
@@ -2722,6 +2731,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/ecma402-abstract@npm:2.3.3":
+  version: 2.3.3
+  resolution: "@formatjs/ecma402-abstract@npm:2.3.3"
+  dependencies:
+    "@formatjs/fast-memoize": 2.2.6
+    "@formatjs/intl-localematcher": 0.6.0
+    decimal.js: 10
+    tslib: 2
+  checksum: 0e784b19bbca0f3cb92a3d5f91bc9afd694d07ae37e912daa234dd1a2854642ad4b90b385a828dc6569d7fea6480c226508cae09d4d18d59721b0e28fa2cc652
+  languageName: node
+  linkType: hard
+
 "@formatjs/fast-memoize@npm:2.2.6":
   version: 2.2.6
   resolution: "@formatjs/fast-memoize@npm:2.2.6"
@@ -2752,15 +2773,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-datetimeformat@npm:6.17.2":
-  version: 6.17.2
-  resolution: "@formatjs/intl-datetimeformat@npm:6.17.2"
+"@formatjs/intl-datetimeformat@npm:6.17.3":
+  version: 6.17.3
+  resolution: "@formatjs/intl-datetimeformat@npm:6.17.3"
   dependencies:
-    "@formatjs/ecma402-abstract": 2.3.2
-    "@formatjs/intl-localematcher": 0.5.10
+    "@formatjs/ecma402-abstract": 2.3.3
+    "@formatjs/intl-localematcher": 0.6.0
     decimal.js: 10
     tslib: 2
-  checksum: 0eb47748d8bee54d22691046c3fa31cd9ad7f7a222e9abebbbf2da7c3f35bb58dbd57a08b84e751704d6576c1718d7cb9230aaa3fce886d8c660fdeb69950d85
+  checksum: 9c7be49f044c9e723c8f588bc8e74fce640bb24e342f5d203e2941f459aed3dd5cc805b33cd45c811f7024c4c02be4db856667d9b6e3a7c3bc63a601739b1c43
   languageName: node
   linkType: hard
 
@@ -2773,15 +2794,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:8.15.2":
-  version: 8.15.2
-  resolution: "@formatjs/intl-numberformat@npm:8.15.2"
+"@formatjs/intl-localematcher@npm:0.6.0":
+  version: 0.6.0
+  resolution: "@formatjs/intl-localematcher@npm:0.6.0"
   dependencies:
-    "@formatjs/ecma402-abstract": 2.3.2
-    "@formatjs/intl-localematcher": 0.5.10
+    tslib: 2
+  checksum: 40f194cbf0474e62f0ff4fa11902f4b20d65a3f8c0eac7ea9c9597592a2e7328931f917a4e23e28a47ab97227d9f053de1bec3441aa7d6356a916a8091434bac
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-numberformat@npm:8.15.3":
+  version: 8.15.3
+  resolution: "@formatjs/intl-numberformat@npm:8.15.3"
+  dependencies:
+    "@formatjs/ecma402-abstract": 2.3.3
+    "@formatjs/intl-localematcher": 0.6.0
     decimal.js: 10
     tslib: 2
-  checksum: e974974fe364a4c65b385a6b79c889a23f78a02c831a1941d6d9618ee5ac3306a06ec7bc94b47d9fcba068dbb0f6f4256769e13c19fd9fe7725b626cddfdeaa2
+  checksum: c4f2044470c041ec6a08064fe966cca90797f2ec289a361a332f328cc2b60857d3a14e9f9233f7ee883f0e725ea505afa2496dbb50a43f5d9c3a134f94907483
   languageName: node
   linkType: hard
 
@@ -3209,14 +3239,14 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.13
     dayjs-plugin-utc: 0.1.2
-    eslint: 9.19.0
+    eslint: 9.20.0
     react: 19.0.0
     react-dom: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3260,14 +3290,14 @@ __metadata:
     core-js: 3.40.0
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.19.0
+    eslint: 9.20.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
     stylelint: 16.14.1
     typescript: 5.7.3
     uuid: 11.0.5
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3306,14 +3336,14 @@ __metadata:
     "@testing-library/react": 16.2.0
     "@testing-library/user-event": 14.6.1
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     moment: 2.30.1
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/ds-css": 7.x
@@ -3348,14 +3378,14 @@ __metadata:
     classnames: 2.5.1
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.19.0
+    eslint: 9.20.0
     lodash.throttle: 4.1.1
     react: 19.0.0
     react-dom: 19.0.0
     react-hook-form: 7.54.2
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3381,9 +3411,9 @@ __metadata:
     "@navikt/ft-utils": ^3.1.3
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.19.0
+    eslint: 9.20.0
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/ft-utils": 2.x
@@ -3397,7 +3427,7 @@ __metadata:
   dependencies:
     "@navikt/ft-form-hooks": "workspace:^"
     "@storybook/types": 8.5.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
@@ -3411,7 +3441,7 @@ __metadata:
   dependencies:
     "@navikt/ft-kodeverk": ^3.1.1
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     react: 19.0.0
     react-intl: 7.1.5
     typescript: 5.7.3
@@ -3422,9 +3452,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-hooks@workspace:packages/hooks"
   dependencies:
-    eslint: 9.19.0
+    eslint: 9.20.0
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     react: 19.0.0
@@ -3436,10 +3466,10 @@ __metadata:
   resolution: "@navikt/ft-kodeverk@workspace:packages/internal/kodeverk"
   dependencies:
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   languageName: unknown
   linkType: soft
@@ -3449,10 +3479,10 @@ __metadata:
   resolution: "@navikt/ft-konstanter@workspace:packages/konstanter"
   dependencies:
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   languageName: unknown
   linkType: soft
@@ -3471,14 +3501,14 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: 19.0.0
     react-dom: 19.0.0
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3513,13 +3543,13 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.13
     echarts: 5.6.0
-    eslint: 9.19.0
+    eslint: 9.20.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3559,14 +3589,14 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.19.0
+    eslint: 9.20.0
     moment: 2.30.1
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3602,13 +3632,13 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3645,14 +3675,14 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.19.0
+    eslint: 9.20.0
     moment: 2.30.1
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.5
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3678,10 +3708,10 @@ __metadata:
   dependencies:
     "@navikt/ft-kodeverk": "workspace:^"
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/ft-kodeverk": 3.x
@@ -3701,14 +3731,14 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     react: 19.0.0
     react-dom: 19.0.0
     react-intl: 7.1.5
     react-modal: 3.16.3
     stylelint: 16.14.1
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -3728,10 +3758,10 @@ __metadata:
   resolution: "@navikt/ft-utils@workspace:packages/utils"
   dependencies:
     dayjs: 1.11.13
-    eslint: 9.19.0
+    eslint: 9.20.0
     react-intl: 7.1.5
     typescript: 5.7.3
-    vite: 6.0.11
+    vite: 6.1.0
     vitest: 3.0.5
   peerDependencies:
     dayjs: 1.11.x
@@ -4284,9 +4314,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-android-arm-eabi@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-android-arm-eabi@npm:4.34.6"
+  conditions: os=android & cpu=arm
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-android-arm64@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-android-arm64@npm:4.30.1"
+  conditions: os=android & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-android-arm64@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-android-arm64@npm:4.34.6"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
@@ -4298,9 +4342,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-darwin-arm64@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-darwin-arm64@npm:4.34.6"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-darwin-x64@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-darwin-x64@npm:4.30.1"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-darwin-x64@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-darwin-x64@npm:4.34.6"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -4312,9 +4370,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-freebsd-arm64@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-freebsd-arm64@npm:4.34.6"
+  conditions: os=freebsd & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-freebsd-x64@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-freebsd-x64@npm:4.30.1"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-freebsd-x64@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-freebsd-x64@npm:4.34.6"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
@@ -4326,9 +4398,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-arm-gnueabihf@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.34.6"
+  conditions: os=linux & cpu=arm & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-arm-musleabihf@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.30.1"
+  conditions: os=linux & cpu=arm & libc=musl
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-arm-musleabihf@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.34.6"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
@@ -4340,9 +4426,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-arm64-gnu@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.34.6"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-arm64-musl@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-linux-arm64-musl@npm:4.30.1"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-arm64-musl@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.34.6"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
@@ -4354,9 +4454,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-loongarch64-gnu@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-loongarch64-gnu@npm:4.34.6"
+  conditions: os=linux & cpu=loong64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-powerpc64le-gnu@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.30.1"
+  conditions: os=linux & cpu=ppc64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-powerpc64le-gnu@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.34.6"
   conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
@@ -4368,9 +4482,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-riscv64-gnu@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.34.6"
+  conditions: os=linux & cpu=riscv64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-s390x-gnu@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.30.1"
+  conditions: os=linux & cpu=s390x & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-s390x-gnu@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.34.6"
   conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
@@ -4382,9 +4510,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-x64-gnu@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.34.6"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-x64-musl@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-linux-x64-musl@npm:4.30.1"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-x64-musl@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-linux-x64-musl@npm:4.34.6"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
@@ -4396,6 +4538,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-win32-arm64-msvc@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.34.6"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-win32-ia32-msvc@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.30.1"
@@ -4403,9 +4552,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-win32-ia32-msvc@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.34.6"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-win32-x64-msvc@npm:4.30.1":
   version: 4.30.1
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.30.1"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-win32-x64-msvc@npm:4.34.6":
+  version: 4.34.6
+  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.34.6"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -8417,16 +8580,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.19.0":
-  version: 9.19.0
-  resolution: "eslint@npm:9.19.0"
+"eslint@npm:9.20.0":
+  version: 9.20.0
+  resolution: "eslint@npm:9.20.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.12.1
     "@eslint/config-array": ^0.19.0
-    "@eslint/core": ^0.10.0
+    "@eslint/core": ^0.11.0
     "@eslint/eslintrc": ^3.2.0
-    "@eslint/js": 9.19.0
+    "@eslint/js": 9.20.0
     "@eslint/plugin-kit": ^0.2.5
     "@humanfs/node": ^0.16.6
     "@humanwhocodes/module-importer": ^1.0.1
@@ -8462,7 +8625,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 173c77ac3fd8fa69a9367c457f8048088450911f6f927b189bcc2fd1dcca71422346952cdb7217948d692f67b3e36238f5264717187e83a1cdbd1b37b89e3877
+  checksum: 660de11c4dbfaa311b17d0670949adb5f023811e50786a6217bd833a299f8245929577ddd62c18bacf39c82462edf795383cf6d26cc4a018a8d118aef7cadea4
   languageName: node
   linkType: hard
 
@@ -9043,9 +9206,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
-    "@eslint/js": 9.19.0
-    "@formatjs/intl-datetimeformat": 6.17.2
-    "@formatjs/intl-numberformat": 8.15.2
+    "@eslint/js": 9.20.0
+    "@formatjs/intl-datetimeformat": 6.17.3
+    "@formatjs/intl-numberformat": 8.15.3
     "@navikt/aksel-stylelint": 7.10.0
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@storybook/addon-actions": 8.5.3
@@ -9065,7 +9228,7 @@ __metadata:
     "@vitest/coverage-c8": 0.33.0
     body-parser: 1.20.3
     cross-env: 7.0.3
-    eslint: 9.19.0
+    eslint: 9.20.0
     eslint-config-prettier: 10.0.1
     eslint-plugin-jsx-a11y: 6.10.2
     eslint-plugin-react: 7.37.4
@@ -9078,14 +9241,14 @@ __metadata:
     lerna: 8.1.9
     lint-staged: 15.4.3
     postcss-less: 6.0.0
-    prettier: 3.4.2
+    prettier: 3.5.0
     react-test-renderer: 19.0.0
     storybook: 8.5.3
     stylelint: 16.14.1
     stylelint-order: 6.0.4
     typescript: 5.7.3
     typescript-eslint: 8.23.0
-    vite: 6.0.11
+    vite: 6.1.0
     vite-plugin-dts: 4.5.0
     vitest: 3.0.5
   languageName: unknown
@@ -13211,12 +13374,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.4.2":
-  version: 3.4.2
-  resolution: "prettier@npm:3.4.2"
+"prettier@npm:3.5.0":
+  version: 3.5.0
+  resolution: "prettier@npm:3.5.0"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 061c84513db62d3944c8dc8df36584dad82883ce4e49efcdbedd8703dce5b173c33fd9d2a4e1725d642a3b713c932b55418342eaa347479bc4a9cca114a04cd0
+  checksum: 5b451b701a437f4561b7413d1e5c1da92b1af52bf5995a429ce67c84a8525145f90992c00fe2eefd471c307d261d6f160b4bac045e0ca38f1aa4aba5e9bfdf0f
   languageName: node
   linkType: hard
 
@@ -14053,6 +14216,78 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 4a3df04dc639f36cb2d7746c829c4957a3df54b449171280a108c32c4f578677207f330e358c48637d7414ef30c1542964641c82bebc0643d5d5baee4044542e
+  languageName: node
+  linkType: hard
+
+"rollup@npm:^4.30.1":
+  version: 4.34.6
+  resolution: "rollup@npm:4.34.6"
+  dependencies:
+    "@rollup/rollup-android-arm-eabi": 4.34.6
+    "@rollup/rollup-android-arm64": 4.34.6
+    "@rollup/rollup-darwin-arm64": 4.34.6
+    "@rollup/rollup-darwin-x64": 4.34.6
+    "@rollup/rollup-freebsd-arm64": 4.34.6
+    "@rollup/rollup-freebsd-x64": 4.34.6
+    "@rollup/rollup-linux-arm-gnueabihf": 4.34.6
+    "@rollup/rollup-linux-arm-musleabihf": 4.34.6
+    "@rollup/rollup-linux-arm64-gnu": 4.34.6
+    "@rollup/rollup-linux-arm64-musl": 4.34.6
+    "@rollup/rollup-linux-loongarch64-gnu": 4.34.6
+    "@rollup/rollup-linux-powerpc64le-gnu": 4.34.6
+    "@rollup/rollup-linux-riscv64-gnu": 4.34.6
+    "@rollup/rollup-linux-s390x-gnu": 4.34.6
+    "@rollup/rollup-linux-x64-gnu": 4.34.6
+    "@rollup/rollup-linux-x64-musl": 4.34.6
+    "@rollup/rollup-win32-arm64-msvc": 4.34.6
+    "@rollup/rollup-win32-ia32-msvc": 4.34.6
+    "@rollup/rollup-win32-x64-msvc": 4.34.6
+    "@types/estree": 1.0.6
+    fsevents: ~2.3.2
+  dependenciesMeta:
+    "@rollup/rollup-android-arm-eabi":
+      optional: true
+    "@rollup/rollup-android-arm64":
+      optional: true
+    "@rollup/rollup-darwin-arm64":
+      optional: true
+    "@rollup/rollup-darwin-x64":
+      optional: true
+    "@rollup/rollup-freebsd-arm64":
+      optional: true
+    "@rollup/rollup-freebsd-x64":
+      optional: true
+    "@rollup/rollup-linux-arm-gnueabihf":
+      optional: true
+    "@rollup/rollup-linux-arm-musleabihf":
+      optional: true
+    "@rollup/rollup-linux-arm64-gnu":
+      optional: true
+    "@rollup/rollup-linux-arm64-musl":
+      optional: true
+    "@rollup/rollup-linux-loongarch64-gnu":
+      optional: true
+    "@rollup/rollup-linux-powerpc64le-gnu":
+      optional: true
+    "@rollup/rollup-linux-riscv64-gnu":
+      optional: true
+    "@rollup/rollup-linux-s390x-gnu":
+      optional: true
+    "@rollup/rollup-linux-x64-gnu":
+      optional: true
+    "@rollup/rollup-linux-x64-musl":
+      optional: true
+    "@rollup/rollup-win32-arm64-msvc":
+      optional: true
+    "@rollup/rollup-win32-ia32-msvc":
+      optional: true
+    "@rollup/rollup-win32-x64-msvc":
+      optional: true
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: e31e6a6de50931591b78a310a52d9700ad8ff39f19ebea8e6d496d68596948fcaba6aa4d380bff2be50b198ac678efaa64d9b9963299fb02885f8c863341cc05
   languageName: node
   linkType: hard
 
@@ -15960,14 +16195,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:6.0.11":
-  version: 6.0.11
-  resolution: "vite@npm:6.0.11"
+"vite@npm:6.1.0":
+  version: 6.1.0
+  resolution: "vite@npm:6.1.0"
   dependencies:
     esbuild: ^0.24.2
     fsevents: ~2.3.3
-    postcss: ^8.4.49
-    rollup: ^4.23.0
+    postcss: ^8.5.1
+    rollup: ^4.30.1
   peerDependencies:
     "@types/node": ^18.0.0 || ^20.0.0 || >=22.0.0
     jiti: ">=1.21.0"
@@ -16008,7 +16243,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 9c38d34f4ab08980101b9a50568ebf94c348c2e8a0b7b42dc31995151fadd8033c6b0285c82d87a7ad8ba8c4f6fea020b047fd6787ecf60dff2e13a4c722d8c7
+  checksum: ed0b5385546d0dafe7bd91e94679aa4ca9064d29a8fd8cb8f9baea388fc049504a83cecd9bae41d19ae025b8b4fd621f1ec6c41255e9bf8c872fd9fa94b9cd42
   languageName: node
   linkType: hard
 
