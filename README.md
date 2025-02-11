@@ -56,3 +56,8 @@ Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på Git
 ## For Nav-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #teamforeldrepenger.
+
+## Kode generert av GitHub Copilot
+
+Dette repoet bruker GitHub Copilot til å generere kode.
+

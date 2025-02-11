@@ -7,11 +7,11 @@ import {
   VurderATFLISammeOrAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
 
-const krevVerdi = (andelsnr: number | undefined): number => {
-  if (!andelsnr) {
-    throw new Error('Verdi er ikke satt for atfl samme org.');
+const krevVerdi = (verdi: number | undefined): number => {
+  if (verdi || verdi === 0) {
+    return verdi;
   }
-  return andelsnr;
+  throw new Error('Verdi er ikke satt for atfl samme org.');
 };
 
 export const transformValuesForATFLISammeOrg = (

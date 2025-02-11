@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-fordel-beregningsgrunnlag",
   "description": "Fordeling av foreslått beregningsgrunnlag og fastsetting av refusjon",
-  "version": "9.1.5",
+  "version": "9.1.6",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -64,10 +64,10 @@
     "@testing-library/user-event": "14.6.1",
     "cross-env": "7.0.3",
     "eslint": "9.19.0",
-    "stylelint": "16.14.0",
+    "stylelint": "16.14.1",
     "typescript": "5.7.3",
     "vite": "6.0.11",
-    "vitest": "3.0.4"
+    "vitest": "3.0.5"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
