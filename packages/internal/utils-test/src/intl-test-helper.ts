@@ -1,4 +1,4 @@
-import { createIntl, createIntlCache, IntlShape } from 'react-intl';
+import { createIntl, createIntlCache, type IntlShape } from 'react-intl';
 
 // Create the IntlProvider to retrieve context for wrapping around.
 const cache = createIntlCache();
