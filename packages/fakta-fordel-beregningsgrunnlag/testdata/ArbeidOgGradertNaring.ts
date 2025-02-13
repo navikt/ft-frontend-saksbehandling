@@ -507,13 +507,3 @@ export const beregningsgrunnlag = {
   dekningsgrad: 100,
   erOverstyrtInntekt: false,
 } as Beregningsgrunnlag;
-
-export const aksjonspunkt = [
-  {
-    definisjon: 'FORDEL_BG',
-    status: 'OPPR',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-  },
-];
