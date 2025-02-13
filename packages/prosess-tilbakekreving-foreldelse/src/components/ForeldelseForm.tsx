@@ -1,13 +1,13 @@
 import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Heading, Panel } from '@navikt/ds-react';
+import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
-import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
@@ -20,8 +20,6 @@ import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './Foreld
 import { PeriodeController, PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
-
-import styles from './foreldelseForm.module.css';
 
 const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
   dayjs(periode1.fom).diff(dayjs(periode2.fom));
@@ -225,74 +223,76 @@ export const ForeldelseForm = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <Heading size="small">
-        <FormattedMessage id="ForeldelseForm.Foreldelse" />
-      </Heading>
-      <VerticalSpacer twentyPx />
-      {!aksjonspunkt && (
-        <>
-          <BodyShort>
-            <FormattedMessage id="ForeldelseForm.Foreldelsesloven" />
-          </BodyShort>
-          <VerticalSpacer eightPx />
-          <BodyShort>
-            <FormattedMessage id="ForeldelseForm.AutomatiskVurdert" />
-          </BodyShort>
-          <VerticalSpacer sixteenPx />
-        </>
-      )}
-      {foreldelseresultatAktiviteter && aksjonspunkt && (
-        <>
-          {isApOpen && <AksjonspunktHelpTextHTML>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextHTML>}
-          <VerticalSpacer twentyPx />
-          <TilbakekrevingTimeline
-            perioder={perioderFormatertForTidslinje}
-            valgtPeriode={valgtPeriodeFormatertForTidslinje}
-            setPeriode={setPeriode}
-            relasjonsRolleType={relasjonsRolleType}
-            relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
-          />
-          {valgtPeriode && (
-            <div id="panel-tilbakekreving-foreldelse" aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}>
-              <div className={styles.space} />
-              <Panel border>
-                <PeriodeController
-                  setNestePeriode={setNestePeriode}
-                  setForrigePeriode={setForrigePeriode}
-                  valgtPeriode={valgtPeriode}
-                  readOnly={readOnly}
-                  oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                  behandlingUuid={behandlingUuid}
-                  beregnBelop={beregnBelop}
-                  lukkPeriode={lukkPeriode}
-                />
-                <VerticalSpacer sixteenPx />
-                <PeriodeInformasjon
-                  feilutbetaling={valgtPeriode.feilutbetaling}
-                  fom={valgtPeriode.fom}
-                  tom={valgtPeriode.tom}
-                />
-                <ForeldelsePeriodeForm
-                  key={valgtPeriode.fom}
-                  periode={valgtPeriode}
-                  oppdaterPeriode={oppdaterPeriode}
-                  skjulPeriode={lukkPeriode}
-                  readOnly={readOnly}
-                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-                />
-              </Panel>
-            </div>
-          )}
-          <VerticalSpacer twentyPx />
-          <SubmitButton
-            isReadOnly={readOnly}
-            isDirty={isDirty}
-            isSubmittable={!valgtPeriode && erAlleAksjonspunktLøst}
-            onClick={lagrePerioder}
-            isSubmitting={isSubmitting}
-          />
-        </>
-      )}
+      <VStack gap="4">
+        <Heading size="small">
+          <FormattedMessage id="ForeldelseForm.Foreldelse" />
+        </Heading>
+        {!aksjonspunkt && (
+          <>
+            <BodyShort>
+              <FormattedMessage id="ForeldelseForm.Foreldelsesloven" />
+            </BodyShort>
+            <BodyShort>
+              <FormattedMessage id="ForeldelseForm.AutomatiskVurdert" />
+            </BodyShort>
+          </>
+        )}
+        {foreldelseresultatAktiviteter && aksjonspunkt && (
+          <VStack gap="4">
+            {isApOpen && <AksjonspunktHelpTextHTML>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextHTML>}
+            <TilbakekrevingTimeline
+              perioder={perioderFormatertForTidslinje}
+              valgtPeriode={valgtPeriodeFormatertForTidslinje}
+              setPeriode={setPeriode}
+              relasjonsRolleType={relasjonsRolleType}
+              relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
+            />
+            {valgtPeriode && (
+              <div
+                id="panel-tilbakekreving-foreldelse"
+                aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}
+              >
+                <Box borderWidth="1" padding="4">
+                  <VStack gap="4">
+                    <PeriodeController
+                      setNestePeriode={setNestePeriode}
+                      setForrigePeriode={setForrigePeriode}
+                      valgtPeriode={valgtPeriode}
+                      readOnly={readOnly}
+                      oppdaterSplittedePerioder={oppdaterSplittedePerioder}
+                      behandlingUuid={behandlingUuid}
+                      beregnBelop={beregnBelop}
+                      lukkPeriode={lukkPeriode}
+                    />
+                    <PeriodeInformasjon
+                      feilutbetaling={valgtPeriode.feilutbetaling}
+                      fom={valgtPeriode.fom}
+                      tom={valgtPeriode.tom}
+                    />
+                    <ForeldelsePeriodeForm
+                      key={valgtPeriode.fom}
+                      periode={valgtPeriode}
+                      oppdaterPeriode={oppdaterPeriode}
+                      skjulPeriode={lukkPeriode}
+                      readOnly={readOnly}
+                      kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
+                    />
+                  </VStack>
+                </Box>
+              </div>
+            )}
+            <HStack>
+              <SubmitButton
+                isReadOnly={readOnly}
+                isDirty={isDirty}
+                isSubmittable={!valgtPeriode && erAlleAksjonspunktLøst}
+                onClick={lagrePerioder}
+                isSubmitting={isSubmitting}
+              />
+            </HStack>
+          </VStack>
+        )}
+      </VStack>
     </FaktaGruppe>
   );
 };

@@ -1,10 +1,11 @@
 import React from 'react';
 import { FieldErrors, useFormContext, UseFormGetValues } from 'react-hook-form';
 
+import { HStack, VStack } from '@navikt/ds-react';
+
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
@@ -89,11 +90,10 @@ export const VurderFaktaBeregningField = ({
   const skalVurderes = vilkarsperiode.vurderesIBehandlingen;
   const renderTextFieldAndSubmitButton = () => (
     <>
-      <VerticalSpacer thirtyTwoPx />
       {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehovListe) ||
         hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehovListe) ||
         erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
-        <>
+        <VStack gap="6">
           {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehovListe) ||
             erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
             <>
@@ -106,22 +106,26 @@ export const VurderFaktaBeregningField = ({
               <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
             </>
           )}
-          <VerticalSpacer twentyPx />
-          <SubmitButton
-            isSubmittable={
-              erSubmittable(
-                submittable &&
-                  harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, avklaringsbehovListe),
-                true,
-                finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
-              ) && !verdiForAvklarAktivitetErEndret
-            }
-            isReadOnly={readOnly || !skalVurderes}
-            isDirty={isDirty}
-            isSubmitting={submitDisabled}
-            hasErrors={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
-          />
-        </>
+          <HStack>
+            <SubmitButton
+              isSubmittable={
+                erSubmittable(
+                  submittable &&
+                    harIkkeEndringerIAvklarMedFlereAksjonspunkter(
+                      verdiForAvklarAktivitetErEndret,
+                      avklaringsbehovListe,
+                    ),
+                  true,
+                  finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
+                ) && !verdiForAvklarAktivitetErEndret
+              }
+              isReadOnly={readOnly || !skalVurderes}
+              isDirty={isDirty}
+              isSubmitting={submitDisabled}
+              hasErrors={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
+            />
+          </HStack>
+        </VStack>
       )}
     </>
   );

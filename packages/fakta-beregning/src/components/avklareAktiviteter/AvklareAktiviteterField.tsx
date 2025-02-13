@@ -2,7 +2,18 @@ import { useState } from 'react';
 import { useFormContext, UseFormGetValues } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { Alert, Button, ErrorMessage, Heading, HStack, Label, List, ReadMore } from '@navikt/ds-react';
+import {
+  Alert,
+  BodyShort,
+  Button,
+  ErrorMessage,
+  Heading,
+  HStack,
+  Label,
+  List,
+  ReadMore,
+  VStack,
+} from '@navikt/ds-react';
 
 import { SubmitButton, useCustomValidation } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -13,7 +24,7 @@ import {
   BeregningAvklaringsbehov,
   BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
-import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
@@ -198,53 +209,54 @@ export const AvklareAktiviteterField = ({
   if (!avklarAktiviteter.aktiviteterTomDatoMapping || avklarAktiviteter.aktiviteterTomDatoMapping.length < 1) {
     return null; // Ingen aktiviteter å vise
   }
+
   return (
-    <>
-      {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehovListe) && !isAvklaringsbehovClosed && (
-        <Alert size="small" variant="warning">
-          <Heading size="xsmall" level="3">
-            <FormattedMessage
-              key="VurderFaktaForBeregningen"
-              id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
-            />
-          </Heading>
-          <FormattedMessage id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift" />
-          <VerticalSpacer fourPx />
-          <ReadMore
-            size="small"
-            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-          >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2" />
-              </List.Item>
-            </List>
-          </ReadMore>
-        </Alert>
-      )}
-
-      <VerticalSpacer thirtyTwoPx />
-
-      <HStack gap="4">
-        <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
-          <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
-        </Label>
-        {(erOverstyrer || harOverstyrAvklaringsbehov) && (
-          <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
+    <VStack gap="1">
+      <VStack gap="6">
+        {hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehovListe) && !isAvklaringsbehovClosed && (
+          <Alert size="small" variant="warning">
+            <Heading size="xsmall" level="3">
+              <FormattedMessage
+                key="VurderFaktaForBeregningen"
+                id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
+              />
+            </Heading>
+            <VStack gap="2">
+              <BodyShort size="small">
+                <FormattedMessage id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift" />
+              </BodyShort>
+              <ReadMore
+                size="small"
+                header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+              >
+                <List size="small">
+                  <List.Item>
+                    <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1" />
+                  </List.Item>
+                  <List.Item>
+                    <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2" />
+                  </List.Item>
+                </List>
+              </ReadMore>
+            </VStack>
+          </Alert>
         )}
-      </HStack>
-
+        <HStack gap="4">
+          <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
+            <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
+          </Label>
+          {(erOverstyrer || harOverstyrAvklaringsbehov) && (
+            <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
+          )}
+        </HStack>
+      </VStack>
       {erOverstyrtKnappTrykket && (
         <Label size="small">
           <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
         </Label>
       )}
-
       {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <div>
+        <VStack gap="4">
           <VurderAktiviteterPanel
             aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
             readOnly={readOnly}
@@ -257,12 +269,10 @@ export const AvklareAktiviteterField = ({
             fieldId={fieldId}
           />
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-        </div>
+        </VStack>
       )}
-      <VerticalSpacer twentyPx />
-
       {skalViseSubmitKnappEllerBegrunnelse(avklaringsbehovListe, erOverstyrtKnappTrykket) && (
-        <>
+        <VStack gap="6">
           <FaktaBegrunnelseTextField
             name={`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`}
             isSubmittable={submittable}
@@ -272,7 +282,6 @@ export const AvklareAktiviteterField = ({
           <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
           {(hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehovListe) || erOverstyrtKnappTrykket) && (
             <>
-              <VerticalSpacer twentyPx />
               <HStack gap="4">
                 <SubmitButton
                   text={intl.formatMessage({
@@ -300,8 +309,8 @@ export const AvklareAktiviteterField = ({
               </HStack>
             </>
           )}
-        </>
+        </VStack>
       )}
-    </>
+    </VStack>
   );
 };

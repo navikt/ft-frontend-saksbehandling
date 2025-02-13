@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import { VStack } from '@navikt/ds-react';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 
@@ -21,7 +23,7 @@ export const setFaktaPanelForKunYtelse = (
 ) => {
   if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
     faktaPanels.push(
-      <React.Fragment key="FASTSETT_BG_KUN_YTELSE">
+      <VStack gap="4" key="FASTSETT_BG_KUN_YTELSE">
         {/* @ts-expect-error TODO Denne bør fiksast */}
         <KunYtelsePanel
           readOnly={readOnly}
@@ -30,7 +32,7 @@ export const setFaktaPanelForKunYtelse = (
           kodeverkSamling={kodeverkSamling}
         />
         {renderTextFieldAndSubmitButton()}
-      </React.Fragment>,
+      </VStack>,
     );
   }
 };

@@ -8,7 +8,6 @@ import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -39,7 +38,6 @@ const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOver
 type Props = {
   readOnly: boolean;
   submittable: boolean;
-  harAndreAvklaringsbehovIPanel: boolean;
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
@@ -131,7 +129,6 @@ const getAvklarAktiviteter = (alleGrunnlag: Beregningsgrunnlag[], index: number)
  */
 
 export const AvklareAktiviteterPanel = ({
-  harAndreAvklaringsbehovIPanel,
   erOverstyrer,
   readOnly,
   kodeverkSamling,
@@ -205,34 +202,31 @@ export const AvklareAktiviteterPanel = ({
   };
 
   return (
-    <>
-      <Form<AvklarAktiviteterFormValues>
-        formMethods={formMethods}
-        onSubmit={values => losAvklaringsbehov(values)}
-        setDataOnUnmount={setFormData}
-      >
-        {fields.map(
-          (field, index) =>
-            aktivtBeregningsgrunnlagIndeks === index && (
-              <AvklareAktiviteterField
-                // @ts-expect-error Fiks
-                aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-                key={field.id}
-                fieldId={index}
-                avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}
-                avklaringsbehovListe={beregningsgrunnlag[index].avklaringsbehov}
-                erOverstyrer={erOverstyrer}
-                readOnly={readOnly}
-                submittable={submittable}
-                kodeverkSamling={kodeverkSamling}
-                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                updateOverstyring={updateOverstyring}
-                submitDisabled={submitDisabled}
-              />
-            ),
-        )}
-      </Form>
-      {harAndreAvklaringsbehovIPanel && <VerticalSpacer twentyPx />}
-    </>
+    <Form<AvklarAktiviteterFormValues>
+      formMethods={formMethods}
+      onSubmit={values => losAvklaringsbehov(values)}
+      setDataOnUnmount={setFormData}
+    >
+      {fields.map(
+        (field, index) =>
+          aktivtBeregningsgrunnlagIndeks === index && (
+            <AvklareAktiviteterField
+              // @ts-expect-error Fiks
+              aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+              key={field.id}
+              fieldId={index}
+              avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}
+              avklaringsbehovListe={beregningsgrunnlag[index].avklaringsbehov}
+              erOverstyrer={erOverstyrer}
+              readOnly={readOnly}
+              submittable={submittable}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              updateOverstyring={updateOverstyring}
+              submitDisabled={submitDisabled}
+            />
+          ),
+      )}
+    </Form>
   );
 };

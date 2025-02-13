@@ -1,10 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 
+import { BodyShort, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
@@ -199,12 +199,13 @@ export const VurderAktiviteterPanel = ({
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
 
   return (
-    <>
-      <FormattedMessage
-        id="AvklarAktivitetPanel.Overskrift.Skjaeringstidspunkt"
-        values={{ skjaeringstidspunkt: getFormatertSkjæringstidspunkt(gjeldendeSkjæringstidspunkt) }}
-      />
-      <VerticalSpacer twentyPx />
+    <VStack gap="4">
+      <BodyShort size="small">
+        <FormattedMessage
+          id="AvklarAktivitetPanel.Overskrift.Skjaeringstidspunkt"
+          values={{ skjaeringstidspunkt: getFormatertSkjæringstidspunkt(gjeldendeSkjæringstidspunkt) }}
+        />
+      </BodyShort>
       {listeSomSkalVurderes.map(aktivitetMap => (
         <VurderAktiviteterTabellReactHookForm
           readOnly={readOnly}
@@ -221,8 +222,7 @@ export const VurderAktiviteterPanel = ({
           fieldId={fieldId}
         />
       ))}
-      <VerticalSpacer thirtyTwoPx />
-    </>
+    </VStack>
   );
 };
 

@@ -1,22 +1,19 @@
 import { useCallback, useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ScissorsIcon } from '@navikt/aksel-icons';
-import { Alert, BodyShort, Button, Heading, Label } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { Periode } from './PeriodesplittDatoValg';
 import { PeriodesplittModal } from './PeriodesplittModal';
 import { TilkommetAktivitetAccordion } from './TilkommetAktivitetAccordion';
-
-import styles from './tilkommetAktivitet.module.css';
 
 const finnAktivitetStatus = (
   aktivitetStatus: AktivitetStatus,
@@ -201,59 +198,53 @@ export const TilkommetAktivitetPanel = ({
   }, [modalErÅpen]);
 
   return (
-    <>
+    <VStack gap="8">
       {getAksjonspunktText()}
       {!!vurderInntektsforholdPerioder && erAksjonspunktÅpent && (
         <>
-          <VerticalSpacer eightPx />
           <Alert size="small" variant="info" title="">
-            {intl.formatMessage({ id: 'TilkommetAktivitet.AksjonspunktAlert' })}
+            <FormattedMessage id="TilkommetAktivitet.AksjonspunktAlert" />
           </Alert>
         </>
       )}
-      <VerticalSpacer fourtyPx />
+      <VStack gap="0">
+        <HStack justify="space-between">
+          <Heading size="small" level="3">
+            <FormattedMessage id="TilkommetAktivitet.Heading" />
+          </Heading>
+          <Button
+            variant="tertiary"
+            loading={false}
+            disabled={readOnly}
+            onClick={åpneModal}
+            size="small"
+            type="button"
+            icon={<ScissorsIcon height={32} width={32} />}
+          >
+            <FormattedMessage id="TilkommetAktivitet.Modal.Knapp" />
+          </Button>
+        </HStack>
 
-      <FlexContainer>
-        <FlexRow className={styles.tittelRad}>
-          <FlexColumn>
-            <Heading size="small" level="3">
-              {intl.formatMessage({ id: 'TilkommetAktivitet.Heading' })}
-            </Heading>
-          </FlexColumn>
-          <FlexColumn className={styles.modalKnapp}>
-            <Button
-              variant="tertiary"
-              loading={false}
-              disabled={readOnly}
-              onClick={åpneModal}
-              size="small"
-              type="button"
-              icon={<ScissorsIcon height={32} width={32} />}
-            >
-              {intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Knapp' })}
-            </Button>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
-      {modalErÅpen && (
-        <PeriodesplittModal
+        {modalErÅpen && (
+          <PeriodesplittModal
+            fields={fields}
+            forhåndsvisPeriodesplitt={finnNyePerioder}
+            lukkModal={lukkModal}
+            skalViseModal={modalErÅpen}
+            utførPeriodesplitt={splittPeriode}
+          />
+        )}
+        <TilkommetAktivitetAccordion
+          beregningsgrunnlag={beregningsgrunnlag}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          formName={formName}
           fields={fields}
-          forhåndsvisPeriodesplitt={finnNyePerioder}
-          lukkModal={lukkModal}
-          skalViseModal={modalErÅpen}
-          utførPeriodesplitt={splittPeriode}
+          formFieldIndex={formFieldIndex}
+          readOnly={readOnly}
+          erAksjonspunktÅpent={erAksjonspunktÅpent}
+          submittable={submittable}
         />
-      )}
-      <TilkommetAktivitetAccordion
-        beregningsgrunnlag={beregningsgrunnlag}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        formName={formName}
-        fields={fields}
-        formFieldIndex={formFieldIndex}
-        readOnly={readOnly}
-        erAksjonspunktÅpent={erAksjonspunktÅpent}
-        submittable={submittable}
-      />
-    </>
+      </VStack>
+    </VStack>
   );
 };

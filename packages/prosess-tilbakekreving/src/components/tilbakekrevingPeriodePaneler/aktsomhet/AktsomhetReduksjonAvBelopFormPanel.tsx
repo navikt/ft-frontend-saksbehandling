@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort, Detail, HStack, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { InputField, RadioGroupPanel, SelectField } from '@navikt/ft-form-hooks';
 import { maxValue, minValue, required } from '@navikt/ft-form-validators';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
@@ -63,8 +63,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
   }, []);
 
   return (
-    <>
-      <VerticalSpacer sixteenPx />
+    <VStack gap="4">
       <RadioGroupPanel
         name={`${name}.harGrunnerTilReduksjon`}
         label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
@@ -83,7 +82,6 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
         isTrueOrFalseSelection
         isHorizontal
       />
-      <VerticalSpacer sixteenPx />
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
           <HStack gap="4">
@@ -169,32 +167,33 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               }
             />
           </Detail>
-          <BodyShort size="small" className={styles.labelPadding}>
-            {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
-          </BodyShort>
-          <VerticalSpacer sixteenPx />
-          {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
-            <RadioGroupPanel
-              name={tilleggesRenterFelt}
-              label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
-              validate={[required]}
-              radios={[
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                  value: 'true',
-                },
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                  value: 'false',
-                },
-              ]}
-              isReadOnly={readOnly}
-              isTrueOrFalseSelection
-              isHorizontal
-            />
-          )}
+          <VStack gap="4">
+            <BodyShort size="small" className={styles.labelPadding}>
+              {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
+            </BodyShort>
+            {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
+              <RadioGroupPanel
+                name={tilleggesRenterFelt}
+                label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
+                validate={[required]}
+                radios={[
+                  {
+                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                    value: 'true',
+                  },
+                  {
+                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                    value: 'false',
+                  },
+                ]}
+                isReadOnly={readOnly}
+                isTrueOrFalseSelection
+                isHorizontal
+              />
+            )}
+          </VStack>
         </ArrowBox>
       )}
-    </>
+    </VStack>
   );
 };

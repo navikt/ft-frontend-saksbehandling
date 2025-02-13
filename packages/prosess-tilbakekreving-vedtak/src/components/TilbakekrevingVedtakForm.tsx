@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { HStack } from '@navikt/ds-react';
+import { HStack, VStack } from '@navikt/ds-react';
 import classNames from 'classnames';
 
 import { Form, SubmitButton } from '@navikt/ft-form-hooks';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { omit } from '@navikt/ft-utils';
 
 import { UnderavsnittType } from '../kodeverk/avsnittType';
@@ -158,50 +157,49 @@ export const TilbakekrevingVedtakForm = ({
       onSubmit={(values: FormValues) => submitCallback(transformValues(values))}
       setDataOnUnmount={setFormData}
     >
-      <VerticalSpacer twentyPx />
-      <TilbakekrevingEditerVedtaksbrevPanel
-        intl={intl}
-        vedtaksbrevAvsnitt={vedtaksbrevAvsnitt}
-        readOnly={readOnly}
-        perioderSomIkkeHarUtfyltObligatoriskVerdi={useMemo(() => perioderSomIkkeHarUtfyltObligatoriskVerdi, [])}
-        fritekstOppsummeringPakrevdMenIkkeUtfylt={fritekstOppsummeringPakrevdMenIkkeUtfylt}
-        erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
-      />
-      <VerticalSpacer twentyPx />
-      <HStack gap="10">
-        <SubmitButton
-          text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
-          isReadOnly={readOnly}
-          isSubmittable={
-            perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
-          }
-          isSubmitting={formMethods.formState.isSubmitting}
-          isDirty={formMethods.formState.isDirty}
-          hasErrors={harObligatoriskeFelterSomIkkeErUtfylt}
+      <VStack gap="4">
+        <TilbakekrevingEditerVedtaksbrevPanel
+          intl={intl}
+          vedtaksbrevAvsnitt={vedtaksbrevAvsnitt}
+          readOnly={readOnly}
+          perioderSomIkkeHarUtfyltObligatoriskVerdi={useMemo(() => perioderSomIkkeHarUtfyltObligatoriskVerdi, [])}
+          fritekstOppsummeringPakrevdMenIkkeUtfylt={fritekstOppsummeringPakrevdMenIkkeUtfylt}
+          erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
         />
-        {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
-          <div className={styles.padding}>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a
-              href=""
-              onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
-              onKeyDown={e =>
-                e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
-              }
-              className={classNames(styles.buttonLink, 'lenke lenke--frittstaende')}
-            >
-              <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
-            </a>
-          </div>
-        )}
-      </HStack>
-      <VerticalSpacer sixteenPx />
-      {erRevurderingTilbakekrevingKlage && (
-        <HStack>
-          <ExclamationmarkTriangleFillIcon className={styles.infoTextIcon} />
-          <FormattedMessage id="TilbakekrevingVedtakForm.Infotekst.Klage" />
+        <HStack gap="10">
+          <SubmitButton
+            text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
+            isReadOnly={readOnly}
+            isSubmittable={
+              perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
+            }
+            isSubmitting={formMethods.formState.isSubmitting}
+            isDirty={formMethods.formState.isDirty}
+            hasErrors={harObligatoriskeFelterSomIkkeErUtfylt}
+          />
+          {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
+            <div className={styles.padding}>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                href=""
+                onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
+                onKeyDown={e =>
+                  e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
+                }
+                className={classNames(styles.buttonLink, 'lenke lenke--frittstaende')}
+              >
+                <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
+              </a>
+            </div>
+          )}
         </HStack>
-      )}
+        {erRevurderingTilbakekrevingKlage && (
+          <HStack>
+            <ExclamationmarkTriangleFillIcon className={styles.infoTextIcon} />
+            <FormattedMessage id="TilbakekrevingVedtakForm.Infotekst.Klage" />
+          </HStack>
+        )}
+      </VStack>
     </Form>
   );
 };

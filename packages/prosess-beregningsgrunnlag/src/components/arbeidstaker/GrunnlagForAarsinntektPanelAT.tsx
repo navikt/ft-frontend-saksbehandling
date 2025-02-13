@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
@@ -10,7 +10,6 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
@@ -77,69 +76,53 @@ const createArbeidinntektRows = (
 ): ReactElement[] => {
   const beregnetAarsinntekt = relevanteAndeler.reduce((acc, andel) => acc + finnBeregnetEller0(andel), 0);
   const beregnetMaanedsinntekt = beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0;
+
   const rows = relevanteAndeler.map((andel, index) => (
     <React.Fragment
       key={`ArbInntektWrapper${createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}${
         index + 1
       }`}
     >
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <Label size="small" key={`ColLableTxt${index + 1}`} className={beregningStyles.semiBoldText}>
-              {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-            </Label>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <BodyShort key={`ColBrgMndTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-              {formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Label key={`ColBrgAarTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-              {formatCurrencyNoKr(andel.beregnetPrAar)}
-            </Label>
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow key={`indexD${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
+      <VStack gap="2">
+        <HStack justify="space-between">
+          <Label size="small" className={beregningStyles.semiBoldText}>
+            {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+          </Label>
+          <HStack gap="10">
+            <BodyShort>{formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}</BodyShort>
+            <Label>{formatCurrencyNoKr(andel.beregnetPrAar)}</Label>
+          </HStack>
+        </HStack>
+      </VStack>
+      <VStack gap="2">
+        <HStack gap="2">
           {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
-            <FlexColumn>
-              <BodyShort>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</BodyShort>
-            </FlexColumn>
+            <BodyShort>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</BodyShort>
           )}
           {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
-            <FlexColumn>
-              <Detail>{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
-            </FlexColumn>
+            <Detail>{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
           )}
           {andel.erTidsbegrensetArbeidsforhold && (
-            <FlexColumn>
-              <Detail>
-                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
-              </Detail>
-            </FlexColumn>
+            <Detail>
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
+            </Detail>
           )}
-        </FlexRow>
-      </FlexContainer>
-      <VerticalSpacer eightPx />
+        </HStack>
+      </VStack>
       <Ledelinje prosentBredde={100} />
     </React.Fragment>
   ));
   if (relevanteAndeler.length > 1) {
     const summaryRow = (
-      <FlexContainer key="SummaryRow">
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
+      <VStack gap="0">
+        <HStack justify="space-between">
+          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
+          <HStack gap="10" justify="end">
             <BodyShort>{formatCurrencyNoKr(beregnetMaanedsinntekt)}</BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
             <Label>{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
+          </HStack>
+        </HStack>
+      </VStack>
     );
     rows.push(summaryRow);
   }
@@ -168,33 +151,26 @@ export const GrunnlagForAarsinntektPanelAT = ({
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIFørstePeriode);
   if (!relevanteAndeler || relevanteAndeler.length === 0) return null;
   return (
-    <>
-      <FlexRow>
-        <FlexColumn>
-          <Heading size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt" />
-          </Heading>
-        </FlexColumn>
-      </FlexRow>
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet} />
-          <FlexColumn className={beregningStyles.tabellInntekt}>
+    <VStack gap="8">
+      <VStack gap="2">
+        <Heading size="medium">
+          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt" />
+        </Heading>
+        <VStack gap="1">
+          <HStack gap="10" justify="end">
             <Detail>
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
             </Detail>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
             <Detail>
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
             </Detail>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
-      <Ledelinje prosentBredde={100} />
-      {createArbeidinntektRows(relevanteAndeler, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
+          </HStack>
+          <Ledelinje prosentBredde={100} />
+          {createArbeidinntektRows(relevanteAndeler, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
+        </VStack>
+      </VStack>
       <NaturalytelsePanel allePerioder={allePerioder} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
-    </>
+    </VStack>
   );
 };
 
