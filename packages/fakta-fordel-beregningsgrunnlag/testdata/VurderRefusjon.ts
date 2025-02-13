@@ -86,13 +86,3 @@ export const bgMedDelvisRefusjon = {
     ],
   },
 } as Beregningsgrunnlag;
-
-export const aksjonspunkt = [
-  {
-    definisjon: 'VURDER_REFUSJONSKRAV',
-    status: 'OPPR',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-  },
-];
