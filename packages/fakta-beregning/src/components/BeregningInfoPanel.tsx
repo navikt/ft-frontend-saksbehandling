@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
+import { VStack } from '@navikt/ds-react';
+
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -68,23 +69,23 @@ export const BeregningInfoPanel = ({
   const [avklarAktiviteterErEndret, setAvklarAktiviteterErEndret] = useState<boolean>(false);
 
   return (
-    <div>
-      <AvklareAktiviteterPanel
-        readOnly={avklarAktiviteterReadOnly}
-        harAndreAvklaringsbehovIPanel={hasAvklaringsbehov(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov)}
-        submitCallback={submitCallback}
-        submittable={submittable}
-        erOverstyrer={erOverstyrer && skalKunneOverstyreAktiviteter}
-        kodeverkSamling={kodeverkSamling}
-        aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-        beregningsgrunnlag={beregningsgrunnlag}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        setFormData={setFormData}
-        formData={formData && formNameAvklarAktiviteter in formData ? formData : undefined}
-        vilkår={vilkar}
-        setAvklarAktiviteterErEndret={setAvklarAktiviteterErEndret}
-      />
-      <VerticalSpacer thirtyTwoPx />
+    <VStack gap={hasAvklaringsbehov(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ? '0' : '2'}>
+      <div>
+        <AvklareAktiviteterPanel
+          readOnly={avklarAktiviteterReadOnly}
+          submitCallback={submitCallback}
+          submittable={submittable}
+          erOverstyrer={erOverstyrer && skalKunneOverstyreAktiviteter}
+          kodeverkSamling={kodeverkSamling}
+          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+          beregningsgrunnlag={beregningsgrunnlag}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          setFormData={setFormData}
+          formData={formData && formNameAvklarAktiviteter in formData ? formData : undefined}
+          vilkår={vilkar}
+          setAvklarAktiviteterErEndret={setAvklarAktiviteterErEndret}
+        />
+      </div>
       <VurderFaktaBeregningPanel
         submitCallback={submitCallback}
         submittable={submittable}
@@ -100,6 +101,6 @@ export const BeregningInfoPanel = ({
         avklarAktiviteterErEndret={avklarAktiviteterErEndret}
         skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
-    </div>
+    </VStack>
   );
 };

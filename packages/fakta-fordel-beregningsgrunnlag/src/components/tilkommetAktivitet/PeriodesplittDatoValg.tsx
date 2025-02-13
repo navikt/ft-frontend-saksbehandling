@@ -4,10 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { DatePicker, Label, useDatepicker } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { FlexColumn, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
-
-import styles from './periodesplittModal.module.css';
 
 export type Periode = {
   fom: string;
@@ -56,18 +53,16 @@ export const PeriodesplittDatoValg = ({ periode, forhåndsvisPeriodesplitt, setV
 
   return (
     <>
-      <FlexColumn className={styles.datoVelger}>
-        <DatePicker {...datepickerProps}>
-          <DatePicker.Input
-            {...inputProps}
-            label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.DatoValg' })}
-            size="small"
-          />
-        </DatePicker>
-      </FlexColumn>
+      <DatePicker {...datepickerProps}>
+        <DatePicker.Input
+          {...inputProps}
+          label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.DatoValg' })}
+          size="small"
+        />
+      </DatePicker>
       {nyePerioder && (
-        <FlexColumn>
-          <Label size="small" className={styles.periodeHeader}>
+        <div>
+          <Label size="small">
             <FormattedMessage id="TilkommetAktivitet.Modal.Resultat" />
           </Label>
           <ul>
@@ -90,9 +85,8 @@ export const PeriodesplittDatoValg = ({ periode, forhåndsvisPeriodesplitt, setV
               />
             </li>
           </ul>
-        </FlexColumn>
+        </div>
       )}
-      <VerticalSpacer sixteenPx />
     </>
   );
 };

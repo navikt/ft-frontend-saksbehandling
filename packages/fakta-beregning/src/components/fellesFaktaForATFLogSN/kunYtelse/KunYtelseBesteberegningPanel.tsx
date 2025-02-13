@@ -3,13 +3,13 @@ import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
-import { Label } from '@navikt/ds-react';
+import { HStack, Label, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { KunYtelse } from '@navikt/ft-types';
-import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
@@ -66,39 +66,35 @@ export const KunYtelseBesteberegning = ({
       />
 
       {erBesteberegning !== undefined && erBesteberegning !== null && (
-        <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
-          <FlexRow>
-            <FlexColumn className={styles.flexColumn9}>
-              <Label size="small">
-                <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
-              </Label>
-            </FlexColumn>
-            {erBesteberegning && (
-              <FlexColumn className={styles.flexColumn3}>
-                <a
-                  className={styles.navetLink}
-                  href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-                </a>
-              </FlexColumn>
-            )}
-          </FlexRow>
-          {skalViseInntektstabell && (
-            <FlexRow>
-              <FlexColumn className={styles.flexColumn12}>
+        <div style={{ marginTop: '10px' }}>
+          <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
+            <VStack gap="4">
+              <HStack justify="space-between">
+                <Label size="small">
+                  <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
+                </Label>
+                {erBesteberegning && (
+                  <a
+                    className={styles.navetLink}
+                    href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+                  </a>
+                )}
+              </HStack>
+              {skalViseInntektstabell && (
                 <BrukersAndelFieldArray
                   name={brukersAndelFieldArrayName}
                   readOnly={readOnly}
                   isAksjonspunktClosed={isAksjonspunktClosed}
                   kodeverkSamling={kodeverkSamling}
                 />
-              </FlexColumn>
-            </FlexRow>
-          )}
-        </ArrowBox>
+              )}
+            </VStack>
+          </ArrowBox>
+        </div>
       )}
     </div>
   );

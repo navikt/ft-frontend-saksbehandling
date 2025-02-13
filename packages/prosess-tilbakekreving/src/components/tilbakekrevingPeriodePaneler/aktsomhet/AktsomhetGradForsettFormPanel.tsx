@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, Label, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 export interface Props {
   name: string;
@@ -27,12 +27,11 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
     <div>
       <ArrowBox alignOffset={erValgtResultatTypeForstoBurdeForstaatt ? 320 : 360}>
         {erValgtResultatTypeForstoBurdeForstaatt && (
-          <>
+          <VStack gap="4">
             <Label size="small">
               <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
             </Label>
             <BodyShort size="small">100 %</BodyShort>
-            <VerticalSpacer sixteenPx />
             <RadioGroupPanel
               name={`${name}.skalDetTilleggesRenter`}
               label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
@@ -51,19 +50,20 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
               parse={(value: string) => value === 'true'}
               isHorizontal
             />
-          </>
+          </VStack>
         )}
         {!erValgtResultatTypeForstoBurdeForstaatt && (
-          <>
-            <Detail>
-              <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
-            </Detail>
-            <BodyShort size="small">100 %</BodyShort>
-            <VerticalSpacer eightPx />
+          <VStack gap="2">
+            <div>
+              <Detail>
+                <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
+              </Detail>
+              <BodyShort size="small">100 %</BodyShort>
+            </div>
             <BodyShort size="small">
               <FormattedMessage id="AktsomhetGradForsettFormPanel.Renter" />
             </BodyShort>
-          </>
+          </VStack>
         )}
       </ArrowBox>
     </div>

@@ -2,11 +2,10 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Label, List, ReadMore } from '@navikt/ds-react';
+import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
@@ -289,40 +288,42 @@ export const InntektInputFields = ({
   };
 
   return (
-    <>
+    <VStack gap="8">
       {erATFLSammeOrg(tilfeller) && (
         <>
-          <Label>
-            <FormattedMessage
-              id={
-                atflSammeOrgHarInntektsmelding
-                  ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
-                  : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
-              }
-            />
-          </Label>
-          <ReadMore
-            size="small"
-            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-          >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage
-                  id={
-                    atflSammeOrgHarInntektsmelding
-                      ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
-                      : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
-                  }
-                  values={{
-                    br: <br />,
-                  }}
-                />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
-              </List.Item>
-            </List>
-          </ReadMore>
+          <VStack gap="1">
+            <Label>
+              <FormattedMessage
+                id={
+                  atflSammeOrgHarInntektsmelding
+                    ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
+                    : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
+                }
+              />
+            </Label>
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage
+                    id={
+                      atflSammeOrgHarInntektsmelding
+                        ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
+                        : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
+                    }
+                    values={{
+                      br: <br />,
+                    }}
+                  />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
+                </List.Item>
+              </List>
+            </ReadMore>
+          </VStack>
           {atflOgSammeOrgArbeidsgivere?.map(arbeidsgiver => (
             <ArbeidsinntektInput
               key={arbeidsgiver.arbeidsforhold?.arbeidsgiverIdent}
@@ -335,15 +336,12 @@ export const InntektInputFields = ({
         </>
       )}
       {skalRedigereFrilansinntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={frilanserInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={getFrilansinntektInputLabel()}
-          />
-        </>
+        <InntektInput
+          name={frilanserInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={getFrilansinntektInputLabel()}
+        />
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
         ? andelerMedArbeidsinntekt
@@ -375,38 +373,29 @@ export const InntektInputFields = ({
           ))}
 
       {skalRedigereDagpengerInntekt && (
-        <>
-          {(skalRedigereFrilansinntekt() || skalRedigereArbeidsinntekt) && <VerticalSpacer thirtyTwoPx />}
-          <InntektInput
-            name={dagpengerInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
-          />
-        </>
+        <InntektInput
+          name={dagpengerInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
+        />
       )}
       {skalRedigereSelvstendigNæringsgivendeInntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={selvstendigNæringsdrivendeInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende" />}
-          />
-        </>
+        <InntektInput
+          name={selvstendigNæringsdrivendeInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende" />}
+        />
       )}
       {skalRedigereMilitærEllerSivilInntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={militærEllerSivilInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.MilitærEllerSivil" />}
-          />
-        </>
+        <InntektInput
+          name={militærEllerSivilInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.MilitærEllerSivil" />}
+        />
       )}
-    </>
+    </VStack>
   );
 };

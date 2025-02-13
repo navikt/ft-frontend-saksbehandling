@@ -1,12 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
+import { HStack } from '@navikt/ds-react';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
@@ -42,33 +43,29 @@ export const VurderBesteberegningPanel = ({ readOnly, erOverstyrt }: Props) => {
   const isReadOnly = readOnly || erOverstyrt;
 
   return (
-    <div>
-      <FlexRow>
-        <FlexColumn className={styles.flexColumn9}>
-          <RadioGroupPanel
-            label={<FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />}
-            name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
-            isReadOnly={isReadOnly}
-            validate={isReadOnly ? [] : [required]}
-            radios={[
-              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-            ]}
-            parse={parseStringToBoolean}
-          />
-        </FlexColumn>
-        <FlexColumn className={styles.flexColumn3}>
-          <a
-            className={styles.navetLink}
-            href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-          </a>
-        </FlexColumn>
-      </FlexRow>
-    </div>
+    <HStack gap="2" wrap={false}>
+      <RadioGroupPanel
+        label={<FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />}
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
+        isReadOnly={isReadOnly}
+        validate={isReadOnly ? [] : [required]}
+        radios={[
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        ]}
+        parse={parseStringToBoolean}
+      />
+      <div>
+        <a
+          className={styles.navetLink}
+          href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+        </a>
+      </div>
+    </HStack>
   );
 };
 

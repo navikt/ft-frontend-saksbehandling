@@ -1,11 +1,11 @@
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { Label } from '@navikt/ds-react';
+import { Label, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
@@ -16,11 +16,10 @@ const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
 const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: IntlShape) => (
-  <div>
+  <VStack gap="4">
     <Label size="small">
       <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.SærligGrunner" />
     </Label>
-    <VerticalSpacer eightPx />
     <TextAreaField
       name={`${name}.sarligGrunnerBegrunnelse`}
       label={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner' })}
@@ -30,8 +29,7 @@ const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: Intl
       className={styles.explanationTextarea}
       description={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner.Hjelpetekst' })}
     />
-    <VerticalSpacer twentyPx />
-  </div>
+  </VStack>
 );
 
 export interface Props {
@@ -67,52 +65,47 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
     <ArrowBox alignOffset={handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
       <div className={styles.panelWidth}>
         {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
-          <>
-            <RadioGroupPanel
-              name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
-              label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
-              validate={[required]}
-              isTrueOrFalseSelection
-              isHorizontal
-              isReadOnly={readOnly}
-              radios={[
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                  value: 'true',
-                  element: (
-                    <>
-                      <VerticalSpacer eightPx />
-                      {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
-                      <AktsomhetSarligeGrunnerFormPanel
-                        name={name}
-                        harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-                        erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                        sarligGrunnTyper={sarligGrunnTyper}
-                        harMerEnnEnYtelse={harMerEnnEnYtelse}
-                        feilutbetalingBelop={feilutbetalingBelop}
-                        readOnly={readOnly}
-                        handletUaktsomhetGrad={handletUaktsomhetGrad}
-                        andelSomTilbakekreves={andelSomTilbakekreves}
-                      />
-                    </>
-                  ),
-                },
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                  value: 'false',
-                  element: (
-                    <>
-                      <VerticalSpacer eightPx />
-                      <ArrowBox alignOffset={20}>
-                        <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
-                      </ArrowBox>
-                    </>
-                  ),
-                },
-              ]}
-            />
-            <VerticalSpacer eightPx />
-          </>
+          <RadioGroupPanel
+            name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
+            label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
+            validate={[required]}
+            isTrueOrFalseSelection
+            isHorizontal
+            isReadOnly={readOnly}
+            radios={[
+              {
+                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                value: 'true',
+                element: (
+                  <div style={{ marginTop: '10px' }}>
+                    {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
+                    <AktsomhetSarligeGrunnerFormPanel
+                      name={name}
+                      harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+                      erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+                      sarligGrunnTyper={sarligGrunnTyper}
+                      harMerEnnEnYtelse={harMerEnnEnYtelse}
+                      feilutbetalingBelop={feilutbetalingBelop}
+                      readOnly={readOnly}
+                      handletUaktsomhetGrad={handletUaktsomhetGrad}
+                      andelSomTilbakekreves={andelSomTilbakekreves}
+                    />
+                  </div>
+                ),
+              },
+              {
+                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                value: 'false',
+                element: (
+                  <div style={{ marginTop: '10px' }}>
+                    <ArrowBox alignOffset={55}>
+                      <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+                    </ArrowBox>
+                  </div>
+                ),
+              },
+            ]}
+          />
         )}
         {(handletUaktsomhetGrad !== Aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
           <>

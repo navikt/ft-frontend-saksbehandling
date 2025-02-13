@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, ATFLSammeOrgAndel } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { ArbeidstakerInntektValues } from '../../typer/FaktaBeregningTypes';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
@@ -49,24 +48,21 @@ export const ArbeidsinntektInput = ({
   const arbeidsgiverNavn = agIdent ? arbeidsgiverOpplysningerPerId[agIdent]?.navn : undefined;
 
   return (
-    <>
-      <VerticalSpacer thirtyTwoPx />
-      <InntektInput
-        name={fieldName}
-        readOnly={readOnly}
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        label={
-          label || (
-            <FormattedMessage
-              id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
-              values={{
-                bedrift: `${arbeidsgiverNavn} (${agIdent})`,
-              }}
-            />
-          )
-        }
-      />
-    </>
+    <InntektInput
+      name={fieldName}
+      readOnly={readOnly}
+      isAksjonspunktClosed={isAksjonspunktClosed}
+      label={
+        label || (
+          <FormattedMessage
+            id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
+            values={{
+              bedrift: `${arbeidsgiverNavn} (${agIdent})`,
+            }}
+          />
+        )
+      }
+    />
   );
 };
 

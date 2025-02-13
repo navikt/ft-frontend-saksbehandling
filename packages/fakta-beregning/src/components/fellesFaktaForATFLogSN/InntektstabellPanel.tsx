@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Button, Heading, HStack, Label } from '@navikt/ds-react';
+import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
@@ -58,9 +58,8 @@ export const InntektstabellPanel = ({
   };
   return (
     <div className={styles.fadeinTabell}>
-      <VerticalSpacer thirtyTwoPx />
       {skalViseTabell && (
-        <>
+        <VStack gap="4">
           <HStack gap="4">
             <Heading level="3" size="xsmall">
               <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
@@ -74,7 +73,6 @@ export const InntektstabellPanel = ({
               />
             )}
           </HStack>
-          <VerticalSpacer sixteenPx />
           {hjelpeTekstId && (
             <Label size="small">
               <FormattedMessage id={hjelpeTekstId} />
@@ -82,11 +80,13 @@ export const InntektstabellPanel = ({
           )}
           {tabell}
           {erTabellOverstyrt && !readOnly && (
-            <Button size="small" onClick={toggleOverstyring} variant="secondary">
-              <FormattedMessage id="InntektstabellPanel.Avbryt" />
-            </Button>
+            <HStack>
+              <Button size="small" onClick={toggleOverstyring} variant="secondary">
+                <FormattedMessage id="InntektstabellPanel.Avbryt" />
+              </Button>
+            </HStack>
           )}
-        </>
+        </VStack>
       )}
     </div>
   );

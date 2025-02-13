@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
@@ -69,7 +68,6 @@ export const AktsomhetFormPanel = ({
   name,
 }: Props) => (
   <>
-    <VerticalSpacer sixteenPx />
     <RadioGroupPanel
       name={`${name}.handletUaktsomhetGrad`}
       label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}

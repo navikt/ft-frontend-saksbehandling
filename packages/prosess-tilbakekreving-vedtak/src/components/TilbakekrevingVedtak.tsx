@@ -1,9 +1,8 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
 
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
@@ -42,20 +41,19 @@ export const TilbakekrevingVedtak = ({
   formData,
   setFormData,
 }: Props) => (
-  <>
+  <VStack gap="4">
     <Heading size="small">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
     </Heading>
-    <VerticalSpacer twentyPx />
-    <Detail>
-      <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
-    </Detail>
-    <BodyShort size="small">
-      {kodeverkSamlingFpTilbake[KodeverkType.VEDTAK_RESULTAT_TYPE].find(vrt => vrt.kode === resultat)?.navn}
-    </BodyShort>
-    <VerticalSpacer sixteenPx />
+    <div>
+      <Detail>
+        <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
+      </Detail>
+      <BodyShort size="small">
+        {kodeverkSamlingFpTilbake[KodeverkType.VEDTAK_RESULTAT_TYPE].find(vrt => vrt.kode === resultat)?.navn}
+      </BodyShort>
+    </div>
     <TilbakekrevingVedtakPeriodeTabell perioder={perioder} kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake} />
-    <VerticalSpacer sixteenPx />
     <TilbakekrevingVedtakForm
       submitCallback={submitCallback}
       readOnly={readOnly}
@@ -67,5 +65,5 @@ export const TilbakekrevingVedtak = ({
       formData={formData}
       setFormData={setFormData}
     />
-  </>
+  </VStack>
 );

@@ -13,12 +13,11 @@ import {
   SilhouetteFillIcon,
   XMarkOctagonIcon,
 } from '@navikt/aksel-icons';
-import { Button, Timeline } from '@navikt/ds-react';
+import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
@@ -137,8 +136,7 @@ export const TilbakekrevingTimeline = ({
   }, [fomDato, tomDato]);
 
   return (
-    <>
-      <VerticalSpacer fourtyPx />
+    <VStack gap="4">
       <Timeline startDate={dayjs(fomDato).toDate()} endDate={dayjs(tomDato).add(1, 'days').toDate()}>
         <Timeline.Row
           label={relasjonsRolleTypeKodeverk.find(k => k.kode === relasjonsRolleType)?.navn || '-'}
@@ -159,8 +157,7 @@ export const TilbakekrevingTimeline = ({
           ))}
         </Timeline.Row>
       </Timeline>
-      <VerticalSpacer twentyPx />
-      <FloatRight>
+      <HStack justify="end">
         <Button
           className={styles.margin}
           size="small"
@@ -197,7 +194,7 @@ export const TilbakekrevingTimeline = ({
           type="button"
           title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ScrollTilHogre' })}
         />
-      </FloatRight>
-    </>
+      </HStack>
+    </VStack>
   );
 };

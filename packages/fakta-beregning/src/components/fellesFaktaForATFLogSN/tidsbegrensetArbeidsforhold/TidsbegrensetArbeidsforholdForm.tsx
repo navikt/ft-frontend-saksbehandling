@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { ReadMore } from '@navikt/ds-react';
+import { ReadMore, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
@@ -12,7 +12,6 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
@@ -74,12 +73,11 @@ export const TidsbegrensetArbeidsforholdForm = ({
     return null;
   }
   return (
-    <div>
-      {andelsliste.map((andel, index) => (
+    <VStack gap="6">
+      {andelsliste.map(andel => (
         <div
           key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(krevArbeidsforhold(andel.arbeidsforhold), arbeidsgiverOpplysningerPerId)}`}
         >
-          {index > 0 && <VerticalSpacer twentyPx />}
           <RadioGroupPanel
             label={
               <>
@@ -112,7 +110,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
           />
         </div>
       ))}
-    </div>
+    </VStack>
   );
 };
 

@@ -1,7 +1,7 @@
-import { ReactElement, useMemo } from 'react';
+import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import {
@@ -9,7 +9,6 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
@@ -166,30 +165,6 @@ const lagPeriodeTekst = (endring: NaturalytelseEndring): string => {
   return `${dateFormat(endring.fom)} -`;
 };
 
-const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
-  data.rader.map(rad => (
-    <div key={rad.nøkkel}>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.noPaddingRight}>
-          <Label size="small">{rad.visningsnavn}</Label>
-        </FlexColumn>
-      </FlexRow>
-      {rad.naturalytelseEndringer.map(endring => (
-        <FlexRow key={rad.nøkkel + endring.fom}>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <BodyShort size="small">{formatCurrencyNoKr(endring.beløpPrMåned)}</BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Label size="small">{formatCurrencyNoKr(endring.beløpPrÅr)}</Label>
-          </FlexColumn>
-        </FlexRow>
-      ))}
-    </div>
-  ));
-
 /**
  * NaturalytelsePanel
  *
@@ -201,29 +176,46 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
     () => lagNaturalytelseTabelldata(allePerioder, arbeidsgiverOpplysningerPerId),
     [allePerioder],
   );
+
   if (!tableData) {
     return null;
   }
+
   return (
-    <>
-      <VerticalSpacer thirtyTwoPx />
+    <div>
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
       </Label>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet} />
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
+      <VStack gap="0">
+        <HStack gap="10" justify="end">
+          <Detail style={{ width: '70px' }}>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
           </Detail>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
+          <Detail style={{ width: '70px' }}>
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
           </Detail>
-        </FlexColumn>
-      </FlexRow>
-      {lagTabell(tableData)}
-    </>
+        </HStack>
+        {tableData.rader.map(rad => (
+          <div key={rad.nøkkel}>
+            <Label size="small">{rad.visningsnavn}</Label>
+            <VStack gap="1">
+              {rad.naturalytelseEndringer.map(endring => (
+                <HStack justify="space-between" key={rad.nøkkel + endring.fom}>
+                  <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
+                  <HStack gap="10">
+                    <BodyShort size="small" style={{ width: '70px' }}>
+                      {formatCurrencyNoKr(endring.beløpPrMåned)}
+                    </BodyShort>
+                    <Label size="small" style={{ width: '70px' }}>
+                      {formatCurrencyNoKr(endring.beløpPrÅr)}
+                    </Label>
+                  </HStack>
+                </HStack>
+              ))}
+            </VStack>
+          </div>
+        ))}
+      </VStack>
+    </div>
   );
 };

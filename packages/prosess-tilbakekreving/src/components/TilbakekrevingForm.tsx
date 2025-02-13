@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Alert, Heading, Panel } from '@navikt/ds-react';
+import { Alert, Box, Heading, HStack, VStack } from '@navikt/ds-react';
 import moment from 'moment';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, KodeverkType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { omitOne } from '@navikt/ft-utils';
 
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
@@ -32,8 +32,6 @@ import {
   TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
-
-import styles from './tilbakekrevingForm.module.css';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
   moment(periode1.fom).diff(moment(periode2.fom));
@@ -367,83 +365,80 @@ export const TilbakekrevingForm = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <Heading size="small">
-        <FormattedMessage id="Behandlingspunkt.Tilbakekreving" />
-      </Heading>
-      <VerticalSpacer twentyPx />
-      {isApOpen && (
-        <AksjonspunktHelpTextHTML>
-          <FormattedMessage id="TilbakekrevingForm.AksjonspunktHjelpetekst" />
-        </AksjonspunktHelpTextHTML>
-      )}
-      <VerticalSpacer twentyPx />
-      {vilkårsvurdertePerioder && (
-        <>
-          <TilbakekrevingTimeline
-            perioder={perioderFormatertForTidslinje}
-            valgtPeriode={valgtPeriodeFormatertForTidslinje}
-            setPeriode={setPeriode}
-            relasjonsRolleType={relasjonsRolleType}
-            relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
-          />
-          {valgtPeriode && valgtData && (
-            <div id="panel-tilbakekreving" aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}>
-              <div className={styles.space} />
-              <Panel border>
-                <PeriodeController
-                  setNestePeriode={setNestePeriode}
-                  setForrigePeriode={setForrigePeriode}
-                  periode={valgtData}
-                  readOnly={readOnly}
-                  oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                  behandlingUuid={behandlingUuid}
-                  beregnBelop={beregnBelop}
-                  lukkPeriode={lukkPeriode}
-                />
-                <VerticalSpacer sixteenPx />
-                <PeriodeInformasjon
-                  feilutbetaling={valgtData.feilutbetaling}
-                  fom={valgtData.fom}
-                  tom={valgtData.tom}
-                  arsakHendelseNavn={
-                    kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(
-                      ht => ht.kode === valgtData.årsak?.hendelseType,
-                    )?.navn
-                  }
-                />
-                <VerticalSpacer twentyPx />
-                <TilbakekrevingPeriodeForm
-                  key={valgtPeriodeFormatertForTidslinje?.id}
-                  periode={valgtPeriode}
-                  data={valgtData}
-                  antallPerioderMedAksjonspunkt={antallPerioderMedAksjonspunkt}
-                  readOnly={isReadOnly}
-                  skjulPeriode={lukkPeriode}
-                  oppdaterPeriode={oppdaterPeriode}
-                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-                  vilkarsVurdertePerioder={vilkårsvurdertePerioder}
-                />
-              </Panel>
-            </div>
-          )}
-        </>
-      )}
-      <VerticalSpacer twentyPx />
-      {valideringsmeldingId && (
-        <>
+      <VStack gap="4">
+        <Heading size="small">
+          <FormattedMessage id="Behandlingspunkt.Tilbakekreving" />
+        </Heading>
+        {isApOpen && (
+          <AksjonspunktHelpTextHTML>
+            <FormattedMessage id="TilbakekrevingForm.AksjonspunktHjelpetekst" />
+          </AksjonspunktHelpTextHTML>
+        )}
+        {vilkårsvurdertePerioder && (
+          <>
+            <TilbakekrevingTimeline
+              perioder={perioderFormatertForTidslinje}
+              valgtPeriode={valgtPeriodeFormatertForTidslinje}
+              setPeriode={setPeriode}
+              relasjonsRolleType={relasjonsRolleType}
+              relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
+            />
+            {valgtPeriode && valgtData && (
+              <div id="panel-tilbakekreving" aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}>
+                <Box borderWidth="1" padding="4">
+                  <VStack gap="4">
+                    <PeriodeController
+                      setNestePeriode={setNestePeriode}
+                      setForrigePeriode={setForrigePeriode}
+                      periode={valgtData}
+                      readOnly={readOnly}
+                      oppdaterSplittedePerioder={oppdaterSplittedePerioder}
+                      behandlingUuid={behandlingUuid}
+                      beregnBelop={beregnBelop}
+                      lukkPeriode={lukkPeriode}
+                    />
+                    <PeriodeInformasjon
+                      feilutbetaling={valgtData.feilutbetaling}
+                      fom={valgtData.fom}
+                      tom={valgtData.tom}
+                      arsakHendelseNavn={
+                        kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(
+                          ht => ht.kode === valgtData.årsak?.hendelseType,
+                        )?.navn
+                      }
+                    />
+                    <TilbakekrevingPeriodeForm
+                      key={valgtPeriodeFormatertForTidslinje?.id}
+                      periode={valgtPeriode}
+                      data={valgtData}
+                      antallPerioderMedAksjonspunkt={antallPerioderMedAksjonspunkt}
+                      readOnly={isReadOnly}
+                      skjulPeriode={lukkPeriode}
+                      oppdaterPeriode={oppdaterPeriode}
+                      kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
+                      vilkarsVurdertePerioder={vilkårsvurdertePerioder}
+                    />
+                  </VStack>
+                </Box>
+              </div>
+            )}
+          </>
+        )}
+        {valideringsmeldingId && (
           <Alert variant="error">
             <FormattedMessage id={valideringsmeldingId} />
           </Alert>
-          <VerticalSpacer twentyPx />
-        </>
-      )}
-      <SubmitButton
-        isReadOnly={isReadOnly}
-        isDirty={isDirty}
-        isSubmittable={!isApOpen && !valgtPeriode && !valideringsmeldingId}
-        onClick={lagrePerioder}
-        isSubmitting={isSubmitting}
-      />
+        )}
+        <HStack>
+          <SubmitButton
+            isReadOnly={isReadOnly}
+            isDirty={isDirty}
+            isSubmittable={!isApOpen && !valgtPeriode && !valideringsmeldingId}
+            onClick={lagrePerioder}
+            isSubmitting={isSubmitting}
+          />
+        </HStack>
+      </VStack>
     </FaktaGruppe>
   );
 };

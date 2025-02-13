@@ -8,7 +8,6 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
 import {
@@ -55,13 +54,6 @@ export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) 
 export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe || [];
 
-const spacer = (hasShownPanel: boolean): ReactElement | null => {
-  if (hasShownPanel) {
-    return <VerticalSpacer twentyPx />;
-  }
-  return null;
-};
-
 const getFaktaPanels = ({
   readOnly,
   isAksjonspunktClosed,
@@ -99,7 +91,6 @@ const getFaktaPanels = ({
   );
   faktaPanels.push(
     <React.Fragment key="VurderOgFastsettATFL">
-      {spacer(true)}
       {/* @ts-expect-error */}
       <VurderOgFastsettATFL
         readOnly={readOnly}

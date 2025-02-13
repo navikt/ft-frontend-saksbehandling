@@ -3,13 +3,12 @@ import { FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, u
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { BodyShort, Button, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
+import { BodyShort, Button, Detail, ErrorMessage, HStack, Label, Table, VStack } from '@navikt/ds-react';
 
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
@@ -201,7 +200,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
   return (
-    <div>
+    <VStack gap="2">
       <Table size="small">
         <Table.Header>
           <Table.Row>
@@ -225,24 +224,20 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
         <Table.Body>{tableRows}</Table.Body>
       </Table>
       {!readOnly && (
-        <FlexRow className={styles.buttonRow}>
-          <FlexColumn className={styles.flexColumn3}>
-            <VerticalSpacer eightPx />
-            <Button
-              icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
-              // @ts-expect-error Fiks
-              onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
-              type="button"
-              variant="tertiary"
-              size="small"
-            >
-              <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-            </Button>
-          </FlexColumn>
-        </FlexRow>
+        <HStack>
+          <Button
+            icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
+            // @ts-expect-error Fiks
+            onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
+            type="button"
+            variant="tertiary"
+            size="small"
+          >
+            <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
+          </Button>
+        </HStack>
       )}
-      <VerticalSpacer eightPx />
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-    </div>
+    </VStack>
   );
 };

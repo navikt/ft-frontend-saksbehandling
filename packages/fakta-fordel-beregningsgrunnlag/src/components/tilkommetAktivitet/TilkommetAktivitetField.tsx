@@ -2,7 +2,7 @@ import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label, Tag } from '@navikt/ds-react';
+import { BodyShort, Table, Tag } from '@navikt/ds-react';
 
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -12,7 +12,7 @@ import {
   BeregningAvklaringsbehov,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
-import { EditedIcon, PeriodLabel, Table, TableColumn, TableRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { EditedIcon, PeriodLabel, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -67,21 +67,6 @@ export const TilkommetAktivitetField = ({
     inntektsforhold => !!inntektsforhold.periode,
   );
 
-  const headerCodes = [
-    'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
-    harInntektsforholdMedÅrsinntekt
-      ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt'
-      : 'BeregningInfoPanel.TilkommetAktivitet.TomTekst',
-    harInntektsforholdMedPeriode
-      ? 'BeregningInfoPanel.TilkommetAktivitet.Periode'
-      : 'BeregningInfoPanel.TilkommetAktivitet.TomTekst',
-  ];
-  const headerComponents = headerCodes.map(id => (
-    <Label size="small" key={id}>
-      <FormattedMessage id={id} />{' '}
-    </Label>
-  ));
-
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): React.ReactElement[] => {
     const tableRows: React.ReactElement[] = [];
     const { inntektsforholdListe } = inntektsforholdPeriode;
@@ -90,14 +75,14 @@ export const TilkommetAktivitetField = ({
       const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
 
       tableRows.push(
-        <TableRow key={inntektsforhold.arbeidsgiverId || inntektsforhold.aktivitetStatus}>
-          <TableColumn>
+        <Table.Row key={inntektsforhold.arbeidsgiverId || inntektsforhold.aktivitetStatus}>
+          <Table.DataCell>
             <BodyShort size="small">
               {getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}
             </BodyShort>
-          </TableColumn>
+          </Table.DataCell>
           {(harBruttoInntekt || harInntektsmelding || harInntektsforholdMedPeriode) && (
-            <TableColumn className={styles.inntektColumn}>
+            <Table.DataCell className={styles.inntektColumn}>
               <BodyShort size="small">
                 {harBruttoInntekt && !harInntektsmelding && (
                   <>
@@ -114,16 +99,16 @@ export const TilkommetAktivitetField = ({
                   </>
                 )}
               </BodyShort>
-            </TableColumn>
+            </Table.DataCell>
           )}
           {inntektsforhold.periode && (
-            <TableColumn className={styles.periodeColumn}>
+            <Table.DataCell className={styles.periodeColumn}>
               <BodyShort size="small">
                 <PeriodLabel dateStringFom={inntektsforhold.periode.fom} dateStringTom={inntektsforhold.periode.tom} />
               </BodyShort>
-            </TableColumn>
+            </Table.DataCell>
           )}
-        </TableRow>,
+        </Table.Row>,
       );
     });
     return tableRows;
@@ -131,8 +116,35 @@ export const TilkommetAktivitetField = ({
   return (
     <>
       <div className={styles.aktivitetContainer}>
-        <Table noHover headerColumnContent={headerComponents} classNameTable={styles.aktivitetTable}>
-          {getInntektsforholdTableRows(vurderInntektsforholdPeriode)}
+        <Table className={styles.aktivitetTable}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell scope="col">
+                <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Aktivitet" />
+              </Table.HeaderCell>
+              {harInntektsforholdMedÅrsinntekt && (
+                <Table.HeaderCell scope="col">
+                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Årsinntekt" />
+                </Table.HeaderCell>
+              )}
+              {!harInntektsforholdMedÅrsinntekt && (
+                <Table.HeaderCell scope="col">
+                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.TomTekst" />
+                </Table.HeaderCell>
+              )}
+              {harInntektsforholdMedPeriode && (
+                <Table.HeaderCell scope="col">
+                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Periode" />
+                </Table.HeaderCell>
+              )}
+              {!harInntektsforholdMedPeriode && (
+                <Table.HeaderCell scope="col">
+                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.TomTekst" />
+                </Table.HeaderCell>
+              )}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>{getInntektsforholdTableRows(vurderInntektsforholdPeriode)}</Table.Body>
         </Table>
       </div>
       <VerticalSpacer sixteenPx />

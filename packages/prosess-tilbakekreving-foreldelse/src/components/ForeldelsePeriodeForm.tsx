@@ -15,7 +15,6 @@ import {
   required,
 } from '@navikt/ft-form-validators';
 import { ForeldelseVurderingType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
@@ -65,61 +64,60 @@ export const ForeldelsePeriodeForm = ({
 
   return (
     <Form formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
-      <VerticalSpacer twentyPx />
-      <TextAreaField
-        name="begrunnelse"
-        label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Vurdering' })}
-        validate={[required, minLength3, maxLength1500, hasValidText]}
-        maxLength={1500}
-        readOnly={readOnly}
-      />
-      <VerticalSpacer twentyPx />
-      <HStack gap="10">
-        <RadioGroupPanel
-          name="foreldet"
-          label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
-          validate={[required]}
-          radios={foreldelseVurderingTyper.map(type => ({
-            label: type.navn,
-            value: type.kode,
-          }))}
-          isReadOnly={readOnly}
+      <VStack gap="4">
+        <TextAreaField
+          name="begrunnelse"
+          label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Vurdering' })}
+          validate={[required, minLength3, maxLength1500, hasValidText]}
+          maxLength={1500}
+          readOnly={readOnly}
         />
-        <VStack gap="5">
-          {(erForeldet || erMedTilleggsfrist) && (
-            <Datepicker
-              name="foreldelsesfrist"
-              label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
-              validate={[required, hasValidDate]}
-              isReadOnly={readOnly}
-            />
-          )}
-          {erMedTilleggsfrist && (
-            <Datepicker
-              name="oppdagelsesDato"
-              label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
-              validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
-              isReadOnly={readOnly}
-              fromDate={dayjs('1970-01-01').toDate()}
-              toDate={dayjs().toDate()}
-            />
-          )}
-        </VStack>
-      </HStack>
-      <VerticalSpacer twentyPx />
-      <HStack gap="4">
-        <Button
-          size="small"
-          variant="primary"
-          disabled={!formMethods.formState.isDirty || formMethods.formState.isSubmitting || readOnly}
-          loading={formMethods.formState.isSubmitting}
-        >
-          <FormattedMessage id="ForeldelsePeriodeForm.Oppdater" />
-        </Button>
-        <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
-          <FormattedMessage id="ForeldelsePeriodeForm.Avbryt" />
-        </Button>
-      </HStack>
+        <HStack gap="10">
+          <RadioGroupPanel
+            name="foreldet"
+            label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
+            validate={[required]}
+            radios={foreldelseVurderingTyper.map(type => ({
+              label: type.navn,
+              value: type.kode,
+            }))}
+            isReadOnly={readOnly}
+          />
+          <VStack gap="5">
+            {(erForeldet || erMedTilleggsfrist) && (
+              <Datepicker
+                name="foreldelsesfrist"
+                label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
+                validate={[required, hasValidDate]}
+                isReadOnly={readOnly}
+              />
+            )}
+            {erMedTilleggsfrist && (
+              <Datepicker
+                name="oppdagelsesDato"
+                label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
+                validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
+                isReadOnly={readOnly}
+                fromDate={dayjs('1970-01-01').toDate()}
+                toDate={dayjs().toDate()}
+              />
+            )}
+          </VStack>
+        </HStack>
+        <HStack gap="4">
+          <Button
+            size="small"
+            variant="primary"
+            disabled={!formMethods.formState.isDirty || formMethods.formState.isSubmitting || readOnly}
+            loading={formMethods.formState.isSubmitting}
+          >
+            <FormattedMessage id="ForeldelsePeriodeForm.Oppdater" />
+          </Button>
+          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
+            <FormattedMessage id="ForeldelsePeriodeForm.Avbryt" />
+          </Button>
+        </HStack>
+      </VStack>
     </Form>
   );
 };

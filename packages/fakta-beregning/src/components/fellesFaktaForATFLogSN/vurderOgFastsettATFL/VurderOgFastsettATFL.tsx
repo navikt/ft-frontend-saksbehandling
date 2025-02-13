@@ -1,6 +1,8 @@
 import React, { ReactElement, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { VStack } from '@navikt/ds-react';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -8,7 +10,6 @@ import {
   Beregningsgrunnlag,
   FaktaOmBeregning,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
@@ -233,12 +234,10 @@ export const VurderOgFastsettATFL = ({
       if (readOnly) {
         return (
           <>
-            <VerticalSpacer thirtyTwoPx />
             {forms.map((form, index) => (
-              <React.Fragment key={keys[index]}>
-                {index > 0 && <VerticalSpacer thirtyTwoPx />}
+              <VStack gap="8" key={keys[index]}>
                 {form}
-              </React.Fragment>
+              </VStack>
             ))}
             <InntektInputFields
               beregningsgrunnlag={beregningsgrunnlag}
@@ -253,14 +252,12 @@ export const VurderOgFastsettATFL = ({
         );
       }
       return (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <AksjonspunktBoks>
+        <AksjonspunktBoks>
+          <VStack gap="4">
             {forms.map((form, index) => (
-              <React.Fragment key={keys[index]}>
-                {index > 0 && <VerticalSpacer thirtyTwoPx />}
+              <VStack gap="8" key={keys[index]}>
                 {form}
-              </React.Fragment>
+              </VStack>
             ))}
             {!erOverstyring(formValues) && (
               <InntektInputFields
@@ -273,23 +270,18 @@ export const VurderOgFastsettATFL = ({
               />
             )}
             {renderTextFieldAndSubmitButton()}
-          </AksjonspunktBoks>
-        </>
+          </VStack>
+        </AksjonspunktBoks>
       );
     }
     if (erOverstyring(formValues)) {
-      return (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          {renderTextFieldAndSubmitButton()}
-        </>
-      );
+      return renderTextFieldAndSubmitButton();
     }
     return null;
   };
 
   return (
-    <div>
+    <VStack gap="8">
       <InntektstabellPanel
         key="inntektstabell"
         tabell={finnInntektstabell(readOnly, beregningsgrunnlag, kodeverkSamling, erOverstyrt)}
@@ -301,7 +293,7 @@ export const VurderOgFastsettATFL = ({
         erOverstyrt={erOverstyrt}
       />
       {byggForms()}
-    </div>
+    </VStack>
   );
 };
 

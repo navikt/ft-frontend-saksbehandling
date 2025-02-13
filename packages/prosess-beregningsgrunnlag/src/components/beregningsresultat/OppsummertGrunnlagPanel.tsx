@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
@@ -97,29 +97,22 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
 const skilleRad = (): ReactElement => <div className={styles.radEnkelLinje} />;
 
 const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement => (
-  <FlexContainer>
-    <VerticalSpacer twentyPx />
-    <FlexRow>
-      <FlexColumn className={styles.avslåttIkon}>
-        <XMarkOctagonFillIcon />
-      </FlexColumn>
-      <FlexColumn className={styles.kolAvslagTekst}>
-        <BodyShort size="small">
-          <FormattedMessage
-            id={
-              erMidlertidigInaktiv
-                ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
-                : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2'
-            }
-            values={{
-              grunnbeløp: formatCurrencyNoKr(grunnbeløp),
-              b: (chunks: any) => <b>{chunks}</b>,
-            }}
-          />
-        </BodyShort>
-      </FlexColumn>
-    </FlexRow>
-  </FlexContainer>
+  <HStack gap="2">
+    <XMarkOctagonFillIcon className={styles.avslåttIkon} />
+    <BodyShort size="small" className={styles.avslåttIkon}>
+      <FormattedMessage
+        id={
+          erMidlertidigInaktiv
+            ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
+            : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2'
+        }
+        values={{
+          grunnbeløp: formatCurrencyNoKr(grunnbeløp),
+          b: chunks => <b>{chunks}</b>,
+        }}
+      />
+    </BodyShort>
+  </HStack>
 );
 
 const sjekkErMidlertidigInaktiv = (beregningsgrunnlag: Beregningsgrunnlag): boolean =>
@@ -209,76 +202,78 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const harFlereAndeler = tabellData.andeler.length > 1;
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
   return (
-    <>
-      {skalVisePeriode && (
-        <>
-          <FlexRow>
-            <FlexColumn>
-              <Heading size="xsmall">
-                <FormattedMessage
-                  id="Beregningsgrunnlag.Beregningsresultat.Periode"
-                  values={{
-                    fom: dayjs(tabellData.fom).format(DDMMYYYY_DATE_FORMAT),
-                    tom: tabellData.tom ? dayjs(tabellData.tom).format(DDMMYYYY_DATE_FORMAT) : '',
-                  }}
-                />
-              </Heading>
-            </FlexColumn>
-          </FlexRow>
-          <VerticalSpacer eightPx />
-        </>
-      )}
-      {tabellData.andeler.map((rad, index) => (
-        <React.Fragment key={rad.status}>
-          {index === 0 && <>{skilleRad()}</>}
-          <FlexRow className={styles.radNoBorder}>
-            <FlexColumn className={styles.kolBeskrivelse}>
-              <BodyShort size="small">
-                <FormattedMessage id={finnStatusBeskrivelse(rad)} />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.kolVerdi}>
-              <BodyShort size="small" className={rad.erFerdigBeregnet ? '' : styles.kolVerdiRød}>
-                {rad.erFerdigBeregnet ? formatCurrencyNoKr(rad.inntekt) : ikkeBeregnetTekst()}
-              </BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          {!!rad.bortfaltNaturalytelse && (
-            <>
-              {skilleRad()}
-              <FlexRow className={styles.radNoBorder}>
-                <FlexColumn className={styles.kolBeskrivelse}>
-                  <BodyShort size="small">
-                    <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
-                  </BodyShort>
-                </FlexColumn>
-                <FlexColumn className={styles.kolVerdi}>
-                  <BodyShort size="small">{formatCurrencyNoKr(rad.bortfaltNaturalytelse)}</BodyShort>
-                </FlexColumn>
-              </FlexRow>
-            </>
-          )}
-          {skilleRad()}
-        </React.Fragment>
-      ))}
-      {skalViseOppsummeringsrad && (
-        <>
-          <FlexRow className={styles.radNoBorder}>
-            <FlexColumn className={styles.kolBeskrivelse}>
-              <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.kolVerdi}>
-              <BodyShort size="small">{formatCurrencyNoKr(finnTotalInntekt(tabellData.andeler))}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <div className={styles.radTykkLinje} />
-        </>
-      )}
+    <VStack gap="5">
+      <div>
+        {skalVisePeriode && (
+          <>
+            <FlexRow>
+              <FlexColumn>
+                <Heading size="xsmall">
+                  <FormattedMessage
+                    id="Beregningsgrunnlag.Beregningsresultat.Periode"
+                    values={{
+                      fom: dayjs(tabellData.fom).format(DDMMYYYY_DATE_FORMAT),
+                      tom: tabellData.tom ? dayjs(tabellData.tom).format(DDMMYYYY_DATE_FORMAT) : '',
+                    }}
+                  />
+                </Heading>
+              </FlexColumn>
+            </FlexRow>
+            <VerticalSpacer eightPx />
+          </>
+        )}
+        {tabellData.andeler.map((rad, index) => (
+          <React.Fragment key={rad.status}>
+            {index === 0 && <>{skilleRad()}</>}
+            <FlexRow className={styles.radNoBorder}>
+              <FlexColumn className={styles.kolBeskrivelse}>
+                <BodyShort size="small">
+                  <FormattedMessage id={finnStatusBeskrivelse(rad)} />
+                </BodyShort>
+              </FlexColumn>
+              <FlexColumn className={styles.kolVerdi}>
+                <BodyShort size="small" className={rad.erFerdigBeregnet ? '' : styles.kolVerdiRød}>
+                  {rad.erFerdigBeregnet ? formatCurrencyNoKr(rad.inntekt) : ikkeBeregnetTekst()}
+                </BodyShort>
+              </FlexColumn>
+            </FlexRow>
+            {!!rad.bortfaltNaturalytelse && (
+              <>
+                {skilleRad()}
+                <FlexRow className={styles.radNoBorder}>
+                  <FlexColumn className={styles.kolBeskrivelse}>
+                    <BodyShort size="small">
+                      <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
+                    </BodyShort>
+                  </FlexColumn>
+                  <FlexColumn className={styles.kolVerdi}>
+                    <BodyShort size="small">{formatCurrencyNoKr(rad.bortfaltNaturalytelse)}</BodyShort>
+                  </FlexColumn>
+                </FlexRow>
+              </>
+            )}
+            {skilleRad()}
+          </React.Fragment>
+        ))}
+        {skalViseOppsummeringsrad && (
+          <>
+            <FlexRow className={styles.radNoBorder}>
+              <FlexColumn className={styles.kolBeskrivelse}>
+                <BodyShort size="small">
+                  <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
+                </BodyShort>
+              </FlexColumn>
+              <FlexColumn className={styles.kolVerdi}>
+                <BodyShort size="small">{formatCurrencyNoKr(finnTotalInntekt(tabellData.andeler))}</BodyShort>
+              </FlexColumn>
+            </FlexRow>
+            <div className={styles.radTykkLinje} />
+          </>
+        )}
+      </div>
       {alleAndelerErFastsatt && (
         <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler)}</>
       )}
-    </>
+    </VStack>
   );
 };

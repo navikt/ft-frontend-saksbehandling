@@ -14,9 +14,7 @@ export interface Props {
 }
 
 /**
- * VerticalSpacer
- *
- * Presentasjonskomponent. Legg inn vertikalt tomrom.
+ * @deprecated Bruk heller VStack fra https://aksel.nav.no/komponenter
  */
 export const VerticalSpacer = ({
   fourPx = false,
