@@ -15,6 +15,7 @@ const {
   TilkommetAktivitet,
   TilkommetAktivitetMedForlengelse,
   TilkommetAktiviteTreLikePerioderHelgMellomAlle,
+  VurderRefusjonOgTilkommetInntekt,
 } = composeStories(stories);
 
 window.ResizeObserver =
@@ -538,6 +539,57 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
         },
       ],
     });
+  });
+});
+
+it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav når det er tilkommet inntekt i annet grunnlag', async () => {
+  const lagre = vi.fn();
+
+  const utils = render(<VurderRefusjonOgTilkommetInntekt submitCallback={lagre} />);
+
+  expect(
+    await screen.findByText('Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.'),
+  ).toBeInTheDocument();
+  expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
+  expect(screen.getAllByText('Nav Innlandet (874652202)')).toHaveLength(2);
+  expect(
+    screen.getByText('krever refusjon fra og med 07.03.2022. Det er tidligere innvilget et lavere refusjonsbeløp'),
+  ).toBeInTheDocument();
+  expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
+  expect(screen.getByText('Før denne datoen skal refusjonsbeløpet per måned være')).toBeInTheDocument();
+
+  const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+  expect(alleInputfelt).toHaveLength(4);
+  const datofelt = alleInputfelt[0];
+  const begrunnelsefelt = alleInputfelt[2];
+
+  await userEvent.type(datofelt, '07.03.2022');
+  await userEvent.type(begrunnelsefelt, 'Begrunnelse for refusjonsdato');
+
+  expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
+  await userEvent.click(screen.getByText('Bekreft og fortsett'));
+  await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+  expect(lagre).toHaveBeenNthCalledWith(1, {
+    begrunnelse: 'Begrunnelse for refusjonsdato',
+    kode: 'VURDER_REFUSJONSKRAV',
+    grunnlag: [
+      {
+        periode: {
+          fom: '2022-03-07',
+          tom: '2022-05-01',
+        },
+        begrunnelse: 'Begrunnelse for refusjonsdato',
+        fastsatteAndeler: [
+          {
+            arbeidsgiverAktoerId: undefined,
+            arbeidsgiverOrgnr: '874652202',
+            delvisRefusjonPrMndFørStart: undefined,
+            fastsattRefusjonFom: '2022-03-07',
+            internArbeidsforholdRef: undefined,
+          },
+        ],
+      },
+    ],
   });
 });
 

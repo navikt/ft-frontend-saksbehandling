@@ -40,6 +40,15 @@ const finnBeregningsgrunnlag = (
   return matchetndeBG;
 };
 
+const harAvklaringsbehovVurderRefusjon = (
+  beregningsgrunnlagStp: string,
+  beregninsgrunnlagListe: Beregningsgrunnlag[],
+): boolean => {
+  return beregninsgrunnlagListe
+    .filter(bg => bg.skjaeringstidspunktBeregning === beregningsgrunnlagStp)
+    .some(bg => bg.avklaringsbehov.some(ab => ab.definisjon === 'VURDER_REFUSJONSKRAV'));
+};
+
 const transformValues = (
   values: VurderRefusjonFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
@@ -48,6 +57,7 @@ const transformValues = (
   const fields = values[FORM_NAME];
   const grunnlag = fields
     .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
+    .filter(f => harAvklaringsbehovVurderRefusjon(f.beregningsgrunnlagStp, beregninsgrunnlagListe))
     .map(field => transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)));
   const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
   return {
