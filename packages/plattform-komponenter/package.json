@@ -23,9 +23,9 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.10.0",
-    "@navikt/ds-css": "7.10.0",
-    "@navikt/ds-react": "7.10.0",
+    "@navikt/aksel-icons": "7.13.0",
+    "@navikt/ds-css": "7.13.0",
+    "@navikt/ds-react": "7.13.0",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1"
   },
