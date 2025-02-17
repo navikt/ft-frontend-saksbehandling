@@ -1,1 +1,0 @@
-import{j as e}from"./jsx-runtime-CLpGMVip.js";import{P as n,c as a}from"./index-D9DDUrbY.js";import{c}from"./index.es-Dh3mAfPy.js";const p=t=>{const r=c({locale:"nb-NO",messages:t},a());return o=>e.jsx(n,{value:r,children:o()})};export{p as g};

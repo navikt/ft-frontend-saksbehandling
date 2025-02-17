@@ -1,6 +1,0 @@
-import{j as t}from"./jsx-runtime-CLpGMVip.js";import{R as p,r as l}from"./index-B5OHeJSP.js";import{G as f}from"./index.es-Dh3mAfPy.js";import{S as u}from"./PersonPencilFill-DS1qmMzQ.js";import{a as y}from"./Label-ZYbyet41.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D9DDUrbY.js";import"./useId-B9OmVTHV.js";import"./clsx-B-dksMZM.js";const x=p.createContext({}),_="_assessed-by_3btl4_1",g={"assessed-by":"_assessed-by_3btl4_1",assessedBy:_},d=({ident:e,date:r})=>{const i=l.useContext(x);if(!e)return null;const m=i[e]||e,c=r?`, ${f(r)}`:"";return t.jsxs("div",{className:g["assessed-by"],children:[t.jsx(u,{height:"1em",width:"1em"}),t.jsx(y,{size:"small",children:`Vurdering av ${m}${c}`})]})};d.__docgenInfo={description:"",methods:[],displayName:"AssessedBy",props:{ident:{required:!1,tsType:{name:"string"},description:""},date:{required:!1,tsType:{name:"string"},description:""}}};const D={title:"plattform-komponenter/AssessedBy",component:d},s={args:{ident:"navn",date:"2023-01-01"}};var a,n,o;s.parameters={...s.parameters,docs:{...(a=s.parameters)==null?void 0:a.docs,source:{originalSource:`{
-  args: {
-    ident: 'navn',
-    date: '2023-01-01'
-  }
-}`,...(o=(n=s.parameters)==null?void 0:n.docs)==null?void 0:o.source}}};const E=["Default"];export{s as Default,E as __namedExportsOrder,D as default};

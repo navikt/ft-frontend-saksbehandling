@@ -1,0 +1,6 @@
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{R as c,r as l}from"./index-Dxs5m6lS.js";import{G as f}from"./index.es-80VfceJd.js";import{S as u}from"./PersonPencilFill-DeEWAwj3.js";import{a as x}from"./Label-g0SsZd4P.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-CF594pY9.js";import"./useId-B9cQ8Pho.js";import"./clsx-B-dksMZM.js";const y=c.createContext({}),g={"assessed-by":"_assessed-by_3btl4_1"},i=({ident:s,date:r})=>{const m=l.useContext(y);if(!s)return null;const d=m[s]||s,p=r?`, ${f(r)}`:"";return t.jsxs("div",{className:g["assessed-by"],children:[t.jsx(u,{height:"1em",width:"1em"}),t.jsx(x,{size:"small",children:`Vurdering av ${d}${p}`})]})};i.__docgenInfo={description:"",methods:[],displayName:"AssessedBy",props:{ident:{required:!1,tsType:{name:"string"},description:""},date:{required:!1,tsType:{name:"string"},description:""}}};const C={title:"plattform-komponenter/AssessedBy",component:i},e={args:{ident:"navn",date:"2023-01-01"}};var a,n,o;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`{
+  args: {
+    ident: 'navn',
+    date: '2023-01-01'
+  }
+}`,...(o=(n=e.parameters)==null?void 0:n.docs)==null?void 0:o.source}}};const D=["Default"];export{e as Default,D as __namedExportsOrder,C as default};

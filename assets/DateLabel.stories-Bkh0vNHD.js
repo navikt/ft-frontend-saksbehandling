@@ -1,0 +1,12 @@
+import{j as p}from"./jsx-runtime-D_zvdyIk.js";import"./index.es-l9PArlO5.js";import{g as a}from"./withIntl-Dvo5g3Ub.js";import{F as n}from"./index-CF594pY9.js";import"./index-Dxs5m6lS.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./ReadOnlyIcon-DuqD_nIQ.js";import"./Loader-BHKWc60O.js";import"./clsx-B-dksMZM.js";import"./omit-B7stZg_p.js";import"./useId-BdcioVLy.js";import"./Provider-B4A31v_2.js";import"./useId-B9cQ8Pho.js";import"./index.es-CJ4OkDRS.js";import"./index.es-80VfceJd.js";import"./Label-g0SsZd4P.js";import"./Alert-BC6DEIhx.js";import"./Button-D0flVHf8.js";import"./ExclamationmarkTriangleFill-DkXWnTRW.js";import"./XMarkOctagonFill-Ct54z8PV.js";import"./XMark-HQCrC0kG.js";import"./VStack-Vgssv_xf.js";import"./Theme-D6t0sq75.js";import"./create-context-B5rPGqtO.js";import"./BasePrimitive-CCRtmZcj.js";import"./PersonPencilFill-DeEWAwj3.js";import"./Box-B-JCHjPf.js";import"./KeyVerticalFill-DGPAogWB.js";import"./Checkmark-ARqG-vXH.js";import"./ChevronDown-TCQpyZRB.js";import"./message-Bp2Fc9cS.js";import"./Modal-B1D1msXx.js";import"./floating-ui.react-BIOaLlQ7.js";import"./index-DMeSseuw.js";import"./index-DrFkskS4.js";import"./useDateTranslationContext-BEjj1I9s.js";import"./Checkbox-DhCgdUgZ.js";import"./useFormField-CUgZtuoq.js";import"./Fieldset-Cu2HjZAs.js";import"./Tag-DZhJsFcp.js";import"./Textarea-DaN6YZZY.js";import"./useClientLayoutEffect-BVjwYvME.js";import"./Select-gs1Ydqxl.js";import"./Radio-njMJCp86.js";import"./useDatepicker-DzPz8RKu.js";import"./DatePicker-7k2LUc-P.js";import"./Popover-D50D0eUh.js";import"./TextField-CtgQS0x5.js";const e=({dateString:i})=>p.jsx(n,{day:"2-digit",month:"2-digit",year:"numeric",value:new Date(i)});e.__docgenInfo={description:`DateLabel
+
+Presentasjonskomponent. Formaterer dato på formatet dd.mm.yyyy.
+
+Eksempel:
+\`\`\`html
+<DateLabel dateString="2017-08-31" />
+\`\`\``,methods:[],displayName:"DateLabel",props:{dateString:{required:!0,tsType:{name:"string"},description:""}}};const s=a({"OkAvbrytModal.Ok":"Ok","OkAvbrytModal.Avbryt":"Avbryt","Test.Test":"Dette er ein test"}),et={title:"ui-komponenter/DateLabel",component:e,decorators:[s]},t={args:{dateString:"2017-10-02"}};var r,o,m;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  args: {
+    dateString: '2017-10-02'
+  }
+}`,...(m=(o=t.parameters)==null?void 0:o.docs)==null?void 0:m.source}}};const it=["Default"];export{t as Default,it as __namedExportsOrder,et as default};
