@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { ErrorMessage, Label, Table } from '@navikt/ds-react';
+import { ErrorMessage, Label, Table, VStack } from '@navikt/ds-react';
 
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
@@ -12,7 +12,6 @@ import {
   Beregningsgrunnlag,
   KodeverkMedNavn,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
@@ -343,7 +342,7 @@ export const InntektFieldArray = ({
   }
   tablerows.push(createBruttoBGSummaryRow(fields, readOnly, beregningsgrunnlag));
   return (
-    <div>
+    <VStack gap="2">
       <Table size="small">
         <Table.Header>
           <Table.Row>
@@ -366,9 +365,8 @@ export const InntektFieldArray = ({
         </Table.Header>
         <Table.Body>{tablerows}</Table.Body>
       </Table>
-      <VerticalSpacer eightPx />
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-    </div>
+    </VStack>
   );
 };
 

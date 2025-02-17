@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { List, ReadMore } from '@navikt/ds-react';
+import { List, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -14,7 +14,6 @@ import {
   FaktaOmBeregning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
@@ -153,60 +152,58 @@ export const VurderMottarYtelseForm = ({
   const intl = useIntl();
 
   return (
-    <div>
+    <>
       {erFrilans && !erATFLSammeOrg(tilfeller) && (
-        <div>
-          <RadioGroupPanel
-            label={
-              <>
-                <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-                <ReadMore
-                  size="small"
-                  header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-                >
-                  <List size="small">
-                    <List.Item>
-                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem1" />
-                    </List.Item>
-                    <List.Item>
-                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2" />
-                    </List.Item>
-                  </List>
-                </ReadMore>
-              </>
-            }
-            name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
-            isReadOnly={readOnly}
-            radios={[
-              {
-                value: 'true',
-                label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
-              },
-              {
-                value: 'false',
-                label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }),
-              },
-            ]}
-            parse={parseStringToBoolean}
-            validate={readOnly ? [] : [required]}
-          />
-        </div>
+        <RadioGroupPanel
+          label={
+            <>
+              <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
+              <ReadMore
+                size="small"
+                header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+              >
+                <List size="small">
+                  <List.Item>
+                    <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem1" />
+                  </List.Item>
+                  <List.Item>
+                    <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2" />
+                  </List.Item>
+                </List>
+              </ReadMore>
+            </>
+          }
+          name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
+          isReadOnly={readOnly}
+          radios={[
+            {
+              value: 'true',
+              label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
+            },
+            {
+              value: 'false',
+              label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }),
+            },
+          ]}
+          parse={parseStringToBoolean}
+          validate={readOnly ? [] : [required]}
+        />
       )}
-      {arbeidsforholdUtenIM.map((andel, index) => (
-        <React.Fragment key={utledArbeidsforholdFieldName(andel)}>
-          {index > 0 && <VerticalSpacer twentyPx />}
-          {mottarYtelseArbeidsforholdRadioAndInputs(
-            andel,
-            readOnly,
-            kodeverkSamling,
-            arbeidsgiverOpplysningerPerId,
-            beregningsgrunnlagIndeks,
-            intl,
-          )}
-        </React.Fragment>
-      ))}
-      {erATFLSammeOrg(tilfeller) && arbeidsforholdUtenIM.length > 0 && <VerticalSpacer thirtyTwoPx />}
-    </div>
+      <VStack gap="6">
+        {arbeidsforholdUtenIM.map(andel => (
+          <React.Fragment key={utledArbeidsforholdFieldName(andel)}>
+            {mottarYtelseArbeidsforholdRadioAndInputs(
+              andel,
+              readOnly,
+              kodeverkSamling,
+              arbeidsgiverOpplysningerPerId,
+              beregningsgrunnlagIndeks,
+              intl,
+            )}
+          </React.Fragment>
+        ))}
+      </VStack>
+    </>
   );
 };
 

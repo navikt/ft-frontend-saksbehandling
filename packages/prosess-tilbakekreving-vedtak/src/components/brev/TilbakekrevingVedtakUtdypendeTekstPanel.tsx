@@ -7,7 +7,6 @@ import { Detail } from '@navikt/ds-react';
 
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
@@ -37,7 +36,6 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritek
     <>
       {isTextfieldHidden && !readOnly && (
         <>
-          <VerticalSpacer eightPx />
           <div
             onClick={event => {
               event.preventDefault();
@@ -62,16 +60,13 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritek
         </>
       )}
       {!isTextfieldHidden && (
-        <>
-          <VerticalSpacer eightPx />
-          <TextAreaField
-            name={type}
-            label={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst' })}
-            validate={valideringsRegler}
-            maxLength={maximumLength || 4000}
-            readOnly={readOnly}
-          />
-        </>
+        <TextAreaField
+          name={type}
+          label={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst' })}
+          validate={valideringsRegler}
+          maxLength={maximumLength || 4000}
+          readOnly={readOnly}
+        />
       )}
     </>
   );

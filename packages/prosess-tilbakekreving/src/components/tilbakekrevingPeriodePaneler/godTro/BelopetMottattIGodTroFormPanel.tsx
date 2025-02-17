@@ -1,10 +1,10 @@
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, VStack } from '@navikt/ds-react';
 
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { minValue, required } from '@navikt/ft-form-validators';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import styles from './belopetMottattIGodTroFormPanel.module.css';
@@ -39,7 +39,7 @@ export interface Props {
 export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehold, feilutbetalingBelop }: Props) => {
   const intl = useIntl();
   return (
-    <>
+    <VStack gap="2">
       <RadioGroupPanel
         name={`${name}.erBelopetIBehold`}
         label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
@@ -58,7 +58,6 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
         isTrueOrFalseSelection
         isHorizontal
       />
-      <VerticalSpacer eightPx />
       <div className={styles.arrowbox}>
         {erBelopetIBehold === true && (
           <ArrowBox alignOffset={25}>
@@ -82,7 +81,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
           </ArrowBox>
         )}
       </div>
-    </>
+    </VStack>
   );
 };
 

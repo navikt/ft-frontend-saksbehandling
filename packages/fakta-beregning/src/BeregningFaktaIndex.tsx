@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Alert, Heading, List, ReadMore, Tabs } from '@navikt/ds-react';
+import { Alert, Heading, List, ReadMore, Tabs, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
@@ -14,7 +14,6 @@ import {
   RefusjonskravSomKommerForSentListe,
   StandardFaktaPanelProps,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { createVisningsnavnFakta } from './components/ArbeidsforholdHelper';
@@ -253,64 +252,64 @@ export const lagHelpTextsForFakta = (
     keys.push(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
     alerts.push(
       <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-        <VerticalSpacer fourPx />
-        <ReadMore
-          size="small"
-          header={
-            <FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt" />
-          }
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7" />
-            </List.Item>
-          </List>
-        </ReadMore>
-        <VerticalSpacer fourPx />
-        <ReadMore
-          size="small"
-          header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori" />}
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3" />
-            </List.Item>
-          </List>
-        </ReadMore>
+        <VStack gap="1">
+          <FormattedMessage
+            id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
+            values={{
+              h3: (...chunks) => (
+                <Heading size="xsmall" level="3">
+                  {chunks}
+                </Heading>
+              ),
+            }}
+          />
+          <ReadMore
+            size="small"
+            header={
+              <FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt" />
+            }
+          >
+            <List size="small">
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7" />
+              </List.Item>
+            </List>
+          </ReadMore>
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori" />}
+          >
+            <List size="small">
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2" />
+              </List.Item>
+              <List.Item>
+                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3" />
+              </List.Item>
+            </List>
+          </ReadMore>
+        </VStack>
       </Alert>,
     );
   }
@@ -382,16 +381,14 @@ export const lagHelpTextsForFakta = (
       </Alert>,
     );
   }
+
   if (alerts.length > 0) {
     return (
-      <>
+      <VStack gap="4">
         {alerts.map((alert, index) => (
-          <React.Fragment key={keys[index]}>
-            {index > 0 && <VerticalSpacer sixteenPx />}
-            {alert}
-          </React.Fragment>
+          <React.Fragment key={keys[index]}>{alert}</React.Fragment>
         ))}
-      </>
+      </VStack>
     );
   }
 
@@ -442,60 +439,56 @@ export const BeregningFaktaIndex = ({
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
-        <Heading size="small" level="2">
-          <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
-        </Heading>
-        {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
-          hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&
-        !isAksjonspunktClosed(aktiveAvklaringsBehov) ? (
-          <>
-            <VerticalSpacer sixteenPx />
-            {lagHelpTextsForFakta(aktivtBeregningsgrunnlag, arbeidsgiverOpplysningerPerId)}
-            <VerticalSpacer twentyPx />
-          </>
-        ) : (
-          <VerticalSpacer eightPx />
-        )}
-        {skalBrukeTabs && (
-          <div className={styles.tabsContainer}>
-            <Tabs
-              value={aktivtBeregningsgrunnlagIndeks.toString()}
-              onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
-            >
-              <Tabs.List>
-                {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
-                  <Tabs.Tab
-                    key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
-                    value={currentBeregningsgrunnlagIndex.toString()}
-                    label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
-                    className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
-                    icon={
-                      skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
-                        <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
-                      )
-                    }
-                  />
-                ))}
-              </Tabs.List>
-            </Tabs>
-          </div>
-        )}
-        <BeregningInfoPanel
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          beregningsgrunnlag={beregningsgrunnlag}
-          kodeverkSamling={kodeverkSamling}
-          avklaringsbehov={aktiveAvklaringsBehov}
-          submitCallback={submitCallback}
-          readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
-          submittable={submittable}
-          erOverstyrer={erOverstyrer}
-          skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          setFormData={setFormData}
-          formData={formData}
-          vilkar={vilkar}
-          skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
-        />
+        <VStack gap="4">
+          <Heading size="small" level="2">
+            <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
+          </Heading>
+          {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
+            hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&
+            !isAksjonspunktClosed(aktiveAvklaringsBehov) && (
+              <>{lagHelpTextsForFakta(aktivtBeregningsgrunnlag, arbeidsgiverOpplysningerPerId)}</>
+            )}
+          {skalBrukeTabs && (
+            <div className={styles.tabsContainer}>
+              <Tabs
+                value={aktivtBeregningsgrunnlagIndeks.toString()}
+                onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+              >
+                <Tabs.List>
+                  {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+                    <Tabs.Tab
+                      key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
+                      value={currentBeregningsgrunnlagIndex.toString()}
+                      label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
+                      className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
+                      icon={
+                        skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
+                          <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
+                        )
+                      }
+                    />
+                  ))}
+                </Tabs.List>
+              </Tabs>
+            </div>
+          )}
+          <BeregningInfoPanel
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            beregningsgrunnlag={beregningsgrunnlag}
+            kodeverkSamling={kodeverkSamling}
+            avklaringsbehov={aktiveAvklaringsBehov}
+            submitCallback={submitCallback}
+            readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
+            submittable={submittable}
+            erOverstyrer={erOverstyrer}
+            skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            setFormData={setFormData}
+            formData={formData}
+            vilkar={vilkar}
+            skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
+          />
+        </VStack>
       </div>
     </RawIntlProvider>
   );
