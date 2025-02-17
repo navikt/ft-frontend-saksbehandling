@@ -20,6 +20,7 @@ import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/Arbe
 import { beregningsgrunnlag as bgFlerePerioderMedForlengelse } from '../testdata/FlerePerioderMedForlengelse';
 import { beregningsgrunnlag as bgFlerePerioderMedHelg } from '../testdata/FlerePerioderMedHelg';
 import { beregningsgrunnlag as bgMedNaturalytelse } from '../testdata/NyttArbeidOgNaturalytelse';
+import { bgRettKodeverk as prodFeilBG } from '../testdata/RefusjonOgTilkommetInntekt';
 import { beregningsgrunnlag as bgTilkommetInntektsforholdMedForlengelse } from '../testdata/TilkommetAktivitetMedForlengelse';
 import { beregningsgrunnlag as bgTilkommetInntektsforholdMedForlengelseLukketAP } from '../testdata/TilkommetAktivitetMedForlengelseLukketAP';
 import { beregningsgrunnlag as bgTilkommetInntektsforholdMedRevurdering } from '../testdata/TilkommetAktivitetRevurderingLøstTidligere';
@@ -1103,6 +1104,28 @@ export const TilkommetAktiviteTreLikePerioderHelgMellomAlle: Story = {
       {
         fom: '2023-04-10',
         tom: '2023-04-28',
+        vurderesIBehandlingen: true,
+        erForlengelse: false,
+      },
+    ]),
+  },
+};
+
+export const VurderRefusjonOgTilkommetInntekt: Story = {
+  args: {
+    readOnly: false,
+    beregningsgrunnlagListe: prodFeilBG,
+    submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
+    beregningsgrunnlagVilkår: lagVilkår([
+      {
+        fom: '2022-03-07',
+        tom: '2022-05-01',
+        vurderesIBehandlingen: true,
+        erForlengelse: false,
+      },
+      {
+        fom: '2023-06-22',
+        tom: '2023-12-31',
         vurderesIBehandlingen: true,
         erForlengelse: false,
       },
