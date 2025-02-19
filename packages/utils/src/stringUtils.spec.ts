@@ -4,6 +4,7 @@ describe('formaterFritekst', () => {
   it.each([
     ['\uFE58', '-'],
     ['—', '-'],
+    ['\u00AD', ''], // soft hyphen er en control character
     ['\t', ' '],
     ['\u202F', ' '],
     ['“sitat”', '"sitat"'],
