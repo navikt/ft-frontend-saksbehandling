@@ -1,13 +1,10 @@
-import React, { FunctionComponent } from 'react';
-
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import Aktsomhet from '../../../kodeverk/aktsomhet';
-import AktsomhetGradForsettFormPanel from './AktsomhetGradForsettFormPanel';
-import AktsomhetGradUaktsomhetFormPanel from './AktsomhetGradUaktsomhetFormPanel';
+import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
+import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
 
-export interface OwnProps {
+export interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: Aktsomhet;
@@ -21,7 +18,7 @@ export interface OwnProps {
   name: string;
 }
 
-const AktsomhetGradFormPanel: FunctionComponent<OwnProps> = ({
+export const AktsomhetGradFormPanel = ({
   harGrunnerTilReduksjon,
   readOnly,
   handletUaktsomhetGrad,
@@ -33,9 +30,8 @@ const AktsomhetGradFormPanel: FunctionComponent<OwnProps> = ({
   erTotalBelopUnder4Rettsgebyr,
   andelSomTilbakekreves,
   name,
-}) => (
+}: Props) => (
   <>
-    <VerticalSpacer eightPx />
     {handletUaktsomhetGrad === Aktsomhet.FORSETT && (
       <AktsomhetGradForsettFormPanel
         name={name}
@@ -60,5 +56,3 @@ const AktsomhetGradFormPanel: FunctionComponent<OwnProps> = ({
     )}
   </>
 );
-
-export default AktsomhetGradFormPanel;

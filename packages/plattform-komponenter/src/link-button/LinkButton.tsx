@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './linkButton.module.css';
 
 export interface LinkButtonProps {
@@ -7,7 +8,7 @@ export interface LinkButtonProps {
   className?: string;
 }
 
-const LinkButton = ({ className, onClick, children }: LinkButtonProps) => {
+export const LinkButton = ({ className, onClick, children }: LinkButtonProps) => {
   const cls = `${className || ''} ${styles.linkButton}`;
   return (
     <button type="button" className={cls} onClick={onClick}>
@@ -15,5 +16,3 @@ const LinkButton = ({ className, onClick, children }: LinkButtonProps) => {
     </button>
   );
 };
-
-export default LinkButton;

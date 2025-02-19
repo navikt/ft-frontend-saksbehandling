@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+
 import { composeStories } from '@storybook/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import * as stories from './TilbakekrevingProsessIndex.stories';
 
 const { Default, MedToPerioder } = composeStories(stories);
@@ -14,7 +16,7 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }));
 
-describe('<TilbakekrevingProsessIndex>', () => {
+describe('TilbakekrevingProsessIndex', () => {
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     const utils = render(<Default submitCallback={lagre} />);

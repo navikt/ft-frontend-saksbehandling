@@ -1,18 +1,26 @@
-import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
-import InfoPanelComponent from './InfoPanel';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'Info panel',
-  component: InfoPanelComponent,
+import { InfoPanel } from './InfoPanel';
+
+const meta = {
+  title: 'plattform-komponenter/Info panel',
+  component: InfoPanel,
+} satisfies Meta<typeof InfoPanel>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Success: Story = {
+  args: {
+    type: 'success',
+    children: 'En type informasjon',
+  },
 };
 
-const Template: StoryFn<ComponentProps<typeof InfoPanelComponent>> = () => (
-  <>
-    <InfoPanelComponent type="success">En type informasjon</InfoPanelComponent>
-    <InfoPanelComponent type="warning">En annen type informasjon</InfoPanelComponent>
-  </>
-);
-
-export const InfoPanel = Template.bind({});
-InfoPanel.args = {};
+export const Warning: Story = {
+  args: {
+    type: 'warning',
+    children: 'En annen type informasjon',
+  },
+};

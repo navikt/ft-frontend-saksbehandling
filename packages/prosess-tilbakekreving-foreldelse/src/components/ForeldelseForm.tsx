@@ -1,25 +1,25 @@
-import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
-import dayjs from 'dayjs';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 
-import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
-import { AksjonspunktHelpTextTemp, VerticalSpacer, FaktaGruppe } from '@navikt/ft-ui-komponenter';
+import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { Aksjonspunkt, FeilutbetalingPeriode, FeilutbetalingPerioderWrapper, KodeverkMedNavn } from '@navikt/ft-types';
 import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
+import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
-import ForeldelsePeriodeForm, { FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
-import TilbakekrevingTimeline from './timeline/TilbakekrevingTimeline';
-import ForeldelsesresultatActivity from '../types/foreldelsesresultatActivitytsType';
-import TidslinjePeriode from '../types/tidslinjePeriodeTsType';
-import PeriodeController, { PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
-
-import styles from './foreldelseForm.module.css';
-import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
-import VurderForeldelseAp from '../types/VurderForeldelseAp';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
-import PeriodeInformasjon from './splittePerioder/PeriodeInformasjon';
+import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
+import { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
+import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
+import { TidslinjePeriode } from '../types/TidslinjePeriode';
+import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
+import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
+import { PeriodeController, PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
+import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
+import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
 const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
   dayjs(periode1.fom).diff(dayjs(periode2.fom));
@@ -85,7 +85,7 @@ export const lagForeldelsesresultatAktiviteter = (
     begrunnelse: decodeHtmlEntity(p.begrunnelse),
   }));
 
-export interface OwnProps {
+export interface Props {
   behandlingUuid: string;
   aksjonspunkt: Aksjonspunkt;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
@@ -100,7 +100,7 @@ export interface OwnProps {
   setFormData: (data: ForeldelsesresultatActivity[]) => void;
 }
 
-const ForeldelseForm: FunctionComponent<OwnProps> = ({
+export const ForeldelseForm = ({
   submitCallback,
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
@@ -113,7 +113,7 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
   behandlingUuid,
   formData,
   setFormData,
-}) => {
+}: Props) => {
   const alleForeldelseresultatAktiviteter = useMemo(
     () => lagForeldelsesresultatAktiviteter(perioderForeldelse.perioder),
     [perioderForeldelse.perioder],
@@ -223,76 +223,76 @@ const ForeldelseForm: FunctionComponent<OwnProps> = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <Heading size="small">
-        <FormattedMessage id="ForeldelseForm.Foreldelse" />
-      </Heading>
-      <VerticalSpacer twentyPx />
-      {!aksjonspunkt && (
-        <>
-          <BodyShort>
-            <FormattedMessage id="ForeldelseForm.Foreldelsesloven" />
-          </BodyShort>
-          <VerticalSpacer eightPx />
-          <BodyShort>
-            <FormattedMessage id="ForeldelseForm.AutomatiskVurdert" />
-          </BodyShort>
-          <VerticalSpacer sixteenPx />
-        </>
-      )}
-      {foreldelseresultatAktiviteter && aksjonspunkt && (
-        <>
-          <AksjonspunktHelpTextTemp isAksjonspunktOpen={isApOpen}>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextTemp>
-          <VerticalSpacer twentyPx />
-          <TilbakekrevingTimeline
-            perioder={perioderFormatertForTidslinje}
-            valgtPeriode={valgtPeriodeFormatertForTidslinje}
-            setPeriode={setPeriode}
-            relasjonsRolleType={relasjonsRolleType}
-            relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
-          />
-          {valgtPeriode && (
-            <div id="panel-tilbakekreving-foreldelse" aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}>
-              <div className={styles.space} />
-              <Panel border>
-                <PeriodeController
-                  setNestePeriode={setNestePeriode}
-                  setForrigePeriode={setForrigePeriode}
-                  valgtPeriode={valgtPeriode}
-                  readOnly={readOnly}
-                  oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                  behandlingUuid={behandlingUuid}
-                  beregnBelop={beregnBelop}
-                  lukkPeriode={lukkPeriode}
-                />
-                <VerticalSpacer sixteenPx />
-                <PeriodeInformasjon
-                  feilutbetaling={valgtPeriode.feilutbetaling}
-                  fom={valgtPeriode.fom}
-                  tom={valgtPeriode.tom}
-                />
-                <ForeldelsePeriodeForm
-                  key={valgtPeriode.fom}
-                  periode={valgtPeriode}
-                  oppdaterPeriode={oppdaterPeriode}
-                  skjulPeriode={lukkPeriode}
-                  readOnly={readOnly}
-                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-                />
-              </Panel>
-            </div>
-          )}
-          <VerticalSpacer twentyPx />
-          <SubmitButton
-            isReadOnly={readOnly}
-            isDirty={isDirty}
-            isSubmittable={!valgtPeriode && erAlleAksjonspunktLøst}
-            onClick={lagrePerioder}
-            isSubmitting={isSubmitting}
-          />
-        </>
-      )}
+      <VStack gap="4">
+        <Heading size="small">
+          <FormattedMessage id="ForeldelseForm.Foreldelse" />
+        </Heading>
+        {!aksjonspunkt && (
+          <>
+            <BodyShort>
+              <FormattedMessage id="ForeldelseForm.Foreldelsesloven" />
+            </BodyShort>
+            <BodyShort>
+              <FormattedMessage id="ForeldelseForm.AutomatiskVurdert" />
+            </BodyShort>
+          </>
+        )}
+        {foreldelseresultatAktiviteter && aksjonspunkt && (
+          <VStack gap="4">
+            {isApOpen && <AksjonspunktHelpTextHTML>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextHTML>}
+            <TilbakekrevingTimeline
+              perioder={perioderFormatertForTidslinje}
+              valgtPeriode={valgtPeriodeFormatertForTidslinje}
+              setPeriode={setPeriode}
+              relasjonsRolleType={relasjonsRolleType}
+              relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
+            />
+            {valgtPeriode && (
+              <div
+                id="panel-tilbakekreving-foreldelse"
+                aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}
+              >
+                <Box borderWidth="1" padding="4">
+                  <VStack gap="4">
+                    <PeriodeController
+                      setNestePeriode={setNestePeriode}
+                      setForrigePeriode={setForrigePeriode}
+                      valgtPeriode={valgtPeriode}
+                      readOnly={readOnly}
+                      oppdaterSplittedePerioder={oppdaterSplittedePerioder}
+                      behandlingUuid={behandlingUuid}
+                      beregnBelop={beregnBelop}
+                      lukkPeriode={lukkPeriode}
+                    />
+                    <PeriodeInformasjon
+                      feilutbetaling={valgtPeriode.feilutbetaling}
+                      fom={valgtPeriode.fom}
+                      tom={valgtPeriode.tom}
+                    />
+                    <ForeldelsePeriodeForm
+                      key={valgtPeriode.fom}
+                      periode={valgtPeriode}
+                      oppdaterPeriode={oppdaterPeriode}
+                      skjulPeriode={lukkPeriode}
+                      readOnly={readOnly}
+                      kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
+                    />
+                  </VStack>
+                </Box>
+              </div>
+            )}
+            <HStack>
+              <SubmitButton
+                isReadOnly={readOnly}
+                isDirty={isDirty}
+                isSubmittable={!valgtPeriode && erAlleAksjonspunktLøst}
+                onClick={lagrePerioder}
+                isSubmitting={isSubmitting}
+              />
+            </HStack>
+          </VStack>
+        )}
+      </VStack>
     </FaktaGruppe>
   );
 };
-
-export default ForeldelseForm;

@@ -1,14 +1,14 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedDate } from 'react-intl';
+
+import { BodyShort } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import { BodyShort } from '@navikt/ds-react';
 import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export interface OwnProps {
+export interface Props {
   dateStringFom: string;
   dateStringTom?: string;
   showTodayString?: boolean;
@@ -25,7 +25,7 @@ export interface OwnProps {
  * <PeriodLabel dateStringFom="2017-08-25" dateStringTom="2017-08-31" />
  * ```
  */
-const PeriodLabel: FunctionComponent<OwnProps> = ({ dateStringFom, dateStringTom, showTodayString = false, size }) => (
+export const PeriodLabel = ({ dateStringFom, dateStringTom, showTodayString = false, size }: Props) => (
   <BodyShort as="span" size={size}>
     <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateStringFom)} />
     {' - '}
@@ -33,5 +33,3 @@ const PeriodLabel: FunctionComponent<OwnProps> = ({ dateStringFom, dateStringTom
     {showTodayString && !dateStringTom && <span>{intl.formatMessage({ id: 'PeriodLabel.DateToday' })}</span>}
   </BodyShort>
 );
-
-export default PeriodLabel;

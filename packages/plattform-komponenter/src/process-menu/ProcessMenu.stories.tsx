@@ -1,110 +1,108 @@
 import React from 'react';
-import ProcessMenu from './ProcessMenu';
-import StatefulProcessMenu from './StatefulProcessMenu';
-import StepType from './StepType';
 
-export default { title: 'Process menu' };
+import { action } from '@storybook/addon-actions';
+import { Meta, StoryObj } from '@storybook/react';
 
-export const stateFromProps = (): React.ReactNode => (
-  <ProcessMenu
-    steps={[
+import { ProcessMenu } from './ProcessMenu';
+import { StepType } from './StepType';
+
+const meta = {
+  title: 'plattform-komponenter/ProcessMenu',
+  component: ProcessMenu,
+  args: {
+    onClick: action('onClick'),
+  },
+  render: ({ steps, onClick }) => {
+    const [activeIndex, setActiveIndex] = React.useState(0);
+    const handleOnClick = (index: number): void => {
+      setActiveIndex(index);
+      if (onClick) {
+        onClick(index);
+      }
+    };
+
+    const buildSteps = () =>
+      steps.map((step, index) => ({
+        ...step,
+        isActive: activeIndex === index,
+      }));
+    return <ProcessMenu steps={buildSteps()} onClick={handleOnClick} />;
+  },
+} satisfies Meta<typeof ProcessMenu>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    steps: [
       {
         label: 'Inngangsvilkår',
         type: StepType.success,
-        usePartialStatus: true,
       },
       {
         label: 'Beregning',
         type: StepType.success,
-        isFinished: true,
-        isActive: true,
-        usePartialStatus: true,
       },
       {
         label: 'Uttak',
         type: StepType.warning,
-        usePartialStatus: true,
       },
       {
         label: 'Tilkjent ytelse',
         type: StepType.danger,
-        usePartialStatus: true,
       },
       {
         label: 'Simulering',
-        type: StepType.default,
       },
       {
         label: 'Vedtak',
-        type: StepType.default,
       },
-    ]}
-    // eslint-disable-next-line no-console
-    onClick={(index: number): void => console.log(index)}
-  />
-);
+    ],
+  },
+};
 
-export const stateful = (): React.ReactNode => (
-  <StatefulProcessMenu
-    steps={[
+export const MangeSteg: Story = {
+  args: {
+    steps: [
       {
         label: 'Inngangsvilkår',
+        type: StepType.success,
       },
       {
         label: 'Beregning',
+        type: StepType.success,
       },
       {
         label: 'Uttak',
-        type: StepType.warning,
+        usePartialStatus: true,
+        type: StepType.success,
       },
       {
         label: 'Tilkjent ytelse',
-      },
-      {
-        label: 'Simulering',
-        type: StepType.danger,
-      },
-      {
-        label: 'Vedtak',
-      },
-    ]}
-    // eslint-disable-next-line no-console
-    onClick={(index: number): void => console.log(index)}
-  />
-);
-
-export const manySteps = (): React.ReactNode => (
-  <StatefulProcessMenu
-    steps={[
-      {
-        label: 'Inngangsvilkår',
-      },
-      {
-        label: 'Beregning',
-      },
-      {
-        label: 'Uttak',
+        usePartialStatus: true,
         type: StepType.warning,
       },
       {
-        label: 'Tilkjent ytelse',
-      },
-      {
         label: 'Simulering',
-        type: StepType.danger,
+        type: StepType.warning,
+        usePartialStatus: true,
       },
       {
         label: 'Vedtak',
+        type: StepType.danger,
       },
       {
         label: 'Inngangsvilkår2',
+        type: StepType.danger,
+        usePartialStatus: true,
       },
       {
         label: 'Beregning2',
       },
       {
         label: 'Uttak2',
-        type: StepType.warning,
       },
       {
         label: 'Tilkjent ytelse2',
@@ -116,8 +114,6 @@ export const manySteps = (): React.ReactNode => (
       {
         label: 'Vedtak2',
       },
-    ]}
-    // eslint-disable-next-line no-console
-    onClick={(index: number): void => console.log(index)}
-  />
-);
+    ],
+  },
+};

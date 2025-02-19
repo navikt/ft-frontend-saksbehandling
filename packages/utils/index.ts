@@ -18,7 +18,7 @@ export {
   getRangeOfMonths,
   getDateAndTime,
 } from './src/dateUtils';
-export { default as decodeHtmlEntity } from './src/decodeHtmlEntity';
+export { decodeHtmlEntity } from './src/decodeHtmlEntity';
 export { fodselsnummerPattern, isValidFodselsnummer } from './src/fodselsnummerUtils';
 export {
   ISO_DATE_FORMAT,
@@ -31,14 +31,14 @@ export {
 } from './src/formats';
 export { formaterFritekst } from './src/stringUtils';
 export { assertUnreachable } from './src/switchCaseUtils';
-export { default as guid } from './src/guid';
+export { guid } from './src/guid';
 export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/languageUtils';
 export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMany } from './src/objectUtils';
 export { parseQueryString, buildPath, formatQueryString } from './src/urlUtils';
 
-export { default as createIntl } from './src/createIntl';
+export { createIntl } from './src/createIntl';
 
-export { default as bemUtils } from './src/bemUtils';
-export { default as Period } from './src/Period';
+export { bemUtils } from './src/bemUtils';
+export { Period } from './src/Period';
 export { prettifyDateString } from './src/dateUtils';
 export { sortPeriodsByFomDate } from './src/periodUtils';

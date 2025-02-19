@@ -1,9 +1,10 @@
-import React, { ReactNode, FunctionComponent } from 'react';
+import React, { ReactNode } from 'react';
 
 import { Alert, BodyShort, VStack } from '@navikt/ds-react';
+
 import { isObject } from '@navikt/ft-utils';
 
-export interface OwnProps {
+export interface Props {
   children: string[] | ReactNode | ReactNode[];
 }
 
@@ -13,7 +14,7 @@ export interface OwnProps {
  * Viser hjelpetekster som forteller Nav-ansatt hva som må gjøres for
  * å avklare en eller flere aksjonspunkter.
  */
-const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({ children }) => {
+export const AksjonspunktHelpTextHTML = ({ children }: Props) => {
   if (!children || (Array.isArray(children) && children.length === 0)) {
     return null;
   }
@@ -22,7 +23,7 @@ const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({ children }) => 
     <Alert variant="warning" size="small">
       <VStack gap="2">
         {React.Children.map(children, child => (
-          // @ts-ignore Fiks
+          // @ts-expect-error Fiks
           <BodyShort key={isObject(child) ? child.key : child} size="small">
             {child}
           </BodyShort>
@@ -31,5 +32,3 @@ const AksjonspunktHelpTextHTML: FunctionComponent<OwnProps> = ({ children }) => 
     </Alert>
   );
 };
-
-export default AksjonspunktHelpTextHTML;

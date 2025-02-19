@@ -1,12 +1,13 @@
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, Detail, Heading } from '@navikt/ds-react';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+
+import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
-type OwnProps = {
+type Props = {
   bruttoPrAar?: number;
 };
 
@@ -15,7 +16,7 @@ type OwnProps = {
  *
  * Presentasjonskomponent. Viser navn og sum på alle andeler som er tilstøttende ytelser fra infotrygd
  */
-const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
+export const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => {
   if (bruttoPrAar || bruttoPrAar === 0) {
     return (
       <>
@@ -58,5 +59,3 @@ const YtelserFraInfotrygd = ({ bruttoPrAar }: OwnProps) => {
   }
   return null;
 };
-
-export default YtelserFraInfotrygd;

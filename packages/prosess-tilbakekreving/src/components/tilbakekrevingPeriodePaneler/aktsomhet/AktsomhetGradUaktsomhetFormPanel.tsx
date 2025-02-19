@@ -1,14 +1,14 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { Label } from '@navikt/ds-react';
 
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Label, VStack } from '@navikt/ds-react';
+
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkMedNavn } from '@navikt/ft-types';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
-import aktsomhet from '../../../kodeverk/aktsomhet';
-import AktsomhetSarligeGrunnerFormPanel from './AktsomhetSarligeGrunnerFormPanel';
+import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
 
 import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
 
@@ -16,11 +16,10 @@ const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
 const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: IntlShape) => (
-  <div>
+  <VStack gap="4">
     <Label size="small">
       <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.SærligGrunner" />
     </Label>
-    <VerticalSpacer eightPx />
     <TextAreaField
       name={`${name}.sarligGrunnerBegrunnelse`}
       label={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner' })}
@@ -30,11 +29,10 @@ const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: Intl
       className={styles.explanationTextarea}
       description={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner.Hjelpetekst' })}
     />
-    <VerticalSpacer twentyPx />
-  </div>
+  </VStack>
 );
 
-export interface OwnProps {
+export interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: string;
@@ -48,7 +46,7 @@ export interface OwnProps {
   name: string;
 }
 
-const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
+export const AktsomhetGradUaktsomhetFormPanel = ({
   harGrunnerTilReduksjon,
   readOnly,
   handletUaktsomhetGrad,
@@ -60,61 +58,56 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
   andelSomTilbakekreves,
   erValgtResultatTypeForstoBurdeForstaatt,
   name,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const grovUaktsomOffset = erValgtResultatTypeForstoBurdeForstaatt ? 180 : 200;
   return (
-    <ArrowBox alignOffset={handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
+    <ArrowBox alignOffset={handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
       <div className={styles.panelWidth}>
-        {handletUaktsomhetGrad === aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
-          <>
-            <RadioGroupPanel
-              name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
-              label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
-              validate={[required]}
-              isTrueOrFalseSelection
-              isHorizontal
-              isReadOnly={readOnly}
-              radios={[
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                  value: 'true',
-                  element: (
-                    <>
-                      <VerticalSpacer eightPx />
-                      {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
-                      <AktsomhetSarligeGrunnerFormPanel
-                        name={name}
-                        harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-                        erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                        sarligGrunnTyper={sarligGrunnTyper}
-                        harMerEnnEnYtelse={harMerEnnEnYtelse}
-                        feilutbetalingBelop={feilutbetalingBelop}
-                        readOnly={readOnly}
-                        handletUaktsomhetGrad={handletUaktsomhetGrad}
-                        andelSomTilbakekreves={andelSomTilbakekreves}
-                      />
-                    </>
-                  ),
-                },
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                  value: 'false',
-                  element: (
-                    <>
-                      <VerticalSpacer eightPx />
-                      <ArrowBox alignOffset={20}>
-                        <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
-                      </ArrowBox>
-                    </>
-                  ),
-                },
-              ]}
-            />
-            <VerticalSpacer eightPx />
-          </>
+        {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
+          <RadioGroupPanel
+            name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
+            label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
+            validate={[required]}
+            isTrueOrFalseSelection
+            isHorizontal
+            isReadOnly={readOnly}
+            radios={[
+              {
+                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                value: 'true',
+                element: (
+                  <div style={{ marginTop: '10px' }}>
+                    {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
+                    <AktsomhetSarligeGrunnerFormPanel
+                      name={name}
+                      harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+                      erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+                      sarligGrunnTyper={sarligGrunnTyper}
+                      harMerEnnEnYtelse={harMerEnnEnYtelse}
+                      feilutbetalingBelop={feilutbetalingBelop}
+                      readOnly={readOnly}
+                      handletUaktsomhetGrad={handletUaktsomhetGrad}
+                      andelSomTilbakekreves={andelSomTilbakekreves}
+                    />
+                  </div>
+                ),
+              },
+              {
+                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                value: 'false',
+                element: (
+                  <div style={{ marginTop: '10px' }}>
+                    <ArrowBox alignOffset={55}>
+                      <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+                    </ArrowBox>
+                  </div>
+                ),
+              },
+            ]}
+          />
         )}
-        {(handletUaktsomhetGrad !== aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
+        {(handletUaktsomhetGrad !== Aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
           <>
             {sarligGrunnerBegrunnelseDiv(name, readOnly, intl)}
             <AktsomhetSarligeGrunnerFormPanel
@@ -134,5 +127,3 @@ const AktsomhetGradUaktsomhetFormPanel: FunctionComponent<OwnProps> = ({
     </ArrowBox>
   );
 };
-
-export default AktsomhetGradUaktsomhetFormPanel;

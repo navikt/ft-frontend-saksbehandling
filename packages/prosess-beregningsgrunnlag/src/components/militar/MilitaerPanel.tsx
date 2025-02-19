@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, Heading } from '@navikt/ds-react';
+
+import { Heading, Label } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-type OwnProps = {
+type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
 };
 
@@ -16,7 +16,7 @@ type OwnProps = {
  *
  * Presentasjonskomponent. Viser beregningsgrunnlag for militær og sivilforsvarstjeneste.
  */
-const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
+export const MilitaerPanel = ({ alleAndeler }: Props) => {
   const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL);
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
@@ -37,5 +37,3 @@ const MilitaerPanel: FunctionComponent<OwnProps> = ({ alleAndeler }) => {
     </>
   );
 };
-
-export default MilitaerPanel;

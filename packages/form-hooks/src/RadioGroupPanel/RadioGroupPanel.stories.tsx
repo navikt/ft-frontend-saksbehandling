@@ -1,12 +1,19 @@
 import React from 'react';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
-import RadioGroupPanel from './RadioGroupPanel';
 import { rhfDecorator } from '../../.storybook/decorators';
+import { RadioGroupPanel } from './RadioGroupPanel';
 
 const meta = {
+  title: 'form-hooks/RadioGroupPanel',
   component: RadioGroupPanel,
   tags: ['autodocs'],
+  args: {
+    isHorizontal: false,
+    isReadOnly: false,
+    isEdited: false,
+  },
   decorators: rhfDecorator({ radiopre: 'no' }),
 } satisfies Meta<typeof RadioGroupPanel>;
 
@@ -41,10 +48,10 @@ export const ReadOnlyMedOverstyrtMarkering: Story = {
 
 export const HorisontalKnapper: Story = {
   args: {
+    isHorizontal: true,
     name: 'radio',
     label: 'Dette er en radioknapp med horisontale knapper',
     radios: defaultRadios,
-    isHorizontal: true,
   },
 };
 

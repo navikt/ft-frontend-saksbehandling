@@ -1,12 +1,15 @@
 import React, { Fragment, ReactElement, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+
 import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
+
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules } from '../formUtils';
+
 import styles from './radioGroupPanel.module.css';
 
-interface RadioProps {
+export interface RadioProps {
   value: string;
   label: string | ReactNode;
   disabled?: boolean;
@@ -30,7 +33,7 @@ export interface RadioGroupPanelProps {
   isEdited?: boolean;
 }
 
-const RadioGroupPanel = ({
+export const RadioGroupPanel = ({
   label,
   description,
   name,
@@ -92,25 +95,25 @@ const RadioGroupPanel = ({
           </Fragment>
         ))}
       {isHorizontal && (
-        <HStack gap="4">
-          {radios.map(radio => (
-            <Radio
-              key={radio.value}
-              value={parseValue(radio.value)}
-              disabled={radio.disabled || disabled || isReadOnly}
-            >
-              {radio.label}
-            </Radio>
-          ))}
+        <>
+          <HStack gap="4">
+            {radios.map(radio => (
+              <Radio
+                key={radio.value}
+                value={parseValue(radio.value)}
+                disabled={radio.disabled || disabled || isReadOnly}
+              >
+                {radio.label}
+              </Radio>
+            ))}
+          </HStack>
           {radios
             .filter(radio => field.value === parseValue(radio.value))
             .map(radio => (
-              <React.Fragment key={radio.value}>{radio.element}</React.Fragment>
+              <Fragment key={radio.value}>{radio.element}</Fragment>
             ))}
-        </HStack>
+        </>
       )}
     </RadioGroup>
   );
 };
-
-export default RadioGroupPanel;

@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { defaultStorageKey, useStorageToggle } from './useStorageToggle';
 import { expect } from 'vitest';
+
+import { defaultStorageKey, useStorageToggle } from './useStorageToggle';
 
 describe('useStorageToggle', () => {
   it('skal gi false for default oppførsel uten verdi i default storage', () => {

@@ -1,4 +1,4 @@
-import createVisningsnavnFakta from './ArbeidsforholdHelper';
+import { createVisningsnavnFakta } from './ArbeidsforholdHelper';
 
 const lagAgopplysning = (identifikator: string, navn: string, fødselsdato?: string) => {
   if (fødselsdato) {

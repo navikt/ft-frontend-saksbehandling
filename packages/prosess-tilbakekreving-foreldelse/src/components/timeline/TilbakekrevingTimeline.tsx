@@ -1,25 +1,25 @@
-import React, { ReactElement, FunctionComponent, useState, useMemo, useCallback } from 'react';
-import dayjs from 'dayjs';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
+
 import {
-  XMarkOctagonIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
   CheckmarkCircleIcon,
   ExclamationmarkTriangleIcon,
-  FigureOutwardFillIcon,
-  SilhouetteFillIcon,
   FigureCombinationIcon,
-  PlusIcon,
-  ArrowLeftIcon,
+  FigureOutwardFillIcon,
   MinusIcon,
-  ArrowRightIcon,
+  PlusIcon,
+  SilhouetteFillIcon,
+  XMarkOctagonIcon,
 } from '@navikt/aksel-icons';
+import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-
-import { Button, Timeline } from '@navikt/ds-react';
-import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { KodeverkMedNavn } from '@navikt/ft-types';
-import TidslinjePeriode from '../../types/tidslinjePeriodeTsType';
+
+import { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';
 
@@ -59,7 +59,7 @@ const PERIODE_STATUS_IKON_MAP = {
   warning: <ExclamationmarkTriangleIcon />,
 } as Record<string, ReactElement>;
 
-interface PureOwnProps {
+interface Props {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   relasjonsRolleType: string;
@@ -72,13 +72,13 @@ interface PureOwnProps {
  *
  * Masserer data og populerer felten samt formatterar tidslinjen for tilbakekreving
  */
-const TilbakekrevingTimeline: FunctionComponent<PureOwnProps> = ({
+export const TilbakekrevingTimeline = ({
   perioder,
   setPeriode,
   valgtPeriode,
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const formatertePerioder = useMemo(() => formaterPerioder(perioder), [perioder]);
@@ -128,8 +128,7 @@ const TilbakekrevingTimeline: FunctionComponent<PureOwnProps> = ({
   }, [fomDato, tomDato]);
 
   return (
-    <>
-      <VerticalSpacer fourtyPx />
+    <VStack gap="4">
       <Timeline startDate={fomDato.toDate()} endDate={tomDato.add(1, 'days').toDate()}>
         <Timeline.Row
           label={relasjonsRolleTypeKodeverk.find(k => k.kode === relasjonsRolleType)?.navn || '-'}
@@ -150,8 +149,7 @@ const TilbakekrevingTimeline: FunctionComponent<PureOwnProps> = ({
           ))}
         </Timeline.Row>
       </Timeline>
-      <VerticalSpacer twentyPx />
-      <FloatRight>
+      <HStack justify="end">
         <Button
           className={styles.margin}
           size="small"
@@ -188,9 +186,7 @@ const TilbakekrevingTimeline: FunctionComponent<PureOwnProps> = ({
           type="button"
           title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ScrollTilHogre' })}
         />
-      </FloatRight>
-    </>
+      </HStack>
+    </VStack>
   );
 };
-
-export default TilbakekrevingTimeline;

@@ -1,24 +1,28 @@
-import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
-import { EditedIcon, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyWithKr } from '@navikt/ft-utils';
-import React, { FC } from 'react';
-import { BodyShort, Label, Tag } from '@navikt/ds-react';
+import { JSX } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styles from './tilkommetAktivitet.module.css';
-import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
-import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
 
-type TidligereVurderteAktiviteterPanelType = {
+import { BodyShort, Table, Tag } from '@navikt/ds-react';
+
+import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyWithKr } from '@navikt/ft-utils';
+
+import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
+import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
+
+import styles from './tilkommetAktivitet.module.css';
+
+type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
 };
 
 const erDefinert = (tall?: number) => !!tall && +tall > 0;
 
-const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelType> = ({
+export const TidligereVurderteAktiviteterPanel = ({
   arbeidsgiverOpplysningerPerId,
   vurderInntektsforholdPeriode,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): JSX.Element[] => {
     const tableRows: JSX.Element[] = [];
@@ -26,21 +30,21 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
       const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
       const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
       tableRows.push(
-        <TableRow key={getInntektsforholdIdentifikator(inntektsforhold)}>
-          <TableColumn>
+        <Table.Row key={getInntektsforholdIdentifikator(inntektsforhold)}>
+          <Table.DataCell>
             <BodyShort size="small">
               {getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}
             </BodyShort>
-          </TableColumn>
-          <TableColumn>
+          </Table.DataCell>
+          <Table.DataCell>
             <BodyShort size="small">
               {inntektsforhold.skalRedusereUtbetaling
                 ? intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' })
                 : intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' })}
             </BodyShort>
-          </TableColumn>
+          </Table.DataCell>
           {(harBruttoInntekt || harInntektsmelding) && (
-            <TableColumn>
+            <Table.DataCell>
               <BodyShort size="small">
                 {harBruttoInntekt && (
                   <>
@@ -57,9 +61,9 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
                   </>
                 )}
               </BodyShort>
-            </TableColumn>
+            </Table.DataCell>
           )}
-        </TableRow>,
+        </Table.Row>,
       );
     });
     return tableRows;
@@ -69,25 +73,31 @@ const TidligereVurderteAktiviteterPanel: FC<TidligereVurderteAktiviteterPanelTyp
     inntektsforhold => inntektsforhold.bruttoInntektPrÅr,
   );
 
-  const headerCodes = [
-    'BeregningInfoPanel.TilkommetAktivitet.Aktivitet',
-    'BeregningInfoPanel.TilkommetAktivitet.RedusererUtbetaling',
-    harInntektsforholdMedÅrsinntekt
-      ? 'BeregningInfoPanel.TilkommetAktivitet.Årsinntekt'
-      : 'BeregningInfoPanel.TilkommetAktivitet.TomTekst',
-  ];
-  const headerComponents = headerCodes.map(id => (
-    <Label size="small" key={id}>
-      <FormattedMessage id={id} />{' '}
-    </Label>
-  ));
-
   return (
     <div className={styles.aktivitetContainer}>
-      <Table headerColumnContent={headerComponents} noHover classNameTable={styles.aktivitetTable}>
-        {getInntektsforholdTableRows(vurderInntektsforholdPeriode)}
+      <Table className={styles.aktivitetTable}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Aktivitet" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.RedusererUtbetaling" />
+            </Table.HeaderCell>
+            {harInntektsforholdMedÅrsinntekt && (
+              <Table.HeaderCell scope="col">
+                <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Årsinntekt" />
+              </Table.HeaderCell>
+            )}
+            {!harInntektsforholdMedÅrsinntekt && (
+              <Table.HeaderCell scope="col">
+                <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.TomTekst" />
+              </Table.HeaderCell>
+            )}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>{getInntektsforholdTableRows(vurderInntektsforholdPeriode)}</Table.Body>
       </Table>
     </div>
   );
 };
-export default TidligereVurderteAktiviteterPanel;

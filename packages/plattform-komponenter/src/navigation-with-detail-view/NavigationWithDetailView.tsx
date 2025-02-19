@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './navigationWithDetailViewStyles.module.css';
 
 export interface NavigationWithDetailViewProps {
@@ -7,7 +8,7 @@ export interface NavigationWithDetailViewProps {
   showDetailSection: boolean;
 }
 
-const NavigationWithDetailView = ({
+export const NavigationWithDetailView = ({
   navigationSection,
   detailSection,
   showDetailSection,
@@ -25,5 +26,3 @@ const NavigationWithDetailView = ({
     )}
   </div>
 );
-
-export default NavigationWithDetailView;

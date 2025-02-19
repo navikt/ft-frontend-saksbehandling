@@ -1,10 +1,12 @@
 import React from 'react';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
-import SelectField from './SelectField';
 import { rhfDecorator } from '../../.storybook/decorators';
+import { SelectField } from './SelectField';
 
 const meta = {
+  title: 'form-hooks/SelectField',
   component: SelectField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testSelectFieldpre: 'value3' }),

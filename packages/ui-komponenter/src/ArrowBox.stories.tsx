@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ArrowBox from './ArrowBox';
+import { ArrowBox } from './ArrowBox';
 
 export default {
-  title: 'ArrowBox',
+  title: 'ui-komponenter/ArrowBox',
   component: ArrowBox,
 };
 

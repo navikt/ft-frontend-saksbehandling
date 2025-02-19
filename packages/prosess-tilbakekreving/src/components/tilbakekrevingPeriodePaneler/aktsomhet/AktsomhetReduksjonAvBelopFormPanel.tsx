@@ -1,14 +1,15 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
-import { BodyShort, Label, Detail, HStack } from '@navikt/ds-react';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
-import { InputField, SelectField, RadioGroupPanel } from '@navikt/ft-form-hooks';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { minValue, maxValue, required } from '@navikt/ft-form-validators';
-
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import aktsomhet from '../../../kodeverk/aktsomhet';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
+import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
+
+import { InputField, RadioGroupPanel, SelectField } from '@navikt/ft-form-hooks';
+import { maxValue, minValue, required } from '@navikt/ft-form-validators';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+
+import { Aktsomhet } from '../../../kodeverk/aktsomhet';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
 
@@ -31,7 +32,7 @@ const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (be
 export const EGENDEFINERT = 'Egendefinert';
 export const ANDELER = ['30', '50', '70', EGENDEFINERT];
 
-export interface OwnProps {
+export interface Props {
   name: string;
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
@@ -41,7 +42,7 @@ export interface OwnProps {
   andelSomTilbakekreves?: string;
 }
 
-const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
+export const AktsomhetReduksjonAvBelopFormPanel = ({
   name,
   harGrunnerTilReduksjon,
   readOnly,
@@ -49,7 +50,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
   harMerEnnEnYtelse,
   feilutbetalingBelop,
   andelSomTilbakekreves,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const context = useFormContext();
@@ -62,8 +63,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
   }, []);
 
   return (
-    <>
-      <VerticalSpacer sixteenPx />
+    <VStack gap="4">
       <RadioGroupPanel
         name={`${name}.harGrunnerTilReduksjon`}
         label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
@@ -82,7 +82,6 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
         isTrueOrFalseSelection
         isHorizontal
       />
-      <VerticalSpacer sixteenPx />
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
           <HStack gap="4">
@@ -125,7 +124,7 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                   />
                   <div
                     className={
-                      handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM ? styles.suffixGrovText : styles.suffix
+                      handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? styles.suffixGrovText : styles.suffix
                     }
                   >
                     %
@@ -139,12 +138,12 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
                 label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiBelopSomSkalTilbakekreves" />}
                 validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
                 readOnly={readOnly}
-                // @ts-ignore Fiks
+                // @ts-expect-error Fiks
                 format={formatCurrencyNoKr}
                 parse={parseCurrencyInput}
               />
             )}
-            {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
+            {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
               <div>
                 <Detail>
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
@@ -168,34 +167,33 @@ const AktsomhetReduksjonAvBelopFormPanel: FunctionComponent<OwnProps> = ({
               }
             />
           </Detail>
-          <BodyShort size="small" className={styles.labelPadding}>
-            {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
-          </BodyShort>
-          <VerticalSpacer sixteenPx />
-          {handletUaktsomhetGrad === aktsomhet.GROVT_UAKTSOM && (
-            <RadioGroupPanel
-              name={tilleggesRenterFelt}
-              label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
-              validate={[required]}
-              radios={[
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                  value: 'true',
-                },
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                  value: 'false',
-                },
-              ]}
-              isReadOnly={readOnly}
-              isTrueOrFalseSelection
-              isHorizontal
-            />
-          )}
+          <VStack gap="4">
+            <BodyShort size="small" className={styles.labelPadding}>
+              {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
+            </BodyShort>
+            {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
+              <RadioGroupPanel
+                name={tilleggesRenterFelt}
+                label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
+                validate={[required]}
+                radios={[
+                  {
+                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                    value: 'true',
+                  },
+                  {
+                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                    value: 'false',
+                  },
+                ]}
+                isReadOnly={readOnly}
+                isTrueOrFalseSelection
+                isHorizontal
+              />
+            )}
+          </VStack>
         </ArrowBox>
       )}
-    </>
+    </VStack>
   );
 };
-
-export default AktsomhetReduksjonAvBelopFormPanel;

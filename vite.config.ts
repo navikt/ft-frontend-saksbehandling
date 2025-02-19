@@ -1,7 +1,6 @@
-import dts from 'vite-plugin-dts';
 import react from '@vitejs/plugin-react';
-
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 const vitestConfig = defineVitestConfig({
@@ -34,6 +33,7 @@ const viteConfig = defineViteConfig({
       entry: 'index.ts',
       formats: ['es', 'umd'],
       fileName: format => `index.${format}.js`,
+      cssFileName: 'style',
     },
     sourcemap: true,
   },

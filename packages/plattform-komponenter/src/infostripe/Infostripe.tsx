@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { JSX } from 'react';
+
 import styles from './infostripe.module.css';
 
 interface BaseInfostripeProps {
@@ -14,7 +15,8 @@ interface TextInfostripeProps extends BaseInfostripeProps {
   element?: never;
 }
 type InfostripeProps = ElementInfostripeProps | TextInfostripeProps;
-const Infostripe = ({ text, iconRenderer, element }: InfostripeProps) => (
+
+export const Infostripe = ({ text, iconRenderer, element }: InfostripeProps) => (
   <div className={styles.infostripe}>
     <div className={styles.infostripe__iconContainer}>{iconRenderer()}</div>
     <div className={styles.infostripe__textContainer}>
@@ -22,5 +24,3 @@ const Infostripe = ({ text, iconRenderer, element }: InfostripeProps) => (
     </div>
   </div>
 );
-
-export default Infostripe;

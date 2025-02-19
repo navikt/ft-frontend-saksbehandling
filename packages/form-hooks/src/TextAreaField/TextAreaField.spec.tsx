@@ -1,7 +1,8 @@
-import { expect } from 'vitest';
+import { composeStories } from '@storybook/react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { composeStories } from '@storybook/react';
+import { expect } from 'vitest';
+
 import * as stories from './TextAreaField.stories';
 
 export const { Default } = composeStories(stories);

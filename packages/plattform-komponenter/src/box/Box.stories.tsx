@@ -1,17 +1,20 @@
-import { StoryFn } from '@storybook/react';
-import React, { ComponentProps } from 'react';
-import Box, { Margin } from './Box';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'Box',
+import { Box, Margin } from './Box';
+
+const meta = {
+  title: 'plattform-komponenter/Box',
   component: Box,
+} satisfies Meta<typeof Box>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    marginTop: Margin.xxLarge,
+    marginBottom: Margin.large,
+    children: <p>Dette er en box</p>,
+  },
 };
-
-const Template: StoryFn<ComponentProps<typeof Box>> = args => (
-  <Box {...args} marginTop={Margin.xxLarge} marginBottom={Margin.large}>
-    <p>Dette er en box</p>
-  </Box>
-);
-
-export const BoxComponent = Template.bind({});
-BoxComponent.args = {};

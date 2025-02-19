@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { FagsakYtelseType } from '@navikt/ft-kodeverk';
-import Frisinnpanel from './Frisinnpanel';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
+
+import { Frisinnpanel } from './Frisinnpanel';
 
 const lagFrisinnpaneler = (beregningsgrunnlag: Beregningsgrunnlag) => (
   <Frisinnpanel beregningsgrunnlag={beregningsgrunnlag} />
 );
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };
 
@@ -16,7 +16,7 @@ type OwnProps = {
  *
  * Presentasjonskomponent. Holder på ytelsesspesifikke visninger.
  */
-export const YtelsegrunnlagPanel: FunctionComponent<OwnProps> = ({ beregningsgrunnlag }) => {
+export const YtelsegrunnlagPanel = ({ beregningsgrunnlag }: Props) => {
   const ytelsegrunnlag = beregningsgrunnlag.ytelsesspesifiktGrunnlag;
   if (!ytelsegrunnlag) {
     return null;
@@ -27,5 +27,3 @@ export const YtelsegrunnlagPanel: FunctionComponent<OwnProps> = ({ beregningsgru
   }
   return null;
 };
-
-export default YtelsegrunnlagPanel;

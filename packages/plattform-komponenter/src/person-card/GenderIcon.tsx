@@ -1,5 +1,3 @@
-import React from 'react';
-import { Gender } from './PersonCard';
 import {
   FigureChildFillIcon,
   FigureCombinationFillIcon,
@@ -7,13 +5,15 @@ import {
   SilhouetteFillIcon,
 } from '@navikt/aksel-icons';
 
+import { Gender } from './PersonCard';
+
 interface Props {
   gender?: Gender;
   isChild?: boolean;
   size?: number;
 }
 
-const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
+export const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
   let Icon = FigureCombinationFillIcon;
 
   let backgroundColor = 'var(--a-gray-400)';
@@ -29,5 +29,3 @@ const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
 
   return <Icon height={size} width={size} color="white" style={{ backgroundColor, borderRadius: '50%' }} />;
 };
-
-export default GenderIcon;

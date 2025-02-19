@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Heading } from '@navikt/ds-react';
 import classnames from 'classnames';
+
 import styles from './detailView.module.css';
 
 export interface DetailViewProps {
@@ -10,7 +12,7 @@ export interface DetailViewProps {
   className?: string;
 }
 
-const DetailView = ({ title, children, contentAfterTitleRenderer, className }: DetailViewProps) => {
+export const DetailView = ({ title, children, contentAfterTitleRenderer, className }: DetailViewProps) => {
   const cls = classnames(
     styles.detailView,
     className
@@ -33,5 +35,3 @@ const DetailView = ({ title, children, contentAfterTitleRenderer, className }: D
     </div>
   );
 };
-
-export default DetailView;

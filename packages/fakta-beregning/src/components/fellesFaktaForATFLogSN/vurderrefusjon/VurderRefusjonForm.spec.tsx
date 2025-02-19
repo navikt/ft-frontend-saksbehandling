@@ -1,6 +1,7 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
-import VurderRefusjonForm, { lagFieldName } from './VurderRefusjonForm';
+import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import { lagFieldName, VurderRefusjonForm } from './VurderRefusjonForm';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
@@ -23,14 +24,19 @@ describe('<VurderRefusjonForm>', () => {
       { arbeidsgiverIdent: '8279312213', erRefusjonskravGyldig: true },
       { arbeidsgiverIdent: '45345345345', erRefusjonskravGyldig: false },
     ];
-    const values = { vurderRefusjonValues: {} };
-    values.vurderRefusjonValues[lagFieldName('8279312213')] = false;
-    values.vurderRefusjonValues[lagFieldName('45345345345')] = true;
+    const vurderRefusjonValues = {
+      [lagFieldName('8279312213')]: false,
+      [lagFieldName('45345345345')]: true,
+    };
+    const values = {
+      vurderRefusjonValues: vurderRefusjonValues,
+    } as FaktaOmBeregningAksjonspunktValues;
     const transformedValues = VurderRefusjonForm.transformValues(senRefusjonkravListe)(values);
-    expect(transformedValues.refusjonskravGyldighet.length).toBe(2);
-    expect(transformedValues.refusjonskravGyldighet[0].arbeidsgiverId).toBe('8279312213');
-    expect(transformedValues.refusjonskravGyldighet[0].skalUtvideGyldighet).toBe(false);
-    expect(transformedValues.refusjonskravGyldighet[1].arbeidsgiverId).toBe('45345345345');
-    expect(transformedValues.refusjonskravGyldighet[1].skalUtvideGyldighet).toBe(true);
+    const vals = transformedValues.refusjonskravGyldighet || [];
+    expect(vals.length).toBe(2);
+    expect(vals[0].arbeidsgiverId).toBe('8279312213');
+    expect(vals[0].skalUtvideGyldighet).toBe(false);
+    expect(vals[1].arbeidsgiverId).toBe('45345345345');
+    expect(vals[1].skalUtvideGyldighet).toBe(true);
   });
 });

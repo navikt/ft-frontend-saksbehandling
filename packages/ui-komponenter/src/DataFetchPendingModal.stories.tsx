@@ -1,25 +1,32 @@
-import React from 'react';
-import { RawIntlProvider } from 'react-intl';
-import { StoryFn } from '@storybook/react';
+import { Meta, ReactRenderer, StoryObj } from '@storybook/react';
+import { DecoratorFunction } from 'storybook/internal/types';
 
-import { createIntl } from '@navikt/ft-utils';
-import DataFetchPendingModal from './DataFetchPendingModal';
+import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 
-const intl = createIntl({
+import { DataFetchPendingModal } from './DataFetchPendingModal';
+
+const withIntl = getIntlDecorator({
   'DataFetchPendingModal.LosningenJobberMedBehandlingen': 'Løsningen jobber med behandlingen...',
 });
 
-export default {
-  title: 'DataFetchPendingModal',
-  component: DataFetchPendingModal,
-};
-
-const Template: StoryFn = () => (
+const withWidth: DecoratorFunction<ReactRenderer> = Story => (
   <div style={{ width: '200px' }}>
-    <RawIntlProvider value={intl}>
-      <DataFetchPendingModal pendingMessage="Henting av data pågår" />
-    </RawIntlProvider>
+    <Story />
   </div>
 );
 
-export const Default = Template.bind({});
+const meta = {
+  title: 'ui-komponenter/DataFetchPendingModal',
+  component: DataFetchPendingModal,
+  decorators: [withWidth, withIntl],
+} satisfies Meta<typeof DataFetchPendingModal>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    pendingMessage: 'Henting av data pågår',
+  },
+};

@@ -1,4 +1,6 @@
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel, Vilkar } from '@navikt/ft-types';
+import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+
+import { Vilkår } from '../src/typer/Vilkår';
 
 export const beregningsgrunnlag = [
   {
@@ -196,7 +198,7 @@ export const beregningsgrunnlag = [
   },
 ] as Beregningsgrunnlag[];
 
-export const vilkar: Vilkar = {
+export const vilkar: Vilkår = {
   vilkarType: '',
   overstyrbar: true,
   perioder: [

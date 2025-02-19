@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Detail } from '@navikt/ds-react';
-import { PlusCircleIcon } from '@navikt/aksel-icons';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
-import { required, hasValidText, maxLength, minLength } from '@navikt/ft-form-validators';
-import { TextAreaField } from '@navikt/ft-form-hooks';
-
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+import { PlusCircleIcon } from '@navikt/aksel-icons';
+import { Detail } from '@navikt/ds-react';
+
+import { TextAreaField } from '@navikt/ft-form-hooks';
+import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
 const minLength3 = minLength(3);
@@ -16,19 +16,14 @@ const maxLength4000 = maxLength(4000);
 const valideringsregler = [minLength3, hasValidText];
 const valideringsreglerPakrevet = [required, minLength3, hasValidText];
 
-export interface OwnProps {
+export interface Props {
   type: string;
   readOnly: boolean;
   fritekstPakrevet?: boolean;
   maximumLength?: number;
 }
 
-const TilbakekrevingVedtakUtdypendeTekstPanel: FunctionComponent<OwnProps> = ({
-  type,
-  readOnly,
-  fritekstPakrevet,
-  maximumLength,
-}) => {
+export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritekstPakrevet, maximumLength }: Props) => {
   const intl = useIntl();
   const { watch } = useFormContext();
   const isEmpty = watch(type) === undefined;
@@ -36,11 +31,11 @@ const TilbakekrevingVedtakUtdypendeTekstPanel: FunctionComponent<OwnProps> = ({
   const [isTextfieldHidden, hideTextField] = useState(isEmpty && !fritekstPakrevet);
   const valideringsRegler = fritekstPakrevet ? valideringsreglerPakrevet : valideringsregler;
   valideringsRegler.push(maximumLength ? maxLength(maximumLength) : maxLength4000);
+
   return (
     <>
       {isTextfieldHidden && !readOnly && (
         <>
-          <VerticalSpacer eightPx />
           <div
             onClick={event => {
               event.preventDefault();
@@ -65,19 +60,14 @@ const TilbakekrevingVedtakUtdypendeTekstPanel: FunctionComponent<OwnProps> = ({
         </>
       )}
       {!isTextfieldHidden && (
-        <>
-          <VerticalSpacer eightPx />
-          <TextAreaField
-            name={type}
-            label={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst' })}
-            validate={valideringsRegler}
-            maxLength={maximumLength || 4000}
-            readOnly={readOnly}
-          />
-        </>
+        <TextAreaField
+          name={type}
+          label={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst' })}
+          validate={valideringsRegler}
+          maxLength={maximumLength || 4000}
+          readOnly={readOnly}
+        />
       )}
     </>
   );
 };
-
-export default TilbakekrevingVedtakUtdypendeTekstPanel;

@@ -1,5 +1,3 @@
-import React, { FunctionComponent } from 'react';
-
 import {
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
@@ -10,22 +8,16 @@ import {
   isStatusSNOrKombinasjon,
   isStatusTilstotendeYtelse,
 } from '@navikt/ft-kodeverk';
-import {
-  ArbeidsgiverOpplysningerPerId,
-  BeregningAvklaringsbehov,
-  Beregningsgrunnlag,
-  Vilkar,
-  Vilkarperiode,
-} from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+
+import { BeregningFormValues } from '../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
-import ProsessBeregningsgrunnlagAvklaringsbehovCode from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-
-import GraderingUtenBGReadOnly from './gradering/GraderingUtenBGReadOnly';
-import BeregningForm from './beregningForm/BeregningForm';
-import RelevanteStatuserProp from '../types/RelevanteStatuserTsType';
-
-import BeregningFormValues from '../types/BeregningFormValues';
-import KodeverkForPanel from '../types/kodeverkForPanel';
+import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
+import { RelevanteStatuserProp } from '../types/RelevanteStatuser';
+import { Vilkår, Vilkårperiode } from '../types/Vilkår';
+import { BeregningForm } from './beregningForm/BeregningForm';
+import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 
 const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -64,21 +56,21 @@ const getAvklaringsbehovForGraderingPaaAndelUtenBG = (
       )
     : undefined;
 
-type OwnProps = {
+type Props = {
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   readOnly: boolean;
   readOnlySubmitButton: boolean;
   kodeverkSamling: KodeverkForPanel;
   aktivtBeregningsgrunnlagIndeks: number;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
-  vilkar: Vilkar;
+  vilkar: Vilkår;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
 };
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode =>
-  // @ts-ignore
+const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
+  // @ts-expect-error
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 /**
@@ -87,7 +79,7 @@ const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkar
  * Presentasjonskomponent. Holder på alle komponenter relatert til beregning av foreldrepenger.
  * Finner det gjeldende aksjonspunktet hvis vi har et.
  */
-const BeregningFP: FunctionComponent<OwnProps> = ({
+export const BeregningFP = ({
   aktivtBeregningsgrunnlagIndeks,
   beregningsgrunnlagListe,
   submitCallback,
@@ -98,9 +90,9 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-}) => {
+}: Props) => {
   const aktivtBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
-  // @ts-ignore
+  // @ts-expect-error
   const relevanteStatuser = getRelevanteStatuser(aktivtBeregningsgrunnlag.aktivitetStatus);
   const aksjonspunktGraderingPaaAndelUtenBG = getAvklaringsbehovForGraderingPaaAndelUtenBG(
     aktivtBeregningsgrunnlag.avklaringsbehov,
@@ -139,5 +131,3 @@ const BeregningFP: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default BeregningFP;

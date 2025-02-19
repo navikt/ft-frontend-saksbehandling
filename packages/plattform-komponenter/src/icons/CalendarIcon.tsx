@@ -1,7 +1,6 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
-const CalendarIcon = () => (
+export const CalendarIcon = () => (
   <Icon size={24}>
     <path
       fillRule="evenodd"
@@ -12,5 +11,3 @@ const CalendarIcon = () => (
     />
   </Icon>
 );
-
-export default CalendarIcon;

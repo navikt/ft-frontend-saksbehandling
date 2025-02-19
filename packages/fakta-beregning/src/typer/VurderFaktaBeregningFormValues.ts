@@ -1,8 +1,6 @@
 import { formNameVurderFaktaBeregning } from '../components/BeregningFormUtils';
 import { FaktaOmBeregningAksjonspunktValues } from './FaktaBeregningTypes';
 
-type VurderFaktaBeregningFormValues = {
+export type VurderFaktaBeregningFormValues = {
   [formNameVurderFaktaBeregning]: FaktaOmBeregningAksjonspunktValues[];
 };
-
-export default VurderFaktaBeregningFormValues;

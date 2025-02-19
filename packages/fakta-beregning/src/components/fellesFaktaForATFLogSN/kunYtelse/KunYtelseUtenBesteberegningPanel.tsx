@@ -1,12 +1,11 @@
-import { Label } from '@navikt/ds-react';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
-import BrukersAndelFieldArray from './BrukersAndelFieldArray';
-import styles from './kunYtelseUtenBesteberegningPanel.module.css';
 
-type OwnProps = {
+import { Label, VStack } from '@navikt/ds-react';
+
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
+
+type Props = {
   readOnly: boolean;
   brukersAndelFieldArrayName: string;
   isAksjonspunktClosed: boolean;
@@ -20,28 +19,21 @@ type OwnProps = {
  *  kun ytelse uten vurdering av besteberegning.
  */
 
-const KunYtelseUtenBesteberegningPanel: FunctionComponent<OwnProps> = ({
+export const KunYtelseUtenBesteberegningPanel = ({
   readOnly,
   brukersAndelFieldArrayName,
   kodeverkSamling,
   isAksjonspunktClosed,
-}) => (
-  <>
-    <FlexRow>
-      <FlexColumn className={styles.flexColumn9}>
-        <Label size="medium">
-          <FormattedMessage id="KunYtelsePanel.RapporterteInntekter" />
-        </Label>
-      </FlexColumn>
-    </FlexRow>
-    <VerticalSpacer eightPx />
+}: Props) => (
+  <VStack gap="4">
+    <Label size="medium">
+      <FormattedMessage id="KunYtelsePanel.RapporterteInntekter" />
+    </Label>
     <BrukersAndelFieldArray
       name={brukersAndelFieldArrayName}
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
       kodeverkSamling={kodeverkSamling}
     />
-  </>
+  </VStack>
 );
-
-export default KunYtelseUtenBesteberegningPanel;

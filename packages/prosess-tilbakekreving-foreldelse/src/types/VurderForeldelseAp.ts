@@ -1,7 +1,8 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
-import ForeldelseAksjonspunktCodes from '../ForeldelseAksjonspunktCodes';
 
-type VurderForeldelseAp = {
+import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
+
+export type VurderForeldelseAp = {
   foreldelsePerioder: {
     fraDato: string;
     tilDato: string;
@@ -9,5 +10,3 @@ type VurderForeldelseAp = {
     begrunnelse?: string;
   }[];
 } & AksjonspunktTilBekreftelse<ForeldelseAksjonspunktCodes.VURDER_FORELDELSE>;
-
-export default VurderForeldelseAp;

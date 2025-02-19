@@ -1,17 +1,17 @@
-import { IntlShape } from 'react-intl';
 import { UseFormGetValues } from 'react-hook-form';
+import { IntlShape } from 'react-intl';
 
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
+import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';
 
 const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
 

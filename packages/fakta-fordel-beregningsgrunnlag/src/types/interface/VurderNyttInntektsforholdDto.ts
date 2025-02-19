@@ -15,8 +15,6 @@ interface VurderInntektsforholdPeriodeDto {
   inntektsforholdListe: InntektsforholdDto[];
 }
 
-interface VurderNyttInntektsforholdDto {
+export interface VurderNyttInntektsforholdDto {
   vurderInntektsforholdPerioder: VurderInntektsforholdPeriodeDto[];
 }
-
-export default VurderNyttInntektsforholdDto;

@@ -1,11 +1,12 @@
-import React, { ReactNode, FunctionComponent } from 'react';
+import { ReactNode } from 'react';
+
 import classnames from 'classnames/bind';
 
 import styles from './flexContainer.module.css';
 
 const classNames = classnames.bind(styles);
 
-export interface OwnProps {
+export interface Props {
   children?: ReactNode | ReactNode[];
   wrap?: boolean;
   fullHeight?: boolean;
@@ -14,8 +15,6 @@ export interface OwnProps {
 /**
  * @deprecated Bruk heller HStack og VStack fra https://aksel.nav.no/komponenter
  */
-const FlexContainer: FunctionComponent<OwnProps> = ({ children, wrap = false, fullHeight = false }) => (
+export const FlexContainer = ({ children, wrap = false, fullHeight = false }: Props) => (
   <div className={classNames('flexContainer', 'fluid', { flexWrap: wrap, fullHeight })}>{children}</div>
 );
-
-export default FlexContainer;

@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
-import { Alert, BodyShort, Button, Heading, Label, Modal } from '@navikt/ds-react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+
+import { Alert, BodyShort, Button, Heading, Label, Modal, VStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { Datepicker, Form } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import styles from './delOppPeriodeModal.module.css';
 
 type Periode = {
@@ -53,7 +53,7 @@ const transformValues = (values: FormValues, periodeData: Periode): any => {
   };
 };
 
-export interface OwnProps {
+export interface Props {
   periodeData: Periode;
   cancelEvent: () => void;
   showModal: boolean;
@@ -61,13 +61,13 @@ export interface OwnProps {
   splitPeriod: (perioder: PerioderData) => void;
 }
 
-const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
+export const DelOppPeriodeModal = ({
   periodeData,
   showModal,
   cancelEvent,
   finnesBelopMed0Verdi,
   splitPeriod,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const formMethods = useForm<FormValues>();
 
@@ -88,28 +88,30 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
           </Heading>
         </Modal.Header>
         <Modal.Body>
-          <Label size="small">
-            <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
-          </Label>
-          <BodyShort size="small">
-            {`${dayjs(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(
-              periodeData.tom.toString(),
-            ).format(DDMMYYYY_DATE_FORMAT)}`}
-          </BodyShort>
-          <VerticalSpacer sixteenPx />
-          <Datepicker
-            name="forstePeriodeTomDato"
-            label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
-            validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
-            fromDate={dayjs(periodeData.fom).toDate()}
-            toDate={dayjs(periodeData.tom).toDate()}
-          />
-          {finnesBelopMed0Verdi && (
-            <Alert variant="error">
-              <FormattedMessage id="DelOppPeriodeModalImpl.BelopEr0" />
-            </Alert>
-          )}
-          <VerticalSpacer sixteenPx />
+          <VStack gap="4">
+            <div>
+              <Label size="small">
+                <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
+              </Label>
+              <BodyShort size="small">
+                {`${dayjs(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(
+                  periodeData.tom.toString(),
+                ).format(DDMMYYYY_DATE_FORMAT)}`}
+              </BodyShort>
+            </div>
+            <Datepicker
+              name="forstePeriodeTomDato"
+              label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
+              validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
+              fromDate={dayjs(periodeData.fom).toDate()}
+              toDate={dayjs(periodeData.tom).toDate()}
+            />
+            {finnesBelopMed0Verdi && (
+              <Alert variant="error">
+                <FormattedMessage id="DelOppPeriodeModalImpl.BelopEr0" />
+              </Alert>
+            )}
+          </VStack>
         </Modal.Body>
         <Modal.Footer>
           <Button size="small" variant="primary" className={styles.button} disabled={!formMethods.formState.isDirty}>
@@ -123,5 +125,3 @@ const DelOppPeriodeModal: FunctionComponent<OwnProps> = ({
     </Form>
   );
 };
-
-export default DelOppPeriodeModal;

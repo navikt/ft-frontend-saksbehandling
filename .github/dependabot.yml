@@ -13,15 +13,27 @@ updates:
     registries:
       - npm-github
     groups:
+      patch-and-minor:
+        patterns:
+          - '*'
+        update-types:
+          - 'patch'
+          - 'minor'
+        exclude-patterns:
+          - 'react*'
+          - '@types/react'
+          - '@navikt*'
       react:
         patterns:
           - 'react'
           - 'react-dom'
           - '@types/react'
       storybook:
+        update-types:
+          - 'major'
         patterns:
-          - '@storybook/*'
           - 'storybook'
+          - '@storybook/*'
       designsystem:
         patterns:
           - '@navikt/aksel-*'

@@ -1,44 +1,35 @@
-import { bemUtils } from '@navikt/ft-utils';
-import classnames from 'classnames';
 import React from 'react';
-import StepType from './StepType';
-import AvslåttValgIcon from './icons/AvslåttIcon';
-import CheckIcon from './icons/CheckIcon';
-import WarningIcon from './icons/WarningIcon';
+
+import { CheckmarkIcon, ExclamationmarkTriangleFillIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons';
+import classnames from 'classnames';
+
+import { StepType } from './StepType';
+
 import styles from './step.module.css';
 
 interface StepIconProps {
   type: string;
-  isFinished?: boolean;
-  usePartialStatus?: boolean;
+  usePartialStatus: boolean;
 }
 
-const stepCls = bemUtils('step');
-
-const StepIcon = ({ type, isFinished, usePartialStatus }: StepIconProps): JSX.Element => {
+export const StepIcon = ({ type, usePartialStatus }: StepIconProps) => {
   const isWarning = type === StepType.warning;
   const isDanger = type === StepType.danger;
+  const isSuccess = type === StepType.success;
 
-  if (usePartialStatus && !isWarning) {
-    return (
-      <div
-        className={classnames(`${styles[stepCls.element('icon')]} ${styles['step__icon--partial']}`, {
-          [styles['step__icon--success']]: !isDanger,
-          [styles['step__icon--danger']]: isDanger,
-        })}
-      />
-    );
+  const classes = classnames(`${styles.icon}`);
+
+  if (usePartialStatus && (isDanger || isSuccess)) {
+    return <div className={classes} />;
   }
-  if (isFinished) {
-    return <CheckIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--success']}`} />;
+  if (isSuccess) {
+    return <CheckmarkIcon className={classes} />;
   }
   if (isWarning) {
-    return <WarningIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--warning']} `} />;
+    return <ExclamationmarkTriangleFillIcon className={classes} />;
   }
   if (isDanger) {
-    return <AvslåttValgIcon className={`${styles[stepCls.element('icon')]} ${styles['step__icon--danger']}`} />;
+    return <XMarkOctagonFillIcon className={classes} />;
   }
-  return <span className={styles[stepCls.element('icon-placeholder')]} />;
+  return <></>;
 };
-
-export default StepIcon;

@@ -1,9 +1,10 @@
-import {
-  FordelBeregningsgrunnlagPeriode,
-  FordelBeregningsgrunnlagAndel,
-  BeregningsgrunnlagArbeidsforhold,
-} from '@navikt/ft-types';
 import { PeriodeAarsak } from '@navikt/ft-kodeverk';
+import {
+  BeregningsgrunnlagArbeidsforhold,
+  FordelBeregningsgrunnlagAndel,
+  FordelBeregningsgrunnlagPeriode,
+} from '@navikt/ft-types';
+
 import { lagPerioderForSubmit, slaaSammenPerioder as slåSammenPerioder } from './FordelPerioderUtils';
 
 const arbeidsforhold1 = {

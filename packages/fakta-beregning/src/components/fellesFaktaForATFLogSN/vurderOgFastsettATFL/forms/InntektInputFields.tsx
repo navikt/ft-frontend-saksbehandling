@@ -1,17 +1,19 @@
-import { Label, List, ReadMore } from '@navikt/ds-react';
-import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import VurderFaktaBeregningFormValues from '../../../../typer/VurderFaktaBeregningFormValues';
-import KodeverkForPanel from '../../../../typer/kodeverkForPanel';
-import ArbeidsinntektInput from '../../../felles/ArbeidsinntektInput';
-import InntektInput from '../../../felles/InntektInput';
+
+import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
+
+import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
+import { ArbeidsinntektInput } from '../../../felles/ArbeidsinntektInput';
+import { InntektInput } from '../../../felles/InntektInput';
+import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
-import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { lonnsendringField } from './LonnsendringForm';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
@@ -20,7 +22,7 @@ import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMott
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
-interface InntektInputFieldsProps {
+interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
@@ -36,14 +38,14 @@ interface InntektInputFieldsProps {
  * Må håndtere hvilke som skal vises og sørge for at ingen vises flere ganger
  */
 
-const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
+export const InntektInputFields = ({
   beregningsgrunnlag,
   readOnly,
   isAksjonspunktClosed,
   tilfeller,
   arbeidsgiverOpplysningerPerId,
   kodeverkSamling,
-}) => {
+}: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
@@ -60,7 +62,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     const erBesteberegning = getValues([
       `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
     ]).includes(true);
-    const harFrilansandel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+    const harFrilansandel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
       andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
     );
 
@@ -68,7 +70,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
   };
 
   const skalRedigereSelvstendigNæringsgivendeInntekt = () => {
-    const harSelvstendigNæringsgivendeAndel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+    const harSelvstendigNæringsgivendeAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
       andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
     );
 
@@ -80,7 +82,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
   };
 
   const skalRedigereMilitærEllerSivilInntekt = () => {
-    const harMilitærEllerSivilAndel = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning.some(
+    const harMilitærEllerSivilAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
       andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL,
     );
 
@@ -100,7 +102,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]).includes(true);
 
-  const { arbeidstakerOgFrilanserISammeOrganisasjonListe } = beregningsgrunnlag.faktaOmBeregning;
+  const atflSammeOrgListe = beregningsgrunnlag.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe;
 
   /**
    * Henter ut alle arbeidstakerandelene som mangler inntektsmelding
@@ -118,7 +120,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
    * Henter ut alle arbeidstakerandelene som med inntekt
    *
    */
-  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning.andelerForFaktaOmBeregning
+  const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning
     .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
     ?.filter(andel =>
       getKanRedigereInntekt(
@@ -136,13 +138,13 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
    */
   const atflOgSammeOrgArbeidsgivere = (
     erATFLSammeOrg(tilfeller) && skalRedigereArbeidsinntekt
-      ? arbeidstakerOgFrilanserISammeOrganisasjonListe?.filter(
+      ? atflSammeOrgListe?.filter(
           atflSammeOrg =>
             !andelerMedArbeidsinntekt?.find(
-              andel => andel.arbeidsforhold.arbeidsgiverIdent === atflSammeOrg.arbeidsforhold.arbeidsgiverIdent,
+              andel => andel.arbeidsforhold?.arbeidsgiverIdent === atflSammeOrg.arbeidsforhold?.arbeidsgiverIdent,
             ),
         )
-      : arbeidstakerOgFrilanserISammeOrganisasjonListe
+      : atflSammeOrgListe
   )?.filter(andel =>
     getKanRedigereInntekt(
       formValues,
@@ -170,7 +172,9 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
    *
    */
   const getArbeidsinntektInputLabel = (andel: AndelForFaktaOmBeregning) => {
-    const arbeidsgiverNavn = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn;
+    const arbeidsgiverNavn = andel.arbeidsforhold?.arbeidsgiverIdent
+      ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn
+      : undefined;
     if (
       getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`) &&
       skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1
@@ -180,7 +184,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
           <FormattedMessage
             id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{
-              bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold.arbeidsgiverIdent})`,
+              bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold?.arbeidsgiverIdent})`,
             }}
           />
           <ReadMore
@@ -206,7 +210,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
       <FormattedMessage
         id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
         values={{
-          bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold.arbeidsgiverIdent})`,
+          bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold?.arbeidsgiverIdent})`,
         }}
       />
     );
@@ -284,43 +288,45 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
   };
 
   return (
-    <>
+    <VStack gap="8">
       {erATFLSammeOrg(tilfeller) && (
         <>
-          <Label>
-            <FormattedMessage
-              id={
-                atflSammeOrgHarInntektsmelding
-                  ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
-                  : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
-              }
-            />
-          </Label>
-          <ReadMore
-            size="small"
-            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-          >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage
-                  id={
-                    atflSammeOrgHarInntektsmelding
-                      ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
-                      : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
-                  }
-                  values={{
-                    br: <br />,
-                  }}
-                />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
-              </List.Item>
-            </List>
-          </ReadMore>
+          <VStack gap="1">
+            <Label>
+              <FormattedMessage
+                id={
+                  atflSammeOrgHarInntektsmelding
+                    ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
+                    : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
+                }
+              />
+            </Label>
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage
+                    id={
+                      atflSammeOrgHarInntektsmelding
+                        ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
+                        : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
+                    }
+                    values={{
+                      br: <br />,
+                    }}
+                  />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
+                </List.Item>
+              </List>
+            </ReadMore>
+          </VStack>
           {atflOgSammeOrgArbeidsgivere?.map(arbeidsgiver => (
             <ArbeidsinntektInput
-              key={arbeidsgiver.arbeidsforhold.arbeidsgiverIdent}
+              key={arbeidsgiver.arbeidsforhold?.arbeidsgiverIdent}
               arbeidsgiver={arbeidsgiver}
               readOnly={readOnly}
               isAksjonspunktClosed={isAksjonspunktClosed}
@@ -330,27 +336,24 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
         </>
       )}
       {skalRedigereFrilansinntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={frilanserInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={getFrilansinntektInputLabel()}
-          />
-        </>
+        <InntektInput
+          name={frilanserInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={getFrilansinntektInputLabel()}
+        />
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
         ? andelerMedArbeidsinntekt
-            .filter(andel => {
+            ?.filter(andel => {
               if (skalRedigereEtterlønnSluttpakke && !skalRedigereArbeidsinntekt) {
-                return andel.arbeidsforhold.arbeidsforholdType === OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE;
+                return andel.arbeidsforhold?.arbeidsforholdType === OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE;
               }
               return true;
             })
             .map(andel => (
               <ArbeidsinntektInput
-                key={andel.arbeidsforhold.arbeidsgiverIdent}
+                key={andel.arbeidsforhold?.arbeidsgiverIdent}
                 arbeidsgiver={andel}
                 readOnly={readOnly}
                 isAksjonspunktClosed={isAksjonspunktClosed}
@@ -360,7 +363,7 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
             ))
         : arbeidstakerAndelerUtenIM?.map(andel => (
             <ArbeidsinntektInput
-              key={andel.arbeidsforhold.arbeidsgiverIdent}
+              key={andel.arbeidsforhold?.arbeidsgiverIdent}
               arbeidsgiver={andel}
               readOnly={readOnly}
               isAksjonspunktClosed={isAksjonspunktClosed}
@@ -370,40 +373,29 @@ const InntektInputFields: React.FunctionComponent<InntektInputFieldsProps> = ({
           ))}
 
       {skalRedigereDagpengerInntekt && (
-        <>
-          {(skalRedigereFrilansinntekt() || skalRedigereArbeidsinntekt) && <VerticalSpacer thirtyTwoPx />}
-          <InntektInput
-            name={dagpengerInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
-          />
-        </>
+        <InntektInput
+          name={dagpengerInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
+        />
       )}
       {skalRedigereSelvstendigNæringsgivendeInntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={selvstendigNæringsdrivendeInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende" />}
-          />
-        </>
+        <InntektInput
+          name={selvstendigNæringsdrivendeInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende" />}
+        />
       )}
       {skalRedigereMilitærEllerSivilInntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={militærEllerSivilInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.MilitærEllerSivil" />}
-          />
-        </>
+        <InntektInput
+          name={militærEllerSivilInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.MilitærEllerSivil" />}
+        />
       )}
-    </>
+    </VStack>
   );
 };
-
-export default InntektInputFields;

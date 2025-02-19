@@ -1,9 +1,9 @@
 import React from 'react';
 
-import EditedIcon from './EditedIcon';
+import { EditedIcon } from './EditedIcon';
 
 export default {
-  title: 'EditedIcon',
+  title: 'ui-komponenter/EditedIcon',
 };
 
 export const Default = () => (

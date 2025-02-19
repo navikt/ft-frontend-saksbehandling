@@ -1,26 +1,27 @@
-import React, { FunctionComponent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { Heading } from '@navikt/ds-react';
+
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  RefusjonTilVurderingAndel,
-  Vilkarperiode,
   BeregningsgrunnlagTilBekreftelse,
+  RefusjonTilVurderingAndel,
 } from '@navikt/ft-types';
-import { Heading } from '@navikt/ds-react';
-import { useFormContext } from 'react-hook-form';
-import TidligereUtbetalinger from './TidligereUtbetalinger';
-import VurderEndringRefusjonRad from './VurderEndringRefusjonRad';
+import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import FaktaFordelBeregningAvklaringsbehovCode from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import FaktaBegrunnelseTextField from '../felles/FaktaBegrunnelseTextField';
+import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import SubmitButton from '../felles/SubmitButton';
-import { AssessedBy } from '@navikt/ft-plattform-komponenter';
+import { Vilkårperiode } from '../../types/Vilkår';
+import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
+import { SubmitButton } from '../felles/SubmitButton';
+import { TidligereUtbetalinger } from './TidligereUtbetalinger';
+import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';
 
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
@@ -41,7 +42,7 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
 
 export const buildFieldInitialValues = (
   bg: Beregningsgrunnlag,
-  vilkårsperiode: Vilkarperiode,
+  vilkårsperiode: Vilkårperiode,
 ): VurderRefusjonFieldValues => {
   const andeler = bg.refusjonTilVurdering?.andeler || [];
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
@@ -74,7 +75,7 @@ export const transformFieldValues = (
   };
 };
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   formSubmittes: boolean;
   submittable: boolean;
@@ -83,14 +84,14 @@ type OwnProps = {
   vilkårperiodeFieldIndex: number;
 };
 
-const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
+export const VurderEndringRefusjonField = ({
   submittable,
   readOnly,
   beregningsgrunnlag,
   arbeidsgiverOpplysningerPerId,
   vilkårperiodeFieldIndex,
   formSubmittes,
-}) => {
+}: Props) => {
   const manglerAksjonspunkt = !beregningsgrunnlag.avklaringsbehov.some(
     ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   );
@@ -147,5 +148,3 @@ const VurderEndringRefusjonField: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default VurderEndringRefusjonField;

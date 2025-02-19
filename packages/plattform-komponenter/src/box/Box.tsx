@@ -1,5 +1,7 @@
+import React, { JSX } from 'react';
+
 import classNames from 'classnames';
-import React from 'react';
+
 import styles from './box.module.css';
 
 export enum Margin {
@@ -16,7 +18,7 @@ export interface BoxProps {
   marginTop?: Margin;
 }
 
-const Box = ({ children, marginBottom, marginTop }: BoxProps): JSX.Element => {
+export const Box = ({ children, marginBottom, marginTop }: BoxProps): JSX.Element => {
   const marginTopClass = styles[`${marginTop}MarginTop`];
   const marginBottomClass = styles[`${marginBottom}MarginBottom`];
   const boxClassnames = classNames({
@@ -25,5 +27,3 @@ const Box = ({ children, marginBottom, marginTop }: BoxProps): JSX.Element => {
   });
   return <div className={boxClassnames}>{children}</div>;
 };
-
-export default Box;

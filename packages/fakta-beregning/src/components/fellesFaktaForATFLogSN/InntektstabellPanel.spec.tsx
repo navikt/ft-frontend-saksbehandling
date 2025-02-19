@@ -1,8 +1,11 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { InntektstabellPanelImpl } from './InntektstabellPanel';
+
+import { render, screen } from '@testing-library/react';
+
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { InntektstabellPanel } from './InntektstabellPanel';
+
 import messages from '../../../i18n/nb_NO.json';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
@@ -11,7 +14,7 @@ describe('<InntektstabellPanel>', () => {
   it('skal vise checkbox for overstyring', () => {
     render(
       <IntlProvider locale="nb-NO" messages={messages}>
-        <InntektstabellPanelImpl
+        <InntektstabellPanel
           key="inntektstabell"
           hjelpeTekstId=""
           tabell={<span> tabell </span>}
@@ -29,7 +32,7 @@ describe('<InntektstabellPanel>', () => {
   it('checkbox skal vere readOnly når man har overstyring aksjonspunkt', () => {
     render(
       <IntlProvider locale="nb-NO" messages={messages}>
-        <InntektstabellPanelImpl
+        <InntektstabellPanel
           key="inntektstabell"
           hjelpeTekstId=""
           tabell={<span> tabell </span>}

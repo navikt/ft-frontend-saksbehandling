@@ -1,13 +1,14 @@
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { BeregningAktivitet } from '@navikt/ft-types';
+
+import { AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   buildInitialValues,
   lagAktivitetFieldId,
   skalVurdereAktivitet,
   transformValues,
 } from './VurderAktiviteterTabell';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
-import AvklarAktiviteterValues, { AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',

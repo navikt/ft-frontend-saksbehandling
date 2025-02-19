@@ -1,7 +1,9 @@
-import React from 'react';
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl';
 
-const getIntlDecorator = (messages: Record<string, string>) => {
+import type { ReactRenderer } from '@storybook/react';
+import type { DecoratorFunction } from '@storybook/types';
+
+export const getIntlDecorator = (messages: Record<string, string>) => {
   const intl = createIntl(
     {
       locale: 'nb-NO',
@@ -10,8 +12,8 @@ const getIntlDecorator = (messages: Record<string, string>) => {
     createIntlCache(),
   );
 
-  const withIntlProvider = (story: any) => <RawIntlProvider value={intl}>{story()}</RawIntlProvider>;
+  const withIntlProvider: DecoratorFunction<ReactRenderer> = story => (
+    <RawIntlProvider value={intl}>{story()}</RawIntlProvider>
+  );
   return withIntlProvider;
 };
-
-export default getIntlDecorator;

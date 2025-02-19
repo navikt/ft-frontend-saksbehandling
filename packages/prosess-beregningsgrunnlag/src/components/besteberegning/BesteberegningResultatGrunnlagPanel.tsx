@@ -1,12 +1,11 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort } from '@navikt/ds-react';
+
+import { BodyShort, Table, VStack } from '@navikt/ds-react';
 
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { VerticalSpacer, Table, TableColumn, TableRow, FlexRow, FlexColumn } from '@navikt/ft-ui-komponenter';
 
-export interface OwnProps {
+export interface Props {
   periode: BeregningsgrunnlagPeriodeProp;
   besteMåneder?: Månedsgrunnlag[];
 }
@@ -32,25 +31,12 @@ const finnBesteberegnet = (besteMåneder: Månedsgrunnlag[]): number =>
 const girKap8Besteberegning = (kap8Beregning: number, kap1473Beregning: number): boolean =>
   kap8Beregning > kap1473Beregning;
 
-const headerColumnContent = [
-  // For å lage tom kolonne først
-  <div key="TomKolNøkkel" />,
-  <Label size="small" key="Kap8Nøkkel">
-    {' '}
-    <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterKap8" />{' '}
-  </Label>,
-  <Label size="small" key="BBNøkkel">
-    {' '}
-    <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning" />{' '}
-  </Label>,
-];
-
 /**
  * BesteberegningResultatGrunnlagPanel
  *
  * Presentasjonskomponent. Viser sammenligning av kap 8 beregning og §14-7, ledd 3 beregning.
  */
-const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ periode, besteMåneder }) => {
+export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: Props) => {
   if (!besteMåneder || besteMåneder.length < 1) {
     return null;
   }
@@ -58,45 +44,47 @@ const BesteberegningResultatGrunnlagPanel: FunctionComponent<OwnProps> = ({ peri
   const besteberegnet = finnBesteberegnet(besteMåneder);
   return (
     <div>
-      <FlexRow>
-        <FlexColumn>
+      <VStack gap="4">
+        <BodyShort size="small">
           <FormattedMessage id="Besteberegning.ResultatGrunnlag.BrukerOmfattesAvBesteberegning" />
-        </FlexColumn>
-      </FlexRow>
-      <VerticalSpacer twentyPx />
-      <FlexRow>
-        <FlexColumn>
-          <Table headerColumnContent={headerColumnContent} noHover>
-            <TableRow>
-              <TableColumn>
+        </BodyShort>
+        <Table>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell scope="col" />
+              <Table.HeaderCell scope="col">
+                <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterKap8" />
+              </Table.HeaderCell>
+              <Table.HeaderCell scope="col">
+                <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning" />
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.DataCell>
                 <BodyShort size="small">
                   <FormattedMessage id="Besteberegning.ResultatGrunnlag.BruttoBeregningsgrunnlag" />
                 </BodyShort>
-              </TableColumn>
-              <TableColumn>
+              </Table.DataCell>
+              <Table.DataCell>
                 <BodyShort size="small">{formatCurrencyNoKr(kap8Beregning)}</BodyShort>
-              </TableColumn>
-              <TableColumn>
+              </Table.DataCell>
+              <Table.DataCell>
                 <BodyShort size="small">{formatCurrencyNoKr(besteberegnet)}</BodyShort>
-              </TableColumn>
-            </TableRow>
-          </Table>
-        </FlexColumn>
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn>
-          <BodyShort size="small">
-            {girKap8Besteberegning(kap8Beregning, besteberegnet) && (
-              <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning" />
-            )}
-            {!girKap8Besteberegning(kap8Beregning, besteberegnet) && (
-              <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1473GirBesteBeregning" />
-            )}
-          </BodyShort>
-        </FlexColumn>
-      </FlexRow>
+              </Table.DataCell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+        <BodyShort size="small">
+          {girKap8Besteberegning(kap8Beregning, besteberegnet) && (
+            <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning" />
+          )}
+          {!girKap8Besteberegning(kap8Beregning, besteberegnet) && (
+            <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1473GirBesteBeregning" />
+          )}
+        </BodyShort>
+      </VStack>
     </div>
   );
 };
-
-export default BesteberegningResultatGrunnlagPanel;

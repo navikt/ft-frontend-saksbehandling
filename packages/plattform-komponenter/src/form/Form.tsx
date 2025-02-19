@@ -1,6 +1,9 @@
+import React, { JSX } from 'react';
+
 import { Button } from '@navikt/ds-react';
-import React from 'react';
-import Box, { Margin } from '../box/Box';
+
+import { Box, Margin } from '../box/Box';
+
 import styles from './form.module.css';
 
 export interface FormProps {
@@ -14,7 +17,7 @@ export interface FormProps {
   smallButtons?: boolean;
 }
 
-const Form = ({
+export const Form = ({
   children,
   onSubmit,
   buttonLabel,
@@ -54,5 +57,3 @@ const Form = ({
     )}
   </form>
 );
-
-export default Form;

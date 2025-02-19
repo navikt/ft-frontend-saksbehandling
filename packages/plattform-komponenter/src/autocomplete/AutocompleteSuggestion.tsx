@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Suggestion } from './types/Suggestion';
+
 import styles from './autocompleteSuggestion.module.css';
 
 interface Props {
@@ -17,7 +19,7 @@ interface State {
   value: Suggestion;
 }
 
-class AutocompleteSuggestion extends React.Component<Props, State> {
+export class AutocompleteSuggestion extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -78,5 +80,3 @@ class AutocompleteSuggestion extends React.Component<Props, State> {
     );
   }
 }
-
-export default AutocompleteSuggestion;

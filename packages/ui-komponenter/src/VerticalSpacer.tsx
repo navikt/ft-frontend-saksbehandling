@@ -1,11 +1,10 @@
-import React, { FunctionComponent } from 'react';
 import classnames from 'classnames/bind';
 
 import styles from './verticalSpacer.module.css';
 
 const classNames = classnames.bind(styles);
 
-export interface OwnProps {
+export interface Props {
   fourPx?: boolean;
   eightPx?: boolean;
   sixteenPx?: boolean;
@@ -15,18 +14,16 @@ export interface OwnProps {
 }
 
 /**
- * VerticalSpacer
- *
- * Presentasjonskomponent. Legg inn vertikalt tomrom.
+ * @deprecated Bruk heller VStack fra https://aksel.nav.no/komponenter
  */
-const VerticalSpacer: FunctionComponent<OwnProps> = ({
+export const VerticalSpacer = ({
   fourPx = false,
   eightPx = false,
   sixteenPx = false,
   twentyPx = false,
   thirtyTwoPx = false,
   fourtyPx = false,
-}) => (
+}: Props) => (
   <div
     className={classNames({
       fourPx,
@@ -38,5 +35,3 @@ const VerticalSpacer: FunctionComponent<OwnProps> = ({
     })}
   />
 );
-
-export default VerticalSpacer;

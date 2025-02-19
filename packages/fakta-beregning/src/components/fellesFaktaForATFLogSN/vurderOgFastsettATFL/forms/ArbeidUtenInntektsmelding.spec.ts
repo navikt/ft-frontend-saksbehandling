@@ -4,20 +4,31 @@ import {
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { lonnsendringField } from './LonnsendringForm';
-import transformValues from './ArbeidUtenInntektsmelding';
-import { InntektTransformed } from '../../../../typer/FieldValues';
 
-const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
+import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import { InntektTransformed } from '../../../../typer/FieldValues';
+import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
+import { lonnsendringField } from './LonnsendringForm';
+
+const emptyValues = {
+  erTilVurdering: true,
+  periode: { fom: '2022-01-01', tom: '2022-02-01' },
+} as FaktaOmBeregningAksjonspunktValues;
 
 describe('<ArbeidUtenInntektsmelding>', () => {
   it('skal ikke transform values uten tilfelle', () => {
-    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000 }];
+    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
     };
-    const transformed = transformValues(emptyValues, inntektVerdier, faktaOmBeregning, {} as Beregningsgrunnlag, []);
+    const transformed = transformValuesArbeidUtenInntektsmelding(
+      emptyValues,
+      inntektVerdier,
+      faktaOmBeregning,
+      {} as Beregningsgrunnlag,
+      [],
+    );
     expect(Object.keys(transformed)).toHaveLength(0);
   });
 
@@ -29,7 +40,13 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       ],
     };
-    const transformed = transformValues(emptyValues, [], faktaOmBeregning, {} as Beregningsgrunnlag, []);
+    const transformed = transformValuesArbeidUtenInntektsmelding(
+      emptyValues,
+      [],
+      faktaOmBeregning,
+      {} as Beregningsgrunnlag,
+      [],
+    );
     expect(Object.keys(transformed)).toHaveLength(0);
   });
 
@@ -55,7 +72,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       ],
     };
     const fastsatteAndeler = [1];
-    const transformed = transformValues(
+    const transformed = transformValuesArbeidUtenInntektsmelding(
       emptyValues,
       inntektVerdier,
       faktaOmBeregning,
@@ -87,7 +104,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       ],
     };
     const fastsatteAndeler: number[] = [];
-    const transformed = transformValues(
+    const transformed = transformValuesArbeidUtenInntektsmelding(
       emptyValues,
       inntektVerdier,
       faktaOmBeregning,
@@ -103,13 +120,13 @@ describe('<ArbeidUtenInntektsmelding>', () => {
     expect(fastsatteAndeler[0]).toBe(1);
   });
 
-  it('skal teste at transformValues gir korrekt output når lønnsendring', () => {
+  it('skal teste at transformValuesArbeidUtenInntektsmelding gir korrekt output når lønnsendring', () => {
     const values = {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: true,
-    };
-    const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1 }];
+    } as FaktaOmBeregningAksjonspunktValues;
+    const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
@@ -128,7 +145,13 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         },
       ],
     };
-    const transformedObject = transformValues(values, inntektVerdier, faktaOmBeregning, bg as Beregningsgrunnlag, []);
+    const transformedObject = transformValuesArbeidUtenInntektsmelding(
+      values,
+      inntektVerdier,
+      faktaOmBeregning,
+      bg as Beregningsgrunnlag,
+      [],
+    );
     const andeler = transformedObject.fastsattUtenInntektsmelding?.andelListe || [];
     expect(andeler.length).toBe(1);
     expect(andeler[0].andelsnr).toBe(1);
@@ -140,7 +163,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: false,
-    };
+    } as FaktaOmBeregningAksjonspunktValues;
     const inntektVerdier: InntektTransformed[] = [{ andelsnr: 1 } as InntektTransformed];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
@@ -154,7 +177,13 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         },
       ],
     };
-    const transformedObject = transformValues(values, inntektVerdier, faktaOmBeregning, bg as Beregningsgrunnlag, []);
+    const transformedObject = transformValuesArbeidUtenInntektsmelding(
+      values,
+      inntektVerdier,
+      faktaOmBeregning,
+      bg as Beregningsgrunnlag,
+      [],
+    );
     expect(Object.keys(transformedObject)).toHaveLength(0);
   });
 
@@ -169,6 +198,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           andelsnr: 1,
           arbeidsgiverId: '2134567',
           arbeidsforholdId: undefined,
+          inntektskategori: 'ARBEIDSTAKER',
         },
       ];
       const faktaOmBeregning = {
@@ -197,7 +227,13 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           },
         ],
       };
-      const transformedObject = transformValues(values, inntektVerdier, faktaOmBeregning, bg as Beregningsgrunnlag, []);
+      const transformedObject = transformValuesArbeidUtenInntektsmelding(
+        values,
+        inntektVerdier,
+        faktaOmBeregning,
+        bg as Beregningsgrunnlag,
+        [],
+      );
       const andeler = transformedObject.fastsattUtenInntektsmelding?.andelListe || [];
       expect(andeler.length).toBe(1);
       expect(andeler[0].andelsnr).toBe(1);

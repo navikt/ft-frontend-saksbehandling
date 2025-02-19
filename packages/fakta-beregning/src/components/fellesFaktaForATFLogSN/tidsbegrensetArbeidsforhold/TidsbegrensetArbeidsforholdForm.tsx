@@ -1,4 +1,9 @@
-import { ReadMore } from '@navikt/ds-react';
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+import { ReadMore, VStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
@@ -7,16 +12,16 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
-import dayjs from 'dayjs';
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
-import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import createVisningsnavnFakta from '../../ArbeidsforholdHelper';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import {
+  FaktaBeregningTransformedValues,
+  VurderteArbeidsforholdTransformedValues,
+} from '../../../typer/interface/BeregningFaktaAP';
+import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 
@@ -29,20 +34,25 @@ const lagVisningsnavn = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
+  if (!arbeidsforhold.arbeidsgiverIdent) {
+    throw new Error('Ikke arbeidsgiverident på kortvarig andel, ugyldig tilstand');
+  }
   const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
   return createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
 };
 
-type OwnProps = {
+const krevArbeidsforhold = (arbfor: BeregningsgrunnlagArbeidsforhold | undefined): BeregningsgrunnlagArbeidsforhold => {
+  if (!arbfor) {
+    throw new Error('Mangler arbeidsforhold på kortvarig andel, ugyldig tilstand');
+  }
+  return arbfor;
+};
+
+type Props = {
   readOnly: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };
-
-interface StaticFunctions {
-  transformValues: (values: FaktaOmBeregningAksjonspunktValues, andeler: KortvarigAndel[]) => any;
-  buildInitialValues: (andeler?: KortvarigAndel[]) => TidsbegrensetandelValues;
-}
 
 /**
  * TidsbegrensetArbeidsforholdForm
@@ -51,31 +61,32 @@ interface StaticFunctions {
  * bruker bestemme om en liste med arbeidsforhold er tidsbegrenset eller ikke.
  */
 
-export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const TidsbegrensetArbeidsforholdForm = ({
   readOnly,
   faktaOmBeregning,
   arbeidsgiverOpplysningerPerId,
-}) => {
+}: Props) => {
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
-
+  if (!andelsliste || andelsliste.length === 0) {
+    return null;
+  }
   return (
-    <div>
-      {andelsliste.map((andel, index) => (
+    <VStack gap="6">
+      {andelsliste.map(andel => (
         <div
-          key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId)}`}
+          key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(krevArbeidsforhold(andel.arbeidsforhold), arbeidsgiverOpplysningerPerId)}`}
         >
-          {index > 0 && <VerticalSpacer twentyPx />}
           <RadioGroupPanel
             label={
               <>
                 <FormattedMessage
                   id={kortvarigStringId}
                   values={{
-                    navn: lagVisningsnavn(andel.arbeidsforhold, arbeidsgiverOpplysningerPerId),
-                    fom: dayjs(andel.arbeidsforhold.startdato).format(DDMMYYYY_DATE_FORMAT),
-                    tom: dayjs(andel.arbeidsforhold.opphoersdato).format(DDMMYYYY_DATE_FORMAT),
+                    navn: lagVisningsnavn(krevArbeidsforhold(andel.arbeidsforhold), arbeidsgiverOpplysningerPerId),
+                    fom: dayjs(krevArbeidsforhold(andel.arbeidsforhold).startdato).format(DDMMYYYY_DATE_FORMAT),
+                    tom: dayjs(krevArbeidsforhold(andel.arbeidsforhold).opphoersdato).format(DDMMYYYY_DATE_FORMAT),
                   }}
                 />
                 <ReadMore
@@ -99,7 +110,7 @@ export const TidsbegrensetArbeidsforholdForm: FunctionComponent<OwnProps> & Stat
           />
         </div>
       ))}
-    </div>
+    </VStack>
   );
 };
 
@@ -120,10 +131,13 @@ TidsbegrensetArbeidsforholdForm.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   andeler: KortvarigAndel[],
 ): FaktaBeregningTransformedValues => {
-  const newValues = [];
+  const newValues: VurderteArbeidsforholdTransformedValues[] = [];
   andeler.forEach(andel => {
     const fieldName = createArbeidsforholdRadioKey(andel);
-    const booleanValue = values.tidsbegrensetValues[fieldName];
+    const booleanValue = !!values.tidsbegrensetValues && values.tidsbegrensetValues[fieldName];
+    if (!andel.andelsnr) {
+      throw new Error('Ikke satt andelsnr på tidsbegrense andel, ugyldig tilstand');
+    }
     const valueObject = {
       andelsnr: andel.andelsnr,
       tidsbegrensetArbeidsforhold: booleanValue,
@@ -135,5 +149,3 @@ TidsbegrensetArbeidsforholdForm.transformValues = (
     vurderTidsbegrensetArbeidsforhold: { fastsatteArbeidsforhold: newValues },
   };
 };
-
-export default TidsbegrensetArbeidsforholdForm;

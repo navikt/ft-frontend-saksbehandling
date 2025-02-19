@@ -1,3 +1,7 @@
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -5,13 +9,11 @@ import {
   Inntektsforhold,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
-import dayjs from 'dayjs';
 import { calcDays } from '@navikt/ft-utils';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import isBetween from 'dayjs/plugin/isBetween';
-import erPeriodeTilVurdering from '../util/ForlengelseUtils';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
+
 import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
+import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 dayjs.extend(isBetween);
 const DATO_PRAKSISENDRING_TILKOMMET_INNTEKT = '2023-05-01';
@@ -37,7 +39,6 @@ const oppdaterTomOgInntektsforholdForSistePeriode = (
     return;
   }
   const inntektsforholdListe = forrigePeriode.inntektsforholdListe ? [...forrigePeriode.inntektsforholdListe] : [];
-  // @ts-ignore
   periode.inntektsforholdListe.forEach(it => inntektsforholdListe.push(it));
   const endretPeriode = {
     ...forrigePeriode,

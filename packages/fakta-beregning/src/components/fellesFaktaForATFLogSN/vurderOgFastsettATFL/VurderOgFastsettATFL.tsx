@@ -1,3 +1,8 @@
+import React, { ReactElement, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import { VStack } from '@navikt/ds-react';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -5,37 +10,37 @@ import {
   Beregningsgrunnlag,
   FaktaOmBeregning,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+
 import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
-import VurderFaktaBeregningFormValues from '../../../typer/VurderFaktaBeregningFormValues';
 import {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
+  FastsettBeregningsgrunnlagAndelTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
-import AksjonspunktBoks from '../../felles/AksjonspunktBoks';
-import { INNTEKT_FIELD_ARRAY_NAME, erOverstyring, erOverstyringAvBeregningsgrunnlag } from '../BgFaktaUtils';
-import InntektFieldArray, { InntektFieldArray as InntektFieldArrayImpl } from '../InntektFieldArray';
-import InntektstabellPanel from '../InntektstabellPanel';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
-import VurderBesteberegningForm, {
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import { AksjonspunktBoks } from '../../felles/AksjonspunktBoks';
+import {
   besteberegningField,
+  VurderBesteberegningPanel,
   vurderBesteberegningTransform,
 } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
-import NyIArbeidslivetSNForm from '../nyIArbeidslivet/NyIArbeidslivetSNForm';
-import TidsbegrensetArbeidsforholdForm from '../tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
-import VurderMilitaer from '../vurderMilitaer/VurderMilitaer';
-import VurderRefusjonForm from '../vurderrefusjon/VurderRefusjonForm';
+import { erOverstyring, erOverstyringAvBeregningsgrunnlag, INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
+import { InntektFieldArray } from '../InntektFieldArray';
+import { InntektstabellPanel } from '../InntektstabellPanel';
+import { NyIArbeidslivetSNForm } from '../nyIArbeidslivet/NyIArbeidslivetSNForm';
+import { TidsbegrensetArbeidsforholdForm } from '../tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+import { VurderMilitaer } from '../vurderMilitaer/VurderMilitaer';
+import { VurderRefusjonForm } from '../vurderrefusjon/VurderRefusjonForm';
+import { transformValuesArbeidUtenInntektsmelding } from './forms/ArbeidUtenInntektsmelding';
 import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
-import transformValuesArbeidUtenInntektsmelding from './forms/ArbeidUtenInntektsmelding';
-import InntektInputFields from './forms/InntektInputFields';
-import LonnsendringForm from './forms/LonnsendringForm';
-import NyoppstartetFLForm from './forms/NyoppstartetFLForm';
-import VurderEtterlonnSluttpakkeForm from './forms/VurderEtterlonnSluttpakkeForm';
-import VurderMottarYtelseForm from './forms/VurderMottarYtelseForm';
+import { InntektInputFields } from './forms/InntektInputFields';
+import { LonnsendringForm } from './forms/LonnsendringForm';
+import { NyoppstartetFLForm } from './forms/NyoppstartetFLForm';
+import { VurderEtterlonnSluttpakkeForm } from './forms/VurderEtterlonnSluttpakkeForm';
+import { VurderMottarYtelseForm } from './forms/VurderMottarYtelseForm';
 
 const getSkalViseTabell = (tilfeller: string[]) => !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
 
@@ -53,7 +58,7 @@ const finnInntektstabell = (
   />
 );
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   tilfeller: string[];
@@ -75,19 +80,6 @@ type OwnProps = {
   vilkarsperiodeSkalVurderesIBehandlingen: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (
-    faktaOmBeregning: FaktaOmBeregning,
-    erOverstyrt: boolean,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-    kodeverkSamling: KodeverkForPanel,
-  ) => VurderOgFastsettATFLValues;
-  transformValues: (
-    faktaOmBeregning: FaktaOmBeregning,
-    beregningsgrunnlag: Beregningsgrunnlag,
-  ) => (values: FaktaOmBeregningAksjonspunktValues) => BeregningFaktaTransformedValues;
-}
-
 /**
  * VurderOgFastsettATFL
  *
@@ -97,7 +89,7 @@ interface StaticFunctions {
  * tilfeller før h*n kan fastsette inntekt.
  */
 
-const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const VurderOgFastsettATFL = ({
   readOnly,
   isAksjonspunktClosed,
   tilfeller,
@@ -109,7 +101,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   renderTextFieldAndSubmitButton,
   arbeidsgiverOpplysningerPerId,
   vilkarsperiodeSkalVurderesIBehandlingen,
-}) => {
+}: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
@@ -120,10 +112,13 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
   const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
 
   const byggForms = () => {
-    const forms = [];
-    const keys = [];
+    const forms: ReactElement[] = [];
+    const keys: string[] = [];
     let hasShownPanel = false;
     const { faktaOmBeregning } = beregningsgrunnlag;
+    if (!faktaOmBeregning) {
+      return null;
+    }
 
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
       hasShownPanel = true;
@@ -142,7 +137,6 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       hasShownPanel = true;
       keys.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
       forms.push(
-        // @ts-ignore Fiks
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
           <NyIArbeidslivetSNForm readOnly={readOnly} />
         </React.Fragment>,
@@ -210,7 +204,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       keys.push(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING);
       forms.push(
         <React.Fragment key={FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING}>
-          <VurderBesteberegningForm readOnly={readOnly} erOverstyrt={erOverstyrt} />
+          <VurderBesteberegningPanel readOnly={readOnly} erOverstyrt={erOverstyrt} />
         </React.Fragment>,
       );
     }
@@ -240,12 +234,10 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
       if (readOnly) {
         return (
           <>
-            <VerticalSpacer thirtyTwoPx />
             {forms.map((form, index) => (
-              <React.Fragment key={keys[index]}>
-                {index > 0 && <VerticalSpacer thirtyTwoPx />}
+              <VStack gap="8" key={keys[index]}>
                 {form}
-              </React.Fragment>
+              </VStack>
             ))}
             <InntektInputFields
               beregningsgrunnlag={beregningsgrunnlag}
@@ -260,14 +252,12 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         );
       }
       return (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <AksjonspunktBoks>
+        <AksjonspunktBoks>
+          <VStack gap="4">
             {forms.map((form, index) => (
-              <React.Fragment key={keys[index]}>
-                {index > 0 && <VerticalSpacer thirtyTwoPx />}
+              <VStack gap="8" key={keys[index]}>
                 {form}
-              </React.Fragment>
+              </VStack>
             ))}
             {!erOverstyring(formValues) && (
               <InntektInputFields
@@ -280,23 +270,18 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
               />
             )}
             {renderTextFieldAndSubmitButton()}
-          </AksjonspunktBoks>
-        </>
+          </VStack>
+        </AksjonspunktBoks>
       );
     }
     if (erOverstyring(formValues)) {
-      return (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          {renderTextFieldAndSubmitButton()}
-        </>
-      );
+      return renderTextFieldAndSubmitButton();
     }
     return null;
   };
 
   return (
-    <div>
+    <VStack gap="8">
       <InntektstabellPanel
         key="inntektstabell"
         tabell={finnInntektstabell(readOnly, beregningsgrunnlag, kodeverkSamling, erOverstyrt)}
@@ -308,7 +293,7 @@ const VurderOgFastsettATFL: FunctionComponent<OwnProps> & StaticFunctions = ({
         erOverstyrt={erOverstyrt}
       />
       {byggForms()}
-    </div>
+    </VStack>
   );
 };
 
@@ -326,7 +311,7 @@ VurderOgFastsettATFL.buildInitialValues = (
     return {};
   }
   return {
-    [INNTEKT_FIELD_ARRAY_NAME]: InntektFieldArrayImpl.buildInitialValues(
+    [INNTEKT_FIELD_ARRAY_NAME]: InntektFieldArray.buildInitialValues(
       andeler,
       arbeidsgiverOpplysningerPerId,
       kodeverkSamling,
@@ -342,9 +327,16 @@ const concatTilfeller = (
   ...transformed,
   ...newTransformedValues,
   faktaOmBeregningTilfeller: newTransformedValues.faktaOmBeregningTilfeller
-    ? transformed.faktaOmBeregningTilfeller.concat(newTransformedValues.faktaOmBeregningTilfeller)
+    ? transformed.faktaOmBeregningTilfeller?.concat(newTransformedValues.faktaOmBeregningTilfeller)
     : transformed.faktaOmBeregningTilfeller,
 });
+
+const krevAndelsnr = (andelsnr: number | undefined): number => {
+  if (!andelsnr) {
+    throw new Error('Forventer andelsnr');
+  }
+  return andelsnr;
+};
 
 const transformValuesForOverstyring = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -353,12 +345,12 @@ const transformValuesForOverstyring = (
   fastsatteAndelsnr: number[],
 ): BeregningFaktaTransformedValues => {
   if (erOverstyring(values)) {
-    const overstyrteAndeler = inntektVerdier
-      .filter(andel => !fastsatteAndelsnr.includes(andel.andelsnr))
+    const overstyrteAndeler: FastsettBeregningsgrunnlagAndelTransformedValues[] = inntektVerdier
+      .filter(andel => !fastsatteAndelsnr.includes(krevAndelsnr(andel.andelsnr)))
       .filter(verdi => verdi.fastsattBelop != null)
       .map(verdi => ({
         andelsnr: verdi.andelsnr,
-        nyAndel: verdi.nyAndel,
+        nyAndel: !!verdi.nyAndel,
         aktivitetStatus: verdi.aktivitetStatus,
         lagtTilAvSaksbehandler: verdi.lagtTilAvSaksbehandler,
         fastsatteVerdier: {
@@ -451,16 +443,16 @@ const transformValuesForAksjonspunkt = (
 VurderOgFastsettATFL.transformValues =
   (faktaOmBeregning: FaktaOmBeregning, beregningsgrunnlag: Beregningsgrunnlag) =>
   (values: FaktaOmBeregningAksjonspunktValues): BeregningFaktaTransformedValues => {
-    const inntektVerdier = InntektFieldArrayImpl.transformValues(
+    const inntektVerdier = InntektFieldArray.transformValues(
       values[INNTEKT_FIELD_ARRAY_NAME],
       values.frilansInntektValues,
       values.arbeidstakerInntektValues,
       values.dagpengerInntektValues,
       values.selvstendigNæringsdrivendeInntektValues,
       values.militærEllerSivilInntektValues,
-      values.manuellOverstyringRapportertInntekt,
+      !!values.manuellOverstyringRapportertInntekt,
     );
-    const fastsatteAndelsnr = [];
+    const fastsatteAndelsnr: number[] = [];
     const transformed = transformValuesForAksjonspunkt(
       values,
       inntektVerdier,
@@ -470,5 +462,3 @@ VurderOgFastsettATFL.transformValues =
     );
     return transformValuesForOverstyring(values, transformed, inntektVerdier, fastsatteAndelsnr);
   };
-
-export default VurderOgFastsettATFL;

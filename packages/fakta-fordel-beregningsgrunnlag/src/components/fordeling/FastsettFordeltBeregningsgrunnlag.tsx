@@ -1,23 +1,20 @@
-import React, { FunctionComponent } from 'react';
-
 import {
   ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagPeriode,
-  Beregningsgrunnlag,
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
 
-import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
-
-import FordelBeregningsgrunnlagForm from './FordelBeregningsgrunnlagForm';
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import KodeverkForPanel from '../../types/kodeverkForPanel';
+import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { FordelBeregningsgrunnlagForm } from './FordelBeregningsgrunnlagForm';
 
 const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
   beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -26,29 +23,14 @@ type OwnProps = {
   fieldIndex: number;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (
-    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-    bg: Beregningsgrunnlag,
-    kodeverkSamling: KodeverkForPanel,
-    arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  ) => FordelBeregningsgrunnlagValues;
-  transformValues: (
-    values: FordelBeregningsgrunnlagValues,
-    fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
-    bgPerioder: BeregningsgrunnlagPeriodeProp[],
-    forlengelseperioder?: ForlengelsePeriodeProp[],
-  ) => FordelBeregningsgrunnlagPerioderTransformedValues;
-}
-
-const FastsettFordeltBeregningsgrunnlag: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const FastsettFordeltBeregningsgrunnlag = ({
   isAksjonspunktClosed,
   readOnly,
   beregningsgrunnlag,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
-}) => {
+}: Props) => {
   const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   const perioder = getFordelPerioder(beregningsgrunnlag);
   return (
@@ -80,5 +62,3 @@ FastsettFordeltBeregningsgrunnlag.transformValues = (
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): FordelBeregningsgrunnlagPerioderTransformedValues =>
   FordelBeregningsgrunnlagForm.transformValues(values, fordelBGPerioder, bgPerioder, forlengelseperioder);
-
-export default FastsettFordeltBeregningsgrunnlag;

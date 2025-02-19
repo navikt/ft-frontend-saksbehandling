@@ -1,6 +1,7 @@
+import dayjs from 'dayjs';
+
 import { Inntektskategori } from '@navikt/ft-kodeverk';
 import { FordelBeregningsgrunnlagPeriode, ForlengelsePeriodeProp } from '@navikt/ft-types';
-import dayjs from 'dayjs';
 
 function inneholderPeriode(p1: { fom: string; tom?: string }, p2: { fom: string; tom?: string }) {
   return (
@@ -14,7 +15,7 @@ function overlapper(periode1: { fom: string; tom?: string }, periode2: { fom: st
   return inneholderPeriode(periode1, periode2) || inneholderPeriode(periode2, periode1);
 }
 
-function erPeriodeTilVurdering(
+export function erPeriodeTilVurdering(
   periode: FordelBeregningsgrunnlagPeriode,
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): boolean {
@@ -28,5 +29,3 @@ function erPeriodeTilVurdering(
     !forlengelseperioder || forlengelseperioder.length === 0 || forlengelseperioder.some(fp => overlapper(fp, periode))
   );
 }
-
-export default erPeriodeTilVurdering;

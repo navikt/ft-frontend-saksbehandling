@@ -1,12 +1,14 @@
-import { ArbeidsgiverOpplysninger, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import dayjs from 'dayjs';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import KodeverkForPanel from '../types/kodeverkForPanel';
+import { ArbeidsgiverOpplysninger, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+
+import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
 
 const getEndCharFromId = (id: string | undefined): string => (id ? `...${id.substring(id.length - 4, id.length)}` : '');
 
-const createVisningsnavnForAktivitet = (
+export const createVisningsnavnForAktivitet = (
   arbeidsgiverOpplysninger: ArbeidsgiverOpplysninger,
   eksternReferanse: string | undefined,
 ): string => {
@@ -39,5 +41,3 @@ export const createVisningsnavnForAndel = (
   }
   return lagVisningFraArbeidType(andel, kodeverkSamling);
 };
-
-export default createVisningsnavnForAktivitet;

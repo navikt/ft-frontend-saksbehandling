@@ -1,4 +1,5 @@
-export { default as ForeldelseAksjonspunktCodes } from './src/ForeldelseAksjonspunktCodes';
-export { default as ForeldelseProsessIndex } from './src/ForeldelseProsessIndex';
-export type { default as VurderForeldelseAp } from './src/types/VurderForeldelseAp';
-export type { default as ForeldelsesresultatActivity } from './src/types/foreldelsesresultatActivitytsType';
+export { ForeldelseAksjonspunktCodes } from './src/ForeldelseAksjonspunktCodes';
+export { ForeldelseProsessIndex } from './src/ForeldelseProsessIndex';
+export type { VurderForeldelseAp } from './src/types/VurderForeldelseAp';
+export type { ForeldelsesresultatActivity } from './src/types/ForeldelsesresultatActivity';
+export type { FeilutbetalingPerioderWrapper } from './src/types/FeilutbetalingPerioder';

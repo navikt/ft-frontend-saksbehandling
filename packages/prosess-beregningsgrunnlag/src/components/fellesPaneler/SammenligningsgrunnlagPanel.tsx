@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
-import { BodyShort } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 
+import { BodyShort } from '@navikt/ds-react';
+
+import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import styles from './avvikopplysningerPanel.module.css';
 
@@ -17,17 +17,13 @@ const skilleLinje = (
   </FlexRow>
 );
 
-type OwnProps = {
+type Props = {
   beregnetAarsinntekt?: number;
   sammenligningsgrunnlag: SammenligningsgrunlagProp;
   erPGI: boolean;
 };
 
-const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
-  beregnetAarsinntekt,
-  sammenligningsgrunnlag,
-  erPGI,
-}) => {
+export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligningsgrunnlag, erPGI }: Props) => {
   const { differanseBeregnet, rapportertPrAar, avvikProsent } = sammenligningsgrunnlag;
   const avvikProsentAvrundet = parseFloat(avvikProsent.toFixed(1));
   const inntektTekst = erPGI
@@ -96,5 +92,3 @@ const SammenligningsgrunnlagPanel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default SammenligningsgrunnlagPanel;

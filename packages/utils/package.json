@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "2.5.0",
+  "version": "3.1.4",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -20,23 +20,19 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "workspace:^",
-    "@navikt/ft-types": "workspace:^",
     "dayjs": "1.11.13",
-    "react-intl": "6.8.7"
+    "react-intl": "7.1.6"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "2.x",
-    "@navikt/ft-types": "2.x",
     "dayjs": "1.11.x",
     "react": "*",
     "react-intl": "6.x"
   },
   "devDependencies": {
-    "eslint": "9.14.0",
-    "typescript": "5.6.3",
-    "vite": "5.4.10",
-    "vitest": "2.1.4"
+    "eslint": "9.20.1",
+    "typescript": "5.7.3",
+    "vite": "6.1.0",
+    "vitest": "3.0.5"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

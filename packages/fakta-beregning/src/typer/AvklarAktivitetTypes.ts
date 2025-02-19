@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehov, AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { AvklarBeregningAktiviteterMap, BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 export type AktivitetValues = {
   beregningAktivitetNavn: string;
@@ -11,7 +11,7 @@ export type AktiviteterValues = {
   [key: string]: AktivitetValues;
 };
 
-type AvklarAktiviteterValues = {
+export type AvklarAktiviteterValues = {
   manuellOverstyringBeregningAktiviteter?: boolean;
   begrunnelseAvklareAktiviteter?: string;
   avklaringsbehovListe: BeregningAvklaringsbehov[];
@@ -20,5 +20,3 @@ type AvklarAktiviteterValues = {
   periode: { fom: string; tom: string };
   erTilVurdering: boolean;
 };
-
-export default AvklarAktiviteterValues;

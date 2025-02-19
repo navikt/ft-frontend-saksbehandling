@@ -1,11 +1,12 @@
-import React, { ReactNode, FunctionComponent } from 'react';
+import { ReactNode } from 'react';
+
 import classnames from 'classnames/bind';
 
 import styles from './tableColumn.module.css';
 
 const classNames = classnames.bind(styles);
 
-export interface OwnProps {
+export interface Props {
   children?: number | string | ReactNode;
   className?: string;
   hidden?: boolean;
@@ -19,7 +20,7 @@ export interface OwnProps {
  *
  * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
-const TableColumn: FunctionComponent<OwnProps> = ({ children = '', className, hidden = false, colspanAll = false }) => {
+export const TableColumn = ({ children = '', className, hidden = false, colspanAll = false }: Props) => {
   if (hidden) {
     return null;
   }
@@ -29,5 +30,3 @@ const TableColumn: FunctionComponent<OwnProps> = ({ children = '', className, hi
     </td>
   );
 };
-
-export default TableColumn;

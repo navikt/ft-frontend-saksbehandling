@@ -1,4 +1,4 @@
-import { createIntl, createIntlCache, IntlShape } from 'react-intl';
+import { createIntl, createIntlCache, type IntlShape } from 'react-intl';
 
 // Create the IntlProvider to retrieve context for wrapping around.
 const cache = createIntlCache();
@@ -16,6 +16,4 @@ const getIntlObject = (moduleMessages: Record<string, string>) => {
   );
 };
 
-const getIntlMock = (customMessages: Record<string, string>): IntlShape => getIntlObject(customMessages);
-
-export default getIntlMock;
+export const getIntlMock = (customMessages: Record<string, string>): IntlShape => getIntlObject(customMessages);

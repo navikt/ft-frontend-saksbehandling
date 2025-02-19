@@ -1,9 +1,12 @@
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
 import {
-  removeSpacesFromNumber,
+  DDMMYYYY_DATE_FORMAT,
   fodselsnummerPattern,
   isValidFodselsnummer,
-  DDMMYYYY_DATE_FORMAT,
+  removeSpacesFromNumber,
 } from '@navikt/ft-utils';
 
 import {
@@ -11,6 +14,7 @@ import {
   dateNotBeforeOrEqualMessage,
   dateRangesOverlappingMessage,
   datesNotEqual,
+  illegalWhiteSpaceMessage,
   invalidDateMessage,
   invalidDatesInPeriodMessage,
   invalidDecimalMessage,
@@ -31,29 +35,25 @@ import {
   maxValueMessage,
   minLengthMessage,
   minValueMessage,
-  illegalWhiteSpaceMessage,
   sammeFodselsnrSomSokerMessage,
 } from './messages';
 import {
   dateRangesAreSequential,
   decimalRegex,
+  integerOptionalNegativeRegex,
   integerRegex,
   isEmpty,
   isoDateRegex,
   nameGyldigRegex,
   nameRegex,
+  numberOptionalNegativeRegex,
   numberRegex,
   saksnummerOrFodselsnummerPattern,
   textGyldigRegex,
   textRegex,
-  yesterday,
-  numberOptionalNegativeRegex,
-  integerOptionalNegativeRegex,
   today,
+  yesterday,
 } from './validatorsHelper';
-
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
@@ -74,20 +74,20 @@ export const notDash = (value: InputValue): FormValidationResult => (value === '
 
 export const requiredIfNotPristine = (
   value?: InputValue | null, // NOSONAR
-  // @ts-ignore Fiks
+  // @ts-expect-error Fiks
   _allValues: any,
   props: { pristine: boolean },
 ): FormValidationResult => (props.pristine || !isEmpty(value) ? undefined : isRequiredMessage());
 
 export const requiredIfCustomFunctionIsTrue =
   (
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     isRequiredFunction: (values?: InputValue | null, props: { pristine: boolean }) => any,
   ) =>
   (
     value?: InputValue | null, // NOSONAR
     allValues?: InputValue | null, // NOSONAR
-    // @ts-ignore Fiks
+    // @ts-expect-error Fiks
     props: { pristine: boolean },
   ): FormValidationResult =>
     isEmpty(value) && isRequiredFunction(allValues, props) ? isRequiredMessage() : undefined;

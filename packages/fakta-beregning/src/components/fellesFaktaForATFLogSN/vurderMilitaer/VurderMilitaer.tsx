@@ -1,12 +1,15 @@
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { List, ReadMore } from '@navikt/ds-react';
+
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
-import React, { FunctionComponent } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
-import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+
+import { FaktaOmBeregningAksjonspunktValues, VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 /**
  * VurderMilitær
@@ -16,16 +19,11 @@ import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
  */
 export const vurderMilitaerField = 'vurderMilitær';
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (faktaOmBeregning: FaktaOmBeregning) => VurderMilitærValues;
-  transformValues: (values: any) => any;
-}
-
-const VurderMilitaer: FunctionComponent<OwnProps> & StaticFunctions = ({ readOnly }) => {
+export const VurderMilitaer = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
 
@@ -72,8 +70,6 @@ VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): Vurder
   return initialValues;
 };
 
-VurderMilitaer.transformValues = values => ({
-  vurderMilitaer: { harMilitaer: values[vurderMilitaerField] },
+VurderMilitaer.transformValues = (values: FaktaOmBeregningAksjonspunktValues) => ({
+  vurderMilitaer: { harMilitaer: !!values[vurderMilitaerField] },
 });
-
-export default VurderMilitaer;

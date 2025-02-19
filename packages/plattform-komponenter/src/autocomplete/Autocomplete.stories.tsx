@@ -1,14 +1,16 @@
 import React, { ComponentProps } from 'react';
+
 import { StoryFn } from '@storybook/react';
-import AutocompleteComponent from './Autocomplete';
+
+import { Autocomplete } from './Autocomplete';
 
 export default {
-  title: 'Autocomplete',
-  component: AutocompleteComponent,
+  title: 'plattform-komponenter/Autocomplete',
+  component: Autocomplete,
 };
 
-const AutocompleteTemplate: StoryFn<ComponentProps<typeof AutocompleteComponent>> = () => (
-  <AutocompleteComponent
+const AutocompleteTemplate: StoryFn<ComponentProps<typeof Autocomplete>> = () => (
+  <Autocomplete
     value="Verdi"
     onChange={v => v}
     ariaLabel="ariaLabel"
@@ -20,5 +22,5 @@ const AutocompleteTemplate: StoryFn<ComponentProps<typeof AutocompleteComponent>
   />
 );
 
-export const Autocomplete = AutocompleteTemplate.bind({});
-Autocomplete.args = {};
+export const Default = AutocompleteTemplate.bind({});
+Default.args = {};

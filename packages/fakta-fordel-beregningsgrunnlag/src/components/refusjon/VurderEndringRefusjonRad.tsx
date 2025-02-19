@@ -1,15 +1,17 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import { useCallback } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { hasValidDate, required, dateAfterOrEqual, maxValueFormatted } from '@navikt/ft-form-validators';
-import { dateFormat, parseCurrencyInput, removeSpacesFromNumber, formatCurrencyNoKr } from '@navikt/ft-utils';
-import { Datepicker, InputField } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 
 import { BodyShort, HStack, VStack } from '@navikt/ds-react';
-import { useFormContext } from 'react-hook-form';
+
+import { Datepicker, InputField } from '@navikt/ft-form-hooks';
+import { dateAfterOrEqual, hasValidDate, maxValueFormatted, required } from '@navikt/ft-form-validators';
+import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
+import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+
+import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
-import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 import styles from './vurderEndringRefusjonRad.module.css';
 
@@ -38,7 +40,7 @@ const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
   return new Date(verdiFraForm).getTime() === new Date(stp).getTime();
 };
 
-type OwnProps = {
+type Props = {
   refusjonAndel: RefusjonTilVurderingAndel;
   readOnly: boolean;
   erAksjonspunktÅpent: boolean;
@@ -48,23 +50,14 @@ type OwnProps = {
   vilkårperiodeFieldIndex: number;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (andel: RefusjonTilVurderingAndel) => VurderRefusjonValues;
-  transformValues: (
-    values: VurderRefusjonValues,
-    andel: RefusjonTilVurderingAndel,
-    skjæringstidspunkt: string,
-  ) => VurderRefusjonAndelTransformedValues;
-}
-
-export const VurderEndringRefusjonRad: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const VurderEndringRefusjonRad = ({
   refusjonAndel,
   readOnly,
   erAksjonspunktÅpent,
   arbeidsgiverOpplysningerPerId,
   skjæringstidspunkt,
   vilkårperiodeFieldIndex,
-}) => {
+}: Props) => {
   const navn = createVisningsnavnForAktivitetRefusjon(refusjonAndel, arbeidsgiverOpplysningerPerId);
   const andelTekst = refusjonAndel.skalKunneFastsetteDelvisRefusjon
     ? 'BeregningInfoPanel.RefusjonBG.TidligereRefusjon'
@@ -157,5 +150,3 @@ VurderEndringRefusjonRad.transformValues = (
     delvisRefusjonPrMndFørStart: delvisRefusjonPrMnd,
   };
 };
-
-export default VurderEndringRefusjonRad;

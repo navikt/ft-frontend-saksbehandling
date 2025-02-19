@@ -1,7 +1,9 @@
-import { BodyShort, ReadMore } from '@navikt/ds-react';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import { CheckmarkIcon } from '@navikt/aksel-icons';
+import { BodyShort, ReadMore } from '@navikt/ds-react';
+
 import styles from './blaBoksMedCheckmarkListe.module.css';
 
 export type Saksopplysning = {
@@ -9,11 +11,11 @@ export type Saksopplysning = {
   readMoreContent: ReactNode | ReactNode[] | string;
 };
 
-export interface OwnProps {
+interface Props {
   saksopplysninger: Saksopplysning[];
 }
 
-const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: OwnProps) => (
+export const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: Props) => (
   <div className={styles.container}>
     {saksopplysninger.map((opplysning, index) => (
       <div key={`BlaBoksMedCheckmarkListe-${opplysning.textId}-${index}`} className={styles.rad}>
@@ -34,5 +36,3 @@ const BlaBoksMedCheckmarkListe = ({ saksopplysninger }: OwnProps) => (
     ))}
   </div>
 );
-
-export default BlaBoksMedCheckmarkListe;

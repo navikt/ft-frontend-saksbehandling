@@ -1,17 +1,21 @@
+import React from 'react';
+import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage, Table } from '@navikt/ds-react';
+
 import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React, { FunctionComponent } from 'react';
-import { FieldArrayWithId, useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { AndelFieldIdentifikator } from '../../typer/FieldValues';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
   erDagpenger,
@@ -25,6 +29,7 @@ import {
   getSkalRedigereInntektskategori,
 } from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+
 import styles from './inntektFieldArray.module.css';
 
 export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
@@ -54,17 +59,17 @@ export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: Kodeverk
 
 const getMåFastsettesText = () => <ErrorMessage size="small">Må fastsettes</ErrorMessage>;
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   field: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>;
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
-  removeAndel: (...args: any[]) => any;
+  removeAndel: () => void;
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
-  skalFastsetteInntektForAndel: (andel) => boolean;
+  skalFastsetteInntektForAndel: (andel: AndelFieldIdentifikator) => boolean;
 };
 
 /**
@@ -72,7 +77,7 @@ type OwnProps = {
  *
  * Presentasjonskomponent: Viser en rad korresponderende til ein andel i beregning.
  */
-const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
+export const InntektFieldArrayAndelRow = ({
   field,
   skalVisePeriode,
   skalViseRefusjon,
@@ -83,7 +88,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   kodeverkSamling,
   rowName,
   skalFastsetteInntektForAndel,
-}) => {
+}: Props) => {
   const intl = useIntl();
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -101,6 +106,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const harEndretInntektForArbeidsgiver =
     erArbeidstakerInntekt &&
     kanRedigereInntekt &&
+    field.arbeidsgiverId &&
     !!getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId);
 
   const harEndretInntektForDagpenger =
@@ -118,6 +124,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
     (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
     (erArbeidstakerInntekt &&
       kanRedigereInntekt &&
+      field.arbeidsgiverId &&
       !getFastsattBelopFromArbeidstakerInntekt(formValues?.arbeidstakerInntektValues, field.arbeidsgiverId)) ||
     (erInntektDagpenger && kanRedigereInntekt && !formValues?.dagpengerInntektValues?.fastsattBelop) ||
     (erInntektSelvstendigNæringsdrivende &&
@@ -139,7 +146,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
   const harPeriode = field.arbeidsperiodeFom || field.arbeidsperiodeTom;
 
   const getInputFieldName = () => {
-    if (harEndretInntektForArbeidsgiver) {
+    if (harEndretInntektForArbeidsgiver && formValues.arbeidstakerInntektValues && field.arbeidsgiverId) {
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${getArbeidsgiverIndex(
         formValues.arbeidstakerInntektValues,
         field.arbeidsgiverId,
@@ -166,7 +173,7 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
         <InputField size="small" name={`${rowName}.andel`} className={styles.storBredde} readOnly />
       </Table.DataCell>
       <Table.DataCell>
-        {skalVisePeriode && harPeriode && (
+        {skalVisePeriode && harPeriode && field.arbeidsperiodeFom && (
           <ReadOnlyField
             value={
               <PeriodLabel
@@ -266,5 +273,3 @@ const InntektFieldArrayAndelRow: FunctionComponent<OwnProps> = ({
     </Table.Row>
   );
 };
-
-export default InntektFieldArrayAndelRow;

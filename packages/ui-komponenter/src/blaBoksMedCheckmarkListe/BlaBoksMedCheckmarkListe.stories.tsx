@@ -1,26 +1,18 @@
-import React from 'react';
-import { Meta, StoryFn, StoryObj } from '@storybook/react';
-import { RawIntlProvider } from 'react-intl';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { createIntl } from '@navikt/ft-utils';
+import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 
-import BlaBoksMedCheckmarkListe from './BlaBoksMedCheckmarkListe';
+import { BlaBoksMedCheckmarkListe } from './BlaBoksMedCheckmarkListe';
 
-const intl = createIntl({
+const withIntlProvider = getIntlDecorator({
   'tittel.1': 'Tittel 1',
   'tittel.2': 'Tittel 2',
 });
 
 const meta = {
-  title: 'BlaBoksMedCheckmarkListe',
+  title: 'ui-komponenter/BlaBoksMedCheckmarkListe',
   component: BlaBoksMedCheckmarkListe,
-  decorators: [
-    (Story: StoryFn) => (
-      <RawIntlProvider value={intl}>
-        <Story />
-      </RawIntlProvider>
-    ),
-  ],
+  decorators: [withIntlProvider],
 } satisfies Meta<typeof BlaBoksMedCheckmarkListe>;
 
 export default meta;

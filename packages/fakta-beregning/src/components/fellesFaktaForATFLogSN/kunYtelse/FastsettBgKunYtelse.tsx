@@ -1,26 +1,30 @@
+import React, { ReactElement } from 'react';
+
+import { VStack } from '@navikt/ds-react';
+
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, KunYtelse } from '@navikt/ft-types';
-import React from 'react';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
+
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import KunYtelsePanel from './KunYtelsePanel';
-import KodeverkForPanel from '../../../typer/kodeverkForPanel';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KunYtelsePanel } from './KunYtelsePanel';
 
 const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
 
 export const setFaktaPanelForKunYtelse = (
-  faktaPanels,
-  tilfeller,
-  readOnly,
-  isAksjonspunktClosed,
-  faktaOmBeregning,
+  faktaPanels: ReactElement[],
+  tilfeller: string[],
+  readOnly: boolean,
+  isAksjonspunktClosed: boolean,
+  faktaOmBeregning: FaktaOmBeregning,
   kodeverkSamling: KodeverkForPanel,
   renderTextFieldAndSubmitButton: () => React.ReactNode,
 ) => {
   if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
     faktaPanels.push(
-      <React.Fragment key="FASTSETT_BG_KUN_YTELSE">
-        {/* @ts-ignore TODO Denne bør fiksast */}
+      <VStack gap="4" key="FASTSETT_BG_KUN_YTELSE">
+        {/* @ts-expect-error TODO Denne bør fiksast */}
         <KunYtelsePanel
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
@@ -28,20 +32,20 @@ export const setFaktaPanelForKunYtelse = (
           kodeverkSamling={kodeverkSamling}
         />
         {renderTextFieldAndSubmitButton()}
-      </React.Fragment>,
+      </VStack>,
     );
   }
 };
 
 export const transformValuesForKunYtelse = (
   values: FaktaOmBeregningAksjonspunktValues,
-  kunYtelse: KunYtelse,
+  kunYtelse: KunYtelse | undefined,
   tilfeller: string[],
 ): FaktaBeregningTransformedValues => {
-  if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
+  if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE) && !!kunYtelse) {
     const kunYtelseTransformedValues = KunYtelsePanel.transformValues(values, kunYtelse);
     const faktaOmBeregningTilfeller = [FASTSETT_BG_KUN_YTELSE];
-    if (kunYtelse.fodendeKvinneMedDP) {
+    if (kunYtelse?.fodendeKvinneMedDP) {
       faktaOmBeregningTilfeller.push(VURDER_BESTEBEREGNING);
     }
     return {

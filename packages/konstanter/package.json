@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-konstanter",
-  "version": "2.4.7",
+  "version": "3.1.2",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -17,11 +17,11 @@
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "eslint": "9.14.0",
-    "stylelint": "16.10.0",
-    "typescript": "5.6.3",
-    "vite": "5.4.10",
-    "vitest": "2.1.4"
+    "eslint": "9.20.1",
+    "stylelint": "16.14.1",
+    "typescript": "5.7.3",
+    "vite": "6.1.0",
+    "vitest": "3.0.5"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

@@ -1,5 +1,6 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, VurderMottarYtelse } from '@navikt/ft-types';
+
 import { AndelMottarYtelseMap } from '../../../../typer/AndelMottarYtelseMap';
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 
@@ -11,7 +12,7 @@ export const finnFrilansFieldName = (): string => mottarYtelseFieldPrefix + fril
 
 export const skalFastsetteInntektATUtenInntektsmelding = (
   values: FaktaOmBeregningAksjonspunktValues,
-  vurderMottarYtelse: VurderMottarYtelse,
+  vurderMottarYtelse: VurderMottarYtelse | undefined,
 ): boolean => {
   const atAndelerUtenIM =
     vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
@@ -19,34 +20,39 @@ export const skalFastsetteInntektATUtenInntektsmelding = (
       : [];
   return (
     atAndelerUtenIM
-      .map(andel => values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)])
+      .map(
+        andel =>
+          values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
+      )
       .find(mottarYtelse => mottarYtelse) !== undefined
   );
 };
 
-export const frilansMottarYtelse = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
-  values.vurderMottarYtelseValues[finnFrilansFieldName()];
+export const frilansMottarYtelse = (values: FaktaOmBeregningAksjonspunktValues): boolean | undefined =>
+  values.vurderMottarYtelseValues ? values.vurderMottarYtelseValues[finnFrilansFieldName()] : undefined;
 
 export const andelsnrMottarYtelseMap = (
   values: FaktaOmBeregningAksjonspunktValues,
-  vurderMottarYtelse: VurderMottarYtelse,
-  beregningsgrunnlag: Beregningsgrunnlag,
+  vurderMottarYtelse: VurderMottarYtelse | undefined,
+  beregningsgrunnlag: Beregningsgrunnlag | undefined,
 ): AndelMottarYtelseMap => {
   if (!vurderMottarYtelse) {
     return {};
   }
-  const mottarYtelseMap = {};
+  const mottarYtelseMap: AndelMottarYtelseMap = {};
   const atAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
     ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
     : [];
   atAndelerUtenIM.forEach(andel => {
-    const mottarYtelse = values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)];
-    mottarYtelseMap[andel.andelsnr] = mottarYtelse;
+    const mottarYtelse = values.vurderMottarYtelseValues
+      ? values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)]
+      : undefined;
+    if (andel.andelsnr) mottarYtelseMap[andel.andelsnr] = mottarYtelse;
   });
   if (!beregningsgrunnlag) {
     return mottarYtelseMap;
   }
-  const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel.find(
+  const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
     andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
   );
   if (frilansAndel) {
@@ -70,7 +76,10 @@ export const harVurdertMottarYtelse = (
     : [];
   if (atAndelerUtenIM.length > 0) {
     const harAndelSomIkkeErVurdert = atAndelerUtenIM
-      .map(andel => values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)])
+      .map(
+        andel =>
+          values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
+      )
       .some(mottarYtelse => mottarYtelse === undefined || mottarYtelse === null);
     if (harAndelSomIkkeErVurdert) {
       return false;

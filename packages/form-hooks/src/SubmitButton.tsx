@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Button } from '@navikt/ds-react';
 
 const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: boolean, hasErrors?: boolean): boolean => {
@@ -21,7 +22,7 @@ export interface Props {
   hasErrors?: boolean;
 }
 
-const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, onClick, hasErrors }: Props) => {
+export const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, onClick, hasErrors }: Props) => {
   if (!isReadOnly) {
     return (
       <Button
@@ -38,5 +39,3 @@ const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, 
   }
   return null;
 };
-
-export default SubmitButton;

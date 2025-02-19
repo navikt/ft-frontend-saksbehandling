@@ -1,9 +1,11 @@
-import React from 'react';
+import { JSX } from 'react';
+
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 
 import { Period, sortPeriodsByFomDate } from '@navikt/ft-utils';
-import { Heading, Label, BodyShort } from '@navikt/ds-react';
 
-import CalendarIcon from '../icons/CalendarIcon';
+import { CalendarIcon } from '../icons/CalendarIcon';
+
 import styles from './periodList.module.css';
 
 type Item = {
@@ -21,7 +23,8 @@ type OwnProps = {
   tittel: string;
   customRenderFunc?: (items: { label: string; value: string }[]) => JSX.Element | null;
 };
-const PeriodList = ({ perioder, tittel, customRenderFunc }: OwnProps) => {
+
+export const PeriodList = ({ perioder, tittel, customRenderFunc }: OwnProps) => {
   if (!perioder || !Array.isArray(perioder)) {
     return null;
   }
@@ -64,5 +67,3 @@ const PeriodList = ({ perioder, tittel, customRenderFunc }: OwnProps) => {
     </>
   );
 };
-
-export default PeriodList;

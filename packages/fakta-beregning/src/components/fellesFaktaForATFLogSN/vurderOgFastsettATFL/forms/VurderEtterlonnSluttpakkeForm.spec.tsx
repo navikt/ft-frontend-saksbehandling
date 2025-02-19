@@ -1,5 +1,6 @@
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import VurderEtterlonnSluttpakkeForm from './VurderEtterlonnSluttpakkeForm';
+
+import { VurderEtterlonnSluttpakkeForm } from './VurderEtterlonnSluttpakkeForm';
 
 describe('<VurderEtterlonnSluttpakkeForm>', () => {
   it('Skal teste at buildInitialvalues bygges korrekt når det er tidligere fastsatt etterlønn eller sluttpakke', () => {
@@ -43,7 +44,7 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
               arbeidsforhold: {
                 arbeidsforholdType: 'ETTERLØNN_SLUTTPAKKE',
               },
-              beregnetPrAar: null,
+              beregnetPrAar: undefined,
             } as BeregningsgrunnlagAndel,
           ],
         },
@@ -51,7 +52,7 @@ describe('<VurderEtterlonnSluttpakkeForm>', () => {
     } as Beregningsgrunnlag;
     const values = VurderEtterlonnSluttpakkeForm.buildInitialValues(bg, ap);
     const testobj = {
-      vurderEtterlønnSluttpakke: false,
+      vurderEtterlønnSluttpakke: undefined,
     };
     expect(values).toEqual(testobj);
   });

@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
-import { Label, BodyShort, HStack, Spacer } from '@navikt/ds-react';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+
 import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import styles from './periodeInformasjon.module.css';
 
-export interface OwnProps {
+export interface Props {
   fom: string;
   tom: string;
   feilutbetaling: number;
@@ -21,18 +21,16 @@ export interface OwnProps {
  *
  * Presentationskomponent
  */
-const PeriodeInformasjon: FunctionComponent<OwnProps> = ({ fom, tom, feilutbetaling, arsakHendelseNavn }) => {
+export const PeriodeInformasjon = ({ fom, tom, feilutbetaling, arsakHendelseNavn }: Props) => {
   const daysAndWeeks = calcDaysAndWeeks(fom, tom);
   return (
-    <div className={styles.infoSummary}>
-      <HStack>
+    <VStack gap="2" className={styles.infoSummary}>
+      <HStack justify="space-between">
         <Label size="small">
           {`${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`}
         </Label>
-        <Spacer />
         <BodyShort size="small">{daysAndWeeks.formattedString}</BodyShort>
       </HStack>
-      <VerticalSpacer sixteenPx />
       <HStack gap="4">
         <BodyShort size="small" className={styles.resultName}>
           <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
@@ -46,8 +44,6 @@ const PeriodeInformasjon: FunctionComponent<OwnProps> = ({ fom, tom, feilutbetal
           </BodyShort>
         )}
       </HStack>
-    </div>
+    </VStack>
   );
 };
-
-export default PeriodeInformasjon;

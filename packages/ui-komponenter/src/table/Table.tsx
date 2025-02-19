@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import classnames from 'classnames/bind';
 
-import TableRow from './TableRow';
-import TableColumn from './TableColumn';
+import { TableColumn } from './TableColumn';
+import { TableRow } from './TableRow';
 
 import styles from './table.module.css';
 
@@ -27,7 +28,7 @@ export interface OwnProps {
  *
  * @deprecated Bruk heller tabellkomponent fra https://aksel.nav.no/komponenter/core/table
  */
-const Table = React.forwardRef<HTMLTableElement, OwnProps>(
+export const Table = React.forwardRef<HTMLTableElement, OwnProps>(
   (
     {
       headerTextCodes = [],
@@ -59,11 +60,9 @@ const Table = React.forwardRef<HTMLTableElement, OwnProps>(
       <tbody>
         {Array.isArray(children)
           ? React.Children.map(children, child => React.cloneElement(child as any, { noHover })) // NOSONAR
-          : React.cloneElement(children, { noHover })}
+          : React.cloneElement(children as any, { noHover })}
       </tbody>
     </table>
   ),
 );
 Table.displayName = 'Table';
-
-export default Table;

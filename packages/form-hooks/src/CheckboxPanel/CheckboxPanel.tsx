@@ -1,11 +1,13 @@
-import React, { ReactElement, ReactNode, useMemo } from 'react';
-import { useFormContext, useController } from 'react-hook-form';
-import { CheckboxGroup, Checkbox, HStack } from '@navikt/ds-react';
+import { Fragment, ReactElement, ReactNode, useMemo } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
+
+import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
+
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules } from '../formUtils';
 
-interface CheckboxProps {
+export interface CheckboxProps {
   value: string;
   label: string | ReactNode;
   disabled?: boolean;
@@ -27,7 +29,7 @@ export interface CheckboxPanelProps {
   isEdited?: boolean;
 }
 
-const CheckboxPanel = ({
+export const CheckboxPanel = ({
   label,
   name,
   description,
@@ -76,29 +78,33 @@ const CheckboxPanel = ({
     >
       {!isHorizontal &&
         checkboxes.map(checkbox => (
-          <Checkbox
-            key={checkbox.value}
-            value={parse(checkbox.value)}
-            disabled={checkbox.disabled || disabled || isReadOnly}
-          >
-            {checkbox.label}
-          </Checkbox>
-        ))}
-      {isHorizontal && (
-        <HStack gap="4">
-          {checkboxes.map(checkbox => (
-            <Checkbox
-              key={checkbox.value}
-              value={parse(checkbox.value)}
-              disabled={checkbox.disabled || disabled || isReadOnly}
-            >
+          <Fragment key={checkbox.value}>
+            <Checkbox value={parse(checkbox.value)} disabled={checkbox.disabled || disabled || isReadOnly}>
               {checkbox.label}
             </Checkbox>
-          ))}
-        </HStack>
+            {(field.value ?? []).includes(parse(checkbox.value)) && checkbox.element}
+          </Fragment>
+        ))}
+      {isHorizontal && (
+        <>
+          <HStack gap="4">
+            {checkboxes.map(checkbox => (
+              <Checkbox
+                key={checkbox.value}
+                value={parse(checkbox.value)}
+                disabled={checkbox.disabled || disabled || isReadOnly}
+              >
+                {checkbox.label}
+              </Checkbox>
+            ))}
+          </HStack>
+          {checkboxes
+            .filter(checkbox => (field.value ?? []).includes(parse(checkbox.value)))
+            .map(checkbox => (
+              <Fragment key={checkbox.value}>{checkbox.element}</Fragment>
+            ))}
+        </>
       )}
     </CheckboxGroup>
   );
 };
-
-export default CheckboxPanel;

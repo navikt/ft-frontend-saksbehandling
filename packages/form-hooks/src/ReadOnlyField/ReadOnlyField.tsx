@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
+
 import { BodyLong, Label } from '@navikt/ds-react';
+
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './readOnlyField.module.css';
@@ -31,5 +33,3 @@ export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel,
     </div>
   );
 };
-
-export default ReadOnlyField;

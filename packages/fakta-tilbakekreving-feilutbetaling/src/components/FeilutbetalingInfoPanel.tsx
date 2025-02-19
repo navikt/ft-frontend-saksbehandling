@@ -1,23 +1,24 @@
-import React, { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { BodyShort, Button, Detail, HStack, Label } from '@navikt/ds-react';
 import moment from 'moment';
-import { Button, Label, BodyShort, Detail, HStack } from '@navikt/ds-react';
 
-import { VerticalSpacer, AksjonspunktHelpTextTemp, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { KodeverkType } from '@navikt/ft-kodeverk';
-import { TextAreaField, CheckboxField, Form } from '@navikt/ft-form-hooks';
-import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
+import { CheckboxField, Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { FeilutbetalingFakta, FeilutbetalingAarsak } from '@navikt/ft-types';
+import { KodeverkType } from '@navikt/ft-kodeverk';
+import { AksjonspunktHelpTextHTML, FaktaGruppe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
 
-import FeilutbetalingPerioderFieldArray, { FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
+import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCode';
+import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
+import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
+import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
+import { KodeverkFpSakForPanel } from '../types/KodeverkFpSakForPanelFtf';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
+import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
 
 import styles from './feilutbetalingInfoPanel.module.css';
-import AvklartFaktaFeilutbetalingAp from '../types/AvklartFaktaFeilutbetalingAp';
-import FeilutbetalingAksjonspunktCode from '../FeilutbetalingAksjonspunktCode';
-import KodeverkFpSakForPanel from '../types/kodeverkFpSakForPanel';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const MAX_LENGTH = 4000;
@@ -63,13 +64,13 @@ const buildInitialValues = (feilutbetalingFakta: FeilutbetalingFakta): FormValue
 
 const transformValues = (
   values: FormValues,
-  årsaker: FeilutbetalingAarsak['hendelseTyper'],
+  årsaker: FeilutbetalingÅrsak['hendelseTyper'],
 ): AvklartFaktaFeilutbetalingAp => {
   const feilutbetalingFakta = values.perioder.map(periode => {
     const feilutbetalingÅrsak = årsaker.find(el => el.hendelseType === periode.årsak);
     const feilutbetalingUnderÅrsak = feilutbetalingÅrsak?.hendelseUndertyper
       ? feilutbetalingÅrsak.hendelseUndertyper
-          // @ts-ignore Fiks
+          // @ts-expect-error Fiks
           .find(el => el === periode[periode.årsak]?.underÅrsak)
       : undefined;
 
@@ -91,9 +92,9 @@ const transformValues = (
 };
 
 const getSortedFeilutbetalingArsaker = (
-  feilutbetalingArsaker: FeilutbetalingAarsak,
+  feilutbetalingArsaker: FeilutbetalingÅrsak,
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel,
-): FeilutbetalingAarsak['hendelseTyper'] => {
+): FeilutbetalingÅrsak['hendelseTyper'] => {
   const { hendelseTyper } = feilutbetalingArsaker;
   return hendelseTyper.sort((ht1, ht2) => {
     const hendelseType1 =
@@ -104,14 +105,14 @@ const getSortedFeilutbetalingArsaker = (
     const hendelseType2ErParagraf = hendelseType2.startsWith('§');
     const ht1v = hendelseType1ErParagraf ? hendelseType1.replace(/\D/g, '') : hendelseType1;
     const ht2v = hendelseType2ErParagraf ? hendelseType2.replace(/\D/g, '') : hendelseType2;
-    // @ts-ignore Kan ein ikkje alltid bruka localeCompare?
+    // @ts-expect-error Kan ein ikkje alltid bruka localeCompare?
     return hendelseType1ErParagraf && hendelseType2ErParagraf ? ht1v - ht2v : ht1v.localeCompare(ht2v);
   });
 };
 
-export interface OwnProps {
+export interface Props {
   feilutbetalingFakta: FeilutbetalingFakta;
-  feilutbetalingAarsak: FeilutbetalingAarsak;
+  feilutbetalingAarsak: FeilutbetalingÅrsak;
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
   hasOpenAksjonspunkter: boolean;
   readOnly: boolean;
@@ -122,7 +123,7 @@ export interface OwnProps {
   setFormData: (data: FormValues) => void;
 }
 
-const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
+export const FeilutbetalingInfoPanel = ({
   hasOpenAksjonspunkter,
   feilutbetalingAarsak,
   feilutbetalingFakta,
@@ -133,7 +134,7 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
   formData,
   setFormData,
   submitCallback,
-}) => {
+}: Props) => {
   const intl = useIntl();
 
   const feilutbetaling = feilutbetalingFakta.behandlingFakta;
@@ -150,9 +151,11 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
 
   return (
     <>
-      <AksjonspunktHelpTextTemp isAksjonspunktOpen={hasOpenAksjonspunkter}>
-        {[<FormattedMessage key="1" id="FeilutbetalingInfoPanel.Aksjonspunkt" />]}
-      </AksjonspunktHelpTextTemp>
+      {hasOpenAksjonspunkter && (
+        <AksjonspunktHelpTextHTML>
+          <FormattedMessage id="FeilutbetalingInfoPanel.Aksjonspunkt" />
+        </AksjonspunktHelpTextHTML>
+      )}
       <VerticalSpacer sixteenPx />
       <Form
         formMethods={formMethods}
@@ -315,5 +318,3 @@ const FeilutbetalingInfoPanel: FunctionComponent<OwnProps> = ({
     </>
   );
 };
-
-export default FeilutbetalingInfoPanel;

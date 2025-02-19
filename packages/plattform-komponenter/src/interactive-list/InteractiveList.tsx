@@ -1,8 +1,11 @@
 import React from 'react';
+
 import classnames from 'classnames';
+
+import { ChevronIconBlack } from '../icons/ChevronIconBlack';
+import { ChevronIconGray } from '../icons/ChevronIconGray';
+
 import styles from './interactiveList.module.css';
-import ChevronIconBlack from '../icons/ChevronIconBlack';
-import ChevronIconGray from '../icons/ChevronIconGray';
 
 export interface InteractiveListElement {
   content: React.ReactNode;
@@ -11,7 +14,7 @@ export interface InteractiveListElement {
 }
 
 interface InteractiveListProps {
-  elements: InteractiveListElement[];
+  elements: Array<InteractiveListElement & { key?: string }>;
 }
 
 const InteractiveListElement = (props: InteractiveListElement) => {
@@ -35,13 +38,11 @@ const InteractiveListElement = (props: InteractiveListElement) => {
   );
 };
 
-const InteractiveList = ({ elements }: InteractiveListProps) => (
+export const InteractiveList = ({ elements }: InteractiveListProps) => (
   <ul className={styles.interactiveList}>
-    {elements.map(elementProps => (
-      // eslint-disable-next-line react/jsx-key
-      <InteractiveListElement {...elementProps} />
-    ))}
+    {elements.map((elementProps, index) => {
+      const { key, ...rest } = elementProps;
+      return <InteractiveListElement key={key ?? index} {...rest} />;
+    })}
   </ul>
 );
-
-export default InteractiveList;

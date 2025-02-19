@@ -1,4 +1,4 @@
-const agOpplysninger = {
+export const agOpplysninger = {
   12345678: {
     navn: 'Bedriften',
     identifikator: '12345678',
@@ -25,5 +25,3 @@ const agOpplysninger = {
     erPrivatPerson: false,
   },
 };
-
-export default agOpplysninger;

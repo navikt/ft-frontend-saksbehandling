@@ -1,7 +1,9 @@
 import { IntlShape } from 'react-intl';
-import { BeregningsgrunnlagAndelType, aktivitetstatusTilAndeltypeMap } from '@navikt/ft-kodeverk';
+
+import { aktivitetstatusTilAndeltypeMap, BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
+
 import { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
-import AndelFieldValue from '../../typer/FieldValues';
+import { AndelFieldValue } from '../../typer/FieldValues';
 
 export type SortedAndelInfo = {
   andelsinfo: string;
@@ -19,8 +21,12 @@ export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo)
   return andel1.andelsinfo > andel2.andelsinfo ? 1 : -1;
 };
 
-const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
-  const { nyAndel, andel, inntektskategori, aktivitetStatus, arbeidsforholdId } = value;
+const mapAndelToSortedObject = (
+  value: BrukersAndelValues | AndelFieldValue,
+  andelList: BrukersAndelValues[] | AndelFieldValue[],
+): SortedAndelInfo => {
+  const { nyAndel, andel, inntektskategori, aktivitetStatus } = value;
+  const arbeidsforholdId = 'arbeidsforholdId' in value ? value.arbeidsforholdId : undefined;
   if (nyAndel) {
     if (!Number.isNaN(Number(andel))) {
       const matchendeAndelFraListe = andelList.filter(andelValue => andelValue.andelsnr === parseFloat(andel));
@@ -28,7 +34,7 @@ const mapAndelToSortedObject = (value, andelList): SortedAndelInfo => {
         return { andelsinfo: matchendeAndelFraListe[0].andel, inntektskategori };
       }
     }
-    if (BeregningsgrunnlagAndelType[andel]) {
+    if (BeregningsgrunnlagAndelType[andel as keyof typeof BeregningsgrunnlagAndelType]) {
       return { andelsinfo: andel, inntektskategori };
     }
     return { andelsinfo: andel, inntektskategori };
@@ -49,9 +55,12 @@ const erAndelerLike = (andel1: SortedAndelInfo, andel2: SortedAndelInfo): boolea
 
 export const validateUlikeAndelerWithGroupingFunction = (
   andelList: BrukersAndelValues[] | AndelFieldValue[],
-  mapToSort: (andel: BrukersAndelValues, andelList: BrukersAndelValues[] | AndelFieldValue[]) => SortedAndelInfo,
+  mapToSort: (
+    andel: BrukersAndelValues | AndelFieldValue,
+    andelList: BrukersAndelValues[] | AndelFieldValue[],
+  ) => SortedAndelInfo,
   intl: IntlShape,
-): string => {
+): string | undefined => {
   const mappedAndeler = andelList.map(value => mapToSort(value, andelList));
   const sortedAndeler = mappedAndeler.slice().sort((andel1, andel2) => compareAndeler(andel1, andel2));
   for (let i = 0; i < sortedAndeler.length - 1; i += 1) {
@@ -59,16 +68,16 @@ export const validateUlikeAndelerWithGroupingFunction = (
       return ulikeAndelerErrorMessage(intl);
     }
   }
-  return null;
+  return undefined;
 };
 
-export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string =>
+export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string | undefined =>
   validateUlikeAndelerWithGroupingFunction(andelList, mapAndelToSortedObject, intl);
 
 const minstEnFastsattErrorMessage = (intl: IntlShape): string =>
   intl.formatMessage({ id: 'BeregningInfoPanel.Validation.MinstEnFastsatt' });
 
-export const validateMinstEnFastsatt = (andelList: AndelFieldValue[], intl: IntlShape): string => {
+export const validateMinstEnFastsatt = (andelList: AndelFieldValue[], intl: IntlShape): string | null => {
   const harAndelMedFastsattInntekt = andelList.some(
     ({ fastsattBelop }) => fastsattBelop !== null && fastsattBelop !== '' && fastsattBelop !== undefined,
   );

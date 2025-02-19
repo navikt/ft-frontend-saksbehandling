@@ -1,9 +1,7 @@
-import React from 'react';
-
-import AksjonspunktBox from './AksjonspunktBox';
+import { AksjonspunktBox } from './AksjonspunktBox';
 
 export default {
-  title: 'AksjonspunktBox',
+  title: 'ui-komponenter/AksjonspunktBox',
   component: AksjonspunktBox,
 };
 

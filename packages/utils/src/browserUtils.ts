@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-// @ts-ignore
+// @ts-expect-error
 export const isIE11 = (): boolean => !!window.MSInputMethodContext && !!document.documentMode;
 
 export const isEdge = (): boolean => /Edge/.test(navigator.userAgent);
@@ -20,9 +20,9 @@ export const getRelatedTargetIE11 = () =>
   });
 
 export const forhandsvisDokument = (data: any) => {
-  // @ts-ignore
+  // @ts-expect-error
   if (window.navigator.msSaveOrOpenBlob) {
-    // @ts-ignore
+    // @ts-expect-error
     window.navigator.msSaveOrOpenBlob(data);
   } else if (URL.createObjectURL) {
     window.open(URL.createObjectURL(data));

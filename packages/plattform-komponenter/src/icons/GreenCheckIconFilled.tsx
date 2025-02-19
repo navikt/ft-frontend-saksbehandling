@@ -1,7 +1,6 @@
-import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '../icon/Icon';
 
-const GreenCheckIconFilled = () => (
+export const GreenCheckIconFilled = () => (
   <Icon size={24}>
     <path
       d="M12 0C5.383 0 0 5.384 0 12C0 18.616 5.383 24 12 24C18.616 24 24 18.616 24 12C24 5.384 18.616 0 12 0Z"
@@ -14,5 +13,3 @@ const GreenCheckIconFilled = () => (
     />
   </Icon>
 );
-
-export default GreenCheckIconFilled;

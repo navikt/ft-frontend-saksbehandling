@@ -1,29 +1,28 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+
+import { Form } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  Vilkar,
-  Vilkarperiode,
-  BeregningAvklaringsbehov,
   AvklarBeregningAktiviteterMap,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
 } from '@navikt/ft-types';
-import { Form } from '@navikt/ft-form-hooks';
+
+import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
-import AvklareAktiviteterField, { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
-import AvklarAktiviteterFormValues from '../../typer/AvklarAktiviteterFormValues';
-import SubmitBeregningType from '../../typer/interface/SubmitBeregningTsType';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import KodeverkForPanel from '../../typer/kodeverkForPanel';
+import { AvklareAktiviteterField, buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
 
 const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 
-const finnVilkårperiode = (vilkår: Vilkar, vilkårsperiodeFom: string): Vilkarperiode => {
+const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode => {
   const vp = vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
   if (!vp) {
     throw new Error(`Finner ikke vilkårsperiode med fom ${vilkårsperiodeFom}`);
@@ -36,17 +35,16 @@ const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOver
   !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov) &&
   !erOverstyrer;
 
-type OwnProps = {
+type Props = {
   readOnly: boolean;
   submittable: boolean;
-  harAndreAvklaringsbehovIPanel: boolean;
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
   erOverstyrer: boolean;
   submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  vilkår: Vilkar;
+  vilkår: Vilkår;
   setFormData: (data: AvklarAktiviteterFormValues) => void;
   formData?: AvklarAktiviteterFormValues;
   setAvklarAktiviteterErEndret: (value: boolean) => void;
@@ -67,7 +65,7 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
 
   if (overstyrteGrunnlag.length > 0) {
     const beg = overstyrteGrunnlag
-      .map(({ begrunnelse }) => begrunnelse)
+      .map(og => og?.begrunnelse)
       .reduce(
         (samletBegrunnelse, begrunnelse) =>
           samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`,
@@ -83,7 +81,7 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
 
   if (avklarGrunnlag.length > 0) {
     const beg = avklarGrunnlag
-      .map(({ begrunnelse }) => begrunnelse)
+      .map(ag => ag?.begrunnelse)
       .reduce(
         (samletBegrunnelse, begrunnelse) =>
           samletBegrunnelse === '' ? begrunnelse : `${samletBegrunnelse} ${begrunnelse}`,
@@ -104,7 +102,7 @@ const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkår: Vilkar,
+  vilkår: Vilkår,
 ): AvklarAktiviteterFormValues => ({
   [formNameAvklarAktiviteter]: beregningsgrunnlag.map(bg =>
     buildInitialValues(
@@ -130,8 +128,7 @@ const getAvklarAktiviteter = (alleGrunnlag: Beregningsgrunnlag[], index: number)
  * Container komponent.. Inneholder panel for å avklare om aktivitet fra opptjening skal tas med i beregning
  */
 
-const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
-  harAndreAvklaringsbehovIPanel,
+export const AvklareAktiviteterPanel = ({
   erOverstyrer,
   readOnly,
   kodeverkSamling,
@@ -144,7 +141,7 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   setFormData,
   formData,
   setAvklarAktiviteterErEndret,
-}) => {
+}: Props) => {
   const formMethods = useForm<AvklarAktiviteterFormValues>({
     defaultValues:
       formData || buildFormInitialValues(beregningsgrunnlag, kodeverkSamling, arbeidsgiverOpplysningerPerId, vilkår),
@@ -205,36 +202,31 @@ const AvklareAktiviteterPanelImpl: FunctionComponent<OwnProps> = ({
   };
 
   return (
-    <>
-      <Form<AvklarAktiviteterFormValues>
-        formMethods={formMethods}
-        onSubmit={values => losAvklaringsbehov(values)}
-        setDataOnUnmount={setFormData}
-      >
-        {fields.map(
-          (field, index) =>
-            aktivtBeregningsgrunnlagIndeks === index && (
-              <AvklareAktiviteterField
-                // @ts-ignore Fiks
-                aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-                key={field.id}
-                fieldId={index}
-                avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}
-                avklaringsbehovListe={beregningsgrunnlag[index].avklaringsbehov}
-                erOverstyrer={erOverstyrer}
-                readOnly={readOnly}
-                submittable={submittable}
-                kodeverkSamling={kodeverkSamling}
-                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                updateOverstyring={updateOverstyring}
-                submitDisabled={submitDisabled}
-              />
-            ),
-        )}
-      </Form>
-      {harAndreAvklaringsbehovIPanel && <VerticalSpacer twentyPx />}
-    </>
+    <Form<AvklarAktiviteterFormValues>
+      formMethods={formMethods}
+      onSubmit={values => losAvklaringsbehov(values)}
+      setDataOnUnmount={setFormData}
+    >
+      {fields.map(
+        (field, index) =>
+          aktivtBeregningsgrunnlagIndeks === index && (
+            <AvklareAktiviteterField
+              // @ts-expect-error Fiks
+              aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+              key={field.id}
+              fieldId={index}
+              avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}
+              avklaringsbehovListe={beregningsgrunnlag[index].avklaringsbehov}
+              erOverstyrer={erOverstyrer}
+              readOnly={readOnly}
+              submittable={submittable}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              updateOverstyring={updateOverstyring}
+              submitDisabled={submitDisabled}
+            />
+          ),
+      )}
+    </Form>
   );
 };
-
-export default AvklareAktiviteterPanelImpl;

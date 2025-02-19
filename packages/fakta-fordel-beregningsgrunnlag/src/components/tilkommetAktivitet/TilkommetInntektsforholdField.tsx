@@ -1,21 +1,25 @@
-import React, { FC, ReactElement } from 'react';
+import { ReactElement } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ReadMore, Label, Alert } from '@navikt/ds-react';
+
+import { Alert, Label, ReadMore } from '@navikt/ds-react';
+
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
-import { useFormContext } from 'react-hook-form';
+
 import {
   TilkommetAktivitetFormValues,
   TilkommetInntektsforholdFieldValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import styles from './tilkommetAktivitet.module.css';
 import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
 
-type TilkommetInntektsforholdFieldType = {
+import styles from './tilkommetAktivitet.module.css';
+
+type Props = {
   formName: string;
   formFieldIndex: number;
   periodeFieldIndex: number;
@@ -39,7 +43,7 @@ export const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold
   return result;
 };
 
-const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
+export const TilkommetInntektsforholdField = ({
   formName,
   formFieldIndex,
   periodeFieldIndex,
@@ -47,7 +51,7 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
   inntektsforholdFieldIndex,
   field,
   arbeidsgiverOpplysningerPerId,
-}) => {
+}: Props) => {
   const formMethods = useFormContext<TilkommetAktivitetFormValues>();
   const intl = useIntl();
   const skalRedusereValg = formMethods.watch(
@@ -128,4 +132,3 @@ const TilkommetInntektsforholdField: FC<TilkommetInntektsforholdFieldType> = ({
     </>
   );
 };
-export default TilkommetInntektsforholdField;

@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving-vedtak",
   "description": "Vedtaksbilde hvor saksbehandler ferdigstiller vedtaksbrev, med mulighet for å legge til utdypende tekst. I noen tilfeller vil utdypende tekst være obligatorisk, for eksempel ved revurderingsbehandling.",
-  "version": "2.6.5",
+  "version": "3.2.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -19,24 +19,20 @@
     "prettier": "prettier --write src",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
-    "clean": "rm -rf ./dist ./node_modules ./.storybook-static-build",
-    "build-storybook": "storybook build -o .storybook-static-build",
-    "storybook": "storybook dev --quiet -p 7011"
+    "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.5.1",
-    "@navikt/ds-css": "7.5.1",
-    "@navikt/ds-react": "7.5.1",
+    "@navikt/aksel-icons": "7.13.0",
+    "@navikt/ds-css": "7.13.0",
+    "@navikt/ds-react": "7.13.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
-    "@navikt/ft-kodeverk": "workspace:^",
-    "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
-    "react": "18.3.1",
-    "react-hook-form": "7.53.1",
-    "react-intl": "6.8.7"
+    "react": "19.0.0",
+    "react-hook-form": "7.54.2",
+    "react-intl": "7.1.6"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -44,30 +40,26 @@
     "@navikt/ds-react": "7.x",
     "@navikt/ft-form-hooks": "5.x",
     "@navikt/ft-form-validators": "2.x",
-    "@navikt/ft-kodeverk": "2.x",
-    "@navikt/ft-types": "2.x",
+    "@navikt/ft-kodeverk": "3.x",
+    "@navikt/ft-types": "3.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
     "classnames": "2.5.1",
-    "react": "18.3.1",
+    "react": "19.0.0",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
   },
   "devDependencies": {
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
-    "@storybook/addon-actions": "8.4.2",
-    "@storybook/react": "8.4.2",
-    "@storybook/react-vite": "8.4.2",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.0.1",
-    "@testing-library/user-event": "14.5.2",
+    "@testing-library/react": "16.2.0",
+    "@testing-library/user-event": "14.6.1",
     "cross-env": "7.0.3",
-    "eslint": "9.14.0",
-    "storybook": "8.4.2",
-    "stylelint": "16.10.0",
-    "typescript": "5.6.3",
-    "vite": "5.4.10",
-    "vitest": "2.1.4"
+    "eslint": "9.20.1",
+    "stylelint": "16.14.1",
+    "typescript": "5.7.3",
+    "vite": "6.1.0",
+    "vitest": "3.0.5"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

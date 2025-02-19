@@ -1,13 +1,17 @@
-import { Button, HStack, Heading, Label } from '@navikt/ds-react';
+import React, { useMemo, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
+
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import React, { FunctionComponent, useMemo, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
-import FaktaBeregningAvklaringsbehovCode from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import styles from './InntektstabellPanel.module.css';
+import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+
+import styles from './InntektstabellPanel.module.css';
 
 export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringRapportertInntekt';
 
@@ -16,10 +20,10 @@ const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregning
 const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
-const getSkalKunneOverstyre = (erOverstyrer, avklaringsbehov: BeregningAvklaringsbehov[]) =>
+const getSkalKunneOverstyre = (erOverstyrer: boolean, avklaringsbehov: BeregningAvklaringsbehov[]) =>
   erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
 
-type OwnProps = {
+type Props = {
   tabell: React.ReactNode;
   hjelpeTekstId?: string;
   skalViseTabell?: boolean;
@@ -30,16 +34,7 @@ type OwnProps = {
   erOverstyrt: boolean;
 };
 
-interface StaticFunctions {
-  buildInitialValues: (erOverstyrt: boolean) => ErOverstyringValues;
-}
-
-/**
- * Inntektstabell
- *
- *
- */
-export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const InntektstabellPanel = ({
   tabell,
   hjelpeTekstId = undefined,
   skalViseTabell = true,
@@ -48,7 +43,7 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   updateOverstyring,
   erOverstyrer,
   erOverstyrt,
-}) => {
+}: Props) => {
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
 
   const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
@@ -63,9 +58,8 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
   };
   return (
     <div className={styles.fadeinTabell}>
-      <VerticalSpacer thirtyTwoPx />
       {skalViseTabell && (
-        <>
+        <VStack gap="4">
           <HStack gap="4">
             <Heading level="3" size="xsmall">
               <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
@@ -79,7 +73,6 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
               />
             )}
           </HStack>
-          <VerticalSpacer sixteenPx />
           {hjelpeTekstId && (
             <Label size="small">
               <FormattedMessage id={hjelpeTekstId} />
@@ -87,19 +80,19 @@ export const InntektstabellPanelImpl: FunctionComponent<OwnProps> & StaticFuncti
           )}
           {tabell}
           {erTabellOverstyrt && !readOnly && (
-            <Button size="small" onClick={toggleOverstyring} variant="secondary">
-              <FormattedMessage id="InntektstabellPanel.Avbryt" />
-            </Button>
+            <HStack>
+              <Button size="small" onClick={toggleOverstyring} variant="secondary">
+                <FormattedMessage id="InntektstabellPanel.Avbryt" />
+              </Button>
+            </HStack>
           )}
-        </>
+        </VStack>
       )}
     </div>
   );
 };
 
-InntektstabellPanelImpl.buildInitialValues = (erOverstyrt: boolean): ErOverstyringValues => ({
+InntektstabellPanel.buildInitialValues = (erOverstyrt: boolean): ErOverstyringValues => ({
   // I revurderinger kopieres det ikke med aksjonspunkt, og derfor er det ikke nok å kun se på aksjonspunkt her
   [MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD]: erOverstyrt,
 });
-
-export default InntektstabellPanelImpl;

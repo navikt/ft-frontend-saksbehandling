@@ -1,31 +1,21 @@
+import React, { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 import { parseCurrencyInput } from '@navikt/ft-utils';
-import React, { FunctionComponent, useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
-import VurderFaktaBeregningFormValues from '../../typer/VurderFaktaBeregningFormValues';
 
-interface InntektInputProps {
+import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+
+interface Props {
   name: string;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   label: React.ReactNode;
 }
 
-interface StaticFunctions {
-  buildInitialValues: (
-    andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[],
-    aktivitetStatus: string,
-  ) => { fastsattBelop: number };
-}
-
-const InntektInput: FunctionComponent<InntektInputProps> & StaticFunctions = ({
-  name,
-  readOnly,
-  isAksjonspunktClosed,
-  label,
-}) => {
+export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, label }: Props) => {
   const { resetField } = useFormContext<VurderFaktaBeregningFormValues>();
   useEffect(() => () => resetField(name as 'vurderFaktaBeregningForm.0.arbeidstakerInntektValues.0.fastsattBelop'), []);
 
@@ -45,15 +35,14 @@ const InntektInput: FunctionComponent<InntektInputProps> & StaticFunctions = ({
 InntektInput.buildInitialValues = (
   andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[],
   aktivitetStatus: string,
-): { fastsattBelop: number } => {
+): { fastsattBelop: number } | undefined => {
   const fastsattBelop = andelerForFaktaOmBeregning?.find(
     andel => andel.aktivitetStatus === aktivitetStatus,
   )?.fastsattBelop;
 
   if (!fastsattBelop) {
-    return null;
+    return undefined;
   }
 
   return { fastsattBelop };
 };
-export default InntektInput;

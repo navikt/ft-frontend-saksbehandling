@@ -1,17 +1,18 @@
-import React, { ComponentProps } from 'react';
-import { StoryFn } from '@storybook/react';
-import BasicListComponent from './BasicList';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'BasicList',
-  component: BasicListComponent,
+import { BasicList } from './BasicList';
+
+const meta = {
+  title: 'plattform-komponenter/BasicList',
+  component: BasicList,
+} satisfies Meta<typeof BasicList>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    elements: [<p key="1">Dette er et listeelement</p>, <p key="2">Dette er et annet listeelmeent</p>],
+  },
 };
-
-const Template: StoryFn<ComponentProps<typeof BasicListComponent>> = () => (
-  <BasicListComponent
-    elements={[<p key="1">Dette er et listeelement</p>, <p key="2">Dette er et annet listeelmeent</p>]}
-  />
-);
-
-export const BasicList = Template.bind({});
-BasicList.args = {};

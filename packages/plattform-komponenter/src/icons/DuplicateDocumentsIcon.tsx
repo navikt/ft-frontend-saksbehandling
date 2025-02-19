@@ -1,6 +1,4 @@
-import React from 'react';
-
-const DuplicateDocumentsIcon = () => (
+export const DuplicateDocumentsIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
@@ -11,5 +9,3 @@ const DuplicateDocumentsIcon = () => (
     />
   </svg>
 );
-
-export default DuplicateDocumentsIcon;

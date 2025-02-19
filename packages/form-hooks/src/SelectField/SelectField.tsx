@@ -1,9 +1,10 @@
-import { Select as NavSelect } from '@navikt/ds-react';
 import React, { ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
-import ReadOnlyField from '../ReadOnlyField/ReadOnlyField';
+import { Select as NavSelect } from '@navikt/ds-react';
+
 import { getError, getValidationRules } from '../formUtils';
+import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 export interface Props {
   name: string;
@@ -11,7 +12,7 @@ export interface Props {
   onChange?: (event: any) => void;
   validate?: ((value: string) => any)[];
   readOnly?: boolean;
-  selectValues: React.ReactElement[];
+  selectValues: React.ReactElement<any>[];
   description?: ReactNode;
   hideValueOnDisable?: boolean;
   disabled?: boolean;
@@ -21,7 +22,7 @@ export interface Props {
   size?: 'medium' | 'small';
 }
 
-const SelectField = ({
+export const SelectField = ({
   name,
   label,
   selectValues,
@@ -81,5 +82,3 @@ const SelectField = ({
     </NavSelect>
   );
 };
-
-export default SelectField;

@@ -5,7 +5,7 @@ import {
   FordelBeregningsgrunnlagAndel,
 } from '@navikt/ft-types';
 
-// @ts-ignore
+// @ts-expect-error
 export const beregningsgrunnlag = {
   avklaringsbehov: [
     {

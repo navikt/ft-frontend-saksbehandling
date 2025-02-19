@@ -1,18 +1,18 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import { ReactNode } from 'react';
+
 import { Label } from '@navikt/ds-react';
 
-import BorderBox from './BorderBox';
-import VerticalSpacer from './VerticalSpacer';
+import { BorderBox } from './BorderBox';
+import { VerticalSpacer } from './VerticalSpacer';
 
-export interface OwnPropsWrapper {
+export interface PropsWrapper {
   error: boolean;
   children: ReactNode;
   withoutBorder: boolean;
   className: string;
 }
 
-// @ts-ignore fiks
-const Wrapper: FunctionComponent<OwnPropsWrapper> = ({ withoutBorder, error, children, className }) => {
+const Wrapper = ({ withoutBorder, error, children, className }: PropsWrapper) => {
   if (withoutBorder) {
     return children;
   }
@@ -24,7 +24,7 @@ const Wrapper: FunctionComponent<OwnPropsWrapper> = ({ withoutBorder, error, chi
   );
 };
 
-export interface OwnPropsFaktaGruppe {
+export interface Props {
   merknaderFraBeslutter?: {
     notAccepted?: boolean;
   };
@@ -40,13 +40,13 @@ export interface OwnPropsFaktaGruppe {
  * Presentasjonskomponent. Grupperingsboks til bruk i faktapaneler, med eller uten ramme. Man kan også spesifisere hvilket aksjonspunkt
  * gruppen hører til, slik at gruppen får rød ramme hvis beslutter har lagt inn merknader.
  */
-const FaktaGruppe: FunctionComponent<OwnPropsFaktaGruppe> = ({
+export const FaktaGruppe = ({
   merknaderFraBeslutter,
   title,
   children,
   withoutBorder = false,
   className = '',
-}) => {
+}: Props) => {
   const error = !!(merknaderFraBeslutter && merknaderFraBeslutter.notAccepted);
   return (
     <Wrapper withoutBorder={withoutBorder && !error} error={error} className={className}>
@@ -60,5 +60,3 @@ const FaktaGruppe: FunctionComponent<OwnPropsFaktaGruppe> = ({
     </Wrapper>
   );
 };
-
-export default FaktaGruppe;

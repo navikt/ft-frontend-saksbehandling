@@ -1,19 +1,19 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import { BodyShort, Label, Heading, ExpansionCard } from '@navikt/ds-react';
 
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BodyShort, ExpansionCard, Heading, Label, VStack } from '@navikt/ds-react';
+
 import { decodeHtmlEntity } from '@navikt/ft-utils';
-import { VedtaksbrevAvsnitt } from '@navikt/ft-types';
 
-import TilbakekrevingVedtakUtdypendeTekstPanel from './TilbakekrevingVedtakUtdypendeTekstPanel';
-import underavsnittType from '../../kodeverk/avsnittType';
+import { UnderavsnittType } from '../../kodeverk/avsnittType';
+import { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
+import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
 
 export type FormValues = Record<string, Record<string, string> | string>;
 
-export interface OwnProps {
+export interface Props {
   intl: IntlShape;
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[];
   readOnly: boolean;
@@ -22,30 +22,24 @@ export interface OwnProps {
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;
 }
 
-interface StaticFunctions {
-  buildInitialValues: (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]) => FormValues;
-}
-
-export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> & StaticFunctions = ({
+export const TilbakekrevingEditerVedtaksbrevPanel = ({
   intl,
   vedtaksbrevAvsnitt,
   readOnly,
   perioderSomIkkeHarUtfyltObligatoriskVerdi,
   fritekstOppsummeringPakrevdMenIkkeUtfylt = false,
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
-}) => (
-  <div className={styles.container}>
-    <VerticalSpacer twentyPx />
+}: Props) => (
+  <VStack gap="2" className={styles.container}>
     <Heading size="small">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtaksbrev" />
     </Heading>
-    <VerticalSpacer eightPx />
     {vedtaksbrevAvsnitt.map(avsnitt => {
       const underavsnitter = avsnitt.underavsnittsliste;
       const periode = `${avsnitt.fom}_${avsnitt.tom}`;
       const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some(p => p === periode);
       const visApen =
-        avsnitt.avsnittstype === underavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
+        avsnitt.avsnittstype === UnderavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
           <ExpansionCard
@@ -61,37 +55,37 @@ export const TilbakekrevingEditerVedtaksbrevPanel: FunctionComponent<OwnProps> &
               </ExpansionCard.Title>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-              {underavsnitter.map(underavsnitt => (
-                <React.Fragment
-                  key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
-                >
-                  {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
-                  {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
-                  {underavsnitt.fritekstTillatt && (
-                    <>
-                      <VerticalSpacer eightPx />
-                      <TilbakekrevingVedtakUtdypendeTekstPanel
-                        type={
-                          underavsnitt.underavsnittstype
-                            ? `${periode}.${underavsnitt.underavsnittstype}`
-                            : avsnitt.avsnittstype
-                        }
-                        readOnly={readOnly}
-                        fritekstPakrevet={underavsnitt.fritekstPåkrevet}
-                        maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
-                      />
-                    </>
-                  )}
-                  <VerticalSpacer eightPx />
-                </React.Fragment>
-              ))}
+              <VStack gap="2">
+                {underavsnitter.map(underavsnitt => (
+                  <VStack
+                    gap="2"
+                    key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
+                  >
+                    {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
+                    {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
+                    {underavsnitt.fritekstTillatt && (
+                      <>
+                        <TilbakekrevingVedtakUtdypendeTekstPanel
+                          type={
+                            underavsnitt.underavsnittstype
+                              ? `${periode}.${underavsnitt.underavsnittstype}`
+                              : avsnitt.avsnittstype
+                          }
+                          readOnly={readOnly}
+                          fritekstPakrevet={underavsnitt.fritekstPåkrevet}
+                          maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
+                        />
+                      </>
+                    )}
+                  </VStack>
+                ))}
+              </VStack>
             </ExpansionCard.Content>
           </ExpansionCard>
-          <VerticalSpacer eightPx />
         </React.Fragment>
       );
     })}
-  </div>
+  </VStack>
 );
 
 TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]): FormValues =>
@@ -117,5 +111,3 @@ TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: V
 
       return { ...acc, ...nyeFritekster };
     }, {});
-
-export default TilbakekrevingEditerVedtaksbrevPanel;

@@ -1,98 +1,112 @@
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { BodyShort, Label } from '@navikt/ds-react';
 
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
-import { PeriodLabel, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
-import { BeregningResultatPeriode } from '@navikt/ft-types';
+import { BodyShort, Label, Table } from '@navikt/ds-react';
+
 import { KodeverkType } from '@navikt/ft-kodeverk';
+import { PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
+
+import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
+import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTv';
 
 import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
-import KodeverkFpTilbakeForPanel from '../types/kodeverkFpTilbakeForPanel';
 
-const headerTextCodes = [
-  'TilbakekrevingVedtakPeriodeTabell.Periode',
-  'TilbakekrevingVedtakPeriodeTabell.FeilutbetaltBelop',
-  'TilbakekrevingVedtakPeriodeTabell.Vurdering',
-  'TilbakekrevingVedtakPeriodeTabell.AndelAvBelop',
-  'TilbakekrevingVedtakPeriodeTabell.Renter',
-  'TilbakekrevingVedtakPeriodeTabell.ForSkatt',
-  'TilbakekrevingVedtakPeriodeTabell.BelopSomTilbakekreves',
-];
-
-export interface OwnProps {
+interface Props {
   perioder: BeregningResultatPeriode[];
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
 }
 
-const TilbakekrevingVedtakPeriodeTabell: FunctionComponent<OwnProps> = ({ perioder, kodeverkSamlingFpTilbake }) => {
+export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpTilbake }: Props) => {
   const rader = perioder
     .map(periode => (
-      <TableRow key={periode.periode.fom}>
-        <TableColumn>
+      <Table.Row key={periode.periode.fom}>
+        <Table.DataCell>
           <BodyShort size="small">
             <PeriodLabel dateStringFom={periode.periode.fom} dateStringTom={periode.periode.tom} />
           </BodyShort>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <BodyShort size="small">{formatCurrencyNoKr(periode.feilutbetaltBeløp)}</BodyShort>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <BodyShort size="small">
             {kodeverkSamlingFpTilbake[KodeverkType.AKTSOMHET].find(a => a.kode === periode.vurdering)?.navn}
           </BodyShort>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <BodyShort size="small">
             {periode.andelAvBeløp !== undefined && periode.andelAvBeløp !== null ? `${periode.andelAvBeløp}%` : ''}
           </BodyShort>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <BodyShort size="small">{periode.renterProsent ? `${periode.renterProsent}%` : ''}</BodyShort>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <BodyShort size="small">{formatCurrencyNoKr(periode.tilbakekrevingBeløp)}</BodyShort>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <BodyShort size="small">{formatCurrencyNoKr(periode.tilbakekrevingBeløpEtterSkatt)}</BodyShort>
-        </TableColumn>
-      </TableRow>
+        </Table.DataCell>
+      </Table.Row>
     ))
     .concat(
-      <TableRow key="sum">
-        <TableColumn>
+      <Table.Row key="sum">
+        <Table.DataCell>
           <BodyShort size="small">
             <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Sum" />
           </BodyShort>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <BodyShort size="small">
             {formatCurrencyNoKr(perioder.reduce((sum, periode) => sum + periode.feilutbetaltBeløp, 0))}
           </BodyShort>
-        </TableColumn>
-        <TableColumn />
-        <TableColumn />
-        <TableColumn />
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell />
+        <Table.DataCell />
+        <Table.DataCell />
+        <Table.DataCell>
           <Label size="small">
             {formatCurrencyNoKr(perioder.reduce((sum, periode) => sum + periode.tilbakekrevingBeløp, 0))}
           </Label>
-        </TableColumn>
-        <TableColumn>
+        </Table.DataCell>
+        <Table.DataCell>
           <Label size="small">
             {formatCurrencyNoKr(perioder.reduce((sum, periode) => sum + periode.tilbakekrevingBeløpEtterSkatt, 0))}
           </Label>
-        </TableColumn>
-      </TableRow>,
+        </Table.DataCell>
+      </Table.Row>,
     );
 
   return (
     <div className={styles.table}>
-      <Table noHover headerTextCodes={headerTextCodes}>
-        {rader}
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Periode" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.FeilutbetaltBelop" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Vurdering" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.AndelAvBelop" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Renter" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.ForSkatt" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.BelopSomTilbakekreves" />
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>{rader}</Table.Body>
       </Table>
     </div>
   );
 };
-
-export default TilbakekrevingVedtakPeriodeTabell;

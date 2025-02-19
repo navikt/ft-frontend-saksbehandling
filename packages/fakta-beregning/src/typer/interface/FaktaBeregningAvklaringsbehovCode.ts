@@ -1,8 +1,6 @@
-enum FaktaBeregningAvklaringsbehovCode {
+export enum FaktaBeregningAvklaringsbehovCode {
   AVKLAR_AKTIVITETER = 'AVKLAR_AKTIVITETER',
   VURDER_FAKTA_FOR_ATFL_SN = 'VURDER_FAKTA_ATFL_SN',
   OVERSTYRING_AV_BEREGNINGSAKTIVITETER = 'OVST_BEREGNINGSAKTIVITETER',
   OVERSTYRING_AV_BEREGNINGSGRUNNLAG = 'OVST_INNTEKT',
 }
-
-export default FaktaBeregningAvklaringsbehovCode;

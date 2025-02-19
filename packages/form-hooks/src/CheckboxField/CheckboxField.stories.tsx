@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import CheckboxField from './CheckboxField';
 import { rhfDecorator } from '../../.storybook/decorators';
+import { CheckboxField } from './CheckboxField';
 
 const meta = {
+  title: 'form-hooks/CheckboxField',
   component: CheckboxField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testcheckboxpre: true }),
