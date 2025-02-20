@@ -4,6 +4,7 @@
   "author": "Nav",
   "private": true,
   "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/navikt/ft-frontend-saksbehandling.git"
