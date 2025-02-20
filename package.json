@@ -37,7 +37,7 @@
     "@eslint/js": "9.20.0",
     "@formatjs/intl-datetimeformat": "6.17.3",
     "@formatjs/intl-numberformat": "8.15.3",
-    "@navikt/aksel-stylelint": "7.13.0",
+    "@navikt/aksel-stylelint": "7.14.0",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@storybook/addon-actions": "8.5.6",
     "@storybook/addon-essentials": "8.5.6",
