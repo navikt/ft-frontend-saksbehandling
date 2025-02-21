@@ -41,16 +41,16 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]): s
   return `${dayjs(bg.vilkårsperiodeFom).format(DDMMYYYY_DATE_FORMAT)}`;
 };
 
-const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
+const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag, skalHåndtereNyInntekt: boolean) =>
   bg.avklaringsbehov.some(
     a =>
       a.definisjon === VURDER_REFUSJON_BERGRUNN ||
       a.definisjon === FORDEL_BEREGNINGSGRUNNLAG ||
-      a.definisjon === VURDER_NYTT_INNTKTSFRHLD,
+      (a.definisjon === VURDER_NYTT_INNTKTSFRHLD && skalHåndtereNyInntekt),
   );
 
-const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) =>
-  kreverManuellBehandlingFn(bg) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[], skalHåndtereNyInntekt: boolean) =>
+  kreverManuellBehandlingFn(bg, skalHåndtereNyInntekt) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
 
 type OwnProps = {
   beregningsgrunnlagVilkår: Vilkår;
@@ -58,6 +58,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
+  skalHåndtereNyInntekt?: boolean;
 };
 
 type Props = OwnProps &
@@ -76,8 +77,11 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
+  skalHåndtereNyInntekt = true,
 }: Props) => {
-  const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
+  const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg =>
+    kreverManuellBehandlingFn(bg, skalHåndtereNyInntekt),
+  );
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   if (bgMedAvklaringsbehov.length === 0) {
@@ -100,7 +104,9 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
                 value={currentBeregningsgrunnlagIndex.toString()}
                 label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
                 className={
-                  skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder) ? 'harAksjonspunkt' : ''
+                  skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder, skalHåndtereNyInntekt)
+                    ? 'harAksjonspunkt'
+                    : ''
                 }
               />
             ))}
@@ -119,6 +125,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         formData={formData}
         setFormData={setFormData}
+        skalHåndtereNyInntekt={skalHåndtereNyInntekt}
       />
     </RawIntlProvider>
   );
