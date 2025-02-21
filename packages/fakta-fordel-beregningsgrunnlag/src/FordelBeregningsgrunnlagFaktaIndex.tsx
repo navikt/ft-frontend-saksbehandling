@@ -58,7 +58,7 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
-  skalHåndtereNyInntekt: boolean;
+  skalHåndtereNyInntekt?: boolean;
 };
 
 type Props = OwnProps &
