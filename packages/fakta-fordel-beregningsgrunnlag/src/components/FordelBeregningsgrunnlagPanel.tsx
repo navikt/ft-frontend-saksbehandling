@@ -50,6 +50,7 @@ export interface Props {
   setFormData: (
     data: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues,
   ) => void;
+  skalHåndtereNyInntekt: boolean;
 }
 
 /**
@@ -68,6 +69,7 @@ export const FordelBeregningsgrunnlagPanel = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
+  skalHåndtereNyInntekt,
 }: Props) => {
   const [tilkommetAktivitetFormIsDirty, setTilkommetAktivitetFormIsDirty] = useState(false);
   const [refusjonFormIsDirty, setRefusjonFormIsDirty] = useState(false);
@@ -86,7 +88,9 @@ export const FordelBeregningsgrunnlagPanel = ({
   );
 
   const harNyttInntektsforholdAP =
-    nyttInntektsforholdAP && harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
+    skalHåndtereNyInntekt &&
+    nyttInntektsforholdAP &&
+    harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   const skalViseFordeling = fordelAP && harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
