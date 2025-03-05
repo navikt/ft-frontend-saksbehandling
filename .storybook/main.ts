@@ -2,9 +2,8 @@ import type { StorybookConfig } from '@storybook/react-vite';
 
 import { lagStoriesEntriesForPakker } from './lagStoriesEntriesForPakker';
 
-type sdv = StorybookConfig['stories'];
 const config: StorybookConfig = {
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y'],
   framework: '@storybook/react-vite',
   viteFinal: async c => ({
     ...c,
