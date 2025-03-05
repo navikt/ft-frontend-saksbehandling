@@ -203,7 +203,6 @@ const lagVilkar = (perioder: Vilkårperiode[]): Vilkår => ({
 });
 
 export default {
-  title: 'fakta-beregning/BeregningFaktaIndex',
   component: BeregningFaktaIndex,
 };
 

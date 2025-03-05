@@ -1,4 +1,4 @@
-import { Icon } from '../icon/Icon';
+import { Icon } from '../Icon/Icon';
 
 export const BucketIcon = () => (
   <Icon size={24}>

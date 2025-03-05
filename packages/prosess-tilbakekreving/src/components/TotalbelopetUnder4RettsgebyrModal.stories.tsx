@@ -10,7 +10,6 @@ import messages from '../../i18n/nb_NO.json';
 const withIntl = getIntlDecorator(messages);
 
 const meta = {
-  title: 'prosess-tilbakekreving/TotalbelopetUnder4RettsgebyrModal',
   component: TotalbelopetUnder4RettsgebyrModal,
   args: {
     submit: action('onSubmit'),

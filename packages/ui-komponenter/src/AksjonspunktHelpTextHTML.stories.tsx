@@ -5,7 +5,6 @@ import { StoryFn } from '@storybook/react';
 import { AksjonspunktHelpTextHTML } from './AksjonspunktHelpTextHTML';
 
 export default {
-  title: 'ui-komponenter/AksjonspunktHelpTextHTML',
   component: AksjonspunktHelpTextHTML,
 };
 

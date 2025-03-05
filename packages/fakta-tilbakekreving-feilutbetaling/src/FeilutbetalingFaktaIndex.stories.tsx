@@ -84,7 +84,6 @@ const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkFpTil
 const fpSakAlleKodeverk = alleKodeverk as KodeverkFpSakForPanel;
 
 const meta = {
-  title: 'fakta-tilbakekreving-feilutbetaling/FeilutbetalingFaktaIndex',
   component: FeilutbetalingFaktaIndex,
   args: {
     submitCallback: action('button-click') as (data: AvklartFaktaFeilutbetalingAp) => Promise<any>,

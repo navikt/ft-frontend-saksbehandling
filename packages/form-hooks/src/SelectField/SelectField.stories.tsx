@@ -6,7 +6,6 @@ import { rhfDecorator } from '../../.storybook/decorators';
 import { SelectField } from './SelectField';
 
 const meta = {
-  title: 'form-hooks/SelectField',
   component: SelectField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testSelectFieldpre: 'value3' }),

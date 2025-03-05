@@ -110,7 +110,6 @@ const lagVilkår = (perioder: any[]): Vilkår => ({
 });
 
 const meta = {
-  title: 'fakta-fordel-beregningsgrunnlag/FordelBeregningsgrunnlagFaktaIndex',
   component: FordelBeregningsgrunnlagFaktaIndex,
   args: {
     submitCallback: action('button-click', { depth: 20 }) as (

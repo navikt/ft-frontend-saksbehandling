@@ -185,7 +185,6 @@ const beregningsresultat = {
 const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
 
 const meta = {
-  title: 'prosess-tilbakekreving-vedtak/VedtakTilbakekrevingProsessIndex',
   component: VedtakTilbakekrevingProsessIndex,
   args: {
     submitCallback: action('button-click') as (data: any) => Promise<void>,

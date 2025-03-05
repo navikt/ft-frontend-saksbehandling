@@ -92,7 +92,7 @@ export default [
     },
   },
   {
-    ignores: ['**/*.stories.tsx', 'eslint.config.mjs'],
+    ignores: ['**/*.stories.tsx', 'eslint.config.mjs', '.storybook/**/*'],
     rules: {
       'import/no-default-export': ERROR,
     },

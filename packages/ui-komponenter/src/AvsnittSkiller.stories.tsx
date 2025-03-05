@@ -5,7 +5,6 @@ import { StoryFn } from '@storybook/react';
 import { AvsnittSkiller } from './AvsnittSkiller';
 
 export default {
-  title: 'ui-komponenter/AvsnittSkiller',
   component: AvsnittSkiller,
 };
 

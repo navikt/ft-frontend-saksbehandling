@@ -31,7 +31,7 @@
     "storybook-build": "storybook build -o .storybook-static-build",
     "storybook-deploy-to-github": "gh-pages -d .storybook-static-build -t",
     "deploy-storybook": "yarn storybook-build && yarn storybook-deploy-to-github",
-    "storybook": "storybook dev --quiet "
+    "storybook": "storybook dev --quiet -p 7001"
   },
   "devDependencies": {
     "@eslint/js": "9.21.0",
@@ -39,6 +39,7 @@
     "@formatjs/intl-numberformat": "8.15.3",
     "@navikt/aksel-stylelint": "7.13.0",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
+    "@storybook/addon-a11y": "8.6.3",
     "@storybook/addon-actions": "8.6.3",
     "@storybook/addon-essentials": "8.6.3",
     "@storybook/addon-links": "8.6.3",
