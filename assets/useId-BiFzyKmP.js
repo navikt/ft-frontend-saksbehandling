@@ -1,0 +1,1 @@
+import{e as o,r as n}from"./index-DASCADcX.js";let a=0;function c(t){const[e,u]=n.useState(t),s=t||e;return n.useEffect(()=>{e==null&&(a+=1,u(`aksel-id-${a}`))},[e]),s}const l=o.useId;function I(t){var e;if(l!==void 0){const u=l();return t??u.replace(/(:)/g,"")}return(e=c(t))!==null&&e!==void 0?e:""}export{I as u};

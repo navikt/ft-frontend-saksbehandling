@@ -1,4 +1,0 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";const n="_floatRight_gekng_1",l={floatRight:n},s=({children:a})=>t.jsx("span",{className:l.floatRight,children:a});s.__docgenInfo={description:"",methods:[],displayName:"FloatRight",props:{children:{required:!1,tsType:{name:"ReactNode"},description:""}}};const d={title:"ui-komponenter/FloatRight",component:s},e=()=>t.jsxs("div",{children:["Dette er en tekst",t.jsx(s,{children:"Dette er en tekst som skal vises helt til høyre"})]});e.__docgenInfo={description:"",methods:[],displayName:"visTekstTilHøyre"};var o,i,r;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:`() => <div>
-    Dette er en tekst
-    <FloatRight>Dette er en tekst som skal vises helt til høyre</FloatRight>
-  </div>`,...(r=(i=e.parameters)==null?void 0:i.docs)==null?void 0:r.source}}};const h=["visTekstTilHøyre"];export{h as __namedExportsOrder,d as default,e as visTekstTilHøyre};

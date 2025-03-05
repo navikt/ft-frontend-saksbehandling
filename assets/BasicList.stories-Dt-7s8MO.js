@@ -1,5 +1,0 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";const m="_basicList_f2nua_1",p="_basicList__element_f2nua_6",s={basicList:m,basicList__element:p},r=({elements:c})=>t.jsx("ul",{className:s.basicList,children:c.map((l,o)=>t.jsx("li",{className:s.basicList__element,children:l},`element-${o}`))});r.__docgenInfo={description:"",methods:[],displayName:"BasicList",props:{elements:{required:!0,tsType:{name:"Array",elements:[{name:"ReactReactNode",raw:"React.ReactNode"}],raw:"React.ReactNode[]"},description:""}}};const _={title:"plattform-komponenter/BasicList",component:r},e={args:{elements:[t.jsx("p",{children:"Dette er et listeelement"},"1"),t.jsx("p",{children:"Dette er et annet listeelmeent"},"2")]}};var a,n,i;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`{
-  args: {
-    elements: [<p key="1">Dette er et listeelement</p>, <p key="2">Dette er et annet listeelmeent</p>]
-  }
-}`,...(i=(n=e.parameters)==null?void 0:n.docs)==null?void 0:i.source}}};const u=["Default"];export{e as Default,u as __namedExportsOrder,_ as default};
