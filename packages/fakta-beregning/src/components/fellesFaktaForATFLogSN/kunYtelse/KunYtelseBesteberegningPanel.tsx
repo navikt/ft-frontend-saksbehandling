@@ -7,7 +7,6 @@ import { HStack, Label, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
@@ -15,6 +14,7 @@ import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBere
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
+import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
