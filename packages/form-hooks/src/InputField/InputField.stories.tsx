@@ -4,7 +4,6 @@ import { rhfDecorator } from '../../.storybook/decorators';
 import { InputField } from './InputField';
 
 const meta = {
-  title: 'form-hooks/InputField',
   component: InputField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testinputpre: 'Hei hei' }),

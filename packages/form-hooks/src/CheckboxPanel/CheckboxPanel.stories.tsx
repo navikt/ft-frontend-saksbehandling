@@ -4,7 +4,6 @@ import { rhfDecorator } from '../../.storybook/decorators';
 import { CheckboxPanel } from './CheckboxPanel';
 
 const meta = {
-  title: 'form-hooks/CheckboxPanel',
   component: CheckboxPanel,
   tags: ['autodocs'],
   args: {

@@ -3,7 +3,7 @@ html {
 }
 body {
   background-color: var(--a-white);
-  color: var(--navds-global-color-gray-900);
+  color: var(--a-gray-900);
   height: 100%;
   line-height: 1.42857143;
   margin: 0;

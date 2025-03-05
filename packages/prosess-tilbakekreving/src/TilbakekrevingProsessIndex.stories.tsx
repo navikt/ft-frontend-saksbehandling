@@ -63,7 +63,6 @@ const vilkarvurdering = {
 const kodeverkSamling = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
 
 const meta = {
-  title: 'prosess-tilbakekreving/TilbakekrevingProsessIndex',
   component: TilbakekrevingProsessIndex,
   decorators: [withIntl],
   args: {

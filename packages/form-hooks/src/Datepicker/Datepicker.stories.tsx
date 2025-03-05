@@ -4,7 +4,6 @@ import { rhfDecorator } from '../../.storybook/decorators';
 import { Datepicker } from './Datepicker';
 
 const meta = {
-  title: 'form-hooks/Datepicker',
   component: Datepicker,
   tags: ['autodocs'],
   decorators: rhfDecorator({ datepickerFieldPre: '2022-10-11' }),

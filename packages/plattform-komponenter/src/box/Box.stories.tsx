@@ -3,7 +3,6 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Box, Margin } from './Box';
 
 const meta = {
-  title: 'plattform-komponenter/Box',
   component: Box,
 } satisfies Meta<typeof Box>;
 

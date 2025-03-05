@@ -8,7 +8,6 @@ import { TimeLabel } from './TimeLabel';
 const intl = createIntl({});
 
 export default {
-  title: 'ui-komponenter/TimeLabel',
   component: TimeLabel,
 };
 
