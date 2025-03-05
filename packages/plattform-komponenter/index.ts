@@ -21,7 +21,7 @@ export { FieldError } from './src/FieldError/FieldError';
 export { Header } from './src/Header/Header';
 
 export { ProcessMenu } from './src/ProcessMenu/ProcessMenu';
-export { StepType as ProcessMenuStepType } from './src/ProcessMenu/StepType';
+export { StepType as ProcessMenuStepType } from './src/ProcessMenu/components/StepType';
 
 export { SideMenu } from './src/SideMenu/SideMenu';
 export { PersonCard, Gender } from './src/PersonCard/PersonCard';
