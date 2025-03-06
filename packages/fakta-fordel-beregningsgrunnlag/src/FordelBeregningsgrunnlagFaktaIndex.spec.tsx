@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { composeStories } from '@storybook/react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -598,7 +596,7 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet', async () => {
   render(<TilkommetAktivitet submitCallback={lagre} />);
   expect(screen.getByText('Søker har et nytt arbeidsforhold i AA-registeret')).toBeInTheDocument();
   expect(
-    screen.getByText('Har søker inntekt fra Arbeidsgiveren (999999997)...123 som reduserer søkers inntektstap?'),
+    screen.getByText('Har søker inntekt fra Arbeidsgiveren (999999997)...123 som kan medføre gradering mot inntekt?'),
   ).toBeInTheDocument();
   expect(screen.getByText('Årsinntekt')).toBeInTheDocument();
   await userEvent.click(screen.getByLabelText('Ja'));
@@ -657,12 +655,14 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
   expect(screen.getByText('300 000 kr')).toBeInTheDocument();
   expect(screen.getByText('16.11.2022 - 20.11.2022')).toBeInTheDocument();
   expect(
-    screen.getByText('Har søker inntekt fra Arbeidsgiveren (999999997)...123 som reduserer søkers inntektstap?'),
+    screen.getByText('Har søker inntekt fra Arbeidsgiveren (999999997)...123 som kan medføre gradering mot inntekt?'),
   ).toBeInTheDocument();
   await userEvent.click(screen.getAllByLabelText('Nei')[0]);
 
   expect(
-    screen.getByText('Har søker inntekt fra Nav Troms og Finnmark (974652293)...456 som reduserer søkers inntektstap?'),
+    screen.getByText(
+      'Har søker inntekt fra Nav Troms og Finnmark (974652293)...456 som kan medføre gradering mot inntekt?',
+    ),
   ).toBeInTheDocument();
 
   await userEvent.click(screen.getAllByLabelText('Ja')[1]);
