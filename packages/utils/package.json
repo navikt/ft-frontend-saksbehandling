@@ -31,8 +31,8 @@
   "devDependencies": {
     "eslint": "9.21.0",
     "typescript": "5.8.2",
-    "vite": "6.2.0",
-    "vitest": "3.0.7"
+    "vite": "6.2.1",
+    "vitest": "3.0.8"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
