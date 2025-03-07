@@ -9,7 +9,7 @@ import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
 import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { parseCurrencyInput } from '@navikt/ft-utils';
+import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
   TilkommetAktivitetFormValues,
@@ -18,6 +18,13 @@ import {
 import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
 
 import styles from './tilkommetAktivitet.module.css';
+
+export const inntektStørreEnn0 = (inntekt: number) =>
+  removeSpacesFromNumber(inntekt) > 0
+    ? null
+    : `Du kan ikke registrere 0,- i inntekt, da dette ikke vil medføre gradering mot inntekt. 
+       Hvis arbeidsforholdet ikke medfører inntekter enda, men kanskje vil det senere, velger du nei. 
+       Informer også bruker om at de må melde fra hvis de begynner å jobbe for denne arbeidsgiveren.`;
 
 type Props = {
   formName: string;
@@ -121,9 +128,9 @@ export const TilkommetInntektsforholdField = ({
               label="Fastsett årsinntekt"
               hideLabel
               readOnly={readOnly}
-              className={styles.bruttoInntektInput}
+              htmlSize={9}
               parse={parseCurrencyInput}
-              validate={[required, maxValueFormatted(178956970)]}
+              validate={[required, maxValueFormatted(178956970), inntektStørreEnn0]}
             />
             <span className={styles.bruttoInntektCurrency}>kr</span>
           </div>
