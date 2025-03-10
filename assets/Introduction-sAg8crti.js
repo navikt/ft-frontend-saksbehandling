@@ -28,7 +28,6 @@ import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as l}from"
 `,e.jsx(n.h3,{id:"grunnleggende-moduler",children:"Grunnleggende moduler"}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:e.jsx(n.code,{children:"@navikt/ft-hooks"})}),`
-`,e.jsx(n.li,{children:e.jsx(n.code,{children:"@navikt/ft-konstanter"})}),`
 `,e.jsx(n.li,{children:e.jsx(n.code,{children:"@navikt/ft-types"})}),`
 `,e.jsx(n.li,{children:e.jsx(n.code,{children:"@navikt/ft-utils"})}),`
 `]}),`
