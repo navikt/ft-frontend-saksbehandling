@@ -2593,6 +2593,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/config-helpers@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@eslint/config-helpers@npm:0.1.0"
+  checksum: 1136dcda37cf7b259a81686c71f31d457caa42d91a4a9cdac4677c5fc7a958410ac3cbef3b92971c7463fa8182fa1619e4f4743de94dd603c128303feee37fc8
+  languageName: node
+  linkType: hard
+
 "@eslint/core@npm:^0.12.0":
   version: 0.12.0
   resolution: "@eslint/core@npm:0.12.0"
@@ -2619,10 +2626,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.21.0":
-  version: 9.21.0
-  resolution: "@eslint/js@npm:9.21.0"
-  checksum: 238cf810270a13ada3db5fcc05b8031bef8a56186f795f45f1c5b89f5ae1e86240622cd5c39ae4444f34670b4896ebc8ab8e868050d174755bb4caba59c4b8d5
+"@eslint/js@npm:9.22.0":
+  version: 9.22.0
+  resolution: "@eslint/js@npm:9.22.0"
+  checksum: 3eb6ed01c31f185b1822b78a872af5b87daa4aaf2ed753ce81c0c7227c852a09e1c7356103259f35f09e77d9e116c796cec6958702044d057f0c179b53b783ec
   languageName: node
   linkType: hard
 
@@ -3222,7 +3229,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.13
     dayjs-plugin-utc: 0.1.2
-    eslint: 9.21.0
+    eslint: 9.22.0
     react: 19.0.0
     react-dom: 19.0.0
     react-hook-form: 7.54.2
@@ -3272,7 +3279,7 @@ __metadata:
     core-js: 3.41.0
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.21.0
+    eslint: 9.22.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.6
@@ -3318,7 +3325,7 @@ __metadata:
     "@testing-library/react": 16.2.0
     "@testing-library/user-event": 14.6.1
     cross-env: 7.0.3
-    eslint: 9.21.0
+    eslint: 9.22.0
     moment: 2.30.1
     react: 19.0.0
     react-hook-form: 7.54.2
@@ -3360,7 +3367,7 @@ __metadata:
     classnames: 2.5.1
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.21.0
+    eslint: 9.22.0
     lodash.throttle: 4.1.1
     react: 19.0.0
     react-dom: 19.0.0
@@ -3393,7 +3400,7 @@ __metadata:
     "@navikt/ft-utils": ^3.1.7
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.21.0
+    eslint: 9.22.0
     typescript: 5.8.2
     vite: 6.2.1
     vitest: 3.0.8
@@ -3409,7 +3416,7 @@ __metadata:
   dependencies:
     "@navikt/ft-form-hooks": "workspace:^"
     "@storybook/types": 8.6.4
-    eslint: 9.21.0
+    eslint: 9.22.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.6
@@ -3423,7 +3430,7 @@ __metadata:
   dependencies:
     "@navikt/ft-kodeverk": ^3.1.4
     cross-env: 7.0.3
-    eslint: 9.21.0
+    eslint: 9.22.0
     react: 19.0.0
     react-intl: 7.1.6
     typescript: 5.8.2
@@ -3434,7 +3441,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-hooks@workspace:packages/hooks"
   dependencies:
-    eslint: 9.21.0
+    eslint: 9.22.0
     typescript: 5.8.2
     vite: 6.2.1
     vitest: 3.0.8
@@ -3448,7 +3455,7 @@ __metadata:
   resolution: "@navikt/ft-kodeverk@workspace:packages/internal/kodeverk"
   dependencies:
     cross-env: 7.0.3
-    eslint: 9.21.0
+    eslint: 9.22.0
     stylelint: 16.15.0
     typescript: 5.8.2
     vite: 6.2.1
@@ -3470,7 +3477,7 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.21.0
+    eslint: 9.22.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: 19.0.0
@@ -3512,7 +3519,7 @@ __metadata:
     cross-env: 7.0.3
     dayjs: 1.11.13
     echarts: 5.6.0
-    eslint: 9.21.0
+    eslint: 9.22.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.6
@@ -3558,7 +3565,7 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.21.0
+    eslint: 9.22.0
     moment: 2.30.1
     react: 19.0.0
     react-hook-form: 7.54.2
@@ -3601,7 +3608,7 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.21.0
+    eslint: 9.22.0
     react: 19.0.0
     react-hook-form: 7.54.2
     react-intl: 7.1.6
@@ -3644,7 +3651,7 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     cross-env: 7.0.3
     dayjs: 1.11.13
-    eslint: 9.21.0
+    eslint: 9.22.0
     moment: 2.30.1
     react: 19.0.0
     react-hook-form: 7.54.2
@@ -3677,7 +3684,7 @@ __metadata:
   dependencies:
     "@navikt/ft-kodeverk": "workspace:^"
     cross-env: 7.0.3
-    eslint: 9.21.0
+    eslint: 9.22.0
     stylelint: 16.15.0
     typescript: 5.8.2
     vite: 6.2.1
@@ -3700,7 +3707,7 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     classnames: 2.5.1
     cross-env: 7.0.3
-    eslint: 9.21.0
+    eslint: 9.22.0
     react: 19.0.0
     react-dom: 19.0.0
     react-intl: 7.1.6
@@ -3727,7 +3734,7 @@ __metadata:
   resolution: "@navikt/ft-utils@workspace:packages/utils"
   dependencies:
     dayjs: 1.11.13
-    eslint: 9.21.0
+    eslint: 9.22.0
     react-intl: 7.1.6
     typescript: 5.8.2
     vite: 6.2.1
@@ -8588,14 +8595,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:10.1.0":
-  version: 10.1.0
-  resolution: "eslint-config-prettier@npm:10.1.0"
+"eslint-config-prettier@npm:10.1.1":
+  version: 10.1.1
+  resolution: "eslint-config-prettier@npm:10.1.1"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: cc7a01ef34f8a2b59ea13077aa639d7582872cf97ec5ddd526cc356be0d9da3eaaa00b99e37242d452d15f7ad42d31a2cffe59e4586c2b56c65d949f9a1f96d3
+  checksum: 1211a973f4b5c3fe4a152ca58e40493c9d51b5145a4dfd6a4606b65e480b43c072d1a9b41b179adeb3aac93b6425b2d05d5e4f696e2447ac833373b4ac707a6b
   languageName: node
   linkType: hard
 
@@ -8730,13 +8737,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "eslint-scope@npm:8.2.0"
+"eslint-scope@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "eslint-scope@npm:8.3.0"
   dependencies:
     esrecurse: ^4.3.0
     estraverse: ^5.2.0
-  checksum: 750eff4672ca2bf274ec0d1bbeae08aadd53c1907d5c6aff5564d8e047a5f49afa8ae6eee333cab637fd3ebcab2141659d8f2f040f6fdc982b0f61f8bf03136f
+  checksum: 57a58b6716533e25d527089826c4add89a047aecf75e4a88fee05f113ef5a72b85392b304a69bf670646cc3e068354aec70361b9718c2453949a05fc4d9bfe73
   languageName: node
   linkType: hard
 
@@ -8761,16 +8768,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.21.0":
-  version: 9.21.0
-  resolution: "eslint@npm:9.21.0"
+"eslint@npm:9.22.0":
+  version: 9.22.0
+  resolution: "eslint@npm:9.22.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.12.1
     "@eslint/config-array": ^0.19.2
+    "@eslint/config-helpers": ^0.1.0
     "@eslint/core": ^0.12.0
     "@eslint/eslintrc": ^3.3.0
-    "@eslint/js": 9.21.0
+    "@eslint/js": 9.22.0
     "@eslint/plugin-kit": ^0.2.7
     "@humanfs/node": ^0.16.6
     "@humanwhocodes/module-importer": ^1.0.1
@@ -8782,7 +8790,7 @@ __metadata:
     cross-spawn: ^7.0.6
     debug: ^4.3.2
     escape-string-regexp: ^4.0.0
-    eslint-scope: ^8.2.0
+    eslint-scope: ^8.3.0
     eslint-visitor-keys: ^4.2.0
     espree: ^10.3.0
     esquery: ^1.5.0
@@ -8806,7 +8814,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 83a493877fe1cda3a0c3028de6ebfbc16abc2b26decd304a4e424961fa1ba7fc4e950ed1d7c37f85f5c7053c7e1d990fd92c46c0cdd9dedbbb002076745b4ce5
+  checksum: fca0b7fed5b7b254ffe173d35f3c2ba39fc2ca88a734530936fef99d974edd4a0d7aa7a1f79fa755f0a4c05e1f417ee0f86367c3209ee81e9a2ee01b7bc3838d
   languageName: node
   linkType: hard
 
@@ -9377,7 +9385,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
-    "@eslint/js": 9.21.0
+    "@eslint/js": 9.22.0
     "@formatjs/intl-datetimeformat": 6.17.3
     "@formatjs/intl-numberformat": 8.15.3
     "@navikt/aksel-stylelint": 7.17.0
@@ -9400,8 +9408,8 @@ __metadata:
     "@vitest/coverage-c8": 0.33.0
     body-parser: 1.20.3
     cross-env: 7.0.3
-    eslint: 9.21.0
-    eslint-config-prettier: 10.1.0
+    eslint: 9.22.0
+    eslint-config-prettier: 10.1.1
     eslint-plugin-import: 2.31.0
     eslint-plugin-jsx-a11y: 6.10.2
     eslint-plugin-react: 7.37.4
