@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@storybook/types": "8.6.4",
-    "eslint": "9.21.0",
+    "eslint": "9.22.0",
     "typescript": "5.8.2"
   }
 }
