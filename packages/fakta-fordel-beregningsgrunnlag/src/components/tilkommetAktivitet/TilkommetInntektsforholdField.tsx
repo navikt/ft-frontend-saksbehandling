@@ -68,13 +68,70 @@ export const TilkommetInntektsforholdField = ({
   const lagHjelpetekst = (): ReactElement => {
     switch (field.aktivitetStatus) {
       case AktivitetStatus.ARBEIDSTAKER:
-        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerArbeid" values={{ br: <br /> }} />;
+        return (
+          <>
+            Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
+            Dette vurderes helhetlig ut fra opplysninger fra inntektsmelding, a-inntekt eller fra bruker selv. <br />
+            <br />
+            Det er viktig at det er samsvar mellom forventet inntekt sett opp mot den normalarbeidstiden bruker ville
+            hatt hvis de jobbet fullt. Bruk opplysninger om arbeidstid i Aa-reg og fra søknaden.
+            <br />
+            <br /> Er du usikker på arbeidstid og/eller inntekt, må du kontakte bruker for avklaring. Spesielt ved
+            varierende inntekt og arbeidstid, kan det være behov for å utrede inntektsforholdet. Du kan for eksempel be
+            om arbeidskontrakt, innbetalt forskuddsskatt, foreløpig resultatregnskap og lignende.
+            <br />
+            <br /> Husk å begrunne fastsatt inntekt for alle periodene.
+          </>
+        );
       case AktivitetStatus.FRILANSER:
-        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerFrilans" values={{ br: <br /> }} />;
+        return (
+          <>
+            Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
+            Dette vurderes helhetlig ut fra opplysninger fra a-inntekt eller fra bruker selv.
+            <br />
+            <br />
+            Det er viktig at det er samsvar mellom forventet inntekt sett opp mot den normalarbeidstiden bruker ville
+            hatt hvis de jobbet fullt. Bruk opplysninger om arbeidstid i Aa-reg og fra søknaden.
+            <br />
+            <br />
+            Er du usikker på arbeidstid og/eller inntekt, må du kontakte bruker for avklaring. Spesielt ved varierende
+            inntekt og arbeidstid, kan det være behov for å utrede inntektsforholdet. Du kan for eksempel be om
+            arbeidskontrakt eller be bruker forklare hva som er avtalt.
+            <br />
+            <br />
+            Husk å begrunne fastsatt inntekt for alle periodene.
+          </>
+        );
       case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
-        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerNæring" />;
+        return (
+          <>
+            Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
+            Bruk som hovedregel opplysninger fra søknaden.
+            <br />
+            <br />
+            Er du usikker på arbeidstid og/eller inntekt, må du kontakte bruker for avklaring. Du kan for eksempel be om
+            dokumentasjon på foreløpig resultatregnskap, innbetalt forskuddsskatt og lignende.
+            <br />
+            <br />
+            Husk å begrunne fastsatt inntekt for alle periodene.
+          </>
+        );
       default:
-        return <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMerArbeid" />;
+        return (
+          <>
+            Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
+            Dette vurderes helhetlig ut fra opplysninger fra inntektsmelding, a-inntekt eller fra bruker selv. <br />
+            <br />
+            Det er viktig at det er samsvar mellom forventet inntekt sett opp mot den normalarbeidstiden bruker ville
+            hatt hvis de jobbet fullt. Bruk opplysninger om arbeidstid i Aa-reg og fra søknaden.
+            <br />
+            <br /> Er du usikker på arbeidstid og/eller inntekt, må du kontakte bruker for avklaring. Spesielt ved
+            varierende inntekt og arbeidstid, kan det være behov for å utrede inntektsforholdet. Du kan for eksempel be
+            om arbeidskontrakt, innbetalt forskuddsskatt, foreløpig resultatregnskap og lignende.
+            <br />
+            <br /> Husk å begrunne fastsatt inntekt for alle periodene.
+          </>
+        );
     }
   };
 
