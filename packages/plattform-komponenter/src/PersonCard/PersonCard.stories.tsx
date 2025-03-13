@@ -8,7 +8,7 @@ const meta = {
   component: PersonCard,
   args: {
     name: 'Ekstremt Langt Navn Navnesen For Å Teste Hva Som Skjer Med Brytningen',
-    fodselsnummer: '12345612345',
+    fodselsnummer: '01019541978',
     gender: Gender.female,
   },
   render: args => (
@@ -25,6 +25,7 @@ const meta = {
               <p>Hei</p>
             </div>
           )}
+          showPersonAge
         />
       </div>
       <HStack wrap={false}>
