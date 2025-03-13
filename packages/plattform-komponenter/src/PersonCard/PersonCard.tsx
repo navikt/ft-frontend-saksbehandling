@@ -2,9 +2,13 @@ import React from 'react';
 
 import { MenuElipsisHorizontalCircleIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@navikt/ds-react';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { GenderIcon } from './GenderIcon';
 import { VisittKort } from './VisittKort';
+
+dayjs.extend(customParseFormat);
 
 export enum Gender {
   male = 'male',
@@ -22,11 +26,19 @@ export interface Props {
   renderLabelContent?: () => React.ReactNode;
   isChild?: boolean;
   childAge?: string | React.ReactNode;
+  showPersonAge?: boolean;
 }
 
 function formaterFnr(fnr: string) {
   return fnr.slice(0, 6) + ' ' + fnr.slice(6);
 }
+
+const getPersonAge = (fnr: string) => {
+  const fnrDate = dayjs(`${fnr.substring(0, 2)}-${fnr.substring(2, 4)}-${fnr.substring(4, 6)}`, 'DD-MM-YY');
+  const adjustedDate = fnrDate.year() > dayjs().year() ? fnrDate.subtract(100, 'year') : fnrDate;
+  const age = dayjs().diff(adjustedDate, 'year');
+  return ` (${new Intl.NumberFormat('nb-NO', { style: 'unit', unit: 'year' }).format(age)})`;
+};
 
 export const PersonCard = ({
   name,
@@ -38,6 +50,7 @@ export const PersonCard = ({
   renderLabelContent,
   isChild,
   childAge,
+  showPersonAge,
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLButtonElement>(null);
@@ -69,10 +82,12 @@ export const PersonCard = ({
           style={{ display: 'block', minWidth: '80px' }}
         >
           {name}
+          {showPersonAge ? getPersonAge(fodselsnummer) : ''}
         </BodyShort>
       ) : (
         <BodyShort weight="semibold" truncate style={{ minWidth: '80px' }}>
           {name}
+          {showPersonAge ? getPersonAge(fodselsnummer) : ''}
         </BodyShort>
       )}
       {isChild ? (
