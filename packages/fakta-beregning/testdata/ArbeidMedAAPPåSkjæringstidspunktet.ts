@@ -2,7 +2,7 @@ import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { Vilkår } from '../src/typer/Vilkår';
 
-export const beregningsgrunnlag = [
+export const beregningsgrunnlag: Beregningsgrunnlag[] = [
   {
     skjaeringstidspunktBeregning: '2022-01-13',
     aktivitetStatus: ['AT'],
@@ -97,7 +97,7 @@ export const beregningsgrunnlag = [
     dekningsgrad: 100,
     erOverstyrtInntekt: false,
   },
-] as Beregningsgrunnlag[];
+];
 
 export const vilkar: Vilkår = {
   vilkarType: '',
@@ -105,7 +105,6 @@ export const vilkar: Vilkår = {
   perioder: [
     {
       vurderesIBehandlingen: true,
-      merknadParametere: { name: '' },
       periode: {
         fom: '2022-01-13',
         tom: '2022-01-20',

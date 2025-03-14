@@ -178,7 +178,6 @@ const vilkar: Vilkår = {
   perioder: [
     {
       vurderesIBehandlingen: true,
-      merknadParametere: { name: '' },
       periode: {
         fom: '2022-03-02',
         tom: '2022-03-04',
@@ -193,7 +192,6 @@ const lagVilkar = (perioder: Vilkårperiode[]): Vilkår => ({
   overstyrbar: true,
   perioder: perioder.map(p => ({
     vurderesIBehandlingen: p.vurderesIBehandlingen,
-    merknadParametere: { name: '' },
     periode: {
       fom: p.periode.fom,
       tom: p.periode.tom,
@@ -1265,7 +1263,7 @@ export const VurderKunYtelseBesteberegningAp5058: StoryFn = ({ submitCallback })
  */
 export const KanOverstyreBGUtenAvklaringsbehov: StoryFn = ({ submitCallback }) => (
   <BeregningFaktaIndex
-    beregningsgrunnlag={bgOverstyreUtenAvklaringsbehov}
+    beregningsgrunnlag={[bgOverstyreUtenAvklaringsbehov]}
     erOverstyrer
     kodeverkSamling={alleKodeverkMock as any}
     submitCallback={submitCallback}
