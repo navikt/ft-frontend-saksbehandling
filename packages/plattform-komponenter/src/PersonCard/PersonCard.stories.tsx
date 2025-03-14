@@ -2,7 +2,8 @@ import { HStack, Tag, VStack } from '@navikt/ds-react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { EmptyPersonCard } from './EmptyPersonCard';
-import { Gender, PersonCard } from './PersonCard';
+import { Gender } from './GenderIcon';
+import { PersonCard } from './PersonCard';
 
 const meta = {
   component: PersonCard,

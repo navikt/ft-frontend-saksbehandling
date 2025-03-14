@@ -5,7 +5,11 @@ import {
   SilhouetteFillIcon,
 } from '@navikt/aksel-icons';
 
-import { Gender } from './PersonCard';
+export enum Gender {
+  male = 'male',
+  female = 'female',
+  unknown = 'unknown',
+}
 
 interface Props {
   gender?: Gender;

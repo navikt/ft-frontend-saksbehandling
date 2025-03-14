@@ -5,16 +5,10 @@ import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import { GenderIcon } from './GenderIcon';
+import { Gender, GenderIcon } from './GenderIcon';
 import { VisittKort } from './VisittKort';
 
 dayjs.extend(customParseFormat);
-
-export enum Gender {
-  male = 'male',
-  female = 'female',
-  unknown = 'unknown',
-}
 
 export interface Props {
   name: string;

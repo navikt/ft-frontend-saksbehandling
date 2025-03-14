@@ -24,7 +24,8 @@ export { ProcessMenu } from './src/ProcessMenu/ProcessMenu';
 export { StepType as ProcessMenuStepType } from './src/ProcessMenu/components/StepType';
 
 export { SideMenu } from './src/SideMenu/SideMenu';
-export { PersonCard, Gender } from './src/PersonCard/PersonCard';
+export { PersonCard } from './src/PersonCard/PersonCard';
+export { Gender } from './src/PersonCard/GenderIcon';
 export { EmptyPersonCard } from './src/PersonCard/EmptyPersonCard';
 export { VisittKort } from './src/PersonCard/VisittKort';
 export { GenderIcon } from './src/PersonCard/GenderIcon';

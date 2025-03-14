@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
+import circleDependency from 'vite-plugin-circular-dependency';
 import dts from 'vite-plugin-dts';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 
@@ -22,6 +23,7 @@ const viteConfig = defineViteConfig({
       insertTypesEntry: true,
       copyDtsFiles: true,
     }),
+    circleDependency(),
   ],
   css: {
     modules: {
