@@ -17,20 +17,22 @@ interface Props {
 }
 
 export const LesMer = ({ tekst, maksLengde }: Props) => {
-  const [erKnappEnabled, setErKnappEnabled] = useState(false);
+  const [visHeleTeksten, setVisHeleTeksten] = useState(false);
 
-  return (
+  return tekst.length <= maksLengde ? (
+    <BodyShort size="small">{tekst}</BodyShort>
+  ) : (
     <HStack justify="space-between" align="start" wrap={false}>
-      <BodyShort size="small">{erKnappEnabled ? tekst : `${tekst.substring(0, maksLengde)}...`}</BodyShort>
+      <BodyShort size="small">{visHeleTeksten ? tekst : `${tekst.substring(0, maksLengde)}...`}</BodyShort>
       <Button
         className={styles.button}
         variant="tertiary"
         size="xsmall"
         type="button"
-        icon={erKnappEnabled ? <ChevronUpIcon aria-hidden /> : <ChevronDownIcon aria-hidden />}
-        onClick={() => setErKnappEnabled(!erKnappEnabled)}
+        icon={visHeleTeksten ? <ChevronUpIcon aria-hidden /> : <ChevronDownIcon aria-hidden />}
+        onClick={() => setVisHeleTeksten(!visHeleTeksten)}
       >
-        {erKnappEnabled ? intl.formatMessage({ id: 'LesMer.Skjul' }) : intl.formatMessage({ id: 'LesMer.LesMer' })}
+        {visHeleTeksten ? intl.formatMessage({ id: 'LesMer.Skjul' }) : intl.formatMessage({ id: 'LesMer.LesMer' })}
       </Button>
     </HStack>
   );
