@@ -1,5 +1,5 @@
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { AvklarBeregningAktiviteterMap, BeregningAktivitet, BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 import { agOpplysninger as arbeidsgiverOpplysninger } from '../../../testdata/arbeidsgiverOpplysninger';
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
@@ -53,7 +53,6 @@ const aktivitet2 = {
 };
 
 const aktivitet3 = {
-  aktørIdString: '324234234234',
   arbeidsgiverIdent: '324234234234',
   arbeidsforholdId: 'efj8343f34f',
   fom: '2019-01-01',
@@ -63,30 +62,30 @@ const aktivitet3 = {
 };
 
 const aktivitetAAP = {
-  arbeidsgiverIdent: null,
+  arbeidsgiverIdent: undefined,
   arbeidsforholdType: 'AAP',
   fom: '2019-01-01',
   tom: '2020-02-02',
-  skalBrukes: null,
+  skalBrukes: undefined,
 };
 
-const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
+const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP] as BeregningAktivitet[];
 
 const id1: string = '3847238947232019-01-01';
 const id2: string = '334534623342efj8343f34f2019-01-01';
 const id3: string = '324234234234efj8343f34f2019-01-01';
 const idAAP: string = 'AAP2019-01-01';
 
-const vilkarPeriode = {
+const vilkarPeriode: Vilkårperiode = {
   vurderesIBehandlingen: true,
   periode: {
     fom: '2019-02-02',
     tom: '2019-02-03',
   },
   vilkarStatus: 'IKKE_VURDERT',
-} as Vilkårperiode;
+};
 
-const avklarAktiviteterAvklaringsbehov = [
+const avklarAktiviteterAvklaringsbehov: BeregningAvklaringsbehov[] = [
   {
     definisjon: AVKLAR_AKTIVITETER,
     status: 'UTFO',
@@ -165,7 +164,7 @@ describe('<AvklareAktiviteterField>', () => {
   });
 
   it('skal transform values for avklar aktiviteter aksjonspunkt', () => {
-    const avklarAktiviteter = {
+    const avklarAktiviteter: AvklarBeregningAktiviteterMap = {
       skjæringstidspunkt: '2019-02-02',
       aktiviteterTomDatoMapping: [
         {
@@ -173,7 +172,7 @@ describe('<AvklareAktiviteterField>', () => {
           aktiviteter,
         },
       ],
-    } as AvklarBeregningAktiviteterMap;
+    };
     const values = {
       avklarAktiviteter,
       aktiviteterValues: {
@@ -203,8 +202,8 @@ describe('<AvklareAktiviteterField>', () => {
         },
       },
       avklaringsbehovListe: avklarAktiviteterAvklaringsbehov,
+      erTilVurdering: true,
     } as AvklarAktiviteterValues;
-    values.erTilVurdering = true;
 
     const transformed = transformFieldValue(values);
     expect(transformed?.beregningsaktivitetLagreDtoList.length).toBe(3);

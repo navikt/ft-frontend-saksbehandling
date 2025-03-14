@@ -104,7 +104,6 @@ const lagVilkår = (perioder: any[]): Vilkår => ({
   perioder: perioder.map(p => ({
     periode: { fom: p.fom, tom: p.tom },
     vurderesIBehandlingen: p.vurderesIBehandlingen,
-    merknadParametere: {},
     vilkarStatus: 'OPPFYLT',
   })),
 });

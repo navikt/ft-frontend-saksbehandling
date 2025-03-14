@@ -164,21 +164,20 @@ const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Beregni
   kanLoses: true,
 });
 
-const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår =>
-  ({
-    vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
-    perioder: [
-      {
-        periode: {
-          fom: fom || STP,
-          tom: tom || etterSTP(20),
-        },
-        vurderesIBehandlingen: true,
-        vilkarStatus: kode,
-        merknadParametere: {},
+const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår => ({
+  vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
+  overstyrbar: false,
+  perioder: [
+    {
+      periode: {
+        fom: fom || STP,
+        tom: tom || etterSTP(20),
       },
-    ],
-  }) as Vilkår;
+      vurderesIBehandlingen: true,
+      vilkarStatus: kode,
+    },
+  ],
+});
 
 const arbeidsgiverOpplysninger = {
   999999996: {
@@ -764,7 +763,6 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038: Story = {
           },
           vurderesIBehandlingen: true,
           vilkarStatus: 'TIL_VURDERING',
-          merknadParametere: {},
         },
         {
           periode: {
@@ -773,7 +771,6 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038: Story = {
           },
           vurderesIBehandlingen: true,
           vilkarStatus: 'TIL_VURDERING',
-          merknadParametere: {},
         },
       ],
     } as Vilkår,
@@ -816,7 +813,6 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp503
           },
           vurderesIBehandlingen: false,
           vilkarStatus: 'GODKJENT',
-          merknadParametere: {},
         },
         {
           periode: {
@@ -825,7 +821,6 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp503
           },
           vurderesIBehandlingen: true,
           vilkarStatus: 'TIL_VURDERING',
-          merknadParametere: {},
         },
       ],
     } as Vilkår,
@@ -938,7 +933,6 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
           vurderesIBehandlingen: true,
           vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
           erForlengelse: false,
-          merknadParametere: {},
         },
         {
           periode: {
@@ -948,7 +942,6 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
           vurderesIBehandlingen: true,
           vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
           erForlengelse: false,
-          merknadParametere: {},
         },
         {
           periode: {
@@ -958,7 +951,6 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
           vurderesIBehandlingen: true,
           vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
           erForlengelse: false,
-          merknadParametere: {},
         },
       ],
     },
