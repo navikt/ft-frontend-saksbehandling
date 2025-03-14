@@ -23,3 +23,4 @@ export { LabelWithHeader } from './src/LabelWithHeader';
 export { usePrevious } from './src/hooks/usePrevious';
 export { BlaBoksMedCheckmarkListe } from './src/BlaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe';
 export { ErrorBoundary } from './src/ErrorBoundary/ErrorBoundary';
+export { UtvidbarTekst } from './src/UtvidbarTekst';

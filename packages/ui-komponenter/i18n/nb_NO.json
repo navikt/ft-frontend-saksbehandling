@@ -46,5 +46,8 @@
   "Calendar.Month.8": "September",
   "Calendar.Month.9": "Oktober",
   "Calendar.Month.10": "November",
-  "Calendar.Month.11": "Desember"
+  "Calendar.Month.11": "Desember",
+
+  "UtvidbarTekst.VisMer": "Vis mer",
+  "UtvidbarTekst.VisMindre": "Vis mindre"
 }
