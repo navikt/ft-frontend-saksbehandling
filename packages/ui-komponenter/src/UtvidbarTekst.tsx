@@ -5,7 +5,7 @@ import { BodyShort, Button, HStack } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import styles from './lesMer.module.css';
+import styles from './UtvidbarTekst.module.css';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -13,10 +13,10 @@ const intl = createIntl(messages);
 
 interface Props {
   tekst: string;
-  maksLengde: number;
+  maksLengde?: number;
 }
 
-export const LesMer = ({ tekst, maksLengde }: Props) => {
+export const UtvidbarTekst = ({ tekst, maksLengde = 100 }: Props) => {
   const [visHeleTeksten, setVisHeleTeksten] = useState(false);
 
   return tekst.length <= maksLengde ? (
@@ -32,7 +32,7 @@ export const LesMer = ({ tekst, maksLengde }: Props) => {
         icon={visHeleTeksten ? <ChevronUpIcon aria-hidden /> : <ChevronDownIcon aria-hidden />}
         onClick={() => setVisHeleTeksten(!visHeleTeksten)}
       >
-        {visHeleTeksten ? intl.formatMessage({ id: 'LesMer.Skjul' }) : intl.formatMessage({ id: 'LesMer.LesMer' })}
+        {visHeleTeksten ? intl.formatMessage({ id: 'UtvidbarTekst.VisMindre' }) : intl.formatMessage({ id: 'UtvidbarTekst.VisMer' })}
       </Button>
     </HStack>
   );

@@ -48,6 +48,6 @@
   "Calendar.Month.10": "November",
   "Calendar.Month.11": "Desember",
 
-  "LesMer.LesMer": "Les mer",
-  "LesMer.Skjul": "Skjul"
+  "UtvidbarTekst.VisMer": "Vis mer",
+  "UtvidbarTekst.VisMindre": "Vis mindre"
 }
