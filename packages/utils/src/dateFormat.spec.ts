@@ -37,7 +37,7 @@ describe('dateFormat', () => {
           year: '2-digit',
           second: '2-digit',
         }),
-      ).toEqual('2. mai 17 kl.01:54:25');
+      ).toEqual('2. mai 17 kl. 01:54:25');
     });
   });
 

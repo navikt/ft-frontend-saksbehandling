@@ -17,6 +17,6 @@ describe('DateTimeLabel', () => {
   it('skal vise datetime med tilpasset format', async () => {
     render(<MedTilpassetUtrykk />);
 
-    expect(await screen.findByText('2. mai 24 kl.09:54:21')).toBeInTheDocument();
+    expect(await screen.findByText('2. mai 24 kl. 09:54:21')).toBeInTheDocument();
   });
 });
