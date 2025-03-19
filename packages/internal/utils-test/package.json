@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-utils-test",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "license": "MIT",
   "type": "module",
   "private": true,
@@ -12,7 +12,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-kodeverk": "^3.1.4",
+    "@navikt/ft-kodeverk": "^3.1.5",
     "react": "19.0.0",
     "react-intl": "7.1.6"
   },
