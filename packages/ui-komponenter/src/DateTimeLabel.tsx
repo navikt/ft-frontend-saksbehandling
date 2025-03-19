@@ -1,17 +1,8 @@
-import { FormattedDate, FormattedTime } from 'react-intl';
-
-import { createIntl } from '@navikt/ft-utils';
-
-import messages from '../i18n/nb_NO.json';
-
-const intl = createIntl(messages);
-
-type DateTimeSeperator = 'dash' | 'kl';
+import { dateTimeFormat, DateTimeFormatOptions } from '@navikt/ft-utils';
 
 export type Props = {
   dateTimeString: string;
-  separator?: DateTimeSeperator;
-} & Intl.DateTimeFormatOptions;
+} & DateTimeFormatOptions;
 
 /**
  * DateTimeLabel
@@ -23,30 +14,4 @@ export type Props = {
  * <DateTimeLabel dateTimeString="2017-08-02T00:54:25.455" />
  * ```
  */
-export const DateTimeLabel = ({
-  dateTimeString,
-  separator = 'dash' as DateTimeSeperator,
-  year = 'numeric',
-  month = '2-digit',
-  day = '2-digit',
-  hour = 'numeric',
-  minute = 'numeric',
-  second = undefined,
-}: Props) => {
-  const getSeparator = () => {
-    switch (separator) {
-      case 'dash':
-        return ' - ';
-      case 'kl':
-        return intl.formatMessage({ id: 'DateTimeLabel.Kl' });
-    }
-  };
-
-  return (
-    <>
-      <FormattedDate value={new Date(dateTimeString)} day={day} month={month} year={year} />
-      {getSeparator()}
-      <FormattedTime value={new Date(dateTimeString)} hour={hour} minute={minute} second={second} />
-    </>
-  );
-};
+export const DateTimeLabel = ({ dateTimeString, ...rest }: Props) => <>{dateTimeFormat(dateTimeString, rest)}</>;

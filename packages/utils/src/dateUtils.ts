@@ -124,9 +124,6 @@ export const calcDaysAndWeeksWithWeekends = (fraDatoPeriode: string, tilDatoPeri
   return createWeekAndDay(weeks, days);
 };
 
-export const dateFormat = (date?: Date | string): string => initializeDate(date).format(DDMMYYYY_DATE_FORMAT);
-
-export const timeFormat = (date: string): string => dayjs(date).utc(true).format(HHMM_TIME_FORMAT);
 // Skal ikke legge til dag når dato er tidenes ende
 export const addDaysToDate = (dateString: string, nrOfDays: number): string =>
   dateString === TIDENES_ENDE

@@ -5,13 +5,11 @@ import {
   calcDaysAndWeeks,
   calcDaysAndWeeksWithWeekends,
   createWeekAndDay,
-  dateFormat,
   findDifferenceInMonthsAndDays,
   isValidDate,
-  timeFormat,
 } from './dateUtils';
 
-describe('dateutils', () => {
+describe('dateUtils', () => {
   describe('createWeekAndDay', () => {
     it.each([
       [1, 1, '1 uke 1 dag'],
@@ -54,20 +52,6 @@ describe('dateutils', () => {
         days: 4,
       };
       expect(calcDaysAndWeeks(fom, tom)).toEqual(formatedMessage);
-    });
-  });
-
-  describe('dateFormat', () => {
-    it('Skal formatere en dato til ISO', () => {
-      const dateTime = '2017-08-02T01:54:25.455';
-      expect(dateFormat(dateTime)).toEqual('02.08.2017');
-    });
-  });
-
-  describe('timeFormat', () => {
-    it('Skal formatere et dato til å vise kun klokkeslett', () => {
-      const dateTime = '2017-08-02T01:54:25.455';
-      expect(timeFormat(dateTime)).toEqual('01:54');
     });
   });
 
