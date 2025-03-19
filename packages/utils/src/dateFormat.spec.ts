@@ -42,7 +42,7 @@ describe('dateFormat', () => {
   });
 
   describe('timeFormat', () => {
-    it('skal formatere et dato til å vise kun klokkeslett', () => {
+    it('skal formatere datetime til å vise kun klokkeslett', () => {
       expect(timeFormat(dateTime)).toEqual('01:54');
     });
   });
