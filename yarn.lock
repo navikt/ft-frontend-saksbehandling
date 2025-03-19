@@ -3694,7 +3694,7 @@ __metadata:
     "@navikt/aksel-icons": 7.17.0
     "@navikt/ds-css": 7.17.0
     "@navikt/ds-react": 7.17.0
-    "@navikt/ft-utils": ^3.1.7
+    "@navikt/ft-utils": "workspace:^"
     "@testing-library/dom": 10.4.0
     "@testing-library/react": 16.2.0
     "@testing-library/user-event": 14.6.1

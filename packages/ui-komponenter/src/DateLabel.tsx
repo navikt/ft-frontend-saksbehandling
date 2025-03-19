@@ -1,8 +1,8 @@
-import { FormattedDate } from 'react-intl';
+import { dateFormat, type DateFormatOptions } from '@navikt/ft-utils';
 
-export interface Props {
+type Props = {
   dateString: string;
-}
+} & DateFormatOptions;
 
 /**
  * DateLabel
@@ -14,6 +14,6 @@ export interface Props {
  * <DateLabel dateString="2017-08-31" />
  * ```
  */
-export const DateLabel = ({ dateString }: Props) => (
-  <FormattedDate day="2-digit" month="2-digit" year="numeric" value={new Date(dateString)} />
+export const DateLabel = ({ dateString, year, month, day }: Props) => (
+  <>{dateFormat(dateString, { year, month, day })}</>
 );

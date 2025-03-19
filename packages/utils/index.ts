@@ -11,13 +11,13 @@ export {
   calcDays,
   calcDaysAndWeeks,
   calcDaysAndWeeksWithWeekends,
-  dateFormat,
   findDifferenceInMonthsAndDays,
   TIDENES_ENDE,
-  timeFormat,
   getRangeOfMonths,
   getDateAndTime,
 } from './src/dateUtils';
+export { dateFormat, dateTimeFormat, timeFormat } from './src/dateFormat';
+export type { DateFormatOptions, DateTimeFormatOptions } from './src/dateFormat';
 export { decodeHtmlEntity } from './src/decodeHtmlEntity';
 export { fodselsnummerPattern, isValidFodselsnummer } from './src/fodselsnummerUtils';
 export {

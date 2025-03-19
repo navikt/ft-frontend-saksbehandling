@@ -26,7 +26,7 @@ const meta: Meta<typeof DateTimeLabel> = {
     dateTimeString: { control: 'date' },
   },
   args: {
-    dateTimeString: '2024-08-02T10:54:00',
+    dateTimeString: '2024-05-02T09:54:21',
   },
 };
 
@@ -39,6 +39,7 @@ export const MedTilpassetUtrykk: Story = {
     separator: 'kl',
     day: 'numeric',
     month: 'long',
+    year: '2-digit',
     second: '2-digit',
   },
 };
