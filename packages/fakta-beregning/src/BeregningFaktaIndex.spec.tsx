@@ -4,7 +4,7 @@ import { composeStories } from '@storybook/react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import * as stories from '../BeregningFaktaIndex.stories';
+import * as stories from './BeregningFaktaIndex.stories';
 
 const {
   ArbeidOgDagpengerAp5058,
@@ -22,7 +22,7 @@ const {
   VurderingAvEtterlønnSluttpakkeAp5058,
 } = composeStories(stories);
 
-describe('<BeregningFaktaIndexSpec', () => {
+describe('BeregningFaktaIndex', () => {
   it('skal kunne løse aksjonspunkt for Arbeid og full AAP', async () => {
     render(<ArbeidOgAAPAp5052 />);
     // TODO: Valider på at AAP ikkje skal kunne endres

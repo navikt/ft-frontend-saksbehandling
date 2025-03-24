@@ -12,7 +12,7 @@ import {
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { BTag, DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
@@ -135,7 +135,7 @@ const createGraderingOrRefusjonString = (
       key="EndringBeregningsgrunnlagFastsetÅrsbeløp"
       id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning.EndringBeregningsgrunnlag.TilkommetAktivitet"
       values={{
-        b: (...chunks) => <b>{chunks}</b>,
+        b: BTag,
         br: <br />,
       }}
     />,

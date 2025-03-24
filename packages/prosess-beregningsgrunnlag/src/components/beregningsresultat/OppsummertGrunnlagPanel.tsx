@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { Vilkårperiode } from '../../types/Vilkår';
@@ -108,7 +108,7 @@ const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolea
         }
         values={{
           grunnbeløp: formatCurrencyNoKr(grunnbeløp),
-          b: chunks => <b>{chunks}</b>,
+          b: BTag,
         }}
       />
     </BodyShort>

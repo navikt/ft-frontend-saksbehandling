@@ -36,7 +36,7 @@ export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/lang
 export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMany } from './src/objectUtils';
 export { parseQueryString, buildPath, formatQueryString } from './src/urlUtils';
 
-export { createIntl } from './src/createIntl';
+export { createIntl, BTag } from './src/createIntl';
 
 export { bemUtils } from './src/bemUtils';
 export { Period } from './src/Period';

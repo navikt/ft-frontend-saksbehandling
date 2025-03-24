@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -10,7 +10,7 @@ import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-va
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BTag, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
 import { SærligGrunn } from '../kodeverk/særligGrunn';
@@ -183,8 +183,6 @@ export const TilbakekrevingPeriodeForm = ({
     }
   };
 
-  const transformToBold = useCallback((chunks: any) => <b>{chunks}</b>, []);
-
   const vurdertePerioder = vilkarsVurdertePerioder.filter(
     per => !per.erForeldet && per.valgtVilkarResultatType != null,
   );
@@ -201,7 +199,7 @@ export const TilbakekrevingPeriodeForm = ({
                       ? 'TilbakekrevingPeriodeForm.FeilutbetaltBelopTrekk'
                       : 'TilbakekrevingPeriodeForm.FeilutbetaltBelopEtterbetaling'
                   }
-                  values={{ belop: formatCurrencyNoKr(belop.belop), b: transformToBold }}
+                  values={{ belop: formatCurrencyNoKr(belop.belop), b: BTag }}
                 />
               </BodyShort>
             ))}

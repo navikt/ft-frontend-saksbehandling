@@ -114,7 +114,7 @@ const createArbeidinntektRows = (
   ));
   if (relevanteAndeler.length > 1) {
     const summaryRow = (
-      <VStack gap="0">
+      <VStack gap="0" key="summary-row">
         <HStack justify="space-between">
           <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
           <HStack gap="10" justify="end">
