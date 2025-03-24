@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
@@ -88,7 +88,7 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]
     !aktuellPeriode.erForlengelse
   );
 };
-const H3 = (chunks: string[]) => (
+const H3 = (chunks: ReactNode[]) => (
   <Heading size="xsmall" level="3" key="h3">
     {chunks}
   </Heading>

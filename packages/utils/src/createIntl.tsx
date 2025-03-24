@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { createIntl as createReactIntl, createIntlCache, IntlShape } from 'react-intl';
 
 const cache = createIntlCache();
@@ -11,4 +12,4 @@ export const createIntl = (messages: Record<string, string>): IntlShape =>
     cache,
   );
 
-export const BTag = (chunks: string[]) => <b key="bold">{chunks}</b>;
+export const BTag = (chunks: ReactNode[]) => <b key="bold">{chunks}</b>;
