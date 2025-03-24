@@ -4,8 +4,6 @@ import { Period } from './Period';
 
 import messages from '../i18n/nb_NO.json';
 
-import 'dayjs/locale/nb';
-
 const intl = createIntl(messages);
 
 export const sortPeriodsByFomDate = (period1: Period, period2: Period): number => {
