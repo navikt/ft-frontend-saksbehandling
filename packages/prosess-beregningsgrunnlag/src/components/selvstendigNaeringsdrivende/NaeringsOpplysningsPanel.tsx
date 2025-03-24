@@ -6,7 +6,7 @@ import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BTag, dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Ledelinje } from '../fellesPaneler/Ledelinje';
 
@@ -66,10 +66,7 @@ const lagIntroTilEndringspanel = (næring: Næring): React.ReactNode => {
   }
   return (
     <Label size="small" className={beregningStyles.semiBoldText}>
-      <FormattedMessage
-        id={hendelseTekst}
-        values={{ dato: dateFormat(hendelseDato), b: (chunks: any) => <b>{chunks}</b> }}
-      />
+      <FormattedMessage id={hendelseTekst} values={{ dato: dateFormat(hendelseDato), b: BTag }} />
     </Label>
   );
 };

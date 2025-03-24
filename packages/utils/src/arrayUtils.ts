@@ -2,7 +2,7 @@ export const range = (length: number) => [...Array(length).keys()];
 
 export const isArrayEmpty = (array: any[]): boolean => !array || array.length === 0;
 
-export const unique = (array: any[]) => array.filter((it, index, self) => index === self.findIndex(t => t === it));
+export const unique = <T>(array: T[]) => array.filter((it, index, self) => index === self.findIndex(t => t === it));
 
 export const haystack = (object: Record<string, any>, keys: string | string[], defaultValue = null): any => {
   const keysArray = Array.isArray(keys) ? keys : keys.replace(/(\[(\d+)\])/g, '.$2').split('.');

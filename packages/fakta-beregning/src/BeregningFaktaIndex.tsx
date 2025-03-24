@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
@@ -88,6 +88,11 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]
     !aktuellPeriode.erForlengelse
   );
 };
+const H3 = (chunks: ReactNode[]) => (
+  <Heading size="xsmall" level="3" key="h3">
+    {chunks}
+  </Heading>
+);
 
 export const lagHelpTextsForFakta = (
   beregningsgrunnlag: Beregningsgrunnlag,
@@ -112,11 +117,7 @@ export const lagHelpTextsForFakta = (
               : 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM'
           }
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -129,11 +130,7 @@ export const lagHelpTextsForFakta = (
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText"
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -146,11 +143,7 @@ export const lagHelpTextsForFakta = (
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextFrilans"
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -164,11 +157,7 @@ export const lagHelpTextsForFakta = (
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextArbeidstaker"
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -182,11 +171,7 @@ export const lagHelpTextsForFakta = (
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText"
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -219,11 +204,7 @@ export const lagHelpTextsForFakta = (
           id="BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText"
           values={{
             arbeidsgiverVisningsnavn: arbeidsgivereNavn,
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -237,11 +218,7 @@ export const lagHelpTextsForFakta = (
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText"
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -256,11 +233,7 @@ export const lagHelpTextsForFakta = (
           <FormattedMessage
             id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
             values={{
-              h3: (...chunks) => (
-                <Heading size="xsmall" level="3">
-                  {chunks}
-                </Heading>
-              ),
+              h3: H3,
             }}
           />
           <ReadMore
@@ -321,11 +294,7 @@ export const lagHelpTextsForFakta = (
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText"
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -339,11 +308,7 @@ export const lagHelpTextsForFakta = (
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText"
           values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,
@@ -371,11 +336,7 @@ export const lagHelpTextsForFakta = (
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText"
           values={{
             arbeidsgiverVisningsnavn: arbeidsgivereNavn,
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
+            h3: H3,
           }}
         />
       </Alert>,

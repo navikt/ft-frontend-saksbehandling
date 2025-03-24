@@ -12,6 +12,7 @@ import {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BTag } from '@navikt/ft-utils';
 
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
@@ -110,7 +111,7 @@ const lagAksjonspunktHelpText = (
               )}
               values={{
                 verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
-                b: (chunks: any) => <b>{chunks}</b>,
+                b: BTag,
                 br: <br />,
               }}
             />

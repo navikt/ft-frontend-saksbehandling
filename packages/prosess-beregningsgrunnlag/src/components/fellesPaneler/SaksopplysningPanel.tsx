@@ -1,3 +1,4 @@
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import dayjs from 'dayjs';
@@ -5,7 +6,7 @@ import norskFormat from 'dayjs/locale/nb';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning, Saksopplysninger } from '@navikt/ft-types';
-import { BlaBoksMedCheckmarkListe, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BlaBoksMedCheckmarkListe } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, unique, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
@@ -119,11 +120,9 @@ function lagLesMer(
 ) {
   const unikeScenario = unique(opplysninger.map(o => o.lønnsendringscenario));
   return unikeScenario.map(scenario => (
-    <>
+    <p key={scenario}>
       {finnScenarioTekst(scenario, skjeringstidspunktDato, opplysninger, arbeidsgiverOpplysningerPerId)}
-      <br />
-      <VerticalSpacer sixteenPx />
-    </>
+    </p>
   ));
 }
 
