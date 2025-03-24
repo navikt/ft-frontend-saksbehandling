@@ -88,7 +88,7 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]
     !aktuellPeriode.erForlengelse
   );
 };
-const H3 = (...chunks: any) => (
+const H3 = (chunks: string[]) => (
   <Heading size="xsmall" level="3" key="h3">
     {chunks}
   </Heading>

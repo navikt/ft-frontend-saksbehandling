@@ -11,4 +11,4 @@ export const createIntl = (messages: Record<string, string>): IntlShape =>
     cache,
   );
 
-export const BTag = (...chunks: any) => <b key="bold">{chunks}</b>;
+export const BTag = (chunks: string[]) => <b key="bold">{chunks}</b>;
