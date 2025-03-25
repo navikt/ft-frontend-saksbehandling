@@ -47,6 +47,7 @@ type Props = {
   formName: string;
   isAksjonspunktClosed: boolean;
   avklaringsbehov: BeregningAvklaringsbehov;
+  skalValideres: boolean;
 };
 
 /**
@@ -67,6 +68,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
   formName,
   isAksjonspunktClosed,
   avklaringsbehov,
+  skalValideres,
 }: Props) => {
   let radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IngenEndring" />;
   let radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.EndretNaering" />;
@@ -105,7 +107,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         <FlexColumn>
           <RadioGroupPanel
             name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
-            validate={[required]}
+            validate={skalValideres ? [required] : []}
             label={intl.formatMessage({ id: radioLabel })}
             isHorizontal={false}
             isReadOnly={readOnly}
@@ -125,7 +127,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
                   name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-                  validate={[required, maxValueFormatted(178956970)]}
+                  validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
                   parse={parseCurrencyInput}
                   className={styles.breddeInntekt}
                   readOnly={readOnly}
@@ -144,7 +146,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
             <TextAreaField
               name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
               label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
-              validate={[required, maxLength4000, minLength3, hasValidText]}
+              validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
               maxLength={MAX_LENGTH}
               readOnly={readOnly}
               description={intl.formatMessage({

@@ -198,12 +198,14 @@ const SelvstendigNæringsdrivendeContainer = ({
   avklaringsbehov,
   fieldIndex,
   formName,
+  skalValideres,
 }: {
   readOnly: boolean;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   avklaringsbehov: BeregningAvklaringsbehov;
   fieldIndex: number;
   formName: string;
+  skalValideres: boolean;
 }): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
@@ -228,6 +230,7 @@ const SelvstendigNæringsdrivendeContainer = ({
         erNyoppstartet={erNyoppstartet}
         fieldIndex={fieldIndex}
         formName={formName}
+        skalValideres={skalValideres}
       />
     </>
   );
@@ -556,6 +559,7 @@ export const AksjonspunktBehandler = ({
           fieldIndex={index}
           formName={formName}
           avklaringsbehov={avklaringsbehov}
+          skalValideres={skalValideres}
         />
       );
     }
