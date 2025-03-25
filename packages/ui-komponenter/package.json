@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
