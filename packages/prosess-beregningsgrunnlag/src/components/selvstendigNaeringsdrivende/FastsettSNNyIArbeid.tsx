@@ -33,6 +33,7 @@ type Props = {
   fieldIndex: number;
   formName: string;
   avklaringsbehov: BeregningAvklaringsbehov;
+  skalValideres: boolean;
 };
 
 /**
@@ -50,6 +51,7 @@ export const FastsettSNNyIArbeid = ({
   fieldIndex,
   formName,
   avklaringsbehov,
+  skalValideres,
 }: Props) => {
   const intl = useIntl();
   return (
@@ -66,7 +68,7 @@ export const FastsettSNNyIArbeid = ({
               <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
                 <InputField
                   name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-                  validate={[required, maxValueFormatted(178956970)]}
+                  validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
                   parse={parseCurrencyInput}
                   className={styles.breddeInntekt}
                   isEdited={readOnly && isAksjonspunktClosed}
@@ -86,7 +88,7 @@ export const FastsettSNNyIArbeid = ({
             <TextAreaField
               name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
               label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
-              validate={[required, maxLength4000, minLength3, hasValidText]}
+              validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
               isEdited={readOnly && isAksjonspunktClosed}
               maxLength={MAX_LENGTH}
               readOnly={readOnly}

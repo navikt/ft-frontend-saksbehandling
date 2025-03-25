@@ -33,6 +33,7 @@ type Props = {
   erNyoppstartet?: boolean;
   fieldIndex: number;
   formName: string;
+  skalValideres: boolean;
 };
 
 export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
@@ -43,6 +44,7 @@ export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
   erNyoppstartet = false,
   fieldIndex,
   formName,
+  skalValideres,
 }: Props) => {
   if (!skalFastsette(avklaringsbehov)) {
     return null;
@@ -57,6 +59,7 @@ export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
         fieldIndex={fieldIndex}
         formName={formName}
         avklaringsbehov={avklaringsbehov}
+        skalValideres={skalValideres}
       />
     );
   }
@@ -70,6 +73,7 @@ export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
       formName={formName}
       isAksjonspunktClosed={isAksjonspunktClosed}
       avklaringsbehov={avklaringsbehov}
+      skalValideres={skalValideres}
     />
   );
 };
