@@ -204,7 +204,6 @@ export const vilkar: Vilkår = {
   perioder: [
     {
       vurderesIBehandlingen: true,
-      merknadParametere: { name: '' },
       periode: {
         fom: '2022-01-13',
         tom: '2022-01-20',
@@ -213,7 +212,6 @@ export const vilkar: Vilkår = {
     },
     {
       vurderesIBehandlingen: true,
-      merknadParametere: { name: '' },
       periode: {
         fom: '2022-02-13',
         tom: '2022-02-20',
