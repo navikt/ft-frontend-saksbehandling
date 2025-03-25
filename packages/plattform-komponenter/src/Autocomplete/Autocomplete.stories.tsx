@@ -1,25 +1,23 @@
-import React, { ComponentProps } from 'react';
-
-import { StoryFn } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { Autocomplete } from './Autocomplete';
 
-export default {
+const meta = {
   component: Autocomplete,
+} satisfies Meta<typeof Autocomplete>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    value: 'Verdi',
+    onChange: action('button-click'),
+    ariaLabel: 'ariaLabel',
+    id: 'autocompleteId',
+    placeholder: '',
+    suggestions: [{ key: 'testItem', value: 'Test Item' }],
+    onSelect: action('button-click'),
+  },
 };
-
-const AutocompleteTemplate: StoryFn<ComponentProps<typeof Autocomplete>> = () => (
-  <Autocomplete
-    value="Verdi"
-    onChange={v => v}
-    ariaLabel="ariaLabel"
-    id="autocompleteId"
-    placeholder=""
-    suggestions={[{ key: 'testItem', value: 'Test Item' }]}
-    // eslint-disable-next-line no-console
-    onSelect={() => console.log('Selected')}
-  />
-);
-
-export const Default = AutocompleteTemplate.bind({});
-Default.args = {};

@@ -1,18 +1,18 @@
-import { ComponentProps } from 'react';
-
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { Header } from './Header';
 
-export default {
+const meta = {
   component: Header,
+} satisfies Meta<typeof Header>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    title: 'Tittel',
+    titleHref: 'href',
+    children: <div style={{ color: 'white' }}>test</div>,
+  },
 };
-
-const HeaderTemplate: StoryFn<ComponentProps<typeof Header>> = () => (
-  <Header title="Tittel" titleHref="href">
-    <div style={{ color: 'white' }}>test</div>
-  </Header>
-);
-
-export const Default = HeaderTemplate.bind({});
-Default.args = {};

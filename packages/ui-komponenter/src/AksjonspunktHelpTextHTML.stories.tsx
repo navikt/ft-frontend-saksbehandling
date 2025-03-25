@@ -1,19 +1,22 @@
-import React from 'react';
-
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { AksjonspunktHelpTextHTML } from './AksjonspunktHelpTextHTML';
 
-export default {
+const meta = {
   component: AksjonspunktHelpTextHTML,
+} satisfies Meta<typeof AksjonspunktHelpTextHTML>;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: ['Dette er en aksjonspunktmelding', 'Dette er en annen aksjonspunktmelding'],
+  },
 };
 
-export const Default: StoryFn = () => (
-  <AksjonspunktHelpTextHTML>
-    {['Dette er en aksjonspunktmelding', 'Dette er en annen aksjonspunktmelding']}
-  </AksjonspunktHelpTextHTML>
-);
-
-export const SkalIkkeVisesNårDetIkkeErAksjonspunkter: StoryFn = () => (
-  <AksjonspunktHelpTextHTML>{[]}</AksjonspunktHelpTextHTML>
-);
+export const SkalIkkeVisesNårDetIkkeErAksjonspunkter: Story = {
+  args: {
+    children: [],
+  },
+};
