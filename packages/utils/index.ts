@@ -41,4 +41,4 @@ export { createIntl, BTag } from './src/createIntl';
 export { bemUtils } from './src/bemUtils';
 export { Period } from './src/Period';
 export { prettifyDateString } from './src/dateUtils';
-export { sortPeriodsByFomDate } from './src/periodUtils';
+export { sortPeriodsByFomDate, periodFormat } from './src/periodUtils';
