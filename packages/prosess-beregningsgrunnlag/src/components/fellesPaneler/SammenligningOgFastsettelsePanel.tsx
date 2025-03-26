@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, SammenligningType } from '@navikt/ft-kodeverk';
 import {
@@ -10,7 +10,6 @@ import {
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
@@ -294,11 +293,12 @@ export const SammenligningOgFastsettelsePanel = ({
   };
 
   return (
-    <div className={beregningStyles.panelRight}>
+    <VStack gap="5" className={beregningStyles.panelRight}>
       {panelForklaring}
-      <VerticalSpacer twentyPx />
-      {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
-      {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
-    </div>
+      <div>
+        {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
+        {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
+      </div>
+    </VStack>
   );
 };

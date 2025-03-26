@@ -2,14 +2,13 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
 import { InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
@@ -102,63 +101,49 @@ export const VurderVarigEndringEllerNyoppstartet = ({
     },
   ];
   return (
-    <>
-      <FlexRow>
-        <FlexColumn>
-          <RadioGroupPanel
-            name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
-            validate={skalValideres ? [required] : []}
-            label={intl.formatMessage({ id: radioLabel })}
-            isHorizontal={false}
-            isReadOnly={readOnly}
-            isEdited={readOnly && isAksjonspunktClosed}
-            radios={radioknapper}
-            isTrueOrFalseSelection
-          />
-        </FlexColumn>
-      </FlexRow>
+    <VStack gap="4">
+      <RadioGroupPanel
+        name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
+        validate={skalValideres ? [required] : []}
+        label={intl.formatMessage({ id: radioLabel })}
+        isHorizontal={false}
+        isReadOnly={readOnly}
+        isEdited={readOnly && isAksjonspunktClosed}
+        radios={radioknapper}
+        isTrueOrFalseSelection
+      />
       {varigEndringBekreftetVerdi && (
         <>
-          <FlexRow className={styles.verticalAlignMiddle}>
-            <FlexColumn className={styles.dynamiskKolonne}>
-              <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>
-            </FlexColumn>
-            <FlexColumn>
-              <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-                <InputField
-                  name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-                  validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-                  parse={parseCurrencyInput}
-                  className={styles.breddeInntekt}
-                  readOnly={readOnly}
-                  isEdited={readOnly && isAksjonspunktClosed}
-                />
-              </div>
-            </FlexColumn>
-          </FlexRow>
-          <VerticalSpacer sixteenPx />
+          <HStack gap="4" align="center">
+            <BodyShort size="small" className={styles.dynamiskKolonne}>
+              {inntektFastsettesText(erVarigEndretArbeidssituasjon)}
+            </BodyShort>
+            <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
+              <InputField
+                name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+                validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+                parse={parseCurrencyInput}
+                className={styles.breddeInntekt}
+                readOnly={readOnly}
+                isEdited={readOnly && isAksjonspunktClosed}
+              />
+            </div>
+          </HStack>
         </>
       )}
-      <>
-        <VerticalSpacer sixteenPx />
-        <FlexRow>
-          <FlexColumn>
-            <TextAreaField
-              name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
-              label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
-              validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
-              maxLength={MAX_LENGTH}
-              readOnly={readOnly}
-              description={intl.formatMessage({
-                id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
-              })}
-              parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
-            />
-            <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
-          </FlexColumn>
-        </FlexRow>
-      </>
-    </>
+      <TextAreaField
+        name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+        label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
+        validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
+        maxLength={MAX_LENGTH}
+        readOnly={readOnly}
+        description={intl.formatMessage({
+          id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+        })}
+        parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
+      />
+      <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
+    </VStack>
   );
 };
 

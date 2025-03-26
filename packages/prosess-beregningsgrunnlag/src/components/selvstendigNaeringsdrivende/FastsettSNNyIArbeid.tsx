@@ -1,14 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
 import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
@@ -54,54 +53,45 @@ export const FastsettSNNyIArbeid = ({
   skalValideres,
 }: Props) => {
   const intl = useIntl();
+
   return (
-    <>
+    <VStack gap="10">
       {erNyArbLivet && (
         <>
-          <FlexRow className={styles.verticalAlignMiddle}>
-            <FlexColumn className={styles.dynamiskKolonne}>
-              <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn>
-              <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-                <InputField
-                  name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-                  validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-                  parse={parseCurrencyInput}
-                  className={styles.breddeInntekt}
-                  isEdited={readOnly && isAksjonspunktClosed}
-                  readOnly={readOnly}
-                />
-              </div>
-            </FlexColumn>
-          </FlexRow>
-          <VerticalSpacer eightPx />
+          <HStack gap="4" align="center">
+            <BodyShort size="small" className={styles.dynamiskKolonne}>
+              <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
+            </BodyShort>
+            <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
+              <InputField
+                name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+                validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+                parse={parseCurrencyInput}
+                className={styles.breddeInntekt}
+                isEdited={readOnly && isAksjonspunktClosed}
+                readOnly={readOnly}
+              />
+            </div>
+          </HStack>
         </>
       )}
 
-      <VerticalSpacer sixteenPx />
-      <FlexRow>
-        <FlexColumn>
-          <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>
-            <TextAreaField
-              name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
-              label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
-              validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
-              isEdited={readOnly && isAksjonspunktClosed}
-              maxLength={MAX_LENGTH}
-              readOnly={readOnly}
-              description={intl.formatMessage({
-                id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
-              })}
-              parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
-            />
-            <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
-          </div>
-        </FlexColumn>
-      </FlexRow>
-    </>
+      <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>
+        <TextAreaField
+          name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+          label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
+          validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
+          isEdited={readOnly && isAksjonspunktClosed}
+          maxLength={MAX_LENGTH}
+          readOnly={readOnly}
+          description={intl.formatMessage({
+            id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+          })}
+          parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
+        />
+        <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
+      </div>
+    </VStack>
   );
 };
 

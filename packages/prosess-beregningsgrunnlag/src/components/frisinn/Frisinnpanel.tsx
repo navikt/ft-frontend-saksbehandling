@@ -1,9 +1,8 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Detail } from '@navikt/ds-react';
+import { Detail, VStack } from '@navikt/ds-react';
 
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { Beregningsresultat } from './Beregningsresultat';
 import { Grenseverdi } from './Grenseverdi';
@@ -20,21 +19,17 @@ type Props = {
 };
 
 export const Frisinnpanel = ({ beregningsgrunnlag }: Props) => (
-  <div className={styles.aksjonspunktBehandlerContainer}>
+  <VStack gap="4" className={styles.aksjonspunktBehandlerContainer}>
     <Detail>
       <FormattedMessage id="Beregningsgrunnlag.Frisinn.Tittel" />
     </Detail>
-    <VerticalSpacer sixteenPx />
     <Søknadsopplysninger beregningsgrunnlag={beregningsgrunnlag} />
-    <VerticalSpacer sixteenPx />
     <Inntektsopplysninger beregningsgrunnlag={beregningsgrunnlag} />
-    <VerticalSpacer sixteenPx />
     {erDagsatsBeregnet(beregningsgrunnlag) && (
       <>
         <Grenseverdi beregningsgrunnlag={beregningsgrunnlag} />
-        <VerticalSpacer sixteenPx />
         <Beregningsresultat beregningsgrunnlag={beregningsgrunnlag} />
       </>
     )}
-  </div>
+  </VStack>
 );

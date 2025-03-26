@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, HStack, VStack } from '@navikt/ds-react';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
@@ -11,7 +11,6 @@ import {
   FaktaOmBeregning,
   YtelseGrunnlag,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
@@ -99,19 +98,15 @@ export const BeregningForm = ({
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
   return (
-    <>
+    <VStack gap="4">
       {harAksjonspunkter && (
-        <>
-          <VerticalSpacer eightPx />
-          <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={valgtBeregningsgrunnlag} />
-        </>
+        <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={valgtBeregningsgrunnlag} />
       )}
-      <FlexRow>
-        <FlexColumn className={beregningStyles.venstreKolonne}>
+      <HStack gap="2" wrap={false}>
+        <VStack gap="4" width="50%">
           <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
           </Heading>
-          <VerticalSpacer sixteenPx />
           <SkjeringspunktOgStatusPanel
             kodeverkSamling={kodeverkSamling}
             aktivitetStatusList={aktivitetStatusList}
@@ -144,12 +139,11 @@ export const BeregningForm = ({
               />
             </>
           )}
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.hoyreKolonne}>
+        </VStack>
+        <VStack width="50%">
           <Heading size="medium" className={beregningStyles.panelRight}>
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
           </Heading>
-          <VerticalSpacer sixteenPx />
           <SammenligningOgFastsettelsePanel
             readOnly={readOnly}
             readOnlySubmitButton={readOnlySubmitButton}
@@ -165,15 +159,12 @@ export const BeregningForm = ({
             setFormData={setFormData}
             aktivIndex={aktivIndex}
           />
-          <>
-            <VerticalSpacer sixteenPx />
-            <YtelsegrunnlagPanel beregningsgrunnlag={valgtBeregningsgrunnlag} />
-          </>
+          <YtelsegrunnlagPanel beregningsgrunnlag={valgtBeregningsgrunnlag} />
           {vilkarPeriode && (
             <BeregningsresultatPanel beregningsgrunnlag={valgtBeregningsgrunnlag} vilkårsperiode={vilkarPeriode} />
           )}
-        </FlexColumn>
-      </FlexRow>
-    </>
+        </VStack>
+      </HStack>
+    </VStack>
   );
 };

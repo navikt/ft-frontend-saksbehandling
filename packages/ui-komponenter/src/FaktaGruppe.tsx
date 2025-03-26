@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import { Label } from '@navikt/ds-react';
 
 import { BorderBox } from './BorderBox';
-import { VerticalSpacer } from './VerticalSpacer';
 
 export interface PropsWrapper {
   error: boolean;
@@ -53,7 +52,7 @@ export const FaktaGruppe = ({
       {title && (
         <>
           <Label size="small">{title}</Label>
-          <VerticalSpacer twentyPx />
+          <div style={{ marginBottom: '20px' }} />
         </>
       )}
       {children}
