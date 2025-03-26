@@ -1,11 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
@@ -13,19 +12,15 @@ import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
-  <FlexRow>
-    <FlexColumn>
-      <BodyShort size="small">
-        <FormattedMessage
-          id={tekstId}
-          values={{
-            fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
-            tom: dayjs(tom).format(DDMMYYYY_DATE_FORMAT),
-          }}
-        />
-      </BodyShort>
-    </FlexColumn>
-  </FlexRow>
+  <BodyShort size="small">
+    <FormattedMessage
+      id={tekstId}
+      values={{
+        fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
+        tom: dayjs(tom).format(DDMMYYYY_DATE_FORMAT),
+      }}
+    />
+  </BodyShort>
 );
 
 const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
@@ -49,17 +44,11 @@ export const Søknadsopplysninger = ({ beregningsgrunnlag }: Props) => {
   const ytelsegrunnlag = beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag;
   const { frisinnPerioder } = ytelsegrunnlag;
   return (
-    <div>
-      <FlexRow>
-        <FlexColumn>
-          <Label size="small" className={beregningStyles.avsnittOverskrift}>
-            <FormattedMessage id="Beregningsgrunnlag.Søknad.Tittel" />
-          </Label>
-        </FlexColumn>
-      </FlexRow>
-      <VerticalSpacer eightPx />
+    <VStack gap="2">
+      <Label size="small" className={beregningStyles.avsnittOverskrift}>
+        <FormattedMessage id="Beregningsgrunnlag.Søknad.Tittel" />
+      </Label>
       {Array.isArray(frisinnPerioder) && frisinnPerioder.map(periode => lagSøktYtelseRadPeriode(periode))}
-      <VerticalSpacer sixteenPx />
-    </div>
+    </VStack>
   );
 };

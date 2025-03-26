@@ -2,6 +2,8 @@ import { ReactElement, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
+import { VStack } from '@navikt/ds-react';
+
 import { Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
@@ -15,7 +17,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, usePrevious, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { usePrevious } from '@navikt/ft-ui-komponenter';
 
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import { BeregningFormValues } from '../../types/BeregningFormValues';
@@ -220,19 +222,16 @@ const SelvstendigNæringsdrivendeContainer = ({
     return null;
   }
   return (
-    <>
-      <VerticalSpacer eightPx />
-      <AksjonspunktsbehandlerSNEllerMidlertidigInaktiv
-        readOnly={readOnly}
-        avklaringsbehov={avklaringsbehov}
-        erNyArbLivet={erNyArbLivet}
-        erVarigEndring={erVarigEndring}
-        erNyoppstartet={erNyoppstartet}
-        fieldIndex={fieldIndex}
-        formName={formName}
-        skalValideres={skalValideres}
-      />
-    </>
+    <AksjonspunktsbehandlerSNEllerMidlertidigInaktiv
+      readOnly={readOnly}
+      avklaringsbehov={avklaringsbehov}
+      erNyArbLivet={erNyArbLivet}
+      erVarigEndring={erVarigEndring}
+      erNyoppstartet={erNyoppstartet}
+      fieldIndex={fieldIndex}
+      formName={formName}
+      skalValideres={skalValideres}
+    />
   );
 };
 
@@ -260,9 +259,9 @@ const ArbeidstakerEllerFrilansContainer = ({
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
+
   return (
     <>
-      <VerticalSpacer eightPx />
       {erTidsbegrenset && (
         <AksjonspunktBehandlerTB
           readOnly={readOnly}
@@ -294,24 +293,21 @@ const ArbeidstakerEllerFrilansContainer = ({
           skalValideres={skalValideres}
         />
       )}
-      <VerticalSpacer sixteenPx />
-      <FlexRow>
-        <FlexColumn>
-          <TextAreaField
-            name={`${formName}.${fieldIndex}.ATFLVurdering`}
-            label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
-            validate={[required, maxLength4000, minLength3, hasValidText]}
-            maxLength={MAX_LENGTH}
-            readOnly={readOnly}
-            className={styles.textAreaStyle}
-            description={intl.formatMessage({
-              id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
-            })}
-            parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
-          />
-          <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
-        </FlexColumn>
-      </FlexRow>
+      <div>
+        <TextAreaField
+          name={`${formName}.${fieldIndex}.ATFLVurdering`}
+          label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
+          validate={[required, maxLength4000, minLength3, hasValidText]}
+          maxLength={MAX_LENGTH}
+          readOnly={readOnly}
+          className={styles.textAreaStyle}
+          description={intl.formatMessage({
+            id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+          })}
+          parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
+        />
+        <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
+      </div>
     </>
   );
 };
@@ -536,18 +532,6 @@ export const AksjonspunktBehandler = ({
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
-  const submittKnapp = (
-    <FlexRow>
-      <FlexColumn>
-        <ProsessStegSubmitButton
-          isReadOnly={readOnly}
-          isSubmittable={!readOnlySubmitButton}
-          isDirty={formMethods.formState.isDirty}
-          isSubmitting={finnesFormSomSubmittes}
-        />
-      </FlexColumn>
-    </FlexRow>
-  );
 
   const finnAvklaringsbehov = (
     avklaringsbehovForBG: BeregningAvklaringsbehov[],
@@ -605,14 +589,20 @@ export const AksjonspunktBehandler = ({
               avklaringsbehov={finnAvklaringsbehov(bgSomSkalVurderes[index].avklaringsbehov)}
               beregningsgrunnlag={bgSomSkalVurderes[index]}
             />
-            <div
+            <VStack
+              gap="4"
               className={`${readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder} ${styles.aksjonspunktWrapper}`}
             >
               {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
-              <VerticalSpacer sixteenPx />
-              {submittKnapp}
-              <VerticalSpacer sixteenPx />
-            </div>
+              <div>
+                <ProsessStegSubmitButton
+                  isReadOnly={readOnly}
+                  isSubmittable={!readOnlySubmitButton}
+                  isDirty={formMethods.formState.isDirty}
+                  isSubmitting={finnesFormSomSubmittes}
+                />
+              </div>
+            </VStack>
           </div>
         ))}
       </Form>

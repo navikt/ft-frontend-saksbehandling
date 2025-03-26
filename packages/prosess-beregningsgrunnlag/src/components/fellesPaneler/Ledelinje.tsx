@@ -1,5 +1,3 @@
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-
 import styles from './ledelinje.module.css';
 
 export interface Props {
@@ -14,12 +12,8 @@ export interface Props {
 export const Ledelinje = ({ prosentBredde }: Props) => {
   const styleBredde = `${prosentBredde}%`;
   return (
-    <FlexRow>
-      <div style={{ width: styleBredde }}>
-        <FlexColumn>
-          <div className={styles.colDevider} />
-        </FlexColumn>
-      </div>
-    </FlexRow>
+    <div style={{ width: styleBredde }}>
+      <div className={styles.colDevider} />
+    </div>
   );
 };

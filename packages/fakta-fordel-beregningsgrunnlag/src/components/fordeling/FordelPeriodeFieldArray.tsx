@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import { useFieldArray, useFormContext, UseFormGetValues } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
@@ -15,7 +15,6 @@ import {
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
-import { FloatRight } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
@@ -39,6 +38,8 @@ import styles from './renderFordelBGFieldArray.module.css';
 
 const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
+
+const FloatRight = ({ children }: { children?: ReactNode }) => <span className={styles.floatRight}>{children}</span>;
 
 const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
   nyAndel: true,

@@ -1,11 +1,8 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 type Props = {
   bruttoPrAar?: number;
@@ -19,42 +16,28 @@ type Props = {
 export const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => {
   if (bruttoPrAar || bruttoPrAar === 0) {
     return (
-      <>
-        <FlexRow>
-          <FlexColumn>
-            <Heading size="medium">
-              <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
-            </Heading>
-            <VerticalSpacer eightPx />
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet} />
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-            </Detail>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-            </Detail>
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
+      <VStack gap="2">
+        <Heading size="medium">
+          <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
+        </Heading>
+        <HStack gap="10" justify="end">
+          <Detail>
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+          </Detail>
+          <Detail>
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+          </Detail>
+        </HStack>
+        <HStack justify="space-between">
+          <BodyShort size="small">
+            <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
+          </BodyShort>
+          <HStack gap="14">
             <BodyShort size="small">{formatCurrencyNoKr(bruttoPrAar / 12)}</BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
             <Label size="small">{formatCurrencyNoKr(bruttoPrAar)}</Label>
-          </FlexColumn>
-        </FlexRow>
-      </>
+          </HStack>
+        </HStack>
+      </VStack>
     );
   }
   return null;

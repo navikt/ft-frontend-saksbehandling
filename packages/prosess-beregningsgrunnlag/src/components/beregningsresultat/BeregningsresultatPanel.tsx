@@ -1,12 +1,11 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
@@ -171,22 +170,22 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
   const tabellData = useMemo(() => utledTabellData(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalVisePeriodePrTabell = tabellData.length > 1;
   return (
-    <div className={beregningStyles.panelRight}>
+    <VStack gap="2" className={beregningStyles.panelRight}>
       <Heading size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
       </Heading>
-      <VerticalSpacer eightPx />
-      {tabellData.map(tab => (
-        <div key={tab.fom}>
-          <OppsummertGrunnlagPanel
-            tabellData={tab}
-            skalVisePeriode={skalVisePeriodePrTabell}
-            vilkårsperiode={vilkårsperiode}
-            beregningsgrunnlag={beregningsgrunnlag}
-          />
-          <VerticalSpacer fourtyPx />
-        </div>
-      ))}
-    </div>
+      <VStack gap="1">
+        {tabellData.map(tab => (
+          <React.Fragment key={tab.fom}>
+            <OppsummertGrunnlagPanel
+              tabellData={tab}
+              skalVisePeriode={skalVisePeriodePrTabell}
+              vilkårsperiode={vilkårsperiode}
+              beregningsgrunnlag={beregningsgrunnlag}
+            />
+          </React.Fragment>
+        ))}
+      </VStack>
+    </VStack>
   );
 };
