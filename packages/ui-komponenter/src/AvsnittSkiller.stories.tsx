@@ -1,17 +1,19 @@
-import React from 'react';
-
-import { StoryFn } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { AvsnittSkiller } from './AvsnittSkiller';
 
-export default {
+const meta = {
   component: AvsnittSkiller,
-};
+  render: () => (
+    <div>
+      Dette er en tekst
+      <AvsnittSkiller />
+      Dette er en tekst
+    </div>
+  ),
+} satisfies Meta<typeof AvsnittSkiller>;
+export default meta;
 
-export const Default: StoryFn = () => (
-  <div>
-    Dette er en tekst
-    <AvsnittSkiller />
-    Dette er en tekst
-  </div>
-);
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
