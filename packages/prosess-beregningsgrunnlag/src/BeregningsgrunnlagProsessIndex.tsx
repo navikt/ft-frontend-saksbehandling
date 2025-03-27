@@ -69,6 +69,7 @@ type OwnProps = {
   beregningsgrunnlagsvilkar: Vilkår;
   readOnlySubmitButton: boolean;
   kodeverkSamling: KodeverkForPanel;
+  sentryCallback?: (error: string) => void;
 };
 
 type MenyProp = {
@@ -108,6 +109,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
+  sentryCallback,
 }: OwnProps & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
   const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
 
@@ -168,6 +170,7 @@ export const BeregningsgrunnlagProsessIndex = ({
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             setFormData={setFormData}
             formData={formData}
+            sentryCallback={sentryCallback}
           />
         </div>
       </div>

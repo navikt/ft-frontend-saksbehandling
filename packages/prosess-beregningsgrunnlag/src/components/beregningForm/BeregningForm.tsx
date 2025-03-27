@@ -60,6 +60,7 @@ type Props = {
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
   aktivIndex: number;
+  sentryCallback?: (error: string) => void;
 };
 
 // ------------------------------------------------------------------------------------------ //
@@ -88,6 +89,7 @@ export const BeregningForm = ({
   formData,
   setFormData,
   aktivIndex,
+  sentryCallback,
 }: Props) => {
   const { skjaeringstidspunktBeregning, beregningsgrunnlagPeriode, faktaOmBeregning, ytelsesspesifiktGrunnlag } =
     valgtBeregningsgrunnlag;
@@ -164,6 +166,7 @@ export const BeregningForm = ({
             formData={formData}
             setFormData={setFormData}
             aktivIndex={aktivIndex}
+            sentryCallback={sentryCallback}
           />
           <>
             <VerticalSpacer sixteenPx />
