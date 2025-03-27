@@ -30,9 +30,9 @@
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "eslint": "9.22.0",
+    "eslint": "9.23.0",
     "typescript": "5.8.2",
-    "vite": "6.2.2",
+    "vite": "6.2.3",
     "vitest": "3.0.9"
   },
   "publishConfig": {
