@@ -2,14 +2,12 @@
   width: 70%;
 }
 .kolVerdi {
-  display: flex;
-  justify-content: flex-end;
   width: 30%;
 }
 .radNoBorder {
   padding-bottom: 8px;
   padding-top: 8px;
-  width: 60%;
+  width: 70%;
 }
 .radDobbelLinje {
   border-bottom: 1px solid var(--a-grayalpha-600);

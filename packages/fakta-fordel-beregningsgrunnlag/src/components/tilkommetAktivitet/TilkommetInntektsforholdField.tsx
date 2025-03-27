@@ -2,13 +2,12 @@ import { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Alert, Label, ReadMore } from '@navikt/ds-react';
+import { Alert, Label, ReadMore, VStack } from '@navikt/ds-react';
 
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
@@ -149,7 +148,7 @@ export const TilkommetInntektsforholdField = ({
   };
 
   return (
-    <>
+    <VStack gap="4">
       <RadioGroupPanel
         label={getRadioGroupLabel()}
         name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
@@ -162,23 +161,20 @@ export const TilkommetInntektsforholdField = ({
         isTrueOrFalseSelection
       />
       {skalRedusereValg === false && (
-        <>
-          <VerticalSpacer sixteenPx />
-          <Alert size="small" variant="info">
-            {intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Alert' })}
-          </Alert>
-        </>
+        <Alert size="small" variant="info">
+          {intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Alert' })}
+        </Alert>
       )}
       {skalRedusereValg && (
         <>
-          <VerticalSpacer sixteenPx />
-          <Label size="small">
-            <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Fastsett" />
-          </Label>
-          <ReadMore header={<FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMer" />}>
-            {lagHjelpetekst()}
-          </ReadMore>
-          <VerticalSpacer eightPx />
+          <VStack gap="1">
+            <Label size="small">
+              <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Fastsett" />
+            </Label>
+            <ReadMore header={<FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMer" />}>
+              {lagHjelpetekst()}
+            </ReadMore>
+          </VStack>
           <div className={styles.bruttoInntektContainer}>
             <InputField
               name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.bruttoInntektPrÅr`}
@@ -193,6 +189,6 @@ export const TilkommetInntektsforholdField = ({
           </div>
         </>
       )}
-    </>
+    </VStack>
   );
 };

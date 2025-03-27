@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import {
   AktivitetStatus,
@@ -9,7 +9,6 @@ import {
   isStatusFrilanserOrKombinasjon,
 } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
@@ -95,28 +94,25 @@ export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnla
     return null;
   }
   return (
-    <div className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerHeader}>
-      <FlexRow>
-        {!readOnly && (
-          <FlexColumn className={styles.aksjonspunktBehandlerImageCol}>
-            <ExclamationmarkTriangleFillIcon className={styles.warningIcon} />
-          </FlexColumn>
-        )}
-        <FlexColumn className={styles.aksjonspunktBehandlerTextCol}>
-          <Label>
-            <FormattedMessage id={finnTittel(avklaringsbehov, beregningsgrunnlag)} />
-          </Label>
-        </FlexColumn>
-      </FlexRow>
-      <VerticalSpacer eightPx />
-      <FlexRow>
-        {!readOnly && <FlexColumn className={styles.aksjonspunktBehandlerImageCol} />}
-        <FlexColumn className={styles.aksjonspunktBehandlerTextCol}>
-          <BodyShort>
-            <FormattedMessage id={finnDetaljer(avklaringsbehov, beregningsgrunnlag)} />
-          </BodyShort>
-        </FlexColumn>
-      </FlexRow>
-    </div>
+    <HStack
+      gap="6"
+      align="center"
+      wrap={false}
+      className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerHeader}
+    >
+      {!readOnly && (
+        <div>
+          <ExclamationmarkTriangleFillIcon className={styles.warningIcon} />
+        </div>
+      )}
+      <VStack gap="2">
+        <Label>
+          <FormattedMessage id={finnTittel(avklaringsbehov, beregningsgrunnlag)} />
+        </Label>
+        <BodyShort>
+          <FormattedMessage id={finnDetaljer(avklaringsbehov, beregningsgrunnlag)} />
+        </BodyShort>
+      </VStack>
+    </HStack>
   );
 };

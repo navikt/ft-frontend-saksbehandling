@@ -1,11 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import {
@@ -25,8 +24,8 @@ const lagGrenseveriPeriode = (
   annenInntektIkkeSøktFor: number,
   utregnetInntektstak: number,
 ) => (
-  <FlexRow>
-    <FlexColumn className={beregningStyles.tabellAktivitet}>
+  <HStack gap="2">
+    <BodyShort className={beregningStyles.tabellAktivitet}>
       <FormattedMessage
         id="Beregningsgrunnlag.Frisinn.Inntektstak"
         values={{
@@ -34,11 +33,11 @@ const lagGrenseveriPeriode = (
           annenInntekt: formatCurrencyNoKr(annenInntektIkkeSøktFor),
         }}
       />
-    </FlexColumn>
-    <FlexColumn className={beregningStyles.tabellInntekt}>
-      <BodyShort size="small">{formatCurrencyNoKr(utregnetInntektstak)}</BodyShort>
-    </FlexColumn>
-  </FlexRow>
+    </BodyShort>
+    <BodyShort size="small" className={beregningStyles.tabellInntekt}>
+      {formatCurrencyNoKr(utregnetInntektstak)}
+    </BodyShort>
+  </HStack>
 );
 
 const overlapperMedFrisinnPeriode = (bgPeriode: BeregningsgrunnlagPeriodeProp, frisinnPerioder: FrisinnPeriode[]) => {
@@ -105,26 +104,21 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
     Array.isArray(frisinnGrunnlag.frisinnPerioder) &&
     frisinnGrunnlag.frisinnPerioder.find(frisinnPeriode => starterFørISammeMåned(frisinnPeriode, bgPeriode));
   const fom = førstePeriodeISammeMåned ? førstePeriodeISammeMåned.fom : bgPeriode.beregningsgrunnlagPeriodeFom;
+
   return (
-    <>
-      <FlexRow>
-        <FlexColumn>
-          <Label size="small" className={beregningStyles.avsnittOverskrift}>
-            <FormattedMessage
-              id="Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode"
-              key={`fom-tom${fom}${tom}`}
-              values={{
-                fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
-                tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
-              }}
-            />
-          </Label>
-        </FlexColumn>
-      </FlexRow>
-      <VerticalSpacer eightPx />
+    <VStack gap="2">
+      <Label size="small" className={beregningStyles.avsnittOverskrift}>
+        <FormattedMessage
+          id="Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode"
+          key={`fom-tom${fom}${tom}`}
+          values={{
+            fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
+            tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
+          }}
+        />
+      </Label>
       {lagGrenseveriPeriode(originaltInntektstak, annenInntektIkkeSøktFor, utregnetInntektstak)}
-      <VerticalSpacer sixteenPx />
-    </>
+    </VStack>
   );
 };
 
@@ -146,10 +140,10 @@ export const Grenseverdi = ({ beregningsgrunnlag }: Props) => {
     relevanteFrisinnperioder,
   );
   return (
-    <>
+    <div>
       {perioderSomSkalvises.map(periode => (
         <div key={periode.beregningsgrunnlagPeriodeFom}>{lagGrenseverdirad(beregningsgrunnlag, periode)}</div>
       ))}
-    </>
+    </div>
   );
 };

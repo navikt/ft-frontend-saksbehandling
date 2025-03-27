@@ -1,5 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 
+import { VStack } from '@navikt/ds-react';
+
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
@@ -9,7 +11,6 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import {
   FordelBeregningsgrunnlagFormValues,
@@ -112,9 +113,8 @@ export const FordelingField = ({
   const formMethods = useFormContext<FordelBeregningsgrunnlagFormValues>();
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);
   return (
-    <>
+    <VStack gap="5">
       <FordelingHelpText isAksjonspunktClosed={isAksjonspunktClosed} beregningsgrunnlag={beregningsgrunnlag} />
-      <VerticalSpacer twentyPx />
       <FastsettFordeltBeregningsgrunnlag
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
@@ -123,24 +123,26 @@ export const FordelingField = ({
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         fieldIndex={fieldIndex}
       />
-      <VerticalSpacer twentyPx />
-      <FaktaBegrunnelseTextField
-        name={`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`}
-        isSubmittable={submittable}
-        isReadOnly={readOnly}
-        hasBegrunnelse={!!begrunnelse}
-      />
-      <AssessedBy
-        ident={avklaringsbehovFordelBeregningsgrunnlag.vurdertAv}
-        date={avklaringsbehovFordelBeregningsgrunnlag.vurdertTidspunkt}
-      />
-      <VerticalSpacer twentyPx />
-      <SubmitButton
-        isSubmittable={submittable}
-        isReadOnly={readOnly}
-        isSubmitting={formMethods.formState.isSubmitting}
-        isDirty={formMethods.formState.isDirty}
-      />
-    </>
+      <div>
+        <FaktaBegrunnelseTextField
+          name={`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`}
+          isSubmittable={submittable}
+          isReadOnly={readOnly}
+          hasBegrunnelse={!!begrunnelse}
+        />
+        <AssessedBy
+          ident={avklaringsbehovFordelBeregningsgrunnlag.vurdertAv}
+          date={avklaringsbehovFordelBeregningsgrunnlag.vurdertTidspunkt}
+        />
+      </div>
+      <div>
+        <SubmitButton
+          isSubmittable={submittable}
+          isReadOnly={readOnly}
+          isSubmitting={formMethods.formState.isSubmitting}
+          isDirty={formMethods.formState.isDirty}
+        />
+      </div>
+    </VStack>
   );
 };

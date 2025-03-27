@@ -1,7 +1,5 @@
 import classnames from 'classnames/bind';
 
-import { VerticalSpacer } from './VerticalSpacer';
-
 import styles from './avsnittSkiller.module.css';
 
 const classNames = classnames.bind(styles);
@@ -24,7 +22,7 @@ export const AvsnittSkiller = ({
   className,
 }: Props) => (
   <>
-    {spaceAbove && <VerticalSpacer thirtyTwoPx />}
+    {spaceAbove && <div style={{ marginBottom: '32px' }} />}
     <div
       className={classNames(className, {
         leftPanel,
@@ -33,6 +31,6 @@ export const AvsnittSkiller = ({
     >
       <div className={dividerParagraf ? styles.dividerParagraf : styles.divider} />
     </div>
-    {spaceUnder && <VerticalSpacer thirtyTwoPx />}
+    {spaceUnder && <div style={{ marginBottom: '32px' }} />}
   </>
 );

@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
@@ -43,23 +42,20 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår) => {
   );
 
   return (
-    <>
+    <VStack gap="2">
       <Heading size="medium">
         <FormattedMessage id="Beregningsgrunnlag.Title" />
       </Heading>
-      <VerticalSpacer eightPx />
-      <FlexRow>
-        <FlexColumn>
-          <FormattedMessage
-            id={
-              ikkeTilstrekkeligInntektsgrunnlag
-                ? 'Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag'
-                : 'Beregningsgrunnlag.HarIkkeBeregningsregler'
-            }
-          />
-        </FlexColumn>
-      </FlexRow>
-    </>
+      <BodyShort size="small">
+        <FormattedMessage
+          id={
+            ikkeTilstrekkeligInntektsgrunnlag
+              ? 'Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag'
+              : 'Beregningsgrunnlag.HarIkkeBeregningsregler'
+          }
+        />
+      </BodyShort>
+    </VStack>
   );
 };
 
