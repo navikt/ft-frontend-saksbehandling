@@ -473,6 +473,10 @@ export const AksjonspunktBehandler = ({
 }: Props) => {
   const intl = useIntl();
 
+  useEffect(() => {
+    setSubmitting(false);
+  }, [beregningsgrunnlagListe[aktivIndex]?.avklaringsbehov.length]);
+
   const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
     setSubmitting(true);
     submitCallback(transformFields(values, lp));
