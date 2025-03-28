@@ -155,7 +155,6 @@ type Props = {
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
   aktivIndex: number;
-  sentryCallback?: (error: string) => void;
 };
 
 type GruppertPrLovparagraf = {
@@ -215,7 +214,6 @@ export const SammenligningOgFastsettelsePanel = ({
   formData,
   setFormData,
   aktivIndex,
-  sentryCallback,
 }: Props) => {
   const gruppertPrLovparagraf = grupperPrLovparagraf(beregningsgrunnlagListe);
   const [finnesFormSomSubmittes, setSubmitting] = useState(false);
@@ -285,7 +283,6 @@ export const SammenligningOgFastsettelsePanel = ({
                 aktivIndex={aktivIndex}
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
                 setSubmitting={setSubmitting}
-                sentryCallback={sentryCallback}
               />
               <div className={beregningStyles.storSpace} />
             </div>

@@ -429,29 +429,15 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
   throw new Error('Må submitte et aksjonspunkt');
 };
 
-const transformFields = (
-  values: BeregningFormValues,
-  lovparagraf: LovParagraf,
-  sentryCallback?: (error: string) => void,
-) => {
+const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) => {
   const fields = values[finnFormName(lovparagraf)];
-  if (fields.length === 0) {
-    sentryCallback?.('Ingen felter funnet for lovparagraf');
-  }
   const aksjonspunktLister = fields
     .filter(f => f.erTilVurdering)
     .map(field => ({
       periode: field.periode,
       aksjonspunkter: transformValues(field),
     }));
-  if (aksjonspunktLister.length === 0) {
-    sentryCallback?.('Ingen aksjonspunkter er til vurdering');
-  }
-  const gruppertPåKode = aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
-  if (gruppertPåKode.length === 0) {
-    sentryCallback?.('Ingen aksjonspunktLister gruppert på kode');
-  }
-  return gruppertPåKode;
+  return aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
 };
 
 type Props = {
@@ -468,7 +454,6 @@ type Props = {
   lovparagraf: LovParagraf;
   finnesFormSomSubmittes: boolean;
   setSubmitting: (toggle: boolean) => void;
-  sentryCallback?: (error: string) => void;
 };
 
 export const AksjonspunktBehandler = ({
@@ -485,12 +470,11 @@ export const AksjonspunktBehandler = ({
   lovparagraf,
   finnesFormSomSubmittes,
   setSubmitting,
-  sentryCallback,
 }: Props) => {
   const intl = useIntl();
   const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
     setSubmitting(true);
-    submitCallback(transformFields(values, lp, sentryCallback));
+    submitCallback(transformFields(values, lp));
   };
 
   const utledSkalValideres = (beregningsgrunnlag: Beregningsgrunnlag) => {
