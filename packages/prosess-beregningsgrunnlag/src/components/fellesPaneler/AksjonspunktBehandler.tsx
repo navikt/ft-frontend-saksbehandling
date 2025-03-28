@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
@@ -15,7 +15,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, usePrevious, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import { BeregningFormValues } from '../../types/BeregningFormValues';
@@ -488,11 +488,6 @@ export const AksjonspunktBehandler = ({
   sentryCallback,
 }: Props) => {
   const intl = useIntl();
-
-  useEffect(() => {
-    setSubmitting(false);
-  }, [beregningsgrunnlagListe[aktivIndex]?.avklaringsbehov.length]);
-
   const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
     setSubmitting(true);
     submitCallback(transformFields(values, lp, sentryCallback));
@@ -503,13 +498,34 @@ export const AksjonspunktBehandler = ({
     return periode.vurderesIBehandlingen && !periode.erForlengelse;
   };
 
-  const bgSomSkalVurderes = beregningsgrunnlagListe.filter(bg =>
-    harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf),
+  const bgSomSkalVurderes = useMemo(
+    () => beregningsgrunnlagListe.filter(bg => harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf)),
+    [beregningsgrunnlagListe, lovparagraf],
   );
   const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
     defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
   });
+
+  const resetForm = useCallback(() => {
+    formMethods.reset(buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf));
+  }, [formMethods, bgSomSkalVurderes, vilkår, formName, lovparagraf]);
+
+  const totaltAntallAvklaringsbehov = useMemo(
+    () => beregningsgrunnlagListe.reduce((sum, bg) => sum + bg.avklaringsbehov.length, 0),
+    [beregningsgrunnlagListe],
+  );
+
+  const forrigeAntallAvklaringsbehov = usePrevious(totaltAntallAvklaringsbehov);
+
+  useEffect(() => {
+    if (forrigeAntallAvklaringsbehov !== undefined && totaltAntallAvklaringsbehov !== forrigeAntallAvklaringsbehov) {
+      setSubmitting(false);
+      if (!formData) {
+        resetForm();
+      }
+    }
+  }, [totaltAntallAvklaringsbehov, formData, resetForm, setSubmitting, forrigeAntallAvklaringsbehov]);
 
   const {
     formState: { dirtyFields },
