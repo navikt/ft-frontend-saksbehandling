@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
@@ -15,7 +15,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { FlexColumn, FlexRow, usePrevious, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import { BeregningFormValues } from '../../types/BeregningFormValues';
@@ -429,29 +429,15 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
   throw new Error('Må submitte et aksjonspunkt');
 };
 
-const transformFields = (
-  values: BeregningFormValues,
-  lovparagraf: LovParagraf,
-  sentryCallback?: (error: string) => void,
-) => {
+const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) => {
   const fields = values[finnFormName(lovparagraf)];
-  if (fields.length === 0) {
-    sentryCallback?.('Ingen felter funnet for lovparagraf');
-  }
   const aksjonspunktLister = fields
     .filter(f => f.erTilVurdering)
     .map(field => ({
       periode: field.periode,
       aksjonspunkter: transformValues(field),
     }));
-  if (aksjonspunktLister.length === 0) {
-    sentryCallback?.('Ingen aksjonspunkter er til vurdering');
-  }
-  const gruppertPåKode = aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
-  if (gruppertPåKode.length === 0) {
-    sentryCallback?.('Ingen aksjonspunktLister gruppert på kode');
-  }
-  return gruppertPåKode;
+  return aksjonspunktLister.reduce(grupperPåKode, [] as BeregningAksjonspunktSubmitType[]);
 };
 
 type Props = {
@@ -468,7 +454,6 @@ type Props = {
   lovparagraf: LovParagraf;
   finnesFormSomSubmittes: boolean;
   setSubmitting: (toggle: boolean) => void;
-  sentryCallback?: (error: string) => void;
 };
 
 export const AksjonspunktBehandler = ({
@@ -485,17 +470,11 @@ export const AksjonspunktBehandler = ({
   lovparagraf,
   finnesFormSomSubmittes,
   setSubmitting,
-  sentryCallback,
 }: Props) => {
   const intl = useIntl();
-
-  useEffect(() => {
-    setSubmitting(false);
-  }, [beregningsgrunnlagListe[aktivIndex]?.avklaringsbehov.length]);
-
   const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
     setSubmitting(true);
-    submitCallback(transformFields(values, lp, sentryCallback));
+    submitCallback(transformFields(values, lp));
   };
 
   const utledSkalValideres = (beregningsgrunnlag: Beregningsgrunnlag) => {
@@ -503,13 +482,34 @@ export const AksjonspunktBehandler = ({
     return periode.vurderesIBehandlingen && !periode.erForlengelse;
   };
 
-  const bgSomSkalVurderes = beregningsgrunnlagListe.filter(bg =>
-    harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf),
+  const bgSomSkalVurderes = useMemo(
+    () => beregningsgrunnlagListe.filter(bg => harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf)),
+    [beregningsgrunnlagListe, lovparagraf],
   );
   const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
     defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
   });
+
+  const resetForm = useCallback(() => {
+    formMethods.reset(buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf));
+  }, [formMethods, bgSomSkalVurderes, vilkår, formName, lovparagraf]);
+
+  const totaltAntallAvklaringsbehov = useMemo(
+    () => beregningsgrunnlagListe.reduce((sum, bg) => sum + bg.avklaringsbehov.length, 0),
+    [beregningsgrunnlagListe],
+  );
+
+  const forrigeAntallAvklaringsbehov = usePrevious(totaltAntallAvklaringsbehov);
+
+  useEffect(() => {
+    if (forrigeAntallAvklaringsbehov !== undefined && totaltAntallAvklaringsbehov !== forrigeAntallAvklaringsbehov) {
+      setSubmitting(false);
+      if (!formData) {
+        resetForm();
+      }
+    }
+  }, [totaltAntallAvklaringsbehov, formData, resetForm, setSubmitting, forrigeAntallAvklaringsbehov]);
 
   const {
     formState: { dirtyFields },
