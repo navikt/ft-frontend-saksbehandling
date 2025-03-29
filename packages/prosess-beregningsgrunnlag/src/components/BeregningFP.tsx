@@ -67,7 +67,6 @@ type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
-  sentryCallback?: (error: string) => void;
 };
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
@@ -91,7 +90,6 @@ export const BeregningFP = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-  sentryCallback,
 }: Props) => {
   const aktivtBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
   // @ts-expect-error
@@ -125,7 +123,6 @@ export const BeregningFP = ({
         formData={formData}
         setFormData={setFormData}
         aktivIndex={aktivtBeregningsgrunnlagIndeks}
-        sentryCallback={sentryCallback}
       />
 
       {aksjonspunktGraderingPaaAndelUtenBG && (
