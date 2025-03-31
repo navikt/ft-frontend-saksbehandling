@@ -57,23 +57,21 @@ export const FastsettSNNyIArbeid = ({
   return (
     <VStack gap="10">
       {erNyArbLivet && (
-        <>
-          <HStack gap="4" align="center">
-            <BodyShort size="small" className={styles.dynamiskKolonne}>
-              <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
-            </BodyShort>
-            <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-              <InputField
-                name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-                validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-                parse={parseCurrencyInput}
-                className={styles.breddeInntekt}
-                isEdited={readOnly && isAksjonspunktClosed}
-                readOnly={readOnly}
-              />
-            </div>
-          </HStack>
-        </>
+        <HStack gap="4" align="center">
+          <BodyShort size="small" className={styles.dynamiskKolonne}>
+            <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
+          </BodyShort>
+          <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
+            <InputField
+              name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+              validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+              parse={parseCurrencyInput}
+              className={styles.breddeInntekt}
+              isEdited={readOnly && isAksjonspunktClosed}
+              readOnly={readOnly}
+            />
+          </div>
+        </HStack>
       )}
 
       <div id="readOnlyWrapper" className={readOnly ? styles.verticalLine : styles.textAreaWrapperHeigh}>

@@ -113,23 +113,21 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         isTrueOrFalseSelection
       />
       {varigEndringBekreftetVerdi && (
-        <>
-          <HStack gap="4" align="center">
-            <BodyShort size="small" className={styles.dynamiskKolonne}>
-              {inntektFastsettesText(erVarigEndretArbeidssituasjon)}
-            </BodyShort>
-            <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-              <InputField
-                name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-                validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-                parse={parseCurrencyInput}
-                className={styles.breddeInntekt}
-                readOnly={readOnly}
-                isEdited={readOnly && isAksjonspunktClosed}
-              />
-            </div>
-          </HStack>
-        </>
+        <HStack gap="4" align="center">
+          <BodyShort size="small" className={styles.dynamiskKolonne}>
+            {inntektFastsettesText(erVarigEndretArbeidssituasjon)}
+          </BodyShort>
+          <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
+            <InputField
+              name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+              validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+              parse={parseCurrencyInput}
+              className={styles.breddeInntekt}
+              readOnly={readOnly}
+              isEdited={readOnly && isAksjonspunktClosed}
+            />
+          </div>
+        </HStack>
       )}
       <TextAreaField
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
