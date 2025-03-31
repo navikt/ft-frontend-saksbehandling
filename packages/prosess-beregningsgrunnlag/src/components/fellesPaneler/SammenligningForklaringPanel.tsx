@@ -1,10 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, VStack } from '@navikt/ds-react';
 
 import { SammenligningType } from '@navikt/ft-kodeverk';
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 
@@ -55,45 +54,29 @@ export const SammenligningForklaringPanel = ({
       </BodyShort>
     );
   }
+
   return (
-    <>
+    <VStack gap="2">
       {relevanteStatuser.isMilitaer && (
         <BodyShort size="small">
           <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Miletar" />
         </BodyShort>
       )}
       {relevanteStatuser.isAAP && (
-        <FlexRow>
-          <FlexColumn>
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AAP" />
-            </BodyShort>
-          </FlexColumn>
-          <VerticalSpacer eightPx />
-        </FlexRow>
+        <BodyShort size="small">
+          <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AAP" />
+        </BodyShort>
       )}
       {relevanteStatuser.isDagpenger && (
-        <>
-          <FlexRow>
-            <FlexColumn>
-              <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Dagpenger" />
-              </BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <VerticalSpacer eightPx />
-        </>
+        <BodyShort size="small">
+          <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Dagpenger" />
+        </BodyShort>
       )}
       {erATFLSNUtenSammenligningsgrunnlagATFL && (
-        <FlexRow>
-          <FlexColumn>
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN" />
-            </BodyShort>
-          </FlexColumn>
-          <VerticalSpacer eightPx />
-        </FlexRow>
+        <BodyShort size="small">
+          <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN" />
+        </BodyShort>
       )}
-    </>
+    </VStack>
   );
 };

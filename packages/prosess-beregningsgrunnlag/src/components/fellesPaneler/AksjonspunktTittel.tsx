@@ -11,7 +11,7 @@ import {
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { BTag } from '@navikt/ft-utils';
 
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
@@ -100,26 +100,20 @@ const lagAksjonspunktHelpText = (
   );
   const erVarigEndring = !!snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
   return (
-    <div>
-      <AksjonspunktHelpTextHTML>
-        {åpneAvklaringsbehov.map(ap => (
-          <Label key={ap.definisjon}>
-            <FormattedMessage
-              id={findAksjonspunktHelpTekst(
-                ap,
-                erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-              )}
-              values={{
-                verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
-                b: BTag,
-                br: <br />,
-              }}
-            />
-          </Label>
-        ))}
-      </AksjonspunktHelpTextHTML>
-      <VerticalSpacer thirtyTwoPx />
-    </div>
+    <AksjonspunktHelpTextHTML>
+      {åpneAvklaringsbehov.map(ap => (
+        <Label key={ap.definisjon}>
+          <FormattedMessage
+            id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
+            values={{
+              verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
+              b: BTag,
+              br: <br />,
+            }}
+          />
+        </Label>
+      ))}
+    </AksjonspunktHelpTextHTML>
   );
 };
 
@@ -142,10 +136,5 @@ export const AksjonspunktTittel = ({ avklaringsbehov, beregningsgrunnlag }: Prop
     return null;
   }
   const sammenligningGr = getSammenligningsgrunnlagsPrStatus(beregningsgrunnlag);
-  return (
-    <>
-      <VerticalSpacer eightPx />
-      {lagAksjonspunktHelpText(åpneAksjonspunkter, sammenligningGr, andelerIFørstePeriode)}
-    </>
-  );
+  return lagAksjonspunktHelpText(åpneAksjonspunkter, sammenligningGr, andelerIFørstePeriode);
 };

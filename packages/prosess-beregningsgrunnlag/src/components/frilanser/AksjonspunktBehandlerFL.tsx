@@ -1,12 +1,11 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 
 import { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
@@ -39,25 +38,21 @@ export const AksjonspunktBehandlerFL = ({
   alleAndelerIForstePeriode,
   skalValideres,
 }: Props) => (
-  <FlexRow className={styles.verticalAlignMiddle}>
-    <FlexColumn className={styles.atflAvvikAktivitet}>
-      <BodyShort size="small">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerFL" />
-      </BodyShort>
-    </FlexColumn>
-    <FlexColumn className={styles.atflAvvikInntekt}>
-      <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-        <InputField
-          name={`${formName}.${fieldIndex}.inntektFrilanser`}
-          validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
-          readOnly={readOnly}
-          parse={parseCurrencyInput}
-          className={styles.breddeInntekt}
-          isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
-        />
-      </div>
-    </FlexColumn>
-  </FlexRow>
+  <HStack gap="2" align="center">
+    <BodyShort size="small">
+      <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerFL" />
+    </BodyShort>
+    <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
+      <InputField
+        name={`${formName}.${fieldIndex}.inntektFrilanser`}
+        validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
+        readOnly={readOnly}
+        parse={parseCurrencyInput}
+        className={styles.breddeInntekt}
+        isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
+      />
+    </div>
+  </HStack>
 );
 
 AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[]): FrilansInntektValues => {

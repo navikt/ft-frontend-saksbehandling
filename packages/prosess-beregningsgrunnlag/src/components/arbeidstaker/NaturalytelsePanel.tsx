@@ -186,36 +186,34 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
       </Label>
-      <VStack gap="0">
-        <HStack gap="10" justify="end">
-          <Detail style={{ width: '70px' }}>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Detail>
-          <Detail style={{ width: '70px' }}>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Detail>
-        </HStack>
-        {tableData.rader.map(rad => (
-          <div key={rad.nøkkel}>
-            <Label size="small">{rad.visningsnavn}</Label>
-            <VStack gap="1">
-              {rad.naturalytelseEndringer.map(endring => (
-                <HStack justify="space-between" key={rad.nøkkel + endring.fom}>
-                  <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
-                  <HStack gap="10">
-                    <BodyShort size="small" style={{ width: '70px' }}>
-                      {formatCurrencyNoKr(endring.beløpPrMåned)}
-                    </BodyShort>
-                    <Label size="small" style={{ width: '70px' }}>
-                      {formatCurrencyNoKr(endring.beløpPrÅr)}
-                    </Label>
-                  </HStack>
+      <HStack gap="10" justify="end">
+        <Detail style={{ width: '70px' }}>
+          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+        </Detail>
+        <Detail style={{ width: '70px' }}>
+          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+        </Detail>
+      </HStack>
+      {tableData.rader.map(rad => (
+        <VStack gap="1" key={rad.nøkkel}>
+          <Label size="small">{rad.visningsnavn}</Label>
+          <VStack gap="1">
+            {rad.naturalytelseEndringer.map(endring => (
+              <HStack justify="space-between" wrap={false} key={rad.nøkkel + endring.fom}>
+                <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
+                <HStack gap="4" justify="end">
+                  <BodyShort size="small" style={{ width: '70px' }}>
+                    {formatCurrencyNoKr(endring.beløpPrMåned)}
+                  </BodyShort>
+                  <Label size="small" style={{ width: '70px' }}>
+                    {formatCurrencyNoKr(endring.beløpPrÅr)}
+                  </Label>
                 </HStack>
-              ))}
-            </VStack>
-          </div>
-        ))}
-      </VStack>
+              </HStack>
+            ))}
+          </VStack>
+        </VStack>
+      ))}
     </div>
   );
 };

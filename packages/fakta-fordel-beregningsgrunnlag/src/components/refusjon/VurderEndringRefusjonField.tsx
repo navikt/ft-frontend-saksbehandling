@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -12,7 +12,7 @@ import {
   BeregningsgrunnlagTilBekreftelse,
   RefusjonTilVurderingAndel,
 } from '@navikt/ft-types';
-import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 
 import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
@@ -101,22 +101,19 @@ export const VurderEndringRefusjonField = ({
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
-    <>
+    <VStack gap="4">
       {erAksjonspunktÅpent && (
         <AksjonspunktHelpTextHTML>
           {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
         </AksjonspunktHelpTextHTML>
       )}
-      <VerticalSpacer sixteenPx />
       <Heading size="small">
         <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
       </Heading>
-      <VerticalSpacer sixteenPx />
       <TidligereUtbetalinger
         beregningsgrunnlag={beregningsgrunnlag}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
-      <VerticalSpacer sixteenPx />
       {andeler.map(andel => (
         <VurderEndringRefusjonRad
           refusjonAndel={andel}
@@ -129,22 +126,23 @@ export const VurderEndringRefusjonField = ({
           vilkårperiodeFieldIndex={vilkårperiodeFieldIndex}
         />
       ))}
-      <VerticalSpacer twentyPx />
-      <FaktaBegrunnelseTextField
-        name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
-        isSubmittable={submittable}
-        isReadOnly={manglerAksjonspunkt || readOnly}
-        hasBegrunnelse={!!begrunnelse}
-      />
-      <AssessedBy ident={avklaringsbehovRefusjon?.vurdertAv} date={avklaringsbehovRefusjon?.vurdertTidspunkt} />
-      <VerticalSpacer twentyPx />
-      <SubmitButton
-        isSubmittable={submittable}
-        isReadOnly={manglerAksjonspunkt || readOnly}
-        isSubmitting={formSubmittes}
-        isDirty={formMethods.formState.isDirty}
-      />
-      <VerticalSpacer sixteenPx />
-    </>
+      <div>
+        <FaktaBegrunnelseTextField
+          name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
+          isSubmittable={submittable}
+          isReadOnly={manglerAksjonspunkt || readOnly}
+          hasBegrunnelse={!!begrunnelse}
+        />
+        <AssessedBy ident={avklaringsbehovRefusjon?.vurdertAv} date={avklaringsbehovRefusjon?.vurdertTidspunkt} />
+      </div>
+      <div>
+        <SubmitButton
+          isSubmittable={submittable}
+          isReadOnly={manglerAksjonspunkt || readOnly}
+          isSubmitting={formSubmittes}
+          isDirty={formMethods.formState.isDirty}
+        />
+      </div>
+    </VStack>
   );
 };

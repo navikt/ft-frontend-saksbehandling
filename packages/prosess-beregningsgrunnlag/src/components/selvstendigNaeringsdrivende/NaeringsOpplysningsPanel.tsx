@@ -1,14 +1,13 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Ledelinje } from '../fellesPaneler/Ledelinje';
+import { HorizontalLine } from '../../util/HorizontalLine';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import styles from './naeringsOpplysningsPanel.module.css';
@@ -103,68 +102,43 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
   }
 
   return (
-    <>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
-          <Heading size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
-          </Heading>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellAktivitet} />
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
-          </Detail>
-        </FlexColumn>
-      </FlexRow>
-      <Ledelinje prosentBredde={100} />
+    <VStack gap="1">
+      <HStack justify="space-between">
+        <Heading size="medium">
+          <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
+        </Heading>
+        <Detail>
+          <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
+        </Detail>
+      </HStack>
+      <HorizontalLine />
       {snAndel.næringer.map(naring => (
         <React.Fragment key={`NaringsWrapper${naring.orgnr}`}>
-          <FlexRow>
-            <FlexColumn className={beregningStyles.næringOpplysningNavn}>
-              <Label size="small" className={beregningStyles.semiBoldText}>
-                {finnBedriftsnavn(naring, arbeidsgiverOpplysningerPerId)}
-              </Label>
-            </FlexColumn>
-            <FlexColumn className={beregningStyles.næringOpplysningInntekt}>
-              {søkerHarOppgittInntekt(naring) && (
-                <Label size="small">{formatCurrencyNoKr(naring.oppgittInntekt)}</Label>
-              )}
-            </FlexColumn>
-          </FlexRow>
-          <FlexRow key={`NaringsDetaljer${naring.orgnr}`}>
-            <FlexColumn className={beregningStyles.næringOpplysningOrgnr}>
-              <BodyShort size="small">{naring && naring.orgnr ? naring.orgnr : ''}</BodyShort>
-            </FlexColumn>
-            <FlexColumn className={beregningStyles.næringOpplysningDato}>
-              {virksomhetsDatoer(naring) && <BodyShort size="small">{virksomhetsDatoer(naring)}</BodyShort>}
-            </FlexColumn>
-          </FlexRow>
-          <FlexRow>
-            <FlexColumn>
-              <BodyShort size="small">
-                <FormattedMessage id={finnVirksomhetTypeTekst(naring)} />
-              </BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <FlexRow key={`RevisorRad${naring.orgnr}`}>
-            <FlexColumn>
-              {naring.regnskapsførerNavn && <BodyShort size="small">{revisorDetaljer(naring)}</BodyShort>}
-            </FlexColumn>
-          </FlexRow>
+          <HStack justify="space-between" wrap={false}>
+            <Label size="small" className={beregningStyles.semiBoldText}>
+              {finnBedriftsnavn(naring, arbeidsgiverOpplysningerPerId)}
+            </Label>
+            {søkerHarOppgittInntekt(naring) && <Label size="small">{formatCurrencyNoKr(naring.oppgittInntekt)}</Label>}
+          </HStack>
+          <HStack gap="14" wrap={false}>
+            <BodyShort size="small">{naring && naring.orgnr ? naring.orgnr : ''}</BodyShort>
+            {virksomhetsDatoer(naring) && <BodyShort size="small">{virksomhetsDatoer(naring)}</BodyShort>}
+          </HStack>
+          <BodyShort size="small">
+            <FormattedMessage id={finnVirksomhetTypeTekst(naring)} />
+          </BodyShort>
+          {naring.regnskapsførerNavn && <BodyShort size="small">{revisorDetaljer(naring)}</BodyShort>}
           {erNæringNyoppstartetEllerVarigEndret(naring) && (
-            <>
-              <Ledelinje prosentBredde={100} />
-              <VerticalSpacer twentyPx />
-              {lagIntroTilEndringspanel(naring)}
-              <VerticalSpacer eightPx />
-              <FlexRow className={beregningStyles.næringEndringBeskrivelse}>
-                <FlexColumn>{lagBeskrivelsePanel(naring)}</FlexColumn>
-              </FlexRow>
-            </>
+            <VStack gap="6">
+              <HorizontalLine />
+              <VStack gap="2">
+                {lagIntroTilEndringspanel(naring)}
+                <div className={beregningStyles.næringEndringBeskrivelse}>{lagBeskrivelsePanel(naring)}</div>
+              </VStack>
+            </VStack>
           )}
         </React.Fragment>
       ))}
-    </>
+    </VStack>
   );
 };

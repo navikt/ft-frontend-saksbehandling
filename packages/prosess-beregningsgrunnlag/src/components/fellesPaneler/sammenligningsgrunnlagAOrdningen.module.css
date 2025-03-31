@@ -1,14 +1,6 @@
 .lesMer {
   padding: 0;
 }
-.sammenligningGrafOppsummeringType {
-  min-width: 97px;
-}
-.sammenligningGrafOppsummeringInntekt {
-  display: flex;
-  justify-content: flex-end;
-  min-width: 97px;
-}
 .readMore {
   overflow-x: auto;
 }

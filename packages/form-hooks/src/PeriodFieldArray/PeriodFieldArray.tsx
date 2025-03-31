@@ -4,8 +4,6 @@ import { FieldArrayMethodProps } from 'react-hook-form';
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, Detail, Fieldset } from '@navikt/ds-react';
 
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
 import styles from './periodFieldArray.module.css';
 
 function onClick<PERIOD_TYPE>(
@@ -105,7 +103,7 @@ export const PeriodFieldArray = <PERIOD_TYPE,>({
             {bodyText}
           </Button>
         )}
-        <VerticalSpacer sixteenPx />
+        <div style={{ marginBottom: '16px' }} />
       </>
     )}
   </Fieldset>

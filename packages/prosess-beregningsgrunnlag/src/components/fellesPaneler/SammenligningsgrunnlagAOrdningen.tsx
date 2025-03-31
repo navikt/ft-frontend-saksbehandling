@@ -1,7 +1,7 @@
 import { ReactElement, useCallback, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
+import { BodyShort, Box, Heading, HStack, Label, ReadMore, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 import { CallbackDataParams } from 'echarts/types/dist/shared';
@@ -14,11 +14,10 @@ import {
   InntektsgrunnlagMåned,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
+import { HorizontalLine } from '../../util/HorizontalLine';
 import { ReactECharts } from '../echart/ReactECharts';
-import { Ledelinje } from './Ledelinje';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import styles from './sammenligningsgrunnlagAOrdningen.module.css';
@@ -44,62 +43,47 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
     .filter(innt => innt.inntektAktivitetType === InntektAktivitetType.YTELSE)
     .map(({ beløp }) => beløp)
     .reduce((i1, i2) => i1 + i2, 0);
+
   return (
-    <>
+    <Box width="200px">
       <div className={beregningStyles.storSpace} />
-      <FlexRow>
-        <FlexColumn>
-          <Label size="small">
-            <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
-          </Label>
-        </FlexColumn>
-      </FlexRow>
+      <Label size="small">
+        <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
+      </Label>
       {relevanteStatuser.harArbeidsinntekt && (
         <>
-          <FlexRow>
-            <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
-              <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
-              <BodyShort size="small">{formatCurrencyNoKr(sumATAndeler)}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <Ledelinje prosentBredde={20} />
+          <HStack wrap={false} justify="space-between">
+            <BodyShort size="small">
+              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
+            </BodyShort>
+            <BodyShort size="small">{formatCurrencyNoKr(sumATAndeler)}</BodyShort>
+          </HStack>
+          <HorizontalLine />
         </>
       )}
       {relevanteStatuser.harFrilansinntekt && (
         <>
-          <FlexRow>
-            <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
-              <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
-              <BodyShort size="small">{formatCurrencyNoKr(sumFLAndeler)}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <Ledelinje prosentBredde={20} />
+          <HStack wrap={false} justify="space-between">
+            <BodyShort size="small">
+              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
+            </BodyShort>
+            <BodyShort size="small">{formatCurrencyNoKr(sumFLAndeler)}</BodyShort>
+          </HStack>
+          <HorizontalLine />
         </>
       )}
       {relevanteStatuser.harYtelseinntekt && (
         <>
-          <FlexRow>
-            <FlexColumn className={styles.sammenligningGrafOppsummeringType}>
-              <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.sammenligningGrafOppsummeringInntekt}>
-              <BodyShort size="small">{formatCurrencyNoKr(sumYtelseAndeler)}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <Ledelinje prosentBredde={20} />
+          <HStack wrap={false} justify="space-between">
+            <BodyShort size="small">
+              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
+            </BodyShort>
+            <BodyShort size="small">{formatCurrencyNoKr(sumYtelseAndeler)}</BodyShort>
+          </HStack>
+          <HorizontalLine />
         </>
       )}
-    </>
+    </Box>
   );
 };
 
@@ -127,22 +111,13 @@ const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], sammenligningsgrunnla
   return data;
 };
 
-const lagOverskrift = (): ReactElement => (
-  <>
-    <FlexRow key="SamenenligningsGrunnlagOverskrift">
-      <FlexColumn>
-        <Heading size="small" className={beregningStyles.avsnittOverskrift}>
-          <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Tittel" />
-        </Heading>
-      </FlexColumn>
-    </FlexRow>
-    <VerticalSpacer eightPx />
-    <FlexRow>
-      <FlexColumn>
-        <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ingress" />
-      </FlexColumn>
-    </FlexRow>
-  </>
+const ReadMoreOverskrift = (): ReactElement => (
+  <VStack gap="2">
+    <Heading size="small" className={beregningStyles.avsnittOverskrift}>
+      <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Tittel" />
+    </Heading>
+    <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ingress" />
+  </VStack>
 );
 
 type Inntektstyper = {
@@ -206,7 +181,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
 
   return (
     <>
-      <ReadMore size="medium" header={lagOverskrift()} defaultOpen className={styles.readMore}>
+      <ReadMore size="medium" header={<ReadMoreOverskrift />} defaultOpen className={styles.readMore}>
         <ReactECharts
           option={{
             tooltip: {

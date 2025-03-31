@@ -2,7 +2,7 @@ import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Table, Tag } from '@navikt/ds-react';
+import { BodyShort, Table, Tag, VStack } from '@navikt/ds-react';
 
 import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -12,7 +12,7 @@ import {
   BeregningAvklaringsbehov,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
-import { EditedIcon, PeriodLabel, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -114,7 +114,7 @@ export const TilkommetAktivitetField = ({
     return tableRows;
   };
   return (
-    <>
+    <VStack gap="4">
       <div className={styles.aktivitetContainer}>
         <Table className={styles.aktivitetTable}>
           <Table.Header>
@@ -147,10 +147,12 @@ export const TilkommetAktivitetField = ({
           <Table.Body>{getInntektsforholdTableRows(vurderInntektsforholdPeriode)}</Table.Body>
         </Table>
       </div>
-      <VerticalSpacer sixteenPx />
-      <div className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}>
+      <VStack
+        gap="4"
+        className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}
+      >
         {fields.map((field, index) => (
-          <div key={field.id}>
+          <React.Fragment key={field.id}>
             <TilkommetInntektsforholdField
               key={field.id}
               formName={formName}
@@ -161,29 +163,30 @@ export const TilkommetAktivitetField = ({
               readOnly={readOnly}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             />
-            {index < vurderInntektsforholdPeriode.inntektsforholdListe.length - 1 && <VerticalSpacer fourtyPx />}
-          </div>
+          </React.Fragment>
         ))}
         {skalViseBegrunnelse && (
           <>
-            <VerticalSpacer fourtyPx />
-            <TextAreaField
-              name={`${formName}.${formFieldIndex}.begrunnelse`}
-              label="Begrunnelse"
-              readOnly={readOnly}
-              validate={[required]}
-            />
-            <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
-            <VerticalSpacer sixteenPx />
-            <SubmitButton
-              isSubmittable={submittable}
-              isReadOnly={readOnly}
-              isSubmitting={formState.isSubmitting}
-              isDirty={formState.isDirty}
-            />
+            <div>
+              <TextAreaField
+                name={`${formName}.${formFieldIndex}.begrunnelse`}
+                label="Begrunnelse"
+                readOnly={readOnly}
+                validate={[required]}
+              />
+              <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
+            </div>
+            <div>
+              <SubmitButton
+                isSubmittable={submittable}
+                isReadOnly={readOnly}
+                isSubmitting={formState.isSubmitting}
+                isDirty={formState.isDirty}
+              />
+            </div>
           </>
         )}
-      </div>
-    </>
+      </VStack>
+    </VStack>
   );
 };

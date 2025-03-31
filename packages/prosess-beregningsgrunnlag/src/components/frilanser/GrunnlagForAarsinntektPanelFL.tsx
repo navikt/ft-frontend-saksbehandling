@@ -1,13 +1,13 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Box, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { DateLabel, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { DateLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Ledelinje } from '../fellesPaneler/Ledelinje';
+import { HorizontalLine } from '../../util/HorizontalLine';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
@@ -32,13 +32,12 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
   const beregnetAarsinntekt = relevantAndel.beregnetPrAar;
   const startDato = relevantAndel.arbeidsforhold?.startdato;
   return (
-    <>
-      <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
-      </Heading>
-      <VerticalSpacer fourPx />
-      <FlexRow className={beregningStyles.rows}>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
+    <Box>
+      <VStack gap="2">
+        <Heading size="medium">
+          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
+        </Heading>
+        <HStack justify="space-between" wrap={false}>
           {startDato && (
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
@@ -47,32 +46,26 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
               </span>
             </BodyShort>
           )}
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Detail>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Detail>
-        </FlexColumn>
-      </FlexRow>
-      <Ledelinje prosentBredde={100} />
-      <FlexRow className={beregningStyles.rows}>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
+          <HStack gap="10">
+            <Detail>
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+            </Detail>
+            <Detail>
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+            </Detail>
+          </HStack>
+        </HStack>
+        <HorizontalLine />
+        <HStack justify="space-between" wrap={false}>
           <BodyShort size="small">
             <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.InnrapportertFrilans" />
           </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <BodyShort size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</BodyShort>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Label size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Label>
-        </FlexColumn>
-      </FlexRow>
-    </>
+          <HStack gap="12">
+            <BodyShort size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</BodyShort>
+            <Label size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Label>
+          </HStack>
+        </HStack>
+      </VStack>
+    </Box>
   );
 };
