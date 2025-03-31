@@ -1,3 +1,5 @@
+import { VStack } from '@navikt/ds-react';
+
 import {
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
@@ -104,7 +106,7 @@ export const BeregningFP = ({
   }
 
   return (
-    <>
+    <VStack gap="14">
       <BeregningForm
         readOnly={readOnly || !skalVurderes(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks])}
         valgtBeregningsgrunnlag={beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]}
@@ -128,6 +130,6 @@ export const BeregningFP = ({
       {aksjonspunktGraderingPaaAndelUtenBG && (
         <GraderingUtenBGReadOnly avklaringsbehov={aksjonspunktGraderingPaaAndelUtenBG} />
       )}
-    </>
+    </VStack>
   );
 };

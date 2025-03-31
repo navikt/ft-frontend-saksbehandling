@@ -589,6 +589,7 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell scope="col">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Inntektskategori" />
             </Table.HeaderCell>
+            <Table.HeaderCell scope="col" />
           </Table.Row>
         </Table.Header>
         <Table.Body>{tablerows}</Table.Body>

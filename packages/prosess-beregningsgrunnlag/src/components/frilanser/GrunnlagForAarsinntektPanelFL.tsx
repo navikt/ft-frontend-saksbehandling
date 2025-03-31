@@ -1,13 +1,13 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Box, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Ledelinje } from '../fellesPaneler/Ledelinje';
+import { HorizontalLine } from '../../util/HorizontalLine';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
@@ -32,38 +32,40 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
   const beregnetAarsinntekt = relevantAndel.beregnetPrAar;
   const startDato = relevantAndel.arbeidsforhold?.startdato;
   return (
-    <VStack gap="2">
-      <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
-      </Heading>
-      <HStack gap="4" justify="space-between">
-        {startDato && (
+    <Box>
+      <VStack gap="2">
+        <Heading size="medium">
+          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
+        </Heading>
+        <HStack justify="space-between" wrap={false}>
+          {startDato && (
+            <BodyShort size="small">
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
+              <span className={beregningStyles.semiBoldText}>
+                <DateLabel dateString={startDato} />
+              </span>
+            </BodyShort>
+          )}
+          <HStack gap="10">
+            <Detail>
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+            </Detail>
+            <Detail>
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+            </Detail>
+          </HStack>
+        </HStack>
+        <HorizontalLine />
+        <HStack justify="space-between" wrap={false}>
           <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
-            <span className={beregningStyles.semiBoldText}>
-              <DateLabel dateString={startDato} />
-            </span>
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.InnrapportertFrilans" />
           </BodyShort>
-        )}
-        <HStack gap="2">
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Detail>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Detail>
+          <HStack gap="12">
+            <BodyShort size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</BodyShort>
+            <Label size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Label>
+          </HStack>
         </HStack>
-      </HStack>
-      <Ledelinje prosentBredde={100} />
-      <HStack gap="4" justify="space-between">
-        <BodyShort size="small">
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.InnrapportertFrilans" />
-        </BodyShort>
-        <HStack gap="2">
-          <BodyShort size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</BodyShort>
-          <Label size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Label>
-        </HStack>
-      </HStack>
-    </VStack>
+      </VStack>
+    </Box>
   );
 };

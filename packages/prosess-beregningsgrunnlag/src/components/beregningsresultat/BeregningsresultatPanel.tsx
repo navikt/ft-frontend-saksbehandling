@@ -174,16 +174,15 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
       <Heading size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
       </Heading>
-      <VStack gap="1">
+      <VStack gap="5">
         {tabellData.map(tab => (
-          <React.Fragment key={tab.fom}>
-            <OppsummertGrunnlagPanel
-              tabellData={tab}
-              skalVisePeriode={skalVisePeriodePrTabell}
-              vilkårsperiode={vilkårsperiode}
-              beregningsgrunnlag={beregningsgrunnlag}
-            />
-          </React.Fragment>
+          <OppsummertGrunnlagPanel
+            key={tab.fom}
+            tabellData={tab}
+            skalVisePeriode={skalVisePeriodePrTabell}
+            vilkårsperiode={vilkårsperiode}
+            beregningsgrunnlag={beregningsgrunnlag}
+          />
         ))}
       </VStack>
     </VStack>

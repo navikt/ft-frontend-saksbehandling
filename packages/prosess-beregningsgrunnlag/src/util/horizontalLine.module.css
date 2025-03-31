@@ -1,0 +1,17 @@
+.border {
+  border-top: 1px solid var(--a-border-divider);
+  margin-top: 4px;
+  min-height: 8px;
+}
+
+.borderDark {
+  border-top: 1px solid var(--a-gray-900);
+  margin-top: 4px;
+  min-height: 8px;
+}
+
+.doubleLine {
+  border-bottom: 1px solid var(--a-grayalpha-600);
+  border-top: 1px solid var(--a-grayalpha-600);
+  padding-bottom: 4px;
+}

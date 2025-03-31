@@ -1,0 +1,8 @@
+.kolVerdiRød {
+  color: var(--a-red-500);
+}
+.avslåttIkon {
+  color: var(--a-red-500);
+  margin-bottom: auto;
+  margin-top: auto;
+}

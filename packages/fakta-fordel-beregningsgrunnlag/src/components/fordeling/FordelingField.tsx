@@ -114,15 +114,17 @@ export const FordelingField = ({
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);
   return (
     <VStack gap="5">
-      <FordelingHelpText isAksjonspunktClosed={isAksjonspunktClosed} beregningsgrunnlag={beregningsgrunnlag} />
-      <FastsettFordeltBeregningsgrunnlag
-        readOnly={readOnly}
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        beregningsgrunnlag={beregningsgrunnlag}
-        kodeverkSamling={kodeverkSamling}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        fieldIndex={fieldIndex}
-      />
+      <VStack gap="2">
+        <FordelingHelpText isAksjonspunktClosed={isAksjonspunktClosed} beregningsgrunnlag={beregningsgrunnlag} />
+        <FastsettFordeltBeregningsgrunnlag
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          beregningsgrunnlag={beregningsgrunnlag}
+          kodeverkSamling={kodeverkSamling}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          fieldIndex={fieldIndex}
+        />
+      </VStack>
       <div>
         <FaktaBegrunnelseTextField
           name={`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`}

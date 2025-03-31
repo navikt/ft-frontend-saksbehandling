@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Box, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
@@ -15,6 +15,7 @@ import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
+import { HorizontalLine } from '../../util/HorizontalLine';
 import { Ledelinje } from '../fellesPaneler/Ledelinje';
 import { NaturalytelsePanel } from './NaturalytelsePanel';
 
@@ -83,32 +84,28 @@ const createArbeidinntektRows = (
         index + 1
       }`}
     >
-      <VStack gap="2">
-        <HStack justify="space-between">
-          <Label size="small" className={beregningStyles.semiBoldText}>
-            {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-          </Label>
-          <HStack gap="10">
-            <BodyShort>{formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}</BodyShort>
-            <Label>{formatCurrencyNoKr(andel.beregnetPrAar)}</Label>
-          </HStack>
+      <HStack justify="space-between" wrap={false}>
+        <Label size="small" className={beregningStyles.semiBoldText}>
+          {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+        </Label>
+        <HStack gap="10">
+          <BodyShort>{formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}</BodyShort>
+          <Label>{formatCurrencyNoKr(andel.beregnetPrAar)}</Label>
         </HStack>
-      </VStack>
-      <VStack gap="2">
-        <HStack gap="2">
-          {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
-            <BodyShort>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</BodyShort>
-          )}
-          {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
-            <Detail>{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
-          )}
-          {andel.erTidsbegrensetArbeidsforhold && (
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
-            </Detail>
-          )}
-        </HStack>
-      </VStack>
+      </HStack>
+      <HStack gap="4" align="center">
+        {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
+          <BodyShort>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</BodyShort>
+        )}
+        {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
+          <Detail>{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
+        )}
+        {andel.erTidsbegrensetArbeidsforhold && (
+          <Detail>
+            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
+          </Detail>
+        )}
+      </HStack>
       <Ledelinje prosentBredde={100} />
     </React.Fragment>
   ));
@@ -156,18 +153,20 @@ export const GrunnlagForAarsinntektPanelAT = ({
         <Heading size="medium">
           <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt" />
         </Heading>
-        <VStack gap="1">
-          <HStack gap="10" justify="end">
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-            </Detail>
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-            </Detail>
-          </HStack>
-          <Ledelinje prosentBredde={100} />
-          {createArbeidinntektRows(relevanteAndeler, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
-        </VStack>
+        <Box>
+          <VStack gap="1">
+            <HStack gap="10" justify="end">
+              <Detail>
+                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+              </Detail>
+              <Detail>
+                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+              </Detail>
+            </HStack>
+            <HorizontalLine />
+            {createArbeidinntektRows(relevanteAndeler, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
+          </VStack>
+        </Box>
       </VStack>
       <NaturalytelsePanel allePerioder={allePerioder} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
     </VStack>

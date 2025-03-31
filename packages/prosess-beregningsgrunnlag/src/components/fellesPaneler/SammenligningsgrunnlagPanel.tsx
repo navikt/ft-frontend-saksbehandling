@@ -1,9 +1,11 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HStack } from '@navikt/ds-react';
+import { BodyShort, Box, HStack } from '@navikt/ds-react';
 
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
+
+import { HorizontalLine } from '../../util/HorizontalLine';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import styles from './avvikopplysningerPanel.module.css';
@@ -25,43 +27,43 @@ export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligning
     : 'Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt';
 
   return (
-    <>
-      <div className={styles.linjeSkille} />
-      <HStack wrap={false}>
-        <BodyShort size="small" className={styles.colLable}>
+    <Box width="400px">
+      <HorizontalLine />
+      <HStack wrap={false} justify="space-between">
+        <BodyShort size="small">
           <FormattedMessage id={inntektTekst} />
         </BodyShort>
-        <BodyShort size="small" className={styles.colValue}>
+        <BodyShort size="small">
           {beregnetAarsinntekt || beregnetAarsinntekt === 0 ? formatCurrencyNoKr(beregnetAarsinntekt) : '-'}
         </BodyShort>
       </HStack>
-      <div className={styles.linjeSkille} />
-      <HStack wrap={false}>
-        <BodyShort size="small" className={styles.colLable}>
+      <HorizontalLine />
+      <HStack wrap={false} justify="space-between">
+        <BodyShort size="small">
           <FormattedMessage id={sammenligningTekst} />
         </BodyShort>
-        <BodyShort size="small" className={styles.colValue}>
-          {formatCurrencyNoKr(rapportertPrAar)}
-        </BodyShort>
+        <BodyShort size="small">{formatCurrencyNoKr(rapportertPrAar)}</BodyShort>
       </HStack>
-      <div className={styles.linjeSkilleTykk} />
-      <HStack wrap={false}>
-        <BodyShort size="small" className={styles.colLable}>
+      <HorizontalLine hasBorderDark />
+      <HStack wrap={false} justify="space-between">
+        <BodyShort size="small">
           <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.BeregnetAvvik" />
         </BodyShort>
-        <BodyShort size="small" className={styles.colValue}>
-          {formatCurrencyNoKr(differanseBeregnet === undefined ? 0 : differanseBeregnet)}
-        </BodyShort>
-        <BodyShort
-          size="small"
-          className={`${avvikProsentAvrundet > 25 ? beregningStyles.redError : ''} ${beregningStyles.semiBoldText} ${styles.marginLeft}`}
-        >
-          <FormattedMessage
-            id="Beregningsgrunnlag.Avviksopplysninger.AvvikProsent"
-            values={{ avvik: avvikProsentAvrundet }}
-          />
-        </BodyShort>
+        <HStack gap="14">
+          <BodyShort
+            size="small"
+            className={`${avvikProsentAvrundet > 25 ? beregningStyles.redError : ''} ${beregningStyles.semiBoldText} ${styles.marginLeft}`}
+          >
+            <FormattedMessage
+              id="Beregningsgrunnlag.Avviksopplysninger.AvvikProsent"
+              values={{ avvik: avvikProsentAvrundet }}
+            />
+          </BodyShort>
+          <BodyShort size="small">
+            {formatCurrencyNoKr(differanseBeregnet === undefined ? 0 : differanseBeregnet)}
+          </BodyShort>
+        </HStack>
       </HStack>
-    </>
+    </Box>
   );
 };

@@ -48,7 +48,7 @@ const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: Kode
 
   statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
   return (
-    <VStack gap="2">
+    <HStack gap="2">
       {statusList.map(status => (
         <div key={status.visningsNavn} className={beregningStyles.tagRad}>
           <Tag variant={status.tagType} title={status.visningsNavn} className={beregningStyles.tagMargin}>
@@ -56,7 +56,7 @@ const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: Kode
           </Tag>
         </div>
       ))}
-    </VStack>
+    </HStack>
   );
 };
 

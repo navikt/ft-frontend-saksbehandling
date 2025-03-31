@@ -7,7 +7,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import { BTag, dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Ledelinje } from '../fellesPaneler/Ledelinje';
+import { HorizontalLine } from '../../util/HorizontalLine';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import styles from './naeringsOpplysningsPanel.module.css';
@@ -102,7 +102,7 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
   }
 
   return (
-    <>
+    <VStack gap="1">
       <HStack justify="space-between">
         <Heading size="medium">
           <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
@@ -111,30 +111,26 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
           <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
         </Detail>
       </HStack>
-      <Ledelinje prosentBredde={100} />
+      <HorizontalLine />
       {snAndel.næringer.map(naring => (
         <React.Fragment key={`NaringsWrapper${naring.orgnr}`}>
-          <HStack justify="space-between">
+          <HStack justify="space-between" wrap={false}>
             <Label size="small" className={beregningStyles.semiBoldText}>
               {finnBedriftsnavn(naring, arbeidsgiverOpplysningerPerId)}
             </Label>
             {søkerHarOppgittInntekt(naring) && <Label size="small">{formatCurrencyNoKr(naring.oppgittInntekt)}</Label>}
           </HStack>
-          <HStack justify="space-between">
+          <HStack gap="14" wrap={false}>
             <BodyShort size="small">{naring && naring.orgnr ? naring.orgnr : ''}</BodyShort>
             {virksomhetsDatoer(naring) && <BodyShort size="small">{virksomhetsDatoer(naring)}</BodyShort>}
           </HStack>
-          <HStack justify="space-between">
-            <BodyShort size="small">
-              <FormattedMessage id={finnVirksomhetTypeTekst(naring)} />
-            </BodyShort>
-          </HStack>
-          <HStack justify="space-between">
-            {naring.regnskapsførerNavn && <BodyShort size="small">{revisorDetaljer(naring)}</BodyShort>}
-          </HStack>
+          <BodyShort size="small">
+            <FormattedMessage id={finnVirksomhetTypeTekst(naring)} />
+          </BodyShort>
+          {naring.regnskapsførerNavn && <BodyShort size="small">{revisorDetaljer(naring)}</BodyShort>}
           {erNæringNyoppstartetEllerVarigEndret(naring) && (
             <VStack gap="6">
-              <Ledelinje prosentBredde={100} />
+              <HorizontalLine />
               <VStack gap="2">
                 {lagIntroTilEndringspanel(naring)}
                 <div className={beregningStyles.næringEndringBeskrivelse}>{lagBeskrivelsePanel(naring)}</div>
@@ -143,6 +139,6 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
           )}
         </React.Fragment>
       ))}
-    </>
+    </VStack>
   );
 };

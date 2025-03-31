@@ -121,7 +121,7 @@ export const TilkommetAktivitetAccordion = ({
   }
 
   return (
-    <>
+    <VStack gap="6">
       <Accordion className={styles.statusOk}>
         {tidligereVurderte.map(tidligereVurdertPeriode => (
           <Accordion.Item
@@ -184,6 +184,6 @@ export const TilkommetAktivitetAccordion = ({
           </div>
         </VStack>
       )}
-    </>
+    </VStack>
   );
 };

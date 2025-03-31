@@ -148,7 +148,7 @@ export const TilkommetAktivitetField = ({
         </Table>
       </div>
       <VStack
-        gap="2"
+        gap="4"
         className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}
       >
         {fields.map((field, index) => (

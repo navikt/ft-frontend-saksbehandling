@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, HGrid, HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
@@ -11,8 +11,9 @@ import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils
 
 import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { Vilkårperiode } from '../../types/Vilkår';
+import { HorizontalLine } from '../../util/HorizontalLine';
 
-import styles from './beregningsresultat.module.css';
+import styles from './oppsummertGrunnlagPanel.module.css';
 
 const VIRKEDAGER_PR_AAR = 260;
 
@@ -93,8 +94,6 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
   return tabellData.dagsats || 0;
 };
 
-const SkilleRad = (): ReactElement => <div className={styles.radEnkelLinje} />;
-
 const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement => (
   <HStack gap="2">
     <XMarkOctagonFillIcon className={styles.avslåttIkon} />
@@ -137,44 +136,42 @@ const lagResultatRader = (
   const dagsatsSomVises = finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag);
 
   return (
-    <VStack gap="1">
-      {skalViseAvkortetRad && (
-        <>
-          <SkilleRad />
-          <HStack className={styles.radNoBorder} justify="space-between" wrap={false}>
-            <BodyShort size="small" className={styles.kolBeskrivelse}>
-              <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Avkortet" />
-            </BodyShort>
-            <BodyShort size="small" className={styles.kolVerdi}>
-              {formatCurrencyNoKr(tabellData.avkortetPrÅr)}
-            </BodyShort>
-          </HStack>
-          <SkilleRad />
-        </>
-      )}
-      {skalViseRedusertRad && (
-        <>
-          {!skalViseAvkortetRad && harFlereAndeler && <SkilleRad />}
-          <HStack className={styles.radNoBorder} justify="space-between" wrap={false}>
-            <BodyShort size="small" className={styles.kolBeskrivelse}>
-              <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Redusert" />
-            </BodyShort>
-            <BodyShort size="small" className={styles.kolVerdi}>
-              {formatCurrencyNoKr(tabellData.redusertPrÅr)}
-            </BodyShort>
-          </HStack>
-          <SkilleRad />
-        </>
-      )}
-      <HStack className={styles.radNoBorder} justify="space-between" wrap={false}>
-        <Label size="medium" className={styles.kolBeskrivelse}>
-          <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Dagsats" />
-        </Label>
-        <Label size="medium" className={styles.kolVerdi}>
-          {dagsatsSomVises}
-        </Label>
-      </HStack>
-      <div className={styles.radDobbelLinje} />
+    <VStack gap="6">
+      <div>
+        {skalViseAvkortetRad && (
+          <>
+            <HorizontalLine />
+            <HStack justify="space-between" wrap={false}>
+              <BodyShort size="small">
+                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Avkortet" />
+              </BodyShort>
+              <BodyShort size="small">{formatCurrencyNoKr(tabellData.avkortetPrÅr)}</BodyShort>
+            </HStack>
+            <HorizontalLine />
+          </>
+        )}
+        {skalViseRedusertRad && (
+          <>
+            {!skalViseAvkortetRad && harFlereAndeler && <HorizontalLine />}
+            <HStack justify="space-between" wrap={false}>
+              <BodyShort size="small">
+                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Redusert" />
+              </BodyShort>
+              <BodyShort size="small">{formatCurrencyNoKr(tabellData.redusertPrÅr)}</BodyShort>
+            </HStack>
+            <HorizontalLine />
+          </>
+        )}
+      </div>
+      <div>
+        <HStack justify="space-between" wrap={false}>
+          <Label size="medium">
+            <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Dagsats" />
+          </Label>
+          <Label size="medium">{dagsatsSomVises}</Label>
+        </HStack>
+        <HorizontalLine hasDoubleLine />
+      </div>
     </VStack>
   );
 };
@@ -194,63 +191,61 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
 
   return (
-    <VStack gap="5" width="500px">
-      <div>
-        {skalVisePeriode && (
-          <Heading size="xsmall">
-            <FormattedMessage
-              id="Beregningsgrunnlag.Beregningsresultat.Periode"
-              values={{
-                fom: dayjs(tabellData.fom).format(DDMMYYYY_DATE_FORMAT),
-                tom: tabellData.tom ? dayjs(tabellData.tom).format(DDMMYYYY_DATE_FORMAT) : '',
-              }}
-            />
-          </Heading>
-        )}
-        {tabellData.andeler.map((rad, index) => (
-          <React.Fragment key={rad.status}>
-            {index === 0 && <SkilleRad />}
-            <HGrid columns={2} padding="1">
-              <BodyShort size="small">
-                <FormattedMessage id={finnStatusBeskrivelse(rad)} />
-              </BodyShort>
-              <BodyShort size="small" className={rad.erFerdigBeregnet ? '' : styles.kolVerdiRød}>
-                {rad.erFerdigBeregnet ? formatCurrencyNoKr(rad.inntekt) : ikkeBeregnetTekst()}
-              </BodyShort>
-            </HGrid>
-            {!!rad.bortfaltNaturalytelse && (
-              <>
-                <SkilleRad />
-                <HStack className={styles.radNoBorder} justify="space-between" wrap={false}>
-                  <BodyShort size="small" className={styles.kolBeskrivelse}>
-                    <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
-                  </BodyShort>
-                  <BodyShort size="small" className={styles.kolVerdi}>
-                    {formatCurrencyNoKr(rad.bortfaltNaturalytelse)}
-                  </BodyShort>
-                </HStack>
-              </>
-            )}
-            <SkilleRad />
-          </React.Fragment>
-        ))}
-        {skalViseOppsummeringsrad && (
-          <>
-            <HStack className={styles.radNoBorder} justify="space-between" wrap={false}>
-              <BodyShort size="small" className={styles.kolBeskrivelse}>
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
-              </BodyShort>
-              <BodyShort size="small" className={styles.kolVerdi}>
-                {formatCurrencyNoKr(finnTotalInntekt(tabellData.andeler))}
-              </BodyShort>
-            </HStack>
-            <div className={styles.radTykkLinje} />
-          </>
-        )}
-      </div>
-      {alleAndelerErFastsatt && (
-        <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler)}</>
+    <VStack gap="1" width="500px">
+      {skalVisePeriode && (
+        <Heading size="xsmall">
+          <FormattedMessage
+            id="Beregningsgrunnlag.Beregningsresultat.Periode"
+            values={{
+              fom: dayjs(tabellData.fom).format(DDMMYYYY_DATE_FORMAT),
+              tom: tabellData.tom ? dayjs(tabellData.tom).format(DDMMYYYY_DATE_FORMAT) : '',
+            }}
+          />
+        </Heading>
       )}
+      <VStack gap="6">
+        <div>
+          {tabellData.andeler.map((rad, index) => (
+            <React.Fragment key={rad.status}>
+              {index === 0 && <HorizontalLine />}
+              <HStack wrap={false} justify="space-between">
+                <BodyShort size="small">
+                  <FormattedMessage id={finnStatusBeskrivelse(rad)} />
+                </BodyShort>
+                <BodyShort size="small" className={rad.erFerdigBeregnet ? '' : styles.kolVerdiRød}>
+                  {rad.erFerdigBeregnet ? formatCurrencyNoKr(rad.inntekt) : ikkeBeregnetTekst()}
+                </BodyShort>
+              </HStack>
+              {!!rad.bortfaltNaturalytelse && (
+                <>
+                  <HorizontalLine />
+                  <HStack justify="space-between" wrap={false}>
+                    <BodyShort size="small">
+                      <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
+                    </BodyShort>
+                    <BodyShort size="small">{formatCurrencyNoKr(rad.bortfaltNaturalytelse)}</BodyShort>
+                  </HStack>
+                </>
+              )}
+              <HorizontalLine />
+            </React.Fragment>
+          ))}
+          {skalViseOppsummeringsrad && (
+            <>
+              <HStack justify="space-between" wrap={false}>
+                <BodyShort size="small">
+                  <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
+                </BodyShort>
+                <BodyShort size="small">{formatCurrencyNoKr(finnTotalInntekt(tabellData.andeler))}</BodyShort>
+              </HStack>
+              <HorizontalLine hasBorderDark />
+            </>
+          )}
+        </div>
+        {alleAndelerErFastsatt && (
+          <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler)}</>
+        )}
+      </VStack>
     </VStack>
   );
 };
