@@ -8,6 +8,9 @@ export interface LinkButtonProps {
   className?: string;
 }
 
+/**
+ * @deprecated Bruk heller Link frå Aksel https://aksel.nav.no/komponenter/core/link
+ */
 export const LinkButton = ({ className, onClick, children }: LinkButtonProps) => {
   const cls = `${className || ''} ${styles.linkButton}`;
   return (

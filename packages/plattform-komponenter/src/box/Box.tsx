@@ -18,6 +18,9 @@ export interface BoxProps {
   marginTop?: Margin;
 }
 
+/**
+ * @deprecated Bruk heller Box frå Aksel: https://aksel.nav.no/komponenter/primitives/box
+ */
 export const Box = ({ children, marginBottom, marginTop }: BoxProps): JSX.Element => {
   const marginTopClass = styles[`${marginTop}MarginTop`];
   const marginBottomClass = styles[`${marginBottom}MarginBottom`];

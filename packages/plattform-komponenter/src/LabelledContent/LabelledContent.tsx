@@ -12,6 +12,9 @@ export interface LabelledContentProps {
   indentContent?: boolean;
 }
 
+/**
+ * @deprecated Bruk heller VStack/HStack frå Aksel https://aksel.nav.no/komponenter/primitives/vstack
+ */
 export const LabelledContent = ({ label, content, labelTag, indentContent }: LabelledContentProps) => {
   const cl = classNames(styles.labelledContent__content, {
     [styles.labelledContent__indentation]: indentContent,

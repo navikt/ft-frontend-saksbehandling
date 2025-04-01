@@ -17,6 +17,7 @@ interface InteractiveListProps {
   elements: Array<InteractiveListElement & { key?: string }>;
 }
 
+// TODO (TOR) Kan denne erstattast med noko i Aksel? (Litt usikker på korleis denne funkar sidan det ikkje er storybook for den)
 const InteractiveListElement = (props: InteractiveListElement) => {
   const { content, active, onClick } = props;
   const cls = classnames(styles.interactiveListElement, {

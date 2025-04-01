@@ -10,6 +10,9 @@ export interface TitleWithUnderlineProps {
   contentAfterTitleRenderer?: () => React.ReactNode;
 }
 
+/**
+ * @deprecated Bruk heller VStask/HStack frå Aksel direkte. Da treng ein ikkje ein eigen komponent https://aksel.nav.no/komponenter/primitives/vstack
+ */
 export const TitleWithUnderline = ({ children, titleClass, contentAfterTitleRenderer }: TitleWithUnderlineProps) => (
   <>
     <div className={styles.titleWithUnderline}>

@@ -4,6 +4,9 @@ interface DocumentIconProps {
   className?: string;
 }
 
+/**
+ * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner
+ */
 export const DocumentIcon = ({ className }: DocumentIconProps): JSX.Element => (
   <svg className={className} width="34" height="44" viewBox="0 0 34 44" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path

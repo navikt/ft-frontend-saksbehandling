@@ -1,12 +1,8 @@
 /** Vanlige react-komponenter * */
-export { BoxedList } from './src/BoxedList/BoxedList';
-export { BoxedListWithLinks } from './src/BoxedListWithLinks/BoxedListWithLinks';
-export { BoxedListWithSelection } from './src/BoxedListWithSelection/BoxedListWithSelection';
 export { ContentWithTooltip } from './src/ContentWithTooltip/ContentWithTooltip';
 export { DetailView, type DetailViewProps } from './src/DetailView/DetailView';
 export { IndicatorWithOverlay } from './src/IndicatorWithOverlay/IndicatorWithOverlay';
 export { InteractiveList } from './src/InteractiveList/InteractiveList';
-export { NavigationWithDetailView } from './src/NavigationWithDetailView/NavigationWithDetailView';
 export { Autocomplete } from './src/Autocomplete/Autocomplete';
 export { Box, Margin } from './src/box/Box';
 export { Form } from './src/Form/Form';
@@ -18,7 +14,6 @@ export { LabelledContent } from './src/LabelledContent/LabelledContent';
 export { LinkButton } from './src/LinkButton/LinkButton';
 export { TitleWithUnderline } from './src/TitleWithUnderline/TitleWithUnderline';
 export { FieldError } from './src/FieldError/FieldError';
-export { Header } from './src/Header/Header';
 
 export { ProcessMenu } from './src/ProcessMenu/ProcessMenu';
 export { StepType as ProcessMenuStepType } from './src/ProcessMenu/components/StepType';
@@ -29,11 +24,8 @@ export { Gender } from './src/PersonCard/GenderIcon';
 export { EmptyPersonCard } from './src/PersonCard/EmptyPersonCard';
 export { VisittKort } from './src/PersonCard/VisittKort';
 export { GenderIcon } from './src/PersonCard/GenderIcon';
-export { SystemButton } from './src/SystemButton/SystemButton';
-export { UserPanel } from './src/UserPanel/UserPanel';
 export { Infostripe } from './src/Infostripe/Infostripe';
-export { AssessedBy } from './src/AssessedBy/AssessedBy';
-export { SaksbehandlernavnContext } from './src/SaksbehandlernavnContext/SaksbehandlernavnContext';
+export { AssessedBy, SaksbehandlernavnContext } from './src/AssessedBy/AssessedBy';
 export { PeriodList } from './src/PeriodList/PeriodList';
 
 /** Ikoner * */

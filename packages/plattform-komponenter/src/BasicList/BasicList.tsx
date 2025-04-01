@@ -6,6 +6,7 @@ export interface BasicListProps {
   elements: React.ReactNode[];
 }
 
+// TODO (TOR) Vurder om det er behov for denne. Forenklar den, eller er det like greit å skriva ul og li direkte?
 export const BasicList = ({ elements }: BasicListProps) => (
   <ul className={styles.basicList}>
     {elements.map((element, index) => (

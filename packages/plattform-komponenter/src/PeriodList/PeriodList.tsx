@@ -24,6 +24,7 @@ type OwnProps = {
   customRenderFunc?: (items: { label: string; value: string }[]) => JSX.Element | null;
 };
 
+//TODO (TOR) Veldig spesifikk funksjonalitet som heller bør ligga i applikasjonen som brukar den. Kjem ikkje til å bli brukt i fp-frontend
 export const PeriodList = ({ perioder, tittel, customRenderFunc }: OwnProps) => {
   if (!perioder || !Array.isArray(perioder)) {
     return null;

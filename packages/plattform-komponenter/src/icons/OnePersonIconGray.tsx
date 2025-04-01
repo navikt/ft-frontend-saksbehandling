@@ -1,3 +1,6 @@
+/**
+ * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner
+ */
 export const OnePersonIconGray = () => (
   <svg width="36" height="38" viewBox="0 0 36 38" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path

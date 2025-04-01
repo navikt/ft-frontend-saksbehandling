@@ -13,6 +13,9 @@ interface PageContainerProps {
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated Definer heller sidelayout direkte i applikasjon. Denne kjem aldri til å blir brukt i fp-frontend
+ */
 export const PageContainer = ({ isLoading, hasError, preventUnmount, children }: PageContainerProps): JSX.Element => {
   const shouldHideChildren = isLoading || hasError;
 

@@ -12,6 +12,9 @@ export interface ContentWithTooltipProps {
   inline?: boolean;
 }
 
+/**
+ * @deprecated Bruk heller Tooltip frå Aksel: https://aksel.nav.no/komponenter/core/tooltip
+ */
 export const ContentWithTooltip = ({
   tooltipText,
   tooltipDirectionRight,

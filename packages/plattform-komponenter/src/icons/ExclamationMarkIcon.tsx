@@ -1,5 +1,8 @@
 import { Icon } from '../Icon/Icon';
 
+/**
+ * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner
+ */
 export const ExclamationMarkIcon = () => (
   <Icon size={27}>
     <path

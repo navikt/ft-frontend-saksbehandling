@@ -16,6 +16,9 @@ interface TextInfostripeProps extends BaseInfostripeProps {
 }
 type InfostripeProps = ElementInfostripeProps | TextInfostripeProps;
 
+/**
+ * TODO (TOR) Kan ein heller bruka Box/VStack frå Aksel her?
+ */
 export const Infostripe = ({ text, iconRenderer, element }: InfostripeProps) => (
   <div className={styles.infostripe}>
     <div className={styles.infostripe__iconContainer}>{iconRenderer()}</div>

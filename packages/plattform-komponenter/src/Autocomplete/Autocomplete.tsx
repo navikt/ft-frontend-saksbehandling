@@ -31,6 +31,7 @@ interface State {
   blurDelay: any;
 }
 
+// TODO (TOR) Er dette mykje det same som https://aksel.nav.no/komponenter/core/combobox?
 export class Autocomplete extends React.Component<AutocompleteProps, State> {
   // @ts-expect-error Fiks
   input: HTMLInputElement;

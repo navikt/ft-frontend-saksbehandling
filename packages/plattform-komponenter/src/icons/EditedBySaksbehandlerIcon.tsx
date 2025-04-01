@@ -1,5 +1,8 @@
 import { JSX } from 'react';
 
+/**
+ * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner
+ */
 export const EditedBySaksbehandlerIcon = (): JSX.Element => (
   <svg
     className="editedBySaksbehandlerIcon"

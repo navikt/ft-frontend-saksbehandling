@@ -17,6 +17,10 @@ export interface FormProps {
   smallButtons?: boolean;
 }
 
+/**
+ * TODO (TOR) Det er ein Form komponent i form-hooks som er meir generell. Om ein har behov for å behalda denne komponenten
+ * så bør ein gi den eit meir spesifikt namn, som FormWithButtons eller liknande.
+ */
 export const Form = ({
   children,
   onSubmit,

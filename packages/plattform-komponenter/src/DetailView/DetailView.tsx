@@ -12,6 +12,7 @@ export interface DetailViewProps {
   className?: string;
 }
 
+// TODO (TOR) Skriv om til å bruka Aksel Box/VStack, evt slett
 export const DetailView = ({ title, children, contentAfterTitleRenderer, className }: DetailViewProps) => {
   const cls = classnames(
     styles.detailView,
