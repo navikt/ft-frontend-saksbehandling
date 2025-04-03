@@ -5,7 +5,7 @@ import { BodyShort } from '@navikt/ds-react';
 
 import { prettifyDateString } from '@navikt/ft-utils';
 
-import { SaksbehandlernavnContext } from '../..';
+import { SaksbehandlernavnContext } from './SaksbehandlernavnContext';
 
 import styles from './assessedBy.module.css';
 
