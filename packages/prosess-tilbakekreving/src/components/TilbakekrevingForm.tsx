@@ -180,9 +180,9 @@ const periodeFormBuildInitialValues = (
 ): InitialValuesDetailForm => {
   const { vilkarResultat, begrunnelse, vilkarResultatInfo } = periode;
 
-  const vilkarResultatKode = vilkarResultat && vilkarResultat.kode ? vilkarResultat.kode : vilkarResultat;
+  const vilkarResultatKode = vilkarResultat?.kode ?? vilkarResultat;
   let foreldetData;
-  const erForeldet = periode.erForeldet ? periode.erForeldet : periode.foreldet;
+  const erForeldet = periode.erForeldet ?? periode.foreldet;
   if (erForeldet) {
     const foreldelsePeriode = foreldelsePerioder.perioder.find(p => p.fom === periode.fom && p.tom === periode.tom);
     foreldetData = {

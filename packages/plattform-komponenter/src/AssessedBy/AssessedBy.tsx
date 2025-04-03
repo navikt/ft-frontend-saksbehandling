@@ -21,7 +21,7 @@ export const AssessedBy = ({ ident, date }: IAssessedByProps) => {
   if (!ident) {
     return null;
   }
-  const name = saksbehandlernavn[ident] || ident;
+  const name = saksbehandlernavn[ident] ?? ident;
   const formattedDate = date ? `, ${prettifyDateString(date)}` : '';
 
   return (

@@ -50,7 +50,7 @@ const beløpEller0 = (beløp: number | undefined): number => {
   return beløp;
 };
 
-const beregnet = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
+const beregnet = (andel: BeregningsgrunnlagAndel): number => andel.beregnetPrAar ?? 0;
 
 const beregnAarsintektForAktivitetStatuser = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
@@ -107,20 +107,20 @@ const finnBeregnetInntekt = (
   );
   if (sg.sammenligningsgrunnlagType === SammenligningType.SN && pgiAndel) {
     return {
-      inntekt: pgiAndel.pgiSnitt || 0,
+      inntekt: pgiAndel.pgiSnitt ?? 0,
       erPGI: true,
     };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.MIDLERTIDIG_INAKTIV && pgiAndel) {
     return {
-      inntekt: pgiAndel.pgiSnitt || 0,
+      inntekt: pgiAndel.pgiSnitt ?? 0,
       erPGI: true,
     };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
     return pgiAndel
       ? {
-          inntekt: pgiAndel.pgiSnitt || 0,
+          inntekt: pgiAndel.pgiSnitt ?? 0,
           erPGI: true,
         }
       : {
@@ -253,7 +253,7 @@ export const SammenligningOgFastsettelsePanel = ({
         aktivtGrunnlagForLovparagraf &&
         !!aktivtGrunnlagForLovparagraf.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
       const andelerIFørstePeriode =
-        aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+        aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
       const formName = finnFormName(lovparagraf);
       return (
         <div>
