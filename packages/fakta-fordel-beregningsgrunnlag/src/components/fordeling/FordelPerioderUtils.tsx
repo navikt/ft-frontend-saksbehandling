@@ -22,7 +22,7 @@ import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
 
 export const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 
-export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
+const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
 
 export const mapTilFastsatteVerdier = (
   aktivitet: FordelBeregningsgrunnlagAndelValues,

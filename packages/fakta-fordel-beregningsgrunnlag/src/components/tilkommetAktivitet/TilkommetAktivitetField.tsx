@@ -37,10 +37,6 @@ type Props = {
 
 const erDefinert = (tall?: number) => !!tall && +tall > 0;
 
-export function getPeriodeIdentikator(vurderInntektsforholdPeriode: VurderInntektsforholdPeriode) {
-  return `${vurderInntektsforholdPeriode.fom}_${vurderInntektsforholdPeriode.tom}`;
-}
-
 export const TilkommetAktivitetField = ({
   formName,
   vurderInntektsforholdPeriode,

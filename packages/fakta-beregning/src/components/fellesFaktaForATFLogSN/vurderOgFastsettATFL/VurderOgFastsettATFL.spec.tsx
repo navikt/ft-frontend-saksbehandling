@@ -6,7 +6,7 @@ import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregnin
 import { AndelFieldValue } from '../../../typer/FieldValues';
 import { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
-import { lonnsendringField } from './forms/LonnsendringForm';
+import { lonnsendringField } from './forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './forms/NyoppstartetFLForm';
 import { VurderOgFastsettATFL } from './VurderOgFastsettATFL';
 

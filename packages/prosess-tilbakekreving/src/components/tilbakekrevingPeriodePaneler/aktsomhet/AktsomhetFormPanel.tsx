@@ -8,7 +8,7 @@ import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
-import { ANDELER, EGENDEFINERT } from './AktsomhetReduksjonAvBelopFormPanel';
+import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
 

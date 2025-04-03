@@ -52,7 +52,7 @@ const {
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
-const defaultFormName = 'BeregningForm';
+export const defaultFormName = 'BeregningForm';
 
 const gjelderForParagraf = (a: BeregningAvklaringsbehov, lovparagraf: LovParagraf) =>
   mapAvklaringsbehovTilLovparagraf(a) === lovparagraf;
@@ -62,7 +62,7 @@ const harAvklaringsbehovForLovparagraf = (
   lovparagraf: LovParagraf,
 ): boolean => !!avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf));
 
-export const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
+const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
 const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
   if (!allePerioder || allePerioder.length < 1) {

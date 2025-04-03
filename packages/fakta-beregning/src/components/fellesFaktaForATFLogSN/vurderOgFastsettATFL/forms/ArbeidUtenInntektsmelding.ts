@@ -10,7 +10,7 @@ import {
 } from '../../../../typer/interface/BeregningFaktaAP';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './AvsluttetArbeidsforhold';
 import { harFieldKunstigArbeidsforhold } from './KunstigArbeidsforhold';
-import { harFieldLønnsendring } from './LonnsendringForm';
+import { harFieldLønnsendring } from './lonnsendringFormUtils';
 
 const krevAndelsnr = (andelsnr: number | undefined): number => {
   if (!andelsnr) {

@@ -30,7 +30,7 @@ import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
-import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';

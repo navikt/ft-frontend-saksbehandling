@@ -39,7 +39,7 @@ const andreFrilansTilfeller: string[] = [
   FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
 ];
 
-export const mottarYtelseForArbeidMsg = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid';
+const mottarYtelseForArbeidMsg = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid';
 
 const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
@@ -59,7 +59,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   } else {
     radioNavn = createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
   }
-  return <FormattedMessage id={mottarYtelseForArbeidMsg()} values={{ arbeid: radioNavn }} />;
+  return <FormattedMessage id={mottarYtelseForArbeidMsg} values={{ arbeid: radioNavn }} />;
 };
 
 const mottarYtelseArbeidsforholdRadioAndInputs = (
@@ -105,15 +105,14 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
   </div>
 );
 
-export const frilansMedAndreFrilanstilfeller = () =>
-  'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
-export const frilansUtenAndreFrilanstilfeller = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
+const frilansMedAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
+const frilansUtenAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
 
 const finnFrilansTekstKode = (tilfeller: string[]) => {
   if (tilfeller.some(tilfelle => andreFrilansTilfeller.includes(tilfelle))) {
-    return frilansMedAndreFrilanstilfeller();
+    return frilansMedAndreFrilanstilfeller;
   }
-  return frilansUtenAndreFrilanstilfeller();
+  return frilansUtenAndreFrilanstilfeller;
 };
 
 const erATFLSammeOrg = (tilfeller: string[]) =>

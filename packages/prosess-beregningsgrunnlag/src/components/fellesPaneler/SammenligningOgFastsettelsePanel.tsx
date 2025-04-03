@@ -17,7 +17,7 @@ import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interf
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår } from '../../types/Vilkår';
-import { AksjonspunktBehandler, finnFormName } from './AksjonspunktBehandler';
+import { AksjonspunktBehandler, defaultFormName } from './AksjonspunktBehandler';
 import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';
 import { SammenligningsgrunnlagPanel } from './SammenligningsgrunnlagPanel';
@@ -159,6 +159,8 @@ type Props = {
 type GruppertPrLovparagraf = {
   [key: string]: Beregningsgrunnlag[];
 };
+
+const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
 function leggTilBeregningsgrunnlag(
   gruppert: GruppertPrLovparagraf,

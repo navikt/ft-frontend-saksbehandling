@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Box, Margin } from './Box';
+import { Box } from './Box';
+import { Margin } from './Margin';
 
 const meta = {
   component: Box,

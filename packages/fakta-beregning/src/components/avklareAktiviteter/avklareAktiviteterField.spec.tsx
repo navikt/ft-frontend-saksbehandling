@@ -6,7 +6,7 @@ import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilkårperiode } from '../../typer/Vilkår';
-import { buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
+import { buildInitialValues, transformFieldValue } from './avklareAktiviteterHjelpefunksjoner';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 

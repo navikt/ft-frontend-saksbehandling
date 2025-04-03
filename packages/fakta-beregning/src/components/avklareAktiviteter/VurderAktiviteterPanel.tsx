@@ -4,12 +4,13 @@ import { BodyShort, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import {
   buildInitialValues as buildInitialValuesForTabell,
   lagAktivitetFieldId,
@@ -28,39 +29,6 @@ const harListeAktivitetSomSkalBrukes = (
       ? values.aktiviteterValues[fieldId].skalBrukes !== 'false'
       : aktivitet.skalBrukes;
   }) !== undefined;
-
-export const finnPlasseringIListe = (gjeldendeTomDatoMapping: AvklarBeregningAktiviteter[], dato: string): number => {
-  let i = 0;
-  while (
-    i < gjeldendeTomDatoMapping.length &&
-    dayjs(dato).isBefore(gjeldendeTomDatoMapping[i].tom === undefined ? null : gjeldendeTomDatoMapping[i].tom)
-  ) {
-    i += 1;
-  }
-  return i;
-};
-
-export const leggTilAktivitet = (
-  gjeldendeTomDatoMapping: AvklarBeregningAktiviteter[],
-  aktivitet: BeregningAktivitet,
-  tomDato: string,
-): void => {
-  // Finnes gjeldendeTomDatoMapping med tomDato ?
-  const eksisterende = gjeldendeTomDatoMapping.find(({ tom }) => tom === tomDato);
-  if (eksisterende === undefined) {
-    const nyTomDatoMapping = {
-      tom: tomDato,
-      aktiviteter: [aktivitet],
-    };
-    const index = finnPlasseringIListe(gjeldendeTomDatoMapping, tomDato);
-    gjeldendeTomDatoMapping.splice(index, 0, nyTomDatoMapping);
-  } else {
-    if (!eksisterende.aktiviteter) {
-      throw new Error(`Forventer å ha aktiviteter på tom ${eksisterende.tom}`);
-    }
-    eksisterende.aktiviteter.push(aktivitet);
-  }
-};
 
 // Sjekk for om saksbehandler har skrevet en ugyldig dato i inputfeltet.
 const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>

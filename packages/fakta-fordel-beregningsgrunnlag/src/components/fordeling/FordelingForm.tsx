@@ -2,24 +2,91 @@ import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Form } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagTilBekreftelse,
+  FordelBeregningsgrunnlagPeriode,
+} from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
-import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import {
+  FordelBeregningsgrunnlagFormValues,
+  FordelBeregningsgrunnlagMedAksjonspunktValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { FordelBeregningsgrunnlagAP } from '../../types/interface/FordelBeregningsgrunnlagAP';
+import {
+  FordelBeregningsgrunnlagAP,
+  FordelBeregningsgrunnlagPerioderTransformedValues,
+} from '../../types/interface/FordelBeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { Vilkårperiode } from '../../types/Vilkår';
+import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
-import {
-  buildFieldInitialValuesFordelBeregning,
-  FordelingField,
-  transformFieldValuesFordelBeregning,
-} from './FordelingField';
+import { FastsettFordeltBeregningsgrunnlag } from './FastsettFordeltBeregningsgrunnlag';
+import { BEGRUNNELSE_FORDELING_NAME, FordelingField } from './FordelingField';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
 export const FORM_NAME = 'FORDEL_BEREGNING_FORM';
+
+const finnFordelPerioder = (bg: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
+  bg.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
+
+const hasAvklaringsbehov = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
+
+const transformFieldValuesFordelBeregning = (
+  values: FordelBeregningsgrunnlagMedAksjonspunktValues,
+  beregningsgrunnlag: Beregningsgrunnlag,
+): BeregningsgrunnlagTilBekreftelse<FordelBeregningsgrunnlagPerioderTransformedValues> => {
+  if (!hasAvklaringsbehov(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)) {
+    throw Error('har ikke aksjonspunkt for fordeling når transform values ble kalt');
+  }
+  const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
+  return {
+    begrunnelse: values.begrunnelse,
+    periode: values.periode,
+    ...FastsettFordeltBeregningsgrunnlag.transformValues(
+      values,
+      finnFordelPerioder(beregningsgrunnlag),
+      bgPerioder,
+      beregningsgrunnlag.forlengelseperioder,
+    ),
+  };
+};
+
+const findAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
+  const ak = avklaringsbehov.find(ap => ap.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
+  if (!ak) {
+    throw Error(`Fant ikke forventet avklaringsbehov ${FORDEL_BEREGNINGSGRUNNLAG}`);
+  }
+  return ak;
+};
+
+const buildFieldInitialValuesFordelBeregning = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  vilkårsperiode: Vilkårperiode,
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  kodeverkSamling: KodeverkForPanel,
+): FordelBeregningsgrunnlagMedAksjonspunktValues => {
+  const fordelBGPerioder = finnFordelPerioder(beregningsgrunnlag);
+  return {
+    beregningsgrunnlagStp: beregningsgrunnlag.skjaeringstidspunktBeregning,
+    periode: vilkårsperiode.periode,
+    ...FaktaBegrunnelseTextField.buildInitialValues(
+      findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov),
+      BEGRUNNELSE_FORDELING_NAME,
+    ),
+    ...FastsettFordeltBeregningsgrunnlag.buildInitialValues(
+      fordelBGPerioder,
+      beregningsgrunnlag,
+      kodeverkSamling,
+      arbeidsgiverOpplysningerPerId,
+    ),
+  } as FordelBeregningsgrunnlagMedAksjonspunktValues;
+};
 
 const finnBeregningsgrunnlag = (
   vilkårsperiodeFom: string,

@@ -1,13 +1,13 @@
-import { createContext, useContext } from 'react';
+import { useContext } from 'react';
 
 import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
 
 import { prettifyDateString } from '@navikt/ft-utils';
 
-import styles from './assessedBy.module.css';
+import { SaksbehandlernavnContext } from '../..';
 
-export const SaksbehandlernavnContext = createContext<Record<string, string>>({});
+import styles from './assessedBy.module.css';
 
 export interface IAssessedByProps {
   ident?: string;

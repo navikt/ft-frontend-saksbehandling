@@ -9,15 +9,12 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  BeregningsgrunnlagTilBekreftelse,
   RefusjonTilVurderingAndel,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 
-import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { Vilkårperiode } from '../../types/Vilkår';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { SubmitButton } from '../felles/SubmitButton';
 import { TidligereUtbetalinger } from './TidligereUtbetalinger';
@@ -38,41 +35,6 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
     return `${andel.arbeidsgiver.arbeidsgiverAktørId}${andel.internArbeidsforholdRef})`;
   }
   return `${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef})`;
-};
-
-export const buildFieldInitialValues = (
-  bg: Beregningsgrunnlag,
-  vilkårsperiode: Vilkårperiode,
-): VurderRefusjonFieldValues => {
-  const andeler = bg.refusjonTilVurdering?.andeler || [];
-  const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
-  let initialValues = {
-    beregningsgrunnlagStp: bg.skjaeringstidspunktBeregning,
-    periode: vilkårsperiode.periode,
-    begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : undefined,
-  } as unknown as VurderRefusjonFieldValues;
-  andeler.forEach(andel => {
-    initialValues = {
-      ...initialValues,
-      ...VurderEndringRefusjonRad.buildInitialValues(andel),
-    };
-  });
-  return initialValues;
-};
-
-export const transformFieldValues = (
-  values: VurderRefusjonFieldValues,
-  bg: Beregningsgrunnlag,
-): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
-  const andeler = bg.refusjonTilVurdering?.andeler || [];
-  const transformedAndeler = andeler.map(andel =>
-    VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),
-  );
-  return {
-    periode: values.periode,
-    begrunnelse: values.begrunnelse,
-    fastsatteAndeler: transformedAndeler,
-  };
 };
 
 type Props = {

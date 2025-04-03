@@ -21,7 +21,7 @@ import { NaturalytelsePanel } from './NaturalytelsePanel';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
-export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
+const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
     return true;

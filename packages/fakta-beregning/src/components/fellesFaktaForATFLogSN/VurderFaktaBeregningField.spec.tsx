@@ -1,7 +1,7 @@
 import { Aksjonspunkt } from '@navikt/ft-types';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { harIkkeEndringerIAvklarMedFlereAksjonspunkter } from './VurderFaktaBeregningField';
+import { harIkkeEndringerIAvklarMedFlereAksjonspunkter } from './vurderFaktaBeregningHjelpefunksjoner';
 
 const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 

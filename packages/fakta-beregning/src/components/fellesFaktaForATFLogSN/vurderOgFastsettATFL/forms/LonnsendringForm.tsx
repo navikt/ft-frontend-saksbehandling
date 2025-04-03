@@ -9,10 +9,10 @@ import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
+import { lonnsendringField } from './lonnsendringFormUtils';
 
 /**
  * LonnsendringForm
@@ -22,8 +22,6 @@ import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
  * Tilhørende tilfelle for å fastsette FL inntekt er FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING.
  * Denne komponenten kan vise intektstabell under radioknappene dersom skalViseInntektstabell er satt
  */
-
-export const lonnsendringField = 'lonnsendringField';
 
 type Props = {
   readOnly: boolean;
@@ -92,15 +90,6 @@ LonnsendringForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): 
   initialValues[lonnsendringField] = buildInitialLonnsendring(alleATAndeler);
   return initialValues;
 };
-
-export const harFieldLønnsendring = (
-  field: InntektTransformed,
-  faktaOmBeregning: FaktaOmBeregning,
-  values: FaktaOmBeregningAksjonspunktValues,
-): boolean =>
-  !!values[lonnsendringField] &&
-  !!faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM &&
-  faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM.find(andel => andel.andelsnr === field.andelsnr) !== undefined;
 
 LonnsendringForm.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,

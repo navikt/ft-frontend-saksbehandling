@@ -50,7 +50,7 @@ const formaterPerioderForTidslinje = (perioder: ForeldelsesresultatActivity[] = 
     id: index,
   }));
 
-export const transformValues = (values: PeriodeFormValues[]): VurderForeldelseAp => {
+const transformValues = (values: PeriodeFormValues[]): VurderForeldelseAp => {
   const foreldelsePerioder = values.map(period => ({
     fraDato: period.fom,
     tilDato: period.tom,
@@ -75,7 +75,7 @@ const sorterPerioder = (periode1: FeilutbetalingPeriode, periode2: Feilutbetalin
   return 0;
 };
 
-export const lagForeldelsesresultatAktiviteter = (
+const lagForeldelsesresultatAktiviteter = (
   foreldelsePerioder: FeilutbetalingPeriode[],
 ): ForeldelsesresultatActivity[] =>
   [...foreldelsePerioder].sort(sorterPerioder).map(p => ({

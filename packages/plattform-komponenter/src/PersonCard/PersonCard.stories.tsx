@@ -2,7 +2,7 @@ import { HStack, Tag, VStack } from '@navikt/ds-react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { EmptyPersonCard } from './EmptyPersonCard';
-import { Gender } from './GenderIcon';
+import { Gender } from './Gender';
 import { PersonCard } from './PersonCard';
 
 const meta = {

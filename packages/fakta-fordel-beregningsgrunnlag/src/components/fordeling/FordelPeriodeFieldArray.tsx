@@ -36,9 +36,6 @@ import {
 
 import styles from './renderFordelBGFieldArray.module.css';
 
-const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
-export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
-
 const FloatRight = ({ children }: { children?: ReactNode }) => <span className={styles.floatRight}>{children}</span>;
 
 const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({

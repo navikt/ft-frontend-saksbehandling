@@ -28,10 +28,8 @@ const lagNøkkel = (prefix: string, andel: RefusjonTilVurderingAndel): string =>
   return `${prefix}${andel.arbeidsgiver.arbeidsgiverAktørId}${andel.internArbeidsforholdRef}`;
 };
 
-export const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string =>
-  lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
-export const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel): string =>
-  lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
+const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
+const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
 
 const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
   if (!verdiFraForm) {

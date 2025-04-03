@@ -5,7 +5,7 @@ import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFa
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
-import { transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
+import { transformValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 
 const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;

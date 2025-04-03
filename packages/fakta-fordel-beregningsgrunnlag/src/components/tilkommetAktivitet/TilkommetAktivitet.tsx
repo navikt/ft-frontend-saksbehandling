@@ -131,7 +131,7 @@ const andelFieldFinnesIPeriode = (
       andel.arbeidsgiverId === andelField.arbeidsgiverIdent,
   );
 
-export const transformFieldValues = (
+const transformFieldValues = (
   values: TilkommetAktivitetFieldValues,
   bg: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<VurderNyttInntektsforholTransformedValues> => {

@@ -8,8 +8,9 @@ import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, KodeverkType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { omitOne } from '@navikt/ft-utils';
+import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
+import { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
 import { DataForPeriode } from '../types/DataForPeriode';
 import {
@@ -27,10 +28,11 @@ import {
   CustomPeriode,
   CustomPerioder,
   CustomVilkarsVurdertePeriode,
-  periodeFormBuildInitialValues,
-  periodeFormTransformValues,
+  InitialValuesDetailForm,
   TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
+import { AktsomhetFormPanel } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
+import { BelopetMottattIGodTroFormPanel } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
@@ -106,7 +108,7 @@ const erIkkeLagret = (periode: DetaljertFeilutbetalingPeriode, lagredePerioder: 
     return !isOverlapping;
   });
 
-export const slaSammenOriginaleOgLagredePeriode = (
+const slaSammenOriginaleOgLagredePeriode = (
   perioder: DetaljertFeilutbetalingPeriode[],
   vilkarsvurdering: VilkårsvurdertePerioderWrapper,
   rettsgebyr: DetaljerteFeilutbetalingsperioder['rettsgebyr'],
@@ -172,7 +174,79 @@ const settOppPeriodeDataForDetailForm = (
   });
 };
 
-export const buildInitialValues = (
+const periodeFormBuildInitialValues = (
+  periode: any,
+  foreldelsePerioder: FeilutbetalingPerioderWrapper,
+): InitialValuesDetailForm => {
+  const { vilkarResultat, begrunnelse, vilkarResultatInfo } = periode;
+
+  const vilkarResultatKode = vilkarResultat && vilkarResultat.kode ? vilkarResultat.kode : vilkarResultat;
+  let foreldetData;
+  const erForeldet = periode.erForeldet ? periode.erForeldet : periode.foreldet;
+  if (erForeldet) {
+    const foreldelsePeriode = foreldelsePerioder.perioder.find(p => p.fom === periode.fom && p.tom === periode.tom);
+    foreldetData = {
+      erForeldet,
+      periodenErForeldet: true,
+      foreldetBegrunnelse: foreldelsePeriode ? decodeHtmlEntity(foreldelsePeriode.begrunnelse) : undefined,
+    };
+  } else {
+    foreldetData = { erForeldet: false, periodenErForeldet: undefined, foreldetBegrunnelse: undefined };
+  }
+
+  const initialValues = {
+    valgtVilkarResultatType: vilkarResultatKode,
+    begrunnelse: decodeHtmlEntity(begrunnelse),
+    harMerEnnEnYtelse: periode.ytelser.length > 1,
+    ...foreldetData,
+  };
+
+  const godTroData =
+    vilkarResultatKode === VilkårResultat.GOD_TRO
+      ? BelopetMottattIGodTroFormPanel.buildIntialValues(vilkarResultatInfo)
+      : {};
+  const annetData =
+    vilkarResultatKode !== undefined && vilkarResultatKode !== VilkårResultat.GOD_TRO
+      ? AktsomhetFormPanel.buildInitalValues(vilkarResultatInfo)
+      : {};
+  return {
+    ...initialValues,
+    // @ts-expect-error Fiks
+    vurderingBegrunnelse: vilkarResultatInfo ? decodeHtmlEntity(vilkarResultatInfo.begrunnelse) : undefined,
+    [initialValues.valgtVilkarResultatType]: {
+      ...godTroData,
+      ...annetData,
+    },
+  };
+};
+
+const periodeFormTransformValues = (values: CustomVilkarsVurdertePeriode, sarligGrunnTyper: KodeverkMedNavn[]) => {
+  const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
+  // @ts-expect-error Fiks
+  const info = values[valgtVilkarResultatType];
+
+  const godTroData =
+    valgtVilkarResultatType === VilkårResultat.GOD_TRO
+      ? BelopetMottattIGodTroFormPanel.transformValues(info, vurderingBegrunnelse)
+      : {};
+  const annetData =
+    valgtVilkarResultatType !== VilkårResultat.GOD_TRO
+      ? AktsomhetFormPanel.transformValues(info, sarligGrunnTyper, vurderingBegrunnelse)
+      : {};
+
+  return {
+    begrunnelse,
+    fom: values.fom,
+    tom: values.tom,
+    vilkarResultat: valgtVilkarResultatType,
+    vilkarResultatInfo: {
+      ...godTroData,
+      ...annetData,
+    },
+  };
+};
+
+const buildInitialValues = (
   perioder: CustomPerioder,
   foreldelsePerioder: FeilutbetalingPerioderWrapper,
 ): CustomVilkarsVurdertePeriode[] =>
@@ -184,7 +258,7 @@ export const buildInitialValues = (
     }))
     .sort(sortPeriods);
 
-export const transformValues = (
+const transformValues = (
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[],
   sarligGrunnTyper: KodeverkMedNavn[],
 ): VilkårsvurderingAp => ({

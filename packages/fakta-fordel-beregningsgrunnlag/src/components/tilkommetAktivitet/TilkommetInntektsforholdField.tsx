@@ -7,7 +7,7 @@ import { Alert, Label, ReadMore, VStack } from '@navikt/ds-react';
 import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Inntektsforhold } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
@@ -18,7 +18,7 @@ import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
 
 import styles from './tilkommetAktivitet.module.css';
 
-export const inntektStørreEnn0 = (inntekt: number) =>
+const inntektStørreEnn0 = (inntekt: number) =>
   removeSpacesFromNumber(inntekt) > 0
     ? null
     : `Du kan ikke registrere 0,- i inntekt, da dette ikke vil medføre gradering mot inntekt. 
@@ -33,20 +33,6 @@ type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   inntektsforholdFieldIndex: number;
   field: TilkommetInntektsforholdFieldValues;
-};
-
-export const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold | undefined): string => {
-  if (!inntektsforhold) {
-    return '';
-  }
-  let result = inntektsforhold.aktivitetStatus;
-  if (inntektsforhold.arbeidsgiverId) {
-    result += inntektsforhold.arbeidsgiverId;
-  }
-  if (inntektsforhold.arbeidsforholdId) {
-    result += inntektsforhold.arbeidsforholdId;
-  }
-  return result;
 };
 
 export const TilkommetInntektsforholdField = ({

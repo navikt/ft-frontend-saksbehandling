@@ -1,7 +1,8 @@
 import { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { finnPlasseringIListe, leggTilAktivitet, VurderAktiviteterPanel } from './VurderAktiviteterPanel';
+import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
+import { finnPlasseringIListe, leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { lagAktivitetFieldId } from './VurderAktiviteterTabell';
 
 const aktivitet1 = {
