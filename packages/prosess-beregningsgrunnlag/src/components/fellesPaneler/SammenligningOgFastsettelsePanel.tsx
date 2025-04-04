@@ -256,17 +256,16 @@ export const SammenligningOgFastsettelsePanel = ({
         aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
       const formName = finnFormName(lovparagraf);
       return (
-        <div>
+        <VStack gap="10">
           {!!sg && (
-            <>
+            <VStack gap="1">
               <Heading size="xsmall">{finnTittel(sg, lovparagraf)}</Heading>
               <SammenligningsgrunnlagPanel
                 sammenligningsgrunnlag={sg}
                 beregnetAarsinntekt={finnBeregnetInntekt(sg, andelerIFørstePeriode).inntekt}
                 erPGI={finnBeregnetInntekt(sg, andelerIFørstePeriode).erPGI}
               />
-              <div className={beregningStyles.storSpace} />
-            </>
+            </VStack>
           )}
           {harAvklaringsbehovForLovparagraf && (
             <div style={{ display: harAktivtAvklaringsbehovForLovparagraf ? 'block' : 'none' }}>
@@ -285,10 +284,9 @@ export const SammenligningOgFastsettelsePanel = ({
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
                 setSubmitting={setSubmitting}
               />
-              <div className={beregningStyles.storSpace} />
             </div>
           )}
-        </div>
+        </VStack>
       );
     }
     return null;
@@ -297,10 +295,10 @@ export const SammenligningOgFastsettelsePanel = ({
   return (
     <VStack gap="5" className={beregningStyles.panelRight}>
       {panelForklaring}
-      <div>
+      <VStack gap="8">
         {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
         {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
-      </div>
+      </VStack>
     </VStack>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading, Label, Table } from '@navikt/ds-react';
+import { Heading, Label, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
@@ -75,7 +75,7 @@ export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }:
   }
   const { pgiVerdier, pgiSnitt } = andel;
   return (
-    <>
+    <VStack gap="1">
       <Heading size="medium">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt" />
       </Heading>
@@ -104,6 +104,6 @@ export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }:
           {lagOppsummeringRad(pgiSnitt)}
         </Table.Body>
       </Table>
-    </>
+    </VStack>
   );
 };
