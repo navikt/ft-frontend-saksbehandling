@@ -36,7 +36,7 @@ import { VurderRefusjonForm } from './vurderrefusjon/VurderRefusjonForm';
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
 export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold || [];
+  getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold ?? [];
 
 // TODO (TOR) om typane her er korrekt så kan ein ta vekk ?? undefined
 export const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
@@ -47,7 +47,7 @@ export const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
 export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderBesteberegning ?? undefined;
 export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe || [];
+  getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe ?? [];
 
 const kunYtelseTransform =
   (faktaOmBeregning: FaktaOmBeregning, aktivePaneler: string[]) =>
