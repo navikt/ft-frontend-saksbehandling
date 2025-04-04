@@ -5,15 +5,10 @@ import { FormattedMessage } from 'react-intl';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, ATFLSammeOrgAndel } from '@navikt/ft-types';
 
-import { ArbeidstakerInntektValues } from '../../typer/FaktaBeregningTypes';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../fellesFaktaForATFLogSN/VurderFaktaContext';
+import { getArbeidsgiverIndex } from './arbeidsinntektInputUtils';
 import { InntektInput } from './InntektInput';
-
-export const getArbeidsgiverIndex = (
-  arbeidstakerInntektValues: ArbeidstakerInntektValues[],
-  arbeidsgiverIdent?: string,
-) => arbeidstakerInntektValues.findIndex(a => a.arbeidsgiverIdent === arbeidsgiverIdent);
 
 interface Props {
   arbeidsgiver: ATFLSammeOrgAndel;
@@ -53,7 +48,7 @@ export const ArbeidsinntektInput = ({
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
       label={
-        label || (
+        label ?? (
           <FormattedMessage
             id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{

@@ -1,4 +1,4 @@
-import { createFordelArbeidsforholdString, textCase } from './FordelingHelpText';
+import { createFordelArbeidsforholdString, textCase } from './fordelingHelpTextUtils';
 
 const fn = (kode: string): string => {
   if (kode === 'AAP') {

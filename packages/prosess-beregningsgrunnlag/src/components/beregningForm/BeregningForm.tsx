@@ -93,7 +93,6 @@ export const BeregningForm = ({
 
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
-  const storSpacer = <div className={beregningStyles.storSpace} />;
 
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
@@ -107,40 +106,38 @@ export const BeregningForm = ({
           <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
           </Heading>
-          <SkjeringspunktOgStatusPanel
-            kodeverkSamling={kodeverkSamling}
-            aktivitetStatusList={aktivitetStatusList}
-            skjeringstidspunktDato={skjaeringstidspunktBeregning}
-            saksopplysninger={
-              valgtBeregningsgrunnlag.faktaOmBeregning
-                ? valgtBeregningsgrunnlag.faktaOmBeregning.saksopplysninger
-                : undefined
-            }
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-          {storSpacer}
-          {relevanteStatuser.skalViseBeregningsgrunnlag && (
-            <Beregningsgrunnlag
-              relevanteStatuser={relevanteStatuser}
-              allePerioder={beregningsgrunnlagPeriode}
-              gjelderBesteberegning={gjelderBesteberegning}
+          <VStack gap="10">
+            <SkjeringspunktOgStatusPanel
               kodeverkSamling={kodeverkSamling}
+              aktivitetStatusList={aktivitetStatusList}
+              skjeringstidspunktDato={skjaeringstidspunktBeregning}
+              saksopplysninger={
+                valgtBeregningsgrunnlag.faktaOmBeregning
+                  ? valgtBeregningsgrunnlag.faktaOmBeregning.saksopplysninger
+                  : undefined
+              }
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              sammenligningsGrunnlagInntekter={valgtBeregningsgrunnlag.inntektsgrunnlag}
-              sammenligningsgrunnlag={valgtBeregningsgrunnlag.sammenligningsgrunnlagPrStatus}
             />
-          )}
-          {gjelderAutomatiskBesteberegning && (
-            <>
-              {storSpacer}
+            {relevanteStatuser.skalViseBeregningsgrunnlag && (
+              <Beregningsgrunnlag
+                relevanteStatuser={relevanteStatuser}
+                allePerioder={beregningsgrunnlagPeriode}
+                gjelderBesteberegning={gjelderBesteberegning}
+                kodeverkSamling={kodeverkSamling}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                sammenligningsGrunnlagInntekter={valgtBeregningsgrunnlag.inntektsgrunnlag}
+                sammenligningsgrunnlag={valgtBeregningsgrunnlag.sammenligningsgrunnlagPrStatus}
+              />
+            )}
+            {gjelderAutomatiskBesteberegning && (
               <BesteberegningResultatGrunnlagPanel
                 besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
                 periode={beregningsgrunnlagPeriode[0]}
               />
-            </>
-          )}
+            )}
+          </VStack>
         </VStack>
-        <VStack width="50%">
+        <VStack gap="6" width="50%">
           <Heading size="medium" className={beregningStyles.panelRight}>
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
           </Heading>

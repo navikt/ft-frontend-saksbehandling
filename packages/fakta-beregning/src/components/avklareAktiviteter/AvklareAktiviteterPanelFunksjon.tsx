@@ -16,7 +16,8 @@ import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
-import { AvklareAktiviteterField, buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
+import { AvklareAktiviteterField } from './AvklareAktiviteterField';
+import { buildInitialValues, transformFieldValue } from './avklareAktiviteterHjelpefunksjoner';
 
 const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 

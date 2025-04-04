@@ -3,12 +3,11 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, Table, Tag } from '@navikt/ds-react';
 
-import { ArbeidsgiverOpplysningerPerId, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 
 import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
-import { getInntektsforholdIdentifikator } from './TilkommetInntektsforholdField';
 
 import styles from './tilkommetAktivitet.module.css';
 
@@ -18,6 +17,20 @@ type Props = {
 };
 
 const erDefinert = (tall?: number) => !!tall && +tall > 0;
+
+const getInntektsforholdIdentifikator = (inntektsforhold: Inntektsforhold | undefined): string => {
+  if (!inntektsforhold) {
+    return '';
+  }
+  let result = inntektsforhold.aktivitetStatus;
+  if (inntektsforhold.arbeidsgiverId) {
+    result += inntektsforhold.arbeidsgiverId;
+  }
+  if (inntektsforhold.arbeidsforholdId) {
+    result += inntektsforhold.arbeidsforholdId;
+  }
+  return result;
+};
 
 export const TidligereVurderteAktiviteterPanel = ({
   arbeidsgiverOpplysningerPerId,
@@ -48,13 +61,13 @@ export const TidligereVurderteAktiviteterPanel = ({
               <BodyShort size="small">
                 {harBruttoInntekt && (
                   <>
-                    {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr || 0)}
+                    {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr ?? 0)}
                     <EditedIcon />
                   </>
                 )}
                 {harInntektsmelding && !harBruttoInntekt && (
                   <>
-                    {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr || 0)}
+                    {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr ?? 0)}
                     <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
                       IM
                     </Tag>

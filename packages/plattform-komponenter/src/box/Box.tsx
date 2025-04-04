@@ -2,15 +2,9 @@ import React, { JSX } from 'react';
 
 import classNames from 'classnames';
 
-import styles from './box.module.css';
+import { Margin } from './Margin';
 
-export enum Margin {
-  small = 'small',
-  medium = 'medium',
-  large = 'large',
-  xLarge = 'xLarge',
-  xxLarge = 'xxLarge',
-}
+import styles from './box.module.css';
 
 export interface BoxProps {
   children: React.ReactNode;

@@ -15,9 +15,9 @@ import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
-const erRefusjonskravGyldigFieldPrefix = 'erKravGyldig_';
+export const erRefusjonskravGyldigFieldPrefix = 'erKravGyldig_';
 
-export const lagFieldName = (arbeidsgiverId: string): string => erRefusjonskravGyldigFieldPrefix + arbeidsgiverId;
+const lagFieldName = (arbeidsgiverId: string): string => erRefusjonskravGyldigFieldPrefix + arbeidsgiverId;
 
 const lagRefusjonskravRadios = (
   senRefusjonkravListe: RefusjonskravSomKommerForSentListe[],

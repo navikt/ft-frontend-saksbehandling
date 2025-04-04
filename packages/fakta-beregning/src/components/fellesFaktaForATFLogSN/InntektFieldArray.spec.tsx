@@ -1,7 +1,8 @@
 import { AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
 
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { InntektFieldArray, leggTilDagpengerOmBesteberegning } from './InntektFieldArray';
+import { InntektFieldArray } from './InntektFieldArray';
+import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 
 const kodeverkSamling = {
   [KodeverkType.AKTIVITET_STATUS]: [

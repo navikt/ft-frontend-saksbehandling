@@ -10,7 +10,7 @@ import {
 } from '../../../../typer/interface/BeregningFaktaAP';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './AvsluttetArbeidsforhold';
 import { harFieldKunstigArbeidsforhold } from './KunstigArbeidsforhold';
-import { harFieldLønnsendring } from './LonnsendringForm';
+import { harFieldLønnsendring } from './lonnsendringFormUtils';
 
 const krevAndelsnr = (andelsnr: number | undefined): number => {
   if (!andelsnr) {
@@ -33,7 +33,7 @@ export const transformValuesArbeidUtenInntektsmelding = (
   bg: Beregningsgrunnlag,
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
-  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
 
   if (
     !tilfeller

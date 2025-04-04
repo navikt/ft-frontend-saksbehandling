@@ -3,6 +3,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import vitest from 'eslint-plugin-vitest';
 import globals from 'globals';
@@ -31,6 +32,7 @@ export default [
   pluginReact.configs.flat.recommended,
   jsxA11y.flatConfigs.recommended,
   importPlugin.flatConfigs.recommended,
+  reactRefresh.configs.vite,
   eslintConfigPrettier,
   {
     rules: {

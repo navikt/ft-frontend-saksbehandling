@@ -32,28 +32,16 @@ import {
   mapAndelToField,
   skalFastsetteInntektForAndel,
 } from './BgFaktaUtils';
-import { getHeaderTextCodes, InntektFieldArrayAndelRow } from './InntektFieldArrayRow';
+import { InntektFieldArrayAndelRow } from './InntektFieldArrayRow';
+import {
+  finnStatus,
+  fjernEllerLeggTilAktivitetStatus,
+  getHeaderTextCodes,
+  leggTilDagpengerOmBesteberegning,
+} from './inntektFieldArrayUtils';
 import { SummaryRow } from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
-
-const finnStatus = (aktivitetStatuser: KodeverkMedNavn[], status: string): string => {
-  const navn = aktivitetStatuser.find(({ kode }) => kode === status)?.navn;
-  if (!navn) {
-    throw new Error('Fant ikke aktivitetstatus med navn' + status);
-  }
-  return navn;
-};
-
-const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
-  andel: finnStatus(aktivitetStatuser, AktivitetStatus.DAGPENGER),
-  aktivitetStatus: AktivitetStatus.DAGPENGER,
-  fastsattBelop: '',
-  inntektskategori: Inntektskategori.DAGPENGER,
-  nyAndel: true,
-  skalKunneEndreAktivitet: false,
-  lagtTilAvSaksbehandler: true,
-});
 
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITAER_ELLER_SIVIL),
@@ -105,43 +93,6 @@ const createBruttoBGSummaryRow = (
     beregningsgrunnlag={beregningsgrunnlag}
   />
 );
-
-const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) => {
-  let index = -1;
-  fields.forEach((field, nyIndex) => {
-    if (field.aktivitetStatus === aktivitetStatusKode) {
-      index = nyIndex;
-    }
-  });
-  return index;
-};
-
-const fjernEllerLeggTilAktivitetStatus = (
-  fields: AndelFieldValue[],
-  aktivitetStatusKode: string,
-  skalHaAndelMedAktivitetstatus: boolean,
-  skalFjerne: (field: AndelFieldValue) => boolean,
-  nyStatusAndel: AndelFieldValue,
-  remove: UseFieldArrayRemove,
-  append: UseFieldArrayAppend<AndelFieldValue>,
-) => {
-  const statusIndex = findAktivitetStatusIndex(fields, aktivitetStatusKode);
-  if (statusIndex !== -1) {
-    const field = fields[statusIndex];
-    if (skalFjerne(field)) {
-      remove(statusIndex);
-    }
-  }
-  if (statusIndex !== -1) {
-    return;
-  }
-  if (skalHaAndelMedAktivitetstatus) {
-    append({
-      ...nyStatusAndel,
-    });
-  }
-};
-
 const erFrilanser = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.FRILANSER;
 const erArbeidstaker = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 const erDagpenger = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.DAGPENGER;
@@ -149,25 +100,6 @@ const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean =>
   aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
 const erMilitærEllerSivil = (aktivitetStatus: string): boolean =>
   aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
-
-export const leggTilDagpengerOmBesteberegning = (
-  fields: AndelFieldValue[],
-  skalHaBesteberegning: boolean,
-  aktivitetStatuser: KodeverkMedNavn[],
-  skalKunneLeggeTilDagpenger: boolean,
-  remove: UseFieldArrayRemove,
-  append: UseFieldArrayAppend<AndelFieldValue>,
-) => {
-  fjernEllerLeggTilAktivitetStatus(
-    fields,
-    AktivitetStatus.DAGPENGER,
-    skalHaBesteberegning,
-    (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && !!andel.lagtTilAvSaksbehandler,
-    dagpenger(aktivitetStatuser),
-    remove,
-    append,
-  );
-};
 
 const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],

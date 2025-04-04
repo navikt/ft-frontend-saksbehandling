@@ -24,8 +24,8 @@ import { AksjonspunktBoks } from '../../felles/AksjonspunktBoks';
 import {
   besteberegningField,
   VurderBesteberegningPanel,
-  vurderBesteberegningTransform,
 } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { vurderBesteberegningTransform } from '../besteberegningFodendeKvinne/vurderBesteberegningFormUtils';
 import { erOverstyring, erOverstyringAvBeregningsgrunnlag, INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
 import { InntektFieldArray } from '../InntektFieldArray';
 import { InntektstabellPanel } from '../InntektstabellPanel';

@@ -22,22 +22,17 @@ import {
   AvklarBeregningAktiviteter,
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
-  BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
-import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { Vilkårperiode } from '../../typer/Vilkår';
 import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import {
   erSubmittable,
   findAvklaringsbehovForAktiviteter,
-  skalKunneLoseAvklaringsbehov,
   skalViseSubmitKnappEllerBegrunnelse,
 } from './avklareAktiviteterHjelpefunksjoner';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
@@ -47,69 +42,6 @@ import styles from './avklareAktiviteterPanel.module.css';
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
-const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
-
-export const buildInitialValues = (
-  avklaringsbehovListe: BeregningAvklaringsbehov[],
-  avklarAktiviteter: AvklarBeregningAktiviteterMap | undefined,
-  kodeverkSamling: KodeverkForPanel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  vilkårsperiode: Vilkårperiode,
-): AvklarAktiviteterValues => {
-  const harAvklarAktiviteterAvklaringsbehov = hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehovListe);
-  const erOverstyrt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehovListe);
-  const avklaringsbehov = findAvklaringsbehovForAktiviteter(avklaringsbehovListe);
-  let aktiviteterValues;
-
-  if (avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping) {
-    aktiviteterValues = VurderAktiviteterPanel.buildInitialValues(
-      avklarAktiviteter.aktiviteterTomDatoMapping,
-      kodeverkSamling,
-      erOverstyrt,
-      harAvklarAktiviteterAvklaringsbehov,
-      arbeidsgiverOpplysningerPerId,
-    );
-  }
-
-  return {
-    [MANUELL_OVERSTYRING_FIELD]: erOverstyrt,
-    periode: vilkårsperiode.periode,
-    erTilVurdering: vilkårsperiode.vurderesIBehandlingen && !vilkårsperiode.erForlengelse,
-    avklaringsbehovListe,
-    avklarAktiviteter,
-    aktiviteterValues,
-    ...FaktaBegrunnelseTextField.buildInitialValues(avklaringsbehov?.begrunnelse, BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME),
-  };
-};
-
-export const transformFieldValue = (
-  values: AvklarAktiviteterValues,
-): BeregningsgrunnlagTilBekreftelse<BeregningAktiviteterTransformedValues> | null => {
-  const skalOverstyre = values[MANUELL_OVERSTYRING_FIELD];
-  const skalLoseAvklaringsbehov = skalKunneLoseAvklaringsbehov(
-    !!skalOverstyre,
-    values.avklaringsbehovListe || [],
-    values.erTilVurdering,
-  );
-  const { avklarAktiviteter } = values;
-
-  if (!skalLoseAvklaringsbehov) {
-    return null;
-  }
-
-  const aktivitetListe = VurderAktiviteterPanel.transformValues(
-    values,
-    avklarAktiviteter?.aktiviteterTomDatoMapping || [],
-    !!skalOverstyre,
-  );
-
-  return {
-    beregningsaktivitetLagreDtoList: aktivitetListe,
-    periode: values.periode,
-    begrunnelse: values[BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME],
-  };
-};
-
 export interface Props {
   avklarAktiviteter: AvklarBeregningAktiviteterMap;
   avklaringsbehovListe: BeregningAvklaringsbehov[];
@@ -199,7 +131,7 @@ export const AvklareAktiviteterField = ({
   const feilmelding = validate(
     watch,
     fieldId,
-    avklarAktiviteter.aktiviteterTomDatoMapping || [],
+    avklarAktiviteter.aktiviteterTomDatoMapping ?? [],
     erOverstyrtAktivt,
     intl,
   );

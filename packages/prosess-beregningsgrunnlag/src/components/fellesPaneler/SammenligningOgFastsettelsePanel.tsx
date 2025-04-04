@@ -17,7 +17,7 @@ import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interf
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår } from '../../types/Vilkår';
-import { AksjonspunktBehandler, finnFormName } from './AksjonspunktBehandler';
+import { AksjonspunktBehandler, defaultFormName } from './AksjonspunktBehandler';
 import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';
 import { SammenligningsgrunnlagPanel } from './SammenligningsgrunnlagPanel';
@@ -50,7 +50,7 @@ const beløpEller0 = (beløp: number | undefined): number => {
   return beløp;
 };
 
-const beregnet = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
+const beregnet = (andel: BeregningsgrunnlagAndel): number => andel.beregnetPrAar ?? 0;
 
 const beregnAarsintektForAktivitetStatuser = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
@@ -107,20 +107,20 @@ const finnBeregnetInntekt = (
   );
   if (sg.sammenligningsgrunnlagType === SammenligningType.SN && pgiAndel) {
     return {
-      inntekt: pgiAndel.pgiSnitt || 0,
+      inntekt: pgiAndel.pgiSnitt ?? 0,
       erPGI: true,
     };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.MIDLERTIDIG_INAKTIV && pgiAndel) {
     return {
-      inntekt: pgiAndel.pgiSnitt || 0,
+      inntekt: pgiAndel.pgiSnitt ?? 0,
       erPGI: true,
     };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
     return pgiAndel
       ? {
-          inntekt: pgiAndel.pgiSnitt || 0,
+          inntekt: pgiAndel.pgiSnitt ?? 0,
           erPGI: true,
         }
       : {
@@ -159,6 +159,8 @@ type Props = {
 type GruppertPrLovparagraf = {
   [key: string]: Beregningsgrunnlag[];
 };
+
+const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
 function leggTilBeregningsgrunnlag(
   gruppert: GruppertPrLovparagraf,
@@ -251,20 +253,19 @@ export const SammenligningOgFastsettelsePanel = ({
         aktivtGrunnlagForLovparagraf &&
         !!aktivtGrunnlagForLovparagraf.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
       const andelerIFørstePeriode =
-        aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+        aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
       const formName = finnFormName(lovparagraf);
       return (
-        <div>
+        <VStack gap="10">
           {!!sg && (
-            <>
+            <VStack gap="1">
               <Heading size="xsmall">{finnTittel(sg, lovparagraf)}</Heading>
               <SammenligningsgrunnlagPanel
                 sammenligningsgrunnlag={sg}
                 beregnetAarsinntekt={finnBeregnetInntekt(sg, andelerIFørstePeriode).inntekt}
                 erPGI={finnBeregnetInntekt(sg, andelerIFørstePeriode).erPGI}
               />
-              <div className={beregningStyles.storSpace} />
-            </>
+            </VStack>
           )}
           {harAvklaringsbehovForLovparagraf && (
             <div style={{ display: harAktivtAvklaringsbehovForLovparagraf ? 'block' : 'none' }}>
@@ -283,10 +284,9 @@ export const SammenligningOgFastsettelsePanel = ({
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
                 setSubmitting={setSubmitting}
               />
-              <div className={beregningStyles.storSpace} />
             </div>
           )}
-        </div>
+        </VStack>
       );
     }
     return null;
@@ -295,10 +295,10 @@ export const SammenligningOgFastsettelsePanel = ({
   return (
     <VStack gap="5" className={beregningStyles.panelRight}>
       {panelForklaring}
-      <div>
+      <VStack gap="8">
         {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
         {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
-      </div>
+      </VStack>
     </VStack>
   );
 };

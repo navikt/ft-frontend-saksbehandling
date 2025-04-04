@@ -131,13 +131,13 @@ const andelFieldFinnesIPeriode = (
       andel.arbeidsgiverId === andelField.arbeidsgiverIdent,
   );
 
-export const transformFieldValues = (
+const transformFieldValues = (
   values: TilkommetAktivitetFieldValues,
   bg: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<VurderNyttInntektsforholTransformedValues> => {
   const perioderFields = values.perioder;
   const vurderInntektsforholdPerioder =
-    bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder || [];
+    bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder ?? [];
   const allePerioder = vurderInntektsforholdPerioder.flatMap(periode => {
     const overlappendeFields = perioderFields.filter(p => overlapper(p, periode));
     return overlappendeFields.map(periodeField => {

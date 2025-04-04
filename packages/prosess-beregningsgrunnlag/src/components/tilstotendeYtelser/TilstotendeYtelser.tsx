@@ -11,7 +11,7 @@ import { Ledelinje } from '../fellesPaneler/Ledelinje';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
-export const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
+const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
     return 'Beregningsgrunnlag.TilstottendeYtelse.Dagpenger';
   }

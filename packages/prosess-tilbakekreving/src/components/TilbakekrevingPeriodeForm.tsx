@@ -10,14 +10,13 @@ import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-va
 import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
 import { KodeverkMedNavn } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
-import { BTag, DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
 import { SærligGrunn } from '../kodeverk/særligGrunn';
 import { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { DataForPeriode } from '../types/DataForPeriode';
 import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
-import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
 import {
   AktsomhetFormPanel,
@@ -324,79 +323,4 @@ export const TilbakekrevingPeriodeForm = ({
       </VStack>
     </Form>
   );
-};
-
-export const periodeFormBuildInitialValues = (
-  periode: any,
-  foreldelsePerioder: FeilutbetalingPerioderWrapper,
-): InitialValuesDetailForm => {
-  const { vilkarResultat, begrunnelse, vilkarResultatInfo } = periode;
-
-  const vilkarResultatKode = vilkarResultat && vilkarResultat.kode ? vilkarResultat.kode : vilkarResultat;
-  let foreldetData;
-  const erForeldet = periode.erForeldet ? periode.erForeldet : periode.foreldet;
-  if (erForeldet) {
-    const foreldelsePeriode = foreldelsePerioder.perioder.find(p => p.fom === periode.fom && p.tom === periode.tom);
-    foreldetData = {
-      erForeldet,
-      periodenErForeldet: true,
-      foreldetBegrunnelse: foreldelsePeriode ? decodeHtmlEntity(foreldelsePeriode.begrunnelse) : undefined,
-    };
-  } else {
-    foreldetData = { erForeldet: false, periodenErForeldet: undefined, foreldetBegrunnelse: undefined };
-  }
-
-  const initialValues = {
-    valgtVilkarResultatType: vilkarResultatKode,
-    begrunnelse: decodeHtmlEntity(begrunnelse),
-    harMerEnnEnYtelse: periode.ytelser.length > 1,
-    ...foreldetData,
-  };
-
-  const godTroData =
-    vilkarResultatKode === VilkårResultat.GOD_TRO
-      ? BelopetMottattIGodTroFormPanel.buildIntialValues(vilkarResultatInfo)
-      : {};
-  const annetData =
-    vilkarResultatKode !== undefined && vilkarResultatKode !== VilkårResultat.GOD_TRO
-      ? AktsomhetFormPanel.buildInitalValues(vilkarResultatInfo)
-      : {};
-  return {
-    ...initialValues,
-    // @ts-expect-error Fiks
-    vurderingBegrunnelse: vilkarResultatInfo ? decodeHtmlEntity(vilkarResultatInfo.begrunnelse) : undefined,
-    [initialValues.valgtVilkarResultatType]: {
-      ...godTroData,
-      ...annetData,
-    },
-  };
-};
-
-export const periodeFormTransformValues = (
-  values: CustomVilkarsVurdertePeriode,
-  sarligGrunnTyper: KodeverkMedNavn[],
-) => {
-  const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
-  // @ts-expect-error Fiks
-  const info = values[valgtVilkarResultatType];
-
-  const godTroData =
-    valgtVilkarResultatType === VilkårResultat.GOD_TRO
-      ? BelopetMottattIGodTroFormPanel.transformValues(info, vurderingBegrunnelse)
-      : {};
-  const annetData =
-    valgtVilkarResultatType !== VilkårResultat.GOD_TRO
-      ? AktsomhetFormPanel.transformValues(info, sarligGrunnTyper, vurderingBegrunnelse)
-      : {};
-
-  return {
-    begrunnelse,
-    fom: values.fom,
-    tom: values.tom,
-    vilkarResultat: valgtVilkarResultatType,
-    vilkarResultatInfo: {
-      ...godTroData,
-      ...annetData,
-    },
-  };
 };

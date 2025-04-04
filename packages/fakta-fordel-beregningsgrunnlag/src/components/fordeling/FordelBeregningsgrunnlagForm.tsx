@@ -20,14 +20,11 @@ import {
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
 import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
-import {
-  fordelBGFieldArrayNamePrefix,
-  getFieldNameKey,
-  lagPerioderForSubmit,
-  slaaSammenPerioder,
-} from './FordelPerioderUtils';
+import { fordelBGFieldArrayNamePrefix, lagPerioderForSubmit, slaaSammenPerioder } from './FordelPerioderUtils';
 
 import styles from './fordelBeregningsgrunnlagForm.module.css';
+
+const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
 
 const finnRiktigBgPeriode = (
   periode: FordelBeregningsgrunnlagPeriode,
@@ -40,7 +37,7 @@ const finnRiktigBgPeriode = (
   return matchetPeriode;
 };
 
-export const transformPerioder = (
+const transformPerioder = (
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   values: FordelBeregningsgrunnlagValues,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],

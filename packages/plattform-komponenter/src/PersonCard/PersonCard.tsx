@@ -5,7 +5,8 @@ import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import { Gender, GenderIcon } from './GenderIcon';
+import { Gender } from './Gender';
+import { GenderIcon } from './GenderIcon';
 import { VisittKort } from './VisittKort';
 
 dayjs.extend(customParseFormat);

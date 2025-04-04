@@ -4,7 +4,8 @@ export { DetailView, type DetailViewProps } from './src/DetailView/DetailView';
 export { IndicatorWithOverlay } from './src/IndicatorWithOverlay/IndicatorWithOverlay';
 export { InteractiveList } from './src/InteractiveList/InteractiveList';
 export { Autocomplete } from './src/Autocomplete/Autocomplete';
-export { Box, Margin } from './src/box/Box';
+export { Box } from './src/box/Box';
+export { Margin } from './src/box/Margin';
 export { Form } from './src/Form/Form';
 export { PageContainer } from './src/PageContainer/PageContainer';
 export { PageError } from './src/PageError/PageError';
@@ -20,12 +21,13 @@ export { StepType as ProcessMenuStepType } from './src/ProcessMenu/components/St
 
 export { SideMenu } from './src/SideMenu/SideMenu';
 export { PersonCard } from './src/PersonCard/PersonCard';
-export { Gender } from './src/PersonCard/GenderIcon';
+export { Gender } from './src/PersonCard/Gender';
 export { EmptyPersonCard } from './src/PersonCard/EmptyPersonCard';
 export { VisittKort } from './src/PersonCard/VisittKort';
 export { GenderIcon } from './src/PersonCard/GenderIcon';
 export { Infostripe } from './src/Infostripe/Infostripe';
-export { AssessedBy, SaksbehandlernavnContext } from './src/AssessedBy/AssessedBy';
+export { SaksbehandlernavnContext } from './src/AssessedBy/SaksbehandlernavnContext';
+export { AssessedBy } from './src/AssessedBy/AssessedBy';
 export { PeriodList } from './src/PeriodList/PeriodList';
 
 /** Ikoner * */

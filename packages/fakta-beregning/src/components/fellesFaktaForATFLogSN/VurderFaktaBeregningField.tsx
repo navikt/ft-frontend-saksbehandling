@@ -5,7 +5,7 @@ import { HStack, VStack } from '@navikt/ds-react';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
@@ -15,11 +15,14 @@ import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { erOverstyringAvBeregningsgrunnlag, hasAksjonspunkt, isAksjonspunktClosed } from './BgFaktaUtils';
 import { FaktaForATFLOgSNPanel } from './FaktaForATFLOgSNPanel';
+import {
+  BEGRUNNELSE_FAKTA_TILFELLER_NAME,
+  erSubmittable,
+  harIkkeEndringerIAvklarMedFlereAksjonspunkter,
+} from './vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext, VurderFaktaContext } from './VurderFaktaContext';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
-
-export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
 
 export interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -33,22 +36,6 @@ export interface Props {
   verdiForAvklarAktivitetErEndret: boolean;
   submitDisabled: boolean;
 }
-
-export const erSubmittable = (submittable: boolean, submitEnabled: boolean, hasErrors: boolean): boolean =>
-  submittable && submitEnabled && !hasErrors;
-
-export const harIkkeEndringerIAvklarMedFlereAksjonspunkter = (
-  verdiForAvklarAktivitetErEndret: boolean,
-  avklaringsbehov: BeregningAvklaringsbehov[],
-): boolean => {
-  if (
-    hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ||
-    hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
-  ) {
-    return !verdiForAvklarAktivitetErEndret;
-  }
-  return true;
-};
 
 const erOverstyrt = (index: number, getValues: UseFormGetValues<VurderFaktaBeregningFormValues>) => {
   const formValue = getValues(`${formNameVurderFaktaBeregning}.${index}`);

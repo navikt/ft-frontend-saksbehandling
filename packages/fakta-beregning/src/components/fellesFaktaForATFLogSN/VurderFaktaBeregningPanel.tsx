@@ -13,10 +13,11 @@ import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregning
 import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
 import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
-import { getBuildInitialValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
+import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
-import { BEGRUNNELSE_FAKTA_TILFELLER_NAME, VurderFaktaBeregningField } from './VurderFaktaBeregningField';
+import { VurderFaktaBeregningField } from './VurderFaktaBeregningField';
+import { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext, VurderFaktaContext } from './VurderFaktaContext';
 
 const {

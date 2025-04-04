@@ -10,6 +10,7 @@ import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
 
@@ -28,9 +29,6 @@ const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (be
   }
   return undefined;
 };
-
-export const EGENDEFINERT = 'Egendefinert';
-export const ANDELER = ['30', '50', '70', EGENDEFINERT];
 
 export interface Props {
   name: string;

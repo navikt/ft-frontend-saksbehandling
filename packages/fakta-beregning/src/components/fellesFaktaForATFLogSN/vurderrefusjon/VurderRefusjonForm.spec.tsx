@@ -1,9 +1,11 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
 import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
-import { lagFieldName, VurderRefusjonForm } from './VurderRefusjonForm';
+import { erRefusjonskravGyldigFieldPrefix, VurderRefusjonForm } from './VurderRefusjonForm';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
+
+const lagFieldName = (arbeidsgiverId: string): string => erRefusjonskravGyldigFieldPrefix + arbeidsgiverId;
 
 describe('<VurderRefusjonForm>', () => {
   it('skal bygge initial values', () => {

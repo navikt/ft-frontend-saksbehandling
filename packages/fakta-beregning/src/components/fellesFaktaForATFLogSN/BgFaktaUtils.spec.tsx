@@ -22,7 +22,7 @@ import {
   skalRedigereInntektskategoriForAndel,
 } from './BgFaktaUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import {
   finnFrilansFieldName,

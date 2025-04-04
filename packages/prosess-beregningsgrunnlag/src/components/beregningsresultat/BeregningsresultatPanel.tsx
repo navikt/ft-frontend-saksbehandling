@@ -170,7 +170,7 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
   const tabellData = useMemo(() => utledTabellData(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalVisePeriodePrTabell = tabellData.length > 1;
   return (
-    <VStack gap="2" className={beregningStyles.panelRight}>
+    <VStack gap="1" className={beregningStyles.panelRight}>
       <Heading size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
       </Heading>
