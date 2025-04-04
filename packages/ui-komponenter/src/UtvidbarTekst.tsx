@@ -32,7 +32,9 @@ export const UtvidbarTekst = ({ tekst, maksLengde = 100 }: Props) => {
         icon={visHeleTeksten ? <ChevronUpIcon aria-hidden /> : <ChevronDownIcon aria-hidden />}
         onClick={() => setVisHeleTeksten(!visHeleTeksten)}
       >
-        {visHeleTeksten ? intl.formatMessage({ id: 'UtvidbarTekst.VisMindre' }) : intl.formatMessage({ id: 'UtvidbarTekst.VisMer' })}
+        {visHeleTeksten
+          ? intl.formatMessage({ id: 'UtvidbarTekst.VisMindre' })
+          : intl.formatMessage({ id: 'UtvidbarTekst.VisMer' })}
       </Button>
     </HStack>
   );
