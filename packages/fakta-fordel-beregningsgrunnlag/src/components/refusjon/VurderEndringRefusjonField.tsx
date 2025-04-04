@@ -57,7 +57,7 @@ export const VurderEndringRefusjonField = ({
   const manglerAksjonspunkt = !beregningsgrunnlag.avklaringsbehov.some(
     ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   );
-  const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
+  const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler ?? [];
   const avklaringsbehovRefusjon = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const erAksjonspunktÅpent = avklaringsbehovRefusjon ? isAksjonspunktOpen(avklaringsbehovRefusjon.status) : false;
   const formMethods = useFormContext<VurderRefusjonFormValues>();

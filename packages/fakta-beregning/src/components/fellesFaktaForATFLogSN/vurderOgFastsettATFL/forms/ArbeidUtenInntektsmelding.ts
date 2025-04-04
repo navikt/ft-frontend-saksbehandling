@@ -33,7 +33,7 @@ export const transformValuesArbeidUtenInntektsmelding = (
   bg: Beregningsgrunnlag,
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
-  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
 
   if (
     !tilfeller

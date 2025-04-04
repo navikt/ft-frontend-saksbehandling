@@ -344,7 +344,7 @@ export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): Fak
 };
 
 export const getFaktaOmBeregningTilfellerKoder = (beregningsgrunnlag: Beregningsgrunnlag): string[] =>
-  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller || [];
+  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller ?? [];
 
 export const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);

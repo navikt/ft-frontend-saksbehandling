@@ -131,7 +131,7 @@ export const AvklareAktiviteterField = ({
   const feilmelding = validate(
     watch,
     fieldId,
-    avklarAktiviteter.aktiviteterTomDatoMapping || [],
+    avklarAktiviteter.aktiviteterTomDatoMapping ?? [],
     erOverstyrtAktivt,
     intl,
   );

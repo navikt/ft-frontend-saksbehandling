@@ -81,7 +81,7 @@ const lagHelpTextsFordelBG = (endredeArbeidsforhold: ArbeidsforholdTilFordeling[
 
 export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag): ReactElement[] => {
   const endredeArbeidsforhold =
-    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling || [];
+    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling ?? [];
   return hasAksjonspunkt(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)
     ? lagHelpTextsFordelBG(endredeArbeidsforhold)
     : [];

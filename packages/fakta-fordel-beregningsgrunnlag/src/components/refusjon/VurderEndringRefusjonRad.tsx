@@ -122,9 +122,9 @@ export const VurderEndringRefusjonRad = ({
 
 VurderEndringRefusjonRad.buildInitialValues = (refusjonAndel: RefusjonTilVurderingAndel): VurderRefusjonValues => {
   const initialValues: VurderRefusjonValues = {};
-  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom || '';
+  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom ?? '';
   initialValues[lagNøkkelDelvisRefusjon(refusjonAndel)] =
-    formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd) || '';
+    formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd) ?? '';
   return initialValues;
 };
 

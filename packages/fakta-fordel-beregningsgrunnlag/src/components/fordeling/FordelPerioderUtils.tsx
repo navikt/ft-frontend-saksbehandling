@@ -117,8 +117,8 @@ const harIngenRelevantEndringForFordeling = (
   periode: BeregningsgrunnlagPeriodeProp,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
 ) => {
-  const fordelAndeler = fordelPeriode.fordelBeregningsgrunnlagAndeler || [];
-  const forrigeAndeler = forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler || [];
+  const fordelAndeler = fordelPeriode.fordelBeregningsgrunnlagAndeler ?? [];
+  const forrigeAndeler = forrigeEndringPeriode.fordelBeregningsgrunnlagAndeler ?? [];
   if (fordelAndeler.length !== forrigeAndeler.length) {
     return false;
   }
@@ -176,8 +176,8 @@ const harPeriodeSomKanKombineresMedForrige = (
   }
   if (
     harEndretRefusjon(
-      fordelPeriode.fordelBeregningsgrunnlagAndeler || [],
-      forrigeFordelPeriode.fordelBeregningsgrunnlagAndeler || [],
+      fordelPeriode.fordelBeregningsgrunnlagAndeler ?? [],
+      forrigeFordelPeriode.fordelBeregningsgrunnlagAndeler ?? [],
     )
   ) {
     return false;

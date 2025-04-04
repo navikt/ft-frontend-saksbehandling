@@ -137,7 +137,7 @@ const transformFieldValues = (
 ): BeregningsgrunnlagTilBekreftelse<VurderNyttInntektsforholTransformedValues> => {
   const perioderFields = values.perioder;
   const vurderInntektsforholdPerioder =
-    bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder || [];
+    bg.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder ?? [];
   const allePerioder = vurderInntektsforholdPerioder.flatMap(periode => {
     const overlappendeFields = perioderFields.filter(p => overlapper(p, periode));
     return overlappendeFields.map(periodeField => {

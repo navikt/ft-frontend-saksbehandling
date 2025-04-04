@@ -39,7 +39,7 @@ const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
 
 const lagTomDatoMapping = (values: AvklarAktiviteterValues): AvklarBeregningAktiviteter[] => {
   const forrigeTomDatoMapping = values.avklarAktiviteter
-    ? values.avklarAktiviteter.aktiviteterTomDatoMapping || []
+    ? (values.avklarAktiviteter.aktiviteterTomDatoMapping ?? [])
     : [];
   const gjeldendeTomDatoMapping: AvklarBeregningAktiviteter[] = [];
   const stpOpptjening = values.avklarAktiviteter?.skjæringstidspunkt;
@@ -117,7 +117,7 @@ const utledGjeldendeSkjæringstidspunkt = (
     return undefined;
   }
   for (let k = 0; k < listeSomSkalVurderes.length; k += 1) {
-    const aktiviteter = listeSomSkalVurderes[k].aktiviteter || [];
+    const aktiviteter = listeSomSkalVurderes[k].aktiviteter ?? [];
     for (let i = 0; i < aktiviteter.length; i += 1) {
       const tempaktivitet = values.aktiviteterValues
         ? values.aktiviteterValues[lagAktivitetFieldId(aktiviteter[i])]
@@ -178,7 +178,7 @@ export const VurderAktiviteterPanel = ({
         <VurderAktiviteterTabellReactHookForm
           readOnly={readOnly}
           isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-          aktiviteter={aktivitetMap.aktiviteter || []}
+          aktiviteter={aktivitetMap.aktiviteter ?? []}
           erOverstyrt={erOverstyrt}
           harAvklaringsbehov={harAvklaringsbehov}
           kodeverkSamling={kodeverkSamling}
@@ -230,7 +230,7 @@ VurderAktiviteterPanel.transformValues = (
     throw new Error('Finner ikke forventet skjæringstidspunkt, ugyldig tilstand');
   }
   return listerSomVurderes.flatMap(liste =>
-    transformValuesForTabell(values, liste.aktiviteter || [], gjeldendeSkjæringstidspunkt, liste.tom),
+    transformValuesForTabell(values, liste.aktiviteter ?? [], gjeldendeSkjæringstidspunkt, liste.tom),
   );
 };
 
@@ -255,7 +255,7 @@ const utledGjeldendeSkjæringstidspunktVedPreutfylling = (
     return undefined;
   }
   for (let k = 0; k < aktiviteterTomDatoMapping.length; k += 1) {
-    const aktiviteter = aktiviteterTomDatoMapping[k].aktiviteter || [];
+    const aktiviteter = aktiviteterTomDatoMapping[k].aktiviteter ?? [];
     for (let i = 0; i < aktiviteter.length; i += 1) {
       const skalBrukes =
         aktiviteter[i].skalBrukes === true ||
@@ -286,7 +286,7 @@ VurderAktiviteterPanel.buildInitialValues = (
     initialValues = {
       ...initialValues,
       ...buildInitialValuesForTabell(
-        liste.aktiviteter || [],
+        liste.aktiviteter ?? [],
         kodeverkSamling,
         erOverstyrt,
         harAvklaringsbehov,

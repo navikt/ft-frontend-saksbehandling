@@ -72,7 +72,7 @@ export const buildInitialValues = (
   const avklaringsbehov = findAvklaringsbehovForAktiviteter(avklaringsbehovListe);
   let aktiviteterValues;
 
-  if (avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping) {
+  if (avklarAktiviteter?.aktiviteterTomDatoMapping) {
     aktiviteterValues = VurderAktiviteterPanel.buildInitialValues(
       avklarAktiviteter.aktiviteterTomDatoMapping,
       kodeverkSamling,
@@ -110,7 +110,7 @@ export const transformFieldValue = (
 
   const aktivitetListe = VurderAktiviteterPanel.transformValues(
     values,
-    avklarAktiviteter?.aktiviteterTomDatoMapping || [],
+    avklarAktiviteter?.aktiviteterTomDatoMapping ?? [],
     !!skalOverstyre,
   );
 

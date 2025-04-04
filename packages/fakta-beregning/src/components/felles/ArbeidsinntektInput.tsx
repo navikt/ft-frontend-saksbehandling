@@ -48,7 +48,7 @@ export const ArbeidsinntektInput = ({
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
       label={
-        label || (
+        label ?? (
           <FormattedMessage
             id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{

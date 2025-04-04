@@ -29,12 +29,12 @@ const finnAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): Bereg
   avklaringsbehov ? avklaringsbehov.find(ap => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined;
 
 const buildFieldInitialValues = (bg: Beregningsgrunnlag, vilkårsperiode: Vilkårperiode): VurderRefusjonFieldValues => {
-  const andeler = bg.refusjonTilVurdering?.andeler || [];
+  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
   let initialValues = {
     beregningsgrunnlagStp: bg.skjaeringstidspunktBeregning,
     periode: vilkårsperiode.periode,
-    begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : undefined,
+    begrunnelse: refusjonAP?.begrunnelse,
   } as unknown as VurderRefusjonFieldValues;
   andeler.forEach(andel => {
     initialValues = {
@@ -49,7 +49,7 @@ const transformFieldValues = (
   values: VurderRefusjonFieldValues,
   bg: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
-  const andeler = bg.refusjonTilVurdering?.andeler || [];
+  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
   const transformedAndeler = andeler.map(andel =>
     VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),
   );

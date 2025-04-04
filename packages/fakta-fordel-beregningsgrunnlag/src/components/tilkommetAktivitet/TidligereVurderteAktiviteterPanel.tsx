@@ -61,13 +61,13 @@ export const TidligereVurderteAktiviteterPanel = ({
               <BodyShort size="small">
                 {harBruttoInntekt && (
                   <>
-                    {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr || 0)}
+                    {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr ?? 0)}
                     <EditedIcon />
                   </>
                 )}
                 {harInntektsmelding && !harBruttoInntekt && (
                   <>
-                    {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr || 0)}
+                    {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr ?? 0)}
                     <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
                       IM
                     </Tag>

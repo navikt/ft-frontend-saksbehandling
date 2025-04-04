@@ -71,7 +71,7 @@ export const TilkommetAktivitetField = ({
       const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
 
       tableRows.push(
-        <Table.Row key={inntektsforhold.arbeidsgiverId || inntektsforhold.aktivitetStatus}>
+        <Table.Row key={inntektsforhold.arbeidsgiverId ?? inntektsforhold.aktivitetStatus}>
           <Table.DataCell>
             <BodyShort size="small">
               {getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}
@@ -82,13 +82,13 @@ export const TilkommetAktivitetField = ({
               <BodyShort size="small">
                 {harBruttoInntekt && !harInntektsmelding && (
                   <>
-                    {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr || 0)}
+                    {formatCurrencyWithKr(inntektsforhold.bruttoInntektPrÅr ?? 0)}
                     <EditedIcon />
                   </>
                 )}
                 {harInntektsmelding && (
                   <>
-                    {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr || 0)}
+                    {formatCurrencyWithKr(inntektsforhold.inntektFraInntektsmeldingPrÅr ?? 0)}
                     <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
                       IM
                     </Tag>

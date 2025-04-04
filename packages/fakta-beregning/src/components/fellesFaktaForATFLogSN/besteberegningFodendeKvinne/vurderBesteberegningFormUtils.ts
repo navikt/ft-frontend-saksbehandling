@@ -12,7 +12,7 @@ export const vurderBesteberegningTransform =
     values: FaktaOmBeregningAksjonspunktValues,
     inntektPrAndel: InntektTransformed[],
   ): FaktaBeregningTransformedValues => {
-    const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+    const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
     if (
       !(
         tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||

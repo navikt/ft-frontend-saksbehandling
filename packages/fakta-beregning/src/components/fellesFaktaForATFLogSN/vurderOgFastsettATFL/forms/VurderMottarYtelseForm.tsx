@@ -286,9 +286,7 @@ const transformValuesMottarYtelse = (
   faktaOmBeregning: FaktaOmBeregning,
   faktaOmBeregningTilfeller: string[],
 ): FaktaBeregningTransformedValues => {
-  const ATAndelerUtenIM = faktaOmBeregning.vurderMottarYtelse?.arbeidstakerAndelerUtenIM
-    ? faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    : [];
+  const ATAndelerUtenIM = faktaOmBeregning.vurderMottarYtelse?.arbeidstakerAndelerUtenIM ?? [];
   faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
   return {
     mottarYtelse: {
@@ -313,9 +311,7 @@ VurderMottarYtelseForm.buildInitialValues = (
     initialValues[finnFrilansFieldName()] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse?.frilansMottarYtelse;
   }
 
-  const ATAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM
-    ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    : [];
+  const ATAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM ?? [];
   if (ATAndelerUtenIM.length < 1) {
     return initialValues;
   }
@@ -333,7 +329,7 @@ VurderMottarYtelseForm.transformValues = (
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
   const faktaOmBeregningTilfeller: string[] = [];
-  const aktiveTilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+  const aktiveTilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
   if (!aktiveTilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
     return {};
   }
