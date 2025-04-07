@@ -22,11 +22,11 @@
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "eslint": "9.23.0",
-    "stylelint": "16.17.0",
-    "typescript": "5.8.2",
-    "vite": "6.2.4",
-    "vitest": "3.0.9"
+    "eslint": "9.24.0",
+    "stylelint": "16.18.0",
+    "typescript": "5.8.3",
+    "vite": "6.2.5",
+    "vitest": "3.1.1"
   },
   "exports": {
     ".": {
