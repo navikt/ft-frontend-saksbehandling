@@ -21,7 +21,7 @@ import { NaturalytelsePanel } from './NaturalytelsePanel';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
-export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
+const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
     return true;
@@ -68,7 +68,7 @@ const createArbeidsStillingsNavnOgProsent = (arbeidsforhold: BeregningsgrunnlagA
   return ' ';
 };
 
-const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
+const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => andel.beregnetPrAar ?? 0;
 
 const createArbeidinntektRows = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
@@ -179,7 +179,7 @@ GrunnlagForAarsinntektPanelAT.buildInitialValues = (
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndeler);
   const initialValues = {} as ArbeidstakerInntektValues;
   relevanteAndeler.forEach((inntekt, index) => {
-    initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar) || '';
+    initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar) ?? '';
   });
   return initialValues;
 };

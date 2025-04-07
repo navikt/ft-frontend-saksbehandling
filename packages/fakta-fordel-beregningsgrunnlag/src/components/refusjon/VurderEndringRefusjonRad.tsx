@@ -28,10 +28,8 @@ const lagNøkkel = (prefix: string, andel: RefusjonTilVurderingAndel): string =>
   return `${prefix}${andel.arbeidsgiver.arbeidsgiverAktørId}${andel.internArbeidsforholdRef}`;
 };
 
-export const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string =>
-  lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
-export const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel): string =>
-  lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
+const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
+const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
 
 const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
   if (!verdiFraForm) {
@@ -124,9 +122,9 @@ export const VurderEndringRefusjonRad = ({
 
 VurderEndringRefusjonRad.buildInitialValues = (refusjonAndel: RefusjonTilVurderingAndel): VurderRefusjonValues => {
   const initialValues: VurderRefusjonValues = {};
-  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom || '';
+  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom ?? '';
   initialValues[lagNøkkelDelvisRefusjon(refusjonAndel)] =
-    formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd) || '';
+    formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd) ?? '';
   return initialValues;
 };
 

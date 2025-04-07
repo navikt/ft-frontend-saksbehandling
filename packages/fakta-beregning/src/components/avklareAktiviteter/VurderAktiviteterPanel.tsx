@@ -4,12 +4,13 @@ import { BodyShort, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
 import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import {
   buildInitialValues as buildInitialValuesForTabell,
   lagAktivitetFieldId,
@@ -29,39 +30,6 @@ const harListeAktivitetSomSkalBrukes = (
       : aktivitet.skalBrukes;
   }) !== undefined;
 
-export const finnPlasseringIListe = (gjeldendeTomDatoMapping: AvklarBeregningAktiviteter[], dato: string): number => {
-  let i = 0;
-  while (
-    i < gjeldendeTomDatoMapping.length &&
-    dayjs(dato).isBefore(gjeldendeTomDatoMapping[i].tom === undefined ? null : gjeldendeTomDatoMapping[i].tom)
-  ) {
-    i += 1;
-  }
-  return i;
-};
-
-export const leggTilAktivitet = (
-  gjeldendeTomDatoMapping: AvklarBeregningAktiviteter[],
-  aktivitet: BeregningAktivitet,
-  tomDato: string,
-): void => {
-  // Finnes gjeldendeTomDatoMapping med tomDato ?
-  const eksisterende = gjeldendeTomDatoMapping.find(({ tom }) => tom === tomDato);
-  if (eksisterende === undefined) {
-    const nyTomDatoMapping = {
-      tom: tomDato,
-      aktiviteter: [aktivitet],
-    };
-    const index = finnPlasseringIListe(gjeldendeTomDatoMapping, tomDato);
-    gjeldendeTomDatoMapping.splice(index, 0, nyTomDatoMapping);
-  } else {
-    if (!eksisterende.aktiviteter) {
-      throw new Error(`Forventer å ha aktiviteter på tom ${eksisterende.tom}`);
-    }
-    eksisterende.aktiviteter.push(aktivitet);
-  }
-};
-
 // Sjekk for om saksbehandler har skrevet en ugyldig dato i inputfeltet.
 const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
   !!values.avklarAktiviteter?.aktiviteterTomDatoMapping &&
@@ -71,7 +39,7 @@ const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
 
 const lagTomDatoMapping = (values: AvklarAktiviteterValues): AvklarBeregningAktiviteter[] => {
   const forrigeTomDatoMapping = values.avklarAktiviteter
-    ? values.avklarAktiviteter.aktiviteterTomDatoMapping || []
+    ? (values.avklarAktiviteter.aktiviteterTomDatoMapping ?? [])
     : [];
   const gjeldendeTomDatoMapping: AvklarBeregningAktiviteter[] = [];
   const stpOpptjening = values.avklarAktiviteter?.skjæringstidspunkt;
@@ -149,7 +117,7 @@ const utledGjeldendeSkjæringstidspunkt = (
     return undefined;
   }
   for (let k = 0; k < listeSomSkalVurderes.length; k += 1) {
-    const aktiviteter = listeSomSkalVurderes[k].aktiviteter || [];
+    const aktiviteter = listeSomSkalVurderes[k].aktiviteter ?? [];
     for (let i = 0; i < aktiviteter.length; i += 1) {
       const tempaktivitet = values.aktiviteterValues
         ? values.aktiviteterValues[lagAktivitetFieldId(aktiviteter[i])]
@@ -210,7 +178,7 @@ export const VurderAktiviteterPanel = ({
         <VurderAktiviteterTabellReactHookForm
           readOnly={readOnly}
           isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-          aktiviteter={aktivitetMap.aktiviteter || []}
+          aktiviteter={aktivitetMap.aktiviteter ?? []}
           erOverstyrt={erOverstyrt}
           harAvklaringsbehov={harAvklaringsbehov}
           kodeverkSamling={kodeverkSamling}
@@ -262,7 +230,7 @@ VurderAktiviteterPanel.transformValues = (
     throw new Error('Finner ikke forventet skjæringstidspunkt, ugyldig tilstand');
   }
   return listerSomVurderes.flatMap(liste =>
-    transformValuesForTabell(values, liste.aktiviteter || [], gjeldendeSkjæringstidspunkt, liste.tom),
+    transformValuesForTabell(values, liste.aktiviteter ?? [], gjeldendeSkjæringstidspunkt, liste.tom),
   );
 };
 
@@ -287,7 +255,7 @@ const utledGjeldendeSkjæringstidspunktVedPreutfylling = (
     return undefined;
   }
   for (let k = 0; k < aktiviteterTomDatoMapping.length; k += 1) {
-    const aktiviteter = aktiviteterTomDatoMapping[k].aktiviteter || [];
+    const aktiviteter = aktiviteterTomDatoMapping[k].aktiviteter ?? [];
     for (let i = 0; i < aktiviteter.length; i += 1) {
       const skalBrukes =
         aktiviteter[i].skalBrukes === true ||
@@ -318,7 +286,7 @@ VurderAktiviteterPanel.buildInitialValues = (
     initialValues = {
       ...initialValues,
       ...buildInitialValuesForTabell(
-        liste.aktiviteter || [],
+        liste.aktiviteter ?? [],
         kodeverkSamling,
         erOverstyrt,
         harAvklaringsbehov,

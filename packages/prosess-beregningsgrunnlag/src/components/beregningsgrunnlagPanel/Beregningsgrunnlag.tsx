@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { VStack } from '@navikt/ds-react';
 
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -51,84 +51,6 @@ const finnAlleAndelerIFørstePeriode = (allePerioder?: BeregningsgrunnlagPeriode
   return [];
 };
 
-const storSpacer = <div className={beregningStyles.storSpace} />;
-
-const createRelevantePaneler = (
-  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-  relevanteStatuser: RelevanteStatuserProp,
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-  gjelderBesteberegning: boolean,
-  kodeverkSamling: KodeverkForPanel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  sammenligningsgrunnlag?: SammenligningsgrunlagProp[],
-  sammenligningsGrunnlagInntekter?: Inntektsgrunnlag,
-): ReactElement => ( // NOSONAR TODO splitte i flere komponenter?
-  <div className={beregningStyles.panelLeft}>
-    {relevanteStatuser.isArbeidstaker && (
-      <GrunnlagForAarsinntektPanelAT
-        alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
-        allePerioder={allePerioder}
-        kodeverkSamling={kodeverkSamling}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
-    )}
-    {relevanteStatuser.isFrilanser && (
-      <>
-        {storSpacer}
-        <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />
-      </>
-    )}
-    {relevanteStatuser.harDagpengerEllerAAP && (
-      <div>
-        {storSpacer}
-        <TilstotendeYtelser
-          alleAndeler={alleAndelerIForstePeriode}
-          relevanteStatuser={relevanteStatuser}
-          gjelderBesteberegning={gjelderBesteberegning}
-        />
-      </div>
-    )}
-    {relevanteStatuser.isMilitaer && (
-      <>
-        {storSpacer}
-        <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />
-      </>
-    )}
-    {relevanteStatuser.harAndreTilstotendeYtelser && (
-      <>
-        {storSpacer}
-        <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />
-      </>
-    )}
-
-    {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
-      <>
-        {storSpacer}
-        <GrunnlagForAarsinntektPanelSN
-          alleAndeler={alleAndelerIForstePeriode}
-          inntektsgrunnlag={sammenligningsGrunnlagInntekter}
-        />
-        {storSpacer}
-        <NaeringsopplysningsPanel
-          alleAndelerIForstePeriode={alleAndelerIForstePeriode}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
-      </>
-    )}
-    {(relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) &&
-      sammenligningsGrunnlagInntekter &&
-      sammenligningsgrunnlag && (
-        <>
-          {storSpacer}
-          <SammenligningsgrunnlagAOrdningen
-            sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
-            sammenligningsgrunnlag={sammenligningsgrunnlag}
-          />
-        </>
-      )}
-  </div>
-);
-
 type Props = {
   relevanteStatuser: RelevanteStatuserProp;
   allePerioder?: BeregningsgrunnlagPeriodeProp[];
@@ -161,15 +83,51 @@ export const Beregningsgrunnlag = ({
     return null;
   }
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
-  return createRelevantePaneler(
-    alleAndelerIForstePeriode,
-    relevanteStatuser,
-    allePerioder,
-    gjelderBesteberegning,
-    kodeverkSamling,
-    arbeidsgiverOpplysningerPerId,
-    sammenligningsgrunnlag,
-    sammenligningsGrunnlagInntekter,
+
+  return (
+    <VStack gap="8" className={beregningStyles.panelLeft}>
+      {relevanteStatuser.isArbeidstaker && (
+        <GrunnlagForAarsinntektPanelAT
+          alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
+          allePerioder={allePerioder}
+          kodeverkSamling={kodeverkSamling}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
+      )}
+      {relevanteStatuser.isFrilanser && <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />}
+      {relevanteStatuser.harDagpengerEllerAAP && (
+        <TilstotendeYtelser
+          alleAndeler={alleAndelerIForstePeriode}
+          relevanteStatuser={relevanteStatuser}
+          gjelderBesteberegning={gjelderBesteberegning}
+        />
+      )}
+      {relevanteStatuser.isMilitaer && <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />}
+      {relevanteStatuser.harAndreTilstotendeYtelser && (
+        <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />
+      )}
+
+      {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
+        <>
+          <GrunnlagForAarsinntektPanelSN
+            alleAndeler={alleAndelerIForstePeriode}
+            inntektsgrunnlag={sammenligningsGrunnlagInntekter}
+          />
+          <NaeringsopplysningsPanel
+            alleAndelerIForstePeriode={alleAndelerIForstePeriode}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </>
+      )}
+      {(relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) &&
+        sammenligningsGrunnlagInntekter &&
+        sammenligningsgrunnlag && (
+          <SammenligningsgrunnlagAOrdningen
+            sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
+            sammenligningsgrunnlag={sammenligningsgrunnlag}
+          />
+        )}
+    </VStack>
   );
 };
 

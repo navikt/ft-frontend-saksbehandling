@@ -46,7 +46,6 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
 
   return (
     <Box width="200px">
-      <div className={beregningStyles.storSpace} />
       <Label size="small">
         <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
       </Label>
@@ -180,7 +179,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
   const ytelseTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse' });
 
   return (
-    <>
+    <VStack gap="10">
       <ReadMore size="medium" header={<ReadMoreOverskrift />} defaultOpen className={styles.readMore}>
         <ReactECharts
           option={{
@@ -291,6 +290,6 @@ export const SammenligningsgrunnlagAOrdningen = ({
         />
       </ReadMore>
       {lagSumRad(måneder, relevanteStatuser)}
-    </>
+    </VStack>
   );
 };

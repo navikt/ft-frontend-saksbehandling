@@ -8,7 +8,7 @@ import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
-import { lonnsendringField } from './LonnsendringForm';
+import { lonnsendringField } from './lonnsendringFormUtils';
 
 const emptyValues = {
   erTilVurdering: true,

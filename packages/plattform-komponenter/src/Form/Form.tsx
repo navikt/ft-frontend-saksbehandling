@@ -2,7 +2,8 @@ import React, { JSX } from 'react';
 
 import { Button } from '@navikt/ds-react';
 
-import { Box, Margin } from '../box/Box';
+import { Box } from '../box/Box';
+import { Margin } from '../box/Margin';
 
 import styles from './form.module.css';
 

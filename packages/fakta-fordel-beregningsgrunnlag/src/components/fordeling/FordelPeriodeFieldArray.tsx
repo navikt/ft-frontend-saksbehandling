@@ -36,9 +36,6 @@ import {
 
 import styles from './renderFordelBGFieldArray.module.css';
 
-const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
-export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
-
 const FloatRight = ({ children }: { children?: ReactNode }) => <span className={styles.floatRight}>{children}</span>;
 
 const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
@@ -58,9 +55,9 @@ const lagVisningsnavn = (
 ): string => {
   if (!arbeidsforhold.arbeidsgiverIdent || !arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]) {
     return arbeidsforhold.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
+      ? (kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
           oat => oat.kode === arbeidsforhold.arbeidsforholdType,
-        )?.navn || ''
+        )?.navn ?? '')
       : '';
   }
   return createVisningsnavnForAktivitetFordeling(
@@ -108,7 +105,7 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactEleme
 
 const sumEllerTomString = (sum: number): string => {
   if (sum > 0) {
-    return formatCurrencyNoKr(sum) || '';
+    return formatCurrencyNoKr(sum) ?? '';
   }
   return '';
 };
@@ -127,7 +124,7 @@ const summerFordeling = (
       getValues(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`),
     );
     if (field.skalRedigereInntekt) {
-      sum += fastsattBeløp || 0;
+      sum += fastsattBeløp ?? 0;
     } else {
       sum += field.readOnlyBelop ? fastsattBeløp : 0;
     }
@@ -418,7 +415,7 @@ type Props = {
 
 const getGjelderGradering = (beregningsgrunnlag: Beregningsgrunnlag): boolean => {
   const arbeidTilFordeling =
-    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling || [];
+    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling ?? [];
   return arbeidTilFordeling.some(a => a.perioderMedGraderingEllerRefusjon?.some(p => p.erGradering));
 };
 

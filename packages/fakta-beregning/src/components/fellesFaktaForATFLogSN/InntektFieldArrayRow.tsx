@@ -7,7 +7,6 @@ import { Button, ErrorMessage, Table } from '@navikt/ds-react';
 
 import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
@@ -28,24 +27,10 @@ import {
   getKanRedigereInntekt,
   getSkalRedigereInntektskategori,
 } from './BgFaktaUtils';
+import { getInntektskategorierAlfabetiskSortert } from './inntektFieldArrayUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 import styles from './inntektFieldArray.module.css';
-
-export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
-  const headerCodes = [];
-  headerCodes.push('BeregningInfoPanel.FordelingBG.Andel');
-  if (skalVisePeriode) {
-    headerCodes.push('BeregningInfoPanel.FordelingBG.Arbeidsperiode');
-  }
-  headerCodes.push('BeregningInfoPanel.FordelingBG.Fordeling');
-  if (skalViseRefusjon) {
-    headerCodes.push('BeregningInfoPanel.FordelingBG.Refusjonskrav');
-  }
-  headerCodes.push('BeregningInfoPanel.FordelingBG.Inntektskategori');
-
-  return headerCodes;
-};
 
 const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
   kategorier.map(ik => (
@@ -53,9 +38,6 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
       {ik.navn}
     </option>
   ));
-
-export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
-  kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
 const getMåFastsettesText = () => <ErrorMessage size="small">Må fastsettes</ErrorMessage>;
 

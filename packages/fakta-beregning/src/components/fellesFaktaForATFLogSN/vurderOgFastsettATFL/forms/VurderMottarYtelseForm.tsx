@@ -39,7 +39,7 @@ const andreFrilansTilfeller: string[] = [
   FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
 ];
 
-export const mottarYtelseForArbeidMsg = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid';
+const mottarYtelseForArbeidMsg = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid';
 
 const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
@@ -59,7 +59,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   } else {
     radioNavn = createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
   }
-  return <FormattedMessage id={mottarYtelseForArbeidMsg()} values={{ arbeid: radioNavn }} />;
+  return <FormattedMessage id={mottarYtelseForArbeidMsg} values={{ arbeid: radioNavn }} />;
 };
 
 const mottarYtelseArbeidsforholdRadioAndInputs = (
@@ -105,15 +105,14 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
   </div>
 );
 
-export const frilansMedAndreFrilanstilfeller = () =>
-  'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
-export const frilansUtenAndreFrilanstilfeller = () => 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
+const frilansMedAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
+const frilansUtenAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
 
 const finnFrilansTekstKode = (tilfeller: string[]) => {
   if (tilfeller.some(tilfelle => andreFrilansTilfeller.includes(tilfelle))) {
-    return frilansMedAndreFrilanstilfeller();
+    return frilansMedAndreFrilanstilfeller;
   }
-  return frilansUtenAndreFrilanstilfeller();
+  return frilansUtenAndreFrilanstilfeller;
 };
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
@@ -287,9 +286,7 @@ const transformValuesMottarYtelse = (
   faktaOmBeregning: FaktaOmBeregning,
   faktaOmBeregningTilfeller: string[],
 ): FaktaBeregningTransformedValues => {
-  const ATAndelerUtenIM = faktaOmBeregning.vurderMottarYtelse?.arbeidstakerAndelerUtenIM
-    ? faktaOmBeregning.vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    : [];
+  const ATAndelerUtenIM = faktaOmBeregning.vurderMottarYtelse?.arbeidstakerAndelerUtenIM ?? [];
   faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
   return {
     mottarYtelse: {
@@ -314,9 +311,7 @@ VurderMottarYtelseForm.buildInitialValues = (
     initialValues[finnFrilansFieldName()] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse?.frilansMottarYtelse;
   }
 
-  const ATAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM
-    ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    : [];
+  const ATAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM ?? [];
   if (ATAndelerUtenIM.length < 1) {
     return initialValues;
   }
@@ -334,7 +329,7 @@ VurderMottarYtelseForm.transformValues = (
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
   const faktaOmBeregningTilfeller: string[] = [];
-  const aktiveTilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+  const aktiveTilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
   if (!aktiveTilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
     return {};
   }

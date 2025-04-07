@@ -9,8 +9,8 @@ import {
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
-import { transformValues, transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
-import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { transformValues, transformValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
+import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 
 const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrunnlag =>

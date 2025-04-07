@@ -52,7 +52,7 @@ const {
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
-const defaultFormName = 'BeregningForm';
+export const defaultFormName = 'BeregningForm';
 
 const gjelderForParagraf = (a: BeregningAvklaringsbehov, lovparagraf: LovParagraf) =>
   mapAvklaringsbehovTilLovparagraf(a) === lovparagraf;
@@ -62,21 +62,19 @@ const harAvklaringsbehovForLovparagraf = (
   lovparagraf: LovParagraf,
 ): boolean => !!avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf));
 
-export const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
+const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
 const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
   if (!allePerioder || allePerioder.length < 1) {
     return false;
   }
-  const andeler = allePerioder[0].beregningsgrunnlagPrStatusOgAndel
-    ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel
-    : [];
+  const andeler = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ?? [];
   return andeler?.some(a => a.aktivitetStatus === status && a.skalFastsetteGrunnlag);
 };
 
 const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagAndel[] => {
   if (allePerioder && allePerioder.length > 0) {
-    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel ? allePerioder[0].beregningsgrunnlagPrStatusOgAndel : [];
+    return allePerioder[0].beregningsgrunnlagPrStatusOgAndel ?? [];
   }
   return [];
 };
@@ -100,7 +98,7 @@ const buildInitialValues = (
   }
   const allePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   const alleAndelerIForstePeriode =
-    beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+    beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
   const arbeidstakerAndeler = alleAndelerIForstePeriode.filter(
     andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
   );
@@ -364,7 +362,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     }
     return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
   });
-  const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel || [];
+  const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ?? [];
   if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, values.gjeldendeAvklaringsbehov)) {
     return [
       {
