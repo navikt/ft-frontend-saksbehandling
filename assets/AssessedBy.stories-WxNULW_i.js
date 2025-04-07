@@ -1,6 +1,0 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{r as i}from"./index-DASCADcX.js";import{L as l}from"./index.es-C5jiSLgv.js";import{S as u}from"./PersonPencilFill-CoF6qBVB.js";import{a as f}from"./Label-CfBdhDeq.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./dayjs.min-Cke173X9.js";import"./useId-sDoo_C8F.js";import"./Theme-Bqc_BD0M.js";const x={"assessed-by":"_assessed-by_3btl4_1"},y=i.createContext({}),m=({ident:e,date:r})=>{const d=i.useContext(y);if(!e)return null;const c=d[e]||e,p=r?`, ${l(r)}`:"";return t.jsxs("div",{className:x["assessed-by"],children:[t.jsx(u,{height:"1em",width:"1em"}),t.jsx(f,{size:"small",children:`Vurdering av ${c}${p}`})]})};m.__docgenInfo={description:"",methods:[],displayName:"AssessedBy",props:{ident:{required:!1,tsType:{name:"string"},description:""},date:{required:!1,tsType:{name:"string"},description:""}}};const D={component:m},s={args:{ident:"navn",date:"2023-01-01"}};var a,n,o;s.parameters={...s.parameters,docs:{...(a=s.parameters)==null?void 0:a.docs,source:{originalSource:`{
-  args: {
-    ident: 'navn',
-    date: '2023-01-01'
-  }
-}`,...(o=(n=s.parameters)==null?void 0:n.docs)==null?void 0:o.source}}};const E=["Default"];export{s as Default,E as __namedExportsOrder,D as default};
