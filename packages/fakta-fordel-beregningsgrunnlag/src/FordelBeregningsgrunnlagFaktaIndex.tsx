@@ -52,7 +52,7 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]
   kreverManuellBehandlingFn(bg, skalHåndtereNyInntekt) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
 
 type OwnProps = {
-  beregningsgrunnlagVilkår: Vilkår;
+  beregningsgrunnlagVilkår: Vilkår | null;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
@@ -83,7 +83,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
   );
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
-  if (bgMedAvklaringsbehov.length === 0) {
+  if (bgMedAvklaringsbehov.length === 0 || !beregningsgrunnlagVilkår) {
     return null;
   }
 

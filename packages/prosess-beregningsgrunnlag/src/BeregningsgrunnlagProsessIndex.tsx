@@ -36,7 +36,7 @@ const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
-const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår) => {
+const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   const ikkeTilstrekkeligInntektsgrunnlag = beregningsgrunnlagsvilkar?.perioder?.some(
     periode => periode.avslagKode === '1043',
   );
@@ -62,7 +62,7 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår) => {
 type OwnProps = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  beregningsgrunnlagsvilkar: Vilkår;
+  beregningsgrunnlagsvilkar: Vilkår | null;
   readOnlySubmitButton: boolean;
   kodeverkSamling: KodeverkForPanel;
 };
@@ -73,7 +73,7 @@ type MenyProp = {
   stp: string;
 };
 
-const erBGTilVurdering = (bgVilkar: Vilkår, beregningsgrunnlag: Beregningsgrunnlag) => {
+const erBGTilVurdering = (bgVilkar: Vilkår | null, beregningsgrunnlag: Beregningsgrunnlag) => {
   const vilårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
   const perioderTilVurdering =
     bgVilkar && bgVilkar.perioder
@@ -87,7 +87,7 @@ const harAvklaringsbehovSomkanLøses = (beregningsgrunnlag: Beregningsgrunnlag) 
     ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon) && ab.kanLoses,
   );
 
-const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vilkår): MenyProp[] =>
+const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vilkår | null): MenyProp[] =>
   kronologiskeGrunnlag.map(gr => ({
     skalVurderes: erBGTilVurdering(bgVilkår, gr),
     harAvklaringsbehov: harAvklaringsbehovSomkanLøses(gr),
@@ -128,6 +128,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   }, [beregningsgrunnlagListe]);
 
   if (
+    !beregningsgrunnlagsvilkar ||
     beregningsgrunnlagListe.length === 0 ||
     (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
   ) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
@@ -34,7 +34,7 @@ type OwnProps = {
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter?: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  vilkar: Vilkår;
+  vilkar: Vilkår | null;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
   skalKunneAvbryteOverstyring?: boolean;
@@ -82,6 +82,16 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]
   );
 };
 
+const initAktivtBeregningsgrunnlagIndeks = (beregningsgrunnlag: Beregningsgrunnlag[], vilkår: Vilkår | null) => {
+  if (vilkår?.perioder) {
+    const periodeMedAksjonspunktIndex = beregningsgrunnlag.findIndex(bg => skalVurderes(bg, vilkår.perioder));
+    if (periodeMedAksjonspunktIndex > -1) {
+      return periodeMedAksjonspunktIndex;
+    }
+  }
+  return 0;
+};
+
 type AksjonspunktDataDef = SubmitBeregningType[];
 
 export const BeregningFaktaIndex = ({
@@ -99,20 +109,15 @@ export const BeregningFaktaIndex = ({
   skalKunneAvbryteOverstyring = false,
 }: OwnProps &
   StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues>) => {
-  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
-  const vilkårsperioder = vilkar?.perioder;
-  useEffect(() => {
-    if (vilkårsperioder) {
-      const periodeMedAksjonspunktIndex = beregningsgrunnlag?.findIndex(bg => skalVurderes(bg, vilkårsperioder));
-      if (periodeMedAksjonspunktIndex > -1) {
-        setAktivtBeregningsgrunnlagIndeks(periodeMedAksjonspunktIndex);
-      }
-    }
-  }, []);
+  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(
+    initAktivtBeregningsgrunnlagIndeks(beregningsgrunnlag, vilkar),
+  );
 
   if (beregningsgrunnlag.length === 0 || !vilkar) {
     return <>Har ikke beregningsgrunnlag.</>;
   }
+
+  const vilkårsperioder = vilkar.perioder;
 
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
   const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
