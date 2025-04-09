@@ -1,5 +1,0 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";const o="_basicList_f2nua_1",p="_basicList__element_f2nua_6",s={basicList:o,basicList__element:p},i=({elements:r})=>t.jsx("ul",{className:s.basicList,children:r.map((l,m)=>t.jsx("li",{className:s.basicList__element,children:l},`element-${m}`))});i.__docgenInfo={description:"",methods:[],displayName:"BasicList",props:{elements:{required:!0,tsType:{name:"Array",elements:[{name:"ReactReactNode",raw:"React.ReactNode"}],raw:"React.ReactNode[]"},description:""}}};const _={component:i},e={args:{elements:[t.jsx("p",{children:"Dette er et listeelement"},"1"),t.jsx("p",{children:"Dette er et annet listeelmeent"},"2")]}};var a,n,c;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`{
-  args: {
-    elements: [<p key="1">Dette er et listeelement</p>, <p key="2">Dette er et annet listeelmeent</p>]
-  }
-}`,...(c=(n=e.parameters)==null?void 0:n.docs)==null?void 0:c.source}}};const u=["Default"];export{e as Default,u as __namedExportsOrder,_ as default};
