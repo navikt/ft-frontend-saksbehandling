@@ -51,8 +51,8 @@
     "core-js": "3.37.1",
     "dayjs": "1.11.x",
     "dayjs-plugin-utc": "0.1.2",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
   },
