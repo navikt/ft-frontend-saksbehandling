@@ -1,5 +1,6 @@
 import { createIntl } from './createIntl';
 import { dateFormat, DateFormatOptions } from './dateFormat';
+import { TIDENES_ENDE } from './dateUtils';
 import { Period } from './Period';
 
 import messages from '../i18n/nb_NO.json';
@@ -24,6 +25,16 @@ type PeriodFormatUtils = {
 export const periodFormat = (fom: string, tom: string | undefined, options?: PeriodFormatUtils) => {
   const { separator = '-', showTodayString = false, ...rest } = options ?? {};
   const fomFormatted = dateFormat(fom, rest);
-  const tomFormatted = tom ? dateFormat(tom, rest) : '';
-  return `${fomFormatted} ${separator} ${!tom && showTodayString ? intl.formatMessage({ id: 'PeriodLabel.DateToday' }) : tomFormatted}`;
+  const tomFormatted = formaterTomDato(tom, showTodayString, rest);
+  return `${fomFormatted} ${separator} ${tomFormatted}`;
+};
+
+const formaterTomDato = (tom: string | undefined, showTodayString: boolean, options: DateFormatOptions) => {
+  if (!tom && showTodayString) {
+    return intl.formatMessage({ id: 'PeriodLabel.DateToday' });
+  }
+  if (!tom || tom === TIDENES_ENDE) {
+    return '';
+  }
+  return dateFormat(tom, options);
 };
