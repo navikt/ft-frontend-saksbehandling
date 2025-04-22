@@ -86,7 +86,7 @@
     "@types/react": "19.0.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-test-renderer": "19.0.0"
+    "react-test-renderer": "19.1.0"
   },
   "workspaces": {
     "packages": [
