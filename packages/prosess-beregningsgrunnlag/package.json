@@ -50,7 +50,7 @@
     "classnames": "2.5.1",
     "dayjs": "1.11.x",
     "echarts": "5.5.1",
-    "react": "19.0.0",
+    "react": "19.1.0",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
   },

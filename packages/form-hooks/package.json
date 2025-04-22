@@ -46,8 +46,8 @@
     "classnames": "2.5.1",
     "dayjs": "1.11.x",
     "lodash.throttle": "4.1.1",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-hook-form": "7.x"
   },
   "devDependencies": {
