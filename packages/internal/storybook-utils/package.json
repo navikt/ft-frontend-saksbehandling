@@ -13,12 +13,12 @@
   "dependencies": {
     "@navikt/ft-form-hooks": "workspace:^",
     "react": "19.1.0",
-    "react-hook-form": "7.55.0",
-    "react-intl": "7.1.10"
+    "react-hook-form": "7.56.0",
+    "react-intl": "7.1.11"
   },
   "devDependencies": {
     "@storybook/types": "8.6.12",
-    "eslint": "9.24.0",
+    "eslint": "9.25.1",
     "typescript": "5.8.3"
   }
 }

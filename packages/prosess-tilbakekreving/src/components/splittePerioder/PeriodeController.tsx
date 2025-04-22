@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ArrowLeftIcon, ArrowRightIcon, ScissorsIcon, XMarkIcon } from '@navikt/aksel-icons';
@@ -19,9 +19,19 @@ export type SplittetPeriode = {
   feilutbetaling: number;
 };
 
+export type BeregnBeløpParams = {
+  behandlingUuid: string;
+  perioder: {
+    belop: number;
+    fom: string;
+    tom: string;
+    begrunnelse: string;
+  }[];
+};
+
 export interface Props {
   behandlingUuid: string;
-  beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
+  beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
   oppdaterSplittedePerioder: (oppdatertePerioder: SplittetPeriode[]) => void;
   setNestePeriode: () => void;
   setForrigePeriode: () => void;
@@ -45,17 +55,14 @@ export const PeriodeController = ({
   const [showDelPeriodeModal, setShowDelPeriodeModall] = useState(false);
   const [finnesBelopMed0Verdi, setFinnesBelopMed0Verdi] = useState(false);
 
-  const showModal = useCallback(
-    (event: React.MouseEvent) => {
-      setShowDelPeriodeModall(true);
-      event.preventDefault();
-    },
-    [setShowDelPeriodeModall],
-  );
+  const showModal = (event: React.MouseEvent) => {
+    setShowDelPeriodeModall(true);
+    event.preventDefault();
+  };
 
-  const hideModal = useCallback(() => {
+  const hideModal = () => {
     setShowDelPeriodeModall(false);
-  }, []);
+  };
 
   const splitPeriod = (formValues: PerioderData) => {
     setFinnesBelopMed0Verdi(false);
@@ -78,7 +85,7 @@ export const PeriodeController = ({
       perioder: [forstePeriode, andrePeriode],
     };
 
-    beregnBelop(params).then((response: { perioder: { belop: number }[] }) => {
+    beregnBelop(params).then(response => {
       const { perioder } = response;
       const harPeriodeMedBelop0 = perioder.some(p => p.belop === 0);
       if (harPeriodeMedBelop0) {

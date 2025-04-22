@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Alert, Box, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, Box, Heading, VStack } from '@navikt/ds-react';
 import moment from 'moment';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, KodeverkType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn } from '@navikt/ft-types';
+import { Behandling, KodeverkMedNavn } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
@@ -22,7 +22,7 @@ import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb'
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
 import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
-import { PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
+import { BeregnBeløpParams, PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import {
   CustomPeriode,
@@ -300,16 +300,15 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
 export interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   submitCallback: (aksjonspunktData: VilkårsvurderingAp) => Promise<void>;
-  readOnly: boolean;
+  isReadOnly: boolean;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
-  perioder: DetaljertFeilutbetalingPeriode[];
   vilkarvurdering: VilkårsvurdertePerioderWrapper;
-  rettsgebyr: DetaljerteFeilutbetalingsperioder['rettsgebyr'];
   relasjonsRolleType: string;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
-  beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
-  behandlingUuid: string;
+  beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
+  behandling: Behandling;
   formData?: CustomVilkarsVurdertePeriode[];
   setFormData: (data: CustomVilkarsVurdertePeriode[]) => void;
 }
@@ -322,19 +321,21 @@ export interface Props {
 export const TilbakekrevingForm = ({
   perioderForeldelse,
   kodeverkSamlingFpTilbake,
+  vilkarvurderingsperioder,
   submitCallback,
-  readOnly,
+  isReadOnly,
   alleMerknaderFraBeslutter,
-  perioder,
   vilkarvurdering,
-  rettsgebyr,
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
   beregnBelop,
-  behandlingUuid,
+  behandling,
   formData,
   setFormData,
 }: Props) => {
+  const perioder = vilkarvurderingsperioder.perioder;
+  const rettsgebyr = vilkarvurderingsperioder.rettsgebyr;
+
   const sammenslåttePerioder = slaSammenOriginaleOgLagredePeriode(perioder, vilkarvurdering, rettsgebyr);
   const [vilkårsvurdertePerioder, setVilkårsvurdertePerioder] = useState<CustomVilkarsVurdertePeriode[]>(
     formData || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
@@ -352,19 +353,18 @@ export const TilbakekrevingForm = ({
   }, [vilkårsvurdertePerioder]);
 
   const dataForDetailForm = settOppPeriodeDataForDetailForm(sammenslåttePerioder, vilkårsvurdertePerioder);
-  const isReadOnly = readOnly || valgtPeriode?.erForeldet === true;
   const antallPerioderMedAksjonspunkt = vilkårsvurdertePerioder.reduce(
     (sum: number, periode) => (!periode.erForeldet ? sum + 1 : sum),
     0,
   );
   const merknaderFraBeslutter = alleMerknaderFraBeslutter[TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING];
 
-  const lagrePerioder = useCallback(() => {
+  const lagrePerioder = () => {
     setSubmitting(true);
     submitCallback(
       transformValues(vilkårsvurdertePerioder, kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.SARLIG_GRUNN]),
     );
-  }, [vilkårsvurdertePerioder]);
+  };
 
   const perioderFormatertForTidslinje = formaterPerioderForTidslinje(vilkårsvurdertePerioder, dataForDetailForm);
   const isApOpen = perioderFormatertForTidslinje.some(p => p.isAksjonspunktOpen);
@@ -465,9 +465,9 @@ export const TilbakekrevingForm = ({
                       setNestePeriode={setNestePeriode}
                       setForrigePeriode={setForrigePeriode}
                       periode={valgtData}
-                      readOnly={readOnly}
+                      readOnly={isReadOnly}
                       oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                      behandlingUuid={behandlingUuid}
+                      behandlingUuid={behandling.uuid}
                       beregnBelop={beregnBelop}
                       lukkPeriode={lukkPeriode}
                     />
@@ -486,7 +486,7 @@ export const TilbakekrevingForm = ({
                       periode={valgtPeriode}
                       data={valgtData}
                       antallPerioderMedAksjonspunkt={antallPerioderMedAksjonspunkt}
-                      readOnly={isReadOnly}
+                      readOnly={isReadOnly || valgtPeriode?.erForeldet === true}
                       skjulPeriode={lukkPeriode}
                       oppdaterPeriode={oppdaterPeriode}
                       kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
@@ -503,15 +503,15 @@ export const TilbakekrevingForm = ({
             <FormattedMessage id={valideringsmeldingId} />
           </Alert>
         )}
-        <HStack>
+        <div>
           <SubmitButton
-            isReadOnly={isReadOnly}
+            isReadOnly={isReadOnly || valgtPeriode?.erForeldet === true}
             isDirty={isDirty}
             isSubmittable={!isApOpen && !valgtPeriode && !valideringsmeldingId}
             onClick={lagrePerioder}
             isSubmitting={isSubmitting}
           />
-        </HStack>
+        </div>
       </VStack>
     </FaktaGruppe>
   );
