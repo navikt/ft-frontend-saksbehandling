@@ -72,9 +72,9 @@ export type CustomVilkarsVurdertePeriode = {
 export interface Props {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
-  skjulPeriode: (...args: any[]) => any;
+  skjulPeriode: () => void;
   readOnly: boolean;
-  oppdaterPeriode: (...args: any[]) => any;
+  oppdaterPeriode: (values: CustomVilkarsVurdertePeriode) => void;
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[];
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   antallPerioderMedAksjonspunkt: number;

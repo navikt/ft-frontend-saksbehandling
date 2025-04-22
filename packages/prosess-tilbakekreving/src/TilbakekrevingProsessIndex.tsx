@@ -3,6 +3,7 @@ import { RawIntlProvider } from 'react-intl';
 import { Behandling, KodeverkMedNavn, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
+import { BeregnBeløpParams } from './components/splittePerioder/PeriodeController';
 import { TilbakekrevingForm } from './components/TilbakekrevingForm';
 import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
@@ -20,44 +21,17 @@ export interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   vilkarvurdering: VilkårsvurdertePerioderWrapper;
-  beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
+  beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   relasjonsRolleType: string;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
 }
 
-export const TilbakekrevingProsessIndex = ({
-  behandling,
-  perioderForeldelse,
-  vilkarvurderingsperioder,
-  vilkarvurdering,
-  beregnBelop,
-  kodeverkSamlingFpTilbake,
-  submitCallback,
-  alleMerknaderFraBeslutter,
-  isReadOnly,
-  formData,
-  setFormData,
-  relasjonsRolleType,
-  relasjonsRolleTypeKodeverk,
-}: Props & StandardProsessPanelProps<VilkårsvurderingAp, CustomVilkarsVurdertePeriode[]>) => (
+export const TilbakekrevingProsessIndex = (
+  props: Props & StandardProsessPanelProps<VilkårsvurderingAp, CustomVilkarsVurdertePeriode[]>,
+) => (
   <RawIntlProvider value={intl}>
-    <TilbakekrevingForm
-      behandlingUuid={behandling.uuid}
-      perioderForeldelse={perioderForeldelse}
-      perioder={vilkarvurderingsperioder.perioder}
-      rettsgebyr={vilkarvurderingsperioder.rettsgebyr}
-      vilkarvurdering={vilkarvurdering}
-      submitCallback={submitCallback}
-      readOnly={isReadOnly}
-      relasjonsRolleType={relasjonsRolleType}
-      relasjonsRolleTypeKodeverk={relasjonsRolleTypeKodeverk}
-      alleMerknaderFraBeslutter={alleMerknaderFraBeslutter}
-      kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
-      beregnBelop={beregnBelop}
-      formData={formData}
-      setFormData={setFormData}
-    />
+    <TilbakekrevingForm {...props} />
   </RawIntlProvider>
 );
