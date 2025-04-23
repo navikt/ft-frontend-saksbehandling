@@ -2156,7 +2156,7 @@ __metadata:
     react-dom: 19.1.0
     react-hook-form: 7.56.0
     react-intl: 7.1.11
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2205,7 +2205,7 @@ __metadata:
     react: 19.1.0
     react-hook-form: 7.56.0
     react-intl: 7.1.11
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     uuid: 11.1.0
     vite: 6.3.2
@@ -2252,7 +2252,7 @@ __metadata:
     react: 19.1.0
     react-hook-form: 7.56.0
     react-intl: 7.1.11
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2294,7 +2294,7 @@ __metadata:
     react: 19.1.0
     react-dom: 19.1.0
     react-hook-form: 7.56.0
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2378,7 +2378,7 @@ __metadata:
   dependencies:
     cross-env: 7.0.3
     eslint: 9.25.1
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2404,7 +2404,7 @@ __metadata:
     prop-types: 15.8.1
     react: 19.1.0
     react-dom: 19.1.0
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2445,7 +2445,7 @@ __metadata:
     react: 19.1.0
     react-hook-form: 7.56.0
     react-intl: 7.1.11
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2492,7 +2492,7 @@ __metadata:
     react: 19.1.0
     react-hook-form: 7.56.0
     react-intl: 7.1.11
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2534,7 +2534,7 @@ __metadata:
     react: 19.1.0
     react-hook-form: 7.56.0
     react-intl: 7.1.11
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2578,7 +2578,7 @@ __metadata:
     react: 19.1.0
     react-hook-form: 7.56.0
     react-intl: 7.1.11
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2607,7 +2607,7 @@ __metadata:
     "@navikt/ft-kodeverk": "workspace:^"
     cross-env: 7.0.3
     eslint: 9.25.1
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -2634,7 +2634,7 @@ __metadata:
     react-dom: 19.1.0
     react-intl: 7.1.11
     react-modal: 3.16.3
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     typescript: 5.8.3
     vite: 6.3.2
     vitest: 3.1.2
@@ -7290,7 +7290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-entry-cache@npm:^10.0.7":
+"file-entry-cache@npm:^10.0.8":
   version: 10.0.8
   resolution: "file-entry-cache@npm:10.0.8"
   dependencies:
@@ -7614,7 +7614,7 @@ __metadata:
     prettier: 3.5.3
     react-test-renderer: 19.1.0
     storybook: 8.6.12
-    stylelint: 16.18.0
+    stylelint: 16.19.0
     stylelint-order: 7.0.0
     typescript: 5.8.3
     typescript-eslint: 8.31.0
@@ -9251,10 +9251,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"known-css-properties@npm:^0.35.0":
-  version: 0.35.0
-  resolution: "known-css-properties@npm:0.35.0"
-  checksum: 8ab9550a605f9113cb6dc9059e86f109c1a4a3cb12107bd2a89855bd17472001459180a710b59cb8e097d1d55f36cb08980424a26a59e2b11422934f124ba944
+"known-css-properties@npm:^0.36.0":
+  version: 0.36.0
+  resolution: "known-css-properties@npm:0.36.0"
+  checksum: 2b231ae0ef90a9825f3798a585077c6948c119e091df8900ae07f52e5928122835ac1ad0b50629fe1e2357a608b17428181d5c63d02a623ffe84de5204f5f4fa
   languageName: node
   linkType: hard
 
@@ -12897,9 +12897,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:16.18.0":
-  version: 16.18.0
-  resolution: "stylelint@npm:16.18.0"
+"stylelint@npm:16.19.0":
+  version: 16.19.0
+  resolution: "stylelint@npm:16.19.0"
   dependencies:
     "@csstools/css-parser-algorithms": ^3.0.4
     "@csstools/css-tokenizer": ^3.0.3
@@ -12914,7 +12914,7 @@ __metadata:
     debug: ^4.3.7
     fast-glob: ^3.3.3
     fastest-levenshtein: ^1.0.16
-    file-entry-cache: ^10.0.7
+    file-entry-cache: ^10.0.8
     global-modules: ^2.0.0
     globby: ^11.1.0
     globjoin: ^0.1.4
@@ -12922,7 +12922,7 @@ __metadata:
     ignore: ^7.0.3
     imurmurhash: ^0.1.4
     is-plain-object: ^5.0.0
-    known-css-properties: ^0.35.0
+    known-css-properties: ^0.36.0
     mathml-tag-names: ^2.1.3
     meow: ^13.2.0
     micromatch: ^4.0.8
@@ -12941,7 +12941,7 @@ __metadata:
     write-file-atomic: ^5.0.1
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: f00693c3d5b1f75f656d65612bec20198c4a7c5a3900285ef3b752d00258b1e93e7a93eac8434ab9c0d157521b97ed6993ffdde0db53ac5d4c6de5f3e5cf049e
+  checksum: 20a78e0ebba49e38186506d70c2073550993155b8fc3e98a7ad26f2687fe839554616d9c1037c7c27e0421a431cdcb04278e9c371f040e664b8e6e0b1a88a0d8
   languageName: node
   linkType: hard
 
