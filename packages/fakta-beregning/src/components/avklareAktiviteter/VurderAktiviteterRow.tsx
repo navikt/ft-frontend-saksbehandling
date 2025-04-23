@@ -82,8 +82,8 @@ export const VurderAktiviteterTabellRad = ({
       </Table.DataCell>
       <Table.DataCell className={styles.rowalign}>
         {!erOverstyrt && (
-          <BodyShort>
-            <PeriodLabel size="small" dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
+          <BodyShort size="small">
+            <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
           </BodyShort>
         )}
         {erOverstyrt && (

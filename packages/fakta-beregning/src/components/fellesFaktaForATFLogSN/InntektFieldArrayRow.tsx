@@ -157,13 +157,8 @@ export const InntektFieldArrayAndelRow = ({
       <Table.DataCell>
         {skalVisePeriode && harPeriode && field.arbeidsperiodeFom && (
           <ReadOnlyField
-            value={
-              <PeriodLabel
-                size="small"
-                dateStringFom={field.arbeidsperiodeFom}
-                dateStringTom={field.arbeidsperiodeTom}
-              />
-            }
+            size="small"
+            value={<PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />}
           />
         )}
       </Table.DataCell>
