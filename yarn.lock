@@ -2281,7 +2281,7 @@ __metadata:
     "@navikt/ds-react": 7.20.0
     "@navikt/ft-form-validators": ^3.1.14
     "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-ui-komponenter": ^4.0.4
+    "@navikt/ft-ui-komponenter": ^4.1.0
     "@navikt/ft-utils": ^3.3.4
     "@testing-library/dom": 10.4.0
     "@testing-library/react": 16.3.0
@@ -2616,7 +2616,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-ui-komponenter@^4.0.4, @navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
+"@navikt/ft-ui-komponenter@^4.1.0, @navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
