@@ -1,12 +1,9 @@
-import { BodyShort } from '@navikt/ds-react';
-
 import { periodFormat } from '@navikt/ft-utils';
 
 export interface Props {
   dateStringFom: string;
   dateStringTom?: string;
   showTodayString?: boolean;
-  size?: 'medium' | 'small';
 }
 
 /**
@@ -19,8 +16,6 @@ export interface Props {
  * <PeriodLabel dateStringFom="2017-08-25" dateStringTom="2017-08-31" />
  * ```
  */
-export const PeriodLabel = ({ dateStringFom, dateStringTom, showTodayString = false, size }: Props) => (
-  <BodyShort as="span" size={size}>
-    {periodFormat(dateStringFom, dateStringTom, { showTodayString })}
-  </BodyShort>
+export const PeriodLabel = ({ dateStringFom, dateStringTom, showTodayString = false }: Props) => (
+  <>{periodFormat(dateStringFom, dateStringTom, { showTodayString })}</>
 );
