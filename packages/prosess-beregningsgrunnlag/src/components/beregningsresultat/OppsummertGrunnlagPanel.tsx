@@ -191,7 +191,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
 
   return (
-    <VStack gap="1" width="500px">
+    <VStack gap="1">
       {skalVisePeriode && (
         <Heading size="xsmall">
           <FormattedMessage

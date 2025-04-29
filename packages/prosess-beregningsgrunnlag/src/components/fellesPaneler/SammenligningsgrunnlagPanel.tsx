@@ -27,7 +27,7 @@ export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligning
     : 'Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt';
 
   return (
-    <Box width="400px">
+    <Box>
       <HorizontalLine />
       <HStack wrap={false} justify="space-between">
         <BodyShort size="small">
