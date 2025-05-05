@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
+import { Detail, Heading, Hide, HStack, VStack } from '@navikt/ds-react';
 
 import {
   AktivitetStatus,
@@ -101,17 +101,17 @@ export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnla
       className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerHeader}
     >
       {!readOnly && (
-        <div>
+        <Hide below="md">
           <ExclamationmarkTriangleFillIcon className={styles.warningIcon} />
-        </div>
+        </Hide>
       )}
       <VStack gap="2">
-        <Label>
+        <Heading size="xsmall">
           <FormattedMessage id={finnTittel(avklaringsbehov, beregningsgrunnlag)} />
-        </Label>
-        <BodyShort>
+        </Heading>
+        <Detail>
           <FormattedMessage id={finnDetaljer(avklaringsbehov, beregningsgrunnlag)} />
-        </BodyShort>
+        </Detail>
       </VStack>
     </HStack>
   );

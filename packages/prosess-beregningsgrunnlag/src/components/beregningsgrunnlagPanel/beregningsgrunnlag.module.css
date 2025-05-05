@@ -2,35 +2,9 @@
   font-size: 1.125rem;
   font-weight: 600;
 }
-.panelLeft {
-  padding: 0 40px 0 0;
-}
 
-@media (max-width: 992px) {
-  .panelLeft {
-    padding: 0;
-  }
-}
-
-.panelRight {
-  background-color: transparent;
-  padding: 0 0 0 40px;
-}
-
-@media (max-width: 992px) {
-  .panelRight {
-    padding: 0;
-  }
-}
-
-.storSpace {
-  margin-bottom: 72px;
-}
 .semiBoldText {
   font-weight: 600;
-}
-.næringEndringBeskrivelse {
-  width: 70%;
 }
 .redError {
   color: var(--a-surface-danger);
@@ -55,37 +29,4 @@
   .tabellInntekt {
     width: 20%;
   }
-}
-
-.næringOpplysningNavn {
-  width: 80%;
-}
-.næringOpplysningInntekt {
-  text-align: right;
-  width: 20%;
-}
-.næringOpplysningOrgnr {
-  width: 30%;
-}
-.næringOpplysningDato {
-  width: 40%;
-}
-.heldekkendeKol {
-  height: 5px;
-  /* stylelint-disable-next-line declaration-no-important */
-  padding: 0 !important;
-  width: 100%;
-}
-.tagMargin {
-  margin: 8px;
-}
-.colDivider {
-  border-top: 1px solid var(--a-border-divider);
-  margin-top: 4px;
-}
-.noPaddingRight {
-  padding-right: 0;
-}
-.arbeidPanelSkille {
-  padding-left: 8px;
 }

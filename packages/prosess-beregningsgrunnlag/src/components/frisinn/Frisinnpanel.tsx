@@ -9,7 +9,7 @@ import { Grenseverdi } from './Grenseverdi';
 import { Inntektsopplysninger } from './Inntektsopplysninger';
 import { Søknadsopplysninger } from './Søknadsopplysninger';
 
-import styles from './søknadsopplysninger.module.css';
+import styles from './frisinnpanel.module.css';
 
 const erDagsatsBeregnet = (bg: Beregningsgrunnlag) =>
   bg.beregningsgrunnlagPeriode.some(p => p.dagsats || p.dagsats === 0);

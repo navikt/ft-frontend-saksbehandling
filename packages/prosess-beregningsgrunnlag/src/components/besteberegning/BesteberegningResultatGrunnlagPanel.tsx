@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Table, VStack } from '@navikt/ds-react';
 
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 export interface Props {
   periode: BeregningsgrunnlagPeriodeProp;
@@ -68,10 +68,14 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
                 </BodyShort>
               </Table.DataCell>
               <Table.DataCell>
-                <BodyShort size="small">{formatCurrencyNoKr(kap8Beregning)}</BodyShort>
+                <BodyShort size="small">
+                  <BeløpLabel beløp={kap8Beregning} />
+                </BodyShort>
               </Table.DataCell>
               <Table.DataCell>
-                <BodyShort size="small">{formatCurrencyNoKr(besteberegnet)}</BodyShort>
+                <BodyShort size="small">
+                  <BeløpLabel beløp={besteberegnet} />
+                </BodyShort>
               </Table.DataCell>
             </Table.Row>
           </Table.Body>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading, Label, Table, VStack } from '@navikt/ds-react';
+import { Heading, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 const TOM_ARRAY: PGIPrÅr[] = [];
 
@@ -19,11 +19,19 @@ const lagTabellRad = (år: number, pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPr�
   const totaltJustertGrunnlag = pgiVerdier.find(pgi => pgi.årstall === år)?.beløp;
   return (
     <Table.Row shadeOnHover key={år}>
-      <Table.DataCell>{år}</Table.DataCell>
-      <Table.DataCell align="right">{formatCurrencyNoKr(lønnsgrunnlag)}</Table.DataCell>
-      <Table.DataCell align="right">{formatCurrencyNoKr(næringsgrunnlag)}</Table.DataCell>
-      <Table.DataCell align="right">{formatCurrencyNoKr(totaltUjustertGrunnlag)}</Table.DataCell>
-      <Table.DataCell align="right">{formatCurrencyNoKr(totaltJustertGrunnlag)}</Table.DataCell>
+      <Table.DataCell textSize="small">{år}</Table.DataCell>
+      <Table.DataCell align="right" textSize="small">
+        <BeløpLabel beløp={lønnsgrunnlag} />
+      </Table.DataCell>
+      <Table.DataCell align="right" textSize="small">
+        <BeløpLabel beløp={næringsgrunnlag} />
+      </Table.DataCell>
+      <Table.DataCell align="right" textSize="small">
+        <BeløpLabel beløp={totaltUjustertGrunnlag} />
+      </Table.DataCell>
+      <Table.DataCell align="right" textSize="small">
+        <BeløpLabel beløp={totaltJustertGrunnlag} />
+      </Table.DataCell>
     </Table.Row>
   );
 };
@@ -38,17 +46,12 @@ const lagTabellData = (pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React
 
 const lagOppsummeringRad = (pgiSnitt: number): React.ReactElement => (
   <Table.Row shadeOnHover key="PGI-Oppsumert">
-    <Table.DataCell>
-      <Label>
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.GsnittSum" />
-      </Label>
-    </Table.DataCell>
-    <Table.DataCell />
-    <Table.DataCell />
-    <Table.DataCell />
-    <Table.DataCell align="right">
-      <Label>{formatCurrencyNoKr(pgiSnitt)}</Label>
-    </Table.DataCell>
+    <Table.HeaderCell colSpan={4} textSize="small">
+      <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.GsnittSum" />
+    </Table.HeaderCell>
+    <Table.HeaderCell align="right" textSize="small">
+      <BeløpLabel beløp={pgiSnitt} />
+    </Table.HeaderCell>
   </Table.Row>
 );
 
@@ -79,22 +82,22 @@ export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }:
       <Heading size="medium">
         <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt" />
       </Heading>
-      <Table>
+      <Table size="small">
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>
+            <Table.HeaderCell textSize="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.TreSisteÅr" />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell align="right" textSize="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.ATFL" />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell align="right" textSize="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Næring" />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell align="right" textSize="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Sum" />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell align="right" textSize="small">
               <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Gjustert" />
             </Table.HeaderCell>
           </Table.Row>

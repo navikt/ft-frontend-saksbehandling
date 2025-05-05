@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { finnOppgittInntektForAndelIPeriode, FrisinnAndel, FrisinnGrunnlag } from './FrisinnUtils';
@@ -47,7 +48,7 @@ const BeskrivelseMedBeløpRad = ({ tekstId, beløp }: { tekstId: string; beløp:
       <FormattedMessage id={tekstId} />
     </BodyShort>
     <BodyShort size="small" className={beregningStyles.tabellInntekt}>
-      {formatCurrencyNoKr(beløp)}
+      <BeløpLabel beløp={beløp} />
     </BodyShort>
   </HStack>
 );

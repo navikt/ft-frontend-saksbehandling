@@ -1,7 +1,7 @@
 import { ReactElement, useCallback, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Box, Heading, HStack, Label, ReadMore, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, ReadMore, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 import { CallbackDataParams } from 'echarts/types/dist/shared';
@@ -14,9 +14,10 @@ import {
   InntektsgrunnlagMåned,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { HorizontalLine } from '../../util/HorizontalLine';
+import { HorizontalBox } from '../../util/HorizontalBox';
 import { ReactECharts } from '../echart/ReactECharts';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
@@ -45,44 +46,43 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
     .reduce((i1, i2) => i1 + i2, 0);
 
   return (
-    <Box width="200px">
+    <VStack gap="2">
       <Label size="small">
         <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
       </Label>
-      {relevanteStatuser.harArbeidsinntekt && (
-        <>
-          <HStack wrap={false} justify="space-between">
+      <div>
+        {relevanteStatuser.harArbeidsinntekt && (
+          <HorizontalBox borderBottom borderTop>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
             </BodyShort>
-            <BodyShort size="small">{formatCurrencyNoKr(sumATAndeler)}</BodyShort>
-          </HStack>
-          <HorizontalLine />
-        </>
-      )}
-      {relevanteStatuser.harFrilansinntekt && (
-        <>
-          <HStack wrap={false} justify="space-between">
+            <BodyShort size="small">
+              <BeløpLabel beløp={sumATAndeler} />
+            </BodyShort>
+          </HorizontalBox>
+        )}
+        {relevanteStatuser.harFrilansinntekt && (
+          <HorizontalBox borderBottom>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
             </BodyShort>
-            <BodyShort size="small">{formatCurrencyNoKr(sumFLAndeler)}</BodyShort>
-          </HStack>
-          <HorizontalLine />
-        </>
-      )}
-      {relevanteStatuser.harYtelseinntekt && (
-        <>
-          <HStack wrap={false} justify="space-between">
+            <BodyShort size="small">
+              <BeløpLabel beløp={sumFLAndeler} />
+            </BodyShort>
+          </HorizontalBox>
+        )}
+        {relevanteStatuser.harYtelseinntekt && (
+          <HorizontalBox borderBottom>
             <BodyShort size="small">
               <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
             </BodyShort>
-            <BodyShort size="small">{formatCurrencyNoKr(sumYtelseAndeler)}</BodyShort>
-          </HStack>
-          <HorizontalLine />
-        </>
-      )}
-    </Box>
+            <BodyShort size="small">
+              <BeløpLabel beløp={sumYtelseAndeler} />
+            </BodyShort>
+          </HorizontalBox>
+        )}
+      </div>
+    </VStack>
   );
 };
 

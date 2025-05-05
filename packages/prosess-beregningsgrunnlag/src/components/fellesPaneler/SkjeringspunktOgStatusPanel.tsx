@@ -50,11 +50,14 @@ const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: Kode
   return (
     <HStack gap="2">
       {statusList.map(status => (
-        <div key={status.visningsNavn} className={beregningStyles.tagRad}>
-          <Tag variant={status.tagType} title={status.visningsNavn} className={beregningStyles.tagMargin}>
-            {status.visningsNavn}
-          </Tag>
-        </div>
+        <Tag
+          key={status.kode}
+          variant={status.tagType}
+          title={status.visningsNavn}
+          className={beregningStyles.tagMargin}
+        >
+          {status.visningsNavn}
+        </Tag>
       ))}
     </HStack>
   );
@@ -81,7 +84,7 @@ export const SkjeringspunktOgStatusPanel = ({
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
 }: Props) => (
-  <VStack gap="4" className={beregningStyles.panelLeft}>
+  <VStack gap="4">
     {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
     <HStack gap="2">
       <BodyShort size="small">

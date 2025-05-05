@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { useFormContext, UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Table } from '@navikt/ds-react';
+import { Label, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { InputField } from '@navikt/ft-form-hooks';
@@ -14,7 +14,8 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { BeløpLabel, DateLabel } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
   TidsbegrenseArbeidsforholdTabellCelle,
@@ -30,6 +31,7 @@ import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
+import tableStyles from '../tableStyle.module.css';
 
 const formPrefix = 'inntektField';
 
@@ -189,32 +191,31 @@ const createTableData = (
 
 const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactElement => (
   <Table.Row shadeOnHover={false}>
-    <Table.DataCell textSize="small" colSpan={2}>
+    <Table.HeaderCell textSize="small">
       <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerTB.SumPeriode" />
-    </Table.DataCell>
+    </Table.HeaderCell>
     {listOfBruttoPrPeriode.map(({ periodeFom, brutto }) => (
-      <Table.DataCell key={periodeFom} align="right">
-        <BodyShort size="small" weight="semibold">
-          {formatCurrencyNoKr(brutto)}
-        </BodyShort>
-      </Table.DataCell>
+      <Table.HeaderCell key={periodeFom} textSize="small" align="right">
+        <BeløpLabel beløp={brutto} />
+      </Table.HeaderCell>
     ))}
   </Table.Row>
 );
 
 const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement => (
   <Table.Row shadeOnHover={false}>
-    <Table.HeaderCell scope="col" colSpan={2} />
+    <Table.HeaderCell scope="col" />
     {relevantePerioder.map(({ periodeFom }) => {
       return (
-        <Table.HeaderCell key={`periodeittel${periodeFom}`} rowSpan={2} align="center">
-          <Detail>{dateFormat(periodeFom)}</Detail>
-          <Detail>
+        <Table.HeaderCell key={`periodetittel${periodeFom}`} align="right">
+          <Label size="small">
+            <DateLabel dateString={periodeFom} />
+            <br />
             <FormattedMessage
               id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.OmberegnetAar"
               key={`Tittel_${periodeFom}`}
             />
-          </Detail>
+          </Label>
         </Table.HeaderCell>
       );
     })}
@@ -230,10 +231,10 @@ const createRows = (
 ): ReactElement[] => {
   return Object.entries(tableData).map(([key, val]) => (
     <Table.Row key={key} shadeOnHover={false}>
-      {val.map((element, index) => {
+      {val.map(element => {
         if (!element.isEditable) {
           return (
-            <Table.DataCell colSpan={index === 0 ? 2 : undefined} textSize="small" key={element.tabellInnhold}>
+            <Table.DataCell textSize="small" key={element.tabellInnhold}>
               {element.tabellInnhold}
             </Table.DataCell>
           );
@@ -245,8 +246,9 @@ const createRows = (
               validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
               readOnly={readOnly}
               isEdited={readOnly && finnesAlleredeLøstPeriode}
+              hideLabel
               parse={parseCurrencyInput}
-              className={styles.breddeInntekt}
+              className={styles.beløpInput}
             />
           </Table.DataCell>
         );
@@ -319,12 +321,12 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
   const formMethods = useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
   return (
-    <Table className={styles.inntektTableTB}>
+    <Table className={tableStyles.table}>
       <Table.Header>{createPerioderRow(bruttoPrPeriodeList)}</Table.Header>
       <Table.Body>
         {createRows(tabellData, readOnly, finnesAlleredeLøstPeriode, fieldIndex, formName, skalValideres)}
-        {createSummaryTableRow(bruttoPrPeriodeList)}
       </Table.Body>
+      <tfoot>{createSummaryTableRow(bruttoPrPeriodeList)}</tfoot>
     </Table>
   );
 };

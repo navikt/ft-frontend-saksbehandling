@@ -59,7 +59,7 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   );
 };
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagsvilkar: Vilkår | null;
@@ -104,7 +104,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-}: OwnProps & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
+}: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
   const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
 
   const skalBrukeSidemeny = listeMedGrunnlag.length > 1;

@@ -1,11 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { dateFormat } from '@navikt/ft-utils';
 
 import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
 
@@ -16,8 +15,8 @@ const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
     <FormattedMessage
       id={tekstId}
       values={{
-        fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
-        tom: dayjs(tom).format(DDMMYYYY_DATE_FORMAT),
+        fom: dateFormat(fom),
+        tom: dateFormat(tom),
       }}
     />
   </BodyShort>
@@ -35,7 +34,7 @@ const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
     </div>
   );
 };
-//
+
 type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
 };

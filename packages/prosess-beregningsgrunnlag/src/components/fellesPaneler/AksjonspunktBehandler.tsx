@@ -36,7 +36,7 @@ import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
 import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import { AksjonspunktBehandlerHeader } from './AksjonspunktBehandlerHeader';
-import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
 
 import styles from './aksjonspunktBehandler.module.css';
 
@@ -271,26 +271,28 @@ const ArbeidstakerEllerFrilansContainer = ({
           skalValideres={skalValideres}
         />
       )}
-      {!erTidsbegrenset && visAT && (
-        <AksjonspunktBehandlerAT
-          readOnly={readOnly}
-          alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
-          kodeverkSamling={kodeverkSamling}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          fieldIndex={fieldIndex}
-          formName={formName}
-          skalValideres={skalValideres}
-        />
-      )}
-      {visFL && (
-        <AksjonspunktBehandlerFL
-          readOnly={readOnly}
-          fieldIndex={fieldIndex}
-          formName={formName}
-          alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
-          skalValideres={skalValideres}
-        />
-      )}
+      <div>
+        {!erTidsbegrenset && visAT && (
+          <AksjonspunktBehandlerAT
+            readOnly={readOnly}
+            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+            kodeverkSamling={kodeverkSamling}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            fieldIndex={fieldIndex}
+            formName={formName}
+            skalValideres={skalValideres}
+          />
+        )}
+        {visFL && (
+          <AksjonspunktBehandlerFL
+            readOnly={readOnly}
+            fieldIndex={fieldIndex}
+            formName={formName}
+            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+            skalValideres={skalValideres}
+          />
+        )}
+      </div>
       <div>
         <TextAreaField
           name={`${formName}.${fieldIndex}.ATFLVurdering`}

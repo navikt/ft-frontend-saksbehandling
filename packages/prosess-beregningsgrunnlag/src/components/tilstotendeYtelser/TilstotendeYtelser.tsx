@@ -1,15 +1,16 @@
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
+import { Heading, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
-import { Ledelinje } from '../fellesPaneler/Ledelinje';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import tableStyle from '../tableStyle.module.css';
 
 const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
@@ -46,38 +47,46 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
           <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.TittelNav" />
         </Heading>
       )}
-      <HStack justify="end" gap="10">
-        <Detail>
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-        </Detail>
-        <Detail>
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-        </Detail>
-      </HStack>
-      <Ledelinje prosentBredde={100} />
-      {relevanteAndeler.map((andel: BeregningsgrunnlagAndel) => (
-        <div key={andel.aktivitetStatus}>
-          <HStack gap="2" justify="space-between">
-            <Label size="small">
-              <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />
-            </Label>
-            <HStack gap="14">
-              <BodyShort size="small">
-                {formatCurrencyNoKr(andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0)}
-              </BodyShort>
-              <BodyShort size="small" className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}>
-                {formatCurrencyNoKr(andel.beregnetPrAar)}
-              </BodyShort>
-            </HStack>
-          </HStack>
-          <Ledelinje prosentBredde={100} />
-          {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.Besteberegning" />
-            </BodyShort>
-          )}
-        </div>
-      ))}
+      <Table size="small">
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell align="right" textSize="small">
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell align="right" textSize="small">
+              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        {relevanteAndeler.map((andel: BeregningsgrunnlagAndel) => (
+          <Table.Body key={andel.aktivitetStatus} className={tableStyle.tableGroup}>
+            <Table.Row>
+              <Table.DataCell textSize="small">
+                <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />
+              </Table.DataCell>
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={andel.beregnetPrAar ? andel.beregnetPrAar / 12 : 0} />
+              </Table.DataCell>
+              <Table.DataCell
+                textSize="small"
+                align="right"
+                className={!harFlereYtelser ? beregningStyles.semiBoldText : ''}
+              >
+                <BeløpLabel beløp={andel.beregnetPrAar} />
+              </Table.DataCell>
+            </Table.Row>
+            {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
+              <Table.Row shadeOnHover={false}>
+                <Table.DataCell textSize="small" colSpan={3}>
+                  <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.Besteberegning" />
+                </Table.DataCell>
+              </Table.Row>
+            )}
+          </Table.Body>
+        ))}
+      </Table>
     </VStack>
   );
 };

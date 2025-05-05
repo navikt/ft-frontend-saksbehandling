@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import {
@@ -35,7 +36,7 @@ const lagGrenseveriPeriode = (
       />
     </BodyShort>
     <BodyShort size="small" className={beregningStyles.tabellInntekt}>
-      {formatCurrencyNoKr(utregnetInntektstak)}
+      <BeløpLabel beløp={utregnetInntektstak} />
     </BodyShort>
   </HStack>
 );

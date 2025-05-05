@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Heading, HStack, VStack } from '@navikt/ds-react';
+import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
@@ -24,8 +24,6 @@ import { AksjonspunktTittel } from '../fellesPaneler/AksjonspunktTittel';
 import { SammenligningOgFastsettelsePanel } from '../fellesPaneler/SammenligningOgFastsettelsePanel';
 import { SkjeringspunktOgStatusPanel } from '../fellesPaneler/SkjeringspunktOgStatusPanel';
 import { YtelsegrunnlagPanel } from '../frisinn/YtelsegrunnlagPanel';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
@@ -101,8 +99,8 @@ export const BeregningForm = ({
       {harAksjonspunkter && (
         <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={valgtBeregningsgrunnlag} />
       )}
-      <HStack gap="2" wrap={false}>
-        <VStack gap="4" width="50%">
+      <HGrid gap="12" columns={{ sm: 1, md: 2 }}>
+        <VStack gap="4">
           <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
           </Heading>
@@ -137,8 +135,8 @@ export const BeregningForm = ({
             )}
           </VStack>
         </VStack>
-        <VStack gap="6" width="50%">
-          <Heading size="medium" className={beregningStyles.panelRight}>
+        <VStack gap="6">
+          <Heading size="medium">
             <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
           </Heading>
           <SammenligningOgFastsettelsePanel
@@ -161,7 +159,7 @@ export const BeregningForm = ({
             <BeregningsresultatPanel beregningsgrunnlag={valgtBeregningsgrunnlag} vilkårsperiode={vilkarPeriode} />
           )}
         </VStack>
-      </HStack>
+      </HGrid>
     </VStack>
   );
 };

@@ -13,8 +13,6 @@ import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interf
 import { Vilkårperiode } from '../../types/Vilkår';
 import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-
 const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [
   PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET,
   PeriodeAarsak.NATURALYTELSE_TILKOMMER,
@@ -170,11 +168,11 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
   const tabellData = useMemo(() => utledTabellData(beregningsgrunnlag), [beregningsgrunnlag]);
   const skalVisePeriodePrTabell = tabellData.length > 1;
   return (
-    <VStack gap="1" className={beregningStyles.panelRight}>
-      <Heading size="small" className={beregningStyles.avsnittOverskrift}>
+    <VStack gap="1">
+      <Heading size="xsmall">
         <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
       </Heading>
-      <VStack gap="5">
+      <VStack gap="8">
         {tabellData.map(tab => (
           <OppsummertGrunnlagPanel
             key={tab.fom}

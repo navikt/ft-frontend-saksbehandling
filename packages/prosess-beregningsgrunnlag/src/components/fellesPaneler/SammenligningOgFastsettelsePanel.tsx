@@ -18,11 +18,9 @@ import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår } from '../../types/Vilkår';
 import { AksjonspunktBehandler, defaultFormName } from './AksjonspunktBehandler';
-import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';
 import { SammenligningsgrunnlagPanel } from './SammenligningsgrunnlagPanel';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -52,7 +50,7 @@ const beløpEller0 = (beløp: number | undefined): number => {
 
 const beregnet = (andel: BeregningsgrunnlagAndel): number => andel.beregnetPrAar ?? 0;
 
-const beregnAarsintektForAktivitetStatuser = (
+const beregnAarsinntektForAktivitetStatuser = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
   statuser: string[],
 ): number => {
@@ -124,7 +122,7 @@ const finnBeregnetInntekt = (
           erPGI: true,
         }
       : {
-          inntekt: beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
+          inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, [
             AktivitetStatus.ARBEIDSTAKER,
             AktivitetStatus.FRILANSER,
           ]),
@@ -132,7 +130,7 @@ const finnBeregnetInntekt = (
         };
   }
   return {
-    inntekt: beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
+    inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, [
       AktivitetStatus.ARBEIDSTAKER,
       AktivitetStatus.FRILANSER,
     ]),
@@ -293,7 +291,7 @@ export const SammenligningOgFastsettelsePanel = ({
   };
 
   return (
-    <VStack gap="5" className={beregningStyles.panelRight}>
+    <VStack gap="5">
       {panelForklaring}
       <VStack gap="8">
         {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}

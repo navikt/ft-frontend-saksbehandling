@@ -1,8 +1,8 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
+import { Heading, Table, VStack } from '@navikt/ds-react';
 
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel, NoWrap } from '@navikt/ft-ui-komponenter';
 
 type Props = {
   bruttoPrAar?: number;
@@ -20,23 +20,34 @@ export const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => {
         <Heading size="medium">
           <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
         </Heading>
-        <HStack gap="10" justify="end">
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Detail>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Detail>
-        </HStack>
-        <HStack justify="space-between">
-          <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
-          </BodyShort>
-          <HStack gap="14">
-            <BodyShort size="small">{formatCurrencyNoKr(bruttoPrAar / 12)}</BodyShort>
-            <Label size="small">{formatCurrencyNoKr(bruttoPrAar)}</Label>
-          </HStack>
-        </HStack>
+        <Table>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell />
+              <Table.HeaderCell textSize="small" align="right">
+                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+              </Table.HeaderCell>
+              <Table.HeaderCell textSize="small" align="right">
+                <NoWrap>
+                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+                </NoWrap>
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row shadeOnHover={false}>
+              <Table.DataCell textSize="small">
+                <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
+              </Table.DataCell>
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={bruttoPrAar / 12} />
+              </Table.DataCell>
+              <Table.HeaderCell textSize="small" align="right">
+                <BeløpLabel beløp={bruttoPrAar} />
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </VStack>
     );
   }

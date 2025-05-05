@@ -4,7 +4,7 @@ import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
 
@@ -41,7 +41,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
           <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektAT" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(bruttoAT)}
+          <BeløpLabel beløp={bruttoAT} />
         </Label>
       </HStack>
       <HStack gap="2">
@@ -49,7 +49,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
           <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektFL" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(bruttoFL)}
+          <BeløpLabel beløp={bruttoFL} />
         </Label>
       </HStack>
       <HStack gap="2">
@@ -57,7 +57,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
           <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektSN" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(bruttoSN)}
+          <BeløpLabel beløp={bruttoSN} />
         </Label>
       </HStack>
     </VStack>
