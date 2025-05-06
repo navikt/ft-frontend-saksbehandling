@@ -8,7 +8,7 @@ import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-type
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
-import { SaksopplysningPanel } from './SaksopplysningPanel';
+import { Lønnsendring } from './Lønnsendring';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
@@ -97,10 +97,10 @@ export const SkjeringspunktOgStatusPanel = ({
     {!!saksopplysninger &&
       !!saksopplysninger.lønnsendringSaksopplysning &&
       saksopplysninger.lønnsendringSaksopplysning.length > 0 && (
-        <SaksopplysningPanel
+        <Lønnsendring
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           skjeringstidspunktDato={skjeringstidspunktDato}
-          saksopplysninger={saksopplysninger}
+          lønnsendringSaksopplysning={saksopplysninger.lønnsendringSaksopplysning}
         />
       )}
   </VStack>

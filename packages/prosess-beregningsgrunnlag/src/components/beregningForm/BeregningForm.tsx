@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { FagsakYtelseType, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -23,17 +23,20 @@ import { BesteberegningResultatGrunnlagPanel } from '../besteberegning/Bestebere
 import { AksjonspunktTittel } from '../fellesPaneler/AksjonspunktTittel';
 import { SammenligningOgFastsettelsePanel } from '../fellesPaneler/SammenligningOgFastsettelsePanel';
 import { SkjeringspunktOgStatusPanel } from '../fellesPaneler/SkjeringspunktOgStatusPanel';
-import { YtelsegrunnlagPanel } from '../frisinn/YtelsegrunnlagPanel';
+import { Frisinnpanel } from '../frisinn/Frisinnpanel';
 
-const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
+const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning | undefined): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
     ? faktaOmBeregning.faktaOmBeregningTilfeller.some(
         tilfelle => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
       )
     : false;
 
-const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag?: YtelseGrunnlag): boolean =>
+const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>
   !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
+
+const erFrisinn = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>
+  !!ytelsesspesifiktGrunnlag && ytelsesspesifiktGrunnlag.ytelsetype === FagsakYtelseType.FRISINN;
 
 const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): string[] =>
   beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
@@ -59,9 +62,6 @@ type Props = {
   aktivIndex: number;
 };
 
-// ------------------------------------------------------------------------------------------ //
-// Component : BeregningFormImpl
-// ------------------------------------------------------------------------------------------ //
 /**
  *
  * BeregningForm
@@ -91,7 +91,7 @@ export const BeregningForm = ({
 
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
-
+  const gjelderFrisinn = erFrisinn(ytelsesspesifiktGrunnlag);
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
   return (
@@ -154,7 +154,7 @@ export const BeregningForm = ({
             setFormData={setFormData}
             aktivIndex={aktivIndex}
           />
-          <YtelsegrunnlagPanel beregningsgrunnlag={valgtBeregningsgrunnlag} />
+          {gjelderFrisinn && <Frisinnpanel beregningsgrunnlag={valgtBeregningsgrunnlag} />}
           {vilkarPeriode && (
             <BeregningsresultatPanel beregningsgrunnlag={valgtBeregningsgrunnlag} vilkårsperiode={vilkarPeriode} />
           )}

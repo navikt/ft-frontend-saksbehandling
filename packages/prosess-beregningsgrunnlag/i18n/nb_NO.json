@@ -32,10 +32,10 @@
 
   "SkjeringspunktOgStatusPanel.SkjeringForBeregning": "Skjæringstidspunkt for beregning",
   "SkjeringspunktOgStatusPanel.LonnsendringSisteTreMan": "Søker har hatt lønnsendring i løpet av de siste tre månedene",
-  "SkjeringspunktOgStatusPanel.lønnsendring.manueltBehandlet": "Bruker har hatt lønnsendring {datoer}. Inntekt er fastsatt manuelt.",
-  "SkjeringspunktOgStatusPanel.lønnsendring.delvisMåned": "Bruker har hatt lønnsendring {datoer}. Dette betyr at rapportert inntekt for {måned} er en kombinasjon av ny og gammel inntekt. Ny inntekt er beregnet ved først å finne gammel inntekt fra rapportert inntekt i {forrigeMåned} og deretter regne oss fram til ny inntekt ved å bruke forholdet mellom dagene før og etter lønnsendringen.",
-  "SkjeringspunktOgStatusPanel.lønnsendring.fullEnMåned": "Bruker har hatt lønnsendring {datoer}. Ny inntekt er beregnet ved å bruke rapportert inntekt i {nesteMåned}.",
-  "SkjeringspunktOgStatusPanel.lønnsendring.fullToMåned": "Bruker har hatt lønnsendring {datoer}. Ny inntekt er beregnet ved å bruke snittet av rapportert inntekt i {nesteMåned} og {sisteMåned}.",
+  "Lønnsendring.manueltBehandlet": "Bruker har hatt lønnsendring {datoer}. Inntekt er fastsatt manuelt.",
+  "Lønnsendring.delvisMåned": "Bruker har hatt lønnsendring {datoer}. Dette betyr at rapportert inntekt for {måned} er en kombinasjon av ny og gammel inntekt. Ny inntekt er beregnet ved først å finne gammel inntekt fra rapportert inntekt i {forrigeMåned} og deretter regne oss fram til ny inntekt ved å bruke forholdet mellom dagene før og etter lønnsendringen.",
+  "Lønnsendring.fullEnMåned": "Bruker har hatt lønnsendring {datoer}. Ny inntekt er beregnet ved å bruke rapportert inntekt i {nesteMåned}.",
+  "Lønnsendring.fullToMåned": "Bruker har hatt lønnsendring {datoer}. Ny inntekt er beregnet ved å bruke snittet av rapportert inntekt i {nesteMåned} og {sisteMåned}.",
 
   "GrunnlagForAarsinntektPanelSN.Tittel": "Pensjonsgivende inntekt",
   "GrunnlagForAarsinntektPanelSN.TreSisteÅr": "3 siste år fra skatt",

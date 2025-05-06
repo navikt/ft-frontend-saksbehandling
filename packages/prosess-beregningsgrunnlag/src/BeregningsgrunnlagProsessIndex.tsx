@@ -4,11 +4,10 @@ import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import classNames from 'classnames/bind';
-import dayjs from 'dayjs';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { createIntl, dateFormat } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
 import { BeregningFormValues } from './types/BeregningFormValues';
@@ -91,7 +90,7 @@ const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vil
   kronologiskeGrunnlag.map(gr => ({
     skalVurderes: erBGTilVurdering(bgVilkår, gr),
     harAvklaringsbehov: harAvklaringsbehovSomkanLøses(gr),
-    stp: dayjs(gr.skjaeringstidspunktBeregning).format(DDMMYYYY_DATE_FORMAT),
+    stp: dateFormat(gr.skjaeringstidspunktBeregning),
   }));
 
 export const BeregningsgrunnlagProsessIndex = ({
