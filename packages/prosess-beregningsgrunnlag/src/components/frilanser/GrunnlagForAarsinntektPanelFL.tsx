@@ -32,12 +32,12 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
   return (
     <div>
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
+        <FormattedMessage id="GrunnlagForAarsinntektPanelFL.Tittel" />
       </Heading>
       {startdato && (
         <Label size="small">
           <FormattedMessage
-            id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2"
+            id="GrunnlagForAarsinntektPanelFL.FrilansStartDato"
             values={{ b: BTag, startdato: dateFormat(startdato) }}
           />
         </Label>
@@ -47,17 +47,17 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
           <Table.Row>
             <Table.HeaderCell />
             <Table.HeaderCell textSize="small" align="right">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+              <FormattedMessage id="TabellKolonne.Maaned" />
             </Table.HeaderCell>
             <Table.HeaderCell textSize="small" align="right">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+              <FormattedMessage id="TabellKolonne.BeregnetAar" />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           <Table.Row>
             <Table.DataCell textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.InnrapportertFrilans" />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelFL.InnrapportertFrilans" />
             </Table.DataCell>
             <Table.DataCell textSize="small" align="right">
               <BeløpLabel beløp={beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0} />

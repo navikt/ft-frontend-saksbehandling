@@ -44,14 +44,14 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   return (
     <VStack gap="2">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.Title" />
+        <FormattedMessage id="BeregningsgrunnlagProsessIndex.Title" />
       </Heading>
       <BodyShort size="small">
         <FormattedMessage
           id={
             ikkeTilstrekkeligInntektsgrunnlag
-              ? 'Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag'
-              : 'Beregningsgrunnlag.HarIkkeBeregningsregler'
+              ? 'BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag'
+              : 'BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler'
           }
         />
       </BodyShort>

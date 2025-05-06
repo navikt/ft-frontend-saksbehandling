@@ -23,7 +23,7 @@ export const GraderingUtenBGReadOnly = ({ avklaringsbehov }: Props) => {
   return (
     <VStack gap="4">
       <Label size="small">
-        <FormattedMessage id="Beregningsgrunnlag.Gradering.Beskrivelse" />
+        <FormattedMessage id="GraderingUtenBGReadOnly.Label" />
       </Label>
       <BodyShort size="small" className={styles.readOnlyBlokk}>
         {avklaringsbehov.begrunnelse} <EditedIcon />

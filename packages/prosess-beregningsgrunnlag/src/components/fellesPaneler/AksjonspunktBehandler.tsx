@@ -296,13 +296,13 @@ const ArbeidstakerEllerFrilansContainer = ({
       <div>
         <TextAreaField
           name={`${formName}.${fieldIndex}.ATFLVurdering`}
-          label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
+          label={<FormattedMessage id="Forms.Vurdering" />}
           validate={[required, maxLength4000, minLength3, hasValidText]}
           maxLength={MAX_LENGTH}
           readOnly={readOnly}
           className={styles.textAreaStyle}
           description={intl.formatMessage({
-            id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+            id: 'Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
           })}
           parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
         />

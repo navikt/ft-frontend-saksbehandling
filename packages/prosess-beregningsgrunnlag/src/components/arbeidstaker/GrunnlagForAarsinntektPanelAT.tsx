@@ -72,7 +72,7 @@ const createArbeidinntektRows = (
               </div>
             )}
             {andel.erTidsbegrensetArbeidsforhold && (
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" tagName={'div'} />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tidsbegrenset" tagName={'div'} />
             )}
           </Table.DataCell>
           <Table.DataCell align="right" textSize="small">
@@ -94,7 +94,7 @@ const createSummaryRow = (relevanteAndeler: BeregningsgrunnlagAndel[]): ReactEle
     <tfoot>
       <Table.Row>
         <Table.DataCell>
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
+          <FormattedMessage id="GrunnlagForAarsinntektPanelAT.TotaltArbeidsinntekt" />
         </Table.DataCell>
         <Table.DataCell align="right" textSize="small">
           <BeløpLabel beløp={beregnetMaanedsinntekt} />
@@ -129,17 +129,17 @@ export const GrunnlagForAarsinntektPanelAT = ({
   return (
     <VStack gap="2">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt" />
+        <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tittel" />
       </Heading>
       <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+              <FormattedMessage id="TabellKolonne.Maaned" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+              <FormattedMessage id="TabellKolonne.BeregnetAar" />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

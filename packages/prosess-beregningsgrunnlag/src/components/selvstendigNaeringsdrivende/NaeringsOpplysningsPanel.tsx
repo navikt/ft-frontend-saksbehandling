@@ -16,21 +16,21 @@ import styles from './naeringsOpplysningsPanel.module.css';
 const finnVirksomhetTypeTekst = (næring: Næring): string => {
   const kode = næring?.virksomhetType;
   if (!kode) {
-    return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT';
+    return 'NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT';
   }
   switch (kode) {
     case 'JORDBRUK_SKOGBRUK':
-      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.JORDBRUK_SKOGBRUK';
+      return 'NaeringsOpplysningsPanel.VirksomhetsType.JORDBRUK_SKOGBRUK';
     case 'DAGMAMMA':
-      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.DAGMAMMA';
+      return 'NaeringsOpplysningsPanel.VirksomhetsType.DAGMAMMA';
     case 'FISKE':
-      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.FISKE';
+      return 'NaeringsOpplysningsPanel.VirksomhetsType.FISKE';
     case 'FRILANSER':
-      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.FRILANSER';
+      return 'NaeringsOpplysningsPanel.VirksomhetsType.FRILANSER';
     case 'ANNEN':
-      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.ANNEN';
+      return 'NaeringsOpplysningsPanel.VirksomhetsType.ANNEN';
     default:
-      return 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT';
+      return 'NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT';
   }
 };
 
@@ -47,9 +47,7 @@ const lagVisningsnavn = ({ orgnr }: Næring, arbeidsgiverOpplysningerPerId: Arbe
 };
 
 const lagIntroTilEndringspanel = ({ oppstartsdato, erVarigEndret, endringsdato }: Næring): React.ReactNode => {
-  const hendelseTekst = erVarigEndret
-    ? 'Beregningsgrunnlag.NaeringsOpplysningsPanel.VarigEndret'
-    : 'Beregningsgrunnlag.NaeringsOpplysningsPanel.Nyoppstaret';
+  const hendelseTekst = erVarigEndret ? 'NaeringsOpplysningsPanel.VarigEndret' : 'NaeringsOpplysningsPanel.Nyoppstaret';
   const hendelseDato = erVarigEndret ? endringsdato : oppstartsdato;
   if (!hendelseDato) {
     return null;
@@ -93,7 +91,7 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
   return (
     <VStack gap="1">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.Overskrift" />
+        <FormattedMessage id="NaeringsOpplysningsPanel.Overskrift" />
       </Heading>
       <Table size="small">
         <Table.Header>
@@ -101,7 +99,7 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
             <Table.HeaderCell />
             <Table.HeaderCell align="right" textSize="small">
               <NoWrap>
-                <FormattedMessage id="Beregningsgrunnlag.NaeringsOpplysningsPanel.OppgittAar" />
+                <FormattedMessage id="NaeringsOpplysningsPanel.OppgittAar" />
               </NoWrap>
             </Table.HeaderCell>
           </Table.Row>

@@ -185,7 +185,7 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
   return (
     <VStack gap="1">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
+        <FormattedMessage id="NaturalytelsePanel.Tittel" />
       </Heading>
 
       <Table size="small">
@@ -193,11 +193,11 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
           <Table.Row>
             <Table.HeaderCell />
             <Table.HeaderCell textSize="small" align="right">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+              <FormattedMessage id="TabellKolonne.Maaned" />
             </Table.HeaderCell>
             <Table.HeaderCell textSize="small" align="right">
               <NoWrap>
-                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+                <FormattedMessage id="TabellKolonne.BeregnetAar" />
               </NoWrap>
             </Table.HeaderCell>
           </Table.Row>

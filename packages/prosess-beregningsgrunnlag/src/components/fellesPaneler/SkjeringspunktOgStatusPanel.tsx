@@ -88,7 +88,7 @@ export const SkjeringspunktOgStatusPanel = ({
     {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
     <HStack gap="2">
       <BodyShort size="small">
-        <FormattedMessage id="Beregningsgrunnlag.Skjeringstidspunkt.SkjeringForBeregning" />
+        <FormattedMessage id="SkjeringspunktOgStatusPanel.SkjeringForBeregning" />
       </BodyShort>
       <BodyShort size="small" className={beregningStyles.semiBoldText}>
         <DateLabel dateString={skjeringstidspunktDato} />

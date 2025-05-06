@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import {
   erSøktForAndelISøknadsperiode,
@@ -28,7 +28,7 @@ const lagGrenseveriPeriode = (
   <HStack gap="2">
     <BodyShort className={beregningStyles.tabellAktivitet}>
       <FormattedMessage
-        id="Beregningsgrunnlag.Frisinn.Inntektstak"
+        id="Frisinn.Inntektstak"
         values={{
           grenseverdi: formatCurrencyNoKr(originaltInntektstak),
           annenInntekt: formatCurrencyNoKr(annenInntektIkkeSøktFor),
@@ -110,11 +110,10 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
     <VStack gap="2">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage
-          id="Beregningsgrunnlag.Frisinn.InntektstakOpplysningerPeriode"
+          id="Frisinn.InntektstakOpplysningerPeriode"
           key={`fom-tom${fom}${tom}`}
           values={{
-            fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
-            tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
+            periode: periodFormat(fom, tom),
           }}
         />
       </Label>

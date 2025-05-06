@@ -18,18 +18,18 @@ export const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => {
     return (
       <VStack gap="2">
         <Heading size="medium">
-          <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.Ytelse2" />
+          <FormattedMessage id="YtelserFraInfotrygd.Tittel" />
         </Heading>
         <Table>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell />
               <Table.HeaderCell textSize="small" align="right">
-                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+                <FormattedMessage id="TabellKolonne.Maaned" />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
                 <NoWrap>
-                  <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+                  <FormattedMessage id="TabellKolonne.BeregnetAar" />
                 </NoWrap>
               </Table.HeaderCell>
             </Table.Row>
@@ -37,7 +37,7 @@ export const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => {
           <Table.Body>
             <Table.Row shadeOnHover={false}>
               <Table.DataCell textSize="small">
-                <FormattedMessage id="Beregningsgrunnlag.YtelserFraInfotrygd.YtelseNavn" />
+                <FormattedMessage id="YtelserFraInfotrygd.YtelseNavn" />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={bruttoPrAar / 12} />

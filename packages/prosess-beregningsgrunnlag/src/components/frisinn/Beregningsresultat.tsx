@@ -86,7 +86,7 @@ export const Beregningsresultat = ({ beregningsgrunnlag }: Props) => {
   return (
     <div>
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
-        <FormattedMessage id="Beregningsgrunnlag.Frisinn.Resultat" />
+        <FormattedMessage id="Frisinn.Resultat" />
       </Label>
       {bgPerioderSomSkalVises.map(periode => (
         <div key={periode.beregningsgrunnlagPeriodeFom}>

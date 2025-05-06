@@ -46,17 +46,17 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
     <div>
       <VStack gap="4">
         <BodyShort size="small">
-          <FormattedMessage id="Besteberegning.ResultatGrunnlag.BrukerOmfattesAvBesteberegning" />
+          <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BrukerOmfattesAvBesteberegning" />
         </BodyShort>
         <Table>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell scope="col" />
               <Table.HeaderCell scope="col">
-                <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterKap8" />
+                <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BeregningEtterKap8" />
               </Table.HeaderCell>
               <Table.HeaderCell scope="col">
-                <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning" />
+                <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BeregningEtterBesteberegning" />
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -64,7 +64,7 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
             <Table.Row>
               <Table.DataCell>
                 <BodyShort size="small">
-                  <FormattedMessage id="Besteberegning.ResultatGrunnlag.BruttoBeregningsgrunnlag" />
+                  <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BruttoBeregningsgrunnlag" />
                 </BodyShort>
               </Table.DataCell>
               <Table.DataCell>
@@ -82,10 +82,10 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
         </Table>
         <BodyShort size="small">
           {girKap8Besteberegning(kap8Beregning, besteberegnet) && (
-            <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning" />
+            <FormattedMessage id="BesteberegningResultatGrunnlagPanel.Kap1471GirBesteBeregning" />
           )}
           {!girKap8Besteberegning(kap8Beregning, besteberegnet) && (
-            <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1473GirBesteBeregning" />
+            <FormattedMessage id="BesteberegningResultatGrunnlagPanel.Kap1473GirBesteBeregning" />
           )}
         </BodyShort>
       </VStack>

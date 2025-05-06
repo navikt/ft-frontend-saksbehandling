@@ -20,7 +20,7 @@ const {
 const scrollIntoViewMock = vi.fn();
 window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
-describe('<BeregningsgrunnlagProsessIndex>', () => {
+describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring />);
     expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();

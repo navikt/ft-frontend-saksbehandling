@@ -170,7 +170,7 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
   return (
     <VStack gap="1">
       <Heading size="xsmall">
-        <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
+        <FormattedMessage id="BeregningsresultatPanel.Tittel" />
       </Heading>
       <VStack gap="8">
         {tabellData.map(tab => (

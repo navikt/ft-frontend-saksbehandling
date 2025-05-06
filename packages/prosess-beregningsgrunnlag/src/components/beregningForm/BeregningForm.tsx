@@ -102,7 +102,7 @@ export const BeregningForm = ({
       <HGrid gap="12" columns={{ sm: 1, md: 2 }}>
         <VStack gap="4">
           <Heading size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
+            <FormattedMessage id="BeregningForm.Beregning.Tittel" />
           </Heading>
           <VStack gap="10">
             <SkjeringspunktOgStatusPanel
@@ -137,7 +137,7 @@ export const BeregningForm = ({
         </VStack>
         <VStack gap="6">
           <Heading size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
+            <FormattedMessage id="BeregningForm.Fastsettelse.Tittel" />
           </Heading>
           <SammenligningOgFastsettelsePanel
             readOnly={readOnly}

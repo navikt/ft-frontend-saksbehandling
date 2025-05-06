@@ -34,11 +34,11 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   return (
     <VStack gap="2">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
-        <FormattedMessage id="Beregningsgrunnlag.Søknad.Inntektsopplysninger" />
+        <FormattedMessage id="Søknad.Inntektsopplysninger" />
       </Label>
       <HStack gap="2">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
-          <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektAT" />
+          <FormattedMessage id="Frisinn.InntektAT" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
           <BeløpLabel beløp={bruttoAT} />
@@ -46,7 +46,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
       </HStack>
       <HStack gap="2">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
-          <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektFL" />
+          <FormattedMessage id="Frisinn.InntektFL" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
           <BeløpLabel beløp={bruttoFL} />
@@ -54,7 +54,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
       </HStack>
       <HStack gap="2">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
-          <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektSN" />
+          <FormattedMessage id="Frisinn.InntektSN" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
           <BeløpLabel beløp={bruttoSN} />

@@ -54,7 +54,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.MANUELT_BEHANDLET:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.manueltBehandlet"
+          id="SkjeringspunktOgStatusPanel.lønnsendring.manueltBehandlet"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -67,7 +67,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.DELVIS_MÅNEDSINNTEKT_SISTE_MND:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.delvisMåned"
+          id="SkjeringspunktOgStatusPanel.lønnsendring.delvisMåned"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -82,7 +82,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.FULL_MÅNEDSINNTEKT_EN_MND:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullEnMåned"
+          id="SkjeringspunktOgStatusPanel.lønnsendring.fullEnMåned"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -96,7 +96,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.FULL_MÅNEDSINNTEKT_TO_MND:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullToMåned"
+          id="SkjeringspunktOgStatusPanel.lønnsendring.fullToMåned"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -144,7 +144,7 @@ export const SaksopplysningPanel = ({
     saksopplysninger.lønnsendringSaksopplysning.length > 0
   ) {
     saksopplysningerTilBlaBoksMedCheckmarkListe.push({
-      textId: 'Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan',
+      textId: 'SkjeringspunktOgStatusPanel.LonnsendringSisteTreMan',
       readMoreContent: lagLesMer(
         saksopplysninger.lønnsendringSaksopplysning,
         skjeringstidspunktDato,

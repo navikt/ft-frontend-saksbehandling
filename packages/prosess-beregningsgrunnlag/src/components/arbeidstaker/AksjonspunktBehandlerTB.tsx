@@ -192,7 +192,7 @@ const createTableData = (
 const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactElement => (
   <Table.Row shadeOnHover={false}>
     <Table.HeaderCell textSize="small">
-      <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerTB.SumPeriode" />
+      <FormattedMessage id="AksjonspunktBehandlerTB.SumPeriode" />
     </Table.HeaderCell>
     {listOfBruttoPrPeriode.map(({ periodeFom, brutto }) => (
       <Table.HeaderCell key={periodeFom} textSize="small" align="right">
@@ -211,10 +211,7 @@ const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement =
           <Label size="small">
             <DateLabel dateString={periodeFom} />
             <br />
-            <FormattedMessage
-              id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandler.OmberegnetAar"
-              key={`Tittel_${periodeFom}`}
-            />
+            <FormattedMessage id="AksjonspunktBehandlerTB.OmberegnetAar" key={`Tittel_${periodeFom}`} />
           </Label>
         </Table.HeaderCell>
       );

@@ -41,7 +41,7 @@ export const AksjonspunktBehandlerFL = ({
 }: Props) => (
   <HorizontalBox>
     <BodyShort size="small">
-      <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerFL" />
+      <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
     </BodyShort>
     <InputField
       name={`${formName}.${fieldIndex}.inntektFrilanser`}

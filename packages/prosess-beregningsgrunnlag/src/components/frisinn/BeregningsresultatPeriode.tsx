@@ -6,28 +6,11 @@ import dayjs from 'dayjs';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
+import { periodFormat } from '@navikt/ft-utils';
 
 import { finnOppgittInntektForAndelIPeriode, FrisinnAndel, FrisinnGrunnlag } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-
-const lagPeriodeHeader = (fom: string, originalTom: string) => {
-  let tom = null;
-  if (originalTom !== TIDENES_ENDE) {
-    tom = originalTom;
-  }
-  return (
-    <FormattedMessage
-      id="Beregningsgrunnlag.BeregningTable.Periode"
-      key={`fom-tom${fom}${tom}`}
-      values={{
-        fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
-        tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
-      }}
-    />
-  );
-};
 
 const statuserDetErSøktOmIPerioden = (
   bgPeriode: BeregningsgrunnlagPeriodeProp,
@@ -69,7 +52,7 @@ const lagRedusertBGRad = (
           <FormattedMessage id={tekstIdRedusert} values={{ grad: gjeldendeDekningsgrad }} />
         </BodyShort>
         <BodyShort size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(redusert)}
+          <BeløpLabel beløp={redusert} />
         </BodyShort>
       </HStack>
       {!!løpendeBeløp ||
@@ -79,7 +62,7 @@ const lagRedusertBGRad = (
               <FormattedMessage id={tekstIdLøpende} />
             </BodyShort>
             <BodyShort size="small" className={beregningStyles.tabellInntekt}>
-              {formatCurrencyNoKr(løpendeBeløp)}
+              <BeløpLabel beløp={løpendeBeløp} />
             </BodyShort>
           </HStack>
         ))}
@@ -126,40 +109,34 @@ const lagPeriodeblokk = (
   return (
     <>
       {erBeløpSatt(beregningsgrunnlagFL) && (
-        <BeskrivelseMedBeløpRad
-          tekstId="Beregningsgrunnlag.Frisinn.BeregningsgrunnlagFL"
-          beløp={beregningsgrunnlagFL || 0}
-        />
+        <BeskrivelseMedBeløpRad tekstId="Frisinn.BeregningsgrunnlagFL" beløp={beregningsgrunnlagFL || 0} />
       )}
       {erBeløpSatt(beregningsgrunnlagFL) &&
         lagRedusertBGRad(
-          'Beregningsgrunnlag.Frisinn.BeregningsgrunnlagRedusertFL',
+          'Frisinn.BeregningsgrunnlagRedusertFL',
           beregningsgrunnlagFL || 0,
-          'Beregningsgrunnlag.Søknad.LøpendeFL',
+          'Søknad.LøpendeFL',
           løpendeInntektFL,
           gjeldendeDekningsgrad,
         )}
       {erBeløpSatt(beregningsgrunnlagSN) && (
-        <BeskrivelseMedBeløpRad
-          tekstId="Beregningsgrunnlag.Frisinn.BeregningsgrunnlagSN"
-          beløp={beregningsgrunnlagSN || 0}
-        />
+        <BeskrivelseMedBeløpRad tekstId="Frisinn.BeregningsgrunnlagSN" beløp={beregningsgrunnlagSN || 0} />
       )}
       {erBeløpSatt(beregningsgrunnlagSN) &&
         lagRedusertBGRad(
-          'Beregningsgrunnlag.Frisinn.BeregningsgrunnlagRedusertSN',
+          'Frisinn.BeregningsgrunnlagRedusertSN',
           beregningsgrunnlagSN || 0,
-          'Beregningsgrunnlag.Søknad.LøpendeSN',
+          'Søknad.LøpendeSN',
           løpendeInntektSN,
           gjeldendeDekningsgrad,
         )}
       <div className={beregningStyles.colDevider} />
       <HStack gap="2">
         <Detail className={beregningStyles.tabellAktivitet}>
-          <FormattedMessage id="Beregningsgrunnlag.Resultat.Dagsats" />
+          <FormattedMessage id="Resultat.Dagsats" />
         </Detail>
         <BodyShort size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(bgperiode.dagsats)}
+          <BeløpLabel beløp={bgperiode.dagsats} />
         </BodyShort>
       </HStack>
     </>
@@ -183,7 +160,12 @@ export const BeregningsresultatPeriode = ({ bgperiode, ytelsegrunnlag, frilansGr
   return (
     <VStack gap="2">
       <Label size="small">
-        {lagPeriodeHeader(bgperiode.beregningsgrunnlagPeriodeFom, bgperiode.beregningsgrunnlagPeriodeTom)}
+        <FormattedMessage
+          id="BeregningsresultatPeriode.Label"
+          values={{
+            periode: periodFormat(bgperiode.beregningsgrunnlagPeriodeFom, bgperiode.beregningsgrunnlagPeriodeTom),
+          }}
+        />
       </Label>
       {lagPeriodeblokk(bgperiode, ytelsegrunnlag, visningFrilans, visningNæring)}
     </VStack>

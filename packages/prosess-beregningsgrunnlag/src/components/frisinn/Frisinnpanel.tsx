@@ -21,7 +21,7 @@ type Props = {
 export const Frisinnpanel = ({ beregningsgrunnlag }: Props) => (
   <VStack gap="4" className={styles.aksjonspunktBehandlerContainer}>
     <Detail>
-      <FormattedMessage id="Beregningsgrunnlag.Frisinn.Tittel" />
+      <FormattedMessage id="Frisinn.Tittel" />
     </Detail>
     <Søknadsopplysninger beregningsgrunnlag={beregningsgrunnlag} />
     <Inntektsopplysninger beregningsgrunnlag={beregningsgrunnlag} />

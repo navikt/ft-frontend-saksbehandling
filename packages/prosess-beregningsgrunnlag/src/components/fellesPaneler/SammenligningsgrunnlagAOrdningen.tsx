@@ -48,13 +48,13 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
   return (
     <VStack gap="2">
       <Label size="small">
-        <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
+        <FormattedMessage id="SammenligningsGrunnlaAOrdningen.SumTittel" />
       </Label>
       <div>
         {relevanteStatuser.harArbeidsinntekt && (
           <HorizontalBox borderBottom borderTop>
             <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
+              <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Arbeid" />
             </BodyShort>
             <BodyShort size="small">
               <BeløpLabel beløp={sumATAndeler} />
@@ -64,7 +64,7 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
         {relevanteStatuser.harFrilansinntekt && (
           <HorizontalBox borderBottom>
             <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
+              <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Frilans" />
             </BodyShort>
             <BodyShort size="small">
               <BeløpLabel beløp={sumFLAndeler} />
@@ -74,7 +74,7 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
         {relevanteStatuser.harYtelseinntekt && (
           <HorizontalBox borderBottom>
             <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
+              <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Ytelse" />
             </BodyShort>
             <BodyShort size="small">
               <BeløpLabel beløp={sumYtelseAndeler} />
@@ -113,9 +113,9 @@ const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], sammenligningsgrunnla
 const ReadMoreOverskrift = (): ReactElement => (
   <VStack gap="2">
     <Heading size="small" className={beregningStyles.avsnittOverskrift}>
-      <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Tittel" />
+      <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Tittel" />
     </Heading>
-    <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ingress" />
+    <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Ingress" />
   </VStack>
 );
 
@@ -174,9 +174,9 @@ export const SammenligningsgrunnlagAOrdningen = ({
   if (!måneder || måneder.length === 0 || !sammenligningsgrunnlag || sammenligningsgrunnlag.length < 1) {
     return null;
   }
-  const arbeidTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid' });
-  const frilansTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans' });
-  const ytelseTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse' });
+  const arbeidTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Arbeid' });
+  const frilansTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Frilans' });
+  const ytelseTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Ytelse' });
 
   return (
     <VStack gap="10">

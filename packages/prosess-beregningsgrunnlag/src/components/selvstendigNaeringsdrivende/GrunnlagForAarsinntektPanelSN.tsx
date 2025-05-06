@@ -47,7 +47,7 @@ const lagTabellData = (pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React
 const lagOppsummeringRad = (pgiSnitt: number): React.ReactElement => (
   <Table.Row shadeOnHover key="PGI-Oppsumert">
     <Table.HeaderCell colSpan={4} textSize="small">
-      <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.GsnittSum" />
+      <FormattedMessage id="GrunnlagForAarsinntektPanelSN.GsnittSum" />
     </Table.HeaderCell>
     <Table.HeaderCell align="right" textSize="small">
       <BeløpLabel beløp={pgiSnitt} />
@@ -80,25 +80,25 @@ export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }:
   return (
     <VStack gap="1">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Pensjonsgivendeinntekt" />
+        <FormattedMessage id="GrunnlagForAarsinntektPanelSN.Tittel" />
       </Heading>
       <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.TreSisteÅr" />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelSN.TreSisteÅr" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.ATFL" />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelSN.ATFL" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Næring" />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelSN.Næring" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Sum" />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelSN.Sum" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.SN.Gjustert" />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelSN.Gjustert" />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

@@ -3,12 +3,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, HStack, Label, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
 import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { Vilkårperiode } from '../../types/Vilkår';
@@ -31,43 +30,43 @@ type StatusKonfig = {
 const statusKonfigMap: StatusKonfig = {
   [AktivitetStatus.ARBEIDSTAKER]: {
     rekkefølgePri: 1,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Arbeid',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Arbeid',
   },
   [AktivitetStatus.FRILANSER]: {
     rekkefølgePri: 2,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Frilans',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Frilans',
   },
   [AktivitetStatus.DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Dagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Dagpenger',
   },
   [AktivitetStatus.SYKEPENGER_AV_DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.SykepengerAvDagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.SykepengerAvDagpenger',
   },
   [AktivitetStatus.PLEIEPENGER_AV_DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.PleiepengerAvDagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.PleiepengerAvDagpenger',
   },
   [AktivitetStatus.ARBEIDSAVKLARINGSPENGER]: {
     rekkefølgePri: 4,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Arbeidsavklaringspenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Arbeidsavklaringspenger',
   },
   [AktivitetStatus.KUN_YTELSE]: {
     rekkefølgePri: 5,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Ytelse',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Ytelse',
   },
   [AktivitetStatus.MILITAER_ELLER_SIVIL]: {
     rekkefølgePri: 6,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Militær',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Militær',
   },
   [AktivitetStatus.BRUKERS_ANDEL]: {
     rekkefølgePri: 7,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.BrukersAndel',
+    beskrivelseId: 'OppsummertGrunnlagPanel.BrukersAndel',
   },
   [AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE]: {
     rekkefølgePri: 8,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Næring',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Næring',
   },
 };
 
@@ -81,9 +80,7 @@ const finnStatusBeskrivelse = (andel: TabellRadData): string => {
   return beskrivelseId || 'Ukjent andel';
 };
 
-const ikkeBeregnetTekst = (): ReactElement => (
-  <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.IkkeBeregnet" />
-);
+const ikkeBeregnetTekst = (): ReactElement => <FormattedMessage id="OppsummertGrunnlagPanel.IkkeBeregnet" />;
 
 const finnTotalInntekt = (andeler: TabellRadData[]): number =>
   andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
@@ -102,8 +99,8 @@ const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolea
       <FormattedMessage
         id={
           erMidlertidigInaktiv
-            ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
-            : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2'
+            ? 'OppsummertGrunnlagPanel.VilkarIkkeOppfyltMidlertidigInaktiv'
+            : 'OppsummertGrunnlagPanel.VilkarIkkeOppfylt'
         }
         values={{
           grunnbeløp: formatCurrencyNoKr(grunnbeløp),
@@ -142,7 +139,7 @@ const lagResultatRader = (
           {skalViseAvkortetRad && (
             <HorizontalBox borderTop borderBottom>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Avkortet" />
+                <FormattedMessage id="OppsummertGrunnlagPanel.Avkortet" />
               </BodyShort>
               <BodyShort size="small">
                 <BeløpLabel beløp={tabellData.avkortetPrÅr} />
@@ -152,7 +149,7 @@ const lagResultatRader = (
           {skalViseRedusertRad && (
             <HorizontalBox borderBottom borderTop={!skalViseAvkortetRad}>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Redusert" />
+                <FormattedMessage id="OppsummertGrunnlagPanel.Redusert" />
               </BodyShort>
               <BodyShort size="small">
                 <BeløpLabel beløp={tabellData.redusertPrÅr} />
@@ -163,7 +160,7 @@ const lagResultatRader = (
       )}
       <HorizontalBox doubleBorderBottom>
         <Label size="medium">
-          <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Dagsats" />
+          <FormattedMessage id="OppsummertGrunnlagPanel.Dagsats" />
         </Label>
         <Label size="medium">
           <BeløpLabel beløp={dagsatsSomVises} />
@@ -191,10 +188,9 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
       {skalVisePeriode && (
         <Heading size="xsmall">
           <FormattedMessage
-            id="Beregningsgrunnlag.Beregningsresultat.Periode"
+            id="OppsummertGrunnlagPanel.Periode"
             values={{
-              fom: dayjs(tabellData.fom).format(DDMMYYYY_DATE_FORMAT),
-              tom: tabellData.tom ? dayjs(tabellData.tom).format(DDMMYYYY_DATE_FORMAT) : '',
+              periode: periodFormat(tabellData.fom, tabellData.tom),
             }}
           />
         </Heading>
@@ -214,7 +210,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
               {!!rad.bortfaltNaturalytelse && (
                 <HorizontalBox borderBottom>
                   <BodyShort size="small">
-                    <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
+                    <FormattedMessage id="OppsummertGrunnlagPanel.Naturalytelser" />
                   </BodyShort>
                   <BodyShort size="small">
                     <BeløpLabel beløp={rad.bortfaltNaturalytelse} />
@@ -226,7 +222,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
           {skalViseOppsummeringsrad && (
             <HorizontalBox doubleBorderBottom borderTop>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
+                <FormattedMessage id="OppsummertGrunnlagPanel.TotalÅrsinntekt" />
               </BodyShort>
               <BodyShort size="small">
                 <BeløpLabel beløp={finnTotalInntekt(tabellData.andeler)} />

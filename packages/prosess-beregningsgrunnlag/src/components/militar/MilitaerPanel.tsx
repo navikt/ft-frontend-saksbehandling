@@ -23,11 +23,11 @@ export const MilitaerPanel = ({ alleAndeler }: Props) => {
   return (
     <VStack gap="2">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militær" />
+        <FormattedMessage id="MilitaerPanel.Tittel" />
       </Heading>
       <HorizontalBox>
         <BodyShort size="small">
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militærinntekt.BeregnetAar" />
+          <FormattedMessage id="MilitaerPanel.BeregnetAar" />
         </BodyShort>
         <BodyShort size="small">
           <BeløpLabel beløp={beregnetAarsinntekt} />

@@ -71,8 +71,8 @@ const beregnAarsinntektForAktivitetStatuser = (
 };
 
 const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, lovparagraf: LovParagraf): ReactNode => {
-  const atflTittel = <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.ATFL.Tittel" />;
-  const snTittel = <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.SN.Tittel" />;
+  const atflTittel = <FormattedMessage id="SammenligningOgFastsettelsePanel.ATFL.Tittel" />;
+  const snTittel = <FormattedMessage id="SammenligningOgFastsettelsePanel.SN.Tittel" />;
   switch (sammenligningsgrunnlag.sammenligningsgrunnlagType) {
     case SammenligningType.AT:
     case SammenligningType.FL:
@@ -83,7 +83,7 @@ const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, lovparagr
     case SammenligningType.ATFLSN:
       return lovparagraf === LovParagraf.ÅTTE_TRETTIFEM ? snTittel : atflTittel;
     case SammenligningType.MIDLERTIDIG_INAKTIV:
-      return <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.MIDL.Tittel" />;
+      return <FormattedMessage id="SammenligningOgFastsettelsePanel.MIDL.Tittel" />;
     default:
       throw new Error(`Ukjent sammenligningstype ${sammenligningsgrunnlag.sammenligningsgrunnlagType}`);
   }

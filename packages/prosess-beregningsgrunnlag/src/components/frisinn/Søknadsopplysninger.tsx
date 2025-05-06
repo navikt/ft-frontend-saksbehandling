@@ -15,7 +15,7 @@ const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
     <FormattedMessage
       id={tekstId}
       values={{
-        fom: dateFormat(fom),
+        periode: dateFormat(fom),
         tom: dateFormat(tom),
       }}
     />
@@ -29,8 +29,8 @@ const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
   const flAndel = periode.frisinnAndeler.find(andel => andel.statusSøktFor === AktivitetStatus.FRILANSER);
   return (
     <div key={periode.fom}>
-      {flAndel && lagPerioderadMedTekst('Beregningsgrunnlag.Søknad.SøktYtelseFL', periode.fom, periode.tom)}
-      {snAndel && lagPerioderadMedTekst('Beregningsgrunnlag.Søknad.SøktYtelseSN', periode.fom, periode.tom)}
+      {flAndel && lagPerioderadMedTekst('Søknad.SøktYtelseFL', periode.fom, periode.tom)}
+      {snAndel && lagPerioderadMedTekst('Søknad.SøktYtelseSN', periode.fom, periode.tom)}
     </div>
   );
 };
@@ -45,7 +45,7 @@ export const Søknadsopplysninger = ({ beregningsgrunnlag }: Props) => {
   return (
     <VStack gap="2">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
-        <FormattedMessage id="Beregningsgrunnlag.Søknad.Tittel" />
+        <FormattedMessage id="Søknad.Tittel" />
       </Label>
       {Array.isArray(frisinnPerioder) && frisinnPerioder.map(periode => lagSøktYtelseRadPeriode(periode))}
     </VStack>

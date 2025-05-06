@@ -60,7 +60,7 @@ export const FastsettSNNyIArbeid = ({
       {erNyArbLivet && (
         <HorizontalBox borderBottom borderTop>
           <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
+            <FormattedMessage id="FastsettSNNyIArbeid.Tittel" />
           </BodyShort>
           <InputField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
@@ -74,13 +74,13 @@ export const FastsettSNNyIArbeid = ({
       )}
       <TextAreaField
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
-        label={<FormattedMessage id="Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag" />}
+        label={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         isEdited={readOnly && isAksjonspunktClosed}
         maxLength={MAX_LENGTH}
         readOnly={readOnly}
         description={intl.formatMessage({
-          id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+          id: 'Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
         })}
         parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
       />

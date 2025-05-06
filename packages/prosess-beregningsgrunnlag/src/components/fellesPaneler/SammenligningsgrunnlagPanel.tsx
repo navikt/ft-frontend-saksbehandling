@@ -18,11 +18,11 @@ export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligning
   const { differanseBeregnet, rapportertPrAar, avvikProsent } = sammenligningsgrunnlag;
   const avvikProsentAvrundet = parseFloat(avvikProsent.toFixed(1));
   const inntektTekst = erPGI
-    ? 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt.Naring'
-    : 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt';
+    ? 'SammenligningsgrunnlagPanel.OmregnetAarsinntekt.Naring'
+    : 'SammenligningsgrunnlagPanel.OmregnetAarsinntekt';
   const sammenligningTekst = erPGI
-    ? 'Beregningsgrunnlag.Avviksopplysninger.SamletInntekt'
-    : 'Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt';
+    ? 'SammenligningsgrunnlagPanel.SamletInntekt'
+    : 'SammenligningsgrunnlagPanel.RapportertAarsinntekt';
 
   return (
     <Table size="small" className={tableStyles.table}>
@@ -47,7 +47,7 @@ export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligning
       <tfoot>
         <Table.Row>
           <Table.HeaderCell textSize="small">
-            <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.BeregnetAvvik" />
+            <FormattedMessage id="SammenligningsgrunnlagPanel.BeregnetAvvik" />
           </Table.HeaderCell>
           <Table.HeaderCell
             textSize="small"

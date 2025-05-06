@@ -14,16 +14,16 @@ import tableStyle from '../tableStyle.module.css';
 
 const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
-    return 'Beregningsgrunnlag.TilstottendeYtelse.Dagpenger';
+    return 'TilstottendeYtelse.Dagpenger';
   }
   if (andel.aktivitetStatus === AktivitetStatus.SYKEPENGER_AV_DAGPENGER) {
-    return 'Beregningsgrunnlag.TilstottendeYtelse.SykepengerAvDagpenger';
+    return 'TilstottendeYtelse.SykepengerAvDagpenger';
   }
   if (andel.aktivitetStatus === AktivitetStatus.PLEIEPENGER_AV_DAGPENGER) {
-    return 'Beregningsgrunnlag.TilstottendeYtelse.PleiepengerAvDagpenger';
+    return 'TilstottendeYtelse.PleiepengerAvDagpenger';
   }
   if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSAVKLARINGSPENGER) {
-    return 'Beregningsgrunnlag.TilstottendeYtelse.AAP';
+    return 'TilstottendeYtelse.AAP';
   }
   return '';
 };
@@ -44,7 +44,7 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
     <VStack gap="2">
       {relevanteStatuser.isKombinasjonsstatus && (
         <Heading size="medium">
-          <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.TittelNav" />
+          <FormattedMessage id="TilstottendeYtelse.Tittel" />
         </Heading>
       )}
       <Table size="small">
@@ -52,10 +52,10 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
           <Table.Row>
             <Table.HeaderCell />
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
+              <FormattedMessage id="TabellKolonne.Maaned" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
+              <FormattedMessage id="TabellKolonne.BeregnetAar" />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -80,7 +80,7 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
             {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
               <Table.Row shadeOnHover={false}>
                 <Table.DataCell textSize="small" colSpan={3}>
-                  <FormattedMessage id="Beregningsgrunnlag.TilstottendeYtelse.Besteberegning" />
+                  <FormattedMessage id="TilstottendeYtelse.Besteberegning" />
                 </Table.DataCell>
               </Table.Row>
             )}
