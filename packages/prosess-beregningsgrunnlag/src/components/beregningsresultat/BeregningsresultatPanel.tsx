@@ -166,7 +166,7 @@ type Props = {
 
 export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }: Props) => {
   const tabellData = useMemo(() => utledTabellData(beregningsgrunnlag), [beregningsgrunnlag]);
-  const skalVisePeriodePrTabell = tabellData.length > 1;
+
   return (
     <VStack gap="1">
       <Heading size="xsmall">
@@ -177,7 +177,7 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
           <OppsummertGrunnlagPanel
             key={tab.fom}
             tabellData={tab}
-            skalVisePeriode={skalVisePeriodePrTabell}
+            skalVisePeriode={tabellData.length > 1}
             vilkårsperiode={vilkårsperiode}
             beregningsgrunnlag={beregningsgrunnlag}
           />

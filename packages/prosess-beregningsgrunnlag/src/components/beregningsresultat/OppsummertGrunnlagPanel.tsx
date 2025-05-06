@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
@@ -184,18 +184,18 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
 
   return (
-    <div>
+    <VStack gap="2">
       {skalVisePeriode && (
-        <Heading size="xsmall">
+        <Label size="small">
           <FormattedMessage
             id="OppsummertGrunnlagPanel.Periode"
             values={{
               periode: periodFormat(tabellData.fom, tabellData.tom),
             }}
           />
-        </Heading>
+        </Label>
       )}
-      <VStack gap="6" paddingInline="2 0">
+      <VStack gap="6">
         <div>
           {tabellData.andeler.map((rad, index) => (
             <React.Fragment key={rad.status}>
@@ -232,6 +232,6 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
         </div>
         {alleAndelerErFastsatt && <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag)}</>}
       </VStack>
-    </div>
+    </VStack>
   );
 };
