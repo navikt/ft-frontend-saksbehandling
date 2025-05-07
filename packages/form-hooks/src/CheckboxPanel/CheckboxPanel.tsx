@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement, ReactNode, useMemo } from 'react';
+import { Fragment, ReactElement, ReactNode, useMemo } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
 import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
