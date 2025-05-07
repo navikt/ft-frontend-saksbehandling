@@ -31,6 +31,7 @@ export interface RadioGroupPanelProps {
   hideLegend?: boolean;
   hideRadioLabels?: boolean;
   isEdited?: boolean;
+  size?: 'medium' | 'small';
 }
 
 export const RadioGroupPanel = ({
@@ -48,6 +49,7 @@ export const RadioGroupPanel = ({
   hideLegend = false,
   hideRadioLabels = false,
   isEdited = false,
+  size = 'small',
 }: RadioGroupPanelProps) => {
   const {
     formState: { errors },
@@ -62,10 +64,10 @@ export const RadioGroupPanel = ({
   const parseValue = isTrueOrFalseSelection ? (value: string) => value === 'true' : parse;
 
   const legend = (
-    <>
+    <HStack justify="center" gap="2">
       {label}
       {isReadOnly && isEdited && <EditedIcon />}
-    </>
+    </HStack>
   );
 
   return (
@@ -78,7 +80,7 @@ export const RadioGroupPanel = ({
         }
         field.onChange(value);
       }}
-      size="small"
+      size={size}
       legend={legend}
       description={description}
       error={getError(errors, name)}
@@ -88,7 +90,7 @@ export const RadioGroupPanel = ({
       {!isHorizontal &&
         radios.map(radio => (
           <Fragment key={radio.value}>
-            <Radio value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
+            <Radio size={size} value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
               {radio.label}
             </Radio>
             {field.value === parseValue(radio.value) && radio.element}
@@ -99,6 +101,7 @@ export const RadioGroupPanel = ({
           <HStack gap="4">
             {radios.map(radio => (
               <Radio
+                size={size}
                 key={radio.value}
                 value={parseValue(radio.value)}
                 disabled={radio.disabled || disabled || isReadOnly}
