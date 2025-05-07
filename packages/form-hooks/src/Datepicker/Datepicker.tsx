@@ -15,6 +15,7 @@ dayjs.extend(customParseFormat);
 export interface DatepickerProps {
   name: string;
   label?: string | ReactNode;
+  hideLabel?: boolean;
   description?: string | ReactNode;
   validate?: ((value: string) => any)[];
   disabled?: boolean;
@@ -33,6 +34,7 @@ export const Datepicker = ({
   label,
   description,
   validate = [],
+  hideLabel = false,
   disabled = false,
   isReadOnly = false,
   onChange,
@@ -93,6 +95,7 @@ export const Datepicker = ({
         label={label}
         value={field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined}
         isEdited={isEdited}
+        hideLabel={hideLabel}
         size={size}
       />
     );
@@ -109,6 +112,7 @@ export const Datepicker = ({
     <DatePicker {...dpProps}>
       <DatePicker.Input
         {...inputProps}
+        hideLabel={hideLabel}
         onChange={onChangeInput}
         value={fieldValue}
         size={size}
