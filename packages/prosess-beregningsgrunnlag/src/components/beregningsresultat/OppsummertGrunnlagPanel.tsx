@@ -2,16 +2,16 @@ import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, HStack, Label, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
-import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
 import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { Vilkårperiode } from '../../types/Vilkår';
-import { HorizontalLine } from '../../util/HorizontalLine';
+import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from './oppsummertGrunnlagPanel.module.css';
 
@@ -30,43 +30,43 @@ type StatusKonfig = {
 const statusKonfigMap: StatusKonfig = {
   [AktivitetStatus.ARBEIDSTAKER]: {
     rekkefølgePri: 1,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Arbeid',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Arbeid',
   },
   [AktivitetStatus.FRILANSER]: {
     rekkefølgePri: 2,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Frilans',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Frilans',
   },
   [AktivitetStatus.DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Dagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Dagpenger',
   },
   [AktivitetStatus.SYKEPENGER_AV_DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.SykepengerAvDagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.SykepengerAvDagpenger',
   },
   [AktivitetStatus.PLEIEPENGER_AV_DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.PleiepengerAvDagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.PleiepengerAvDagpenger',
   },
   [AktivitetStatus.ARBEIDSAVKLARINGSPENGER]: {
     rekkefølgePri: 4,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Arbeidsavklaringspenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Arbeidsavklaringspenger',
   },
   [AktivitetStatus.KUN_YTELSE]: {
     rekkefølgePri: 5,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Ytelse',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Ytelse',
   },
   [AktivitetStatus.MILITAER_ELLER_SIVIL]: {
     rekkefølgePri: 6,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Militær',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Militær',
   },
   [AktivitetStatus.BRUKERS_ANDEL]: {
     rekkefølgePri: 7,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.BrukersAndel',
+    beskrivelseId: 'OppsummertGrunnlagPanel.BrukersAndel',
   },
   [AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE]: {
     rekkefølgePri: 8,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Næring',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Næring',
   },
 };
 
@@ -80,9 +80,7 @@ const finnStatusBeskrivelse = (andel: TabellRadData): string => {
   return beskrivelseId || 'Ukjent andel';
 };
 
-const ikkeBeregnetTekst = (): ReactElement => (
-  <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.IkkeBeregnet" />
-);
+const ikkeBeregnetTekst = (): ReactElement => <FormattedMessage id="OppsummertGrunnlagPanel.IkkeBeregnet" />;
 
 const finnTotalInntekt = (andeler: TabellRadData[]): number =>
   andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
@@ -101,8 +99,8 @@ const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolea
       <FormattedMessage
         id={
           erMidlertidigInaktiv
-            ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
-            : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2'
+            ? 'OppsummertGrunnlagPanel.VilkarIkkeOppfyltMidlertidigInaktiv'
+            : 'OppsummertGrunnlagPanel.VilkarIkkeOppfylt'
         }
         values={{
           grunnbeløp: formatCurrencyNoKr(grunnbeløp),
@@ -121,7 +119,6 @@ const lagResultatRader = (
   tabellData: TabellData,
   vilkårPeriode: Vilkårperiode,
   beregningsgrunnlag: Beregningsgrunnlag,
-  harFlereAndeler: boolean,
 ): ReactElement | null => {
   const sumBrutto = tabellData.andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
   if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT) {
@@ -136,43 +133,40 @@ const lagResultatRader = (
   const dagsatsSomVises = finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag);
 
   return (
-    <VStack gap="6">
-      <div>
-        {skalViseAvkortetRad && (
-          <>
-            <HorizontalLine />
-            <HStack justify="space-between" wrap={false}>
+    <>
+      {(skalViseAvkortetRad || skalViseRedusertRad) && (
+        <div>
+          {skalViseAvkortetRad && (
+            <HorizontalBox borderTop borderBottom>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Avkortet" />
+                <FormattedMessage id="OppsummertGrunnlagPanel.Avkortet" />
               </BodyShort>
-              <BodyShort size="small">{formatCurrencyNoKr(tabellData.avkortetPrÅr)}</BodyShort>
-            </HStack>
-            <HorizontalLine />
-          </>
-        )}
-        {skalViseRedusertRad && (
-          <>
-            {!skalViseAvkortetRad && harFlereAndeler && <HorizontalLine />}
-            <HStack justify="space-between" wrap={false}>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Redusert" />
+                <BeløpLabel beløp={tabellData.avkortetPrÅr} />
               </BodyShort>
-              <BodyShort size="small">{formatCurrencyNoKr(tabellData.redusertPrÅr)}</BodyShort>
-            </HStack>
-            <HorizontalLine />
-          </>
-        )}
-      </div>
-      <div>
-        <HStack justify="space-between" wrap={false}>
-          <Label size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Dagsats" />
-          </Label>
-          <Label size="medium">{dagsatsSomVises}</Label>
-        </HStack>
-        <HorizontalLine hasDoubleLine />
-      </div>
-    </VStack>
+            </HorizontalBox>
+          )}
+          {skalViseRedusertRad && (
+            <HorizontalBox borderBottom borderTop={!skalViseAvkortetRad}>
+              <BodyShort size="small">
+                <FormattedMessage id="OppsummertGrunnlagPanel.Redusert" />
+              </BodyShort>
+              <BodyShort size="small">
+                <BeløpLabel beløp={tabellData.redusertPrÅr} />
+              </BodyShort>
+            </HorizontalBox>
+          )}
+        </div>
+      )}
+      <HorizontalBox doubleBorderBottom>
+        <Label size="medium">
+          <FormattedMessage id="OppsummertGrunnlagPanel.Dagsats" />
+        </Label>
+        <Label size="medium">
+          <BeløpLabel beløp={dagsatsSomVises} />
+        </Label>
+      </HorizontalBox>
+    </>
   );
 };
 
@@ -187,64 +181,56 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const skalViseOppsummeringsrad =
     tabellData.andeler.length > 1 && !tabellData.andeler.some(andel => !andel.erFerdigBeregnet);
   tabellData.andeler.sort((a, b) => finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b));
-  const harFlereAndeler = tabellData.andeler.length > 1;
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
 
   return (
-    <VStack gap="1">
+    <VStack gap="2">
       {skalVisePeriode && (
-        <Heading size="xsmall">
+        <Label size="small">
           <FormattedMessage
-            id="Beregningsgrunnlag.Beregningsresultat.Periode"
+            id="OppsummertGrunnlagPanel.Periode"
             values={{
-              fom: dayjs(tabellData.fom).format(DDMMYYYY_DATE_FORMAT),
-              tom: tabellData.tom ? dayjs(tabellData.tom).format(DDMMYYYY_DATE_FORMAT) : '',
+              periode: periodFormat(tabellData.fom, tabellData.tom),
             }}
           />
-        </Heading>
+        </Label>
       )}
       <VStack gap="6">
         <div>
           {tabellData.andeler.map((rad, index) => (
             <React.Fragment key={rad.status}>
-              {index === 0 && <HorizontalLine />}
-              <HStack wrap={false} justify="space-between">
+              <HorizontalBox borderBottom borderTop={index === 0}>
                 <BodyShort size="small">
                   <FormattedMessage id={finnStatusBeskrivelse(rad)} />
                 </BodyShort>
                 <BodyShort size="small" className={rad.erFerdigBeregnet ? '' : styles.kolVerdiRød}>
-                  {rad.erFerdigBeregnet ? formatCurrencyNoKr(rad.inntekt) : ikkeBeregnetTekst()}
+                  {rad.erFerdigBeregnet ? <BeløpLabel beløp={rad.inntekt} /> : ikkeBeregnetTekst()}
                 </BodyShort>
-              </HStack>
+              </HorizontalBox>
               {!!rad.bortfaltNaturalytelse && (
-                <>
-                  <HorizontalLine />
-                  <HStack justify="space-between" wrap={false}>
-                    <BodyShort size="small">
-                      <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
-                    </BodyShort>
-                    <BodyShort size="small">{formatCurrencyNoKr(rad.bortfaltNaturalytelse)}</BodyShort>
-                  </HStack>
-                </>
+                <HorizontalBox borderBottom>
+                  <BodyShort size="small">
+                    <FormattedMessage id="OppsummertGrunnlagPanel.Naturalytelser" />
+                  </BodyShort>
+                  <BodyShort size="small">
+                    <BeløpLabel beløp={rad.bortfaltNaturalytelse} />
+                  </BodyShort>
+                </HorizontalBox>
               )}
-              <HorizontalLine />
             </React.Fragment>
           ))}
           {skalViseOppsummeringsrad && (
-            <>
-              <HStack justify="space-between" wrap={false}>
-                <BodyShort size="small">
-                  <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
-                </BodyShort>
-                <BodyShort size="small">{formatCurrencyNoKr(finnTotalInntekt(tabellData.andeler))}</BodyShort>
-              </HStack>
-              <HorizontalLine hasBorderDark />
-            </>
+            <HorizontalBox doubleBorderBottom borderTop>
+              <BodyShort size="small">
+                <FormattedMessage id="OppsummertGrunnlagPanel.TotalÅrsinntekt" />
+              </BodyShort>
+              <BodyShort size="small">
+                <BeløpLabel beløp={finnTotalInntekt(tabellData.andeler)} />
+              </BodyShort>
+            </HorizontalBox>
           )}
         </div>
-        {alleAndelerErFastsatt && (
-          <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler)}</>
-        )}
+        {alleAndelerErFastsatt && <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag)}</>}
       </VStack>
     </VStack>
   );

@@ -37,83 +37,10 @@
   }
 }
 
-.verticalLine > div > p {
-  border-left: 4px solid var(--a-gray-300);
-  padding-left: 16px;
-}
-.verticalLine > div > span > span {
-  font-size: inherit;
-}
-.verticalAlignMiddle {
-  align-items: center;
-  display: flex;
-}
-.verticalAlignMiddle:not(:first-of-type) {
-  margin-top: 8px;
-}
-.verticalAlignMiddle .inputPadding > div > div > p {
-  font-size: 16px;
-  font-weight: 600;
-  height: 22px;
-  line-height: 22px;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.verticalAlignMiddle :global(.navds-form-field) {
-  gap: initial;
-}
-
-.inntektTableTB {
-  --ac-table-row-border: none;
-  --ac-table-row-hover-border: none;
-
-  width: 100%;
-}
-
-.inntektTableTB > thead > tr > th:not(:last-child),
-.inntektTableTB > tbody > tr > td:not(:last-child),
-.inntektTableTB > tbody > tr > th:not(:last-child) {
-  border-right: 1px solid var(--a-gray-300);
-}
-
-.inntektTableTB > tbody > tr:last-child > th,
-.inntektTableTB > tbody > tr:last-child > td {
-  border-top: 1px solid var(--a-gray-300);
-}
-
-.textAreaWrapper > div > div > label > span > span {
-  font-size: inherit;
-}
-.textAreaWrapperHeigh > div > div > div > textarea {
-  min-height: 6rem;
-}
-.textAreaWrapperHeigh ::placeholder {
-  font-size: inherit;
-  font-weight: inherit;
-}
-.dynamiskKolonne {
-  padding-left: 8px;
-  padding-right: 8px;
-}
 .textAreaStyle {
   min-height: 100px;
 }
-.bredde {
-  width: 70px;
-}
-.atflAvvikAktivitet {
-  padding: 8px;
-  width: 30%;
-}
-.atflAvvikInntekt {
-  width: 20%;
-}
-.atflEditedIcon {
-  width: 10%;
-}
-.breddeInntekt {
-  width: 100px;
-}
+
 .warningIcon {
   color: var(--a-surface-warning);
   height: 24px;
@@ -122,4 +49,12 @@
 
 .aksjonspunktWrapper {
   overflow-x: auto;
+}
+
+.beløpInput {
+  max-width: 100px;
+  min-width: 85px;
+  > input {
+    text-align: right;
+  }
 }

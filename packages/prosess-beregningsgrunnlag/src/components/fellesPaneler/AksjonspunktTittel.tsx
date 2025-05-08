@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Label } from '@navikt/ds-react';
+import { BodyLong } from '@navikt/ds-react';
 
 import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
 import {
@@ -70,10 +70,10 @@ const getSammenligningsgrunnlagsPrStatus = (bg: BeregningsgrunnlagProp): Sammenl
   bg.sammenligningsgrunnlagPrStatus ? bg.sammenligningsgrunnlagPrStatus : [];
 
 const APTekster = {
-  [FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS]: 'Beregningsgrunnlag.Helptext.Arbeidstaker',
-  [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]: 'Beregningsgrunnlag.Helptext.TidsbegrensetArbeidsforhold',
-  [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'Beregningsgrunnlag.Helptext.NyIArbeidslivetSN',
-  [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'Beregningsgrunnlag.Helptext.VarigEndretArbeidssituasjon',
+  [FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS]: 'AksjonspunktTittel.Arbeidstaker',
+  [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]: 'AksjonspunktTittel.TidsbegrensetArbeidsforhold',
+  [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'AksjonspunktTittel.NyIArbeidslivetSN',
+  [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'AksjonspunktTittel.VarigEndretArbeidssituasjon',
 } as Record<string, string>;
 
 const findAksjonspunktHelpTekst = (
@@ -84,8 +84,8 @@ const findAksjonspunktHelpTekst = (
     gjeldendeAvklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE
   ) {
     return erVarigEndring
-      ? 'Beregningsgrunnlag.Helptext.SelvstendigNaeringsdrivende.VarigEndring'
-      : 'Beregningsgrunnlag.Helptext.SelvstendigNaeringsdrivende.Nyoppstartet';
+      ? 'AksjonspunktTittel.SelvstendigNaeringsdrivende.VarigEndring'
+      : 'AksjonspunktTittel.SelvstendigNaeringsdrivende.Nyoppstartet';
   }
   return APTekster[gjeldendeAvklaringsbehov.definisjon];
 };
@@ -102,7 +102,7 @@ const lagAksjonspunktHelpText = (
   return (
     <AksjonspunktHelpTextHTML>
       {åpneAvklaringsbehov.map(ap => (
-        <Label key={ap.definisjon}>
+        <BodyLong key={ap.definisjon}>
           <FormattedMessage
             id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
             values={{
@@ -111,7 +111,7 @@ const lagAksjonspunktHelpText = (
               br: <br />,
             }}
           />
-        </Label>
+        </BodyLong>
       ))}
     </AksjonspunktHelpTextHTML>
   );

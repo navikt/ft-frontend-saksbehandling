@@ -19,3 +19,5 @@ export { usePrevious } from './src/hooks/usePrevious';
 export { BlaBoksMedCheckmarkListe } from './src/BlaBoksMedCheckmarkListe/BlaBoksMedCheckmarkListe';
 export { ErrorBoundary } from './src/ErrorBoundary/ErrorBoundary';
 export { UtvidbarTekst } from './src/UtvidbarTekst';
+export { NoWrap } from './src/NoWrap';
+export { BeløpLabel } from './src/BeløpLabel';

@@ -8,7 +8,7 @@ import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-type
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
-import { SaksopplysningPanel } from './SaksopplysningPanel';
+import { Lønnsendring } from './Lønnsendring';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
@@ -50,11 +50,14 @@ const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: Kode
   return (
     <HStack gap="2">
       {statusList.map(status => (
-        <div key={status.visningsNavn} className={beregningStyles.tagRad}>
-          <Tag variant={status.tagType} title={status.visningsNavn} className={beregningStyles.tagMargin}>
-            {status.visningsNavn}
-          </Tag>
-        </div>
+        <Tag
+          key={status.kode}
+          variant={status.tagType}
+          title={status.visningsNavn}
+          className={beregningStyles.tagMargin}
+        >
+          {status.visningsNavn}
+        </Tag>
       ))}
     </HStack>
   );
@@ -81,11 +84,11 @@ export const SkjeringspunktOgStatusPanel = ({
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
 }: Props) => (
-  <VStack gap="4" className={beregningStyles.panelLeft}>
+  <VStack gap="4">
     {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
     <HStack gap="2">
       <BodyShort size="small">
-        <FormattedMessage id="Beregningsgrunnlag.Skjeringstidspunkt.SkjeringForBeregning" />
+        <FormattedMessage id="SkjeringspunktOgStatusPanel.SkjeringForBeregning" />
       </BodyShort>
       <BodyShort size="small" className={beregningStyles.semiBoldText}>
         <DateLabel dateString={skjeringstidspunktDato} />
@@ -94,10 +97,10 @@ export const SkjeringspunktOgStatusPanel = ({
     {!!saksopplysninger &&
       !!saksopplysninger.lønnsendringSaksopplysning &&
       saksopplysninger.lønnsendringSaksopplysning.length > 0 && (
-        <SaksopplysningPanel
+        <Lønnsendring
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           skjeringstidspunktDato={skjeringstidspunktDato}
-          saksopplysninger={saksopplysninger}
+          lønnsendringSaksopplysning={saksopplysninger.lønnsendringSaksopplysning}
         />
       )}
   </VStack>

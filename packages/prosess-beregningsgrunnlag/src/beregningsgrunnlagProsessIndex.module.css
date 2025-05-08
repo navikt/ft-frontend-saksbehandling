@@ -1,14 +1,21 @@
 .contentContainer {
   flex: 1;
 }
+
 .sideMenuContainer {
   margin: 0 32px 0 0;
 }
+
 .mainContainer--withSideMenu {
   display: grid;
   grid-template-columns: 1fr minmax(1px, 12fr);
   margin-left: -32px;
 }
+
+.mainContainer {
+  max-width: 1400px;
+}
+
 .advarselIkon {
   color: var(--a-surface-warning);
   height: 24px;

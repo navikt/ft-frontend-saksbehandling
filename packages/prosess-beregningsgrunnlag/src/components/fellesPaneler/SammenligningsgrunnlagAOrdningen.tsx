@@ -1,7 +1,7 @@
 import { ReactElement, useCallback, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Box, Heading, HStack, Label, ReadMore, VStack } from '@navikt/ds-react';
+import { BodyShort, ExpansionCard, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 import { CallbackDataParams } from 'echarts/types/dist/shared';
@@ -14,13 +14,11 @@ import {
   InntektsgrunnlagMåned,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { HorizontalLine } from '../../util/HorizontalLine';
+import { HorizontalBox } from '../../util/HorizontalBox';
 import { ReactECharts } from '../echart/ReactECharts';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import styles from './sammenligningsgrunnlagAOrdningen.module.css';
 
 const TOM_ARRAY: InntektsgrunnlagMåned[] = [];
 const GRAF_FARGE_AT = '#99bdcd';
@@ -45,44 +43,43 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
     .reduce((i1, i2) => i1 + i2, 0);
 
   return (
-    <Box width="200px">
+    <VStack gap="2">
       <Label size="small">
-        <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.SumTittel" />
+        <FormattedMessage id="SammenligningsGrunnlaAOrdningen.SumTittel" />
       </Label>
-      {relevanteStatuser.harArbeidsinntekt && (
-        <>
-          <HStack wrap={false} justify="space-between">
+      <div>
+        {relevanteStatuser.harArbeidsinntekt && (
+          <HorizontalBox borderBottom borderTop>
             <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid" />
+              <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Arbeid" />
             </BodyShort>
-            <BodyShort size="small">{formatCurrencyNoKr(sumATAndeler)}</BodyShort>
-          </HStack>
-          <HorizontalLine />
-        </>
-      )}
-      {relevanteStatuser.harFrilansinntekt && (
-        <>
-          <HStack wrap={false} justify="space-between">
             <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans" />
+              <BeløpLabel beløp={sumATAndeler} />
             </BodyShort>
-            <BodyShort size="small">{formatCurrencyNoKr(sumFLAndeler)}</BodyShort>
-          </HStack>
-          <HorizontalLine />
-        </>
-      )}
-      {relevanteStatuser.harYtelseinntekt && (
-        <>
-          <HStack wrap={false} justify="space-between">
+          </HorizontalBox>
+        )}
+        {relevanteStatuser.harFrilansinntekt && (
+          <HorizontalBox borderBottom>
             <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse" />
+              <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Frilans" />
             </BodyShort>
-            <BodyShort size="small">{formatCurrencyNoKr(sumYtelseAndeler)}</BodyShort>
-          </HStack>
-          <HorizontalLine />
-        </>
-      )}
-    </Box>
+            <BodyShort size="small">
+              <BeløpLabel beløp={sumFLAndeler} />
+            </BodyShort>
+          </HorizontalBox>
+        )}
+        {relevanteStatuser.harYtelseinntekt && (
+          <HorizontalBox borderBottom>
+            <BodyShort size="small">
+              <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Ytelse" />
+            </BodyShort>
+            <BodyShort size="small">
+              <BeløpLabel beløp={sumYtelseAndeler} />
+            </BodyShort>
+          </HorizontalBox>
+        )}
+      </div>
+    </VStack>
   );
 };
 
@@ -111,12 +108,14 @@ const finnDataForIAT = (andeler: InntektsgrunnlagMåned[], sammenligningsgrunnla
 };
 
 const ReadMoreOverskrift = (): ReactElement => (
-  <VStack gap="2">
-    <Heading size="small" className={beregningStyles.avsnittOverskrift}>
-      <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Tittel" />
-    </Heading>
-    <FormattedMessage id="Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ingress" />
-  </VStack>
+  <ExpansionCard.Header>
+    <ExpansionCard.Title size="small">
+      <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Tittel" />
+    </ExpansionCard.Title>
+    <ExpansionCard.Description>
+      <FormattedMessage id="SammenligningsGrunnlaAOrdningen.Ingress" />
+    </ExpansionCard.Description>
+  </ExpansionCard.Header>
 );
 
 type Inntektstyper = {
@@ -174,121 +173,128 @@ export const SammenligningsgrunnlagAOrdningen = ({
   if (!måneder || måneder.length === 0 || !sammenligningsgrunnlag || sammenligningsgrunnlag.length < 1) {
     return null;
   }
-  const arbeidTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Arbeid' });
-  const frilansTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Frilans' });
-  const ytelseTekst = intl.formatMessage({ id: 'Beregningsgrunnlag.SammenligningsGrunnlaAOrdningen.Ytelse' });
+  const arbeidTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Arbeid' });
+  const frilansTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Frilans' });
+  const ytelseTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Ytelse' });
 
   return (
     <VStack gap="10">
-      <ReadMore size="medium" header={<ReadMoreOverskrift />} defaultOpen className={styles.readMore}>
-        <ReactECharts
-          option={{
-            tooltip: {
-              trigger: 'axis',
-              formatter: series => {
-                const castedSeries = series as CallbackDataParams[];
-                const data = castedSeries[0].data as OptionDataValue[];
-                const date = dayjs(data[1]);
-                const maanedNavn = date.locale(norskFormat).format('MMM');
-                const aar = date.format('YYYY');
-                const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1);
-                const overskrift = `${formattedMaaned} ${aar}`;
-
-                const seriesData = castedSeries
-                  .reduce<string[]>((acc, sData) => {
-                    const dataCasted = sData.data as OptionDataValue[];
-                    return acc.concat(
-                      `${(sData.marker || '') + (sData.seriesName || '')}: ${formatCurrencyNoKr(
-                        dataCasted[0] as string,
-                      )}`,
-                    );
-                  }, [])
-                  .join('<br/>');
-                return `${overskrift}<br />${seriesData}`;
-              },
-              axisPointer: {
-                type: 'shadow',
-              },
-            },
-            legend: {
-              data: [arbeidTekst, frilansTekst, ytelseTekst],
-            },
-            grid: {
-              left: '1%',
-              right: '5%',
-              bottom: '0%',
-              containLabel: true,
-            },
-            xAxis: {
-              type: 'value',
-              axisLabel: {
-                formatter: (value: any) => formatCurrencyNoKr(value) || '',
-                margin: 12,
-              },
-            },
-            yAxis: {
-              type: 'category',
-              boundaryGap: false,
-              axisLabel: {
-                formatter: (value: any) => {
-                  const date = dayjs(value);
-                  const erIJanuar = date.format('MM') === '01' || date.format('MM') === '12';
+      <ExpansionCard
+        defaultOpen
+        size="small"
+        aria-label={intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Tittel' })}
+      >
+        <ReadMoreOverskrift />
+        <ExpansionCard.Content>
+          <ReactECharts
+            option={{
+              tooltip: {
+                trigger: 'axis',
+                formatter: series => {
+                  const castedSeries = series as CallbackDataParams[];
+                  const data = castedSeries[0].data as OptionDataValue[];
+                  const date = dayjs(data[1]);
                   const maanedNavn = date.locale(norskFormat).format('MMM');
                   const aar = date.format('YYYY');
-                  const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1, 3);
-                  return erIJanuar ? `${formattedMaaned}\n${aar}` : formattedMaaned;
+                  const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1);
+                  const overskrift = `${formattedMaaned} ${aar}`;
+
+                  const seriesData = castedSeries
+                    .reduce<string[]>((acc, sData) => {
+                      const dataCasted = sData.data as OptionDataValue[];
+                      return acc.concat(
+                        `${(sData.marker || '') + (sData.seriesName || '')}: ${formatCurrencyNoKr(
+                          dataCasted[0] as string,
+                        )}`,
+                      );
+                    }, [])
+                    .join('<br/>');
+                  return `${overskrift}<br />${seriesData}`;
+                },
+                axisPointer: {
+                  type: 'shadow',
                 },
               },
-            },
-            series: [
-              {
-                name: arbeidTekst,
-                type: 'bar',
-                stack: 'total',
-                label: {
-                  show: true,
-                  fontSize: '11',
-                  formatter: barFormatter,
-                },
-                emphasis: {
-                  focus: 'series',
-                },
-                data: dataForArbeid,
+              legend: {
+                data: [arbeidTekst, frilansTekst, ytelseTekst],
               },
-              {
-                name: frilansTekst,
-                type: 'bar',
-                stack: 'total',
-                label: {
-                  show: true,
-                  fontSize: '11',
-                  formatter: barFormatter,
-                },
-                emphasis: {
-                  focus: 'series',
-                },
-                data: dataForFrilans,
+              grid: {
+                left: '1%',
+                right: '5%',
+                bottom: '0%',
+                containLabel: true,
               },
-              {
-                name: ytelseTekst,
-                type: 'bar',
-                stack: 'total',
-                label: {
-                  show: true,
-                  fontSize: '11',
-                  formatter: barFormatter,
+              xAxis: {
+                type: 'value',
+                axisLabel: {
+                  formatter: (value: any) => formatCurrencyNoKr(value) || '',
+                  margin: 12,
                 },
-                emphasis: {
-                  focus: 'series',
-                },
-                data: dataForYtelse,
               },
-            ],
-            color: [GRAF_FARGE_AT, GRAF_FARGE_FL, GRAF_FARGE_YTELSE],
-          }}
-          height={350}
-        />
-      </ReadMore>
+              yAxis: {
+                type: 'category',
+                boundaryGap: false,
+                axisLabel: {
+                  formatter: (value: any) => {
+                    const date = dayjs(value);
+                    const erIJanuar = date.format('MM') === '01' || date.format('MM') === '12';
+                    const maanedNavn = date.locale(norskFormat).format('MMM');
+                    const aar = date.format('YYYY');
+                    const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1, 3);
+                    return erIJanuar ? `${formattedMaaned}\n${aar}` : formattedMaaned;
+                  },
+                },
+              },
+              series: [
+                {
+                  name: arbeidTekst,
+                  type: 'bar',
+                  stack: 'total',
+                  label: {
+                    show: true,
+                    fontSize: '11',
+                    formatter: barFormatter,
+                  },
+                  emphasis: {
+                    focus: 'series',
+                  },
+                  data: dataForArbeid,
+                },
+                {
+                  name: frilansTekst,
+                  type: 'bar',
+                  stack: 'total',
+                  label: {
+                    show: true,
+                    fontSize: '11',
+                    formatter: barFormatter,
+                  },
+                  emphasis: {
+                    focus: 'series',
+                  },
+                  data: dataForFrilans,
+                },
+                {
+                  name: ytelseTekst,
+                  type: 'bar',
+                  stack: 'total',
+                  label: {
+                    show: true,
+                    fontSize: '11',
+                    formatter: barFormatter,
+                  },
+                  emphasis: {
+                    focus: 'series',
+                  },
+                  data: dataForYtelse,
+                },
+              ],
+              color: [GRAF_FARGE_AT, GRAF_FARGE_FL, GRAF_FARGE_YTELSE],
+            }}
+            height={350}
+          />
+        </ExpansionCard.Content>
+      </ExpansionCard>
       {lagSumRad(måneder, relevanteStatuser)}
     </VStack>
   );

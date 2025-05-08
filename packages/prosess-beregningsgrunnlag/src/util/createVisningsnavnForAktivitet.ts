@@ -1,8 +1,6 @@
-import dayjs from 'dayjs';
-
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysninger, ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { dateFormat } from '@navikt/ft-utils';
 
 import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
 
@@ -14,9 +12,7 @@ export const createVisningsnavnForAktivitet = (
 ): string => {
   const { navn, fødselsdato, erPrivatPerson, identifikator } = arbeidsgiverOpplysninger;
   if (erPrivatPerson) {
-    return fødselsdato
-      ? `${navn} (${dayjs(fødselsdato).format(DDMMYYYY_DATE_FORMAT)})${getEndCharFromId(eksternReferanse)}`
-      : navn;
+    return fødselsdato ? `${navn} (${dateFormat(fødselsdato)})${getEndCharFromId(eksternReferanse)}` : navn;
   }
   return identifikator ? `${navn} (${identifikator})${getEndCharFromId(eksternReferanse)}` : navn;
 };

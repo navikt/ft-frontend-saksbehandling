@@ -36,7 +36,7 @@ import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
 import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
 import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import { AksjonspunktBehandlerHeader } from './AksjonspunktBehandlerHeader';
-import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
 
 import styles from './aksjonspunktBehandler.module.css';
 
@@ -271,36 +271,38 @@ const ArbeidstakerEllerFrilansContainer = ({
           skalValideres={skalValideres}
         />
       )}
-      {!erTidsbegrenset && visAT && (
-        <AksjonspunktBehandlerAT
-          readOnly={readOnly}
-          alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
-          kodeverkSamling={kodeverkSamling}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          fieldIndex={fieldIndex}
-          formName={formName}
-          skalValideres={skalValideres}
-        />
-      )}
-      {visFL && (
-        <AksjonspunktBehandlerFL
-          readOnly={readOnly}
-          fieldIndex={fieldIndex}
-          formName={formName}
-          alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
-          skalValideres={skalValideres}
-        />
-      )}
+      <div>
+        {!erTidsbegrenset && visAT && (
+          <AksjonspunktBehandlerAT
+            readOnly={readOnly}
+            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+            kodeverkSamling={kodeverkSamling}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            fieldIndex={fieldIndex}
+            formName={formName}
+            skalValideres={skalValideres}
+          />
+        )}
+        {visFL && (
+          <AksjonspunktBehandlerFL
+            readOnly={readOnly}
+            fieldIndex={fieldIndex}
+            formName={formName}
+            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+            skalValideres={skalValideres}
+          />
+        )}
+      </div>
       <div>
         <TextAreaField
           name={`${formName}.${fieldIndex}.ATFLVurdering`}
-          label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
+          label={<FormattedMessage id="Forms.Vurdering" />}
           validate={[required, maxLength4000, minLength3, hasValidText]}
           maxLength={MAX_LENGTH}
           readOnly={readOnly}
           className={styles.textAreaStyle}
           description={intl.formatMessage({
-            id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+            id: 'Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
           })}
           parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
         />

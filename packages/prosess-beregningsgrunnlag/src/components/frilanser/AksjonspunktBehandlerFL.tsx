@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HStack } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -9,6 +9,7 @@ import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 
 import { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
@@ -38,21 +39,20 @@ export const AksjonspunktBehandlerFL = ({
   alleAndelerIForstePeriode,
   skalValideres,
 }: Props) => (
-  <HStack gap="2" align="center">
+  <HorizontalBox>
     <BodyShort size="small">
-      <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.AksjonspunktBehandlerFL" />
+      <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
     </BodyShort>
-    <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-      <InputField
-        name={`${formName}.${fieldIndex}.inntektFrilanser`}
-        validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
-        readOnly={readOnly}
-        parse={parseCurrencyInput}
-        className={styles.breddeInntekt}
-        isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
-      />
-    </div>
-  </HStack>
+    <InputField
+      name={`${formName}.${fieldIndex}.inntektFrilanser`}
+      validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
+      readOnly={readOnly}
+      hideLabel
+      parse={parseCurrencyInput}
+      className={styles.beløpInput}
+      isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
+    />
+  </HorizontalBox>
 );
 
 AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[]): FrilansInntektValues => {

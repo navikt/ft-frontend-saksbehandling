@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
+import { Detail, Heading, Hide, HStack, VStack } from '@navikt/ds-react';
 
 import {
   AktivitetStatus,
@@ -32,9 +32,9 @@ const finnDetaljerSN = (bg: Beregningsgrunnlag): string => {
   );
   const erNyoppstartet = !!snAndel?.næringer?.some(naring => naring.erNyoppstartet === true);
   if (erNyoppstartet) {
-    return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerNyoppstartet';
+    return 'AksjonspunktBehandlerHeader.Detaljer.Nyoppstartet';
   }
-  return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerVarigEndring';
+  return 'AksjonspunktBehandlerHeader.Detaljer.VarigEndring';
 };
 
 const finnDetaljer = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): string => {
@@ -42,13 +42,13 @@ const finnDetaljer = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsg
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
       return finnDetaljerSN(bg);
     case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
-      return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerSNNyIArb';
+      return 'AksjonspunktBehandlerHeader.Detaljer.SNNyIArb';
     case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
-      return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerVarigEndringArbeid';
+      return 'AksjonspunktBehandlerHeader.Detaljer.VarigEndringArbeid';
     case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
-      return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerATFL';
+      return 'AksjonspunktBehandlerHeader.Detaljer.ATFL';
     case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
-      return 'Beregningsgrunnlag.AksjonspunktBehandler.DetaljerATFLTidsbegrenset';
+      return 'AksjonspunktBehandlerHeader.Detaljer.ATFLTidsbegrenset';
     default:
       return 'Ukjent aksjonspunkt';
   }
@@ -59,22 +59,22 @@ const finnTittelATFL = (bg: Beregningsgrunnlag): string => {
   const erAT = statuser.some(st => isStatusArbeidstakerOrKombinasjon(st));
   const erFL = statuser.some(st => isStatusFrilanserOrKombinasjon(st));
   if (erAT && erFL) {
-    return 'Beregningsgrunnlag.AksjonspunktBehandler.TittelATFLAvvik';
+    return 'AksjonspunktBehandlerHeader.Tittel.ATFLAvvik';
   }
   if (erFL) {
-    return 'Beregningsgrunnlag.AksjonspunktBehandler.TittelFLAvvik';
+    return 'AksjonspunktBehandlerHeader.Tittel.FLAvvik';
   }
-  return 'Beregningsgrunnlag.AksjonspunktBehandler.TittelATAvvik';
+  return 'AksjonspunktBehandlerHeader.Tittel.ATAvvik';
 };
 
 const finnTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): string => {
   switch (avklaringsbehov.definisjon) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
-      return 'Beregningsgrunnlag.AksjonspunktBehandler.TittelVarigEndringNyoppstartet';
+      return 'AksjonspunktBehandlerHeader.Tittel.VarigEndringNyoppstartet';
     case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
-      return 'Beregningsgrunnlag.AksjonspunktBehandler.TittelSNNyIArb';
+      return 'AksjonspunktBehandlerHeader.Tittel.SNNyIArb';
     case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
-      return 'Beregningsgrunnlag.AksjonspunktBehandler.TittelVarigEndringArbeid';
+      return 'AksjonspunktBehandlerHeader.Tittel.VarigEndringArbeid';
     case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
     case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
       return finnTittelATFL(bg);
@@ -101,17 +101,17 @@ export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnla
       className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerHeader}
     >
       {!readOnly && (
-        <div>
+        <Hide below="md">
           <ExclamationmarkTriangleFillIcon className={styles.warningIcon} />
-        </div>
+        </Hide>
       )}
       <VStack gap="2">
-        <Label>
+        <Heading size="xsmall">
           <FormattedMessage id={finnTittel(avklaringsbehov, beregningsgrunnlag)} />
-        </Label>
-        <BodyShort>
+        </Heading>
+        <Detail>
           <FormattedMessage id={finnDetaljer(avklaringsbehov, beregningsgrunnlag)} />
-        </BodyShort>
+        </Detail>
       </VStack>
     </HStack>
   );

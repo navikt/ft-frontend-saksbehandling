@@ -1,4 +1,4 @@
-import { BodyShort, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -10,6 +10,7 @@ import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
+import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
@@ -52,9 +53,9 @@ export const AksjonspunktBehandlerAT = ({
 }: Props) => {
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
-    <VStack gap="2">
+    <>
       {relevanteAndelerAT.map((andel, index) => (
-        <HStack gap="4" key={andel.andelsnr} align="center">
+        <HorizontalBox key={andel.andelsnr}>
           <BodyShort size="small">
             {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
           </BodyShort>
@@ -63,12 +64,13 @@ export const AksjonspunktBehandlerAT = ({
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             readOnly={readOnly}
             parse={parseCurrencyInput}
-            className={styles.breddeInntekt}
+            className={styles.beløpInput}
+            hideLabel
             isEdited={readOnly && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0)}
           />
-        </HStack>
+        </HorizontalBox>
       ))}
-    </VStack>
+    </>
   );
 };
 

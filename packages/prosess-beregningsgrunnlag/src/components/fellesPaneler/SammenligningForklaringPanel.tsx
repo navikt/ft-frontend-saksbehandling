@@ -28,7 +28,7 @@ export const SammenligningForklaringPanel = ({
   if (erNyIArbeidslivet) {
     return (
       <BodyShort size="small">
-        <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.SN.NyIArbeidslivet" />
+        <FormattedMessage id="SammenligningForklaringPanel.SN.NyIArbeidslivet" />
       </BodyShort>
     );
   }
@@ -50,7 +50,7 @@ export const SammenligningForklaringPanel = ({
   if (erManueltBesteberegnet) {
     return (
       <BodyShort size="small">
-        <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Besteberegning" />
+        <FormattedMessage id="SammenligningForklaringPanel.Besteberegning" />
       </BodyShort>
     );
   }
@@ -59,22 +59,22 @@ export const SammenligningForklaringPanel = ({
     <VStack gap="2">
       {relevanteStatuser.isMilitaer && (
         <BodyShort size="small">
-          <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Miletar" />
+          <FormattedMessage id="SammenligningForklaringPanel.Miletar" />
         </BodyShort>
       )}
       {relevanteStatuser.isAAP && (
         <BodyShort size="small">
-          <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AAP" />
+          <FormattedMessage id="SammenligningForklaringPanel.AAP" />
         </BodyShort>
       )}
       {relevanteStatuser.isDagpenger && (
         <BodyShort size="small">
-          <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.Dagpenger" />
+          <FormattedMessage id="SammenligningForklaringPanel.Dagpenger" />
         </BodyShort>
       )}
       {erATFLSNUtenSammenligningsgrunnlagATFL && (
         <BodyShort size="small">
-          <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.AT.KobinasjonsStatusATFLSN" />
+          <FormattedMessage id="SammenligningForklaringPanel.AT.KobinasjonsStatusATFLSN" />
         </BodyShort>
       )}
     </VStack>

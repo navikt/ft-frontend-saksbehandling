@@ -1,15 +1,13 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Box, Detail, Heading, HStack, Label, VStack } from '@navikt/ds-react';
+import { Heading, Label, Table } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { DateLabel } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { BTag, dateFormat } from '@navikt/ft-utils';
 
-import { HorizontalLine } from '../../util/HorizontalLine';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import tableStyle from '../tableStyle.module.css';
 
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -30,42 +28,46 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
     return null;
   }
   const beregnetAarsinntekt = relevantAndel.beregnetPrAar;
-  const startDato = relevantAndel.arbeidsforhold?.startdato;
+  const startdato = relevantAndel.arbeidsforhold?.startdato;
   return (
-    <Box>
-      <VStack gap="2">
-        <Heading size="medium">
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
-        </Heading>
-        <HStack justify="space-between" wrap={false}>
-          {startDato && (
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
-              <span className={beregningStyles.semiBoldText}>
-                <DateLabel dateString={startDato} />
-              </span>
-            </BodyShort>
-          )}
-          <HStack gap="10">
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-            </Detail>
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-            </Detail>
-          </HStack>
-        </HStack>
-        <HorizontalLine />
-        <HStack justify="space-between" wrap={false}>
-          <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.InnrapportertFrilans" />
-          </BodyShort>
-          <HStack gap="12">
-            <BodyShort size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</BodyShort>
-            <Label size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Label>
-          </HStack>
-        </HStack>
-      </VStack>
-    </Box>
+    <div>
+      <Heading size="medium">
+        <FormattedMessage id="GrunnlagForAarsinntektPanelFL.Tittel" />
+      </Heading>
+      {startdato && (
+        <Label size="small">
+          <FormattedMessage
+            id="GrunnlagForAarsinntektPanelFL.FrilansStartDato"
+            values={{ b: BTag, startdato: dateFormat(startdato) }}
+          />
+        </Label>
+      )}
+      <Table size="small" className={tableStyle.table}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell textSize="small" align="right">
+              <FormattedMessage id="TabellKolonne.Maaned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell textSize="small" align="right">
+              <FormattedMessage id="TabellKolonne.BeregnetAar" />
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.DataCell textSize="small">
+              <FormattedMessage id="GrunnlagForAarsinntektPanelFL.InnrapportertFrilans" />
+            </Table.DataCell>
+            <Table.DataCell textSize="small" align="right">
+              <BeløpLabel beløp={beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0} />
+            </Table.DataCell>
+            <Table.DataCell textSize="small" align="right">
+              <BeløpLabel beløp={beregnetAarsinntekt ?? 0} />
+            </Table.DataCell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </div>
   );
 };
