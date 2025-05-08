@@ -39,7 +39,7 @@
 
   "GrunnlagForAarsinntektPanelSN.Tittel": "Pensjonsgivende inntekt",
   "GrunnlagForAarsinntektPanelSN.TreSisteÅr": "3 siste år fra skatt",
-  "GrunnlagForAarsinntektPanelSN.ATFL": "Arbeid/frilans",
+  "GrunnlagForAarsinntektPanelSN.ATFL": "Arbeid{wbr}/frilans",
   "GrunnlagForAarsinntektPanelSN.Næring": "Næring",
   "GrunnlagForAarsinntektPanelSN.Sum": "Sum",
   "GrunnlagForAarsinntektPanelSN.Gjustert": "G-justert",

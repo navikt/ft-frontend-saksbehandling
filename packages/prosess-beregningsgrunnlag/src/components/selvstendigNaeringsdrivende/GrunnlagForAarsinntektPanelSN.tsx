@@ -89,7 +89,7 @@ export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }:
               <FormattedMessage id="GrunnlagForAarsinntektPanelSN.TreSisteÅr" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <FormattedMessage id="GrunnlagForAarsinntektPanelSN.ATFL" />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelSN.ATFL" values={{ wbr: <wbr /> }} />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
               <FormattedMessage id="GrunnlagForAarsinntektPanelSN.Næring" />

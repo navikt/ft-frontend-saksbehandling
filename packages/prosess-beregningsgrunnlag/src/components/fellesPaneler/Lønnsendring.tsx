@@ -1,12 +1,12 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
+import { ExpansionCard } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning } from '@navikt/ft-types';
-import { BlaBoksMedCheckmarkListe } from '@navikt/ft-ui-komponenter';
 import { dateFormat, unique, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
@@ -137,14 +137,16 @@ export const Lønnsendring = ({
   lønnsendringSaksopplysning,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
+  const intl = useIntl();
+  const tittel = intl.formatMessage({ id: 'SkjeringspunktOgStatusPanel.LonnsendringSisteTreMan' });
   return (
-    <BlaBoksMedCheckmarkListe
-      saksopplysninger={[
-        {
-          textId: 'SkjeringspunktOgStatusPanel.LonnsendringSisteTreMan',
-          readMoreContent: lagLesMer(lønnsendringSaksopplysning, skjeringstidspunktDato, arbeidsgiverOpplysningerPerId),
-        },
-      ]}
-    />
+    <ExpansionCard size="small" aria-label={tittel}>
+      <ExpansionCard.Header>
+        <ExpansionCard.Title size="small">{tittel}</ExpansionCard.Title>
+      </ExpansionCard.Header>
+      <ExpansionCard.Content>
+        {lagLesMer(lønnsendringSaksopplysning, skjeringstidspunktDato, arbeidsgiverOpplysningerPerId)}
+      </ExpansionCard.Content>
+    </ExpansionCard>
   );
 };
