@@ -72,7 +72,7 @@ const createArbeidinntektRows = (
               </div>
             )}
             {andel.erTidsbegrensetArbeidsforhold && (
-              <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tidsbegrenset" tagName={'div'} />
+              <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tidsbegrenset" tagName="div" />
             )}
           </Table.DataCell>
           <Table.DataCell align="right" textSize="small">
