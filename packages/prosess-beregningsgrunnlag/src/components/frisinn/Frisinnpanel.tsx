@@ -9,7 +9,7 @@ import { Grenseverdi } from './Grenseverdi';
 import { Inntektsopplysninger } from './Inntektsopplysninger';
 import { Søknadsopplysninger } from './Søknadsopplysninger';
 
-import styles from './søknadsopplysninger.module.css';
+import styles from './frisinnpanel.module.css';
 
 const erDagsatsBeregnet = (bg: Beregningsgrunnlag) =>
   bg.beregningsgrunnlagPeriode.some(p => p.dagsats || p.dagsats === 0);
@@ -21,7 +21,7 @@ type Props = {
 export const Frisinnpanel = ({ beregningsgrunnlag }: Props) => (
   <VStack gap="4" className={styles.aksjonspunktBehandlerContainer}>
     <Detail>
-      <FormattedMessage id="Beregningsgrunnlag.Frisinn.Tittel" />
+      <FormattedMessage id="Frisinn.Tittel" />
     </Detail>
     <Søknadsopplysninger beregningsgrunnlag={beregningsgrunnlag} />
     <Inntektsopplysninger beregningsgrunnlag={beregningsgrunnlag} />

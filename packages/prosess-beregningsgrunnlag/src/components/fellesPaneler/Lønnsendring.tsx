@@ -1,21 +1,21 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
+import { ExpansionCard } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning, Saksopplysninger } from '@navikt/ft-types';
-import { BlaBoksMedCheckmarkListe } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, unique, YYYY_MM_FORMAT } from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning } from '@navikt/ft-types';
+import { dateFormat, unique, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
-type Props = {
+interface Props {
   skjeringstidspunktDato: string;
-  saksopplysninger?: Saksopplysninger;
+  lønnsendringSaksopplysning: LønnsendringSaksopplysning[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-};
+}
 
 const uledMåned = (dato: string) => dayjs(dato).locale(norskFormat).format('MMMM');
 
@@ -31,7 +31,7 @@ function finnLønnsendringsdatoer(
         arbeidsgiverOpplysningerPerId[it.arbeidsforhold.arbeidsgiverIdent],
         undefined,
       )}
-      ${dayjs(it.sisteLønnsendringsdato).format(DDMMYYYY_DATE_FORMAT)}`,
+      ${dateFormat(it.sisteLønnsendringsdato)}`,
     );
   return datoListe.reduce((concatString, current, index) => {
     if (index === 0) {
@@ -54,7 +54,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.MANUELT_BEHANDLET:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.manueltBehandlet"
+          id="Lønnsendring.manueltBehandlet"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -67,7 +67,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.DELVIS_MÅNEDSINNTEKT_SISTE_MND:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.delvisMåned"
+          id="Lønnsendring.delvisMåned"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -82,7 +82,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.FULL_MÅNEDSINNTEKT_EN_MND:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullEnMåned"
+          id="Lønnsendring.fullEnMåned"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -96,7 +96,7 @@ const finnScenarioTekst = (
     case LønnsendringScenario.FULL_MÅNEDSINNTEKT_TO_MND:
       return (
         <FormattedMessage
-          id="Beregningsgrunnlag.Skjeringstidspunkt.lønnsendring.fullToMåned"
+          id="Lønnsendring.fullToMåned"
           values={{
             datoer: finnLønnsendringsdatoer(
               opplysninger,
@@ -127,30 +127,26 @@ function lagLesMer(
 }
 
 /**
- * SkjeringspunktOgStatusPanel
+ * Lønnsendring
  *
  * Viser skjæringstidspunkt for beregningen og en liste med aktivitetsstatuser.
  */
 
-export const SaksopplysningPanel = ({
+export const Lønnsendring = ({
   skjeringstidspunktDato,
-  saksopplysninger,
+  lønnsendringSaksopplysning,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
-  const saksopplysningerTilBlaBoksMedCheckmarkListe = [];
-  if (
-    saksopplysninger &&
-    saksopplysninger.lønnsendringSaksopplysning &&
-    saksopplysninger.lønnsendringSaksopplysning.length > 0
-  ) {
-    saksopplysningerTilBlaBoksMedCheckmarkListe.push({
-      textId: 'Beregningsgrunnlag.Skjeringstidspunkt.LonnsendringSisteTreMan',
-      readMoreContent: lagLesMer(
-        saksopplysninger.lønnsendringSaksopplysning,
-        skjeringstidspunktDato,
-        arbeidsgiverOpplysningerPerId,
-      ),
-    });
-  }
-  return <BlaBoksMedCheckmarkListe saksopplysninger={saksopplysningerTilBlaBoksMedCheckmarkListe} />;
+  const intl = useIntl();
+  const tittel = intl.formatMessage({ id: 'SkjeringspunktOgStatusPanel.LonnsendringSisteTreMan' });
+  return (
+    <ExpansionCard size="small" aria-label={tittel}>
+      <ExpansionCard.Header>
+        <ExpansionCard.Title size="small">{tittel}</ExpansionCard.Title>
+      </ExpansionCard.Header>
+      <ExpansionCard.Content>
+        {lagLesMer(lønnsendringSaksopplysning, skjeringstidspunktDato, arbeidsgiverOpplysningerPerId)}
+      </ExpansionCard.Content>
+    </ExpansionCard>
+  );
 };

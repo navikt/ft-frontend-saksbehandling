@@ -4,7 +4,7 @@ import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
 
@@ -34,30 +34,30 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   return (
     <VStack gap="2">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
-        <FormattedMessage id="Beregningsgrunnlag.Søknad.Inntektsopplysninger" />
+        <FormattedMessage id="Søknad.Inntektsopplysninger" />
       </Label>
       <HStack gap="2">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
-          <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektAT" />
+          <FormattedMessage id="Frisinn.InntektAT" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(bruttoAT)}
+          <BeløpLabel beløp={bruttoAT} />
         </Label>
       </HStack>
       <HStack gap="2">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
-          <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektFL" />
+          <FormattedMessage id="Frisinn.InntektFL" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(bruttoFL)}
+          <BeløpLabel beløp={bruttoFL} />
         </Label>
       </HStack>
       <HStack gap="2">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
-          <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektSN" />
+          <FormattedMessage id="Frisinn.InntektSN" />
         </BodyShort>
         <Label size="small" className={beregningStyles.tabellInntekt}>
-          {formatCurrencyNoKr(bruttoSN)}
+          <BeløpLabel beløp={bruttoSN} />
         </Label>
       </HStack>
     </VStack>

@@ -1,10 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Heading, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+
+import { HorizontalBox } from '../../util/HorizontalBox';
 
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -21,9 +23,16 @@ export const MilitaerPanel = ({ alleAndeler }: Props) => {
   return (
     <VStack gap="2">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militær" />
+        <FormattedMessage id="MilitaerPanel.Tittel" />
       </Heading>
-      <Label size="small">{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
+      <HorizontalBox>
+        <BodyShort size="small">
+          <FormattedMessage id="MilitaerPanel.BeregnetAar" />
+        </BodyShort>
+        <BodyShort size="small">
+          <BeløpLabel beløp={beregnetAarsinntekt} />
+        </BodyShort>
+      </HorizontalBox>
     </VStack>
   );
 };

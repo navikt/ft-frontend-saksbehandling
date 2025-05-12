@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
+import { Heading, Table, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import {
@@ -9,12 +9,13 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import { BeløpLabel, NoWrap } from '@navikt/ft-ui-komponenter';
+import { dateFormat, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import tableStyle from '../tableStyle.module.css';
 
 type Props = {
   allePerioder: BeregningsgrunnlagPeriodeProp[];
@@ -182,38 +183,46 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
   }
 
   return (
-    <div>
-      <Label size="small" className={beregningStyles.avsnittOverskrift}>
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
-      </Label>
-      <HStack gap="10" justify="end">
-        <Detail style={{ width: '70px' }}>
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-        </Detail>
-        <Detail style={{ width: '70px' }}>
-          <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-        </Detail>
-      </HStack>
-      {tableData.rader.map(rad => (
-        <VStack gap="1" key={rad.nøkkel}>
-          <Label size="small">{rad.visningsnavn}</Label>
-          <VStack gap="1">
+    <VStack gap="1">
+      <Heading size="medium">
+        <FormattedMessage id="NaturalytelsePanel.Tittel" />
+      </Heading>
+
+      <Table size="small">
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell textSize="small" align="right">
+              <FormattedMessage id="TabellKolonne.Maaned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell textSize="small" align="right">
+              <NoWrap>
+                <FormattedMessage id="TabellKolonne.BeregnetAar" />
+              </NoWrap>
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        {tableData.rader.map(rad => (
+          <Table.Body key={rad.nøkkel} className={tableStyle.tableGroup}>
+            <Table.Row shadeOnHover={false}>
+              <Table.HeaderCell textSize="small" colSpan={3}>
+                {rad.visningsnavn}
+              </Table.HeaderCell>
+            </Table.Row>
             {rad.naturalytelseEndringer.map(endring => (
-              <HStack justify="space-between" wrap={false} key={rad.nøkkel + endring.fom}>
-                <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
-                <HStack gap="4" justify="end">
-                  <BodyShort size="small" style={{ width: '70px' }}>
-                    {formatCurrencyNoKr(endring.beløpPrMåned)}
-                  </BodyShort>
-                  <Label size="small" style={{ width: '70px' }}>
-                    {formatCurrencyNoKr(endring.beløpPrÅr)}
-                  </Label>
-                </HStack>
-              </HStack>
+              <Table.Row key={rad.nøkkel + endring.fom}>
+                <Table.DataCell textSize="small">{lagPeriodeTekst(endring)}</Table.DataCell>
+                <Table.DataCell textSize="small" align="right">
+                  <BeløpLabel beløp={endring.beløpPrMåned} />
+                </Table.DataCell>
+                <Table.DataCell textSize="small" align="right">
+                  <BeløpLabel beløp={endring.beløpPrÅr} />
+                </Table.DataCell>
+              </Table.Row>
             ))}
-          </VStack>
-        </VStack>
-      ))}
-    </div>
+          </Table.Body>
+        ))}
+      </Table>
+    </VStack>
   );
 };

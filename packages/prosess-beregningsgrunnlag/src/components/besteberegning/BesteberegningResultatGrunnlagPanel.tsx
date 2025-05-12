@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Table, VStack } from '@navikt/ds-react';
 
 import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 export interface Props {
   periode: BeregningsgrunnlagPeriodeProp;
@@ -46,17 +46,17 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
     <div>
       <VStack gap="4">
         <BodyShort size="small">
-          <FormattedMessage id="Besteberegning.ResultatGrunnlag.BrukerOmfattesAvBesteberegning" />
+          <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BrukerOmfattesAvBesteberegning" />
         </BodyShort>
         <Table>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell scope="col" />
               <Table.HeaderCell scope="col">
-                <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterKap8" />
+                <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BeregningEtterKap8" />
               </Table.HeaderCell>
               <Table.HeaderCell scope="col">
-                <FormattedMessage id="Besteberegning.ResultatGrunnlag.BeregningEtterBesteberegning" />
+                <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BeregningEtterBesteberegning" />
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -64,24 +64,28 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
             <Table.Row>
               <Table.DataCell>
                 <BodyShort size="small">
-                  <FormattedMessage id="Besteberegning.ResultatGrunnlag.BruttoBeregningsgrunnlag" />
+                  <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BruttoBeregningsgrunnlag" />
                 </BodyShort>
               </Table.DataCell>
               <Table.DataCell>
-                <BodyShort size="small">{formatCurrencyNoKr(kap8Beregning)}</BodyShort>
+                <BodyShort size="small">
+                  <BeløpLabel beløp={kap8Beregning} />
+                </BodyShort>
               </Table.DataCell>
               <Table.DataCell>
-                <BodyShort size="small">{formatCurrencyNoKr(besteberegnet)}</BodyShort>
+                <BodyShort size="small">
+                  <BeløpLabel beløp={besteberegnet} />
+                </BodyShort>
               </Table.DataCell>
             </Table.Row>
           </Table.Body>
         </Table>
         <BodyShort size="small">
           {girKap8Besteberegning(kap8Beregning, besteberegnet) && (
-            <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1471GirBesteBeregning" />
+            <FormattedMessage id="BesteberegningResultatGrunnlagPanel.Kap1471GirBesteBeregning" />
           )}
           {!girKap8Besteberegning(kap8Beregning, besteberegnet) && (
-            <FormattedMessage id="Besteberegning.ResultatGrunnlag.Kap1473GirBesteBeregning" />
+            <FormattedMessage id="BesteberegningResultatGrunnlagPanel.Kap1473GirBesteBeregning" />
           )}
         </BodyShort>
       </VStack>

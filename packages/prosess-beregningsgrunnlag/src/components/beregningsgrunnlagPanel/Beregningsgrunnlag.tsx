@@ -21,6 +21,7 @@ import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTB';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
+import { NaturalytelsePanel } from '../arbeidstaker/NaturalytelsePanel';
 import { SammenligningsgrunnlagAOrdningen } from '../fellesPaneler/SammenligningsgrunnlagAOrdningen';
 import { GrunnlagForAarsinntektPanelFL } from '../frilanser/GrunnlagForAarsinntektPanelFL';
 import { MilitaerPanel } from '../militar/MilitaerPanel';
@@ -28,8 +29,6 @@ import { GrunnlagForAarsinntektPanelSN } from '../selvstendigNaeringsdrivende/Gr
 import { NaeringsopplysningsPanel } from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import { TilstotendeYtelser } from '../tilstotendeYtelser/TilstotendeYtelser';
 import { YtelserFraInfotrygd } from '../tilstotendeYtelser/YtelserFraInfotrygd';
-
-import beregningStyles from './beregningsgrunnlag.module.css';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   ProsessBeregningsgrunnlagAvklaringsbehovCode;
@@ -85,14 +84,19 @@ export const Beregningsgrunnlag = ({
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
 
   return (
-    <VStack gap="8" className={beregningStyles.panelLeft}>
+    <VStack gap="8">
       {relevanteStatuser.isArbeidstaker && (
-        <GrunnlagForAarsinntektPanelAT
-          alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
-          allePerioder={allePerioder}
-          kodeverkSamling={kodeverkSamling}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
+        <>
+          <GrunnlagForAarsinntektPanelAT
+            alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
+            kodeverkSamling={kodeverkSamling}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+          <NaturalytelsePanel
+            allePerioder={allePerioder}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </>
       )}
       {relevanteStatuser.isFrilanser && <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />}
       {relevanteStatuser.harDagpengerEllerAAP && (

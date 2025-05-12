@@ -31,9 +31,9 @@ const {
 
 const inntektFastsettesText = (erVarigEndretArbeidssituasjon?: boolean) =>
   erVarigEndretArbeidssituasjon ? (
-    <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndretInntektFastsettesTil" />
+    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndretInntektFastsettesTil" />
   ) : (
-    <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.BruttoBerGr2" />
+    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.BruttoBerGr2" />
   );
 
 type Props = {
@@ -69,22 +69,22 @@ export const VurderVarigEndringEllerNyoppstartet = ({
   avklaringsbehov,
   skalValideres,
 }: Props) => {
-  let radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IngenEndring" />;
-  let radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.EndretNaering" />;
+  let radioLabel1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IngenEndring" />;
+  let radioLabel2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.EndretNaering" />;
   if (erNyoppstartet && !erVarigEndring) {
-    radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IkkeNyoppstartet" />;
-    radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.Nyoppstartet" />;
+    radioLabel1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeNyoppstartet" />;
+    radioLabel2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.Nyoppstartet" />;
   }
   if (erVarigEndring && !erNyoppstartet) {
-    radioLabel1 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.IkkeVarigEndring" />;
-    radioLabel2 = <FormattedMessage id="Beregningsgrunnlag.FastsettSelvstendigNaeringForm.VarigEndring" />;
+    radioLabel1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeVarigEndring" />;
+    radioLabel2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndring" />;
   }
-  let radioLabel = 'Beregningsgrunnlag.AksjonspunktBehandler.RadioTittelVarigEndringNæring';
+  let radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringNæring';
   if (erVarigEndretArbeidssituasjon) {
-    radioLabel = 'Beregningsgrunnlag.AksjonspunktBehandler.RadioTittelVarigEndringArbeid';
+    radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringArbeid';
   }
   if (erNyoppstartet) {
-    radioLabel = 'Beregningsgrunnlag.AksjonspunktBehandler.RadioTittelNyoppstartetNæring';
+    radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.NyoppstartetNæring';
   }
   const intl = useIntl();
   const formMethods = useFormContext<BeregningFormValues>();
@@ -114,29 +114,26 @@ export const VurderVarigEndringEllerNyoppstartet = ({
       />
       {varigEndringBekreftetVerdi && (
         <HStack gap="4" align="center">
-          <BodyShort size="small" className={styles.dynamiskKolonne}>
-            {inntektFastsettesText(erVarigEndretArbeidssituasjon)}
-          </BodyShort>
-          <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-            <InputField
-              name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-              validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-              parse={parseCurrencyInput}
-              className={styles.breddeInntekt}
-              readOnly={readOnly}
-              isEdited={readOnly && isAksjonspunktClosed}
-            />
-          </div>
+          <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>
+          <InputField
+            name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+            validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+            parse={parseCurrencyInput}
+            hideLabel
+            className={styles.beløpInput}
+            readOnly={readOnly}
+            isEdited={readOnly && isAksjonspunktClosed}
+          />
         </HStack>
       )}
       <TextAreaField
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
-        label={<FormattedMessage id="Beregningsgrunnlag.Forms.Vurdering" />}
+        label={<FormattedMessage id="Forms.Vurdering" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         maxLength={MAX_LENGTH}
         readOnly={readOnly}
         description={intl.formatMessage({
-          id: 'Beregningsgrunnlag.Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
+          id: 'Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
         })}
         parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
       />
