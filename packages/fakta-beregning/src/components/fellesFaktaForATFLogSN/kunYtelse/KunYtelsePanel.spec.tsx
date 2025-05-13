@@ -98,7 +98,7 @@ describe('<KunYtelsePanel>', () => {
       andeler: [andel1, andel2],
     };
     const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
-    // @ts-expect-error
+    // @ts-expect-error Fiks
     const andeler: BrukersAndelValues[] = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
@@ -139,7 +139,7 @@ describe('<KunYtelsePanel>', () => {
       erBesteberegning: true,
     };
     const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
-    // @ts-expect-error
+    // @ts-expect-error Fiks
     const andeler = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
@@ -158,7 +158,7 @@ describe('<KunYtelsePanel>', () => {
     expect(andeler[1].nyAndel).toBe(false);
     expect(andeler[1].lagtTilAvSaksbehandler).toBe(true);
 
-    // @ts-expect-error
+    // @ts-expect-error Fiks
     const erBesteberegning = initialValues[`${besteberegningField}`];
     expect(erBesteberegning).toBe(true);
   });
@@ -184,7 +184,7 @@ describe('<KunYtelsePanel>', () => {
       erBesteberegning: false,
     };
     const initialValues = KunYtelsePanel.buildInitialValues(kunYtelse, faktaOmBeregningAndeler, {}, kodeverkSamling);
-    // @ts-expect-error
+    // @ts-expect-error Fiks
     const andeler = initialValues[`${brukersAndelFieldArrayName}`];
     expect(andeler).toHaveLength(2);
     expect(andeler[0].andelsnr).toBe(1);
@@ -203,7 +203,7 @@ describe('<KunYtelsePanel>', () => {
     expect(andeler[1].nyAndel).toBe(false);
     expect(andeler[1].lagtTilAvSaksbehandler).toBe(true);
 
-    // @ts-expect-error
+    // @ts-expect-error Fiks
     const erBesteberegning = initialValues[`${besteberegningField}`];
     expect(erBesteberegning).toBe(false);
   });

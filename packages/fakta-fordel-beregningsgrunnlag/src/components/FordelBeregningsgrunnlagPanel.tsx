@@ -118,7 +118,7 @@ export const FordelBeregningsgrunnlagPanel = ({
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
           submittable={submittable && !tilkommetAktivitetFormIsDirty && !fordelingFormIsDirty}
           readOnly={readOnly}
-          //@ts-expect-error
+          //@ts-expect-error Fiks
           submitCallback={submitCallback}
           beregningsgrunnlagListe={beregningsgrunnlagListe}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

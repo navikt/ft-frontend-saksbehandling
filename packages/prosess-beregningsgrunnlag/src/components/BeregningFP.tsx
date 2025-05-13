@@ -72,7 +72,7 @@ type Props = {
 };
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
-  // @ts-expect-error
+  // @ts-expect-error Fiks
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 /**
@@ -94,7 +94,7 @@ export const BeregningFP = ({
   setFormData,
 }: Props) => {
   const aktivtBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
-  // @ts-expect-error
+  // @ts-expect-error Fiks
   const relevanteStatuser = getRelevanteStatuser(aktivtBeregningsgrunnlag.aktivitetStatus);
   const aksjonspunktGraderingPaaAndelUtenBG = getAvklaringsbehovForGraderingPaaAndelUtenBG(
     aktivtBeregningsgrunnlag.avklaringsbehov,

@@ -86,7 +86,7 @@ const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: Beregningsgrunnlag
   );
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
-  // @ts-expect-error
+  // @ts-expect-error Fiks
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 const buildInitialValues = (
