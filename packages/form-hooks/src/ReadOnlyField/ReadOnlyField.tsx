@@ -26,7 +26,9 @@ export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel,
       {label && !hideLabel && <Label size={size}>{label}</Label>}
       <HStack gap="2" align="center" wrap={false}>
         <div className={type === 'textarea' ? styles.textarea : ''}>
-          <BodyLong size={size}>{value}</BodyLong>
+          <BodyLong size={size} style={{ whiteSpace: 'pre-line' }}>
+            {value}
+          </BodyLong>
         </div>
         {isEdited && <EditedIcon />}
       </HStack>

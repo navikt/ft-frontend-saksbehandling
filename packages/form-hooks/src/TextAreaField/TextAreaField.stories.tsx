@@ -6,7 +6,10 @@ import { TextAreaField } from './TextAreaField';
 const meta = {
   component: TextAreaField,
   tags: ['autodocs'],
-  decorators: rhfDecorator({ testTextAreaFieldPre: 'Dette er en begrunnelse' }),
+  decorators: rhfDecorator({
+    testTextAreaFieldPre:
+      'Ein tekst med linjeskift.\nNeste linje, så to linjeskift.\n\nSå tre linjeskift.\n\n\nSiste linje',
+  }),
 } satisfies Meta<typeof TextAreaField>;
 
 export default meta;
