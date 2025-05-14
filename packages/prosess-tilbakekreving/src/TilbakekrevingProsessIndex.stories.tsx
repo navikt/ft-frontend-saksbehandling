@@ -78,7 +78,7 @@ const meta = {
     setFormData: () => undefined,
     perioderForeldelse,
     vilkarvurdering,
-    beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }] }),
+    beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }, { belop: 12000 }] }),
     alleMerknaderFraBeslutter: {},
     relasjonsRolleType: RelasjonsRolleType.MOR,
     relasjonsRolleTypeKodeverk: [
