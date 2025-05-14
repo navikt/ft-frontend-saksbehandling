@@ -4,6 +4,7 @@ import { Aksjonspunkt, Behandling, KodeverkMedNavn, StandardProsessPanelProps } 
 import { createIntl } from '@navikt/ft-utils';
 
 import { ForeldelseForm } from './components/ForeldelseForm';
+import { BeregnBeløpParams, BeregnBeløpResultat } from './components/splittePerioder/PeriodeController';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import { ForeldelsesresultatActivity } from './types/ForeldelsesresultatActivity';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
@@ -17,7 +18,7 @@ export interface Props {
   behandling: Behandling;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
-  beregnBelop: (params?: any, keepData?: boolean) => Promise<any>;
+  beregnBelop: (params: BeregnBeløpParams) => Promise<BeregnBeløpResultat>;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   aksjonspunkter: Aksjonspunkt[];
   relasjonsRolleType: string;

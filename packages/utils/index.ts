@@ -1,5 +1,5 @@
-export { range, haystack, isArrayEmpty, unique } from './src/arrayUtils';
-export { isIE11, isEdge, getRelatedTargetIE11, forhandsvisDokument } from './src/browserUtils';
+export { range, unique } from './src/arrayUtils';
+export { forhandsvisDokument } from './src/browserUtils';
 export {
   formatCurrencyWithKr,
   formatCurrencyNoKr,

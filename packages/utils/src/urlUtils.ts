@@ -7,7 +7,7 @@ export const parseQueryString = (queryString = ''): { [paramName: string]: strin
     .map(([key, value]) => ({ [key]: decodeURIComponent(value) })) // URL-decode value
     .reduce((a, b) => ({ ...a, ...b }), {});
 
-export const formatQueryString = (queryParams: Record<string, any> = {}): string =>
+export const formatQueryString = (queryParams: Record<string, string> = {}): string =>
   `?${
     // Add leading question mark
     Object.entries(queryParams)
@@ -22,7 +22,7 @@ export const formatQueryString = (queryParams: Record<string, any> = {}): string
 const paramSegmentPattern = /^:(\w+)(\(.+\))?(\?)?$/;
 
 const resolveParam =
-  (params: Record<string, any>) =>
+  (params: Record<string, string | undefined>) =>
   (segment: string): string => {
     if (!paramSegmentPattern.test(segment)) {
       return segment;
@@ -33,12 +33,12 @@ const resolveParam =
       return '';
     }
     const [paramName, paramPattern, optional] = value.slice(1, 4);
-    const paramMatch = new RegExp(paramPattern || '(.+)').exec(params[paramName]);
+    const paramMatch = new RegExp(paramPattern || '(.+)').exec(params[paramName] ?? '');
     const paramValue = paramMatch ? paramMatch[1].replace(/^undefined$/, '') : '';
     return paramValue || (optional ? '' : segment);
   };
 
-export const buildPath = (path: string, params: Record<string, any> = {}): string =>
+export const buildPath = (path: string, params: Record<string, string | undefined> = {}): string =>
   path
     .replace(/^\//, ' /') // Add whitespace before leading slash to keep it from being consumed by split
     .replace(/\/$/, '/ ') // Add whitespace after trailing slash to keep it from being consumed by split

@@ -17,7 +17,7 @@ import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
 const minValue1 = minValue(0.0);
 const maxValue100 = maxValue(99.99);
 
-const parseCurrencyInput = (input: any) => {
+const parseCurrencyInput = (input: string | number) => {
   const inputNoSpace = input.toString().replace(/\s/g, '');
   const parsedValue = parseInt(inputNoSpace, 10);
   return Number.isNaN(parsedValue) ? '' : parsedValue;

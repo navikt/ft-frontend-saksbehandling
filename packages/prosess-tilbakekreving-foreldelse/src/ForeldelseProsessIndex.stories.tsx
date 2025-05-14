@@ -14,6 +14,7 @@ import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
+import { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
@@ -76,7 +77,7 @@ const kodeverkSamling = {
 const meta = {
   component: ForeldelseProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    submitCallback: action('button-click') as (data: VurderForeldelseAp) => Promise<void>,
     behandling: {
       uuid: '1',
       versjon: 1,
@@ -87,7 +88,7 @@ const meta = {
     setFormData: () => undefined,
     perioderForeldelse,
     relasjonsRolleType: RelasjonsRolleType.MOR,
-    beregnBelop: (params?: any) => Promise.resolve(params),
+    beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }] }),
     alleMerknaderFraBeslutter: {},
     relasjonsRolleTypeKodeverk: [
       {
